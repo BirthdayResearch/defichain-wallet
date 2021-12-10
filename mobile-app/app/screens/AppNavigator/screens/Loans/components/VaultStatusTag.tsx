@@ -100,7 +100,7 @@ export function VaultStatusTag ({
           {
             'text-dfxgray-400': status === VaultStatus.Empty || status === VaultStatus.Ready || status === VaultStatus.Liquidated,
             'text-dfxgray-500': status === VaultStatus.Halted,
-            'text-darksuccess-500': status === VaultStatus.Healthy,
+            'text-dfxgreen-500': status === VaultStatus.Healthy,
             'text-dfxyellow-300': status === VaultStatus.AtRisk,
             'text-dfxpink-300': status === VaultStatus.NearLiquidation
           }
@@ -130,7 +130,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         iconType='MaterialCommunityIcons'
         name='signal-cellular-3'
         light={tailwind('text-success-500')}
-        dark={tailwind('text-darksuccess-500')}
+        dark={tailwind('text-dfxgreen-500')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
       />

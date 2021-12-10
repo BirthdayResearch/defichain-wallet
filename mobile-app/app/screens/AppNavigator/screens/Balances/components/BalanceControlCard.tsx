@@ -116,7 +116,17 @@ export function BalanceControlCard (): JSX.Element {
 
         </View>
       </View>
-      <View style={tailwind('flex flex-row mt-4 -mr-2')}>
+      <View style={tailwind('flex flex-row justify-between mt-4 -mr-2')}>
+        <IconButton
+          iconName='unfold-more-horizontal'
+          iconSize={20}
+          iconType='MaterialCommunityIcons'
+          onPress={onSwitchClick}
+          testID='switch_account_button'
+          style={tailwind('mr-2')}
+          iconLabel={translate('screens/BalancesScreen', 'SWITCH')}
+        />
+
         <IconButton
           iconName='arrow-upward'
           iconSize={20}
@@ -135,16 +145,6 @@ export function BalanceControlCard (): JSX.Element {
           testID='receive_balance_button'
           style={tailwind('mr-2')}
           iconLabel={translate('screens/BalancesScreen', 'RECEIVE')}
-        />
-
-        <IconButton
-          iconName='unfold-more-horizontal'
-          iconSize={20}
-          iconType='MaterialCommunityIcons'
-          onPress={onSwitchClick}
-          testID='switch_account_button'
-          style={tailwind('mr-2')}
-          iconLabel={translate('screens/BalancesScreen', 'SWITCH')}
         />
 
         {Platform.OS !== 'web' && (

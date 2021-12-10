@@ -6356,19 +6356,26 @@
 		"borderBottomColor": "rgba(7, 36, 64, var(--tw-border-opacity))",
 		"borderLeftColor": "rgba(7, 36, 64, var(--tw-border-opacity))"
 	},
+	"border-dfxgreen-500": {
+		"--tw-border-opacity": 1,
+		"borderTopColor": "rgba(93, 240, 125, var(--tw-border-opacity))",
+		"borderRightColor": "rgba(93, 240, 125, var(--tw-border-opacity))",
+		"borderBottomColor": "rgba(93, 240, 125, var(--tw-border-opacity))",
+		"borderLeftColor": "rgba(93, 240, 125, var(--tw-border-opacity))"
+	},
 	"border-dfxpink-300": {
 		"--tw-border-opacity": 1,
-		"borderTopColor": "rgba(251, 201, 255, var(--tw-border-opacity))",
-		"borderRightColor": "rgba(251, 201, 255, var(--tw-border-opacity))",
-		"borderBottomColor": "rgba(251, 201, 255, var(--tw-border-opacity))",
-		"borderLeftColor": "rgba(251, 201, 255, var(--tw-border-opacity))"
+		"borderTopColor": "rgba(227, 54, 255, var(--tw-border-opacity))",
+		"borderRightColor": "rgba(227, 54, 255, var(--tw-border-opacity))",
+		"borderBottomColor": "rgba(227, 54, 255, var(--tw-border-opacity))",
+		"borderLeftColor": "rgba(227, 54, 255, var(--tw-border-opacity))"
 	},
 	"border-dfxpink-500": {
 		"--tw-border-opacity": 1,
-		"borderTopColor": "rgba(171, 81, 203, var(--tw-border-opacity))",
-		"borderRightColor": "rgba(171, 81, 203, var(--tw-border-opacity))",
-		"borderBottomColor": "rgba(171, 81, 203, var(--tw-border-opacity))",
-		"borderLeftColor": "rgba(171, 81, 203, var(--tw-border-opacity))"
+		"borderTopColor": "rgba(92, 38, 101, var(--tw-border-opacity))",
+		"borderRightColor": "rgba(92, 38, 101, var(--tw-border-opacity))",
+		"borderBottomColor": "rgba(92, 38, 101, var(--tw-border-opacity))",
+		"borderLeftColor": "rgba(92, 38, 101, var(--tw-border-opacity))"
 	},
 	"border-dfxred-500": {
 		"--tw-border-opacity": 1,
@@ -7152,13 +7159,17 @@
 		"--tw-bg-opacity": 1,
 		"backgroundColor": "rgba(7, 36, 64, var(--tw-bg-opacity))"
 	},
+	"bg-dfxgreen-500": {
+		"--tw-bg-opacity": 1,
+		"backgroundColor": "rgba(93, 240, 125, var(--tw-bg-opacity))"
+	},
 	"bg-dfxpink-300": {
 		"--tw-bg-opacity": 1,
-		"backgroundColor": "rgba(251, 201, 255, var(--tw-bg-opacity))"
+		"backgroundColor": "rgba(227, 54, 255, var(--tw-bg-opacity))"
 	},
 	"bg-dfxpink-500": {
 		"--tw-bg-opacity": 1,
-		"backgroundColor": "rgba(171, 81, 203, var(--tw-bg-opacity))"
+		"backgroundColor": "rgba(92, 38, 101, var(--tw-bg-opacity))"
 	},
 	"bg-dfxred-500": {
 		"--tw-bg-opacity": 1,
@@ -9010,13 +9021,17 @@
 		"--tw-text-opacity": 1,
 		"color": "rgba(7, 36, 64, var(--tw-text-opacity))"
 	},
+	"text-dfxgreen-500": {
+		"--tw-text-opacity": 1,
+		"color": "rgba(93, 240, 125, var(--tw-text-opacity))"
+	},
 	"text-dfxpink-300": {
 		"--tw-text-opacity": 1,
-		"color": "rgba(251, 201, 255, var(--tw-text-opacity))"
+		"color": "rgba(227, 54, 255, var(--tw-text-opacity))"
 	},
 	"text-dfxpink-500": {
 		"--tw-text-opacity": 1,
-		"color": "rgba(171, 81, 203, var(--tw-text-opacity))"
+		"color": "rgba(92, 38, 101, var(--tw-text-opacity))"
 	},
 	"text-dfxred-500": {
 		"--tw-text-opacity": 1,
@@ -9934,13 +9949,17 @@
 		"--tw-ring-opacity": 1,
 		"--tw-ring-color": "rgba(7, 36, 64, var(--tw-ring-opacity))"
 	},
+	"ring-dfxgreen-500": {
+		"--tw-ring-opacity": 1,
+		"--tw-ring-color": "rgba(93, 240, 125, var(--tw-ring-opacity))"
+	},
 	"ring-dfxpink-300": {
 		"--tw-ring-opacity": 1,
-		"--tw-ring-color": "rgba(251, 201, 255, var(--tw-ring-opacity))"
+		"--tw-ring-color": "rgba(227, 54, 255, var(--tw-ring-opacity))"
 	},
 	"ring-dfxpink-500": {
 		"--tw-ring-opacity": 1,
-		"--tw-ring-color": "rgba(171, 81, 203, var(--tw-ring-opacity))"
+		"--tw-ring-color": "rgba(92, 38, 101, var(--tw-ring-opacity))"
 	},
 	"ring-dfxred-500": {
 		"--tw-ring-opacity": 1,
@@ -10548,11 +10567,14 @@
 	"ring-offset-dfxblue-900": {
 		"--tw-ring-offset-color": "#072440"
 	},
+	"ring-offset-dfxgreen-500": {
+		"--tw-ring-offset-color": "#5DF07D"
+	},
 	"ring-offset-dfxpink-300": {
-		"--tw-ring-offset-color": "#FBC9FF"
+		"--tw-ring-offset-color": "#E336FF"
 	},
 	"ring-offset-dfxpink-500": {
-		"--tw-ring-offset-color": "#AB51CB"
+		"--tw-ring-offset-color": "#5C2665"
 	},
 	"ring-offset-dfxred-500": {
 		"--tw-ring-offset-color": "#F5516C"

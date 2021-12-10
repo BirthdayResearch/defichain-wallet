@@ -44,13 +44,13 @@ export function useCollateralizationRatioColor (props: CollateralizationRatioPro
 
   if (stats.isInLiquidation) {
     style.light = tailwind('text-error-500')
-    style.dark = tailwind('text-dfxpink-500')
+    style.dark = tailwind('text-dfxpink-300')
   } else if (stats.isAtRisk) {
     style.light = tailwind('text-warning-500')
-    style.dark = tailwind('text-dfxyellow-500')
+    style.dark = tailwind('text-dfxyellow-300')
   } else if (stats.isHealthy) {
     style.light = tailwind('text-success-500')
-    style.dark = tailwind('text-darksuccess-100')
+    style.dark = tailwind('text-dfxgreen-500')
   }
   return style
 }

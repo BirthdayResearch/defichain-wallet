@@ -3,6 +3,7 @@ import ContentLoader, { IContentLoaderProps, Rect } from 'react-content-loader/n
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 type VaultSkeletonLoaderProps = JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }
 
@@ -16,8 +17,8 @@ export function VaultSkeletonLoader (props: VaultSkeletonLoaderProps): JSX.Eleme
       testID='vault_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         height={130}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
