@@ -24,6 +24,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { WalletToken } from '@store/wallet'
 import { RootState } from '@store'
+import { useFavouritePoolpairContext } from '@contexts/FavouritePoolpairContext'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -294,9 +295,12 @@ function AvailablePoolPairCards ({
   onAdd
 }: { availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void }): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairContext()
+  const sortedPairs = sortPoolpairsByFavourite(availablePairs, isFavouritePoolpair)
+
   return (
     <ThemedFlatList
-      data={availablePairs}
+      data={sortedPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
@@ -325,6 +329,16 @@ function AvailablePoolPairCards ({
               >
                 {symbol}
               </ThemedText>
+              <View style={tailwind('flex-row items-center justify-end flex-1')}>
+                <ThemedIcon
+                  iconType='MaterialCommunityIcons'
+                  name={isFavouritePoolpair(pair.id) ? 'pin' : 'pin-outline'}
+                  size={16}
+                  light={tailwind('text-primary-500')}
+                  dark={tailwind('text-darkprimary-500')}
+                  onPress={() => setFavouritePoolpair(pair.id)}
+                />
+              </View>
             </View>
 
             <PoolPairInfoDetails
@@ -538,4 +552,16 @@ function PoolPairIcon (props: { symbolA: string, symbolB: string }): JSX.Element
       />
     </>
   )
+}
+
+function sortPoolpairsByFavourite (pairs: Array<DexItem<PoolPairData>>, isFavouritePair: (id: string) => boolean): Array<DexItem<PoolPairData>> {
+  return pairs.slice().sort((firstPair, secondPair) => {
+    if (isFavouritePair(firstPair.data.id)) {
+      return -1
+    }
+    if (isFavouritePair(secondPair.data.id)) {
+      return 1
+    }
+    return 0
+  })
 }
