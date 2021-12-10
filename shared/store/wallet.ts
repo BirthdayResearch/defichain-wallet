@@ -1,6 +1,7 @@
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
 export interface WalletState {
@@ -73,6 +74,14 @@ const setTokenDetails = (t: AddressToken): WalletToken => {
   }
 }
 
+export const fetchPoolPairs = createAsyncThunk(
+  'wallet/fetchPoolPairs',
+  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
+    const pairs = await client.poolpairs.list(size)
+    return pairs.map(data => ({ type: 'available', data }))
+  }
+)
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
@@ -82,10 +91,12 @@ export const wallet = createSlice({
     },
     setUtxoBalance: (state, action: PayloadAction<string>) => {
       state.utxoBalance = action.payload
-    },
-    setPoolPairs: (state, action: PayloadAction<DexItem[]>) => {
-      state.poolpairs = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
+      state.poolpairs = action.payload
+    })
   }
 })
 
