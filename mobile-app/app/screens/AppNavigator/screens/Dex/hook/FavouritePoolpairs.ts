@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { FavouritePoolpairsPersistence } from '@api/persistence/favourite_poolpairs_storage'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useEffect, useState } from 'react'
 
-export interface FavouritePoolpairContextI {
+export interface FavouritePoolpair {
   favouritePoolpairs: PoolpairId[]
   isFavouritePoolpair: (id: string) => boolean
   setFavouritePoolpair: (id: string) => void
@@ -12,16 +12,7 @@ export interface PoolpairId {
   id: string
 }
 
-const FavouritePoolpairContext = createContext<FavouritePoolpairContextI>(undefined as any)
-
-/**
- * Set favourite poolpair to be display in DEX screen
- */
-export function useFavouritePoolpairContext (): FavouritePoolpairContextI {
-  return useContext(FavouritePoolpairContext)
-}
-
-export function FavouritePoolpairProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function useFavouritePoolpairs (): FavouritePoolpair {
   const logger = useLogger()
   const [favouritePoolpairs, setFavouritePoolpairs] = useState<PoolpairId[]>([])
 
@@ -46,15 +37,9 @@ export function FavouritePoolpairProvider (props: React.PropsWithChildren<any>):
     await FavouritePoolpairsPersistence.set(newPoolpairs)
   }
 
-  const context: FavouritePoolpairContextI = {
+  return {
     favouritePoolpairs: favouritePoolpairs,
     isFavouritePoolpair: (id: string) => favouritePoolpairs.some(poolpair => poolpair.id === id),
     setFavouritePoolpair: updateFavouritePoolpairs
   }
-
-  return (
-    <FavouritePoolpairContext.Provider value={context}>
-      {props.children}
-    </FavouritePoolpairContext.Provider>
-  )
 }

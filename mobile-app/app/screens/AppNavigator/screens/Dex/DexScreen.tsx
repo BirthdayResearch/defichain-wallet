@@ -24,7 +24,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { WalletToken } from '@store/wallet'
 import { RootState } from '@store'
-import { useFavouritePoolpairContext } from '@contexts/FavouritePoolpairContext'
+import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -295,7 +295,7 @@ function AvailablePoolPairCards ({
   onAdd
 }: { availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void }): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairContext()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(availablePairs, isFavouritePoolpair)
 
   return (

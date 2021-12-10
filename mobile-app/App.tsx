@@ -23,7 +23,6 @@ import { WalletPersistence } from '@api/wallet'
 import { NativeLoggingProvider, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
-import { FavouritePoolpairProvider } from '@contexts/FavouritePoolpairContext'
 
 /**
  * Loads
@@ -65,9 +64,7 @@ export default function App (): JSX.Element | null {
                             <DisplayBalancesProvider>
                               <ConnectionBoundary>
                                 <FeatureFlagProvider>
-                                  <FavouritePoolpairProvider>
-                                    <Main />
-                                  </FavouritePoolpairProvider>
+                                  <Main />
                                 </FeatureFlagProvider>
                               </ConnectionBoundary>
                             </DisplayBalancesProvider>
