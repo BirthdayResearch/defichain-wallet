@@ -12,7 +12,7 @@ import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
@@ -313,6 +313,7 @@ function AvailablePoolPairCards ({
           ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
           : pair.symbol.split('-')
         const symbol = `${symbolA}-${symbolB}`
+        const isFavouritePair = isFavouritePoolpair(pair.id)
 
         return (
           <ThemedView
@@ -329,16 +330,6 @@ function AvailablePoolPairCards ({
               >
                 {symbol}
               </ThemedText>
-              <View style={tailwind('flex-row items-center justify-end flex-1')}>
-                <ThemedIcon
-                  iconType='MaterialCommunityIcons'
-                  name={isFavouritePoolpair(pair.id) ? 'pin' : 'pin-outline'}
-                  size={16}
-                  light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
-                  onPress={() => setFavouritePoolpair(pair.id)}
-                />
-              </View>
             </View>
 
             <PoolPairInfoDetails
@@ -346,28 +337,48 @@ function AvailablePoolPairCards ({
               tokenBTotal={pair?.tokenB.reserve} testID='available'
             />
 
-            <View style={tailwind('flex-row mt-4 flex-wrap')}>
-              <ActionButton
-                name='add'
-                onPress={() => onAdd(pair)}
-                pair={symbol}
-                label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
-                style={tailwind('mr-2 mt-2')}
-                testID={`pool_pair_add_${symbol}`}
-              />
-              <ActionButton
-                name='swap-horiz'
-                onPress={() => navigation.navigate({
-                  name: 'CompositeSwap',
-                  params: { pair },
-                  merge: true
-                })}
-                pair={symbol}
-                label={translate('screens/DexScreen', 'SWAP TOKENS')}
-                disabled={!pair.tradeEnabled || !pair.status}
-                style={tailwind('mr-2 mt-2')}
-                testID={`pool_pair_swap-horiz_${symbol}`}
-              />
+            <View style={tailwind('flex-row mt-4 justify-between')}>
+              <View style={tailwind('flex flex-row flex-wrap flex-1')}>
+                <ActionButton
+                  name='add'
+                  onPress={() => onAdd(pair)}
+                  pair={symbol}
+                  label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+                  style={tailwind('p-2 mr-2 mt-2')}
+                  testID={`pool_pair_add_${symbol}`}
+                />
+                <ActionButton
+                  name='swap-horiz'
+                  onPress={() => navigation.navigate({
+                    name: 'CompositeSwap',
+                    params: { pair },
+                    merge: true
+                  })}
+                  pair={symbol}
+                  label={translate('screens/DexScreen', 'SWAP')}
+                  disabled={!pair.tradeEnabled || !pair.status}
+                  style={tailwind('p-2 mr-2 mt-2')}
+                  testID={`pool_pair_swap-horiz_${symbol}`}
+                />
+              </View>
+              <View style={tailwind('flex justify-end')}>
+                <ThemedTouchableOpacity
+                  light={tailwind('border-gray-300 bg-white')}
+                  dark={tailwind('border-gray-400 bg-gray-900')}
+                  onPress={() => setFavouritePoolpair(pair.id)}
+                  style={tailwind('p-1.5 border rounded mr-2 mt-2 flex-row items-center')}
+                >
+                  <ThemedIcon
+                    iconType='MaterialIcons'
+                    name={isFavouritePair ? 'star' : 'star-outline'}
+                    onPress={() => setFavouritePoolpair(pair.id)}
+                    size={20}
+                    light={tailwind(isFavouritePair ? 'text-warning-500' : 'text-gray-600')}
+                    dark={tailwind(isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300')}
+                    style={tailwind('')}
+                  />
+                </ThemedTouchableOpacity>
+              </View>
             </View>
           </ThemedView>
         )
