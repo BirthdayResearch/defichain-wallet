@@ -94,14 +94,7 @@ export const fetchTokens = createAsyncThunk(
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
-  reducers: {
-    setTokens: (state, action: PayloadAction<AddressToken[]>) => {
-      state.tokens = action.payload.map(setTokenDetails)
-    },
-    setUtxoBalance: (state, action: PayloadAction<string>) => {
-      state.utxoBalance = action.payload
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.poolpairs = action.payload
