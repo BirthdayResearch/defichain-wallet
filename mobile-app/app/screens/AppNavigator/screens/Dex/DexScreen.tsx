@@ -45,7 +45,10 @@ export function DexScreen (): JSX.Element {
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const {
+    poolpairs: pairs,
+    hasFetchedPoolpairData
+  } = useSelector((state: RootState) => state.wallet)
   const yourLPTokens = useSelector(() => {
     const _yourLPTokens: Array<DexItem<WalletToken>> = tokens.filter(({ isLPS }) => isLPS).map(data => ({
       type: 'your',
@@ -94,17 +97,16 @@ export function DexScreen (): JSX.Element {
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourLPTokens)
+  const [isSearching, setIsSearching] = useState(false)
   const handleFilter = useCallback(
     debounce((searchString: string) => {
-      if (activeTab === TabKey.AvailablePoolPair) {
-        setFilteredAvailablePairs(pairs.filter(pair =>
-          pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
-        ))
-      } else {
-        setFilteredYourPairs(yourLPTokens.filter(pair =>
-          pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
-        ))
-      }
+      setIsSearching(false)
+      setFilteredAvailablePairs(pairs.filter(pair =>
+        pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+      setFilteredYourPairs(yourLPTokens.filter(pair =>
+        pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
     }, 500)
   , [activeTab, pairs, yourLPTokens])
 
@@ -123,8 +125,9 @@ export function DexScreen (): JSX.Element {
   }, [])
 
   useEffect(() => {
+    setIsSearching(true)
     handleFilter(searchString)
-  }, [searchString])
+  }, [searchString, hasFetchedPoolpairData])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -184,7 +187,7 @@ export function DexScreen (): JSX.Element {
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
         {
-          activeTab === TabKey.AvailablePoolPair && pairs.length === 0 && (
+          activeTab === TabKey.AvailablePoolPair && (!hasFetchedPoolpairData || isSearching) && (
             <View style={tailwind('mt-2')}>
               <SkeletonLoader
                 row={4}
@@ -194,7 +197,7 @@ export function DexScreen (): JSX.Element {
           )
         }
         {
-          activeTab === TabKey.AvailablePoolPair && pairs !== undefined && (
+          activeTab === TabKey.AvailablePoolPair && hasFetchedPoolpairData && !isSearching && (
             <AvailablePoolPairCards
               availablePairs={filteredAvailablePairs}
               onAdd={onAdd}
@@ -203,12 +206,12 @@ export function DexScreen (): JSX.Element {
         }
 
         {
-          activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
+          activeTab === TabKey.YourPoolPair && filteredYourPairs.length === 0 && (
             <EmptyActivePoolpair />
           )
         }
         {
-          activeTab === TabKey.YourPoolPair && (
+          activeTab === TabKey.YourPoolPair && filteredYourPairs.length > 0 && (
             <YourPoolPairCards
               yourPairs={filteredYourPairs}
               availablePairs={pairs}
