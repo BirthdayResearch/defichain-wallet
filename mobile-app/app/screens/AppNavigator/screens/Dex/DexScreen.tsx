@@ -134,7 +134,7 @@ export function DexScreen (): JSX.Element {
       headerRight: (): JSX.Element => {
         if (!displayGuidelines) {
           return (
-            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} testID='dex_search_icon' />
           )
         }
 
@@ -158,6 +158,7 @@ export function DexScreen (): JSX.Element {
               setShowSearchInput(false)
             }}
             placeholder='Search for pool pairs'
+            testID='dex_search_input'
           />
         )
       })
