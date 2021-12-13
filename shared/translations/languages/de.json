@@ -1148,7 +1148,8 @@
     "Insufficient funds": "Unzureichende Deckung",
     "Collaterals": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
-    "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion."
+    "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
+    "Auctioned collaterals": "Zu versteigernde Sicherheiten"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
