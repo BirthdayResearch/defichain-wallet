@@ -127,7 +127,12 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     setIsSearching(true)
     handleFilter(searchString)
-  }, [searchString, hasFetchedPoolpairData, pairs])
+  }, [searchString, hasFetchedPoolpairData])
+
+  // Hide loader when pool pair API updates
+  useEffect(() => {
+    handleFilter(searchString)
+  }, [pairs])
 
   useLayoutEffect(() => {
     navigation.setOptions({
