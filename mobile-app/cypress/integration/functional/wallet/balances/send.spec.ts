@@ -358,6 +358,7 @@ context('Wallet - Send - Switch token', function () {
 
   it('should be able to switch token', function () {
     cy.getByTestID('select_token_input').click()
+    cy.wait(3000) // timeout to allow max. one block-cycle of re-render
     cy.getByTestID('select_dBTC').click()
     cy.getByTestID('selected_token').should('have.text', 'dBTC')
     cy.getByTestID('max_value').contains('dBTC')
