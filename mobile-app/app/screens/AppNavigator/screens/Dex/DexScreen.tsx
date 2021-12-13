@@ -127,7 +127,7 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     setIsSearching(true)
     handleFilter(searchString)
-  }, [searchString, hasFetchedPoolpairData])
+  }, [searchString, hasFetchedPoolpairData, pairs])
 
   useLayoutEffect(() => {
     navigation.setOptions({
