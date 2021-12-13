@@ -590,7 +590,7 @@
     "You are swapping": "Du tauschst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
-    "Convert & swap": "Umrechnen & tauschen",
+    "Convert & swap": "Umwandeln & tauschen",
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
@@ -612,7 +612,7 @@
     "CONFIRM SWAP": "TAUSCH BESTÄTIGEN",
     "Transaction type": "Transaktionsart",
     "Swap": "Tausch",
-    "Convert & swap": "Umrechnen & tauschen",
+    "Convert & swap": "Umwandeln & tauschen",
     "Max Price per {{fromToken}}": "Max. Preis pro {{fromToken}}",
     "PRICE DETAILS": "PREISDETAILS"
   },
@@ -622,7 +622,7 @@
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
     "Access granted": "Zugriff gewährt",
     "You may now proceed": "Du kannst nun fortfahren",
-    "Sign to verify access": "Signieren, um den Zugriff zu bestätigen"
+    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",
@@ -684,7 +684,7 @@
     "Conversion required": "Konvertierung erforderlich"
   },
   "components/ConversionBreakdown": {
-    "CONVERSION DETAILS": "UMRECHNUNGSDETAILS",
+    "CONVERSION DETAILS": "KONVERTIERUNGSDETAILS",
     "Conversion type": "Art der Konvertierung",
     "Amount to convert": "Umzuwandelnder Betrag",
     "Resulting {{token}}": "Verbleibende {{token}}",
@@ -696,7 +696,7 @@
   },
   "screens/LoansScreen": {
     "Loans": "Darlehen",
-    "Create Vault": "Vault Erstellen",
+    "Create Vault": "Vault erstellen",
     "Confirm Create Vault": "Bestätige Vault-Erstellung",
     "Vault Detail": "Vault Detailansicht",
     "Add Collateral": "Sicherheiten Hinzufügen",
@@ -721,7 +721,7 @@
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
-    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Auctioned collaterals": "Zu versteigernde Sicherheiten",
     "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
@@ -1150,7 +1150,8 @@
     "Insufficient funds": "Unzureichende Deckung",
     "Collaterals": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
-    "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion."
+    "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
+    "Auctioned collaterals": "Zu versteigernde Sicherheiten"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1165,7 +1166,7 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Auctioned collaterals": "Versteigerte Sicherheiten",
+    "Auctioned collaterals": "Zu versteigernde Sicherheiten",
     "Insufficient funds": "Unzureichende Deckung"
   },
   "components/QuickBid": {
