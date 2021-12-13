@@ -10,7 +10,8 @@ describe('wallet reducer', () => {
     initialState = {
       tokens: [],
       utxoBalance: '0',
-      poolpairs: []
+      poolpairs: [],
+      hasFetchedPoolpairData: false
     }
     tokenDFI = {
       id: '0',
@@ -43,7 +44,8 @@ describe('wallet reducer', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       utxoBalance: '0',
       tokens: [],
-      poolpairs: []
+      poolpairs: [],
+      hasFetchedPoolpairData: false
     })
   })
 
@@ -63,7 +65,8 @@ describe('wallet reducer', () => {
         id: '8',
         symbol: 'DFI-USDT',
         name: 'Default Defi token-Playground USDT',
-        status: 'true',
+        status: true,
+        displaySymbol: 'dUSDT-DFI',
         tokenA: {
           id: '0',
           reserve: '1000',
