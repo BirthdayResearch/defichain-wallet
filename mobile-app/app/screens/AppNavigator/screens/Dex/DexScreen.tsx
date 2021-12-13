@@ -6,14 +6,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import NumberFormat from 'react-number-format'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { ThemedFlatList, ThemedText, ThemedView } from '@components/themed'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -21,12 +19,15 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { WalletToken } from '@store/wallet'
+import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -35,12 +36,16 @@ enum TabKey {
 
 export function DexScreen (): JSX.Element {
   const logger = useLogger()
+  const client = useWhaleApiClient()
+  const { address } = useWalletContext()
+  const dispatch = useDispatch()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
-  const tokens = useTokensAPI()
-  const pairs = usePoolPairsAPI()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const yourLPTokens = useSelector(() => {
     const _yourLPTokens: Array<DexItem<WalletToken>> = tokens.filter(({ isLPS }) => isLPS).map(data => ({
       type: 'your',
@@ -48,7 +53,6 @@ export function DexScreen (): JSX.Element {
     }))
     return _yourLPTokens
   })
-
   const onTabChange = (tabKey: TabKey): void => {
     setActiveTab(tabKey)
   }
@@ -103,6 +107,11 @@ export function DexScreen (): JSX.Element {
       }
     }, 500)
   , [activeTab, pairs, yourLPTokens])
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
@@ -347,9 +356,12 @@ function AvailablePoolPairCards ({
   onAdd
 }: { availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void }): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const sortedPairs = sortPoolpairsByFavourite(availablePairs, isFavouritePoolpair)
+
   return (
     <ThemedFlatList
-      data={availablePairs}
+      data={sortedPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
@@ -362,6 +374,7 @@ function AvailablePoolPairCards ({
           ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
           : pair.symbol.split('-')
         const symbol = `${symbolA}-${symbolB}`
+        const isFavouritePair = isFavouritePoolpair(pair.id)
 
         return (
           <ThemedView
@@ -385,28 +398,48 @@ function AvailablePoolPairCards ({
               tokenBTotal={pair?.tokenB.reserve} testID='available'
             />
 
-            <View style={tailwind('flex-row mt-4 flex-wrap')}>
-              <ActionButton
-                name='add'
-                onPress={() => onAdd(pair)}
-                pair={symbol}
-                label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
-                style={tailwind('mr-2 mt-2')}
-                testID={`pool_pair_add_${symbol}`}
-              />
-              <ActionButton
-                name='swap-horiz'
-                onPress={() => navigation.navigate({
-                  name: 'CompositeSwap',
-                  params: { pair },
-                  merge: true
-                })}
-                pair={symbol}
-                label={translate('screens/DexScreen', 'SWAP TOKENS')}
-                disabled={!pair.tradeEnabled || !pair.status}
-                style={tailwind('mr-2 mt-2')}
-                testID={`pool_pair_swap-horiz_${symbol}`}
-              />
+            <View style={tailwind('flex-row mt-4 justify-between')}>
+              <View style={tailwind('flex flex-row flex-wrap flex-1')}>
+                <ActionButton
+                  name='add'
+                  onPress={() => onAdd(pair)}
+                  pair={symbol}
+                  label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+                  style={tailwind('p-2 mr-2 mt-2')}
+                  testID={`pool_pair_add_${symbol}`}
+                />
+                <ActionButton
+                  name='swap-horiz'
+                  onPress={() => navigation.navigate({
+                    name: 'CompositeSwap',
+                    params: { pair },
+                    merge: true
+                  })}
+                  pair={symbol}
+                  label={translate('screens/DexScreen', 'SWAP')}
+                  disabled={!pair.tradeEnabled || !pair.status}
+                  style={tailwind('p-2 mr-2 mt-2')}
+                  testID={`pool_pair_swap-horiz_${symbol}`}
+                />
+              </View>
+              <View style={tailwind('flex justify-end')}>
+                <ThemedTouchableOpacity
+                  light={tailwind('border-gray-300 bg-white')}
+                  dark={tailwind('border-gray-400 bg-gray-900')}
+                  onPress={() => setFavouritePoolpair(pair.id)}
+                  style={tailwind('p-1.5 border rounded mr-2 mt-2 flex-row items-center')}
+                >
+                  <ThemedIcon
+                    iconType='MaterialIcons'
+                    name={isFavouritePair ? 'star' : 'star-outline'}
+                    onPress={() => setFavouritePoolpair(pair.id)}
+                    size={20}
+                    light={tailwind(isFavouritePair ? 'text-warning-500' : 'text-gray-600')}
+                    dark={tailwind(isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300')}
+                    style={tailwind('')}
+                  />
+                </ThemedTouchableOpacity>
+              </View>
             </View>
           </ThemedView>
         )
@@ -591,4 +624,16 @@ function PoolPairIcon (props: { symbolA: string, symbolB: string }): JSX.Element
       />
     </>
   )
+}
+
+function sortPoolpairsByFavourite (pairs: Array<DexItem<PoolPairData>>, isFavouritePair: (id: string) => boolean): Array<DexItem<PoolPairData>> {
+  return pairs.slice().sort((firstPair, secondPair) => {
+    if (isFavouritePair(firstPair.data.id)) {
+      return -1
+    }
+    if (isFavouritePair(secondPair.data.id)) {
+      return 1
+    }
+    return 0
+  })
 }

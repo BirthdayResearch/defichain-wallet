@@ -19,8 +19,7 @@ import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Lo
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -33,6 +32,8 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -44,7 +45,10 @@ export function PaybackLoanScreen ({
     loanToken,
     vault
   } = route.params
-  const tokens = useTokensAPI()
+  const { address } = useWalletContext()
+  const dispatch = useDispatch()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
     return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
@@ -67,6 +71,10 @@ export function PaybackLoanScreen ({
     return !(amount.isNaN() ||
       amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance) || amount.gt(loanToken.amount))
   }
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     const isValid = isFormValid()

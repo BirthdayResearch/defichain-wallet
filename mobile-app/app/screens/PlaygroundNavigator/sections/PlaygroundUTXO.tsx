@@ -4,16 +4,14 @@ import { View } from '@components/index'
 import { usePlaygroundContext } from '@contexts/PlaygroundContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { fetchTokens } from '@hooks/wallet/TokensAPI'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { fetchTokens } from '@store/wallet'
 
 export function PlaygroundUTXO (): JSX.Element {
-  const logger = useLogger()
   const { wallet } = useWalletContext()
-  const whaleApiClient = useWhaleApiClient()
+  const client = useWhaleApiClient()
   const dispatch = useDispatch()
   const {
     api,
@@ -61,7 +59,7 @@ export function PlaygroundUTXO (): JSX.Element {
             <PlaygroundAction
               onPress={async () => {
                 const address = await getActiveAddress()
-                fetchTokens(whaleApiClient, address, dispatch, logger)
+                dispatch(fetchTokens({ client, address }))
               }}
               testID='playground_wallet_fetch_balances'
               title='Fetch Balances'
