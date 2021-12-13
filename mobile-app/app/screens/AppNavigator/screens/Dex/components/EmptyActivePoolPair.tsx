@@ -8,7 +8,7 @@ export function EmptyActivePoolpair (): JSX.Element {
     <ThemedView
       dark={tailwind('bg-gray-900')}
       light={tailwind('bg-gray-100')}
-      style={tailwind('flex items-center justify-center px-14 pb-40 h-full')}
+      style={tailwind('flex items-center justify-center px-14 h-full')}
     >
       <ThemedIcon
         iconType='MaterialCommunityIcons'
