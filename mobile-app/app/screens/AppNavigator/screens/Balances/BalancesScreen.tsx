@@ -43,7 +43,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     isBalancesDisplayed,
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
 
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)

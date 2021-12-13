@@ -50,7 +50,7 @@ export function SendScreen ({
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
   const {

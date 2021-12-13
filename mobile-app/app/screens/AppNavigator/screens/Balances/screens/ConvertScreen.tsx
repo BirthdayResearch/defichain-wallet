@@ -40,7 +40,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const dispatch = useDispatch()
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
 
   // global state
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))

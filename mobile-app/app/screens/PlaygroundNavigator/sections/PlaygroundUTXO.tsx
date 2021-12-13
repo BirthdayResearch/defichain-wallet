@@ -11,7 +11,7 @@ import { fetchTokens } from '@store/wallet'
 
 export function PlaygroundUTXO (): JSX.Element {
   const { wallet } = useWalletContext()
-  const whaleApiClient = useWhaleApiClient()
+  const client = useWhaleApiClient()
   const dispatch = useDispatch()
   const {
     api,
@@ -59,7 +59,7 @@ export function PlaygroundUTXO (): JSX.Element {
             <PlaygroundAction
               onPress={async () => {
                 const address = await getActiveAddress()
-                dispatch(fetchTokens({ client: whaleApiClient, address }))
+                dispatch(fetchTokens({ client, address }))
               }}
               testID='playground_wallet_fetch_balances'
               title='Fetch Balances'

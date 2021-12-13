@@ -47,7 +47,7 @@ export function PaybackLoanScreen ({
   } = route.params
   const { address } = useWalletContext()
   const dispatch = useDispatch()
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId

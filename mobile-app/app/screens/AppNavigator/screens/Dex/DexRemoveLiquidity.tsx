@@ -47,7 +47,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const displayedPercentage = percentage === '' || percentage === undefined ? '0.00' : percentage
 
   // gather required data
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { pair } = props.route.params
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
