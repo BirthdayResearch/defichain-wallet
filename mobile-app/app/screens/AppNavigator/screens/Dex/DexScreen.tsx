@@ -4,7 +4,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState, useLayoutEffect } from 'react'
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { View } from '@components'
@@ -26,6 +26,7 @@ import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
+import { debounce } from 'lodash'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -40,10 +41,13 @@ export function DexScreen (): JSX.Element {
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useTokensAPI()
   const pairs = usePoolPairsAPI()
-  const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
-    type: 'your',
-    data: data
-  })))
+  const yourLPTokens = useSelector(() => {
+    const _yourLPTokens: Array<DexItem<WalletToken>> = tokens.filter(({ isLPS }) => isLPS).map(data => ({
+      type: 'your',
+      data: data
+    }))
+    return _yourLPTokens
+  })
 
   const onTabChange = (tabKey: TabKey): void => {
     setActiveTab(tabKey)
@@ -84,6 +88,21 @@ export function DexScreen (): JSX.Element {
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
+  const [filteredAvailablePairs, setFilteredAvailablePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourLPTokens)
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      if (activeTab === TabKey.AvailablePoolPair) {
+        setFilteredAvailablePairs(pairs.filter(pair =>
+          pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+        ))
+      } else {
+        setFilteredYourPairs(yourLPTokens.filter(pair =>
+          pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+        ))
+      }
+    }, 500)
+  , [activeTab, pairs, yourLPTokens])
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
@@ -93,6 +112,10 @@ export function DexScreen (): JSX.Element {
       .catch(logger.error)
       .finally(() => setIsLoaded(true))
   }, [])
+
+  useEffect(() => {
+    handleFilter(searchString)
+  }, [searchString])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -106,7 +129,7 @@ export function DexScreen (): JSX.Element {
         return <></>
       }
     })
-  }, [navigation, activeTab])
+  }, [navigation, displayGuidelines])
 
   useEffect(() => {
     if (showSearchInput) {
@@ -164,7 +187,7 @@ export function DexScreen (): JSX.Element {
         {
           activeTab === TabKey.AvailablePoolPair && pairs !== undefined && (
             <AvailablePoolPairCards
-              availablePairs={pairs}
+              availablePairs={filteredAvailablePairs}
               onAdd={onAdd}
             />
           )
@@ -178,7 +201,7 @@ export function DexScreen (): JSX.Element {
         {
           activeTab === TabKey.YourPoolPair && (
             <YourPoolPairCards
-              yourPairs={yourLPTokens}
+              yourPairs={filteredYourPairs}
               availablePairs={pairs}
               onAdd={onAdd}
               onRemove={onRemove}
@@ -244,7 +267,7 @@ interface DexItem<T> {
 }
 
 interface YourPoolPairCardsItems {
-  yourPairs: Array<{ type: string, data: WalletToken }>
+  yourPairs: Array<DexItem<WalletToken>>
   availablePairs: Array<DexItem<PoolPairData>>
   onAdd: (data: PoolPairData) => void
   onRemove: (data: PoolPairData) => void
