@@ -206,7 +206,7 @@ export function DexScreen (): JSX.Element {
         }
 
         {
-          activeTab === TabKey.YourPoolPair && filteredYourPairs.length === 0 && (
+          activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
             <EmptyActivePoolpair />
           )
         }
