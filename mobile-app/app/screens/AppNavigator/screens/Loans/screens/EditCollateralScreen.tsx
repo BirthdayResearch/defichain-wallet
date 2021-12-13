@@ -25,10 +25,9 @@ import {
   LoanVaultTokenAmount
 } from '@defichain/whale-api-client/dist/api/loan'
 import { createSelector } from '@reduxjs/toolkit'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
-import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
 import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
@@ -38,6 +37,7 @@ import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -60,6 +60,7 @@ export function EditCollateralScreen ({
 }: Props): JSX.Element {
   const { vaultId } = route.params
   const client = useWhaleApiClient()
+  const { address } = useWalletContext()
   const logger = useLogger()
   const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
@@ -71,7 +72,9 @@ export function EditCollateralScreen ({
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const canUseOperations = useLoanOperations(activeVault?.state)
 
-  const tokens = useTokensAPI()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
     const _token = tokens.find(t => t.id === id)
@@ -92,6 +95,11 @@ export function EditCollateralScreen ({
   }).sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
+
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))
   }, [])
@@ -391,7 +399,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         testID='text_vault_interest_value'
         value={new BigNumber(vault.loanScheme.interestRate ?? 0).toFixed(2)} suffix='%'
         suffixType='text'
-        lhs={translate('screens/EditCollateralScreen', 'Vault interest')}
+        lhs={translate('screens/EditCollateralScreen', 'Vault interest (APR)')}
         info={{
           title: 'Annual vault interest',
           message: 'Annual vault interest rate based on the loan scheme selected.'

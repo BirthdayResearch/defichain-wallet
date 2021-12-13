@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootState } from '@store'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { AuctionTimeProgress } from './components/AuctionTimeProgress'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -28,6 +27,8 @@ import { useAuctionTime } from './hooks/AuctionTimeLeft'
 import { QuickBid } from './components/QuickBid'
 import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -39,7 +40,9 @@ enum TabKey {
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const { batch, vault } = props.route.params
-  const tokens = useTokensAPI()
+  const client = useWhaleApiClient()
+  const dispatch = useDispatch()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
@@ -56,6 +59,10 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     bottomSheetScreen,
     setBottomSheetScreen
    } = useBottomSheet()
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)

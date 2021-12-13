@@ -10,7 +10,7 @@ import { AuctionDetailScreen } from './AuctionDetailScreen'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { PlaceBidScreen } from './screens/PlaceBidScreen'
 import { ConfirmPlaceBidScreen } from './screens/ConfirmPlaceBidScreen'
-import { AuctionsFaq } from './screens/Auctions'
+import { AuctionsFaq } from './screens/AuctionsFaq'
 
 export interface AuctionsParamList {
   AuctionsScreen: {}

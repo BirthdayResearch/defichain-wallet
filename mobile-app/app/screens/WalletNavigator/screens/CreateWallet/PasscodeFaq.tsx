@@ -48,6 +48,7 @@ export function PasscodeFaq (): JSX.Element {
 
       <WalletAccordion
         testID='passcode_faq_accordion'
+        activeSections={[0]}
         title={translate('components/PasscodeFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import {
   ThemedScrollView,
   ThemedSectionTitle,
@@ -19,8 +19,7 @@ import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Lo
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -32,6 +31,9 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -43,7 +45,10 @@ export function PaybackLoanScreen ({
     loanToken,
     vault
   } = route.params
-  const tokens = useTokensAPI()
+  const { address } = useWalletContext()
+  const dispatch = useDispatch()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
     return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
@@ -52,7 +57,8 @@ export function PaybackLoanScreen ({
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
   const token = tokens?.find((t) => t.id === loanToken.id)
-  const tokenBalance = (token != null) ? getTokenAmount(token.id) : 0
+  const tokenBalance = (token != null) ? getTokenAmount(token.id) : new BigNumber(0)
+  const tokenBalanceInUSD = tokenBalance.multipliedBy(getActivePrice(loanToken.symbol, loanToken.activePrice))
   const [amountToPay, setAmountToPay] = useState(loanToken.amount)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isValid, setIsValid] = useState(false)
@@ -65,6 +71,10 @@ export function PaybackLoanScreen ({
     return !(amount.isNaN() ||
       amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance) || amount.gt(loanToken.amount))
   }
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     const isValid = isFormValid()
@@ -127,9 +137,34 @@ export function PaybackLoanScreen ({
         <InputHelperText
           label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
           content={new BigNumber(tokenBalance).toFixed(8)}
-          suffix={` ${loanToken.displaySymbol}`}
-          styleProps={tailwind('font-medium')}
-        />
+          suffixType='component'
+          styleProps={tailwind('font-medium leading-5')}
+        >
+          <ThemedText
+            light={tailwind('text-gray-700')}
+            dark={tailwind('text-gray-200')}
+            style={tailwind('text-sm font-medium')}
+          >
+            <Text>{' '}</Text>
+            <Text>{loanToken.displaySymbol}</Text>
+            <NumberFormat
+              value={tokenBalanceInUSD.toFixed(2)}
+              thousandSeparator
+              decimalScale={2}
+              displayType='text'
+              prefix='$'
+              renderText={(val: string) => (
+                <ThemedText
+                  dark={tailwind('text-gray-400')}
+                  light={tailwind('text-gray-500')}
+                  style={tailwind('text-xs leading-5')}
+                >
+                  {` /${val}`}
+                </ThemedText>
+              )}
+            />
+          </ThemedText>
+        </InputHelperText>
       </View>
       {
         isValid && (

@@ -3,7 +3,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -21,7 +21,6 @@ import {
 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -39,6 +38,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -49,7 +49,9 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const tokens = useTokensAPI()
+  const { address } = useWalletContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
   const {
     control,
@@ -94,6 +96,10 @@ export function SendScreen ({
       bottomSheetRef.current?.close()
     }
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()
@@ -239,13 +245,13 @@ export function SendScreen ({
                       />
                       {isConversionRequired &&
                         <NumberRow
-                          lhs={translate('screens/SendScreen', 'Amount to be converted')}
+                          lhs={translate('screens/SendScreen', 'UTXO to be converted')}
                           rhs={{
-                          value: conversionAmount.toFixed(8),
-                          testID: 'text_amount_to_convert',
-                          suffixType: 'text',
-                          suffix: token.displaySymbol
-                        }}
+                            value: conversionAmount.toFixed(8),
+                            testID: 'text_amount_to_convert',
+                            suffixType: 'text',
+                            suffix: token.displaySymbol
+                          }}
                         />}
 
                       <FeeInfoRow

@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
@@ -15,7 +15,6 @@ import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { TokenIconPair } from '@components/TokenIconPair'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -23,13 +22,17 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { tokenSelector } from '@store/wallet'
+import { fetchTokens, tokenSelector, tokensSelector } from '@store/wallet'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
+  const { address } = useWalletContext()
+  const dispatch = useDispatch()
+
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -44,7 +47,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const displayedPercentage = percentage === '' || percentage === undefined ? '0.00' : percentage
 
   // gather required data
-  const tokens = useTokensAPI()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { pair } = props.route.params
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
@@ -71,6 +75,10 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     }
     navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee, tokenA, tokenB })
   }
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()

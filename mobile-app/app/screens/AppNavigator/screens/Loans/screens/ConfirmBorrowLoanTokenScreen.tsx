@@ -117,7 +117,7 @@ export function ConfirmBorrowLoanTokenScreen ({
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
-        title='create_vault'
+        title='borrow_loan'
       />
     </ThemedScrollView>
   )
@@ -250,7 +250,8 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateral amount (USD)')}
         rhs={{
           value: props.collateralAmount.toFixed(2),
-          testID: 'text_collateral_amount'
+          testID: 'text_collateral_amount',
+          prefix: '$'
         }}
       />
       {props.collateralRatio.isLessThan(0)
