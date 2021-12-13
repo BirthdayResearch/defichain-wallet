@@ -7,14 +7,12 @@ import BigNumber from 'bignumber.js'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -22,8 +20,10 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { WalletToken } from '@store/wallet'
+import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 
 enum TabKey {
@@ -33,12 +33,16 @@ enum TabKey {
 
 export function DexScreen (): JSX.Element {
   const logger = useLogger()
+  const client = useWhaleApiClient()
+  const { address } = useWalletContext()
+  const dispatch = useDispatch()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
-  const tokens = useTokensAPI()
-  const pairs = usePoolPairsAPI()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
     type: 'your',
     data: data
@@ -79,6 +83,11 @@ export function DexScreen (): JSX.Element {
       merge: true
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()

@@ -1,6 +1,7 @@
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
 export interface WalletState {
@@ -50,7 +51,7 @@ const unifiedDFI: WalletToken = {
   avatarSymbol: 'DFI'
 }
 
-const setTokenDetails = (t: AddressToken): WalletToken => {
+export const setTokenDetails = (t: AddressToken): WalletToken => {
   let displaySymbol = t.displaySymbol
   let avatarSymbol = t.displaySymbol
   if (t.id === '0') {
@@ -73,19 +74,35 @@ const setTokenDetails = (t: AddressToken): WalletToken => {
   }
 }
 
+export const fetchPoolPairs = createAsyncThunk(
+  'wallet/fetchPoolPairs',
+  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
+    const pairs = await client.poolpairs.list(size)
+    return pairs.map(data => ({ type: 'available', data }))
+  }
+)
+
+export const fetchTokens = createAsyncThunk(
+  'wallet/fetchTokens',
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], utxoBalance: string }> => {
+    const tokens = await client.address.listToken(address, size)
+    const utxoBalance = await client.address.getBalance(address)
+    return { tokens, utxoBalance }
+  }
+)
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
-  reducers: {
-    setTokens: (state, action: PayloadAction<AddressToken[]>) => {
-      state.tokens = action.payload.map(setTokenDetails)
-    },
-    setUtxoBalance: (state, action: PayloadAction<string>) => {
-      state.utxoBalance = action.payload
-    },
-    setPoolPairs: (state, action: PayloadAction<DexItem[]>) => {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.poolpairs = action.payload
-    }
+    })
+    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], utxoBalance: string }>) => {
+      state.tokens = action.payload.tokens.map(setTokenDetails)
+      state.utxoBalance = action.payload.utxoBalance
+    })
   }
 })
 

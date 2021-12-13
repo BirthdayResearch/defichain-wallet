@@ -1,4 +1,4 @@
-import { DexItem, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
+import { DexItem, fetchPoolPairs, fetchTokens, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
 
 describe('wallet reducer', () => {
   let initialState: WalletState
@@ -47,15 +47,12 @@ describe('wallet reducer', () => {
     })
   })
 
-  it('should handle setTokens', () => {
+  it('should handle setTokens and setUtxoBalance', () => {
     const tokens: WalletToken[] = [tokenDFI, utxoDFI]
-    const actual = wallet.reducer(initialState, wallet.actions.setTokens(tokens))
+    const utxoBalance = '77'
+    const action = { type: fetchTokens.fulfilled.type, payload: { tokens, utxoBalance } }
+    const actual = wallet.reducer(initialState, action)
     expect(actual.tokens).toStrictEqual(tokens)
-  })
-
-  it('should handle setUtxoBalance', () => {
-    const utxoAmount = '77'
-    const actual = wallet.reducer(initialState, wallet.actions.setUtxoBalance(utxoAmount))
     expect(actual.utxoBalance).toStrictEqual('77')
   })
 
@@ -103,7 +100,9 @@ describe('wallet reducer', () => {
         }
       }
     }]
-    const actual = wallet.reducer(initialState, wallet.actions.setPoolPairs(payload))
+
+    const action = { type: fetchPoolPairs.fulfilled.type, payload }
+    const actual = wallet.reducer(initialState, action)
     expect(actual.poolpairs).toStrictEqual(payload)
   })
 

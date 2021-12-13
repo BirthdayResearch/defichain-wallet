@@ -17,10 +17,10 @@ import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomShe
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import BigNumber from 'bignumber.js'
 import { QuickBid } from './QuickBid'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { fetchTokens, tokensSelector } from '@store/wallet'
 
 interface Props {
   searchString: string
@@ -30,9 +30,9 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const tokens = useTokensAPI()
   const { isBetaFeature } = useFeatureFlagContext()
 
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
@@ -51,12 +51,10 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
 
   useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
     dispatch(fetchAuctions({ client }))
-    dispatch(fetchVaults({
-      address,
-      client
-    }))
-  }, [blockCount])
+    dispatch(fetchVaults({ client, address }))
+  }, [address, blockCount])
 
   const onQuickBid = (
     batch: LoanVaultLiquidationBatch,
