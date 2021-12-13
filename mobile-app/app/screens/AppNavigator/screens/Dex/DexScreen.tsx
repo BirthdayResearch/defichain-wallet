@@ -12,7 +12,7 @@ import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
@@ -24,6 +24,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { WalletToken } from '@store/wallet'
 import { RootState } from '@store'
+import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -294,9 +295,12 @@ function AvailablePoolPairCards ({
   onAdd
 }: { availablePairs: Array<DexItem<PoolPairData>>, onAdd: (data: PoolPairData) => void }): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const sortedPairs = sortPoolpairsByFavourite(availablePairs, isFavouritePoolpair)
+
   return (
     <ThemedFlatList
-      data={availablePairs}
+      data={sortedPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
@@ -309,6 +313,7 @@ function AvailablePoolPairCards ({
           ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
           : pair.symbol.split('-')
         const symbol = `${symbolA}-${symbolB}`
+        const isFavouritePair = isFavouritePoolpair(pair.id)
 
         return (
           <ThemedView
@@ -332,28 +337,48 @@ function AvailablePoolPairCards ({
               tokenBTotal={pair?.tokenB.reserve} testID='available'
             />
 
-            <View style={tailwind('flex-row mt-4 flex-wrap')}>
-              <ActionButton
-                name='add'
-                onPress={() => onAdd(pair)}
-                pair={symbol}
-                label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
-                style={tailwind('mr-2 mt-2')}
-                testID={`pool_pair_add_${symbol}`}
-              />
-              <ActionButton
-                name='swap-horiz'
-                onPress={() => navigation.navigate({
-                  name: 'CompositeSwap',
-                  params: { pair },
-                  merge: true
-                })}
-                pair={symbol}
-                label={translate('screens/DexScreen', 'SWAP TOKENS')}
-                disabled={!pair.tradeEnabled || !pair.status}
-                style={tailwind('mr-2 mt-2')}
-                testID={`pool_pair_swap-horiz_${symbol}`}
-              />
+            <View style={tailwind('flex-row mt-4 justify-between')}>
+              <View style={tailwind('flex flex-row flex-wrap flex-1')}>
+                <ActionButton
+                  name='add'
+                  onPress={() => onAdd(pair)}
+                  pair={symbol}
+                  label={translate('screens/DexScreen', 'ADD LIQUIDITY')}
+                  style={tailwind('p-2 mr-2 mt-2')}
+                  testID={`pool_pair_add_${symbol}`}
+                />
+                <ActionButton
+                  name='swap-horiz'
+                  onPress={() => navigation.navigate({
+                    name: 'CompositeSwap',
+                    params: { pair },
+                    merge: true
+                  })}
+                  pair={symbol}
+                  label={translate('screens/DexScreen', 'SWAP')}
+                  disabled={!pair.tradeEnabled || !pair.status}
+                  style={tailwind('p-2 mr-2 mt-2')}
+                  testID={`pool_pair_swap-horiz_${symbol}`}
+                />
+              </View>
+              <View style={tailwind('flex justify-end')}>
+                <ThemedTouchableOpacity
+                  light={tailwind('border-gray-300 bg-white')}
+                  dark={tailwind('border-gray-400 bg-gray-900')}
+                  onPress={() => setFavouritePoolpair(pair.id)}
+                  style={tailwind('p-1.5 border rounded mr-2 mt-2 flex-row items-center')}
+                >
+                  <ThemedIcon
+                    iconType='MaterialIcons'
+                    name={isFavouritePair ? 'star' : 'star-outline'}
+                    onPress={() => setFavouritePoolpair(pair.id)}
+                    size={20}
+                    light={tailwind(isFavouritePair ? 'text-warning-500' : 'text-gray-600')}
+                    dark={tailwind(isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300')}
+                    style={tailwind('')}
+                  />
+                </ThemedTouchableOpacity>
+              </View>
             </View>
           </ThemedView>
         )
@@ -538,4 +563,16 @@ function PoolPairIcon (props: { symbolA: string, symbolB: string }): JSX.Element
       />
     </>
   )
+}
+
+function sortPoolpairsByFavourite (pairs: Array<DexItem<PoolPairData>>, isFavouritePair: (id: string) => boolean): Array<DexItem<PoolPairData>> {
+  return pairs.slice().sort((firstPair, secondPair) => {
+    if (isFavouritePair(firstPair.data.id)) {
+      return -1
+    }
+    if (isFavouritePair(secondPair.data.id)) {
+      return 1
+    }
+    return 0
+  })
 }
