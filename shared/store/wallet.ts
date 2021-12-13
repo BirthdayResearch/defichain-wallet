@@ -8,6 +8,7 @@ export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
   poolpairs: DexItem[]
+  hasFetchedPoolpairData: boolean
 }
 
 export interface WalletToken extends AddressToken {
@@ -22,7 +23,8 @@ export interface DexItem {
 const initialState: WalletState = {
   utxoBalance: '0',
   tokens: [],
-  poolpairs: []
+  poolpairs: [],
+  hasFetchedPoolpairData: false
 }
 
 const tokenDFI: WalletToken = {
@@ -97,6 +99,7 @@ export const wallet = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
+      state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
     })
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], utxoBalance: string }>) => {
