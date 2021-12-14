@@ -9,22 +9,18 @@ import { StyleProp, ViewStyle } from 'react-native'
 interface ActiveUsdValueProps {
   style?: StyleProp<ViewStyle>
   containerStyle?: StyleProp<ViewStyle>
-  amount: string | number
-  activePrice: BigNumber
+  price: BigNumber
 }
 
 export function ActiveUsdValue (props: ActiveUsdValueProps): JSX.Element {
-  if (new BigNumber(props.activePrice).isZero()) {
-    return <></>
-  }
   return (
-    <View style={[tailwind('flex flex-row items-center justify-end'), props.containerStyle]}>
+    <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
-        value={new BigNumber(props.amount).multipliedBy(props.activePrice).toFixed(2)}
+        value={props.price.toFixed(2)}
         thousandSeparator
         decimalScale={2}
         displayType='text'
-        prefix='$'
+        prefix='≈ $'
         renderText={(val: string) => (
           <ThemedText
             dark={tailwind('text-gray-400')}

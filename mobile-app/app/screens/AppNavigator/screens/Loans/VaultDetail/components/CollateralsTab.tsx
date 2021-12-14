@@ -12,6 +12,7 @@ import { EmptyCollateral } from './EmptyCollateral'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useCollateralPrice } from '../../hooks/CollateralPrice'
+import { ActiveUsdValue } from './ActiveUsdValue'
 
 interface CollateralCardProps {
   displaySymbol: string
@@ -142,28 +143,10 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                   style={tailwind('text-sm')}
                 >
                   {val}
-                  {
-                  !new BigNumber(prices.activePrice).isZero() &&
-                    <NumberFormat
-                      value={prices.collateralPrice.toFixed(2)}
-                      thousandSeparator
-                      decimalScale={2}
-                      displayType='text'
-                      prefix='$'
-                      renderText={(val: string) => (
-                        <ThemedText
-                          dark={tailwind('text-gray-400')}
-                          light={tailwind('text-gray-500')}
-                          style={tailwind('text-xs')}
-                        >
-                          {` /${val}`}
-                        </ThemedText>
-                      )}
-                    />
-                  }
                 </ThemedText>
               )}
             />
+            <ActiveUsdValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
           </View>
         </View>
       </View>

@@ -116,7 +116,10 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             })
           }}
         />
-        <ActiveUsdValue activePrice={activePrice} amount={props.amount} />
+        <ActiveUsdValue
+          price={new BigNumber(props.amount).multipliedBy(activePrice)}
+          containerStyle={tailwind('justify-end')}
+        />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION &&
         (
           <>
@@ -131,7 +134,10 @@ function LoanCard (props: LoanCardProps): JSX.Element {
                 message: 'This amount is the total interest amount from both vault and token interest rate.'
               }}
             />
-            <ActiveUsdValue activePrice={activePrice} amount={props.interestAmount ?? 0} />
+            <ActiveUsdValue
+              price={new BigNumber(props.interestAmount ?? 0).multipliedBy(activePrice)}
+              containerStyle={tailwind('justify-end')}
+            />
           </>
         )}
       </View>
