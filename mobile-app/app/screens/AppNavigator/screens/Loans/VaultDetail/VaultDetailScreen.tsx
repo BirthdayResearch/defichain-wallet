@@ -18,7 +18,6 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import {
   useVaultStatus,
-  VaultStatus,
   VaultStatusTag
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import {
@@ -26,6 +25,7 @@ import {
 } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 

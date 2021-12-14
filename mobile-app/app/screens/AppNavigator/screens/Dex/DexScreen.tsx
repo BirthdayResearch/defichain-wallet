@@ -4,8 +4,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector, useDispatch } from 'react-redux'
 import { View } from '@components'
@@ -22,6 +21,10 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
+import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
+import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
+import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
@@ -42,12 +45,17 @@ export function DexScreen (): JSX.Element {
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
-  const yourLPTokens = useSelector(() => tokens.filter(({ isLPS }) => isLPS).map(data => ({
-    type: 'your',
-    data: data
-  })))
-
+  const {
+    poolpairs: pairs,
+    hasFetchedPoolpairData
+  } = useSelector((state: RootState) => state.wallet)
+  const yourLPTokens = useSelector(() => {
+    const _yourLPTokens: Array<DexItem<WalletToken>> = tokens.filter(({ isLPS }) => isLPS).map(data => ({
+      type: 'your',
+      data: data
+    }))
+    return _yourLPTokens
+  })
   const onTabChange = (tabKey: TabKey): void => {
     setActiveTab(tabKey)
   }
@@ -84,6 +92,24 @@ export function DexScreen (): JSX.Element {
     })
   }
 
+  // Search
+  const [showSearchInput, setShowSearchInput] = useState(false)
+  const [searchString, setSearchString] = useState('')
+  const [filteredAvailablePairs, setFilteredAvailablePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourLPTokens)
+  const [isSearching, setIsSearching] = useState(false)
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setIsSearching(false)
+      setFilteredAvailablePairs(pairs.filter(pair =>
+        pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+      setFilteredYourPairs(yourLPTokens.filter(pair =>
+        pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+    }, 500)
+  , [activeTab, pairs, yourLPTokens])
+
   useEffect(() => {
     dispatch(fetchPoolPairs({ client }))
     dispatch(fetchTokens({ client, address }))
@@ -97,6 +123,56 @@ export function DexScreen (): JSX.Element {
       .catch(logger.error)
       .finally(() => setIsLoaded(true))
   }, [])
+
+  useEffect(() => {
+    setIsSearching(true)
+    handleFilter(searchString)
+  }, [searchString, hasFetchedPoolpairData])
+
+  // Hide loader when pool pair API updates
+  useEffect(() => {
+    handleFilter(searchString)
+  }, [pairs])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => {
+        if (!displayGuidelines) {
+          return (
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} testID='dex_search_icon' />
+          )
+        }
+
+        return <></>
+      }
+    })
+  }, [navigation, displayGuidelines])
+
+  useEffect(() => {
+    if (showSearchInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString('')}
+            onChangeInput={(text: string) => {
+              setSearchString(text)
+            }}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
+            placeholder='Search for pool pairs'
+            testID='dex_search_input'
+          />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+  }, [showSearchInput, searchString])
 
   const onGuidelinesClose = async (): Promise<void> => {
     await DisplayDexGuidelinesPersistence.set(false)
@@ -113,53 +189,11 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex flex-row px-4 py-3 justify-between text-center')}
-      >
-        <View style={tailwind('flex flex-col')}>
-          <ThemedText
-            light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
-          >{translate('screens/DexScreen', 'Total Value Locked (USD)')}
-          </ThemedText>
-          <ThemedText>
-            <NumberFormat
-              displayType='text'
-              prefix='$'
-              renderText={(val: string) => (
-                <ThemedText
-                  dark={tailwind('text-gray-50')}
-                  light={tailwind('text-gray-900')}
-                  style={tailwind('text-lg text-left font-bold')}
-                  testID='DEX_TVL'
-                >
-                  {val}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={new BigNumber(tvl ?? 0).decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
-            />
-          </ThemedText>
-        </View>
-        <ActionButton
-          name='swap-horiz'
-          onPress={() => navigation.navigate({
-            name: 'CompositeSwap',
-            params: {},
-            merge: true
-          })}
-          pair='composite'
-          label={translate('screens/DexScreen', 'SWAP')}
-          style={tailwind('my-2 p-2')}
-          testID='composite_swap'
-        />
-      </ThemedView>
+      <TVLSection tvl={tvl ?? 0} />
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
         {
-          activeTab === TabKey.AvailablePoolPair && pairs.length === 0 && (
+          activeTab === TabKey.AvailablePoolPair && (!hasFetchedPoolpairData || isSearching) && (
             <View style={tailwind('mt-2')}>
               <SkeletonLoader
                 row={4}
@@ -169,9 +203,9 @@ export function DexScreen (): JSX.Element {
           )
         }
         {
-          activeTab === TabKey.AvailablePoolPair && pairs !== undefined && (
+          activeTab === TabKey.AvailablePoolPair && hasFetchedPoolpairData && !isSearching && (
             <AvailablePoolPairCards
-              availablePairs={pairs}
+              availablePairs={filteredAvailablePairs}
               onAdd={onAdd}
             />
           )
@@ -179,34 +213,13 @@ export function DexScreen (): JSX.Element {
 
         {
           activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
-            <ThemedView
-              dark={tailwind('bg-gray-900')}
-              light={tailwind('bg-gray-100')}
-              style={tailwind('flex items-center justify-center px-14 pb-40 h-full')}
-            >
-              <ThemedIcon
-                iconType='MaterialCommunityIcons'
-                name='circle-off-outline'
-                size={48}
-                style={tailwind('mb-6')}
-              />
-              <ThemedText
-                style={tailwind('text-2xl font-semibold text-center mb-1')}
-              >{translate('screens/DexScreen', 'No active pool pairs')}
-              </ThemedText>
-              <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
-                style={tailwind('text-base text-center')}
-              >{translate('screens/DexScreen', 'Supply liquidity pool tokens to earn high yields')}
-              </ThemedText>
-            </ThemedView>
+            <EmptyActivePoolpair />
           )
         }
         {
-          activeTab === TabKey.YourPoolPair && (
+          activeTab === TabKey.YourPoolPair && filteredYourPairs.length > 0 && (
             <YourPoolPairCards
-              yourPairs={yourLPTokens}
+              yourPairs={filteredYourPairs}
               availablePairs={pairs}
               onAdd={onAdd}
               onRemove={onRemove}
@@ -218,13 +231,61 @@ export function DexScreen (): JSX.Element {
   )
 }
 
+function TVLSection (props: {tvl: number}): JSX.Element {
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('flex flex-row px-4 py-3 justify-between text-center')}
+    >
+      <View style={tailwind('flex flex-col')}>
+        <ThemedText
+          light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >{translate('screens/DexScreen', 'Total Value Locked (USD)')}
+        </ThemedText>
+        <ThemedText>
+          <NumberFormat
+            displayType='text'
+            prefix='$'
+            renderText={(val: string) => (
+              <ThemedText
+                dark={tailwind('text-gray-50')}
+                light={tailwind('text-gray-900')}
+                style={tailwind('text-lg text-left font-bold')}
+                testID='DEX_TVL'
+              >
+                {val}
+              </ThemedText>
+            )}
+            thousandSeparator
+            value={new BigNumber(props.tvl).decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+          />
+        </ThemedText>
+      </View>
+      <ActionButton
+        name='swap-horiz'
+        onPress={() => navigation.navigate({
+          name: 'CompositeSwap',
+          params: {},
+          merge: true
+        })}
+        pair='composite'
+        label={translate('screens/DexScreen', 'SWAP')}
+        style={tailwind('my-2 p-2')}
+        testID='composite_swap'
+      />
+    </ThemedView>
+  )
+}
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
 }
 
 interface YourPoolPairCardsItems {
-  yourPairs: Array<{ type: string, data: WalletToken }>
+  yourPairs: Array<DexItem<WalletToken>>
   availablePairs: Array<DexItem<PoolPairData>>
   onAdd: (data: PoolPairData) => void
   onRemove: (data: PoolPairData) => void

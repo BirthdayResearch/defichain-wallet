@@ -13,6 +13,7 @@ interface HeaderSearchInputProps {
   onChangeInput: (text: string) => void
   onCancelPress: () => void
   placeholder: string
+  testID?: string
 }
 
 export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
@@ -35,6 +36,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         showClearButton={props.searchString !== ''}
         onClearInput={props.onClearInput}
         onChangeText={props.onChangeInput}
+        testID={props.testID}
       />
       <View style={tailwind('flex justify-center ml-2')}>
         <TouchableOpacity onPress={props.onCancelPress}>

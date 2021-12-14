@@ -69,7 +69,8 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenDetails),
-        poolpairs: []
+        poolpairs: [],
+        hasFetchedPoolpairData: false
       },
       block: {
         count: 100,
@@ -105,7 +106,8 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenDetails),
-        poolpairs: []
+        poolpairs: [],
+        hasFetchedPoolpairData: false
       },
       block: {
         count: 100,

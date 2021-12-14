@@ -65,11 +65,12 @@ export function PaybackLoanScreen ({
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const logger = useLogger()
+  const [isExcess, setIsExcess] = useState(false)
 
   const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToPay)
     return !(amount.isNaN() ||
-      amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance) || amount.gt(loanToken.amount))
+      amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance))
   }
 
   useEffect(() => {
@@ -79,6 +80,7 @@ export function PaybackLoanScreen ({
   useEffect(() => {
     const isValid = isFormValid()
     setIsValid(isValid)
+    setIsExcess(new BigNumber(amountToPay).isGreaterThan(loanToken.amount))
   }, [amountToPay])
 
   useEffect(() => {
@@ -98,7 +100,8 @@ export function PaybackLoanScreen ({
         vault,
         amountToPay: new BigNumber(amountToPay),
         fee,
-        loanToken
+        loanToken,
+        excessAmount: isExcess ? new BigNumber(amountToPay).minus(loanToken.amount) : undefined
       },
       merge: true
     })
@@ -173,7 +176,17 @@ export function PaybackLoanScreen ({
               fee={fee} outstandingBalance={new BigNumber(loanToken.amount)}
               amountToPay={new BigNumber(amountToPay)}
               displaySymbol={loanToken.displaySymbol}
+              isExcess={isExcess}
             />
+            {isExcess && (
+              <ThemedText
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-400')}
+                style={tailwind('text-xs mt-2 mx-4')}
+              >
+                {translate('screens/PaybackLoanScreen', 'Any excess amount will be returned to your wallet.')}
+              </ThemedText>
+            )}
           </View>
         )
       }
@@ -216,7 +229,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           height: 24
         }}
         />
-        <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
+        <ThemedText testID='loan_symbol' style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
       <View style={tailwind('flex flex-row items-center justify-between')}>
         <ThemedText
@@ -233,7 +246,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           suffix={` ${props.displaySymbol}`}
           displayType='text'
           renderText={(value) =>
-            <ThemedText style={tailwind('text-sm font-medium')}>
+            <ThemedText testID='loan_outstanding_balance' style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>}
         />
@@ -293,11 +306,12 @@ export function VaultInput ({
             numberOfLines={1}
             ellipsizeMode='middle'
             style={tailwind('mr-2 w-56 flex-shrink text-sm font-medium')}
+            testID='vault_id'
           >
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState.status} />
+        <VaultStatusTag status={vaultState.status} testID='vault_status_tag' />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
         <View style={tailwind('items-center flex-row')}>
@@ -317,7 +331,7 @@ export function VaultInput ({
           suffix={vault.collateralRatio === '-1' ? translate('screens/PaybackLoanScreen', 'N/A') : '%'}
           displayType='text'
           renderText={(value) => (
-            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
+            <ThemedText testID='loan_col_ratio' light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>
           )}
@@ -341,7 +355,7 @@ export function VaultInput ({
           suffix='%'
           displayType='text'
           renderText={(value) => (
-            <ThemedText style={tailwind('text-sm font-medium')}>
+            <ThemedText testID='loan_min_col' style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>
           )}
@@ -379,6 +393,7 @@ interface TransactionDetailsProps {
   outstandingBalance: BigNumber
   fee: BigNumber
   displaySymbol: string
+  isExcess: boolean
 }
 
 function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
@@ -399,7 +414,7 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
       <NumberRow
         lhs={translate('screens/PaybackLoanScreen', 'Remaining loan amount')}
         rhs={{
-          value: props.outstandingBalance.minus(props.amountToPay).toFixed(8),
+          value: BigNumber.max(props.outstandingBalance.minus(props.amountToPay), 0).toFixed(8),
           testID: 'text_resulting_loan_amount',
           suffixType: 'text',
           suffix: props.displaySymbol
@@ -411,6 +426,18 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
         testID='estimated_fee'
         suffix='DFI'
       />
+      {props.isExcess &&
+        (
+          <NumberRow
+            lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
+            rhs={{
+              value: props.amountToPay.minus(props.outstandingBalance).toFixed(8),
+              testID: 'text_resulting_loan_amount',
+              suffixType: 'text',
+              suffix: props.displaySymbol
+            }}
+          />
+        )}
     </>
   )
 }
