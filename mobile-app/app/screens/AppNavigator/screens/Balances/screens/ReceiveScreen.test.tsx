@@ -21,7 +21,8 @@ describe('receive page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        poolpairs: []
+        poolpairs: [],
+        hasFetchedPoolpairData: false
       }
     }
     const store = configureStore({
@@ -42,7 +43,8 @@ describe('receive page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        poolpairs: []
+        poolpairs: [],
+        hasFetchedPoolpairData: false
       }
     }
     const store = configureStore({
@@ -66,7 +68,8 @@ describe('receive page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        poolpairs: []
+        poolpairs: [],
+        hasFetchedPoolpairData: false
       }
     }
     const store = configureStore({
