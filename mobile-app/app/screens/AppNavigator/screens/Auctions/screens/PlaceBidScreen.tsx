@@ -85,14 +85,14 @@ export function PlaceBidScreen (props: Props): JSX.Element {
 
   const onPressFullDetails = (): void => {
     setBottomSheetScreen([{
-      stackScreenName: 'Auctioned collaterals',
+      stackScreenName: 'Collateral for auction',
       option: {
         header: () => null,
         headerBackTitleVisible: false
       },
       component: BottomSheetAuctionedCollateral({
         collaterals: batch.collaterals,
-        headerLabel: translate('screens/PlaceBidScreen', 'Auctioned collaterals'),
+        headerLabel: translate('screens/PlaceBidScreen', 'Collateral for auction'),
         onCloseButtonPress: dismissModal
       })
     }])

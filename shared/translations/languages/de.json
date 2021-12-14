@@ -721,7 +721,7 @@
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
-    "Auctioned collaterals": "Zu versteigernde Sicherheiten",
+    "Collateral for auction": "Sicherheiten für Auktion",
     "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
@@ -1153,7 +1153,7 @@
     "Collaterals": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
-    "Auctioned collaterals": "Zu versteigernde Sicherheiten"
+    "Collateral for auction": "Sicherheiten für Auktion"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1168,7 +1168,7 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Auctioned collaterals": "Zu versteigernde Sicherheiten",
+    "Collateral for auction": "Sicherheiten für Auktion",
     "Insufficient funds": "Unzureichende Deckung"
   },
   "components/QuickBid": {
