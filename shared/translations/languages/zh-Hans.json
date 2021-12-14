@@ -1002,7 +1002,8 @@
     "Collateralization ratio": "抵押率",
     "Min. collateralization ratio": "最低抵押率",
     "Excess amount": "超出的金额",
-    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包."
+    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包.",
+    "Resulting collateralization": "最终抵押率"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
@@ -1019,7 +1020,8 @@
     "Collateralization ratio": "抵押率",
     "Paying loan": "贷款还款",
     "Paying {{amount}} {{symbol}}": "付款中{{amount}} {{symbol}} ",
-    "Confirm Loan Payment": "确认贷款支付"
+    "Confirm Loan Payment": "确认贷款支付",
+    "Resulting collateralization": "最终抵押率"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
