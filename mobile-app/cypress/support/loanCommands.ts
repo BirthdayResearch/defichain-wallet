@@ -6,7 +6,9 @@ export function checkCollateralDetailValues (status: string, totalCollateral: st
   cy.getByTestID('collateral_vault_tag').contains(status)
   cy.getByTestID('text_total_collateral_value').contains(totalCollateral)
   cy.getByTestID('text_total_loans_value').contains(totalLoans)
-  cy.getByTestID('text_col_ratio_value').contains(totalColRatio)
+  if (totalColRatio !== '') {
+    cy.getByTestID('text_col_ratio_value').contains(totalColRatio)
+  }
   cy.getByTestID('text_col_ratio_value_suffix').contains(colRatioSuffix)
   cy.getByTestID('text_min_col_ratio_value').contains(totalMinCol)
   cy.getByTestID('text_vault_interest_value').contains(totalVaultInterest)
