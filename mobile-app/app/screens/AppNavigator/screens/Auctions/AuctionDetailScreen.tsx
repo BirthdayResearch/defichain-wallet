@@ -100,7 +100,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   const tabsList = [{
     id: TabKey.Collaterals,
-    label: 'Auctioned collaterals',
+    label: 'Collateral for auction',
     disabled: false,
     handleOnPress: onPress
   }, {
