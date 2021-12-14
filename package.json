@@ -71,7 +71,7 @@
     "react-content-loader": "^6.1.0",
     "react-devtools": "^4.21.0",
     "react-dom": "17.0.1",
-    "react-hook-form": "^7.21.2",
+    "react-hook-form": "^7.22.0",
     "react-native": "0.64.3",
     "react-native-boring-avatars": "^1.0.1",
     "react-native-collapsible": "^1.6.0",
