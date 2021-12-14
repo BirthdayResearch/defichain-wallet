@@ -1002,7 +1002,9 @@
     "Remaining loan amount": "剩餘貸款金額",
     "Outstanding balance": "未付餘額",
     "Collateralization ratio": "抵押比例率",
-    "Min. collateralization ratio": "最低抵押比例率"
+    "Min. collateralization ratio": "最低抵押比例率",
+    "Excess amount": "超出的金額",
+    "Any excess amount will be returned to your wallet.": "任何超出的金額將返還到您的錢包."
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "確認付款",

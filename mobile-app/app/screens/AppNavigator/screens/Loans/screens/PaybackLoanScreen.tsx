@@ -184,7 +184,7 @@ export function PaybackLoanScreen ({
                 dark={tailwind('text-gray-400')}
                 style={tailwind('text-xs mt-2 mx-4')}
               >
-                {translate('screens/PaybackLoanScreen', 'Any excess amount will be returned to your wallet promptly.')}
+                {translate('screens/PaybackLoanScreen', 'Any excess amount will be returned to your wallet.')}
               </ThemedText>
             )}
           </View>

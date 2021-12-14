@@ -1001,7 +1001,9 @@
     "Remaining loan amount": "Verbleibender Darlehensbetrag",
     "Outstanding balance": "Ausstehender Saldo",
     "Collateralization ratio": "Besicherungsquote",
-    "Min. collateralization ratio": "Mind. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
+    "Excess amount": "Excess amount",
+    "Any excess amount will be returned to your wallet.": "Any excess amount will be returned to your wallet."
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
