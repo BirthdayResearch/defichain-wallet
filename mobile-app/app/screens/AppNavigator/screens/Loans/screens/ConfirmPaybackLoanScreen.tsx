@@ -36,7 +36,8 @@ export function ConfirmPaybackLoanScreen ({
     vault,
     amountToPay,
     fee,
-    loanToken
+    loanToken,
+    excessAmount
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -97,7 +98,8 @@ export function ConfirmPaybackLoanScreen ({
         displaySymbol={loanToken.displaySymbol}
         fee={fee}
         vault={vault}
-        outstandingBalance={new BigNumber(loanToken.amount).minus(amountToPay)}
+        outstandingBalance={BigNumber.max(new BigNumber(loanToken.amount).minus(amountToPay), 0)}
+        excessAmount={excessAmount}
       />
       <SummaryVaultDetails
         vault={vault}
@@ -139,6 +141,7 @@ interface SummaryTransactionDetailsProps {
   displaySymbol: string
   fee: BigNumber
   vault: LoanVaultActive
+  excessAmount?: BigNumber
 }
 
 function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.Element {
@@ -174,6 +177,18 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: props.displaySymbol
         }}
       />
+      {props.excessAmount !== undefined &&
+        (
+          <NumberRow
+            lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
+            rhs={{
+            value: props.excessAmount.toFixed(8),
+            testID: 'text_excess_amount',
+            suffixType: 'text',
+            suffix: props.displaySymbol
+          }}
+          />
+        )}
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
