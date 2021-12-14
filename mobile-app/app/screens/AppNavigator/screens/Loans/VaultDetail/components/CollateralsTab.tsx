@@ -12,7 +12,7 @@ import { EmptyCollateral } from './EmptyCollateral'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useCollateralPrice } from '../../hooks/CollateralPrice'
-import { ActiveUsdValue } from './ActiveUsdValue'
+import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
 
 interface CollateralCardProps {
   displaySymbol: string

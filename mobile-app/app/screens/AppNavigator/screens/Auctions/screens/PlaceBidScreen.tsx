@@ -29,7 +29,7 @@ import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomShe
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { InfoText } from '@components/InfoText'
-import { getActivePrice } from '../helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 

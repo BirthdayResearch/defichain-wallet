@@ -14,7 +14,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { ActiveUsdValue } from './ActiveUsdValue'
+import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
 
 interface LoanCardProps {
   symbol: string

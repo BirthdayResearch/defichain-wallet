@@ -36,9 +36,9 @@ import {
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
-import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { ActiveUsdValue } from '../VaultDetail/components/ActiveUsdValue'
+import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 

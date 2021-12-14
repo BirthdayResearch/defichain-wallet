@@ -38,7 +38,7 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
-import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
