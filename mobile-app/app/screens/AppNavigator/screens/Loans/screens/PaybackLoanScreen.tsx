@@ -216,7 +216,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           height: 24
         }}
         />
-        <ThemedText style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
+        <ThemedText testID='loan_symbol' style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
       <View style={tailwind('flex flex-row items-center justify-between')}>
         <ThemedText
@@ -233,7 +233,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           suffix={` ${props.displaySymbol}`}
           displayType='text'
           renderText={(value) =>
-            <ThemedText style={tailwind('text-sm font-medium')}>
+            <ThemedText testID='loan_outstanding_balance' style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>}
         />
@@ -293,11 +293,12 @@ export function VaultInput ({
             numberOfLines={1}
             ellipsizeMode='middle'
             style={tailwind('mr-2 w-56 flex-shrink text-sm font-medium')}
+            testID='vault_id'
           >
             {vault.vaultId}
           </ThemedText>
         </View>
-        <VaultStatusTag status={vaultState.status} />
+        <VaultStatusTag status={vaultState.status} testID='vault_status_tag' />
       </View>
       <View style={tailwind('flex flex-row items-center justify-between mb-1 mt-2')}>
         <View style={tailwind('items-center flex-row')}>
@@ -317,7 +318,7 @@ export function VaultInput ({
           suffix={vault.collateralRatio === '-1' ? translate('screens/PaybackLoanScreen', 'N/A') : '%'}
           displayType='text'
           renderText={(value) => (
-            <ThemedText light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
+            <ThemedText testID='loan_col_ratio' light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>
           )}
@@ -341,7 +342,7 @@ export function VaultInput ({
           suffix='%'
           displayType='text'
           renderText={(value) => (
-            <ThemedText style={tailwind('text-sm font-medium')}>
+            <ThemedText testID='loan_min_col' style={tailwind('text-sm font-medium')}>
               {value}
             </ThemedText>
           )}

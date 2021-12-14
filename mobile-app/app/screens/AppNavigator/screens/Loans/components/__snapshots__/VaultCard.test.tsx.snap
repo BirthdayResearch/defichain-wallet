@@ -199,6 +199,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                         Object {},
                       ]
                     }
+                    testID="vault_tag_NEAR LIQUIDATION"
                   >
                     󰢼
                   </Text>
@@ -2384,6 +2385,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                         Object {},
                       ]
                     }
+                    testID="vault_tag_NEAR LIQUIDATION"
                   >
                     󰢼
                   </Text>
