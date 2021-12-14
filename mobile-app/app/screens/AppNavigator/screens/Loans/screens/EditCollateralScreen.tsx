@@ -494,7 +494,10 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUsdValue price={prices.collateralPrice} />
+            <ActiveUsdValue
+              price={prices.collateralPrice}
+              testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
+            />
           </View>
         </View>
         <View style={tailwind('w-4/12 flex items-end')}>

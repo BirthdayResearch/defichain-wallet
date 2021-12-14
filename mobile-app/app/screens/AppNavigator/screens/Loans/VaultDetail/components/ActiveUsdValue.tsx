@@ -9,6 +9,7 @@ import { StyleProp, ViewStyle } from 'react-native'
 interface ActiveUsdValueProps {
   style?: StyleProp<ViewStyle>
   containerStyle?: StyleProp<ViewStyle>
+  testId?: string
   price: BigNumber
 }
 
@@ -26,7 +27,7 @@ export function ActiveUsdValue (props: ActiveUsdValueProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             light={tailwind('text-gray-500')}
             style={[tailwind('text-xs'), props.style]}
-            testID='text_outstanding_balance_usd'
+            testID={props.testId}
           >
             {val}
           </ThemedText>
