@@ -66,8 +66,8 @@ export function BalanceControlCard (): JSX.Element {
           {addressLength > 0 && (
             <ThemedView
               light={tailwind('bg-primary-700 border-white')}
-              dark={tailwind('bg-primary-700 border-gray-800')}
-              style={tailwind('absolute rounded-full h-6 w-6 border-2 bottom-0 -top-1 flex justify-center items-center -right-1')}
+              dark={tailwind('bg-dfxred-500 border-dfxblue-900')}
+              style={tailwind('absolute rounded-full h-6 w-6 border bottom-0 -top-1 flex justify-center items-center -right-1')}
             >
               <ThemedText
                 testID='address_count_badge'

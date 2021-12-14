@@ -1,6 +1,7 @@
 import * as React from 'react'
 // @ts-expect-error
 import Avatar from 'react-native-boring-avatars'
+import { theme } from '../../../../../tailwind.config'
 
 export function RandomAvatar (props: Avatar['props']): JSX.Element {
   const { name, size, ...otherProps } = props
@@ -9,7 +10,7 @@ export function RandomAvatar (props: Avatar['props']): JSX.Element {
       size={size}
       name={name}
       variant='pixel'
-      colors={['#EE2CB1', '#604EBF', '#DB69B8', '#FAEAF5', '#262626']}
+      colors={['#BCD3E8', '#1E6AB0', '#7FAAD2', '#FFFFFF', theme.extend.colors.dfxblue[900]]}
       {...otherProps}
     />
   )
