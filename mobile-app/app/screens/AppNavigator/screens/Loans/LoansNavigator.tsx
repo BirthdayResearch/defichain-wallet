@@ -70,15 +70,16 @@ export interface LoanParamList {
     resultingColRatio: BigNumber
   }
   PaybackLoanScreen: {
-    loanToken: LoanVaultTokenAmount
+    loanTokenAmount: LoanVaultTokenAmount
     vault: LoanVaultActive
   }
   ConfirmPaybackLoanScreen: {
     fee: BigNumber
     amountToPay: BigNumber
     vault: LoanVaultActive
-    loanToken: LoanVaultTokenAmount
+    loanTokenAmount: LoanVaultTokenAmount
     excessAmount?: BigNumber
+    resultingColRatio: BigNumber
   }
   EditLoanSchemeScreen: {
     vaultId: string
