@@ -92,6 +92,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION
           })}
           style={tailwind('font-medium ml-2')}
+          testID={`loan_card_${props.displaySymbol}`}
         >
           {props.displaySymbol}
         </ThemedText>
@@ -100,7 +101,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
         <VaultSectionTextRow
           value={new BigNumber(props.amount).toFixed(8)}
           lhs={translate('components/VaultDetailsLoansTab', 'Outstanding balance')}
-          testID='text_outstanding_balance'
+          testID={`loan_card_${props.displaySymbol}_outstanding_balance`}
           suffixType='text'
           suffix={` ${props.displaySymbol}`}
           style={tailwind('text-sm font-medium')}
@@ -133,7 +134,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
 
       {
         props.vault !== undefined && (
-          <ActionButtons vault={props.vault} loanToken={props.loanToken} canUseOperations={canUseOperations} />
+          <ActionButtons testID={`loan_card_${props.displaySymbol}`} vault={props.vault} loanToken={props.loanToken} canUseOperations={canUseOperations} />
         )
       }
     </ThemedView>
@@ -143,8 +144,9 @@ function LoanCard (props: LoanCardProps): JSX.Element {
 function ActionButtons ({
   vault,
   loanToken,
-  canUseOperations
-}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount, canUseOperations: boolean }): JSX.Element {
+  canUseOperations,
+  testID
+}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount, canUseOperations: boolean, testID: string }): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
@@ -156,6 +158,7 @@ function ActionButtons ({
           disabled={!canUseOperations}
           iconLabel={translate('components/VaultDetailsLoansTab', 'PAYBACK LOAN')}
           style={tailwind('mr-2 mb-2 p-2')}
+          testID={`${testID}_payback_loan`}
           onPress={() => {
             navigation.navigate({
               name: 'PaybackLoanScreen',
@@ -171,6 +174,7 @@ function ActionButtons ({
           disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
           iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
           style={tailwind('mr-2 mb-2 p-2')}
+          testID={`${testID}_borrow_more`}
           onPress={() => {
             navigation.navigate({
               name: 'BorrowMoreScreen',

@@ -1,11 +1,12 @@
 import '@testing-library/cypress/add-commands'
 import BigNumber from 'bignumber.js'
+import { VaultStatus } from '../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
 
 export function checkCollateralDetailValues (status: string, totalCollateral: string, totalLoans: string, totalColRatio: string, colRatioSuffix: string, totalMinCol: string, totalVaultInterest: string): void {
   cy.getByTestID('collateral_vault_tag').contains(status)
   cy.getByTestID('text_total_collateral_value').contains(totalCollateral)
   cy.getByTestID('text_total_loans_value').contains(totalLoans)
-  cy.getByTestID('text_col_ratio_value').should('have.value', totalColRatio)
+  cy.getByTestID('text_col_ratio_value').contains(totalColRatio)
   cy.getByTestID('text_col_ratio_value_suffix').contains(colRatioSuffix)
   cy.getByTestID('text_min_col_ratio_value').contains(totalMinCol)
   cy.getByTestID('text_vault_interest_value').contains(totalVaultInterest)
@@ -44,6 +45,12 @@ export function checkVaultDetailValues (status: string, vaultID: string, totalCo
   cy.getByTestID(`text_vault_interest`).contains(vaultInterest)
 }
 
+export function checkVaultDetailCollateralAmounts (amount: string, displaySymbol: string, vaultShare: string): void {
+  cy.getByTestID(`vault_detail_collateral_${displaySymbol}`).contains(displaySymbol)
+  cy.getByTestID(`vault_detail_collateral_${displaySymbol}_vault_share`).contains(vaultShare)
+  cy.getByTestID(`vault_detail_collateral_${displaySymbol}_amount`).contains(`${amount} ${displaySymbol}`)
+}
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -66,6 +73,22 @@ declare global {
        * @param {string} symbol - symbol of token
        * */
       removeCollateral: (amount: string, symbol: string) => Chainable<Element>
+
+      /**
+       * @description Take Loan
+       * @param {string} amount - amount to loan
+       * @param {string} symbol - symbol of token
+       * */
+      takeLoan: (amount: string, symbol: string) => Chainable<Element>
+
+      /**
+       * @description Vault Tag
+       * @param {string} label - label of the vault tag
+       * @param {VaultStatus} status - vault status
+       * @param {string} testID - test ID
+       * @param {boolean} isDark - if dark mode
+       * */
+      checkVaultTag: (label: string, status: VaultStatus, testID: string, isDark: boolean) => Chainable<Element>
     }
   }
 }
@@ -97,4 +120,29 @@ Cypress.Commands.add('removeCollateral', (amount: string, symbol: string) => {
   cy.getByTestID('txn_authorization_description')
     .contains(`Removing ${new BigNumber(amount).toFixed(8)} ${symbol} collateral from vault`)
   cy.closeOceanInterface()
+})
+
+Cypress.Commands.add('takeLoan', (amount: string, symbol: string) => {
+  cy.getByTestID(`loan_card_${symbol}`).click()
+  cy.getByTestID('form_input_borrow').type(amount).blur()
+  cy.getByTestID('borrow_loan_submit_button').click()
+  cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+  cy.closeOceanInterface()
+})
+
+Cypress.Commands.add('checkVaultTag', (label: string, status: VaultStatus, testID: string, isDark: boolean) => {
+  const vaultSymbol = `vault_tag_${status}`
+  let vaultItem = {
+    title: label,
+    symbol: vaultSymbol,
+    color: ''
+  }
+  if (status === VaultStatus.AtRisk) {
+    vaultItem.color = isDark ? 'rgb(255, 159, 10)' : 'rgb(255, 150, 41)'
+  } else if (status === VaultStatus.Healthy) {
+    vaultItem.color = isDark ? 'rgb(50, 215, 75)' : 'rgb(2, 179, 27)'
+  }
+  cy.getByTestID(testID).contains(vaultItem.title)
+  cy.getByTestID(testID).should('have.css', 'color', vaultItem.color)
+  cy.getByTestID(vaultItem.symbol).should('exist')
 })
