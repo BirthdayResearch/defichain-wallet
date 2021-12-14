@@ -96,6 +96,21 @@ export function BalancesNavigator (): JSX.Element {
               />
             </TouchableOpacity>
           ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Settings', { screen: 'AboutScreen' })}
+              testID='header_faq'
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name='help'
+                size={28}
+                style={tailwind('mr-2')}
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-dfxred-500')}
+              />
+            </TouchableOpacity>
+          ),
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/BalancesScreen', 'Balances')}
