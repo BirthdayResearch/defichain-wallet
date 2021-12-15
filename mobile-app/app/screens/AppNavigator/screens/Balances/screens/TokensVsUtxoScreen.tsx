@@ -59,7 +59,7 @@ function FaqInfoSection (props: FaqInfoSectionProps): JSX.Element {
   return (
     <View style={tailwind('mb-6')}>
       <View style={tailwind('flex-row items-center flex-grow mb-2')}>
-        <TokenIcon width={20} height={20} />
+        <TokenIcon width={24} height={24} />
         <View style={tailwind('ml-2 flex-auto')}>
           <ThemedText
             dark={tailwind('text-gray-200')}
