@@ -311,7 +311,7 @@ interface BidCardRowProps {
 
 function BidCardRow (props: React.PropsWithChildren<BidCardRowProps>): JSX.Element {
   const rhsStyle = {
-    style: tailwind('text-xs')
+    style: tailwind('text-xs text-right')
   }
 
   return (
@@ -325,20 +325,24 @@ function BidCardRow (props: React.PropsWithChildren<BidCardRowProps>): JSX.Eleme
           {props.lhs}
         </ThemedText>
       </View>
-      <View style={tailwind('flex flex-row flex-grow justify-end')}>
+      <View style={tailwind('flex flex-row flex-1 flex-wrap w-6/12 justify-end')}>
         <ThemedText {...rhsStyle}>
           {props.rhs.prefix !== undefined && <ThemedText {...rhsStyle}>{props.rhs.prefix}</ThemedText>}
-          {BigNumber.isBigNumber(props.rhs.value) &&
-            <NumberFormat
-              decimalScale={8}
-              displayType='text'
-              thousandSeparator
-              value={props.rhs.value.toFixed(2)}
-              renderText={(val: string) => (
-                <ThemedText {...rhsStyle}>{val}</ThemedText>
+          {BigNumber.isBigNumber(props.rhs.value)
+            ? (
+              <NumberFormat
+                decimalScale={8}
+                displayType='text'
+                thousandSeparator
+                value={props.rhs.value.toFixed(2)}
+                renderText={(val: string) => (
+                  <ThemedText {...rhsStyle}>{val}</ThemedText>
+                )}
+              />
+            )
+            : (
+              <ThemedText {...rhsStyle}>{props.rhs.value}</ThemedText>
             )}
-            />}
-          {!BigNumber.isBigNumber(props.rhs.value) && <ThemedText {...rhsStyle}>{props.rhs.value}</ThemedText>}
           {props.rhs.suffix !== undefined && props.rhs.suffixType === 'text' &&
             <ThemedText {...rhsStyle}>{` ${props.rhs.suffix}`}</ThemedText>}
         </ThemedText>
