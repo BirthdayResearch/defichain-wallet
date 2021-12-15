@@ -22,8 +22,8 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -284,27 +284,19 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
 }
 
 function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber, minColRatio: BigNumber, totalLoanValue: BigNumber }): JSX.Element {
-  const colors = useCollateralizationRatioColor({
-    colRatio: props.resultCollateralRatio,
-    minColRatio: props.minColRatio,
-    totalLoanAmount: props.totalLoanValue
-  })
-
   return (
     <>
       <ThemedSectionTitle
         text={translate('screens/ConfirmBorrowLoanTokenScreen', 'TRANSACTION RESULTS')}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
-        rhs={{
-          value: props.resultCollateralRatio.toFixed(2),
-          testID: 'text_result_collateral_ratio',
-          suffixType: 'text',
-          suffix: '%',
-          style: tailwind('ml-0')
-        }}
-        rhsThemedProps={colors}
+      <CollateralizationRatioRow
+        label={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
+        value={props.resultCollateralRatio.toFixed(2)}
+        testId='text_resulting_col_ratio'
+        type='current'
+        minColRatio={props.minColRatio}
+        totalLoanAmount={props.totalLoanValue}
+        colRatio={props.resultCollateralRatio}
       />
     </>
   )
