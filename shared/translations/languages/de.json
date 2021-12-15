@@ -721,7 +721,7 @@
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
-    "Collateral for auction": "Sicherheiten für Auktion",
+    "Collateral for auction": "Zu ersteigern",
     "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
@@ -1155,7 +1155,7 @@
     "Collaterals": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
-    "Collateral for auction": "Sicherheiten für Auktion"
+    "Collateral for auction": "Zu ersteigern"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1170,7 +1170,7 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Collateral for auction": "Sicherheiten für Auktion",
+    "Collateral for auction": "Zu ersteigern",
     "Insufficient funds": "Unzureichende Deckung"
   },
   "components/QuickBid": {
@@ -1182,6 +1182,6 @@
     "Current balance": "Aktueller Stand"
   },
   "components/WalletAddressRow": {
-    "Wallet address": "Wallet adresse"
+    "Wallet address": "Walletadresse"
   }
 }
