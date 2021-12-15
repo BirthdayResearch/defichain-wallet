@@ -78,6 +78,7 @@ export interface LoanParamList {
     amountToPay: BigNumber
     vault: LoanVaultActive
     loanToken: LoanVaultTokenAmount
+    excessAmount?: BigNumber
   }
   EditLoanSchemeScreen: {
     vaultId: string

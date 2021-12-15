@@ -10,10 +10,8 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
+import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -41,6 +39,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export interface TokenState {
   id: string
@@ -57,12 +56,14 @@ type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
 
 export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const logger = useLogger()
-  const pairs = usePoolPairsAPI()
-  const tokens = useTokensAPI()
   const client = useWhaleApiClient()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
+  const { address } = useWalletContext()
 
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -187,6 +188,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       }])
     expandModal()
   }
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()

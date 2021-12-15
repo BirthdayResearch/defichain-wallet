@@ -17,7 +17,6 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { VaultSectionTextRow } from '@screens/AppNavigator/screens/Loans/components/VaultSectionTextRow'
 import {
   useVaultStatus,
-  VaultStatus,
   VaultStatusTag
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
@@ -26,6 +25,7 @@ import {
 } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault

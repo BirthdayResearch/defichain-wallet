@@ -72,6 +72,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION
             })}
             style={tailwind('ml-2 font-medium')}
+            testID={`vault_detail_collateral_${props.displaySymbol}`}
           >
             {props.displaySymbol}
           </ThemedText>
@@ -87,6 +88,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
               dark={tailwind('text-gray-50')}
               light={tailwind('text-gray-900')}
               style={tailwind('font-medium')}
+              testID={`vault_detail_collateral_${props.displaySymbol}_vault_share`}
             >
               {val}
             </ThemedText>
@@ -111,6 +113,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                       dark={tailwind('text-gray-50')}
                       light={tailwind('text-gray-900')}
                       style={tailwind('text-sm')}
+                      testID={`vault_detail_collateral_${props.displaySymbol}_amount`}
                     >
                       {val}
                     </ThemedText>

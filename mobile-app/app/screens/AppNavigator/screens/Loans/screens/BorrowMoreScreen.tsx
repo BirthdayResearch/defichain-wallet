@@ -182,6 +182,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
             text: translate('screens/BorrowMoreScreen', inputValidationMessage)
           }}
           style={tailwind('h-9 w-3/5 flex-grow')}
+          testID='loan_add_input'
         />
         <WalletTextInput
           autoCapitalize='none'
@@ -212,7 +213,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
         label={translate('screens/BorrowMoreScreen', 'CONTINUE')}
         onPress={onSubmit}
-        testID='add_collateral_button'
+        testID='borrow_more_button'
         margin='mt-12 mb-2 mx-4'
       />
       <ThemedText

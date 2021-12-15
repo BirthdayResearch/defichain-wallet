@@ -234,12 +234,14 @@
     "Red: 1x – 1.25x above the minimum collateralization ratio": "红色视为警告：目前处在最低抵押率的1.25倍~1.5倍",
     "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "黄色视为注意： 目前处在最低抵押率的1.25倍~1.5倍",
     "Green: More than 1.5x the minimum collateralization ratio": "绿色视为正常：目前处在超过1.5倍的最低抵押率",
-    "What does the different status of a vault mean?": "金库的不同状态表示什么？",
-    "Active: When a vault has been created but no loan has been taken yet": "活跃：当某金库已被创建，但还没有获得贷款时",
-    "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "处于风险中：当某金库的抵押率在1倍-1.5倍之间，高于最低抵押率时",
-    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "健康正常：当某金库的抵押率超过最低抵押率的1.5倍时",
-    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement": "已清算：当一个金库的抵押率低于最低要求时",
-    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "停止：当金库中的任何代币（抵押品或贷款）在过去一小时内波动超过30%时",
+    "What do the different statuses of a vault mean?": "金库的不同状态是什么意思？",
+    "Empty: When a vault has been created but no collateral has been deposited yet.": "清空：当一个金库已创建但尚未存入任何抵押品时。",
+    "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "准备就绪：当抵押品已存入金库，但尚未获得借贷时。",
+    "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "活跃（红色）：当金库的抵押率在最低抵押率的 1 倍至 1.25 倍之间时。",
+    "Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.": "活跃（橙色）：当金库的抵押率在最低抵押率的 1.25 倍至 1.5 倍之间时。",
+    "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "活跃（绿色）：当金库的抵押率超过最低抵押率的 1.5 倍时。",
+    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement.": "清算中：当金库的抵押率低于最低要求抵押率。",
+    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "停止：当金库中的任何代币（抵押品或借贷）在过去一小时内波动超过 30% 时。",
     "How are interests calculated for loan?": "贷款的利息是如何计算的？",
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "贷款利息有两种，分别为金库利率和代币利率",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金库利率是在金库所有者选择金库方案时确定的，最低抵押率越高，金库利率越低。",
@@ -718,7 +720,7 @@
     "Browse auctions": "浏览拍卖",
     "Manage bids": "管理竞投出价",
     "Loans": "贷款",
-    "Auctioned collaterals": "拍卖抵押品",
+    "Collateral for auction": "待拍卖的抵押品",
     "Auction details": "拍卖细节"
   },
   "components/LoanCard": {
@@ -838,7 +840,7 @@
     "CONTINUE": "继续",
     "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
-    "Min. collateralization ratio": "最小抵押率"
+    "Min. collateralization ratio": "最低抵押率"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
@@ -848,7 +850,7 @@
     "Create vault": "创建金库",
     "Total transaction cost": "总交易费用",
     "VAULT DETAILS": "金库明细",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Interest rate (APR)": "利率(以回报率计算)",
     "APR": "年回报率",
     "CONFIRM CREATE VAULT": "确认创建金库",
@@ -868,7 +870,7 @@
     "Collateralization ratio": "抵押率",
     "Interest amount": "总利息金额",
     "Next collateralization": "当新价格生效，下一个抵押比率",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
@@ -882,7 +884,7 @@
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Total loans (USD)": "贷款总金额(美金)",
     "Vault interest (APR)": "金库利息",
-    "Min. collateralization ratio": "最小抵押率"
+    "Min. collateralization ratio": "最低抵押率"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "加入抵押品",
@@ -912,7 +914,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "贷款计划",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Vault interest": "金库利息",
     "VAULT DETAILS": "金库明细",
     "COLLATERALIZATION DETAILS": "抵押品明细",
@@ -998,7 +1000,9 @@
     "Remaining loan amount": "剩余贷款金额",
     "Outstanding balance": "剩余结余",
     "Collateralization ratio": "抵押率",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "Excess amount": "超出的金额",
+    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包."
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
@@ -1163,7 +1167,7 @@
     "CONFIRM PLACE BID": "确认标价",
     "Sign Transaction": "签下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
-    "Auctioned collaterals": "拍卖的抵押品为",
+    "Collateral for auction": "待拍卖的抵押品",
     "Insufficient funds": "资金不足"
   },
   "components/QuickBid": {

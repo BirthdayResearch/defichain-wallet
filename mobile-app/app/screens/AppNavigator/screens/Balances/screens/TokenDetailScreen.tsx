@@ -5,10 +5,8 @@ import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { MaterialIcons } from '@expo/vector-icons'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
 import { translate } from '@translations'
-import { WalletToken } from '@store/wallet'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
+import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components/index'
@@ -23,6 +21,10 @@ import {
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '@store'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 interface TokenActionItems {
   title: string
@@ -34,13 +36,22 @@ type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token: WalletToken, swapTokenDisplaySymbol?: string } => {
   // async calls
-  const tokens = useTokensAPI()
-  const pairs = usePoolPairsAPI()
+  const client = useWhaleApiClient()
+  const { address } = useWalletContext()
+  const dispatch = useDispatch()
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const blockCount = useSelector((state: RootState) => state.block.count)
 
   // state
   const [token, setToken] = useState(tokenParam)
   const [pair, setPair] = useState<PoolPairData>()
   const [swapTokenDisplaySymbol, setSwapTokenDisplaySymbol] = useState<string>()
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     const t = tokens.find((t) => t.id === token.id)

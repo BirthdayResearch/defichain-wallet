@@ -8,17 +8,7 @@ import {
   CollateralizationRatioStats,
   useCollateralRatioStats
 } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
-
-export enum VaultStatus {
-  Empty = 'EMPTY',
-  Ready = 'READY',
-  Healthy = 'HEALTHY',
-  AtRisk = 'AT RISK',
-  Halted = 'HALTED',
-  NearLiquidation = 'NEAR LIQUIDATION',
-  Liquidated = 'IN LIQUIDATION',
-  Unknown = 'UNKNOWN'
-}
+import { VaultStatus } from '../VaultStatusTypes'
 
 interface VaultHealthItem {
   vaultStats: CollateralizationRatioStats
@@ -133,6 +123,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         dark={tailwind('text-dfxgreen-500')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
+        testID={`vault_tag_${props.status}`}
       />
     )
   }
@@ -146,6 +137,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         dark={tailwind('text-dfxyellow-300')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
+        testID={`vault_tag_${props.status}`}
       />
     )
   }
@@ -159,6 +151,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         dark={tailwind('text-dfxpink-300')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
+        testID={`vault_tag_${props.status}`}
       />
     )
   }
@@ -172,6 +165,7 @@ function SignalIcon (props: {status: VaultStatus}): JSX.Element | null {
         dark={tailwind('text-dfxgray-500')}
         style={tailwind('ml-1 pt-px')}
         size={signalIconSize}
+        testID={`vault_tag_${props.status}`}
       />
     )
   }
