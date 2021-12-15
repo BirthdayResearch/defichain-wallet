@@ -8,9 +8,9 @@ export function DexSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoad
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border border-gray-700')}
-      light={tailwind('bg-white border border-gray-200')}
-      style={tailwind('py-4 mx-4 mt-2 items-center justify-center')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      light={tailwind('bg-white border-gray-200')}
+      style={tailwind('py-4 mb-2 items-center justify-center rounded border')}
       testID='dex_skeleton_loader'
     >
       <ContentLoader
