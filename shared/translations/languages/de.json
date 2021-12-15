@@ -721,7 +721,7 @@
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
-    "Auctioned collaterals": "Zu versteigernde Sicherheiten",
+    "Collateral for auction": "Zu ersteigern",
     "Auction details": "Auktionsdetails"
   },
   "components/LoanCard": {
@@ -1003,7 +1003,8 @@
     "Collateralization ratio": "Besicherungsquote",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Excess amount": "Überschüssiger Betrag",
-    "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert."
+    "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert.",
+    "Resulting collateralization":"Resultierende Besicherungsquote"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -1020,7 +1021,8 @@
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
     "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
-    "Confirm Loan Payment": "Darlehensrückzahlung bestätigen"
+    "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
+    "Resulting collateralization":"Resultierende Besicherungsquote"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",
@@ -1153,7 +1155,7 @@
     "Collaterals": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
-    "Auctioned collaterals": "Zu versteigernde Sicherheiten"
+    "Collateral for auction": "Zu ersteigern"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1168,7 +1170,7 @@
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
-    "Auctioned collaterals": "Zu versteigernde Sicherheiten",
+    "Collateral for auction": "Zu ersteigern",
     "Insufficient funds": "Unzureichende Deckung"
   },
   "components/QuickBid": {
@@ -1180,6 +1182,6 @@
     "Current balance": "Aktueller Stand"
   },
   "components/WalletAddressRow": {
-    "Wallet address": "Wallet adresse"
+    "Wallet address": "Walletadresse"
   }
 }

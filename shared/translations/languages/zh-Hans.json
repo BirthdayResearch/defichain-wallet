@@ -720,7 +720,7 @@
     "Browse auctions": "浏览拍卖",
     "Manage bids": "管理竞投出价",
     "Loans": "贷款",
-    "Auctioned collaterals": "拍卖抵押品",
+    "Collateral for auction": "待拍卖的抵押品",
     "Auction details": "拍卖细节"
   },
   "components/LoanCard": {
@@ -840,7 +840,7 @@
     "CONTINUE": "继续",
     "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
-    "Min. collateralization ratio": "最小抵押率"
+    "Min. collateralization ratio": "最低抵押率"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
@@ -850,7 +850,7 @@
     "Create vault": "创建金库",
     "Total transaction cost": "总交易费用",
     "VAULT DETAILS": "金库明细",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Interest rate (APR)": "利率(以回报率计算)",
     "APR": "年回报率",
     "CONFIRM CREATE VAULT": "确认创建金库",
@@ -870,7 +870,7 @@
     "Collateralization ratio": "抵押率",
     "Interest amount": "总利息金额",
     "Next collateralization": "当新价格生效，下一个抵押比率",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
@@ -884,7 +884,7 @@
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Total loans (USD)": "贷款总金额(美金)",
     "Vault interest (APR)": "金库利息",
-    "Min. collateralization ratio": "最小抵押率"
+    "Min. collateralization ratio": "最低抵押率"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "加入抵押品",
@@ -914,7 +914,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "贷款计划",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Vault interest": "金库利息",
     "VAULT DETAILS": "金库明细",
     "COLLATERALIZATION DETAILS": "抵押品明细",
@@ -1002,7 +1002,8 @@
     "Collateralization ratio": "抵押率",
     "Min. collateralization ratio": "最低抵押率",
     "Excess amount": "超出的金额",
-    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包."
+    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包.",
+    "Resulting collateralization": "最终抵押率"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
@@ -1019,7 +1020,8 @@
     "Collateralization ratio": "抵押率",
     "Paying loan": "贷款还款",
     "Paying {{amount}} {{symbol}}": "付款中{{amount}} {{symbol}} ",
-    "Confirm Loan Payment": "确认贷款支付"
+    "Confirm Loan Payment": "确认贷款支付",
+    "Resulting collateralization": "最终抵押率"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
@@ -1167,7 +1169,7 @@
     "CONFIRM PLACE BID": "确认标价",
     "Sign Transaction": "签下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
-    "Auctioned collaterals": "拍卖的抵押品为",
+    "Collateral for auction": "待拍卖的抵押品",
     "Insufficient funds": "资金不足"
   },
   "components/QuickBid": {
