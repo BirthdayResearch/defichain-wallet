@@ -99,8 +99,8 @@ function UseCaseRow (props: {label: string}): JSX.Element {
         size={16}
         name='check-circle'
         iconType='MaterialIcons'
-        light={tailwind('text-green-500')}
-        dark={tailwind('text-green-500')}
+        light={tailwind('text-success-500')}
+        dark={tailwind('text-darksuccess-500')}
         style={tailwind('mt-0.5')}
       />
       <View style={tailwind('ml-2 flex-auto')}>
