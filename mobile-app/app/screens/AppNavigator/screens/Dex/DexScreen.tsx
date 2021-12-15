@@ -439,17 +439,17 @@ function AvailablePoolPairCards ({
               <View style={tailwind('flex justify-end')}>
                 <ThemedTouchableOpacity
                   light={tailwind('border-gray-300 bg-white')}
-                  dark={tailwind('border-dfxgray-400 bg-dfxblue-900')}
+                  dark={tailwind('border-dfxblue-900 bg-dfxblue-800')}
                   onPress={() => setFavouritePoolpair(pair.id)}
                   style={tailwind('p-1.5 border rounded mr-2 mt-2 flex-row items-center')}
                 >
                   <ThemedIcon
                     iconType='MaterialIcons'
-                    name={isFavouritePair ? 'star' : 'star-outline'}
+                    name='star'
                     onPress={() => setFavouritePoolpair(pair.id)}
                     size={20}
                     light={tailwind(isFavouritePair ? 'text-warning-500' : 'text-gray-600')}
-                    dark={tailwind(isFavouritePair ? 'text-darkwarning-500' : 'text-dfxgray-300')}
+                    dark={tailwind(isFavouritePair ? 'text-dfxblue-500' : 'text-dfxblue-900')}
                     style={tailwind('')}
                   />
                 </ThemedTouchableOpacity>
