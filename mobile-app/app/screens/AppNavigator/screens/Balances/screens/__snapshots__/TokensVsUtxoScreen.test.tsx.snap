@@ -72,7 +72,7 @@ exports[`tokens vs utxo screen should render 1`] = `
           ]
         }
       >
-        DFI exists in two forms - UTXO and Token They can be converted with one another to serve different use cases within your light wallet.
+        DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.
       </Text>
     </View>
     <View
@@ -94,10 +94,10 @@ exports[`tokens vs utxo screen should render 1`] = `
       >
         <RNSVGSvgView
           align="xMidYMid"
-          bbHeight={20}
-          bbWidth={20}
+          bbHeight={24}
+          bbWidth={24}
           focusable={false}
-          height={20}
+          height={24}
           meetOrSlice={0}
           minX={0}
           minY={0}
@@ -109,14 +109,14 @@ exports[`tokens vs utxo screen should render 1`] = `
               },
               Object {
                 "flex": 0,
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
             ]
           }
           vbHeight={32}
           vbWidth={32}
-          width={20}
+          width={24}
         >
           <RNSVGGroup>
             <RNSVGCircle
@@ -395,10 +395,10 @@ exports[`tokens vs utxo screen should render 1`] = `
       >
         <RNSVGSvgView
           align="xMidYMid"
-          bbHeight={20}
-          bbWidth={20}
+          bbHeight={24}
+          bbWidth={24}
           focusable={false}
-          height={20}
+          height={24}
           meetOrSlice={0}
           minX={0}
           minY={0}
@@ -410,14 +410,14 @@ exports[`tokens vs utxo screen should render 1`] = `
               },
               Object {
                 "flex": 0,
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
             ]
           }
           vbHeight={32}
           vbWidth={32}
-          width={20}
+          width={24}
         >
           <RNSVGGroup>
             <RNSVGCircle

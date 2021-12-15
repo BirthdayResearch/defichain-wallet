@@ -294,7 +294,7 @@
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Learn about UTXOs and Tokens",
-    "DFI exists in two forms - UTXO and Token They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms - UTXO and Token They can be converted with one another to serve different use cases within your light wallet.",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
     "DFI in UTXO form": "DFI in UTXO form",
     "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
     "Use cases include:": "Use cases include:",

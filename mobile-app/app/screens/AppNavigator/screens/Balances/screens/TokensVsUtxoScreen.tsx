@@ -20,7 +20,7 @@ export function TokensVsUtxoScreen (): JSX.Element {
           light={tailwind('text-gray-700')}
           dark={tailwind('text-gray-200')}
         >
-          {translate('screens/TokensVsUtxoScreen', 'DFI exists in two forms - UTXO and Token They can be converted with one another to serve different use cases within your light wallet.')}
+          {translate('screens/TokensVsUtxoScreen', 'DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.')}
         </ThemedText>
       </View>
       <FaqInfoSection
