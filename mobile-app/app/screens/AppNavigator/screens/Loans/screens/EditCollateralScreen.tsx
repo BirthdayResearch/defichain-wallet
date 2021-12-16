@@ -209,6 +209,7 @@ export function EditCollateralScreen ({
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
+                  vault: activeVault,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: dismissModal,
                   navigateToScreen: {
@@ -252,12 +253,14 @@ export function EditCollateralScreen ({
               component: AddOrRemoveCollateralForm,
               initialParam: {
                 token: collateralItem.token,
+                collateralItem: collateralItem,
                 available: '',
                 onButtonPress: undefined,
                 onCloseButtonPress: dismissModal,
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
-                current: new BigNumber(collateral.amount)
+                current: new BigNumber(collateral.amount),
+                vault: activeVault
               },
               option: {
                 header: () => null

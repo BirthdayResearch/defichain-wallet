@@ -19,17 +19,23 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { DFITokenSelector } from '@store/wallet'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
+import { useTotalCollateralValue } from '../hooks/CollateralPrice'
+import { CollateralItem } from '../screens/EditCollateralScreen'
 
 export interface AddOrRemoveCollateralFormProps {
-  token: TokenData
+  collateralItem: CollateralItem
   collateralFactor: BigNumber
   available: string
   current?: BigNumber
   onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   onCloseButtonPress: () => void
   isAdd: boolean
+  vault: LoanVaultActive
 }
 
+const COLOR_BARS_COUNT = 6
 type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrRemoveCollateralFormProps'>
 
 export interface AddOrRemoveCollateralResponse {
@@ -39,12 +45,13 @@ export interface AddOrRemoveCollateralResponse {
 
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
   const {
-    token,
+    collateralItem: { token, activePrice },
     available,
     onButtonPress,
     onCloseButtonPress,
     collateralFactor,
-    isAdd
+    isAdd,
+    vault
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -58,6 +65,32 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
   )
 : false
   const [isValid, setIsValid] = useState(false)
+  const collateralInputValue = new BigNumber(collateralValue).isNaN() ? 0 : collateralValue
+  const { totalCollateralValueInUSD } = useTotalCollateralValue({
+    vault,
+    token,
+    isAdd,
+    collateralInputValue,
+    activePriceAmount: activePrice?.active === undefined ? new BigNumber(0) : new BigNumber(activePrice?.active.amount)
+  })
+  const {
+    displayedColorBars,
+    resultingColRatio
+  } = useResultingCollateralizationRatioByCollateral({
+    collateralValue: collateralValue,
+    collateralRatio: new BigNumber(vault.collateralRatio ?? NaN),
+    minCollateralRatio: new BigNumber(vault.loanScheme.minColRatio),
+    totalLoanAmount: new BigNumber(vault.loanValue),
+    numOfColorBars: COLOR_BARS_COUNT,
+    totalCollateralValueInUSD
+  })
+
+  console.log({
+    totalCollateralValueInUSD: totalCollateralValueInUSD.toFixed(2),
+    resultingColRatio: resultingColRatio.toFixed(2),
+    activePrice,
+    vault
+  })
 
   const validateInput = (input: string): void => {
     const formattedInput = new BigNumber(input)
@@ -164,6 +197,11 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         suffix={` ${token.displaySymbol}`}
         styleProps={tailwind('font-medium')}
       />
+      <View style={tailwind('flex flex-row justify-between')}>
+        <ThemedText>Resulting Collaterization</ThemedText>
+        <ThemedText>{resultingColRatio.isNegative() || resultingColRatio.isNaN() ? 'N/A' : `${resultingColRatio.toFixed(2)}%`}</ThemedText>
+      </View>
+      <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired &&
         <View style={tailwind('mt-4 mb-6')}>
           <ConversionInfoText />
@@ -184,3 +222,31 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     </ThemedScrollView>
   )
 })
+
+function ColorBar (props: { colorBarsLen: number, displayedBarsLen: number }): JSX.Element {
+  const width = 100 / props.colorBarsLen
+  return (
+    <View style={tailwind('flex flex-row mt-1')}>
+      {Array.from(Array(props.colorBarsLen), (_v, i) => i + 1).map(index => {
+        const isLiquidated = index <= (props.colorBarsLen / 3)
+        const isAtRisk = index <= (props.colorBarsLen / 3) * 2 && !isLiquidated
+        const isHealthy = !isLiquidated && !isAtRisk
+        const isWithinRange = !isNaN(props.displayedBarsLen) && props.displayedBarsLen >= index
+
+        return (
+          <ThemedView
+            key={index}
+            light={tailwind({
+              'bg-error-200': isLiquidated && isWithinRange,
+              'bg-warning-300': isAtRisk && isWithinRange,
+              'bg-success-300': isHealthy && isWithinRange,
+              'bg-gray-200': !isWithinRange
+            })}
+            dark={tailwind('bg-darkerror-200')}
+            style={[tailwind('h-1 mr-0.5'), { width: `${width}%` }]}
+          />
+          )
+      })}
+    </View>
+  )
+}

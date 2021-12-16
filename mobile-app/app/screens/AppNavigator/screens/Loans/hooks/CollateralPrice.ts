@@ -1,12 +1,23 @@
 import BigNumber from 'bignumber.js'
 import { useVaultShare } from '@screens/AppNavigator/screens/Loans/hooks/VaultShare'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 interface CollateralPrice {
   activePrice: BigNumber
   collateralPrice: BigNumber
   vaultShare: BigNumber
   collateralFactor: BigNumber
+}
+
+interface TotalCollateralValueProps {
+  vault: LoanVaultActive
+  token: TokenData
+  isAdd: boolean
+  collateralInputValue: string | number
+  activePriceAmount: BigNumber
 }
 
 export function useCollateralPrice (amount: BigNumber, collateralItem: CollateralItem, totalCollateralValue: BigNumber): CollateralPrice {
@@ -20,6 +31,26 @@ export function useCollateralPrice (amount: BigNumber, collateralItem: Collatera
     vaultShare,
     collateralFactor
   }
+}
+
+export function useTotalCollateralValue ({ vault, token, isAdd, collateralInputValue, activePriceAmount }: TotalCollateralValueProps): { totalCollateralValueInUSD: BigNumber} {
+  let totalCollateralValueInUSD =
+    vault?.collateralAmounts.reduce((total, collateral) => {
+      let newColValue = new BigNumber(collateral.amount)
+      if (collateral.symbol === token.symbol && isAdd) {
+        newColValue = new BigNumber(collateral.amount).plus(collateralInputValue)
+      } else if (collateral.symbol === token.symbol && !isAdd) {
+        newColValue = new BigNumber(collateral.amount).minus(collateralInputValue)
+      }
+
+      return total.plus(new BigNumber(newColValue).multipliedBy(getActivePrice(collateral.symbol, collateral.activePrice)))
+    }, new BigNumber(0))
+
+  if (!vault?.collateralAmounts.some(collateralAmount => collateralAmount.id === token.id)) {
+    totalCollateralValueInUSD = totalCollateralValueInUSD.plus(new BigNumber(collateralInputValue).multipliedBy(activePriceAmount))
+  }
+
+  return { totalCollateralValueInUSD }
 }
 
 export function useResultingCollateralRatio (collateralValue: BigNumber, existingLoanValue: BigNumber, newLoanAmount: BigNumber, activePrice: BigNumber, interestPerBlock: BigNumber): BigNumber {

@@ -11,6 +11,7 @@ import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -21,6 +22,7 @@ interface BottomSheetTokenListProps {
     onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   }
   tokens: Array<CollateralItem | BottomSheetToken>
+  vault?: LoanVaultActive
 }
 
 export interface BottomSheetToken {
@@ -40,7 +42,8 @@ export const BottomSheetTokenList = ({
   onCloseButtonPress,
   onTokenPress,
   navigateToScreen,
-  tokens
+  tokens,
+  vault
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
@@ -64,11 +67,12 @@ export const BottomSheetTokenList = ({
               navigation.navigate({
                 name: navigateToScreen.screenName,
                 params: {
-                  token: item.token,
+                  collateralItem: item,
                   available: item.available.toFixed(8),
                   onButtonPress: navigateToScreen.onButtonPress,
                   collateralFactor: new BigNumber(item.factor ?? 0).times(100),
-                  isAdd: true
+                  isAdd: true,
+                  vault
                 },
                 merge: true
               })
