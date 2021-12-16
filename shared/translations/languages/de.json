@@ -968,7 +968,9 @@
     "REMOVE COLLATERAL AMOUNT": "BETRAG DER SICHERHEITEN REDUZIEREN",
     "How much {{symbol}} to remove?": "Wie viele {{symbol}} sollen entfernt werden?",
     "Current": "Aktueller Stand",
-    "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens."
+    "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens.",
+    "Resulting collateralization":"Resultierende Besicherungsquote",
+    "N/A": "K/A"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",

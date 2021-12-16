@@ -969,7 +969,9 @@
     "REMOVE COLLATERAL AMOUNT": "移除抵押金額",
     "How much {{symbol}} to remove?": "您想移除多少{{symbol}}",
     "Current": "目前餘額",
-    "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素決定了每款抵押代幣的貢獻程度比例。"
+    "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素決定了每款抵押代幣的貢獻程度比例。",
+    "Resulting collateralization": "最終抵押率",
+    "N/A": "不適用"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "您正在加入抵押到",
