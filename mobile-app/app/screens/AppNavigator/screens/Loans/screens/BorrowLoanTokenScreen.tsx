@@ -604,7 +604,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Total annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
           testID: 'text_total_interest_amount',

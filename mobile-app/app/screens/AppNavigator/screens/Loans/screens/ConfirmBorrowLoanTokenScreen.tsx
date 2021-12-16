@@ -200,7 +200,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
           testID: 'total_interest_amount',
