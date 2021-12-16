@@ -62,6 +62,7 @@ export function BorrowLoanTokenScreen ({
     amountInput: ''
   })
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
+  const [totalInterest, setTotalInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken.interest))
@@ -135,8 +136,8 @@ export function BorrowLoanTokenScreen ({
     if (vault === undefined || amountToBorrow.amountInput === undefined || loanToken.activePrice?.active?.amount === undefined) {
       return
     }
-
-    setTotalLoanWithInterest(amountToBorrow.amountInToken.plus(interestPerBlock))
+    setTotalInterest(interestPerBlock.multipliedBy(amountToBorrow.amountInToken))
+    setTotalLoanWithInterest(amountToBorrow.amountInToken.multipliedBy(interestPerBlock.plus(1)))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -283,7 +284,7 @@ export function BorrowLoanTokenScreen ({
                 vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
                 loanTokenInterestRate={new BigNumber(loanToken.interest)}
                 loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-                totalInterestAmount={interestPerBlock}
+                totalInterestAmount={totalInterest}
                 totalLoanWithInterest={totalLoanWithInterest}
                 loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
                 fee={fee}
