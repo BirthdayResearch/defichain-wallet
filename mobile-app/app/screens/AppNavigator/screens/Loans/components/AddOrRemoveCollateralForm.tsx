@@ -20,7 +20,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { DFITokenSelector } from '@store/wallet'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
+import { useCollateralizationRatioColor, useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
 import { useTotalCollateralValue } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
 
@@ -84,12 +84,11 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     numOfColorBars: COLOR_BARS_COUNT,
     totalCollateralValueInUSD
   })
-
-  console.log({
-    totalCollateralValueInUSD: totalCollateralValueInUSD.toFixed(2),
-    resultingColRatio: resultingColRatio.toFixed(2),
-    activePrice,
-    vault
+  const colors = useCollateralizationRatioColor({
+    colRatio: new BigNumber(vault.collateralRatio ?? NaN),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio ?? NaN),
+    totalLoanAmount: new BigNumber(vault.loanValue ?? NaN),
+    totalCollateralValue: totalCollateralValueInUSD
   })
 
   const validateInput = (input: string): void => {
@@ -198,8 +197,13 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         styleProps={tailwind('font-medium')}
       />
       <View style={tailwind('flex flex-row justify-between')}>
-        <ThemedText>Resulting Collaterization</ThemedText>
-        <ThemedText>{resultingColRatio.isNegative() || resultingColRatio.isNaN() ? 'N/A' : `${resultingColRatio.toFixed(2)}%`}</ThemedText>
+        <ThemedText>{translate('components/AddOrRemoveCollateralForm', 'Resulting collaterization')}</ThemedText>
+        <ThemedText
+          style={tailwind('font-semibold')}
+          light={colors.light}
+          dark={colors.dark}
+        >{resultingColRatio.isNegative() || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+        </ThemedText>
       </View>
       <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired &&
@@ -242,7 +246,12 @@ function ColorBar (props: { colorBarsLen: number, displayedBarsLen: number }): J
               'bg-success-300': isHealthy && isWithinRange,
               'bg-gray-200': !isWithinRange
             })}
-            dark={tailwind('bg-darkerror-200')}
+            dark={tailwind({
+              'bg-darkerror-200': isLiquidated && isWithinRange,
+              'bg-darkwarning-300': isAtRisk && isWithinRange,
+              'bg-darksuccess-300': isHealthy && isWithinRange,
+              'bg-gray-200': !isWithinRange
+            })}
             style={[tailwind('h-1 mr-0.5'), { width: `${width}%` }]}
           />
           )
