@@ -85,7 +85,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     totalCollateralValueInUSD
   })
   const colors = useCollateralizationRatioColor({
-    colRatio: new BigNumber(vault.collateralRatio ?? NaN),
+    colRatio: resultingColRatio,
     minColRatio: new BigNumber(vault.loanScheme.minColRatio ?? NaN),
     totalLoanAmount: new BigNumber(vault.loanValue ?? NaN),
     totalCollateralValue: totalCollateralValueInUSD
