@@ -230,7 +230,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
 function ColorBar (props: { colorBarsLen: number, displayedBarsLen: number }): JSX.Element {
   const width = 100 / props.colorBarsLen
   return (
-    <View style={tailwind('flex flex-row mt-1')}>
+    <View style={tailwind('flex flex-row mt-1 mr-3')}>
       {Array.from(Array(props.colorBarsLen), (_v, i) => i + 1).map(index => {
         const isLiquidated = index <= (props.colorBarsLen / 3)
         const isAtRisk = index <= (props.colorBarsLen / 3) * 2 && !isLiquidated
