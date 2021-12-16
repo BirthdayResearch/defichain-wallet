@@ -22,6 +22,8 @@ import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useLoanOperations } from '../hooks/LoanOperations'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { EnvironmentNetwork } from '@environment'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -41,6 +43,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     amountInput: ''
   })
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
+  const [totalAnnualInterest, setTotalAnnualInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
@@ -51,6 +54,8 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
     interestPerBlock
   )
+  const { network } = useNetworkContext()
+  const blocksPerDay = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 2880 : 144
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -70,8 +75,9 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
       return
     }
-
-    setTotalLoanWithInterest(new BigNumber(amountToAdd.amountInToken).plus(interestPerBlock))
+    const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToAdd.amountInToken)
+    setTotalAnnualInterest(annualInterest)
+    setTotalLoanWithInterest(new BigNumber(amountToAdd.amountInToken).plus(annualInterest.plus(1)))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -204,7 +210,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
         loanTokenInterestRate={new BigNumber(loanToken.interest)}
         loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-        totalInterestAmount={interestPerBlock}
+        totalInterestAmount={totalAnnualInterest}
         totalLoanWithInterest={totalLoanWithInterest}
         loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
         fee={fee}
