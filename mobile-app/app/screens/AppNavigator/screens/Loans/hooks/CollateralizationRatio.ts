@@ -110,7 +110,7 @@ export function useResultingCollateralizationRatioByCollateral ({
 
   let displayedColorBars = -1
 
-  if (resultingColRatio.isLessThan(minCollateralRatio)) {
+  if (resultingColRatio.isLessThanOrEqualTo(0)) {
     displayedColorBars = -1
   } else if (isHealthy && colorBarsCount > 0) {
     displayedColorBars = colorBarsCount + (numOfColorBarPerStatus * 2)
@@ -138,11 +138,11 @@ const getColorBarsCount = (
   let colorBarsCount = -1
   let index = 1
   while (colorBarsCount === -1 && index <= numOfColorBarPerStatus) {
-    const colorBarAmount = minCollateralRatio.plus(minCollateralRatio.multipliedBy(
+    const colorBarMaxAmount = minCollateralRatio.plus(minCollateralRatio.multipliedBy(
       new BigNumber(thresholdRatio).minus(1).dividedBy(isHealthy ? 1 : numOfColorBarPerStatus).times(index) // divide threshold to number of bars
     ))
 
-    if (resultingCollateralRatio.isLessThanOrEqualTo(colorBarAmount)) {
+    if (resultingCollateralRatio.isLessThanOrEqualTo(colorBarMaxAmount)) {
       colorBarsCount = index
     }
 

@@ -197,7 +197,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         styleProps={tailwind('font-medium')}
       />
       <View style={tailwind('flex flex-row justify-between')}>
-        <ThemedText>{translate('components/AddOrRemoveCollateralForm', 'Resulting collaterization')}</ThemedText>
+        <ThemedText>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
         <ThemedText
           style={tailwind('font-semibold')}
           light={colors.light}
