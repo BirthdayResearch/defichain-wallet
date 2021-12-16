@@ -9,8 +9,10 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -44,6 +46,7 @@ export interface AddOrRemoveCollateralResponse {
 }
 
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
+  const { isLight } = useThemeContext()
   const {
     collateralItem: { token, activePrice },
     available,
@@ -108,11 +111,18 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     validateInput(collateralValue)
   }, [collateralValue])
 
+  const bottomSheetComponents = {
+    mobile: BottomSheetScrollView,
+    web: ThemedScrollView
+  }
+  const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
+
   return (
-    <ThemedScrollView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('p-4 flex-1')}
+    <ScrollView
+      style={tailwind(['p-4 flex-1', {
+        'bg-white': isLight,
+        'bg-gray-800': !isLight
+      }])}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
@@ -220,10 +230,10 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         margin='mt-8 mb-2'
         testID='add_collateral_button_submit'
       />
-      <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
+      <ThemedText style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
       </ThemedText>
-    </ThemedScrollView>
+    </ScrollView>
   )
 })
 
