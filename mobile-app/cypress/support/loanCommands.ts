@@ -35,7 +35,7 @@ export function checkConfirmEditCollateralValues (title: string, vaultId: string
 export function checkCollateralCardValues (symbol: string, amount: string, dollarValue: string, vaultShare: string): void {
   cy.getByTestID(`collateral_card_symbol_${symbol}`).contains(symbol)
   cy.getByTestID(`collateral_card_col_amount_${symbol}`).contains(amount)
-  cy.getByTestID(`collateral_card_col_amount_usd_${symbol}`).contains(`/${dollarValue}`)
+  cy.getByTestID(`collateral_card_col_amount_usd_${symbol}`).contains(dollarValue)
   cy.getByTestID(`collateral_card_vault_share_${symbol}`).contains(vaultShare)
 }
 
