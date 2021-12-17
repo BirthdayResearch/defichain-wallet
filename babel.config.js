@@ -18,8 +18,7 @@ module.exports = function (api) {
           '@screens': './mobile-app/app/screens',
           '@store': './shared/store',
           '@translations': './shared/translations',
-          '@tailwind': './mobile-app/app/tailwind',
-          '@package': './package.json'
+          '@tailwind': './mobile-app/app/tailwind'
         }
       }
     ],
