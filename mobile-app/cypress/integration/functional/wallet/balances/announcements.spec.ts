@@ -60,7 +60,7 @@ context('Wallet - Balances - Announcements', () => {
       body: sampleAnnouncements
     })
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Refresh')
+    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
   })
 
   it('should display announcement message - translated', function () {
@@ -72,6 +72,6 @@ context('Wallet - Balances - Announcements', () => {
     cy.reload()
     cy.getByTestID('playground_wallet_random').click()
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Erneuern')
+    cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
   })
 })
