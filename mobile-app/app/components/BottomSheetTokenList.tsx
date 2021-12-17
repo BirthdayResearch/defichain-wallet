@@ -85,7 +85,9 @@ export const BottomSheetTokenList = ({
             }}
             />
             <View style={tailwind('ml-2')}>
-              <ThemedText>
+              <ThemedText
+                testID={`token_symbol_${item.token.displaySymbol}`}
+              >
                 {item.token.displaySymbol}
               </ThemedText>
               <ThemedText

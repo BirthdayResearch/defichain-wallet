@@ -7,7 +7,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React from 'react'
-import { useVaultStatus } from '../../components/VaultStatusTag'
 import { useNextCollateralizationRatio } from '../../hooks/NextCollateralizationRatio'
 import { CollateralizationRatioRow } from '../../components/CollateralizationRatioRow'
 
@@ -82,8 +81,6 @@ interface CollateralizationRatioSectionProps {
 }
 
 function CollateralizationRatioSection (props: CollateralizationRatioSectionProps): JSX.Element {
-  const currentVaultState = useVaultStatus(props.vaultState, props.collateralizationRatio, props.minColRatio, props.totalLoansValue)
-  const nextVaultState = useVaultStatus(props.vaultState, props.nextCollateralizationRatio, props.minColRatio, props.totalLoansValue)
   return (
     <>
       <ThemedSectionTitle
@@ -110,7 +107,9 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
             value={props.collateralizationRatio.toFixed(2)}
             testId='text_col_ratio'
             type='current'
-            vaultState={currentVaultState}
+            minColRatio={props.minColRatio}
+            totalLoanAmount={props.totalLoansValue}
+            colRatio={props.collateralizationRatio}
           />
         )}
       {props.nextCollateralizationRatio.isLessThan(0)
@@ -134,7 +133,9 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
             value={props.nextCollateralizationRatio.toFixed(2)}
             testId='text_next_col'
             type='next'
-            vaultState={nextVaultState}
+            minColRatio={props.minColRatio}
+            totalLoanAmount={props.totalLoansValue}
+            colRatio={props.nextCollateralizationRatio}
           />
         )}
       <NumberRow

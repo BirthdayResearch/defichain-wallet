@@ -10,14 +10,12 @@ import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -26,6 +24,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -39,15 +38,17 @@ interface ExtPoolPairData extends PoolPairData {
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
-  const pairs = usePoolPairsAPI()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const tokens = useTokensAPI()
   const client = useWhaleApiClient()
+  const { address } = useWalletContext()
   const dispatch = useDispatch()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -150,6 +151,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       })
     }
   }
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()
@@ -317,7 +323,7 @@ function PriceDetailsSection (props: { pair: ExtPoolPairData }): JSX.Element {
           tokenB: pair.tokenB.displaySymbol
         })}
         rhs={{
-          value: pair.aToBRate.toFixed(8),
+          value: pair.bToARate.toFixed(8),
           testID: 'a_per_b_price',
           suffixType: 'text',
           suffix: pair.tokenA.displaySymbol
@@ -329,7 +335,7 @@ function PriceDetailsSection (props: { pair: ExtPoolPairData }): JSX.Element {
           tokenB: pair.tokenA.displaySymbol
         })}
         rhs={{
-          value: pair.bToARate.toFixed(8),
+          value: pair.aToBRate.toFixed(8),
           testID: 'b_per_a_price',
           suffixType: 'text',
           suffix: pair.tokenB.displaySymbol
@@ -354,7 +360,7 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/AddLiquidity', 'Amount to be converted')}
+          lhs={translate('screens/AddLiquidity', 'UTXO to be converted')}
           rhs={{
           value: props.amountToConvert.toFixed(8),
           testID: 'text_amount_to_convert',

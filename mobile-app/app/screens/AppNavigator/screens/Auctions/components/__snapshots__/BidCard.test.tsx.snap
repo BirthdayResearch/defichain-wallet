@@ -1,0 +1,466 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bid Card should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderBottomWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderTopWidth": 1,
+        "marginBottom": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "SemiBoldFont",
+                "fontWeight": "600",
+              },
+              Object {
+                "color": "rgba(23, 23, 23, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        5,015.07942533 DUSD
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 8,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "width": "50%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Auction ID
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "width": "50%",
+        }
+      }
+    >
+      <Text
+        ellipsizeMode="middle"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "flexShrink": 1,
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginRight": 2,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        92dcef48f0109d007f6csdsjhd2637618739a8d749584e0b732c5b968f54
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 8,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Auction ends in
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "flexWrap": "wrap",
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+              ],
+              Object {
+                "color": "rgba(23, 23, 23, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        ~65h 35m left
+         (
+        7870 blks
+        )
+      </Text>
+    </View>
+  </View>
+  <View
+    animated={true}
+    animationConfig={
+      Object {
+        "bounciness": 0,
+      }
+    }
+    animationType="spring"
+    indeterminate={false}
+    indeterminateAnimationDuration={1000}
+    onLayout={[Function]}
+    progress={218.61111111111111}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "gray-100",
+          "borderColor": "rgba(212, 212, 212, 1)",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "overflow": "hidden",
+          "width": null,
+        },
+        undefined,
+      ]
+    }
+    useNativeDriver={false}
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(90, 169, 230, 1)",
+          "height": 8,
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "scaleX": 1,
+            },
+          ],
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "marginBottom": -8,
+          "marginTop": 16,
+        },
+        Object {
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(212, 212, 212, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(212, 212, 212, 1)",
+          "borderLeftWidth": 1,
+          "borderRightColor": "rgba(212, 212, 212, 1)",
+          "borderRightWidth": 1,
+          "borderTopColor": "rgba(212, 212, 212, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
+          "flexDirection": "row",
+          "marginBottom": 8,
+          "marginRight": 8,
+          "opacity": 1,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        BID HIGHER
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(212, 212, 212, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(212, 212, 212, 1)",
+          "borderLeftWidth": 1,
+          "borderRightColor": "rgba(212, 212, 212, 1)",
+          "borderRightWidth": 1,
+          "borderTopColor": "rgba(212, 212, 212, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
+          "flexDirection": "row",
+          "marginBottom": 8,
+          "marginRight": 8,
+          "opacity": 1,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        VIEW REWARDS
+      </Text>
+    </View>
+  </View>
+</View>
+`;

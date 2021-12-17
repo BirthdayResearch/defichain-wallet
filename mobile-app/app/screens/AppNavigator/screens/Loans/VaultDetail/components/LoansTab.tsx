@@ -7,11 +7,7 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { IconButton } from '@components/IconButton'
 import { translate } from '@translations'
 import { LoanVault } from '@store/loans'
-import {
-  LoanVaultActive,
-  LoanVaultState,
-  LoanVaultTokenAmount
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultSectionTextRow } from '../../components/VaultSectionTextRow'
 import { EmptyLoan } from './EmptyLoan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -96,6 +92,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             'text-white': props.vaultState !== LoanVaultState.IN_LIQUIDATION
           })}
           style={tailwind('font-medium ml-2')}
+          testID={`loan_card_${props.displaySymbol}`}
         >
           {props.displaySymbol}
         </ThemedText>
@@ -104,7 +101,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
         <VaultSectionTextRow
           value={new BigNumber(props.amount).toFixed(8)}
           lhs={translate('components/VaultDetailsLoansTab', 'Outstanding balance')}
-          testID='text_outstanding_balance'
+          testID={`loan_card_${props.displaySymbol}_outstanding_balance`}
           suffixType='text'
           suffix={` ${props.displaySymbol}`}
           style={tailwind('text-sm font-medium')}
@@ -136,8 +133,8 @@ function LoanCard (props: LoanCardProps): JSX.Element {
       </View>
 
       {
-        canUseOperations && props.vault !== undefined && (
-          <ActionButtons vault={props.vault} loanToken={props.loanToken} />
+        props.vault !== undefined && (
+          <ActionButtons testID={`loan_card_${props.displaySymbol}`} vault={props.vault} loanToken={props.loanToken} canUseOperations={canUseOperations} />
         )
       }
     </ThemedView>
@@ -146,8 +143,10 @@ function LoanCard (props: LoanCardProps): JSX.Element {
 
 function ActionButtons ({
   vault,
-  loanToken
-}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount }): JSX.Element {
+  loanToken,
+  canUseOperations,
+  testID
+}: { vault: LoanVaultActive, loanToken: LoanVaultTokenAmount, canUseOperations: boolean, testID: string }): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
 
   return (
@@ -156,22 +155,26 @@ function ActionButtons ({
     >
       <View style={tailwind('flex flex-row flex-wrap flex-1')}>
         <IconButton
+          disabled={!canUseOperations}
           iconLabel={translate('components/VaultDetailsLoansTab', 'PAYBACK LOAN')}
           style={tailwind('mr-2 mb-2 p-2')}
+          testID={`${testID}_payback_loan`}
           onPress={() => {
             navigation.navigate({
               name: 'PaybackLoanScreen',
               merge: true,
               params: {
                 vault,
-                loanToken
+                loanTokenAmount: loanToken
               }
             })
           }}
         />
         <IconButton
+          disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
           iconLabel={translate('components/VaultDetailsLoansTab', 'BORROW MORE')}
           style={tailwind('mr-2 mb-2 p-2')}
+          testID={`${testID}_borrow_more`}
           onPress={() => {
             navigation.navigate({
               name: 'BorrowMoreScreen',

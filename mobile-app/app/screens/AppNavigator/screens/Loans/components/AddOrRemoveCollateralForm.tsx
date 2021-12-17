@@ -18,6 +18,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { DFITokenSelector } from '@store/wallet'
+import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 
 export interface AddOrRemoveCollateralFormProps {
   token: TokenData
@@ -50,7 +51,12 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
   const [collateralValue, setCollateralValue] = useState<string>('')
-  const isConversionRequired = isAdd && token.id === '0' ? new BigNumber(collateralValue).gt(DFIToken.amount) : false
+  const isConversionRequired = isAdd && token.id === '0'
+? (
+    new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
+    new BigNumber(collateralValue).isLessThanOrEqualTo(available)
+  )
+: false
   const [isValid, setIsValid] = useState(false)
 
   const validateInput = (input: string): void => {
@@ -60,6 +66,10 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     } else {
       setIsValid(true)
     }
+  }
+
+  const onAmountChange = (amount: string): void => {
+    setCollateralValue(amount)
   }
 
   useEffect(() => {
@@ -73,7 +83,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
       style={tailwind('p-4 flex-1')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
-        <ThemedText style={tailwind('flex-1 mb-2 text-lg font-medium')}>
+        <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
           {translate('components/AddOrRemoveCollateralForm', `How much {{symbol}} to ${isAdd ? 'add' : 'remove'}?`, {
             symbol: token.displaySymbol
           })}
@@ -92,6 +102,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         }}
         />
         <ThemedText
+          testID={`token_symbol_${token.displaySymbol}`}
           style={tailwind('mx-2')}
         >
           {token.displaySymbol}
@@ -121,15 +132,35 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         value={collateralValue}
         inputType='numeric'
         displayClearButton={collateralValue !== ''}
-        onChangeText={(text) => setCollateralValue(text)}
+        onChangeText={onAmountChange}
         onClearButtonPress={() => setCollateralValue('')}
         placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
-        style={tailwind('h-9 w-10/12 flex-grow')}
+        style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
-      />
+        testID='form_input_text'
+      >
+        <ThemedView
+          dark={tailwind('bg-gray-800')}
+          light={tailwind('bg-white')}
+          style={tailwind('flex-row items-center')}
+        >
+          <SetAmountButton
+            amount={new BigNumber(available)}
+            onPress={onAmountChange}
+            type={AmountButtonTypes.half}
+          />
+
+          <SetAmountButton
+            amount={new BigNumber(available)}
+            onPress={onAmountChange}
+            type={AmountButtonTypes.max}
+          />
+        </ThemedView>
+      </WalletTextInput>
       <InputHelperText
         label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
         content={available}
+        testID='form_balance_text'
         suffix={` ${token.displaySymbol}`}
         styleProps={tailwind('font-medium')}
       />
@@ -145,6 +176,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           amount: new BigNumber(collateralValue)
         })}
         margin='mt-8 mb-2'
+        testID='add_collateral_button_submit'
       />
       <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}

@@ -55,6 +55,7 @@ export function RecoveryWordsFaq (): JSX.Element {
 
       <WalletAccordion
         testID='recovery_words_faq_accordion'
+        activeSections={[0]}
         title={translate('components/RecoveryWordFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />

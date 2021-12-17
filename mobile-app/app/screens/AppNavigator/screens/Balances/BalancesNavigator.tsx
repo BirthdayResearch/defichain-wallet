@@ -20,11 +20,12 @@ import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
+import { AddressControlScreen } from './components/AddressControlScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
-  SendScreen: { token: WalletToken }
+  SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
     destination: string
@@ -115,6 +116,21 @@ export function BalancesNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AddressControlScreen}
+        name='AddressControlScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddressControlScreen', 'Wallet Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
           headerBackTitleVisible: false
         }}
       />

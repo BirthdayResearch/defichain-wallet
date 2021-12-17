@@ -3,6 +3,8 @@ import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
+import { AddressSkeletonLoader } from './skeletonLoaders/AddressSkeletonLoader'
+import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 
 interface SkeletonLoaderProp {
@@ -15,6 +17,8 @@ export enum SkeletonLoaderScreen {
   'Transaction' = 'Transaction',
   'MnemonicWord' = 'MnemonicWord',
   'Loan' = 'Loan',
+  'Address' = 'Address',
+  'BrowseAuction' = 'BrowseAuction',
   'Vault' = 'Vault'
 }
 
@@ -51,6 +55,22 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <LoanSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.Address:
+        return (
+          <>
+            {skeletonRow.map(i => (
+              <AddressSkeletonLoader key={i} />
+            ))}
+          </>
+        )
+    case SkeletonLoaderScreen.BrowseAuction:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <BrowseAuctionsLoader key={i} />
           ))}
         </>
       )

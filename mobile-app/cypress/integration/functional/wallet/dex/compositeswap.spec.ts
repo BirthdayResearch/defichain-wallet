@@ -250,7 +250,7 @@ context('Wallet - DEX - Composite Swap with Conversion', () => {
     cy.getByTestID('text_input_tokenA').type('11.00000000')
     cy.getByTestID('conversion_info_text').should('exist')
     cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
-    cy.getByTestID('amount_to_convert_label').contains('Amount to be converted')
+    cy.getByTestID('amount_to_convert_label').contains('UTXO to be converted')
     cy.getByTestID('amount_to_convert').contains('1.00000000')
     cy.getByTestID('transaction_details_hint_text').contains('Authorize transaction in the next screen to convert')
   })

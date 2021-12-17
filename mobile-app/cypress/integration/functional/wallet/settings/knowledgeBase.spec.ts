@@ -12,6 +12,15 @@ context('Wallet - Settings', () => {
           description: 'Loan',
           networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
           platforms: ['ios', 'android', 'web']
+        },
+        {
+          id: 'auction',
+          name: 'Auction',
+          stage: 'public',
+          version: '>=0.0.0',
+          description: 'Auction',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
         }
       ]
     })
@@ -50,6 +59,13 @@ context('Wallet - Settings', () => {
   it('should navigate to Loans faq from knowledge base page', function () {
     cy.getByTestID('loans_faq').should('exist').click()
     cy.url().should('include', 'app/Settings/LoansFaq')
+    cy.go('back')
+    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
+  })
+
+  it('should navigate to Auctions faq from knowledge base page', function () {
+    cy.getByTestID('auctions_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/AuctionsFaq')
     cy.go('back')
     cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
   })

@@ -137,6 +137,10 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
                         "backgroundColor": "rgba(255, 230, 230, 1)",
@@ -159,19 +163,45 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(230, 0, 0, 1)",
                           },
                         ],
                       ]
                     }
+                    testID="vault_status"
                   >
-                    AT RISK
+                    ACTIVE
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": undefined,
+                          "fontSize": 14,
+                        },
+                        Array [
+                          Object {
+                            "marginLeft": 4,
+                            "paddingTop": 1,
+                          },
+                          Object {
+                            "color": "rgba(230, 0, 0, 1)",
+                          },
+                        ],
+                        Object {
+                          "fontFamily": "material-community",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                    testID="vault_tag_NEAR LIQUIDATION"
+                  >
+                    󰢼
                   </Text>
                 </View>
               </View>
@@ -220,6 +250,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                       ],
                     ]
                   }
+                  testID="vault_vault_id"
                 >
                   22ffasd5ca123123123123123121231061
                 </Text>
@@ -329,6 +360,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   ],
                 ]
               }
+              testID="vault_collateral_none"
             >
               None
             </Text>
@@ -350,6 +382,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           "marginBottom": 16,
         }
       }
+      testID="vault_collateralization_bar"
     >
       <View
         style={
@@ -458,6 +491,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               ],
             ]
           }
+          testID="vault_col_ratio"
         >
           
         </Text>
@@ -526,6 +560,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ],
               ]
             }
+            testID="vault_min_ratio"
           >
             100%
           </Text>
@@ -719,7 +754,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -850,7 +884,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -1035,6 +1068,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="vault_edit_collaterals_button"
     >
       <Text
         style={
@@ -1046,14 +1080,17 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(255, 0, 175, 1)",
               },
@@ -1205,6 +1242,10 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
                         "backgroundColor": "rgba(255, 230, 230, 1)",
@@ -1227,20 +1268,18 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(230, 0, 0, 1)",
                           },
                         ],
                       ]
                     }
+                    testID="vault_status"
                   >
-                    AT RISK
+                    ACTIVE
                   </Text>
+                  <Text />
                 </View>
               </View>
               <View
@@ -1288,6 +1327,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                       ],
                     ]
                   }
+                  testID="vault_vault_id"
                 >
                   22ffasd5ca123123123123123121231061
                 </Text>
@@ -1397,6 +1437,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   ],
                 ]
               }
+              testID="vault_collateral_none"
             >
               None
             </Text>
@@ -1418,6 +1459,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           "marginBottom": 16,
         }
       }
+      testID="vault_collateralization_bar"
     >
       <View
         style={
@@ -1526,6 +1568,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               ],
             ]
           }
+          testID="vault_col_ratio"
         >
           
         </Text>
@@ -1594,6 +1637,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ],
               ]
             }
+            testID="vault_min_ratio"
           >
             100%
           </Text>
@@ -1787,7 +1831,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -1918,7 +1961,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -2103,6 +2145,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="vault_edit_collaterals_button"
     >
       <Text
         style={
@@ -2114,14 +2157,17 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(255, 0, 175, 1)",
               },
@@ -2273,6 +2319,10 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
                         "backgroundColor": "rgba(255, 230, 230, 1)",
@@ -2295,19 +2345,45 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(230, 0, 0, 1)",
                           },
                         ],
                       ]
                     }
+                    testID="vault_status"
                   >
-                    AT RISK
+                    ACTIVE
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": undefined,
+                          "fontSize": 14,
+                        },
+                        Array [
+                          Object {
+                            "marginLeft": 4,
+                            "paddingTop": 1,
+                          },
+                          Object {
+                            "color": "rgba(230, 0, 0, 1)",
+                          },
+                        ],
+                        Object {
+                          "fontFamily": "material-community",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                    testID="vault_tag_NEAR LIQUIDATION"
+                  >
+                    󰢼
                   </Text>
                 </View>
               </View>
@@ -2356,6 +2432,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                       ],
                     ]
                   }
+                  testID="vault_vault_id"
                 >
                   22ffasd5ca123123123123123121231061
                 </Text>
@@ -2465,6 +2542,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   ],
                 ]
               }
+              testID="vault_collateral_none"
             >
               None
             </Text>
@@ -2486,6 +2564,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           "marginBottom": 16,
         }
       }
+      testID="vault_collateralization_bar"
     >
       <View
         style={
@@ -2594,6 +2673,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               ],
             ]
           }
+          testID="vault_col_ratio"
         >
           
         </Text>
@@ -2662,6 +2742,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ],
               ]
             }
+            testID="vault_min_ratio"
           >
             100%
           </Text>
@@ -2855,7 +2936,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -2986,7 +3066,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -3171,6 +3250,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="vault_edit_collaterals_button"
     >
       <Text
         style={
@@ -3182,14 +3262,17 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 14,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(255, 0, 175, 1)",
               },
@@ -3341,9 +3424,13 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
+                        "paddingBottom": 2,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 2,
                       },
                       Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
+                        "backgroundColor": "rgba(245, 245, 245, 1)",
                       },
                     ]
                   }
@@ -3363,17 +3450,14 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                             "fontSize": 12,
                             "fontWeight": "500",
                             "lineHeight": 16,
-                            "paddingBottom": 2,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 2,
                           },
                           Object {
-                            "color": "rgba(255, 0, 0, 1)",
+                            "color": "rgba(115, 115, 115, 1)",
                           },
                         ],
                       ]
                     }
+                    testID="vault_status"
                   >
                     IN LIQUIDATION
                   </Text>
@@ -3424,6 +3508,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                       ],
                     ]
                   }
+                  testID="vault_vault_id"
                 >
                   22ffasd5ca123123123123123121231061
                 </Text>
@@ -3484,6 +3569,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                   ],
                 ]
               }
+              testID="vault_collateral_none"
             >
               None
             </Text>
@@ -3513,7 +3599,6 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -3644,7 +3729,6 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -3771,6 +3855,96 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           </Text>
         </View>
       </View>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "marginBottom": -8,
+          "marginTop": 16,
+        },
+        Object {
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "borderBottomColor": "rgba(245, 245, 245, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(245, 245, 245, 1)",
+          "borderLeftWidth": 1,
+          "borderRightColor": "rgba(245, 245, 245, 1)",
+          "borderRightWidth": 1,
+          "borderTopColor": "rgba(245, 245, 245, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
+          "flexDirection": "row",
+          "marginBottom": 8,
+          "marginRight": 8,
+          "opacity": 1,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        }
+      }
+      testID="vault_edit_collaterals_button"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 16,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                },
+                undefined,
+              ],
+              Object {
+                "color": "rgba(212, 212, 212, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        EDIT COLLATERALS
+      </Text>
     </View>
   </View>
 </View>

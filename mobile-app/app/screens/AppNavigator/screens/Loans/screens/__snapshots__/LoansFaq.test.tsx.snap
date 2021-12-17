@@ -68,7 +68,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
+      The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
     </Text>
     <RCTScrollView
       style={
@@ -662,7 +662,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
             <View
               accessibilityState={
                 Object {
-                  "expanded": false,
+                  "expanded": true,
                 }
               }
               accessible={true}
@@ -688,10 +688,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "paddingRight": 16,
                         "paddingTop": 16,
                       },
-                      Object {
-                        "borderBottomWidth": 1,
-                      },
                       false,
+                      Object {
+                        "paddingBottom": 4,
+                      },
                     ],
                     Object {
                       "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -720,28 +720,26 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                             "fontSize": 14,
                             "lineHeight": 20,
                           },
-                          false,
+                          Object {
+                            "fontFamily": "SemiBoldFont",
+                            "fontWeight": "600",
+                          },
                         ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "color": "rgba(23, 23, 23, 1)",
                         },
                       ],
                     ]
                   }
                 >
-                  What does the different status of a vault mean?
+                  What do the different statuses of a vault mean?
                 </Text>
                 <Text />
               </View>
             </View>
             <View
-              pointerEvents="none"
-              style={
-                Object {
-                  "height": 0,
-                  "overflow": "hidden",
-                }
-              }
+              pointerEvents="auto"
+              style={Object {}}
             >
               <View
                 forwardedRef={[Function]}
@@ -758,7 +756,9 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           "paddingRight": 16,
                           "paddingTop": 0,
                         },
-                        false,
+                        Object {
+                          "borderBottomWidth": 1,
+                        },
                       ],
                       Object {
                         "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -827,7 +827,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Active: When a vault has been created but no loan has been taken yet
+                      Empty: When a vault has been created but no collateral has been deposited yet.
                     </Text>
                   </View>
                   <View
@@ -888,7 +888,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio
+                      Ready: When collateral has been deposited into the vault, but no loan has been taken yet.
                     </Text>
                   </View>
                   <View
@@ -949,7 +949,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio
+                      Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.
                     </Text>
                   </View>
                   <View
@@ -1010,7 +1010,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      In liquidation: When a vault's collateralization ratio falls below the minimum requirement
+                      Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.
                     </Text>
                   </View>
                   <View
@@ -1071,7 +1071,129 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour
+                      Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "fontFamily": "BoldFont",
+                              "fontSize": 14,
+                              "fontWeight": "700",
+                              "lineHeight": 20,
+                              "width": "8.333333%",
+                            },
+                            Object {
+                              "color": "rgba(0, 0, 0, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      •
+                    </Text>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontSize": 14,
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(82, 82, 82, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      In liquidation: When a vault's collateralization ratio falls below the minimum requirement.
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "fontFamily": "BoldFont",
+                              "fontSize": 14,
+                              "fontWeight": "700",
+                              "lineHeight": 20,
+                              "width": "8.333333%",
+                            },
+                            Object {
+                              "color": "rgba(0, 0, 0, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      •
+                    </Text>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontSize": 14,
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(82, 82, 82, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.
                     </Text>
                   </View>
                 </View>

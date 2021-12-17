@@ -9,6 +9,7 @@ import { DexNavigator } from './screens/Dex/DexNavigator'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -65,7 +66,7 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
-        {isFeatureAvailable('loan') &&
+        {isFeatureAvailable('loan') && (
           <BottomTab.Screen
             component={LoansNavigator}
             name={translate('BottomTabNavigator', 'Loans')}
@@ -79,7 +80,25 @@ export function BottomTabNavigator (): JSX.Element {
                 />
               )
             }}
-          />}
+          />
+        )}
+
+        {isFeatureAvailable('auction') && (
+          <BottomTab.Screen
+            component={AuctionsNavigator}
+            name={translate('BottomTabNavigator', 'Auctions')}
+            options={{
+              tabBarTestID: 'bottom_tab_auctions',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons
+                  color={color}
+                  name='gavel'
+                  size={24}
+                />
+              )
+            }}
+          />
+        )}
 
         <BottomTab.Screen
           component={TransactionsNavigator}

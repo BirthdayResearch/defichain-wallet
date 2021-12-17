@@ -33,23 +33,30 @@ export function LoansFaq (): JSX.Element {
       }]
     },
     {
-      title: translate('components/LoansFaq', 'What does the different status of a vault mean?'),
+      title: translate('components/LoansFaq', 'What do the different statuses of a vault mean?'),
       content: [{
-        text: translate('components/LoansFaq', 'Active: When a vault has been created but no loan has been taken yet'),
+        text: translate('components/LoansFaq', 'Empty: When a vault has been created but no collateral has been deposited yet.'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio'),
+        text: translate('components/LoansFaq', 'Ready: When collateral has been deposited into the vault, but no loan has been taken yet.'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio'),
+        text: translate('components/LoansFaq', 'Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'In liquidation: When a vault\'s collateralization ratio falls below the minimum requirement'),
+        text: translate('components/LoansFaq', 'Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.'),
         type: 'bullet'
       }, {
-        text: translate('components/LoansFaq', 'Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour'),
+        text: translate('components/LoansFaq', 'Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.'),
         type: 'bullet'
-      }]
+      }, {
+        text: translate('components/LoansFaq', 'In liquidation: When a vault\'s collateralization ratio falls below the minimum requirement.'),
+        type: 'bullet'
+      }, {
+        text: translate('components/LoansFaq', 'Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.'),
+        type: 'bullet'
+      }
+    ]
     },
     {
       title: translate('components/LoansFaq', 'How are interests calculated for loan?'),
@@ -90,11 +97,12 @@ export function LoansFaq (): JSX.Element {
       <ThemedText
         style={tailwind('mt-2 text-sm')}
       >
-        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralised tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
+        {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.')}
       </ThemedText>
 
       <WalletAccordion
         testID='loans_faq_accordion'
+        activeSections={[2]}
         title={translate('components/LoansFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
