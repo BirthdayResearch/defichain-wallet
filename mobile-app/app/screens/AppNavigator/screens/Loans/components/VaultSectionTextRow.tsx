@@ -3,14 +3,16 @@ import { NumberRow, NumberRowElement } from '@components/NumberRow'
 import { ThemedProps } from '@components/themed'
 import { tailwind } from '@tailwind'
 import React from 'react'
+import { ViewProps } from 'react-native'
 
-interface VaultSectionText extends NumberRowElement {
+type IVaultSectionTextProps = React.PropsWithChildren<ViewProps> & VaultSectionTextProps
+interface VaultSectionTextProps extends NumberRowElement {
   lhs: string
   info?: BottomSheetAlertInfo
   rhsThemedProps?: ThemedProps
 }
 
-export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
+export function VaultSectionTextRow (props: IVaultSectionTextProps): JSX.Element {
   return (
     <NumberRow
       lhs={props.lhs}
@@ -23,7 +25,7 @@ export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
         style: props.style
       }}
       info={props.info}
-      style={tailwind('flex-row items-center w-full my-1')}
+      style={tailwind('flex-row w-full my-1')}
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
       textStyle={tailwind('text-xs ml-0')}
@@ -36,7 +38,8 @@ export function VaultSectionTextRow (props: VaultSectionText): JSX.Element {
         dark: tailwind('text-gray-50'),
         ...props.rhsThemedProps
       }}
-
-    />
+    >
+      {props.children}
+    </NumberRow>
   )
 }

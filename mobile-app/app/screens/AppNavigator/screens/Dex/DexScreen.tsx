@@ -11,7 +11,7 @@ import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -194,12 +194,12 @@ export function DexScreen (): JSX.Element {
       <View style={tailwind('flex-1')}>
         {
           activeTab === TabKey.AvailablePoolPair && (!hasFetchedPoolpairData || isSearching) && (
-            <View style={tailwind('mt-2')}>
+            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
               <SkeletonLoader
                 row={4}
                 screen={SkeletonLoaderScreen.Dex}
               />
-            </View>
+            </ThemedScrollView>
           )
         }
         {
@@ -299,14 +299,14 @@ function YourPoolPairCards ({
 }: YourPoolPairCardsItems): JSX.Element {
   return (
     <ThemedFlatList
+      contentContainerStyle={tailwind('p-4 pb-2')}
       data={yourPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({
-        item,
-        index
-      }: { item: { type: string, data: WalletToken }, index: number }): JSX.Element => {
+        item
+      }: { item: DexItem<WalletToken> }): JSX.Element => {
         const { data: yourPair } = item
         const poolPairData = availablePairs.find(pr => pr.data.symbol === (yourPair as AddressToken).symbol)
         const mappedPair = poolPairData?.data
@@ -326,7 +326,7 @@ function YourPoolPairCards ({
           <ThemedView
             dark={tailwind('bg-gray-800 border-gray-700')}
             light={tailwind('bg-white border-gray-200')}
-            style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
+            style={tailwind('p-4 mb-2 border rounded')}
             testID='pool_pair_row_your'
           >
             <View style={tailwind('flex-row items-center justify-between')}>
@@ -348,7 +348,7 @@ function YourPoolPairCards ({
               tokenBTotal={tokenBTotal.toFixed(8)}
               testID='your'
             />
-            <PoolPairActions
+            <YourPoolPairActions
               onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
               onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
               symbol={symbol}
@@ -370,14 +370,14 @@ function AvailablePoolPairCards ({
 
   return (
     <ThemedFlatList
+      contentContainerStyle={tailwind('p-4 pb-2')}
       data={sortedPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({
-        item,
-        index
-      }: { item: DexItem<PoolPairData>, index: number }): JSX.Element => {
+        item
+      }: { item: DexItem<PoolPairData> }): JSX.Element => {
         const { data: pair } = item
         const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
           ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
@@ -389,7 +389,7 @@ function AvailablePoolPairCards ({
           <ThemedView
             dark={tailwind('bg-gray-800 border-gray-700')}
             light={tailwind('bg-white border-gray-200')}
-            style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
+            style={tailwind('p-4 mb-2 border rounded')}
             testID='pool_pair_row'
           >
             <View style={tailwind('flex-row items-center')}>
@@ -436,7 +436,7 @@ function AvailablePoolPairCards ({
                   light={tailwind('border-gray-300 bg-white')}
                   dark={tailwind('border-gray-400 bg-gray-900')}
                   onPress={() => setFavouritePoolpair(pair.id)}
-                  style={tailwind('p-1.5 border rounded mr-2 mt-2 flex-row items-center')}
+                  style={tailwind('p-1.5 border rounded flex-row items-center')}
                 >
                   <ThemedIcon
                     iconType='MaterialIcons'
@@ -570,7 +570,7 @@ function PoolPairInfoLine (props: PoolPairInfoLineProps): JSX.Element {
   )
 }
 
-function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symbol: string }): JSX.Element {
+function YourPoolPairActions (props: { onAdd: () => void, onRemove: () => void, symbol: string }): JSX.Element {
   const {
     onAdd,
     onRemove,
@@ -583,7 +583,7 @@ function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symb
         onPress={onAdd}
         pair={symbol}
         label={translate('screens/DexScreen', 'ADD MORE')}
-        style={tailwind('mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mt-2')}
         testID={`pool_pair_add_${symbol}`}
       />
 
@@ -592,7 +592,7 @@ function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symb
         onPress={onRemove}
         pair={symbol}
         label={translate('screens/DexScreen', 'REMOVE')}
-        style={tailwind('mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mt-2')}
         testID={`pool_pair_remove_${symbol}`}
       />
     </View>
