@@ -8,7 +8,7 @@ import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { openURL } from '@api/linking'
 import { View } from '@components'
 import { Platform } from 'react-native'
-import packageJson from '@package'
+import { nativeApplicationVersion } from 'expo-application'
 
 export function Announcements (): JSX.Element {
   const {
@@ -19,7 +19,7 @@ export function Announcements (): JSX.Element {
     language
   } = useLanguageContext()
 
-  const announcement = findAnnouncementForVersion(packageJson.version ?? '0.0.0', language, announcements)
+  const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
 
   if (!isSuccess || announcements === undefined || announcements.length === 0 || announcement === undefined) {
     return <></>
@@ -78,6 +78,14 @@ function findAnnouncementForVersion (version: string, language: string, announce
   for (const announcement of announcements) {
     const lang: any = announcement.lang
     const platformUrl: any = announcement.url
+
+    if (Platform.OS !== 'ios' && Platform.OS !== 'android') {
+      return {
+        content: lang[language] ?? lang.en,
+        url: platformUrl[Platform.OS]
+      }
+    }
+
     if (satisfies(version, announcement.version)) {
       return {
         content: lang[language] ?? lang.en,
