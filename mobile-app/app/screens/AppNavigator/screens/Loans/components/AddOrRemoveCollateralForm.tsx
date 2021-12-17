@@ -9,7 +9,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { Platform, TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View, Text } from 'react-native'
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -28,6 +28,8 @@ import { CollateralItem } from '../screens/EditCollateralScreen'
 
 export interface AddOrRemoveCollateralFormProps {
   collateralItem: CollateralItem
+  token: TokenData
+  activePrice: BigNumber
   collateralFactor: BigNumber
   available: string
   current?: BigNumber
@@ -48,7 +50,8 @@ export interface AddOrRemoveCollateralResponse {
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
   const { isLight } = useThemeContext()
   const {
-    collateralItem: { token, activePrice },
+    token,
+    activePrice,
     available,
     onButtonPress,
     onCloseButtonPress,
@@ -62,11 +65,11 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
 
   const [collateralValue, setCollateralValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0'
-? (
-    new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
-    new BigNumber(collateralValue).isLessThanOrEqualTo(available)
-  )
-: false
+  ? (
+      new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
+      new BigNumber(collateralValue).isLessThanOrEqualTo(available)
+    )
+  : false
   const [isValid, setIsValid] = useState(false)
   const collateralInputValue = new BigNumber(collateralValue).isNaN() ? 0 : collateralValue
   const { totalCollateralValueInUSD } = useTotalCollateralValue({
@@ -74,7 +77,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     token,
     isAdd,
     collateralInputValue,
-    activePriceAmount: activePrice?.active === undefined ? new BigNumber(0) : new BigNumber(activePrice?.active.amount)
+    activePriceAmount: activePrice.isNaN() ? new BigNumber(0) : new BigNumber(activePrice)
   })
   const {
     displayedColorBars,
@@ -199,27 +202,58 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           />
         </ThemedView>
       </WalletTextInput>
+
       <InputHelperText
         label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
         content={available}
         testID='form_balance_text'
-        suffix={` ${token.displaySymbol}`}
+        suffixType='component'
         styleProps={tailwind('font-medium')}
-      />
-      <ScrollView horizontal contentContainerStyle={tailwind('flex justify-between flex-row h-7 flex-grow')}>
-        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+      >
         <ThemedText
-          style={tailwind('font-semibold')}
-          light={colors.light}
-          dark={colors.dark}
-        >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+          light={tailwind('text-gray-700')}
+          dark={tailwind('text-gray-200')}
+          style={tailwind('text-sm font-medium')}
+        >
+          <ScrollView horizontal contentContainerStyle={tailwind('flex justify-between flex-row h-7 flex-grow')}>
+            <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+            <ThemedText
+              style={tailwind('font-semibold')}
+              light={colors.light}
+              dark={colors.dark}
+            >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+            </ThemedText>
+          </ScrollView>
+          <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
+          <Text>{' '}</Text>
+          {token.displaySymbol}
+          {
+          !new BigNumber(activePrice).isZero() && (
+            <NumberFormat
+              value={activePrice.multipliedBy(available).toFixed(2)}
+              thousandSeparator
+              decimalScale={2}
+              displayType='text'
+              prefix='$'
+              renderText={(val: string) => (
+                <ThemedText
+                  dark={tailwind('text-gray-400')}
+                  light={tailwind('text-gray-500')}
+                  style={tailwind('text-xs leading-5')}
+                >
+                  {` /${val}`}
+                </ThemedText>
+            )}
+            />
+        )
+        }
         </ThemedText>
-      </ScrollView>
-      <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
-      {isConversionRequired &&
+      </InputHelperText>
+      {isConversionRequired && (
         <View style={tailwind('mt-4 mb-6')}>
           <ConversionInfoText />
-        </View>}
+        </View>
+      )}
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}

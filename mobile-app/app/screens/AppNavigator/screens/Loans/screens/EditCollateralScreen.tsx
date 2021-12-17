@@ -36,7 +36,9 @@ import {
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -248,12 +250,13 @@ export function EditCollateralScreen ({
         {activeVault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
           if (collateralItem !== undefined) {
+            const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
             const params = {
               stackScreenName: 'AddOrRemoveCollateralForm',
               component: AddOrRemoveCollateralForm,
               initialParam: {
                 token: collateralItem.token,
-                collateralItem: collateralItem,
+                activePrice,
                 available: '',
                 onButtonPress: undefined,
                 onCloseButtonPress: dismissModal,
@@ -490,30 +493,13 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                   style={tailwind('text-sm font-medium')}
                 >
                   {val}
-                  {
-                    !new BigNumber(prices.activePrice).isZero() &&
-                      <NumberFormat
-                        value={prices.collateralPrice.toFixed(2)}
-                        thousandSeparator
-                        decimalScale={2}
-                        displayType='text'
-                        prefix='$'
-                        renderText={(val: string) => (
-                          <ThemedText
-                            dark={tailwind('text-gray-400')}
-                            light={tailwind('text-gray-500')}
-                            style={tailwind('text-xs')}
-                            testID={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
-                          >
-                            {` /${val}`}
-                          </ThemedText>
-                      )}
-                      />
-                  }
                 </ThemedText>
               )}
             />
-
+            <ActiveUsdValue
+              price={prices.collateralPrice}
+              testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
+            />
           </View>
         </View>
         <View style={tailwind('w-4/12 flex items-end')}>
