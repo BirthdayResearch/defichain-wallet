@@ -39,8 +39,7 @@ import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { EnvironmentNetwork } from '@environment'
+import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -75,8 +74,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(loanToken.activePrice?.active?.amount ?? 0),
     interestPerBlock
   )
-  const { network } = useNetworkContext()
-  const blocksPerDay = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 2880 : 144
+  const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)

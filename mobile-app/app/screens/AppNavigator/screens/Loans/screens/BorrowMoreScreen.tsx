@@ -22,8 +22,7 @@ import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useLoanOperations } from '../hooks/LoanOperations'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { EnvironmentNetwork } from '@environment'
+import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -54,8 +53,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
     interestPerBlock
   )
-  const { network } = useNetworkContext()
-  const blocksPerDay = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 2880 : 144
+  const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
