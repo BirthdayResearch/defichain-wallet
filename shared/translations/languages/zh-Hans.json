@@ -1185,5 +1185,8 @@
   },
   "components/WalletAddressRow": {
     "Wallet address": "钱包地址"
+  },
+  "components/Announcements": {
+    "VIEW": "前往"
   }
 }

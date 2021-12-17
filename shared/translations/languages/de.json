@@ -1186,5 +1186,8 @@
   },
   "components/WalletAddressRow": {
     "Wallet address": "Walletadresse"
+  },
+  "components/Announcements": {
+    "VIEW": "ANZEIGEN"
   }
 }
