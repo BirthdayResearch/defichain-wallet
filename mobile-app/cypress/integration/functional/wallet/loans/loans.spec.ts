@@ -6,6 +6,7 @@ import {
   checkVaultDetailValues
 } from '../../../../support/loanCommands'
 import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
+import BigNumber from 'bignumber.js'
 
 context('Wallet - Loans', () => {
   before(function () {
@@ -251,8 +252,12 @@ context('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('text_input_usd_value').should('have.value', '1000.00')
     cy.getByTestID('text_resulting_col_ratio').contains('136')
     cy.getByTestID('borrow_more_button').should('have.attr', 'aria-disabled')
-    cy.getByTestID('text_total_interest_amount').contains('1,000')
-    cy.getByTestID('text_total_interest_amount_suffix').contains('DUSD')
+    cy.getByTestID('text_total_loan_with_annual_interest').then(($txt: any) => {
+      const total = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
+      /* eslint-disable-next-line */
+      expect(new BigNumber(total).isGreaterThan(1000)).to.be.true      
+    })
+    cy.getByTestID('text_total_loan_with_annual_interest_suffix').contains('DUSD')
     cy.getByTestID('loan_add_input').clear().type('648').blur()
     cy.getByTestID('text_resulting_col_ratio').contains('200')
     cy.getByTestID('borrow_more_button').click()

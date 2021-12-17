@@ -613,7 +613,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         lhs={translate('screens/BorrowLoanTokenScreen', 'Estimated annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
-          testID: 'text_total_interest_amount',
+          testID: 'text_estimated_annual_interest',
           suffixType: 'text',
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
@@ -622,7 +622,7 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total loan + annual interest')}
         rhs={{
           value: props.totalLoanWithInterest.toFixed(8),
-          testID: 'text_total_interest_amount',
+          testID: 'text_total_loan_with_annual_interest',
           suffixType: 'text',
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
