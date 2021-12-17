@@ -191,7 +191,7 @@ context('Wallet - Loans - Take Loans', () => {
     })
     cy.getByTestID('text_total_loan_with_annual_interest').then(($txt: any) => {
       const totalLoanWithAnnualInterest = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
-      expect(new BigNumber(totalLoanWithAnnualInterest).toFixed(8)).to.be.equal(new BigNumber('1000').plus(annualInterest).toFixed(8))
+      expect(new BigNumber(totalLoanWithAnnualInterest).toFixed(8)).to.be.equal(new BigNumber('100').plus(annualInterest).toFixed(8))
     })
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('text_borrow_amount').contains('100.00000000')
