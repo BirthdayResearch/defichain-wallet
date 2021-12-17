@@ -35,9 +35,9 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     url: {
       ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
       android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
-      macos: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
-      windows: 'https://play.google.com/store/apps/details?id=com.defichain.app',
-      web: 'https://play.google.com/store/apps/details?id=com.defichain.app'
+      macos: '',
+      windows: '',
+      web: ''
     }
   }])
 }
