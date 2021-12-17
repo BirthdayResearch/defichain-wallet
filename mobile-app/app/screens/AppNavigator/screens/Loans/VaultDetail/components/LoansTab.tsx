@@ -176,7 +176,7 @@ function ActionButtons ({
               merge: true,
               params: {
                 vault,
-                loanToken
+                loanTokenAmount: loanToken
               }
             })
           }}

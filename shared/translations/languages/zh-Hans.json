@@ -293,16 +293,19 @@
     "Swap with {{token}}": "用 {{token}} 兑换"
   },
   "screens/TokensVsUtxoScreen": {
-    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有两种形式 - UTXO 和代币, 两者可依据使用做互换. 这个程序可以进行互换.",
-    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI是DFI的主要形式，用来做接收、发送、费用和其他加密货币功能. DFI代币适用于DeFi功能如兑换或流动性挖矿.",
-    "Your DFI balance includes both UTXO and tokens.": "您的DFI总资金含UTXO和代币形式",
-    "Core crypto services": "主要加密服务",
-    "Send to other wallets": "发送到其他地址",
-    "Receive tokens": "接收代币",
-    "Service fees": "服务费用",
-    "DeFi services": "DeFi服务",
-    "Liquidity mining": "流动性挖矿",
-    "Atomic Swaps": "原子交换"
+    "Learn about UTXOs and Tokens": "Learn about UTXOs and Tokens",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
+    "DFI in UTXO form": "DFI in UTXO form",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
+    "Use cases include:": "Use cases include:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees",
+    "DFI in token form": "DFI in token form",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquidity pools",
+    "Auctions and Loans": "Auctions and Loans"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "创建钱包",
@@ -720,7 +723,7 @@
     "Browse auctions": "浏览拍卖",
     "Manage bids": "管理竞投出价",
     "Loans": "贷款",
-    "Auctioned collaterals": "拍卖抵押品",
+    "Collateral for auction": "待拍卖的抵押品",
     "Auction details": "拍卖细节"
   },
   "components/LoanCard": {
@@ -840,7 +843,7 @@
     "CONTINUE": "继续",
     "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
-    "Min. collateralization ratio": "最小抵押率"
+    "Min. collateralization ratio": "最低抵押率"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
@@ -850,7 +853,7 @@
     "Create vault": "创建金库",
     "Total transaction cost": "总交易费用",
     "VAULT DETAILS": "金库明细",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Interest rate (APR)": "利率(以回报率计算)",
     "APR": "年回报率",
     "CONFIRM CREATE VAULT": "确认创建金库",
@@ -870,7 +873,7 @@
     "Collateralization ratio": "抵押率",
     "Interest amount": "总利息金额",
     "Next collateralization": "当新价格生效，下一个抵押比率",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
@@ -884,7 +887,7 @@
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Total loans (USD)": "贷款总金额(美金)",
     "Vault interest (APR)": "金库利息",
-    "Min. collateralization ratio": "最小抵押率"
+    "Min. collateralization ratio": "最低抵押率"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "加入抵押品",
@@ -914,7 +917,7 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "贷款计划",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Vault interest": "金库利息",
     "VAULT DETAILS": "金库明细",
     "COLLATERALIZATION DETAILS": "抵押品明细",
@@ -1002,7 +1005,8 @@
     "Collateralization ratio": "抵押率",
     "Min. collateralization ratio": "最低抵押率",
     "Excess amount": "超出的金额",
-    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包."
+    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包.",
+    "Resulting collateralization": "最终抵押率"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
@@ -1019,7 +1023,8 @@
     "Collateralization ratio": "抵押率",
     "Paying loan": "贷款还款",
     "Paying {{amount}} {{symbol}}": "付款中{{amount}} {{symbol}} ",
-    "Confirm Loan Payment": "确认贷款支付"
+    "Confirm Loan Payment": "确认贷款支付",
+    "Resulting collateralization": "最终抵押率"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
@@ -1167,7 +1172,7 @@
     "CONFIRM PLACE BID": "确认标价",
     "Sign Transaction": "签下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
-    "Auctioned collaterals": "拍卖的抵押品为",
+    "Collateral for auction": "待拍卖的抵押品",
     "Insufficient funds": "资金不足"
   },
   "components/QuickBid": {
