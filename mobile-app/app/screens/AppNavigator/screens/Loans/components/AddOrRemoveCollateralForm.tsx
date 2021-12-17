@@ -206,15 +206,15 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         suffix={` ${token.displaySymbol}`}
         styleProps={tailwind('font-medium')}
       />
-      <View style={tailwind('flex flex-row justify-between')}>
-        <ThemedText>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+      <ScrollView horizontal contentContainerStyle={tailwind('flex justify-between flex-row h-7 flex-grow')}>
+        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
         <ThemedText
           style={tailwind('font-semibold')}
           light={colors.light}
           dark={colors.dark}
-        >{resultingColRatio.isNegative() || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+        >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>
-      </View>
+      </ScrollView>
       <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired &&
         <View style={tailwind('mt-4 mb-6')}>
