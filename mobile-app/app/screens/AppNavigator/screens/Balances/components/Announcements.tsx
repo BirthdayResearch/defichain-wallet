@@ -1,12 +1,11 @@
 import React from 'react'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
 import { satisfies } from 'semver'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { openURL } from '@api/linking'
-import { View } from '@components'
 import { Platform } from 'react-native'
 import { nativeApplicationVersion } from 'expo-application'
 
@@ -25,43 +24,29 @@ export function Announcements (): JSX.Element {
     return <></>
   }
 
-  if (announcement.url !== undefined && announcement.url.length !== 0) {
-    return (
-      <ThemedTouchableOpacity
-        testID='announcements_banner'
-        style={tailwind('px-4 py-3 flex-row items-center')} light={tailwind('bg-warning-50')}
-        dark={tailwind('bg-darkwarning-50')}
-        onPress={async () => await openURL(announcement.url)}
-      >
-        <ThemedIcon style={tailwind('mr-2')} iconType='MaterialIcons' name='campaign' size={22} />
-        <ThemedText style={tailwind('text-xs flex-auto')} testID='announcements_text'>
-          {`${announcement.content} `}
-          <View>
+  return (
+    <ThemedTouchableOpacity
+      testID='announcements_banner'
+      style={tailwind('px-4 py-3 flex-row items-center')} light={tailwind('bg-warning-50')}
+      dark={tailwind('bg-darkwarning-50')}
+      onPress={async () => await openURL(announcement.url)}
+      disabled={announcement.url === undefined || announcement.url.length === 0}
+    >
+      <ThemedIcon style={tailwind('mr-2')} iconType='MaterialIcons' name='campaign' size={22} />
+      <ThemedText style={tailwind('text-xs flex-auto')} testID='announcements_text'>
+        {`${announcement.content} `}
+      </ThemedText>
+      {announcement.url !== undefined && announcement.url.length !== 0 &&
+          (
             <ThemedIcon
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
               light={tailwind('text-primary-500')}
               name='chevron-right'
-              size={18}
-              style={tailwind('relative -left-1 top-1')}
+              size={24}
             />
-          </View>
-        </ThemedText>
-      </ThemedTouchableOpacity>
-    )
-  }
-
-  return (
-    <ThemedView
-      testID='announcements_banner'
-      style={tailwind('px-4 py-3 flex-row items-center')} light={tailwind('bg-warning-50')}
-      dark={tailwind('bg-darkwarning-50')}
-    >
-      <ThemedIcon style={tailwind('mr-2')} iconType='MaterialIcons' name='campaign' size={22} />
-      <ThemedText style={tailwind('text-xs flex-auto')} testID='announcements_text'>
-        {announcement.content}
-      </ThemedText>
-    </ThemedView>
+          )}
+    </ThemedTouchableOpacity>
   )
 }
 
