@@ -293,16 +293,19 @@
     "Swap with {{token}}": "Tausche gegen {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
-    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existiert in zwei Formen - UTXO und Token, die je nach Verwendung austauschbar sind. Mit der App kannst du leicht zwischen den beiden Arten wechseln.",
-    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI ist das primäre DFI-Format und wird für zentrale Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet. DFI-Token werden für DeFi-Funktionen wie Tauschgeschäfte und Liquiditätsmining verwendet.",
-    "Your DFI balance includes both UTXO and tokens.": "Dein DFI-Guthaben umfasst sowohl UTXO als auch Token.",
-    "Core crypto services": "Zentrale Kryptodienste",
-    "Send to other wallets": "An andere Wallets senden",
-    "Receive tokens": "Token empfangen",
-    "Service fees": "Servicegebühr",
-    "DeFi services": "DeFi-Dienste",
-    "Liquidity mining": "Liquiditätsmining",
-    "Atomic Swaps": "Atomic Swaps"
+    "Learn about UTXOs and Tokens": "Erfahre mehr über UTXOs und Token",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen in einander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Lightwallet zu erfüllen.",
+    "DFI in UTXO form": "DFI in UTXO-Form",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO-Form ist die primäre Form von DFI. Sie wird für die wichtigsten Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet.",
+    "Use cases include:": "Zu den Anwendungsfällen gehören:",
+    "Sending DFI to other wallets": "Senden von DFI an andere Wallets",
+    "Receiving DFI from other wallets": "Empfangen von DFI von anderen Wallets",
+    "Transaction fees": "Transaktionsgebühren",
+    "DFI in token form": "DFI in Token-Form",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI in Tokenform werden für verschiedene DeFiChain-Funktionen wie Liquiditätspools, Darlehen, Auktionen und DEX-Tauschgeschäfte verwendet.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Tausch von DFI gegen andere Token (z.B. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquiditätspools",
+    "Auctions and Loans": "Auktionen und Darlehen"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "EINE WALLET ERSTELLEN",

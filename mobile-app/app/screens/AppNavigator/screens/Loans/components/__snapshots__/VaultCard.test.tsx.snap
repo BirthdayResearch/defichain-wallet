@@ -754,7 +754,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -885,7 +884,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -1833,7 +1831,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -1964,7 +1961,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -2940,7 +2936,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -3071,7 +3066,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -3605,7 +3599,6 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
@@ -3736,7 +3729,6 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         style={
           Array [
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
               "marginBottom": 4,
               "marginTop": 4,
