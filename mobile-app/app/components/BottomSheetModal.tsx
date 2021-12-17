@@ -68,7 +68,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
             <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]} />
           )}
         >
-          <View style={tailwind('font-medium w-full px-2 items-end')}>
+          <View style={tailwind('absolute flex-row justify-end right-5 top-1 w-full z-10')}>
             <TouchableOpacity onPress={closeModal}>
               <ThemedIcon
                 size={24}
