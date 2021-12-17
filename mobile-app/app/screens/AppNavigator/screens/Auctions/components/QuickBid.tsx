@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView, ThemedScrollView } from '@components/themed'
 import React, { memo } from 'react'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
@@ -66,27 +66,37 @@ export const QuickBid = ({
     <ThemedView
       light={tailwind('bg-white')}
       dark={tailwind('bg-gray-800')}
-      style={tailwind('px-4 h-full flex')}
+      style={tailwind('h-full flex')}
     >
-      <CloseButton onPress={onCloseButtonPress} />
-      <HeaderSection symbol={loanTokenSymbol} />
-      <BiddingInfo minNextBid={minNextBid} currentBalance={currentBalance} displaySymbol={loanTokenDisplaySymbol} />
-      <Button
-        disabled={blocksRemaining === 0 || !isBalanceSufficient || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('components/QuickBid', 'QUICK BID')}
-        onPress={onQuickBid}
-        testID='quick_bid_submit_button'
-        margin='m-0'
-        style={tailwind('items-end')}
-      />
-      {!isBalanceSufficient &&
-        <ThemedText
-          light={tailwind('text-error-500')}
-          dark={tailwind('text-darkerror-500')}
-          style={tailwind('text-center text-xs mt-2')}
-        >
-          {translate('components/QuickBid', 'Insufficient amount to place a bid')}
-        </ThemedText>}
+      <View style={tailwind('px-4')}>
+        <CloseButton onPress={onCloseButtonPress} />
+      </View>
+      <ThemedScrollView
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
+        contentContainerStyle={tailwind('pb-8')}
+      >
+        <View style={tailwind('px-4')}>
+          <HeaderSection symbol={loanTokenSymbol} />
+          <BiddingInfo minNextBid={minNextBid} currentBalance={currentBalance} displaySymbol={loanTokenDisplaySymbol} />
+          <Button
+            disabled={blocksRemaining === 0 || !isBalanceSufficient || hasPendingJob || hasPendingBroadcastJob}
+            label={translate('components/QuickBid', 'QUICK BID')}
+            onPress={onQuickBid}
+            testID='quick_bid_submit_button'
+            margin='m-0'
+            style={tailwind('items-end')}
+          />
+          {!isBalanceSufficient &&
+            <ThemedText
+              light={tailwind('text-error-500')}
+              dark={tailwind('text-darkerror-500')}
+              style={tailwind('text-center text-xs mt-2')}
+            >
+              {translate('components/QuickBid', 'Insufficient amount to place a bid')}
+            </ThemedText>}
+        </View>
+      </ThemedScrollView>
     </ThemedView>
   )
 })
