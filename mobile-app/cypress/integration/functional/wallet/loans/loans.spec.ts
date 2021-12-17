@@ -171,6 +171,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 
   it('should add loan', function () {
+    let annualInterest: string
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     checkVaultDetailValues('READY', vaultId, '$1,500.00', '$0.00', '5')
     cy.getByTestID('button_browse_loans').click()
@@ -185,6 +186,13 @@ context('Wallet - Loans - Take Loans', () => {
     cy.wait(3000)
     cy.getByTestID('text_input_usd_value').should('have.value', '100.00')
     cy.getByTestID('text_resulting_col_ratio').contains('1,500.00%')
+    cy.getByTestID('text_estimated_annual_interest').then(($txt: any) => {
+      annualInterest = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
+    })
+    cy.getByTestID('text_total_loan_with_annual_interest').then(($txt: any) => {
+      const totalLoanWithAnnualInterest = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
+      expect(new BigNumber(totalLoanWithAnnualInterest).toFixed(8)).to.be.equal(new BigNumber('1000').plus(annualInterest).toFixed(8))
+    })
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('text_borrow_amount').contains('100.00000000')
     cy.getByTestID('text_borrow_amount_suffix').contains('DUSD')
@@ -241,6 +249,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 
   it('should borrow more loan', function () {
+    let annualInterest: string
     cy.getByTestID('loan_symbol').contains('DUSD')
     cy.getByTestID('loan_outstanding_balance').contains('100')
     cy.getByTestID('vault_id').contains(vaultId)
@@ -252,10 +261,12 @@ context('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('text_input_usd_value').should('have.value', '1000.00')
     cy.getByTestID('text_resulting_col_ratio').contains('136')
     cy.getByTestID('borrow_more_button').should('have.attr', 'aria-disabled')
+    cy.getByTestID('text_estimated_annual_interest').then(($txt: any) => {
+      annualInterest = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
+    })
     cy.getByTestID('text_total_loan_with_annual_interest').then(($txt: any) => {
-      const total = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
-      /* eslint-disable-next-line */
-      expect(new BigNumber(total).isGreaterThan(1000)).to.be.true      
+      const totalLoanWithAnnualInterest = $txt[0].textContent.replace(' DUSD', '').replace(',', '')
+      expect(new BigNumber(totalLoanWithAnnualInterest).toFixed(8)).to.be.equal(new BigNumber('1000').plus(annualInterest).toFixed(8))
     })
     cy.getByTestID('text_total_loan_with_annual_interest_suffix').contains('DUSD')
     cy.getByTestID('loan_add_input').clear().type('648').blur()
