@@ -200,19 +200,19 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Estimated annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
-          testID: 'total_interest_amount',
+          testID: 'estimated_annual_interest',
           suffixType: 'text',
           suffix: props.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + interest')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + annual interest')}
         rhs={{
           value: props.totalLoanWithInterest.toFixed(8),
-          testID: 'total_loan_with_interest',
+          testID: 'total_loan_with_annual_interest',
           suffixType: 'text',
           suffix: props.displaySymbol
         }}

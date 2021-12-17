@@ -38,7 +38,7 @@ export function BottomSheetInfo ({
     >
       <View style={tailwind('py-4 px-6 pt-0')}>
         <View
-          style={tailwind('flex-row mb-3 items-center')}
+          style={tailwind('flex-row mb-3')}
         >
           <ThemedIcon
             size={20}
@@ -46,11 +46,12 @@ export function BottomSheetInfo ({
             iconType='MaterialIcons'
             dark={tailwind('text-gray-200')}
             light={tailwind('text-gray-700')}
+            style={tailwind('pt-1.5')}
           />
           <ThemedText
             dark={tailwind('text-gray-50')}
             light={tailwind('text-gray-900')}
-            style={tailwind('ml-2 text-2xl font-semibold')}
+            style={tailwind('ml-2 pr-10 text-2xl font-semibold')}
           >
             {translate('components/BottomSheetInfo', alertInfo.title)}
           </ThemedText>
