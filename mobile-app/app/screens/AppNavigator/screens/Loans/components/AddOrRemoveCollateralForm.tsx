@@ -215,16 +215,6 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           dark={tailwind('text-gray-200')}
           style={tailwind('text-sm font-medium')}
         >
-          <ScrollView horizontal contentContainerStyle={tailwind('flex justify-between flex-row h-7 flex-grow')}>
-            <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
-            <ThemedText
-              style={tailwind('font-semibold')}
-              light={colors.light}
-              dark={colors.dark}
-            >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
-            </ThemedText>
-          </ScrollView>
-          <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
           <Text>{' '}</Text>
           {token.displaySymbol}
           {
@@ -249,6 +239,21 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         }
         </ThemedText>
       </InputHelperText>
+      <ScrollView
+        horizontal contentContainerStyle={tailwind(['flex justify-between flex-row', {
+        'flex-grow h-7': Platform.OS !== 'web',
+        'w-full': Platform.OS === 'web'
+      }])}
+      >
+        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+        <ThemedText
+          style={tailwind('font-semibold')}
+          light={colors.light}
+          dark={colors.dark}
+        >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+        </ThemedText>
+      </ScrollView>
+      <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired && (
         <View style={tailwind('mt-4 mb-6')}>
           <ConversionInfoText />
