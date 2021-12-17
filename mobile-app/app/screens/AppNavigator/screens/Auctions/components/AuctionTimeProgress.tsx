@@ -23,8 +23,8 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
 
   return (
     <>
-      <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-        <View style={tailwind('flex flex-row')}>
+      <View style={tailwind('flex-row w-full justify-between mb-2')}>
+        <View style={tailwind('w-6/12')}>
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
@@ -33,11 +33,11 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
             {translate('components/AuctionTimeProgress', props.label)}
           </ThemedText>
         </View>
-        <View style={tailwind('flex flex-row')}>
+        <View style={tailwind('flex flex-row flex-1 justify-end flex-wrap')}>
           <ThemedText
             light={tailwind('text-gray-900')}
             dark={tailwind('text-gray-50')}
-            style={props.auctionTextStyle === undefined ? tailwind('text-sm') : props.auctionTextStyle}
+            style={[tailwind('text-sm text-right'), props.auctionTextStyle]}
           >
             {timeRemaining !== '' && translate('components/AuctionTimeProgress', '~{{time}} left', { time: timeRemaining })} ({translate('components/AuctionTimeProgress', '{{block}} blks', { block: blocksRemaining })})
           </ThemedText>
