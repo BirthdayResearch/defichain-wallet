@@ -23,8 +23,8 @@ import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionParam } from '../../Balances/BalancesNavigator'
-import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmPaybackLoanScreen'>
 
@@ -36,8 +36,9 @@ export function ConfirmPaybackLoanScreen ({
     vault,
     amountToPay,
     fee,
-    loanToken,
-    excessAmount
+    loanTokenAmount,
+    excessAmount,
+    resultingColRatio
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -51,7 +52,7 @@ export function ConfirmPaybackLoanScreen ({
     navigation.navigate({
       name: 'PaybackLoanScreen',
       params: {
-        loanToken,
+        loanTokenAmount,
         vault
       },
       merge: true
@@ -61,7 +62,7 @@ export function ConfirmPaybackLoanScreen ({
   async function onSubmit (): Promise<void> {
     await paybackLoanToken({
       vaultId: vault.vaultId,
-      loanToken: loanToken,
+      loanToken: loanTokenAmount,
       amountToPay
     }, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
@@ -91,18 +92,19 @@ export function ConfirmPaybackLoanScreen ({
     <ThemedScrollView>
       <SummaryHeader
         amount={new BigNumber(amountToPay)}
-        displaySymbol={loanToken.displaySymbol}
+        displaySymbol={loanTokenAmount.displaySymbol}
       />
       <SummaryTransactionDetails
         amountToPay={amountToPay}
-        displaySymbol={loanToken.displaySymbol}
+        displaySymbol={loanTokenAmount.displaySymbol}
         fee={fee}
         vault={vault}
-        outstandingBalance={BigNumber.max(new BigNumber(loanToken.amount).minus(amountToPay), 0)}
+        outstandingBalance={BigNumber.max(new BigNumber(loanTokenAmount.amount).minus(amountToPay), 0)}
         excessAmount={excessAmount}
       />
       <SummaryVaultDetails
         vault={vault}
+        resultingColRatio={resultingColRatio}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
@@ -199,13 +201,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
   )
 }
 
-function SummaryVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
-  const colRatio = new BigNumber(props.vault.collateralRatio)
-  const colors = useCollateralizationRatioColor({
-    colRatio,
-    minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
-    totalLoanAmount: new BigNumber(props.vault.loanValue)
-  })
+function SummaryVaultDetails (props: { vault: LoanVaultActive, resultingColRatio: BigNumber }): JSX.Element {
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
     message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
@@ -224,17 +220,10 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmPaybackLoanScreen', 'Collateral amount (USD)')}
-        rhs={{
-          value: new BigNumber(props.vault.collateralValue).toFixed(2),
-          testID: 'text_collateral_amount'
-        }}
-      />
-      {colRatio.isLessThan(0)
+      {props.resultingColRatio.isLessThan(0)
         ? (
           <TextRow
-            lhs={translate('screens/ConfirmPaybackLoanScreen', 'Collateralization ratio')}
+            lhs={translate('screens/ConfirmPaybackLoanScreen', 'Resulting collateralization')}
             rhs={{
               value: translate('screens/ConfirmPaybackLoanScreen', 'N/A'),
               testID: 'text_current_collateral_ratio'
@@ -244,16 +233,14 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
           />
         )
         : (
-          <NumberRow
-            lhs={translate('screens/ConfirmPaybackLoanScreen', 'Collateralization ratio')}
-            rhs={{
-              value: colRatio.toFixed(2),
-              testID: 'text_current_collateral_ratio',
-              suffixType: 'text',
-              suffix: '%'
-            }}
-            rhsThemedProps={colors}
-            info={collateralAlertInfo}
+          <CollateralizationRatioRow
+            label={translate('screens/ConfirmPaybackLoanScreen', 'Resulting collateralization')}
+            value={props.resultingColRatio.toFixed(2)}
+            testId='text_resulting_col_ratio'
+            type='current'
+            minColRatio={new BigNumber(props.vault.loanScheme.minColRatio)}
+            totalLoanAmount={new BigNumber(props.vault.loanValue)}
+            colRatio={props.resultingColRatio}
           />
         )}
     </>

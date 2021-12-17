@@ -293,16 +293,19 @@
     "Swap with {{token}}": "用 {{token}} 兌換"
   },
   "screens/TokensVsUtxoScreen": {
-    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有兩種形式 - UTXO 和代幣, 兩者可依據使用做互換. 這個程序可以進行互換.",
-    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI 是DFI的主要形式，用來做接收、發送、費用和其他加密貨幣功能. DFI代幣適用於DeFi功能如兌換或流動性挖礦.",
-    "Your DFI balance includes both UTXO and tokens.": "您的DFI總資金含UTXO和代幣形式",
-    "Core crypto services": "主要加密服務",
-    "Send to other wallets": "發送到其他地址",
-    "Receive tokens": "接收代幣",
-    "Service fees": "服務費用",
-    "DeFi services": "DeFi服務",
-    "Liquidity mining": "流動性挖礦",
-    "Atomic Swaps": "原子交換"
+    "Learn about UTXOs and Tokens": "Learn about UTXOs and Tokens",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
+    "DFI in UTXO form": "DFI in UTXO form",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
+    "Use cases include:": "Use cases include:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees",
+    "DFI in token form": "DFI in token form",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquidity pools",
+    "Auctions and Loans": "Auctions and Loans"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "創建錢包",
@@ -659,7 +662,7 @@
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/PasscodeFaq": {
-    "Passcode": "Passcode",
+    "Passcode": "密碼",
     "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘記了我的密碼會怎麼樣？有人能幫我找回我的密碼嗎？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密碼之外，沒有任何人會知道。因此，沒有人能幫您找回您的私人密碼。",
@@ -1004,7 +1007,8 @@
     "Collateralization ratio": "抵押比例率",
     "Min. collateralization ratio": "最低抵押比例率",
     "Excess amount": "超出的金額",
-    "Any excess amount will be returned to your wallet.": "任何超出的金額將返還到您的錢包."
+    "Any excess amount will be returned to your wallet.": "任何超出的金額將返還到您的錢包.",
+    "Resulting collateralization": "最終抵押率"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "確認付款",
@@ -1021,7 +1025,8 @@
     "Collateralization ratio": "抵押率",
     "Paying loan": "償還貸款中",
     "Paying {{amount}} {{symbol}}": "償還款項 {{amount}} {{symbol}} ",
-    "Confirm Loan Payment": "確認償還貸款"
+    "Confirm Loan Payment": "確認償還貸款",
+    "Resulting collateralization": "最終抵押率"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
