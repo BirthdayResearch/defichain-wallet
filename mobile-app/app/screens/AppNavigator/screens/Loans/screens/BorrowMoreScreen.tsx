@@ -77,7 +77,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     }
     const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToAdd.amountInToken)
     setTotalAnnualInterest(annualInterest)
-    setTotalLoanWithInterest(new BigNumber(amountToAdd.amountInToken).plus(annualInterest.plus(1)))
+    setTotalLoanWithInterest(amountToAdd.amountInToken.plus(annualInterest))
   }
 
   const onSubmit = async (): Promise<void> => {

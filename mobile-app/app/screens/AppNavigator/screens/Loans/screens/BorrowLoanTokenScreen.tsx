@@ -142,7 +142,7 @@ export function BorrowLoanTokenScreen ({
     }
     const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToBorrow.amountInToken)
     setTotalAnnualInterest(annualInterest)
-    setTotalLoanWithInterest(amountToBorrow.amountInToken.multipliedBy(annualInterest.plus(1)))
+    setTotalLoanWithInterest(amountToBorrow.amountInToken.plus(annualInterest))
   }
 
   const onSubmit = async (): Promise<void> => {
