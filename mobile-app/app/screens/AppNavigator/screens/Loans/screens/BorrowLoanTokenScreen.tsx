@@ -39,6 +39,7 @@ import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -62,6 +63,7 @@ export function BorrowLoanTokenScreen ({
     amountInput: ''
   })
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
+  const [totalAnnualInterest, setTotalAnnualInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken.interest))
@@ -72,6 +74,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(loanToken.activePrice?.active?.amount ?? 0),
     interestPerBlock
   )
+  const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -135,8 +138,9 @@ export function BorrowLoanTokenScreen ({
     if (vault === undefined || amountToBorrow.amountInput === undefined || loanToken.activePrice?.active?.amount === undefined) {
       return
     }
-
-    setTotalLoanWithInterest(amountToBorrow.amountInToken.plus(interestPerBlock))
+    const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToBorrow.amountInToken)
+    setTotalAnnualInterest(annualInterest)
+    setTotalLoanWithInterest(amountToBorrow.amountInToken.plus(annualInterest))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -283,7 +287,7 @@ export function BorrowLoanTokenScreen ({
                 vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
                 loanTokenInterestRate={new BigNumber(loanToken.interest)}
                 loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-                totalInterestAmount={interestPerBlock}
+                totalInterestAmount={totalAnnualInterest}
                 totalLoanWithInterest={totalLoanWithInterest}
                 loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
                 fee={fee}
@@ -604,19 +608,19 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Estimated annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
-          testID: 'text_total_interest_amount',
+          testID: 'text_estimated_annual_interest',
           suffixType: 'text',
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Total loan + interest')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Total loan + annual interest')}
         rhs={{
           value: props.totalLoanWithInterest.toFixed(8),
-          testID: 'text_total_interest_amount',
+          testID: 'text_total_loan_with_annual_interest',
           suffixType: 'text',
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
