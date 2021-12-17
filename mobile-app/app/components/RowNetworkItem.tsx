@@ -39,6 +39,10 @@ export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
             style: 'destructive',
             onPress: async () => {
               await updateNetwork(props.network)
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'App' }]
+              })
             }
           }
         ]
