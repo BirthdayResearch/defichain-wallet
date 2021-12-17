@@ -18,8 +18,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     },
     version: '<0.17.0',
     url: {
-      ios: '',
-      android: '',
+      ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
+      android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
       macos: '',
       windows: '',
       web: ''
@@ -33,8 +33,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     },
     version: '>=0.17.0',
     url: {
-      ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
-      android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
+      ios: '',
+      android: '',
       macos: '',
       windows: '',
       web: ''
