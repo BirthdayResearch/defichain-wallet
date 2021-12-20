@@ -157,14 +157,14 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           }
           <VaultSectionTextRow
             testID={`${props.testID}_total_loan`}
-            prefix='$'
-            value={new BigNumber(vault.loanValue).toFixed(2)}
+            prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
+            value={VaultStatus.Liquidated === vaultState.status ? '-' : new BigNumber(vault.loanValue).toFixed(2) ?? '-'}
             lhs={translate('components/VaultCard', 'Total loans (USD)')}
           />
           <VaultSectionTextRow
             testID={`${props.testID}_total_collateral`}
-            prefix='$'
-            value={new BigNumber(vault.collateralValue).toFixed(2)}
+            prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
+            value={VaultStatus.Liquidated === vaultState.status ? '-' : new BigNumber(vault.collateralValue).toFixed(2)}
             lhs={translate('components/VaultCard', 'Total collateral (USD)')}
           />
         </View>
