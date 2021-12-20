@@ -120,7 +120,6 @@
     "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
-    "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "CONVERT {{symbol}}": "{{symbol}} UMWANDELN",
     "TO {{symbol}}": "IN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
@@ -563,8 +562,7 @@
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
-    "You will receive": "Du wirst erhalten"
+    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
   },
   "screens/CompositeSwapScreen": {
     "Swap tokens": "Token-Tausch",
@@ -973,7 +971,9 @@
     "REMOVE COLLATERAL AMOUNT": "BETRAG DER SICHERHEITEN REDUZIEREN",
     "How much {{symbol}} to remove?": "Wie viele {{symbol}} sollen entfernt werden?",
     "Current": "Aktueller Stand",
-    "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens."
+    "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens.",
+    "Resulting collateralization":"Resultierende Besicherungsquote",
+    "N/A": "K/A"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
