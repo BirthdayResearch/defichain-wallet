@@ -155,6 +155,7 @@ export function PaybackLoanScreen ({
           displayClearButton={amountToPay !== ''}
           onClearButtonPress={() => setAmountToPay('')}
           style={tailwind('h-9 w-3/5 flex-grow')}
+          testID='payback_input_text'
         />
         <InputHelperText
           label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
