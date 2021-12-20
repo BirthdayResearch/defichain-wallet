@@ -1007,7 +1007,7 @@
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Excess amount": "Überschüssiger Betrag",
     "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert.",
-    "Resulting collateralization":"Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -1048,8 +1048,8 @@
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest (Vault + Token)": "Zinsen (Vault + Token)",
-    "Total interest amount": "Zinsgesamtbetrag",
-    "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
+    "Estimated annual interest": "Geschätzter Jahreszins",
+    "Total loan + annual interest": "Gesamtbetrag Darlehen + Jahreszins",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "SELECT LOAN TOKEN": "DARLEHENSTOKEN AUSWÄHLEN",
     "CONTINUE": "WEITER",
@@ -1070,8 +1070,8 @@
     "Loan tokens to borrow": "Auszuleihende Darlehenstoken",
     "Token interest": "Token-Zins",
     "Vault interest": "Vault-Jahreszins",
-    "Total interest amount": "Zinsgesamtbetrag",
-    "Total loan + interest": "Gesamtbetrag Darlehen + Zins",
+    "Estimated annual interest": "Geschätzter Jahreszins",
+    "Total loan + annual interest": "Gesamtbetrag Darlehen + Jahreszins",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Vault ID": "Vault-ID",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
