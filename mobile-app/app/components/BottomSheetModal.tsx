@@ -54,13 +54,13 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
 
   return (
     <View>
-      <TouchableOpacity onPress={openModal} style={tailwind(containerStyle)}>
+      <TouchableOpacity onPress={openModal}>
         {triggerComponent}
       </TouchableOpacity>
       {!isWeb && (
         <Modal
           name={name}
-          style={style}
+          style={[style, tailwind(containerStyle)]}
           ref={bottomSheetModalRef}
           snapPoints={snapPoints}
           stackBehavior='replace'

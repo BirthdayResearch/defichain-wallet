@@ -59,51 +59,51 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
         style={tailwind('flex-row items-center flex-grow w-full p-4 pr-2')}
       >
         {Platform.OS === 'web'
-              ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    setIsSelectorOpen(true)
-                  }}
-                  style={tailwind('w-full')}
-                  testID='slippage_select'
-                >
-                  <SelectedValue slippage={slippage} />
-                </TouchableOpacity>
-              )
-              : (
-                <BottomSheetModal
-                  name={SLIPPAGE_MODAL_NAME}
-                  snapPoints={getSnapPoints()}
-                  index={snapIndex}
-                  containerStyle='p-0 m-0 flex-row justify-between items-center'
-                  enablePanDownToClose={false}
-                  enableContentPanningGesture={false}
-                  triggerComponent={<SelectedValue slippage={slippage} />}
-                  handleComponent={null}
-                >
-                  {/* This handles the full display of elements when keyboard is open */}
-                  <KeyboardAvoidingView
-                    behavior='height'
-                    style={tailwind('flex', { 'pb-10': Platform.OS === 'ios' })}
+          ? (
+            <TouchableOpacity
+              onPress={() => {
+                setIsSelectorOpen(true)
+              }}
+              style={tailwind('w-full')}
+              testID='slippage_select'
+            >
+              <SelectedValue slippage={slippage} />
+            </TouchableOpacity>
+          )
+          : (
+            <BottomSheetModal
+              name={SLIPPAGE_MODAL_NAME}
+              snapPoints={getSnapPoints()}
+              index={snapIndex}
+              containerStyle='pt-7'
+              enablePanDownToClose={false}
+              enableContentPanningGesture={false}
+              triggerComponent={<SelectedValue slippage={slippage} />}
+              handleComponent={null}
+            >
+              {/* This handles the full display of elements when keyboard is open */}
+              <KeyboardAvoidingView
+                behavior='height'
+                style={tailwind('flex', { 'pb-10': Platform.OS === 'ios' })}
+              >
+                <ScrollView>
+                  <ThemedView
+                    dark={tailwind('bg-gray-800')}
+                    light={tailwind('bg-white')}
+                    style={tailwind('p-4')}
                   >
-                    <ScrollView>
-                      <ThemedView
-                        dark={tailwind('bg-gray-800')}
-                        light={tailwind('bg-white')}
-                        style={tailwind('p-4')}
-                      >
-                        <SlippageHeader />
-                        <SlippageSelector
-                          slippage={slippage}
-                          isCustomSlippage={isCustomSlippage}
-                          onSubmitSlippage={onSubmitSlippage}
-                          onSnapToIndex={onSnapToIndex}
-                        />
-                      </ThemedView>
-                    </ScrollView>
-                  </KeyboardAvoidingView>
-                </BottomSheetModal>
-              )}
+                    <SlippageHeader />
+                    <SlippageSelector
+                      slippage={slippage}
+                      isCustomSlippage={isCustomSlippage}
+                      onSubmitSlippage={onSubmitSlippage}
+                      onSnapToIndex={onSnapToIndex}
+                    />
+                  </ThemedView>
+                </ScrollView>
+              </KeyboardAvoidingView>
+            </BottomSheetModal>
+          )}
       </ThemedView>
 
       {(Platform.OS === 'web' && isSelectorOpen) && (
@@ -149,50 +149,47 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
 function SelectedValue ({ slippage }: { slippage: BigNumber}): JSX.Element {
   return (
     <View
-      style={tailwind('flex-row w-full')}
+      style={tailwind('flex-row')}
     >
-      <View style={tailwind('mr-3 flex-auto flex-row items-center')}>
+      <View style={tailwind('w-6/12 flex-grow')}>
         <ThemedText
           dark={tailwind('text-gray-200')}
           light={tailwind('text-black')}
           style={tailwind('text-sm mr-1')}
           testID='slippage_title'
         >
-          {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
+          {translate('screens/SlippageTolerance', 'Slippage tolerance')}
         </ThemedText>
-        <ThemedIcon
-          size={16}
-          name='info-outline'
-          iconType='MaterialIcons'
-          dark={tailwind('text-gray-200')}
-          light={tailwind('text-gray-700')}
+      </View>
+      <View
+        style={tailwind('flex w-6/12 flex-row justify-end flex-wrap items-center')}
+      >
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(val: string) => (
+            <>
+              <ThemedText
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
+                style={tailwind('text-base text-right')}
+                testID='slippage_value'
+              >
+                {val}%
+              </ThemedText>
+              <ThemedIcon
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+                iconType='MaterialIcons'
+                name='unfold-more'
+                size={24}
+              />
+            </>
+        )}
+          thousandSeparator
+          value={new BigNumber(slippage).toNumber()}
         />
       </View>
-      <NumberFormat
-        decimalScale={8}
-        displayType='text'
-        renderText={(val: string) => (
-          <>
-            <ThemedText
-              dark={tailwind('text-gray-400')}
-              light={tailwind('text-gray-500')}
-              style={tailwind('text-base text-right')}
-              testID='slippage_value'
-            >
-              {val}%
-            </ThemedText>
-            <ThemedIcon
-              light={tailwind('text-primary-500')}
-              dark={tailwind('text-darkprimary-500')}
-              iconType='MaterialIcons'
-              name='unfold-more'
-              size={24}
-            />
-          </>
-      )}
-        thousandSeparator
-        value={new BigNumber(slippage).toNumber()}
-      />
     </View>
   )
 }
@@ -399,7 +396,7 @@ const BottomSheetInput = (props: BottomSheetInputProps): JSX.Element => {
       keyboardType='numeric'
       autoCapitalize='none'
       placeholder='0.00%'
-      style={tailwind('flex-grow h-8')}
+      style={tailwind('flex-grow w-2/5 h-8')}
       containerStyle='mb-1 w-full flex-col'
       testID='slippage_input'
       value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}

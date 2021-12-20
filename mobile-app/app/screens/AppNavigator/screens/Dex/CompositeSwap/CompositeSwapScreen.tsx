@@ -33,7 +33,6 @@ import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
 import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
@@ -683,14 +682,6 @@ function TransactionDetailsSection ({
       <SlippageTolerance
         setSlippage={(amount) => onSetSlippage(amount)}
         slippage={slippage}
-      />
-      <TextRow
-        lhs={translate('screens/CompositeSwapScreen', 'Slippage Tolerance')}
-        rhs={{
-          value: `${new BigNumber(slippage).times(100).toFixed(2)}%`,
-          testID: 'slippage_tolerance'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
       />
       <FeeInfoRow
         type='ESTIMATED_FEE'
