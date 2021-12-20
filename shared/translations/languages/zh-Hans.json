@@ -18,6 +18,7 @@
     "Decentralized Exchange": "ＤＥＸ",
     "ADD LIQUIDITY": "增加流动资金",
     "Add liquidity": "增加流动资金",
+    "Add Liquidity": "增加流动资金",
     "Confirm Add Liquidity": "确认增加流动资金",
     "Remove Liquidity": "退出流动资金",
     "Confirm Removal": "确认退出",
@@ -287,25 +288,26 @@
     "AVAILABLE OPTIONS": "可使用的功能",
     "Send to other wallet": "发送到其他地址",
     "Receive": "接收",
+    "Receive {{token}}": " 接收 {{token}}",
     "Convert to {{symbol}}": "转换至 {{symbol}}",
     "Add to liquidity pool": "加入流动性池",
     "Remove liquidity": "撒出 流动性池",
     "Swap with {{token}}": "用 {{token}} 兑换"
   },
   "screens/TokensVsUtxoScreen": {
-    "Learn about UTXOs and Tokens": "Learn about UTXOs and Tokens",
-    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
-    "DFI in UTXO form": "DFI in UTXO form",
-    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
-    "Use cases include:": "Use cases include:",
-    "Sending DFI to other wallets": "Sending DFI to other wallets",
-    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
-    "Transaction fees": "Transaction fees",
-    "DFI in token form": "DFI in token form",
-    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)",
-    "Liquidity pools": "Liquidity pools",
-    "Auctions and Loans": "Auctions and Loans"
+    "Learn about UTXOs and Tokens": "了解UTXO和代币区别",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI有两种形式：UTXO和代币，这两种形式根据使用情况可以互换。您可以直接用轻钱包内转换两者形式。",
+    "DFI in UTXO form": "DFI的UTXO形式",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "UTXO形式的DFI是主要形式。它用于核心加密货币交易，如发送、接收和收费等。",
+    "Use cases include:": "可使用于",
+    "Sending DFI to other wallets": "发送DFI到其他地址",
+    "Receiving DFI from other wallets": "从其他地址接收DFI",
+    "Transaction fees": "交易费用",
+    "DFI in token form": "DFI代币",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "代币形式的DFI用于递飞链的各种DeFi功能，如流动性池、贷款、拍卖和DEX兑换。",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "兑换DFI成其他代币(如，dBTC, dETH, dUSDT, dUSDC)",
+    "Liquidity pools": "流动性池",
+    "Auctions and Loans": "拍卖和贷款"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "创建钱包",
@@ -482,7 +484,7 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
     "PRICE DETAILS": "价格明细",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
-    "Your pooled {{token}}": "您已入池的 {{token}}",
+    "Your pooled {{symbol}}": "您已入池的 {{symbol}}",
     "Transaction type": "交易类型",
     "Add liquidity": "增加流动资金",
     "Convert & add liquidity": "转换并增加流动资金",
@@ -616,7 +618,8 @@
     "Transaction type": "交易类型",
     "Swap": "兑换",
     "Convert & swap": "转换并兑换",
-    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高价格"
+    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高价格",
+    "PRICE DETAILS": "价格明细"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "请输入密码",
@@ -809,6 +812,7 @@
     "Active loans": "活跃的贷款",
     "Total loans (USD)": "贷款总金额(美金)",
     "Total collateral (USD)": "抵押资金总价值 (美金)",
+    "Collateral amount": "抵押品金额(美金)",
     "Collateral amount (USD)": "抵押品金额(美金)",
     "Collateralization ratio": "抵押品比率",
     "n/a": "不适用",
@@ -970,7 +974,7 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素决定了每款抵押代币的贡献程度比例。"
   },
   "screens/ConfirmEditCollateralScreen": {
-    "You are adding collaterals to": "您正在加入抵押到",
+    "You are adding collateral to": "向金库增加抵押品",
     "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Add collateral": "添加抵押资金",
@@ -1102,7 +1106,8 @@
     "New vault interest (APR)": "更新最低利率 (年回报率)",
     "CONFIRM EDIT": "确认更改",
     "EDITING": "更改中",
-    "CONVERTING": "转换中"
+    "CONVERTING": "转换中",
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金库至{{mincolRatio}}%最低抵押率和{{ir}}%年利息"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
@@ -1155,9 +1160,12 @@
     "Total auction value (USD)": "拍卖总价值（美元）",
     "(Full details)": "(全部细节)",
     "Min. next bid": "最低标价",
+    "Insufficient funds": "资金不足",
     "Insufficient amount to place a bid": "余额不足，无法出价",
     "Collaterals": "抵押品",
-    "How much do you want to bid?": "您想出的价钱？"
+    "How much do you want to bid?": "您想出的价钱？",
+    "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的价钱比拍卖价值还高，请检查和确认",
+    "Collateral for auction": "待拍賣的抵押品"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明细",
