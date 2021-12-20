@@ -330,7 +330,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context('Wallet - Loans - Payback Loans', () => {
+context.only('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
@@ -368,6 +368,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.closeOceanInterface()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
+    cy.wait(3000)
     cy.checkBalanceRow('12', { name: 'Decentralized USD', amount: '100.00000000', symbol: 'DUSD' })
   })
 
