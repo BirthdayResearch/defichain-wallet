@@ -64,7 +64,7 @@
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
-    "Switch to another wallet": "Passer à un autre portefeuille",
+    "Switch to another address": "Passer à une autre adresse",
     "Wallet Address": "Adresse du portefeuille",
     "ACTIVE": "ACTIF"
   },
@@ -88,6 +88,7 @@
     "How much do you want to send?": "Combien voulez-vous envoyer ?",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
+    "UTXO to be converted": "UTXO à convertir",
     "Amount to be converted": "Montant à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
     "Send to other wallet": "Envoyer à un autre portefeuille",
@@ -292,16 +293,19 @@
     "Swap with {{token}}": "Echanger avec {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
-    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "Le DFI existe sous deux formes - UTXO et token, qui sont interchangeables en fonction de l'utilisation. Vous pouvez facilement convertir les deux formes avec l'application.",
-    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI est la forme principale de DFI et est utilisé pour les fonctions de base des crypto-monnaies comme l'envoi, la réception et les frais. Les tokens DFI sont utilisés pour les fonctions DFI telles que les échanges et le minage de liquidités.",
-    "Your DFI balance includes both UTXO and tokens.": "Votre solde DFI comprend les UTXO et les tokens.",
-    "Core crypto services": "Services cryptographiques de base",
-    "Send to other wallets": "Envoyer à d'autres portefeuilles",
-    "Receive tokens": "Recevoir des tokens",
-    "Service fees": "Frais de service",
-    "DeFi services": "Services DeFi",
-    "Liquidity mining": "Le minage de liquidités",
-    "Atomic Swaps": "Atomic Swaps"
+    "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les Tokens",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI existe sous deux formes - UTXO et Token. Ils peuvent être convertis l'un avec l'autre pour servir différents cas usage dans votre portefeuille léger.",
+    "DFI in UTXO form" : "DFI sous forme d'UTXO",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees." : "Un DFI sous forme UTXO est la forme primaire du DFI. L'UTXO est utilisé pour des opérations à la base de la crypto-monnaie telles que l'envoi, la réception et le paiement de frais.",
+    "Use cases include:" : "Les cas d'usage comprennent:",
+    "Sending DFI to other wallets" : "Envoi de DFI à d'autres portefeuilles",
+    "Receiving DFI from other wallets" : "Recevoir des DFI d'autres portefeuilles",
+    "Transaction fees": "Frais de transaction",
+    "DFI in token form": "DFI sous forme de tokens.",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "Les DFI sous forme de tokens sont utilisés pour diverses fonctions de la DeFiChain telles que pour les pools de liquidité, les prêts, les enchères et les échanges via le DEX.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)" : "Échange de DFI avec d'autres tokens (ex. dBTC, dETH, dUSDT)",
+    "Liquidity pools" : "Pools de liquidité",
+    "Auctions and Loans" : "Ventes aux enchères et prêts"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CRÉER UN PORTEFEUILLE",
@@ -458,6 +462,7 @@
     "{{tokenA}} price per {{tokenB}}": "Prix de {{tokenA}} par {{tokenB}}",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Your pooled {{token}}": "Tes {{token}} du pool",
+    "UTXO to be converted" : "UTXO à convertir",
     "Amount to be converted": "Montant à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir",
     "Estimated fee": "Frais estimés",
@@ -554,6 +559,7 @@
     "Estimated fee": "Frais estimés",
     "{{tokenA}} price per {{tokenB}}": "Prix de {{tokenA}} par {{tokenB}}",
     "Amount to be converted": "Montant à convertir",
+    "UTXO to be converted" : "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir"
   },
   "screens/CompositeSwapScreen": {
@@ -574,6 +580,7 @@
     "{{token}} tokens converted": "{{token}} tokens convertis",
     "Select token": "Sélectionner le token",
     "Amount to be converted": "Montant à convertir",
+    "UTXO to be converted" : "UTXO à convertir",
     "Slippage Tolerance": "Tolérance de Slippage",
     "TRANSACTION DETAILS": "détails de la transaction",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
@@ -1002,7 +1009,9 @@
     "Outstanding balance": "Solde en souffrance",
     "Collateralization ratio": "Ratio de garantie",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Resulting collateralization": "La garantie résultante"
+    "Resulting collateralization": "La garantie résultante",
+    "Excess amount" : "Montant excédentaire",
+    "Any excess amount will be returned to your wallet." : "Tout montant excédentaire sera reversé dans votre portefeuille."
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENTN",
@@ -1043,6 +1052,8 @@
     "Resulting collateralization": "Ratio de garantie résultante",
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Interest (Vault + Token)": "Intérêt (Vault + Token)",
+    "Estimated annual interest" : "Intérêt annuel estimé",
+    "Total loan + annual interest" : "Prêt total + intérêt annuel",
     "Total interest amount": "Montant total des intérêts",
     "Total loan + interest": "Total des prêts + intérêts",
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
@@ -1054,7 +1065,7 @@
     "Unable to proceed because of errors": "Impossible de poursuivre en raison d'erreurs",
     "Max loan amount": "Montant max. du prêt",
     "USD": "USD",
-    "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ??"
+    "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Vous empruntez",
@@ -1065,6 +1076,8 @@
     "Loan tokens to borrow": "Tokens de prêt pour emprunter",
     "Token interest": "Intérêt du Token",
     "Vault interest": "Intérêt du Vault",
+    "Estimated annual interest" : "Intérêt annuel estimé", 
+    "Total loan + annual interest" : "Prêt total + intérêt annuel",
     "Total interest amount": "Montant total des intérêts",
     "Total loan + interest": "Total des prêts + intérêts",
     "VAULT DETAILS": "DÉTAILS DU VAULT",
@@ -1182,5 +1195,8 @@
   },
   "components/WalletAddressRow": {
     "Wallet address": "Adresse du portefeuille"
+  },
+  "components/Announcements": {
+    "VIEW": "VIEW"
   }
 }
