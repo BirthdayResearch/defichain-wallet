@@ -366,10 +366,6 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('txn_authorization_description')
       .contains('Borrowing 100.00000000 DUSD')
     cy.closeOceanInterface()
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.wait(5000)
-    cy.checkBalanceRow('12', { name: 'Decentralized USD', amount: '100.00000000', symbol: 'DUSD' })
   })
 
   it('should be swap DUSD', function () {
