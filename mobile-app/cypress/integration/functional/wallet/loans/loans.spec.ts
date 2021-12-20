@@ -297,6 +297,13 @@ context('Wallet - Loans - Take Loans', () => {
 
   it('should verify collaterals page', function () {
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
-    checkCollateralDetailValues('ACTIVE', '$1,500.00', '$748.00', '201.00', '%', '150.00', '5.00')
+    checkCollateralDetailValues('ACTIVE', '$1,500.00', '$748.00', 201.00, '%', '150.00', '5.00')
+  })
+
+  it('should verify resulting collateralization after taking loan', function () {
+    cy.removeCollateral('1', 'DFI', 187.17)
+    checkCollateralDetailValues('ACTIVE', '$1,400.00', '$748', 187.16, '%', '150.00', '5.00')
+    cy.removeCollateral('1', 'DFI', 173.80)
+    checkCollateralDetailValues('ACTIVE', '$1,300.00', '$748', 173.79, '%', '150.00', '5.00')
   })
 })

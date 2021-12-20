@@ -2,12 +2,16 @@ import '@testing-library/cypress/add-commands'
 import BigNumber from 'bignumber.js'
 import { VaultStatus } from '../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
 
-export function checkCollateralDetailValues (status: string, totalCollateral: string, totalLoans: string, totalColRatio: string, colRatioSuffix: string, totalMinCol: string, totalVaultInterest: string): void {
+export function checkCollateralDetailValues (status: string, totalCollateral: string, totalLoans: string, totalColRatio: number | undefined, colRatioSuffix: string, totalMinCol: string, totalVaultInterest: string): void {
   cy.getByTestID('collateral_vault_tag').contains(status)
   cy.getByTestID('text_total_collateral_value').contains(totalCollateral)
   cy.getByTestID('text_total_loans_value').contains(totalLoans)
-  if (totalColRatio !== '') {
-    cy.getByTestID('text_col_ratio_value').contains(totalColRatio)
+  if (totalColRatio !== undefined) {
+    cy.getByTestID('text_col_ratio_value').invoke('text')
+    .then(colRatioText => {
+      const colRatio =  parseFloat(colRatioText.replace('%', ''))
+      expect(colRatio).to.be.closeTo(totalColRatio, 1)
+    })
   }
   cy.getByTestID('text_col_ratio_value_suffix').contains(colRatioSuffix)
   cy.getByTestID('text_min_col_ratio_value').contains(totalMinCol)
@@ -74,7 +78,7 @@ declare global {
        * @param {string} amount - amount to add
        * @param {string} symbol - symbol of token
        * */
-      removeCollateral: (amount: string, symbol: string) => Chainable<Element>
+      removeCollateral: (amount: string, symbol: string, resultingCollateralization?: number) => Chainable<Element>
 
       /**
        * @description Take Loan
@@ -114,9 +118,16 @@ Cypress.Commands.add('addCollateral', (amount: string, symbol: string) => {
   cy.closeOceanInterface()
 })
 
-Cypress.Commands.add('removeCollateral', (amount: string, symbol: string) => {
+Cypress.Commands.add('removeCollateral', (amount: string, symbol: string, resultingCollateralization?: number) => {
   cy.getByTestID(`collateral_card_remove_${symbol}`).click()
-  cy.getByTestID('form_input_text').type('1').blur()
+  cy.getByTestID('form_input_text').type(amount).blur()
+  if (resultingCollateralization !== undefined) {
+    cy.getByTestID('resulting_collateralization').invoke('text')
+    .then(colRatioText => {
+      const colRatio =  parseFloat(colRatioText.replace('%', ''))
+      expect(colRatio).to.be.closeTo(resultingCollateralization, 1)
+    })
+  }
   cy.getByTestID('add_collateral_button_submit').click()
   cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
   cy.getByTestID('txn_authorization_description')

@@ -9,8 +9,10 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, View, Text } from 'react-native'
+import { Platform, TouchableOpacity, View, Text } from 'react-native'
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -19,8 +21,13 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { DFITokenSelector } from '@store/wallet'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { useCollateralizationRatioColor, useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
+import { useTotalCollateralValue } from '../hooks/CollateralPrice'
+import { CollateralItem } from '../screens/EditCollateralScreen'
 
 export interface AddOrRemoveCollateralFormProps {
+  collateralItem: CollateralItem
   token: TokenData
   activePrice: BigNumber
   collateralFactor: BigNumber
@@ -29,8 +36,10 @@ export interface AddOrRemoveCollateralFormProps {
   onButtonPress: (item: AddOrRemoveCollateralResponse) => void
   onCloseButtonPress: () => void
   isAdd: boolean
+  vault: LoanVaultActive
 }
 
+const COLOR_BARS_COUNT = 6
 type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'AddOrRemoveCollateralFormProps'>
 
 export interface AddOrRemoveCollateralResponse {
@@ -39,6 +48,7 @@ export interface AddOrRemoveCollateralResponse {
 }
 
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
+  const { isLight } = useThemeContext()
   const {
     token,
     activePrice,
@@ -46,7 +56,8 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     onButtonPress,
     onCloseButtonPress,
     collateralFactor,
-    isAdd
+    isAdd,
+    vault
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -60,6 +71,31 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     )
   : false
   const [isValid, setIsValid] = useState(false)
+  const collateralInputValue = new BigNumber(collateralValue).isNaN() ? 0 : collateralValue
+  const { totalCollateralValueInUSD } = useTotalCollateralValue({
+    vault,
+    token,
+    isAdd,
+    collateralInputValue,
+    activePriceAmount: activePrice.isNaN() ? new BigNumber(0) : new BigNumber(activePrice)
+  })
+  const {
+    displayedColorBars,
+    resultingColRatio
+  } = useResultingCollateralizationRatioByCollateral({
+    collateralValue: collateralValue,
+    collateralRatio: new BigNumber(vault.collateralRatio ?? NaN),
+    minCollateralRatio: new BigNumber(vault.loanScheme.minColRatio),
+    totalLoanAmount: new BigNumber(vault.loanValue),
+    numOfColorBars: COLOR_BARS_COUNT,
+    totalCollateralValueInUSD
+  })
+  const colors = useCollateralizationRatioColor({
+    colRatio: resultingColRatio,
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio ?? NaN),
+    totalLoanAmount: new BigNumber(vault.loanValue ?? NaN),
+    totalCollateralValue: totalCollateralValueInUSD
+  })
 
   const validateInput = (input: string): void => {
     const formattedInput = new BigNumber(input)
@@ -78,11 +114,19 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     validateInput(collateralValue)
   }, [collateralValue])
 
+  const bottomSheetComponents = {
+    mobile: BottomSheetScrollView,
+    web: ThemedScrollView
+  }
+  const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
+  const hasInvalidColRatio = resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN()
+
   return (
-    <ThemedScrollView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('p-4 flex-1')}
+    <ScrollView
+      style={tailwind(['p-4 flex-1', {
+        'bg-white': isLight,
+        'bg-gray-800': !isLight
+      }])}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
@@ -175,27 +219,43 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           <Text>{' '}</Text>
           {token.displaySymbol}
           {
-            !new BigNumber(activePrice).isZero() && (
-              <NumberFormat
-                value={activePrice.multipliedBy(available).toFixed(2)}
-                thousandSeparator
-                decimalScale={2}
-                displayType='text'
-                prefix='$'
-                renderText={(val: string) => (
-                  <ThemedText
-                    dark={tailwind('text-gray-400')}
-                    light={tailwind('text-gray-500')}
-                    style={tailwind('text-xs leading-5')}
-                  >
-                    {` /${val}`}
-                  </ThemedText>
-              )}
-              />
-          )
+          !new BigNumber(activePrice).isZero() && (
+            <NumberFormat
+              value={activePrice.multipliedBy(available).toFixed(2)}
+              thousandSeparator
+              decimalScale={2}
+              displayType='text'
+              prefix='$'
+              renderText={(val: string) => (
+                <ThemedText
+                  dark={tailwind('text-gray-400')}
+                  light={tailwind('text-gray-500')}
+                  style={tailwind('text-xs leading-5')}
+                >
+                  {` /${val}`}
+                </ThemedText>
+            )}
+            />
+        )
         }
         </ThemedText>
       </InputHelperText>
+      <ScrollView
+        horizontal contentContainerStyle={tailwind(['flex justify-between flex-row', {
+        'flex-grow h-7': Platform.OS !== 'web',
+        'w-full': Platform.OS === 'web'
+      }])}
+      >
+        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+        <ThemedText
+          style={tailwind('font-semibold')}
+          light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
+          dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
+          testID='resulting_collateralization'
+        >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+        </ThemedText>
+      </ScrollView>
+      <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired && (
         <View style={tailwind('mt-4 mb-6')}>
           <ConversionInfoText />
@@ -211,9 +271,42 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         margin='mt-8 mb-2'
         testID='add_collateral_button_submit'
       />
-      <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
+      <ThemedText style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
       </ThemedText>
-    </ThemedScrollView>
+    </ScrollView>
   )
 })
+
+function ColorBar (props: { colorBarsLen: number, displayedBarsLen: number }): JSX.Element {
+  const width = 100 / props.colorBarsLen
+  return (
+    <View style={tailwind('flex flex-row mt-1 mr-3')}>
+      {Array.from(Array(props.colorBarsLen), (_v, i) => i + 1).map(index => {
+        const isLiquidated = index <= (props.colorBarsLen / 3)
+        const isAtRisk = index <= (props.colorBarsLen / 3) * 2 && !isLiquidated
+        const isHealthy = !isLiquidated && !isAtRisk
+        const isWithinRange = !isNaN(props.displayedBarsLen) && props.displayedBarsLen >= index
+
+        return (
+          <ThemedView
+            key={index}
+            light={tailwind({
+              'bg-error-200': isLiquidated && isWithinRange,
+              'bg-warning-300': isAtRisk && isWithinRange,
+              'bg-success-300': isHealthy && isWithinRange,
+              'bg-gray-200': !isWithinRange
+            })}
+            dark={tailwind({
+              'bg-darkerror-200': isLiquidated && isWithinRange,
+              'bg-darkwarning-300': isAtRisk && isWithinRange,
+              'bg-darksuccess-300': isHealthy && isWithinRange,
+              'bg-gray-200': !isWithinRange
+            })}
+            style={[tailwind('h-1 mr-0.5'), { width: `${width}%` }]}
+          />
+          )
+      })}
+    </View>
+  )
+}
