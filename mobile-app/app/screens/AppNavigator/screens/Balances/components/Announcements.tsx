@@ -23,7 +23,7 @@ export function Announcements (): JSX.Element {
 
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
 
-  if (!isSuccess || announcements === undefined || announcements.length === 0 || announcement === undefined) {
+  if (!isSuccess || announcements?.length === 0 || announcement === undefined) {
     return <></>
   }
 
@@ -68,24 +68,18 @@ interface Announcement {
 
 function findAnnouncementForVersion (version: string, language: string, announcements?: AnnouncementData[]): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
-    return undefined
+    return
   }
 
   for (const announcement of announcements) {
     const lang: any = announcement.lang
     const platformUrl: any = announcement.url
 
-    if (Platform.OS !== 'ios' && Platform.OS !== 'android') {
+    if ((Platform.OS !== 'ios' && Platform.OS !== 'android') ||
+      satisfies(version, announcement.version)) {
       return {
         content: lang[language] ?? lang.en,
-        url: platformUrl[Platform.OS]
-      }
-    }
-
-    if (satisfies(version, announcement.version)) {
-      return {
-        content: lang[language] ?? lang.en,
-        url: platformUrl[Platform.OS]
+        url: platformUrl !== undefined ? platformUrl[Platform.OS] : undefined
       }
     }
   }
