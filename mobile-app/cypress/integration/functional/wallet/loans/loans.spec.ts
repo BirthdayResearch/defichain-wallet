@@ -368,7 +368,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.closeOceanInterface()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_balances').click()
-    cy.wait(3000)
+    cy.wait(5000)
     cy.checkBalanceRow('12', { name: 'Decentralized USD', amount: '100.00000000', symbol: 'DUSD' })
   })
 
