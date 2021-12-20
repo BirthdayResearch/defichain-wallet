@@ -76,7 +76,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [slippage, setSlippage] = useState<number>(0.03)
+  const [slippage, setSlippage] = useState(new BigNumber(3))
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
@@ -345,11 +345,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     const ownedTokenB = tokens.find(token => token.id === selectedTokenB.id)
+    const slippageInDecimal = new BigNumber(slippage).div(100)
     navigation.navigate('ConfirmCompositeSwapScreen', {
       fee,
       pairs: selectedPoolPairs,
       priceRates,
-      slippage,
+      slippage: slippageInDecimal,
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
@@ -493,7 +494,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               </View>
             </View>
             {isConversionRequired && <ConversionInfoText />}
-            <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
           </View>}
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
@@ -506,6 +506,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               fee={fee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
+              onSetSlippage={(val: BigNumber) => setSlippage(val)}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
             />
@@ -628,6 +629,7 @@ function TransactionDetailsSection ({
   fee,
   isConversionRequired,
   slippage,
+  onSetSlippage,
   tokenA,
   tokenB
 }: {
@@ -636,7 +638,8 @@ function TransactionDetailsSection ({
   estimatedAmount: string
   fee: BigNumber
   isConversionRequired: boolean
-  slippage: number
+  slippage: BigNumber
+  onSetSlippage: (val: BigNumber) => void
   tokenA: OwnedTokenState
   tokenB: TokenState
  }): JSX.Element {
@@ -676,6 +679,10 @@ function TransactionDetailsSection ({
           testID: 'estimated_to_receive'
         }}
         textStyle={tailwind('text-sm font-normal')}
+      />
+      <SlippageTolerance
+        setSlippage={(amount) => onSetSlippage(amount)}
+        slippage={slippage}
       />
       <TextRow
         lhs={translate('screens/CompositeSwapScreen', 'Slippage Tolerance')}
