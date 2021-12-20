@@ -7,6 +7,7 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 jest.mock('@shared-contexts/NetworkContext')
+jest.mock('@shared-contexts/WalletPersistenceContext')
 jest.mock('@shared-contexts/ThemeProvider')
 
 describe('network selection screen', () => {

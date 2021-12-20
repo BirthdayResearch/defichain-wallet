@@ -11,6 +11,7 @@ import * as React from 'react'
 interface RowNetworkItemProps {
   network: EnvironmentNetwork
   alertMessage: string
+  onNetworkSwitch?: () => void
 }
 
 export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
@@ -39,10 +40,9 @@ export function RowNetworkItem (props: RowNetworkItemProps): JSX.Element {
             style: 'destructive',
             onPress: async () => {
               await updateNetwork(props.network)
-              navigation.reset({
-                index: 0,
-                routes: [{ name: 'App' }]
-              })
+              if (props.onNetworkSwitch != null) {
+                props.onNetworkSwitch()
+              }
             }
           }
         ]
