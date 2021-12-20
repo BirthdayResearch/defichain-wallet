@@ -29,6 +29,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -137,6 +138,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('mb-2')}
+        testID='edit_collateral_confirm_title'
       >
         {translate('screens/ConfirmEditCollateralScreen', props.isAdd ? 'You are adding collateral to' : 'You are removing collateral from')}
       </ThemedText>
@@ -158,6 +160,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
           light={tailwind('text-gray-900')}
           dark={tailwind('text-gray-50')}
           style={tailwind('text-sm font-medium flex-1 w-8/12')}
+          testID='edit_collateral_confirm_vault_id'
         >
           {props.vaultId}
         </ThemedText>
@@ -181,7 +184,9 @@ interface CollateralSectionProps {
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
   const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
   const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
-  const prices = useCollateralPrice(amount, props.collateralItem, props.totalCollateralValue)
+  const initialPrices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const totalCollateralValue = props.isAdd ? props.totalCollateralValue.plus(initialPrices.collateralPrice) : props.totalCollateralValue.minus(initialPrices.collateralPrice)
+  const prices = useCollateralPrice(amount, props.collateralItem, totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle
@@ -197,6 +202,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
@@ -277,6 +283,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
               light={tailwind('text-gray-700')}
               dark={tailwind('text-gray-300')}
               style={tailwind('text-xs font-medium ml-1')}
+              testID='edit_collateral_confirm_vault_share'
             >
               {value}
             </ThemedText>}

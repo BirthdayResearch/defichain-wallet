@@ -5,6 +5,7 @@ import { Button } from './Button'
 
 interface SubmitButtonGroupItems {
   isDisabled: boolean
+  isCancelDisabled?: boolean
   title: string
   label: string
   isProcessing?: boolean
@@ -15,6 +16,7 @@ interface SubmitButtonGroupItems {
 
 export function SubmitButtonGroup ({
   isDisabled,
+  isCancelDisabled,
   title,
   label,
   isProcessing,
@@ -35,7 +37,7 @@ export function SubmitButtonGroup ({
       />
 
       <Button
-        disabled={isDisabled}
+        disabled={isCancelDisabled === undefined ? isDisabled : isCancelDisabled}
         fill='flat'
         label={translate('screens/common', 'CANCEL')}
         margin='m-4 mt-0'

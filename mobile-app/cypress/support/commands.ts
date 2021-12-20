@@ -1,6 +1,7 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
 import './walletCommands'
+import './loanCommands'
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
@@ -107,6 +108,12 @@ declare global {
        * @description Compare snapshot from image
        */
       compareSnapshot: (element?: string) => Chainable<Element>
+
+      /**
+       * @description setWalletTheme
+       * @param {any} walletTheme
+       */
+      setWalletTheme: (walletTheme: any) => Chainable<Element>
     }
   }
 }
@@ -175,5 +182,13 @@ Cypress.Commands.add('saveLocalStorage', () => {
 Cypress.Commands.add('restoreLocalStorage', () => {
   Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key])
+  })
+})
+
+Cypress.Commands.add('setWalletTheme', (walletTheme: any) => {
+  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('header_settings').click()
+  cy.getByTestID('light_mode_icon').then(($txt: any) => {
+    walletTheme.isDark = $txt[0].style.color === 'rgb(212, 212, 212)'
   })
 })

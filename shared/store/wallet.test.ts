@@ -1,4 +1,4 @@
-import { DexItem, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
+import { DexItem, fetchPoolPairs, fetchTokens, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
 
 describe('wallet reducer', () => {
   let initialState: WalletState
@@ -10,7 +10,8 @@ describe('wallet reducer', () => {
     initialState = {
       tokens: [],
       utxoBalance: '0',
-      poolpairs: []
+      poolpairs: [],
+      hasFetchedPoolpairData: false
     }
     tokenDFI = {
       id: '0',
@@ -43,19 +44,17 @@ describe('wallet reducer', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       utxoBalance: '0',
       tokens: [],
-      poolpairs: []
+      poolpairs: [],
+      hasFetchedPoolpairData: false
     })
   })
 
-  it('should handle setTokens', () => {
+  it('should handle setTokens and setUtxoBalance', () => {
     const tokens: WalletToken[] = [tokenDFI, utxoDFI]
-    const actual = wallet.reducer(initialState, wallet.actions.setTokens(tokens))
+    const utxoBalance = '77'
+    const action = { type: fetchTokens.fulfilled.type, payload: { tokens, utxoBalance } }
+    const actual = wallet.reducer(initialState, action)
     expect(actual.tokens).toStrictEqual(tokens)
-  })
-
-  it('should handle setUtxoBalance', () => {
-    const utxoAmount = '77'
-    const actual = wallet.reducer(initialState, wallet.actions.setUtxoBalance(utxoAmount))
     expect(actual.utxoBalance).toStrictEqual('77')
   })
 
@@ -66,7 +65,8 @@ describe('wallet reducer', () => {
         id: '8',
         symbol: 'DFI-USDT',
         name: 'Default Defi token-Playground USDT',
-        status: 'true',
+        status: true,
+        displaySymbol: 'dUSDT-DFI',
         tokenA: {
           id: '0',
           reserve: '1000',
@@ -103,7 +103,9 @@ describe('wallet reducer', () => {
         }
       }
     }]
-    const actual = wallet.reducer(initialState, wallet.actions.setPoolPairs(payload))
+
+    const action = { type: fetchPoolPairs.fulfilled.type, payload }
+    const actual = wallet.reducer(initialState, action)
     expect(actual.poolpairs).toStrictEqual(payload)
   })
 

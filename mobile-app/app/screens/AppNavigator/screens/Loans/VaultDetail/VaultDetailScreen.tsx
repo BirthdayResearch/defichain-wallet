@@ -18,12 +18,14 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import {
   useVaultStatus,
-  VaultStatus,
   VaultStatusTag
 } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
-import { CollateralizationRatioDisplay } from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
+import {
+  CollateralizationRatioDisplay
+} from '@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay'
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -31,7 +33,10 @@ export function VaultDetailScreen ({
   route,
   navigation
 }: Props): JSX.Element {
-  const { vaultId, tab } = route.params
+  const {
+    vaultId,
+    tab
+  } = route.params
   const [vault, setVault] = useState<LoanVault>()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -55,7 +60,7 @@ export function VaultDetailScreen ({
     },
     {
       label: 'EDIT LOAN SCHEME',
-      disabled: !canUseOperations,
+      disabled: !canUseOperations || vault?.state === LoanVaultState.FROZEN,
       handleOnPress: () => {
         if (vault === undefined) {
           return
@@ -110,7 +115,7 @@ export function VaultDetailScreen ({
         dark={tailwind('bg-gray-800')}
       >
         <View style={tailwind('p-4')}>
-          <VaultIdSection vault={vault} />
+          <VaultIdSection vault={vault} testID='vault_id_section' />
           <VaultInfoSection vault={vault} />
         </View>
         <ThemedView
@@ -126,11 +131,15 @@ export function VaultDetailScreen ({
   )
 }
 
-function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
+function VaultIdSection ({
+  vault,
+  testID
+}: { vault: LoanVault, testID: string }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext()
   const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
   const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
-  const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber((totalLoanAmount)))
+  const totalCollateralValue = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralValue
+  const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(totalLoanAmount), new BigNumber(totalCollateralValue))
   const collateralAmounts = vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.collateralAmounts
   const loanAmounts = vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.loanAmounts
   const nextCollateralizationRatio = useNextCollateralizationRatio(collateralAmounts, loanAmounts)
@@ -152,12 +161,13 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
             >
               {translate('screens/VaultDetailScreen', 'Vault ID')}
             </ThemedText>
-            <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+            <VaultStatusTag status={vaultState.status} testID='vault_detail_status' />
           </View>
           <View
             style={tailwind('flex flex-row mb-2 items-center')}
           >
             <ThemedText
+              testID='vault_detail_id'
               style={tailwind('text-sm font-semibold w-8/12 flex-1 mr-2')}
             >
               {vault.vaultId}
@@ -176,12 +186,13 @@ function VaultIdSection ({ vault }: { vault: LoanVault }): JSX.Element {
         </View>
       </ThemedView>
       {
-        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState.status !== VaultStatus.Active && (
+        vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState.status !== VaultStatus.Empty && vaultState.status !== VaultStatus.Ready && (
           <CollateralizationRatioDisplay
             collateralizationRatio={vault.collateralRatio}
             minCollateralizationRatio={vault.loanScheme.minColRatio}
             totalLoanAmount={vault.loanValue}
             nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
+            testID={testID}
           />
         )
       }

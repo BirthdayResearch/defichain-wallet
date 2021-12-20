@@ -468,11 +468,56 @@ exports[`Batch Card should match snapshot 1`] = `
     <View
       style={
         Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "marginTop": 2,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontSize": 10,
+                  "lineHeight": 12,
+                  "marginRight": 8,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Waiting for first bid
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
           "alignItems": "center",
           "flexDirection": "row",
           "justifyContent": "space-between",
           "marginBottom": 8,
-          "marginTop": 16,
+          "marginTop": 8,
           "width": "100%",
         }
       }
@@ -538,7 +583,7 @@ exports[`Batch Card should match snapshot 1`] = `
             ]
           }
         >
-          $5,015.08
+          $12,345
         </Text>
       </View>
     </View>
@@ -630,7 +675,6 @@ exports[`Batch Card should match snapshot 1`] = `
   <View
     style={
       Object {
-        "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
         "marginBottom": 8,
@@ -641,8 +685,7 @@ exports[`Batch Card should match snapshot 1`] = `
     <View
       style={
         Object {
-          "display": "flex",
-          "flexDirection": "row",
+          "width": "50%",
         }
       }
     >
@@ -667,14 +710,19 @@ exports[`Batch Card should match snapshot 1`] = `
           ]
         }
       >
-        Auction time left
+        Auction time remaining
       </Text>
     </View>
     <View
       style={
         Object {
           "display": "flex",
+          "flexBasis": "0%",
           "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "flexWrap": "wrap",
+          "justifyContent": "flex-end",
         }
       }
     >
@@ -688,10 +736,14 @@ exports[`Batch Card should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(23, 23, 23, 1)",
               },
@@ -717,7 +769,7 @@ exports[`Batch Card should match snapshot 1`] = `
     indeterminate={false}
     indeterminateAnimationDuration={1000}
     onLayout={[Function]}
-    progress={-14.833333333333334}
+    progress={15.833333333333334}
     style={
       Array [
         Object {
@@ -743,10 +795,10 @@ exports[`Batch Card should match snapshot 1`] = `
               "translateX": 0,
             },
             Object {
-              "translateX": 1,
+              "translateX": 0,
             },
             Object {
-              "scaleX": 0.0001,
+              "scaleX": 1,
             },
           ],
         }

@@ -6,7 +6,6 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { getEnvironment } from '@environment'
-import { fetchTokens } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
 import { tailwind } from '@tailwind'
@@ -18,6 +17,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { TransactionDetail } from './TransactionDetail'
 import { TransactionError } from './TransactionError'
 import { getReleaseChannel } from '@api/releaseChannel'
+import { fetchTokens } from '@store/wallet'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -144,7 +144,7 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
-          fetchTokens(client, address, dispatch, logger)
+          dispatch(fetchTokens({ client, address }))
         }) // remove the job as soon as completion
     }
   }, [transaction, wallet, address])

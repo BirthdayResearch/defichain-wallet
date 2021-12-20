@@ -18,6 +18,7 @@ import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/
 import { TokensVsUtxoScreen } from '../Balances/screens/TokensVsUtxoScreen'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
+import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -177,6 +178,20 @@ export function SettingsNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('components/LoansFaq', 'Loans FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={AuctionsFaq}
+        name='AuctionsFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/AuctionsFaq', 'Auctions FAQ')}
               containerTestID={headerContainerTestId}
             />
           ),

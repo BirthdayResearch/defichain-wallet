@@ -2,22 +2,19 @@ import { BigNumber } from '@defichain/jellyfish-json'
 
 interface useMaxLoanAmountProps {
   totalCollateralValue: BigNumber
-  totalLoanValue: BigNumber
+  existingLoanValue: BigNumber
   minColRatio: BigNumber
-  vaultInterest: BigNumber
-  loanInterest: BigNumber
   loanActivePrice: BigNumber
+  interestPerBlock: BigNumber
 }
 
 export function useMaxLoanAmount ({
   totalCollateralValue,
-  totalLoanValue,
+  existingLoanValue,
   minColRatio,
-  vaultInterest,
-  loanInterest,
-  loanActivePrice
+  loanActivePrice,
+  interestPerBlock
 }: useMaxLoanAmountProps): BigNumber {
-  return totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(totalLoanValue).dividedBy(
-    loanActivePrice.multipliedBy(vaultInterest.plus(loanInterest).dividedBy(100).plus(1))
-  )
+  return totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue).dividedBy(
+    loanActivePrice).dividedBy(interestPerBlock.plus(1))
 }

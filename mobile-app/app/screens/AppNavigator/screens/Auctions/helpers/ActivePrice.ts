@@ -1,8 +1,8 @@
-import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 
-export function getActivePrice (loanVaultToken: LoanVaultTokenAmount): string {
-  if (loanVaultToken.symbol !== 'DUSD') {
-    return loanVaultToken.activePrice?.active?.amount ?? '0'
+export function getActivePrice (symbol: string, activePrice?: ActivePrice): string {
+  if (symbol !== 'DUSD') {
+    return activePrice?.active?.amount ?? '0'
   }
 
   return '1'

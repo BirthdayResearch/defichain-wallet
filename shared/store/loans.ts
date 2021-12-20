@@ -56,14 +56,14 @@ export const customDUSDActivePrice: ActivePrice = {
 // TODO (Harsh) Manage pagination for all api
 export const fetchVaults = createAsyncThunk(
   'wallet/fetchVaults',
-  async ({ size = 50, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
     return await client.address.listVault(address, size)
   }
 )
 
 export const fetchLoanTokens = createAsyncThunk(
   'wallet/fetchLoanTokens',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listLoanToken(size)
   }
 )

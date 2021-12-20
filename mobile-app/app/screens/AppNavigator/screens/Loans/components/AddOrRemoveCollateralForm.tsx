@@ -9,7 +9,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View, Text } from 'react-native'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -22,6 +22,7 @@ import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 
 export interface AddOrRemoveCollateralFormProps {
   token: TokenData
+  activePrice: BigNumber
   collateralFactor: BigNumber
   available: string
   current?: BigNumber
@@ -40,6 +41,7 @@ export interface AddOrRemoveCollateralResponse {
 export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
   const {
     token,
+    activePrice,
     available,
     onButtonPress,
     onCloseButtonPress,
@@ -52,11 +54,11 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
 
   const [collateralValue, setCollateralValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0'
-? (
-    new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
-    new BigNumber(collateralValue).isLessThanOrEqualTo(available)
-  )
-: false
+  ? (
+      new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
+      new BigNumber(collateralValue).isLessThanOrEqualTo(available)
+    )
+  : false
   const [isValid, setIsValid] = useState(false)
 
   const validateInput = (input: string): void => {
@@ -83,7 +85,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
       style={tailwind('p-4 flex-1')}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
-        <ThemedText style={tailwind('flex-1 mb-2 text-lg font-medium')}>
+        <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
           {translate('components/AddOrRemoveCollateralForm', `How much {{symbol}} to ${isAdd ? 'add' : 'remove'}?`, {
             symbol: token.displaySymbol
           })}
@@ -102,6 +104,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         }}
         />
         <ThemedText
+          testID={`token_symbol_${token.displaySymbol}`}
           style={tailwind('mx-2')}
         >
           {token.displaySymbol}
@@ -136,6 +139,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
+        testID='form_input_text'
       >
         <ThemedView
           dark={tailwind('bg-gray-800')}
@@ -155,16 +159,48 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           />
         </ThemedView>
       </WalletTextInput>
+
       <InputHelperText
         label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
         content={available}
-        suffix={` ${token.displaySymbol}`}
+        testID='form_balance_text'
+        suffixType='component'
         styleProps={tailwind('font-medium')}
-      />
-      {isConversionRequired &&
+      >
+        <ThemedText
+          light={tailwind('text-gray-700')}
+          dark={tailwind('text-gray-200')}
+          style={tailwind('text-sm font-medium')}
+        >
+          <Text>{' '}</Text>
+          {token.displaySymbol}
+          {
+            !new BigNumber(activePrice).isZero() && (
+              <NumberFormat
+                value={activePrice.multipliedBy(available).toFixed(2)}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                prefix='$'
+                renderText={(val: string) => (
+                  <ThemedText
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('text-xs leading-5')}
+                  >
+                    {` /${val}`}
+                  </ThemedText>
+              )}
+              />
+          )
+        }
+        </ThemedText>
+      </InputHelperText>
+      {isConversionRequired && (
         <View style={tailwind('mt-4 mb-6')}>
           <ConversionInfoText />
-        </View>}
+        </View>
+      )}
       <Button
         disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
@@ -173,6 +209,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           amount: new BigNumber(collateralValue)
         })}
         margin='mt-8 mb-2'
+        testID='add_collateral_button_submit'
       />
       <ThemedText style={tailwind('text-xs text-center p-2 px-6')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}

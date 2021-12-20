@@ -15,6 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('../hooks/AuctionBidValue', () => ({
   useAuctionBidValue: () => ({
@@ -22,7 +23,9 @@ jest.mock('../hooks/AuctionBidValue', () => ({
     totalLoanAmountInUSD: '100',
     minStartingBidInUSD: '100',
     minStartingBidInToken: '11',
-    minNextBidInToken: '11'
+    minNextBidInToken: '11',
+    totalCollateralsValueInUSD: '12345',
+    hasFirstBid: false
   })
 }))
 
@@ -266,7 +269,7 @@ describe('Batch Card', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <BatchCard vault={vault} batch={vault.batches[0]} />
+        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} isVaultOwner={false} />
       </Provider>
     )
     expect(rendered.toJSON()).toMatchSnapshot()

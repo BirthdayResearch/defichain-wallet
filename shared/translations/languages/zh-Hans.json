@@ -58,7 +58,14 @@
     "PORTFOLIO": "资产组合",
     "Show balances": "显示总资产",
     "Hide balances": "隐藏总资产",
-    "You do not have any other tokens.": "您现在没有其他代币"
+    "You do not have any other tokens.": "您现在没有其他代币",
+    "SWITCH": "切换钱包"
+  },
+  "screens/AddressControlScreen": {
+    "CREATE WALLET ADDRESS": "创建钱包",
+    "Switch to another address": "切换到另一个地址",
+    "Wallet Address": "钱包地址",
+    "ACTIVE": "激活"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -80,19 +87,20 @@
     "How much do you want to send?": "您想发送多少资金?",
     "Enter an amount": "请输入数量",
     "Available": "可发送资金",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Send to other wallet": "发送到其他地址",
     "Select token": "选择代币",
     "Select a token you want to send to get started": "若要开始，请先选您想发出的代币",
-    "Choose token to send": "选择发出此代币"
+    "Choose token to send": "选择发出此代币",
+    "TRANSACTION DETAILS": "交易明细"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
     "CONFIRM SEND": "确认发出",
     "You are sending": "您正要发出资金",
-    "TRANSACTION DETAILS": "交易明細",
-    "Address": "地址",
+    "TRANSACTION DETAILS": "交易明细",
+    "Recipient address": "接收地址",
     "Network": "网络",
     "Amount": "资金数量",
     "Estimated fee": "所需费用(大约)",
@@ -101,8 +109,11 @@
     "SENDING": "正在发出",
     "Sending": "正转出 {{symbol}}",
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
-    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION",
-    "Convert & send": "转换并发送"
+    "CONFIRM TRANSACTION": "确认发出",
+    "Convert & send": "转换并发送",
+    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承认和了解钱包地址性质，我会将d代币发送至已引入递飞链技术栈的钱包，否则会导致不可逆转的资金损失.",
+    "Transaction type": "交易类型",
+    "Amount to send": "发送金额"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "转换DFI",
@@ -116,7 +127,9 @@
     "Available": "可转换资金",
     "After conversion, you will receive": "转换后您会收到",
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
-    "Estimated fee": "所需费用(大约)"
+    "Estimated fee": "所需费用(大约)",
+    "You will have": "你将会收到",
+    "TRANSACTION DETAILS": "交易明细"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",
@@ -127,11 +140,11 @@
     "CONVERTING": "正在转换",
     "Converting DFI": "转换 DFI",
     "Converting {{amount}} {{symbolA}} to {{symbolB}}": "转换 {{amount}} {{symbolA}} 至 {{symbolB}} ",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Convert": "转换",
-    "{{token}} to receive": "{{token}} to receive",
-    "CONFIRM TRANSACTION": "CONFIRM TRANSACTION"
+    "{{token}} to receive": "{{token}} 将会收到",
+    "CONFIRM TRANSACTION": "确认发出"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -205,7 +218,8 @@
     "Recovery words": "恢复字组",
     "Passcode": "密码",
     "UTXO vs Token": "UTXO和代币区别",
-    "Loans": "贷款"
+    "Loans": "贷款",
+    "Auctions": "清算拍卖"
   },
   "components/LoansFaq": {
     "Loans FAQ": "贷款常见问题",
@@ -220,17 +234,31 @@
     "Red: 1x – 1.25x above the minimum collateralization ratio": "红色视为警告：目前处在最低抵押率的1.25倍~1.5倍",
     "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "黄色视为注意： 目前处在最低抵押率的1.25倍~1.5倍",
     "Green: More than 1.5x the minimum collateralization ratio": "绿色视为正常：目前处在超过1.5倍的最低抵押率",
-    "What does the different status of a vault mean?": "金库的不同状态表示什么？",
-    "Active: When a vault has been created but no loan has been taken yet": "活跃：当某金库已被创建，但还没有获得贷款时",
-    "At risk: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio": "处于风险中：当某金库的抵押率在1倍-1.5倍之间，高于最低抵押率时",
-    "Healthy: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio": "健康正常：当某金库的抵押率超过最低抵押率的1.5倍时",
-    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement": "已清算：当一个金库的抵押率低于最低要求时",
-    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour": "停止：当金库中的任何代币（抵押品或贷款）在过去一小时内波动超过30%时",
+    "What do the different statuses of a vault mean?": "金库的不同状态是什么意思？",
+    "Empty: When a vault has been created but no collateral has been deposited yet.": "清空：当一个金库已创建但尚未存入任何抵押品时。",
+    "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "准备就绪：当抵押品已存入金库，但尚未获得借贷时。",
+    "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "活跃（红色）：当金库的抵押率在最低抵押率的 1 倍至 1.25 倍之间时。",
+    "Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.": "活跃（橙色）：当金库的抵押率在最低抵押率的 1.25 倍至 1.5 倍之间时。",
+    "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "活跃（绿色）：当金库的抵押率超过最低抵押率的 1.5 倍时。",
+    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement.": "清算中：当金库的抵押率低于最低要求抵押率。",
+    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "停止：当金库中的任何代币（抵押品或借贷）在过去一小时内波动超过 30% 时。",
     "How are interests calculated for loan?": "贷款的利息是如何计算的？",
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "贷款利息有两种，分别为金库利率和代币利率",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "金库利率是在金库所有者选择金库方案时确定的，最低抵押率越高，金库利率越低。",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代币利率适用于特定的代币贷款，不同的代币会有不同的利率。",
-    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。"
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
+    "What is collateral factor?": "抵押因素是什么？",
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。"
+  },
+  "components/AuctionsFaq": {
+    "Auctions FAQ": "拍卖常见问题",
+    "Auctions": "清算拍卖",
+    "FREQUENTLY ASKED QUESTIONS": "常见问题",
+    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "金库拍卖是用户对已清算的金库中的抵押品收回金库未偿还贷款的活动。当金库的抵押品比率低于最低要求时，即进行清算，在此情况下，金库抵押品将分为10,000美元的批次进行拍卖。",
+    "How is the minimum starting bid determined?": "最低起标价是基于什么？",
+    "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "最低标价是批次未偿贷款价值的105%。额外的5%是用来支付清算罚款的，这在金库清算时是会产生的。",
+    "How is the minimum next bid determined?": "下一次出最低标价是如何计算的？",
+    "The minimum next bid is 1% above the previous bid price.": "下一次的最低出价是要比上一次的出价高1%。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
@@ -241,7 +269,9 @@
     "No transactions yet": "还没有交易纪录",
     "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能开始从钱包做交易. 所有UTXO交易都会在这里显示.目前还不提供其他交易类型.",
     "RECEIVE TOKENS": "接收的货币",
-    "LOAD MORE": "查看更多交易纪录"
+    "LOAD MORE": "查看更多交易纪录",
+    "Received": "收到",
+    "Sent": "已发送"
   },
   "screens/TransactionDetailScreen": {
     "Type": "交易类型",
@@ -263,16 +293,19 @@
     "Swap with {{token}}": "用 {{token}} 兑换"
   },
   "screens/TokensVsUtxoScreen": {
-    "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI 有两种形式 - UTXO 和代币, 两者可依据使用做互换. 这个程序可以进行互换.",
-    "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI是DFI的主要形式，用来做接收、发送、费用和其他加密货币功能. DFI代币适用于DeFi功能如兑换或流动性挖矿.",
-    "Your DFI balance includes both UTXO and tokens.": "您的DFI总资金含UTXO和代币形式",
-    "Core crypto services": "主要加密服务",
-    "Send to other wallets": "发送到其他地址",
-    "Receive tokens": "接收代币",
-    "Service fees": "服务费用",
-    "DeFi services": "DeFi服务",
-    "Liquidity mining": "流动性挖矿",
-    "Atomic Swaps": "原子交换"
+    "Learn about UTXOs and Tokens": "Learn about UTXOs and Tokens",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
+    "DFI in UTXO form": "DFI in UTXO form",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
+    "Use cases include:": "Use cases include:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees",
+    "DFI in token form": "DFI in token form",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquidity pools",
+    "Auctions and Loans": "Auctions and Loans"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "创建钱包",
@@ -428,9 +461,9 @@
     "Available": "可提供资金",
     "PRICE DETAILS": "价格明细",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Your pooled {{token}}": "您已入池的 {{token}}",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Estimated fee": "所需费用（大约）",
     "Pooled {{symbol}}": "池中总 {{symbol}}"
@@ -438,7 +471,7 @@
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
     "AMOUNT TO SUPPLY": "提供的流动资金量",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Price": "价格",
     "Share of pool": "流动池股份",
     "Estimated fee": "所需费用(大约)",
@@ -449,7 +482,7 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
     "PRICE DETAILS": "价格明细",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
-    "Your pooled {{token}}": "Your pooled {{token}}",
+    "Your pooled {{token}}": "您已入池的 {{token}}",
     "Transaction type": "交易类型",
     "Add liquidity": "增加流动资金",
     "Convert & add liquidity": "转换并增加流动资金",
@@ -458,7 +491,7 @@
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
     "ESTIMATED AMOUNT TO RECEIVE": "您大约会收到",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Price": "价格",
     "Estimated fee": "所需费用（大约）",
     "REMOVE": "退出",
@@ -522,10 +555,10 @@
     "Estimated to receive": "您大约会收到",
     "Balance: ": "总资产余额: ",
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Estimated fee": "所需费用（大约）",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
-    "Amount to be converted": "要转换的金额",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
   "screens/CompositeSwapScreen": {
@@ -545,19 +578,20 @@
     "Enter an amount": "请输入数量",
     "{{token}} tokens converted": "{{token}} 代币转换",
     "Select token": "选择代币",
-    "Amount to be converted": "要转换的金额",
+    "UTXO to be converted": "要轉換的 UTXO",
     "Slippage Tolerance": "交易滑点",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "PRICE DETAILS": "价格明细",
     "FROM": "从",
-    "TO": "到"
+    "TO": "到",
+    "Total to be swapped": "要兌換的總數"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
     "CONFIRM SWAP": "确认兑换",
     "SWAPPING": "兑换",
     "You are swapping": "您正要兑换",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Convert & swap": "转换并兑换",
     "Swap": "兑换",
@@ -569,14 +603,14 @@
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",
     "ESTIMATED BALANCE AFTER SWAP": "兑换后的总余额",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Slippage Tolerance": "交易滑点",
     "Estimated fee": "所需费用(大约)",
     "SWAP": "兑换",
     "SWAPPING": "兑换",
     "Swapping Token": "兑换代币",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
-    "{{tokenA}} price per {{tokenB}}": "{{tokenA}} price per {{tokenB}}",
+    "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
     "{{token}} balance": "{{token}} balance",
     "CONFIRM SWAP": "确认兑换",
     "Transaction type": "交易类型",
@@ -645,7 +679,8 @@
   },
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以App密码授权转换和兑换交易",
-    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。"
+    "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。",
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "请注意，您只能将流动池的d代币发送至已引入递飞链技术栈的钱包。若您发到不确认可接受d代币的钱包或其他交易所，有可能造成无无法逆转的资金损失."
   },
   "components/ConversionTag": {
     "Conversion required": "需要转换"
@@ -668,9 +703,14 @@
     "Vault Detail": "金库明细",
     "Add Collateral": "添加抵押资金",
     "Confirm Add Collateral": "确认添加抵押资金",
+    "Edit Collaterals": "更改抵押品",
     "Borrow Loan Token": "借用贷款代币",
     "Confirm Borrow Loan Token": "确认借用贷款代币",
+    "Edit Loan Scheme": "更改贷款计划",
+    "Confirm Edit Loan Scheme": "确认更改贷款方案",
     "Borrow More": "增加借用量",
+    "Choose Loan Token to Borrow": "选择要借用的贷款代币",
+    "Payback Loan": "Payback Loan",
     "Close Vault": "关闭金库"
   },
   "components/tabs": {
@@ -682,7 +722,9 @@
     "Auctions": "清算拍卖",
     "Browse auctions": "浏览拍卖",
     "Manage bids": "管理竞投出价",
-    "Loans": "贷款"
+    "Loans": "贷款",
+    "Collateral for auction": "待拍卖的抵押品",
+    "Auction details": "拍卖细节"
   },
   "components/LoanCard": {
     "Active Price": "目前活跃价格",
@@ -694,28 +736,57 @@
     "Learn more about UTXO and Token": "了解UTXO和代币区别",
     "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
     "Learn more about vaults": "了解更多关于金库的资讯",
-    "Learn more about auctions and bidding": "了解有关拍卖和出价的更多信息"
+    "Learn more about vaults and loan schemes": "了解更多关于金库和贷款计划的资讯",
+    "Learn more about auctions and bidding": "了解有关拍卖和出价的更多信息",
+    "Learn about auctions": "了解更多关于拍卖和拍卖会"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "没有活跃竞投价格",
     "To get started, browse on auctions and place a bid": "首先，浏览拍卖并出价"
   },
+  "components/EmptyAuctions": {
+    "No ongoing auctions": "目前没有正在进行的拍卖会",
+    "Check again later for any ongoing auctions that you can participate": "请稍后再回到这页面查看新增的拍卖会"
+  },
   "screens/AuctionScreen": {
-    "Auctions": "清算拍卖"
+    "Auctions": "清算拍卖",
+    "Place Bid": "标价",
+    "Confirm Place Bid": "确认出价"
+  },
+  "components/AuctionDetailScreen":{
+    "Collaterals": "抵押品",
+    "Min. next bid": "最低标价",
+    "VAULT DETAILS": "金库明细",
+    "Vault ID": "金库编号",
+    "Owner ID": "主权者编号",
+    "Liquidation height": "清算高度",
+    "ADDITIONAL DETAILS": "其他细节",
+    "Collateral value (USD)": "抵押品价值(美金)",
+    "Auction start": "拍卖会开始",
+    "{{count}} COLLATERAL TOKENS": "{{count}} 抵押代币",
+    "Total auction value (USD):": "拍卖总价值（美元值）:",
+    "PLACE BID": "竞投出价",
+    "Batch #{{index}}": "批次 #{{index}}",
+    "Min. starting bid": "最低起标价"
   },
   "components/BatchCard": {
     "Latest bid": "最新出价",
-    "Token to win": "赢得竞投后获得的代币",    
+    "Token to win": "赢得竞投后获得的代币",
     "PLACE BID": "竞投出价",
     "VIEW REWARDS": "查看奖励",
     "ACTIVE BID": "主动出价",
     "{{h}}h": "{{h}}时",
-    "{{m}}m": "{{m}}分"
+    "{{m}}m": "{{m}}分",
+    "Total auction value (USD)": "拍卖总价值（美元值）",
+    "Min. next bid": "最低标价",
+    "You are the highest bidder": "您目前是出价最高的人",
+    "From your vault": "来自您的金库",
+    "Waiting for first bid": "等待第一次标价"
   },
   "components/BidCard": {
     "BID HIGHER": "出价更高",
     "VIEW REWARDS": "查看奖励",
-    "Auction ID": "拍卖编号",    
+    "Auction ID": "拍卖编号",
     "Auction won": "赢得拍卖",
     "Lost to another bid": "输给另一个出价",
     "Lost": "竞投失败",
@@ -725,7 +796,9 @@
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍卖即将完结于",
     "Auction time left": "剩余拍卖时间",
-    "{{block}} blks": "{{block}} 区块"
+    "{{block}} blks": "{{block}} 区块",
+    "~{{time}} left": "~{{time}} 结束拍卖",
+    "Auction time remaining": "剩余拍卖时间"
   },
   "components/VaultCard": {
     "Collaterals:": "抵押品:",
@@ -735,6 +808,7 @@
     "Safe": "安全状态",
     "Active loans": "活跃的贷款",
     "Total loans (USD)": "贷款总金额(美金)",
+    "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Collateral amount (USD)": "抵押品金额(美金)",
     "Collateralization ratio": "抵押品比率",
     "n/a": "不适用",
@@ -743,7 +817,16 @@
     "Borrowed tokens": "已借用的代币",
     "Interest amount (1.5%)": "利息金额(1.5%)",
     "Amount payable": "应付款金额",
-    "Price per token (USD)": "代币的单价(美金)"
+    "Price per token (USD)": "代币的单价(美金)",
+    "EDIT COLLATERALS": "更改抵押品",
+    "MANAGE LOANS": "管理贷款",
+    "ACTIVE": "活跃",
+    "HEALTHY": "健康正常",
+    "AT RISK": "处于风险中",
+    "HALTED": "停止",
+    "IN LIQUIDATION": "清算中",
+    "EMPTY": "清空",
+    "READY": "准备中"
   },
   "components/EmptyVault": {
     "No vault created": "您尚未建立金库",
@@ -758,17 +841,19 @@
     "Interest rate": "利率",
     "APR": "年回报率",
     "CONTINUE": "继续",
-    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节"
+    "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
+    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
+    "Min. collateralization ratio": "最低抵押率"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
     "ID will generate once vault has been created": "金库创建后会产生金库ID",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Create vault": "创建金库",
     "Total transaction cost": "总交易费用",
     "VAULT DETAILS": "金库明细",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Interest rate (APR)": "利率(以回报率计算)",
     "APR": "年回报率",
     "CONFIRM CREATE VAULT": "确认创建金库",
@@ -788,20 +873,28 @@
     "Collateralization ratio": "抵押率",
     "Interest amount": "总利息金额",
     "Next collateralization": "当新价格生效，下一个抵押比率",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
-    "Annual vault interest": "金库年利息"
+    "Annual vault interest": "金库年利息",
+    "Min. next bid": "最低标价",
+    "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
     "Your vault is locked for liquidation.": "您的金库已被锁定以进行清算.",
     "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "您的金库状态可能会被清算。为了确保金库能持续运作，请增加抵押品资金或立即还完贷款。",
-    "Collaterals required to use this vault.": "使用此金库需要抵押品."
+    "Collaterals required to use this vault.": "使用此金库需要抵押品.",
+    "Total collateral (USD)": "抵押资金总价值 (美金)",
+    "Total loans (USD)": "贷款总金额(美金)",
+    "Vault interest (APR)": "金库利息",
+    "Min. collateralization ratio": "最低抵押率"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "加入抵押品",
     "TAKE COLLATERAL": "減低抵押品",
     "EDIT SCHEME": "更改计划",
+    "EDIT COLLATERALS": "更改抵押品",
+    "EDIT LOAN SCHEME": "更改贷款方案",
     "CLOSE VAULT": "关闭金库"
   },
   "components/EmptyActiveLoans": {
@@ -824,18 +917,18 @@
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "贷款计划",
-    "Min. collateralization ratio": "最小抵押率",
+    "Min. collateralization ratio": "最低抵押率",
     "Vault interest": "金库利息",
     "VAULT DETAILS": "金库明细",
     "COLLATERALIZATION DETAILS": "抵押品明细",
     "Collateralization ratio": "抵押品比率",
     "Next collateralization": "当新价格生效，下一个抵押比率",
-    "Total collaterals (USD)": "抵押资金总价值 (美金)",
+    "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Active loans": "活跃的贷款",
     "Total loans (USD)": "贷款总金额(美金)"
   },
   "components/VaultDetailsCollateralsTab": {
-    "Collateral amount (USD)": "抵押品金额(美金)"
+    "Collateral amount": "抵押品金额(美金)"
   },
   "screens/EditCollateralScreen": {
     "COLLATERALS WILL BE ADDED TO VAULT": "您正要向金库添加抵押资金",
@@ -859,7 +952,11 @@
     "Adding collateral": "加入抵押中",
     "Adding {{amount}} {{symbol}} as collateral": "加入{{amount}} {{symbol}}作为抵押",
     "Removing collateral": "移除抵押中",
-    "Removing {{amount}} {{symbol}} collateral from vault": "从金库移除{{amount}} {{symbol}}的抵押"
+    "Removing {{amount}} {{symbol}} collateral from vault": "从金库移除{{amount}} {{symbol}}的抵押",
+    "Total loans (USD)": "贷款总金额(美金)",
+    "Collateralization ratio": "抵押率",
+    "Min. collateralization ratio": "最低抵押率",
+    "Vault interest (APR)": "金库利息 (APR)"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少{{symbol}}?",
@@ -869,17 +966,19 @@
     "ADD TOKEN AS COLLATERAL": "添加代币为抵押资金",
     "REMOVE COLLATERAL AMOUNT": "移除抵押金额",
     "How much {{symbol}} to remove?": "您想移除多少{{symbol}}",
-    "Current": "目前余额"
+    "Current": "目前余额",
+    "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素决定了每款抵押代币的贡献程度比例。"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collaterals to": "您正在加入抵押到",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Add collateral": "添加抵押资金",
     "Collateral tokens to add": "要添加的抵押代币",
     "Total collateral (USD)": "抵押资金总价值(美金)",
     "COLLATERAL {{index}}": "抵押品 {{index}}",
     "Token": "代币",
+    "Vault %": "金库 %",
     "Collateralization factor": "抵押系数",
     "Collateral amount (USD)": "抵押品金额(美金)",
     "Collateral value (USD)": "抵押品价值(美金)",
@@ -899,18 +998,21 @@
     "Available": "可用的",
     "CONTINUE": "继续",
     "Review and confirm transaction in the next screen": "在下一个屏幕中查看并确认交易",
-    "TRANSACTION DETAILS": "交易细项",
+    "TRANSACTION DETAILS": "交易明细",
     "Amount to pay": "支付数量",
     "Remaining loan amount": "剩余贷款金额",
     "Outstanding balance": "剩余结余",
     "Collateralization ratio": "抵押率",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "Excess amount": "超出的金额",
+    "Any excess amount will be returned to your wallet.": "任何超出的金额将返还到您的钱包.",
+    "Resulting collateralization": "最终抵押率"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
     "PAYING": "付款中",
     "You are paying": "正在付款中",
-    "TRANSACTION DETAILS": "交易细项",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类别",
     "Loan payment": "支款贷款",
     "Amount to pay": "支付数量",
@@ -921,7 +1023,8 @@
     "Collateralization ratio": "抵押率",
     "Paying loan": "贷款还款",
     "Paying {{amount}} {{symbol}}": "付款中{{amount}} {{symbol}} ",
-    "Confirm Loan Payment": "确认贷款支付"
+    "Confirm Loan Payment": "确认贷款支付",
+    "Resulting collateralization": "最终抵押率"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
@@ -939,13 +1042,13 @@
     "Vault interest": "金库利息",
     "How much do you want to borrow?": "您想借用多少金额?",
     "Enter an amount": "请输入数量",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Collateralization ratio": "抵押率",
     "Resulting collateralization": "最终抵押率",
     "Min. collateralization ratio": "最低抵押率",
     "Interest (Vault + Token)": "利息 (金库+代币)",
-    "Total interest amount": "总利息金额",
-    "Total loan + interest": "贷款总额+利息",
+    "Estimated annual interest": "大约年利率",
+    "Total loan + annual interest": "总贷款和利息",
     "Review and confirm transaction in the next screen": "在下个屏幕中检查并确认交易",
     "SELECT LOAN TOKEN": "选择贷款代币",
     "CONTINUE": "继续",
@@ -953,19 +1056,21 @@
     "This amount may place the vault in liquidation": "这金额可能会导致金库清算",
     "Unable to proceed because of errors": "因错误而无法继续",
     "Max loan amount": "最高的贷款金额",
-    "N/A": "不适用"
+    "N/A": "不适用",
+    "USD": "美元",
+    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代币借贷？"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
-    "TRANSACTION DETAILS": "交易明細",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类型",
     "Borrow loan token": "借用贷款代币",
     "Convert & borrow loan token": "转换和借用贷款代币",
     "Loan tokens to borrow": "要借用的贷款代币",
     "Token interest": "代币利息",
     "Vault interest": "金库利息",
-    "Total interest amount": "总利息金额",
-    "Total loan + interest": "贷款总额+利息",
+    "Estimated annual interest": "大约年利率",
+    "Total loan + annual interest": "总贷款和利息",
     "VAULT DETAILS": "金库明细",
     "Vault ID": "金库编号",
     "Collateral amount (USD)": "抵押品金额 (美金)",
@@ -988,7 +1093,7 @@
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "更改金库中的比率计划",
-    "TRANSACTION DETAILS": "交易细项",
+    "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类别",
     "Edit loan scheme": "更改贷款计划",
     "Prev. minimum collateralization ratio": "前次最低抵押率",
@@ -1018,15 +1123,17 @@
     "N/A": "不适用"
   },
   "screens/ChooseLoanTokenScreen": {
-    "Search for loans": "搜寻贷款"
+    "Search for loans": "搜寻贷款",
+    "Search for loan token": "搜寻贷款代币"
   },
   "components/EmptyCollateral": {
     "No collaterals": "没有抵押",
+    "ADD COLLATERALS": "增加抵押资产",
     "Add DFI and tokens as collateral to get started with loans.": "加入 DFI及其他代币作抵押即可以开始借贷"
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "您正在关闭金库编号",
-    "DETAILS": "明细",
+    "TRANSACTION DETAILS": "交易明细",
     "Fees to return": "退回费用",
     "Fees to burn": "费用销毁",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "关闭后，此金库编号将不再可使用。在关闭之前，请确保您不需要此金库中的任何资料.",
@@ -1036,5 +1143,47 @@
   },
   "components/TokenIconGroup": {
     "more": "显示更多"
+  },
+  "screens/PlaceBidScreen": {
+    "Enter an amount": "请输入数量",
+    "MIN. BID": "最低标价",
+    "Bid amount is lower than required": "标价金额未达到最低标价",
+    "Available": "可发送资金",
+    "TRANSACTION DETAILS": "交易明细",
+    "CONTINUE": "继续",
+    "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
+    "Total auction value (USD)": "拍卖总价值（美元）",
+    "(Full details)": "(全部细节)",
+    "Min. next bid": "最低标价",
+    "Insufficient amount to place a bid": "余额不足，无法出价",
+    "Collaterals": "抵押品",
+    "How much do you want to bid?": "您想出的价钱？"
+  },
+  "screens/ConfirmPlaceBidScreen": {
+    "TRANSACTION DETAILS": "交易明细",
+    "Transaction type": "交易类型",
+    "Place bid": "标价",
+    "Bid amount to place": "标价金额",
+    "AUCTION DETAILS": "拍卖细节",
+    "Total auction value (USD)": "拍卖总价值（美元）",
+    "Vault ID": "金库编号",
+    "Vault owner ID": "金库主权者编号",
+    "Liquidation Height": "清算高度",
+    "CONFIRM PLACE BID": "确认标价",
+    "Sign Transaction": "签下交易",
+    "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
+    "Collateral for auction": "待拍卖的抵押品",
+    "Insufficient funds": "资金不足"
+  },
+  "components/QuickBid": {
+    "QUICK BID": "快速标价",
+    "Insufficient amount to place a bid": "余额不足，无法出价",
+    "Quick bid": "快速标价",
+    "Place a bid on the auctions with the min. next bid": "以下个最低底价进行快标",
+    "Min. next bid": "最低标价",
+    "Current balance": "目前余额"
+  },
+  "components/WalletAddressRow": {
+    "Wallet address": "钱包地址"
   }
 }

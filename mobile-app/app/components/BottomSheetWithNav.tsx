@@ -17,6 +17,10 @@ import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
   screenList: BottomSheetNavScreen[]
+  snapPoints?: {
+    ios: string
+    android: string
+  }
 }
 
 export interface BottomSheetNavScreen {
@@ -36,9 +40,9 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   const { isLight } = useThemeContext()
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
-      return ['50%']
+      return [props.snapPoints?.ios ?? '50%']
     } else if (Platform.OS === 'android') {
-      return ['60%']
+      return [props.snapPoints?.android ?? '60%']
     }
     return []
   }
@@ -64,12 +68,13 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   )
 })
 
-export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean }): JSX.Element => {
+export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any} }): JSX.Element => {
   return (
     <BottomSheetModalWeb
       screenList={props.screenList}
       ref={props.modalRef}
       isModalDisplayed={props.isModalDisplayed}
+      modalStyle={props.modalStyle}
     >
       <View style={tailwind('h-full')}>
         <Navigator {...props} />

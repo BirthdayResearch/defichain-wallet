@@ -3,7 +3,6 @@ import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView } from '@compone
 import { View, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { openURL } from '@api/linking'
@@ -13,40 +12,35 @@ import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
-import { getActivePrice } from '../helpers/ActivePrice'
 
 export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: LoanVaultLiquidationBatch }): JSX.Element {
   const { vault, batch } = props
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext()
   const { startTime } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
-  const { minStartingBidInToken } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
-
-  const collateralValue = batch.collaterals.reduce((total, eachItem) => {
-    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getActivePrice(eachItem)))
-  }, new BigNumber(0))
+  const { minStartingBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
 
   return (
     <>
       <ThemedSectionTitle
         testID='auction_details'
-        text={translate('screens/AuctionDetails', 'VAULT DETAILS')}
+        text={translate('components/AuctionDetailScreen', 'VAULT DETAILS')}
       />
 
       <RowLinkItem
-        label={translate('components/AuctionDetails', 'Vault ID')}
+        label={translate('components/AuctionDetailScreen', 'Vault ID')}
         value={vault.vaultId}
         onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
       />
 
       <RowLinkItem
-        label={translate('components/AuctionDetails', 'Owner ID')}
+        label={translate('components/AuctionDetailScreen', 'Owner ID')}
         value={vault.ownerAddress}
         onPress={async () => await openURL(getAddressUrl(vault.ownerAddress))}
       />
 
       <NumberRow
-        lhs={translate('components/AuctionDetails', 'Liquidation height')}
+        lhs={translate('components/AuctionDetailScreen', 'Liquidation height')}
         rhs={{
           value: vault.liquidationHeight,
           testID: 'text_liquidation_height'
@@ -55,20 +49,20 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
 
       <ThemedSectionTitle
         testID='vault_details'
-        text={translate('screens/AuctionDetails', 'ADDITIONAL DETAILS')}
+        text={translate('components/AuctionDetailScreen', 'ADDITIONAL DETAILS')}
       />
 
       <NumberRow
-        lhs={translate('components/AuctionDetails', 'Collateral value (USD)')}
+        lhs={translate('components/AuctionDetailScreen', 'Collateral value (USD)')}
         rhs={{
-          value: new BigNumber(collateralValue).toFixed(2),
+          value: totalCollateralsValueInUSD,
           testID: 'text_collateral_value',
           prefix: '$'
         }}
       />
 
       <NumberRow
-        lhs={translate('components/AuctionDetails', 'Min. starting bid')}
+        lhs={translate('components/AuctionDetailScreen', 'Min. starting bid')}
         rhs={{
           suffix: batch.loan.displaySymbol,
           suffixType: 'text',
@@ -78,7 +72,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
       />
 
       <TextRow
-        lhs={translate('components/AuctionDetails', 'Auction start')}
+        lhs={translate('components/AuctionDetailScreen', 'Auction start')}
         rhs={{
           value: startTime,
           testID: 'auction_start'
