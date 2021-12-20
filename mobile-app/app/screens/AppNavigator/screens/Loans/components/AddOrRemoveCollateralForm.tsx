@@ -119,6 +119,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
     web: ThemedScrollView
   }
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
+  const hasInvalidColRatio = resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN()
 
   return (
     <ScrollView
@@ -248,10 +249,10 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
         <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
         <ThemedText
           style={tailwind('font-semibold')}
-          light={colors.light}
-          dark={colors.dark}
+          light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
+          dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
           testID='resulting_collateralization'
-        >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+        >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>
       </ScrollView>
       <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
