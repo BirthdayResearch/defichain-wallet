@@ -250,6 +250,7 @@ export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Elem
           style={tailwind('font-semibold')}
           light={colors.light}
           dark={colors.dark}
+          testID='resulting_collateralization'
         >{resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>
       </ScrollView>
