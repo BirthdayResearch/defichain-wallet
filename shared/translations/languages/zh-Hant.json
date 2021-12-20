@@ -18,6 +18,7 @@
     "Decentralized Exchange": "ＤＥＸ",
     "ADD LIQUIDITY": "增加流動資金",
     "Add liquidity": "增加流動資金",
+    "Add Liquidity": "增加流動資金",
     "Confirm Add Liquidity": "請輸入密碼",
     "Remove Liquidity": "退出流動資金",
     "Confirm Removal": "確認退出",
@@ -482,7 +483,7 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金",
     "PRICE DETAILS": "價格明細",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
-    "Your pooled {{token}}": "您已入池的 {{token}}",
+    "Your pooled {{symbol}}": "您已入池的 {{symbol}}",
     "Transaction type": "交易類型",
     "Add liquidity": "增加流動資金",
     "Convert & add liquidity": "轉換並增加流動資金",
@@ -617,7 +618,8 @@
     "Transaction type": "交易類型",
     "Swap": "兌換",
     "Convert & swap": "轉換並兌換",
-    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高價格"
+    "Max Price per {{fromToken}}": "每 {{fromToken}} 的最高價格",
+    "PRICE DETAILS": "價格明細"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "請輸入密碼",
@@ -811,6 +813,7 @@
     "Active loans": "活躍的貸款",
     "Total loans (USD)": "貸款總金額(美金)",
     "Total collateral (USD)": "抵押資金總價值 (美金)",
+    "Collateral amount": "抵押品金額(美金)",
     "Collateral amount (USD)": "抵押品金額(美金)",
     "Collateralization ratio": "抵押品比率",
     "n/a": "不適用",
@@ -1157,8 +1160,10 @@
     "Total auction value (USD)": "拍賣總價值（美元）",
     "(Full details)": "(全部細節)",
     "Min. next bid": "最低標價",
+    "Insufficient funds": "資金不足",
     "Collaterals": "抵押品",
-    "How much do you want to bid?": "您想出的價錢？"
+    "How much do you want to bid?": "您想出的價錢？",
+    "Collateral for auction": "待拍賣的抵押品"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
