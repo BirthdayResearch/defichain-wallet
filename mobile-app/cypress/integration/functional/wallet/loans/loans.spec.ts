@@ -8,6 +8,15 @@ import {
 import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import BigNumber from 'bignumber.js'
 
+function addCollateral (): void {
+  cy.go('back')
+  cy.wait(2000)
+  cy.getByTestID('vault_card_0_status').contains('READY')
+  cy.getByTestID('vault_card_0_collateral_token_group_DFI').should('exist')
+  cy.getByTestID('vault_card_0_collateral_token_group_dBTC').should('exist')
+  cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
+}
+
 context('Wallet - Loans', () => {
   before(function () {
     cy.createEmptyWallet(true)
@@ -162,12 +171,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 
   it('should add collateral', function () {
-    cy.go('back')
-    cy.wait(2000)
-    cy.getByTestID('vault_card_0_status').contains('READY')
-    cy.getByTestID('vault_card_0_collateral_token_group_DFI').should('exist')
-    cy.getByTestID('vault_card_0_collateral_token_group_dBTC').should('exist')
-    cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
+    addCollateral()
   })
 
   it('should add loan', function () {
@@ -298,5 +302,112 @@ context('Wallet - Loans - Take Loans', () => {
   it('should verify collaterals page', function () {
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     checkCollateralDetailValues('ACTIVE', '$1,500.00', '$748.00', '201.00', '%', '150.00', '5.00')
+  })
+
+  it('should borrow another loan token', function () {
+    cy.go('back')
+    cy.wait(2000)
+    cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+    cy.getByTestID('loan_card_dTS25').click()
+    cy.getByTestID('borrow_loan_vault').click()
+    cy.getByTestID('select_vault_0').click()
+    cy.getByTestID('form_input_borrow').type('5').blur()
+    cy.wait(3000)
+    cy.getByTestID('text_input_usd_value').should('have.value', '125.00')
+    cy.getByTestID('text_resulting_col_ratio').contains('171.82')
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.getByTestID('txn_authorization_description').contains('Borrowing 5.00000000 dTS25')
+    cy.closeOceanInterface()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.checkVaultTag('ACTIVE', VaultStatus.NearLiquidation, 'vault_card_0_status', walletTheme.isDark)
+    cy.getByTestID('vault_card_0_col_ratio').contains('172%')
+    cy.getByTestID('vault_card_0_min_ratio').contains('150%')
+    cy.getByTestID('vault_card_0_total_loan').contains('$873')
+    cy.getByTestID('vault_card_0_loan_symbol_DUSD').should('exist')
+    cy.getByTestID('vault_card_0_loan_symbol_dTS25').should('exist')
+    cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
+  })
+})
+
+context('Wallet - Loans - Payback Loans', () => {
+  let vaultId = ''
+  const walletTheme = { isDark: false }
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.setWalletTheme(walletTheme)
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('empty_vault').should('exist')
+    cy.createVault(0)
+    cy.getByTestID('vault_card_0_manage_loans_button').should('not.exist')
+    cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
+      vaultId = $txt[0].textContent
+    })
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.addCollateral('10', 'DFI')
+    cy.addCollateral('10', 'dBTC')
+  })
+
+  it('should add collateral', function () {
+    addCollateral()
+  })
+
+  it('should add loan', function () {
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('button_browse_loans').click()
+    cy.getByTestID('loan_card_DUSD').click()
+    cy.getByTestID('form_input_borrow').clear().type('100').blur()
+    cy.wait(3000)
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('text_borrow_amount').contains('100.00000000')
+    cy.getByTestID('text_borrow_amount_suffix').contains('DUSD')
+    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.getByTestID('txn_authorization_description')
+      .contains('Borrowing 100.00000000 DUSD')
+    cy.closeOceanInterface()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.checkBalanceRow('12', { name: 'Decentralized USD', amount: '100.00000000', symbol: 'DUSD' })
+  })
+
+  it('should be swap DUSD', function () {
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('close_dex_guidelines').click()
+    cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
+    cy.getByTestID('switch_button').click()
+    cy.wait(4000)
+    cy.getByTestID('text_input_tokenA').type('1').blur()
+    cy.wait(3000)
+    cy.getByTestID('button_submit').click()
+    cy.getByTestID('button_confirm_swap').click()
+    cy.closeOceanInterface()
+    cy.getByTestID('bottom_tab_loans').click()
+  })
+
+  it('should be able to payback loan', function () {
+    cy.getByTestID('vault_card_0').click()
+    cy.getByTestID('collateral_tab_LOANS').click()
+    cy.getByTestID('loan_card_DUSD_payback_loan').click()
+    cy.getByTestID('payback_input_text').clear().type('100000').blur()
+    cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
+    cy.getByTestID('payback_input_text').clear().type('102').blur()
+    cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
+    cy.getByTestID('text_resulting_col_ratio').contains('N/A')
+    cy.getByTestID('payback_loan_button').click()
+    cy.getByTestID('confirm_title').contains('You are paying')
+    cy.getByTestID('text_payment_amount').contains('102.00000000')
+    cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
+    cy.getByTestID('text_transaction_type').contains('Loan payment')
+    cy.getByTestID('tokens_to_pay').contains('102.00000000')
+    cy.getByTestID('tokens_to_pay_suffix').contains('DUSD')
+    cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
+    cy.getByTestID('text_resulting_loan_amount_suffix').contains('DUSD')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('text_current_collateral_ratio').contains('N/A')
+    cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
+    cy.getByTestID('txn_authorization_description')
+      .contains('Paying 102.00000000 DUSD')
+    cy.closeOceanInterface()
+    cy.checkVaultTag('READY', VaultStatus.Ready, 'vault_card_0_status', walletTheme.isDark)
   })
 })

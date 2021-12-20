@@ -139,12 +139,17 @@ Cypress.Commands.add('checkVaultTag', (label: string, status: VaultStatus, testI
     symbol: vaultSymbol,
     color: ''
   }
+  const noSymbol = status === VaultStatus.Empty || status === VaultStatus.Ready
   if (status === VaultStatus.AtRisk) {
     vaultItem.color = isDark ? 'rgb(255, 159, 10)' : 'rgb(255, 150, 41)'
   } else if (status === VaultStatus.Healthy) {
     vaultItem.color = isDark ? 'rgb(50, 215, 75)' : 'rgb(2, 179, 27)'
+  } else if (status === VaultStatus.NearLiquidation) {
+    vaultItem.color = isDark ? 'rgb(255, 125, 117)' : 'rgb(230, 0, 0)'
+  } else if (noSymbol) {
+    vaultItem.color = isDark ? 'rgb(163, 163, 163)' : 'rgb(115, 115, 115)'
   }
   cy.getByTestID(testID).contains(vaultItem.title)
   cy.getByTestID(testID).should('have.css', 'color', vaultItem.color)
-  cy.getByTestID(vaultItem.symbol).should('exist')
+  cy.getByTestID(vaultItem.symbol).should(noSymbol ? 'not.exist' : 'exist')
 })
