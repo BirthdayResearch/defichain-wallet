@@ -182,10 +182,10 @@ function SelectedValue ({ slippage }: { slippage: BigNumber}): JSX.Element {
               {val}%
             </ThemedText>
             <ThemedIcon
-              dark={tailwind('text-gray-200')}
+              light={tailwind('text-primary-500')}
+              dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
-              light={tailwind('text-black')}
-              name='chevron-right'
+              name='unfold-more'
               size={24}
             />
           </>
