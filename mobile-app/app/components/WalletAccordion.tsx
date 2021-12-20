@@ -2,29 +2,27 @@ import React, { useState } from 'react'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from './themed'
 import Accordion from 'react-native-collapsible/Accordion'
 import { tailwind } from '@tailwind'
+import { View } from 'react-native'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 interface AccordionProps {
   testID?: string
   title: string
   content: AccordionContent[]
+  activeSections?: number[] | string[]
 }
 
 export interface AccordionContent {
   title: string
-  content: string
-}
-
-interface ActiveSessions {
-  activeSessions: number[] | string[]
+  content: Array<{
+    text: string
+    type: 'bullet' | 'paragraph'
+  }>
 }
 
 export function WalletAccordion (props: AccordionProps): JSX.Element {
   const { isLight } = useThemeContext()
-  const initialContent: ActiveSessions = {
-    activeSessions: []
-  }
-  const [activeContent, setActiveContent] = useState(initialContent)
+  const [activeSections, setActiveSections] = useState<number[] | string[]>(props.activeSections ?? [])
   const isLastContent = (index: number): boolean => {
     return index === props.content.length - 1
   }
@@ -79,20 +77,28 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
               light={tailwind('border-gray-200')}
               dark={tailwind('border-gray-700')}
             >
-              <ThemedText
-                style={tailwind('text-sm')}
-                light={tailwind('text-gray-600')}
-                dark={tailwind('text-gray-300')}
-              >
-                {prop.content}
-              </ThemedText>
+              {prop.content.map(({ text, type }) => (
+                <View key={text} style={tailwind('flex-row justify-start')}>
+                  {type === 'bullet' && (
+                    <ThemedText style={tailwind('w-1/12 font-bold text-sm')}>{'\u2022'}</ThemedText>
+                  )}
+                  <ThemedText
+                    key={text}
+                    style={tailwind('flex-1 text-sm')}
+                    light={tailwind('text-gray-600')}
+                    dark={tailwind('text-gray-300')}
+                  >
+                    {text}
+                  </ThemedText>
+                </View>
+              ))}
             </ThemedView>
           )
         }}
-        onChange={(activeSessions) => {
-          setActiveContent({ activeSessions })
+        onChange={(activeSections) => {
+          setActiveSections(activeSections)
         }}
-        activeSections={activeContent.activeSessions}
+        activeSections={activeSections}
       />
     </ThemedScrollView>
   )

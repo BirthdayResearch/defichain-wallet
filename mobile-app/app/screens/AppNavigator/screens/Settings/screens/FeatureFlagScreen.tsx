@@ -75,7 +75,7 @@ export function FeatureFlagScreen (): JSX.Element {
           light={tailwind('text-gray-500')}
           style={tailwind('text-sm font-normal')}
         >
-          {translate('screens/FeatureFlagScreen', 'Beta features of Light Wallet are features undergoing final testing before its official release. Experimentation of the features is encouraged, but caution is advised when using your assets.')}
+          {translate('screens/FeatureFlagScreen', 'Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.')}
         </ThemedText>
       </View>
       {betaFeatures.map((item: BetaFeaturesI) => (

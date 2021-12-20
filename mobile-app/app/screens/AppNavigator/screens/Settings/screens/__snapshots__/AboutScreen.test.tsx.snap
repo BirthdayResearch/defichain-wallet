@@ -155,53 +155,6 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         vmock
       </Text>
       <View
-        accessible={true}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
-        testID="try_beta_features"
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                  "fontFamily": "LightFont",
-                  "fontSize": 12,
-                  "fontWeight": "300",
-                  "lineHeight": 16,
-                  "marginBottom": 4,
-                  "marginTop": 4,
-                  "textDecorationLine": "underline",
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Try Beta features
-        </Text>
-      </View>
-      <View
         style={
           Object {
             "flexDirection": "row",

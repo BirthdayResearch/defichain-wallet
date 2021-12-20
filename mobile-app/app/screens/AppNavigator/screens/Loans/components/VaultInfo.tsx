@@ -6,59 +6,34 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import { StyleProp } from 'react-native'
-import NumberFormat from 'react-number-format'
 
 interface VaultInfoProps {
   label: string
   value?: BigNumber
-  tokens?: string[]
-  valueType: VaultInfoValueType
+  tokens: string[]
   prefix?: string
   suffix?: string
   decimalPlace?: number
   valueThemedProps?: ThemedProps
   valueStyleProps?: StyleProp<TextProps>
+  testID: string
 }
-
-type VaultInfoValueType = 'NUMBER' | 'TOKEN_ICON_GROUP'
 
 export function VaultInfo (props: VaultInfoProps): JSX.Element {
   return (
-    <View style={tailwind('w-2/4 mb-2')}>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs')}
-      >
-        {translate('components/VaultCard', props.label)}
-      </ThemedText>
-      {props.valueType === 'NUMBER' &&
-        (
-          <NumberFormat
-            value={props.value?.toFixed()}
-            thousandSeparator
-            decimalScale={2}
-            displayType='text'
-            suffix={props.suffix}
-            prefix={props.prefix}
-            renderText={value =>
-              <ThemedText
-                light={tailwind('text-gray-900')}
-                dark={tailwind('text-gray-100')}
-                {...props.valueThemedProps}
-                style={[tailwind('text-sm font-semibold'), props.valueStyleProps]}
-              >
-                {value.length === 0 ? translate('components/VaultCard', 'n/a') : value}
-              </ThemedText>}
-          />
-        )}
-      {props.valueType === 'TOKEN_ICON_GROUP' && props.tokens !== undefined &&
-        (
-          <View style={tailwind('mt-0.5')}>
-            <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} />
-          </View>
-        )}
-
+    <View style={tailwind('flex-row items-center w-full my-1')}>
+      <View style={tailwind('w-6/12')}>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
+          {translate('components/VaultCard', props.label)}
+        </ThemedText>
+      </View>
+      <View style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}>
+        <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} testID={`${props.testID}_loan_symbol`} />
+      </View>
     </View>
   )
 }

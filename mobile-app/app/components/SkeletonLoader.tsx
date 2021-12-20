@@ -3,6 +3,9 @@ import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
+import { AddressSkeletonLoader } from './skeletonLoaders/AddressSkeletonLoader'
+import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
+import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -13,7 +16,10 @@ export enum SkeletonLoaderScreen {
   'Dex' = 'Dex',
   'Transaction' = 'Transaction',
   'MnemonicWord' = 'MnemonicWord',
-  'Loan' = 'Loan'
+  'Loan' = 'Loan',
+  'Address' = 'Address',
+  'BrowseAuction' = 'BrowseAuction',
+  'Vault' = 'Vault'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
@@ -49,6 +55,30 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <LoanSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.Address:
+        return (
+          <>
+            {skeletonRow.map(i => (
+              <AddressSkeletonLoader key={i} />
+            ))}
+          </>
+        )
+    case SkeletonLoaderScreen.BrowseAuction:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <BrowseAuctionsLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.Vault:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <VaultSkeletonLoader key={i} />
           ))}
         </>
       )

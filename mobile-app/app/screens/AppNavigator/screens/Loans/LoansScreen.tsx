@@ -1,36 +1,87 @@
-import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedView } from '@components/themed'
-import { LoanCards } from '@components/LoanCards'
+import { ThemedIcon, ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { fetchLoanTokens, fetchVaults } from '@store/loans'
+import { fetchLoanSchemes, fetchLoanTokens, fetchVaults, loanTokensSelector } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { LoanCards } from './components/LoanCards'
+import { StackScreenProps } from '@react-navigation/stack'
+import { LoanParamList } from './LoansNavigator'
+import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
+import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { debounce } from 'lodash'
+import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
   YourVaults = 'YOUR_VAULTS'
 }
 
-export type LoadingState = 'empty_vault' | 'loading' | 'success'
+type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
-export function LoansScreen (): JSX.Element {
+export function LoansScreen ({ navigation }: Props): JSX.Element {
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => state.loans.vaults)
-  const loans = useSelector((state: RootState) => state.loans.loanTokens)
-  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseLoans)
+  const {
+    vaults,
+    hasFetchedVaultsData,
+    hasFetchedLoansData
+  } = useSelector((state: RootState) => state.loans)
+  const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
+  const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const onPress = (tabId: string): void => {
+    if (tabId === TabKey.YourVaults) {
+      setShowSearchInput(false)
+    } else if (searchString !== '') {
+      setShowSearchInput(true)
+    } else {
+      // no-op: maintain search input state if no query
+    }
     setActiveTab(tabId)
   }
+  const tabsList = [{
+    id: TabKey.YourVaults,
+    label: 'Your vaults',
+    disabled: false,
+    handleOnPress: onPress
+  }, {
+    id: TabKey.BrowseLoans,
+    label: 'Browse loan tokens',
+    disabled: false,
+    handleOnPress: onPress
+  }]
+
+  // Search
+  const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
+  const [showSeachInput, setShowSearchInput] = useState(false)
+  const [searchString, setSearchString] = useState('')
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setFilteredLoans(loans.filter(loan =>
+        loan.token.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+    }, 500)
+    , [loans, hasFetchedLoansData])
+
+  useEffect(() => {
+    if (loans.length === 0) {
+      return
+    }
+    handleFilter(searchString)
+  }, [searchString])
+
+  useEffect(() => {
+    setFilteredLoans(loans)
+  }, [hasFetchedLoansData])
 
   useEffect(() => {
     dispatch(fetchVaults({
@@ -40,19 +91,73 @@ export function LoansScreen (): JSX.Element {
     dispatch(fetchLoanTokens({ client }))
   }, [blockCount])
 
-  const tabsList = [{
-    id: TabKey.BrowseLoans,
-    label: 'Browse loans',
-    disabled: false,
-    handleOnPress: onPress
-  }, {
-    id: TabKey.YourVaults,
-    label: 'Your vaults',
-    disabled: false,
-    handleOnPress: onPress
-  }]
+  useEffect(() => {
+    dispatch(fetchLoanSchemes({ client }))
+  }, [])
 
-  if (vaults?.length === 0) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => {
+        if (activeTab === TabKey.BrowseLoans && vaults.length !== 0) {
+          return (
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+          )
+        } else {
+          return (
+            <TouchableOpacity
+              // eslint-disable-next-line
+              onPress={() => navigation.navigate({
+                name: 'CreateVaultScreen',
+                params: {},
+                merge: true
+              })}
+              testID='create_vault_header_button'
+            >
+              <ThemedIcon
+                size={28}
+                style={tailwind('mr-2')} light={tailwind('text-primary-500')}
+                dark={tailwind('text-primary-500')} iconType='MaterialCommunityIcons' name='plus'
+              />
+            </TouchableOpacity>
+          )
+        }
+      }
+    })
+  }, [navigation, activeTab, vaults])
+
+  useEffect(() => {
+    if (showSeachInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString('')}
+            onChangeInput={(text: string) => setSearchString(text)}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
+            placeholder='Search for loans'
+          />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+  }, [showSeachInput, searchString])
+
+  if (!hasFetchedVaultsData) {
+    return (
+      <View style={tailwind('mt-1')}>
+        <SkeletonLoader
+          row={3}
+          screen={SkeletonLoaderScreen.Vault}
+        />
+      </View>
+    )
+  } else if (vaults?.length === 0) {
     return (
       <EmptyVault
         handleRefresh={() => {
@@ -69,7 +174,7 @@ export function LoansScreen (): JSX.Element {
     >
       <Tabs tabSections={tabsList} testID='loans_tabs' activeTabKey={activeTab} />
       {activeTab === TabKey.YourVaults && <Vaults />}
-      {activeTab === TabKey.BrowseLoans && loans.length === 0 &&
+      {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData &&
       (
         <View style={tailwind('mt-1')}>
           <SkeletonLoader
@@ -78,8 +183,8 @@ export function LoansScreen (): JSX.Element {
           />
         </View>
       )}
-      {activeTab === TabKey.BrowseLoans && loans.length > 0 &&
-      (<LoanCards testID='loans_cards' loans={loans} />)}
+      {activeTab === TabKey.BrowseLoans && hasFetchedLoansData &&
+      (<LoanCards testID='loans_cards' loans={filteredLoans} />)}
     </ThemedView>
   )
 }

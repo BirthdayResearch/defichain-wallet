@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { FeatureFlagScreen, FeatureFlagItem, BetaFeaturesI } from './FeatureFlagScreen'
+import { EnvironmentNetwork } from '@environment'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@contexts/FeatureFlagContext')
@@ -13,7 +14,9 @@ describe('feature flag screen', () => {
       stage: 'beta',
       version: '>=0.12.0',
       description: 'Browse loan tokens provided by DeFiChain',
-      value: true
+      value: true,
+      networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
+      platforms: ['ios', 'android', 'web']
     }
     const rendered = render(<FeatureFlagItem item={feature} onChange={() => {}} />)
     expect(rendered.toJSON()).toMatchSnapshot()

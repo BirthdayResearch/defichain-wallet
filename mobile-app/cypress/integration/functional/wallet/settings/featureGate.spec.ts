@@ -1,16 +1,22 @@
+import { EnvironmentNetwork } from '../../../../../../shared/environment'
+
 context('Wallet - Feature Gate', () => {
   const flags = [{
     id: 'loan',
     name: 'Decentralized Loans',
     stage: 'beta',
-    version: '>=0.12.0',
-    description: 'Browse loan tokens provided by DeFiChain'
+    version: '>=0.0.0',
+    description: 'Browse loan tokens provided by DeFiChain',
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
   }, {
     id: 'foo',
     name: 'foo',
     stage: 'public',
-    version: '>=0.12.0',
-    description: 'foo'
+    version: '>=0.0.0',
+    description: 'foo',
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
   }]
 
   beforeEach(() => {

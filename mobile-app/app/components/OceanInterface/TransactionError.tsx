@@ -1,8 +1,7 @@
 import React from 'react'
-import { View } from 'react-native'
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 
 interface TransactionErrorProps {
@@ -15,6 +14,11 @@ enum ErrorCodes {
   InsufficientUTXO = 1,
   InsufficientBalance = 2,
   PoolSwapHigher = 3,
+  InsufficientDFIInVault = 4,
+  LackOfLiquidity = 5,
+  PaybackLoanInvalidPrice = 6,
+  NoLiveFixedPrices = 7,
+  VaultNotEnoughCollateralization = 8
 }
 
 interface ErrorMapping {
@@ -22,7 +26,11 @@ interface ErrorMapping {
   message: string
 }
 
-export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+export function TransactionError ({
+  errMsg,
+  onClose
+}: TransactionErrorProps): JSX.Element {
+  console.log('transaction error', errMsg)
   const err = errorMessageMapping(errMsg)
   return (
     <>
@@ -34,7 +42,14 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
         size={20}
       />
 
-      <View style={tailwind('flex-auto mx-3 justify-center')}>
+      <ThemedScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={tailwind('justify-center flex flex-col')}
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
+        style={tailwind('mx-3')}
+      >
         <ThemedText
           style={tailwind('text-sm font-bold')}
         >
@@ -48,7 +63,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
         >
           {translate('screens/OceanInterface', err.message)}
         </ThemedText>
-      </View>
+      </ThemedScrollView>
 
       <TransactionCloseButton onPress={onClose} />
     </>
@@ -76,10 +91,44 @@ function errorMessageMapping (err: string): ErrorMapping {
       code: ErrorCodes.InsufficientUTXO,
       message: 'Insufficient UTXO DFI'
     }
+  } else if (err.includes('At least 50% of the vault must be in DFI when taking a loan')) {
+    return {
+      code: ErrorCodes.InsufficientDFIInVault,
+      message: 'Insufficient DFI collateral (≥50%)'
+    }
+  } else if (err.includes('Lack of liquidity')) {
+    return {
+      code: ErrorCodes.LackOfLiquidity,
+      message: 'Pool does not have enough liquidity'
+    }
+  } else if (err.includes('Cannot payback loan while any of the asset\'s price is invalid')) {
+    return {
+      code: ErrorCodes.PaybackLoanInvalidPrice,
+      message: 'Cannot payback loan due to invalid price'
+    }
+  } else if (err.includes('No live fixed prices')) {
+    return {
+      code: ErrorCodes.NoLiveFixedPrices,
+      message: 'No live fixed prices for loan token'
+    }
+  } else if (err.includes('Vault does not have enough collateralization ratio defined by loan scheme')) {
+    return {
+      code: ErrorCodes.VaultNotEnoughCollateralization,
+      message: 'Vault does not have enough col. ratio'
+    }
   }
 
   return {
     code: ErrorCodes.UnknownError,
-    message: err
+    message: getErrorMessage(err)
   }
+}
+
+function getErrorMessage (err: string): string {
+  const errParts = err?.split(':')
+  if (errParts.length !== 4) {
+    return err
+  }
+
+  return errParts[2]?.concat(errParts[3])?.trim() // display error message without HTTP error code and url path
 }

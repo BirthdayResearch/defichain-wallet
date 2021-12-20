@@ -72,36 +72,46 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "41.666667%",
+            "width": "50%",
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+            }
           }
         >
-          Network
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                    },
+                    undefined,
+                  ],
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Network
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -309,36 +319,46 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "41.666667%",
+            "width": "50%",
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontWeight": "500",
-                  },
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+            }
           }
         >
-          Last synced
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontWeight": "500",
+                    },
+                    undefined,
+                  ],
+                  Object {
+                    "color": "rgba(0, 0, 0, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Last synced
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -528,43 +548,52 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "flexDirection": "row",
             "width": "50%",
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+            }
+          }
+        >
+          <Text
+            style={
               Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
                 Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontSize": 16,
+                      "fontWeight": "500",
+                      "lineHeight": 24,
+                    },
+                  ],
                   Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 16,
-                    "fontWeight": "500",
-                    "lineHeight": 24,
+                    "color": "rgba(0, 0, 0, 1)",
                   },
                 ],
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
-          }
-          testID="network_details_total_masternodes_label"
-        >
-          Total Masternodes
-        </Text>
+              ]
+            }
+            testID="network_details_total_masternodes_label"
+          >
+            Total Masternodes
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -583,34 +612,54 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           style={
             Array [
               Object {
-                "fontFamily": "RegularFont",
+                "fontSize": 14,
+                "lineHeight": 20,
+                "textAlign": "right",
+              },
+              Object {
+                "fontFamily": "MediumFont",
                 "fontSize": 16,
-                "fontWeight": "400",
+                "fontWeight": "500",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "textAlign": "right",
-                  },
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 16,
-                    "fontWeight": "500",
-                    "lineHeight": 24,
-                  },
-                ],
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
+              undefined,
             ]
           }
-          testID="network_details_total_masternodes"
         >
-          10
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontFamily": "MediumFont",
+                      "fontSize": 16,
+                      "fontWeight": "500",
+                      "lineHeight": 24,
+                    },
+                    undefined,
+                  ],
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="network_details_total_masternodes"
+          >
+            10
+          </Text>
         </Text>
       </View>
     </View>

@@ -1,6 +1,7 @@
-export const useDeFiScanContext = (): { getBlocksUrl: Function, getAddressUrl: Function } => {
+export const useDeFiScanContext = (): { getBlocksUrl: Function, getAddressUrl: Function, getVaultsUrl: Function } => {
   return {
     getBlocksUrl: jest.fn,
-    getAddressUrl: jest.fn
+    getAddressUrl: jest.fn,
+    getVaultsUrl: jest.fn
   }
 }

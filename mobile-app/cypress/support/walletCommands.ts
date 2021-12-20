@@ -43,11 +43,6 @@ declare global {
        * @param resultingToken
        */
       validateConversionDetails: (isTokenToUTXO: boolean, amountToConvert: string, resultingUTXO: string, resultingToken: string) => Chainable<Element>
-
-      /**
-       * @description Intercept feature flag API to turn on loan feature
-       */
-      allowLoanFeature: () => Chainable<Element>
     }
   }
 }
@@ -104,17 +99,4 @@ Cypress.Commands.add('validateConversionDetails', (isTokenToUTXO: boolean, amoun
   cy.getByTestID('resulting_utxo').should('contain', resultingUTXO)
   cy.getByTestID('resulting_token').should('contain', resultingToken)
   cy.getByTestID('conversion_breakdown_text').should('contain', 'Amount above are prior to transaction')
-})
-
-Cypress.Commands.add('allowLoanFeature', () => {
-  cy.intercept('**/settings/flags', {
-    body: [
-      {
-        id: "loan",
-        name: "Loans",
-        stage: "alpha",
-        version: ">=0.0.0"
-      }
-    ]
-  })
 })

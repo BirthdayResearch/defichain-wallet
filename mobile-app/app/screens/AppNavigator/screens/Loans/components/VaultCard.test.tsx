@@ -1,85 +1,116 @@
 import React from 'react'
-import { VaultCard, VaultStatus, VaultCardProps } from './VaultCard'
-import BigNumber from 'bignumber.js'
+import { VaultCard, VaultCardProps } from './VaultCard'
 import { render } from '@testing-library/react-native'
+import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
+jest.mock('@shared-contexts/DeFiScanContext')
+jest.mock('@gorhom/bottom-sheet', () => ({
+  useBottomSheetModal: jest.fn().mockReturnValue({ dismiss: jest.fn() }),
+  BottomSheetModal: () => <></>
+}))
 
 describe('Vault card', () => {
-  it('should match snapshot of locked vault', async () => {
+  it('should match snapshot of liquidated vault', async () => {
     const lockedVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.Locked,
-      collaterals: [
-        { id: 'BTC', vaultProportion: new BigNumber(20) },
-        { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
-        { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
-        { id: 'dLTC', vaultProportion: new BigNumber(20) },
-        { id: 'dUSDC', vaultProportion: new BigNumber(20) }
-      ],
-      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }],
-      totalLoanAmount: new BigNumber('50000'),
-      collateralAmount: new BigNumber('40000'),
-      collateralRatio: new BigNumber('80'),
-      actions: ['ADD_COLLATERAL', 'VIEW_LOANS']
+      vault: {
+        vaultId: '22ffasd5ca123123123123123121231061',
+        loanScheme: {
+          id: '0',
+          interestRate: '3',
+          minColRatio: '100'
+        },
+        ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+        state: LoanVaultState.IN_LIQUIDATION,
+        batches: [],
+        batchCount: 0,
+        liquidationHeight: 0,
+        liquidationPenalty: 0
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard {...lockedVault} />)
+    const rendered = render(<VaultCard vault={lockedVault.vault} testID={lockedVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
   it('should match snapshot of at-risk vault', async () => {
     const atRiskVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.AtRisk,
-      collaterals: [
-        { id: 'BTC', vaultProportion: new BigNumber(20) },
-        { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
-        { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
-        { id: 'dLTC', vaultProportion: new BigNumber(20) },
-        { id: 'dUSDC', vaultProportion: new BigNumber(20) }
-      ],
-      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }],
-      totalLoanAmount: new BigNumber('50000000000000000000'),
-      collateralAmount: new BigNumber('40000'),
-      collateralRatio: new BigNumber('150'),
-      actions: []
+      vault: {
+        vaultId: '22ffasd5ca123123123123123121231061',
+        loanAmounts: [],
+        collateralRatio: '',
+        collateralValue: '',
+        collateralAmounts: [],
+        loanScheme: {
+          id: '0',
+          interestRate: '3',
+          minColRatio: '100'
+        },
+        loanValue: '100',
+        ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+        state: LoanVaultState.MAY_LIQUIDATE,
+        informativeRatio: '0',
+        interestAmounts: [],
+        interestValue: '1'
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard {...atRiskVault} />)
+    const rendered = render(<VaultCard {...atRiskVault} testID={atRiskVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should match snapshot of safe vault', async () => {
+  it('should match snapshot of healthy vault', async () => {
     const safeVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.Safe,
-      collaterals: [
-        { id: 'BTC', vaultProportion: new BigNumber(20) },
-        { id: 'DFI', vaultProportion: new BigNumber(12.4573) },
-        { id: 'dETH', vaultProportion: new BigNumber(55.123333) },
-        { id: 'dLTC', vaultProportion: new BigNumber(20) },
-        { id: 'dUSDC', vaultProportion: new BigNumber(20) }
-      ],
-      activeLoans: [{ tokenId: 'BTC' }, { tokenId: 'DFI' }, { tokenId: 'dETH' }],
-      totalLoanAmount: new BigNumber('50000'),
-      collateralAmount: new BigNumber('40000'),
-      collateralRatio: new BigNumber('300'),
-      actions: ['ADD_COLLATERAL']
+      vault: {
+        vaultId: '22ffasd5ca123123123123123121231061',
+        loanAmounts: [],
+        collateralRatio: '',
+        collateralValue: '',
+        collateralAmounts: [],
+        loanScheme: {
+          id: '0',
+          interestRate: '3',
+          minColRatio: '100'
+        },
+        loanValue: '100',
+        ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+        state: LoanVaultState.ACTIVE,
+        informativeRatio: '0',
+        interestAmounts: [],
+        interestValue: '1'
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard {...safeVault} />)
+    const rendered = render(<VaultCard vault={safeVault.vault} testID={safeVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should match snapshot of new vault', async () => {
+  it('should match snapshot of active vault', async () => {
     const newVault: VaultCardProps = {
-      vaultAddress: '22ffasd5ca123123123123123121231061',
-      status: VaultStatus.New,
-      collaterals: [],
-      actions: ['ADD_COLLATERAL']
+      vault: {
+        vaultId: '22ffasd5ca123123123123123121231061',
+        loanAmounts: [],
+        collateralRatio: '',
+        collateralValue: '',
+        collateralAmounts: [],
+        loanScheme: {
+          id: '0',
+          interestRate: '3',
+          minColRatio: '100'
+        },
+        loanValue: '100',
+        ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+        state: LoanVaultState.ACTIVE,
+        informativeRatio: '0',
+        interestAmounts: [],
+        interestValue: '1'
+      },
+      testID: 'vault'
     }
-    const rendered = render(<VaultCard {...newVault} />)
+    const rendered = render(<VaultCard vault={newVault.vault} testID={newVault.testID} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

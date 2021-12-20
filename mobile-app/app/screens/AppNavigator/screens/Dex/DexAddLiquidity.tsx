@@ -4,29 +4,27 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useCallback, useEffect, useState } from 'react'
-import { View } from '@components/index'
+import React, { useCallback, useEffect, useState } from 'react'
+import { View } from '@components'
 import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DFITokenSelector, DFIUtxoSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { ConversionMode, dfiConversionCrafter } from '@api/transaction/dfi_converter'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { useConversion } from '@hooks/wallet/Conversion'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -40,15 +38,17 @@ interface ExtPoolPairData extends PoolPairData {
 
 export function AddLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
-  const pairs = usePoolPairsAPI()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const tokens = useTokensAPI()
   const client = useWhaleApiClient()
+  const { address } = useWalletContext()
   const dispatch = useDispatch()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -61,7 +61,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
   const [balanceB, setBalanceB] = useState(new BigNumber(0))
   const [pair, setPair] = useState<ExtPoolPairData>()
-  const { isConversionRequired, conversionAmount } = useConversion({
+  const {
+    isConversionRequired,
+    conversionAmount
+  } = useConversion({
     inputToken: {
       type: 'token',
       amount: new BigNumber(pair?.tokenA.id === '0' ? tokenAAmount : tokenBAmount)
@@ -104,7 +107,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
 
     if (isConversionRequired) {
-      await constructSignedConversionAndAddLiquidity({
+      queueConvertTransaction({
         mode: 'utxosToAccount',
         amount: conversionAmount
       }, dispatch, () => {
@@ -148,6 +151,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       })
     }
   }
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()
@@ -300,7 +308,7 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
   )
 }
 
-function PriceDetailsSection (props: {pair: ExtPoolPairData}): JSX.Element {
+function PriceDetailsSection (props: { pair: ExtPoolPairData }): JSX.Element {
   const { pair } = props
   return (
     <>
@@ -310,18 +318,24 @@ function PriceDetailsSection (props: {pair: ExtPoolPairData}): JSX.Element {
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
+        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: pair.tokenA.displaySymbol,
+          tokenB: pair.tokenB.displaySymbol
+        })}
         rhs={{
-          value: pair.aToBRate.toFixed(8),
+          value: pair.bToARate.toFixed(8),
           testID: 'a_per_b_price',
           suffixType: 'text',
           suffix: pair.tokenA.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', { tokenA: pair.tokenB.displaySymbol, tokenB: pair.tokenA.displaySymbol })}
+        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', {
+          tokenA: pair.tokenB.displaySymbol,
+          tokenB: pair.tokenA.displaySymbol
+        })}
         rhs={{
-          value: pair.bToARate.toFixed(8),
+          value: pair.aToBRate.toFixed(8),
           testID: 'b_per_a_price',
           suffixType: 'text',
           suffix: pair.tokenB.displaySymbol
@@ -330,8 +344,13 @@ function PriceDetailsSection (props: {pair: ExtPoolPairData}): JSX.Element {
     </>
   )
 }
+
 function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fee: BigNumber, isConversionRequired: boolean, amountToConvert: BigNumber }): JSX.Element {
-  const { pair, sharePercentage, isConversionRequired } = props
+  const {
+    pair,
+    sharePercentage,
+    isConversionRequired
+  } = props
 
   return (
     <>
@@ -341,13 +360,13 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/AddLiquidity', 'Amount to be converted')}
+          lhs={translate('screens/AddLiquidity', 'UTXO to be converted')}
           rhs={{
-            value: props.amountToConvert.toFixed(8),
-            testID: 'text_amount_to_convert',
-            suffixType: 'text',
-            suffix: 'DFI'
-          }}
+          value: props.amountToConvert.toFixed(8),
+          testID: 'text_amount_to_convert',
+          suffixType: 'text',
+          suffix: 'DFI'
+        }}
         />}
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Share of pool')}
@@ -418,15 +437,4 @@ function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenB
 
   return !(balanceA === undefined || balanceA.lt(tokenAAmount) ||
     balanceB === undefined || balanceB.lt(tokenBAmount))
-}
-
-async function constructSignedConversionAndAddLiquidity ({
-  mode,
-  amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
-  try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
-  } catch (e) {
-    logger.error(e)
-  }
 }

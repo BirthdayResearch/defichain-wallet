@@ -74,7 +74,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
           handleComponent={handleComponent}
           {...otherModalProps}
         >
-          <View style={tailwind('font-medium w-full px-2 items-end p-2', { 'mt-1': handleComponent === null })}>
+          <View style={tailwind('absolute flex-row justify-end right-5 top-1 w-full z-10')}>
             <TouchableOpacity onPress={closeModal}>
               <ThemedIcon
                 size={24}

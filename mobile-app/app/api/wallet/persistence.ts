@@ -33,7 +33,6 @@ async function set (wallets: Array<WalletPersistenceDataI<any>>): Promise<void> 
  */
 async function clear (): Promise<void> {
   const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
-
   for (let i = 0; i < parseInt(count); i++) {
     await SecuredStoreAPI.removeItem(`WALLET.${i}`)
   }

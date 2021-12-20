@@ -106,8 +106,7 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
 
 export function AboutScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  const { featureFlags } = useFeatureFlagContext()
-  const betaFeaturesExists = featureFlags.some((item) => item.stage === 'beta')
+  const { hasBetaFeatures } = useFeatureFlagContext()
 
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
@@ -126,7 +125,7 @@ export function AboutScreen (): JSX.Element {
           {`v${nativeApplicationVersion ?? '0.0.0'}`}
         </ThemedText>
 
-        {betaFeaturesExists && (
+        {hasBetaFeatures && (
           <TouchableOpacity
             testID='try_beta_features'
             onPress={() => navigation.navigate('FeatureFlagScreen')}
