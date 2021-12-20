@@ -23,6 +23,7 @@ import { WalletPersistence } from '@api/wallet'
 import { NativeLoggingProvider, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 /**
  * Loads
@@ -36,8 +37,14 @@ export default function App (): JSX.Element | null {
   const colorScheme = useColorScheme()
   const logger = useLogger()
 
-  const { isThemeLoaded } = useTheme({ api: ThemePersistence, colorScheme })
-  const { isLanguageLoaded } = useLanguage({ api: LanguagePersistence, locale: Localization.locale })
+  const { isThemeLoaded } = useTheme({
+    api: ThemePersistence,
+    colorScheme
+  })
+  const { isLanguageLoaded } = useLanguage({
+    api: LanguagePersistence,
+    locale: Localization.locale
+  })
 
   if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
     SplashScreen.preventAutoHideAsync()
@@ -64,7 +71,9 @@ export default function App (): JSX.Element | null {
                             <DisplayBalancesProvider>
                               <ConnectionBoundary>
                                 <FeatureFlagProvider>
-                                  <Main />
+                                  <GestureHandlerRootView>
+                                    <Main />
+                                  </GestureHandlerRootView>
                                 </FeatureFlagProvider>
                               </ConnectionBoundary>
                             </DisplayBalancesProvider>
