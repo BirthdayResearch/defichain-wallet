@@ -54,7 +54,6 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
     cy.getByTestID('txn_authorization_description')
       .contains(`Adding ${new BigNumber(10).toFixed(8)} DFI as collateral`)
-    cy.getByTestID('resulting_collateralization').should('have.text', 'N/A')
     cy.closeOceanInterface()
   })
 
