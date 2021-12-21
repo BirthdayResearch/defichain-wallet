@@ -29,7 +29,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.intercept('**/loans/collaterals?size=50').as('loanCollaterals')
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.getByTestID('collateral_vault_id').contains(vaultId)
-    checkCollateralDetailValues('EMPTY', '$0.00', '$0.00', '', 'N/A', '150.00', '5.00')
+    checkCollateralDetailValues('EMPTY', '$0.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
     cy.getByTestID('add_collateral_button').click()
     cy.wait(['@loanCollaterals']).then((intercept: any) => {
       const amounts: any = {
@@ -58,7 +58,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should update vault details', function () {
-    checkCollateralDetailValues('READY', '$1,000.00', '$0.00', '', 'N/A', '150.00', '5.00')
+    checkCollateralDetailValues('READY', '$1,000.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
   })
 
   it('should update collateral list', function () {
@@ -80,7 +80,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should update vault details', function () {
-    checkCollateralDetailValues('READY', '$1,500.00', '$0.00', '', 'N/A', '150.00', '5.00')
+    checkCollateralDetailValues('READY', '$1,500.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
   })
 
   it('should update collateral list', function () {

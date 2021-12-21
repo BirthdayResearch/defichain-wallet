@@ -1,5 +1,6 @@
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
+import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
 
 context('Wallet - Loans - Create vault', () => {
   beforeEach(function () {
@@ -44,9 +45,11 @@ context('Wallet - Loans - Create vault', () => {
 })
 
 context('Wallet - Loans - Confirm create vault', () => {
+  const walletTheme = { isDark: false }
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
+    cy.setWalletTheme(walletTheme)
   })
 
   it('should navigate to confirm create vault screen and create a vault', function () {
@@ -76,7 +79,7 @@ context('Wallet - Loans - Confirm create vault', () => {
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0').should('exist')
-    cy.getByTestID('vault_card_0_status').contains('EMPTY')
+    cy.checkVaultTag('EMPTY', VaultStatus.Empty, 'vault_card_0_status', walletTheme.isDark)
     cy.getByTestID('vault_card_0_collateral_none').contains('None')
     cy.getByTestID('vault_card_0_total_loan').contains('$0.00')
     cy.getByTestID('vault_card_0_total_collateral').contains('$0.00')
