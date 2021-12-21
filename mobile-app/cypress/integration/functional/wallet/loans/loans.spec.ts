@@ -333,7 +333,7 @@ context('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('vault_card_0_total_loan').contains('$823')
     cy.getByTestID('vault_card_0_loan_symbol_DUSD').should('exist')
     cy.getByTestID('vault_card_0_loan_symbol_dTS25').should('exist')
-    cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
+    cy.getByTestID('vault_card_0_total_collateral').contains('$1,300.00')
   })
 })
 
