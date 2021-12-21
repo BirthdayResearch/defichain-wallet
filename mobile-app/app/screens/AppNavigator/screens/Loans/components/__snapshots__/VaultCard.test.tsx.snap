@@ -3720,7 +3720,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
               }
               testID="vault_total_loan"
             >
-              
+              -
             </Text>
           </Text>
         </View>
@@ -3850,7 +3850,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
               }
               testID="vault_total_collateral"
             >
-              
+              -
             </Text>
           </Text>
         </View>
