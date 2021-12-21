@@ -315,6 +315,8 @@ context('Wallet - Loans - Take Loans', () => {
     cy.go('back')
     cy.wait(2000)
     cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+    cy.getByTestID('header_loans_search').click()
+    cy.getByTestID('loans_search_input').type('dTS25').blur()
     cy.getByTestID('loan_card_dTS25').click()
     cy.getByTestID('borrow_loan_vault').click()
     cy.getByTestID('select_vault_0').click()
