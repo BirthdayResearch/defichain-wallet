@@ -100,7 +100,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => {
         if (activeTab === TabKey.BrowseLoans && vaults.length !== 0) {
           return (
-            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+            <HeaderSearchIcon testID='header_loans_search' onPress={() => setShowSearchInput(true)} />
           )
         } else {
           return (
@@ -138,6 +138,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
               setShowSearchInput(false)
             }}
             placeholder='Search for loans'
+            testID='loans_search_input'
           />
         )
       })
