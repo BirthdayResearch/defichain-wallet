@@ -83,6 +83,8 @@ exports[`Wallet Address Row should match snapshot 1`] = `
     }
   >
     <Text
+      ellipsizeMode="middle"
+      numberOfLines={1}
       style={
         Array [
           Object {
