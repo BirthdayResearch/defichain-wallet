@@ -242,7 +242,9 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Vault ID')}
         rhs={{
           value: props.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
