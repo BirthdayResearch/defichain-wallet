@@ -988,7 +988,7 @@
     "Collateralization factor": "Besicherungsfaktor",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
-    "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
+    "CONFIRM ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "ADDING": "WIRD HINZUGEFÜGT",
     "You are removing collateral from": "Du entfernst Sicherheiten aus",
     "Convert & add collateral": "Umwandeln u. Sicherheiten hinzufügen",
@@ -1109,7 +1109,7 @@
     "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
     "EDITING": "BEARBEITEN",
     "CONVERTING": "UMWANDELN",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}} und einen Zinssatz von {{ir}}"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}}% und einen Zinssatz von {{ir}}%"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",
