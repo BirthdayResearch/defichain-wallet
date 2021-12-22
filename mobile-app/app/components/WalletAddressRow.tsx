@@ -12,7 +12,9 @@ export function WalletAddressRow (): JSX.Element {
       lhs={translate('components/WalletAddressRow', 'Wallet address')}
       rhs={{
         value: address,
-        testID: 'wallet_address_text'
+        testID: 'wallet_address_text',
+        numberOfLines: 1,
+        ellipsizeMode: 'middle'
       }}
       textStyle={tailwind('text-sm font-normal')}
     />
