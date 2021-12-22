@@ -52,11 +52,11 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
   >
     <RNSVGGroup>
       <RNSVGRect
-        clipPath="d1akj6-animated-diff"
+        clipPath="address-animated-diff"
         fill={
           Array [
             1,
-            "d1akj6-diff",
+            "address-diff",
           ]
         }
         height="100%"
@@ -71,7 +71,7 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
       />
       <RNSVGDefs>
         <RNSVGClipPath
-          name="d1akj6-animated-diff"
+          name="address-animated-diff"
         >
           <RNSVGCircle
             cx="35"
@@ -100,7 +100,7 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
           }
           gradientTransform={null}
           gradientUnits={0}
-          name="d1akj6-diff"
+          name="address-diff"
           x1="-100%"
           x2="0%"
           y1={0}
@@ -172,11 +172,11 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
   >
     <RNSVGGroup>
       <RNSVGRect
-        clipPath="qfhqztq-animated-diff"
+        clipPath="browseAuctions-animated-diff"
         fill={
           Array [
             1,
-            "qfhqztq-diff",
+            "browseAuctions-diff",
           ]
         }
         height="100%"
@@ -191,7 +191,7 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
       />
       <RNSVGDefs>
         <RNSVGClipPath
-          name="qfhqztq-animated-diff"
+          name="browseAuctions-animated-diff"
         >
           <RNSVGCircle
             cx="21"
@@ -307,7 +307,7 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
           }
           gradientTransform={null}
           gradientUnits={0}
-          name="qfhqztq-diff"
+          name="browseAuctions-diff"
           x1="-100%"
           x2="0%"
           y1={0}

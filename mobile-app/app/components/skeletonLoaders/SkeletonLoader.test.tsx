@@ -44,7 +44,7 @@ describe('Skeleton Loader', () => {
 
   it('should match snapshot of address skeleton loader', async () => {
     const component = (
-      <AddressSkeletonLoader />
+      <AddressSkeletonLoader uniqueKey='address' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
@@ -52,7 +52,7 @@ describe('Skeleton Loader', () => {
 
   it('should match snapshot of browse auction skeleton loader', async () => {
     const component = (
-      <BrowseAuctionsLoader />
+      <BrowseAuctionsLoader uniqueKey='browseAuctions' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
