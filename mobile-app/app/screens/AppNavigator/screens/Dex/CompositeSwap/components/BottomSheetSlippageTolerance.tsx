@@ -65,7 +65,7 @@ export function SlippageHeader (props: { onCloseButtonPress: () => void }): JSX.
             light={tailwind('text-gray-900')}
             style={tailwind('text-xl font-semibold')}
           >
-            {translate('screens/SlippageTolerance', 'Slippage Tolerance')}
+            {translate('screens/SlippageTolerance', 'Slippage tolerance')}
           </ThemedText>
         </View>
         <BottomSheetTouchableOpacity onPress={props.onCloseButtonPress}>

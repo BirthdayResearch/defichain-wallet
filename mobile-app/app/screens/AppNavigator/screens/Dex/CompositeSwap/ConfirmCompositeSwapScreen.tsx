@@ -149,7 +149,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         suffix='DFI'
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Slippage Tolerance')}
+        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Slippage tolerance')}
         rhs={{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
