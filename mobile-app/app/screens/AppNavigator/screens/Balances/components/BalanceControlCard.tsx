@@ -103,7 +103,12 @@ export function BalanceControlCard (): JSX.Element {
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
-            <ThemedText testID='wallet_address' style={tailwind('text-sm font-semibold pr-4')}>
+            <ThemedText
+              testID='wallet_address'
+              style={tailwind('text-sm font-semibold pr-4')}
+              numberOfLines={1}
+              ellipsizeMode='middle'
+            >
               {address}
             </ThemedText>
           </TouchableOpacity>
