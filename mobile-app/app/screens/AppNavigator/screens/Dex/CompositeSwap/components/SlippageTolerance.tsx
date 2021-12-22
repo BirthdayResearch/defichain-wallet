@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from 'react-native'
+import { Platform } from 'react-native'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useBottomSheetInternal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { useBottomSheetInternal, useBottomSheetModal, TouchableOpacity } from '@gorhom/bottom-sheet'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { Button } from '@components/Button'
@@ -75,33 +75,25 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
               name={SLIPPAGE_MODAL_NAME}
               snapPoints={getSnapPoints()}
               index={snapIndex}
-              containerStyle='pt-7'
               enablePanDownToClose={false}
               enableContentPanningGesture={false}
               triggerComponent={<SelectedValue slippage={slippage} />}
               handleComponent={null}
+              closeButtonStyle={tailwind('top-7')}
             >
-              {/* This handles the full display of elements when keyboard is open */}
-              <KeyboardAvoidingView
-                behavior='height'
-                style={tailwind('flex', { 'pb-10': Platform.OS === 'ios' })}
+              <ThemedView
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                style={tailwind('p-4')}
               >
-                <ScrollView>
-                  <ThemedView
-                    dark={tailwind('bg-gray-800')}
-                    light={tailwind('bg-white')}
-                    style={tailwind('p-4')}
-                  >
-                    <SlippageHeader />
-                    <SlippageSelector
-                      slippage={slippage}
-                      isCustomSlippage={isCustomSlippage}
-                      onSubmitSlippage={onSubmitSlippage}
-                      onSnapToIndex={onSnapToIndex}
-                    />
-                  </ThemedView>
-                </ScrollView>
-              </KeyboardAvoidingView>
+                <SlippageHeader />
+                <SlippageSelector
+                  slippage={slippage}
+                  isCustomSlippage={isCustomSlippage}
+                  onSubmitSlippage={onSubmitSlippage}
+                  onSnapToIndex={onSnapToIndex}
+                />
+              </ThemedView>
             </BottomSheetModal>
           )}
       </ThemedView>
@@ -392,6 +384,7 @@ const BottomSheetInput = (props: BottomSheetInputProps): JSX.Element => {
 
   return (
     <WalletTextInput
+      autoFocus
       onChangeText={onSlippageChange}
       keyboardType='numeric'
       autoCapitalize='none'
