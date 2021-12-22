@@ -544,7 +544,7 @@
     "CONTINUE": "繼續"
   },
   "screens/SlippageTolerance": {
-    "Slippage Tolerance": "交易滑價",
+    "Slippage tolerance": "交易滑價",
     "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "滑點率變化會在交易中發生。 選擇您的首選滑點率。",
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
@@ -587,7 +587,7 @@
     "{{token}} tokens converted": "{{token}} 代幣轉換",
     "Select token": "選擇代幣",
     "UTXO to be converted": "要轉換的 UTXO",
-    "Slippage Tolerance": "交易滑價",
+    "Slippage tolerance": "交易滑價",
     "TRANSACTION DETAILS": "交易明細",
     "PRICE DETAILS": "價格明細",
     "FROM": "從",
@@ -605,14 +605,14 @@
     "Swap": "兌換",
     "Swapping Token": "兌換代幣",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
-    "Slippage Tolerance": "交易滑價",
+    "Slippage tolerance": "交易滑價",
     "Estimated to receive": "您大約會收到"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
     "ESTIMATED BALANCE AFTER SWAP": "兌換後的總餘額",
     "TRANSACTION DETAILS": "交易明細",
-    "Slippage Tolerance": "交易滑價",
+    "Slippage tolerance": "交易滑價",
     "Estimated fee": "所需費用(大約)",
     "SWAP": "兌換",
     "SWAPPING": "兌換",
