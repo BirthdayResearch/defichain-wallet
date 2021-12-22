@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Platform } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useBottomSheetInternal, useBottomSheetModal, TouchableOpacity } from '@gorhom/bottom-sheet'
+import { useBottomSheetInternal, useBottomSheetModal, TouchableOpacity as BottomSheetTouchableOpacity } from '@gorhom/bottom-sheet'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { Button } from '@components/Button'
@@ -60,15 +60,17 @@ export function SlippageTolerance ({ slippage, setSlippage }: SlippageToleranceP
       >
         {Platform.OS === 'web'
           ? (
-            <TouchableOpacity
-              onPress={() => {
-                setIsSelectorOpen(true)
-              }}
-              style={tailwind('w-full')}
-              testID='slippage_select'
-            >
-              <SelectedValue slippage={slippage} />
-            </TouchableOpacity>
+            <View style={tailwind('w-full')}>
+              <TouchableOpacity
+                onPress={() => {
+                  setIsSelectorOpen(true)
+                }}
+                style={tailwind('w-full')}
+                testID='slippage_select'
+              >
+                <SelectedValue slippage={slippage} />
+              </TouchableOpacity>
+            </View>
           )
           : (
             <BottomSheetModal
@@ -121,7 +123,7 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
   const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2 mt-2'
   const activeStyle = 'bg-primary-500 border-primary-500'
   return (
-    <TouchableOpacity
+    <BottomSheetTouchableOpacity
       key={label}
       onPress={onPress}
       style={tailwind(`${buttonStyles} ${isActive ? activeStyle : ''}`)}
@@ -134,7 +136,7 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
       >
         {label}
       </ThemedText>
-    </TouchableOpacity>
+    </BottomSheetTouchableOpacity>
   )
 }
 
