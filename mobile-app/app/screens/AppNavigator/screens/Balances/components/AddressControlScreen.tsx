@@ -82,6 +82,8 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   const { address, addressLength, setIndex, wallet } = useWalletContext()
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
+  const blockCount = useSelector((state: RootState) => state.block.count)
+
   const logger = useLogger()
 
   const fetchAddresses = async (): Promise<void> => {
@@ -92,6 +94,10 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
       addresses.push(address)
     }
     setAvailableAddresses(addresses)
+    await isNextAddressUsable()
+  }
+
+  const isNextAddressUsable = async (): Promise<void> => {
     // incremented 1 to check if next account in the wallet is usable.
     const next = addressLength + 1
     const isUsable = await wallet.isUsable(next)
@@ -106,6 +112,10 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   useEffect(() => {
     fetchAddresses().catch(logger.error)
   }, [wallet, addressLength])
+
+  useEffect(() => {
+    isNextAddressUsable().catch(logger.error)
+  }, [blockCount])
 
   if (address.length === 0) {
     return (
