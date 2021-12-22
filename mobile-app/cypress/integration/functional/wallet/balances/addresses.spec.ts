@@ -83,6 +83,7 @@ context('Wallet - Addresses', () => {
       cy.getByTestID('address_text').contains(activeAddress)
     })
   })
+
   context('Wallet - Addresses transfer dfi between addresses', () => {
     let address: string
     it('should able to transfer dfi between addresses', function () {
@@ -265,5 +266,49 @@ context('Wallet - Addresses should able to create maximum 10 addresses', () => {
       cy.getByTestID('total_dfi_amount').contains('10.00000000')
     }
     cy.getByTestID('create_new_address').should('not.exist')
+  })
+})
+
+context('Wallet - should be able to discover Wallet Addresses', () => {
+  const recoveryWords: string[] = []
+  let address: string
+  before(function () {
+    cy.visit('/')
+    cy.exitWallet()
+    cy.createEmptyWallet(true)
+    cy.verifyMnemonicOnSettingsPage(recoveryWords, recoveryWords)
+    cy.sendDFItoWallet().wait(3000)
+    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+    cy.getByTestID('dfi_token_amount').contains('0.00000000')
+    cy.getByTestID('total_dfi_amount').contains('10.00000000')
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('switch_account_button').should('exist').click()
+    cy.getByTestID('create_new_address').should('exist').click()
+    cy.getByTestID('wallet_address').invoke('text').then(text => {
+      address = text
+      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('switch_account_button').should('exist').click()
+      cy.getByTestID('address_row_0').should('exist').click()
+      cy.exitWallet()
+    })
+  })
+
+  it('should able to discover address after restore existing wallet', function () {
+    cy.restoreMnemonicWords(recoveryWords)
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('dfi_balance_card').should('exist')
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_input').clear().type(address)
+    cy.getByTestID('amount_input').clear().type('1')
+    cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+    cy.getByTestID('send_submit_button').click()
+    cy.getByTestID('button_confirm_send').click().wait(3000)
+    cy.closeOceanInterface()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('switch_account_button').should('exist').click()
+    cy.getByTestID('address_row_1').should('not.exist')
+    cy.getByTestID('discover_wallet_addresses').click().wait(3000)
+    cy.getByTestID('address_row_1').should('exist')
   })
 })
