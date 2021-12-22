@@ -82,7 +82,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   const { address, addressLength, setIndex, wallet } = useWalletContext()
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
 
   const logger = useLogger()
 
