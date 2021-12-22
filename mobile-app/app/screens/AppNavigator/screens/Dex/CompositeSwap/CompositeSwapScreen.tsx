@@ -508,6 +508,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               onSetSlippage={(val: BigNumber) => setSlippage(val)}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
+              setIsModalDisplayed={setIsModalDisplayed}
+              setBottomSheetScreen={setBottomSheetScreen}
+              onSlippageTolerancePress={expandModal}
+              onCloseButtonPress={dismissModal}
             />
           </>}
 
@@ -545,6 +549,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <BottomSheetWithNav
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
+            snapPoints={{
+              ios: ['40%'],
+              android: ['45%']
+            }}
           />
         )}
       </ThemedScrollView>
@@ -630,7 +638,11 @@ function TransactionDetailsSection ({
   slippage,
   onSetSlippage,
   tokenA,
-  tokenB
+  tokenB,
+  setIsModalDisplayed,
+  setBottomSheetScreen,
+  onSlippageTolerancePress,
+  onCloseButtonPress
 }: {
   amountToSwap: string
   conversionAmount: BigNumber
@@ -641,6 +653,10 @@ function TransactionDetailsSection ({
   onSetSlippage: (val: BigNumber) => void
   tokenA: OwnedTokenState
   tokenB: TokenState
+  setIsModalDisplayed: (val: boolean) => void
+  setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void
+  onSlippageTolerancePress: () => void
+  onCloseButtonPress: () => void
  }): JSX.Element {
   return (
     <>
@@ -682,6 +698,10 @@ function TransactionDetailsSection ({
       <SlippageTolerance
         setSlippage={(amount) => onSetSlippage(amount)}
         slippage={slippage}
+        setIsSelectorOpen={setIsModalDisplayed}
+        setBottomSheetScreen={setBottomSheetScreen}
+        onPress={onSlippageTolerancePress}
+        onCloseButtonPress={onCloseButtonPress}
       />
       <FeeInfoRow
         type='ESTIMATED_FEE'
