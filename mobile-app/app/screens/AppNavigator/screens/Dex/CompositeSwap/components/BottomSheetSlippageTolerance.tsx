@@ -5,11 +5,12 @@ import { translate } from '@translations'
 import React, { memo, useState, useEffect, useCallback } from 'react'
 import { Platform } from 'react-native'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity as BottomSheetTouchableOpacity, useBottomSheetInternal } from '@gorhom/bottom-sheet'
+import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { Button } from '@components/Button'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { BottomSheetTouchableOpacity } from '@components/BottomSheetTouchableOpacity'
 
 interface BottomSheetSlippageToleranceProps {
   isCustomSlippage: boolean
@@ -214,23 +215,25 @@ export function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage
 }
 
 function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, isActive: boolean, label: string }): JSX.Element {
-  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2 mt-2'
+  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded'
   const activeStyle = 'bg-primary-500 border-primary-500'
   return (
-    <BottomSheetTouchableOpacity
-      key={label}
-      onPress={onPress}
-      style={tailwind(`${buttonStyles} ${isActive ? activeStyle : ''}`)}
-      testID={`slippage_${label}`}
-    >
-      <ThemedText
-        dark={tailwind(`${isActive ? 'text-gray-200' : ''}`)}
-        light={tailwind(`${isActive ? 'text-white' : ''}`)}
-        style={tailwind('text-primary-500 text-sm')}
+    <View style={tailwind('mr-2 mt-2')}>
+      <BottomSheetTouchableOpacity
+        key={label}
+        onPress={onPress}
+        style={tailwind(`${buttonStyles} ${isActive ? activeStyle : ''}`)}
+        testID={`slippage_${label}`}
       >
-        {label}
-      </ThemedText>
-    </BottomSheetTouchableOpacity>
+        <ThemedText
+          dark={tailwind(`${isActive ? 'text-gray-200' : ''}`)}
+          light={tailwind(`${isActive ? 'text-white' : ''}`)}
+          style={tailwind('text-primary-500 text-sm')}
+        >
+          {label}
+        </ThemedText>
+      </BottomSheetTouchableOpacity>
+    </View>
   )
 }
 
