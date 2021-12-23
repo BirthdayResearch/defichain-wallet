@@ -11,11 +11,6 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
       vaultId = $txt[0].textContent
     })
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
-    cy.addCollateral('10', 'DFI')
-    cy.addCollateral('10', 'dBTC')
-    cy.go('back')
-    cy.wait(2000)
   })
 
   it('should check empty state', function () {
@@ -23,6 +18,9 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('collateral_tab_COLLATERALS').click()
     cy.getByTestID('button_add_collateral').should('exist')
     cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.addCollateral('10', 'DFI')
+    cy.addCollateral('10', 'dBTC')
     cy.go('back')
     cy.wait(2000)
   })
