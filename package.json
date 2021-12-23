@@ -116,7 +116,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/semver": "^7.3.9",
     "babel-plugin-istanbul": "^6.1.1",
-    "cypress": "9.1.1",
+    "cypress": "9.2.0",
     "cypress-image-diff-js": "1.15.10",
     "eas-cli": "^0.42.4",
     "eslint": "7.32.0",
