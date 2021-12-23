@@ -79,7 +79,7 @@ export function SlippageHeader (props: { onCloseButtonPress: () => void }): JSX.
           dark={tailwind('text-gray-200')}
           light={tailwind('text-gray-700')}
         >
-          {translate('screens/SlippageTolerance', 'Slippage rate changes occur within a transaction. Select preferred slippage rate.')}
+          {translate('screens/SlippageTolerance', 'Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.')}
         </ThemedText>
       </View>
     </>
