@@ -544,11 +544,12 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "交易滑点",
-    "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "滑点率变化会在交易中发生。选择您的首选滑点率。",
+    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
     "Custom": "自订",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
     "Required field is missing": "缺少必要填入的字栏",
-    "Slippage rate must range from 0-100%": "滑点率选择百分比必须在 0 - 100%"
+    "Slippage rate must range from 0-100%": "滑点率选择百分比必须在 0 - 100%",
+    "Proceed at your own risk": "继续进行并自我承担风险"
   },
   "screens/PoolSwapScreen": {
     "Swap": "兑换",
