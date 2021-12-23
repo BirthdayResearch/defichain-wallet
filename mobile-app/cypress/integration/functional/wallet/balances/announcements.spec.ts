@@ -31,6 +31,24 @@ context('Wallet - Balances - Announcements', () => {
     }
   }]
 
+  const sampleAnnouncementsWithID = [{
+    lang: {
+      en: 'Guidelines',
+      de: 'Richtlinien',
+      'zh-Hans': '指导方针',
+      'zh-Hant': '指導方針'
+    },
+    version: '0.0.0 - 0.12.0',
+    url: {
+      ios: '',
+      android: '',
+      macos: '',
+      windows: '',
+      web: ''
+    },
+    id: '1'
+  }]
+
   beforeEach(function () {
     cy.createEmptyWallet(true)
   })
@@ -73,5 +91,28 @@ context('Wallet - Balances - Announcements', () => {
     cy.getByTestID('playground_wallet_random').click()
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
+  })
+
+  it('should be able to close announcement for newer app version', function () {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    })
+    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
+    cy.getByTestID('close_announcement').click().should(() => {
+      expect(localStorage.getItem('WALLET.HIDDEN_ANNOUNCEMENTS')).to.eq('["1"]')
+    })
+    cy.getByTestID('announcements_banner').should('not.exist')
+    cy.reload()
+    cy.getByTestID('announcements_banner').should('not.exist')
+  })
+
+  it('should be able to display announcement with ID not within hidden list', function () {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    })
+    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '["2"]')
+    cy.getByTestID('announcements_banner').should('exist')
   })
 })
