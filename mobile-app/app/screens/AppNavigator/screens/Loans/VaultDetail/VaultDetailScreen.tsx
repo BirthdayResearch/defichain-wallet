@@ -56,7 +56,8 @@ export function VaultDetailScreen ({
           },
           merge: true
         })
-      }
+      },
+      testID: 'vault_detail_edit_collateral'
     },
     {
       label: 'EDIT LOAN SCHEME',
@@ -73,7 +74,8 @@ export function VaultDetailScreen ({
           },
           merge: true
         })
-      }
+      },
+      testID: 'vault_detail_edit_loan_scheme'
     },
     {
       label: 'CLOSE VAULT',
@@ -90,7 +92,8 @@ export function VaultDetailScreen ({
           },
           merge: true
         })
-      }
+      },
+      testID: 'vault_detail_close_vault'
     }
   ]
 

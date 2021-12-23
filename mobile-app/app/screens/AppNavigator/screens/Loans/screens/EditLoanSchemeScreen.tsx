@@ -112,7 +112,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         label={translate('screens/EditLoanSchemeScreen', 'CONTINUE')}
         onPress={onSubmit}
         margin='mt-7 mb-2'
-        testID='create_vault_submit_button'
+        testID='edit_loan_scheme_submit_button'
       />
       <ThemedText
         light={tailwind('text-gray-500')}
