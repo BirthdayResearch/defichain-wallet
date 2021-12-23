@@ -25,7 +25,7 @@ export interface DexParamList {
     fee: BigNumber
     pairs: PoolPairData[]
     priceRates: PriceRateProps[]
-    slippage: number
+    slippage: BigNumber
     swap: CompositeSwapForm
     tokenA: OwnedTokenState
     tokenB: TokenState & {amount?: string}
