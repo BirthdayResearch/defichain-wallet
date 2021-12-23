@@ -18,7 +18,7 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('collateral_tab_COLLATERALS').click()
     cy.getByTestID('button_add_collateral').should('exist')
     cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.getByTestID('vault_detail_edit_collateral').click()
     cy.addCollateral('10', 'DFI')
     cy.addCollateral('10', 'dBTC')
     cy.go('back')
