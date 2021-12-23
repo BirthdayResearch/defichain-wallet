@@ -386,7 +386,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('text_input_tokenA').type('1').blur()
     cy.wait(3000)
     cy.getByTestID('button_submit').click()
-    cy.getByTestID('button_confirm_swap').click()
+    cy.getByTestID('button_confirm_swap').click().wait(4000)
     cy.closeOceanInterface()
     cy.getByTestID('bottom_tab_loans').click()
   })

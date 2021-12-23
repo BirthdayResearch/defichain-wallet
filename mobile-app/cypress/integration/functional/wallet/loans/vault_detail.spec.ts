@@ -70,3 +70,66 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('text_vault_interest_ratio').contains('3.00')
   })
 })
+
+context.only('Wallet - Loans - Close Vault', () => {
+  let vaultId = ''
+
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('empty_vault').should('exist')
+    cy.createVault(0)
+    cy.getByTestID('vault_card_0_manage_loans_button').should('not.exist')
+    cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
+      vaultId = $txt[0].textContent
+    })
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.addCollateral('10', 'DFI')
+    cy.addCollateral('10', 'dBTC')
+    cy.go('back')
+    cy.wait(2000)
+  })
+
+  it('should add loan', function () {
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('button_browse_loans').click()
+    cy.getByTestID('loan_card_DUSD').click()
+    cy.getByTestID('form_input_borrow').clear().type('100').blur()
+    cy.wait(3000)
+    cy.getByTestID('text_input_usd_value').should('have.value', '100.00')
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.closeOceanInterface()
+  })
+
+  it('should be swap DUSD', function () {
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('close_dex_guidelines').click()
+    cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
+    cy.getByTestID('switch_button').click()
+    cy.wait(4000)
+    cy.getByTestID('text_input_tokenA').type('1').blur()
+    cy.wait(3000)
+    cy.getByTestID('button_submit').click()
+    cy.getByTestID('button_confirm_swap').click().wait(4000)
+    cy.closeOceanInterface()
+    cy.getByTestID('bottom_tab_loans').click()
+  })
+
+  it('should be able to close vault', function () {
+    cy.getByTestID('vault_card_0').click()
+    cy.getByTestID('collateral_tab_LOANS').click()
+    cy.getByTestID('loan_card_DUSD_payback_loan').click()
+    cy.getByTestID('payback_input_text').clear().type('102').blur()
+    cy.getByTestID('payback_loan_button').click()
+    cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
+    cy.closeOceanInterface()
+    cy.getByTestID('vault_card_0').click()
+    cy.getByTestID('vault_detail_close_vault').click()
+    cy.getByTestID('button_confirm_create_vault').click().wait(4000)
+    cy.getByTestID('txn_authorization_description').contains(`You are about to close vault ${vaultId}`)
+    cy.closeOceanInterface()
+    cy.getByTestID('button_create_vault').should('exist')
+  })
+})
