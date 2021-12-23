@@ -25,8 +25,8 @@ export function useDisplayAnnouncement (): DisplayAnnouncement {
       setHiddenAnnouncements(flag)
     }).catch(logger.error)
     return () => {
- mounted = false
-}
+      mounted = false
+    }
   }, [])
 
   const hideAnnouncement = async (id: string): Promise<void> => {
