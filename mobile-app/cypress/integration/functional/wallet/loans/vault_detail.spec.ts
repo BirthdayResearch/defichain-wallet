@@ -18,6 +18,13 @@ context('Wallet - Loans - Vault Details', () => {
     cy.wait(2000)
   })
 
+  it('should check empty state', function () {
+    cy.getByTestID('vault_card_0').click()
+    cy.getByTestID('collateral_tab_COLLATERALS').click()
+    cy.getByTestID('button_add_collateral').should('exist')
+    cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
+  })
+
   it('should add loan', function () {
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
