@@ -539,7 +539,12 @@
     "CONTINUE": "WEITER"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
+    "Slippage tolerance": "Slippage toleranz",
+    "Slippage rate changes occur within a transaction. Select preferred slippage rate.": "Änderungen der Slippage-Rate erfolgen innerhalb einer Transaktion. Wähle die bevorzugte Slippage-Toleranz.",
+    "Custom": "Anpassen",
+    "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
+    "Required field is missing": "Erforderliches Feld fehlt",
+    "Slippage rate must range from 0-100%": "Die Slippage-Toleranz muss zwischen 0 und 100 % liegen."
   },
   "screens/PoolSwapScreen": {
     "Swap": "Tausch",
@@ -577,7 +582,7 @@
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage tolerance": "Slippage toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
@@ -595,14 +600,14 @@
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
-    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage tolerance": "Slippage toleranz",
     "Estimated to receive": "Geschätzter Betrag"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
-    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage tolerance": "Slippage toleranz",
     "Estimated fee": "Voraussichtliche Gebühr",
     "SWAP": "TAUSCH",
     "SWAPPING": "WIRD GETAUSCHT",
