@@ -71,7 +71,7 @@ context('Wallet - Loans - Vault Details', () => {
   })
 })
 
-context.only('Wallet - Loans - Close Vault', () => {
+context('Wallet - Loans - Close Vault', () => {
   let vaultId = ''
 
   before(function () {
