@@ -1,3 +1,5 @@
+import { checkVaultDetailCollateralAmounts, checkVaultDetailValues } from '../../../../support/loanCommands'
+
 context('Wallet - Loans - Vault Details', () => {
   let vaultId = ''
 
@@ -16,15 +18,13 @@ context('Wallet - Loans - Vault Details', () => {
   it('should check empty state', function () {
     cy.getByTestID('vault_card_0').click()
     cy.getByTestID('collateral_tab_COLLATERALS').click()
-    cy.getByTestID('button_add_collateral').should('exist')
     cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
-    cy.go('back')
-    cy.wait(2000)
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.getByTestID('button_add_collateral').click()
     cy.addCollateral('10', 'DFI')
     cy.addCollateral('10', 'dBTC')
     cy.go('back')
     cy.wait(2000)
+    cy.getByTestID('bottom_tab_loans').click()
   })
 
   it('should add loan', function () {
@@ -39,8 +39,36 @@ context('Wallet - Loans - Vault Details', () => {
     cy.closeOceanInterface()
   })
 
-  it('should edit loan scheme', function () {
+  it('should verify vault details page', function () {
     cy.getByTestID('vault_card_0').click()
+    checkVaultDetailValues('ACTIVE', vaultId, '$1,500.00', '$100', '5')
+    cy.getByTestID('vault_id_section_col_ratio').contains('1,500%')
+    cy.getByTestID('vault_id_section_min_ratio').contains('150%')
+  })
+
+  it('should verify collaterals tab', function () {
+    checkVaultDetailCollateralAmounts('10.00000000', 'DFI', '66.67%')
+    checkVaultDetailCollateralAmounts('10.00000000', 'dBTC', '33.33%')
+  })
+
+  it('should verify vault details tab', function () {
+    cy.getByTestID('collateral_tab_DETAILS').click()
+    cy.getByTestID('text_min_col_ratio').contains('150')
+    cy.getByTestID('text_vault_interest_ratio').contains('5.00')
+    cy.getByTestID('text_col_ratio').contains('1,500.00%')
+    cy.getByTestID('text_collateral_value').contains('$1,500.00')
+    cy.getByTestID('text_active_loans').contains('1')
+    cy.getByTestID('text_total_loan_value').contains('$100')
+  })
+
+  it('should verify loan tab', function () {
+    cy.getByTestID('collateral_tab_LOANS').click()
+    cy.getByTestID('loan_card_DUSD').contains('DUSD')
+    cy.getByTestID('loan_card_DUSD_outstanding_balance').contains('100')
+    cy.getByTestID('loan_card_DUSD_payback_loan').should('exist')
+  })
+
+  it('should edit loan scheme', function () {
     // Vault should not be able to close if there are existing loans
     cy.getByTestID('vault_detail_close_vault').should('have.attr', 'aria-disabled')
     cy.getByTestID('vault_detail_edit_collateral').click()
