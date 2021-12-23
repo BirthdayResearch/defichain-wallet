@@ -114,5 +114,6 @@ context('Wallet - Balances - Announcements', () => {
     })
     localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '["2"]')
     cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
   })
 })
