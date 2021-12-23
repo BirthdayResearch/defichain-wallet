@@ -23,6 +23,8 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('collateral_tab_COLLATERALS').click()
     cy.getByTestID('button_add_collateral').should('exist')
     cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
+    cy.go('back')
+    cy.wait(2000)
   })
 
   it('should add loan', function () {
