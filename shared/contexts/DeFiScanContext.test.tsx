@@ -6,10 +6,12 @@ import { render } from '@testing-library/react-native'
 
 jest.mock('@shared-contexts/NetworkContext')
 describe('DeFiScanContext test', () => {
+  const baseDefiScanUrl = 'https://defiscan.live'
+
   it('should match the expected txn redirect url', () => {
     const txnId = 'dummyTransactionIdForTesting'
     const rawId = 'dummyRawTransactionIdForTesting'
-    const expectedTxnUrl = `https://defiscan.live/transactions/${txnId}`
+    const expectedTxnUrl = `${baseDefiScanUrl}/transactions/${txnId}`
     const txnUrl = getTxURLByNetwork(EnvironmentNetwork.MainNet, txnId, '')
     const rawTxnUrl = getTxURLByNetwork(EnvironmentNetwork.MainNet, txnId, rawId)
     expect(txnUrl).toBe(expectedTxnUrl)
@@ -17,7 +19,7 @@ describe('DeFiScanContext test', () => {
   })
 
   it('should match the expected URL By Network', () => {
-    const expectedUrl = 'https://defiscan.live/blocks/1'
+    const expectedUrl = `${baseDefiScanUrl}/blocks/1`
     const url = getURLByNetwork('blocks', EnvironmentNetwork.MainNet, '1')
     expect(url).toBe(expectedUrl)
   })

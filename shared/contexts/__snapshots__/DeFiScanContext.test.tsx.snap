@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DeFi Scan Context test should match snapchot 1`] = `
+exports[`DeFi Scan Context test should match snapshot 1`] = `
 <View>
   <Text>
     https://defiscan.live/transactions/txnId?network=Playground
