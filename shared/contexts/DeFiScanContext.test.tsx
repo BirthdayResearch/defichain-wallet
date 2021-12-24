@@ -24,7 +24,7 @@ describe('DeFiScanContext test', () => {
 })
 
 describe('DeFi Scan Context test', () => {
-  it('should match snapchot', () => {
+  it('should match snapshot', () => {
     function DeFiScanProviderComponent (): JSX.Element {
       const { getTransactionUrl, getBlocksUrl, getTokenUrl, getAddressUrl, getVaultsUrl, getAuctionsUrl } = useDeFiScanContext()
       const transactionUrl = getTransactionUrl('txnId')
