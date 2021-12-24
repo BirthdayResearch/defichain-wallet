@@ -20,6 +20,7 @@ export interface AnnouncementData {
     windows: string
     web: string
   }
+  id?: string
 }
 
 export interface FeatureFlag {
