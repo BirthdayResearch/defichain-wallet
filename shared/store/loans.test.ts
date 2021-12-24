@@ -1,11 +1,10 @@
-import { CollateralToken, LoanScheme, LoanToken, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { CollateralToken, LoanScheme, LoanToken, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { ascColRatioLoanScheme, fetchCollateralTokens, fetchLoanSchemes, fetchLoanTokens, fetchVaults, loans, LoansState, loanTokenByTokenId, loanTokensSelector, LoanVault, vaultsSelector } from './loans'
 
 describe('loans reducer', () => {
   let initialState: LoansState
-  const vault: LoanVault =
-  {
+  const vault: LoanVault = {
     vaultId: 'eee84f2cc56bbc51a42eaf302b76d4d1250b58b943829ee82f2fa9a46a9e4319',
     loanScheme: {
       id: 'MIN150',
@@ -37,6 +36,14 @@ describe('loans reducer', () => {
         symbolKey: 'DUSD',
         name: 'Decentralized USD',
         displaySymbol: 'DUSD'
+      },
+      {
+        id: '13',
+        amount: '0.00000001',
+        symbol: 'TD10',
+        symbolKey: 'TD10',
+        name: 'Decentralized TD10',
+        displaySymbol: 'dTD10'
       }
     ],
     interestAmounts: [
@@ -47,6 +54,14 @@ describe('loans reducer', () => {
         symbolKey: 'DUSD',
         name: 'Decentralized USD',
         displaySymbol: 'DUSD'
+      },
+      {
+        id: '13',
+        amount: '0.00000000',
+        symbol: 'TD10',
+        symbolKey: 'TD10',
+        name: 'Decentralized TD10',
+        displaySymbol: 'dTD10'
       }
     ]
   }
@@ -515,6 +530,29 @@ describe('loans reducer', () => {
     })
   })
 
+  it('should be able to select vaults regardless of vault state', () => {
+    const liquidatedVault: LoanVaultLiquidated = {
+      vaultId: 'eee84f2cc56bbc51a42eaf302b76d4d1250b58b943829ee82f2fa9a46a9e4319',
+      loanScheme: {
+        id: 'MIN150',
+        minColRatio: '150',
+        interestRate: '5'
+      },
+      ownerAddress: 'bcrt1q39r84tmh4xp7wmg32tnza8j544lynknvy8q2nr',
+      state: LoanVaultState.IN_LIQUIDATION,
+      liquidationHeight: 1,
+      liquidationPenalty: 1,
+      batchCount: 1,
+      batches: []
+    }
+    const state = {
+      ...initialState,
+      vaults: [liquidatedVault]
+    }
+    const actual = vaultsSelector(state)
+    expect(actual).toStrictEqual([liquidatedVault])
+  })
+
   it('should be able to select vaults that returns DUSD loan and interest with active price', () => {
     const state = {
       ...initialState,
@@ -532,6 +570,14 @@ describe('loans reducer', () => {
           name: 'Decentralized USD',
           displaySymbol: 'DUSD',
           activePrice: customDUSDActivePrice
+        },
+        {
+          id: '13',
+          amount: '0.00000001',
+          symbol: 'TD10',
+          symbolKey: 'TD10',
+          name: 'Decentralized TD10',
+          displaySymbol: 'dTD10'
         }
       ],
       interestAmounts: [
@@ -543,6 +589,14 @@ describe('loans reducer', () => {
           name: 'Decentralized USD',
           displaySymbol: 'DUSD',
           activePrice: customDUSDActivePrice
+        },
+        {
+          id: '13',
+          amount: '0.00000000',
+          symbol: 'TD10',
+          symbolKey: 'TD10',
+          name: 'Decentralized TD10',
+          displaySymbol: 'dTD10'
         }
       ]
     }])
