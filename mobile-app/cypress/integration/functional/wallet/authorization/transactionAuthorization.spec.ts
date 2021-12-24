@@ -33,10 +33,9 @@ context('Wallet - Transaction Authorization with Error', () => {
 
   it('should not reset attempts on cancel', function () {
     cy.getByTestID('button_confirm_convert').click().wait(2000)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const _i of Array(MAX_PASSCODE_ATTEMPT - 1)) {
+    cy.wrap(Array(MAX_PASSCODE_ATTEMPT - 1)).each(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
-    }
+    })
     cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     cy.getByTestID('pin_attempt_error').should('not.exist')
@@ -53,10 +52,9 @@ context('Wallet - Transaction Authorization with Error - non transaction UI', ()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('view_recovery_words').click()
     cy.wait(3000)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const _i of Array(MAX_PASSCODE_ATTEMPT - 1)) {
+    cy.wrap(Array(MAX_PASSCODE_ATTEMPT - 1)).each(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
-    }
+    })
     cy.getByTestID('cancel_authorization').click().wait(1000)
     cy.getByTestID('view_recovery_words').click()
     cy.getByTestID('pin_attempt_error').should('not.exist')
@@ -100,10 +98,9 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      for (const _i of Array(MAX_PASSCODE_ATTEMPT)) {
+      cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
-      }
+      })
       cy.on('window:confirm', () => {})
       cy.url().should('include', 'wallet/onboarding')
     })
@@ -119,10 +116,9 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('send_submit_button').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      for (const _i of Array(MAX_PASSCODE_ATTEMPT - 1)) {
+      cy.wrap(Array(MAX_PASSCODE_ATTEMPT - 1)).each(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
-      }
+      })
       cy.closeOceanInterface()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_utxo_amount').should('exist')
@@ -149,10 +145,9 @@ context('Wallet - Transaction Authorization', () => {
     })
 
     it('should be able to exit failed retries', function () {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      for (const _i of Array(MAX_PASSCODE_ATTEMPT)) {
+      cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(2000)
-      }
+      })
       cy.on('window:confirm', () => {})
       cy.url().should('include', 'wallet/onboarding')
     })
@@ -161,10 +156,9 @@ context('Wallet - Transaction Authorization', () => {
       cy.createEmptyWallet(true).wait(4000)
       cy.getByTestID('header_settings').click()
       cy.getByTestID('view_recovery_words').click()
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      for (const _i of Array(MAX_PASSCODE_ATTEMPT - 1)) {
+      cy.wrap(Array(MAX_PASSCODE_ATTEMPT - 1)).each(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
-      }
+      })
       cy.getByTestID('pin_authorize').type('000000').wait(1000)
       cy.getByTestID('recovery_word_screen').should('exist')
       cy.go('back')
