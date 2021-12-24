@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeFi Scan Context test should match snapshot 1`] = `
+<View>
+  <Text>
+    https://defiscan.live/transactions/txnId?network=Playground
+  </Text>
+  <Text>
+    https://defiscan.live/blocks/1?network=Playground
+  </Text>
+  <Text>
+    https://defiscan.live/tokens/0?network=Playground
+  </Text>
+  <Text>
+    https://defiscan.live/address/address?network=Playground
+  </Text>
+  <Text>
+    https://defiscan.live/vaults/vaultId?network=Playground
+  </Text>
+  <Text>
+    https://defiscan.live/vaults/vaultId/auctions/2?network=Playground
+  </Text>
+</View>
+`;
