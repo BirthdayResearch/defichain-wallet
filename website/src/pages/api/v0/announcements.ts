@@ -11,10 +11,10 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'We are currently investigating an issue with the Masternodes.',
-      de: 'Wir untersuchen derzeit ein Problem mit den Masternodes.',
-      'zh-Hans': 'We are currently investigating an issue with the Masternodes.',
-      'zh-Hant': 'We are currently investigating an issue with the Masternodes.'
+      en: 'We are currently fixing a syncing issue on the blockchain.',
+      de: 'Wir beheben derzeit ein Synchronisierungsproblem der Blockchain.',
+      'zh-Hans': '目前正在修复区块链上的同步化问题',
+      'zh-Hant': '目前正在修復區塊鏈上的同步化問題'
     },
     version: '>0.15.0'
   }])
