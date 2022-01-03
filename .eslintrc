@@ -48,7 +48,10 @@
         "react/display-name": "off",
         "react-native/no-raw-text": "warn",
         "indent": "off",
-        "@typescript-eslint/indent": "off"
+        "@typescript-eslint/indent": "off",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off"
       },
       "excludedFiles": [
         "*.test.ts",

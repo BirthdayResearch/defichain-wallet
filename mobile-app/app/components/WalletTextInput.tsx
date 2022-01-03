@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react'
+import { forwardRef, useCallback, useState } from 'react'
 import { Platform, TextInputProps } from 'react-native'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import {
@@ -30,8 +30,6 @@ interface IWalletTextInputProps {
   containerStyle?: string
   onBlur?: () => void
   hasBottomSheet?: boolean
-  testID: string
-  editable?: boolean
 }
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
