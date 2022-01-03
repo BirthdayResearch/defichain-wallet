@@ -2,9 +2,8 @@ import BigNumber from 'bignumber.js'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '@store/index'
 
-interface AuctionsState {
+export interface AuctionsState {
   auctions: LoanVaultLiquidated[]
   hasFetchAuctionsData: boolean
 }
@@ -39,15 +38,6 @@ export const auctions = createSlice({
     })
   }
 })
-
-export const auctionsCountSelector = createSelector((state: RootState) => state.auctions.auctions, (auctions) => {
-    let count = 0
-    auctions?.forEach((auction) => {
-      count = count + (auction.batchCount ?? 0)
-    })
-    return count
-  }
-)
 
 /**
  * Flattens the auctions -> batch
