@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Svg, { Circle, Path, SvgProps } from 'react-native-svg'
 
 export function DFI (props: SvgProps): JSX.Element {

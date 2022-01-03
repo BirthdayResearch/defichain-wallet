@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedView } from '@components/themed'

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Svg, { ClipPath, Defs, G, Path, SvgProps, Rect } from 'react-native-svg'
 
 export function dNVDA (props: SvgProps): JSX.Element {

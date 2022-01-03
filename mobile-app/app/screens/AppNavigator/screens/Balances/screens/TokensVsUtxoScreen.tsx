@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { View } from 'react-native'
 import { getNativeIcon } from '@components/icons/assets'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'

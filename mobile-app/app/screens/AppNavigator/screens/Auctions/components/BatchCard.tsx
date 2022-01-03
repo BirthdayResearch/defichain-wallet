@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'

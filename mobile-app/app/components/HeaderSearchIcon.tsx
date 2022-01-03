@@ -1,5 +1,4 @@
 import { tailwind } from '@tailwind'
-import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ThemedIcon } from './themed'
 

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Dimensions, Image, ImageSourcePropType, Platform } from 'react-native'
 import SwiperFlatList from 'react-native-swiper-flatlist'
 import ImageA from '@assets/images/onboarding/a.png'

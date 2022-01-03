@@ -1,6 +1,5 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
-import * as React from 'react'
 import { useRef, useCallback } from 'react'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'

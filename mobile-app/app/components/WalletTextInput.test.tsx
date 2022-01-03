@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { WalletTextInput, InputType } from './WalletTextInput'
 
 jest.mock('@shared-contexts/ThemeProvider')

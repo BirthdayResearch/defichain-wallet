@@ -4,7 +4,7 @@ import { IconType, ThemedScrollView } from '@components/themed'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import { StyleProp, ViewStyle } from 'react-native'
 
 interface ScrollableButtonProps {

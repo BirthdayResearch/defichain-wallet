@@ -1,6 +1,6 @@
 import * as Progress from 'react-native-progress'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { getColor, tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { View } from '@components'

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { StyleSheet, View } from 'react-native'
 import { CodeField, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { tailwind } from '@tailwind'

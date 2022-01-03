@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { WalletContextProvider } from '@shared-contexts/WalletContext'
 import { WalletNodeProvider } from '@shared-contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'

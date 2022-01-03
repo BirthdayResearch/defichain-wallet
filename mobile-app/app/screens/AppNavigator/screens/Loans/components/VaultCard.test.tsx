@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { VaultCard, VaultCardProps } from './VaultCard'
 import { render } from '@testing-library/react-native'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'

@@ -1,5 +1,4 @@
 import randomColor from 'randomcolor'
-import * as React from 'react'
 import Svg, { Circle, SvgProps, Text } from 'react-native-svg'
 
 export function _Default (symbol: string): (props: SvgProps) => JSX.Element {

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Switch as DefaultSwitch, TextInput as DefaultTextInput, View as DefaultView } from 'react-native'
 import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'

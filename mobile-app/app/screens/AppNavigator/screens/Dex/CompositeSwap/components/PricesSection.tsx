@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedSectionTitle } from '@components/themed'

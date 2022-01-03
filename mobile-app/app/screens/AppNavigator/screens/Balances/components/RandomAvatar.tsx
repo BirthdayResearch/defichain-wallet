@@ -1,5 +1,3 @@
-import * as React from 'react'
-// @ts-expect-error
 import Avatar from 'react-native-boring-avatars'
 
 export function RandomAvatar (props: Avatar['props']): JSX.Element {

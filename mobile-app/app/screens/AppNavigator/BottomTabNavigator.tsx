@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { tailwind } from '@tailwind'

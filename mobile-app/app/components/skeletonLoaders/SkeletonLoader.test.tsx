@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import * as React from 'react'
 import { DexSkeletonLoader } from './DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './TransactionSkeletonLoader'

@@ -5,7 +5,6 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SearchInput } from './SearchInput'
 import { ThemedIcon, ThemedView } from './themed'
-import React from 'react'
 
 interface HeaderSearchInputProps {
   searchString: string

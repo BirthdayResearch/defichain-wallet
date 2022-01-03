@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Svg, { G, Path, Rect, SvgProps } from 'react-native-svg'
 
 export function AppIcon (props: SvgProps): JSX.Element {

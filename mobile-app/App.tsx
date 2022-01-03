@@ -1,5 +1,4 @@
 import * as SplashScreen from 'expo-splash-screen'
-import React from 'react'
 import './_shim'
 import { SecuredStoreAPI, LanguagePersistence, ThemePersistence } from '@api'
 import { AppStateContextProvider } from '@contexts/AppStateContext'

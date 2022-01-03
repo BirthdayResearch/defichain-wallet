@@ -3,7 +3,7 @@ import { ThemedText } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import * as Progress from 'react-native-progress'
 import BigNumber from 'bignumber.js'

@@ -8,7 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity, View, Text } from 'react-native'
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
@@ -47,7 +47,7 @@ export interface AddOrRemoveCollateralResponse {
   amount: BigNumber
 }
 
-export const AddOrRemoveCollateralForm = React.memo(({ route }: Props): JSX.Element => {
+export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element => {
   const { isLight } = useThemeContext()
   const {
     token,

@@ -1,7 +1,6 @@
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
 
 export function EmptyActivePoolpair (): JSX.Element {
   return (

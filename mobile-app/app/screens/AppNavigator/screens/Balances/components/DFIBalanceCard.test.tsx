@@ -1,4 +1,4 @@
-import React from 'react'
+
 import * as redux from 'react-redux'
 import { render } from '@testing-library/react-native'
 import { DFIBalanceCard } from './DFIBalanceCard'

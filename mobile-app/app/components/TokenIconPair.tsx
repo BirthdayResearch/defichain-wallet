@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
 import { ThemedText, ThemedView } from '@components/themed'

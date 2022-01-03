@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyleProp, TextStyle, View, ViewProps, Text } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'

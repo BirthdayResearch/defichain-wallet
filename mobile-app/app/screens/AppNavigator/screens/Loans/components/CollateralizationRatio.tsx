@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BigNumber from 'bignumber.js'
 import { ThemedText } from '@components/themed'
 import { translate } from '@translations'

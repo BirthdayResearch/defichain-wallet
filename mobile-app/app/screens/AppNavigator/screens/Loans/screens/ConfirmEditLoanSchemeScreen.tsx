@@ -4,7 +4,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import BigNumber from 'bignumber.js'
 import { FeeInfoRow } from '@components/FeeInfoRow'

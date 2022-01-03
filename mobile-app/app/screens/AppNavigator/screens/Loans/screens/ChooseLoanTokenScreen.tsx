@@ -1,5 +1,5 @@
 import { ThemedView } from '@components/themed'
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { LoanCards } from '../components/LoanCards'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '../LoansNavigator'

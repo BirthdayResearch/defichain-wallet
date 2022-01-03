@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'

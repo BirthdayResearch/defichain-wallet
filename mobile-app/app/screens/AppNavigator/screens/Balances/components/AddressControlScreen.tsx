@@ -1,6 +1,5 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView, ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import * as React from 'react'
 import { useEffect, useState, useLayoutEffect } from 'react'
 import { MAX_ALLOWED_ADDRESSES, useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'

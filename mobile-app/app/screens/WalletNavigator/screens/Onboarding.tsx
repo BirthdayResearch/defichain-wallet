@@ -1,5 +1,4 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import * as React from 'react'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { ThemedScrollView } from '@components/themed'

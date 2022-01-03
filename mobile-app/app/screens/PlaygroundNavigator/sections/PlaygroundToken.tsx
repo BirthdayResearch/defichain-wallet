@@ -1,6 +1,6 @@
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
 import { PlaygroundRpcClient } from '@defichain/playground-api-client'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { usePlaygroundContext } from '@contexts/PlaygroundContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
