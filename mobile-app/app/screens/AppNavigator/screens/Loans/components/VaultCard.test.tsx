@@ -12,6 +12,9 @@ jest.mock('@gorhom/bottom-sheet', () => ({
   useBottomSheetModal: jest.fn().mockReturnValue({ dismiss: jest.fn() }),
   BottomSheetModal: () => <></>
 }))
+jest.mock('@components/BottomSheetInfo', () => ({
+  BottomSheetInfo: () => <></>
+}))
 
 describe('Vault card', () => {
   it('should match snapshot of liquidated vault', async () => {

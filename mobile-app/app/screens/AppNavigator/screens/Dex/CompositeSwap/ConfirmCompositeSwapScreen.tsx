@@ -149,7 +149,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         suffix='DFI'
       />
       <NumberRow
-        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Slippage Tolerance')}
+        lhs={translate('screens/ConfirmCompositeSwapScreen', 'Slippage tolerance')}
         rhs={{
           value: new BigNumber(slippage).times(100).toFixed(),
           suffix: '%',
@@ -197,13 +197,13 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
 async function constructSignedSwapAndSend (
   cSwapForm: CompositeSwapForm,
   pairs: PoolPairData[],
-  slippage: number,
+  slippage: BigNumber,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps
 ): Promise<void> {
   try {
-    const maxPrice = cSwapForm.amountFrom.div(cSwapForm.amountTo).times(1 + slippage).decimalPlaces(8)
+    const maxPrice = cSwapForm.amountFrom.div(cSwapForm.amountTo).times(slippage.plus(1)).decimalPlaces(8)
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder()
       const script = await account.getScript()
