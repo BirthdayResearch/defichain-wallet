@@ -130,8 +130,8 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-              ios: '40%',
-              android: '40%'
+              ios: ['40%'],
+              android: ['40%']
             }}
         />
         )}

@@ -1,55 +1,124 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import BigNumber from 'bignumber.js'
+import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { View } from '@components'
+import { BottomSheetSlippageTolerance } from './BottomSheetSlippageTolerance'
+import { BottomSheetNavScreen } from '@components/BottomSheetWithNav'
 
-export function SlippageTolerance ({
-  slippage,
-  setSlippage
-}: { slippage: number, setSlippage: (slippage: number) => void }): JSX.Element {
-  const onSetSlippage = (amount: number): void => {
-    setSlippage(amount)
+const SLIPPAGE_MODAL_NAME = 'SlippageTolerance'
+const percentageList = ['1', '3', '5', '10', '20']
+
+interface SlippageToleranceProps {
+  slippage: BigNumber
+  setSlippage: (slippage: BigNumber) => void
+  setIsSelectorOpen: (val: boolean) => void
+  setBottomSheetScreen: (screens: BottomSheetNavScreen[]) => void
+  onPress: () => void
+  onCloseButtonPress: () => void
+}
+
+export function SlippageTolerance ({ slippage, setSlippage, setIsSelectorOpen, setBottomSheetScreen, onPress, onCloseButtonPress }: SlippageToleranceProps): JSX.Element {
+  const { dismiss } = useBottomSheetModal()
+  const [isCustomSlippage, setIsCustomSlippage] = useState(false)
+  const onSubmitSlippage = (val: BigNumber, isCustom: boolean): void => {
+    setIsCustomSlippage(isCustom)
+    setSlippage(val)
+    setIsSelectorOpen(false)
+    dismiss(SLIPPAGE_MODAL_NAME)
   }
 
-  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded mr-2'
-  const activeStyle = 'bg-primary-500 border-primary-500'
-  const percentageList = [{ label: '1%', amount: 0.01 }, { label: '3%', amount: 0.03 }, {
-    label: '5%',
-    amount: 0.05
-  }, { label: '10%', amount: 0.1 }, { label: '20%', amount: 0.2 }]
+  const setSlippageToleranceToBottomSheet = useCallback(() => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'BottomSheetSlippageTolerance',
+        component: BottomSheetSlippageTolerance({
+          slippage,
+          isCustomSlippage,
+          onSubmitSlippage,
+          onCloseButtonPress
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [slippage, isCustomSlippage])
+
+  useEffect(() => {
+    setIsCustomSlippage(!percentageList.includes(new BigNumber(slippage).toString()))
+  }, [slippage])
 
   return (
-    <>
-      <ThemedSectionTitle
-        testID='title_slippage'
-        text={translate('screens/SlippageTolerance', 'SLIPPAGE TOLERANCE')}
-      />
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('flex-row items-center w-full')}
+    >
+      <View style={tailwind('w-full')}>
+        <TouchableOpacity
+          onPress={() => {
+            setIsSelectorOpen(true)
+            setSlippageToleranceToBottomSheet()
+            onPress()
+          }}
+          style={tailwind('p-4 pr-2')}
+          testID='slippage_select'
+        >
+          <SlippageToleranceRow slippage={slippage} />
+        </TouchableOpacity>
+      </View>
+    </ThemedView>
+  )
+}
 
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex-row p-4')}
+function SlippageToleranceRow ({ slippage }: { slippage: BigNumber}): JSX.Element {
+  return (
+    <View
+      style={tailwind('flex-row')}
+    >
+      <View style={tailwind('w-6/12 flex-grow')}>
+        <ThemedText
+          dark={tailwind('text-gray-200')}
+          light={tailwind('text-black')}
+          style={tailwind('text-sm mr-1')}
+          testID='slippage_title'
+        >
+          {translate('screens/SlippageTolerance', 'Slippage tolerance')}
+        </ThemedText>
+      </View>
+      <View
+        style={tailwind('flex w-6/12 flex-row justify-end flex-wrap items-center')}
       >
-        {
-          percentageList.map((p) => (
-            <TouchableOpacity
-              key={p.label}
-              onPress={() => onSetSlippage(p.amount)}
-              style={tailwind(`${buttonStyles} ${slippage === p.amount ? activeStyle : ''}`)}
-              testID={`slippage_${p.label}`}
-            >
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(val: string) => (
+            <>
               <ThemedText
-                dark={tailwind(`${slippage === p.amount ? 'text-gray-200' : ''}`)}
-                light={tailwind(`${slippage === p.amount ? 'text-white' : ''}`)}
-                style={tailwind('font-medium text-primary-500')}
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
+                style={tailwind('text-sm text-right')}
+                testID='slippage_value'
               >
-                {p.label}
+                {val}%
               </ThemedText>
-            </TouchableOpacity>
-          ))
-        }
-      </ThemedView>
-    </>
+              <ThemedIcon
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+                iconType='MaterialIcons'
+                name='unfold-more'
+                size={24}
+              />
+            </>
+        )}
+          thousandSeparator
+          value={new BigNumber(slippage).toNumber()}
+        />
+      </View>
+    </View>
   )
 }

@@ -539,7 +539,13 @@
     "CONTINUE": "WEITER"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "SLIPPAGE TOLERANZ"
+    "Slippage tolerance": "Slippage toleranz",
+    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Wähle aus, wie viel von diesen Abweichungen du akzeptieren möchtest.",
+    "Custom": "Anpassen",
+    "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
+    "Required field is missing": "Erforderliches Feld fehlt",
+    "Slippage rate must range from 0-100%": "Die Slippage-Toleranz muss zwischen 0 und 100 % liegen.",
+    "Proceed at your own risk": "Handeln auf eigenes Risiko"
   },
   "screens/PoolSwapScreen": {
     "Swap": "Tausch",
@@ -577,7 +583,7 @@
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage tolerance": "Slippage toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
@@ -595,14 +601,14 @@
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
-    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage tolerance": "Slippage toleranz",
     "Estimated to receive": "Geschätzter Betrag"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
-    "Slippage Tolerance": "Slippage Toleranz",
+    "Slippage tolerance": "Slippage toleranz",
     "Estimated fee": "Voraussichtliche Gebühr",
     "SWAP": "TAUSCH",
     "SWAPPING": "WIRD GETAUSCHT",
@@ -983,7 +989,7 @@
     "Collateralization factor": "Besicherungsfaktor",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateral value (USD)": "Sicherheitenwert (USD)",
-    "CONFIRM ADD COLLATERAL": "BESTÄTIGE DAS HINZUFÜGEN VON SICHERHEITEN",
+    "CONFIRM ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "ADDING": "WIRD HINZUGEFÜGT",
     "You are removing collateral from": "Du entfernst Sicherheiten aus",
     "Convert & add collateral": "Umwandeln u. Sicherheiten hinzufügen",
@@ -1104,7 +1110,7 @@
     "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
     "EDITING": "BEARBEITEN",
     "CONVERTING": "UMWANDELN",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}} und einen Zinssatz von {{ir}}"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}}% und einen Zinssatz von {{ir}}%"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",

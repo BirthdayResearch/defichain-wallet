@@ -216,7 +216,9 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive, resultingColRatio
         lhs={translate('screens/ConfirmPaybackLoanScreen', 'Vault ID')}
         rhs={{
           value: props.vault.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
