@@ -30,6 +30,8 @@ interface IWalletTextInputProps {
   containerStyle?: string
   onBlur?: () => void
   hasBottomSheet?: boolean
+  testID: string
+  editable?: boolean
 }
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
