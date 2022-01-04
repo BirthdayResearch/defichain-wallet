@@ -1,5 +1,4 @@
 import { TouchableOpacity } from '@gorhom/bottom-sheet'
-import React from 'react'
 import { Platform, TouchableOpacity as RNTouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 /**

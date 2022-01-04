@@ -1,7 +1,7 @@
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
 import {

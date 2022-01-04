@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { tailwind } from '@tailwind'

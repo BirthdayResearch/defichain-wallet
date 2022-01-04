@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Svg, { Path, SvgProps, G, Defs, ClipPath, Rect } from 'react-native-svg'
 
 export function dAMZN (props: SvgProps): JSX.Element {

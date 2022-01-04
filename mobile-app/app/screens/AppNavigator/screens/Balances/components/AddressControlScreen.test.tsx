@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '@testing-library/react-native'
 import { AddressControlCard, AddressControlModal, AddressControlScreen, AddressItemRow } from './AddressControlScreen'
 import { Provider } from 'react-redux'

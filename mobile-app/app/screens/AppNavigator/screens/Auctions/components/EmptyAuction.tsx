@@ -1,7 +1,6 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { translate } from '@translations'
-import * as React from 'react'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { View } from 'react-native'
 import { useNavigation, NavigationProp } from '@react-navigation/native'

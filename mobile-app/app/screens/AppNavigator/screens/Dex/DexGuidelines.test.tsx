@@ -1,5 +1,4 @@
 import { render, waitFor } from '@testing-library/react-native'
-import * as React from 'react'
 import { DexGuidelines } from './DexGuidelines'
 
 jest.mock('@shared-contexts/ThemeProvider')

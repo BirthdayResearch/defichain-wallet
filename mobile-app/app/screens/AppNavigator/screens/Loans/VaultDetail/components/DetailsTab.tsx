@@ -6,7 +6,7 @@ import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dis
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { useNextCollateralizationRatio } from '../../hooks/NextCollateralizationRatio'
 import { CollateralizationRatioRow } from '../../components/CollateralizationRatioRow'
 

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useSelector } from 'react-redux'
 import { Text, View } from '../../../components'
 import { ThemedText, ThemedView } from '@components/themed'

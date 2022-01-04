@@ -3,7 +3,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/th
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanTokenInput, VaultInput } from './PaybackLoanScreen'
 import BigNumber from 'bignumber.js'

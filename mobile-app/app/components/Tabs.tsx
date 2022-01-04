@@ -1,7 +1,7 @@
 import { View } from '@components'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+import { memo } from 'react'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
 
 interface TabsProps {
@@ -17,7 +17,7 @@ interface TabOption {
   handleOnPress: (id: string) => void
 }
 
-const Tabs = React.memo((props: TabsProps): JSX.Element => {
+const Tabs = memo((props: TabsProps): JSX.Element => {
   const FixedTab = (): JSX.Element => {
     return (
       <ThemedView

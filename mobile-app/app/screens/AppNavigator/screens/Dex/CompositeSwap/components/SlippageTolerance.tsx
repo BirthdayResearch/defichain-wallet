@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'

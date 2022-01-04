@@ -1,5 +1,5 @@
 import * as Clipboard from 'expo-clipboard'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'

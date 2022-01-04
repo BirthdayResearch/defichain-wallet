@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import { TransactionError, ErrorCodes, ErrorMapping } from './TransactionError'
 
 jest.mock('@shared-contexts/ThemeProvider')

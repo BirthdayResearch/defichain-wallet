@@ -2,7 +2,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { LoanScheme, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 import { View } from '@components'

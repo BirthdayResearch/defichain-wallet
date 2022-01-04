@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { LoanCards } from './LoanCards'
 import { LoanToken, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { Provider } from 'react-redux'

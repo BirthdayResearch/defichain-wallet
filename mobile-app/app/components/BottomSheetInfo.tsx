@@ -1,4 +1,3 @@
-import React from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 import { BottomSheetModal } from './BottomSheetModal'

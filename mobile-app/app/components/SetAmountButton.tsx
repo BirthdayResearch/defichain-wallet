@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedText, ThemedTouchableOpacity } from './themed'

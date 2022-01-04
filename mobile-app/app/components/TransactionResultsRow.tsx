@@ -1,5 +1,5 @@
 import { translate } from '@translations'
-import React from 'react'
+
 import { NumberRow } from './NumberRow'
 import { ThemedSectionTitle } from './themed'
 

@@ -1,6 +1,5 @@
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
 import { ThemedIcon, ThemedText, ThemedView } from './themed'
 
 export function ConversionTag (): JSX.Element {

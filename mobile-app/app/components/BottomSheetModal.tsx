@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useRef, useEffect } from 'react'
+import { ReactElement, useCallback, useRef, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { View, Platform, ViewProps, StyleProp } from 'react-native'
 import { BottomSheetBackgroundProps, BottomSheetModal as Modal, BottomSheetModalProps, useBottomSheetModal, TouchableOpacity } from '@gorhom/bottom-sheet'

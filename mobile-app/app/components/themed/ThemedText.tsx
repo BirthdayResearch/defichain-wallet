@@ -1,6 +1,6 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
-import React from 'react'
+
 import { Text, TextProps } from '../Text'
 import { ThemedProps } from './index'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'

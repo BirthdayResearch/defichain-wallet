@@ -1,7 +1,7 @@
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import { TextRow } from './TextRow'
 
 export function WalletAddressRow (): JSX.Element {

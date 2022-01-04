@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedScrollView } from '@components/themed'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'

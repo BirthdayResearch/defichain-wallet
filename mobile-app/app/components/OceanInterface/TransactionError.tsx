@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'

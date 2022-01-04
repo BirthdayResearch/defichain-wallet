@@ -3,7 +3,7 @@ import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@component
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { TouchableOpacity } from 'react-native'
 import { ScrollableButton, ScrollButton } from '../components/ScrollableButton'

@@ -1,5 +1,5 @@
 import { useNetInfo } from '@react-native-community/netinfo'
-import React from 'react'
+
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
