@@ -9,13 +9,5 @@ export const cors = Cors({
 
 export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([{
-    lang: {
-      en: 'We are currently fixing a syncing issue on the blockchain.',
-      de: 'Wir beheben derzeit ein Synchronisierungsproblem der Blockchain.',
-      'zh-Hans': '目前正在修复区块链上的同步化问题',
-      'zh-Hant': '目前正在修復區塊鏈上的同步化問題'
-    },
-    version: '>0.15.0'
-  }])
+  res.json([])
 }
