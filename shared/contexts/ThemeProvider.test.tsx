@@ -1,51 +1,44 @@
-import * as React from 'react'
 import { render } from '@testing-library/react-native'
 import { ThemeProvider, useTheme, useThemeContext } from './ThemeProvider'
-import { Text, useColorScheme, View } from 'react-native'
+import { Text, View } from 'react-native'
+import { renderHook } from '@testing-library/react-hooks'
 
 jest.mock('@shared-contexts/NetworkContext')
 
 describe('useTheme hook test', () => {
-  it('should match snapshot', () => {
-    function ThemeProviderComponent (): JSX.Element {
-      const api = {
-        set: jest.fn(),
-        get: async () => 'light'
-      }
-      const colorScheme = useColorScheme()
-      const { theme, isThemeLoaded } = useTheme({ api, colorScheme })
-      return (
-        <View>
-          <Text>{theme}</Text>
-          <Text>{isThemeLoaded.toString()}</Text>
-        </View>
-      )
+  it('should pass when theme is not set', async () => {
+    const desiredTheme = 'dark'
+    const api = {
+      set: jest.fn(),
+      get: async () => null
     }
-
-    const rendered = render(<ThemeProviderComponent />)
-
-    expect(rendered.toJSON()).toMatchSnapshot()
+    const { result, waitForNextUpdate } = renderHook(() => useTheme({ api, colorScheme: desiredTheme }))
+    await waitForNextUpdate()
+    expect(result.current.theme).toBe(desiredTheme)
+    expect(result.current.isThemeLoaded).toBe(true)
   })
 
-  it('should match snapshot when theme is not set', () => {
-    function ThemeProviderComponent (): JSX.Element {
-      const api = {
-        set: jest.fn(),
-        get: async () => null
-      }
-      const colorScheme = 'light'
-      const { theme, isThemeLoaded } = useTheme({ api, colorScheme })
-      return (
-        <View>
-          <Text>{theme}</Text>
-          <Text>{isThemeLoaded.toString()}</Text>
-        </View>
-      )
+  it('should pass when theme is already set', async () => {
+    const desiredTheme = 'dark'
+    const api = {
+      set: jest.fn(),
+      get: async () => desiredTheme
     }
+    const { result, waitForNextUpdate } = renderHook(() => useTheme({ api, colorScheme: 'light' }))
+    await waitForNextUpdate()
+    expect(result.current.theme).toBe(desiredTheme)
+    expect(result.current.isThemeLoaded).toBe(true)
+  })
 
-    const rendered = render(<ThemeProviderComponent />)
-
-    expect(rendered.toJSON()).toMatchSnapshot()
+  it('should pass when theme is not set and colorScheme is not defined', async () => {
+    const api = {
+      set: jest.fn(),
+      get: async () => null
+    }
+    const { result, waitForNextUpdate } = renderHook(() => useTheme({ api }))
+    await waitForNextUpdate()
+    expect(result.current.theme).toBe('light')
+    expect(result.current.isThemeLoaded).toBe(true)
   })
 })
 

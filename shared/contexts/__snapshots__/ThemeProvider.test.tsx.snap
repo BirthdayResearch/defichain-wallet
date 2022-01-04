@@ -10,25 +10,3 @@ exports[`ThemeProvider Context test should match snapshot 1`] = `
   </Text>
 </View>
 `;
-
-exports[`useTheme hook test should match snapshot 1`] = `
-<View>
-  <Text>
-    light
-  </Text>
-  <Text>
-    false
-  </Text>
-</View>
-`;
-
-exports[`useTheme hook test should match snapshot when theme is not set 1`] = `
-<View>
-  <Text>
-    light
-  </Text>
-  <Text>
-    false
-  </Text>
-</View>
-`;

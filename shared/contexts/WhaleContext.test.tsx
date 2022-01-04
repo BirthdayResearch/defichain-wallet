@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { render } from '@testing-library/react-native'
 import { Text, View } from 'react-native'
 import { useWhaleApiClient, WhaleProvider } from './WhaleContext'

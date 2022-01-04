@@ -1,6 +1,5 @@
 import { EnvironmentNetwork } from '@environment'
 import { getTxURLByNetwork, getURLByNetwork, DeFiScanProvider, useDeFiScanContext } from './DeFiScanContext'
-import * as React from 'react'
 import { Text, View } from 'react-native'
 import { render } from '@testing-library/react-native'
 
