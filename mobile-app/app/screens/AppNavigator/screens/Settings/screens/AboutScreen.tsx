@@ -67,7 +67,7 @@ const ABOUT_LINKS: AboutLinks[] = [
   {
     testID: 'privacy_policy_button',
     title: 'Privacy Policy',
-    url: 'https://dfx.swiss/datenschutz.html'
+    url: 'https://dfx.swiss/en/privacy/'
   },
   {
     testID: 'licenses_button',
