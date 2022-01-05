@@ -24,6 +24,7 @@ interface BidHistoryProps {
 export function BidHistory (props: BidHistoryProps): JSX.Element {
   const client = useWhaleApiClient()
   const dispatch = useDispatch()
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const bidHistory = useSelector((state: RootState) => state.auctions.bidHistory)
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
       batchIndex: props.batchIndex,
       client: client
     }))
-  }, [])
+  }, [blockCount, props])
 
   return (
     <ThemedFlatList
@@ -53,6 +54,8 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
       }}
       keyExtractor={(item: VaultAuctionBatchHistory) => item.id}
       contentContainerStyle={tailwind('p-4')}
+      light={tailwind('bg-gray-50')}
+      style={tailwind('-mb-1')}
     />
   )
 }
@@ -69,27 +72,36 @@ interface BidHistoryItemProps {
 function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { timeRemaining } = useAuctionTime(props.vaultLiquidationHeight, blockCount ?? 0)
+
   return (
     <ThemedView
-      light={tailwind({ 'bg-white': props.isLatestBid, 'bg-gray-100': !props.isLatestBid })}
-      dark={tailwind({ 'bg-gray-900': props.isLatestBid, 'bg-gray-800': !props.isLatestBid })}
-      style={tailwind('border rounded px-4 py-3')}
+      light={tailwind({ 'bg-white border-gray-100': props.isLatestBid, 'bg-gray-100 border-gray-100': !props.isLatestBid })}
+      dark={tailwind({ 'bg-gray-800 border-gray-900': props.isLatestBid, 'bg-gray-900 border-gray-800': !props.isLatestBid })}
+      style={tailwind('border rounded px-4 py-3 mb-1')}
     >
-      <View style={tailwind('flex flex-row justify-between mb-2')}>
+      <View style={tailwind('flex flex-row justify-between mb-2 items-center')}>
         <ThemedView
-          style={tailwind('px-1 py-0.5')}
-          light={tailwind('bg-blue-500')}
-          dark={tailwind('bg-darkblue-500')}
+          style={tailwind('px-1')}
+          light={tailwind('bg-blue-500 text-white')}
+          dark={tailwind('bg-darkblue-500 text-black')}
         >
-          <ThemedText>
+          <ThemedText
+            style={tailwind('text-2xs')}
+            light={tailwind('text-white')}
+            dark={tailwind('text-black')}
+          >
             {translate('components/BidHistory', `BID #${props.bidIndex}`)}
           </ThemedText>
         </ThemedView>
-        <ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
           {translate('components/BidHistory', '{{timeRemaining}} ago', { timeRemaining })}
         </ThemedText>
       </View>
-      <View style={tailwind('flex flex-row justify-between')}>
+      <View style={tailwind('flex flex-row justify-between items-center')}>
         <NumberFormat
           value={props.bidAmount}
           thousandSeparator
@@ -99,27 +111,32 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
             <ThemedText
               light={tailwind('text-gray-700')}
               dark={tailwind('text-gray-300')}
-              style={tailwind('text-sm')}
+              style={tailwind('text-sm font-medium')}
               testID={`bid_${props.loanDisplaySymbol}_amount`}
             >
               {value}
               <ThemedText
                 style={tailwind('text-xs')}
               >
-                {props.loanDisplaySymbol}
+                {` ${props.loanDisplaySymbol}`}
               </ThemedText>
             </ThemedText>}
         />
         <ThemedText
           numberOfLines={1}
           ellipsizeMode='middle'
+          style={tailwind('w-4/12 text-xs font-medium')}
         >
           {props.bidderAddress}
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row justify-between')}>
         <ActiveUsdValue price={new BigNumber(props.bidAmount).multipliedBy(props.loanActivePrice)} />
-        <ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
           {translate('components/BidHistory', 'Bidder ID')}
         </ThemedText>
       </View>
