@@ -3,7 +3,7 @@ import { AuctionedCollaterals } from './AuctionedCollaterals'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
-describe('Auctioned Collaterals', () => {
+describe('Auctioned collaterals', () => {
   it('should match snapshot', async () => {
     const collaterals = [{
       id: '0',

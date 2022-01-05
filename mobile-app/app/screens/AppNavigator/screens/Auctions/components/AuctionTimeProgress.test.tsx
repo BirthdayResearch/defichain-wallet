@@ -4,7 +4,7 @@ import { AuctionTimeProgress } from './AuctionTimeProgress'
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/NetworkContext')
 
-describe('Auctioned Collaterals', () => {
+describe('Auction time progress', () => {
   it('should match snapshot', async () => {
     const liquidationHeight = 1100
     const blockCount = 1000
