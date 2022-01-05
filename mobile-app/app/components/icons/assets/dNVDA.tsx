@@ -12,7 +12,7 @@ export function dNVDA (props: SvgProps): JSX.Element {
         <Path
           fillRule='evenodd' clipRule='evenodd'
           d='M16.5 0C7.663 0 0.5 7.163 0.5 16C0.5 24.837 7.663 32 16.5 32C25.338 32 32.5 24.837 32.5 16C32.5 7.163 25.338 0 16.5 0Z'
-          fill='#77B900'
+          fill='#0E0A0D'
         />
         <Path
           d='M6.19979 12H4.33984V20H5.81884V14.3978H5.84124L7.81323 20H9.65077V12H8.17178V17.479H8.14937L6.19979 12Z'

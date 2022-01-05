@@ -11,7 +11,7 @@ export function dFB (props: SvgProps): JSX.Element {
       <Path
         fillRule='evenodd' clipRule='evenodd'
         d='M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z'
-        fill='#4460A0'
+        fill='#0E0A0D'
       />
       <Path d='M9.33301 12V20H11.0921V16.6947H14.4423V15.3277H11.0921V13.479H14.9577V12H9.33301Z' fill='white' />
       <Path

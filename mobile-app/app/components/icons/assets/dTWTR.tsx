@@ -11,7 +11,7 @@ export function dTWTR (props: SvgProps): JSX.Element {
       <Path
         fillRule='evenodd' clipRule='evenodd'
         d='M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z'
-        fill='#00AAEC'
+        fill='#0E0A0D'
       />
       <Path d='M8.44225 12H3.33301V13.3221H5.08091V20H6.69435V13.3221H8.44225V12Z' fill='white' />
       <Path
