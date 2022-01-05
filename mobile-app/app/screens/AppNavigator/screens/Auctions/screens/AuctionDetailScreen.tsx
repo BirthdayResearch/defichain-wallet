@@ -8,27 +8,28 @@ import { useSelector, useDispatch } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootState } from '@store'
 import { useBottomSheet } from '@hooks/useBottomSheet'
-import { AuctionTimeProgress } from './components/AuctionTimeProgress'
+import { AuctionTimeProgress } from '../components/AuctionTimeProgress'
 import { StackScreenProps } from '@react-navigation/stack'
-import { AuctionsParamList } from './AuctionNavigator'
-import { CollateralTokenIconGroup } from './components/CollateralTokenIconGroup'
+import { AuctionsParamList } from '../AuctionNavigator'
+import { CollateralTokenIconGroup } from '../components/CollateralTokenIconGroup'
 import { Tabs } from '@components/Tabs'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import BigNumber from 'bignumber.js'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { AuctionDetails } from './components/AuctionDetails'
-import { AuctionedCollaterals } from './components/AuctionedCollaterals'
+import { AuctionDetails } from '../components/AuctionDetails'
+import { AuctionedCollaterals } from '../components/AuctionedCollaterals'
 import { IconButton } from '@components/IconButton'
 import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
-import { useAuctionBidValue } from './hooks/AuctionBidValue'
-import { useAuctionTime } from './hooks/AuctionTimeLeft'
-import { QuickBid } from './components/QuickBid'
+import { useAuctionBidValue } from '../hooks/AuctionBidValue'
+import { useAuctionTime } from '../hooks/AuctionTimeLeft'
+import { QuickBid } from '../components/QuickBid'
 import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { BidHistory } from '../components/BidHistory'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -100,18 +101,18 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   }
 
   const tabsList = [{
-    id: TabKey.Collaterals,
-    label: 'Collateral for auction',
+    id: TabKey.BidHistory,
+    label: 'Bid history',
     disabled: false,
     handleOnPress: onPress
   }, {
     id: TabKey.Collaterals,
-    label: 'Collateral for auction',
+    label: 'Rewards',
     disabled: false,
     handleOnPress: onPress
   }, {
     id: TabKey.AuctionDetails,
-    label: 'Auction details',
+    label: 'Vault details',
     disabled: false,
     handleOnPress: onPress
   }]
@@ -187,6 +188,14 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
         </ThemedView>
         <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
+        {activeTab === TabKey.BidHistory && (
+          <BidHistory
+            vaultId={vault.vaultId}
+            liquidationHeight={vault.liquidationHeight}
+            batchIndex={batch.index}
+            loanDisplaySymbol={batch.loan.displaySymbol}
+          />
+        )}
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
