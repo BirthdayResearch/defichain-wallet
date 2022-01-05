@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Info text link should match snapshot 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "flex-end",
+      "flexDirection": "row",
+      "justifyContent": "flex-start",
+      "opacity": 1,
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "marginLeft": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+            },
+            undefined,
+          ],
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    foo
+  </Text>
+</View>
+`;

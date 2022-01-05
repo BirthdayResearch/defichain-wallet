@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reserved DFI info text should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Array [
+        Object {
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
+          "flexDirection": "row",
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+        },
+        undefined,
+      ],
+      Object {
+        "backgroundColor": "rgba(255, 250, 244, 1)",
+        "borderBottomColor": "rgba(255, 210, 163, 1)",
+        "borderLeftColor": "rgba(255, 210, 163, 1)",
+        "borderRightColor": "rgba(255, 210, 163, 1)",
+        "borderTopColor": "rgba(255, 210, 163, 1)",
+      },
+    ]
+  }
+>
+  <Text />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "fontFamily": "MediumFont",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "lineHeight": 16,
+            "paddingLeft": 8,
+          },
+          Object {
+            "color": "rgba(82, 82, 82, 1)",
+          },
+        ],
+      ]
+    }
+    testID="reserved_info_text"
+    text="A small UTXO amount (0.1 DFI) is reserved for fees."
+  >
+    A small UTXO amount (0.1 DFI) is reserved for fees.
+  </Text>
+</View>
+`;

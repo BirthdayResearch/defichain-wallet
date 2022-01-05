@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create wallet step indicator should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "justifyContent": "center",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": 56,
+        "justifyContent": "center",
+        "width": "75%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 0, 175, 0.1)",
+            "borderBottomColor": "rgba(255, 0, 175, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(255, 0, 175, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(255, 0, 175, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(255, 0, 175, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "height": 32,
+            "justifyContent": "center",
+            "position": "relative",
+            "width": 32,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "color": "rgba(255, 0, 175, 1)",
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+                "position": "absolute",
+              },
+            ]
+          }
+        >
+          1
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 20,
+                  "position": "absolute",
+                  "textAlign": "center",
+                  "top": 36,
+                  "width": 80,
+                },
+                Object {
+                  "color": "rgba(255, 0, 175, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Recovery
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "flexGrow": 1,
+          "height": 4,
+          "marginTop": 14,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "height": 32,
+            "justifyContent": "center",
+            "position": "relative",
+            "width": 32,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+                "position": "absolute",
+              },
+            ]
+          }
+        >
+          2
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 20,
+                  "position": "absolute",
+                  "textAlign": "center",
+                  "top": 36,
+                  "width": 80,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Verify
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "flexGrow": 1,
+          "height": 4,
+          "marginTop": 14,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "height": 32,
+            "justifyContent": "center",
+            "position": "relative",
+            "width": 32,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+                "position": "absolute",
+              },
+            ]
+          }
+        >
+          3
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "MediumFont",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "lineHeight": 20,
+                  "position": "absolute",
+                  "textAlign": "center",
+                  "top": 36,
+                  "width": 80,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Secure
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
