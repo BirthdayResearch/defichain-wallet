@@ -12,7 +12,7 @@ describe('wallet accordion', () => {
           {
             title: 'foo',
             content: [{
-              text: 'bar',
+              text: 'foo',
               type: 'paragraph'
             }, {
               text: 'bar',
