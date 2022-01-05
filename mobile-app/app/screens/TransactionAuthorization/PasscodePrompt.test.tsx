@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import { PasscodePrompt } from './PasscodePrompt'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 

@@ -3,7 +3,7 @@ import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@com
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import NumberFormat from 'react-number-format'
 
 export interface WalletLoanScheme extends LoanScheme {

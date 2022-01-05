@@ -1,26 +1,54 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
-import React from 'react'
+import { useRef, useCallback } from 'react'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
-// @ts-expect-error
-import Avatar from 'react-native-boring-avatars'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { IconButton } from '@components/IconButton'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { AddressControlModal } from '@screens/AppNavigator/screens/Balances/components/AddressControlScreen'
+import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 
 export function BalanceControlCard (): JSX.Element {
-  const { address } = useWalletContext()
+  const { addressLength, address } = useWalletContext()
   const { getAddressUrl } = useDeFiScanContext()
+  const { isLight } = useThemeContext()
+  const { dismiss } = useBottomSheetModal()
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const switchAddressModalName = 'SwitchAddress'
+
+  const onSwitchClick = useCallback(() => {
+    if (Platform.OS === 'web') {
+      navigation.navigate('AddressControlScreen')
+    } else {
+      bottomSheetModalRef.current?.present()
+    }
+  }, [])
+
+  const closeModal = useCallback(() => {
+    dismiss(switchAddressModalName)
+  }, [])
+
+  const getSnapPoints = (): string[] => {
+    if (addressLength > 5) {
+      return ['80%']
+    }
+    if (addressLength > 2) {
+      return ['60%']
+    }
+    return ['40%']
+  }
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   return (
@@ -31,12 +59,25 @@ export function BalanceControlCard (): JSX.Element {
       light={tailwind('bg-white border-b border-gray-200')}
     >
       <View style={tailwind('flex flex-row items-center')}>
-        <Avatar
-          size={40}
-          name={address}
-          variant='pixel'
-          colors={['#EE2CB1', '#604EBF', '#DB69B8', '#FAEAF5', '#262626']}
-        />
+        <View>
+          <RandomAvatar name={address} size={40} />
+          {addressLength > 0 && (
+            <ThemedView
+              light={tailwind('bg-primary-700 border-white')}
+              dark={tailwind('bg-primary-700 border-gray-800')}
+              style={tailwind('absolute rounded-full h-6 w-6 border-2 bottom-0 -top-1 flex justify-center items-center -right-1')}
+            >
+              <ThemedText
+                testID='address_count_badge'
+                light={tailwind('text-white text-opacity-90')}
+                dark={tailwind('text-white text-opacity-90')}
+                style={tailwind('text-xs text-center')}
+              >
+                {addressLength > 9 ? '9+' : addressLength + 1}
+              </ThemedText>
+            </ThemedView>
+          )}
+        </View>
         <View
           style={tailwind('flex flex-1 ml-3')}
         >
@@ -61,7 +102,12 @@ export function BalanceControlCard (): JSX.Element {
             </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
-            <ThemedText testID='wallet_address' style={tailwind('text-sm font-semibold pr-4')}>
+            <ThemedText
+              testID='wallet_address'
+              style={tailwind('text-sm font-semibold pr-4')}
+              numberOfLines={1}
+              ellipsizeMode='middle'
+            >
               {address}
             </ThemedText>
           </TouchableOpacity>
@@ -88,6 +134,35 @@ export function BalanceControlCard (): JSX.Element {
           style={tailwind('mr-2')}
           iconLabel={translate('screens/BalancesScreen', 'RECEIVE')}
         />
+
+        <IconButton
+          iconName='unfold-more-horizontal'
+          iconSize={20}
+          iconType='MaterialCommunityIcons'
+          onPress={onSwitchClick}
+          testID='switch_account_button'
+          style={tailwind('mr-2')}
+          iconLabel={translate('screens/BalancesScreen', 'SWITCH')}
+        />
+
+        {Platform.OS !== 'web' && (
+          <BottomSheetModal
+            name={switchAddressModalName}
+            ref={bottomSheetModalRef}
+            snapPoints={getSnapPoints()}
+            backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
+              <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
+            )}
+            backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+              <View
+                {...backgroundProps}
+                style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+              />
+            )}
+          >
+            <AddressControlModal onClose={closeModal} />
+          </BottomSheetModal>
+       )}
       </View>
     </ThemedView>
   )

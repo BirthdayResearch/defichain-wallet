@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
+
 import { HeaderFont } from '../../components'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { PlaygroundProvider } from '@contexts/PlaygroundContext'

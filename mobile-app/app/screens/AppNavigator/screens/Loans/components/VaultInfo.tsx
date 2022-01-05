@@ -4,7 +4,7 @@ import { TokenIconGroup } from '@components/TokenIconGroup'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { StyleProp } from 'react-native'
 
 interface VaultInfoProps {
@@ -16,6 +16,7 @@ interface VaultInfoProps {
   decimalPlace?: number
   valueThemedProps?: ThemedProps
   valueStyleProps?: StyleProp<TextProps>
+  testID: string
 }
 
 export function VaultInfo (props: VaultInfoProps): JSX.Element {
@@ -31,7 +32,7 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
         </ThemedText>
       </View>
       <View style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}>
-        <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} />
+        <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} testID={`${props.testID}_loan_symbol`} />
       </View>
     </View>
   )

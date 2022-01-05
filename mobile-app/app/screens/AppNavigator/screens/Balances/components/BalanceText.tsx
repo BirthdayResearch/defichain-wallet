@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { ThemedText } from '@components/themed/ThemedText'
 import { ThemedProps } from '@components/themed'

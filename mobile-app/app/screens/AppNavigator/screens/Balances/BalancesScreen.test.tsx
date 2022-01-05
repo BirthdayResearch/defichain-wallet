@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { fireEvent, render } from '@testing-library/react-native'
-import * as React from 'react'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
-import { wallet } from '@store/wallet'
+import { wallet, setTokenDetails } from '@store/wallet'
+import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
@@ -13,12 +13,31 @@ jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/LanguageProvider')
 jest.mock('@shared-contexts/DeFiScanContext')
+jest.mock('@shared-contexts/WalletContext')
+jest.mock('@shared-contexts/WalletPersistenceContext')
 
-jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
-  useTokensAPI: () => [{
+jest.mock('@contexts/DisplayBalancesContext')
+
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn()
+}))
+jest.mock('@gorhom/bottom-sheet', () => ({
+  useBottomSheetModal: () => ({
+    dismiss: jest.fn()
+  })
+}))
+
+jest.mock('react-native/Libraries/Utilities/Platform', () => ({
+  OS: 'web',
+  select: () => jest.fn
+}))
+
+describe('balances page', () => {
+  const tokens = [{
     id: '0',
     symbol: 'DFI',
     symbolKey: 'DFI',
+    displaySymbol: 'DFI',
     isDAT: true,
     isLPS: false,
     amount: '23',
@@ -27,6 +46,7 @@ jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
     id: '1',
     symbol: 'BTC',
     symbolKey: 'BTC',
+    displaySymbol: 'dBTC',
     isDAT: true,
     isLPS: false,
     amount: '777',
@@ -36,34 +56,33 @@ jest.mock('../../../../hooks/wallet/TokensAPI', () => ({
     id: '2',
     symbol: 'ETH',
     symbolKey: 'ETH',
+    displaySymbol: 'dETH',
     isDAT: true,
     isLPS: false,
     amount: '555',
     name: 'Ethereum'
   }]
-}))
 
-jest.mock('@shared-contexts/WalletContext')
-jest.mock('@shared-contexts/WalletPersistenceContext')
-
-jest.mock('../../../../contexts/DisplayBalancesContext')
-
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn()
-}))
-
-describe('balances page', () => {
   it('should match snapshot', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: [],
-        poolpairs: []
+        tokens: tokens.map(setTokenDetails),
+        poolpairs: [],
+        hasFetchedPoolpairData: false
+      },
+      block: {
+        count: 100,
+        masternodeCount: 10,
+        lastSync: undefined,
+        connected: true,
+        isPolling: true,
+        tvl: undefined
       }
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer }
+      reducer: { wallet: wallet.reducer, block: block.reducer }
     })
     const navigation: any = {
       navigate: jest.fn()
@@ -85,13 +104,22 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: [],
-        poolpairs: []
+        tokens: tokens.map(setTokenDetails),
+        poolpairs: [],
+        hasFetchedPoolpairData: false
+      },
+      block: {
+        count: 100,
+        masternodeCount: 10,
+        lastSync: undefined,
+        connected: true,
+        isPolling: true,
+        tvl: undefined
       }
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer }
+      reducer: { wallet: wallet.reducer, block: block.reducer }
     })
     const navigation: any = {
       navigate: jest.fn()

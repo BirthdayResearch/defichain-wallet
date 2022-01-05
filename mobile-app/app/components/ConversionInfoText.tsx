@@ -1,5 +1,4 @@
 import { translate } from '@translations'
-import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { InfoText } from './InfoText'
 

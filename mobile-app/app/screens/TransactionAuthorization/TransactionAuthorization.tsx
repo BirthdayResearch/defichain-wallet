@@ -2,7 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   initJellyfishWallet,
@@ -38,6 +38,7 @@ import {
   USER_CANCELED
 } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -183,6 +184,28 @@ export function TransactionAuthorization (): JSX.Element | null {
     })) // push signed result for broadcasting
   }
 
+  const signTransactionWithActiveAddress = async (wallet: JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>, retries: number | undefined): Promise<void> => {
+    try {
+      const activeIndex = await WalletAddressIndexPersistence.getActive()
+      const signedTx = await signTransaction(transaction, wallet.get(activeIndex), onRetry, retries, logger)
+      // case 1: success
+      return await onPinSuccess(transaction, signedTx)
+    } catch (e: any) {
+      if (e.message === INVALID_HASH) {
+        // case 2: invalid passcode
+        await resetPasscodeCounter()
+        await clearWallets()
+        alertUnlinkWallet()
+      } else if (e.message !== USER_CANCELED) {
+        // case 4: unknown error type
+        dispatch(ocean.actions.setError(e))
+      }
+
+      // case 3: canceled
+      throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
+    }
+  }
+
   // mandatory UI initialization
   useEffect(() => {
     setupNewWallet(onPrompt)
@@ -219,25 +242,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       wallet !== undefined // just in case any data stuck in store
     ) {
       setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
-      signTransaction(transaction, wallet.get(0), onRetry, retries, logger)
-        .then(async signedTx => {
-          // case 1: success
-          await onPinSuccess(transaction, signedTx)
-        })
-        .catch(async e => {
-          if (e.message === INVALID_HASH) {
-            // case 2: invalid passcode
-            await resetPasscodeCounter()
-            await clearWallets()
-            alertUnlinkWallet()
-          } else if (e.message !== USER_CANCELED) {
-            // case 4: unknown error type
-            dispatch(ocean.actions.setError(e))
-          }
-
-          // case 3: canceled
-          throw new Error(CANCELED_ERROR) // pass to last catch so all cases will complete task
-        })
+      signTransactionWithActiveAddress(wallet, retries)
         .catch(e => {
           dispatch(transactionQueue.actions.pop()) // remove job
           onTaskCompletion()

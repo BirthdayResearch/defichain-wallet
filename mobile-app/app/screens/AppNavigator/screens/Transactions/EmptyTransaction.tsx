@@ -1,5 +1,4 @@
 import { NavigationProp } from '@react-navigation/native'
-import * as React from 'react'
 import { RefreshControl } from 'react-native'
 import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'

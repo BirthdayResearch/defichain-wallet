@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootState } from '@store'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { AuctionTimeProgress } from './components/AuctionTimeProgress'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -28,6 +27,8 @@ import { useAuctionTime } from './hooks/AuctionTimeLeft'
 import { QuickBid } from './components/QuickBid'
 import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -39,8 +40,10 @@ enum TabKey {
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const { batch, vault } = props.route.params
-  const tokens = useTokensAPI()
-  const { getVaultsUrl } = useDeFiScanContext()
+  const client = useWhaleApiClient()
+  const dispatch = useDispatch()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const { getAuctionsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
@@ -56,6 +59,10 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     bottomSheetScreen,
     setBottomSheetScreen
    } = useBottomSheet()
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
@@ -93,7 +100,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   const tabsList = [{
     id: TabKey.Collaterals,
-    label: 'Auctioned collaterals',
+    label: 'Collateral for auction',
     disabled: false,
     handleOnPress: onPress
   }, {
@@ -135,7 +142,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                       {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: batch.index + 1 })}
                     </ThemedText>
                     <TouchableOpacity
-                      onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
+                      onPress={async () => await openURL(getAuctionsUrl(vault.vaultId, batch.index))}
                       testID='ocean_vault_explorer'
                     >
                       <ThemedIcon
@@ -207,8 +214,8 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: '40%',
-            android: '40%'
+            ios: ['40%'],
+            android: ['40%']
           }}
         />
       )}
@@ -227,7 +234,7 @@ interface AuctionActionSectionProps {
 function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
   const nextBidInfo = {
     title: 'Min. next bid',
-    message: 'The minimum bid a user must place, as long as it\'s not the first bid for the batch'
+    message: 'The minimum bid a user must place in order to take part in the auction.'
   }
 
   return (

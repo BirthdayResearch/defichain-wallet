@@ -1,16 +1,16 @@
-import React from 'react'
-import { View } from 'react-native'
+
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface TransactionErrorProps {
   errMsg: string
   onClose: () => void
 }
 
-enum ErrorCodes {
+export enum ErrorCodes {
   UnknownError = 0,
   InsufficientUTXO = 1,
   InsufficientBalance = 2,
@@ -22,16 +22,14 @@ enum ErrorCodes {
   VaultNotEnoughCollateralization = 8
 }
 
-interface ErrorMapping {
+export interface ErrorMapping {
   code: ErrorCodes
   message: string
 }
 
-export function TransactionError ({
-  errMsg,
-  onClose
-}: TransactionErrorProps): JSX.Element {
-  console.log('transaction error', errMsg)
+export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+  const logger = useLogger()
+  logger.error(`transaction error: ${errMsg}`)
   const err = errorMessageMapping(errMsg)
   return (
     <>
@@ -43,7 +41,14 @@ export function TransactionError ({
         size={20}
       />
 
-      <View style={tailwind('flex-auto mx-3 justify-center')}>
+      <ThemedScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={tailwind('justify-center flex flex-col')}
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
+        style={tailwind('mx-3')}
+      >
         <ThemedText
           style={tailwind('text-sm font-bold')}
         >
@@ -57,7 +62,7 @@ export function TransactionError ({
         >
           {translate('screens/OceanInterface', err.message)}
         </ThemedText>
-      </View>
+      </ThemedScrollView>
 
       <TransactionCloseButton onPress={onClose} />
     </>
@@ -114,6 +119,15 @@ function errorMessageMapping (err: string): ErrorMapping {
 
   return {
     code: ErrorCodes.UnknownError,
-    message: err
+    message: getErrorMessage(err)
   }
+}
+
+function getErrorMessage (err: string): string {
+  const errParts = err?.split(':')
+  if (errParts.length !== 4) {
+    return err
+  }
+
+  return errParts[2]?.concat(errParts[3])?.trim() // display error message without HTTP error code and url path
 }

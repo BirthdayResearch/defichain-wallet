@@ -1,15 +1,16 @@
 import { tailwind } from '@tailwind'
-import React from 'react'
 import { ThemedView, ThemedText } from '@components/themed'
 import NumberFormat from 'react-number-format'
-import { StyleProp } from 'react-native'
+import { StyleProp, ViewProps } from 'react-native'
 import { TextProps } from '@components'
+import { SuffixType } from './NumberRow'
 
-interface InputHelperTextProps {
+interface InputHelperTextProps extends React.PropsWithChildren<ViewProps>{
   testID?: string
   label: string
   content: string
-  suffix: string
+  suffix?: string
+  suffixType?: SuffixType
   styleProps?: StyleProp<TextProps>
 }
 export function InputHelperText (props: InputHelperTextProps): JSX.Element {
@@ -40,10 +41,13 @@ export function InputHelperText (props: InputHelperTextProps): JSX.Element {
             {value}
           </ThemedText>
           )}
-        suffix={props.suffix}
+        suffix={props.suffixType !== 'component' ? props.suffix : ''}
         thousandSeparator
         value={props.content}
       />
+      {
+        props.suffixType === 'component' && (props.children)
+      }
     </ThemedView>
   )
 }

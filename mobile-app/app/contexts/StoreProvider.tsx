@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useMemo } from 'react'
+import { PropsWithChildren, useMemo } from 'react'
 import { Provider } from 'react-redux'
 import { initializeStore } from '@store'
 import { useWalletPersistenceContext } from '../../../shared/contexts/WalletPersistenceContext'

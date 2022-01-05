@@ -1,5 +1,5 @@
 import { ThemedView } from '@components/themed'
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { LoanCards } from '../components/LoanCards'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '../LoansNavigator'
@@ -53,7 +53,11 @@ export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Elemen
             searchString={searchString}
             onClearInput={() => setSearchString('')}
             onChangeInput={(text: string) => setSearchString(text)}
-            onCancelPress={() => setShowSearchInput(false)}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+            }}
+            placeholder='Search for loans'
           />
         )
       })

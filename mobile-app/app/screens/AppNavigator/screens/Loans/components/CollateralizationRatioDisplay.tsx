@@ -1,6 +1,6 @@
 import * as Progress from 'react-native-progress'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { getColor, tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { View } from '@components'
@@ -16,6 +16,7 @@ interface CollateralizationRatioDisplayProps {
   nextCollateralizationRatio: string
   minCollateralizationRatio: string
   totalLoanAmount: string
+  testID: string
 }
 
 export function CollateralizationRatioDisplay (props: CollateralizationRatioDisplayProps): JSX.Element {
@@ -28,13 +29,15 @@ export function CollateralizationRatioDisplay (props: CollateralizationRatioDisp
   const normalizedAtRiskThreshold = minColRatio.multipliedBy(atRiskThresholdMultiplier).dividedBy(maxRatio).multipliedBy(100)
 
   return (
-    <View style={tailwind('mb-4')}>
+    <View testID={`${props.testID}_collateralization_bar`} style={tailwind('mb-4')}>
       <CollateralizationRatioText
+        testID={props.testID}
         totalLoanAmount={props.totalLoanAmount}
         colRatio={props.collateralizationRatio}
         minColRatio={props.minCollateralizationRatio}
       />
       <MinAndNextRatioText
+        testID={props.testID}
         minColRatio={props.minCollateralizationRatio}
         nextColRatio={props.nextCollateralizationRatio}
       />
@@ -47,7 +50,7 @@ export function CollateralizationRatioDisplay (props: CollateralizationRatioDisp
   )
 }
 
-function CollateralizationRatioText (props: { colRatio: string, minColRatio: string, totalLoanAmount: string }): JSX.Element {
+function CollateralizationRatioText (props: { colRatio: string, minColRatio: string, totalLoanAmount: string, testID?: string }): JSX.Element {
   const {
     light,
     dark
@@ -91,6 +94,7 @@ function CollateralizationRatioText (props: { colRatio: string, minColRatio: str
               <ThemedText
                 light={light}
                 dark={dark}
+                testID={`${props.testID ?? ''}_col_ratio`}
                 style={tailwind('text-sm font-semibold')}
               >
                 {value}
@@ -101,7 +105,7 @@ function CollateralizationRatioText (props: { colRatio: string, minColRatio: str
   )
 }
 
-function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string }): JSX.Element {
+function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string, testID: string }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row items-center justify-between mb-3')}>
       <View style={tailwind('flex flex-row items-center')}>
@@ -123,6 +127,7 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-500')}
               style={tailwind('text-xs')}
+              testID={`${props.testID}_min_ratio`}
             >
               {value}
             </ThemedText>}

@@ -119,8 +119,36 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('estimated_to_receive').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
-      cy.getByTestID('slippage_10%').click()
     })
+  })
+
+  it('should be able to use/validate custom slippage tolerance', function () {
+    cy.getByTestID('text_input_tokenA').type('10')
+    cy.getByTestID('slippage_select').click()
+    cy.getByTestID('slippage_1%').should('exist')
+
+    // Slippage warning
+    cy.getByTestID('slippage_Custom').click()
+    cy.getByTestID('slippage_input').clear().type('21')
+    cy.getByTestID('slippage_warning').should('exist')
+    cy.getByTestID('slippage_input').clear().type('5')
+    cy.getByTestID('slippage_warning').should('not.exist')
+
+    // Slippage validation
+    cy.getByTestID('slippage_Custom').click()
+    cy.getByTestID('slippage_input').should('have.value', '5')
+    cy.getByTestID('slippage_input').clear().type('101').blur().wait(100)
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('slippage_input').clear()
+    cy.getByTestID('slippage_input_error').should('have.text', 'Required field is missing')
+    cy.getByTestID('slippage_input').clear().type('-1').blur().wait(100)
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('slippage_input').clear().type('a1').blur().wait(100)
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('button_tolerance_submit').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('slippage_input').clear().type('25').blur().wait(100)
+    cy.getByTestID('button_tolerance_submit').click()
   })
 })
 
@@ -162,6 +190,7 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
 
     it('should be able to swap', function () {
       cy.getByTestID('text_input_tokenA').type('10')
+      cy.getByTestID('slippage_select').click()
       cy.getByTestID('slippage_10%').click()
       cy.getByTestID('estimated_to_receive').then(($txt: any) => {
         const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
@@ -250,7 +279,7 @@ context('Wallet - DEX - Composite Swap with Conversion', () => {
     cy.getByTestID('text_input_tokenA').type('11.00000000')
     cy.getByTestID('conversion_info_text').should('exist')
     cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
-    cy.getByTestID('amount_to_convert_label').contains('Amount to be converted')
+    cy.getByTestID('amount_to_convert_label').contains('UTXO to be converted')
     cy.getByTestID('amount_to_convert').contains('1.00000000')
     cy.getByTestID('transaction_details_hint_text').contains('Authorize transaction in the next screen to convert')
   })

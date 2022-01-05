@@ -1,5 +1,5 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import React from 'react'
+
 import { ActivityIndicator, ActivityIndicatorProps } from 'react-native'
 import { ThemedProps } from './index'
 

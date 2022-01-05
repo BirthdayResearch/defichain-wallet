@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import * as React from 'react'
 import { useState } from 'react'
 import { ThemePersistence } from '@api'
 import { Switch, View } from '@components/index'
@@ -33,6 +32,7 @@ export function RowThemeItem (): JSX.Element {
         <MaterialCommunityIcons
           name='white-balance-sunny'
           size={20}
+          testID='light_mode_icon'
           style={tailwind('mr-2 text-gray-300', { 'text-yellow-400': isLight })}
         />
 

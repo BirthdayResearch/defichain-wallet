@@ -1,5 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
@@ -10,6 +9,7 @@ import { AuctionDetailScreen } from './AuctionDetailScreen'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { PlaceBidScreen } from './screens/PlaceBidScreen'
 import { ConfirmPlaceBidScreen } from './screens/ConfirmPlaceBidScreen'
+import { AuctionsFaq } from './screens/AuctionsFaq'
 
 export interface AuctionsParamList {
   AuctionsScreen: {}
@@ -91,6 +91,20 @@ export function AuctionsNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           )
+        }}
+      />
+
+      <AuctionsStack.Screen
+        component={AuctionsFaq}
+        name='AuctionsFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/AuctionsFaq', 'Auctions FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
 

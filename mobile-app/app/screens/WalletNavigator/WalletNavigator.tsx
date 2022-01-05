@@ -3,7 +3,7 @@ import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import * as Linking from 'expo-linking'
-import * as React from 'react'
+import { useRef } from 'react'
 import { HeaderFont } from '@components'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { getDefaultTheme } from '@constants/Theme'
@@ -67,7 +67,7 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 
 export function WalletNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
-  const navigationRef = React.useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
+  const navigationRef = useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   const headerContainerTestId = 'wallet_header_container'
 

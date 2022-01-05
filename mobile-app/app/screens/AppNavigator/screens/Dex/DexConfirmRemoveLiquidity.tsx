@@ -4,7 +4,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { NumberRow } from '@components/NumberRow'
@@ -21,6 +21,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -104,6 +105,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={fee.toFixed(8)}

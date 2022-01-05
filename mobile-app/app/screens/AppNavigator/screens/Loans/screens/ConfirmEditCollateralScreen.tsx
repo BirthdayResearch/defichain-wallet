@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { LoanParamList } from '../LoansNavigator'
 import { SymbolIcon } from '@components/SymbolIcon'
@@ -29,6 +29,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -137,6 +138,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('mb-2')}
+        testID='edit_collateral_confirm_title'
       >
         {translate('screens/ConfirmEditCollateralScreen', props.isAdd ? 'You are adding collateral to' : 'You are removing collateral from')}
       </ThemedText>
@@ -158,6 +160,7 @@ function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: C
           light={tailwind('text-gray-900')}
           dark={tailwind('text-gray-50')}
           style={tailwind('text-sm font-medium flex-1 w-8/12')}
+          testID='edit_collateral_confirm_vault_id'
         >
           {props.vaultId}
         </ThemedText>
@@ -199,6 +202,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
@@ -279,6 +283,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
               light={tailwind('text-gray-700')}
               dark={tailwind('text-gray-300')}
               style={tailwind('text-xs font-medium ml-1')}
+              testID='edit_collateral_confirm_vault_share'
             >
               {value}
             </ThemedText>}

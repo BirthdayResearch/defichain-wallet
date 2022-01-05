@@ -1,9 +1,10 @@
 import { render } from '@testing-library/react-native'
-import * as React from 'react'
 import { DexSkeletonLoader } from './DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './LoanSkeletonLoader'
+import { AddressSkeletonLoader } from './AddressSkeletonLoader'
+import { BrowseAuctionsLoader } from './BrowseAuctionsLoader'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -35,6 +36,22 @@ describe('Skeleton Loader', () => {
   it('should match snapshot of loan skeleton loader', async () => {
     const component = (
       <LoanSkeletonLoader uniqueKey='loan' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of address skeleton loader', async () => {
+    const component = (
+      <AddressSkeletonLoader uniqueKey='address' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of browse auction skeleton loader', async () => {
+    const component = (
+      <BrowseAuctionsLoader uniqueKey='browseAuctions' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()

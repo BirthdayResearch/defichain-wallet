@@ -6,7 +6,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/th
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -22,8 +22,8 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useResultingCollateralRatio } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
-import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
+import { WalletAddressRow } from '@components/WalletAddressRow'
+import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -37,7 +37,8 @@ export function ConfirmBorrowLoanTokenScreen ({
     amountToBorrow,
     totalInterestAmount,
     totalLoanWithInterest,
-    fee
+    fee,
+    resultingColRatio
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -47,8 +48,6 @@ export function ConfirmBorrowLoanTokenScreen ({
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const resultCollateralRatio = useResultingCollateralRatio(new BigNumber(vault.collateralValue), new BigNumber(vault.loanValue),
-    new BigNumber(totalLoanWithInterest), new BigNumber(loanToken.activePrice?.active?.amount ?? 0))
 
   function onCancel (): void {
     navigation.goBack()
@@ -107,18 +106,18 @@ export function ConfirmBorrowLoanTokenScreen ({
         collateralRatio={new BigNumber(vault.collateralRatio)}
       />
       <SummaryTransactionResults
-        resultCollateralRatio={resultCollateralRatio}
+        resultCollateralRatio={resultingColRatio}
         minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
         totalLoanValue={new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(loanToken.activePrice?.active?.amount ?? 0))}
       />
       <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob || resultCollateralRatio.isLessThan(vault.loanScheme.minColRatio)}
+        isDisabled={hasPendingJob || hasPendingBroadcastJob}
         label={translate('screens/ConfirmBorrowLoanTokenScreen', 'CONFIRM BORROW')}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
-        title='create_vault'
+        title='borrow_loan'
       />
     </ThemedScrollView>
   )
@@ -166,6 +165,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan tokens to borrow')}
         rhs={{
@@ -200,19 +200,19 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Estimated annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
-          testID: 'total_interest_amount',
+          testID: 'estimated_annual_interest',
           suffixType: 'text',
           suffix: props.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + interest')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + annual interest')}
         rhs={{
           value: props.totalLoanWithInterest.toFixed(8),
-          testID: 'total_loan_with_interest',
+          testID: 'total_loan_with_annual_interest',
           suffixType: 'text',
           suffix: props.displaySymbol
         }}
@@ -242,7 +242,9 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Vault ID')}
         rhs={{
           value: props.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
@@ -250,7 +252,8 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateral amount (USD)')}
         rhs={{
           value: props.collateralAmount.toFixed(2),
-          testID: 'text_collateral_amount'
+          testID: 'text_collateral_amount',
+          prefix: '$'
         }}
       />
       {props.collateralRatio.isLessThan(0)
@@ -283,27 +286,19 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
 }
 
 function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber, minColRatio: BigNumber, totalLoanValue: BigNumber }): JSX.Element {
-  const colors = useCollateralizationRatioColor({
-    colRatio: props.resultCollateralRatio,
-    minColRatio: props.minColRatio,
-    totalLoanAmount: props.totalLoanValue
-  })
-
   return (
     <>
       <ThemedSectionTitle
         text={translate('screens/ConfirmBorrowLoanTokenScreen', 'TRANSACTION RESULTS')}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
-        rhs={{
-          value: props.resultCollateralRatio.toFixed(2),
-          testID: 'text_result_collateral_ratio',
-          suffixType: 'text',
-          suffix: '%',
-          style: tailwind('ml-0')
-        }}
-        rhsThemedProps={colors}
+      <CollateralizationRatioRow
+        label={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
+        value={props.resultCollateralRatio.toFixed(2)}
+        testId='text_resulting_col_ratio'
+        type='current'
+        minColRatio={props.minColRatio}
+        totalLoanAmount={props.totalLoanValue}
+        colRatio={props.resultCollateralRatio}
       />
     </>
   )

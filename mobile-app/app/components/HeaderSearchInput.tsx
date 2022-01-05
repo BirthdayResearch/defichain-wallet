@@ -5,13 +5,14 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SearchInput } from './SearchInput'
 import { ThemedIcon, ThemedView } from './themed'
-import React from 'react'
 
 interface HeaderSearchInputProps {
   searchString: string
   onClearInput: () => void
   onChangeInput: (text: string) => void
   onCancelPress: () => void
+  placeholder: string
+  testID?: string
 }
 
 export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
@@ -29,11 +30,12 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
     >
       <SearchInput
         value={props.searchString}
-        placeholder={translate('screens/ChooseLoanTokenScreen', 'Search for loans')}
+        placeholder={translate('screens/ChooseLoanTokenScreen', props.placeholder)}
         autoFocus
         showClearButton={props.searchString !== ''}
         onClearInput={props.onClearInput}
         onChangeText={props.onChangeInput}
+        testID={props.testID}
       />
       <View style={tailwind('flex justify-center ml-2')}>
         <TouchableOpacity onPress={props.onCancelPress}>

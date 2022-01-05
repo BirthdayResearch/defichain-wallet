@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { WalletContextProvider } from '@shared-contexts/WalletContext'
 import { WalletNodeProvider } from '@shared-contexts/WalletNodeProvider'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -7,6 +7,7 @@ import { PrivacyLock } from './PrivacyLock'
 import { TransactionAuthorization } from './TransactionAuthorization/TransactionAuthorization'
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 /**
  * Top Root Level Wallet State to control what screen to show
@@ -28,7 +29,7 @@ export function RootNavigator (): JSX.Element {
 
   return (
     <WalletNodeProvider data={wallets[0]}>
-      <WalletContextProvider>
+      <WalletContextProvider api={WalletAddressIndexPersistence}>
         <PrivacyLock />
         <BottomSheetModalProvider>
           <TransactionAuthorization />

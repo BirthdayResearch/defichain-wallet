@@ -8,6 +8,7 @@ interface DeFiScanContextI {
   getTokenUrl: (tokenId: number | string) => string
   getAddressUrl: (address: string) => string
   getVaultsUrl: (vaultId: string) => string
+  getAuctionsUrl: (vaultId: string, index: number) => string
 }
 
 const DeFiScanContext = createContext<DeFiScanContextI>(undefined as any)
@@ -36,6 +37,9 @@ export function DeFiScanProvider (props: React.PropsWithChildren<any>): JSX.Elem
       },
       getVaultsUrl: (vaultId: string) => {
         return getURLByNetwork('vaults', network, vaultId)
+      },
+      getAuctionsUrl: (vaultId: string, index: number) => {
+        return getURLByNetwork(`vaults/${vaultId}/auctions`, network, index)
       }
     }
   }, [network])
@@ -63,7 +67,7 @@ function getNetworkParams (network: EnvironmentNetwork): string {
   }
 }
 
-function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
+export function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
   let baseUrl = `${baseDefiScanUrl}/transactions/${txid}`
 
   baseUrl += getNetworkParams(network)
@@ -79,6 +83,6 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: s
   return baseUrl
 }
 
-function getURLByNetwork (path: string, network: EnvironmentNetwork, id: number | string): string {
+export function getURLByNetwork (path: string, network: EnvironmentNetwork, id: number | string): string {
   return `${baseDefiScanUrl}/${path}/${id}${getNetworkParams(network)}`
 }

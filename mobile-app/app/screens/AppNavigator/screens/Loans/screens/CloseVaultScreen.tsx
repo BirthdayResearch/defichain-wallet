@@ -6,7 +6,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -18,6 +18,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { InfoText } from '@components/InfoText'
 import { View } from '@components'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'CloseVaultScreen'>
 
@@ -106,8 +107,9 @@ function SummaryDetails (): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
-        text={translate('screens/CloseVaultScreen', 'DETAILS')}
+        text={translate('screens/CloseVaultScreen', 'TRANSACTION DETAILS')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/CloseVaultScreen', 'Fees to return')}
         rhs={{

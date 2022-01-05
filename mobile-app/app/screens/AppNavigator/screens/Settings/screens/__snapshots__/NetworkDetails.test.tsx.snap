@@ -72,7 +72,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "41.666667%",
+            "width": "50%",
           }
         }
       >
@@ -319,7 +319,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "width": "41.666667%",
+            "width": "50%",
           }
         }
       >

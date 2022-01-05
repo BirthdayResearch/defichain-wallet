@@ -3,7 +3,6 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
@@ -26,6 +25,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -149,6 +149,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
         rhs={{
@@ -218,7 +219,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           tokenB: pair.tokenB.displaySymbol
         })}
         rhs={{
-          value: aToBRate.toFixed(8),
+          value: bToARate.toFixed(8),
           testID: 'price_a',
           suffixType: 'text',
           suffix: pair.tokenA.displaySymbol
@@ -230,7 +231,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           tokenB: pair.tokenA.displaySymbol
         })}
         rhs={{
-          value: bToARate.toFixed(8),
+          value: aToBRate.toFixed(8),
           testID: 'price_b',
           suffixType: 'text',
           suffix: pair.tokenB.displaySymbol

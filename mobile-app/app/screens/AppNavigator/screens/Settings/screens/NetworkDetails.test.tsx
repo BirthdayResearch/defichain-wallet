@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
-import * as React from 'react'
 import { NetworkDetails } from './NetworkDetails'
 import { RootState } from '@store'
 import { block } from '@store/block'

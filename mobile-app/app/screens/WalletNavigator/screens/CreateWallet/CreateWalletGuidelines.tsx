@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Switch, View } from '@components/index'
 import { Button } from '@components/Button'

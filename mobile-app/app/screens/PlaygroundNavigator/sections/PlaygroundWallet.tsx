@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { MnemonicEncrypted, MnemonicUnprotected } from '../../../api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'

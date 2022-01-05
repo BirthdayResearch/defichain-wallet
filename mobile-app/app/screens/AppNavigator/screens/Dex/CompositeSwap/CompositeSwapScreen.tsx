@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -10,10 +10,8 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
-import { usePoolPairsAPI } from '@hooks/wallet/PoolPairsAPI'
+import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -35,12 +33,12 @@ import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
 import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export interface TokenState {
   id: string
@@ -57,12 +55,14 @@ type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
 
 export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const logger = useLogger()
-  const pairs = usePoolPairsAPI()
-  const tokens = useTokensAPI()
   const client = useWhaleApiClient()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
+  const { address } = useWalletContext()
 
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -75,7 +75,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [slippage, setSlippage] = useState<number>(0.03)
+  const [slippage, setSlippage] = useState(new BigNumber(3))
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
@@ -187,6 +187,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       }])
     expandModal()
   }
+
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()
@@ -339,11 +344,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     const ownedTokenB = tokens.find(token => token.id === selectedTokenB.id)
+    const slippageInDecimal = new BigNumber(slippage).div(100)
     navigation.navigate('ConfirmCompositeSwapScreen', {
       fee,
       pairs: selectedPoolPairs,
       priceRates,
-      slippage,
+      slippage: slippageInDecimal,
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
@@ -487,20 +493,25 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               </View>
             </View>
             {isConversionRequired && <ConversionInfoText />}
-            <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
           </View>}
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
           <>
             <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
             <TransactionDetailsSection
+              amountToSwap={tokenAFormAmount}
               conversionAmount={conversionAmount}
               estimatedAmount={tokenBFormAmount}
               fee={fee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
+              onSetSlippage={(val: BigNumber) => setSlippage(val)}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
+              setIsModalDisplayed={setIsModalDisplayed}
+              setBottomSheetScreen={setBottomSheetScreen}
+              onSlippageTolerancePress={expandModal}
+              onCloseButtonPress={dismissModal}
             />
           </>}
 
@@ -538,6 +549,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <BottomSheetWithNav
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
+            snapPoints={{
+              ios: ['40%'],
+              android: ['45%']
+            }}
           />
         )}
       </ThemedScrollView>
@@ -615,14 +630,34 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
 }
 
 function TransactionDetailsSection ({
+  amountToSwap,
   conversionAmount,
   estimatedAmount,
   fee,
   isConversionRequired,
   slippage,
+  onSetSlippage,
   tokenA,
-  tokenB
-}: { conversionAmount: BigNumber, estimatedAmount: string, fee: BigNumber, isConversionRequired: boolean, slippage: number, tokenA: OwnedTokenState, tokenB: TokenState }): JSX.Element {
+  tokenB,
+  setIsModalDisplayed,
+  setBottomSheetScreen,
+  onSlippageTolerancePress,
+  onCloseButtonPress
+}: {
+  amountToSwap: string
+  conversionAmount: BigNumber
+  estimatedAmount: string
+  fee: BigNumber
+  isConversionRequired: boolean
+  slippage: BigNumber
+  onSetSlippage: (val: BigNumber) => void
+  tokenA: OwnedTokenState
+  tokenB: TokenState
+  setIsModalDisplayed: (val: boolean) => void
+  setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void
+  onSlippageTolerancePress: () => void
+  onCloseButtonPress: () => void
+ }): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -632,7 +667,7 @@ function TransactionDetailsSection ({
       />
       {isConversionRequired &&
         <NumberRow
-          lhs={translate('screens/CompositeSwapScreen', 'Amount to be converted')}
+          lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
           rhs={{
           testID: 'amount_to_convert',
           value: conversionAmount.toFixed(8),
@@ -640,6 +675,16 @@ function TransactionDetailsSection ({
           suffix: tokenA.displaySymbol
         }}
         />}
+      <NumberRow
+        lhs={translate('screens/CompositeSwapScreen', 'Total to be swapped')}
+        rhs={{
+          value: new BigNumber(amountToSwap).toFixed(8),
+          suffixType: 'text',
+          suffix: tokenA.displaySymbol,
+          testID: 'total_to_be_swapped'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
+      />
       <NumberRow
         lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
         rhs={{
@@ -650,13 +695,13 @@ function TransactionDetailsSection ({
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      <TextRow
-        lhs={translate('screens/CompositeSwapScreen', 'Slippage Tolerance')}
-        rhs={{
-          value: `${new BigNumber(slippage).times(100).toFixed(2)}%`,
-          testID: 'slippage_tolerance'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
+      <SlippageTolerance
+        setSlippage={(amount) => onSetSlippage(amount)}
+        slippage={slippage}
+        setIsSelectorOpen={setIsModalDisplayed}
+        setBottomSheetScreen={setBottomSheetScreen}
+        onPress={onSlippageTolerancePress}
+        onCloseButtonPress={onCloseButtonPress}
       />
       <FeeInfoRow
         type='ESTIMATED_FEE'

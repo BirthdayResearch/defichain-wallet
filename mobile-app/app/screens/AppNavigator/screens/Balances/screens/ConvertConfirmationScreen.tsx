@@ -2,7 +2,7 @@ import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedVie
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -20,6 +20,7 @@ import { NumberRow } from '@components/NumberRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -121,7 +122,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConvertConfirmScreen', '{{token}} to receive', { token: targetUnit })}
         rhs={{

@@ -2,7 +2,6 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
@@ -20,6 +19,7 @@ import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
+import { AddressControlScreen } from './components/AddressControlScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -115,6 +115,21 @@ export function BalancesNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AddressControlScreen}
+        name='AddressControlScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddressControlScreen', 'Wallet Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
           headerBackTitleVisible: false
         }}
       />

@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import React from 'react'
+
 import { ImageBackground } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_background.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_background_dark.png'

@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -17,6 +17,7 @@ import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { AuctionsParamList } from '../AuctionNavigator'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<AuctionsParamList, 'ConfirmPlaceBidScreen'>
 
@@ -105,6 +106,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <NumberRow
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Bid amount to place')}
         rhs={{
@@ -138,7 +140,9 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Vault ID')}
         rhs={{
           value: vault.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />

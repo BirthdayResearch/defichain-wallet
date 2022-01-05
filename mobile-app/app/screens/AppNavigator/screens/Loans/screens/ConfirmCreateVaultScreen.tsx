@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
@@ -26,6 +26,7 @@ import { fetchVaults } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { EnvironmentNetwork } from '@environment'
+import { WalletAddressRow } from '@components/WalletAddressRow'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
@@ -167,6 +168,7 @@ function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: Conver
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
+      <WalletAddressRow />
       <FeeInfoRow
         type='VAULT_FEE'
         value={vaultFee.toFixed(8)}

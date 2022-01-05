@@ -48,7 +48,10 @@
         "react/display-name": "off",
         "react-native/no-raw-text": "warn",
         "indent": "off",
-        "@typescript-eslint/indent": "off"
+        "@typescript-eslint/indent": "off",
+        "react/prop-types": "off",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
       },
       "excludedFiles": [
         "*.test.ts",
@@ -66,7 +69,11 @@
       ],
       "extends": [
         "plugin:jest/recommended"
-      ]
+      ],
+      "rules": {
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+      }
     }
   ]
 }

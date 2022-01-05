@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -37,6 +36,14 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       label: 'Loans',
       testID: 'loans_faq',
       onPress: () => navigation.navigate('LoansFaq')
+    })
+  }
+
+  if (isFeatureAvailable('auction')) {
+    knowledgeBaseItems.push({
+      label: 'Auctions',
+      testID: 'auctions_faq',
+      onPress: () => navigation.navigate('AuctionsFaq')
     })
   }
 

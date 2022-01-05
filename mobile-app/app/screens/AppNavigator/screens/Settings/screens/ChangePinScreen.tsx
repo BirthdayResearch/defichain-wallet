@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { PinTextInput } from '@components/PinTextInput'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'

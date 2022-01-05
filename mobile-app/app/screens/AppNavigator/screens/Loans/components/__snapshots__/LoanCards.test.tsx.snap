@@ -144,253 +144,203 @@ exports[`loan cards should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomLeftRadius": 4,
-              "borderBottomRightRadius": 4,
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderLeftWidth": 1,
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderRightWidth": 1,
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-              "borderTopLeftRadius": 4,
-              "borderTopRightRadius": 4,
-              "borderTopWidth": 1,
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginBottom": 16,
-              "marginLeft": 8,
-              "marginRight": 8,
-              "opacity": 1,
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
+              "flexBasis": "50%",
             }
           }
-          testID="loan_card_0"
         >
           <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "paddingBottom": 8,
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderLeftWidth": 1,
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderRightWidth": 1,
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginBottom": 16,
+                "marginLeft": 8,
+                "marginRight": 8,
+                "opacity": 1,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
               }
             }
+            testID="loan_card_dTS25"
           >
             <View
               style={
                 Object {
-                  "display": "flex",
+                  "alignItems": "center",
                   "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 8,
                 }
               }
             >
-              <RNSVGSvgView
-                align="xMidYMid"
-                bbHeight={24}
-                bbWidth={24}
-                focusable={false}
-                height={24}
-                meetOrSlice={0}
-                minX={0}
-                minY={0}
+              <View
                 style={
-                  Array [
-                    Object {
-                      "backgroundColor": "transparent",
-                      "borderWidth": 0,
-                    },
-                    Object {
-                      "marginRight": 8,
-                    },
-                    Object {
-                      "flex": 0,
-                      "height": 24,
-                      "width": 24,
-                    },
-                  ]
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
                 }
-                vbHeight={32}
-                vbWidth={32}
-                width={24}
               >
-                <RNSVGGroup>
-                  <RNSVGCircle
-                    cx={16}
-                    cy={16}
-                    fill={871301689}
-                    propList={
-                      Array [
-                        "fill",
-                      ]
-                    }
-                    r={16}
-                  />
-                  <RNSVGText
-                    alignmentBaseline="central"
-                    content={null}
-                    dx={Array []}
-                    dy={Array []}
-                    fill={4289528105}
-                    font={
-                      Object {
-                        "fontSize": "24",
-                        "fontWeight": "bolder",
-                        "textAnchor": "middle",
-                      }
-                    }
-                    propList={
-                      Array [
-                        "fill",
-                      ]
-                    }
-                    rotate={Array []}
-                    x={
-                      Array [
-                        "50%",
-                      ]
-                    }
-                    y={
-                      Array [
-                        "50%",
-                      ]
-                    }
-                  >
-                    <RNSVGTSpan
-                      content="D"
-                      dx={Array []}
-                      dy={Array []}
-                      font={Object {}}
-                      rotate={Array []}
-                      x={Array []}
-                      y={Array []}
-                    />
-                  </RNSVGText>
-                </RNSVGGroup>
-              </RNSVGSvgView>
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight={24}
+                  bbWidth={24}
+                  focusable={false}
+                  height={24}
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
                     Array [
                       Object {
-                        "fontFamily": "MediumFont",
-                        "fontWeight": "500",
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "marginRight": 8,
                       },
-                    ],
-                  ]
-                }
-                testID="loan_card_0_display_symbol"
-              >
-                dTS25
-              </Text>
+                      Object {
+                        "flex": 0,
+                        "height": 24,
+                        "width": 24,
+                      },
+                    ]
+                  }
+                  vbHeight={32}
+                  vbWidth={32}
+                  width={24}
+                >
+                  <RNSVGGroup>
+                    <RNSVGCircle
+                      cx={16}
+                      cy={16}
+                      fill={871301689}
+                      propList={
+                        Array [
+                          "fill",
+                        ]
+                      }
+                      r={16}
+                    />
+                    <RNSVGText
+                      alignmentBaseline="central"
+                      content={null}
+                      dx={Array []}
+                      dy={Array []}
+                      fill={4289528105}
+                      font={
+                        Object {
+                          "fontSize": "24",
+                          "fontWeight": "bolder",
+                          "textAnchor": "middle",
+                        }
+                      }
+                      propList={
+                        Array [
+                          "fill",
+                        ]
+                      }
+                      rotate={Array []}
+                      x={
+                        Array [
+                          "50%",
+                        ]
+                      }
+                      y={
+                        Array [
+                          "50%",
+                        ]
+                      }
+                    >
+                      <RNSVGTSpan
+                        content="D"
+                        dx={Array []}
+                        dy={Array []}
+                        font={Object {}}
+                        rotate={Array []}
+                        x={Array []}
+                        y={Array []}
+                      />
+                    </RNSVGText>
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "MediumFont",
+                          "fontWeight": "500",
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_0_display_symbol"
+                >
+                  dTS25
+                </Text>
+              </View>
+              <Text />
             </View>
-            <Text />
-          </View>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Interest
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "paddingBottom": 8,
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="loan_card_0_interest_rate"
-          >
-            2%
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Price (USD)
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
               }
-            }
-          >
+            >
+              Interest
+            </Text>
             <Text
               style={
                 Array [
@@ -404,7 +354,7 @@ exports[`loan cards should match snapshot 1`] = `
                     Object {
                       "fontSize": 14,
                       "lineHeight": 20,
-                      "marginRight": 4,
+                      "paddingBottom": 8,
                     },
                     Object {
                       "color": "rgba(0, 0, 0, 1)",
@@ -412,261 +362,269 @@ exports[`loan cards should match snapshot 1`] = `
                   ],
                 ]
               }
-              testID="loan_card_0_loan_amount"
+              testID="loan_card_0_interest_rate"
             >
-              $
-              -
+              2%
             </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Price (USD)
+            </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "marginRight": 4,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="loan_card_0_loan_amount"
+              >
+                $
+                -
+              </Text>
+            </View>
           </View>
         </View>
         <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomLeftRadius": 4,
-              "borderBottomRightRadius": 4,
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderLeftWidth": 1,
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderRightWidth": 1,
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-              "borderTopLeftRadius": 4,
-              "borderTopRightRadius": 4,
-              "borderTopWidth": 1,
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginBottom": 16,
-              "marginLeft": 8,
-              "marginRight": 8,
-              "opacity": 1,
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
+              "flexBasis": "50%",
             }
           }
-          testID="loan_card_1"
         >
           <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "paddingBottom": 8,
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderLeftWidth": 1,
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderRightWidth": 1,
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginBottom": 16,
+                "marginLeft": 8,
+                "marginRight": 8,
+                "opacity": 1,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
               }
             }
+            testID="loan_card_dTR50"
           >
             <View
               style={
                 Object {
-                  "display": "flex",
+                  "alignItems": "center",
                   "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 8,
                 }
               }
             >
-              <RNSVGSvgView
-                align="xMidYMid"
-                bbHeight={24}
-                bbWidth={24}
-                focusable={false}
-                height={24}
-                meetOrSlice={0}
-                minX={0}
-                minY={0}
+              <View
                 style={
-                  Array [
-                    Object {
-                      "backgroundColor": "transparent",
-                      "borderWidth": 0,
-                    },
-                    Object {
-                      "marginRight": 8,
-                    },
-                    Object {
-                      "flex": 0,
-                      "height": 24,
-                      "width": 24,
-                    },
-                  ]
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
                 }
-                vbHeight={32}
-                vbWidth={32}
-                width={24}
               >
-                <RNSVGGroup>
-                  <RNSVGCircle
-                    cx={16}
-                    cy={16}
-                    fill={870660060}
-                    propList={
-                      Array [
-                        "fill",
-                      ]
-                    }
-                    r={16}
-                  />
-                  <RNSVGText
-                    alignmentBaseline="central"
-                    content={null}
-                    dx={Array []}
-                    dy={Array []}
-                    fill={4292218060}
-                    font={
-                      Object {
-                        "fontSize": "24",
-                        "fontWeight": "bolder",
-                        "textAnchor": "middle",
-                      }
-                    }
-                    propList={
-                      Array [
-                        "fill",
-                      ]
-                    }
-                    rotate={Array []}
-                    x={
-                      Array [
-                        "50%",
-                      ]
-                    }
-                    y={
-                      Array [
-                        "50%",
-                      ]
-                    }
-                  >
-                    <RNSVGTSpan
-                      content="D"
-                      dx={Array []}
-                      dy={Array []}
-                      font={Object {}}
-                      rotate={Array []}
-                      x={Array []}
-                      y={Array []}
-                    />
-                  </RNSVGText>
-                </RNSVGGroup>
-              </RNSVGSvgView>
-              <Text
-                style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight={24}
+                  bbWidth={24}
+                  focusable={false}
+                  height={24}
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
                     Array [
                       Object {
-                        "fontFamily": "MediumFont",
-                        "fontWeight": "500",
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
                       },
                       Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "marginRight": 8,
                       },
-                    ],
-                  ]
-                }
-                testID="loan_card_1_display_symbol"
-              >
-                dTR50
-              </Text>
+                      Object {
+                        "flex": 0,
+                        "height": 24,
+                        "width": 24,
+                      },
+                    ]
+                  }
+                  vbHeight={32}
+                  vbWidth={32}
+                  width={24}
+                >
+                  <RNSVGGroup>
+                    <RNSVGCircle
+                      cx={16}
+                      cy={16}
+                      fill={870660060}
+                      propList={
+                        Array [
+                          "fill",
+                        ]
+                      }
+                      r={16}
+                    />
+                    <RNSVGText
+                      alignmentBaseline="central"
+                      content={null}
+                      dx={Array []}
+                      dy={Array []}
+                      fill={4292218060}
+                      font={
+                        Object {
+                          "fontSize": "24",
+                          "fontWeight": "bolder",
+                          "textAnchor": "middle",
+                        }
+                      }
+                      propList={
+                        Array [
+                          "fill",
+                        ]
+                      }
+                      rotate={Array []}
+                      x={
+                        Array [
+                          "50%",
+                        ]
+                      }
+                      y={
+                        Array [
+                          "50%",
+                        ]
+                      }
+                    >
+                      <RNSVGTSpan
+                        content="D"
+                        dx={Array []}
+                        dy={Array []}
+                        font={Object {}}
+                        rotate={Array []}
+                        x={Array []}
+                        y={Array []}
+                      />
+                    </RNSVGText>
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "MediumFont",
+                          "fontWeight": "500",
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_1_display_symbol"
+                >
+                  dTR50
+                </Text>
+              </View>
+              <Text />
             </View>
-            <Text />
-          </View>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Interest
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "paddingBottom": 8,
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="loan_card_1_interest_rate"
-          >
-            3%
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Price (USD)
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
               }
-            }
-          >
+            >
+              Interest
+            </Text>
             <Text
               style={
                 Array [
@@ -680,7 +638,7 @@ exports[`loan cards should match snapshot 1`] = `
                     Object {
                       "fontSize": 14,
                       "lineHeight": 20,
-                      "marginRight": 4,
+                      "paddingBottom": 8,
                     },
                     Object {
                       "color": "rgba(0, 0, 0, 1)",
@@ -688,11 +646,69 @@ exports[`loan cards should match snapshot 1`] = `
                   ],
                 ]
               }
-              testID="loan_card_1_loan_amount"
+              testID="loan_card_1_interest_rate"
             >
-              $
-              -
+              3%
             </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Price (USD)
+            </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "marginRight": 4,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="loan_card_1_loan_amount"
+              >
+                $
+                -
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -753,7 +769,7 @@ exports[`loan cards should match snapshot 1`] = `
                 "paddingTop": 16,
               }
             }
-            testID="loan_card_2"
+            testID="loan_card_dTU10"
           >
             <View
               style={

@@ -6,7 +6,8 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { LoanVault } from '@store/loans'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { memo } from 'react'
+import { memo } from 'react'
+import * as React from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { CollateralizationRatio } from './CollateralizationRatio'
 import BigNumber from 'bignumber.js'
@@ -39,11 +40,12 @@ export const BottomSheetVaultList = ({
   return (
     <FlatList
       data={vaults}
-      renderItem={({ item }: { item: LoanVault }): JSX.Element => {
+      renderItem={({ item, index }: { item: LoanVault, index: number }): JSX.Element => {
         const colRatio = item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.collateralRatio
         const totalLoanAmount = item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.loanValue
+        const totalCollateralValue = item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.collateralValue
         // eslint-disable-next-line
-        const vaultState = useVaultStatus(item.state, new BigNumber(colRatio), new BigNumber(item.loanScheme.minColRatio), new BigNumber(totalLoanAmount))
+        const vaultState = useVaultStatus(item.state, new BigNumber(colRatio), new BigNumber(item.loanScheme.minColRatio), new BigNumber(totalLoanAmount), new BigNumber(totalCollateralValue))
         return (
           (
             <ThemedTouchableOpacity
@@ -53,6 +55,7 @@ export const BottomSheetVaultList = ({
                   onVaultPress(item)
                 }
               }}
+              testID={`select_vault_${index}`}
               style={tailwind('px-4 py-3.5 flex flex-row items-center justify-between')}
             >
               <View style={tailwind('flex flex-row w-6/12 flex-1 mr-12')}>
@@ -64,7 +67,7 @@ export const BottomSheetVaultList = ({
                   >
                     {item.vaultId}
                   </ThemedText>
-                  <VaultStatusTag status={vaultState.status} vaultStats={vaultState.vaultStats} />
+                  <VaultStatusTag status={vaultState.status} />
                 </View>
               </View>
               <View style={tailwind('flex items-end')}>

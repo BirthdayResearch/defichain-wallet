@@ -12,14 +12,12 @@ import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { fetchTokens, useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
@@ -29,16 +27,13 @@ import { Announcements } from '@screens/AppNavigator/screens/Balances/components
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
 import { RefreshControl } from 'react-native'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
-import { fetchAuctions } from '@store/auctions'
 import { RootState } from '@store'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
-  const logger = useLogger()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -47,8 +42,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     isBalancesDisplayed,
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
+  const blockCount = useSelector((state: RootState) => state.block.count)
 
-  const blockCount = useSelector((state: RootState) => state.block?.count)
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
 
@@ -56,20 +51,20 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets])
 
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    await fetchTokens(client, address, dispatch, logger)
+    dispatch(fetchTokens({ client, address }))
     setRefreshing(false)
   }, [address, client, dispatch])
 
-  const tokens = useTokensAPI()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const dstTokens = tokens.filter(token =>
     token.symbol !== 'DFI'
   )
-
-  useEffect(() => {
-    dispatch(fetchAuctions({ client }))
-  }, [blockCount])
 
   return (
     <ThemedScrollView

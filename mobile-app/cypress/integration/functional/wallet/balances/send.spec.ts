@@ -311,7 +311,7 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('conversion_info_text').should('exist')
       cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
       cy.getByTestID('text_amount_to_convert_label').should('exist')
-      cy.getByTestID('text_amount_to_convert_label').should('contain', 'Amount to be converted')
+      cy.getByTestID('text_amount_to_convert_label').should('contain', 'UTXO to be converted')
       cy.getByTestID('text_amount_to_convert').should('contain', '2.10000000')
       cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
       cy.getByTestID('send_submit_button').click()
@@ -350,6 +350,7 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
     cy.getByTestID('select_dBTC_value').should('have.text', '10.00000000')
     cy.getByTestID('select_dETH_value').should('have.text', '10.00000000')
+    cy.wait(3000) // timeout to allow max. one block-cycle of re-render
     cy.getByTestID('select_DFI').click()
     cy.getByTestID('selected_token').should('have.text', 'DFI')
     cy.getByTestID('max_value').contains('DFI')
@@ -357,6 +358,7 @@ context('Wallet - Send - Switch token', function () {
 
   it('should be able to switch token', function () {
     cy.getByTestID('select_token_input').click()
+    cy.wait(3000) // timeout to allow max. one block-cycle of re-render
     cy.getByTestID('select_dBTC').click()
     cy.getByTestID('selected_token').should('have.text', 'dBTC')
     cy.getByTestID('max_value').contains('dBTC')

@@ -72,6 +72,7 @@ context('Mainnet - Wallet', () => {
   context('Settings - Change Passcode', () => {
     it('should be able to change passcode and verify', function () {
       cy.changePasscode()
+      cy.getByTestID('header_settings').click()
       cy.getByTestID('view_recovery_words').click().wait(3000)
       cy.getByTestID('pin_authorize').type('696969').wait(3000)
     })

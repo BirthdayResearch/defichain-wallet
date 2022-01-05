@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BigNumber from 'bignumber.js'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -55,9 +55,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           item,
           index
         }: { item: LoanToken, index: number }): JSX.Element => {
-          // TODO: Update to one element, just add the condition on style
-          if (index !== props.loans.length - 1) {
-            return (
+          return (
+            <View style={{ flexBasis: '50%' }}>
               <LoanCard
                 displaySymbol={item.token.displaySymbol}
                 interestRate={item.interest}
@@ -75,29 +74,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
                 }}
                 testID={`loan_card_${index}`}
               />
-            )
-          } else {
-            return (
-              <View style={{ flexBasis: '50%' }}>
-                <LoanCard
-                  displaySymbol={item.token.displaySymbol}
-                  interestRate={item.interest}
-                  price={item.activePrice}
-                  loanTokenId={item.tokenId}
-                  onPress={() => {
-                    navigation.navigate({
-                      name: 'BorrowLoanTokenScreen',
-                      params: {
-                        loanToken: item
-                      },
-                      merge: true
-                    })
-                  }}
-                  testID={`loan_card_${index}`}
-                />
-              </View>
-            )
-          }
+            </View>
+          )
         }}
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
@@ -117,7 +95,7 @@ function LoanCard ({
   const currentPrice = price?.active?.amount ?? 0
   return (
     <ThemedTouchableOpacity
-      testID={testID}
+      testID={`loan_card_${displaySymbol}`}
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('p-4 mx-2 mb-4 rounded flex-1 border')}

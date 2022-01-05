@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'

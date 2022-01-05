@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { PasscodeFaq } from './PasscodeFaq'
 
 jest.mock('@shared-contexts/ThemeProvider')

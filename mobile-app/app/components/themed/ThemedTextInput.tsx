@@ -1,5 +1,6 @@
 import * as Localization from 'expo-localization'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
+import * as React from 'react'
 import { KeyboardTypeOptions, Platform, TextInput, TextInputProps } from 'react-native'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'

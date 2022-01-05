@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { EmptyVault } from './EmptyVault'
 
 jest.mock('@shared-contexts/ThemeProvider')

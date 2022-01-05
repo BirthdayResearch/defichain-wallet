@@ -1,6 +1,5 @@
 import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
 import { getAppLanguages, translate } from '@translations'
-import * as React from 'react'
 import { View } from 'react-native'
 import { RowLanguageItem } from '../components/RowLanguageItem'
 

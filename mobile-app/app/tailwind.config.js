@@ -40,7 +40,7 @@ module.exports = {
           200: '#FF9999',
           300: '#FF6666',
           500: '#FF0000',
-          600: '#D10000'
+          600: '#E60000'
         },
         warning: {
           50: '#FFFAF4',
@@ -101,7 +101,7 @@ module.exports = {
           200: '#992923',
           300: '#FFB5B0',
           500: '#FF453A',
-          600: '#E63E34',
+          600: '#FF7D75',
           700: '#BF342C'
         },
         darkwarning: {
@@ -141,6 +141,9 @@ module.exports = {
       },
       zIndex: {
         '-1': '-1'
+      },
+      fontSize: {
+        '2xs': 10
       }
     }
   }

@@ -1,5 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'

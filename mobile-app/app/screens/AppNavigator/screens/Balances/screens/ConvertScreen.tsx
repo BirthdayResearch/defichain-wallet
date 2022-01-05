@@ -4,17 +4,15 @@ import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useTokensAPI } from '@hooks/wallet/TokensAPI'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -25,6 +23,8 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { InfoTextLink } from '@components/InfoTextLink'
+import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -36,8 +36,12 @@ interface ConversionIO extends AddressToken {
 export function ConvertScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
+  const dispatch = useDispatch()
+  const { address } = useWalletContext()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const blockCount = useSelector((state: RootState) => state.block.count)
+
   // global state
-  const tokens = useTokensAPI()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -47,6 +51,10 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
+
+  useEffect(() => {
+    dispatch(fetchTokens({ client, address }))
+  }, [address, blockCount])
 
   useEffect(() => {
     client.fee.estimate()
