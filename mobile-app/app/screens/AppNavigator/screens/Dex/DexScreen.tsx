@@ -31,8 +31,8 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 
 enum TabKey {
-  YourPoolPair = 'YOUR_POOL_PAIRS',
-  AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
+  YourPoolPair,
+  AvailablePoolPair
 }
 
 export function DexScreen (): JSX.Element {
@@ -41,7 +41,7 @@ export function DexScreen (): JSX.Element {
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
+  const [activeTab, setActiveTab] = useState<number>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))

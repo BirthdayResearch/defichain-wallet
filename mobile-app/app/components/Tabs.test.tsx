@@ -8,56 +8,56 @@ describe('Tabs component', () => {
   it('should match snapshot with 2 tabs', async () => {
     const tabsList = [
       {
-        id: 'BROWSE_LOANS',
+        id: 0,
         label: 'Browse loan tokens',
         disabled: false,
         handleOnPress: jest.fn
       },
       {
-        id: 'YOUR_VAULTS',
+        id: 1,
         label: 'Your vaults',
         disabled: true,
         handleOnPress: jest.fn
       }
     ]
-    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' testID='loans_tabs' />)
+    const rendered = render(<Tabs tabSections={tabsList} activeTabKey={0} testID='loans_tabs' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
   it('should match snapshot with 5 tabs', async () => {
     const tabsList = [
       {
-        id: 'BROWSE_LOANS',
+        id: 0,
         label: 'Browse loan tokens',
         disabled: false,
         handleOnPress: jest.fn
       },
       {
-        id: 'YOUR_VAULTS',
+        id: 1,
         label: 'Your vaults',
         disabled: false,
         handleOnPress: jest.fn
       },
       {
-        id: 'COLLATERAL',
+        id: 2,
         label: 'Collateral',
         disabled: true,
         handleOnPress: jest.fn
       },
       {
-        id: 'AUCTION',
+        id: 3,
         label: 'Auction',
         disabled: false,
         handleOnPress: jest.fn
       },
       {
-        id: 'AUCTION2',
+        id: 4,
         label: 'Auction',
         disabled: false,
         handleOnPress: jest.fn
       }
     ]
-    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' testID='loans_tabs' />)
+    const rendered = render(<Tabs tabSections={tabsList} activeTabKey={0} testID='loans_tabs' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

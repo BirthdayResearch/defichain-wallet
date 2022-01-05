@@ -10,11 +10,11 @@ interface TabsProps {
   testID: string
 }
 
-interface TabOption {
-  id: string
+export interface TabOption {
+  id: number
   label: string
   disabled: boolean
-  handleOnPress: (id: string) => void
+  handleOnPress: (id: number) => void
 }
 
 const Tabs = memo((props: TabsProps): JSX.Element => {

@@ -33,8 +33,9 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
 enum TabKey {
-  Collaterals = 'COLLATERALS',
-  AuctionDetails = 'AUCTION_DETAILS'
+  BidHistory,
+  Collaterals,
+  AuctionDetails
 }
 
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
@@ -44,7 +45,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
-  const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
+  const [activeTab, setActiveTab] = useState<number>(TabKey.Collaterals)
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
@@ -94,11 +95,16 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     })
   }
 
-  const onPress = (tabId: string): void => {
+  const onPress = (tabId: number): void => {
     setActiveTab(tabId)
   }
 
   const tabsList = [{
+    id: TabKey.Collaterals,
+    label: 'Collateral for auction',
+    disabled: false,
+    handleOnPress: onPress
+  }, {
     id: TabKey.Collaterals,
     label: 'Collateral for auction',
     disabled: false,
