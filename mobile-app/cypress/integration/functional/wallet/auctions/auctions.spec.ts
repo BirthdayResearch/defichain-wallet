@@ -41,7 +41,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
     cy.closeOceanInterface()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    for (let x = 0; x < 80; x++) {
+    for (let x = 0; x < 90; x++) {
       cy.getByTestID('playground_generate_blocks').click()
       cy.wait(3000)
     }
