@@ -729,7 +729,9 @@
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
     "Collateral for auction": "Zu ersteigern",
-    "Auction details": "Auktionsdetails"
+    "Vault details": "Vault-details",
+    "Bid history": "Gebotsverlauf",
+    "Rewards": "Belohnungen"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -797,6 +799,10 @@
     "Lost": "Verloren",
     "Highest bid": "Höchstes Gebot",
     "Auction ended": "Auktion beendet"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "Bieter-ID",
+    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",

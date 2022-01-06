@@ -733,7 +733,9 @@
     "Manage bids": "管理竞投出价",
     "Loans": "贷款",
     "Collateral for auction": "待拍卖的抵押品",
-    "Auction details": "拍卖细节"
+    "Vault details": "金库明细",
+    "Bid history": "竞标历史",
+    "Rewards": "奖励"
   },
   "components/LoanCard": {
     "Active Price": "目前活跃价格",
@@ -801,6 +803,10 @@
     "Lost": "竞投失败",
     "Highest bid": "最高的竞投价格",
     "Auction ended": "拍卖完结"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "竞标者ID",
+    "BID #{{bidIndex}}": "出价 #{{bidIndex}}"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍卖即将完结于",

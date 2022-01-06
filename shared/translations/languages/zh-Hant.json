@@ -734,7 +734,9 @@
     "Manage bids": "管理競投出價",
     "Loans": "貸款",
     "Collateral for auction": "待拍賣的抵押品",
-    "Auction details": "拍賣細節"
+    "Vault details": "金庫明細",
+    "Bid history": "競標歷史",
+    "Rewards": "獎勵"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -804,6 +806,10 @@
     "Lost": "競投失敗",
     "Highest bid": "最高的競投價格",
     "Auction ended": "拍賣完結"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "競標者ID",
+    "BID #{{bidIndex}}": "出價 #{{bidIndex}}"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",

@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { ActiveUsdValue } from '../../Loans/VaultDetail/components/ActiveUsdValue'
-import { useAuctionTime } from '../hooks/AuctionTimeLeft'
+import { useBidTimeAgo } from '../hooks/BidTimeAgo'
 
 interface BidHistoryProps {
   vaultId: string
@@ -49,6 +49,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
             bidderAddress={item.from}
             loanActivePrice={props.loanActivePrice}
             isLatestBid={index === 0}
+            bidBlockTime={item.block.time}
           />
         )
       }}
@@ -68,11 +69,10 @@ interface BidHistoryItemProps {
   bidderAddress: string
   loanActivePrice: string
   isLatestBid: boolean
+  bidBlockTime: number
 }
 function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const { timeRemaining } = useAuctionTime(props.vaultLiquidationHeight, blockCount ?? 0)
-
+  const bidTime = useBidTimeAgo(props.bidBlockTime)
   return (
     <ThemedView
       light={tailwind({ 'bg-white border-gray-100': props.isLatestBid, 'bg-gray-100 border-gray-100': !props.isLatestBid })}
@@ -90,7 +90,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
             light={tailwind('text-white')}
             dark={tailwind('text-black')}
           >
-            {translate('components/BidHistory', `BID #${props.bidIndex}`)}
+            {translate('components/BidHistory', 'BID #{{bidIndex}}', { bidIndex: props.bidIndex })}
           </ThemedText>
         </ThemedView>
         <ThemedText
@@ -98,7 +98,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs')}
         >
-          {translate('components/BidHistory', '{{timeRemaining}} ago', { timeRemaining })}
+          {bidTime}
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row justify-between items-center')}>
