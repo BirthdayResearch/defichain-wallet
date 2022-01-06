@@ -4,22 +4,28 @@ import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loa
 context('Wallet - Auctions', () => {
   const walletTheme = { isDark: false }
   before(function () {
+    cy.intercept('**/settings/flags', {
+      body: [{
+        id: 'loan',
+        name: 'Loan',
+        stage: 'public',
+        version: '>=0.0.0',
+        description: 'Browse loan tokens provided by DeFiChain',
+        networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+        platforms: ['ios', 'android', 'web']
+      }, {
+        id: 'auction',
+        name: 'Auction',
+        stage: 'public',
+        version: '>=0.0.0',
+        description: 'Browse auctions provided by DeFiChain',
+        networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+        platforms: ['ios', 'android', 'web']
+      }]
+    })
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['CD10']).wait(6000)
     cy.setWalletTheme(walletTheme)
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'auction',
-          name: 'Auction',
-          stage: 'beta',
-          version: '>=0.0.0',
-          description: 'Browse auctions provided by DeFiChain',
-          networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
