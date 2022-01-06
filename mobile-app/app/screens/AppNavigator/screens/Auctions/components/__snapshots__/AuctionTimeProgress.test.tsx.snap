@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auction time progress should match snapshot 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 8,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Auction time remaining
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "flexWrap": "wrap",
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+              ],
+              Object {
+                "color": "rgba(23, 23, 23, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        ~50m left
+         (
+        100 blks
+        )
+      </Text>
+    </View>
+  </View>,
+  <View
+    animated={true}
+    animationConfig={
+      Object {
+        "bounciness": 0,
+      }
+    }
+    animationType="spring"
+    indeterminate={false}
+    indeterminateAnimationDuration={1000}
+    onLayout={[Function]}
+    progress={2.7777777777777777}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "gray-100",
+          "borderColor": "rgba(212, 212, 212, 1)",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "overflow": "hidden",
+          "width": null,
+        },
+        undefined,
+      ]
+    }
+    useNativeDriver={false}
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(90, 169, 230, 1)",
+          "height": 8,
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "scaleX": 1,
+            },
+          ],
+        }
+      }
+    />
+  </View>,
+]
+`;
