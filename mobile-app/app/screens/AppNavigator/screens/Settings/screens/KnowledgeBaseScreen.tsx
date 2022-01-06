@@ -28,7 +28,13 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       label: 'UTXO vs Token',
       testID: 'utxo_and_token_faq',
       onPress: () => navigation.navigate('TokensVsUtxo')
+    },
+    {
+      label: 'DEX',
+      testID: 'dex_faq',
+      onPress: () => navigation.navigate('DexFaq')
     }
+
   ]
 
   if (isFeatureAvailable('loan')) {

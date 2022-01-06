@@ -669,6 +669,15 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的连续显示24个英文字组是指储存在钱包的private key，它由2048个单字所产生的，支持BIP-39 标准的钱包。就算整个硬体钱包被盗或入侵，仍然可以确保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
+  "components/DexFaq" : {
+    "Transaction fees": "Transaction fees",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Each transaction will be subject to a small amount of fees. The amount may vary depending on the networks congestion.",
+    "What is slippage tolerance?": "What is slippage tolerance?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block. \n\nThis results in **slippage**, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation. \n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction. \n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Due to the dynamic nature of the blockchain, prices on the DEX change every block. \n\nThis results in **slippage**, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation. \n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction. \n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.",
+    "Decentralized Exchange": "Decentralized Exchange",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
   "components/PasscodeFaq": {
     "Passcode": "密码",
     "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位数字密码是由您设置，这密码将用于授权所有交易。请保管好和负责您的密码私密性和安全性。",

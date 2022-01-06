@@ -15,6 +15,7 @@ import { PasscodeFaq } from '@screens/WalletNavigator/screens/CreateWallet/Passc
 import { KnowledgeBaseScreen } from './screens/KnowledgeBaseScreen'
 import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaq'
 import { TokensVsUtxoScreen } from '../Balances/screens/TokensVsUtxoScreen'
+import { DexFaq } from '@screens/WalletNavigator/screens/CreateWallet/DexFaq'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
@@ -227,6 +228,20 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
+        component={DexFaq}
+        name='DexFaq'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/WalletNavigator', 'DEX FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
         component={TokensVsUtxoScreen}
         name='TokensVsUtxo'
         options={{
@@ -239,6 +254,7 @@ export function SettingsNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       />
+
     </SettingsStack.Navigator>
   )
 }
