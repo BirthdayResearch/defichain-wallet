@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header title should match snapshot for NetworkSelect 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "column",
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontFamily": "SemiBoldFont",
+            "fontWeight": "600",
+            "lineHeight": 20,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Foo
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text />
+    <View
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "SemiBoldFont",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "lineHeight": 16,
+              },
+              Object {
+                "color": "rgba(82, 82, 82, 1)",
+              },
+            ],
+          ]
+        }
+        testID="header_active_network"
+      >
+        Playground
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Header title should match snapshot for Status 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "column",
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontFamily": "SemiBoldFont",
+            "fontWeight": "600",
+            "lineHeight": 20,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Foo
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(16, 185, 129, 1)",
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
+          "height": 8,
+          "marginRight": 6,
+          "width": 8,
+        }
+      }
+      testID="header_status_indicator"
+    />
+    <View
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "SemiBoldFont",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "lineHeight": 16,
+              },
+              Object {
+                "color": "rgba(82, 82, 82, 1)",
+              },
+            ],
+          ]
+        }
+        testID="header_active_network"
+      >
+        Playground
+      </Text>
+    </View>
+  </View>
+</View>
+`;
