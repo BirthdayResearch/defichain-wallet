@@ -29,22 +29,27 @@ context('Wallet - Auctions', () => {
     cy.addCollateral('0.00000006', 'dCD10')
   })
 
-  it('should borrow loan token', function () {
+  it('should liquidate vault', function () {
     cy.go('back')
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTS25').click()
-    cy.getByTestID('form_input_borrow').clear().type('3.1965').blur()
+    cy.getByTestID('form_input_borrow').clear().type('3.194').blur()
     cy.wait(3000)
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
     cy.closeOceanInterface()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    for (let x = 0; x < 90; x++) {
+    for (let x = 0; x < 110; x++) {
       cy.getByTestID('playground_generate_blocks').click()
       cy.wait(3000)
     }
     cy.checkVaultTag('IN LIQUIDATION', VaultStatus.Liquidated, 'vault_card_0_status', walletTheme.isDark)
+  })
+
+  it('should show liquidated vault in auctions', function () {
+    cy.getByTestID('bottom_tab_auctions').click()
+    cy.getByTestID('batch_0_dTS25').should('exist')
   })
 })
