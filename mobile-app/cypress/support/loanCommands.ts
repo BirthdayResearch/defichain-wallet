@@ -150,7 +150,7 @@ Cypress.Commands.add('checkVaultTag', (label: string, status: VaultStatus, testI
     symbol: vaultSymbol,
     color: ''
   }
-  const nonHealthyState = status === VaultStatus.Empty || status === VaultStatus.Ready || VaultStatus.Liquidated
+  const nonHealthyState = [VaultStatus.Empty, VaultStatus.Ready, VaultStatus.Liquidated].includes(status)
   if (status === VaultStatus.AtRisk) {
     vaultItem.color = isDark ? 'rgb(255, 159, 10)' : 'rgb(255, 150, 41)'
   } else if (status === VaultStatus.Healthy) {
