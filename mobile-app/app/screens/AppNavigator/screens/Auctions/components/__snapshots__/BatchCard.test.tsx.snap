@@ -163,6 +163,7 @@ exports[`Batch Card should match snapshot 1`] = `
                 ],
               ]
             }
+            testID="batch_0_DUSD"
           >
             DUSD
           </Text>
