@@ -41,7 +41,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTS25').click()
-    cy.getByTestID('form_input_borrow').clear().type('3.19').blur()
+    cy.getByTestID('form_input_borrow').clear().type('3.186').blur()
     cy.wait(3000)
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
