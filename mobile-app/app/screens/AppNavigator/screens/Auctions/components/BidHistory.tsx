@@ -44,7 +44,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
         return (
           <BidHistoryItem
             vaultLiquidationHeight={props.liquidationHeight}
-            bidIndex={item.index}
+            bidIndex={bidHistory.length - index}
             bidAmount={item.amount}
             loanDisplaySymbol={props.loanDisplaySymbol}
             bidderAddress={item.from}
