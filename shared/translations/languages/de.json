@@ -802,7 +802,8 @@
   },
   "components/BidHistory": {
     "Bidder ID": "Bieter-ID",
-    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}"
+    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}",
+    "Waiting for first bid": "Warten auf das erste Gebot"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",
