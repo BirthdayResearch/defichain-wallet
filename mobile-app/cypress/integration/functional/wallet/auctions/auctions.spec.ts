@@ -50,7 +50,7 @@ context('Wallet - Auctions', () => {
     const generatedBlocks = Array.from(Array(110), (v, i) => i)
     cy.wrap(generatedBlocks).each(() => {
       cy.getByTestID('playground_generate_blocks').click()
-      cy.wait(3000)
+      cy.wait(5000)
     })
     cy.checkVaultTag('IN LIQUIDATION', VaultStatus.Liquidated, 'vault_card_0_status', walletTheme.isDark)
   })
