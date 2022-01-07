@@ -46,7 +46,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
-  const [activeTab, setActiveTab] = useState<number>(TabKey.Collaterals)
+  const [activeTab, setActiveTab] = useState<number>(TabKey.BidHistory)
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
@@ -198,6 +198,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
             batchIndex={batch.index}
             loanDisplaySymbol={batch.loan.displaySymbol}
             loanActivePrice={batch.loan.activePrice?.active?.amount ?? '0'}
+            minNextBidInToken={minNextBidInToken}
           />
         )}
         {activeTab === TabKey.Collaterals && (

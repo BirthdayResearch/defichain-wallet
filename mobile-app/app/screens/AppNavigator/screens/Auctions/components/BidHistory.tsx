@@ -1,5 +1,5 @@
 import { View } from '@components'
-import { ThemedFlatList, ThemedText, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
@@ -19,6 +19,7 @@ interface BidHistoryProps {
   batchIndex: number
   loanDisplaySymbol: string
   loanActivePrice: string
+  minNextBidInToken: string
 }
 
 export function BidHistory (props: BidHistoryProps): JSX.Element {
@@ -53,6 +54,12 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
           />
         )
       }}
+      ListEmptyComponent={() => (
+        <EmptyBidHistory
+          minNextBid={props.minNextBidInToken}
+          displaySymbol={props.loanDisplaySymbol}
+        />
+      )}
       keyExtractor={(item: VaultAuctionBatchHistory) => item.id}
       contentContainerStyle={tailwind('p-4')}
       light={tailwind('bg-gray-50')}
@@ -71,6 +78,7 @@ interface BidHistoryItemProps {
   isLatestBid: boolean
   bidBlockTime: number
 }
+
 function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
   const bidTime = useBidTimeAgo(props.bidBlockTime)
   return (
@@ -141,5 +149,45 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         </ThemedText>
       </View>
     </ThemedView>
+  )
+}
+
+function EmptyBidHistory (props: { minNextBid: string, displaySymbol: string }): JSX.Element {
+  return (
+    <View style={tailwind('mt-24 flex items-center')}>
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='circle-off-outline'
+        size={30}
+        light={tailwind('text-gray-900')}
+        dark={tailwind('text-gray-50')}
+        style={tailwind('mb-2')}
+      />
+      <ThemedText style={tailwind('text-lg font-semibold')}>
+        {translate('components/BidHistory', 'Waiting for first bid')}
+      </ThemedText>
+      <NumberFormat
+        value={props.minNextBid}
+        suffix={` ${props.displaySymbol}`}
+        displayType='text'
+        thousandSeparator
+        renderText={(value) =>
+          <ThemedText
+            light={tailwind('text-gray-700')}
+            dark={tailwind('text-gray-200')}
+            style={tailwind('text-sm text-center')}
+          >
+            {translate('components/BidHistory', 'Minimum amount to bid is')}
+            <ThemedText
+              light={tailwind('text-gray-700')}
+              dark={tailwind('text-gray-200')}
+              style={tailwind('text-sm font-semibold')}
+              testID='empty_bid_min_bid_amount'
+            >
+              {` ${value}`}
+            </ThemedText>
+          </ThemedText>}
+      />
+    </View>
   )
 }
