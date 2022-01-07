@@ -47,10 +47,9 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
     cy.closeOceanInterface()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    const generatedBlocks = Array.from(Array(110), (v, i) => i)
-    cy.wrap(generatedBlocks).each(() => {
+    cy.wrap(Array.from(Array(110), (v, i) => i)).each(() => {
       cy.getByTestID('playground_generate_blocks').click()
-      cy.wait(5000)
+      cy.wait(3000)
     })
     cy.checkVaultTag('IN LIQUIDATION', VaultStatus.Liquidated, 'vault_card_0_status', walletTheme.isDark)
   })
