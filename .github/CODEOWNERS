@@ -4,15 +4,15 @@
 /.github/                                       @fuxingloh @thedoublejay
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
+/mobile-app/app/                                @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
 /mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
 
-/shared/assets                                  @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
-/shared/translations                            @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
-/mobile-app/cypress                             @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
+/shared/assets                                  @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
+/shared/translations                            @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
+/mobile-app/cypress                             @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
 
-/website                                        @fuxingloh @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
-/website/src/pages/api                          @fuxingloh @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
+/website                                        @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
+/website/src/pages/api                          @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
@@ -20,16 +20,17 @@
 /app.json                                       @fuxingloh @thedoublejay
 /mobile-app/App.tsx                             @fuxingloh @thedoublejay
 /mobile-app/cypress.json                        @fuxingloh @thedoublejay
-/docker-compose.yml                             @fuxingloh @thedoublejay
 /eas.json                                       @fuxingloh @thedoublejay
 
 netlify.toml                                    @fuxingloh @thedoublejay
 babel.config.js                                 @fuxingloh @thedoublejay
 jest.config.js                                  @fuxingloh @thedoublejay
 metro.config.js                                 @fuxingloh @thedoublejay
-package.json                                    @fuxingloh @thedoublejay
-package-lock.json                               @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
+
+package.json                                    @thedoublejay
+package-lock.json                               @thedoublejay
+/docker-compose.yml                             @thedoublejay
 
 BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
