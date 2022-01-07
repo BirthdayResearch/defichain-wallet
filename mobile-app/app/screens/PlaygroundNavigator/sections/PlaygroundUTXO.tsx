@@ -5,6 +5,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { PlaygroundConnectionStatus } from '@screens/PlaygroundNavigator/components/PlaygroundStatus'
 
 export function PlaygroundUTXO (): JSX.Element {
   const { wallet } = useWalletContext()
@@ -12,13 +13,13 @@ export function PlaygroundUTXO (): JSX.Element {
     api,
     rpc
   } = usePlaygroundContext()
-  const [status, setStatus] = useState<string>('loading')
+  const [status, setStatus] = useState<PlaygroundConnectionStatus>(PlaygroundConnectionStatus.loading)
 
   useEffect(() => {
     api.wallet.balances().then(() => {
-      setStatus('online')
+      setStatus(PlaygroundConnectionStatus.online)
     }).catch(() => {
-      setStatus('error')
+      setStatus(PlaygroundConnectionStatus.error)
     })
   }, [wallet])
 
@@ -32,14 +33,14 @@ export function PlaygroundUTXO (): JSX.Element {
     <View>
       <PlaygroundTitle
         status={{
-          online: status === 'online',
-          loading: status === 'loading',
-          error: status === 'error'
+          online: status === PlaygroundConnectionStatus.online,
+          loading: status === PlaygroundConnectionStatus.loading,
+          error: status === PlaygroundConnectionStatus.error
         }}
         title='UTXO'
       />
 
-      {status === 'online'
+      {status === PlaygroundConnectionStatus.online
         ? (
           <>
             <PlaygroundAction
