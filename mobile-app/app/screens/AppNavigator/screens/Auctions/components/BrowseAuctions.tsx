@@ -2,10 +2,7 @@ import { useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
-import { InfoText } from '@components/InfoText'
-import { translate } from '@translations'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -148,7 +145,6 @@ function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
       minNextBidInToken: string,
       vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
   }): JSX.Element {
-      const { isBetaFeature } = useFeatureFlagContext()
   return (
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
@@ -174,18 +170,6 @@ function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
           </View>
         )
       }}
-      ListHeaderComponent={
-        <>
-          {isBetaFeature('auction') && (
-            <View style={tailwind('pb-4')}>
-              <InfoText
-                testID='beta_warning_info_text'
-                text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-              />
-            </View>
-          )}
-        </>
-      }
     />
   )
 }

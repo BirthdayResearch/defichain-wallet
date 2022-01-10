@@ -103,15 +103,9 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
       testID='auctions_screen'
       style={tailwind('flex-1')}
     >
-      {/* TODO  Unable tabs when manage bids screen is ready */}
-      {false && (
-        <>
-          <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
-          {activeTab === TabKey.BrowseAuctions && (<BrowseAuctions searchString={searchString} />)}
-          {activeTab === TabKey.ManageBids && <ManageBids />}
-        </>
-      )}
-      <BrowseAuctions searchString={searchString} />
+      <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
+      {activeTab === TabKey.BrowseAuctions && (<BrowseAuctions searchString={searchString} />)}
+      {activeTab === TabKey.ManageBids && <ManageBids />}
     </ThemedView>
   )
 }

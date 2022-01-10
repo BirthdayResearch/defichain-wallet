@@ -23,7 +23,7 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
 
   return (
     <>
-      <View style={tailwind('flex-row w-full justify-between mb-2')}>
+      <View style={tailwind('flex-row w-full justify-between mb-1')}>
         <View style={tailwind('w-6/12')}>
           <ThemedText
             light={tailwind('text-gray-500')}
