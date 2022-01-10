@@ -40,8 +40,8 @@ export function PlaygroundUTXO (): JSX.Element {
         title='UTXO'
       />
 
-      {status === PlaygroundConnectionStatus.online
-        ? (
+      {status === PlaygroundConnectionStatus.online &&
+        (
           <>
             <PlaygroundAction
               onPress={async () => {
@@ -52,8 +52,7 @@ export function PlaygroundUTXO (): JSX.Element {
               title='Top up 10 DFI UTXO to Wallet'
             />
           </>
-        )
-        : null}
+        )}
     </View>
   )
 }

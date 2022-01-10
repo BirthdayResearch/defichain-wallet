@@ -45,13 +45,16 @@ export function PlaygroundOperations (): JSX.Element {
         title='Operations'
       />
 
-      {status === PlaygroundConnectionStatus.online
-        ? (
+      {status === PlaygroundConnectionStatus.online &&
+        (
           <>
             <PlaygroundAction
               onPress={async () => {
                 const address = await getActiveAddress()
-                dispatch(fetchTokens({ client, address }))
+                dispatch(fetchTokens({
+                  client,
+                  address
+                }))
               }}
               testID='playground_wallet_fetch_balances'
               title='Fetch Balances'
@@ -65,8 +68,7 @@ export function PlaygroundOperations (): JSX.Element {
               title='Generate blocks'
             />
           </>
-        )
-        : null}
+        )}
     </View>
   )
 }
