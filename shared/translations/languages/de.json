@@ -13,7 +13,8 @@
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
-    "DEX FAQ": "DEX FAQ"
+    "DEX FAQ": "DEX FAQ",
+    "Liquidity Mining FAQ":"Liquiditäts-Mining FAQ" 
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -219,7 +220,8 @@
     "Passcode": "Passwort",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
-    "Auctions": "Auktionen"
+    "Auctions": "Auktionen",
+    "Liquidity Mining":"Liquiditäts-Mining" 
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -687,7 +689,8 @@
     "Can I send liquidity pool tokens to an exchange or another entity?":"Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
     "How do I receive tokens on my DFI wallet?":"Wie erhalte ich Token auf meiner DFI-Wallet?",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.":"Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen. \n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst."
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.":"Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen. \n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/PasscodeFaq": {
     "Passcode": "Passwort",
