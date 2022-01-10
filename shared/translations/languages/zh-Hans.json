@@ -12,7 +12,8 @@
     "Refresh": "刷新",
     "Refresh recovery words": "刷新恢复字组",
     "You are about to generate a new set of recovery words. Continue?": "您正要产生新的恢复字组，确认要继续？",
-    "Passcode FAQ": "密码常见问题"
+    "Passcode FAQ": "密码常见问题",
+    "DEX FAQ": "DEX"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "ＤＥＸ",
@@ -670,13 +671,13 @@
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/DexFaq" : {
-    "Transaction fees": "Transaction fees",
-    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Each transaction will be subject to a small amount of fees. The amount may vary depending on the networks congestion.",
-    "What is slippage tolerance?": "What is slippage tolerance?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block. \n\nThis results in **slippage**, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation. \n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction. \n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Due to the dynamic nature of the blockchain, prices on the DEX change every block. \n\nThis results in **slippage**, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation. \n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction. \n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.",
-    "Decentralized Exchange": "Decentralized Exchange",
-    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.",
-    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+    "Decentralized Exchange": "去中心化交易所",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能让使用者运用点对点的方式兑换加密货币。去中心化交易所能让使用者在不透过第三方中心化交易所之下，直接兑换货币。",
+    "Transaction fees": "交易费用",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每笔交易需要少量的交易费用。交易费用会根据网络的流量情况产生变化。",
+    "What is slippage tolerance?": "什么是交易滑价?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block. \n\nThis results in **slippage**, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation. \n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction. \n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。 \n\n这导致了 **滑价**，也就是确认交易前显示出的价格和最终交易价格之间的差异。 \n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。 \n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
+    "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/PasscodeFaq": {
     "Passcode": "密码",
