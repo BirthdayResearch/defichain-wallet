@@ -40,7 +40,7 @@ export function DexFaq (): JSX.Element {
       </ThemedText>
 
       <WalletAccordion
-        testID='recovery_words_faq_accordion'
+        testID='dex_faq_accordian'
         activeSections={[0]}
         title={translate('components/DexFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
