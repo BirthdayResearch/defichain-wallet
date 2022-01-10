@@ -79,7 +79,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
           },
         ]
       }
-      testID="recovery_words_faq_accordion"
+      testID="dex_faq_accordian"
     >
       <View>
         <Text

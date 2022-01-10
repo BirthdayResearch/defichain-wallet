@@ -13,7 +13,8 @@
     "Refresh recovery words": "刷新恢复字组",
     "You are about to generate a new set of recovery words. Continue?": "您正要产生新的恢复字组，确认要继续？",
     "Passcode FAQ": "密码常见问题",
-    "DEX FAQ": "DEX"
+    "DEX FAQ": "DEX",
+    "Liquidity Mining FAQ":"流动性挖矿问题"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "ＤＥＸ",
@@ -221,7 +222,8 @@
     "Passcode": "密码",
     "UTXO vs Token": "UTXO和代币区别",
     "Loans": "贷款",
-    "Auctions": "清算拍卖"
+    "Auctions": "清算拍卖",
+    "Liquidity Mining":"流动性挖矿"
   },
   "components/LoansFaq": {
     "Loans FAQ": "贷款常见问题",
@@ -678,6 +680,20 @@
     "What is slippage tolerance?": "什么是交易滑价?",
     "Due to the dynamic nature of the blockchain, prices on the DEX change every block. \n\nThis results in **slippage**, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation. \n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction. \n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。 \n\n这导致了 **滑价**，也就是确认交易前显示出的价格和最终交易价格之间的差异。 \n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。 \n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
+  },
+  "components/LiquidityMiningFaq" : {
+    "Liquidity Mining":"流动性挖矿",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity. \n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).":"流动性挖矿是DeFi机制技术，可让使用者透过提供流动资金而赚取比例化的区块奖励和交易费用回报，此比例以「流动性池股份」代表。\n\n流动性池中的资金主要是为去中心化交易所提供资金，当池中有资金时其他使用者可随时兑换池中的两个货币。",
+    "How do I supply liquidity?":"如何能开始提供流动资金?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair. \n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.":"当您想好您想参与的流动池配对后，请点入「新增流动资金」，并输入您想在池中增加的资金额度。\n\n当您对配对池的某一个货币输入金额，程序会自动化平衡另一边货币所需的资金。参与流动池配对必须要在两边以同等的金额比例同时输入。",
+    "How do I send tokens from my DFI wallet?":"Wie versende ich Token von meiner DFI-Wallet?",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain. \n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt. Ebenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse gesendet werden.",
+    "What are some exchanges and platforms I can send to?":"Welche Börsen und Plattformen gibt es, an die ich senden kann?",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more on [DeFiChain.com](https://defichain.com/dfi/)":"1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nMehr ansehen auf [DeFiChain.com](https://defichain.com/dfi/)",
+    "Can I send liquidity pool tokens to an exchange or another entity?":"Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
+    "How do I receive tokens on my DFI wallet?":"Wie erhalte ich Token auf meiner DFI-Wallet?",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.":"Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen. \n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst."
   },
   "components/PasscodeFaq": {
     "Passcode": "密码",

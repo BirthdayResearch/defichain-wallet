@@ -33,6 +33,11 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       label: 'DEX',
       testID: 'dex_faq',
       onPress: () => navigation.navigate('DexFaq')
+    },
+    {
+      label: 'Liquidity Mining',
+      testID: 'liquidity_mining_faq',
+      onPress: () => navigation.navigate('LiquidityMiningFaq')
     }
 
   ]
