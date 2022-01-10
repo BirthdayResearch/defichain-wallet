@@ -1,9 +1,6 @@
 import { tailwind } from '@tailwind'
 import { ThemedScrollView } from '@components/themed'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { View } from 'react-native'
-import { InfoText } from '@components/InfoText'
-import { translate } from '@translations'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useEffect } from 'react'
@@ -25,22 +22,12 @@ export function ManageBids (): JSX.Element {
     dispatch(fetchVaults({ address, client }))
   }, [blockCount])
 
-  const { isBetaFeature } = useFeatureFlagContext()
-
   if (auctions.length === 0) {
     return (<EmptyBidsScreen />)
   }
 
   return (
     <ThemedScrollView contentContainerStyle={tailwind('p-4')} testID='bid_cards'>
-      {isBetaFeature('auction') && (
-        <View style={tailwind('pb-4')}>
-          <InfoText
-            testID='beta_warning_info_text'
-            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-          />
-        </View>
-      )}
       {auctions.map((auction: LoanVaultLiquidated, index: number) => {
         return (
           <View key={auction.vaultId}>

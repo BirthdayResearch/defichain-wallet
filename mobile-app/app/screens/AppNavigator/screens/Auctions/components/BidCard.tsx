@@ -1,10 +1,8 @@
 
-import { ThemedIcon, ThemedText, ThemedView } from '../../../../../components/themed'
+import { ThemedText, ThemedView } from '../../../../../components/themed'
 import { tailwind } from '@tailwind'
-import { View } from '@components'
 import { translate } from '@translations'
 import { IconButton } from '@components/IconButton'
-import { TouchableOpacity } from 'react-native'
 import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -19,7 +17,7 @@ export interface BidCardProps {
 }
 
 export function BidCard (props: BidCardProps): JSX.Element {
-  const { batch, vaultId, liquidationHeight, testID } = props
+  const { batch, liquidationHeight, testID } = props
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
 
   return (
@@ -29,78 +27,51 @@ export function BidCard (props: BidCardProps): JSX.Element {
       style={tailwind('rounded mb-2 border p-4')}
       testID={testID}
     >
-      <View style={tailwind('flex-row w-full items-center justify-between mb-4')}>
-        <View style={tailwind('flex flex-row')}>
-          <NumberFormat
-            displayType='text'
-            suffix={` ${batch.loan.displaySymbol}`}
-            renderText={(value: string) => (
-              <ThemedText
-                light={tailwind('text-gray-900')}
-                dark={tailwind('text-gray-50')}
-                style={tailwind('font-semibold')}
-              >
-                {value}
-              </ThemedText>
-            )}
-            thousandSeparator
-            value={batch.loan.amount}
-          />
-        </View>
-      </View>
-
-      <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-        <View style={tailwind('flex w-1/2 flex-row')}>
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('text-xs')}
+      >
+        {translate('components/BidCard', 'Bid amount')}
+      </ThemedText>
+      <NumberFormat
+        displayType='text'
+        suffix={` ${batch.loan.displaySymbol}`}
+        renderText={(value: string) => (
           <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-xs')}
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-50')}
+            style={tailwind('font-semibold mb-3')}
           >
-            {translate('components/BidCard', 'Auction ID')}
+            {value}
           </ThemedText>
-        </View>
-        <View style={tailwind('flex w-1/2 flex-row')}>
-          <ThemedText
-            style={tailwind('flex-shrink mr-0.5 text-sm')}
-            numberOfLines={1}
-            ellipsizeMode='middle'
-          >
-            {vaultId}
-          </ThemedText>
-          <TouchableOpacity onPress={() => {}}>
-            <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
-              iconType='MaterialIcons'
-              light={tailwind('text-primary-500')}
-              name='open-in-new'
-              size={18}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+        )}
+        thousandSeparator
+        value={batch.loan.amount}
+      />
 
       <AuctionTimeProgress
         liquidationHeight={liquidationHeight}
         blockCount={blockCount}
         label='Auction ends in'
+        auctionTextStyle={tailwind('text-xs')}
       />
-
       <ThemedView
         light={tailwind('border-gray-200')}
         dark={tailwind('border-gray-700')}
         style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
       >
         <IconButton
-          iconLabel={translate('components/BidCard', 'BID HIGHER')}
+          iconLabel={translate('components/BidCard', 'BID AGAIN')}
           iconSize={16}
           style={tailwind('mr-2 mb-2')}
-          onPress={() => {}}
+          onPress={() => { }}
         />
         <IconButton
-          iconLabel={translate('components/BidCard', 'VIEW REWARDS')}
+          iconLabel={translate('components/BidCard', 'QUICK BID')}
           iconSize={16}
           style={tailwind('mr-2 mb-2')}
-          onPress={() => {}}
+          onPress={() => { }}
         />
       </ThemedView>
     </ThemedView>
