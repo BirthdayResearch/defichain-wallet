@@ -32,7 +32,7 @@ context('Wallet - Loans', () => {
     cy.intercept('**/loans/tokens?size=200').as('loans')
     cy.wait(['@loans']).then((intercept: any) => {
       const data: any[] = intercept.response.body.data
-      cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+      cy.getByTestID('loans_tabs_0').click()
       data.forEach((loan: LoanToken, i) => {
         // const price = loan.activePrice?.active?.amount ?? 0
         cy.getByTestID(`loan_card_${i}_display_symbol`).contains(loan.token.displaySymbol)
@@ -286,7 +286,7 @@ context('Wallet - Loans - Take Loans', () => {
   it('should borrow another loan token', function () {
     cy.go('back')
     cy.wait(2000)
-    cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+    cy.getByTestID('loans_tabs_0').click()
     cy.getByTestID('header_loans_search').click()
     cy.getByTestID('loans_search_input').type('dTS25').blur()
     cy.getByTestID('loan_card_dTS25').click()
@@ -300,7 +300,7 @@ context('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
     cy.getByTestID('txn_authorization_description').contains('Borrowing 3.00000000 dTS25')
     cy.closeOceanInterface()
-    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.getByTestID('loans_tabs_1').click()
     cy.checkVaultTag('ACTIVE', VaultStatus.NearLiquidation, 'vault_card_0_status', walletTheme.isDark)
     cy.getByTestID('vault_card_0_col_ratio').contains('158%')
     cy.getByTestID('vault_card_0_min_ratio').contains('150%')
