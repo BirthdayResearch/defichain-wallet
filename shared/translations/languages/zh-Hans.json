@@ -686,14 +686,14 @@
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity. \n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).":"流动性挖矿是DeFi机制技术，可让使用者透过提供流动资金而赚取比例化的区块奖励和交易费用回报，此比例以「流动性池股份」代表。\n\n流动性池中的资金主要是为去中心化交易所提供资金，当池中有资金时其他使用者可随时兑换池中的两个货币。",
     "How do I supply liquidity?":"如何能开始提供流动资金?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair. \n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.":"当您想好您想参与的流动池配对后，请点入「新增流动资金」，并输入您想在池中增加的资金额度。\n\n当您对配对池的某一个货币输入金额，程序会自动化平衡另一边货币所需的资金。参与流动池配对必须要在两边以同等的金额比例同时输入。",
-    "How do I send tokens from my DFI wallet?":"Wie versende ich Token von meiner DFI-Wallet?",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain. \n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt. Ebenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse gesendet werden.",
-    "What are some exchanges and platforms I can send to?":"Welche Börsen und Plattformen gibt es, an die ich senden kann?",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more on [DeFiChain.com](https://defichain.com/dfi/)":"1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nMehr ansehen auf [DeFiChain.com](https://defichain.com/dfi/)",
-    "Can I send liquidity pool tokens to an exchange or another entity?":"Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
-    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
-    "How do I receive tokens on my DFI wallet?":"Wie erhalte ich Token auf meiner DFI-Wallet?",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.":"Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen. \n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst."
+    "How do I send tokens from my DFI wallet?":"如何从我的DFI钱包发送代币？",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain. \n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "递飞链上的代币只能发送至DFI地址。这表示您不能直接发送至没有引入递飞链技术的交易所或第三方平台。同样地，递飞链流动性池代币只能发送到另一个DFI钱包地址。",
+    "What are some exchanges and platforms I can send to?":"目前有哪些平台可支持递飞链和生态代币？",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more on [DeFiChain.com](https://defichain.com/dfi/)":"1. Kucoin\n2. Bittrex\n3. 其他有DFI上线交易所\n4. Cake DeFi \n\n请参考更多关于[Zhs.DeFiChain.com](https://zhs.defichain.com/dfi)",
+    "Can I send liquidity pool tokens to an exchange or another entity?":"是否可以把流动性池中的代币直接发送到其他交易所或其他地址？",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"由于流动性池的代币是属于流动性池的代币系统，您只能发送池中的DFI到其他交易所。若您想要发送其他代币，请先使用流动池兑换成DFI，在发出至其他交易所使用。",
+    "How do I receive tokens on my DFI wallet?":"如何在我的DFI钱包中接收代币？",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.":"您可以前往接收页面找到您钱包的地址，只要使用这个地址（可转发分享或扫一扫QR码来接收DFI代币。\n\n请注意因为递飞链生态中的功能，所以此钱包只能接收递飞链的DFI或生态中的代币，而无法接收其他区块链的代币（如 BTC、ETH）。"
   },
   "components/PasscodeFaq": {
     "Passcode": "密码",
