@@ -14,7 +14,7 @@
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
     "DEX FAQ": "DEX FAQ",
-    "Liquidity Mining FAQ":"Liquiditäts-Mining FAQ" 
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ" 
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
