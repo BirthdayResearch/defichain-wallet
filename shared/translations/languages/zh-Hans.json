@@ -807,7 +807,8 @@
   "components/BidHistory": {
     "Bidder ID": "竞标者ID",
     "BID #{{bidIndex}}": "出价 #{{bidIndex}}",
-    "Waiting for first bid": "等待第一次标价"
+    "Waiting for first bid": "等待第一次标价",
+    "{{h}}{{m}} ago": "{{h}}{{m}}前"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍卖即将完结于",

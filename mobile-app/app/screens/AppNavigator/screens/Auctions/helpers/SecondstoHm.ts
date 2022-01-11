@@ -16,9 +16,8 @@ export function secondsToHmDisplay (d: number): string {
   }
 
 export function secondsToTimeAgo (d: number): string {
-  //  TODO(PIERRE): Add proper translations
   const { h, m } = secondsToHm(d)
-  const hDisplay = h > 0 ? h : ''
-  const mDisplay = m >= 0 ? translate('components/BatchHistory', '{{m}}m', { m: h > 0 ? padStart(m.toString(), 2, '0') : m }) : ''
-  return `${hDisplay}${mDisplay} ago`
+  const hDisplay = h > 0 ? `${translate('components/BatchCard', '{{h}}h', { h })} ` : ''
+  const mDisplay = m >= 0 ? translate('components/BatchCard', '{{m}}m', { m: h > 0 ? padStart(m.toString(), 2, '0') : m }) : ''
+  return translate('components/BidHistory', '{{h}}{{m}} ago', { h: hDisplay, m: mDisplay })
 }
