@@ -690,7 +690,7 @@
     "How do I send tokens from my DFI wallet?":"如何從我的DFI錢包發送代幣？",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain. \n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "遞飛鏈上的代幣只能發送至DFI地址。這表示您不能直接發送至沒有引入遞飛鏈技術的交易所或第三方平台。同樣地，遞飛鏈流動性池代幣只能發送到另一個DFI錢包地址。",
     "What are some exchanges and platforms I can send to?":"目前有哪些平台可支持遞飛鏈和生態代幣？",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more on [DeFiChain.com](https://defichain.com/dfi/)":"1. Kucoin\n2. Bittrex\n3. 其他有DFI上線交易所\n4. Cake DeFi \n\n請參考更多關於[Zht.DeFiChain.com](https://zht.defichain.com/dfi)",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more at DeFiChain.com":"1. Kucoin\n2. Bittrex\n3. 其他有DFI上線交易所\n4. Cake DeFi \n\n請參考更多關於 zht.DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?":"是否可以把流動性池中的代幣直接發送到其他交易所或其他地址？",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"由於流動性池的代幣是屬於流動性池的代幣系統，您只能發送池中的DFI到其他交易所。若您想要發送其他代幣，請先使用流動池兌換成DFI，在發出至其他交易所使用。",
     "How do I receive tokens on my DFI wallet?":"如何在我的DFI錢包中接收代幣？",

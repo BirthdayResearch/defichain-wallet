@@ -22,7 +22,7 @@ export function LiquidityMiningFaq (): JSX.Element {
     {
       title: translate('components/LiquidityMiningFaq', 'What are some exchanges and platforms I can send to?'),
       content: [{
-        text: translate('components/LiquidityMiningFaq', '1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more on [DeFiChain.com](https://defichain.com/dfi/)'),
+        text: translate('components/LiquidityMiningFaq', '1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more at DeFiChain.com'),
         type: 'paragraph'
       }]
     },
