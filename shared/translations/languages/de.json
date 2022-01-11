@@ -14,7 +14,7 @@
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
     "DEX FAQ": "DEX FAQ",
-    "Liquidity Mining FAQ":"Liquiditäts-Mining FAQ" 
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ" 
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -221,7 +221,7 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
-    "Liquidity Mining":"Liquiditäts-Mining" 
+    "Liquidity Mining": "Liquiditäts-Mining" 
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -678,18 +678,18 @@
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/LiquidityMiningFaq" : {
-    "Liquidity Mining":"Liquiditäts-Mining",
-    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity. \n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).":"Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden. \n\nDie Liquiditätspools der DeFiChain bestehen aus Liquidität in Token-Paaren, die von der DeFiChain DEX (Dezentrale Börse) verwendet werden.",
-    "How do I supply liquidity?":"Wie kann ich Liquidität bereitstellen?",
-    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair. \n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.":"Nachdem du dich entschieden hast, welches Pool-Paar du mit Liquidität versorgen möchtest, klickst du auf LIQUIDITÄT HINZUFÜGEN und gibst den Betrag für einen der Token in dem Paar ein. \n\nSobald ein Betrag auf einer Seite des Paares eingegeben wurde, gleicht die App den Betrag der anderen Seite automatisch entsprechend dem Verhältnis der aktuellen Liquidität im Pool aus.",
-    "How do I send tokens from my DFI wallet?":"Wie versende ich Token von meiner DFI-Wallet?",
+    "Liquidity Mining": "Liquiditäts-Mining",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity. \n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden. \n\nDie Liquiditätspools der DeFiChain bestehen aus Liquidität in Token-Paaren, die von der DeFiChain DEX (Dezentrale Börse) verwendet werden.",
+    "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair. \n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Nachdem du dich entschieden hast, welches Pool-Paar du mit Liquidität versorgen möchtest, klickst du auf LIQUIDITÄT HINZUFÜGEN und gibst den Betrag für einen der Token in dem Paar ein. \n\nSobald ein Betrag auf einer Seite des Paares eingegeben wurde, gleicht die App den Betrag der anderen Seite automatisch entsprechend dem Verhältnis der aktuellen Liquidität im Pool aus.",
+    "How do I send tokens from my DFI wallet?": "Wie versende ich Token von meiner DFI-Wallet?",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain. \n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt. \n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse gesendet werden.",
-    "What are some exchanges and platforms I can send to?":"Welche Börsen und Plattformen gibt es, an die ich senden kann?",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more at DeFiChain.com":"1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nMehr ansehen auf DeFiChain.com",
-    "Can I send liquidity pool tokens to an exchange or another entity?":"Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
-    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
-    "How do I receive tokens on my DFI wallet?":"Wie erhalte ich Token auf meiner DFI-Wallet?",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.":"Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen. \n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst.",
+    "What are some exchanges and platforms I can send to?": "Welche Börsen und Plattformen gibt es, an die ich senden kann?",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nMehr ansehen auf DeFiChain.com",
+    "Can I send liquidity pool tokens to an exchange or another entity?": "Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
+    "How do I receive tokens on my DFI wallet?": "Wie erhalte ich Token auf meiner DFI-Wallet?",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. \n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen. \n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/PasscodeFaq": {
@@ -1000,7 +1000,7 @@
     "How much {{symbol}} to remove?": "Wie viele {{symbol}} sollen entfernt werden?",
     "Current": "Aktueller Stand",
     "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens.",
-    "Resulting collateralization":"Resultierende Besicherungsquote",
+    "Resulting collateralization": "Resultierende Besicherungsquote",
     "N/A": "K/A"
   },
   "screens/ConfirmEditCollateralScreen": {
@@ -1058,7 +1058,7 @@
     "Paying loan": "Darlehen abbezahlen",
     "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
-    "Resulting collateralization":"Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",
