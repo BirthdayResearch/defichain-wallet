@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pin text input should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.2)",
+            "borderRadius": 10,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "display": "flex",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 20,
+            "justifyContent": "center",
+            "lineHeight": 20,
+            "marginLeft": 25,
+            "paddingLeft": 1,
+            "paddingTop": 1,
+            "textAlign": "center",
+            "width": 20,
+          },
+          Object {
+            "backgroundColor": "#ff00af",
+            "borderColor": "#ff00af",
+            "borderRadius": 10,
+          },
+          false,
+          Object {
+            "marginLeft": 0,
+          },
+        ]
+      }
+      testID="pin_input_0"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.2)",
+            "borderRadius": 10,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "display": "flex",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 20,
+            "justifyContent": "center",
+            "lineHeight": 20,
+            "marginLeft": 25,
+            "paddingLeft": 1,
+            "paddingTop": 1,
+            "textAlign": "center",
+            "width": 20,
+          },
+          Object {
+            "backgroundColor": "#ff00af",
+            "borderColor": "#ff00af",
+            "borderRadius": 10,
+          },
+          false,
+          false,
+        ]
+      }
+      testID="pin_input_1"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.2)",
+            "borderRadius": 10,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "display": "flex",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 20,
+            "justifyContent": "center",
+            "lineHeight": 20,
+            "marginLeft": 25,
+            "paddingLeft": 1,
+            "paddingTop": 1,
+            "textAlign": "center",
+            "width": 20,
+          },
+          Object {
+            "backgroundColor": "#ff00af",
+            "borderColor": "#ff00af",
+            "borderRadius": 10,
+          },
+          false,
+          false,
+        ]
+      }
+      testID="pin_input_2"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.2)",
+            "borderRadius": 10,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "display": "flex",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 20,
+            "justifyContent": "center",
+            "lineHeight": 20,
+            "marginLeft": 25,
+            "paddingLeft": 1,
+            "paddingTop": 1,
+            "textAlign": "center",
+            "width": 20,
+          },
+          false,
+          false,
+          false,
+        ]
+      }
+      testID="pin_input_3"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.2)",
+            "borderRadius": 10,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "display": "flex",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 20,
+            "justifyContent": "center",
+            "lineHeight": 20,
+            "marginLeft": 25,
+            "paddingLeft": 1,
+            "paddingTop": 1,
+            "textAlign": "center",
+            "width": 20,
+          },
+          false,
+          false,
+          false,
+        ]
+      }
+      testID="pin_input_4"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.2)",
+            "borderRadius": 10,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "display": "flex",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 20,
+            "justifyContent": "center",
+            "lineHeight": 20,
+            "marginLeft": 25,
+            "paddingLeft": 1,
+            "paddingTop": 1,
+            "textAlign": "center",
+            "width": 20,
+          },
+          false,
+          false,
+          false,
+        ]
+      }
+      testID="pin_input_5"
+    />
+    <TextInput
+      allowFontScaling={true}
+      autoCapitalize="characters"
+      autoCorrect={false}
+      autoFocus={true}
+      blurOnSubmit={false}
+      caretHidden={true}
+      clearButtonMode="never"
+      disableFullscreenUI={true}
+      keyboardType="number-pad"
+      maxLength={6}
+      onBlur={[Function]}
+      onChangeText={[MockFunction]}
+      onFocus={[Function]}
+      onPressOut={[Function]}
+      rejectResponderTermination={true}
+      spellCheck={false}
+      style={
+        Object {
+          "bottom": 0,
+          "fontSize": 1,
+          "left": 0,
+          "opacity": 0.01,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      testID="pin_input"
+      textContentType="oneTimeCode"
+      underlineColorAndroid="transparent"
+      value="foo"
+    />
+  </View>
+</View>
+`;
