@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-
 import { LiquidityMiningFaq } from './LiquidityMiningFaq'
 
 jest.mock('@shared-contexts/ThemeProvider')
