@@ -37,7 +37,7 @@ context('Wallet - Auctions', () => {
 
   it('should liquidate vault', function () {
     cy.go('back')
-    cy.getByTestID('loans_tabs_1').click()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTS25').click()
@@ -46,7 +46,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
     cy.closeOceanInterface()
-    cy.getByTestID('loans_tabs_1').click()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.wrap(Array.from(Array(150), (v, i) => i)).each(() => {
       cy.getByTestID('playground_generate_blocks').click()
       cy.wait(3000)
