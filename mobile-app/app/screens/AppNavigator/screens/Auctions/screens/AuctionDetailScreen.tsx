@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
@@ -119,9 +119,10 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   return (
     <View style={tailwind('flex-1')} ref={containerRef}>
-      <ThemedScrollView
-        contentContainerStyle={tailwind('pb-52')}
+      <ThemedView
         light={tailwind('bg-gray-50')}
+        style={tailwind(['flex-1', { 'pb-36': Platform.OS !== 'web' }
+      ])}
       >
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
@@ -211,8 +212,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         {activeTab === TabKey.AuctionDetails && (
           <AuctionDetails vault={vault} batch={batch} />
         )}
-
-      </ThemedScrollView>
+      </ThemedView>
       <AuctionActionSection
         minNextBidInToken={minNextBidInToken}
         displaySymbol={batch.loan.displaySymbol}
