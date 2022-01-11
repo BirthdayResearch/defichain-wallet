@@ -107,12 +107,12 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     handleOnPress: onPress
   }, {
     id: TabKey.Collaterals,
-    label: 'Rewards',
+    label: 'Collateral for auction',
     disabled: false,
     handleOnPress: onPress
   }, {
     id: TabKey.AuctionDetails,
-    label: 'Vault details',
+    label: 'Auction details',
     disabled: false,
     handleOnPress: onPress
   }]
