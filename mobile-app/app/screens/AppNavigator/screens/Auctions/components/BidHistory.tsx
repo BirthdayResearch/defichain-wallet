@@ -33,7 +33,8 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
       vaultId: props.vaultId,
       liquidationHeight: props.liquidationHeight,
       batchIndex: props.batchIndex,
-      client: client
+      client: client,
+      size: 200
     }))
   }, [blockCount, props])
 
