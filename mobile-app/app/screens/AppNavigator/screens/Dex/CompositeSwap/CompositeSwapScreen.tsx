@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector } from '@store/wallet'
+import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -270,6 +270,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             name: '', // not available in API,
             symbol: token.symbol
           },
+          activePrice: ownedToken?.activePrice,
           reserve: token.reserve
         }
       }).sort((a, b) => b.available.minus(a.available).toNumber())
@@ -277,7 +278,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setAllowedSwapFromTokens(swappableFromTokens)
 
     if (selectedTokenA !== undefined && allTokens !== undefined) {
-      setAllowedSwapToTokens(getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id))
+      setAllowedSwapToTokens(getAllPossibleSwapToTokens(allTokens, pairs, tokens, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id))
     }
   }, [tokens, selectedTokenA, selectedTokenB])
 
@@ -859,7 +860,7 @@ function TokenRow (form: TokenForm): JSX.Element {
  * @param pairs
  * @param tokenFrom
  */
-function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], tokenFrom: string): BottomSheetToken[] {
+function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], tokens: WalletToken[], tokenFrom: string): BottomSheetToken[] {
   const graph: GraphProps[] = pairs.map(pair => {
     const graphItem: GraphProps = {
       pairId: pair.data.id,
@@ -896,11 +897,12 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
     nodesToVisit.delete(token)
   }
 
-  return reachableNodes.reduce((tokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
+  return reachableNodes.reduce((toTokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
     const token = allTokens.find(token => token.id === node)
+    const ownedToken = tokens.find(t => t.id === node)
     if (token !== undefined && node !== tokenFrom) {
       return [
-        ...tokens, {
+        ...toTokens, {
           tokenId: token.id,
           available: new BigNumber(token.reserve),
           token: {
@@ -908,11 +910,12 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
             displaySymbol: token.displaySymbol,
             symbol: token.symbol
           },
+          activePrice: ownedToken?.activePrice,
           reserve: token.reserve
         }
       ]
     }
 
-    return tokens
+    return toTokens
   }, [])
 }

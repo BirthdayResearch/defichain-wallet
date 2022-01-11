@@ -1,6 +1,7 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
@@ -13,6 +14,7 @@ export interface WalletState {
 
 export interface WalletToken extends AddressToken {
   avatarSymbol: string
+  activePrice?: ActivePrice
 }
 
 export interface DexItem {
@@ -84,10 +86,18 @@ export const fetchPoolPairs = createAsyncThunk(
 
 export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
-  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], utxoBalance: string }> => {
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: WalletToken[], utxoBalance: string }> => {
     const tokens = await client.address.listToken(address, size)
+    if (!tokens.some((t) => t.id === '0')) {
+      tokens.push(tokenDFI)
+    }
+    const detailedToken: WalletToken[] = await Promise.all(tokens.map(async (token) => {
+      const activePrices = await client.prices.getFeedActive(token.symbol, 'USD', 1)
+      const detailToken = setTokenDetails(token)
+      return { ...detailToken, activePrice: activePrices[0] }
+    }))
     const utxoBalance = await client.address.getBalance(address)
-    return { tokens, utxoBalance }
+    return { tokens: detailedToken, utxoBalance }
   }
 )
 
@@ -100,8 +110,8 @@ export const wallet = createSlice({
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
     })
-    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], utxoBalance: string }>) => {
-      state.tokens = action.payload.tokens.map(setTokenDetails)
+    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: WalletToken[], utxoBalance: string }>) => {
+      state.tokens = action.payload.tokens
       state.utxoBalance = action.payload.utxoBalance
     })
   }
@@ -123,12 +133,12 @@ const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (
 
 export const tokensSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => {
     const utxoAmount = new BigNumber(utxoBalance)
-    const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
+    const dfiToken = (tokens.find(t => t.id === '0') ?? tokenDFI)
     return tokens.map((t) => {
       if (t.id === '0_utxo') {
-        return { ...t, amount: utxoAmount.toFixed(8) }
+        return { ...t, amount: utxoAmount.toFixed(8), activePrice: dfiToken?.activePrice }
       } else if (t.id === '0_unified') {
-        return { ...t, amount: utxoAmount.plus(tokenAmount).toFixed(8) }
+        return { ...t, amount: utxoAmount.plus(dfiToken.amount).toFixed(8), activePrice: dfiToken?.activePrice }
       }
       return t
     })

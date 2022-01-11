@@ -57,8 +57,6 @@
     "SEND": "發出",
     "RECEIVE": "接收",
     "PORTFOLIO": "資產組合",
-    "Show balances": "顯示總資產",
-    "Hide balances": "隱藏總資產",
     "You do not have any other tokens.": "您現在沒有其他代幣",
     "SWITCH": "切換錢包"
   },

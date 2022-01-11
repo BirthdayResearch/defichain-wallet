@@ -15,6 +15,7 @@ import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/Edit
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -36,6 +37,7 @@ export interface BottomSheetToken {
     displaySymbol: string
     symbol: string
   }
+  activePrice?: ActivePrice
   factor?: string
   reserve?: string
 }

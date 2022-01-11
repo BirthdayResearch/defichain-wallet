@@ -1,3 +1,4 @@
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { DexItem, fetchPoolPairs, fetchTokens, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
 
 describe('wallet reducer', () => {
@@ -5,6 +6,7 @@ describe('wallet reducer', () => {
   let tokenDFI: WalletToken
   let utxoDFI: WalletToken
   let unifiedDFI: WalletToken
+  let activePrice: ActivePrice
 
   beforeEach(() => {
     initialState = {
@@ -12,6 +14,34 @@ describe('wallet reducer', () => {
       utxoBalance: '0',
       poolpairs: [],
       hasFetchedPoolpairData: false
+    }
+    activePrice = {
+      id: 'DFI-USD-1386480',
+      key: 'DFI-USD',
+      isLive: true,
+      block: {
+        hash: 'af18460c64945121d96fd126bcc22dd48229ada245b0bc33129364b49168346c',
+        height: 1386480,
+        medianTime: 1637562729,
+        time: 1637562731
+      },
+      active: {
+        amount: '2.97565149',
+        weightage: 30,
+        oracles: {
+          active: 3,
+          total: 3
+        }
+      },
+      next: {
+        amount: '2.98680778',
+        weightage: 30,
+        oracles: {
+          active: 3,
+          total: 3
+        }
+      },
+      sort: '001527f0'
     }
     tokenDFI = {
       id: '0',
@@ -116,13 +146,36 @@ describe('wallet reducer', () => {
     })
     expect(actual).toStrictEqual([{
       ...utxoDFI,
+      activePrice: undefined,
       amount: '77.00000000'
     }, {
       ...tokenDFI,
       amount: '0'
     }, {
       ...unifiedDFI,
+      activePrice: undefined,
       amount: '77.00000000'
+    }])
+  })
+
+  it('should able to select tokens with default DFIs after passing DFI token as default', () => {
+    const actual = tokensSelector({
+      ...initialState,
+      tokens: [{ ...tokenDFI, amount: '0', activePrice }],
+      utxoBalance: '77'
+    })
+    expect(actual).toStrictEqual([{
+      ...utxoDFI,
+      activePrice,
+      amount: '77.00000000'
+    }, {
+      ...unifiedDFI,
+      activePrice,
+      amount: '77.00000000'
+    }, {
+      ...tokenDFI,
+      activePrice,
+      amount: '0'
     }])
   })
 
@@ -147,11 +200,13 @@ describe('wallet reducer', () => {
     expect(actual).toStrictEqual([
       {
         ...utxoDFI,
+        activePrice: undefined,
         amount: '77.00000000'
       },
       { ...tokenDFI },
       {
         ...unifiedDFI,
+        activePrice: undefined,
         amount: '100077.00000000'
       },
       { ...btc }])

@@ -1246,49 +1246,84 @@ exports[`balances page should match snapshot 1`] = `
       style={
         Array [
           Object {
+            "alignItems": "center",
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
+            "marginBottom": 16,
+            "marginLeft": 8,
+            "marginRight": 8,
+            "marginTop": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
           },
           Object {
-            "backgroundColor": "rgba(245, 245, 245, 1)",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
           },
         ]
       }
+      testID="dfi_balance_card"
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+      <View>
+        <Text
+          style={
             Array [
               Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 24,
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
+              Array [
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Total Portfolio Value
+        </Text>
+        <Text
+          style={
+            Array [
               Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "color": "rgba(115, 115, 115, 1)",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-            ],
-          ]
-        }
-        testID="balances_title"
-        text="PORTFOLIO"
-      >
-        PORTFOLIO
-      </Text>
+              Array [
+                Object {
+                  "flexWrap": "wrap",
+                  "fontFamily": "BoldFont",
+                  "fontSize": 24,
+                  "fontWeight": "700",
+                  "lineHeight": 32,
+                  "marginRight": 8,
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+          testID="total_amount"
+        >
+          $0.00
+        </Text>
+      </View>
       <View
         accessible={true}
         focusable={false}
@@ -1303,44 +1338,13 @@ exports[`balances page should match snapshot 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignItems": "center",
             "backgroundColor": "transparent",
-            "display": "flex",
-            "flexDirection": "row",
             "opacity": 1,
-            "paddingRight": 16,
-            "paddingTop": 16,
           }
         }
         testID="toggle_balance"
       >
         <Text />
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 12,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="toggle_balance_text"
-        >
-          Hide balances
-        </Text>
       </View>
     </View>
     <View
@@ -1969,30 +1973,80 @@ exports[`balances page should match snapshot 1`] = `
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "display": "flex",
+                "lineHeight": 24,
+                "marginRight": 8,
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "flexWrap": "wrap",
-                    "marginRight": 8,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="balances_row_1_amount"
+            >
+              777.00000000
+            </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "justifyContent": "flex-end",
                   },
-                ],
-              ]
-            }
-            testID="balances_row_1_amount"
-          >
-            777.00000000
-          </Text>
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                ≈ $0.00
+              </Text>
+            </View>
+          </View>
           <Text />
         </View>
       </View>
@@ -2201,30 +2255,80 @@ exports[`balances page should match snapshot 1`] = `
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "display": "flex",
+                "lineHeight": 24,
+                "marginRight": 8,
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "flexWrap": "wrap",
-                    "marginRight": 8,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="balances_row_2_amount"
+            >
+              555.00000000
+            </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "justifyContent": "flex-end",
                   },
-                ],
-              ]
-            }
-            testID="balances_row_2_amount"
-          >
-            555.00000000
-          </Text>
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                ≈ $0.00
+              </Text>
+            </View>
+          </View>
           <Text />
         </View>
       </View>

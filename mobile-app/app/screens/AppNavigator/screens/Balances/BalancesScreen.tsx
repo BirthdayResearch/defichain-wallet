@@ -3,7 +3,6 @@ import { View } from '@components'
 import {
   ThemedIcon,
   ThemedScrollView,
-  ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
   ThemedView
@@ -30,6 +29,8 @@ import { RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
+import { getActivePrice } from '../Auctions/helpers/ActivePrice'
+import { ActiveUsdValue } from '../Loans/VaultDetail/components/ActiveUsdValue'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -62,6 +63,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const totalUsdValue = tokens.reduce((total, item) => {
+    if (item.id === '0_unified') {
+      return total
+    }
+    const value = new BigNumber(getActivePrice(item.symbol, item?.activePrice)).multipliedBy(item.amount)
+    return total.plus(value)
+  }, new BigNumber(0))
+
   const dstTokens = tokens.filter(token =>
     token.symbol !== 'DFI'
   )
@@ -79,36 +88,50 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <Announcements />
       <BalanceControlCard />
       <ThemedView
-        style={tailwind('flex flex-row justify-between')}
+        light={tailwind('bg-white')}
+        dark={tailwind('bg-gray-800')}
+        style={tailwind('mx-2 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
+        testID='dfi_balance_card'
       >
-        <ThemedSectionTitle
-          testID='balances_title'
-          text={translate('screens/BalancesScreen', 'PORTFOLIO')}
-        />
+        <View>
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            style={tailwind('text-base text-gray-500')}
+          >
+            {translate('screens/BalancesScreen', 'Total Portfolio Value')}
+          </ThemedText>
+          <NumberFormat
+            decimalScale={8}
+            displayType='text'
+            prefix='$'
+            renderText={(value) =>
+              <BalanceText
+                dark={tailwind('text-gray-200')}
+                light={tailwind('text-black')}
+                style={tailwind('mr-2 flex-wrap text-2xl font-bold')}
+                testID='total_amount'
+                value={value}
+              />}
+            thousandSeparator
+            value={totalUsdValue.toFixed(2)}
+          />
+        </View>
         <ThemedTouchableOpacity
           testID='toggle_balance'
           light={tailwind('bg-transparent')}
           dark={tailwind('bg-transparent')}
-          style={tailwind('flex flex-row pt-4 pr-4 items-center')}
           onPress={onToggleDisplayBalances}
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('self-center pr-1')}
+            dark={tailwind('text-darkprimary-500 border-gray-700')}
+            light={tailwind('text-primary-500 border-gray-200')}
+            style={tailwind('border rounded p-1.5')}
             name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
-            size={15}
+            size={20}
             testID='toggle_balance_icon'
           />
-          <ThemedText
-            dark={tailwind('text-gray-500')}
-            light={tailwind('text-gray-500')}
-            style={tailwind('text-xs font-medium')}
-            testID='toggle_balance_text'
-          >
-            {translate('screens/BalancesScreen', `${isBalancesDisplayed ? 'Hide' : 'Show'} balances`)}
-          </ThemedText>
         </ThemedTouchableOpacity>
       </ThemedView>
       <DFIBalanceCard />
@@ -140,7 +163,9 @@ function BalanceItemRow ({
   onPress
 }: { token: WalletToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
+  const activePrice = new BigNumber(getActivePrice(token.symbol, token?.activePrice))
   const testID = `balances_row_${token.id}`
+  const { isBalancesDisplayed } = useDisplayBalancesContext()
   return (
     <ThemedTouchableOpacity
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -178,13 +203,21 @@ function BalanceItemRow ({
             displayType='text'
             renderText={(value) =>
               <>
-                <BalanceText
-                  dark={tailwind('text-gray-200')}
-                  light={tailwind('text-black')}
-                  style={tailwind('mr-2 flex-wrap')}
-                  testID={`${testID}_amount`}
-                  value={value}
-                />
+                <View style={tailwind('flex mr-2 leading-6')}>
+                  <BalanceText
+                    dark={tailwind('text-gray-200')}
+                    light={tailwind('text-black')}
+                    style={tailwind('flex-wrap')}
+                    testID={`${testID}_amount`}
+                    value={value}
+                  />
+                  {isBalancesDisplayed && (
+                    <ActiveUsdValue
+                      price={new BigNumber(token.amount).multipliedBy(activePrice)}
+                      containerStyle={tailwind('justify-end')}
+                    />
+                  )}
+                </View>
                 <ThemedIcon
                   dark={tailwind('text-gray-200')}
                   iconType='MaterialIcons'
