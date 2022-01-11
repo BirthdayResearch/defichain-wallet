@@ -129,7 +129,7 @@
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "Estimated fee": "Voraussichtliche Gebühr",
-    "You will have": "Du wirst bekommen",
+    "You will have": "Neuer Kontostand",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
   },
   "screens/ConvertConfirmScreen": {
