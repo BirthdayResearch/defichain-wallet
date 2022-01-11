@@ -35,9 +35,10 @@ export const fetchBidHistory = createAsyncThunk(
     vaultId,
     liquidationHeight,
     batchIndex,
-    client
-  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient}) => {
-    return await client.loan.listVaultAuctionHistory(vaultId, liquidationHeight, batchIndex)
+    client,
+    size = 200
+  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient, size: number}) => {
+    return await client.loan.listVaultAuctionHistory(vaultId, liquidationHeight, batchIndex, size)
   }
 )
 
