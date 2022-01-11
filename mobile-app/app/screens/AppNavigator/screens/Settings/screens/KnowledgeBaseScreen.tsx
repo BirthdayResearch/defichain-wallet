@@ -39,7 +39,6 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       testID: 'liquidity_mining_faq',
       onPress: () => navigation.navigate('LiquidityMiningFaq')
     }
-
   ]
 
   if (isFeatureAvailable('loan')) {
