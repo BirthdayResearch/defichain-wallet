@@ -40,7 +40,6 @@ export function LiquidityMiningFaq (): JSX.Element {
         type: 'paragraph'
       }]
     }
-
   ]
 
   return (
