@@ -19,7 +19,6 @@ export function DexFaq (): JSX.Element {
         type: 'paragraph'
       }]
     }
-
   ]
 
   return (
