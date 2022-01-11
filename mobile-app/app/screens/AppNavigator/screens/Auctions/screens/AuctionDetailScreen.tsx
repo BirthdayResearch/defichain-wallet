@@ -34,9 +34,9 @@ import { BidHistory } from '../components/BidHistory'
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
 enum TabKey {
-  BidHistory,
-  Collaterals,
-  AuctionDetails
+  BidHistory = 'BID_HISTORY',
+  Collaterals = 'COLLATERALS',
+  AuctionDetails = 'AUCTION_DETAILS'
 }
 
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
@@ -46,7 +46,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
-  const [activeTab, setActiveTab] = useState<number>(TabKey.BidHistory)
+  const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory)
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
@@ -96,7 +96,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     })
   }
 
-  const onPress = (tabId: number): void => {
+  const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
 

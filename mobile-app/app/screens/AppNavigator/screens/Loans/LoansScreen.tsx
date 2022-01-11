@@ -20,8 +20,8 @@ import { debounce } from 'lodash'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 
 enum TabKey {
-  BrowseLoans,
-  YourVaults
+  BrowseLoans = 'BROWSE_LOANS',
+  YourVaults = 'YOUR_VAULTS'
 }
 
 type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
@@ -35,10 +35,10 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
     hasFetchedLoansData
   } = useSelector((state: RootState) => state.loans)
   const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
-  const [activeTab, setActiveTab] = useState<number>(TabKey.YourVaults)
+  const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
-  const onPress = (tabId: number): void => {
+  const onPress = (tabId: string): void => {
     if (tabId === TabKey.YourVaults) {
       setShowSearchInput(false)
     } else if (searchString !== '') {

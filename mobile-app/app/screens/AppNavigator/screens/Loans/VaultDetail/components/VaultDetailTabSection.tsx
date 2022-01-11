@@ -1,4 +1,4 @@
-import { TabOption, Tabs } from '@components/Tabs'
+import { Tabs } from '@components/Tabs'
 import { ThemedView } from '@components/themed'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { LoanVault } from '@store/loans'
@@ -8,10 +8,10 @@ import { CollateralsTab } from './CollateralsTab'
 import { DetailsTab } from './DetailsTab'
 
 export enum TabKey {
-  Loans,
-  Details,
-  Collaterals,
-  Auctions
+  Loans = 'LOANS',
+  Details = 'DETAILS',
+  Collaterals = 'COLLATERALS',
+  Auctions = 'AUCTIONS'
 }
 
 interface VaultDetailTabSectionProps {
@@ -19,10 +19,17 @@ interface VaultDetailTabSectionProps {
   tab?: TabKey
 }
 
+interface VaultDetailTabsProps {
+  id: TabKey
+  label: string
+  disabled: boolean
+  handleOnPress: (tabId: string) => void
+}
+
 export function VaultDetailTabSection ({ vault, tab }: VaultDetailTabSectionProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState<number>(tab ?? TabKey.Collaterals)
-  const [detailTabs, setDetailTabs] = useState<TabOption[]>([])
-  const onPress = (tabId: number): void => {
+  const [activeTab, setActiveTab] = useState<string>(tab ?? TabKey.Collaterals)
+  const [detailTabs, setDetailTabs] = useState<VaultDetailTabsProps[]>([])
+  const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
 
@@ -45,8 +52,8 @@ export function VaultDetailTabSection ({ vault, tab }: VaultDetailTabSectionProp
   )
 }
 
-function getDetailTabs (vault: LoanVault, tabOnPress: (tabId: number) => void): TabOption[] {
-  let tabs: TabOption[] = []
+function getDetailTabs (vault: LoanVault, tabOnPress: (tabId: string) => void): VaultDetailTabsProps[] {
+  let tabs: VaultDetailTabsProps[] = []
 
   if (vault.state === LoanVaultState.IN_LIQUIDATION) {
     tabs = [ // TODO: add auction tab

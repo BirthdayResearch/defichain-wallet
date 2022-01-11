@@ -14,15 +14,15 @@ import { AuctionsParamList } from './AuctionNavigator'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 
 enum TabKey {
-  BrowseAuctions,
-  ManageBids
+  BrowseAuctions = 'BROWSE_AUCTIONS',
+  ManageBids = 'MANAGE_BIDS'
 }
 
 type Props = StackScreenProps<AuctionsParamList, 'AuctionScreen'>
 
 export function AuctionsScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const [activeTab, setActiveTab] = useState<number>(TabKey.BrowseAuctions)
+  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseAuctions)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const { auctions } = useSelector((state: RootState) => state.auctions)
@@ -31,7 +31,7 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
 
-  const onPress = (tabId: number): void => {
+  const onPress = (tabId: string): void => {
     if (tabId === TabKey.ManageBids) {
       setShowSearchInput(false)
     } else if (searchString !== '') {
