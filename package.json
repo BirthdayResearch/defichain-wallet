@@ -117,7 +117,7 @@
     "@types/semver": "^7.3.9",
     "babel-plugin-istanbul": "^6.1.1",
     "colors": "1.4.0",
-    "cypress": "9.2.0",
+    "cypress": "9.2.1",
     "cypress-image-diff-js": "1.16.1",
     "eas-cli": "^0.44.1",
     "eslint": "7.32.0",
