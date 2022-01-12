@@ -1319,7 +1319,7 @@ exports[`balances page should match snapshot 1`] = `
               ],
             ]
           }
-          testID="total_amount"
+          testID="total_usd_amount"
         >
           $0.00
         </Text>

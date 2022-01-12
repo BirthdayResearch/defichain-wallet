@@ -110,7 +110,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                 dark={tailwind('text-gray-200')}
                 light={tailwind('text-black')}
                 style={tailwind('mr-2 flex-wrap text-2xl font-bold')}
-                testID='total_amount'
+                testID='total_usd_amount'
                 value={value}
               />}
             thousandSeparator

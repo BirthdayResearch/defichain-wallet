@@ -13,7 +13,7 @@ context('Wallet - Balances', () => {
   })
 
   it('should display no tokens text', function () {
-    cy.getByTestID('toggle_balance_text').should('have.text', 'Hide balances')
+    cy.getByTestID('total_usd_amount').should('have.text', '$1,000.00')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No other tokens yet')
     cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Get started by adding your tokens here in your wallet')
   })
@@ -41,9 +41,9 @@ context('Wallet - Balances', () => {
     cy.getByTestID('total_dfi_amount').should('have.text', '***** DFI')
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
+    cy.getByTestID('total_usd_amount').should('have.text', '*****')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', symbol: 'dBTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', symbol: 'dETH' })
-    cy.getByTestID('toggle_balance_text').contains('Show balances')
   })
 
   it('should redirect to send page', function () {
