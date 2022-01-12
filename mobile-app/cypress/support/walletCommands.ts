@@ -78,6 +78,9 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
   }
+  if (details.activePrice) {
+    cy.getByTestID(`${testID}_usd_amount`).should('have.text', details.activePrice)
+  }
 })
 
 Cypress.Commands.add('changePasscode', () => {
