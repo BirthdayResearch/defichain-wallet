@@ -1268,7 +1268,7 @@ exports[`balances page should match snapshot 1`] = `
           },
         ]
       }
-      testID="dfi_balance_card"
+      testID="total_portfolio_card"
     >
       <View>
         <Text
@@ -2042,6 +2042,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="balances_row_1_usd_amount"
               >
                 ≈ $0.00
               </Text>
@@ -2324,6 +2325,7 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
+                testID="balances_row_2_usd_amount"
               >
                 ≈ $0.00
               </Text>

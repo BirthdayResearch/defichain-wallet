@@ -91,7 +91,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
         style={tailwind('mx-2 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
-        testID='dfi_balance_card'
+        testID='total_portfolio_card'
       >
         <View>
           <ThemedText
@@ -213,6 +213,7 @@ function BalanceItemRow ({
                   />
                   {isBalancesDisplayed && (
                     <ActiveUsdValue
+                      testId={`${testID}_usd_amount`}
                       price={new BigNumber(token.amount).multipliedBy(activePrice)}
                       containerStyle={tailwind('justify-end')}
                     />
