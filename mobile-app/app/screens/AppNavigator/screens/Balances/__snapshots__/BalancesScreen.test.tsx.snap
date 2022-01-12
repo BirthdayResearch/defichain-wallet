@@ -1270,7 +1270,13 @@ exports[`balances page should match snapshot 1`] = `
       }
       testID="total_portfolio_card"
     >
-      <View>
+      <View
+        style={
+          Object {
+            "width": "91.666667%",
+          }
+        }
+      >
         <Text
           style={
             Array [
@@ -1283,8 +1289,8 @@ exports[`balances page should match snapshot 1`] = `
               Array [
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
-                  "fontSize": 16,
-                  "lineHeight": 24,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
@@ -1339,7 +1345,24 @@ exports[`balances page should match snapshot 1`] = `
         style={
           Object {
             "backgroundColor": "transparent",
+            "borderBottomColor": "rgba(229, 229, 229, 1)",
+            "borderBottomLeftRadius": 4,
+            "borderBottomRightRadius": 4,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(229, 229, 229, 1)",
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+            "borderTopWidth": 1,
             "opacity": 1,
+            "paddingBottom": 6,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 6,
+            "textAlign": "center",
           }
         }
         testID="toggle_balance"

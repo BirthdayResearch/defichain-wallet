@@ -93,11 +93,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         style={tailwind('mx-2 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
         testID='total_portfolio_card'
       >
-        <View>
+        <View style={tailwind('w-11/12')}>
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
-            style={tailwind('text-base text-gray-500')}
+            style={tailwind('text-sm text-gray-500')}
           >
             {translate('screens/BalancesScreen', 'Total Portfolio Value')}
           </ThemedText>
@@ -119,15 +119,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         </View>
         <ThemedTouchableOpacity
           testID='toggle_balance'
-          light={tailwind('bg-transparent')}
-          dark={tailwind('bg-transparent')}
+          light={tailwind('bg-transparent border-gray-200')}
+          dark={tailwind('bg-transparent border-gray-700')}
+          style={tailwind('p-1.5 border rounded text-center')}
           onPress={onToggleDisplayBalances}
         >
           <ThemedIcon
             iconType='MaterialIcons'
-            dark={tailwind('text-darkprimary-500 border-gray-700')}
-            light={tailwind('text-primary-500 border-gray-200')}
-            style={tailwind('border rounded p-1.5')}
+            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
             name={`${isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
             size={20}
             testID='toggle_balance_icon'

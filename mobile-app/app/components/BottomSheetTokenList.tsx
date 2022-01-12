@@ -61,7 +61,7 @@ export const BottomSheetTokenList = ({
     <FlatList
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
-        const activePrice = new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
+        const activePrice = new BigNumber(getActivePrice(item.token.symbol, item?.activePrice))
         return (
           <ThemedTouchableOpacity
             disabled={new BigNumber(item.available).lte(0)}

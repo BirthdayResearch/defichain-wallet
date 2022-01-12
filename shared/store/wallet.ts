@@ -55,7 +55,7 @@ const unifiedDFI: WalletToken = {
   avatarSymbol: 'DFI'
 }
 
-export const setTokenDetails = (t: AddressToken): WalletToken => {
+export const setTokenSymbol = (t: AddressToken): WalletToken => {
   let displaySymbol = t.displaySymbol
   let avatarSymbol = t.displaySymbol
   if (t.id === '0') {
@@ -91,13 +91,13 @@ export const fetchTokens = createAsyncThunk(
     if (!tokens.some((t) => t.id === '0')) {
       tokens.push(tokenDFI)
     }
-    const detailedToken: WalletToken[] = await Promise.all(tokens.map(async (token) => {
+    const tokensWithPrice: WalletToken[] = await Promise.all(tokens.map(async (token) => {
       const activePrices = await client.prices.getFeedActive(token.symbol, 'USD', 1)
-      const detailToken = setTokenDetails(token)
+      const detailToken = setTokenSymbol(token)
       return { ...detailToken, activePrice: activePrices[0] }
     }))
     const utxoBalance = await client.address.getBalance(address)
-    return { tokens: detailedToken, utxoBalance }
+    return { tokens: tokensWithPrice, utxoBalance }
   }
 )
 
