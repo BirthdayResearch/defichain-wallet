@@ -241,6 +241,7 @@ export function SettingsNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       />
+
       <SettingsStack.Screen
         component={LiquidityMiningFaq}
         name='LiquidityMiningFaq'
@@ -254,6 +255,7 @@ export function SettingsNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       />
+      
       <SettingsStack.Screen
         component={TokensVsUtxoScreen}
         name='TokensVsUtxo'
