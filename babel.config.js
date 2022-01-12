@@ -28,6 +28,10 @@ module.exports = function (api) {
   if (process.env.CYPRESS_E2E) {
     plugins.push('istanbul')
   }
+  
+  if (process.env.NODE_ENV == 'production'){
+    plugins.push(["transform-remove-console"])
+  }
 
   return {
     presets: ['babel-preset-expo'],
