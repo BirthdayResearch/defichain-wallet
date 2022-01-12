@@ -127,13 +127,13 @@
     "After conversion, you will receive": "Nach der Konvertierung erhältst du",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "Estimated fee": "Voraussichtliche Gebühr",
-    "You will have": "Du wirst bekommen",
+    "You will have": "Neuer Kontostand",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
     "You are converting": "Du wandelst um",
-    "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG ERHÄLTST DU",
+    "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG IST DEIN NEUER KONTOSTAND",
     "Estimated fee": "Voraussichtliche Gebühr",
     "CONVERT": "UMWANDELN",
     "CONVERTING": "UMWANDELN",
@@ -398,7 +398,7 @@
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
-    "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehens-Token durchsuchen",
+    "Browse loan tokens provided by DeFiChain": "Von DeFiChain bereitgestellte Darlehenstoken",
     "Browse auctions provided by DeFiChain": "Von DeFiChain angebotene Auktionen durchsuchen",
     "Continue": "Weiter",
     "Cancel": "Abbrechen",
@@ -717,7 +717,7 @@
     "Close Vault": "Vault Schließen"
   },
   "components/tabs": {
-    "Browse loan tokens": "Darlehen durchsuchen",
+    "Browse loan tokens": "Darlehenstoken",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
     "Details": "Details",
@@ -903,7 +903,7 @@
   "components/EmptyActiveLoans": {
     "No active loans": "Keine aktiven Darlehen",
     "Browse for available loan tokens and start using this vault as collateral.": "Suche nach verfügbaren Darlehenstoken und verwende diesen Vault als Sicherheit.",
-    "BROWSE LOAN TOKENS": "DARLEHEN DURCHSUCHEN"
+    "BROWSE LOAN TOKENS": "DARLEHENSTOKEN"
   },
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Ausstehender Saldo",
