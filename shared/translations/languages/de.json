@@ -790,6 +790,11 @@
     "From your vault": "Aus deinem Vault",
     "Waiting for first bid": "Warten auf das erste Gebot"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "Vor {{h}}h {{m}}min",
+    "{{h}}h ago": "Vor {{h}}h",
+    "{{m}}m ago": "Vor {{m}}min"
+  },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
     "VIEW REWARDS": "REWARDS ANSEHEN",
