@@ -68,7 +68,7 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity. 
+      Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.
 
 Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).
     </Text>
@@ -281,7 +281,7 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
                         ]
                       }
                     >
-                      After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair. 
+                      After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.
 
 Once an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.
                     </Text>
@@ -435,7 +435,7 @@ Once an amount is entered on one side of the pair, the app automatically balance
                         ]
                       }
                     >
-                      Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain. 
+                      Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.
 
 Similarly, liquidity tokens can only be sent to another DFI wallet address.
                     </Text>
@@ -592,7 +592,7 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                       1. Kucoin
 2. Bittrex
 3. Transak
-4. Cake DeFi 
+4. Cake DeFi
 
 View more at DeFiChain.com
                     </Text>
@@ -896,7 +896,7 @@ View more at DeFiChain.com
                         ]
                       }
                     >
-                      You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code. 
+                      You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.
 
 Note that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.
                     </Text>
