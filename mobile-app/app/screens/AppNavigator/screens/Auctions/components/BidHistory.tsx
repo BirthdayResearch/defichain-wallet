@@ -87,6 +87,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
       light={tailwind({ 'bg-white border-gray-100': props.isLatestBid, 'bg-gray-100 border-gray-100': !props.isLatestBid })}
       dark={tailwind({ 'bg-gray-800 border-gray-900': props.isLatestBid, 'bg-gray-900 border-gray-800': !props.isLatestBid })}
       style={tailwind('border rounded px-4 py-3 mb-1')}
+      testID={`bid_${props.bidIndex.toString()}`}
     >
       <View style={tailwind('flex flex-row justify-between mb-2 items-center')}>
         <ThemedView
@@ -155,7 +156,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
 
 function EmptyBidHistory (props: { minNextBid: string, displaySymbol: string }): JSX.Element {
   return (
-    <View style={tailwind('mt-24 flex items-center')}>
+    <View style={tailwind('mt-24 flex items-center')} testID='empty_bid_history'>
       <ThemedIcon
         iconType='MaterialCommunityIcons'
         name='circle-off-outline'

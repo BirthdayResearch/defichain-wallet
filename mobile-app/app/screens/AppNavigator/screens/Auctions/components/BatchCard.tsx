@@ -24,7 +24,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
-  testID?: string
+  testID: string
   onQuickBid: (
     batch: LoanVaultLiquidationBatch,
     vaultId: string,
@@ -127,8 +127,8 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </View>
         </View>
         <View style={tailwind('flex flex-row', { 'mt-0.5': props.isVaultOwner || !hasFirstBid })}>
-          {props.isVaultOwner && <BatchCardInfo iconName='account-circle' text='From your vault' />}
-          {!hasFirstBid && <BatchCardInfo iconName='hourglass-top' text='Waiting for first bid' />}
+          {props.isVaultOwner && <BatchCardInfo testID={`${testID}_owned_vault`} iconName='account-circle' text='From your vault' />}
+          {!hasFirstBid && <BatchCardInfo testID={`${testID}_no_bid`} iconName='hourglass-top' text='Waiting for first bid' />}
         </View>
         {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
         <View style={tailwind('flex-row w-full items-center justify-between my-2')}>
@@ -202,12 +202,13 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
       <BatchCardButtons
         onPlaceBid={onPlaceBid}
         onQuickBid={onQuickBid}
+        testID={testID}
       />
     </ThemedView>
   )
 }
 
-function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string }): JSX.Element {
+function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row items-center')}>
       <ThemedIcon
@@ -222,13 +223,14 @@ function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialI
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('text-2xs mr-2 leading-3')}
+        testID={props.testID}
       >{translate('components/BatchCard', props.text)}
       </ThemedText>
     </View>
   )
 }
 
-function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => void }): JSX.Element {
+function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => void, testID: string }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
@@ -240,12 +242,14 @@ function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => vo
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onPlaceBid}
+        testID={`${props.testID}_place_bid`}
       />
       <IconButton
         iconLabel={translate('components/QuickBid', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onQuickBid}
+        testID={`${props.testID}_quick_bid`}
       />
     </ThemedView>
   )
@@ -271,6 +275,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
                 light={tailwind('text-warning-500')}
                 dark={tailwind('text-darkwarning-500')}
                 style={tailwind('text-xs ml-1')}
+                testID='bid_lost_text'
               >
                 {translate('components/BatchCard', 'Your placed bid lost')}
               </ThemedText>
@@ -290,6 +295,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
                 light={tailwind('text-blue-500')}
                 dark={tailwind('text-darkblue-500')}
                 style={tailwind('text-2xs mr-2')}
+                testID='bid_highest_text'
               >
                 {translate('components/BatchCard', 'You are the highest bidder')}
               </ThemedText>

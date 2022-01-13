@@ -128,6 +128,13 @@ export const loanTokenByTokenId = createSelector([selectTokenId, loanTokensSelec
 })
 
 export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {
+  const order = {
+    [LoanVaultState.IN_LIQUIDATION]: 1,
+    [LoanVaultState.MAY_LIQUIDATE]: 2,
+    [LoanVaultState.ACTIVE]: 3,
+    [LoanVaultState.FROZEN]: 4,
+    [LoanVaultState.UNKNOWN]: 5
+  }
   return vaults.map(vault => {
     if (vault.state === LoanVaultState.IN_LIQUIDATION) {
       return { ...vault }
@@ -160,5 +167,5 @@ export const vaultsSelector = createSelector((state: LoansState) => state.vaults
       loanAmounts: modifiedLoanAmounts,
       interestAmounts: modifiedInterestAmounts
     }
-  }) as LoanVault[]
+  }).sort((a, b) => order[a.state] - order[b.state]) as LoanVault[]
 })
