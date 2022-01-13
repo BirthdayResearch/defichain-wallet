@@ -56,6 +56,20 @@ context('Wallet - Settings', () => {
     cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
   })
 
+  it('should navigate to DEX faq from knowledge base page', function () {
+    cy.getByTestID('dex_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/DexFaq')
+    cy.go('back')
+    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
+  })
+
+  it('should navigate to Liquidity Mining faq from knowledge base page', function () {
+    cy.getByTestID('liquidity_mining_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/LiquidityMiningFaq')
+    cy.go('back')
+    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
+  })
+
   it('should navigate to Loans faq from knowledge base page', function () {
     cy.getByTestID('loans_faq').should('exist').click()
     cy.url().should('include', 'app/Settings/LoansFaq')
