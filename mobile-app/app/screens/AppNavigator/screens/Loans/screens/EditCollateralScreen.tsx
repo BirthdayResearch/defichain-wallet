@@ -443,10 +443,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
       >
         <View style={tailwind('flex flex-row items-center')}>
           <SymbolIcon
-            symbol={collateral.displaySymbol} styleProps={{
-            width: 24,
-            height: 24
-          }}
+            symbol={collateral.displaySymbol} styleProps={tailwind('w-6 h-6')}
           />
           <ThemedText
             testID={`collateral_card_symbol_${collateral.displaySymbol}`}

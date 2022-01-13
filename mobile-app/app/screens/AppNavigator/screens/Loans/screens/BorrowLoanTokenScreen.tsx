@@ -360,10 +360,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row w-2/12 flex-1 items-center')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{
-          width: 24,
-          height: 24
-        }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-6 h-6')}
         />
         <ThemedText style={tailwind('ml-2 text-sm font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
