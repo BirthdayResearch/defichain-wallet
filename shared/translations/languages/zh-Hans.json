@@ -112,7 +112,7 @@
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "确认发出",
     "Convert & send": "转换并发送",
-    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds. ": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
     "Transaction type": "交易类型",
     "Amount to send": "发送金额"
   },
