@@ -89,6 +89,7 @@ export const BottomSheetTokenList = ({
             <View style={tailwind('flex flex-row items-center')}>
               <SymbolIcon
                 symbol={item.token.displaySymbol}
+                isLoanToken={item.token.isLoanToken}
                 styleProps={tailwind('w-6 h-6')}
               />
               <View style={tailwind('ml-2')}>

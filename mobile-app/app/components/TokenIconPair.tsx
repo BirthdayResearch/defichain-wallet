@@ -2,13 +2,19 @@ import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
 import { ThemedText, ThemedView } from '@components/themed'
 
+interface TokenIconProps {
+  displaySymbol: string
+  isLoanToken: boolean
+}
+
 export function TokenIconPair (props: {
-  iconA: string
-  iconB: string
+  iconA: TokenIconProps
+  iconB: TokenIconProps
 }): JSX.Element {
+  const { iconA, iconB } = props
   // icons
-  const TokenIconA = getNativeIcon(props.iconA)
-  const TokenIconB = getNativeIcon(props.iconB)
+  const TokenIconA = getNativeIcon(iconA.displaySymbol, iconA.isLoanToken)
+  const TokenIconB = getNativeIcon(iconB.displaySymbol, iconA.isLoanToken)
 
   return (
     <ThemedView
@@ -21,7 +27,7 @@ export function TokenIconPair (props: {
       <ThemedText
         style={tailwind('ml-1')}
       >
-        {`${props.iconA}-${props.iconB}`}
+        {`${iconA.displaySymbol}-${iconB.displaySymbol}`}
       </ThemedText>
     </ThemedView>
   )

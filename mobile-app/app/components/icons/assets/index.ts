@@ -78,7 +78,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
  * @param {string} symbol of the native asset icon
  * @return {(props: SvgProps) => JSX.Element}
  */
-export function getNativeIcon (symbol: string): (props: SvgProps) => JSX.Element {
+export function getNativeIcon (symbol: string, isLoanToken?: boolean): (props: SvgProps) => JSX.Element {
   const Icon = mapping[symbol]
   if (Icon === undefined) {
     return _Default(symbol)

@@ -5,8 +5,8 @@ import { tailwind } from '@tailwind'
 import { getNativeIcon } from './icons/assets'
 import { ThemedText, ThemedView } from './themed'
 
-export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, iconType: string }): JSX.Element {
-  const TokenIcon = getNativeIcon(props.iconType)
+export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, isLoanToken: boolean }): JSX.Element {
+  const TokenIcon = getNativeIcon(props.lhs, props.isLoanToken)
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
