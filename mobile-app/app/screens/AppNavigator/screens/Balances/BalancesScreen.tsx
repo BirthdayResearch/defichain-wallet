@@ -63,7 +63,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const totalUsdValue = tokens.reduce((total, item) => {
+  const totalUSDValue = tokens.reduce((total, item) => {
     if (item.id === '0_unified') {
       return total
     }
@@ -114,7 +114,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                 value={value}
               />}
             thousandSeparator
-            value={totalUsdValue.toFixed(2)}
+            value={totalUSDValue.toFixed(2)}
           />
         </View>
         <ThemedTouchableOpacity
