@@ -80,19 +80,19 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
   }
-  if (details.checkActivePrice) {
-    const network = localStorage.getItem('Development.NETWORK')
-    const whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
-      network: 'regtest',
-      version: 'v0'
-    })
-    cy.wrap(whale.prices.getFeedActive(details.symbol, 'USD')).then((response) => {
-      const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
-      const usdValue = new BigNumber('10').multipliedBy(activePrice)
-      cy.getByTestID(`${testID}_usd_amount`).should('have.text', `≈ $${usdValue.toFixed(2)}`)
-    })
-  }
+  // if (details.checkActivePrice) {
+  //   const network = localStorage.getItem('Development.NETWORK')
+  //   const whale = new WhaleApiClient({
+  //     url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+  //     network: 'regtest',
+  //     version: 'v0'
+  //   })
+  //   cy.wrap(whale.prices.getFeedActive(details.symbol, 'USD')).then((response) => {
+  //     const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
+  //     const usdValue = new BigNumber('10').multipliedBy(activePrice)
+  //     cy.getByTestID(`${testID}_usd_amount`).should('have.text', `≈ $${usdValue.toFixed(2)}`)
+  //   })
+  // }
 })
 
 Cypress.Commands.add('changePasscode', () => {

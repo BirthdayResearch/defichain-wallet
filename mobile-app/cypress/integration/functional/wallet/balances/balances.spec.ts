@@ -46,18 +46,18 @@ context('Wallet - Balances', () => {
     // Check total portfolio value
     cy.wrap(whale.prices.getFeedActive('DFI', 'USD')).then((dfiResponse) => {
       const activePrice = dfiResponse.length > 0 ? dfiResponse[0]?.active?.amount : 0
-      let totalUsdValue = new BigNumber('20').multipliedBy(activePrice)
+      let totalUSDValue = new BigNumber('20').multipliedBy(activePrice)
       cy.wrap(whale.prices.getFeedActive('BTC', 'USD')).then((btcResponse) => {
         const btcActivePrice = btcResponse.length > 0 ? btcResponse[0]?.active?.amount : 0
-        const btcUsdValue = new BigNumber('10').multipliedBy(btcActivePrice)
-        totalUsdValue = totalUsdValue.plus(btcUsdValue)
+        const btcUSDValue = new BigNumber('10').multipliedBy(btcActivePrice)
+        totalUSDValue = totalUSDValue.plus(btcUSDValue)
         cy.wrap(whale.prices.getFeedActive('ETH', 'USD')).then((ethResponse) => {
           const ethActivePrice = ethResponse.length > 0 ? ethResponse[0]?.active?.amount : 0
-          const ethUsdValue = new BigNumber('10').multipliedBy(ethActivePrice)
-          totalUsdValue = totalUsdValue.plus(ethUsdValue)
+          const ethUSDValue = new BigNumber('10').multipliedBy(ethActivePrice)
+          totalUSDValue = totalUSDValue.plus(ethUSDValue)
           cy.getByTestID('total_usd_amount').then(($txt: any) => {
             const value = $txt[0].textContent.replace(',', '')
-            expect(value).eq(`$${totalUsdValue.toFixed(2)}`)
+            expect(value).eq(`$${totalUSDValue.toFixed(2)}`)
           })
         })
       })

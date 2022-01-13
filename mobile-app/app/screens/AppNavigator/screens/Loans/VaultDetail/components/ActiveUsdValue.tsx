@@ -12,7 +12,7 @@ interface ActiveUsdValueProps {
   price: BigNumber
 }
 
-export function ActiveUsdValue (props: ActiveUsdValueProps): JSX.Element {
+export function ActiveUSDValue (props: ActiveUsdValueProps): JSX.Element {
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat

@@ -30,7 +30,7 @@ import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/compo
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
 import { getActivePrice } from '../Auctions/helpers/ActivePrice'
-import { ActiveUsdValue } from '../Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '../Loans/VaultDetail/components/ActiveUSDValue'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -212,7 +212,7 @@ function BalanceItemRow ({
                     value={value}
                   />
                   {isBalancesDisplayed && (
-                    <ActiveUsdValue
+                    <ActiveUSDValue
                       testId={`${testID}_usd_amount`}
                       price={new BigNumber(token.amount).multipliedBy(activePrice)}
                       containerStyle={tailwind('justify-end')}

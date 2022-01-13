@@ -38,7 +38,7 @@ import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Lo
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -496,7 +496,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUsdValue
+            <ActiveUSDValue
               price={prices.collateralPrice}
               testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
             />
