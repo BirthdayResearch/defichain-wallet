@@ -78,7 +78,7 @@ export const fetchPoolPairs = createAsyncThunk(
   'wallet/fetchPoolPairs',
   async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
-    return pairs.map(data => ({ type: 'available', data }))
+    return pairs.filter(pair => pair.symbol !== 'BURN-DFI').map(data => ({ type: 'available', data }))
   }
 )
 
