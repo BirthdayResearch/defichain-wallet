@@ -1,5 +1,16 @@
 import { EnvironmentNetwork } from '../../../../../../shared/environment'
 import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
+import BigNumber from 'bignumber.js'
+
+function generateBlockUntilLiquidate (): void {
+  cy.getByTestID('playground_generate_blocks').click()
+  cy.wait(3000)
+  cy.getByTestID('vault_card_0_status').invoke('text').then((status: string) => {
+    if (status !== 'IN LIQUIDATION') {
+      generateBlockUntilLiquidate()
+    }
+  })
+}
 
 context('Wallet - Auctions', () => {
   const walletTheme = { isDark: false }
@@ -40,22 +51,21 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
-    cy.getByTestID('loan_card_dTS25').click()
-    cy.getByTestID('form_input_borrow').clear().type('3.186').blur()
-    cy.wait(3000)
+    cy.getByTestID('loan_card_dTU10').click()
+    cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
+      const maxLoanAmount = new BigNumber(text).toFixed(2, 1) // use 2dp and round down
+      cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
+    })
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
     cy.closeOceanInterface()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    cy.wrap(Array.from(Array(150), (v, i) => i)).each(() => {
-      cy.getByTestID('playground_generate_blocks').click()
-      cy.wait(3000)
-    })
+    generateBlockUntilLiquidate()
     cy.checkVaultTag('IN LIQUIDATION', VaultStatus.Liquidated, 'vault_card_0_status', walletTheme.isDark)
   })
 
   it('should show liquidated vault in auctions', function () {
     cy.getByTestID('bottom_tab_auctions').click()
-    cy.getByTestID('batch_0_dTS25').should('exist')
+    cy.getByTestID('batch_card_0').should('exist')
   })
 })
