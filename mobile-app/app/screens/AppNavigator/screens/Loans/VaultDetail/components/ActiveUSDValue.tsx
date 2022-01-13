@@ -5,14 +5,14 @@ import { View } from '@components'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewStyle } from 'react-native'
 
-interface ActiveUsdValueProps {
+interface ActiveUSDValueProps {
   style?: StyleProp<ViewStyle>
   containerStyle?: StyleProp<ViewStyle>
   testId?: string
   price: BigNumber
 }
 
-export function ActiveUSDValue (props: ActiveUsdValueProps): JSX.Element {
+export function ActiveUSDValue (props: ActiveUSDValueProps): JSX.Element {
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
