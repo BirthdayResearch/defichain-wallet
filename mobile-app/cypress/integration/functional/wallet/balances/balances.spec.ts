@@ -3,9 +3,10 @@ import BigNumber from 'bignumber.js'
 
 export interface BalanceTokenDetail {
   symbol: string
+  displaySymbol: string
   name: string
   amount: string | number
-  activePrice?: string
+  checkActivePrice?: boolean
 }
 
 context('Wallet - Balances', () => {
@@ -40,6 +41,9 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_token_label').contains('Token')
     cy.getByTestID('total_dfi_amount').contains('20.00000000')
     cy.getByTestID('total_dfi_label').contains('DFI')
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', checkActivePrice: true })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', checkActivePrice: true })
+    // Check total portfolio value
     cy.wrap(whale.prices.getFeedActive('DFI', 'USD')).then((dfiResponse) => {
       const activePrice = dfiResponse.length > 0 ? dfiResponse[0]?.active?.amount : 0
       let totalUsdValue = new BigNumber('20').multipliedBy(activePrice)
@@ -47,11 +51,9 @@ context('Wallet - Balances', () => {
         const btcActivePrice = btcResponse.length > 0 ? btcResponse[0]?.active?.amount : 0
         const btcUsdValue = new BigNumber('10').multipliedBy(btcActivePrice)
         totalUsdValue = totalUsdValue.plus(btcUsdValue)
-        cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', symbol: 'dBTC', activePrice: `≈ $${btcUsdValue.toFixed(2)}` })
         cy.wrap(whale.prices.getFeedActive('ETH', 'USD')).then((ethResponse) => {
           const ethActivePrice = ethResponse.length > 0 ? ethResponse[0]?.active?.amount : 0
           const ethUsdValue = new BigNumber('10').multipliedBy(ethActivePrice)
-          cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', symbol: 'dETH', activePrice: `≈ $${ethUsdValue.toFixed(2)}` })
           totalUsdValue = totalUsdValue.plus(ethUsdValue)
           cy.getByTestID('total_usd_amount').then(($txt: any) => {
             const value = $txt[0].textContent.replace(',', '')
@@ -64,16 +66,8 @@ context('Wallet - Balances', () => {
 
   it('should display BTC and ETH with correct amounts', function () {
     cy.getByTestID('balances_list').should('exist')
-    cy.wrap(whale.prices.getFeedActive('BTC', 'USD')).then((response) => {
-      const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
-      const usdValue = new BigNumber('10').multipliedBy(activePrice)
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', symbol: 'dBTC', activePrice: `≈ $${usdValue.toFixed(2)}` })
-    })
-    cy.wrap(whale.prices.getFeedActive('ETH', 'USD')).then((response) => {
-      const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
-      const usdValue = new BigNumber('10').multipliedBy(activePrice)
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', symbol: 'dETH', activePrice: `≈ $${usdValue.toFixed(2)}` })
-    })
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', checkActivePrice: true })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', checkActivePrice: true })
   })
 
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
@@ -82,8 +76,8 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
-    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', symbol: 'dBTC' })
-    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', symbol: 'dETH' })
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', displaySymbol: 'dBTC', symbol: 'BTC' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', displaySymbol: 'dETH', symbol: 'ETH' })
   })
 
   it('should redirect to send page', function () {

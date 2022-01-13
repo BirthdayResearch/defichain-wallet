@@ -1,5 +1,7 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import '@testing-library/cypress/add-commands'
+import { BigNumber } from 'bignumber.js'
 import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
 
 declare global {
@@ -71,15 +73,25 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   const testID = `balances_row_${id}`
   cy.getByTestID(testID).should('exist')
   cy.getByTestID(`${testID}_icon`).should('exist')
-  cy.getByTestID(`${testID}_symbol`).should('have.text', details.symbol)
+  cy.getByTestID(`${testID}_symbol`).should('have.text', details.displaySymbol)
   cy.getByTestID(`${testID}_name`).should('have.text', details.name)
   if (dynamicAmount === true) {
     cy.getByTestID(`${testID}_amount`).contains(details.amount)
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
   }
-  if (details.activePrice) {
-    cy.getByTestID(`${testID}_usd_amount`).should('have.text', details.activePrice)
+  if (details.checkActivePrice) {
+    const network = localStorage.getItem('Development.NETWORK')
+    const whale = new WhaleApiClient({
+      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      network: 'regtest',
+      version: 'v0'
+    })
+    cy.wrap(whale.prices.getFeedActive(details.symbol, 'USD')).then((response) => {
+      const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
+      const usdValue = new BigNumber('10').multipliedBy(activePrice)
+      cy.getByTestID(`${testID}_usd_amount`).should('have.text', `≈ $${usdValue.toFixed(2)}`)
+    })
   }
 })
 
