@@ -11,6 +11,7 @@ import { PlaygroundToken } from './sections/PlaygroundToken'
 import { PlaygroundUTXO } from './sections/PlaygroundUTXO'
 import { PlaygroundWallet } from './sections/PlaygroundWallet'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { PlaygroundOperations } from '@screens/PlaygroundNavigator/sections/PlaygroundOperations'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
@@ -19,9 +20,7 @@ export function PlaygroundScreen (): JSX.Element {
       style={tailwind('pb-16')}
     >
       <PlaygroundConnection />
-
       <PlaygroundWallet />
-
       <PlaygroundWalletSection />
     </ThemedScrollView>
   )
@@ -42,6 +41,7 @@ function PlaygroundWalletSection (): JSX.Element | null {
   return (
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider api={WalletAddressIndexPersistence}>
+        <PlaygroundOperations />
         <PlaygroundUTXO />
 
         <PlaygroundToken />
