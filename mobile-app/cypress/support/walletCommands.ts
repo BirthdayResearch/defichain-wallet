@@ -1,7 +1,5 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
-import { WhaleApiClient } from '@defichain/whale-api-client'
 import '@testing-library/cypress/add-commands'
-import { BigNumber } from 'bignumber.js'
 import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
 
 declare global {
@@ -80,18 +78,8 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
   }
-  if (details.checkActivePrice) {
-    const network = localStorage.getItem('Development.NETWORK')
-    const whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
-      network: 'regtest',
-      version: 'v0'
-    })
-    cy.wrap(whale.prices.getFeedActive(details.symbol, 'USD')).then((response) => {
-      const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
-      const usdAmount = new BigNumber('10').multipliedBy(activePrice)
-      cy.getByTestID(`${testID}_usd_amount`).should('have.text', `≈ $${usdAmount.toFixed(2)}`)
-    })
+  if (details.usdAmount) {
+    cy.getByTestID(`${testID}_usd_amount`).should('have.text', details.usdAmount)
   }
 })
 

@@ -1,32 +1,21 @@
-import { WhaleApiClient } from '@defichain/whale-api-client'
-import BigNumber from 'bignumber.js'
-
 export interface BalanceTokenDetail {
   symbol: string
   displaySymbol: string
   name: string
   amount: string | number
-  checkActivePrice?: boolean
+  usdAmount?: string
 }
 
 context('Wallet - Balances', () => {
-  let whale: WhaleApiClient
-
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
-    const network = localStorage.getItem('Development.NETWORK')
-    whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
-      network: 'regtest',
-      version: 'v0'
-    })
   })
 
   it('should display no tokens text', function () {
-    cy.getByTestID('total_usd_amount').should('have.text', '$1,000.00')
+    cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No other tokens yet')
     cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Get started by adding your tokens here in your wallet')
   })
@@ -41,33 +30,15 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_token_label').contains('Token')
     cy.getByTestID('total_dfi_amount').contains('20.00000000')
     cy.getByTestID('total_dfi_label').contains('DFI')
-    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', checkActivePrice: true })
-    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', checkActivePrice: true })
-    // Check total portfolio value
-    cy.wrap(whale.prices.getFeedActive('DFI', 'USD')).then((dfiResponse) => {
-      const activePrice = dfiResponse.length > 0 ? dfiResponse[0]?.active?.amount : 0
-      let totalUSDValue = new BigNumber('20').multipliedBy(activePrice)
-      cy.wrap(whale.prices.getFeedActive('BTC', 'USD')).then((btcResponse) => {
-        const btcActivePrice = btcResponse.length > 0 ? btcResponse[0]?.active?.amount : 0
-        const btcUSDValue = new BigNumber('10').multipliedBy(btcActivePrice)
-        totalUSDValue = totalUSDValue.plus(btcUSDValue)
-        cy.wrap(whale.prices.getFeedActive('ETH', 'USD')).then((ethResponse) => {
-          const ethActivePrice = ethResponse.length > 0 ? ethResponse[0]?.active?.amount : 0
-          const ethUSDValue = new BigNumber('10').multipliedBy(ethActivePrice)
-          totalUSDValue = totalUSDValue.plus(ethUSDValue)
-          cy.getByTestID('total_usd_amount').then(($txt: any) => {
-            const value = $txt[0].textContent.replace(',', '')
-            expect(value).eq(`$${totalUSDValue.toFixed(2)}`)
-          })
-        })
-      })
-    })
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.00' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1.00' })
+    cy.getByTestID('total_usd_amount').contains('$301.00')
   })
 
   it('should display BTC and ETH with correct amounts', function () {
     cy.getByTestID('balances_list').should('exist')
-    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', checkActivePrice: true })
-    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', checkActivePrice: true })
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.00' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1.00' })
   })
 
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
