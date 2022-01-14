@@ -46,7 +46,7 @@ jobs:
           parallel: true
           start: npm run start:web
           wait-on: 'http://localhost:19006'
-          browser: chrome
+          browser: firefox
           spec: mobile-app/cypress/integration/**
           tag: ${{ github.event_name }}
           project: ./mobile-app
