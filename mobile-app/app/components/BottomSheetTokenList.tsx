@@ -13,9 +13,8 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
+import { useDexTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/DexTokenPrice'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -37,7 +36,6 @@ export interface BottomSheetToken {
     displaySymbol: string
     symbol: string
   }
-  activePrice?: ActivePrice
   factor?: string
   reserve?: string
 }
@@ -57,11 +55,12 @@ export const BottomSheetTokenList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
+  const { getDexTokenActivePrice } = useDexTokenPrice()
   return (
     <FlatList
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
-        const activePrice = new BigNumber(getActivePrice(item.token.symbol, item?.activePrice))
+        const activePrice = getDexTokenActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice)
         return (
           <ThemedTouchableOpacity
             disabled={new BigNumber(item.available).lte(0)}

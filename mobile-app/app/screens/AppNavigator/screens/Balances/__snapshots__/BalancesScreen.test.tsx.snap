@@ -1327,7 +1327,7 @@ exports[`balances page should match snapshot 1`] = `
           }
           testID="total_usd_amount"
         >
-          $0.00
+          $1,432.00
         </Text>
       </View>
       <View
@@ -2067,7 +2067,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="balances_row_1_usd_amount"
               >
-                ≈ $0.00
+                ≈ $777.00
               </Text>
             </View>
           </View>
@@ -2350,7 +2350,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="balances_row_2_usd_amount"
               >
-                ≈ $0.00
+                ≈ $555.00
               </Text>
             </View>
           </View>

@@ -531,8 +531,7 @@ function getBottomSheetToken (tokens: WalletToken[]): BottomSheetToken[] {
         name: t.name,
         displaySymbol: t.displaySymbol,
         symbol: t.symbol
-      },
-      activePrice: t.activePrice
+      }
     }
     return token
   })

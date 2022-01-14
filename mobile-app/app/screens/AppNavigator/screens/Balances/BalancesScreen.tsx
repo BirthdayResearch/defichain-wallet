@@ -29,10 +29,13 @@ import { RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
-import { getActivePrice } from '../Auctions/helpers/ActivePrice'
 import { ActiveUSDValue } from '../Loans/VaultDetail/components/ActiveUSDValue'
+import { useDexTokenPrice } from './hooks/DexTokenPrice'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
+interface BalanceRowToken extends WalletToken {
+  usdAmount: BigNumber
+}
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
@@ -46,6 +49,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
 
   const dispatch = useDispatch()
+  const { getDexTokenActivePrice } = useDexTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
@@ -63,17 +67,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const totalUSDValue = tokens.reduce((total, item) => {
-    if (item.id === '0_unified') {
-      return total
-    }
-    const value = new BigNumber(getActivePrice(item.symbol, item?.activePrice)).multipliedBy(item.amount)
-    return total.plus(value)
-  }, new BigNumber(0))
 
-  const dstTokens = tokens.filter(token =>
-    token.symbol !== 'DFI'
-  )
+  const { totalUSDValue, dstTokens } = tokens.reduce(
+    ({ totalUSDValue, dstTokens }: {totalUSDValue: BigNumber, dstTokens: BalanceRowToken[]},
+    token
+  ) => {
+    const usdAmount = new BigNumber(getDexTokenActivePrice(token.symbol)).multipliedBy(token.amount)
+    if (token.symbol === 'DFI') {
+      return {
+        // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
+        totalUSDValue: token.id === '0_unified' ? totalUSDValue : totalUSDValue.plus(usdAmount),
+        dstTokens
+      }
+    }
+    return {
+      totalUSDValue: totalUSDValue.plus(usdAmount),
+      dstTokens: [...dstTokens, { ...token, usdAmount }]
+    }
+  }, { totalUSDValue: new BigNumber(0), dstTokens: [] })
 
   return (
     <ThemedScrollView
@@ -161,9 +172,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 function BalanceItemRow ({
   token,
   onPress
-}: { token: WalletToken, onPress: () => void }): JSX.Element {
+}: { token: BalanceRowToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.avatarSymbol)
-  const activePrice = new BigNumber(getActivePrice(token.symbol, token?.activePrice))
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   return (
@@ -214,7 +224,7 @@ function BalanceItemRow ({
                   {isBalancesDisplayed && (
                     <ActiveUSDValue
                       testId={`${testID}_usd_amount`}
-                      price={new BigNumber(token.amount).multipliedBy(activePrice)}
+                      price={token.usdAmount}
                       containerStyle={tailwind('justify-end')}
                     />
                   )}

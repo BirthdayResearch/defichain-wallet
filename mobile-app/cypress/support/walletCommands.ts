@@ -89,8 +89,8 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
     })
     cy.wrap(whale.prices.getFeedActive(details.symbol, 'USD')).then((response) => {
       const activePrice = response.length > 0 ? response[0]?.active?.amount : 0
-      const usdValue = new BigNumber('10').multipliedBy(activePrice)
-      cy.getByTestID(`${testID}_usd_amount`).should('have.text', `≈ $${usdValue.toFixed(2)}`)
+      const usdAmount = new BigNumber('10').multipliedBy(activePrice)
+      cy.getByTestID(`${testID}_usd_amount`).should('have.text', `≈ $${usdAmount.toFixed(2)}`)
     })
   }
 })

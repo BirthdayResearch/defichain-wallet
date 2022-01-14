@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -35,10 +35,11 @@ import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
+import { getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useDexTokenPrice } from '../../Balances/hooks/DexTokenPrice'
 
 export interface TokenState {
   id: string
@@ -59,6 +60,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
+  const { calculatePriceRates, getSelectedPoolPairs } = useDexTokenPrice()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
@@ -270,7 +272,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             name: '', // not available in API,
             symbol: token.symbol
           },
-          activePrice: ownedToken?.activePrice,
           reserve: token.reserve
         }
       }).sort((a, b) => b.available.minus(a.available).toNumber())
@@ -278,32 +279,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setAllowedSwapFromTokens(swappableFromTokens)
 
     if (selectedTokenA !== undefined && allTokens !== undefined) {
-      setAllowedSwapToTokens(getAllPossibleSwapToTokens(allTokens, pairs, tokens, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id))
+      setAllowedSwapToTokens(getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id))
     }
   }, [tokens, selectedTokenA, selectedTokenB])
 
   useEffect(() => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const graph: GraphProps[] = pairs.map(pair => {
-        return {
-          pairId: pair.data.id,
-          a: pair.data.tokenA.symbol,
-          b: pair.data.tokenB.symbol
-        }
-      })
-      // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
-      const { path } = findPath(graph, selectedTokenA.symbol, selectedTokenB.symbol)
-      const poolPairs = path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
-        const pair = pairs.find(pair => checkIfPair({
-          a: pair.data.tokenA.symbol,
-          b: pair.data.tokenB.symbol
-        }, token, path[index + 1]))
-        if ((pair == null) || index === path.length) {
-          return poolPairs
-        }
-        return [...poolPairs, pair.data]
-      }, [])
-
+      const poolPairs = getSelectedPoolPairs(selectedTokenA.symbol, selectedTokenB.symbol)
       setSelectedPoolPairs(poolPairs)
     }
   }, [selectedTokenA, selectedTokenB])
@@ -314,8 +296,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA, selectedPoolPairs, tokenAFormAmount)
+      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, tokenAFormAmount)
+      const slippage = new BigNumber(1).minus(new BigNumber(tokenAFormAmount).div(selectedTokenA.reserve))
 
+      const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
         label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', {
           tokenA: selectedTokenA.displaySymbol,
@@ -335,7 +319,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       }
       ])
 
-      setValue('tokenB', estimated)
+      setValue('tokenB', estimatedAmountAfterSlippage)
     }
   }, [selectedPoolPairs, tokenAFormAmount])
 
@@ -713,42 +697,6 @@ function TransactionDetailsSection ({
     </>
   )
 }
-
-function calculatePriceRates (tokenA: OwnedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
-  const slippage = new BigNumber(1).minus(new BigNumber(amount).div(tokenA.reserve))
-  let lastTokenBySymbol = tokenA.symbol
-  let lastAmount = new BigNumber(amount)
-  const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
-    const [reserveA, reserveB] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.reserve, pair.tokenA.reserve] : [pair.tokenA.reserve, pair.tokenB.reserve]
-    const [tokenASymbol, tokenBSymbol] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.symbol, pair.tokenA.symbol] : [pair.tokenA.symbol, pair.tokenB.symbol]
-
-    const priceRateA = new BigNumber(reserveB).div(reserveA)
-    const priceRateB = new BigNumber(reserveA).div(reserveB)
-    // To sequentially convert the token from its last token
-    const aToBPrice = tokenASymbol === lastTokenBySymbol ? priceRateA : priceRateB
-    const bToAPrice = tokenASymbol === lastTokenBySymbol ? priceRateB : priceRateA
-    const estimated = new BigNumber(lastAmount).times(aToBPrice)
-
-    lastAmount = estimated
-    lastTokenBySymbol = tokenBSymbol
-    return {
-      aToBPrice: priceRates.aToBPrice.times(aToBPrice),
-      bToAPrice: priceRates.bToAPrice.times(bToAPrice),
-      estimated
-    }
-  }, {
-    aToBPrice: new BigNumber(1),
-    bToAPrice: new BigNumber(1),
-    estimated: new BigNumber(0)
-  })
-
-  return {
-    aToBPrice: priceRates.aToBPrice,
-    bToAPrice: priceRates.bToAPrice,
-    estimated: priceRates.estimated.times(slippage).toFixed(8)
-  }
-}
-
 interface TokenForm {
   control: Control<{ tokenA: string, tokenB: string }>
   controlName: 'tokenA' | 'tokenB'
@@ -860,7 +808,7 @@ function TokenRow (form: TokenForm): JSX.Element {
  * @param pairs
  * @param tokenFrom
  */
-function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], tokens: WalletToken[], tokenFrom: string): BottomSheetToken[] {
+function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], tokenFrom: string): BottomSheetToken[] {
   const graph: GraphProps[] = pairs.map(pair => {
     const graphItem: GraphProps = {
       pairId: pair.data.id,
@@ -897,12 +845,11 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
     nodesToVisit.delete(token)
   }
 
-  return reachableNodes.reduce((toTokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
+  return reachableNodes.reduce((tokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
     const token = allTokens.find(token => token.id === node)
-    const ownedToken = tokens.find(t => t.id === node)
     if (token !== undefined && node !== tokenFrom) {
       return [
-        ...toTokens, {
+        ...tokens, {
           tokenId: token.id,
           available: new BigNumber(token.reserve),
           token: {
@@ -910,12 +857,10 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
             displaySymbol: token.displaySymbol,
             symbol: token.symbol
           },
-          activePrice: ownedToken?.activePrice,
           reserve: token.reserve
         }
       ]
     }
-
-    return toTokens
+    return tokens
   }, [])
 }
