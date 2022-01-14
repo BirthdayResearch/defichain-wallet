@@ -16,7 +16,7 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --headless --browser firefox",
+    "cypress:run": "cypress run --headless --browser chrome",
     "react-devtools:open": "react-devtools"
   },
   "dependencies": {
