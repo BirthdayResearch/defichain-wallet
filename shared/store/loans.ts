@@ -2,6 +2,8 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
+import { useVaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
+import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import BigNumber from 'bignumber.js'
 
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
@@ -129,17 +131,25 @@ export const loanTokenByTokenId = createSelector([selectTokenId, loanTokensSelec
 
 export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {
   const order = {
-    [LoanVaultState.IN_LIQUIDATION]: 1,
-    [LoanVaultState.MAY_LIQUIDATE]: 2,
-    [LoanVaultState.ACTIVE]: 3,
-    [LoanVaultState.FROZEN]: 4,
-    [LoanVaultState.UNKNOWN]: 5
+    [VaultStatus.Healthy]: 1,
+    [VaultStatus.AtRisk]: 2,
+    [VaultStatus.NearLiquidation]: 3,
+    [VaultStatus.Liquidated]: 4,
+    [VaultStatus.Ready]: 5,
+    [VaultStatus.Halted]: 6,
+    [VaultStatus.Empty]: 7,
+    [VaultStatus.Unknown]: 8
   }
   return vaults.map(vault => {
     if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-      return { ...vault }
+      return { ...vault, vaultState: VaultStatus.Liquidated }
     }
 
+    const colRatio = new BigNumber(vault.collateralRatio)
+    const minColRatio = new BigNumber(vault.loanScheme.minColRatio)
+    const totalLoanValue = new BigNumber(vault.loanValue)
+    const totalCollateralValue = new BigNumber(vault.collateralValue)
+    const vaultState = useVaultStatus(vault.state, colRatio, minColRatio, totalLoanValue, totalCollateralValue)
     const modifiedLoanAmounts = vault.loanAmounts.map(loanAmount => {
       if (loanAmount.symbol === 'DUSD') {
         const modifiedLoanAmount: LoanVaultTokenAmount = {
@@ -165,7 +175,8 @@ export const vaultsSelector = createSelector((state: LoansState) => state.vaults
     return {
       ...vault,
       loanAmounts: modifiedLoanAmounts,
-      interestAmounts: modifiedInterestAmounts
+      interestAmounts: modifiedInterestAmounts,
+      vaultState: vaultState.status
     }
-  }).sort((a, b) => order[a.state] - order[b.state]) as LoanVault[]
+  }).sort((a, b) => order[a.vaultState] - order[b.vaultState]) as LoanVault[]
 })
