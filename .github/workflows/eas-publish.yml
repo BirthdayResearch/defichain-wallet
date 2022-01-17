@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@d260aeca263f4adfec07752c8bbb004e63470e64
         with:
           expo-version: 4.x
           packager: npm
@@ -67,7 +67,7 @@ jobs:
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@d260aeca263f4adfec07752c8bbb004e63470e64
         with:
           eas-version: latest
           expo-version: 4.x
