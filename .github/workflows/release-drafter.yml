@@ -8,6 +8,6 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@fe52e97d262833ae07d05efaf1a239df3f1b5cd4
+      - uses: release-drafter/release-drafter@1eb031648ba18ffa376d3e4f2c33a6364a5a4dc2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
