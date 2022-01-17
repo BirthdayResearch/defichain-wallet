@@ -48,4 +48,15 @@ context('Wallet - Settings', () => {
     cy.url().should('include', 'app/Settings/AboutScreen')
     cy.getByTestID('app_logo').should('exist')
   })
+
+  it('should activate sun icon in light mode (by default)', () => {
+    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(251, 191, 36)')
+    cy.getByTestID('dark_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
+  })
+
+  it('should switch and activate moon icon from light to dark mode', () => {
+    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(251, 191, 36)')
+    cy.getByTestID('theme_switch').click()
+    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
+  })
 })
