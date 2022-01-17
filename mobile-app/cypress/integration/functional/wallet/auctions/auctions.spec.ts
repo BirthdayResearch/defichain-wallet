@@ -114,9 +114,7 @@ context('Wallet - Auctions', () => {
   })
 
   it('should allow others to place bid', function () {
-    cy.getByTestID('playground_wallet_random').click()
-    cy.reload()
-    cy.wait(3000)
+    cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(6000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.createVault(0)
