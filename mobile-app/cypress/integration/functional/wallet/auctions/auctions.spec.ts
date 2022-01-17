@@ -96,7 +96,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('quick_bid_submit_button').click().wait(1000)
     cy.closeOceanInterface()
     cy.getByTestID('batch_card_0_no_bid').should('not.exist')
-    cy.getByTestID('bid_highest_text').should('exist')
+    cy.getByTestID('batch_card_0_highest_text').should('exist')
     cy.getByTestID('batch_card_0').click()
     cy.getByTestID('bid_1').should('exist')
 
@@ -107,7 +107,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('button_submit').click()
     cy.getByTestID('button_confirm_bid').click()
     cy.closeOceanInterface()
-    cy.getByTestID('bid_highest_text').should('exist')
+    cy.getByTestID('batch_card_0_highest_text').should('exist')
     cy.getByTestID('batch_card_0').click()
     cy.getByTestID('bid_1').should('exist')
     cy.getByTestID('bid_2').should('exist')
@@ -142,7 +142,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('button_confirm_bid').click()
     cy.closeOceanInterface()
 
-    cy.getByTestID('bid_highest_text').should('exist')
+    cy.getByTestID('batch_card_0_highest_text').should('exist')
     cy.getByTestID('batch_card_0').click()
     cy.getByTestID('bid_3').should('exist')
   })

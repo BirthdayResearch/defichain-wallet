@@ -130,7 +130,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           {props.isVaultOwner && <BatchCardInfo testID={`${testID}_owned_vault`} iconName='account-circle' text='From your vault' />}
           {!hasFirstBid && <BatchCardInfo testID={`${testID}_no_bid`} iconName='hourglass-top' text='Waiting for first bid' />}
         </View>
-        {batch?.highestBid?.owner === address && <AuctionBidStatus type='highest' />}
+        {batch?.highestBid?.owner === address && <AuctionBidStatus testID={testID} type='highest' />}
         <View style={tailwind('flex-row w-full items-center justify-between my-2')}>
           <View style={tailwind('flex flex-row')}>
             <ThemedText
@@ -257,7 +257,7 @@ function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => vo
 
 type AuctionBidStatusType = 'lost' | 'highest'
 
-export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
+export function AuctionBidStatus ({ type, testID }: { type: AuctionBidStatusType, testID: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row w-full items-center justify-between')}>
       <View style={tailwind('flex flex-row items-center justify-between')}>
@@ -275,7 +275,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
                 light={tailwind('text-warning-500')}
                 dark={tailwind('text-darkwarning-500')}
                 style={tailwind('text-xs ml-1')}
-                testID='bid_lost_text'
+                testID={`${testID}_lost_text`}
               >
                 {translate('components/BatchCard', 'Your placed bid lost')}
               </ThemedText>
@@ -295,7 +295,7 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
                 light={tailwind('text-blue-500')}
                 dark={tailwind('text-darkblue-500')}
                 style={tailwind('text-2xs mr-2')}
-                testID='bid_highest_text'
+                testID={`${testID}_highest_text`}
               >
                 {translate('components/BatchCard', 'You are the highest bidder')}
               </ThemedText>
