@@ -180,7 +180,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
           {batch?.highestBid?.owner === address && (
             <View style={tailwind('mb-1')}>
-              <AuctionBidStatus type='highest' />
+              <AuctionBidStatus testID='batch_detail' type='highest' />
             </View>
           )}
 

@@ -1,5 +1,6 @@
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
+import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import { ascColRatioLoanScheme, fetchCollateralTokens, fetchLoanSchemes, fetchLoanTokens, fetchVaults, loans, LoansState, loanTokenByTokenId, loanTokensSelector, LoanVault, vaultsSelector } from './loans'
 
 describe('loans reducer', () => {
@@ -531,7 +532,7 @@ describe('loans reducer', () => {
   })
 
   it('should be able to select vaults regardless of vault state', () => {
-    const liquidatedVault: LoanVaultLiquidated = {
+    const liquidatedVault: LoanVaultLiquidated & { vaultState: VaultStatus } = {
       vaultId: 'eee84f2cc56bbc51a42eaf302b76d4d1250b58b943829ee82f2fa9a46a9e4319',
       loanScheme: {
         id: 'MIN150',
@@ -540,6 +541,7 @@ describe('loans reducer', () => {
       },
       ownerAddress: 'bcrt1q39r84tmh4xp7wmg32tnza8j544lynknvy8q2nr',
       state: LoanVaultState.IN_LIQUIDATION,
+      vaultState: VaultStatus.Liquidated,
       liquidationHeight: 1,
       liquidationPenalty: 1,
       batchCount: 1,
@@ -561,6 +563,7 @@ describe('loans reducer', () => {
     const actual = vaultsSelector(state)
     expect(actual).toStrictEqual([{
       ...vault,
+      vaultState: 'HEALTHY',
       loanAmounts: [
         {
           id: '14',

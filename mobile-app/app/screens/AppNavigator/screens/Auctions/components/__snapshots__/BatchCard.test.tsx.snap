@@ -44,6 +44,7 @@ exports[`Batch Card should match snapshot 1`] = `
         "opacity": 1,
       }
     }
+    testID="batch_card"
   >
     <View
       style={
@@ -506,6 +507,7 @@ exports[`Batch Card should match snapshot 1`] = `
               ],
             ]
           }
+          testID="batch_card_no_bid"
         >
           Waiting for first bid
         </Text>
@@ -861,6 +863,7 @@ exports[`Batch Card should match snapshot 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="batch_card_place_bid"
     >
       <Text
         style={
@@ -929,6 +932,7 @@ exports[`Batch Card should match snapshot 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="batch_card_quick_bid"
     >
       <Text
         style={
