@@ -63,10 +63,10 @@ context('Wallet - Auctions', () => {
     generateBlockUntilLiquidate()
     cy.checkVaultTag('IN LIQUIDATION', VaultStatus.Liquidated, 'vault_card_0_status', walletTheme.isDark)
     cy.createVault(0, true)
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.getByTestID('vault_card_1_edit_collaterals_button').click()
     cy.addCollateral('0.60000000', 'DFI')
     cy.go('back')
-    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('vault_card_1_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTU10').click()
     cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
@@ -83,7 +83,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('batch_0_dTU10').should('exist')
   })
 
-  it('should be able to quick bid', function () {
+  it('should be able to quick/place bid', function () {
     cy.getByTestID('batch_card_0_owned_vault').should('exist')
     cy.getByTestID('batch_card_0_no_bid').should('exist')
 
@@ -99,10 +99,8 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('bid_highest_text').should('exist')
     cy.getByTestID('batch_card_0').click()
     cy.getByTestID('bid_1').should('exist')
-  })
 
-  it('should be able to place bid', function () {
-    cy.go('back')
+    // place bid
     cy.getByTestID('bottom_tab_auctions').click()
     cy.getByTestID('batch_card_0_place_bid').click()
     cy.getByTestID('MAX_amount_button').click()
@@ -110,6 +108,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('button_confirm_bid').click()
     cy.closeOceanInterface()
     cy.getByTestID('bid_highest_text').should('exist')
+    cy.getByTestID('batch_card_0').click()
     cy.getByTestID('bid_1').should('exist')
     cy.getByTestID('bid_2').should('exist')
   })
