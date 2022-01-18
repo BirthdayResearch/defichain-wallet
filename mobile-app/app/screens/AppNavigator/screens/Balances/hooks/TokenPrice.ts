@@ -10,13 +10,13 @@ import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/A
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 
 interface DexTokenPrice {
-  getDexTokenActivePrice: (symbol: string, activePrice?: ActivePrice) => BigNumber
+  getTokenPrice: (symbol: string, activePrice?: ActivePrice) => BigNumber
   calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: string) => { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber }
   getSelectedPoolPairs: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
   getPairAmountFromLP: (symbol: string, amount: string) => { tokenAAmount: BigNumber, tokenBAmount: BigNumber, tokenASymbol: string, tokenBSymbol: string }
 }
 
-export function useDexTokenPrice (): DexTokenPrice {
+export function useTokenPrice (): DexTokenPrice {
   const client = useWhaleApiClient()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
@@ -51,7 +51,7 @@ export function useDexTokenPrice (): DexTokenPrice {
       }
   }
 
-  function getDexTokenActivePrice (symbol: string, activePrice?: ActivePrice): BigNumber {
+  function getTokenPrice (symbol: string, activePrice?: ActivePrice): BigNumber {
     // active price for collateralTokens
     if (activePrice !== undefined) {
       return new BigNumber(getActivePrice(symbol, activePrice))
@@ -112,7 +112,7 @@ export function useDexTokenPrice (): DexTokenPrice {
   }
 
   return {
-    getDexTokenActivePrice,
+    getTokenPrice,
     calculatePriceRates,
     getSelectedPoolPairs,
     getPairAmountFromLP

@@ -39,7 +39,7 @@ import { getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useDexTokenPrice } from '../../Balances/hooks/DexTokenPrice'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 export interface TokenState {
   id: string
@@ -60,7 +60,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const { calculatePriceRates, getSelectedPoolPairs } = useDexTokenPrice()
+  const { calculatePriceRates, getSelectedPoolPairs } = useTokenPrice()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)

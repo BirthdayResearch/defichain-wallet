@@ -30,7 +30,7 @@ import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/compo
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
 import { ActiveUSDValue } from '../Loans/VaultDetail/components/ActiveUSDValue'
-import { useDexTokenPrice } from './hooks/DexTokenPrice'
+import { useTokenPrice } from './hooks/TokenPrice'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 interface BalanceRowToken extends WalletToken {
@@ -49,7 +49,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
 
   const dispatch = useDispatch()
-  const { getDexTokenActivePrice, getPairAmountFromLP } = useDexTokenPrice()
+  const { getTokenPrice, getPairAmountFromLP } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
@@ -71,13 +71,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const getUSDAmount = (symbol: string, amount: string, isLPS: boolean): BigNumber => {
     if (isLPS) {
       const { tokenAAmount, tokenBAmount, tokenASymbol, tokenBSymbol } = getPairAmountFromLP(symbol, amount)
-      const usdTokenA = new BigNumber(getDexTokenActivePrice(tokenASymbol)).multipliedBy(tokenAAmount)
-      const usdTokenB = new BigNumber(getDexTokenActivePrice(tokenBSymbol)).multipliedBy(tokenBAmount)
+      const usdTokenA = new BigNumber(getTokenPrice(tokenASymbol)).multipliedBy(tokenAAmount)
+      const usdTokenB = new BigNumber(getTokenPrice(tokenBSymbol)).multipliedBy(tokenBAmount)
 
       return usdTokenA.plus(usdTokenB)
     }
 
-    return new BigNumber(getDexTokenActivePrice(symbol)).multipliedBy(amount)
+    return new BigNumber(getTokenPrice(symbol)).multipliedBy(amount)
   }
 
   const { totalUSDValue, dstTokens } = tokens.reduce(
