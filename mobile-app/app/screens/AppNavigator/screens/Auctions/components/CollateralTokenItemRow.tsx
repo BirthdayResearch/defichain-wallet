@@ -69,7 +69,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
               style={tailwind('text-xs flex-wrap text-right')}
-              testID={`${testID}_amount`}
+              testID={`${testID}_USD_amount`}
             >
               {value}
             </ThemedText>}

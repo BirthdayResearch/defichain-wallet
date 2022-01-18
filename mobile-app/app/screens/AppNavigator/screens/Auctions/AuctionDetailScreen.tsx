@@ -130,7 +130,10 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
               </ThemedView>
               <View style={tailwind('flex flex-row ml-2')}>
                 <View style={tailwind('flex')}>
-                  <ThemedText style={tailwind('font-semibold text-sm')}>
+                  <ThemedText
+                    style={tailwind('font-semibold text-sm')}
+                    testID='auction_detail_loan_displaysymbol'
+                  >
                     {batch.loan.displaySymbol}
                   </ThemedText>
                   <View style={tailwind('flex flex-row items-center')}>
@@ -138,6 +141,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                       light={tailwind('text-gray-500')}
                       dark={tailwind('text-gray-400')}
                       style={tailwind('text-xs')}
+                      testID='auction_detail_batch_index'
                     >
                       {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: batch.index + 1 })}
                     </ThemedText>

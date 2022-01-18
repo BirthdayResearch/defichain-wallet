@@ -1,16 +1,7 @@
 import { EnvironmentNetwork } from '../../../../../../shared/environment'
 import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import BigNumber from 'bignumber.js'
-
-function generateBlockUntilLiquidate (): void {
-  cy.getByTestID('playground_generate_blocks').click()
-  cy.wait(3000)
-  cy.getByTestID('vault_card_0_status').invoke('text').then((status: string) => {
-    if (status !== 'IN LIQUIDATION') {
-      generateBlockUntilLiquidate()
-    }
-  })
-}
+import { generateBlockUntilLiquidate } from '../../../../support/auctionCommands'
 
 context('Wallet - Auctions', () => {
   const walletTheme = { isDark: false }
