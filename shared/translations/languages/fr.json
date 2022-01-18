@@ -5,21 +5,21 @@
     "Display recovery words": "Afficher les mots de récupération",
     "Verify words": "Vérifier les mots",
     "Restore Wallet": "Restaurer le portefeuille",
-    "Create a passcode": "Créer un code de passe",
-    "Verify passcode": "Vérifier le code de passe",
+    "Create a passcode": "Créer un code d'accès",
+    "Verify passcode": "Vérifier le code d'accès",
     "Select network": "Sélection du réseau",
     "Cancel": "Annuler",
     "Refresh": "Renouveler",
     "Refresh recovery words": "Renouveler les mots de récupération",
     "You are about to generate a new set of recovery words. Continue?": "Vous génèrez un nouveau jeu de mots de récupération. Continuer ?",
-    "Passcode FAQ": "FAQ Code de passe"
+    "Passcode FAQ": "FAQ code d'accès"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Échange décentralisé",
     "ADD LIQUIDITY": "AJOUTER LIQUIDITÉ",
     "Add liquidity": "Ajout de liquidité",
     "Add Liquidity": "Ajout de liquidité",
-    "Confirm Add Liquidity": "Confirmer ajouter liquidité",
+    "Confirm Add Liquidity": "Confirmer l'ajout de liquidité",
     "Remove Liquidity": "Retirer la liquidité",
     "Confirm Removal": "Valider le retrait",
     "Confirm swap": "Valider l'échange",
@@ -27,7 +27,7 @@
     "Pooled {{symbol}}": "{{symbol}} du pool",
     "Total pooled {{symbol}}": "Total {{symbol}} du pool",
     "Your pooled {{symbol}}": "Vos {{symbol}} du pool ",
-    "SWAP TOKENS": "ÉCHANGE DE TOKENS",
+    "SWAP TOKENS": "ÉCHANGER DES TOKENS",
     "REMOVE": "RETIRER",
     "APR": "TAEG",
     "ADD MORE": "AJOUTER",
@@ -37,7 +37,7 @@
     "Browse pool pairs": "Parcourir les paires de pools",
     "Your pool pairs": "Vos paires de pools",
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
-    "SWAP": "SWAP",
+    "SWAP": "ÉCHANGER",
     "Swap tokens": "Échange de tokens"
   },
   "screens/DexGuidelines": {
@@ -60,7 +60,7 @@
     "Show balances": "Montrer les soldes",
     "Hide balances": "Cacher les soldes",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
-    "SWITCH": "WECHSELN"
+    "SWITCH": "CHANGER"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -119,7 +119,7 @@
   },
   "screens/ConvertScreen": {
     "Convert DFI": "Convertir DFI",
-    "Scan recipient QR": "Scanner le QR du destinataireR",
+    "Scan recipient QR": "Scanner le QR du destinataire",
     "Balance": "Balance",
     "CONVERT {{symbol}}": "CONVERTIR {{symbol}}",
     "TO {{symbol}}": "EN {{symbol}}",
@@ -163,11 +163,11 @@
   },
   "screens/Settings": {
     "Recovery Words": "Mots de récupération",
-    "Are you sure you want to unlink your wallet?": "Êtes-vous sûr de vouloir délier votre portefeuille ?",
+    "Are you sure you want to unlink your wallet?": "Êtes-vous sûr de vouloir dissocier votre portefeuille ?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Vous devrez utiliser vos mots de récupération la prochaine fois que vous voudrez accéder à votre portefeuille.",
     "Cancel": "Annuler",
-    "Unlink Wallet": "Délier le portefeuille",
-    "UNLINK WALLET": "DÉLIER LE PORTEFEUILLE",
+    "Unlink Wallet": "Dissocier le portefeuille",
+    "UNLINK WALLET": "DISSOCIER LE PORTEFEUILLE",
     "Change Passcode": "Modifier le code d'accès",
     "About": "A propos de l'appli",
     "NETWORK": "RÈSEAU",
@@ -188,18 +188,18 @@
     "ADDITIONAL OPTIONS": "PLUS D'OPTIONS",
     "SECURITY": "SÉCURITÉ",
     "Privacy Lock": "Serrure de confidentialité",
-    "Auto-locks wallet if there is no activity for 1 min.": "Le portefeuille se verrouille d'office s'il n'y a pas d'activité pendant 1 min.",
+    "Auto-locks wallet if there is no activity for 1 min.": "Le portefeuille se verrouille automatiquement s'il n'y a pas d'activité pendant 1 min.",
     "Secure with {{option}}": "Sécuriser avec {{option}}",
     "Face ID": "Face ID",
     "Touch ID": "Touch ID",
     "device's lock": "Verrouillage de l'appareil",
     "biometric": "biométrique",
-    "Enter passcode to continue": "Entrez le code de passe pour continuer"
+    "Enter passcode to continue": "Entrez le code d'accès pour continuer"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
-    "Create new passcode": "Créer un nouveau code de passe",
-    "Verify passcode": "Vérifier le code de passe",
+    "Create new passcode": "Créer un nouveau code d'accès",
+    "Verify passcode": "Vérifier le code d'accès",
     "LINKS": "LIENS",
     "White Paper": "Livre blanc",
     "Privacy Policy": "Politique de confidentialité",
@@ -216,7 +216,7 @@
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "EN SAVOIR PLUS",
     "Recovery words": "Mots de récupération",
-    "Passcode": "Code de passe",
+    "Passcode": "code d'accès",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Prêts",
     "Auctions": "Enchères"
@@ -253,7 +253,7 @@
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ - Enchères",
     "Auctions": "Enchères",
-    "FREQUENTLY ASKED QUESTIONS": "QUESTIONS FRÉQUEMMENT",
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "La vente aux enchères est une activité au cours de laquelle les utilisateurs font des offres sur les garanties des Vaults liquidés afin de récupérer les prêts en cours des Vaults. La liquidation a lieu lorsque le ratio de garantie d'un Vault tombe en dessous de son exigence minimale. Les garanties du Vaults sont alors divisées en lots de 10 000 USD pour être vendues aux enchères.",
     "How is the minimum starting bid determined?": "Comment l'offre de départ minimale est-elle déterminée ?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offre de départ minimale est de 105% de la valeur du prêt en cours du lot. Les 5% supplémentaires sont inclus pour couvrir la pénalité de liquidation, qui est encourue lors de la liquidation du Vault.",
@@ -295,17 +295,17 @@
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les Tokens",
     "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI existe sous deux formes - UTXO et Token. Ils peuvent être convertis l'un avec l'autre pour servir différents cas usage dans votre portefeuille léger.",
-    "DFI in UTXO form" : "DFI sous forme d'UTXO",
-    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees." : "Un DFI sous forme UTXO est la forme primaire du DFI. L'UTXO est utilisé pour des opérations à la base de la crypto-monnaie telles que l'envoi, la réception et le paiement de frais.",
-    "Use cases include:" : "Les cas d'usage comprennent:",
-    "Sending DFI to other wallets" : "Envoi de DFI à d'autres portefeuilles",
-    "Receiving DFI from other wallets" : "Recevoir des DFI d'autres portefeuilles",
+    "DFI in UTXO form": "DFI sous forme d'UTXO",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "Un DFI sous forme UTXO est la forme primaire du DFI. L'UTXO est utilisé pour des opérations à la base de la crypto-monnaie telles que l'envoi, la réception et le paiement de frais.",
+    "Use cases include:": "Les cas d'usage comprennent:",
+    "Sending DFI to other wallets": "Envoi de DFI à d'autres portefeuilles",
+    "Receiving DFI from other wallets": "Recevoir des DFI d'autres portefeuilles",
     "Transaction fees": "Frais de transaction",
     "DFI in token form": "DFI sous forme de tokens.",
     "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "Les DFI sous forme de tokens sont utilisés pour diverses fonctions de la DeFiChain telles que pour les pools de liquidité, les prêts, les enchères et les échanges via le DEX.",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)" : "Échange de DFI avec d'autres tokens (ex. dBTC, dETH, dUSDT)",
-    "Liquidity pools" : "Pools de liquidité",
-    "Auctions and Loans" : "Ventes aux enchères et prêts"
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Échange de DFI avec d'autres tokens (ex. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Pools de liquidité",
+    "Auctions and Loans": "Ventes aux enchères et prêts"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CRÉER UN PORTEFEUILLE",
@@ -353,22 +353,22 @@
   },
   "screens/PinConfirmation": {
     "It may take a few seconds to securely encrypt your wallet...": "Cela peut prendre quelques secondes pour crypter votre portefeuille de manière sécurisée...",
-    "Enter your passcode again to verify": " Entrez à nouveau votre code de passe pour vérifier",
+    "Enter your passcode again to verify": " Entrez à nouveau votre code d'accès pour vérifier",
     "Wrong passcode entered": "Mot de passe erroné",
     "Wallet Unlinked": "Portefeuille délié",
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Votre portefeuille a été dissocié pour votre sécurité en raison d'échecs successifs du code d'accès. Veuillez utiliser les mots de récupération pour restaurer et configurer à nouveau votre portefeuille.",
     "Close": "Fermer",
     "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera délié pour votre sécurité.",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code de passe incorrect. {{attemptsRemaining}} tentatives restantes",
+    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantese"
   },
   "screens/PinCreation": {
-    "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code de passe pour celui-ci.",
-    "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est restauré. Gardez votre portefeuille privé et sécurisé en créant un code de passe pour celui-ci.",
-    "Keep your passcode private": "Gardez votre code de passe secret.",
-    "CREATE PASSCODE": "CRÉER UN CODE DE PASSE",
-    "CHANGE PASSCODE": "CHANGER LE CODE DE PASSE",
-    "Learn more about passcode": "En savoir plus sur le code de passe"
+    "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
+    "Well done! Your wallet is restored. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est restauré. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
+    "Keep your passcode private": "Gardez votre code d'accès secret.",
+    "CREATE PASSCODE": "CRÉER UN code d'accès",
+    "CHANGE PASSCODE": "CHANGER LE code d'accès",
+    "Learn more about passcode": "En savoir plus sur le code d'accès"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Sélection invalide. Veuillez vous assurer que vous avez bien écrit vos 24 mots.",
@@ -379,7 +379,7 @@
     "What is word ": "Quel est le mot "
   },
   "screens/RestoreWallet": {
-    "Discard changes?": "Jeter les modifications ?",
+    "Discard changes?": "Annuler les modifications ?",
     "You have unsaved changes. Are you sure to discard them and leave the screen?": "Vous avez des modifications non sauvegardées. Êtes-vous sûr de vouloir les abandonner et quitter l'écran ?",
     "Error": "Erreur",
     "The recovery words you have entered are invalid. Please double check and try again.": "Les mots de récupération que vous avez saisis ne sont pas valides. Veuillez vérifier et réessayer.",
@@ -443,7 +443,7 @@
     "CANCEL": "ANNULER"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Créez un nouveau code de passe pour votre portefeuille"
+    "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
   },
   "screens/RecoveryWordsScreen": {
     "Keep your recovery words safe and private": "Gardez vos mots de récupération sûrs et privés."
@@ -461,8 +461,8 @@
     "PRICE DETAILS": "DÉTAILS DU PRIX",
     "{{tokenA}} price per {{tokenB}}": "Prix de {{tokenA}} par {{tokenB}}",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
-    "Your pooled {{token}}": "Tes {{token}} du pool",
-    "UTXO to be converted" : "UTXO à convertir",
+    "Your pooled {{token}}": "Vos {{token}} du pool",
+    "UTXO to be converted": "UTXO à convertir",
     "Amount to be converted": "Montant à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir",
     "Estimated fee": "Frais estimés",
@@ -541,7 +541,7 @@
     "CONTINUE": "SUIVANT"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "TOLÉRANCE DE SLIPPAGE"
+    "SLIPPAGE TOLERANCE": "TOLÉRANCE DE GLISSEMENT"
   },
   "screens/PoolSwapScreen": {
     "Swap": "Swap",
@@ -559,7 +559,7 @@
     "Estimated fee": "Frais estimés",
     "{{tokenA}} price per {{tokenB}}": "Prix de {{tokenA}} par {{tokenB}}",
     "Amount to be converted": "Montant à convertir",
-    "UTXO to be converted" : "UTXO à convertir",
+    "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir"
   },
   "screens/CompositeSwapScreen": {
@@ -580,11 +580,11 @@
     "{{token}} tokens converted": "{{token}} tokens convertis",
     "Select token": "Sélectionner le token",
     "Amount to be converted": "Montant à convertir",
-    "UTXO to be converted" : "UTXO à convertir",
+    "UTXO to be converted": "UTXO à convertir",
     "Slippage Tolerance": "Tolérance de Slippage",
     "TRANSACTION DETAILS": "détails de la transaction",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
-    "FROM": "VON",
+    "FROM": "DE",
     "TO": "À",
     "Total to be swapped": "Total à échanger"
   },
@@ -622,9 +622,9 @@
     "PRICE DETAILS": "DÉTAILS DU PRIX"
   },
   "screens/UnlockWallet": {
-    "Enter Passcode": "Entrez le code de passe.",
-    "Enter passcode to continue": "Entrez le code de passe pour continuer",
-    "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code de passe pour autoriser votre transaction en toute sécurité.",
+    "Enter Passcode": "Entrez le code d'accès.",
+    "Enter passcode to continue": "Entrez le code d'accès pour continuer",
+    "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code d'accès pour autoriser votre transaction en toute sécurité.",
     "Access granted": "Accès accordé",
     "You may now proceed": "Vous pouvez maintenant procéder",
     "Sign to verify access": "Autoriser pour vérifier l'accès"
@@ -661,18 +661,18 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Le stockage sur des réseaux numériques pourrait le rendre accessible aux pirates. Il est préférable de le rédiger sur papier et de le conserver en toute sécurité et confidentialité.",
     "Recovery words": "Mots de récupération",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Vos 24 mots de récupération uniques sont une représentation lisible par l'homme de la clé privée de votre portefeuille, générée à partir d'une liste de 2048 mots de la norme BIP-39. Cela empêche toute tentative de piratage brutal de la sécurité de votre portefeuille.",
-    "FREQUENTLY ASKED QUESTIONS": "QUESTIONS FRÉQUENTES"
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/PasscodeFaq": {
-    "Passcode": "Code de passe",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code de passe privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
-    "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code de passe ? Quelqu'un peut-il m'aider à retrouver mon code de passe ?",
-    "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code de passe est sous votre responsabilité, donc personne, à part vous, ne le connaît. Il est important que vous gardiez votre code de passe en sécurité et que vous le changiez de temps en temps.",
-    "Can I change my passcode?": "Puis-je changer mon code de passe ?",
-    "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Oui, vous pouvez modifier votre code de passe à partir de vos paramètres dans l'appli. Nous vous recommandons de changer votre code de passe régulièrement pour une sécurité maximale.",
-    "Is passcode the same as phone PIN code?": "Le code de passe est-il le même que le code PIN du téléphone ?",
-    "Your passcode is valid only for DeFiChain wallet.": "Votre code de passe n'est valable que pour le portefeuille DeFiChain.",
-    "FREQUENTLY ASKED QUESTIONS": "QUESTIONS FRÉQUENTES"
+    "Passcode": "code d'accès",
+    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code d'accès privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
+    "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code d'accès ? Quelqu'un peut-il m'aider à retrouver mon code d'accès ?",
+    "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code d'accès est sous votre responsabilité, donc personne, à part vous, ne le connaît. Il est important que vous gardiez votre code d'accès en sécurité et que vous le changiez de temps en temps.",
+    "Can I change my passcode?": "Puis-je changer mon code d'accès ?",
+    "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Oui, vous pouvez modifier votre code d'accès à partir de vos paramètres dans l'appli. Nous vous recommandons de changer votre code d'accès régulièrement pour une sécurité maximale.",
+    "Is passcode the same as phone PIN code?": "Le code d'accès est-il le même que le code PIN du téléphone ?",
+    "Your passcode is valid only for DeFiChain wallet.": "Votre code d'accès n'est valable que pour le portefeuille DeFiChain.",
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "En savoir plus sur UTXO et Token"
@@ -681,7 +681,7 @@
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI) est réservée aux frais."
   },
   "components/ConversionInfoText": {
-    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Une conversion sera requise. Votre code de passe vous sera demandé pour autoriser les deux transactions.",
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Une conversion sera requise. Votre code d'accès vous sera demandé pour autoriser les deux transactions.",
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Veuillez patienter pendant que nous convertissons les tokens pour votre transaction. Les conversions sont irréversibles.",
     "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Envoyez les tokens du pool de liquidité uniquement vers des portefeuilles compatibles avec DeFiChain. Sinon, l'envoi vers d'autres échanges peut entraîner une perte irréversible des fonds."
   },
@@ -824,7 +824,7 @@
     "Price per token (USD)": "Prix par token (USD)",
     "EDIT COLLATERALS": "MODIFIER LES GARANTIES",
     "MANAGE LOANS": "GÉRER LES PRÊTS",
-    "ACTIVE": "AKTIF",
+    "ACTIVE": "ACTIF",
     "HEALTHY": "SAIN",
     "AT RISK": "CRITIQUE",
     "HALTED": "STOPPÉ",
@@ -1010,8 +1010,8 @@
     "Collateralization ratio": "Ratio de garantie",
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Resulting collateralization": "La garantie résultante",
-    "Excess amount" : "Montant excédentaire",
-    "Any excess amount will be returned to your wallet." : "Tout montant excédentaire sera reversé dans votre portefeuille."
+    "Excess amount": "Montant excédentaire",
+    "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille."
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENTN",
@@ -1052,8 +1052,8 @@
     "Resulting collateralization": "Ratio de garantie résultante",
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Interest (Vault + Token)": "Intérêt (Vault + Token)",
-    "Estimated annual interest" : "Intérêt annuel estimé",
-    "Total loan + annual interest" : "Prêt total + intérêt annuel",
+    "Estimated annual interest": "Intérêt annuel estimé",
+    "Total loan + annual interest": "Prêt total + intérêt annuel",
     "Total interest amount": "Montant total des intérêts",
     "Total loan + interest": "Total des prêts + intérêts",
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
@@ -1076,8 +1076,8 @@
     "Loan tokens to borrow": "Tokens de prêt pour emprunter",
     "Token interest": "Intérêt du Token",
     "Vault interest": "Intérêt du Vault",
-    "Estimated annual interest" : "Intérêt annuel estimé", 
-    "Total loan + annual interest" : "Prêt total + intérêt annuel",
+    "Estimated annual interest": "Intérêt annuel estimé",
+    "Total loan + annual interest": "Prêt total + intérêt annuel",
     "Total interest amount": "Montant total des intérêts",
     "Total loan + interest": "Total des prêts + intérêts",
     "VAULT DETAILS": "DÉTAILS DU VAULT",
@@ -1187,11 +1187,11 @@
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",
-    "Insufficient amount to place a bid": "Montant insuffisant pour placer une enchèr",
+    "Insufficient amount to place a bid": "Montant insuffisant pour placer une enchère",
     "Quick bid": "Enchère rapide",
     "Place a bid on the auctions with the min. next bid": "Placer une enchère augmentée du plus petit montant possible",
     "Min. next bid": "Prochaine enchère min.",
-    "Current balance": "Solde actuelle"
+    "Current balance": "Solde actuel"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Adresse du portefeuille"
