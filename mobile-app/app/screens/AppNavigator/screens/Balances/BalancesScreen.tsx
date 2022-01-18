@@ -75,9 +75,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       const usdTokenB = new BigNumber(getDexTokenActivePrice(tokenBSymbol)).multipliedBy(tokenBAmount)
 
       return usdTokenA.plus(usdTokenB)
-    } else {
-      return new BigNumber(getDexTokenActivePrice(symbol)).multipliedBy(amount)
     }
+
+    return new BigNumber(getDexTokenActivePrice(symbol)).multipliedBy(amount)
   }
 
   const { totalUSDValue, dstTokens } = tokens.reduce(

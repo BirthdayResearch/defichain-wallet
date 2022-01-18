@@ -37,7 +37,7 @@ export function useDexTokenPrice (): DexTokenPrice {
   function getPairAmountFromLP (symbol: string, amount: string): { tokenAAmount: BigNumber, tokenBAmount: BigNumber, tokenASymbol: string, tokenBSymbol: string } {
       const pair = pairs.find(pair => pair.data.symbol === symbol)
 
-      if (pair == null) {
+      if (pair === undefined) {
         throw new Error(`The LP symbol is not existing: ${symbol}`)
       }
 
