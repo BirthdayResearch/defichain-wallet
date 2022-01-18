@@ -36,10 +36,9 @@ context('Wallet - Auctions', () => {
 
   before(function () {
     cy.intercept('**/settings/flags', flags)
-
+    cy.visit('/')
     // Bidder 2
-    cy.createEmptyWallet(false)
-    cy.intercept('**/settings/flags', flags)
+    cy.getByTestID('playground_wallet_abandon_encrypted').click()
     cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(6000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.createVault(0)
