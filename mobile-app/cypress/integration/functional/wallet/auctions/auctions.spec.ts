@@ -14,26 +14,50 @@ function generateBlockUntilLiquidate (): void {
 
 context('Wallet - Auctions', () => {
   const walletTheme = { isDark: false }
+  const flags = {
+    body: [{
+      id: 'loan',
+      name: 'Loan',
+      stage: 'public',
+      version: '>=0.0.0',
+      description: 'Browse loan tokens provided by DeFiChain',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'auction',
+      name: 'Auction',
+      stage: 'public',
+      version: '>=0.0.0',
+      description: 'Browse auctions provided by DeFiChain',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }]
+  }
+
   before(function () {
-    cy.intercept('**/settings/flags', {
-      body: [{
-        id: 'loan',
-        name: 'Loan',
-        stage: 'public',
-        version: '>=0.0.0',
-        description: 'Browse loan tokens provided by DeFiChain',
-        networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-        platforms: ['ios', 'android', 'web']
-      }, {
-        id: 'auction',
-        name: 'Auction',
-        stage: 'public',
-        version: '>=0.0.0',
-        description: 'Browse auctions provided by DeFiChain',
-        networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-        platforms: ['ios', 'android', 'web']
-      }]
+    cy.intercept('**/settings/flags', flags)
+
+    // Bidder 2
+    cy.createEmptyWallet(false)
+    cy.intercept('**/settings/flags', flags)
+    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(6000)
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.createVault(0)
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.addCollateral('0.60000000', 'DFI')
+    cy.go('back')
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('button_browse_loans').click()
+    cy.getByTestID('loan_card_dTU10').click()
+    cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
+      const maxLoanAmount = new BigNumber(text).toFixed(2, 1) // use 2dp and round down
+      cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
     })
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('button_confirm_borrow_loan').click()
+    cy.closeOceanInterface()
+
+    // Bidder 1
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['CD10']).wait(6000)
     cy.setWalletTheme(walletTheme)
@@ -57,7 +81,7 @@ context('Wallet - Auctions', () => {
       cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
     })
     cy.getByTestID('borrow_loan_submit_button').click()
-    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.getByTestID('button_confirm_borrow_loan').click()
     cy.closeOceanInterface()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     generateBlockUntilLiquidate()
@@ -74,7 +98,7 @@ context('Wallet - Auctions', () => {
       cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
     })
     cy.getByTestID('borrow_loan_submit_button').click()
-    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.getByTestID('button_confirm_borrow_loan').click()
     cy.closeOceanInterface()
   })
 
@@ -114,28 +138,14 @@ context('Wallet - Auctions', () => {
   })
 
   it('should allow others to place bid', function () {
-    cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(6000)
-    cy.getByTestID('bottom_tab_loans').click()
-    cy.createVault(0)
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
-    cy.addCollateral('0.60000000', 'DFI')
-    cy.go('back')
-    cy.getByTestID('vault_card_0_manage_loans_button').click()
-    cy.getByTestID('button_browse_loans').click()
-    cy.getByTestID('loan_card_dTU10').click()
-    cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
-      const maxLoanAmount = new BigNumber(text).toFixed(2, 1) // use 2dp and round down
-      cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
-    })
-    cy.getByTestID('borrow_loan_submit_button').click()
-    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
-    cy.closeOceanInterface()
+    const recoveryWords = ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art']
+    cy.wait(5000)
+    cy.exitWallet()
+    cy.restoreMnemonicWords(recoveryWords).wait(3000)
 
     cy.getByTestID('bottom_tab_auctions').click()
     cy.getByTestID('batch_card_0_owned_vault').should('exist')
     cy.getByTestID('batch_card_0_no_bid').should('exist')
-
     cy.getByTestID('batch_card_0_place_bid').click()
     cy.getByTestID('MAX_amount_button').click()
     cy.getByTestID('button_submit').click()
