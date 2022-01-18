@@ -59,4 +59,12 @@ context('Wallet - Settings', () => {
     cy.getByTestID('theme_switch').click()
     cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
   })
+
+  it('should update local storage from light to dark theme', () => {
+    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(251, 191, 36)')
+    cy.getByTestID('theme_switch').click().should(() => {
+      expect(localStorage.getItem('WALLET.THEME')).to.eq('dark')
+    })
+    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
+  })
 })
