@@ -37,7 +37,7 @@ export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
 
   if (tokenDetail?.isLPS === true) {
     return function (props: SvgProps): JSX.Element {
-      const [tokenA, tokenB] = symbol.split('-')
+      const [tokenA, tokenB] = tokenDetail.symbol.split('-')
       return (
         <Svg width='32' height='32' viewBox='0 0 32 32' fill='none' {...props}>
           <G clipPath='url(#clip0_1388_11287)'>
