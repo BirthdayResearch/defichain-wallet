@@ -1,6 +1,5 @@
 import { RootState } from '@store'
 import { tokenSelectorByDisplaySymbol } from '@store/wallet'
-import { tailwind } from '@tailwind'
 import randomColor from 'randomcolor'
 import Svg, { Circle, SvgProps, Text, G, Path } from 'react-native-svg'
 import { useSelector } from 'react-redux'
@@ -12,7 +11,7 @@ export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
     return function (props: SvgProps): JSX.Element {
       const name = symbol.substring(1, 5).toUpperCase()
       return (
-        <Svg width='32' height='32' viewBox='0 0 32 32' fill='none' style={tailwind('font-bold')} {...props}>
+        <Svg width='32' height='32' viewBox='0 0 32 32' fill='none' {...props}>
           <G clipPath='url(#clip0_1388_11287)'>
             <Path
               fillRule='evenodd'
@@ -25,8 +24,9 @@ export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
             x='50%'
             y='60%'
             textAnchor='middle'
-            fontSize={9}
+            fontSize={10}
             fill='white'
+            fontWeight='bold'
           >
             {name}
           </Text>
