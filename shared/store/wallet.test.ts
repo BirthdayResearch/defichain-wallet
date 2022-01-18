@@ -1,28 +1,33 @@
-import { DexItem, fetchPoolPairs, fetchTokens, tokensSelector, wallet, WalletState, WalletToken } from './wallet'
+import { DexItem, fetchPoolPairs, fetchTokens, tokensSelector, wallet, WalletState, WalletToken, WalletTokenData } from './wallet'
 
 describe('wallet reducer', () => {
   let initialState: WalletState
   let tokenDFI: WalletToken
   let utxoDFI: WalletToken
   let unifiedDFI: WalletToken
+  const dfi = {
+    id: '0',
+    isDAT: true,
+    isLPS: false,
+    isLoanToken: false,
+    name: 'DeFiChain',
+    symbol: 'DFI',
+    symbolKey: 'DFI',
+    displaySymbol: 'DFI (Token)',
+    avatarSymbol: 'DFI (Token)'
+  }
 
   beforeEach(() => {
     initialState = {
       tokens: [],
+      allTokens: [],
       utxoBalance: '0',
       poolpairs: [],
       hasFetchedPoolpairData: false
     }
     tokenDFI = {
-      id: '0',
-      amount: '100000',
-      isDAT: true,
-      isLPS: false,
-      name: 'DeFiChain',
-      symbol: 'DFI',
-      symbolKey: 'DFI',
-      displaySymbol: 'DFI (Token)',
-      avatarSymbol: 'DFI (Token)'
+      ...dfi,
+      amount: '100000'
     }
     utxoDFI = {
       ...tokenDFI,
@@ -44,6 +49,7 @@ describe('wallet reducer', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       utxoBalance: '0',
       tokens: [],
+      allTokens: [],
       poolpairs: [],
       hasFetchedPoolpairData: false
     })
@@ -51,11 +57,29 @@ describe('wallet reducer', () => {
 
   it('should handle setTokens and setUtxoBalance', () => {
     const tokens: WalletToken[] = [tokenDFI, utxoDFI]
+    const allTokens: WalletTokenData[] = [{
+      ...dfi,
+      creation: {
+        tx: '0000000000000000000000000000000000000000000000000000000000000000',
+        height: 0
+      },
+      decimal: 8,
+      destruction: {
+        tx: '0000000000000000000000000000000000000000000000000000000000000000', height: -1
+      },
+      finalized: true,
+      limit: '0',
+      mintable: false,
+      minted: '0',
+      tradeable: true,
+      avatarSymbol: 'DFI (Token)'
+    }]
     const utxoBalance = '77'
-    const action = { type: fetchTokens.fulfilled.type, payload: { tokens, utxoBalance } }
+    const action = { type: fetchTokens.fulfilled.type, payload: { tokens, utxoBalance, allTokens } }
     const actual = wallet.reducer(initialState, action)
     expect(actual.tokens).toStrictEqual(tokens)
     expect(actual.utxoBalance).toStrictEqual('77')
+    expect(actual.allTokens).toStrictEqual(allTokens)
   })
 
   it('should handle setPoolpairs', () => {

@@ -1,12 +1,14 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
+  allTokens: TokenData[]
   poolpairs: DexItem[]
   hasFetchedPoolpairData: boolean
 }
@@ -23,6 +25,7 @@ export interface DexItem {
 const initialState: WalletState = {
   utxoBalance: '0',
   tokens: [],
+  allTokens: [],
   poolpairs: [],
   hasFetchedPoolpairData: false
 }
@@ -33,6 +36,7 @@ const tokenDFI: WalletToken = {
   symbolKey: 'DFI',
   isDAT: true,
   isLPS: false,
+  isLoanToken: false,
   amount: '0',
   name: 'DeFiChain',
   displaySymbol: 'DFI (Token)',
@@ -84,10 +88,11 @@ export const fetchPoolPairs = createAsyncThunk(
 
 export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
-  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], utxoBalance: string }> => {
+  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
     const tokens = await client.address.listToken(address, size)
+    const allTokens = await client.tokens.list(size)
     const utxoBalance = await client.address.getBalance(address)
-    return { tokens, utxoBalance }
+    return { tokens, utxoBalance, allTokens }
   }
 )
 
@@ -100,9 +105,10 @@ export const wallet = createSlice({
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
     })
-    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], utxoBalance: string }>) => {
+    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
       state.tokens = action.payload.tokens.map(setTokenDetails)
       state.utxoBalance = action.payload.utxoBalance
+      state.allTokens = action.payload.allTokens
     })
   }
 })
@@ -159,5 +165,14 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
       return token.id === '0_unified'
     }
     return token.id === tokenId
+  })
+})
+
+/**
+ * Get single token detail by `displaySymbol` from wallet store.
+ */
+ export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
+  return allTokens?.find(token => {
+    return token.displaySymbol === displaySymbol
   })
 })

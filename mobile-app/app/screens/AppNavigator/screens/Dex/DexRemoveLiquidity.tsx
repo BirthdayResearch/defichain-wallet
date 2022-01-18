@@ -129,14 +129,8 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
             }}
           >
             <TokenIconPair
-              iconA={{
-                displaySymbol: pair?.tokenA.displaySymbol,
-                isLoanToken: tokenA?.isLoanToken
-              }}
-              iconB={{
-                displaySymbol: pair?.tokenB?.displaySymbol,
-                isLoanToken: tokenB?.isLoanToken
-              }}
+              iconA={pair?.tokenA.displaySymbol}
+              iconB={pair?.tokenB?.displaySymbol}
             />
           </WalletTextInput>
         </ThemedView>
@@ -147,7 +141,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         text={translate('screens/RemoveLiquidity', 'YOU ARE REMOVING')}
       />
       <TokenBalanceRow
-        isLoanToken={tokenA?.isLoanToken}
         lhs={pair?.tokenA?.displaySymbol}
         rhs={{
           value: tokenAAmount.toFixed(8),
@@ -155,7 +148,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
         }}
       />
       <TokenBalanceRow
-        isLoanToken={tokenB?.isLoanToken}
         lhs={pair?.tokenB?.displaySymbol}
         rhs={{
           value: tokenBAmount.toFixed(8),
