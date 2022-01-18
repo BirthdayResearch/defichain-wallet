@@ -49,7 +49,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
 
   const dispatch = useDispatch()
-  const { getDexTokenActivePrice } = useDexTokenPrice()
+  const { getDexTokenActivePrice, getPairAmountFromLP } = useDexTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
@@ -68,11 +68,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
+  const getUSDAmount = (symbol: string, amount: string, isLPS: boolean): BigNumber => {
+    if (isLPS) {
+      const { tokenAAmount, tokenBAmount, tokenASymbol, tokenBSymbol } = getPairAmountFromLP(symbol, amount)
+      const usdTokenA = new BigNumber(getDexTokenActivePrice(tokenASymbol)).multipliedBy(tokenAAmount)
+      const usdTokenB = new BigNumber(getDexTokenActivePrice(tokenBSymbol)).multipliedBy(tokenBAmount)
+
+      return usdTokenA.plus(usdTokenB)
+    } else {
+      return new BigNumber(getDexTokenActivePrice(symbol)).multipliedBy(amount)
+    }
+  }
+
   const { totalUSDValue, dstTokens } = tokens.reduce(
     ({ totalUSDValue, dstTokens }: {totalUSDValue: BigNumber, dstTokens: BalanceRowToken[]},
     token
   ) => {
-    const usdAmount = new BigNumber(getDexTokenActivePrice(token.symbol)).multipliedBy(token.amount)
+    const usdAmount = getUSDAmount(token.symbol, token.amount, token.isLPS)
+
     if (token.symbol === 'DFI') {
       return {
         // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue

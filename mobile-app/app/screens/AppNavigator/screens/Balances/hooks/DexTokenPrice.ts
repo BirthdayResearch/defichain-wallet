@@ -13,6 +13,7 @@ interface DexTokenPrice {
   getDexTokenActivePrice: (symbol: string, activePrice?: ActivePrice) => BigNumber
   calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: string) => { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber }
   getSelectedPoolPairs: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
+  getPairAmountFromLP: (symbol: string, amount: string) => { tokenAAmount: BigNumber, tokenBAmount: BigNumber, tokenASymbol: string, tokenBSymbol: string }
 }
 
 export function useDexTokenPrice (): DexTokenPrice {
@@ -32,6 +33,23 @@ export function useDexTokenPrice (): DexTokenPrice {
   useEffect(() => {
     dispatch(fetchPoolPairs({ client }))
   }, [blockCount])
+
+  function getPairAmountFromLP (symbol: string, amount: string): { tokenAAmount: BigNumber, tokenBAmount: BigNumber, tokenASymbol: string, tokenBSymbol: string } {
+      const pair = pairs.find(pair => pair.data.symbol === symbol)
+
+      if (pair == null) {
+        throw new Error(`The LP symbol is not existing: ${symbol}`)
+      }
+
+      const ratioToTotal = new BigNumber(amount).div(pair.data.totalLiquidity.token)
+      // assume defid will trim the dust values too
+      return {
+        tokenAAmount: ratioToTotal.times(pair.data.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN),
+        tokenBAmount: ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN),
+        tokenASymbol: pair.data.tokenA.symbol,
+        tokenBSymbol: pair.data.tokenB.symbol
+      }
+  }
 
   function getDexTokenActivePrice (symbol: string, activePrice?: ActivePrice): BigNumber {
     // active price for collateralTokens
@@ -96,6 +114,7 @@ export function useDexTokenPrice (): DexTokenPrice {
   return {
     getDexTokenActivePrice,
     calculatePriceRates,
-    getSelectedPoolPairs
+    getSelectedPoolPairs,
+    getPairAmountFromLP
   }
 }
