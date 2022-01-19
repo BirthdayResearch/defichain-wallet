@@ -41,7 +41,8 @@ describe('balances page', () => {
     isDAT: true,
     isLPS: false,
     amount: '23',
-    name: 'Defi'
+    name: 'Defi',
+    isLoanToken: false
   }, {
     id: '1',
     symbol: 'BTC',
@@ -50,7 +51,8 @@ describe('balances page', () => {
     isDAT: true,
     isLPS: false,
     amount: '777',
-    name: 'Bitcoin'
+    name: 'Bitcoin',
+    isLoanToken: false
   },
   {
     id: '2',
@@ -60,7 +62,8 @@ describe('balances page', () => {
     isDAT: true,
     isLPS: false,
     amount: '555',
-    name: 'Ethereum'
+    name: 'Ethereum',
+    isLoanToken: false
   }]
 
   it('should match snapshot', async () => {
@@ -82,7 +85,10 @@ describe('balances page', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
     const navigation: any = {
       navigate: jest.fn()
@@ -119,7 +125,10 @@ describe('balances page', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
     const navigation: any = {
       navigate: jest.fn()
