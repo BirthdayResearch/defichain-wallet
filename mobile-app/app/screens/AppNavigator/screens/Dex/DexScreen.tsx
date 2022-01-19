@@ -29,6 +29,7 @@ import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
+import { useDebounce } from '@hooks/useDebounce'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -97,15 +98,11 @@ export function DexScreen (): JSX.Element {
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
-  const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourLPTokens)
   const [isSearching, setIsSearching] = useState(false)
   const handleFilter = useCallback(
     debounce((searchString: string) => {
       setIsSearching(false)
       setFilteredAvailablePairs(pairs.filter(pair =>
-        pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
-      ))
-      setFilteredYourPairs(yourLPTokens.filter(pair =>
         pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
       ))
     }, 500)
@@ -218,12 +215,14 @@ export function DexScreen (): JSX.Element {
           )
         }
         {
-          activeTab === TabKey.YourPoolPair && filteredYourPairs.length > 0 && (
+          activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
             <YourPoolPairCards
-              yourPairs={filteredYourPairs}
+              yourPairs={yourLPTokens}
               availablePairs={pairs}
               onAdd={onAdd}
               onRemove={onRemove}
+              setIsSearching={setIsSearching}
+              searchString={searchString}
             />
           )
         }
@@ -290,18 +289,32 @@ interface YourPoolPairCardsItems {
   availablePairs: Array<DexItem<PoolPairData>>
   onAdd: (data: PoolPairData) => void
   onRemove: (data: PoolPairData) => void
+  setIsSearching: (isSearching: boolean) => void
+  searchString: string
 }
 
 function YourPoolPairCards ({
   yourPairs,
   availablePairs,
   onAdd,
-  onRemove
+  onRemove,
+  setIsSearching,
+  searchString
 }: YourPoolPairCardsItems): JSX.Element {
+  const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourPairs)
+  const debouncedSearchTerm = useDebounce(searchString, 2000)
+
+  useEffect(() => {
+    setIsSearching(false)
+    setFilteredYourPairs(yourPairs.filter(pair =>
+      pair.data.displaySymbol.toLowerCase().includes(debouncedSearchTerm.trim().toLowerCase())
+    ))
+  }, [yourPairs, debouncedSearchTerm])
+
   return (
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
-      data={yourPairs}
+      data={filteredYourPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
