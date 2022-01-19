@@ -160,7 +160,8 @@ describe('wallet reducer', () => {
       symbolKey: 'BTC',
       amount: '1',
       displaySymbol: 'BTC',
-      avatarSymbol: 'BTC'
+      avatarSymbol: 'BTC',
+      isLoanToken: false
     }
     const state = {
       ...initialState,

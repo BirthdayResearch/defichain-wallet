@@ -86,7 +86,10 @@ describe('balances page', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
     const navigation: any = {
       navigate: jest.fn()
@@ -124,7 +127,10 @@ describe('balances page', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
     const navigation: any = {
       navigate: jest.fn()
