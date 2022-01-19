@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from './themed'
 import Accordion from 'react-native-collapsible/Accordion'
 import { tailwind } from '@tailwind'

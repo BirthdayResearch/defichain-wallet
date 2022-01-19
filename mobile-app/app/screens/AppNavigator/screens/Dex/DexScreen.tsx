@@ -4,7 +4,8 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import * as React from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector, useDispatch } from 'react-redux'
 import { View } from '@components'
@@ -376,8 +377,8 @@ function AvailablePoolPairCards ({
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({
-        item
-      }: { item: DexItem<PoolPairData> }): JSX.Element => {
+        item, index
+      }: { item: DexItem<PoolPairData>, index: number }): JSX.Element => {
         const { data: pair } = item
         const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
           ? [pair.tokenA.displaySymbol, pair.tokenB.displaySymbol]
@@ -392,7 +393,7 @@ function AvailablePoolPairCards ({
             style={tailwind('p-4 mb-2 border rounded')}
             testID='pool_pair_row'
           >
-            <View style={tailwind('flex-row items-center')}>
+            <View style={tailwind('flex-row items-center')} testID={`pool_pair_row_${index}_${symbol}`}>
               <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
               <ThemedText
                 style={tailwind('text-base font-medium')}
@@ -437,6 +438,7 @@ function AvailablePoolPairCards ({
                   dark={tailwind('border-gray-400 bg-gray-900')}
                   onPress={() => setFavouritePoolpair(pair.id)}
                   style={tailwind('p-1.5 border rounded flex-row items-center')}
+                  testID={`favorite_${symbol}`}
                 >
                   <ThemedIcon
                     iconType='MaterialIcons'

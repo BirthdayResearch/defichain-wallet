@@ -6,7 +6,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -203,7 +203,7 @@ function LpAcknowledgeSwitch (props: {isAcknowledge: boolean, onSwitch: (val: bo
         dark={tailwind('text-gray-300')}
         style={tailwind('ml-2 flex-1 text-xs')}
       >
-        {translate('screens/SendConfirmationScreen', 'I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.')}
+        {translate('screens/SendConfirmationScreen', 'Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.')}
       </ThemedText>
     </View>
   )

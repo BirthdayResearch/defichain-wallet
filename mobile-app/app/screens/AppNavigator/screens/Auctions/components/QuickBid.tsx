@@ -1,5 +1,6 @@
 import { ThemedIcon, ThemedText, ThemedView, ThemedScrollView } from '@components/themed'
-import React, { memo } from 'react'
+import { memo } from 'react'
+import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'

@@ -4,7 +4,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import BigNumber from 'bignumber.js'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -93,7 +93,7 @@ export function ConfirmEditLoanSchemeScreen ({ route, navigation }: Props): JSX.
         processingLabel={translate('screens/ConfirmEditLoanSchemeScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
-        title='create_vault'
+        title='edit_loan_scheme'
       />
     </ThemedScrollView>
   )
@@ -110,10 +110,12 @@ function SummaryHeader (props: { vaultId: string }): JSX.Element {
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('mb-1 text-sm')}
+        testID='edit_loan_scheme_title'
       >
         {translate('screens/ConfirmEditLoanSchemeScreen', 'You are editing scheme of vault')}
       </ThemedText>
       <ThemedText
+        testID='edit_loan_scheme_vault_id'
         style={tailwind('text-sm font-medium mb-1')}
       >
         {props.vaultId}

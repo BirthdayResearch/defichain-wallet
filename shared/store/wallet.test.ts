@@ -22,7 +22,8 @@ describe('wallet reducer', () => {
       symbol: 'DFI',
       symbolKey: 'DFI',
       displaySymbol: 'DFI (Token)',
-      avatarSymbol: 'DFI (Token)'
+      avatarSymbol: 'DFI (Token)',
+      isLoanToken: false
     }
     utxoDFI = {
       ...tokenDFI,
@@ -136,7 +137,8 @@ describe('wallet reducer', () => {
       symbolKey: 'BTC',
       amount: '1',
       displaySymbol: 'BTC',
-      avatarSymbol: 'BTC'
+      avatarSymbol: 'BTC',
+      isLoanToken: false
     }
     const state = {
       ...initialState,

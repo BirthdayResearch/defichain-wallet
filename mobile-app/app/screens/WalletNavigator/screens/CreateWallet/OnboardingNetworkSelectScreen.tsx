@@ -2,7 +2,6 @@ import { ThemedSectionTitle } from '@components/themed'
 import { getEnvironment } from '@environment'
 import { RowNetworkItem } from '@components/RowNetworkItem'
 import { translate } from '@translations'
-import * as React from 'react'
 import { View } from 'react-native'
 import { getReleaseChannel } from '@api/releaseChannel'
 

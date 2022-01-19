@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
@@ -11,6 +10,7 @@ import { nativeApplicationVersion } from 'expo-application'
 import { translate } from '@translations'
 import { Text } from '@components'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 
 export function Announcements (): JSX.Element {
   const {
@@ -20,10 +20,15 @@ export function Announcements (): JSX.Element {
   const {
     language
   } = useLanguageContext()
+  const {
+    hiddenAnnouncements,
+    hideAnnouncement
+  } = useDisplayAnnouncement()
 
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
+  const displayAnnouncement = getDisplayAnnouncement(hiddenAnnouncements, announcement)
 
-  if (!isSuccess || announcements?.length === 0 || announcement === undefined) {
+  if (!isSuccess || announcements?.length === 0 || announcement === undefined || !displayAnnouncement) {
     return <></>
   }
 
@@ -34,6 +39,23 @@ export function Announcements (): JSX.Element {
       light={tailwind('bg-primary-700')}
       dark={tailwind('bg-darkprimary-700')}
     >
+      {announcement.id !== undefined &&
+        (
+          <MaterialIcons
+            style={tailwind('mr-2 text-white')}
+            iconType='MaterialIcons'
+            name='close'
+            size={20}
+            onPress={() => {
+              if (announcement.id === undefined) {
+                return
+              }
+              hideAnnouncement(announcement.id)
+            }}
+            testID='close_announcement'
+          />
+        )}
+
       <MaterialIcons
         style={tailwind('mr-2.5 text-white')}
         iconType='MaterialIcons'
@@ -64,6 +86,7 @@ export function Announcements (): JSX.Element {
 interface Announcement {
   content: string
   url: string
+  id?: string
 }
 
 function findAnnouncementForVersion (version: string, language: string, announcements?: AnnouncementData[]): Announcement | undefined {
@@ -79,8 +102,21 @@ function findAnnouncementForVersion (version: string, language: string, announce
       satisfies(version, announcement.version)) {
       return {
         content: lang[language] ?? lang.en,
-        url: platformUrl !== undefined ? platformUrl[Platform.OS] : undefined
+        url: platformUrl !== undefined ? platformUrl[Platform.OS] : undefined,
+        id: announcement.id
       }
     }
   }
+}
+
+function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
+  if (announcement === undefined) {
+    return false
+  }
+
+  if (hiddenAnnouncements.length > 0 && announcement.id !== undefined) {
+    return !hiddenAnnouncements.includes(announcement.id)
+  }
+
+  return true
 }

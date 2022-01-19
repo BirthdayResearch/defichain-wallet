@@ -4,7 +4,6 @@ import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { AppLanguageItem, translate } from '@translations'
-import * as React from 'react'
 import { View } from 'react-native'
 import { SettingsParamList } from '../SettingsNavigator'
 

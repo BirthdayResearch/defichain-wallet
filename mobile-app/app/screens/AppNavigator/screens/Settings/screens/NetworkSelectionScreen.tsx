@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { View } from 'react-native'
 import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
 import { getEnvironment } from '@environment'

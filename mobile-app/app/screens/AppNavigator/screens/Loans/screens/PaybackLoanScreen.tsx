@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { Text, View } from 'react-native'

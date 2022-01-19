@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react-native'
 import * as Localization from 'expo-localization'
-import * as React from 'react'
 import { Platform } from 'react-native'
 import { ThemedTextInput } from './ThemedTextInput'
 

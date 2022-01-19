@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { VaultCard, VaultCardProps } from './VaultCard'
 import { render } from '@testing-library/react-native'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
@@ -11,6 +11,9 @@ jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('@gorhom/bottom-sheet', () => ({
   useBottomSheetModal: jest.fn().mockReturnValue({ dismiss: jest.fn() }),
   BottomSheetModal: () => <></>
+}))
+jest.mock('@components/BottomSheetInfo', () => ({
+  BottomSheetInfo: () => <></>
 }))
 
 describe('Vault card', () => {

@@ -1,5 +1,4 @@
 import { tailwind } from '@tailwind'
-import React from 'react'
 import { TextProps } from '.'
 import { ThemedIcon, ThemedProps, ThemedText, ThemedView } from './themed'
 

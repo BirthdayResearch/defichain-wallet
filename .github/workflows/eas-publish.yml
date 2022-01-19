@@ -15,7 +15,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     steps:
-      - uses: actions/github-script@441359b1a30438de65712c2fbca0abe4816fa667
+      - uses: actions/github-script@e3cbab99d3a9b271e1b79fc96d103a4a5534998c
         id: version
         with:
           script: |
@@ -35,11 +35,11 @@ jobs:
     needs: [ version ]
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@109c3edde0cc8a592df359d438663bd14c183b4d
         with:
           expo-version: 4.x
           packager: npm
@@ -63,11 +63,11 @@ jobs:
     needs: [ version ]
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@109c3edde0cc8a592df359d438663bd14c183b4d
         with:
           eas-version: latest
           expo-version: 4.x

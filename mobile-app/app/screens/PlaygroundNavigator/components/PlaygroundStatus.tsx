@@ -1,6 +1,13 @@
-import React from 'react'
+
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
+
+export enum PlaygroundConnectionStatus {
+  loading,
+  online,
+  offline,
+  error
+}
 
 export interface PlaygroundStatusProps {
   loading?: boolean

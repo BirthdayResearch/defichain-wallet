@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import * as React from 'react'
 import { DisplayBalancesPersistence } from '@api'
 import { useLogger } from '../../../shared/contexts/NativeLoggingProvider'
 

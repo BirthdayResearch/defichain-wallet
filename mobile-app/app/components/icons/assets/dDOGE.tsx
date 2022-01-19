@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Svg, { Defs, G, Mask, Path, SvgProps, Use } from 'react-native-svg'
 
 export function dDOGE (props: SvgProps): JSX.Element {

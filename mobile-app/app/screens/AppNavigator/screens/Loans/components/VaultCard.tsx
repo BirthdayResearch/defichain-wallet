@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BigNumber from 'bignumber.js'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'

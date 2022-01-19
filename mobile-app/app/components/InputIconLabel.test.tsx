@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import * as React from 'react'
 import { IconLabelScreenType, InputIconLabel } from './InputIconLabel'
 
 jest.mock('@shared-contexts/ThemeProvider')

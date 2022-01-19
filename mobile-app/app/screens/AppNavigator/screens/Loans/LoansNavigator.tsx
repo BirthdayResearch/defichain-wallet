@@ -1,5 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { LoanScheme, LoanToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'

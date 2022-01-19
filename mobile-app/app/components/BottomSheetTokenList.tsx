@@ -1,4 +1,5 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
+import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'

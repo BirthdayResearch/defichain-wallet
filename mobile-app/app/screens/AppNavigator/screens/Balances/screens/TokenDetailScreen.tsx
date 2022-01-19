@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import * as React from 'react'
 import { Linking, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'

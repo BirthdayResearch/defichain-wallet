@@ -1,4 +1,3 @@
-import React from 'react'
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'

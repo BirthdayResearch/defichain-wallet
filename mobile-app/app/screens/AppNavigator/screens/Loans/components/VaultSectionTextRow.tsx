@@ -2,7 +2,7 @@ import { BottomSheetAlertInfo } from '@components/BottomSheetInfo'
 import { NumberRow, NumberRowElement } from '@components/NumberRow'
 import { ThemedProps } from '@components/themed'
 import { tailwind } from '@tailwind'
-import React from 'react'
+
 import { ViewProps } from 'react-native'
 
 type IVaultSectionTextProps = React.PropsWithChildren<ViewProps> & VaultSectionTextProps

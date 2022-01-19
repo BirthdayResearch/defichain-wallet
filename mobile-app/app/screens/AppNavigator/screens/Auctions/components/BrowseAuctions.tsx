@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
@@ -130,8 +130,8 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-              ios: '40%',
-              android: '40%'
+              ios: ['40%'],
+              android: ['40%']
             }}
         />
         )}

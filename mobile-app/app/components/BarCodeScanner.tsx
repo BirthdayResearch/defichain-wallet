@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { BarCodeScanner as DefaultBarCodeScanner } from 'expo-barcode-scanner'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { View } from '.'

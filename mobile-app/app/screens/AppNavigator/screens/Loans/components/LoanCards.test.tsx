@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { LoanCards } from './LoanCards'
 import { LoanToken, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { Provider } from 'react-redux'
@@ -40,7 +40,8 @@ describe('loan cards', () => {
             height: -1
           },
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-          displaySymbol: 'dTS25'
+          displaySymbol: 'dTS25',
+          isLoanToken: true
         },
         interest: '2',
         fixedIntervalPriceId: 'TS25/USD'
@@ -69,7 +70,8 @@ describe('loan cards', () => {
             height: -1
           },
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-          displaySymbol: 'dTR50'
+          displaySymbol: 'dTR50',
+          isLoanToken: true
         },
         interest: '3',
         fixedIntervalPriceId: 'TR50/USD'
@@ -98,7 +100,8 @@ describe('loan cards', () => {
             height: -1
           },
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-          displaySymbol: 'dTU10'
+          displaySymbol: 'dTU10',
+          isLoanToken: true
         },
         interest: '1',
         fixedIntervalPriceId: 'TU10/USD'

@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import { BatchCard } from './BatchCard'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'

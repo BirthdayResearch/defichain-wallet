@@ -3,7 +3,7 @@ import { ThemedScrollView, ThemedText } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import { LoanParamList } from '../../LoansNavigator'
 
 export function EmptyCollateral (props: {vaultId: string}): JSX.Element {

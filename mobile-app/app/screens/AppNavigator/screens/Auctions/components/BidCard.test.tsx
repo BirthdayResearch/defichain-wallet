@@ -1,7 +1,7 @@
 import { RootState } from '@store'
 import { block } from '@store/block'
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { BidCard } from './BidCard'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'

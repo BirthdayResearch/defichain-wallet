@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
@@ -214,8 +214,8 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: '40%',
-            android: '40%'
+            ios: ['40%'],
+            android: ['40%']
           }}
         />
       )}

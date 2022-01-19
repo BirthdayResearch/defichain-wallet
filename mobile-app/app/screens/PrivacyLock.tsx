@@ -1,7 +1,7 @@
 import { SimplifiedAppStateStatus, useAppStateContext } from '@contexts/AppStateContext'
 import { PrivacyLockContextI, usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { EnvironmentName, getEnvironment } from '@environment'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'

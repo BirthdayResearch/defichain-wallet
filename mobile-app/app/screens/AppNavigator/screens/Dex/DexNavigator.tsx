@@ -1,7 +1,6 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { translate } from '@translations'
@@ -25,7 +24,7 @@ export interface DexParamList {
     fee: BigNumber
     pairs: PoolPairData[]
     priceRates: PriceRateProps[]
-    slippage: number
+    slippage: BigNumber
     swap: CompositeSwapForm
     tokenA: OwnedTokenState
     tokenB: TokenState & {amount?: string}

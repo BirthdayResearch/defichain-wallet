@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'

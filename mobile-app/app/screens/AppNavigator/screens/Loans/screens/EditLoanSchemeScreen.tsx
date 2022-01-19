@@ -2,7 +2,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { LoanScheme, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 import { View } from '@components'
@@ -112,7 +112,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         label={translate('screens/EditLoanSchemeScreen', 'CONTINUE')}
         onPress={onSubmit}
         margin='mt-7 mb-2'
-        testID='create_vault_submit_button'
+        testID='edit_loan_scheme_submit_button'
       />
       <ThemedText
         light={tailwind('text-gray-500')}

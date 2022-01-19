@@ -67,7 +67,7 @@ function getNetworkParams (network: EnvironmentNetwork): string {
   }
 }
 
-function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
+export function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: string): string {
   let baseUrl = `${baseDefiScanUrl}/transactions/${txid}`
 
   baseUrl += getNetworkParams(network)
@@ -83,6 +83,6 @@ function getTxURLByNetwork (network: EnvironmentNetwork, txid: string, rawtx?: s
   return baseUrl
 }
 
-function getURLByNetwork (path: string, network: EnvironmentNetwork, id: number | string): string {
+export function getURLByNetwork (path: string, network: EnvironmentNetwork, id: number | string): string {
   return `${baseDefiScanUrl}/${path}/${id}${getNetworkParams(network)}`
 }

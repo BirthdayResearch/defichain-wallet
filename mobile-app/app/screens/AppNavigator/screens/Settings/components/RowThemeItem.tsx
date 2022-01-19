@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import * as React from 'react'
 import { useState } from 'react'
 import { ThemePersistence } from '@api'
 import { Switch, View } from '@components/index'

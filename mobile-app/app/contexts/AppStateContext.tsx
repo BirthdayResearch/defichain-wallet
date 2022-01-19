@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useRef } from 'react'
+import { createContext, useContext, useEffect, useRef } from 'react'
+import * as React from 'react'
 import { AppState, AppStateStatus } from 'react-native'
 
 export type SimplifiedAppStateStatus = 'active' | 'background'

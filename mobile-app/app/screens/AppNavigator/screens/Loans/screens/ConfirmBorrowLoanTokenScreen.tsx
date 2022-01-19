@@ -6,7 +6,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/th
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -242,7 +242,9 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Vault ID')}
         rhs={{
           value: props.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />

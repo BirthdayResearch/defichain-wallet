@@ -207,7 +207,7 @@ exports[`wallet accordion should render 1`] = `
                     ]
                   }
                 >
-                  bar
+                  foo
                 </Text>
               </View>
               <View

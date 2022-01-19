@@ -1,4 +1,3 @@
-import React from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
 import { BottomSheetModal } from './BottomSheetModal'
@@ -35,8 +34,9 @@ export function BottomSheetInfo ({
           style={infoIconStyle}
         />
       }
+      enableScroll={false}
     >
-      <View style={tailwind('py-4 px-6 pt-0')}>
+      <View style={tailwind('px-6 pt-0')}>
         <View
           style={tailwind('flex-row mb-3')}
         >

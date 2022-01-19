@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { fireEvent, render } from '@testing-library/react-native'
 import * as Clipboard from 'expo-clipboard'
-import * as React from 'react'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
 import { wallet } from '@store/wallet'

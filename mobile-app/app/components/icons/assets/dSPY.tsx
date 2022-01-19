@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Svg, { Path, SvgProps, Circle } from 'react-native-svg'
 
 export function dSPY (props: SvgProps): JSX.Element {
