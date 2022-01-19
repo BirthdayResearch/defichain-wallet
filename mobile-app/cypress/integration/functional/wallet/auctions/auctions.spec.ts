@@ -33,18 +33,25 @@ context('Wallet - Auctions', () => {
       platforms: ['ios', 'android', 'web']
     }]
   }
+  const recoveryWords: string[] = []
 
   before(function () {
     cy.intercept('**/settings/flags', flags)
     cy.visit('/')
     // Bidder 2
-    cy.getByTestID('playground_wallet_abandon_encrypted').click()
-    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(6000)
+    cy.startCreateMnemonicWallet(recoveryWords)
+    cy.selectMnemonicWords(recoveryWords)
+    cy.setupPinCode()
+    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet()
+    cy.wait(6000)
+    cy.getByTestID('dfi_token_amount').contains('10.00000000')
+    cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
+    cy.getByTestID('total_dfi_amount').contains('30.00000000')
     cy.getByTestID('bottom_tab_loans').click()
     cy.createVault(0)
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.addCollateral('0.60000000', 'DFI')
-    cy.go('back')
+    cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTU10').click()
@@ -57,8 +64,13 @@ context('Wallet - Auctions', () => {
     cy.closeOceanInterface()
 
     // Bidder 1
+    cy.exitWallet()
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['CD10']).wait(6000)
+    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['CD10'])
+    cy.wait(6000)
+    cy.getByTestID('dfi_token_amount').contains('10.00000000')
+    cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
+    cy.getByTestID('total_dfi_amount').contains('30.00000000')
     cy.setWalletTheme(walletTheme)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
@@ -70,7 +82,7 @@ context('Wallet - Auctions', () => {
   })
 
   it('should liquidate vault', function () {
-    cy.go('back')
+    cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
@@ -88,7 +100,7 @@ context('Wallet - Auctions', () => {
     cy.createVault(0, true)
     cy.getByTestID('vault_card_1_edit_collaterals_button').click()
     cy.addCollateral('0.60000000', 'DFI')
-    cy.go('back')
+    cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('vault_card_1_manage_loans_button').click()
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTU10').click()
@@ -114,7 +126,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('empty_bid_history').should('exist')
     cy.getByTestID('collateral_tab_COLLATERALS').click()
     cy.getByTestID('collateral_row_0_amount').contains('0.20000000 DFI')
-    cy.go('back')
+    cy.getByTestID('bottom_tab_auctions').click()
     cy.getByTestID('batch_card_0_quick_bid').click()
     cy.getByTestID('quick_bid_submit_button').click().wait(1000)
     cy.closeOceanInterface()
@@ -137,7 +149,7 @@ context('Wallet - Auctions', () => {
   })
 
   it('should allow others to place bid', function () {
-    const recoveryWords = ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art']
+    // const recoveryWords = ['abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'abandon', 'art']
     cy.wait(5000)
     cy.exitWallet()
     cy.restoreMnemonicWords(recoveryWords).wait(3000)
