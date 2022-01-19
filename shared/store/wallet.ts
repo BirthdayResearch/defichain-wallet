@@ -37,7 +37,8 @@ const tokenDFI: WalletToken = {
   amount: '0',
   name: 'DeFiChain',
   displaySymbol: 'DFI (Token)',
-  avatarSymbol: 'DFI (Token)'
+  avatarSymbol: 'DFI (Token)',
+  isLoanToken: false
 }
 
 const utxoDFI: WalletToken = {
