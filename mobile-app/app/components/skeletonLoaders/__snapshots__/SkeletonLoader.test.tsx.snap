@@ -1095,3 +1095,158 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
   </RNSVGSvgView>
 </View>
 `;
+
+exports[`Skeleton Loader should match snapshot of vault keleton loader 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginLeft": 16,
+        "marginRight": 16,
+        "marginTop": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderLeftWidth": 1,
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderRightWidth": 1,
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderTopWidth": 1,
+      },
+    ]
+  }
+  testID="vault_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={130}
+    bbWidth="100%"
+    focusable={false}
+    height={130}
+    interval={0.25}
+    meetOrSlice={1}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 130,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={130}
+    vbWidth={328}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="vault-animated-diff"
+        fill={
+          Array [
+            1,
+            "vault-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="vault-animated-diff"
+        >
+          <RNSVGRect
+            height="16"
+            width="60"
+            x="0"
+            y="13"
+          />
+          <RNSVGRect
+            height="16"
+            width="60"
+            x="70"
+            y="13"
+          />
+          <RNSVGRect
+            height="16"
+            width="240"
+            x="0"
+            y="33"
+          />
+          <RNSVGRect
+            height="15"
+            width="150"
+            x="0"
+            y="53"
+          />
+          <RNSVGRect
+            height="15"
+            width="130"
+            x="0"
+            y="90"
+          />
+          <RNSVGRect
+            height="15"
+            width="140"
+            x="220"
+            y="90"
+          />
+          <RNSVGRect
+            height="15"
+            width="130"
+            x="0"
+            y="115"
+          />
+          <RNSVGRect
+            height="15"
+            width="140"
+            x="220"
+            y="115"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -1250325,
+              0.5,
+              -1,
+              1,
+              -1250325,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="vault-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
