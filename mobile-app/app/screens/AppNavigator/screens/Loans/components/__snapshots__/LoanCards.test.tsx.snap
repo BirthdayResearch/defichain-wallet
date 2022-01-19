@@ -272,7 +272,8 @@ exports[`loan cards should match snapshot 1`] = `
                       fill={4294967295}
                       font={
                         Object {
-                          "fontSize": 9,
+                          "fontSize": 10,
+                          "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
@@ -289,7 +290,7 @@ exports[`loan cards should match snapshot 1`] = `
                       }
                       y={
                         Array [
-                          "60%",
+                          "62%",
                         ]
                       }
                     >
@@ -567,7 +568,8 @@ exports[`loan cards should match snapshot 1`] = `
                       fill={4294967295}
                       font={
                         Object {
-                          "fontSize": 9,
+                          "fontSize": 10,
+                          "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
@@ -584,7 +586,7 @@ exports[`loan cards should match snapshot 1`] = `
                       }
                       y={
                         Array [
-                          "60%",
+                          "62%",
                         ]
                       }
                     >
@@ -875,7 +877,8 @@ exports[`loan cards should match snapshot 1`] = `
                       fill={4294967295}
                       font={
                         Object {
-                          "fontSize": 9,
+                          "fontSize": 10,
+                          "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
@@ -892,7 +895,7 @@ exports[`loan cards should match snapshot 1`] = `
                       }
                       y={
                         Array [
-                          "60%",
+                          "62%",
                         ]
                       }
                     >
