@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { RootState } from '@store'
 import { wallet } from '@store/wallet'
-import { render } from '@testing-library/react-native'
+import { render, RenderAPI } from '@testing-library/react-native'
 import { AppIcon } from '../AppIcon'
 import { getNativeIcon } from './index'
 import { Provider } from 'react-redux'
@@ -47,12 +47,21 @@ describe('token icons', () => {
           hasFetchedPoolpairData: false
         }
       }
-      const store = configureStore({
-        preloadedState: initialState,
-        reducer: { wallet: wallet.reducer }
-      })
-      const Icon = getNativeIcon(icon)
-      const tree = render(<Provider store={store}><Icon /></Provider>).toJSON()
+
+      function renderWithProvider (renderedComponent: JSX.Element): RenderAPI {
+        const store = configureStore({
+          preloadedState: initialState,
+          reducer: { wallet: wallet.reducer }
+        })
+
+        return render(<Provider store={store}>{renderedComponent}</Provider>)
+      }
+
+      const IconComponent = (): JSX.Element => {
+        const Icon = getNativeIcon(icon)
+        return <Icon />
+      }
+      const tree = renderWithProvider(<IconComponent />).toJSON()
       expect(tree).toMatchSnapshot()
     })
   })

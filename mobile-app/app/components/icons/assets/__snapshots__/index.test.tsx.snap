@@ -5432,6 +5432,101 @@ exports[`token icons getNativeIcon("dLTC") should get <IcondLTC /> snapshot 1`] 
 </RNSVGSvgView>
 `;
 
+exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="32"
+  bbWidth="32"
+  fill="none"
+  focusable={false}
+  height="32"
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      Object {
+        "flex": 0,
+        "height": 32,
+        "width": 32,
+      },
+    ]
+  }
+  vbHeight={32}
+  vbWidth={32}
+  width="32"
+>
+  <RNSVGGroup
+    fill={null}
+    propList={
+      Array [
+        "fill",
+      ]
+    }
+  >
+    <RNSVGGroup
+      clipPath="clip0_1388_11287"
+    >
+      <RNSVGPath
+        clipRule={0}
+        d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
+        fill={4279110157}
+        fillRule={0}
+        propList={
+          Array [
+            "fill",
+            "fillRule",
+          ]
+        }
+      />
+    </RNSVGGroup>
+    <RNSVGText
+      content={null}
+      dx={Array []}
+      dy={Array []}
+      fill={4294967295}
+      font={
+        Object {
+          "fontSize": 10,
+          "fontWeight": "bold",
+          "textAnchor": "middle",
+        }
+      }
+      propList={
+        Array [
+          "fill",
+        ]
+      }
+      rotate={Array []}
+      x={
+        Array [
+          "50%",
+        ]
+      }
+      y={
+        Array [
+          "62%",
+        ]
+      }
+    >
+      <RNSVGTSpan
+        content="TSLA"
+        dx={Array []}
+        dy={Array []}
+        font={Object {}}
+        rotate={Array []}
+        x={Array []}
+        y={Array []}
+      />
+    </RNSVGText>
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
 exports[`token icons getNativeIcon("dUSDC") should get <IcondUSDC /> snapshot 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
