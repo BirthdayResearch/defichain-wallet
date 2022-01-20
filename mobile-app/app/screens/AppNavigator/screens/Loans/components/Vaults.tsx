@@ -24,7 +24,7 @@ export function Vaults (): JSX.Element {
       address,
       client
     }))
-  }, [blockCount])
+  }, [blockCount, address])
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))

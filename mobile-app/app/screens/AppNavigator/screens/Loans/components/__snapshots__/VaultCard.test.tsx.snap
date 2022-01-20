@@ -649,7 +649,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               Array [
                 Object {
                   "height": 4,
-                  "marginRight": 2,
                 },
                 Object {
                   "width": "20.83%",
@@ -667,7 +666,6 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               Array [
                 Object {
                   "height": 4,
-                  "marginRight": 2,
                 },
                 Object {
                   "width": "4.17%",
@@ -1682,7 +1680,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               Array [
                 Object {
                   "height": 4,
-                  "marginRight": 2,
                 },
                 Object {
                   "width": "20.83%",
@@ -1700,7 +1697,6 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               Array [
                 Object {
                   "height": 4,
-                  "marginRight": 2,
                 },
                 Object {
                   "width": "4.17%",
@@ -2743,7 +2739,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               Array [
                 Object {
                   "height": 4,
-                  "marginRight": 2,
                 },
                 Object {
                   "width": "20.83%",
@@ -2761,7 +2756,6 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               Array [
                 Object {
                   "height": 4,
-                  "marginRight": 2,
                 },
                 Object {
                   "width": "4.17%",

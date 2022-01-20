@@ -17,6 +17,18 @@ context('Wallet - Settings', () => {
     })
   })
 
+  it('should be able to display top up screen when click on playground on playground network', function () {
+    cy.getByTestID('button_selected_network').click()
+    cy.getByTestID('button_network_Playground').click()
+    cy.on('window:confirm', () => {
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('button_selected_network').click()
+    cy.getByTestID('button_network_Playground').click()
+    cy.url().should('include', 'playground')
+  })
+
   it('should be able to change language in language selection screen', function () {
     cy.getByTestID('setting_navigate_language_selection').click()
     cy.getByTestID('language_option').contains('Deutsch')
