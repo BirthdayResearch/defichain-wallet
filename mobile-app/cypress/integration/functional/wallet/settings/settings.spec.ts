@@ -1,3 +1,7 @@
+const activatedIconColor = 'rgb(251, 191, 36)'
+const deactivatedIconColor = 'rgb(212, 212, 212)'
+const lightModeIconTestId = 'light_mode_icon'
+
 context('Wallet - Settings', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
@@ -62,21 +66,24 @@ context('Wallet - Settings', () => {
   })
 
   it('should activate sun icon in light mode (by default)', () => {
-    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(251, 191, 36)')
-    cy.getByTestID('dark_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
+    cy.url().should('include', 'app/Settings/SettingsScreen', () => {
+      expect(localStorage.getItem('WALLET.THEME')).to.eq('light')
+    })
+    cy.getByTestID(lightModeIconTestId).should('have.css', 'color', activatedIconColor)
+    cy.getByTestID('dark_mode_icon').should('have.css', 'color', deactivatedIconColor)
   })
 
   it('should switch and activate moon icon from light to dark mode', () => {
-    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(251, 191, 36)')
+    cy.getByTestID(lightModeIconTestId).should('have.css', 'color', activatedIconColor)
     cy.getByTestID('theme_switch').click()
-    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
+    cy.getByTestID(lightModeIconTestId).should('have.css', 'color', deactivatedIconColor)
   })
 
   it('should update local storage from light to dark theme', () => {
-    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(251, 191, 36)')
+    cy.getByTestID(lightModeIconTestId).should('have.css', 'color', activatedIconColor)
     cy.getByTestID('theme_switch').click().should(() => {
       expect(localStorage.getItem('WALLET.THEME')).to.eq('dark')
     })
-    cy.getByTestID('light_mode_icon').should('have.css', 'color', 'rgb(212, 212, 212)')
+    cy.getByTestID(lightModeIconTestId).should('have.css', 'color', deactivatedIconColor)
   })
 })
