@@ -4,6 +4,7 @@ import { tailwind } from '@tailwind'
 import { View } from '@components'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewStyle } from 'react-native'
+import * as React from 'react'
 
 interface ActiveUSDValueProps {
   style?: StyleProp<ViewStyle>
@@ -12,7 +13,7 @@ interface ActiveUSDValueProps {
   price: BigNumber
 }
 
-export function ActiveUSDValue (props: ActiveUSDValueProps): JSX.Element {
+export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
@@ -34,4 +35,4 @@ export function ActiveUSDValue (props: ActiveUSDValueProps): JSX.Element {
       />
     </View>
   )
-}
+})
