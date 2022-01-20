@@ -11,7 +11,7 @@ import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrRemoveCollateralForm, AddOrRemoveCollateralResponse } from '../components/AddOrRemoveCollateralForm'
-import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -211,6 +211,7 @@ export function EditCollateralScreen ({
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
+                  tokenType: TokenType.CollateralItem,
                   vault: activeVault,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: dismissModal,

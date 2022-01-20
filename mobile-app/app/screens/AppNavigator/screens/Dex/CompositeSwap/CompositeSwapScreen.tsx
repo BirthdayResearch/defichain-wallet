@@ -25,7 +25,7 @@ import {
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { Button } from '@components/Button'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -176,6 +176,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
+          tokenType: TokenType.BottomSheetToken,
           headerLabel: translate('screens/CompositeSwapScreen', direction === 'FROM' ? 'Choose token for swap' : 'Choose token to swap'),
           onCloseButtonPress: () => dismissModal(),
           onTokenPress: (item): void => {

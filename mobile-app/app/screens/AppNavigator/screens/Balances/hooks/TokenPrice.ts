@@ -6,7 +6,6 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useDispatch, useSelector } from 'react-redux'
-import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 
 interface DexTokenPrice {
@@ -51,11 +50,7 @@ export function useTokenPrice (): DexTokenPrice {
       }
   }
 
-  function getTokenPrice (symbol: string, activePrice?: ActivePrice): BigNumber {
-    // active price for collateralTokens
-    if (activePrice !== undefined) {
-      return new BigNumber(getActivePrice(symbol, activePrice))
-    }
+  function getTokenPrice (symbol: string): BigNumber {
     // active price for walletTokens
     const selectedPoolPairs = getSelectedPoolPairs(symbol, 'DUSD')
     const { aToBPrice } = calculatePriceRates(symbol, selectedPoolPairs, '1')

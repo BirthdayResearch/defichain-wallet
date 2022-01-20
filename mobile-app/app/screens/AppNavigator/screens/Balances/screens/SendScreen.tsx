@@ -36,7 +36,7 @@ import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion
 import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 
@@ -120,6 +120,7 @@ export function SendScreen ({
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokens: getBottomSheetToken(tokens),
+          tokenType: TokenType.BottomSheetToken,
           headerLabel: translate('screens/SendScreen', 'Choose token to send'),
           onCloseButtonPress: () => dismissModal(),
           onTokenPress: async (item): Promise<void> => {
