@@ -24,5 +24,8 @@
         "ascAppId": "EAS_ASC_APP_ID"
       }
     }
+  },
+  "cli": {
+    "requireCommit": true
   }
 }
