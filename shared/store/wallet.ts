@@ -5,10 +5,13 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
+interface AssociatedToken {
+  [key: string]: TokenData
+}
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
-  allTokens: TokenData[]
+  allTokens: AssociatedToken
   poolpairs: DexItem[]
   hasFetchedPoolpairData: boolean
 }
@@ -25,7 +28,7 @@ export interface DexItem {
 const initialState: WalletState = {
   utxoBalance: '0',
   tokens: [],
-  allTokens: [],
+  allTokens: {},
   poolpairs: [],
   hasFetchedPoolpairData: false
 }
@@ -78,6 +81,10 @@ export const setTokenDetails = (t: AddressToken): WalletToken => {
   }
 }
 
+const associateTokens = (tokens: TokenData[]): AssociatedToken => {
+  return tokens.reduce((allToken, token) => ({ ...allToken, [token.displaySymbol]: token }), {})
+}
+
 export const fetchPoolPairs = createAsyncThunk(
   'wallet/fetchPoolPairs',
   async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
@@ -108,7 +115,7 @@ export const wallet = createSlice({
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
       state.tokens = action.payload.tokens.map(setTokenDetails)
       state.utxoBalance = action.payload.utxoBalance
-      state.allTokens = action.payload.allTokens
+      state.allTokens = associateTokens(action.payload.allTokens)
     })
   }
 })
@@ -172,7 +179,5 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
  * Get single token detail by `displaySymbol` from wallet store.
  */
  export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
-  return allTokens?.find(token => {
-    return token.displaySymbol === displaySymbol
-  })
+  return allTokens[displaySymbol]
 })

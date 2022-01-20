@@ -142,7 +142,7 @@ describe('loan cards', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        allTokens: [TS25, TR50, TU10],
+        allTokens: { dTS25: TS25, dTR50: TR50, dTU10: TU10 },
         poolpairs: [],
         hasFetchedPoolpairData: false
       }

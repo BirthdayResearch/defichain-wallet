@@ -18,31 +18,33 @@ describe('token icons', () => {
         wallet: {
           utxoBalance: '77',
           tokens: [],
-          allTokens: [{
-            id: '17',
-            symbol: 'TSLA',
-            symbolKey: 'TSLA',
-            name: '',
-            decimal: 8,
-            limit: '0',
-            mintable: true,
-            tradeable: true,
-            isDAT: true,
-            isLPS: false,
-            isLoanToken: true,
-            finalized: false,
-            minted: '0',
-            creation: {
-              tx: '3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40',
-              height: 151
-            },
-            destruction: {
-              tx: '0000000000000000000000000000000000000000000000000000000000000000',
-              height: -1
-            },
-            collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-            displaySymbol: 'dTSLA'
-          }],
+          allTokens: {
+            dTSLA: {
+              id: '17',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA',
+              name: '',
+              decimal: 8,
+              limit: '0',
+              mintable: true,
+              tradeable: true,
+              isDAT: true,
+              isLPS: false,
+              isLoanToken: true,
+              finalized: false,
+              minted: '0',
+              creation: {
+                tx: '3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40',
+                height: 151
+              },
+              destruction: {
+                tx: '0000000000000000000000000000000000000000000000000000000000000000',
+                height: -1
+              },
+              collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
+              displaySymbol: 'dTSLA'
+            }
+          },
           poolpairs: [],
           hasFetchedPoolpairData: false
         }
