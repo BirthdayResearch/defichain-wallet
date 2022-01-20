@@ -1,9 +1,11 @@
 {
   "build": {
     "production": {
+      "node": "16.13.2",
       "releaseChannel": "production"
     },
     "preview": {
+      "node": "16.13.2",
       "android": {
         "buildType": "apk"
       },
