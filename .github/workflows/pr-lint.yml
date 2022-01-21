@@ -29,7 +29,6 @@ jobs:
             test
             ci
             build
-            chore
           scopes: |
             core
             workflow
