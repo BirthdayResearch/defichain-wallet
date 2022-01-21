@@ -95,7 +95,8 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     updateEnabledFeatures,
     isFeatureAvailable,
     isBetaFeature,
-    hasBetaFeatures: featureFlags.some((flag) => satisfies(appVersion, flag.version) && flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS) && flag.stage === 'beta')
+    hasBetaFeatures: featureFlags.some((flag) => satisfies(appVersion, flag.version) &&
+      flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS) && flag.stage === 'beta')
   }
 
   return (
