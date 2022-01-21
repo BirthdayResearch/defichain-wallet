@@ -374,11 +374,11 @@ context('Wallet - Balances - USD Value', () => {
   it('should be able to get DEX Price USD Value', function () {
     cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
     // (1001 / 1001) * (8330 / 830) * 10.00
-    cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $100.36')
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.36' })
     // DUSD  = ((10 / 2500) * 8330) * 1
     // DFI =  ((10 / 2500) * 830) * (8330 / 830)
     // DFI + DUSD
-    cy.getByTestID('balances_row_20_usd_amount').should('have.text', '≈ $66.64')
+    cy.checkBalanceRow('20', { name: 'Decentralized USD-DeFiChain', amount: '10.00000000', displaySymbol: 'DUSD-DFI', symbol: 'DUSD-DFI', usdAmount: '≈ $66.64' })
   })
 
   it('should be able display updated Dex Price USD Value', function () {
@@ -395,10 +395,10 @@ context('Wallet - Balances - USD Value', () => {
     cy.wait(5000)
     cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
     // (1000 / 5) * (8300 / 100) * 10.00
-    cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $166,000.00')
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $166,000.00' })
     // DUSD  = ((10 / 2500) * 8300) * 1 == 33.2
     // DFI =   ((10 / 2500) * 100) * (8300 / 100) == 33.2
     // DFI + DUSD
-    cy.getByTestID('balances_row_20_usd_amount').should('have.text', '≈ $64.40')
+    cy.checkBalanceRow('20', { name: 'Decentralized USD-DeFiChain', amount: '10.00000000', displaySymbol: 'DUSD-DFI', symbol: 'DUSD-DFI', usdAmount: '≈ $66.40' })
   })
 })
