@@ -2,7 +2,7 @@ name: EAS Publish
 
 on:
   release:
-    types: [ published ]
+    types: [ created ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
