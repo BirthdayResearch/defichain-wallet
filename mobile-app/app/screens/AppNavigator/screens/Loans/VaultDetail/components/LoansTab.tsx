@@ -81,7 +81,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row items-center')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{ width: 16, height: 16 }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-4 h-4')}
         />
         <ThemedText
           light={tailwind({

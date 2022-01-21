@@ -244,10 +244,7 @@ function BidSummaryCard (props: {
         <View style={tailwind('flex flex-row w-6/12 items-center')}>
           <SymbolIcon
             symbol={props.displaySymbol}
-            styleProps={{
-              width: 20,
-              height: 20
-            }}
+            styleProps={tailwind('w-5 h-5')}
           />
           <ThemedText style={tailwind('font-semibold ml-2')}>{props.displaySymbol}</ThemedText>
         </View>

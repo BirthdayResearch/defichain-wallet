@@ -40,9 +40,9 @@ describe('balances page', () => {
     displaySymbol: 'DFI',
     isDAT: true,
     isLPS: false,
+    isLoanToken: false,
     amount: '23',
-    name: 'Defi',
-    isLoanToken: false
+    name: 'Defi'
   }, {
     id: '1',
     symbol: 'BTC',
@@ -50,9 +50,9 @@ describe('balances page', () => {
     displaySymbol: 'dBTC',
     isDAT: true,
     isLPS: false,
+    isLoanToken: false,
     amount: '777',
-    name: 'Bitcoin',
-    isLoanToken: false
+    name: 'Bitcoin'
   },
   {
     id: '2',
@@ -61,9 +61,9 @@ describe('balances page', () => {
     displaySymbol: 'dETH',
     isDAT: true,
     isLPS: false,
+    isLoanToken: false,
     amount: '555',
-    name: 'Ethereum',
-    isLoanToken: false
+    name: 'Ethereum'
   }]
 
   it('should match snapshot', async () => {
@@ -71,6 +71,7 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenSymbol),
+        allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false
       },
@@ -111,6 +112,7 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenSymbol),
+        allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false
       },
