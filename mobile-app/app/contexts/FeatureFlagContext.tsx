@@ -44,7 +44,8 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   }
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
-    return featureFlags.some((flag: FeatureFlag) => flag.id === featureId && flag.stage === 'beta')
+    return featureFlags.some((flag: FeatureFlag) => satisfies(appVersion, flag.version) &&
+      flag.networks?.includes(network) && flag.id === featureId && flag.stage === 'beta')
   }
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
