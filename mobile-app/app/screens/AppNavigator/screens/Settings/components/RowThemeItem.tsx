@@ -50,6 +50,7 @@ export function RowThemeItem (): JSX.Element {
         <MaterialCommunityIcons
           name='moon-waning-crescent'
           size={20}
+          testID='dark_mode_icon'
           style={tailwind('ml-2 text-gray-300', { 'text-yellow-400': !isLight })}
         />
       </View>

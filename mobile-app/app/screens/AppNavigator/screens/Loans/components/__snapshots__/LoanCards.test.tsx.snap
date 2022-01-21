@@ -31,6 +31,7 @@ exports[`loan cards should match snapshot 1`] = `
           "id": "17",
           "isDAT": true,
           "isLPS": false,
+          "isLoanToken": true,
           "limit": "0",
           "mintable": true,
           "minted": "0",
@@ -60,6 +61,7 @@ exports[`loan cards should match snapshot 1`] = `
           "id": "18",
           "isDAT": true,
           "isLPS": false,
+          "isLoanToken": true,
           "limit": "0",
           "mintable": true,
           "minted": "0",
@@ -89,6 +91,7 @@ exports[`loan cards should match snapshot 1`] = `
           "id": "15",
           "isDAT": true,
           "isLPS": false,
+          "isLoanToken": true,
           "limit": "0",
           "mintable": true,
           "minted": "0",
@@ -212,6 +215,7 @@ exports[`loan cards should match snapshot 1`] = `
                   align="xMidYMid"
                   bbHeight={24}
                   bbWidth={24}
+                  fill="none"
                   focusable={false}
                   height={24}
                   meetOrSlice={0}
@@ -237,28 +241,39 @@ exports[`loan cards should match snapshot 1`] = `
                   vbWidth={32}
                   width={24}
                 >
-                  <RNSVGGroup>
-                    <RNSVGCircle
-                      cx={16}
-                      cy={16}
-                      fill={871301689}
-                      propList={
-                        Array [
-                          "fill",
-                        ]
-                      }
-                      r={16}
-                    />
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  >
+                    <RNSVGGroup
+                      clipPath="clip0_1388_11287"
+                    >
+                      <RNSVGPath
+                        clipRule={0}
+                        d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
+                        fill={4279110157}
+                        fillRule={0}
+                        propList={
+                          Array [
+                            "fill",
+                            "fillRule",
+                          ]
+                        }
+                      />
+                    </RNSVGGroup>
                     <RNSVGText
-                      alignmentBaseline="central"
                       content={null}
                       dx={Array []}
                       dy={Array []}
-                      fill={4289528105}
+                      fill={4294967295}
                       font={
                         Object {
-                          "fontSize": "24",
-                          "fontWeight": "bolder",
+                          "fontSize": 10,
+                          "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
@@ -275,12 +290,12 @@ exports[`loan cards should match snapshot 1`] = `
                       }
                       y={
                         Array [
-                          "50%",
+                          "62%",
                         ]
                       }
                     >
                       <RNSVGTSpan
-                        content="D"
+                        content="TS25"
                         dx={Array []}
                         dy={Array []}
                         font={Object {}}
@@ -496,6 +511,7 @@ exports[`loan cards should match snapshot 1`] = `
                   align="xMidYMid"
                   bbHeight={24}
                   bbWidth={24}
+                  fill="none"
                   focusable={false}
                   height={24}
                   meetOrSlice={0}
@@ -521,28 +537,39 @@ exports[`loan cards should match snapshot 1`] = `
                   vbWidth={32}
                   width={24}
                 >
-                  <RNSVGGroup>
-                    <RNSVGCircle
-                      cx={16}
-                      cy={16}
-                      fill={870660060}
-                      propList={
-                        Array [
-                          "fill",
-                        ]
-                      }
-                      r={16}
-                    />
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  >
+                    <RNSVGGroup
+                      clipPath="clip0_1388_11287"
+                    >
+                      <RNSVGPath
+                        clipRule={0}
+                        d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
+                        fill={4279110157}
+                        fillRule={0}
+                        propList={
+                          Array [
+                            "fill",
+                            "fillRule",
+                          ]
+                        }
+                      />
+                    </RNSVGGroup>
                     <RNSVGText
-                      alignmentBaseline="central"
                       content={null}
                       dx={Array []}
                       dy={Array []}
-                      fill={4292218060}
+                      fill={4294967295}
                       font={
                         Object {
-                          "fontSize": "24",
-                          "fontWeight": "bolder",
+                          "fontSize": 10,
+                          "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
@@ -559,12 +586,12 @@ exports[`loan cards should match snapshot 1`] = `
                       }
                       y={
                         Array [
-                          "50%",
+                          "62%",
                         ]
                       }
                     >
                       <RNSVGTSpan
-                        content="D"
+                        content="TR50"
                         dx={Array []}
                         dy={Array []}
                         font={Object {}}
@@ -793,6 +820,7 @@ exports[`loan cards should match snapshot 1`] = `
                   align="xMidYMid"
                   bbHeight={24}
                   bbWidth={24}
+                  fill="none"
                   focusable={false}
                   height={24}
                   meetOrSlice={0}
@@ -818,28 +846,39 @@ exports[`loan cards should match snapshot 1`] = `
                   vbWidth={32}
                   width={24}
                 >
-                  <RNSVGGroup>
-                    <RNSVGCircle
-                      cx={16}
-                      cy={16}
-                      fill={868754925}
-                      propList={
-                        Array [
-                          "fill",
-                        ]
-                      }
-                      r={16}
-                    />
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  >
+                    <RNSVGGroup
+                      clipPath="clip0_1388_11287"
+                    >
+                      <RNSVGPath
+                        clipRule={0}
+                        d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z"
+                        fill={4279110157}
+                        fillRule={0}
+                        propList={
+                          Array [
+                            "fill",
+                            "fillRule",
+                          ]
+                        }
+                      />
+                    </RNSVGGroup>
                     <RNSVGText
-                      alignmentBaseline="central"
                       content={null}
                       dx={Array []}
                       dy={Array []}
-                      fill={4290250976}
+                      fill={4294967295}
                       font={
                         Object {
-                          "fontSize": "24",
-                          "fontWeight": "bolder",
+                          "fontSize": 10,
+                          "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
@@ -856,12 +895,12 @@ exports[`loan cards should match snapshot 1`] = `
                       }
                       y={
                         Array [
-                          "50%",
+                          "62%",
                         ]
                       }
                     >
                       <RNSVGTSpan
-                        content="D"
+                        content="TU10"
                         dx={Array []}
                         dy={Array []}
                         font={Object {}}
