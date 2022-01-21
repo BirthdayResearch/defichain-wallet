@@ -1,8 +1,0 @@
-name: Semantic Check
-
-on:
-  workflow_dispatch:
-  pull_request:
-    branches: [ main ]
-
-titleOnly: true
