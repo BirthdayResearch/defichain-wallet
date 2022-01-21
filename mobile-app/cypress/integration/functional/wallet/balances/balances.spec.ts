@@ -259,3 +259,138 @@ context('Wallet - Balances - No balance', () => {
     cy.getByTestID('empty_balances').should('exist')
   })
 })
+
+context('Wallet - Balances - USD Value', () => {
+  const getChangingPoolPairReserve = ({
+    pair1ReserveA, // BTC (BTC-DFI)
+    pair1ReserveB, // DFI (BTC-DFI)
+    pair2ReserveA, // DUSD (DUSD-DFI)
+    pair2ReserveB // DFI (DUSD-DFI)
+  }: {
+    pair1ReserveA: string
+    pair1ReserveB: string
+    pair2ReserveA: string
+    pair2ReserveB: string
+  }): any => [
+    {
+      id: '15',
+      symbol: 'BTC-DFI',
+      displaySymbol: 'dBTC-DFI',
+      name: 'Playground BTC-Default Defi token',
+      status: true,
+      tokenA: {
+        symbol: 'BTC',
+        displaySymbol: 'dBTC',
+        id: '1',
+        reserve: pair1ReserveA,
+        blockCommission: '0'
+      },
+      tokenB: {
+        symbol: 'DFI',
+        displaySymbol: 'DFI',
+        id: '0',
+        reserve: pair1ReserveB,
+        blockCommission: '0'
+      },
+      priceRatio: {
+        ab: '1',
+        ba: '1'
+      },
+      commission: '0',
+      totalLiquidity: {
+        token: '1000',
+        usd: '20000000'
+      },
+      tradeEnabled: true,
+      ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+      rewardPct: '0.1',
+      creation: {
+        tx: '79b5f7853f55f762c7550dd7c734dff0a473898bfb5639658875833accc6d461',
+        height: 132
+      },
+      apr: {
+        reward: 66.8826,
+        total: 66.8826
+      }
+    },
+
+    {
+      id: '20',
+      symbol: 'DUSD-DFI',
+      displaySymbol: 'DUSD-DFI',
+      name: 'Decentralized USD-Default Defi token',
+      status: true,
+      tokenA: {
+        symbol: 'DUSD',
+        displaySymbol: 'DUSD',
+        id: '14',
+        reserve: pair2ReserveA,
+        blockCommission: '0'
+      },
+      tokenB: {
+        symbol: 'DFI',
+        displaySymbol: 'DFI',
+        id: '0',
+        reserve: pair2ReserveB,
+        blockCommission: '0'
+      },
+      priceRatio: {
+        ab: '10',
+        ba: '0.1'
+      },
+      commission: '0.02',
+      totalLiquidity: {
+        token: '2634.17729078',
+        usd: '16660'
+      },
+      tradeEnabled: true,
+      ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+      rewardPct: '0.1',
+      creation: {
+        tx: '4b8d5ec122052cdb8e8ffad63865444a10edc396d44e52957758ef7a39b228fa',
+        height: 147
+      },
+      apr: {
+        reward: 80291.23649459783,
+        total: 80291.23649459783
+      }
+    }
+  ]
+
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: getChangingPoolPairReserve({
+          pair1ReserveA: '1001',
+          pair1ReserveB: '1001',
+          pair2ReserveA: '8330',
+          pair2ReserveB: '830'
+        })
+      }
+    })
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(3000)
+  })
+
+  it('should be able to get DEX Price USD Value', function () {
+    cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
+    // (1001 / 1001) * (8330 / 830) * 10.00
+    cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $100.36')
+  })
+
+  it('should be able display updated Dex Price USD Value', function () {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: getChangingPoolPairReserve({
+          pair1ReserveA: '5',
+          pair1ReserveB: '1000',
+          pair2ReserveA: '8330',
+          pair2ReserveB: '830'
+        })
+      }
+    })
+    cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
+    // (1001 / 5) * (8330 / 830) * 10.00
+    cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $20,072.29')
+  })
+})
