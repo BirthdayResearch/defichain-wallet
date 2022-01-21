@@ -12,7 +12,9 @@
     "Refresh": "Renouveler",
     "Refresh recovery words": "Renouveler les mots de récupération",
     "You are about to generate a new set of recovery words. Continue?": "Vous génèrez un nouveau jeu de mots de récupération. Continuer ?",
-    "Passcode FAQ": "FAQ code d'accès"
+    "Passcode FAQ": "FAQ code d'accès",
+    "DEX FAQ": "FAQ DEX",
+    "Liquidity Mining FAQ": "FAQ Liquidity Mining"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Échange décentralisé",
@@ -89,7 +91,6 @@
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "UTXO to be converted": "UTXO à convertir",
-    "Amount to be converted": "Montant à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
     "Send to other wallet": "Envoyer à un autre portefeuille",
     "Select token": "Sélectionner le token",
@@ -113,7 +114,7 @@
     "Sending {{amount}} {{symbol}}": "Envoyer {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "CONFIRMER LA TRANSACTION",
     "Convert & send": "Convertir et envoyer",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Je reconnais que l'envoi de tokens du pool de liquidité à des adresses qui ne sont pas des portefeuilles compatibles avec DeFiChain peut entraîner une perte irréversible des fonds.",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Envoyez les tokens du pool de liquidité uniquement vers des portefeuilles compatibles avec DeFiChain. Sinon, l'envoi vers d'autres échanges peut entraîner une perte irréversible des fonds.",
     "Transaction type": "Type de transaction",
     "Amount to send": "Montant à envoyer"
   },
@@ -219,7 +220,8 @@
     "Passcode": "code d'accès",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Prêts",
-    "Auctions": "Enchères"
+    "Auctions": "Enchères",
+    "Liquidity Mining": "Liquidity Mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ - Prêts",
@@ -463,7 +465,6 @@
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Your pooled {{token}}": "Vos {{token}} du pool",
     "UTXO to be converted": "UTXO à convertir",
-    "Amount to be converted": "Montant à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir",
     "Estimated fee": "Frais estimés",
     "Pooled {{symbol}}": "{{symbol}} du pool"
@@ -541,7 +542,13 @@
     "CONTINUE": "SUIVANT"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "TOLÉRANCE DE GLISSEMENT"
+    "Slippage tolerance": "Tolérance de Slippage",
+    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Le slippage est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de slippage que vous êtes prêt à accepter.",
+    "Custom": "Personnaliser",
+    "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
+    "Required field is missing": "Le champ requis est manquant",
+    "Slippage rate must range from 0-100%": "Le taux de glissement doit être compris entre 0 et 100 %.",
+    "Proceed at your own risk": "Procédez à vos propres risques"
   },
   "screens/PoolSwapScreen": {
     "Swap": "Swap",
@@ -558,7 +565,6 @@
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Estimated fee": "Frais estimés",
     "{{tokenA}} price per {{tokenB}}": "Prix de {{tokenA}} par {{tokenB}}",
-    "Amount to be converted": "Montant à convertir",
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir"
   },
@@ -579,9 +585,8 @@
     "Enter an amount": "Donnez un montant",
     "{{token}} tokens converted": "{{token}} tokens convertis",
     "Select token": "Sélectionner le token",
-    "Amount to be converted": "Montant à convertir",
     "UTXO to be converted": "UTXO à convertir",
-    "Slippage Tolerance": "Tolérance de Slippage",
+    "Slippage tolerance": "Tolérance de Slippage",
     "TRANSACTION DETAILS": "détails de la transaction",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
     "FROM": "DE",
@@ -599,14 +604,14 @@
     "Swap": "Swap",
     "Swapping Token": "Échange du token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
-    "Slippage Tolerance": "Tolérance de Slippage",
+    "Slippage tolerance": "Tolérance de Slippage",
     "Estimated to receive": "Estimé à recevoir"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",
     "ESTIMATED BALANCE AFTER SWAP": "SOLDE ESTIMÉ APRÈS L'ÉCHANGE",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
-    "Slippage Tolerance": "Tolérance de Slippage",
+    "Slippage tolerance": "Tolérance de Slippage",
     "Estimated fee": "Frais estimés",
     "SWAP": "SWAP",
     "SWAPPING": "ÉCHANGER...",
@@ -661,6 +666,30 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Le stockage sur des réseaux numériques pourrait le rendre accessible aux pirates. Il est préférable de le rédiger sur papier et de le conserver en toute sécurité et confidentialité.",
     "Recovery words": "Mots de récupération",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Vos 24 mots de récupération uniques sont une représentation lisible par l'homme de la clé privée de votre portefeuille, générée à partir d'une liste de 2048 mots de la norme BIP-39. Cela empêche toute tentative de piratage brutal de la sécurité de votre portefeuille.",
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
+  },
+  "components/DexFaq": {
+    "Decentralized Exchange": "Échange décentralisé",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "La fonction d'échanges décentralisés permettra aux utilisateurs de la DeFiChain d'échanger des crypto-monnaies de pair-à-pair (peer-to-peer). Cette fonction permet de mettre en relation directe des personnes lors d'un échange, sans avoir besoin d'acheter et de vendre des monnaies par l'intermédiaire d'une bourse (via carnet d'ordres).",
+    "Transaction fees": "Frais de transaction",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Des frais d'un faible montant seront appliqués à chaque transaction. Ce montant peut varier en fonction de l'encombrement du réseau.",
+    "What is slippage tolerance?": "Qu'est-ce que la tolérance de glissement ?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le slippage maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
+  },
+  "components/LiquidityMiningFaq" : {
+    "Liquidity Mining": "Liquidity Mining",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Le liquidity mining est un mécanisme DeFi dans lequel les participants contribuent en crypto-monnaies aux pools de liquidité, et sont à leur tour récompensés par des frais et des tokens basés sur leur part de la liquidité totale du pool. \n\nLes pools de liquidité de DeFiChain sont constitués de liquidité par paire de tokens, qui est utilisée par le DEX (Decentralized Exchange) de la DeFiChain.",
+    "How do I supply liquidity?": "Comment puis-je fournir des liquidités ?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Après avoir décidé de la paire de pools à laquelle vous souhaitez fournir des liquidités, cliquez sur AJOUTER LIQUIDITÉ et saisissez le montant d'entrée pour l'un ou l'autre des tokens de la paire. \n\nUne fois le montant saisi d'un côté de la paire, l'application équilibre automatiquement le montant de l'autre côté, sur la base du ratio de liquidité actuel du pool.",
+    "How do I send tokens from my DFI wallet?": "Comment puis-je envoyer des tokens à partir de mon portefeuille DFI ?",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Les tokens sur la DeFiChain ne peuvent être envoyés qu'à des adresses DFI uniquement. Cela signifie que vous ne devez pas envoyer directement à un échange ou à une plateforme tierce qui ne supporte pas la DeFiChain. \n\nDe même, les tokens de liquidité ne peuvent être envoyés qu'à une autre adresse de portefeuille DFI.",
+    "What are some exchanges and platforms I can send to?": "Quels sont les échanges et les plates-formes vers lesquels je peux envoyer les tokens de la DeFiChain ?",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nVoir plus sur DeFiChain.com",
+    "Can I send liquidity pool tokens to an exchange or another entity?": "Puis-je envoyer les tokens du pool de liquidité à une bourse ou à une autre entité ?",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Les tokens de liquidité ne peuvent être envoyés que vers une autre adresse de portefeuille DFI, et non vers un échange ou une entité centrale.",
+    "How do I receive tokens on my DFI wallet?": "Comment puis-je recevoir des tokens sur mon portefeuille DFI ?",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Vous pouvez recevoir des tokens DFI dans votre portefeuille en partageant votre adresse trouvée dans l'écran Recevoir, ou en demandant à l'expéditeur de scanner le code QR. \n\nNotez que vous ne serez pas en mesure de recevoir des tokens natifs (par exemple BTC, ETH) directement dans votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/PasscodeFaq": {
@@ -726,7 +755,6 @@
     "Loans": "Prêts",
     "Browse auctions": "Parcourir les enchères",
     "Manage bids": "Gérer les enchères",
-    "Auctioned collaterals": "Garantie mise en vente",
     "Collateral for auction": "Garanties à offrir",
     "Auction details": "Détails de l'enchère"
   },
@@ -960,7 +988,6 @@
     "Total loans (USD)": "Total des prêts (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Vault interest": "Intérêt du Vault",
     "Vault interest (APR)": "Intérêt du Vault (TAEG)"
   },
   "components/AddOrRemoveCollateralForm": {
@@ -972,7 +999,9 @@
     "REMOVE COLLATERAL AMOUNT": "RETIRER LE MONTANT DE LA GARANTIE",
     "How much {{symbol}} to remove?": "Combien de {symbol}} à retirer ?",
     "Current": "Actuel",
-    "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque Token de garantie."
+    "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque Token de garantie.",
+    "Resulting collateralization": "La garantie résultante",
+    "N/A": "S/O"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",
@@ -1054,8 +1083,6 @@
     "Interest (Vault + Token)": "Intérêt (Vault + Token)",
     "Estimated annual interest": "Intérêt annuel estimé",
     "Total loan + annual interest": "Prêt total + intérêt annuel",
-    "Total interest amount": "Montant total des intérêts",
-    "Total loan + interest": "Total des prêts + intérêts",
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
     "SELECT LOAN TOKEN": "SELECTIONNER UN TOKEN DE PRÊT",
     "CONTINUE": "SUIVANT",
@@ -1078,8 +1105,6 @@
     "Vault interest": "Intérêt du Vault",
     "Estimated annual interest": "Intérêt annuel estimé",
     "Total loan + annual interest": "Prêt total + intérêt annuel",
-    "Total interest amount": "Montant total des intérêts",
-    "Total loan + interest": "Total des prêts + intérêts",
     "VAULT DETAILS": "DÉTAILS DU VAULT",
     "Vault ID": "Vault ID",
     "Collateral amount (USD)": "Montant de la garantie (USD)",
@@ -1181,7 +1206,6 @@
     "CONFIRM PLACE BID": "CONFIRMER ENCHÈRE",
     "Sign Transaction": "Autoriser la transaction",
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
-    "Auctioned collaterals": "Garantie mise en vente",
     "Insufficient funds": "Fonds insuffisants",
     "Collateral for auction": "Garanties à offrir"
   },
