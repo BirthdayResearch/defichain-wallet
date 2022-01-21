@@ -298,7 +298,7 @@ context('Wallet - Balances - USD Value', () => {
       },
       commission: '0',
       totalLiquidity: {
-        token: '1000',
+        token: '2500',
         usd: '20000000'
       },
       tradeEnabled: true,
@@ -340,7 +340,7 @@ context('Wallet - Balances - USD Value', () => {
       },
       commission: '0.02',
       totalLiquidity: {
-        token: '2634.17729078',
+        token: '2500',
         usd: '16660'
       },
       tradeEnabled: true,
@@ -358,7 +358,6 @@ context('Wallet - Balances - USD Value', () => {
   ]
 
   before(function () {
-    cy.createEmptyWallet(true)
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: getChangingPoolPairReserve({
@@ -369,13 +368,17 @@ context('Wallet - Balances - USD Value', () => {
         })
       }
     })
-    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(3000)
+    cy.createEmptyWallet(true).sendDFItoWallet().sendTokenToWallet(['BTC', 'DUSD-DFI']).wait(3000)
   })
 
   it('should be able to get DEX Price USD Value', function () {
     cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
     // (1001 / 1001) * (8330 / 830) * 10.00
     cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $100.36')
+    // DUSD  = ((10 / 2500) * 8330) * 1
+    // DFI =  ((10 / 2500) * 830) * (8330 / 830)
+    // DFI + DUSD
+    cy.getByTestID('balances_row_20_usd_amount').should('have.text', '≈ $66.64')
   })
 
   it('should be able display updated Dex Price USD Value', function () {
@@ -384,13 +387,18 @@ context('Wallet - Balances - USD Value', () => {
         data: getChangingPoolPairReserve({
           pair1ReserveA: '5',
           pair1ReserveB: '1000',
-          pair2ReserveA: '8330',
-          pair2ReserveB: '830'
+          pair2ReserveA: '8300',
+          pair2ReserveB: '100'
         })
       }
     })
+    cy.wait(5000)
     cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
-    // (1001 / 5) * (8330 / 830) * 10.00
-    cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $20,072.29')
+    // (1000 / 5) * (8300 / 100) * 10.00
+    cy.getByTestID('balances_row_1_usd_amount').should('have.text', '≈ $166,000.00')
+    // DUSD  = ((10 / 2500) * 8300) * 1 == 33.2
+    // DFI =   ((10 / 2500) * 100) * (8300 / 100) == 33.2
+    // DFI + DUSD
+    cy.getByTestID('balances_row_20_usd_amount').should('have.text', '≈ $64.40')
   })
 })
