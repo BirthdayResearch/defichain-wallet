@@ -336,7 +336,7 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           )
           : (
             <View style={tailwind('flex flex-row')}>
-              <SymbolIcon symbol={props.token.displaySymbol} styleProps={{ width: 24, height: 24 }} />
+              <SymbolIcon symbol={props.token.displaySymbol} styleProps={tailwind('w-6 h-6')} />
               <ThemedText
                 style={tailwind('ml-2 font-medium')}
                 testID='selected_token'

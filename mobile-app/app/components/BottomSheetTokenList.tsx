@@ -89,7 +89,7 @@ export const BottomSheetTokenList = ({
             <View style={tailwind('flex flex-row items-center')}>
               <SymbolIcon
                 symbol={item.token.displaySymbol}
-                styleProps={{ width: 24, height: 24 }}
+                styleProps={tailwind('w-6 h-6')}
               />
               <View style={tailwind('ml-2')}>
                 <ThemedText
