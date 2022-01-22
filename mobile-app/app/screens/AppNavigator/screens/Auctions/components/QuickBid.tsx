@@ -121,7 +121,7 @@ function CloseButton (props: { onPress: () => void }): JSX.Element {
 function HeaderSection (props: { symbol: string }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row items-center mb-7')}>
-      <SymbolIcon symbol={props.symbol} styleProps={{ width: 32, height: 32 }} />
+      <SymbolIcon symbol={props.symbol} styleProps={tailwind('w-8 h-8')} />
       <View style={tailwind('ml-2')}>
         <ThemedText
           style={tailwind('text-lg font-medium')}

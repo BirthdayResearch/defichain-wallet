@@ -21,6 +21,9 @@ export interface AnnouncementData {
     windows: string
     web: string
   }
+  /**
+   * `id` will be stored in device's persistence storage. Therefore, each announcement's `id` should be unique string to enable close announcement function
+   */
   id?: string
 }
 
