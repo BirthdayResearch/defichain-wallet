@@ -5382,6 +5382,89 @@ exports[`token icons getNativeIcon("dETH") should get <IcondETH /> snapshot 1`] 
 </RNSVGSvgView>
 `;
 
+exports[`token icons getNativeIcon("dGOOGL") should get <IcondGOOGL /> snapshot 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight={32}
+  bbWidth={32}
+  focusable={false}
+  height={32}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      Object {
+        "flex": 0,
+        "height": 32,
+        "width": 32,
+      },
+    ]
+  }
+  vbHeight={32}
+  vbWidth={32}
+  width={32}
+>
+  <RNSVGGroup>
+    <RNSVGCircle
+      cx={16}
+      cy={16}
+      fill={4294967295}
+      propList={
+        Array [
+          "fill",
+        ]
+      }
+      r={16}
+    />
+    <RNSVGText
+      alignmentBaseline="central"
+      content={null}
+      dx={Array []}
+      dy={Array []}
+      fill={4294967295}
+      font={
+        Object {
+          "fontSize": "24",
+          "fontWeight": "bolder",
+          "textAnchor": "middle",
+        }
+      }
+      propList={
+        Array [
+          "fill",
+        ]
+      }
+      rotate={Array []}
+      x={
+        Array [
+          "50%",
+        ]
+      }
+      y={
+        Array [
+          "50%",
+        ]
+      }
+    >
+      <RNSVGTSpan
+        content="D"
+        dx={Array []}
+        dy={Array []}
+        font={Object {}}
+        rotate={Array []}
+        x={Array []}
+        y={Array []}
+      />
+    </RNSVGText>
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
 exports[`token icons getNativeIcon("dLTC") should get <IcondLTC /> snapshot 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
