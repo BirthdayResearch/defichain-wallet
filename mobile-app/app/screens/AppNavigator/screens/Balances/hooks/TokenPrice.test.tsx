@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { renderHook } from '@testing-library/react-hooks'
 import { BigNumber } from '@defichain/jellyfish-json'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useTokenPrice } from './TokenPrice'
 import { DexItem, wallet } from '@store/wallet'
 import { block } from '@store/block'
 
