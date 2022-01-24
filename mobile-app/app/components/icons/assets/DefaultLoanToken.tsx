@@ -2,7 +2,7 @@ import Svg, { SvgProps, Text, G, Path } from 'react-native-svg'
 
 export function DefaultLoanToken (symbol: string): (props: SvgProps) => JSX.Element {
   return function (props: SvgProps): JSX.Element {
-    const name = symbol.substring(1, 5).toUpperCase()
+    const name = symbol.substring(1, 6).toUpperCase()
     return (
       <Svg width='32' height='32' viewBox='0 0 32 32' fill='none' {...props}>
         <G clipPath='url(#clip0_1388_11287)'>
@@ -15,9 +15,9 @@ export function DefaultLoanToken (symbol: string): (props: SvgProps) => JSX.Elem
         </G>
         <Text
           x='50%'
-          y='62%'
+          y={name.length > 4 ? '58%' : '62%'}
+          fontSize={name.length > 4 ? 8 : 10}
           textAnchor='middle'
-          fontSize={10}
           fill='white'
           fontWeight='bold'
         >

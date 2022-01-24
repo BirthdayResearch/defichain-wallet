@@ -65,7 +65,7 @@
     "SWITCH": "WECHSELN"
   },
   "screens/AddressControlScreen": {
-    "CREATE WALLET ADDRESS": "WALLET-ADRESSE ERSTELLEN",
+    "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
     "Switch to another address": "Wechsel zu einer anderen Adresse",
     "Wallet Address": "Walletadresse",
     "ACTIVE": "AKTIV"
