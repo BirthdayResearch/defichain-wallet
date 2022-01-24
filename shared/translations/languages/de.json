@@ -67,16 +67,16 @@
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLET-ADRESSE ERSTELLEN",
     "Switch to another address": "Wechsel zu einer anderen Adresse",
-    "Wallet Address": "Wallet Adresse",
+    "Wallet Address": "Walletadresse",
     "ACTIVE": "AKTIV"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
-    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Wallet Adresse nutzen",
+    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Walletadresse nutzen",
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
-    "WALLET ADDRESS": "WALLET ADRESSE"
+    "WALLET ADDRESS": "WALLETADRESSE"
   },
   "screens/SendScreen": {
     "Send": "Senden",
@@ -85,7 +85,7 @@
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
     "Review full transaction details in the next screen": "Transaktionsüberblick auf der nächsten Seite",
-    "Paste wallet address here": "Wallet Adresse eingeben",
+    "Paste wallet address here": "Walletadresse eingeben",
     "Where do you want to send?": "Wohin möchtest du senden?",
     "How much do you want to send?": "Wie viel möchtest du senden?",
     "Enter an amount": "Gib eine Menge ein",
@@ -317,7 +317,7 @@
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
     "Take full control": "Übernimm volle Kontrolle",
     "of your digital assets": "über deine digitalen Vermögenswerte",
-    "Nobody owns your keys and wallet except you.": "Niemand, außer dir, besitzt deine Schlüssel und dein Wallet.",
+    "Nobody owns your keys and wallet except you.": "Niemand außer dir besitzt deine Schlüssel und deine Wallet.",
     "Unlock the highest": "Erschließe das höchste",
     "potential of your finances": "Potenzial deiner Finanzen",
     "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transferieren, Liquiditätsmining, Tauschgeschäfte und viele weitere Funktionen als vollständig dezentralisierte Wallet",
@@ -941,7 +941,7 @@
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
-    "Wallet Address": "Wallet Adresse"
+    "Wallet Address": "Walletadresse"
   },
   "components/EmptyBalances": {
     "No other tokens yet": "Noch keine weiteren Token",
