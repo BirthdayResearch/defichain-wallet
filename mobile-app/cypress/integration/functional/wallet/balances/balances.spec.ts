@@ -233,7 +233,7 @@ context('Wallet - Balances - Failed API', () => {
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('total_dfi_amount').contains('0.00000000')
-    cy.getByTestID('total_usd_amount').should('have.text', '$0.00')
+    cy.getByTestID('total_usd_amount').should('have.text', '$0.00000000')
   })
 
   it('should display correct address', function () {
