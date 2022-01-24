@@ -39,6 +39,7 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -369,7 +370,8 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)} prefix='$'
+        prefix='$'
+        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow

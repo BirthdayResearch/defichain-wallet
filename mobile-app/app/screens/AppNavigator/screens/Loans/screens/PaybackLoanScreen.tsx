@@ -39,6 +39,7 @@ import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { loanTokenByTokenId } from '@store/loans'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { TextRow } from '@components/TextRow'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -171,9 +172,8 @@ export function PaybackLoanScreen ({
             <Text>{' '}</Text>
             <Text>{loanTokenAmount.displaySymbol}</Text>
             <NumberFormat
-              value={tokenBalanceInUSD.toFixed(2)}
+              value={getUSDPrecisedPrice(tokenBalanceInUSD)}
               thousandSeparator
-              decimalScale={2}
               displayType='text'
               prefix='$'
               renderText={(val: string) => (

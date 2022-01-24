@@ -31,6 +31,7 @@ import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components
 import { RootState } from '@store'
 import { ActiveUSDValue } from '../Loans/VaultDetail/components/ActiveUSDValue'
 import { useTokenPrice } from './hooks/TokenPrice'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 interface BalanceRowToken extends WalletToken {
@@ -126,7 +127,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             {translate('screens/BalancesScreen', 'Total Portfolio Value')}
           </ThemedText>
           <NumberFormat
-            decimalScale={8}
             displayType='text'
             prefix='$'
             renderText={(value) =>
@@ -138,7 +138,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                 value={value}
               />}
             thousandSeparator
-            value={totalUSDValue.toFixed(2)}
+            value={getUSDPrecisedPrice(totalUSDValue)}
           />
         </View>
         <ThemedTouchableOpacity

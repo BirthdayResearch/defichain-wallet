@@ -1,5 +1,4 @@
 
-import BigNumber from 'bignumber.js'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -16,6 +15,7 @@ import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 interface LoanCardsProps {
   loans: LoanToken[]
@@ -143,7 +143,7 @@ function LoanCard ({
               ${value}
             </ThemedText>
           </View>}
-        value={(currentPrice > 0 ? new BigNumber(currentPrice).toFixed(2) : '-')}
+        value={(currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-')}
       />
     </ThemedTouchableOpacity>
   )

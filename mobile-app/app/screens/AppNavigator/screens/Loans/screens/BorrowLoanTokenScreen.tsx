@@ -40,6 +40,7 @@ import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -373,7 +374,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
         </ThemedText>
         <NumberFormat
-          value={currentPrice > 0 ? new BigNumber(currentPrice).toFixed(2) : '-'}
+          value={currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-'}
           decimalScale={2}
           thousandSeparator
           displayType='text'
@@ -512,7 +513,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
       </View>
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
-        value={new BigNumber(props.vault.collateralValue).toFixed(2)}
+        value={getUSDPrecisedPrice(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
       />
