@@ -1,0 +1,36 @@
+name: "Translations"
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  translations:
+    name: Missing Report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - name: Find missing translations
+        id: find_string
+        run: npm run translation:missing
+      - name: Read missing_translations.json
+        id: translations
+        uses: juliangruber/read-file-action@ebfa650188272343fef925480eb4d18c5d49b925
+        with:
+          path: ./missing_translations.json
+      - uses: marocchino/sticky-pull-request-comment@a8ba05e2dbda1247005adac58e1585b0177dc595
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: Missing Translations
+          message: |
+            ### Missing Translations Report
+            The following translations are missing for this pull request.
+            ```json
+            ${{ steps.translations.outputs.content }}
+            ```
