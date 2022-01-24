@@ -26,7 +26,7 @@ jobs:
           path: ./missing_translations.json
       - uses: marocchino/sticky-pull-request-comment@a8ba05e2dbda1247005adac58e1585b0177dc595
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: Missing Translations
           message: |
             ### Missing Translations Report

@@ -1,7 +1,7 @@
 import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
 import * as fs from 'fs'
-import { getAppLanguages } from '@translations'
+import { getAppLanguages, translations } from '@translations'
 
 interface MissingLanguageItem {
   totalCount: number
