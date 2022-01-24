@@ -252,11 +252,11 @@ describe('Token Price - Get Token Price (DEX)', () => {
   it('should be able to get the token price', () => {
     const { result } = renderHook(() => useTokenPrice(), { wrapper })
 
-    // DFI / BTC * DUSD / DFI
+    // DFI / BTC * DUSD / DFI (reserve)
     // (1000 / 5) * (8300 / 100)
     expect(result.current.getTokenPrice('BTC')).toStrictEqual(new BigNumber('16600'))
 
-    // DFI / ETH * DUSD / DFI
+    // DFI / ETH * DUSD / DFI (reserve)
     // (1000 / 100000) * (8300 / 100)
     expect(result.current.getTokenPrice('ETH')).toStrictEqual(new BigNumber('0.83'))
   })
