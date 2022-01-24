@@ -2,6 +2,7 @@ import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
 import * as fs from 'fs'
 import { getAppLanguages, translations } from '../../translations'
+import { Logging } from '../../../mobile-app/app/api/index'
 
 interface MissingLanguageItem {
   totalCount: number
@@ -15,7 +16,7 @@ interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
 
-const DIRECTORIES = ['components', 'navigation', 'screens']
+const DIRECTORIES = ['mobile-app/app/components', 'mobile-app/app/screens']
 
 function getAllTranslationsKeys (keys: string[], map: Map<string, string[]>): Map<string, string[]> {
   keys.forEach((k) => {
@@ -33,12 +34,17 @@ function getAllTranslationsKeys (keys: string[], map: Map<string, string[]>): Ma
 async function updateBaseTranslations (baseTranslation: Map<string, string[]>): Promise<Map<string, string[]>> {
   const translationRegex = /translate\(.*,+.*\)/
   const find = async (directory: string): Promise<findInFiles.FindResult> => await findInFiles.find(translationRegex, directory, '.tsx$')
+
   // list of folders to check
   for (const dir of DIRECTORIES) {
-    const result = await find(dir)
-    Object.keys(result).forEach((k) => {
-      baseTranslation = getAllTranslationsKeys(uniq(result[k].matches), baseTranslation)
-    })
+    try {
+      const result = await find(dir)
+      Object.keys(result).forEach((k) => {
+        baseTranslation = getAllTranslationsKeys(uniq(result[k].matches), baseTranslation)
+      })
+    } catch (e) {
+      Logging.error(e)
+    }
   }
   return baseTranslation
 }
