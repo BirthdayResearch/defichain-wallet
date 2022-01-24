@@ -58,9 +58,7 @@
     "Balances": "我的资产",
     "SEND": "发出",
     "RECEIVE": "接收",
-    "PORTFOLIO": "资产组合",
-    "Show balances": "显示总资产",
-    "Hide balances": "隐藏总资产",
+    "Total Portfolio Value": "总组合价值",
     "You do not have any other tokens.": "您现在没有其他代币",
     "SWITCH": "切换钱包"
   },

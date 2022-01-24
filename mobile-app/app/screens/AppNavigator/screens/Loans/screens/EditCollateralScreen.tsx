@@ -11,7 +11,7 @@ import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrRemoveCollateralForm, AddOrRemoveCollateralResponse } from '../components/AddOrRemoveCollateralForm'
-import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -38,7 +38,7 @@ import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Lo
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -211,6 +211,7 @@ export function EditCollateralScreen ({
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
+                  tokenType: TokenType.CollateralItem,
                   vault: activeVault,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: dismissModal,
@@ -493,7 +494,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUsdValue
+            <ActiveUSDValue
               price={prices.collateralPrice}
               testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
             />

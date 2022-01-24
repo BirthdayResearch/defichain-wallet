@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { fireEvent, render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
-import { wallet, setTokenDetails } from '@store/wallet'
+import { wallet, setTokenSymbol } from '@store/wallet'
 import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
 
@@ -70,7 +70,7 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: tokens.map(setTokenDetails),
+        tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false
@@ -111,7 +111,7 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: tokens.map(setTokenDetails),
+        tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false
