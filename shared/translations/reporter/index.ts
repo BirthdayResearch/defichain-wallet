@@ -1,8 +1,6 @@
-import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
 import * as fs from 'fs'
 import { getAppLanguages, translations } from '../../translations'
-import { Logging } from '../../../mobile-app/app/api/logging'
 
 interface MissingLanguageItem {
   totalCount: number
@@ -16,41 +14,32 @@ interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
 
-const DIRECTORIES = ['mobile-app/app/components', 'mobile-app/app/screens']
+function getBaseTranslationsMap (): Map<string, string[]> {
+  const BASE_TRANSLATION_LOCALE = 'de'
+  const baseTranslations = translations[BASE_TRANSLATION_LOCALE]
+  const map = new Map<string, string[]>()
 
-function getAllTranslationsKeys (keys: string[], map: Map<string, string[]>): Map<string, string[]> {
-  keys.forEach((k) => {
-    let item = k.replace('translate(', '').replace(')', '').split(',')
-    item = item.map((v) => v.trim().replace(/^'(.*)'$/, '$1'))
-    if ((item[0] !== '' && item[0] != null) && (item[1] !== '' && item[1] != null)) {
-      const list = map.get(item[0]) ?? []
-      list.push(item[1])
-      map.set(item[0], uniq(list))
+  for (const scope of Object.keys(baseTranslations)) {
+    const list = []
+
+    for (const key of Object.keys(baseTranslations[scope])) {
+      const value = baseTranslations[scope][key]
+      if (value !== '' && value !== null && value !== undefined) {
+        list.push(key)
+      }
     }
-  })
+    map.set(scope, uniq(list))
+  }
   return map
 }
 
-async function updateBaseTranslations (baseTranslation: Map<string, string[]>): Promise<Map<string, string[]>> {
-  const translationRegex = /translate\(.*,+.*\)/
-  const find = async (directory: string): Promise<findInFiles.FindResult> => await findInFiles.find(translationRegex, directory, '.tsx$')
-
-  // list of folders to check
-  for (const dir of DIRECTORIES) {
-    try {
-      const result = await find(dir)
-      Object.keys(result).forEach((k) => {
-        baseTranslation = getAllTranslationsKeys(uniq(result[k].matches), baseTranslation)
-      })
-    } catch (e) {
-      Logging.error(e)
-    }
-  }
-  return baseTranslation
-}
-
 function checkTranslations (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage {
-  const languages = getAppLanguages().map(language => language.locale)
+  const localeToCheck = ['zh-Hans', 'zh-Hant', 'fr']
+  const languages = getAppLanguages().map(
+    language => language.locale
+  ).filter(
+      locale => localeToCheck.includes(locale)
+  )
   let totalCount = 0
   baseTranslation.forEach((labels, screenName) => {
     totalCount = totalCount + labels.length
@@ -65,7 +54,9 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
         labels.forEach((baseLabel) => {
           if (translationFile[baseLabel] == null) {
             languageTranslations.labels[screenName] = languageTranslations.labels[screenName] ?? []
-            languageTranslations.labels[screenName].push(baseLabel)
+            languageTranslations.labels[screenName].push(
+              Buffer.from(baseLabel, 'base64').toString('utf8') // decode to show verbose translation key
+            )
             languageTranslations.missingCount = languageTranslations.missingCount + 1
           }
         })
@@ -74,15 +65,14 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
       missingTranslations[language] = languageTranslations
     })
   })
+
   fs.writeFileSync('./missing_translations.json', JSON.stringify(missingTranslations, null, 4))
   return missingTranslations
 }
 
 export async function findMissingTranslations (): Promise<MissingLanguage> {
-  let baseTranslation = new Map<string, string[]>()
   const missingTranslations: MissingLanguage = {}
-  // Create base translation file
-  baseTranslation = await updateBaseTranslations(baseTranslation)
+  const baseTranslation = getBaseTranslationsMap()
   return checkTranslations(baseTranslation, missingTranslations)
 }
 

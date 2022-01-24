@@ -69,6 +69,8 @@ function deepEncode (obj: any): any {
   for (const [scope, value] of Object.entries(obj)) {
     if (typeof value === 'string') {
       obj[encodeScope(scope)] = value
+      // eslint-disable-next-line
+      delete obj[scope]
     }
     if (typeof value === 'object') {
       obj[scope] = deepEncode(value)
