@@ -357,10 +357,10 @@
     "It may take a few seconds to securely encrypt your wallet...": "Cela peut prendre quelques secondes de crypter votre portefeuille de manière sécurisée...",
     "Enter your passcode again to verify": " Entrez à nouveau votre code d'accès",
     "Wrong passcode entered": "Code d'accès erroné",
-    "Wallet Unlinked": "Portefeuille délié",
-    "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Votre portefeuille a été délié pour votre sécurité en raison d'échecs successifs du code d'accès. Veuillez utiliser les mots de récupération pour restaurer et configurer à nouveau votre portefeuille.",
+    "Wallet Unlinked": "Portefeuille déconnecté",
+    "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Votre portefeuille a été déconnecté pour votre sécurité en raison d'échecs successifs du code d'accès. Veuillez utiliser les mots de récupération pour restaurer et configurer à nouveau votre portefeuille.",
     "Close": "Fermer",
-    "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera délié pour votre sécurité.",
+    "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera déconnecté pour votre sécurité.",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes"
   },
