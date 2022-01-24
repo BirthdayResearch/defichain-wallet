@@ -2,7 +2,7 @@ import * as findInFiles from 'find-in-files'
 import { uniq } from 'lodash'
 import * as fs from 'fs'
 import { getAppLanguages, translations } from '../../translations'
-import { Logging } from '../../../mobile-app/app/api/index'
+import { Logging } from '../../../mobile-app/app/api/logging'
 
 interface MissingLanguageItem {
   totalCount: number
