@@ -9,7 +9,11 @@ import { Provider } from 'react-redux'
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 
 const icons = ['_UTXO', 'DFI', 'DFI (UTXO)', 'DFI (Token)', 'BTC', 'dBCH', 'dBTC', 'dDFI', 'dDOGE', 'dETH', 'dLTC',
-  'dUSDT', 'dUSDC', 'FAKE', 'dDUSD', 'DUSD', 'dTSLA', 'dGOOGL']
+  'dUSDT', 'dUSDC', 'FAKE', 'dDUSD', 'DUSD', 'dTSLA', 'dGOOGL', 'dAAPL', 'dAMD', 'dGME', 'dBABA', 'dPLTR',
+  'dARKK', 'dAMZN', 'dCOIN', 'dFB', 'dTWTR', 'dNVDA', 'dMSFT',
+  'dETH-DFI', 'dBTC-DFI', 'dUSDT-DFI', 'dDOGE-DFI', 'dLTC-DFI', 'dBCH-DFI', 'dUSDC-DFI', 'DUSD-DFI', 'dTSLA-DUSD', 'dURTH-DUSD', 'dTLT-DUSD', 'dSLV-DUSD',
+  'dGME-DUSD', 'dGOOGL-DUSD', 'dBABA-DUSD', 'dPLTR-DUSD', 'dAAPL-DUSD', 'dSPY-DUSD', 'dQQQ-DUSD', 'dPDBC-DUSD', 'dVNQ-DUSD', 'dARKK-DUSD', 'dGLD-DUSD'
+]
 
 describe('token icons', () => {
   icons.forEach(icon => {
