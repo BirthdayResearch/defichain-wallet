@@ -3,16 +3,20 @@ import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { fetchPoolPairs } from '@store/wallet'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 
+interface CalculatePriceRatesI {
+  aToBPrice: BigNumber
+  bToAPrice: BigNumber
+  estimated: BigNumber
+}
+
 interface DexTokenPrice {
-  getTokenPrice: (symbol: string, activePrice?: ActivePrice) => BigNumber
-  calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: string) => { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber }
-  getSelectedPoolPairs: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
-  getPairAmountFromLP: (symbol: string, amount: string) => { tokenAAmount: BigNumber, tokenBAmount: BigNumber, tokenASymbol: string, tokenBSymbol: string }
+  getTokenPrice: (symbol: string, amount: string, isLPS?: boolean) => BigNumber
+  calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: string) => CalculatePriceRatesI
+  getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
 }
 
 export function useTokenPrice (): DexTokenPrice {
@@ -33,31 +37,29 @@ export function useTokenPrice (): DexTokenPrice {
     dispatch(fetchPoolPairs({ client }))
   }, [blockCount])
 
-  function getPairAmountFromLP (symbol: string, amount: string): { tokenAAmount: BigNumber, tokenBAmount: BigNumber, tokenASymbol: string, tokenBSymbol: string } {
+  function getTokenPrice (symbol: string, amount: string, isLPS: boolean = false): BigNumber {
+    if (isLPS) {
       const pair = pairs.find(pair => pair.data.symbol === symbol)
-
       if (pair === undefined) {
-        throw new Error(`The LP symbol is not existing: ${symbol}`)
+        return new BigNumber('')
       }
-
       const ratioToTotal = new BigNumber(amount).div(pair.data.totalLiquidity.token)
-      // assume defid will trim the dust values too
-      return {
-        tokenAAmount: ratioToTotal.times(pair.data.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN),
-        tokenBAmount: ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN),
-        tokenASymbol: pair.data.tokenA.symbol,
-        tokenBSymbol: pair.data.tokenB.symbol
-      }
-  }
-
-  function getTokenPrice (symbol: string): BigNumber {
+      const tokenAAmount = ratioToTotal.times(pair.data.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
+      const tokenBAmount = ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
+      const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount.toFixed(8))
+      const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount.toFixed(8))
+      return usdTokenA.plus(usdTokenB)
+    }
     // active price for walletTokens based on USDT
-    const selectedPoolPairs = getSelectedPoolPairs(symbol, 'USDT')
-    const { aToBPrice } = calculatePriceRates(symbol, selectedPoolPairs, '1')
-    return aToBPrice
+    const arbitraryPoolPair = getArbitraryPoolPair(symbol, 'USDT')
+    if (arbitraryPoolPair.length > 0) {
+      const { estimated } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
+      return estimated
+    }
+    return new BigNumber('')
   }
 
-  function getSelectedPoolPairs (tokenASymbol: string, tokenBSymbol: string): PoolPairData[] {
+  function getArbitraryPoolPair (tokenASymbol: string, tokenBSymbol: string): PoolPairData[] {
     // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
     const { path } = findPath(graph, tokenASymbol, tokenBSymbol)
     return path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
@@ -72,7 +74,7 @@ export function useTokenPrice (): DexTokenPrice {
     }, [])
   }
 
-  function calculatePriceRates (fromTokenSymbol: string, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber} {
+  function calculatePriceRates (fromTokenSymbol: string, pairs: PoolPairData[], amount: string): CalculatePriceRatesI {
     let lastTokenBySymbol = fromTokenSymbol
     let lastAmount = new BigNumber(amount)
     const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
@@ -109,7 +111,6 @@ export function useTokenPrice (): DexTokenPrice {
   return {
     getTokenPrice,
     calculatePriceRates,
-    getSelectedPoolPairs,
-    getPairAmountFromLP
+    getArbitraryPoolPair
   }
 }

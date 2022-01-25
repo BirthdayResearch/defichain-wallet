@@ -58,7 +58,7 @@
     "Balances": "我的資產",
     "SEND": "發出",
     "RECEIVE": "接收",
-    "Total Portfolio Value": "總組合價值",
+    "Total Portfolio Value (USD)": "總組合價值(美金)",
     "You do not have any other tokens.": "您現在沒有其他代幣",
     "SWITCH": "切換錢包"
   },

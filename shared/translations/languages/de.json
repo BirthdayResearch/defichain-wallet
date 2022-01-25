@@ -58,7 +58,7 @@
     "Balances": "Guthaben",
     "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
-    "Total Portfolio Value": "Gesamtwert des Portfolios",
+    "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN"
   },

@@ -60,7 +60,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const { calculatePriceRates, getSelectedPoolPairs } = useTokenPrice()
+  const { calculatePriceRates, getArbitraryPoolPair } = useTokenPrice()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
@@ -286,7 +286,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const poolPairs = getSelectedPoolPairs(selectedTokenA.symbol, selectedTokenB.symbol)
+      const poolPairs = getArbitraryPoolPair(selectedTokenA.symbol, selectedTokenB.symbol)
       setSelectedPoolPairs(poolPairs)
     }
   }, [selectedTokenA, selectedTokenB])
