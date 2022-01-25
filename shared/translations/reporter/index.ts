@@ -8,13 +8,20 @@ interface MissingLanguageItem {
   labels: {
     [key: string]: string[]
   }
+  /**
+   * allLabels is used as `labels` for Slack Workflow
+   */
   allLabels: string
+}
+
+interface MissingLanguageReport {
+  missingLanguageItems: MissingLanguage
+  totalMissingCount: number
 }
 
 interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
-
 /**
  *
  * @returns `Map` with scope as keys and unique labels as value
@@ -47,7 +54,7 @@ function decodeLabel (label: string): string {
   return Buffer.from(label, 'base64').toString('utf8')
 }
 
-function checkTranslations (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage {
+function checkTranslations (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguageReport): MissingLanguageReport {
   const localeToExclude = ['en', 'de']
   const languages = getAppLanguages().map(
     language => language.locale
@@ -60,36 +67,35 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
     totalCount = totalCount + labels.length
     languages.forEach((language) => {
       const langItem: any = { ...translations }[language]
-      const languageTranslations = missingTranslations[language] ?? { missingCount: 0, labels: {}, totalCount }
+      const languageTranslations = missingTranslations.missingLanguageItems[language] ?? { missingCount: 0, labels: {}, totalCount }
       const translationFile = langItem[screenName]
       if (translationFile === null || translationFile === undefined) {
         languageTranslations.labels[screenName] = labels.map(label => decodeLabel(label))
-        languageTranslations.missingCount = languageTranslations.missingCount + labels.length
+        languageTranslations.missingCount += labels.length
+        totalMissingCount += labels.length
       } else {
         labels.forEach((baseLabel) => {
           if (translationFile[baseLabel] === null || translationFile[baseLabel] === undefined) {
             languageTranslations.labels[screenName] = languageTranslations.labels[screenName] ?? []
             languageTranslations.labels[screenName].push(decodeLabel(baseLabel))
-            languageTranslations.missingCount = languageTranslations.missingCount + 1
+            languageTranslations.missingCount += 1
+            totalMissingCount += 1
           }
         })
       }
       languageTranslations.totalCount = totalCount
       languageTranslations.allLabels = JSON.stringify(languageTranslations.labels, null, 4)
-      totalMissingCount += languageTranslations.missingCount
-      missingTranslations[language] = languageTranslations
+      missingTranslations.missingLanguageItems[language] = languageTranslations
     })
   })
 
-  if (totalMissingCount === 0) {
-    missingTranslations = {}
-  }
+  missingTranslations.totalMissingCount = totalMissingCount
   fs.writeFileSync('./missing_translations.json', JSON.stringify(missingTranslations, null, 4))
   return missingTranslations
 }
 
-export async function findMissingTranslations (): Promise<MissingLanguage> {
-  const missingTranslations: MissingLanguage = {}
+export async function findMissingTranslations (): Promise<MissingLanguageReport> {
+  const missingTranslations: MissingLanguageReport = { missingLanguageItems: {}, totalMissingCount: 0 }
   const baseTranslation = getBaseTranslationsMap()
   return checkTranslations(baseTranslation, missingTranslations)
 }
