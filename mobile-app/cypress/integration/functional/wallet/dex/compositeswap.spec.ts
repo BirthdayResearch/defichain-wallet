@@ -11,11 +11,11 @@ function setupWalletForConversion (): void {
   cy.getByTestID('close_dex_guidelines').click()
 
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
-  cy.getByTestID('composite_swap').click().wait(1000)
-  cy.getByTestID('token_select_button_FROM').click()
-  cy.getByTestID('select_DFI').click().wait(100)
-  cy.getByTestID('token_select_button_TO').click()
-  cy.getByTestID('select_dLTC').click().wait(100)
+  cy.getByTestID('composite_swap').click().wait(3000)
+  cy.getByTestID('token_select_button_FROM').should('exist').click()
+  cy.getByTestID('select_DFI').click().wait(1000)
+  cy.getByTestID('token_select_button_TO').should('exist').click()
+  cy.getByTestID('select_dLTC').click().wait(1000)
 }
 
 context('Wallet - DEX - Swap without balance', () => {
