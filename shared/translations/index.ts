@@ -70,7 +70,7 @@ function deepEncode (obj: any): any {
     if (typeof value === 'string') {
       obj[encodeScope(scope)] = value
       // eslint-disable-next-line
-      delete obj[scope]
+      delete obj[scope] // remove original key-value pair to avoid duplicate entries
     }
     if (typeof value === 'object') {
       obj[scope] = deepEncode(value)

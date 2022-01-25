@@ -14,6 +14,10 @@ interface MissingLanguage {
   [key: string]: MissingLanguageItem
 }
 
+/**
+ *
+ * @returns `Map` with scope as keys and unique labels as value
+ */
 function getBaseTranslationsMap (): Map<string, string[]> {
   const BASE_TRANSLATION_LOCALE = 'de'
   const baseTranslations = translations[BASE_TRANSLATION_LOCALE]
@@ -33,12 +37,21 @@ function getBaseTranslationsMap (): Map<string, string[]> {
   return map
 }
 
+/**
+ * Decode to show verbose translation key
+ * @param label base64 encoded label
+ * @returns utf8 string
+ */
+function decodeLabel (label: string): string {
+  return Buffer.from(label, 'base64').toString('utf8')
+}
+
 function checkTranslations (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage {
   const localeToCheck = ['zh-Hans', 'zh-Hant', 'fr']
   const languages = getAppLanguages().map(
     language => language.locale
   ).filter(
-      locale => localeToCheck.includes(locale)
+    locale => localeToCheck.includes(locale)
   )
   let totalCount = 0
   baseTranslation.forEach((labels, screenName) => {
@@ -47,16 +60,14 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
       const langItem: any = { ...translations }[language]
       const languageTranslations = missingTranslations[language] ?? { missingCount: 0, labels: {}, totalCount }
       const translationFile = langItem[screenName]
-      if (translationFile == null) {
-        languageTranslations.labels[screenName] = labels
+      if (translationFile === null || translationFile === undefined) {
+        languageTranslations.labels[screenName] = labels.map(label => decodeLabel(label))
         languageTranslations.missingCount = languageTranslations.missingCount + labels.length
       } else {
         labels.forEach((baseLabel) => {
-          if (translationFile[baseLabel] == null) {
+          if (translationFile[baseLabel] === null || translationFile[baseLabel] === undefined) {
             languageTranslations.labels[screenName] = languageTranslations.labels[screenName] ?? []
-            languageTranslations.labels[screenName].push(
-              Buffer.from(baseLabel, 'base64').toString('utf8') // decode to show verbose translation key
-            )
+            languageTranslations.labels[screenName].push(decodeLabel(baseLabel))
             languageTranslations.missingCount = languageTranslations.missingCount + 1
           }
         })
@@ -76,4 +87,4 @@ export async function findMissingTranslations (): Promise<MissingLanguage> {
   return checkTranslations(baseTranslation, missingTranslations)
 }
 
-findMissingTranslations().then(() => {}).catch(() => {})
+findMissingTranslations().then(() => { }).catch(() => { })
