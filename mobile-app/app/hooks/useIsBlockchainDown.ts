@@ -10,10 +10,14 @@ export function useIsBlockchainDown (): boolean {
 
     useEffect(() => {
         function isBlockchainDownFn (): boolean {
-            const blockLastSyncNum = blockLastSync ? Date.parse(blockLastSync) : undefined // convert date string to date number
             const nowEpoch = Date.now()
-            if (blockLastSyncNum !== undefined) {
-                const timeDifference = nowEpoch - blockLastSyncNum
+            let blockLastSyncTime: number | undefined
+
+            if (blockLastSync !== undefined) {
+                blockLastSyncTime = Date.parse(blockLastSync) // convert date string to date number
+            }
+            if (blockLastSyncTime !== undefined) {
+                const timeDifference = nowEpoch - blockLastSyncTime
                 if (timeDifference > MAX_TIME_DIFF) {
                     return true
                   }
