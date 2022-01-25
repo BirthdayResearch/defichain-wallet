@@ -19,7 +19,7 @@ context('Wallet - Auctions', () => {
   let retries = 0
   const walletTheme = { isDark: false }
   const network = localStorage.getItem('Development.NETWORK')
-  beforeEach(function () {
+  before(function () {
     whale = new WhaleApiClient({
       url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
       network: 'regtest',
@@ -109,9 +109,6 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.addCollateral('0.20000000', 'DFI')
     cy.addCollateral('0.00000001', 'dCD10')
-  })
-
-  it('should liquidate vault', function () {
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
@@ -124,9 +121,14 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('borrow_loan_submit_button').click()
     cy.getByTestID('button_confirm_borrow_loan').click()
     cy.closeOceanInterface()
+  })
+
+  it('should liquidate vault', function () {
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     generateBlockUntilLiquidate()
     cy.checkVaultTag('IN LIQUIDATION', VaultStatus.Liquidated, 'vault_card_0_status', walletTheme.isDark)
+
+    // Loan dTU10 for placing bid
     cy.createVault(0, true)
     cy.getByTestID('vault_card_1_edit_collaterals_button').click()
     cy.addCollateral('0.60000000', 'DFI')
