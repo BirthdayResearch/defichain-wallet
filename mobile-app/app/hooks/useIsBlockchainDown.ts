@@ -12,8 +12,7 @@ export function useIsBlockchainDown (): boolean {
         function isBlockchainDownFn (): boolean {
             const blockLastSyncNum = blockLastSync ? Date.parse(blockLastSync) : undefined // convert date string to date number
             const nowEpoch = Date.now()
-
-            if (blockLastSyncNum) {
+            if (blockLastSyncNum !== undefined) {
                 const timeDifference = nowEpoch - blockLastSyncNum
                 if (timeDifference > MAX_TIME_DIFF) {
                     return true
