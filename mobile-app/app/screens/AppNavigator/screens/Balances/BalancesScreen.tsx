@@ -50,7 +50,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
 
   const dispatch = useDispatch()
-  const { getTokenPrice, getPairAmountFromLP } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
@@ -68,34 +68,23 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-
-  const getUSDAmount = (symbol: string, amount: string, isLPS: boolean): BigNumber => {
-    if (isLPS) {
-      const { tokenAAmount, tokenBAmount, tokenASymbol, tokenBSymbol } = getPairAmountFromLP(symbol, amount)
-      const usdTokenA = new BigNumber(getTokenPrice(tokenASymbol)).multipliedBy(tokenAAmount)
-      const usdTokenB = new BigNumber(getTokenPrice(tokenBSymbol)).multipliedBy(tokenBAmount)
-
-      return usdTokenA.plus(usdTokenB)
-    }
-
-    return new BigNumber(getTokenPrice(symbol)).multipliedBy(amount)
-  }
-
   const { totalUSDValue, dstTokens } = tokens.reduce(
     ({ totalUSDValue, dstTokens }: {totalUSDValue: BigNumber, dstTokens: BalanceRowToken[]},
     token
   ) => {
-    const usdAmount = getUSDAmount(token.symbol, token.amount, token.isLPS)
+    const usdAmount = getTokenPrice(token.symbol, token.amount, token.isLPS)
 
     if (token.symbol === 'DFI') {
       return {
         // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
-        totalUSDValue: token.id === '0_unified' ? totalUSDValue : totalUSDValue.plus(usdAmount),
+        totalUSDValue: token.id === '0_unified'
+        ? totalUSDValue
+        : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
         dstTokens
       }
     }
     return {
-      totalUSDValue: totalUSDValue.plus(usdAmount),
+      totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
       dstTokens: [...dstTokens, { ...token, usdAmount }]
     }
   }, { totalUSDValue: new BigNumber(0), dstTokens: [] })
@@ -118,7 +107,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         style={tailwind('mx-2 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
         testID='total_portfolio_card'
       >
-        <View style={tailwind('w-11/12')}>
+        <View style={tailwind('w-10/12 flex-grow')}>
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}

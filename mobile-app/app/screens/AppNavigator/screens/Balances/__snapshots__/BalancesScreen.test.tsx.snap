@@ -1273,7 +1273,8 @@ exports[`balances page should match snapshot 1`] = `
       <View
         style={
           Object {
-            "width": "91.666667%",
+            "flexGrow": 1,
+            "width": "83.333333%",
           }
         }
       >
@@ -1327,7 +1328,7 @@ exports[`balances page should match snapshot 1`] = `
           }
           testID="total_usd_amount"
         >
-          $1,432.00
+          $0.00000000
         </Text>
       </View>
       <View
@@ -2067,7 +2068,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="balances_row_1_usd_amount"
               >
-                ≈ $777.00
+                
               </Text>
             </View>
           </View>
@@ -2350,7 +2351,7 @@ exports[`balances page should match snapshot 1`] = `
                 }
                 testID="balances_row_2_usd_amount"
               >
-                ≈ $555.00
+                
               </Text>
             </View>
           </View>

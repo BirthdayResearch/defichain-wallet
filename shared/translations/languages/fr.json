@@ -58,9 +58,7 @@
     "Balances": "Soldes",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
-    "PORTFOLIO": "PORTFOLIO",
-    "Show balances": "Montrer les soldes",
-    "Hide balances": "Cacher les soldes",
+    "Total Portfolio Value (USD)": "Valeur totale du portfolio (USD)",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER"
   },
