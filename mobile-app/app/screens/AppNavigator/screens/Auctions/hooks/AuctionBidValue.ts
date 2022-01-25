@@ -13,7 +13,7 @@ interface AuctionBid {
   hasFirstBid: boolean
 }
 
-export function useAuctionBidValue (batch: LoanVaultLiquidationBatch, liquidationPenalty: number, schemeInterestRate: string): AuctionBid {
+export function useAuctionBidValue (batch: LoanVaultLiquidationBatch, liquidationPenalty: number): AuctionBid {
   const { loan, highestBid } = batch
   const LOAN_LIQUIDITY_PENALTY = new BigNumber(1).plus(new BigNumber(liquidationPenalty).div(100))
   const totalLoanAmountInToken = new BigNumber(loan.amount)

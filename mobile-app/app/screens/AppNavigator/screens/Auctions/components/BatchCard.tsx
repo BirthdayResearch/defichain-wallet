@@ -48,7 +48,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
     minNextBidInToken,
     totalCollateralsValueInUSD,
     hasFirstBid
-  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
   const nextBidInfo = {
     title: 'Min. next bid',

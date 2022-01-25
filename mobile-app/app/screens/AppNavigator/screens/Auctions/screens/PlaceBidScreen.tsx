@@ -47,7 +47,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD
-  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
     bottomSheetRef,
