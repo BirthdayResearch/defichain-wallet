@@ -124,7 +124,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={tailwind('text-sm text-gray-500')}
           >
-            {translate('screens/BalancesScreen', 'Total Portfolio Value')}
+            {translate('screens/BalancesScreen', 'Total Portfolio Value (USD)')}
           </ThemedText>
           <NumberFormat
             displayType='text'

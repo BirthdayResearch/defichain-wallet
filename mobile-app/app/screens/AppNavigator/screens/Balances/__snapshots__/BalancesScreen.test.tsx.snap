@@ -1299,7 +1299,7 @@ exports[`balances page should match snapshot 1`] = `
             ]
           }
         >
-          Total Portfolio Value
+          Total Portfolio Value (USD)
         </Text>
         <Text
           style={
