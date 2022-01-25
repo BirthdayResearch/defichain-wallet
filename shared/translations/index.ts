@@ -37,14 +37,16 @@ let init = false
  */
 export function initI18n (): void {
   init = true
-  i18n.translations = {
-    en: {},
-    de: deepEncode(de),
-    'zh-Hans': deepEncode(zhHans),
-    'zh-Hant': deepEncode(zhHant),
-    fr: deepEncode(fr)
-  }
+  i18n.translations = translations
   i18n.fallbacks = true
+}
+
+export const translations = {
+  en: {},
+  de: deepEncode(de),
+  'zh-Hans': deepEncode(zhHans),
+  'zh-Hant': deepEncode(zhHant),
+  fr: deepEncode(fr)
 }
 
 /**
@@ -67,6 +69,8 @@ function deepEncode (obj: any): any {
   for (const [scope, value] of Object.entries(obj)) {
     if (typeof value === 'string') {
       obj[encodeScope(scope)] = value
+      // eslint-disable-next-line
+      delete obj[scope] // remove original key-value pair to avoid duplicate entries
     }
     if (typeof value === 'object') {
       obj[scope] = deepEncode(value)
