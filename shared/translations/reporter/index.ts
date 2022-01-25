@@ -75,7 +75,7 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
         })
       }
       languageTranslations.totalCount = totalCount
-      languageTranslations.allLabels = JSON.stringify(languageTranslations.labels)
+      languageTranslations.allLabels = JSON.stringify(languageTranslations.labels, null, 4)
       totalMissingCount += languageTranslations.missingCount
       missingTranslations[language] = languageTranslations
     })
