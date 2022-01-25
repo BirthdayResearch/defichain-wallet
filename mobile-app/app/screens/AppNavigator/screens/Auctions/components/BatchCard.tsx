@@ -30,7 +30,7 @@ export interface BatchCardProps {
     vaultId: string,
     minNextBidInToken: string,
     vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
-  isVaultOwner: boolean
+    isVaultOwner: boolean
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
