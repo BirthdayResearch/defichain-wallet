@@ -12,7 +12,9 @@
     "Refresh": "Erneuern",
     "Refresh recovery words": "Erneuere Wiederherstellungssatz",
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
-    "Passcode FAQ": "Passwort FAQ"
+    "Passcode FAQ": "Passwort FAQ",
+    "DEX FAQ": "DEX FAQ",
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ" 
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -48,8 +50,8 @@
     "Add liquidity": "Liquidität hinzufügen",
     "Swap tokens": "Token-Tausch",
     "Withdraw at any time": "Entfernen der Liquidität zu jeder Zeit",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquidity Pool.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquidity Pool vertretenen Token.",
+    "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquiditätspool.",
+    "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquiditätspool vertretenen Token.",
     "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
   },
   "screens/BalancesScreen": {
@@ -63,18 +65,18 @@
     "SWITCH": "WECHSELN"
   },
   "screens/AddressControlScreen": {
-    "CREATE WALLET ADDRESS": "WALLET-ADRESSE ERSTELLEN",
+    "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
     "Switch to another address": "Wechsel zu einer anderen Adresse",
-    "Wallet Address": "Wallet Adresse",
+    "Wallet Address": "Walletadresse",
     "ACTIVE": "AKTIV"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
-    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Wallet Adresse nutzen",
+    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Walletadresse nutzen",
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
-    "WALLET ADDRESS": "WALLET ADRESSE"
+    "WALLET ADDRESS": "WALLETADRESSE"
   },
   "screens/SendScreen": {
     "Send": "Senden",
@@ -83,7 +85,7 @@
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
     "Review full transaction details in the next screen": "Transaktionsüberblick auf der nächsten Seite",
-    "Paste wallet address here": "Wallet Adresse eingeben",
+    "Paste wallet address here": "Walletadresse eingeben",
     "Where do you want to send?": "Wohin möchtest du senden?",
     "How much do you want to send?": "Wie viel möchtest du senden?",
     "Enter an amount": "Gib eine Menge ein",
@@ -112,7 +114,7 @@
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
     "Convert & send": "Umrechnen & senden",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Ich nehme zur Kenntnis, dass der Versand von LP-Token an Adressen, die nicht mit der DeFiChain kompatibel sind, zu einem irreversiblen Verlust von Einlagen führen kann.",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-Walletadressen. Das Senden an eine Börse oder eine zentrale Einrichtung führt zu einem unwiederbringlichen Verlust der Einlagen.",
     "Transaction type": "Transaktionsart",
     "Amount to send": "Zu sendender Betrag"
   },
@@ -218,7 +220,8 @@
     "Passcode": "Passwort",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
-    "Auctions": "Auktionen"
+    "Auctions": "Auktionen",
+    "Liquidity Mining": "Liquiditäts-Mining" 
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -253,7 +256,7 @@
     "Auctions FAQ": "FAQ Auktionen",
     "Auctions": "Auktionen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
-    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen beizutreiben. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Chargen von 10.000USD aufgeteilt und versteigert.",
+    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen beizutreiben. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Tranchen von 10.000 USD aufgeteilt.",
     "How is the minimum starting bid determined?": "Wie wird das Mindeststartgebot festgelegt?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "Das Startgebot liegt bei 105% des ausstehenden Darlehenswerts der Charge. Die zusätzlichen 5% dienen zur Deckung der Liquidationsstrafe, die bei der Liquidation des Vaults anfällt.",
     "How is the minimum next bid determined?": "Wie wird das nächste Mindestgebot bestimmt?",
@@ -314,7 +317,7 @@
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
     "Take full control": "Übernimm volle Kontrolle",
     "of your digital assets": "über deine digitalen Vermögenswerte",
-    "Nobody owns your keys and wallet except you.": "Niemand, außer dir, besitzt deine Schlüssel und dein Wallet.",
+    "Nobody owns your keys and wallet except you.": "Niemand außer dir besitzt deine Schlüssel und deine Wallet.",
     "Unlock the highest": "Erschließe das höchste",
     "potential of your finances": "Potenzial deiner Finanzen",
     "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transferieren, Liquiditätsmining, Tauschgeschäfte und viele weitere Funktionen als vollständig dezentralisierte Wallet",
@@ -656,13 +659,37 @@
     "What happens if I lose my recovery words?": "Was passiert, wenn ich meinen Wiederherstellungssatz verliere?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Wenn du deinen Wiederherstellungssatz verlierst, kannst du deine Wallet und alle darin enthaltenen Guthaben nicht mehr wiederherstellen. Wir empfehlen dir, verantwortungsvoll mit deinem Wiederherstellungssatz umzugehen.",
     "Can I use the 24-words from xxx that I created from xxx?": "Kann ich die 24 Wörter aus xxx verwenden, die ich mit xxx erstellt habe?",
-    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Du kannst lediglich 24 Wörter verwenden, die aus der Jellyfish Entwicklerumgebung stammen.\n\nKompatibel sind die DeFiChain Wallet (Android/iOS) und DFX.SWISS (Android/iOS).\n\nAllerdings wird sehr davon abgeraten, die Wörter wiederzuverwenden. Deine 24 Wörter sind nur so sicher wie die Anwendung / das Gerät, die / das sie erzeugt. Grundsätzlich wird pro Computer / Gerät / App jeweils ein eigener Wiederherstellungssatz empfohlen.",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Du kannst lediglich 24 Wörter verwenden, die aus der Jellyfish Entwicklerumgebung stammen.\n\nKompatibel sind die DeFiChain-Wallet (Android/iOS) und DFX.SWISS (Android/iOS).\n\nAllerdings wird sehr davon abgeraten, die Wörter wiederzuverwenden. Deine 24 Wörter sind nur so sicher wie die Anwendung / das Gerät, die / das sie erzeugt. Grundsätzlich wird pro Computer / Gerät / App jeweils ein eigener Wiederherstellungssatz empfohlen.",
     "Can someone help me if I lose my recovery words?": "Kann mir jemand helfen, wenn ich meinen Wiederherstellungssatz verliere?",
     "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "Nein. Du hast alleinigen Zugriff auf deinen Wiederherstellungssatz. Niemand außer dir ist dafür verantwortlich und haftbar.",
     "Why is it recommended to keep my recovery words offline and on paper?": "Warum ist es ratsam, meinen Wiederherstellungssatz offline und auf Papier festzuhalten?",
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Die Speicherung in digitalen Netzen könnte sie für Hacker zugänglich machen. Am besten ist es, sie auf Papier zu schreiben und sie sicher und vor Einblicken geschützt aufzubewahren.",
     "Recovery words": "Wiederherstellungssatz",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
+  "components/DexFaq" : {
+    "Decentralized Exchange": "Dezentrale Börse",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z.B. Währungen.",
+    "Transaction fees": "Transaktionsgebühren",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Für jede Transaktion wird ein kleiner Betrag an Gebühren erhoben. Der Betrag kann je nach Auslastung des Netzes variieren.",
+    "What is slippage tolerance?": "Was ist die Slippage-Toleranz?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Aufgrund der dynamischen Natur der Blockchain ändern sich die Preise auf der DEX mit jedem Block.\n\nDaraus resultiert Slippage, also die Differenz zwischen dem endgültigen Transaktionspreis und dem Preis, der vor der Transaktionsbestätigung in der App angezeigt wird.\n\nMit der Slippage-Toleranzfunktion kannst du die maximale Slippage angeben, die du bei einer Transaktion zu akzeptieren bereit bist.\n\nWenn die Abweichung für deine Transaktion höher ist als deine Slippage-Toleranz, wird die Transaktion nicht abgeschlossen und der ursprüngliche Betrag wird auf deine Wallet zurücktransferiert.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
+  "components/LiquidityMiningFaq" : {
+    "Liquidity Mining": "Liquiditäts-Mining",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden.\n\nDie Liquiditätspools der DeFiChain bestehen aus Liquidität in Token-Paaren, die von der DeFiChain DEX (Dezentrale Börse) verwendet werden.",
+    "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Nachdem du dich entschieden hast, welches Pool-Paar du mit Liquidität versorgen möchtest, klickst du auf LIQUIDITÄT HINZUFÜGEN und gibst den Betrag für einen der Token in dem Paar ein.\n\nSobald ein Betrag auf einer Seite des Paares eingegeben wurde, gleicht die App den Betrag der anderen Seite automatisch entsprechend dem Verhältnis der aktuellen Liquidität im Pool aus.",
+    "How do I send tokens from my DFI wallet?": "Wie versende ich Token von meiner DFI-Wallet?",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt.\n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse gesendet werden.",
+    "What are some exchanges and platforms I can send to?": "Welche Börsen und Plattformen gibt es, an die ich senden kann?",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nMehr ansehen auf DeFiChain.com",
+    "Can I send liquidity pool tokens to an exchange or another entity?": "Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
+    "How do I receive tokens on my DFI wallet?": "Wie erhalte ich Token auf meiner DFI-Wallet?",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen.\n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/PasscodeFaq": {
@@ -685,7 +712,7 @@
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben.",
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar.",
-    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Sende Liquidity Pool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen zu einem irreversiblen Verlust von Einlagen führen."
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen zu einem irreversiblen Verlust von Einlagen führen."
   },
   "components/ConversionTag": {
     "Conversion required": "Konvertierung erforderlich"
@@ -773,7 +800,7 @@
     "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
     "Total auction value (USD):": "Gesamtauktionswert (USD):",
     "PLACE BID": "GEBOT ABGEBEN",
-    "Batch #{{index}}": "Batch #{{index}}",
+    "Batch #{{index}}": "Tranche Nr.{{index}}",
     "Min. starting bid": "Mind. Anfangsgebot"
   },
   "components/BatchCard": {
@@ -927,7 +954,7 @@
     "BORROW MORE": "MEHR AUSLEIHEN"
   },
   "components/BalanceControlCard": {
-    "Wallet Address": "Wallet Adresse"
+    "Wallet Address": "Walletadresse"
   },
   "components/EmptyBalances": {
     "No other tokens yet": "Noch keine weiteren Token",
@@ -986,7 +1013,7 @@
     "How much {{symbol}} to remove?": "Wie viele {{symbol}} sollen entfernt werden?",
     "Current": "Aktueller Stand",
     "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens.",
-    "Resulting collateralization":"Resultierende Besicherungsquote",
+    "Resulting collateralization": "Resultierende Besicherungsquote",
     "N/A": "K/A"
   },
   "screens/ConfirmEditCollateralScreen": {
@@ -1044,7 +1071,7 @@
     "Paying loan": "Darlehen abbezahlen",
     "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
-    "Resulting collateralization":"Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",

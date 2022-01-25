@@ -4,15 +4,15 @@
 /.github/                                       @fuxingloh @thedoublejay
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
+/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
 /mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
 
-/shared/assets                                  @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
-/shared/translations                            @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
-/mobile-app/cypress                             @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
+/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/mobile-app/cypress                             @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
 
-/website                                        @thedoublejay @ivan-zynesis @izzycsy @kyleleow @fullstackninja864 @pierregee
-/website/src/pages/api                          @thedoublejay @ivan-zynesis @kyleleow @fullstackninja864 @pierregee
+/website                                        @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
@@ -32,7 +32,7 @@ package.json                                    @thedoublejay
 package-lock.json                               @thedoublejay
 /docker-compose.yml                             @thedoublejay
 
-BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
-CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
-README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee
+BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
+CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
+README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
 LICENSE                                         @fuxingloh

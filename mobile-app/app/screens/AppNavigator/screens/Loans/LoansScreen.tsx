@@ -89,7 +89,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
       client
     }))
     dispatch(fetchLoanTokens({ client }))
-  }, [blockCount])
+  }, [blockCount, address])
 
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }))

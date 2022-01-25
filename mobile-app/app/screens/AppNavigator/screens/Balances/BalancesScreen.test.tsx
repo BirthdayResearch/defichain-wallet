@@ -40,6 +40,7 @@ describe('balances page', () => {
     displaySymbol: 'DFI',
     isDAT: true,
     isLPS: false,
+    isLoanToken: false,
     amount: '23',
     name: 'Defi'
   }, {
@@ -49,6 +50,7 @@ describe('balances page', () => {
     displaySymbol: 'dBTC',
     isDAT: true,
     isLPS: false,
+    isLoanToken: false,
     amount: '777',
     name: 'Bitcoin'
   },
@@ -59,6 +61,7 @@ describe('balances page', () => {
     displaySymbol: 'dETH',
     isDAT: true,
     isLPS: false,
+    isLoanToken: false,
     amount: '555',
     name: 'Ethereum'
   }]
@@ -68,6 +71,7 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenDetails),
+        allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false
       },
@@ -82,7 +86,10 @@ describe('balances page', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
     const navigation: any = {
       navigate: jest.fn()
@@ -105,6 +112,7 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenDetails),
+        allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false
       },
@@ -119,7 +127,10 @@ describe('balances page', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
     const navigation: any = {
       navigate: jest.fn()

@@ -12,7 +12,9 @@
     "Refresh": "刷新",
     "Refresh recovery words": "刷新恢復字組",
     "You are about to generate a new set of recovery words. Continue?": "您正要產生新的恢復字組，確認要繼續？",
-    "Passcode FAQ": "密碼常見問題"
+    "Passcode FAQ": "密碼常見問題",
+    "DEX FAQ": "DEX 問題",
+    "Liquidity Mining FAQ": "流動性挖礦问题"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "ＤＥＸ",
@@ -112,7 +114,7 @@
     "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "確認交易",
     "Convert & send": "轉換並發送",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承認和了解錢包地址性質，我會將d代幣發送至已引入遞飛鏈技術棧的錢包，否則會導致不可逆轉的資金損失.",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "請注意，流動性挖礦的代幣只能發送到其他遞飛鏈錢包地址。若您發送到其他交易所或不支持遞飛鏈流動性池代幣的平台會導致無法還原的資金損失。",
     "Transaction type": "交易類型",
     "Amount to send": "發送金額"
   },
@@ -220,7 +222,8 @@
     "Passcode": "密碼",
     "UTXO vs Token": "UTXO和代幣區別",
     "Loans": "貸款",
-    "Auctions": "清算拍賣"
+    "Auctions": "清算拍賣",
+    "Liquidity Mining": "流動性挖礦"
   },
   "components/LoansFaq": {
     "Loans FAQ": "貸款常見問題",
@@ -668,6 +671,30 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "儲存24字組在數字網絡會有較高的機會給駭客入侵及盗取。最理想的是用紙張記錄和保存。",
     "Recovery words": "恢復字組",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的連續顯示24個英文字組是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題"
+  },
+  "components/DexFaq" : {
+    "Decentralized Exchange": "去中心化交易所",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能讓使用者運用點對點的方式兌換加密貨幣。去中心化交易所能讓使用者在不透過第三方中心化交易所之下，直接兌換貨幣。",
+    "Transaction fees": "交易費用",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每筆交易需要少量的交易費用。交易費用會根據網絡的流量情況產生變化。",
+    "What is slippage tolerance?": "什麼是交易滑價?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet." : "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題"
+  },
+  "components/LiquidityMiningFaq" : {
+    "Liquidity Mining": "流動性挖礦",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流動性挖礦是DeFi機制技術，可讓使用者透過提供流動資金而賺取比例化的區塊獎勵和交易費用回報，此比例以「流動性池股份」代表。\n\n流動性池中的資金主要是為去中心化交易所提供資金，當池中有資金時其他使用者可隨時兌換池中的兩個貨幣。",
+    "How do I supply liquidity?": "如何能開始提供流動資金?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "當您想好您想參與的流動池配對後，請點入「新增流動資金」，並輸入您想在池中增加的資金額度。\n\n當您對配對池的某一個貨幣輸入金額，程序會自動化平衡另一邊貨幣所需的資金。參與流動池配對必須要在兩邊以同等的金額比例同時輸入。",
+    "How do I send tokens from my DFI wallet?": "如何從我的DFI錢包發送代幣？",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "遞飛鏈上的代幣只能發送至DFI地址。這表示您不能直接發送至沒有引入遞飛鏈技術的交易所或第三方平台。同樣地，遞飛鏈流動性池代幣只能發送到另一個DFI錢包地址。",
+    "What are some exchanges and platforms I can send to?": "目前有哪些平台可支持遞飛鏈和生態代幣？",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. 其他有DFI上線交易所\n4. Cake DeFi\n\n請參考更多關於 zht.DeFiChain.com",
+    "Can I send liquidity pool tokens to an exchange or another entity?": "是否可以把流動性池中的代幣直接發送到其他交易所或其他地址？",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "由於流動性池的代幣是屬於流動性池的代幣系統，您只能發送池中的DFI到其他交易所。若您想要發送其他代幣，請先使用流動池兌換成DFI，在發出至其他交易所使用。",
+    "How do I receive tokens on my DFI wallet?": "如何在我的DFI錢包中接收代幣？",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "您可以前往接收頁面找到您錢包的地址，只要使用這個地址（可轉發分享或掃一掃QR碼來接收DFI代幣。\n\n請注意因為遞飛鏈生態中的功能，所以此錢包只能接收遞飛鏈的DFI或生態中的代幣，而無法接收其他區塊鏈的代幣（如 BTC、ETH）。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/PasscodeFaq": {
