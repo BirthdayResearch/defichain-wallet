@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 jobs:
   translations:
     name: Missing Report
@@ -24,7 +28,7 @@ jobs:
         uses: juliangruber/read-file-action@ebfa650188272343fef925480eb4d18c5d49b925
         with:
           path: ./missing_translations.json
-      - uses: marocchino/sticky-pull-request-comment@a8ba05e2dbda1247005adac58e1585b0177dc595
+      - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443
         with:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: Missing Translations

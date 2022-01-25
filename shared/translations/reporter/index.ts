@@ -47,11 +47,11 @@ function decodeLabel (label: string): string {
 }
 
 function checkTranslations (baseTranslation: Map<string, string[]>, missingTranslations: MissingLanguage): MissingLanguage {
-  const localeToCheck = ['zh-Hans', 'zh-Hant', 'fr']
+  const localeToExclude = ['en', 'de']
   const languages = getAppLanguages().map(
     language => language.locale
   ).filter(
-    locale => localeToCheck.includes(locale)
+    locale => !localeToExclude.includes(locale)
   )
   let totalCount = 0
   baseTranslation.forEach((labels, screenName) => {
