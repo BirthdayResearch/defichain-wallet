@@ -39,7 +39,7 @@ function getBaseTranslationsMap (): Map<string, string[]> {
 
 /**
  * Decode to show verbose translation key
- * @param label base64 encoded label
+ * @param label base64 encoded string
  * @returns utf8 string
  */
 function decodeLabel (label: string): string {
