@@ -79,6 +79,16 @@
     "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE"
   },
   "screens/SendScreen": {
+    "Send": "Envoyer",
+    "Estimated fee": "Frais estimés",
+    "CONTINUE": "SUIVANT",
+    "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI (UTXO)) est réservée aux frais.",
+    "SEND": "ENVOYER",
+    "Review full transaction details in the next screen": "Examinez tous les détails de la transaction à l'étape suivante",
+    "Paste wallet address here": "Collez l'adresse du portefeuille ici",
+    "Where do you want to send?": "Où voulez-vous envoyer ?",
+    "How much do you want to send?": "Combien voulez-vous envoyer ?",
+    "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
