@@ -38,17 +38,8 @@ jobs:
             ```json
             ${{ steps.translations.outputs.content }}
             ```
-      - id: set_missing_translation
-        run: |
-          content=`cat ./missing_translations.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=missingTranslationJson::$content"
       - name: Send missing translations to Slack workflow  
-        if: ${{ fromJson(steps.set_missing_translation.outputs.missingTranslationJson).totalMissingCount != 0 }}
+        if: ${{ fromJson(steps.translations.outputs.content).totalMissingCount != 0 }}
         uses: slackapi/slack-github-action@8157a0f4d70c5099e42dcff1258b19bdaabb030b
         id: slack_missing_translation_workflow
         with:
