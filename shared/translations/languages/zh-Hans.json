@@ -78,8 +78,8 @@
     "SHARE": "转发地址",
     "WALLET ADDRESS": "钱包地址"
   },
-  "screens/SendScreen": {  
-    "Send": "移出资金",  
+  "screens/SendScreen": {
+    "Send": "移出资金",
     "Estimated fee": "所需费用(大约)",
     "CONTINUE": "继续",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
