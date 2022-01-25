@@ -30,4 +30,3 @@ export function useIsBlockchainDown (): boolean {
     }, [isBlockchainDown, blockLastSync])
     return isBlockchainDown
 }
-
