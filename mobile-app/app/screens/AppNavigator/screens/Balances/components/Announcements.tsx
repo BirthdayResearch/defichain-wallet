@@ -12,7 +12,7 @@ import { Text } from '@components'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
-import { useIsBlockchainDown } from '@hooks/useIsBlockchainDown'
+import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
 
 export function Announcements (): JSX.Element {
   const {
@@ -23,30 +23,35 @@ export function Announcements (): JSX.Element {
     language
   } = useLanguageContext()
   const {
-    // hiddenAnnouncements,
+    hiddenAnnouncements,
     hideAnnouncement
   } = useDisplayAnnouncement()
-  const isBlockchainDown = useIsBlockchainDown()
+  const isBlockchainDown = useBlockchainStatus()
+  const deFiChainStatusUrl = 'https://status.defichain.com/'
 
   const blockChainIsDownContent: AnnouncementData[] = [{
     lang: {
-      en: 'We are currently investigating a syncing issue on the blockchain. View more details on the [DeFiChain Status Page](https://status.defichain.com/).',
-      de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der [DeFiChain Statusseite](https://status.defichain.com/).```',
-      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 [DeFiChain Status 页面](https://status.defichain.com/)了解更多状态详情。',
-      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 [DeFiChain Status 頁面](https://status.defichain.com/)了解更多狀態詳情。',
+      en: 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.',
+      de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der DeFiChain Statusseite.',
+      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面 了解更多状态详情。',
+      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面 了解更多狀態詳情。',
       fr: '' // get translation from team
     },
-    version: '0.0.0'
+    version: '0.0.0',
+    url: {
+      ios: deFiChainStatusUrl,
+      android: deFiChainStatusUrl,
+      windows: deFiChainStatusUrl,
+      web: deFiChainStatusUrl,
+      macos: deFiChainStatusUrl
+    }
   }]
 
   const [emergencyMsgContent, setemergencyMsgContent] = useState<AnnouncementData[] | undefined>()
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
   const emergencyAnnouncement = findAnnouncementForVersion('0.0.0', language, emergencyMsgContent)
-
-  /* Logic not used - can delete? */
-  // const existingAnnouncements = getDisplayAnnouncement(hiddenAnnouncements, announcement)
-  // const displayAnnouncement = emergencyAnnouncement !== null || existingAnnouncements
-
+  const existingAnnouncements = getDisplayAnnouncement(hiddenAnnouncements, announcement)
+  const displayAnnouncement = emergencyAnnouncement !== null || existingAnnouncements
   const announcementToDisplay = emergencyAnnouncement ?? announcement
 
   useEffect(() => {
@@ -57,7 +62,7 @@ export function Announcements (): JSX.Element {
     }
   }, [isBlockchainDown])
 
-  if (!isSuccess || (announcementToDisplay == null)) {
+  if (!isSuccess || (announcementToDisplay == null) || !displayAnnouncement) {
     return <></>
   }
 
@@ -150,14 +155,14 @@ function findAnnouncementForVersion (version: string, language: string, announce
 }
 
   /* Logic not used - can delete? */
-// function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
-//   if (announcement === undefined) {
-//     return false
-//   }
+function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
+  if (announcement === undefined) {
+    return false
+  }
 
-//   if (hiddenAnnouncements.length > 0 && announcement.id !== undefined) {
-//     return !hiddenAnnouncements.includes(announcement.id)
-//   }
+  if (hiddenAnnouncements.length > 0 && announcement.id !== undefined) {
+    return !hiddenAnnouncements.includes(announcement.id)
+  }
 
-//   return true
-// }
+  return true
+}
