@@ -13,14 +13,13 @@ export function useIsBlockchainDown (): boolean {
             const nowEpoch = Date.now()
             let blockLastSyncTime: number | undefined
 
-            if (blockLastSync !== undefined) {
+            if (blockLastSync !== undefined && blockLastSyncTime !== undefined) {
                 blockLastSyncTime = Date.parse(blockLastSync) // convert date string to date number
-            }
-            if (blockLastSyncTime !== undefined) {
                 const timeDifference = nowEpoch - blockLastSyncTime
+
                 if (timeDifference > MAX_TIME_DIFF) {
                     return true
-                  }
+                }
             }
             return false
           }
