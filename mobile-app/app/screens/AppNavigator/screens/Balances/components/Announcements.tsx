@@ -11,6 +11,8 @@ import { translate } from '@translations'
 import { Text } from '@components'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
+import { useEffect, useState } from 'react'
+import { useIsBlockchainDown } from '@hooks/useIsBlockchainDown'
 
 export function Announcements (): JSX.Element {
   const {
@@ -21,17 +23,55 @@ export function Announcements (): JSX.Element {
     language
   } = useLanguageContext()
   const {
-    hiddenAnnouncements,
+    // hiddenAnnouncements,
     hideAnnouncement
   } = useDisplayAnnouncement()
+  const isBlockchainDown = useIsBlockchainDown()
 
+  const blockChainIsDownContent: AnnouncementData[] = [{
+    lang: {
+      en: 'We are currently investigating a syncing issue on the blockchain.',
+      de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain.',
+      'zh-Hans': '我们目前正在调查区块链上的同步化问题。',
+      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。',
+      fr: '' // get translation from team
+    },
+    version: '0.0.0'
+  }]
+
+  const [emergencyMsgContent, setemergencyMsgContent] = useState<AnnouncementData[] | undefined>()
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
-  const displayAnnouncement = getDisplayAnnouncement(hiddenAnnouncements, announcement)
+  const emergencyAnnouncement = findAnnouncementForVersion('0.0.0', language, emergencyMsgContent)
 
-  if (!isSuccess || announcements?.length === 0 || announcement === undefined || !displayAnnouncement) {
+  /* Logic not used - can delete? */
+  // const existingAnnouncements = getDisplayAnnouncement(hiddenAnnouncements, announcement)
+  // const displayAnnouncement = emergencyAnnouncement !== null || existingAnnouncements
+
+  const announcementToDisplay = emergencyAnnouncement ?? announcement
+
+  useEffect(() => {
+    if (isBlockchainDown) {
+      setemergencyMsgContent(blockChainIsDownContent)
+    } else {
+      setemergencyMsgContent(undefined)
+    }
+  }, [isBlockchainDown])
+
+  if (!isSuccess || (announcementToDisplay == null)) {
     return <></>
   }
 
+  return (
+    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} />
+  )
+}
+
+interface AnnouncementBannerProps {
+  hideAnnouncement: (id: string) => void
+  announcement: Announcement
+}
+
+function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBannerProps): JSX.Element {
   return (
     <ThemedView
       testID='announcements_banner'
@@ -40,21 +80,21 @@ export function Announcements (): JSX.Element {
       dark={tailwind('bg-darkprimary-700')}
     >
       {announcement.id !== undefined &&
-        (
-          <MaterialIcons
-            style={tailwind('mr-2 text-white')}
-            iconType='MaterialIcons'
-            name='close'
-            size={20}
-            onPress={() => {
-              if (announcement.id === undefined) {
-                return
-              }
-              hideAnnouncement(announcement.id)
-            }}
-            testID='close_announcement'
-          />
-        )}
+      (
+        <MaterialIcons
+          style={tailwind('mr-2 text-white')}
+          iconType='MaterialIcons'
+          name='close'
+          size={20}
+          onPress={() => {
+            if (announcement.id === undefined) {
+              return
+            }
+            hideAnnouncement(announcement.id)
+          }}
+          testID='close_announcement'
+        />
+      )}
 
       <MaterialIcons
         style={tailwind('mr-2.5 text-white')}
@@ -69,16 +109,16 @@ export function Announcements (): JSX.Element {
         {`${announcement.content} `}
       </Text>
       {announcement.url !== undefined && announcement.url.length !== 0 &&
-        (
-          <TouchableOpacity
-            onPress={async () => await openURL(announcement.url)}
-            style={tailwind('py-1 px-2 rounded border border-white')}
-          >
-            <Text style={tailwind('text-xs font-medium text-white')}>
-              {translate('components/Announcements', 'VIEW')}
-            </Text>
-          </TouchableOpacity>
-        )}
+      (
+        <TouchableOpacity
+          onPress={async () => await openURL(announcement.url)}
+          style={tailwind('py-1 px-2 rounded border border-white')}
+        >
+          <Text style={tailwind('text-xs font-medium text-white')}>
+            {translate('components/Announcements', 'VIEW')}
+          </Text>
+        </TouchableOpacity>
+      )}
     </ThemedView>
   )
 }
@@ -109,14 +149,15 @@ function findAnnouncementForVersion (version: string, language: string, announce
   }
 }
 
-function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
-  if (announcement === undefined) {
-    return false
-  }
+  /* Logic not used - can delete? */
+// function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
+//   if (announcement === undefined) {
+//     return false
+//   }
 
-  if (hiddenAnnouncements.length > 0 && announcement.id !== undefined) {
-    return !hiddenAnnouncements.includes(announcement.id)
-  }
+//   if (hiddenAnnouncements.length > 0 && announcement.id !== undefined) {
+//     return !hiddenAnnouncements.includes(announcement.id)
+//   }
 
-  return true
-}
+//   return true
+// }
