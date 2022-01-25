@@ -91,44 +91,44 @@ context('Wallet - Balances', () => {
       }
     },
     {
-      id: '20',
-      symbol: 'DUSD-DFI',
-      displaySymbol: 'DUSD-DFI',
-      name: 'Decentralized USD-Default Defi token',
+      id: '17',
+      symbol: 'USDT-DFI',
+      displaySymbol: 'dUSDT-DFI',
+      name: 'Playground USDT-Default Defi token',
       status: true,
       tokenA: {
-        symbol: 'DUSD',
-        displaySymbol: 'DUSD',
-        id: '14',
-        reserve: '8330',
+        symbol: 'USDT',
+        displaySymbol: 'dUSDT',
+        id: '3',
+        reserve: '10000000',
         blockCommission: '0'
       },
       tokenB: {
         symbol: 'DFI',
         displaySymbol: 'DFI',
         id: '0',
-        reserve: '833',
+        reserve: '1000',
         blockCommission: '0'
       },
       priceRatio: {
-        ab: '10',
-        ba: '0.1'
+        ab: '10000',
+        ba: '0.0001'
       },
-      commission: '0.02',
+      commission: '0',
       totalLiquidity: {
-        token: '2634.17729078',
-        usd: '16660'
+        token: '100000',
+        usd: '20000000'
       },
       tradeEnabled: true,
       ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
       rewardPct: '0.1',
       creation: {
-        tx: '4b8d5ec122052cdb8e8ffad63865444a10edc396d44e52957758ef7a39b228fa',
-        height: 147
+        tx: '2d8d5bdd40eafefd8cb9530ef2bc8c733c1f08fac7e6b5bf92239521ae4180a6',
+        height: 138
       },
       apr: {
-        reward: 80291.23649459783,
-        total: 80291.23649459783
+        reward: 66.8826,
+        total: 66.8826
       }
     }
   ]
@@ -145,7 +145,7 @@ context('Wallet - Balances', () => {
         data: samplePoolPair
       }
     })
-    cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
+    cy.getByTestID('total_usd_amount').should('have.text', '$100,000.00')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No other tokens yet')
     cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Get started by adding your tokens here in your wallet')
   })
@@ -165,15 +165,15 @@ context('Wallet - Balances', () => {
         data: samplePoolPair
       }
     })
-    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.00' })
-    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1.00' })
-    cy.getByTestID('total_usd_amount').contains('$301.00')
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100,000.00' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1,000.00' })
+    cy.getByTestID('total_usd_amount').contains('$301,000.00')
   })
 
   it('should display BTC and ETH with correct amounts', function () {
     cy.getByTestID('balances_list').should('exist')
-    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.00' })
-    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1.00' })
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100,000.00' })
+    cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1,000.00' })
   })
 
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
@@ -233,7 +233,7 @@ context('Wallet - Balances - Failed API', () => {
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('total_dfi_amount').contains('0.00000000')
-    cy.getByTestID('total_usd_amount').should('have.text', '$0.00')
+    cy.getByTestID('total_usd_amount').should('have.text', '$0.00000000')
   })
 
   it('should display correct address', function () {

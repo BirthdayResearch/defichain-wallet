@@ -51,8 +51,8 @@ export function useTokenPrice (): DexTokenPrice {
   }
 
   function getTokenPrice (symbol: string): BigNumber {
-    // active price for walletTokens
-    const selectedPoolPairs = getSelectedPoolPairs(symbol, 'DUSD')
+    // active price for walletTokens based on USDT
+    const selectedPoolPairs = getSelectedPoolPairs(symbol, 'USDT')
     const { aToBPrice } = calculatePriceRates(symbol, selectedPoolPairs, '1')
     return aToBPrice
   }

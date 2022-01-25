@@ -168,7 +168,7 @@ export function BalancesNavigator (): JSX.Element {
         options={({ route }: { route: any }) => ({
           headerTitle: () => {
             const token = route?.params?.token
-            const Icon = getNativeIcon(token.avatarSymbol)
+            const Icon = getNativeIcon(token.displaySymbol)
             return (
               <HeaderTitle containerTestID={headerContainerTestId}>
                 <View style={tailwind('flex-row items-center')}>

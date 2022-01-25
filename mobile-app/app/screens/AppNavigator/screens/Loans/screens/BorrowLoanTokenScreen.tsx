@@ -40,6 +40,7 @@ import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -360,10 +361,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row w-2/12 flex-1 items-center')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{
-          width: 24,
-          height: 24
-        }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-6 h-6')}
         />
         <ThemedText style={tailwind('ml-2 text-sm font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
@@ -376,7 +374,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
         </ThemedText>
         <NumberFormat
-          value={currentPrice > 0 ? new BigNumber(currentPrice).toFixed(2) : '-'}
+          value={currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-'}
           decimalScale={2}
           thousandSeparator
           displayType='text'
@@ -515,7 +513,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
       </View>
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
-        value={new BigNumber(props.vault.collateralValue).toFixed(2)}
+        value={getUSDPrecisedPrice(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
       />
