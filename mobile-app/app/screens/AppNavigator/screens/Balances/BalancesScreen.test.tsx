@@ -78,7 +78,7 @@ describe('balances page', () => {
       block: {
         count: 100,
         masternodeCount: 10,
-        lastSync: undefined,
+        lastSuccessfulSync: undefined,
         connected: true,
         isPolling: true,
         tvl: undefined
@@ -119,7 +119,7 @@ describe('balances page', () => {
       block: {
         count: 100,
         masternodeCount: 10,
-        lastSync: undefined,
+        lastSuccessfulSync: undefined,
         connected: true,
         isPolling: true,
         tvl: undefined
