@@ -29,10 +29,10 @@ jobs:
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
-          commit-message: Bump Expo dependencies
+          commit-message: 'build(deps): bump expo dependencies'
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump Expo dependencies
+          title: 'build(deps): bump expo dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies

@@ -679,7 +679,7 @@
     "Transaction fees": "交易費用",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每筆交易需要少量的交易費用。交易費用會根據網絡的流量情況產生變化。",
     "What is slippage tolerance?": "什麼是交易滑價?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet." : "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了 **滑價**，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet." : "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/LiquidityMiningFaq" : {
@@ -694,7 +694,8 @@
     "Can I send liquidity pool tokens to an exchange or another entity?": "是否可以把流動性池中的代幣直接發送到其他交易所或其他地址？",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "由於流動性池的代幣是屬於流動性池的代幣系統，您只能發送池中的DFI到其他交易所。若您想要發送其他代幣，請先使用流動池兌換成DFI，在發出至其他交易所使用。",
     "How do I receive tokens on my DFI wallet?": "如何在我的DFI錢包中接收代幣？",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "您可以前往接收頁面找到您錢包的地址，只要使用這個地址（可轉發分享或掃一掃QR碼來接收DFI代幣。\n\n請注意因為遞飛鏈生態中的功能，所以此錢包只能接收遞飛鏈的DFI或生態中的代幣，而無法接收其他區塊鏈的代幣（如 BTC、ETH）。"
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "您可以前往接收頁面找到您錢包的地址，只要使用這個地址（可轉發分享或掃一掃QR碼來接收DFI代幣。\n\n請注意因為遞飛鏈生態中的功能，所以此錢包只能接收遞飛鏈的DFI或生態中的代幣，而無法接收其他區塊鏈的代幣（如 BTC、ETH）。",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/PasscodeFaq": {
     "Passcode": "密碼",

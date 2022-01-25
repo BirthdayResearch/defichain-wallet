@@ -142,10 +142,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
       </View>
       <View style={tailwind('flex flex-row items-center mb-2')}>
         <SymbolIcon
-          symbol={token.displaySymbol} styleProps={{
-          width: 24,
-          height: 24
-        }}
+          symbol={token.displaySymbol} styleProps={tailwind('w-6 h-6')}
         />
         <ThemedText
           testID={`token_symbol_${token.displaySymbol}`}
