@@ -8,6 +8,7 @@ interface MissingLanguageItem {
   labels: {
     [key: string]: string[]
   }
+  allLabels: string
 }
 
 interface MissingLanguage {
@@ -54,6 +55,7 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
     locale => !localeToExclude.includes(locale)
   )
   let totalCount = 0
+  let totalMissingCount = 0
   baseTranslation.forEach((labels, screenName) => {
     totalCount = totalCount + labels.length
     languages.forEach((language) => {
@@ -73,10 +75,15 @@ function checkTranslations (baseTranslation: Map<string, string[]>, missingTrans
         })
       }
       languageTranslations.totalCount = totalCount
+      languageTranslations.allLabels = JSON.stringify(languageTranslations.labels)
+      totalMissingCount += languageTranslations.missingCount
       missingTranslations[language] = languageTranslations
     })
   })
 
+  if (totalMissingCount === 0) {
+    missingTranslations = {}
+  }
   fs.writeFileSync('./missing_translations.json', JSON.stringify(missingTranslations, null, 4))
   return missingTranslations
 }
