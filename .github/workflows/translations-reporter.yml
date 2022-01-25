@@ -38,10 +38,11 @@ jobs:
             ```json
             ${{ steps.translations.outputs.content }}
             ```
-      - name: Send missing translations to Slack workflow      
+      - name: Send missing translations to Slack workflow  
+        if: ${{ steps.translations.outputs.content['zh-Hans']['missingCount'] != 0 }}
         uses: slackapi/slack-github-action@8157a0f4d70c5099e42dcff1258b19bdaabb030b
-        id: slack_workflow
+        id: slack_missing_translation_workflow
         with:
           payload-file-path: "./missing_translations.json"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_MISSING_TRANSLATION_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_MISSING_TRANSLATION_WEBHOOK_URL }}      
