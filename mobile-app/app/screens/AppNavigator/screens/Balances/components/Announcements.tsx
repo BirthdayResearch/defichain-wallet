@@ -55,7 +55,7 @@ export function Announcements (): JSX.Element {
   const announcementToDisplay = emergencyAnnouncement ?? announcement
 
   useEffect(() => {
-    // To display warning message in Announcement banner when blocchain is down for > 45 mins
+    // To display warning message in Announcement banner when blockhain is down for > 45 mins
     if (isBlockchainDown) {
       setemergencyMsgContent(blockChainIsDownContent)
     } else {
@@ -63,7 +63,7 @@ export function Announcements (): JSX.Element {
     }
   }, [isBlockchainDown])
 
-  if (!isSuccess || !displayAnnouncement || (announcementToDisplay == null)) {
+  if (!isSuccess || !displayAnnouncement || (announcementToDisplay == null) || !existingAnnouncements) {
     return <></>
   }
 
