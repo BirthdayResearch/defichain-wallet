@@ -116,4 +116,41 @@ context('Wallet - Balances - Announcements', () => {
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'Guidelines')
   })
+
+  it('should display blockchain is down warning message with no existing announcement', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    })
+    cy.getByTestID('announcements_banner').should('not.exist')
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.wait(5000)
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('contain', 'blockchain')
+  })
+
+  it('should replace existing announcement with blockchain is down warning message', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncements
+    })
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.wait(5000)
+    cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
+    cy.getByTestID('announcements_text').should('contain', 'blockchain')
+  })
 })
