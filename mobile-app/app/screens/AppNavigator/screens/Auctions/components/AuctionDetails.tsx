@@ -17,7 +17,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext()
   const { startTime } = useAuctionTime(vault.liquidationHeight, blockCount ?? 0)
-  const { minStartingBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  const { minStartingBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
   return (
     <>

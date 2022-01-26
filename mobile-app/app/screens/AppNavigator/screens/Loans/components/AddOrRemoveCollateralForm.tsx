@@ -25,6 +25,7 @@ import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useCollateralizationRatioColor, useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
 import { useTotalCollateralValue } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 export interface AddOrRemoveCollateralFormProps {
   collateralItem: CollateralItem
@@ -218,7 +219,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           {
           !new BigNumber(activePrice).isZero() && (
             <NumberFormat
-              value={activePrice.multipliedBy(available).toFixed(2)}
+              value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
               thousandSeparator
               decimalScale={2}
               displayType='text'

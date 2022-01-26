@@ -12,7 +12,7 @@ import { EmptyCollateral } from './EmptyCollateral'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useCollateralPrice } from '../../hooks/CollateralPrice'
-import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 interface CollateralCardProps {
   displaySymbol: string
@@ -149,7 +149,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUsdValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
+            <ActiveUSDValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
           </View>
         </View>
       </View>
