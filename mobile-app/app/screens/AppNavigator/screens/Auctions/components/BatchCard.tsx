@@ -20,6 +20,8 @@ import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
+import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -49,6 +51,8 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
     totalCollateralsValueInUSD,
     hasFirstBid
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
+
+  const { getTokenPrice } = useTokenPrice()
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -161,8 +165,8 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </View>
         </View>
 
-        <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-          <View style={tailwind('flex-row items-center justify-start')}>
+        <View style={tailwind('flex-row w-full justify-between mb-2')}>
+          <View style={tailwind('flex-row mt-0.5')}>
             <ThemedText
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
@@ -174,7 +178,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-xs')} />
             </View>
           </View>
-          <View style={tailwind('flex flex-row')}>
+          <View style={tailwind('flex items-end flex-1')}>
             <NumberFormat
               displayType='text'
               suffix={` ${batch.loan.displaySymbol}`}
@@ -182,13 +186,16 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                 <ThemedText
                   light={tailwind('text-gray-900')}
                   dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm')}
+                  style={tailwind('text-sm text-right flex-wrap')}
                 >
                   {value}
                 </ThemedText>
               )}
               thousandSeparator
               value={minNextBidInToken}
+            />
+            <ActiveUSDValue
+              price={getTokenPrice(batch.loan.symbol, batch.loan.amount)}
             />
           </View>
         </View>
