@@ -168,7 +168,8 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_label').contains('Token')
     cy.getByTestID('total_dfi_amount').contains('20.00000000')
-    cy.getByTestID('total_dfi_label').contains('DFI')
+    cy.getByTestID('total_dfi_label_symbol').contains('DFI')
+    cy.getByTestID('total_dfi_label_name').contains('DeFiChain')
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: samplePoolPair
