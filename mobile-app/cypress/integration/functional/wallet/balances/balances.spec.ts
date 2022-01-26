@@ -167,7 +167,7 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_utxo_label').contains('UTXO')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_label').contains('Token')
-    cy.getByTestID('total_dfi_amount').contains('20.00000000')
+    cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
     cy.getByTestID('total_dfi_label_symbol').contains('DFI')
     cy.getByTestID('total_dfi_label_name').contains('DeFiChain')
     cy.intercept('**/poolpairs?size=*', {
@@ -188,7 +188,7 @@ context('Wallet - Balances', () => {
 
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
     cy.getByTestID('toggle_balance').click()
-    cy.getByTestID('total_dfi_amount').should('have.text', '***** DFI')
+    cy.getByTestID('dfi_total_balance_amount').should('have.text', '*****')
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
@@ -242,7 +242,7 @@ context('Wallet - Balances - Failed API', () => {
     })
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
-    cy.getByTestID('total_dfi_amount').contains('0.00000000')
+    cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.getByTestID('total_usd_amount').should('have.text', '$0.00000000')
   })
 
