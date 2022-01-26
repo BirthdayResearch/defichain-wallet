@@ -1,9 +1,18 @@
+import { BigNumber } from '@defichain/jellyfish-json'
+
 export interface BalanceTokenDetail {
   symbol: string
   displaySymbol: string
   name: string
   amount: string | number
   usdAmount?: string
+}
+
+function checkValueWithinRange (actualVal: string, expectedVal: string): void {
+  const value = new BigNumber(actualVal.replace('$', '').replace(',', ''))
+  const expectedValue = new BigNumber(expectedVal)
+  expect(value.gte(expectedValue.minus(2))).to.be.eq(true)
+  expect(value.lte(expectedValue.plus(2))).to.be.eq(true)
 }
 
 context('Wallet - Balances', () => {
@@ -408,24 +417,6 @@ context.only('Wallet - Balances - USD Value', () => {
         })
       }
     })
-
-    // cy.intercept('**/tokens?size=*', {
-    //   body: {
-    //     data: [
-    //       {
-    //         id: "1",
-    //         amount: "10.00000000",
-    //         displaySymbol: "dBTC",
-    //         isDAT: true,
-    //         isLPS: false,
-    //         isLoanToken: false,
-    //         name: "Playground BTC",
-    //         symbol: "BTC",
-    //         symbolKey: "BTC"
-    //       }
-    //     ]
-    //   }
-    // })
     cy.createEmptyWallet(true).sendTokenToWallet(['BTC', 'USDT-DFI', 'USDT', 'ETH', 'ETH-DFI']).wait(3000)
   })
 
@@ -441,6 +432,11 @@ context.only('Wallet - Balances - USD Value', () => {
     // DFI =  ((10 / 2500) * 830) * (8330 / 830)
     // DFI + USDT
     cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.64' })
+    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $20.07' })
+
+    cy.getByTestID('total_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '198.06')
+    })
   })
 
   it('should be able to update USD Value when poolpair change', () => {
@@ -473,6 +469,10 @@ context.only('Wallet - Balances - USD Value', () => {
     // DFI = (1000 / 100000) * 100) * (8300 / 100) == 83.0
     // DFI + dETH
     cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $166.00' })
+
+    cy.getByTestID('total_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '166250.70')
+    })
   })
 
   it('should be able to update USD Value when token is received', () => {
@@ -496,5 +496,9 @@ context.only('Wallet - Balances - USD Value', () => {
     // LP USD
     cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $132.80' })
     cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $332.00' })
+
+    cy.getByTestID('total_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '332493.1')
+    })
   })
 })
