@@ -2,7 +2,7 @@ import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components'
 import {
   ThemedIcon,
-  ThemedScrollView,
+  ThemedScrollView, ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
   ThemedView
@@ -124,7 +124,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('mx-2 my-4 p-4 mb-3 rounded-lg flex flex-row justify-between items-center')}
+        style={tailwind('mx-2 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
         testID='total_portfolio_card'
       >
         <View style={tailwind('w-10/12 flex-grow')}>
@@ -167,6 +167,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           />
         </ThemedTouchableOpacity>
       </ThemedView>
+      <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
       {
         dstTokens.length === 0

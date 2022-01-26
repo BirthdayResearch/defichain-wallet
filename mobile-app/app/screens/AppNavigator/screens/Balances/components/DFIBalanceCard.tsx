@@ -48,13 +48,13 @@ export function DFIBalanceCard (): JSX.Element {
         <View style={tailwind('flex-col flex-1 m-4')}>
           <ThemedView
             dark={tailwind('border-b border-gray-700')}
-            light={tailwind('border-b border-gray-100')} style={tailwind('flex-row mb-3 pb-2')}
+            light={tailwind('border-b border-gray-100')} style={tailwind('flex-row mb-3 pb-3')}
           >
             <View style={tailwind('flex-row items-center')}>
               <DFIIcon width={32} height={32} />
               <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
             </View>
-            <View style={tailwind('flex-row flex-1 items-center justify-end')}>
+            <View style={tailwind('flex-row flex-grow items-center justify-end')}>
               <TokenAmountText
                 tokenAmount={DFIUnified.amount} usdAmount={usdAmount} testID='dfi_total_balance'
                 isBalancesDisplayed={isBalancesDisplayed}
@@ -68,7 +68,7 @@ export function DFIBalanceCard (): JSX.Element {
           <View style={tailwind('flex-row mt-2')}>
             <InfoTextLink
               onPress={() => navigation.navigate('TokensVsUtxo')}
-              text='Learn more about UTXO and Token'
+              text='Learn more about DFI'
               containerStyle={tailwind('w-9/12')}
               testId='token_vs_utxo_info'
             />

@@ -1254,7 +1254,7 @@ exports[`balances page should match snapshot 1`] = `
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
-            "marginBottom": 12,
+            "marginBottom": 16,
             "marginLeft": 8,
             "marginRight": 8,
             "marginTop": 16,
@@ -1371,6 +1371,37 @@ exports[`balances page should match snapshot 1`] = `
         <Text />
       </View>
     </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 8,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 8,
+            },
+            Object {
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      text="YOUR ASSETS"
+    >
+      YOUR ASSETS
+    </Text>
     <View
       style={
         Array [
@@ -1453,7 +1484,7 @@ exports[`balances page should match snapshot 1`] = `
                 Object {
                   "flexDirection": "row",
                   "marginBottom": 12,
-                  "paddingBottom": 8,
+                  "paddingBottom": 12,
                 },
                 Object {
                   "borderBottomColor": "rgba(245, 245, 245, 1)",
@@ -1592,10 +1623,8 @@ exports[`balances page should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "flexBasis": "0%",
                   "flexDirection": "row",
                   "flexGrow": 1,
-                  "flexShrink": 1,
                   "justifyContent": "flex-end",
                 }
               }
@@ -1896,7 +1925,7 @@ exports[`balances page should match snapshot 1`] = `
                   ]
                 }
               >
-                Learn more about UTXO and Token
+                Learn more about DFI
               </Text>
             </View>
             <View
