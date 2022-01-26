@@ -66,6 +66,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
   const onQuickBid = (props: onQuickBidProps): void => {
     const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
+    const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
 
     setBottomSheetScreen([{
       stackScreenName: 'Quick Bid',
@@ -82,8 +83,8 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         onCloseButtonPress: dismissModal,
         minNextBid: new BigNumber(props.minNextBidInToken),
         minNextBidInUSD: props.minNextBidInUSD,
-        currentBalance: new BigNumber(ownedToken?.amount ?? 0),
-        currentBalanceInUSD: getTokenPrice(props.batch.loan.symbol, new BigNumber(ownedToken?.amount ?? 0)),
+        currentBalance: currentBalance,
+        currentBalanceInUSD: getTokenPrice(props.batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])
