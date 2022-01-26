@@ -61,7 +61,7 @@
     "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN",
-    "YOUR ASSETS": "DEINE VERMÖGENSWERTE"
+    "YOUR ASSETS": "DEINE AKTIVA"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
