@@ -1603,9 +1603,9 @@ exports[`balances page should match snapshot 1`] = `
                         Object {
                           "color": "rgba(82, 82, 82, 1)",
                           "fontFamily": "MediumFont",
-                          "fontSize": 14,
+                          "fontSize": 12,
                           "fontWeight": "500",
-                          "lineHeight": 20,
+                          "lineHeight": 16,
                         },
                         Object {
                           "color": "rgba(82, 82, 82, 1)",
@@ -2171,9 +2171,9 @@ exports[`balances page should match snapshot 1`] = `
                     Object {
                       "color": "rgba(82, 82, 82, 1)",
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "500",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                     },
                     Object {
                       "color": "rgba(82, 82, 82, 1)",
@@ -2462,9 +2462,9 @@ exports[`balances page should match snapshot 1`] = `
                     Object {
                       "color": "rgba(82, 82, 82, 1)",
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "500",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                     },
                     Object {
                       "color": "rgba(82, 82, 82, 1)",
