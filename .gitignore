@@ -44,3 +44,4 @@ web-build/
 
 # macOS
 .DS_Store
+missing_translations.json

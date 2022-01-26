@@ -1,7 +1,7 @@
 {
   "screens/WalletNavigator": {
     "Guidelines": "Directives",
-    "Recovery Words FAQ": "FAQ Mots de récupération",
+    "Recovery Words FAQ": "FAQ mots de récupération",
     "Display recovery words": "Afficher les mots de récupération",
     "Verify words": "Vérifier les mots",
     "Restore Wallet": "Restaurer le portefeuille",
@@ -12,9 +12,9 @@
     "Refresh": "Renouveler",
     "Refresh recovery words": "Renouveler les mots de récupération",
     "You are about to generate a new set of recovery words. Continue?": "Vous génèrez un nouveau jeu de mots de récupération. Continuer ?",
-    "Passcode FAQ": "FAQ Code d'accès",
+    "Passcode FAQ": "FAQ code d'accès",
     "DEX FAQ": "FAQ DEX",
-    "Liquidity Mining FAQ": "FAQ Liquidity Mining"
+    "Liquidity Mining FAQ": "FAQ liquidity mining"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Échange décentralisé",
@@ -33,11 +33,11 @@
     "REMOVE": "RETIRER",
     "APR": "TAEG",
     "ADD MORE": "AJOUTER",
-    "No active pool pairs": "Aucune paire de pools active",
+    "No active pool pairs": "Aucune paire de pool active",
     "Supply liquidity pool tokens to earn high yields": "Fournir des tokens de pool de liquidité pour obtenir des revenus élevés",
     "Total liquidity (USD)": "Liquidité totale (USD)",
-    "Browse pool pairs": "Parcourir les paires de pools",
-    "Your pool pairs": "Mes paires de pools",
+    "Browse pool pairs": "Parcourir les paires de pool",
+    "Your pool pairs": "Mes paires de pool",
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
     "SWAP": "ÉCHANGER",
     "Swap tokens": "Échange de tokens"
@@ -125,7 +125,7 @@
     "CONVERT {{symbol}}": "CONVERTIR {{symbol}}",
     "TO {{symbol}}": "EN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI (UTXO)) est réservée aux frais.",
-    "How much {{symbol}} to convert?": "Combien de {symbol}} à convertir ?",
+    "How much {{symbol}} to convert?": "Combien de {{symbol}} à convertir ?",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "After conversion, you will receive": "Après la conversion, vous recevrez",
@@ -218,47 +218,47 @@
     "LEARN ABOUT": "EN SAVOIR PLUS",
     "Recovery words": "Mots de récupération",
     "Passcode": "Code d'accès",
-    "UTXO vs Token": "UTXO vs Token",
+    "UTXO vs Token": "UTXO vs token",
     "Loans": "Prêts",
     "Auctions": "Enchères",
-    "Liquidity Mining": "Liquidity Mining"
+    "Liquidity Mining": "Liquidity mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ - Prêts",
     "Decentralized Loans": "Prêts décentralisés",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
-    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "La fonction de prêt décentralisé vous permet d'emprunter des tokens décentralisés en utilisant vos crypto-monnaies comme garantie. Pour commencer, vous devez d'abord créer un Vault et déposer des garanties avant de pouvoir contracter un prêt.",
+    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "La fonction de prêt décentralisé vous permet d'emprunter des tokens décentralisés en utilisant vos crypto-monnaies comme garantie. Pour commencer, vous devez d'abord créer un vault et déposer des garanties avant de pouvoir contracter un prêt.",
     "How is the collateralization ratio calculated?": "Comment le ratio de garantie est-il calculé ?",
-    "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "Le ratio de garantie est calculé en prenant la valeur totale de la garantie déposée dans un Vault ; divisée par le montant du prêt contracté majoré du montant des intérêts, exprimé en pourcentage.",
+    "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "Le ratio de garantie est calculé en prenant la valeur totale de la garantie déposée dans un vault ; divisée par le montant du prêt contracté majoré du montant des intérêts, exprimé en pourcentage.",
     "What is the collateralization ratio used for?": "A quoi sert le ratio de garantie ?",
-    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "Le ratio de garantie détermine l'état du Vault. Un ratio inférieur au ratio de garantie minimum entraîne la liquidation, après quoi les garanties du Vault sont mis aux enchères.",
-    "Indicators have been included to help visualise the health of your vault, where:": "Des indicateurs ont été inclus pour aider à visualiser la santé de votre Vault, à savoir :",
+    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "Le ratio de garantie détermine l'état du vault. Un ratio inférieur au ratio de garantie minimum entraîne la liquidation, après quoi les garanties du vault sont mis aux enchères.",
+    "Indicators have been included to help visualise the health of your vault, where:": "Des indicateurs ont été inclus pour aider à visualiser la santé de votre vault, à savoir :",
     "Red: 1x – 1.25x above the minimum collateralization ratio": "Rouge : 1x - 1,25x au-dessus du ratio de garantie minimum",
     "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "Jaune : 1,25x - 1,5x le ratio de garantie minimum",
     "Green: More than 1.5x the minimum collateralization ratio": "Vert : Plus de 1,5x le ratio de garantie minimum",
-    "What do the different statuses of a vault mean?": "Que signifient les différents statuts d'un Vault ?",
-    "Empty: When a vault has been created but no collateral has been deposited yet.": "Vide : Lorsqu'un Vault a été créé mais qu'aucune garantie n'a encore été déposée.",
-    "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "Prêt : Lorsque la garantie a été déposée dans le Vault, mais qu'aucun prêt n'a encore été contracté.",
-    "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "Actif (rouge) : Lorsque le ratio de garantie d'un Vault est compris entre 1x et 1,25x le ratio de garantie minimum.",
-    "Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.": "Actif (orange) : Lorsque le ratio de garantie d'un Vault est compris entre 1,25x et 1,5x le ratio de garantie minimum.",
-    "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "Actif (vert) : Lorsque le ratio de garantie d'un Vault est supérieur à 1,5 fois le ratio de garantie minimum.",
+    "What do the different statuses of a vault mean?": "Que signifient les différents statuts d'un vault ?",
+    "Empty: When a vault has been created but no collateral has been deposited yet.": "Vide : Lorsqu'un vault a été créé mais qu'aucune garantie n'a encore été déposée.",
+    "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "Prêt : Lorsque la garantie a été déposée dans le vault, mais qu'aucun prêt n'a encore été contracté.",
+    "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "Actif (rouge) : Lorsque le ratio de garantie d'un vault est compris entre 1x et 1,25x le ratio de garantie minimum.",
+    "Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.": "Actif (orange) : Lorsque le ratio de garantie d'un vault est compris entre 1,25x et 1,5x le ratio de garantie minimum.",
+    "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "Actif (vert) : Lorsque le ratio de garantie d'un vault est supérieur à 1,5 fois le ratio de garantie minimum.",
     "In liquidation: When a vault's collateralization ratio falls below the minimum requirement.": "En liquidation : Lorsque le ratio de garantie d'un Vault tombe en dessous du minimum requis.",
-    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "Intérrompu : Lorsqu'un token du Vault (garantie ou prêt) a fluctué de plus de 30 % au cours de la dernière heure.",
+    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "Intérrompu : Lorsqu'un token du vault (garantie ou prêt) a fluctué de plus de 30 % au cours de la dernière heure.",
     "How are interests calculated for loan?": "Comment les intérêts sont-ils calculés pour les prêts ?",
-    "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Il existe deux types d'intérêts applicables aux prêts, à savoir le taux d'intérêt du Vault et le taux d'intérêt du token.",
-    "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Le taux d'intérêt du Vault est déterminé lorsque le propriétaire du Vault sélectionne le schéma du Vault. Plus le ratio de garantie minimum est élevé, plus le taux d'intérêt du Vault est bas.",
+    "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Il existe deux types d'intérêts applicables aux prêts, à savoir le taux d'intérêt du vault et le taux d'intérêt du token.",
+    "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Le taux d'intérêt du vault est déterminé lorsque le propriétaire du vault sélectionne le schéma du vault. Plus le ratio de garantie minimum est élevé, plus le taux d'intérêt du vault est bas.",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Le taux d'intérêt des tokens est appliqué à certains tokens de prêt spécifiques, et peut différer d'un token à l'autre.",
-    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Le taux d'intérêt total appliqué sur un prêt est obtenu en prenant le taux d'intérêt du Vault + le taux d'intérêt du token, et est calculé sur une base annuelle.",
+    "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Le taux d'intérêt total appliqué sur un prêt est obtenu en prenant le taux d'intérêt du vault + le taux d'intérêt du token, et est calculé sur une base annuelle.",
     "What is collateral factor?": "Qu'est-ce que le facteur de garantie ?",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un Vault."
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ - Enchères",
     "Auctions": "Enchères",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
-    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "La vente aux enchères est une activité au cours de laquelle les utilisateurs font des offres sur les garanties des Vaults liquidés afin de récupérer les prêts en cours des Vaults. La liquidation a lieu lorsque le ratio de garantie d'un Vault tombe en dessous de son exigence minimale. Les garanties du Vaults sont alors divisées en lots de 10 000 USD pour être vendues aux enchères.",
+    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "La vente aux enchères est une activité au cours de laquelle les utilisateurs font des offres sur les garanties des vaults liquidés afin de récupérer les prêts en cours des vaults. La liquidation a lieu lorsque le ratio de garantie d'un vault tombe en dessous de son exigence minimale. Les garanties du vaults sont alors divisées en lots de 10 000 USD pour être vendues aux enchères.",
     "How is the minimum starting bid determined?": "Comment l'offre de départ minimale est-elle déterminée ?",
-    "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offre minimale de départ est de 105% de la valeur du prêt en cours du lot. Les 5% supplémentaires sont inclus pour couvrir la pénalité de liquidation, qui est encourue lors de la liquidation du Vault.",
+    "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offre minimale de départ est de 105% de la valeur du prêt en cours du lot. Les 5% supplémentaires sont inclus pour couvrir la pénalité de liquidation, qui est encourue lors de la liquidation du vault.",
     "How is the minimum next bid determined?": "Comment l'enchère minimale est-elle déterminée ?",
     "The minimum next bid is 1% above the previous bid price.": "Une surenchère doit être supérieure d'au moins 1 % à l'offre précédente."
   },
@@ -295,8 +295,8 @@
     "Swap with {{token}}": "Échanger avec {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
-    "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les Tokens",
-    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI existe sous deux formes - UTXO et Token. Ils peuvent être convertis l'un avec l'autre pour servir différents cas usage dans votre portefeuille léger.",
+    "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les tokens",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI existe sous deux formes - UTXO et token. Ils peuvent être convertis l'un avec l'autre pour servir différents cas usage dans votre portefeuille léger.",
     "DFI in UTXO form": "DFI sous forme d'UTXO",
     "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "Un DFI sous forme UTXO est la forme primaire du DFI. L'UTXO est utilisé pour des opérations à la base de la crypto-monnaie telles que l'envoi, la réception et le paiement de frais.",
     "Use cases include:": "Les cas d'usage comprennent:",
@@ -457,7 +457,7 @@
     "Pooled": "Dans le pool",
     "Price": "Prix",
     "Review full transaction details in the next screen": "Examinez tous les détails de la transaction à l'étape suivante",
-    "How much {{symbol}} to supply?": "Combien de {symbol}} à fournir ?",
+    "How much {{symbol}} to supply?": "Combien de {{symbol}} à fournir ?",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
@@ -542,7 +542,7 @@
     "CONTINUE": "SUIVANT"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolérance de Glissement",
+    "Slippage tolerance": "Tolérance de glissement",
     "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de glissement que vous êtes prêt à accepter.",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
@@ -681,7 +681,7 @@
     "Liquidity Mining": "Liquidity Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Le liquidity mining est un mécanisme DeFi dans lequel les participants contribuent en crypto-monnaies aux pools de liquidité, et sont à leur tour récompensés par des frais et des tokens basés sur leur part de la liquidité totale du pool. \n\nLes pools de liquidité de DeFiChain sont constitués de liquidité par paire de tokens, qui est utilisée par le DEX (Decentralized Exchange) de la DeFiChain.",
     "How do I supply liquidity?": "Comment puis-je fournir des liquidités ?",
-    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Après avoir décidé de la paire de pools à laquelle vous souhaitez fournir des liquidités, cliquez sur AJOUTER LIQUIDITÉ et saisissez le montant d'entrée pour l'un ou l'autre des tokens de la paire. \n\nUne fois le montant saisi d'un côté de la paire, l'application équilibre automatiquement le montant de l'autre côté, sur la base du ratio de liquidité actuel du pool.",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Après avoir décidé de la paire de pool à laquelle vous souhaitez fournir des liquidités, cliquez sur AJOUTER LIQUIDITÉ et saisissez le montant d'entrée pour l'un ou l'autre des tokens de la paire. \n\nUne fois le montant saisi d'un côté de la paire, l'application équilibre automatiquement le montant de l'autre côté, sur la base du ratio de liquidité actuel du pool.",
     "How do I send tokens from my DFI wallet?": "Comment puis-je envoyer des tokens à partir de mon portefeuille DFI ?",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Les tokens sur la DeFiChain ne peuvent être envoyés qu'à des adresses DFI uniquement. Cela signifie que vous ne devez pas envoyer directement à un échange ou à une plateforme tierce qui ne supporte pas la DeFiChain. \n\nDe même, les tokens de liquidité ne peuvent être envoyés qu'à une autre adresse de portefeuille DFI.",
     "What are some exchanges and platforms I can send to?": "Quels sont les échanges et les plates-formes vers lesquels je peux envoyer les tokens de la DeFiChain ?",
@@ -704,7 +704,7 @@
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "En savoir plus sur UTXO et Token"
+    "Learn more about UTXO and Token": "En savoir plus sur UTXO et token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI) est réservée aux frais."
@@ -730,24 +730,24 @@
   },
   "screens/LoansScreen": {
     "Loans": "Prêts",
-    "Create Vault": "Créer un Vault",
-    "Confirm Create Vault": "Confirmer la création d'un Vault",
-    "Vault Detail": "Vue détaillée du Vault",
+    "Create Vault": "Créer un vault",
+    "Confirm Create Vault": "Confirmer la création d'un vault",
+    "Vault Detail": "Vue détaillée du vault",
     "Add Collateral": "Ajouter des garanties",
     "Confirm Add Collateral": "Confirmez l'ajout de garantie",
     "Edit Collaterals": "Modifier les garanties",
-    "Borrow Loan Token": "Emprunter un Token de prêt",
-    "Confirm Borrow Loan Token": "Confirmer l'emprunt de Tokens de prêt",
-    "Edit Loan Scheme": "Éditer le schéma de prêt",
-    "Confirm Edit Loan Scheme": "Confirmer l'édition du schéma de prêts",
+    "Borrow Loan Token": "Emprunter un token de prêt",
+    "Confirm Borrow Loan Token": "Confirmer l'emprunt de tokens de prêt",
+    "Edit Loan Scheme": "Éditer le schéma de prêts",
+    "Confirm Edit Loan Scheme": "Confirmer l'édition du schéma de prêt",
     "Borrow More": "Augmenter le prêt",
-    "Choose Loan Token to Borrow": "Choisissez le Token de prêt à emprunter",
+    "Choose Loan Token to Borrow": "Choisissez le token de prêt à emprunter",
     "Payback Loan": "Remboursement du prêt",
-    "Close Vault": "Fermer le Vault"
+    "Close Vault": "Fermer le vault"
   },
   "components/tabs": {
-    "Browse loan tokens": "Emprunter un Token",
-    "Your vaults": "Mes Vaults",
+    "Browse loan tokens": "Emprunter un token",
+    "Your vaults": "Mes vaults",
     "Active loan": "Prêt en cours",
     "Details": "Détails",
     "Collaterals": "Garanties",
@@ -760,15 +760,15 @@
   },
   "components/LoanCard": {
     "Active Price": "Prix actuel",
-    "Next Price": "Prix suivantx",
+    "Next Price": "Prix suivant",
     "Interest": "Intérêt",
     "Price (USD)": "Prix (USD)"
   },
   "components/InfoTextLink": {
-    "Learn more about UTXO and Token": "En savoir plus sur les UTXO et Tokens",
-    "UTXO vs Token, what is the difference?": "UTXO vs Token, quelle est la différence ?",
-    "Learn more about vaults": "En savoir plus sur les Vaults",
-    "Learn more about vaults and loan schemes": "En savoir plus sur les Vaults et les systèmes de prêt",
+    "Learn more about UTXO and Token": "En savoir plus sur les UTXO et tokens",
+    "UTXO vs Token, what is the difference?": "UTXO vs token, quelle est la différence ?",
+    "Learn more about vaults": "En savoir plus sur les vaults",
+    "Learn more about vaults and loan schemes": "En savoir plus sur les vaults et les systèmes de prêt",
     "Learn more about auctions and bidding": "En savoir plus sur les ventes aux enchères et les offres",
     "Learn about auctions": "En savoir plus sur les ventes aux enchères"
   },
@@ -812,7 +812,7 @@
     "Total auction value (USD)": "Valeur totale de l'enchère (USD)",
     "Min. next bid": "Surenchère min.",
     "You are the highest bidder": "Vous êtes le plus offrant",
-    "From your vault": "De votre Vault",
+    "From your vault": "De votre vault",
     "Waiting for first bid": "En attente de la première offre"
   },
   "components/BidCard": {
@@ -861,25 +861,25 @@
     "READY": "PARÉ"
   },
   "components/EmptyVault": {
-    "No vault created": "Aucun Vault créé",
-    "To get started, create a vault and add DFI and other tokens as collaterals": "Pour commencer, créez un Vault et ajoutez des DFI et d'autres Tokens comme garanties.",
+    "No vault created": "Aucun vault créé",
+    "To get started, create a vault and add DFI and other tokens as collaterals": "Pour commencer, créez un vault et ajoutez des DFI et d'autres tokens comme garanties.",
     "CREATE VAULT": "CRÉER UN VAULT"
   },
   "screens/CreateVaultScreen": {
-    "Choose loan scheme for your vault": "Choisissez un schéma de prêt pour votre Vault",
-    "This sets the minimum collateralization ratio and the vault’s interest rate.": "Cela permet de fixer le ratio de garantie minimum et le taux d'intérêt du Vault",
-    "Keep note of your selected collateralization ratio for your vault to sustain the loans within it.": "Notez le ratio de garantie que vous avez choisi pour que votre Vault puisse supporter les prêts qu'il contient.",
+    "Choose loan scheme for your vault": "Choisissez un schéma de prêt pour votre vault",
+    "This sets the minimum collateralization ratio and the vault’s interest rate.": "Cela permet de fixer le ratio de garantie minimum et le taux d'intérêt du vault",
+    "Keep note of your selected collateralization ratio for your vault to sustain the loans within it.": "Notez le ratio de garantie que vous avez choisi pour que votre vault puisse supporter les prêts qu'il contient.",
     "Collateralization ratio": "Ratio de garantie",
     "Interest rate": "Taux d'intérêt",
     "APR": "TAEG",
     "CONTINUE": "SUIVANT",
-    "Confirm your vault details in next screen": "Validez les détails de votre Vault à l'étape suivante",
-    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Le schéma de prêt de votre Vault détermine la garantie requise de votre Vault pour les prêts.",
+    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
+    "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Le schéma de prêt de votre vault détermine la garantie requise de votre vault pour les prêts.",
     "Min. collateralization ratio": "Ratio de garantie min."
   },
   "screens/ConfirmCreateVaultScreen": {
-    "You are creating vault": "Vous créez un Vault",
-    "ID will generate once vault has been created": "L'ID sera généré une fois que le Vault aura été créé",
+    "You are creating vault": "Vous créez un vault",
+    "ID will generate once vault has been created": "L'ID sera généré une fois que le vault aura été créé",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
     "Create vault": "Créer un Vault",
@@ -889,36 +889,36 @@
     "Interest rate (APR)": "Taux d'intérêt (TAEG)",
     "APR": "TAEG",
     "CONFIRM CREATE VAULT": "CONFIRMER LA CRÉATION D'UN VAULT",
-    "Creating vault": "Création d'un Vault",
-    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un Vault avec un ratio de garantie minimum de {{montant}}% et un taux d'intérêt de {{ir}}% TAEG",
-    "Convert & create vault": "Convertir et créer un Vault"
+    "Creating vault": "Création d'un vault",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{montant}}% et un taux d'intérêt de {{ir}}% TAEG",
+    "Convert & create vault": "Convertir et créer un vault"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "Frais estimés",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Chaque transaction sera soumise à un petit montant de frais. Ce montant peut varier en fonction de l'encombrement du réseau.",
     "Vault fee": "Frais de Vault",
-    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Ces frais servent de dépôt initial pour votre Vault. Vous recevrez 1 DFI en retour lorsque vous choisirez de fermer ce Vault.",
-    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "Le ratio de garantie représente le montant des garanties déposées dans un Vault par rapport au montant du prêt, exprimé en pourcentage.",
-    "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Le prochain ratio de garantie représente le ratio de garantie du Vault basé sur les prix des tokens de garantie/de prêt dans l'heure suivante.",
-    "Annual vault interest rate based on the loan scheme selected.": "Taux d'intérêt annuel du Vault en fonction du schéma de prêt choisi.",
-    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Ratio de garantie minimum requis en fonction du schéma de prêts sélectionné. Un Vault est mis en liquidation lorsque le ratio de garantie est inférieur au minimum requis.",
+    "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Ces frais servent de dépôt initial pour votre vault. Vous recevrez 1 DFI en retour lorsque vous choisirez de fermer ce vault.",
+    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "Le ratio de garantie représente le montant des garanties déposées dans un vault par rapport au montant du prêt, exprimé en pourcentage.",
+    "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Le prochain ratio de garantie représente le ratio de garantie du vault basé sur les prix des tokens de garantie/de prêt dans l'heure suivante.",
+    "Annual vault interest rate based on the loan scheme selected.": "Taux d'intérêt annuel du vault en fonction du schéma de prêt choisi.",
+    "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Ratio de garantie minimum requis en fonction du schéma de prêt sélectionné. Un vault est mis en liquidation lorsque le ratio de garantie est inférieur au minimum requis.",
     "Collateralization ratio": "Ratio de garantie",
     "Interest amount": "Montant d'intérêt",
     "Next collateralization": "Garantie suivante",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "This amount is the total interest amount from both vault and token interest rate.": "Ce montant est le montant total des intérêts du Vault et du token.",
+    "This amount is the total interest amount from both vault and token interest rate.": "Ce montant est le montant total des intérêts du vault et du token.",
     "Annual vault interest": "Intérêts annuels du Vault",
     "Min. next bid": "Surenchère min.",
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
-    "Your vault is locked for liquidation.": "Votre Vault est verrouillé pour la liquidation.",
-    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Votre Vault risque d'être liquidé. Prévenez la liquidation en ajoutant plus de garanties ou en remboursant les prêts.",
-    "Collaterals required to use this vault.": "Garantie requise pour utiliser ce Vault.",
+    "Your vault is locked for liquidation.": "Votre vault est verrouillé pour la liquidation.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Votre vault risque d'être liquidé. Prévenez la liquidation en ajoutant plus de garanties ou en remboursant les prêts.",
+    "Collaterals required to use this vault.": "Garantie requise pour utiliser ce vault.",
     "Total collateral (USD)": "Total des garanties (USD)",
     "Total loans (USD)": "Total des prêts (USD)",
-    "Vault interest (APR)": "Intérêt du Vault (TAEG)",
+    "Vault interest (APR)": "Intérêt du vault (TAEG)",
     "Min. collateralization ratio": "Ratio de garantie min."
   },
   "components/ScrollableButton": {
@@ -926,12 +926,12 @@
     "TAKE COLLATERAL": "RÉTIRER DES GARANTIES",
     "EDIT SCHEME": "ÉDITER LE SCHEMA",
     "EDIT COLLATERALS": "MODIFIER LES GARANTIES",
-    "EDIT LOAN SCHEME": "ÉDITER LE SCHÉMA DE PRÊTS",
+    "EDIT LOAN SCHEME": "ÉDITER LE SCHÉMA DE PRÊT",
     "CLOSE VAULT": "FERMEZ LE VAULT"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "Aucun prêt actif",
-    "Browse for available loan tokens and start using this vault as collateral.": "Recherchez les tokens de prêt disponibles et commencez à utiliser ce Vault comme garantie.",
+    "Browse for available loan tokens and start using this vault as collateral.": "Recherchez les tokens de prêt disponibles et commencez à utiliser ce vault comme garantie.",
     "BROWSE LOAN TOKENS": "PARCOURIR LES TOKENS DE PRÊTS"
   },
   "components/VaultDetailsLoansTab": {
@@ -944,13 +944,13 @@
     "Wallet Address": "Adresse du portefeuille"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "Pas encore d'autres Tokens.",
-    "Get started by adding your tokens here in your wallet": "Commencez par ajouter vos Tokens ici dans votre portefeuille."
+    "No other tokens yet": "Pas encore d'autres tokens.",
+    "Get started by adding your tokens here in your wallet": "Commencez par ajouter vos tokens ici dans votre portefeuille."
   },
   "components/VaultDetailDetailsTab": {
-    "LOAN SCHEME": "SCHÉMA DE PRÊTS",
+    "LOAN SCHEME": "SCHÉMA DE PRÊT",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Vault interest": "Intérêt du Vault",
+    "Vault interest": "Intérêt du vault",
     "VAULT DETAILS": "DÉTAILS DU VAULT",
     "COLLATERALIZATION DETAILS": "DETAILS DE LA GARANTIE",
     "Collateralization ratio": "Ratio de garantie",
@@ -971,9 +971,9 @@
     "Learn more": "En savoir plus",
     "ADD TOKEN AS COLLATERAL": "AJOUTER LE TOKEN COMME GARANTIE",
     "Total collateral (USD)": "Total des garanties (USD)",
-    "Vault needs DFI to be in 50% vault share": "Le Vault a besoin d'une part des garanties en DFI d'au moins 50%.",
+    "Vault needs DFI to be in 50% vault share": "Le vault a besoin d'une part des garanties en DFI d'au moins 50%.",
     "Confirm details in next screen": "Validez les détails à l'étape suivante",
-    "Select token to add": "Sélectionner le Token à ajouter",
+    "Select token to add": "Sélectionner le token à ajouter",
     "Are you sure you want to remove collateral token?": "Êtes-vous sûr de vouloir retirer des tokens de garantie ?",
     "CONTINUE": "SUIVANT",
     "BACK": "RETOUR",
@@ -984,22 +984,22 @@
     "Adding collateral": "Ajouter des Garanties",
     "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{montant}} {{symbole}} comme garantie",
     "Removing collateral": "Retrait de la garantie",
-    "Removing {{amount}} {{symbol}} collateral from vault": "Retrait de {{amount}} {{symbol}} de la garantie du Vault.",
+    "Removing {{amount}} {{symbol}} collateral from vault": "Retrait de {{amount}} {{symbol}} de la garantie du vault.",
     "Total loans (USD)": "Total des prêts (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Vault interest (APR)": "Intérêt du Vault (TAEG)"
+    "Vault interest (APR)": "Intérêt du vault (TAEG)"
   },
   "components/AddOrRemoveCollateralForm": {
-    "How much {{symbol}} to add?": "Combien de {symbol}} à ajouter ?",
+    "How much {{symbol}} to add?": "Combien de {{symbol}} à ajouter ?",
     "collateral factor": "Facteur de garantie",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "ADD TOKEN AS COLLATERAL": "AJOUTER LE TOKEN EN GARANTIE",
     "REMOVE COLLATERAL AMOUNT": "RÉDUIRE LA GARANTIE",
-    "How much {{symbol}} to remove?": "Combien de {symbol}} à retirer ?",
+    "How much {{symbol}} to remove?": "Combien de {{symbol}} à retirer ?",
     "Current": "Actuel",
-    "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque Token à la garantie.",
+    "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque token à la garantie.",
     "Resulting collateralization": "Garantie correspondante",
     "N/A": "S/O"
   },
@@ -1043,7 +1043,7 @@
     "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille."
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENTN",
+    "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
     "PAYING": "PAIEMENT",
     "You are paying": "Vous payez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
@@ -1066,29 +1066,29 @@
     "Next:": "Prochain:"
   },
   "screens/BorrowLoanTokenScreen": {
-    "Borrow loan token": "Emprunter un Token de prêt",
+    "Borrow loan token": "Emprunter un token de prêt",
     "SELECT VAULT FOR COLLATERAL": "SÉLECTIONNER LE VAULT POUR LA GARANTIE",
-    "Select a vault to use": "Sélectionnez un Vault à utiliser",
-    "Choose a vault to use": "Choisissez un Vault à utiliser",
+    "Select a vault to use": "Sélectionnez un vault à utiliser",
+    "Choose a vault to use": "Choisissez un vault à utiliser",
     "Price (USD)": "Prix (USD)",
     "Interest": "Intérêt",
     "Total collateral (USD)": "Valeur totale de la garantie (USD)",
-    "Vault interest": "Intérêt du Vault",
+    "Vault interest": "Intérêt du vault",
     "How much do you want to borrow?": "Combien voulez-vous emprunter ?",
     "Enter an amount": "Donnez un montant",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Collateralization ratio": "Ratio de garantie",
     "Resulting collateralization": "Ratio de garantie résultante",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Interest (Vault + Token)": "Intérêt (Vault + Token)",
+    "Interest (Vault + Token)": "Intérêt (vault + token)",
     "Estimated annual interest": "Intérêt annuel estimé",
     "Total loan + annual interest": "Prêt total + intérêt annuel",
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
     "SELECT LOAN TOKEN": "SELECTIONNER UN TOKEN DE PRÊT",
     "CONTINUE": "SUIVANT",
     "N/A": "S/O",
-    "Insufficient vault collateral to borrow this amount": "Garanties du Vault insuffisantes pour emprunter ce montant",
-    "This amount may place the vault in liquidation": "Ce montant peut placer le Vault en liquidation",
+    "Insufficient vault collateral to borrow this amount": "Garanties du vault insuffisantes pour emprunter ce montant",
+    "This amount may place the vault in liquidation": "Ce montant peut placer le vault en liquidation",
     "Unable to proceed because of errors": "Impossible de poursuivre en raison d'erreurs",
     "Max loan amount": "Montant max. du prêt",
     "USD": "USD",
@@ -1098,11 +1098,11 @@
     "You are borrowing": "Vous empruntez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
-    "Borrow loan token": "Emprunter un Token de prêt",
+    "Borrow loan token": "Emprunter un token de prêt",
     "Convert & borrow loan token": "Convertir et emprunter un token de prêt",
     "Loan tokens to borrow": "Tokens de prêt pour emprunter",
-    "Token interest": "Intérêt du Token",
-    "Vault interest": "Intérêt du Vault",
+    "Token interest": "Intérêt du token",
+    "Vault interest": "Intérêt du vault",
     "Estimated annual interest": "Intérêt annuel estimé",
     "Total loan + annual interest": "Prêt total + intérêt annuel",
     "VAULT DETAILS": "DÉTAILS DU VAULT",
@@ -1120,24 +1120,24 @@
     "Collateralization ratio": "Ratio de garantie"
   },
   "screens/EditLoanSchemeScreen": {
-    "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊTS DU VAULT",
+    "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊT DU VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assurez-vous que votre ratio de garantie reste toujours supérieur au ratio de garantie minimum.",
     "CONTINUE": "SUIVANT",
-    "Confirm your vault details in next screen": "Validez les détails de votre Vault à l'étape suivante"
+    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante"
   },
   "screens/ConfirmEditLoanSchemeScreen": {
-    "You are editing scheme of vault": "Vous modifiez le schéma du Vault",
+    "You are editing scheme of vault": "Vous modifiez le schéma du vault",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
     "Edit loan scheme": "Modifier le schéma de prêt",
     "Prev. minimum collateralization ratio": "Ratio de garantie min. précédent",
-    "Prev. vault interest (APR)": "Intérêt du Vault (TAEG) précédent",
+    "Prev. vault interest (APR)": "Intérêt du vault (TAEG) précédent",
     "New minimum collateralization ratio": "Nouveau ratio de garantie min.",
-    "New vault interest (APR)": "Nouvel intérêt du Vault (TAEG)",
+    "New vault interest (APR)": "Nouvel intérêt du vault (TAEG)",
     "CONFIRM EDIT": "CONFIRMER MODIFICATION",
     "EDITING": "MODIFICATION",
     "CONVERTING": "CONVERSION...",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du Vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%."
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%."
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
@@ -1156,21 +1156,21 @@
   },
   "screens/ChooseLoanTokenScreen": {
     "Search for loans": "Rechercher des prêts",
-    "Search for loan token": "Rechercher de Token de prêt"
+    "Search for loan token": "Rechercher de token de prêt"
   },
   "components/EmptyCollateral": {
     "No collaterals": "Pas de garanties",
     "ADD COLLATERALS": "AJOUTER DES GARANTIES",
-    "Add DFI and tokens as collateral to get started with loans.": "Ajoutez des DFI et des Tokens comme garantie pour commencer les prêts."
+    "Add DFI and tokens as collateral to get started with loans.": "Ajoutez des DFI et des tokens comme garantie pour commencer les prêts."
   },
   "screens/CloseVaultScreen": {
-    "You are closing Vault ID": "Vous fermez le Nr de Vault",
+    "You are closing Vault ID": "Vous fermez le n° de vault",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Fees to return": "Frais de retour",
     "Fees to burn": "Frais à brûler",
-    "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Après fermeture, ce Nr de Vault ne sera plus utilisable. Assurez-vous que de ne plus avoir besoin de ce Vault avant de le fermer.",
+    "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Après fermeture, ce n° de vault ne sera plus utilisable. Assurez-vous que de ne plus avoir besoin de ce vault avant de le fermer.",
     "CONFIRM CLOSE VAULT": "CONFIRMER LA FERMETURE DU VAULT",
-    "You are about to close vault {{vaultId}}": "Vous êtes sur le point de fermer le Vault {{vaultId}}",
+    "You are about to close vault {{vaultId}}": "Vous êtes sur le point de fermer le vault {{vaultId}}",
     "CLOSING": "FERMETURE..."
   },
   "components/TokenIconGroup": {
@@ -1200,8 +1200,8 @@
     "Bid amount to place": "Prix de l'enchère à placer",
     "AUCTION DETAILS": "DÉTAILS DE LA VENTE",
     "Total auction value (USD)": "Valeur totale mise en vente (USD)",
-    "Vault ID": "Vault ID",
-    "Vault owner ID": "ID du propriétaire du Vault",
+    "Vault ID": "Vault n°",
+    "Vault owner ID": "ID du propriétaire du vault",
     "Liquidation Height": "Hauteur de block de liquidation",
     "CONFIRM PLACE BID": "CONFIRMER ENCHÈRE",
     "Sign Transaction": "Autoriser la transaction",
