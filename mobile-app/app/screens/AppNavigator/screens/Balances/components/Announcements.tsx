@@ -54,8 +54,6 @@ export function Announcements (): JSX.Element {
   const displayAnnouncement = emergencyAnnouncement !== null || existingAnnouncements
   const announcementToDisplay = emergencyAnnouncement ?? announcement
 
-  console.log('announcementToDisplay', announcementToDisplay)
-
   useEffect(() => {
     if (isBlockchainDown) {
       setemergencyMsgContent(blockChainIsDownContent)
