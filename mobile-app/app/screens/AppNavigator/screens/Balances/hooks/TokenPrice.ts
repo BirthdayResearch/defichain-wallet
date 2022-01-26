@@ -52,7 +52,10 @@ export function useTokenPrice (): DexTokenPrice {
     }
     // active price for walletTokens based on USDT
     const arbitraryPoolPair = getArbitraryPoolPair(symbol, 'USDT')
-    if (arbitraryPoolPair.length > 0) {
+
+    if (symbol === 'USDT') {
+      return new BigNumber(amount)
+    } else if (arbitraryPoolPair.length > 0) {
       const { estimated } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
       return estimated
     }
