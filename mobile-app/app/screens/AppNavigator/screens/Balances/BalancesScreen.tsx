@@ -72,7 +72,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     ({ totalUSDValue, dstTokens }: {totalUSDValue: BigNumber, dstTokens: BalanceRowToken[]},
     token
   ) => {
-    const usdAmount = getTokenPrice(token.symbol, token.amount, token.isLPS)
+    const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
 
     if (token.symbol === 'DFI') {
       return {

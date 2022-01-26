@@ -14,8 +14,8 @@ interface CalculatePriceRatesI {
 }
 
 interface DexTokenPrice {
-  getTokenPrice: (symbol: string, amount: string, isLPS?: boolean) => BigNumber
-  calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: string) => CalculatePriceRatesI
+  getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => BigNumber
+  calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber) => CalculatePriceRatesI
   getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
 }
 
@@ -37,7 +37,7 @@ export function useTokenPrice (): DexTokenPrice {
     dispatch(fetchPoolPairs({ client }))
   }, [blockCount])
 
-  function getTokenPrice (symbol: string, amount: string, isLPS: boolean = false): BigNumber {
+  function getTokenPrice (symbol: string, amount: BigNumber, isLPS: boolean = false): BigNumber {
     if (isLPS) {
       const pair = pairs.find(pair => pair.data.symbol === symbol)
       if (pair === undefined) {
@@ -46,8 +46,8 @@ export function useTokenPrice (): DexTokenPrice {
       const ratioToTotal = new BigNumber(amount).div(pair.data.totalLiquidity.token)
       const tokenAAmount = ratioToTotal.times(pair.data.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
       const tokenBAmount = ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount.toFixed(8))
-      const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount.toFixed(8))
+      const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount)
+      const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount)
       return usdTokenA.plus(usdTokenB)
     }
     // active price for walletTokens based on USDT
@@ -77,7 +77,7 @@ export function useTokenPrice (): DexTokenPrice {
     }, [])
   }
 
-  function calculatePriceRates (fromTokenSymbol: string, pairs: PoolPairData[], amount: string): CalculatePriceRatesI {
+  function calculatePriceRates (fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber): CalculatePriceRatesI {
     let lastTokenBySymbol = fromTokenSymbol
     let lastAmount = new BigNumber(amount)
     const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
