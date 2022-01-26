@@ -23,6 +23,7 @@ import { useLoanOperations } from '../hooks/LoanOperations'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -194,7 +195,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
           placeholder='0.00'
           style={tailwind('flex-grow w-2/5')}
           testID='text_input_usd_value'
-          value={amountToAdd.amountInUSD.toFixed(2)}
+          value={getUSDPrecisedPrice(amountToAdd.amountInUSD)}
           displayClearButton={false}
           inputType='numeric'
         >

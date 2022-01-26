@@ -58,9 +58,7 @@
     "Balances": "Guthaben",
     "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
-    "PORTFOLIO": "PORTFOLIO",
-    "Show balances": "Guthaben sichtbar machen",
-    "Hide balances": "Guthaben verbergen",
+    "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN"
   },

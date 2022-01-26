@@ -71,12 +71,15 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   const testID = `balances_row_${id}`
   cy.getByTestID(testID).should('exist')
   cy.getByTestID(`${testID}_icon`).should('exist')
-  cy.getByTestID(`${testID}_symbol`).should('have.text', details.symbol)
+  cy.getByTestID(`${testID}_symbol`).should('have.text', details.displaySymbol)
   cy.getByTestID(`${testID}_name`).should('have.text', details.name)
   if (dynamicAmount === true) {
     cy.getByTestID(`${testID}_amount`).contains(details.amount)
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
+  }
+  if (details.usdAmount) {
+    cy.getByTestID(`${testID}_usd_amount`).should('have.text', details.usdAmount)
   }
 })
 
