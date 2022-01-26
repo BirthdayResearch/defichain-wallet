@@ -21,7 +21,7 @@ import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import BigNumber from 'bignumber.js'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -49,10 +49,9 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD,
-    hasFirstBid
+    hasFirstBid,
+    minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
-
-  const { getTokenPrice } = useTokenPrice()
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -195,7 +194,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               value={minNextBidInToken}
             />
             <ActiveUSDValue
-              price={getTokenPrice(batch.loan.symbol, batch.loan.amount)}
+              price={new BigNumber(minNextBidInUSD)}
             />
           </View>
         </View>
