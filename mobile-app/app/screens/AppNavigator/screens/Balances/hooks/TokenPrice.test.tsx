@@ -11,8 +11,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
     pair1ReserveB, // DFI (BTC-DFI)
-    pair2ReserveA, // DUSD (DUSD-DFI)
-    pair2ReserveB // DFI (DUSD-DFI)
+    pair2ReserveA, // USDT (USDT-DFI)
+    pair2ReserveB // DFI (USDT-DFI)
   }: {
     pair1ReserveA: string
     pair1ReserveB: string
@@ -66,13 +66,13 @@ describe('Token Price - Get Token Price (DEX)', () => {
     type: 'available',
     data: {
       id: '20',
-      symbol: 'DUSD-DFI',
-      displaySymbol: 'DUSD-DFI',
+      symbol: 'USDT-DFI',
+      displaySymbol: 'USDT-DFI',
       name: 'Decentralized USD-Default Defi token',
       status: true,
       tokenA: {
-        symbol: 'DUSD',
-        displaySymbol: 'DUSD',
+        symbol: 'USDT',
+        displaySymbol: 'dUSDT',
         id: '14',
         reserve: pair2ReserveA,
         blockCommission: '0'
@@ -204,35 +204,12 @@ describe('Token Price - Get Token Price (DEX)', () => {
     )
   }
 
-  it('should be able to get selected poolpairs', () => {
-    const { result } = renderHook(() => useTokenPrice(), { wrapper })
-
-    expect(result.current.getSelectedPoolPairs('BTC', 'DUSD')).toStrictEqual(
-      initialState.wallet.poolpairs
-        .filter(pair => ['BTC-DFI', 'DUSD-DFI'].includes(pair.data.symbol))
-        .map(pair => pair.data))
-
-    expect(result.current.getSelectedPoolPairs('BTC', 'DUSD')
-      .some(pair => pair.symbol === 'ETH-DFI')).toBe(false)
-  })
-
-  it('should be able to get pair from LP', () => {
-    const { result } = renderHook(() => useTokenPrice(), { wrapper })
-
-    expect(result.current.getPairAmountFromLP('BTC-DFI', '1')).toStrictEqual({
-      tokenAAmount: new BigNumber(0.002), // BTC = 0.0004 * 5
-      tokenBAmount: new BigNumber(0.4), // DFI = 0.0004 * 1000
-      tokenASymbol: 'BTC',
-      tokenBSymbol: 'DFI'
-    })
-  })
-
   it('should be able to calculate price rates', () => {
     const { result } = renderHook(() => useTokenPrice(), { wrapper })
 
     expect(result.current.calculatePriceRates(
       'BTC',
-      result.current.getSelectedPoolPairs('BTC', 'DUSD'), '2'))
+      result.current.getArbitraryPoolPair('BTC', 'USDT'), '2'))
       .toStrictEqual({
         aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
         bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
@@ -241,7 +218,7 @@ describe('Token Price - Get Token Price (DEX)', () => {
 
     expect(result.current.calculatePriceRates(
       'BTC',
-      result.current.getSelectedPoolPairs('BTC', 'DUSD'), '1'))
+      result.current.getArbitraryPoolPair('BTC', 'USDT'), '1'))
       .toStrictEqual({
         aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
         bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
@@ -252,12 +229,12 @@ describe('Token Price - Get Token Price (DEX)', () => {
   it('should be able to get the token price', () => {
     const { result } = renderHook(() => useTokenPrice(), { wrapper })
 
-    // DFI / BTC * DUSD / DFI (reserve)
+    // DFI / BTC * USDT / DFI (reserve)
     // (1000 / 5) * (8300 / 100)
-    expect(result.current.getTokenPrice('BTC')).toStrictEqual(new BigNumber('16600'))
+    expect(result.current.getTokenPrice('BTC', '1', false)).toStrictEqual(new BigNumber('16600'))
 
-    // DFI / ETH * DUSD / DFI (reserve)
+    // DFI / ETH * USDT / DFI (reserve)
     // (1000 / 100000) * (8300 / 100)
-    expect(result.current.getTokenPrice('ETH')).toStrictEqual(new BigNumber('0.83'))
+    expect(result.current.getTokenPrice('ETH', '1', false)).toStrictEqual(new BigNumber('0.83'))
   })
 })
