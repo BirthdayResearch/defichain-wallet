@@ -61,7 +61,7 @@
     "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN",
-    "YOUR ASSETS": "YOUR ASSETS"
+    "YOUR ASSETS": "DEINE VERMÖGENSWERTE"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -703,7 +703,7 @@
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "Erfahre mehr über UTXO und Token"
+    "Learn more about DFI": "Erfahre mehr über DFI"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
@@ -764,7 +764,7 @@
     "Price (USD)": "Preis (USD)"
   },
   "components/InfoTextLink": {
-    "Learn more about DFI": "Erfahre mehr über UTXO und Token",
+    "Learn more about DFI": "Erfahre mehr über DFI",
     "UTXO vs Token, what is the difference?": "UTXO vs Token, worin liegt der Unterschied?",
     "Learn more about vaults": "Lerne mehr über Vaults",
     "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
