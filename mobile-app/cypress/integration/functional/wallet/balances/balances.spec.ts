@@ -269,7 +269,7 @@ context('Wallet - Balances - No balance', () => {
   })
 })
 
-context.only('Wallet - Balances - USD Value', () => {
+context('Wallet - Balances - USD Value', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
     pair1ReserveB, // DFI (BTC-DFI)
