@@ -26,6 +26,14 @@ interface Props {
   searchString: string
 }
 
+  export interface onQuickBidProps {
+    batch: LoanVaultLiquidationBatch
+    vaultId: string
+    minNextBidInToken: string
+    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
+    minNextBidInUSD: string
+  }
+
 export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
@@ -54,12 +62,8 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     dispatch(fetchVaults({ client, address }))
   }, [address, blockCount])
 
-  const onQuickBid = (
-    batch: LoanVaultLiquidationBatch,
-    vaultId: string,
-    minNextBidInToken: string,
-    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']): void => {
-    const ownedToken = tokens.find(token => token.id === batch.loan.id)
+  const onQuickBid = (props: onQuickBidProps): void => {
+    const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
 
     setBottomSheetScreen([{
       stackScreenName: 'Quick Bid',
@@ -68,15 +72,16 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         headerBackTitleVisible: false
       },
       component: QuickBid({
-        vaultId,
-        index: batch.index,
-        loanTokenId: batch.loan.id,
-        loanTokenSymbol: batch.loan.symbol,
-        loanTokenDisplaySymbol: batch.loan.displaySymbol,
+        vaultId: props.vaultId,
+        index: props.batch.index,
+        loanTokenId: props.batch.loan.id,
+        loanTokenSymbol: props.batch.loan.symbol,
+        loanTokenDisplaySymbol: props.batch.loan.displaySymbol,
         onCloseButtonPress: dismissModal,
-        minNextBid: new BigNumber(minNextBidInToken),
+        minNextBid: new BigNumber(props.minNextBidInToken),
+        minNextBidInUSD: props.minNextBidInUSD,
         currentBalance: new BigNumber(ownedToken?.amount ?? 0),
-        vaultLiquidationHeight
+        vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])
     expandModal()
@@ -142,11 +147,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
   auctionBatches: AuctionBatchProps[]
     vaults: LoanVault[]
-    onQuickBid: (
-      batch: LoanVaultLiquidationBatch,
-      vaultId: string,
-      minNextBidInToken: string,
-      vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
+    onQuickBid: (props: onQuickBidProps) => void
   }): JSX.Element {
       const { isBetaFeature } = useFeatureFlagContext()
   return (

@@ -14,24 +14,19 @@ import { AuctionTimeProgress } from './AuctionTimeProgress'
 import { AuctionsParamList } from '../AuctionNavigator'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { CollateralTokenIconGroup } from './CollateralTokenIconGroup'
-import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
-import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
-import BigNumber from 'bignumber.js'
+import { MinNextBidTextRow } from './MinNextBidTextRow'
+import { onQuickBidProps } from './BrowseAuctions'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
   testID?: string
-  onQuickBid: (
-    batch: LoanVaultLiquidationBatch,
-    vaultId: string,
-    minNextBidInToken: string,
-    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
+  onQuickBid: (props: onQuickBidProps) => void
   isVaultOwner: boolean
 }
 
@@ -53,11 +48,6 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
     minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
-  const nextBidInfo = {
-    title: 'Min. next bid',
-    message: 'The minimum bid a user must place in order to take part in the auction.'
-  }
-
   const onCardPress = (): void => {
     navigation.navigate('AuctionDetailScreen', {
       batch,
@@ -73,7 +63,13 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   }
 
   const onQuickBid = (): void => {
-    props.onQuickBid(batch, vault.vaultId, minNextBidInToken, vault.liquidationHeight)
+    props.onQuickBid({
+      batch: batch,
+      vaultId: vault.vaultId,
+      minNextBidInToken,
+      minNextBidInUSD,
+      vaultLiquidationHeight: vault.liquidationHeight
+    })
   }
 
   return (
@@ -164,40 +160,11 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </View>
         </View>
 
-        <View style={tailwind('flex-row w-full justify-between mb-2')}>
-          <View style={tailwind('flex-row mt-0.5')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('text-xs')}
-            >
-              {translate('components/BatchCard', 'Min. next bid')}
-            </ThemedText>
-            <View style={tailwind('ml-1')}>
-              <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-xs')} />
-            </View>
-          </View>
-          <View style={tailwind('flex items-end flex-1')}>
-            <NumberFormat
-              displayType='text'
-              suffix={` ${batch.loan.displaySymbol}`}
-              renderText={(value: string) => (
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm text-right flex-wrap')}
-                >
-                  {value}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={minNextBidInToken}
-            />
-            <ActiveUSDValue
-              price={new BigNumber(minNextBidInUSD)}
-            />
-          </View>
-        </View>
+        <MinNextBidTextRow
+          displaySymbol={batch.loan.displaySymbol}
+          minNextBidInToken={minNextBidInToken}
+          minNextBidInUSD={minNextBidInUSD}
+        />
       </TouchableOpacity>
 
       <AuctionTimeProgress

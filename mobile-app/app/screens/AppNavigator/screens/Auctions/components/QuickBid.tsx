@@ -15,6 +15,7 @@ import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
+import { MinNextBidTextRow } from './MinNextBidTextRow'
 
 interface QuickBidProps {
   loanTokenId: string // TODO: remove if no use case
@@ -22,6 +23,7 @@ interface QuickBidProps {
   loanTokenDisplaySymbol: string
   onCloseButtonPress: () => void
   minNextBid: BigNumber
+  minNextBidInUSD: string
   currentBalance: BigNumber
   vaultId: PlaceAuctionBid['vaultId']
   index: PlaceAuctionBid['index']
@@ -35,6 +37,7 @@ export const QuickBid = ({
   loanTokenSymbol,
   loanTokenDisplaySymbol,
   minNextBid,
+  minNextBidInUSD,
   currentBalance,
   onCloseButtonPress,
   vaultLiquidationHeight
@@ -79,7 +82,12 @@ export const QuickBid = ({
       >
         <View style={tailwind('px-4')}>
           <HeaderSection symbol={loanTokenSymbol} />
-          <BiddingInfo minNextBid={minNextBid} currentBalance={currentBalance} displaySymbol={loanTokenDisplaySymbol} />
+          <BiddingInfo
+            minNextBid={minNextBid}
+            minNextBidInUSD={minNextBidInUSD}
+            currentBalance={currentBalance}
+            displaySymbol={loanTokenDisplaySymbol}
+          />
           <Button
             disabled={blocksRemaining === 0 || !isBalanceSufficient || hasPendingJob || hasPendingBroadcastJob}
             label={translate('components/QuickBid', 'QUICK BID')}
@@ -140,20 +148,14 @@ function HeaderSection (props: { symbol: string }): JSX.Element {
   )
 }
 
-function BiddingInfo (props: {minNextBid: BigNumber, currentBalance: BigNumber, displaySymbol: string}): JSX.Element {
+function BiddingInfo (props: {minNextBid: BigNumber, minNextBidInUSD: string, currentBalance: BigNumber, displaySymbol: string}): JSX.Element {
   return (
     <View style={tailwind('mb-6')}>
-      <VaultSectionTextRow
-        value={props.minNextBid.toFixed(8)}
-        lhs={translate('components/QuickBid', 'Min. next bid')}
-        testID='text_min_next_bid'
-        suffixType='text'
-        suffix={props.displaySymbol}
-        style={tailwind('text-base font-medium')}
-        info={{
-          title: 'Min. next bid',
-          message: 'The minimum bid a user must place in order to take part in the auction.'
-        }}
+      <MinNextBidTextRow
+        displaySymbol={props.displaySymbol}
+        minNextBidInToken={props.minNextBid.toFixed(8)}
+        minNextBidInUSD={props.minNextBidInUSD}
+        valueTextStyle={tailwind('text-base font-medium')}
       />
       <VaultSectionTextRow
         value={props.currentBalance.toFixed(8)}
