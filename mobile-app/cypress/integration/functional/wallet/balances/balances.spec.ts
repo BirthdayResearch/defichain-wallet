@@ -260,12 +260,12 @@ context('Wallet - Balances - No balance', () => {
   })
 })
 
-context('Wallet - Balances - USD Value', () => {
+context.only('Wallet - Balances - USD Value', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
     pair1ReserveB, // DFI (BTC-DFI)
-    pair2ReserveA, // DUSD (DUSD-DFI)
-    pair2ReserveB // DFI (DUSD-DFI)
+    pair2ReserveA, // USDT (USDT-DFI)
+    pair2ReserveB // DFI (USDT-DFI)
   }: {
     pair1ReserveA: string
     pair1ReserveB: string
@@ -315,14 +315,14 @@ context('Wallet - Balances - USD Value', () => {
     },
 
     {
-      id: '20',
-      symbol: 'DUSD-DFI',
-      displaySymbol: 'DUSD-DFI',
+      id: '17',
+      symbol: 'USDT-DFI',
+      displaySymbol: 'dUSDT-DFI',
       name: 'Decentralized USD-Default Defi token',
       status: true,
       tokenA: {
-        symbol: 'DUSD',
-        displaySymbol: 'DUSD',
+        symbol: 'USDT',
+        displaySymbol: 'dUSDT',
         id: '14',
         reserve: pair2ReserveA,
         blockCommission: '0'
@@ -368,20 +368,38 @@ context('Wallet - Balances - USD Value', () => {
         })
       }
     })
-    cy.createEmptyWallet(true).sendDFItoWallet().sendTokenToWallet(['BTC', 'DUSD-DFI']).wait(3000)
+
+    // cy.intercept('**/tokens?size=*', {
+    //   body: {
+    //     data: [
+    //       {
+    //         id: "1",
+    //         amount: "10.00000000",
+    //         displaySymbol: "dBTC",
+    //         isDAT: true,
+    //         isLPS: false,
+    //         isLoanToken: false,
+    //         name: "Playground BTC",
+    //         symbol: "BTC",
+    //         symbolKey: "BTC"
+    //       }
+    //     ]
+    //   }
+    // })
+    cy.createEmptyWallet(true).sendDFItoWallet().sendTokenToWallet(['BTC', 'USDT-DFI']).wait(3000)
   })
 
-  it('should be able to get DEX Price USD Value', function () {
+  it('should be able to get DEX Price USD Value', () => {
     cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
     // (1001 / 1001) * (8330 / 830) * 10.00
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.36' })
-    // DUSD  = ((10 / 2500) * 8330) * 1
+    // USDT  = ((10 / 2500) * 8330) * 1
     // DFI =  ((10 / 2500) * 830) * (8330 / 830)
-    // DFI + DUSD
-    cy.checkBalanceRow('20', { name: 'Decentralized USD-DeFiChain', amount: '10.00000000', displaySymbol: 'DUSD-DFI', symbol: 'DUSD-DFI', usdAmount: '≈ $66.64' })
+    // DFI + USDT
+    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.64' })
   })
 
-  it('should be able display updated Dex Price USD Value', function () {
+  it('should be able to update USD Value on poolpair change', () => {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: getChangingPoolPairReserve({
@@ -396,9 +414,15 @@ context('Wallet - Balances - USD Value', () => {
     cy.getByTestID('balances_row_1_amount').should('have.text', '10.00000000')
     // (1000 / 5) * (8300 / 100) * 10.00
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $166,000.00' })
-    // DUSD  = ((10 / 2500) * 8300) * 1 == 33.2
+    // USDT  = ((10 / 2500) * 8300) * 1 == 33.2
     // DFI =   ((10 / 2500) * 100) * (8300 / 100) == 33.2
-    // DFI + DUSD
-    cy.checkBalanceRow('20', { name: 'Decentralized USD-DeFiChain', amount: '10.00000000', displaySymbol: 'DUSD-DFI', symbol: 'DUSD-DFI', usdAmount: '≈ $66.40' })
+    // DFI + USDT
+    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.40' })
+  })
+
+  it('should be able to update USD Value on when token is received', () => {
+    cy.sendTokenToWallet(['BTC', 'USDT-DFI', 'ETH']).wait(3000)
+    cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '20.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $332,000.00' })
+    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $132.80' })
   })
 })
