@@ -20,8 +20,6 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { AuctionDetails } from './components/AuctionDetails'
 import { AuctionedCollaterals } from './components/AuctionedCollaterals'
 import { IconButton } from '@components/IconButton'
-import NumberFormat from 'react-number-format'
-import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useAuctionBidValue } from './hooks/AuctionBidValue'
 import { useAuctionTime } from './hooks/AuctionTimeLeft'
 import { QuickBid } from './components/QuickBid'
@@ -29,7 +27,7 @@ import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/compone
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { ActiveUSDValue } from '../Loans/VaultDetail/components/ActiveUSDValue'
+import { MinNextBidTextRow } from './components/MinNextBidTextRow'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -85,6 +83,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         loanTokenDisplaySymbol: batch.loan.displaySymbol,
         onCloseButtonPress: dismissModal,
         minNextBid: new BigNumber(minNextBidInToken),
+        minNextBidInUSD: minNextBidInUSD,
         currentBalance: new BigNumber(ownedToken?.amount ?? 0),
         vaultLiquidationHeight: vault.liquidationHeight
       })
@@ -241,55 +240,21 @@ interface AuctionActionSectionProps {
 }
 
 function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
-  const nextBidInfo = {
-    title: 'Min. next bid',
-    message: 'The minimum bid a user must place in order to take part in the auction.'
-  }
-
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-900 border-gray-700')}
       style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
     >
-      <View style={tailwind('flex flex-row justify-between w-full')}>
-        <View style={tailwind('flex-row mt-0.5')}>
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-sm items-center')}
-          >
-            {translate('components/AuctionDetailScreen', 'Min. next bid')}
-          </ThemedText>
-          <View style={tailwind('ml-1')}>
-            <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-sm')} />
-          </View>
-        </View>
-        <View
-          style={tailwind('flex-1 flex items-end ml-4')}
-        >
-          <NumberFormat
-            suffix={` ${props.displaySymbol}`}
-            displayType='text'
-            renderText={(value) =>
-              <ThemedText
-                dark={tailwind('text-gray-50')}
-                light={tailwind('text-gray-900')}
-                style={tailwind('font-semibold text-right flex-wrap')}
-                testID='total_auction_value'
-              >
-                {value}
-              </ThemedText>}
-            thousandSeparator
-            value={props.minNextBidInToken}
-          />
-          <ActiveUSDValue
-            price={new BigNumber(props.minNextBidInUSD)}
-          />
-        </View>
-      </View>
+      <MinNextBidTextRow
+        displaySymbol={props.displaySymbol}
+        minNextBidInToken={props.minNextBidInToken}
+        minNextBidInUSD={props.minNextBidInUSD}
+        labelTextStyle={tailwind('text-sm items-center')}
+        valueTextStyle={tailwind('font-semibold text-base')}
+      />
       <View
-        style={tailwind('flex flex-row mt-6 items-center justify-center')}
+        style={tailwind('flex flex-row mt-4 items-center justify-center')}
       >
         <IconButton
           iconLabel={translate('components/QuickBid', 'QUICK BID')}
