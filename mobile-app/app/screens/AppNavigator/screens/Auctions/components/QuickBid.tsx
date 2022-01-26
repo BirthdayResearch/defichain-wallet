@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { MinNextBidTextRow } from './MinNextBidTextRow'
+import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 
 interface QuickBidProps {
   loanTokenId: string // TODO: remove if no use case
@@ -25,6 +26,7 @@ interface QuickBidProps {
   minNextBid: BigNumber
   minNextBidInUSD: string
   currentBalance: BigNumber
+  currentBalanceInUSD: BigNumber
   vaultId: PlaceAuctionBid['vaultId']
   index: PlaceAuctionBid['index']
   vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
@@ -39,6 +41,7 @@ export const QuickBid = ({
   minNextBid,
   minNextBidInUSD,
   currentBalance,
+  currentBalanceInUSD,
   onCloseButtonPress,
   vaultLiquidationHeight
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
@@ -60,7 +63,7 @@ export const QuickBid = ({
         token: Number(loanTokenId)
       },
       displaySymbol: loanTokenDisplaySymbol,
-      onBroadcast: () => {}
+      onBroadcast: () => { }
     })
 
     onCloseButtonPress()
@@ -86,6 +89,7 @@ export const QuickBid = ({
             minNextBid={minNextBid}
             minNextBidInUSD={minNextBidInUSD}
             currentBalance={currentBalance}
+            currentBalanceInUSD={currentBalanceInUSD}
             displaySymbol={loanTokenDisplaySymbol}
           />
           <Button
@@ -148,7 +152,14 @@ function HeaderSection (props: { symbol: string }): JSX.Element {
   )
 }
 
-function BiddingInfo (props: {minNextBid: BigNumber, minNextBidInUSD: string, currentBalance: BigNumber, displaySymbol: string}): JSX.Element {
+interface BiddingInfoProps {
+  minNextBid: BigNumber
+  minNextBidInUSD: string
+  currentBalance: BigNumber
+  currentBalanceInUSD: BigNumber
+  displaySymbol: string
+}
+function BiddingInfo (props: BiddingInfoProps): JSX.Element {
   return (
     <View style={tailwind('mb-6')}>
       <MinNextBidTextRow
@@ -163,6 +174,10 @@ function BiddingInfo (props: {minNextBid: BigNumber, minNextBidInUSD: string, cu
         testID='text_current_balance'
         suffixType='text'
         suffix={props.displaySymbol}
+      />
+      <ActiveUSDValue
+        price={props.currentBalanceInUSD}
+        containerStyle={tailwind('justify-end -mt-0.5')}
       />
     </View>
   )

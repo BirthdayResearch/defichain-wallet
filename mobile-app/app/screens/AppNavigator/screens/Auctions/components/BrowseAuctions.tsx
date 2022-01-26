@@ -21,6 +21,7 @@ import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 interface Props {
   searchString: string
@@ -51,6 +52,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
+  const { getTokenPrice } = useTokenPrice()
 
   // Search
   const debouncedSearchTerm = useDebounce(searchString, 500)
@@ -81,6 +83,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         minNextBid: new BigNumber(props.minNextBidInToken),
         minNextBidInUSD: props.minNextBidInUSD,
         currentBalance: new BigNumber(ownedToken?.amount ?? 0),
+        currentBalanceInUSD: getTokenPrice(props.batch.loan.symbol, new BigNumber(ownedToken?.amount ?? 0)),
         vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])
