@@ -22,7 +22,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   }, {
     lang: {
       en: 'Auctions are now accessible from the bottom menu bar.',
-      de: 'Auktionen lassen jetzt über die untere Menüleiste aufrufen.',
+      de: 'Auktionen lassen sich jetzt über die untere Menüleiste aufrufen.',
       'zh-Hans': '现在可以从页面下方目录栏点击拍卖',
       'zh-Hant': '現在可以從頁面下方目錄欄點擊拍賣',
       fr: 'Les enchères sont désormais accessibles depuis la barre de menu inférieure.'
