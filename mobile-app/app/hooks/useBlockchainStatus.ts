@@ -15,10 +15,7 @@ export function useBlockchainStatus (): boolean {
     useEffect(() => {
         function getBlockchainStatus (): boolean {
             if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
-                const lastSyncTime = dayjs(lastSync).valueOf() // returns in milliseconds
-                const lastSuccessfulSyncTime = dayjs(lastSuccessfulSync).valueOf()
-                const timeDifference = lastSyncTime - lastSuccessfulSyncTime
-                return timeDifference > MAX_TIME_DIFF
+                return dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF
             }
             return false
           }
