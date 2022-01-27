@@ -50,8 +50,8 @@ context('Wallet - Balances - Announcements', () => {
   }]
 
   beforeEach(function () {
-    cy.createEmptyWallet(true)
     cy.clearLocalStorage()
+    cy.createEmptyWallet(true)
   })
 
   it('should handle failed API calls', function () {
