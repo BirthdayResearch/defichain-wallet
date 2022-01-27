@@ -782,7 +782,8 @@
   "screens/AuctionScreen": {
     "Auctions": "Enchères",
     "Place Bid": "Placer une enchère",
-    "Confirm Place Bid": "Confirmer l'enchére"
+    "Confirm Place Bid": "Confirmer l'enchére",
+    "Auction details": "Détails de l'enchère"
   },
   "components/AuctionDetailScreen": {
     "Collaterals": "Garanties",

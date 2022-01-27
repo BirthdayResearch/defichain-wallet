@@ -787,7 +787,8 @@
   "screens/AuctionScreen": {
     "Auctions": "清算拍賣",
     "Place Bid": "標價",
-    "Confirm Place Bid": "確認出價"
+    "Confirm Place Bid": "確認出價",
+    "Auction details": "拍賣細節"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "抵押品",

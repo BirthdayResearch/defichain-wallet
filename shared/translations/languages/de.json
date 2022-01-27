@@ -782,7 +782,8 @@
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
     "Place Bid": "Bieten",
-    "Confirm Place Bid": "Gebot bestätigen"
+    "Confirm Place Bid": "Gebot bestätigen",
+    "Auction details": "Auktionsdetails"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "Sicherheiten",
