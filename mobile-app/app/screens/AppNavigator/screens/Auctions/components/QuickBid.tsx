@@ -117,7 +117,10 @@ export const QuickBid = ({
 function CloseButton (props: { onPress: () => void }): JSX.Element {
   return (
     <View style={tailwind('font-medium w-full mx-2 mb-3 items-end')}>
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableOpacity
+        onPress={props.onPress}
+        testID='quick_bid_close_button'
+      >
         <ThemedIcon
           size={24}
           name='close'
@@ -167,6 +170,7 @@ function BiddingInfo (props: BiddingInfoProps): JSX.Element {
         minNextBidInToken={props.minNextBid.toFixed(8)}
         minNextBidInUSD={props.minNextBidInUSD}
         valueTextStyle={tailwind('text-base font-medium')}
+        testID='quick_bid_min_next_bid'
       />
       <VaultSectionTextRow
         value={props.currentBalance.toFixed(8)}
@@ -178,6 +182,7 @@ function BiddingInfo (props: BiddingInfoProps): JSX.Element {
       <ActiveUSDValue
         price={props.currentBalanceInUSD}
         containerStyle={tailwind('justify-end -mt-0.5')}
+        testId='quick_bid_current_balance_usd'
       />
     </View>
   )

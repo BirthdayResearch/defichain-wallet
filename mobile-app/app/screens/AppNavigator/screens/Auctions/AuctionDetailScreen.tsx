@@ -257,6 +257,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
         minNextBidInUSD={props.minNextBidInUSD}
         labelTextStyle={tailwind('text-sm items-center')}
         valueTextStyle={tailwind('font-semibold text-base')}
+        testID='auction_detail_min_next_bid'
       />
       <View
         style={tailwind('flex flex-row mt-4 items-center justify-center')}
@@ -268,6 +269,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
           onPress={props.onQuickBid}
           disabled={props.blocksRemaining === 0}
           textStyle={tailwind('text-base')}
+          testID='auction_details_quick_bid_button'
         />
         <IconButton
           iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}

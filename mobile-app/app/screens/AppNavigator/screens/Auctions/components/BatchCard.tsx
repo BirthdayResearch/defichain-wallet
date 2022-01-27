@@ -164,6 +164,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           displaySymbol={batch.loan.displaySymbol}
           minNextBidInToken={minNextBidInToken}
           minNextBidInUSD={minNextBidInUSD}
+          testID={`batch_${batch.index}_min_next_bid`}
         />
       </TouchableOpacity>
 
@@ -213,12 +214,14 @@ function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => vo
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onPlaceBid}
+        testID='batch_card_place_bid_button'
       />
       <IconButton
         iconLabel={translate('components/QuickBid', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onQuickBid}
+        testID='batch_card_quick_bid_button'
       />
     </ThemedView>
   )

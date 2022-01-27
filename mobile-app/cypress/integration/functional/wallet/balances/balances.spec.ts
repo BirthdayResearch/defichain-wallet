@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 export interface BalanceTokenDetail {
   symbol: string
@@ -6,13 +6,6 @@ export interface BalanceTokenDetail {
   name: string
   amount: string | number
   usdAmount?: string
-}
-
-function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
-  const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
-  const expectedValue = new BigNumber(expectedVal)
-  expect(value.gte(expectedValue.minus(range))).to.be.eq(true)
-  expect(value.lte(expectedValue.plus(range))).to.be.eq(true)
 }
 
 context('Wallet - Balances', () => {

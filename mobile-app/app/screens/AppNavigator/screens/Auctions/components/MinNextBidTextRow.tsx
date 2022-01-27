@@ -14,6 +14,7 @@ interface MinNextBidTextRowProps {
   displaySymbol: string
   labelTextStyle?: StyleProp<TextStyle>
   valueTextStyle?: StyleProp<TextStyle>
+  testID?: string
 }
 
 export function MinNextBidTextRow (props: MinNextBidTextRowProps): JSX.Element {
@@ -45,6 +46,7 @@ export function MinNextBidTextRow (props: MinNextBidTextRowProps): JSX.Element {
               light={tailwind('text-gray-900')}
               dark={tailwind('text-gray-50')}
               style={[tailwind('text-sm text-right flex-wrap'), props.valueTextStyle]}
+              testID={props.testID}
             >
               {value}
             </ThemedText>
@@ -54,6 +56,7 @@ export function MinNextBidTextRow (props: MinNextBidTextRowProps): JSX.Element {
         />
         <ActiveUSDValue
           price={new BigNumber(props.minNextBidInUSD)}
+          testId={props.testID !== undefined ? `${props.testID}_usd` : props.testID}
         />
       </View>
     </View>

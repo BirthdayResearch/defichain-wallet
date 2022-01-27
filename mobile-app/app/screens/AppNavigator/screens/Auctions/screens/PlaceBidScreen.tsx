@@ -289,6 +289,7 @@ function BidSummaryCard (props: {
         price={new BigNumber(props.minNextBidInUSD)}
         containerStyle={tailwind('justify-end -mt-1')}
         style={tailwind('text-2xs')}
+        testId='place_bid_min_next_bid_usd'
       />
       <View style={tailwind('mt-1')}>
         <AuctionTimeProgress
