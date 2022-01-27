@@ -12,14 +12,15 @@ export function useBlockchainStatus (): boolean {
     const { lastSync, lastSuccessfulSync } = useSelector((state: RootState) => state.block)
     const [isBlockchainDown, setIsBlockchainDown] = useState(false)
 
+    function getBlockchainStatus (lastSync?: string, lastSuccessfulSync?: string): boolean {
+        if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
+            return dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF
+        }
+        return false
+      }
+
     useEffect(() => {
-        function getBlockchainStatus (): boolean {
-            if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
-                return dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF
-            }
-            return false
-          }
-        setIsBlockchainDown(getBlockchainStatus())
+        setIsBlockchainDown(getBlockchainStatus(lastSync, lastSuccessfulSync))
     }, [lastSync])
     return isBlockchainDown
 }
