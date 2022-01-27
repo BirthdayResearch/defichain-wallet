@@ -35,7 +35,7 @@ export function Announcements (): JSX.Element {
       de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der DeFiChain Statusseite.',
       'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面 了解更多状态详情。',
       'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面 了解更多狀態詳情。',
-      fr: '' // get translation from team
+      fr: 'Nous enquêtons actuellement sur un problème de synchronisation sur la blockchain. Voir plus de détails sur DeFiChain Status Page.'
     },
     version: '0.0.0',
     url: {
@@ -47,7 +47,7 @@ export function Announcements (): JSX.Element {
     }
   }]
 
-  const [emergencyMsgContent, setemergencyMsgContent] = useState<AnnouncementData[] | undefined>()
+  const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
   const emergencyAnnouncement = findAnnouncementForVersion('0.0.0', language, emergencyMsgContent)
   const existingAnnouncements = getDisplayAnnouncement(hiddenAnnouncements, announcement)
@@ -55,11 +55,11 @@ export function Announcements (): JSX.Element {
   const announcementToDisplay = emergencyAnnouncement ?? announcement
 
   useEffect(() => {
-    // To display warning message in Announcement banner when blockhain is down for > 45 mins
+    // To display warning message in Announcement banner when blockchain is down for > 45 mins
     if (isBlockchainDown) {
-      setemergencyMsgContent(blockChainIsDownContent)
+      setEmergencyMsgContent(blockChainIsDownContent)
     } else {
-      setemergencyMsgContent(undefined)
+      setEmergencyMsgContent(undefined)
     }
   }, [isBlockchainDown])
 
@@ -155,7 +155,6 @@ function findAnnouncementForVersion (version: string, language: string, announce
   }
 }
 
-  /* Logic not used - can delete? */
 function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
   if (announcement === undefined) {
     return false
