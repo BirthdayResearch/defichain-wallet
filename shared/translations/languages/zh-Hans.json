@@ -786,7 +786,8 @@
   "screens/AuctionScreen": {
     "Auctions": "清算拍卖",
     "Place Bid": "标价",
-    "Confirm Place Bid": "确认出价"
+    "Confirm Place Bid": "确认出价",
+    "Auction details": "拍卖细节"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "抵押品",
