@@ -2,7 +2,7 @@ import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components'
 import {
   ThemedIcon,
-  ThemedScrollView,
+  ThemedScrollView, ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
   ThemedView
@@ -29,12 +29,14 @@ import { RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
-import { ActiveUSDValue } from '../Loans/VaultDetail/components/ActiveUSDValue'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
+import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
-interface BalanceRowToken extends WalletToken {
+
+export interface BalanceRowToken extends WalletToken {
   usdAmount: BigNumber
 }
 
@@ -58,36 +60,54 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [height, wallets])
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
+    dispatch(fetchTokens({
+      client,
+      address
+    }))
   }, [address, blockCount])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    dispatch(fetchTokens({ client, address }))
+    dispatch(fetchTokens({
+      client,
+      address
+    }))
     setRefreshing(false)
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { totalUSDValue, dstTokens } = tokens.reduce(
-    ({ totalUSDValue, dstTokens }: {totalUSDValue: BigNumber, dstTokens: BalanceRowToken[]},
-    token
-  ) => {
-    const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
-
-    if (token.symbol === 'DFI') {
-      return {
-        // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
-        totalUSDValue: token.id === '0_unified'
-        ? totalUSDValue
-        : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+  const {
+    totalUSDValue,
+    dstTokens
+  } = tokens.reduce(
+    ({
+        totalUSDValue,
         dstTokens
+      }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+      token
+    ) => {
+      const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+
+      if (token.symbol === 'DFI') {
+        return {
+          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
+          totalUSDValue: token.id === '0_unified'
+            ? totalUSDValue
+            : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens
+        }
       }
-    }
-    return {
-      totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-      dstTokens: [...dstTokens, { ...token, usdAmount }]
-    }
-  }, { totalUSDValue: new BigNumber(0), dstTokens: [] })
+      return {
+        totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+        dstTokens: [...dstTokens, {
+          ...token,
+          usdAmount
+        }]
+      }
+    }, {
+      totalUSDValue: new BigNumber(0),
+      dstTokens: []
+    })
 
   return (
     <ThemedScrollView
@@ -147,6 +167,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           />
         </ThemedTouchableOpacity>
       </ThemedView>
+      <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
       {
         dstTokens.length === 0
@@ -155,15 +176,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           )
           : (
             dstTokens.map((item) => (
-              <BalanceItemRow
-                key={item.symbol}
-                onPress={() => navigation.navigate({
-                  name: 'TokenDetail',
-                  params: { token: item },
-                  merge: true
-                })}
-                token={item}
-              />
+              <View key={item.symbol} style={tailwind('p-2 pb-1.5')}>
+                <BalanceItemRow
+                  onPress={() => navigation.navigate({
+                    name: 'TokenDetail',
+                    params: { token: item },
+                    merge: true
+                  })}
+                  token={item}
+                />
+              </View>
             ))
           )
       }
@@ -180,69 +202,19 @@ function BalanceItemRow ({
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-100')}
+      dark={tailwind('bg-gray-800')}
+      light={tailwind('bg-white')}
       onPress={onPress}
-      style={tailwind('py-4 pl-4 pr-2 flex-row justify-between items-center')}
+      style={tailwind('p-4 rounded-lg flex-row justify-between items-center')}
       testID={testID}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
         <Icon testID={`${testID}_icon`} />
-
-        <View style={tailwind('mx-3 flex-auto')}>
-          <ThemedText
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
-            style={tailwind('font-medium')}
-            testID={`${testID}_symbol`}
-          >
-            {token.displaySymbol}
-          </ThemedText>
-          <ThemedText
-            dark={tailwind('text-gray-400')}
-            ellipsizeMode='tail'
-            light={tailwind('text-gray-600')}
-            numberOfLines={1}
-            style={tailwind('text-sm font-medium text-gray-600')}
-            testID={`${testID}_name`}
-          >
-            {token.name}
-          </ThemedText>
-        </View>
-        <View style={tailwind('flex-row items-center')}>
-          <NumberFormat
-            decimalScale={8}
-            displayType='text'
-            renderText={(value) =>
-              <>
-                <View style={tailwind('flex mr-2 leading-6')}>
-                  <BalanceText
-                    dark={tailwind('text-gray-200')}
-                    light={tailwind('text-black')}
-                    style={tailwind('flex-wrap')}
-                    testID={`${testID}_amount`}
-                    value={value}
-                  />
-                  {isBalancesDisplayed && (
-                    <ActiveUSDValue
-                      testId={`${testID}_usd_amount`}
-                      price={token.usdAmount}
-                      containerStyle={tailwind('justify-end')}
-                    />
-                  )}
-                </View>
-                <ThemedIcon
-                  dark={tailwind('text-gray-200')}
-                  iconType='MaterialIcons'
-                  light={tailwind('text-black')}
-                  name='chevron-right'
-                  size={24}
-                />
-              </>}
-            thousandSeparator
-            value={new BigNumber(token.amount).toFixed(8)}
-          />
-        </View>
+        <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
+        <TokenAmountText
+          tokenAmount={token.amount} usdAmount={token.usdAmount} testID={testID}
+          isBalancesDisplayed={isBalancesDisplayed}
+        />
       </View>
     </ThemedTouchableOpacity>
   )
