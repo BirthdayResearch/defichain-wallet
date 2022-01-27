@@ -118,7 +118,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       (
         <TouchableOpacity
           onPress={async () => await openURL(announcement.url)}
-          style={tailwind('py-1 px-2 rounded border border-white')}
+          style={tailwind('ml-2 py-1 px-2 rounded border border-white')}
         >
           <Text style={tailwind('text-xs font-medium text-white')}>
             {translate('components/Announcements', 'VIEW')}
