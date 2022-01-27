@@ -591,7 +591,6 @@ exports[`Batch Card should match snapshot 1`] = `
     <View
       style={
         Object {
-          "alignItems": "center",
           "flexDirection": "row",
           "justifyContent": "space-between",
           "marginBottom": 8,
@@ -602,9 +601,8 @@ exports[`Batch Card should match snapshot 1`] = `
       <View
         style={
           Object {
-            "alignItems": "center",
             "flexDirection": "row",
-            "justifyContent": "flex-start",
+            "marginTop": 2,
           }
         }
       >
@@ -618,10 +616,13 @@ exports[`Batch Card should match snapshot 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
+                Array [
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
                 },
@@ -642,8 +643,11 @@ exports[`Batch Card should match snapshot 1`] = `
       <View
         style={
           Object {
+            "alignItems": "flex-end",
             "display": "flex",
-            "flexDirection": "row",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
           }
         }
       >
@@ -657,19 +661,65 @@ exports[`Batch Card should match snapshot 1`] = `
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "flexWrap": "wrap",
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  undefined,
+                ],
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
               ],
             ]
           }
+          testID="batch_0_min_next_bid"
         >
           11 DUSD
         </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    undefined,
+                  ],
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="batch_0_min_next_bid_usd"
+          >
+            ≈ $10.00
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -861,6 +911,7 @@ exports[`Batch Card should match snapshot 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="batch_card_place_bid_button"
     >
       <Text
         style={
@@ -929,6 +980,7 @@ exports[`Batch Card should match snapshot 1`] = `
           "paddingTop": 4,
         }
       }
+      testID="batch_card_quick_bid_button"
     >
       <Text
         style={
