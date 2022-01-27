@@ -133,7 +133,7 @@ context('Wallet - Balances - Announcements', () => {
     })
     cy.wait(5000)
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'blockchain')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
   })
 
   it('should replace existing announcement with blockchain is down warning message', () => {
