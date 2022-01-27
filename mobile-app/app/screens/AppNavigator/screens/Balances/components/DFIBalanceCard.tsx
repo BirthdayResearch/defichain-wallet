@@ -20,6 +20,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
+import BigNumber from 'bignumber.js'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -27,7 +28,7 @@ export function DFIBalanceCard (): JSX.Element {
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const usdAmount = getTokenPrice(DFIUnified.symbol, DFIUnified.amount, DFIUnified.isLPS)
+  const usdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
