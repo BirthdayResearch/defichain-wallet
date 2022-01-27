@@ -194,7 +194,7 @@ context('Wallet - Balances - Announcements', () => {
         }
       }
     })
-    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
+    cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
   })
 
   it('should not display any announcement when blockchain is not down and no existing announcements', () => {
