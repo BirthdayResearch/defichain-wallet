@@ -9,17 +9,21 @@ import dayjs from 'dayjs'
 const MAX_TIME_DIFF = getEnvironment(getReleaseChannel()).debug ? 5 * 1000 : 45 * 60 * 1000 // 45 mins in milliseconds
 
 export function useBlockchainStatus (): boolean {
-    const { lastSync, lastSuccessfulSync } = useSelector((state: RootState) => state.block)
-    const [isBlockchainDown, setIsBlockchainDown] = useState(false)
+  const {
+    lastSync,
+    lastSuccessfulSync
+  } = useSelector((state: RootState) => state.block)
+  const [isBlockchainDown, setIsBlockchainDown] = useState(false)
 
-    useEffect(() => {
-        function getBlockchainStatus (): boolean {
-            if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
-                return dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF
-            }
-            return false
-          }
-        setIsBlockchainDown(getBlockchainStatus())
-    }, [lastSync])
-    return isBlockchainDown
+  function getBlockchainStatus (): boolean {
+    if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
+      return dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF
+    }
+    return false
+  }
+
+  useEffect(() => {
+    setIsBlockchainDown(getBlockchainStatus())
+  }, [lastSync])
+  return isBlockchainDown
 }
