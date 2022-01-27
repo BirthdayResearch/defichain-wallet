@@ -33,7 +33,7 @@ export function Announcements (): JSX.Element {
     lang: {
       en: 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.',
       de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der DeFiChain Statusseite.',
-      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面 了解更多状态详情。',
+      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面了解更多状态详情。',
       'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面 了解更多狀態詳情。',
       fr: 'Nous enquêtons actuellement sur un problème de synchronisation sur la blockchain. Voir plus de détails sur DeFiChain Status Page.'
     },
