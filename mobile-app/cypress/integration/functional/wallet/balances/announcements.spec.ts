@@ -51,6 +51,7 @@ context('Wallet - Balances - Announcements', () => {
 
   beforeEach(function () {
     cy.createEmptyWallet(true)
+    cy.clearLocalStorage()
   })
 
   it('should handle failed API calls', function () {
@@ -151,6 +152,110 @@ context('Wallet - Balances - Announcements', () => {
     })
     cy.wait(5000)
     cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
+    cy.getByTestID('announcements_text').should('contain', 'blockchain')
+  })
+
+  it('should display warning messeage even if announcements are closed', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    })
+    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
+    cy.url().should('include', 'app/balances', () => {
+      expect(localStorage.getItem('WALLET.HIDDEN_ANNOUNCEMENTS')).to.eq('["1"]')
+    })
+    cy.getByTestID('announcements_banner').should('not.exist')
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.wait(5000)
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('contain', 'blockchain')
+  })
+
+  it('should not display warning msg if blockchain is not down and display existing announcements', () => {
+    localStorage.setItem('WALLET.LANGUAGE', 'de')
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncements
+    })
+    cy.intercept('**/regtest/stats', {
+      statusCode: 200,
+      body: {
+        data: {
+          count: {
+            lastSync: new Date().toString(),
+            lastSuccessfulSync: new Date().toString()
+          }
+        }
+      }
+    })
+    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
+  })
+
+  it('should not display any announcement when blockchain is not down and no existing announcements', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    })
+    cy.intercept('**/regtest/stats', {
+      statusCode: 200,
+      body: {
+        data: {
+          count: {
+            lastSync: new Date().toString(),
+            lastSuccessfulSync: new Date().toString()
+          }
+        }
+      }
+    })
+    cy.getByTestID('announcements_banner').should('not.exist')
+  })
+
+  it('should not display any announcement if announcement is closed and blockchain is not down', () => {
+    cy.intercept('**/regtest/stats', {
+      statusCode: 200,
+      body: {
+        data: {
+          count: {
+            lastSync: new Date().toString(),
+            lastSuccessfulSync: new Date().toString()
+          }
+        }
+      }
+    })
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    })
+    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
+    cy.getByTestID('close_announcement').click().should(() => {
+      expect(localStorage.getItem('WALLET.HIDDEN_ANNOUNCEMENTS')).to.eq('["1"]')
+    })
+    cy.getByTestID('announcements_banner').should('not.exist')
+    cy.reload()
+    cy.getByTestID('announcements_banner').should('not.exist')
+  })
+
+  it('should display warning msg when blockchain is down after certain time on start of the app', () => {
+    cy.reload()
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    })
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.wait(6000)
+    cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'blockchain')
   })
 })
