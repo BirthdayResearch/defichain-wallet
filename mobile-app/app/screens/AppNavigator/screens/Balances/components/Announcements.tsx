@@ -63,7 +63,7 @@ export function Announcements (): JSX.Element {
     }
   }, [isBlockchainDown])
 
-  if (!isSuccess || !displayAnnouncement || (announcementToDisplay == null) || ((announcement != null) && (emergencyAnnouncement == null) && !existingAnnouncements)) {
+  if (!isSuccess || !displayAnnouncement || (announcementToDisplay == null) || ((emergencyAnnouncement == null) && !existingAnnouncements)) {
     return <></>
   }
 
