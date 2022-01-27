@@ -60,7 +60,8 @@
     "RECEIVE": "接收",
     "Total Portfolio Value (USD)": "總組合價值(美金)",
     "You do not have any other tokens.": "您現在沒有其他代幣",
-    "SWITCH": "切換錢包"
+    "SWITCH": "切換錢包",
+    "YOUR ASSETS": "YOUR ASSETS"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "創建錢包",
@@ -707,7 +708,7 @@
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "了解UTXO 和代币区别"
+    "Learn more about DFI": "了解更多關於 DFI"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"
@@ -768,7 +769,7 @@
     "Price (USD)": "價格(美金)"
   },
   "components/InfoTextLink": {
-    "Learn more about UTXO and Token": "了解UTXO和代幣區別",
+    "Learn more about DFI": "了解更多關於 DFI",
     "UTXO vs Token, what is the difference?": "UTXO和代幣的區別是什麼？",
     "Learn more about vaults": "了解更多關於金庫的資訊",
     "Learn more about vaults and loan schemes": "了解更多關於金庫和貸款計劃的資訊",

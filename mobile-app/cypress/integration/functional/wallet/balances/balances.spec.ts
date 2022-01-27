@@ -8,11 +8,11 @@ export interface BalanceTokenDetail {
   usdAmount?: string
 }
 
-function checkValueWithinRange (actualVal: string, expectedVal: string): void {
-  const value = new BigNumber(actualVal.replace('$', '').replace(',', ''))
+function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
+  const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
   const expectedValue = new BigNumber(expectedVal)
-  expect(value.gte(expectedValue.minus(2))).to.be.eq(true)
-  expect(value.lte(expectedValue.plus(2))).to.be.eq(true)
+  expect(value.gte(expectedValue.minus(range))).to.be.eq(true)
+  expect(value.lte(expectedValue.plus(range))).to.be.eq(true)
 }
 
 context('Wallet - Balances', () => {
@@ -167,8 +167,9 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_utxo_label').contains('UTXO')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_label').contains('Token')
-    cy.getByTestID('total_dfi_amount').contains('20.00000000')
-    cy.getByTestID('total_dfi_label').contains('DFI')
+    cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
+    cy.getByTestID('total_dfi_label_symbol').contains('DFI')
+    cy.getByTestID('total_dfi_label_name').contains('DeFiChain')
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: samplePoolPair
@@ -187,7 +188,7 @@ context('Wallet - Balances', () => {
 
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
     cy.getByTestID('toggle_balance').click()
-    cy.getByTestID('total_dfi_amount').should('have.text', '***** DFI')
+    cy.getByTestID('dfi_total_balance_amount').should('have.text', '*****')
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
@@ -241,7 +242,8 @@ context('Wallet - Balances - Failed API', () => {
     })
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
-    cy.getByTestID('total_dfi_amount').contains('0.00000000')
+    cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
+    cy.getByTestID('dfi_total_balance_usd_amount').should('have.text', '≈ $0.00000000')
     cy.getByTestID('total_usd_amount').should('have.text', '$0.00000000')
   })
 
@@ -417,10 +419,17 @@ context('Wallet - Balances - USD Value', () => {
         })
       }
     })
-    cy.createEmptyWallet(true).sendTokenToWallet(['BTC', 'USDT-DFI', 'USDT', 'ETH', 'ETH-DFI']).wait(3000)
+    cy.createEmptyWallet(true).wait(3000)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC', 'USDT-DFI', 'USDT', 'ETH', 'ETH-DFI']).wait(10000)
   })
 
   it('should be able to get DEX Price USD Value', () => {
+    // DFI USD
+    // (8330 / 830) * 10.00
+    cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '100.36', 1)
+    })
+
     // (1001 / 1001) * (8330 / 830) * 10.00
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.36' })
     // (1000/ 100000 ) * (8330 / 830) * 10.00
@@ -435,7 +444,7 @@ context('Wallet - Balances - USD Value', () => {
     cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $20.07' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
-      checkValueWithinRange(text, '198.06')
+      checkValueWithinRange(text, '298.52')
     })
   })
 
@@ -451,6 +460,12 @@ context('Wallet - Balances - USD Value', () => {
       }
     })
     cy.wait(5000)
+
+    // DFI USD
+    // (8330 / 100) * 10.00
+    cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '833', 5)
+    })
 
     // Token USD
     // (1000 / 5) * (8300 / 100) * 10.00
@@ -471,7 +486,7 @@ context('Wallet - Balances - USD Value', () => {
     cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $166.00' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
-      checkValueWithinRange(text, '166250.70')
+      checkValueWithinRange(text, '167083.70', 5)
     })
   })
 
@@ -488,6 +503,11 @@ context('Wallet - Balances - USD Value', () => {
     })
     cy.sendTokenToWallet(['BTC', 'USDT-DFI', 'USDT', 'ETH-DFI']).wait(3000)
 
+    // DFI USD
+    cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '833', 5)
+    })
+
     // Token USD
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '20.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $332,000.00' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $8.30' })
@@ -498,7 +518,30 @@ context('Wallet - Balances - USD Value', () => {
     cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $332.00' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
-      checkValueWithinRange(text, '332493.1')
+      checkValueWithinRange(text, '333326.1')
+    })
+  })
+
+  it('should be able to update USD Value when DFI is received', () => {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: getChangingPoolPairReserve({
+          pair1ReserveA: '5',
+          pair1ReserveB: '1000',
+          pair2ReserveA: '8300',
+          pair2ReserveB: '100'
+        })
+      }
+    })
+    cy.sendDFItoWallet().wait(5000)
+    cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '20', 1)
+    })
+    cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '1666', 5)
+    })
+    cy.getByTestID('total_usd_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '334155.89', 5)
     })
   })
 })

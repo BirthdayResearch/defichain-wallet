@@ -77,7 +77,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [slippage, setSlippage] = useState(new BigNumber(3))
+  const [slippage, setSlippage] = useState(new BigNumber(1))
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
