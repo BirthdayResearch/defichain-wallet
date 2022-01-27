@@ -76,6 +76,7 @@ export function SendScreen ({
     },
     deps: [getValues('amount'), JSON.stringify(token)]
   })
+  const [hasBalance, setHasBalance] = useState(false)
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -112,6 +113,12 @@ export function SendScreen ({
     if (t !== undefined) {
       setToken({ ...t })
     }
+
+    const totalBalance = tokens.reduce((total, token) => {
+      return total.plus(new BigNumber(token.amount))
+    }, new BigNumber(0))
+
+    setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
   useEffect(() => {
@@ -185,7 +192,7 @@ export function SendScreen ({
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
-        <TokenInput token={token} onPress={expandModal} />
+        <TokenInput token={token} onPress={expandModal} isDisabled={!hasBalance} />
 
         {token === undefined
             ? (
@@ -305,7 +312,8 @@ export function SendScreen ({
   )
 }
 
-function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Element {
+function TokenInput (props: {token?: WalletToken, onPress: () => void, isDisabled: boolean}): JSX.Element {
+  const hasNoBalanceForSelectedToken = props.token?.amount === undefined ? true : new BigNumber(props.token?.amount).lte(0)
   return (
     <View style={tailwind('px-4')}>
       <ThemedText
@@ -315,20 +323,27 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
       </ThemedText>
       <ThemedTouchableOpacity
         onPress={props.onPress}
-        light={tailwind('border-gray-300 bg-white')}
-        dark={tailwind('border-gray-600 bg-gray-800')}
+        dark={tailwind({
+          'bg-gray-600 text-gray-500 border-0': props.isDisabled,
+          'border-gray-600 bg-gray-800': !props.isDisabled
+        })}
+        light={tailwind({
+          'bg-gray-200 border-0': props.isDisabled,
+          'border-gray-300 bg-white': !props.isDisabled
+        })}
         style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
           'mb-10': props.token?.isLPS === false,
           'mb-2': props.token?.isLPS === true,
           'mb-6': props.token === undefined
         })}
         testID='select_token_input'
+        disabled={props.isDisabled}
       >
-        {props.token === undefined
+        {props.token === undefined || props.isDisabled || hasNoBalanceForSelectedToken
           ? (
             <ThemedText
-              light={tailwind('text-gray-300')}
-              dark={tailwind('text-gray-500')}
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
               style={tailwind('text-sm')}
               testID='select_token_placeholder'
             >
@@ -350,8 +365,14 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void}): JSX.Ele
           iconType='MaterialIcons'
           name='unfold-more'
           size={24}
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind({
+            'text-darkprimary-500': !props.isDisabled,
+            'text-gray-400': props.isDisabled
+          })}
+          light={tailwind({
+            'text-primary-500': !props.isDisabled,
+            'text-gray-500': props.isDisabled
+          })}
           style={tailwind('-mr-1.5 flex-shrink-0')}
         />
       </ThemedTouchableOpacity>
