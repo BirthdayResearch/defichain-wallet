@@ -17,7 +17,7 @@ describe('Header title', () => {
       block: {
         count: 2000,
         masternodeCount: 10,
-        lastSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
+        lastSuccessfulSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
         connected: true,
         isPolling: true
       }

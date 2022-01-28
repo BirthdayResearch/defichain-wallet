@@ -11,6 +11,8 @@ import { translate } from '@translations'
 import { Text } from '@components'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
+import { useEffect, useState } from 'react'
+import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
 
 export function Announcements (): JSX.Element {
   const {
@@ -24,14 +26,58 @@ export function Announcements (): JSX.Element {
     hiddenAnnouncements,
     hideAnnouncement
   } = useDisplayAnnouncement()
+  const isBlockchainDown = useBlockchainStatus()
+  const deFiChainStatusUrl = 'https://status.defichain.com/'
 
+  const blockChainIsDownContent: AnnouncementData[] = [{
+    lang: {
+      en: 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.',
+      de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der DeFiChain Statusseite.',
+      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面了解更多状态详情。',
+      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面了解更多狀態詳情。',
+      fr: 'Nous enquêtons actuellement sur un problème de synchronisation sur la blockchain. Voir plus de détails sur DeFiChain Status Page.'
+    },
+    version: '0.0.0',
+    url: {
+      ios: deFiChainStatusUrl,
+      android: deFiChainStatusUrl,
+      windows: deFiChainStatusUrl,
+      web: deFiChainStatusUrl,
+      macos: deFiChainStatusUrl
+    }
+  }]
+
+  const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
   const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
-  const displayAnnouncement = getDisplayAnnouncement(hiddenAnnouncements, announcement)
+  const emergencyAnnouncement = findAnnouncementForVersion('0.0.0', language, emergencyMsgContent)
+  const existingAnnouncements = getDisplayAnnouncement(hiddenAnnouncements, announcement)
+  const displayAnnouncement = emergencyAnnouncement !== null || existingAnnouncements
+  const announcementToDisplay = emergencyAnnouncement ?? announcement
 
-  if (!isSuccess || announcements?.length === 0 || announcement === undefined || !displayAnnouncement) {
+  useEffect(() => {
+    // To display warning message in Announcement banner when blockchain is down for > 45 mins
+    if (isBlockchainDown) {
+      setEmergencyMsgContent(blockChainIsDownContent)
+    } else {
+      setEmergencyMsgContent(undefined)
+    }
+  }, [isBlockchainDown])
+
+  if (!isSuccess || !displayAnnouncement || (announcementToDisplay == null) || ((emergencyAnnouncement == null) && !existingAnnouncements)) {
     return <></>
   }
 
+  return (
+    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} />
+  )
+}
+
+interface AnnouncementBannerProps {
+  hideAnnouncement: (id: string) => void
+  announcement: Announcement
+}
+
+function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBannerProps): JSX.Element {
   return (
     <ThemedView
       testID='announcements_banner'
@@ -40,21 +86,21 @@ export function Announcements (): JSX.Element {
       dark={tailwind('bg-darkprimary-700')}
     >
       {announcement.id !== undefined &&
-        (
-          <MaterialIcons
-            style={tailwind('mr-2 text-white')}
-            iconType='MaterialIcons'
-            name='close'
-            size={20}
-            onPress={() => {
-              if (announcement.id === undefined) {
-                return
-              }
-              hideAnnouncement(announcement.id)
-            }}
-            testID='close_announcement'
-          />
-        )}
+      (
+        <MaterialIcons
+          style={tailwind('mr-2 text-white')}
+          iconType='MaterialIcons'
+          name='close'
+          size={20}
+          onPress={() => {
+            if (announcement.id === undefined) {
+              return
+            }
+            hideAnnouncement(announcement.id)
+          }}
+          testID='close_announcement'
+        />
+      )}
 
       <MaterialIcons
         style={tailwind('mr-2.5 text-white')}
@@ -69,16 +115,16 @@ export function Announcements (): JSX.Element {
         {`${announcement.content} `}
       </Text>
       {announcement.url !== undefined && announcement.url.length !== 0 &&
-        (
-          <TouchableOpacity
-            onPress={async () => await openURL(announcement.url)}
-            style={tailwind('py-1 px-2 rounded border border-white')}
-          >
-            <Text style={tailwind('text-xs font-medium text-white')}>
-              {translate('components/Announcements', 'VIEW')}
-            </Text>
-          </TouchableOpacity>
-        )}
+      (
+        <TouchableOpacity
+          onPress={async () => await openURL(announcement.url)}
+          style={tailwind('ml-2 py-1 px-2 rounded border border-white')}
+        >
+          <Text style={tailwind('text-xs font-medium text-white')}>
+            {translate('components/Announcements', 'VIEW')}
+          </Text>
+        </TouchableOpacity>
+      )}
     </ThemedView>
   )
 }
