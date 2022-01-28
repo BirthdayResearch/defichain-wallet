@@ -90,7 +90,7 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Authorize transaction in the next screen to convert": "Gib in der nächsten Ansicht die zunächst notwenige Konvertierungs-Transaktion frei",
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
@@ -541,7 +541,7 @@
     "CONTINUE": "WEITER"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Slippage toleranz",
+    "Slippage tolerance": "Slippage-Toleranz",
     "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Wähle aus, wie viel von diesen Abweichungen du akzeptieren möchtest.",
     "Custom": "Anpassen",
     "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
@@ -1211,9 +1211,9 @@
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
-    "Insufficient amount to place a bid": "Insufficient amount to place a bid",
+    "Insufficient amount to place a bid": "Der Gebotsbetrag reicht nicht aus.",
     "Quick bid": "Schnelles Gebot",
-    "Place a bid on the auctions with the min. next bid": "Biete auf die Auktionen mit dem nächsten Mindestgebot",
+    "Place a bid on the auctions with the min. next bid": "Biete auf die Auktion mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Current balance": "Aktueller Stand"
   },
