@@ -28,7 +28,7 @@
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Choisissez une paire de pool ci-dessous, fournissez des liquidités pour alimenter l’échange décentralisé (DEX), et commencez à gagner des frais et des rendements annuels allant jusqu'à 100%. Retirer à tout moment.",
     "Pooled {{symbol}}": "{{symbol}} du pool",
     "Total pooled {{symbol}}": "Total {{symbol}} du pool",
-    "Your pooled {{symbol}}": "Vos {{symbol}} du pool ",
+    "Your pooled {{symbol}}": "Vos {{symbol}} du pool",
     "SWAP TOKENS": "ÉCHANGER DES TOKENS",
     "REMOVE": "RETIRER",
     "APR": "TAEG",
@@ -602,7 +602,7 @@
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir"
   },
