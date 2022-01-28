@@ -740,9 +740,9 @@
     "Edit Loan Scheme": "Darlehensmodell bearbeiten",
     "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
     "Borrow More": "Mehr ausleihen",
-    "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen",
+    "Choose Loan Token to Borrow": "Darlehenstoken zum Ausleihen wählen",
     "Payback Loan": "Darlehensrückzahlung",
-    "Close Vault": "Vault Schließen"
+    "Close Vault": "Vault schließen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -798,7 +798,7 @@
     "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
     "Total auction value (USD):": "Gesamtauktionswert (USD):",
     "PLACE BID": "GEBOT ABGEBEN",
-    "Batch #{{index}}": "Tranche Nr.{{index}}",
+    "Batch #{{index}}": "Tranche Nr. {{index}}",
     "Min. starting bid": "Mind. Anfangsgebot"
   },
   "components/BatchCard": {
