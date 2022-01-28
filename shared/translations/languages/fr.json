@@ -28,7 +28,7 @@
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Choisissez une paire de pool ci-dessous, fournissez des liquidités pour alimenter l’échange décentralisé (DEX), et commencez à gagner des frais et des rendements annuels allant jusqu'à 100%. Retirer à tout moment.",
     "Pooled {{symbol}}": "{{symbol}} du pool",
     "Total pooled {{symbol}}": "Total {{symbol}} du pool",
-    "Your pooled {{symbol}}": "Vos {{symbol}} du pool ",
+    "Your pooled {{symbol}}": "Vos {{symbol}} du pool",
     "SWAP TOKENS": "ÉCHANGER DES TOKENS",
     "REMOVE": "RETIRER",
     "APR": "TAEG",
@@ -602,7 +602,7 @@
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir"
   },
@@ -615,7 +615,7 @@
     "SWAP": "ÉCHANGER",
     "SWAPPING": "ÉCHANGE EN COURS",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symboleA}} contre {{amountB}} {{symboleB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "Prix en {{tokenA}} par {{tokenB}}",
     "{{token}} balance": "{{token}} solde",
     "CONFIRM SWAP": "VALIDER L'ÉCHANGE",
@@ -725,7 +725,7 @@
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "RÉSULTATS DE LA TRANSACTION",
-    "Resulting {{symbol}}": "{{symbole}} restant"
+    "Resulting {{symbol}}": "{{symbol}} restant"
   },
   "screens/LoansScreen": {
     "Loans": "Prêts",
@@ -890,7 +890,7 @@
     "APR": "TAEG",
     "CONFIRM CREATE VAULT": "CONFIRMER LA CRÉATION D'UN VAULT",
     "Creating vault": "Création d'un vault",
-    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{montant}}% et un taux d'intérêt de {{ir}}% TAEG",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{amount}}% et un taux d'intérêt de {{ir}}% TAEG",
     "Convert & create vault": "Convertir et créer un vault"
   },
   "components/BottomSheetInfo": {
@@ -982,7 +982,7 @@
     "VAULT DETAILS": "DÉTAILS DU VAULT",
     "COLLATERALS": "GARANTIES",
     "Adding collateral": "Ajouter des Garanties",
-    "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{montant}} {{symbole}} comme garantie",
+    "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{amount}} {{symbol}} comme garantie",
     "Removing collateral": "Retrait de la garantie",
     "Removing {{amount}} {{symbol}} collateral from vault": "Retrait de {{amount}} {{symbol}} de la garantie du vault.",
     "Total loans (USD)": "Total des prêts (USD)",

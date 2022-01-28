@@ -8,6 +8,7 @@ describe('block reducer', () => {
     initialState = {
       count: 77,
       masternodeCount: 10,
+      lastSuccessfulSync: date,
       lastSync: date,
       isPolling: false,
       connected: false,
@@ -19,15 +20,16 @@ describe('block reducer', () => {
     expect(block.reducer(undefined, { type: 'unknown' })).toEqual({
       count: undefined,
       masternodeCount: undefined,
-      lastSync: undefined,
+      lastSuccessfulSync: undefined,
       connected: false,
       isPolling: false,
-      tvl: undefined
+      tvl: undefined,
+      lastSync: undefined
     })
   })
 
   it('should handle updateBlock', () => {
-    const payload = { count: 99, masternodeCount: 0, lastSync: date, tvl: 1 }
+    const payload = { count: 99, masternodeCount: 0, lastSuccessfulSync: date, lastSync: date, tvl: 1 }
     const actual = block.reducer(initialState, block.actions.updateBlockDetails(payload))
     expect(actual).toStrictEqual({ ...initialState, ...payload })
   })

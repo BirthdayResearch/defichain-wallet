@@ -1255,8 +1255,8 @@ exports[`balances page should match snapshot 1`] = `
             "flexDirection": "row",
             "justifyContent": "space-between",
             "marginBottom": 16,
-            "marginLeft": 8,
-            "marginRight": 8,
+            "marginLeft": 16,
+            "marginRight": 16,
             "marginTop": 16,
             "paddingBottom": 16,
             "paddingLeft": 16,
@@ -1414,8 +1414,8 @@ exports[`balances page should match snapshot 1`] = `
             "flexGrow": 1,
             "flexShrink": 1,
             "marginBottom": 6,
-            "marginLeft": 8,
-            "marginRight": 8,
+            "marginLeft": 16,
+            "marginRight": 16,
           },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -2025,9 +2025,9 @@ exports[`balances page should match snapshot 1`] = `
       style={
         Object {
           "paddingBottom": 6,
-          "paddingLeft": 8,
-          "paddingRight": 8,
-          "paddingTop": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 6,
         }
       }
     >
@@ -2272,9 +2272,9 @@ exports[`balances page should match snapshot 1`] = `
       style={
         Object {
           "paddingBottom": 6,
-          "paddingLeft": 8,
-          "paddingRight": 8,
-          "paddingTop": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 6,
         }
       }
     >
