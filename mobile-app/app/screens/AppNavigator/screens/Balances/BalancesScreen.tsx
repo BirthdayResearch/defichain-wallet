@@ -124,7 +124,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('mx-2 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
+        style={tailwind('mx-4 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
         testID='total_portfolio_card'
       >
         <View style={tailwind('w-10/12 flex-grow')}>
@@ -176,7 +176,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           )
           : (
             dstTokens.map((item) => (
-              <View key={item.symbol} style={tailwind('p-2 pb-1.5')}>
+              <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
                 <BalanceItemRow
                   onPress={() => navigation.navigate({
                     name: 'TokenDetail',
