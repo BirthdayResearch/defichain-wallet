@@ -13,8 +13,8 @@ exports[`DFI Balance Card should match snapshot 1`] = `
         "flexGrow": 1,
         "flexShrink": 1,
         "marginBottom": 6,
-        "marginLeft": 8,
-        "marginRight": 8,
+        "marginLeft": 16,
+        "marginRight": 16,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
