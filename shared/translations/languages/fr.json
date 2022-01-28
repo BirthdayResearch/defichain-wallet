@@ -725,7 +725,7 @@
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "RÉSULTATS DE LA TRANSACTION",
-    "Resulting {{symbol}}": "{{symbole}} restant"
+    "Resulting {{symbol}}": "{{symbol}} restant"
   },
   "screens/LoansScreen": {
     "Loans": "Prêts",
