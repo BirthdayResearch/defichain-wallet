@@ -100,7 +100,9 @@ context('Wallet - Balances - Announcements', () => {
       body: sampleAnnouncementsWithID
     })
     localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
-    cy.getByTestID('close_announcement').click().should(() => {
+    cy.wait(3000)
+    cy.getByTestID('close_announcement').click().then(() => {
+      cy.wait(3000)
       expect(localStorage.getItem('WALLET.HIDDEN_ANNOUNCEMENTS')).to.eq('["1"]')
     })
     cy.getByTestID('announcements_banner').should('not.exist')
