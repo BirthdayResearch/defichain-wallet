@@ -552,7 +552,8 @@ function getBottomSheetToken (tokens: WalletToken[]): BottomSheetToken[] {
       token: {
         name: t.name,
         displaySymbol: t.displaySymbol,
-        symbol: t.symbol
+        symbol: t.symbol,
+        isLPS: t.isLPS
       }
     }
     return token
