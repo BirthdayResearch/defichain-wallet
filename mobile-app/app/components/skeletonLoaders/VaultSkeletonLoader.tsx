@@ -11,7 +11,7 @@ export function VaultSkeletonLoader (props: VaultSkeletonLoaderProps): JSX.Eleme
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
+      dark={tailwind('bg-dfxblue-800 border border-dfxblue-900')}
       light={tailwind('bg-white border border-gray-200')}
       style={tailwind('p-4 mx-4 mt-2 items-center justify-center')}
       testID='vault_skeleton_loader'

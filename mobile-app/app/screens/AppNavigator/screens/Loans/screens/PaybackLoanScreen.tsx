@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { Text, View } from 'react-native'
@@ -31,9 +31,15 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
-import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useInterestPerBlock } from '../hooks/InterestPerBlock'
+import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
+import { loanTokenByTokenId } from '@store/loans'
+import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
+import { TextRow } from '@components/TextRow'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -42,7 +48,7 @@ export function PaybackLoanScreen ({
   route
 }: Props): JSX.Element {
   const {
-    loanToken,
+    loanTokenAmount,
     vault
   } = route.params
   const { address } = useWalletContext()
@@ -56,16 +62,28 @@ export function PaybackLoanScreen ({
 
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
-  const token = tokens?.find((t) => t.id === loanToken.id)
+  const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id) : new BigNumber(0)
-  const tokenBalanceInUSD = tokenBalance.multipliedBy(getActivePrice(loanToken.symbol, loanToken.activePrice))
-  const [amountToPay, setAmountToPay] = useState(loanToken.amount)
+  const tokenBalanceInUSD = tokenBalance.multipliedBy(getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice))
+  const [amountToPay, setAmountToPay] = useState(loanTokenAmount.amount)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isValid, setIsValid] = useState(false)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const logger = useLogger()
   const [isExcess, setIsExcess] = useState(false)
+  const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
+
+  // Resulting col ratio
+  const [totalPaybackWithInterest, setTotalPaybackWithInterest] = useState(new BigNumber(NaN))
+  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
+  const resultingColRatio = useResultingCollateralRatio(
+    new BigNumber(vault?.collateralValue ?? NaN),
+    new BigNumber(vault?.loanValue ?? NaN),
+    BigNumber.min(amountToPay, loanTokenAmount.amount).multipliedBy(-1),
+    new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
+    interestPerBlock
+  )
 
   const isFormValid = (): boolean => {
     const amount = new BigNumber(amountToPay)
@@ -80,7 +98,8 @@ export function PaybackLoanScreen ({
   useEffect(() => {
     const isValid = isFormValid()
     setIsValid(isValid)
-    setIsExcess(new BigNumber(amountToPay).isGreaterThan(loanToken.amount))
+    setIsExcess(new BigNumber(amountToPay).isGreaterThan(loanTokenAmount.amount))
+    setTotalPaybackWithInterest(new BigNumber(amountToPay).plus(interestPerBlock))
   }, [amountToPay])
 
   useEffect(() => {
@@ -100,8 +119,9 @@ export function PaybackLoanScreen ({
         vault,
         amountToPay: new BigNumber(amountToPay),
         fee,
-        loanToken,
-        excessAmount: isExcess ? new BigNumber(amountToPay).minus(loanToken.amount) : undefined
+        loanTokenAmount,
+        excessAmount: isExcess ? new BigNumber(amountToPay).minus(loanTokenAmount.amount) : undefined,
+        resultingColRatio
       },
       merge: true
     })
@@ -114,10 +134,10 @@ export function PaybackLoanScreen ({
       />
       <View style={tailwind('px-4')}>
         <LoanTokenInput
-          loanTokenId={loanToken.id}
-          displaySymbol={loanToken.displaySymbol}
-          price={loanToken.activePrice}
-          outstandingBalance={new BigNumber(loanToken.amount)}
+          loanTokenId={loanTokenAmount.id}
+          displaySymbol={loanTokenAmount.displaySymbol}
+          price={loanTokenAmount.activePrice}
+          outstandingBalance={new BigNumber(loanTokenAmount.amount)}
         />
       </View>
       <ThemedSectionTitle
@@ -136,6 +156,7 @@ export function PaybackLoanScreen ({
           displayClearButton={amountToPay !== ''}
           onClearButtonPress={() => setAmountToPay('')}
           style={tailwind('h-9 w-3/5 flex-grow')}
+          testID='payback_input_text'
         />
         <InputHelperText
           label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
@@ -149,11 +170,10 @@ export function PaybackLoanScreen ({
             style={tailwind('text-sm font-medium')}
           >
             <Text>{' '}</Text>
-            <Text>{loanToken.displaySymbol}</Text>
+            <Text>{loanTokenAmount.displaySymbol}</Text>
             <NumberFormat
-              value={tokenBalanceInUSD.toFixed(2)}
+              value={getUSDPrecisedPrice(tokenBalanceInUSD)}
               thousandSeparator
-              decimalScale={2}
               displayType='text'
               prefix='$'
               renderText={(val: string) => (
@@ -173,10 +193,14 @@ export function PaybackLoanScreen ({
         isValid && (
           <View>
             <TransactionDetailsSection
-              fee={fee} outstandingBalance={new BigNumber(loanToken.amount)}
+              fee={fee} outstandingBalance={new BigNumber(loanTokenAmount.amount)}
               amountToPay={new BigNumber(amountToPay)}
-              displaySymbol={loanToken.displaySymbol}
+              displaySymbol={loanTokenAmount.displaySymbol}
               isExcess={isExcess}
+              resultingColRatio={resultingColRatio}
+              vault={vault}
+              loanTokenPrice={new BigNumber(loanToken?.activePrice?.active?.amount ?? 0)}
+              totalPaybackWithInterest={totalPaybackWithInterest}
             />
             {isExcess && (
               <ThemedText
@@ -224,10 +248,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row items-center mb-3')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{
-          width: 24,
-          height: 24
-        }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-6 h-6')}
         />
         <ThemedText testID='loan_symbol' style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
@@ -394,23 +415,47 @@ interface TransactionDetailsProps {
   fee: BigNumber
   displaySymbol: string
   isExcess: boolean
+  resultingColRatio: BigNumber
+  vault: LoanVaultActive
+  totalPaybackWithInterest: BigNumber
+  loanTokenPrice: BigNumber
 }
 
 function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
+  const collateralAlertInfo = {
+    title: 'Collateralization ratio',
+    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+  }
   return (
     <>
       <ThemedSectionTitle
         text={translate('screens/PaybackLoanScreen', 'TRANSACTION DETAILS')}
       />
-      <NumberRow
-        lhs={translate('screens/PaybackLoanScreen', 'Amount to pay')}
-        rhs={{
-          value: props.amountToPay.toFixed(8),
-          testID: 'text_amount_to_pay',
-          suffixType: 'text',
-          suffix: props.displaySymbol
-        }}
-      />
+      {props.resultingColRatio.isLessThan(0)
+        ? (
+          <TextRow
+            lhs={translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
+            rhs={{
+              value: translate('screens/PaybackLoanScreen', 'N/A'),
+              testID: 'text_resulting_col_ratio'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+            info={collateralAlertInfo}
+          />
+        )
+        : (
+          <CollateralizationRatioRow
+            label={translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
+            value={props.resultingColRatio.toFixed(2)}
+            testId='text_resulting_col_ratio'
+            type='current'
+            minColRatio={new BigNumber(props.vault.loanScheme.minColRatio)}
+            totalLoanAmount={new BigNumber(props.vault.loanValue).minus(
+              props.totalPaybackWithInterest.multipliedBy(props.loanTokenPrice)
+            )}
+            colRatio={props.resultingColRatio}
+          />
+        )}
       <NumberRow
         lhs={translate('screens/PaybackLoanScreen', 'Remaining loan amount')}
         rhs={{

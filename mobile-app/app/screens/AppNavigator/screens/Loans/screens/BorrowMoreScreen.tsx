@@ -3,7 +3,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/th
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanTokenInput, VaultInput } from './PaybackLoanScreen'
 import BigNumber from 'bignumber.js'
@@ -21,7 +21,9 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useLoanOperations } from '../hooks/LoanOperations'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
-import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
+import { useBlocksPerDay } from '../hooks/BlocksPerDay'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -41,6 +43,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     amountInput: ''
   })
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
+  const [totalAnnualInterest, setTotalAnnualInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
@@ -51,6 +54,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
     interestPerBlock
   )
+  const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -70,8 +74,9 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
       return
     }
-
-    setTotalLoanWithInterest(new BigNumber(amountToAdd.amountInToken).plus(interestPerBlock))
+    const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToAdd.amountInToken)
+    setTotalAnnualInterest(annualInterest)
+    setTotalLoanWithInterest(amountToAdd.amountInToken.plus(annualInterest))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -190,7 +195,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
           placeholder='0.00'
           style={tailwind('flex-grow w-2/5')}
           testID='text_input_usd_value'
-          value={amountToAdd.amountInUSD.toFixed(2)}
+          value={getUSDPrecisedPrice(amountToAdd.amountInUSD)}
           displayClearButton={false}
           inputType='numeric'
         >
@@ -204,7 +209,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
         loanTokenInterestRate={new BigNumber(loanToken.interest)}
         loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-        totalInterestAmount={interestPerBlock}
+        totalInterestAmount={totalAnnualInterest}
         totalLoanWithInterest={totalLoanWithInterest}
         loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
         fee={fee}

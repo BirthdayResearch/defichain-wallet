@@ -1,6 +1,5 @@
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
-import * as React from 'react'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
@@ -19,9 +18,9 @@ export function NetworkDetails (): JSX.Element {
     connected,
     count: blockCount,
     masternodeCount,
-    lastSync
+    lastSuccessfulSync
   } = useSelector((state: RootState) => state.block)
-  const syncFormattedDate = (lastSync != null) ? dayjs(lastSync).format('MMM D, h:mm a') : ''
+  const syncFormattedDate = (lastSuccessfulSync != null) ? dayjs(lastSuccessfulSync).format('MMM D, h:mm a') : ''
 
   return (
     <ThemedScrollView testID='network_details'>

@@ -1,12 +1,12 @@
-import React from 'react'
+
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { getNativeIcon } from './icons/assets'
 import { ThemedText, ThemedView } from './themed'
 
-export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string }, iconType: string }): JSX.Element {
-  const TokenIcon = getNativeIcon(props.iconType)
+export function TokenBalanceRow (props: { lhs: string, rhs: { value: string | number, testID: string } }): JSX.Element {
+  const TokenIcon = getNativeIcon(props.lhs)
   return (
     <ThemedView
       dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}

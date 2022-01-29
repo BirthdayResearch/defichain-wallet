@@ -1,15 +1,16 @@
-import React from 'react'
+
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface TransactionErrorProps {
   errMsg: string
   onClose: () => void
 }
 
-enum ErrorCodes {
+export enum ErrorCodes {
   UnknownError = 0,
   InsufficientUTXO = 1,
   InsufficientBalance = 2,
@@ -21,16 +22,14 @@ enum ErrorCodes {
   VaultNotEnoughCollateralization = 8
 }
 
-interface ErrorMapping {
+export interface ErrorMapping {
   code: ErrorCodes
   message: string
 }
 
-export function TransactionError ({
-  errMsg,
-  onClose
-}: TransactionErrorProps): JSX.Element {
-  console.log('transaction error', errMsg)
+export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+  const logger = useLogger()
+  logger.error(`transaction error: ${errMsg}`)
   const err = errorMessageMapping(errMsg)
   return (
     <>

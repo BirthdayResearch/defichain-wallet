@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -140,7 +140,9 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Vault ID')}
         rhs={{
           value: vault.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />

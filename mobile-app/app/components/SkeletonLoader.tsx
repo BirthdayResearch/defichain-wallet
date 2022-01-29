@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'

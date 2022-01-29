@@ -1,19 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
+exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "borderBottomWidth": 1,
+        "paddingBottom": 12,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 12,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(245, 245, 245, 1)",
+        "borderLeftColor": "rgba(245, 245, 245, 1)",
+        "borderRightColor": "rgba(245, 245, 245, 1)",
+        "borderTopColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+  testID="address_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={35}
+    bbWidth="100%"
+    focusable={false}
+    height={35}
+    interval={0.25}
+    meetOrSlice={1}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 35,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={35}
+    vbWidth={400}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="address-animated-diff"
+        fill={
+          Array [
+            1,
+            "address-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="address-animated-diff"
+        >
+          <RNSVGCircle
+            cx="35"
+            cy="16"
+            r="12"
+          />
+          <RNSVGRect
+            height="20"
+            rx="3"
+            ry="3"
+            width="280"
+            x="60"
+            y="5"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -1250325,
+              0.5,
+              -1,
+              1,
+              -1250325,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="address-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
+
+exports[`Skeleton Loader should match snapshot of browse auction skeleton loader 1`] = `
 <View
   style={
     Array [
       Object {
         "alignItems": "center",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
         "justifyContent": "center",
-        "marginLeft": 16,
-        "marginRight": 16,
-        "marginTop": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
+        "marginBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -28,14 +140,221 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
       },
     ]
   }
+  testID="browse_auctions_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={186}
+    bbWidth="100%"
+    focusable={false}
+    height={186}
+    interval={0.25}
+    meetOrSlice={0}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 186,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={186}
+    vbWidth={400}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="browseAuctions-animated-diff"
+        fill={
+          Array [
+            1,
+            "browseAuctions-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="browseAuctions-animated-diff"
+        >
+          <RNSVGCircle
+            cx="21"
+            cy="27"
+            r="16"
+          />
+          <RNSVGRect
+            height="26"
+            rx="3"
+            ry="3"
+            width="120"
+            x="46"
+            y="12"
+          />
+          <RNSVGCircle
+            cx="347"
+            cy="21"
+            r="8"
+          />
+          <RNSVGCircle
+            cx="365"
+            cy="21"
+            r="8"
+          />
+          <RNSVGCircle
+            cx="382"
+            cy="21"
+            r="8"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="120"
+            x="8"
+            y="56"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="110"
+            x="282"
+            y="56"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="132"
+            x="8"
+            y="81"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="118"
+            x="272"
+            y="81"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="170"
+            x="8"
+            y="105"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="140"
+            x="252"
+            y="105"
+          />
+          <RNSVGRect
+            height="12"
+            rx="3"
+            ry="3"
+            width="384"
+            x="8"
+            y="132"
+          />
+          <RNSVGRect
+            height="20"
+            rx="3"
+            ry="3"
+            width="100"
+            x="8"
+            y="162"
+          />
+          <RNSVGRect
+            height="20"
+            rx="3"
+            ry="3"
+            width="130"
+            x="118"
+            y="162"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -1250325,
+              0.5,
+              -1,
+              1,
+              -1250325,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="browseAuctions-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
+
+exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderBottomWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderTopWidth": 1,
+        "justifyContent": "center",
+        "marginBottom": 8,
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+      },
+    ]
+  }
   testID="dex_skeleton_loader"
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={194}
+    bbHeight={190}
     bbWidth="100%"
     focusable={false}
-    height={194}
+    height={190}
     interval={0.25}
     meetOrSlice={1}
     minX={0}
@@ -49,12 +368,12 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
         Object {},
         Object {
           "flex": 0,
-          "height": 194,
+          "height": 190,
           "width": "100%",
         },
       ]
     }
-    vbHeight={130}
+    vbHeight={190}
     vbWidth={328}
     width="100%"
   >
@@ -81,98 +400,106 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
         <RNSVGClipPath
           name="dex-animated-diff"
         >
-          <RNSVGRect
-            height="10"
-            rx="5"
-            ry="5"
-            width="60"
-            x="98"
-            y="10"
-          />
-          <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="70"
-            x="68"
-            y="36"
-          />
-          <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="60"
-            x="68"
-            y="50"
-          />
           <RNSVGCircle
-            cx="80"
-            cy="14"
+            cx="30"
+            cy="20"
             r="12"
           />
           <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="70"
-            x="160"
-            y="36"
+            height="16"
+            rx="5"
+            ry="5"
+            width="110"
+            x="60"
+            y="13"
           />
           <RNSVGRect
-            height="8"
+            height="12"
             rx="4"
             ry="4"
-            width="60"
-            x="160"
-            y="50"
-          />
-          <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="70"
-            x="68"
-            y="70"
-          />
-          <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="60"
-            x="68"
-            y="84"
-          />
-          <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="70"
-            x="160"
-            y="70"
-          />
-          <RNSVGRect
-            height="8"
-            rx="4"
-            ry="4"
-            width="60"
-            x="160"
-            y="84"
+            width="100"
+            x="16"
+            y="46"
           />
           <RNSVGRect
             height="14"
             rx="4"
             ry="4"
-            width="70"
-            x="68"
-            y="113"
+            width="60"
+            x="16"
+            y="64"
+          />
+          <RNSVGRect
+            height="12"
+            rx="4"
+            ry="4"
+            width="100"
+            x="166"
+            y="46"
           />
           <RNSVGRect
             height="14"
             rx="4"
             ry="4"
-            width="70"
-            x="150"
-            y="113"
+            width="60"
+            x="166"
+            y="64"
+          />
+          <RNSVGRect
+            height="12"
+            rx="4"
+            ry="4"
+            width="100"
+            x="16"
+            y="96"
+          />
+          <RNSVGRect
+            height="14"
+            rx="4"
+            ry="4"
+            width="60"
+            x="16"
+            y="114"
+          />
+          <RNSVGRect
+            height="12"
+            rx="4"
+            ry="4"
+            width="100"
+            x="166"
+            y="96"
+          />
+          <RNSVGRect
+            height="14"
+            rx="4"
+            ry="4"
+            width="60"
+            x="166"
+            y="114"
+          />
+          <RNSVGRect
+            height="30"
+            rx="4"
+            ry="4"
+            width="144"
+            x="16"
+            y="145"
+          />
+          <RNSVGRect
+            height="30"
+            rx="4"
+            ry="4"
+            width="80"
+            x="168"
+            y="145"
+          />
+          <RNSVGRect
+            height="30"
+            rx="4"
+            ry="4"
+            width="32"
+            x="280"
+            y="145"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient
@@ -758,6 +1085,161 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
           gradientTransform={null}
           gradientUnits={0}
           name="transaction-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
+
+exports[`Skeleton Loader should match snapshot of vault keleton loader 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginLeft": 16,
+        "marginRight": 16,
+        "marginTop": 8,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderLeftWidth": 1,
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderRightWidth": 1,
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderTopWidth": 1,
+      },
+    ]
+  }
+  testID="vault_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={130}
+    bbWidth="100%"
+    focusable={false}
+    height={130}
+    interval={0.25}
+    meetOrSlice={1}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 130,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={130}
+    vbWidth={328}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="vault-animated-diff"
+        fill={
+          Array [
+            1,
+            "vault-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="vault-animated-diff"
+        >
+          <RNSVGRect
+            height="16"
+            width="60"
+            x="0"
+            y="13"
+          />
+          <RNSVGRect
+            height="16"
+            width="60"
+            x="70"
+            y="13"
+          />
+          <RNSVGRect
+            height="16"
+            width="240"
+            x="0"
+            y="33"
+          />
+          <RNSVGRect
+            height="15"
+            width="150"
+            x="0"
+            y="53"
+          />
+          <RNSVGRect
+            height="15"
+            width="130"
+            x="0"
+            y="90"
+          />
+          <RNSVGRect
+            height="15"
+            width="140"
+            x="220"
+            y="90"
+          />
+          <RNSVGRect
+            height="15"
+            width="130"
+            x="0"
+            y="115"
+          />
+          <RNSVGRect
+            height="15"
+            width="140"
+            x="220"
+            y="115"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -1250325,
+              0.5,
+              -1,
+              1,
+              -1250325,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="vault-diff"
           x1="-100%"
           x2="0%"
           y1={0}

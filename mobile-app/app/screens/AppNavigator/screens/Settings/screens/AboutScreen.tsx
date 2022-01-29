@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { nativeApplicationVersion } from 'expo-application'
-import React from 'react'
+
 import { TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '@components/icons/AppIcon'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'

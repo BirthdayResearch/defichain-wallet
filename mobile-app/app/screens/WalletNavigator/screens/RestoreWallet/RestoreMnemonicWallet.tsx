@@ -1,7 +1,6 @@
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { validateMnemonicSentence } from '@defichain/jellyfish-wallet-mnemonic'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import * as React from 'react'
 import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { TextInput } from 'react-native'

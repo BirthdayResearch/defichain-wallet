@@ -5,13 +5,13 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrRemoveCollateralForm, AddOrRemoveCollateralResponse } from '../components/AddOrRemoveCollateralForm'
-import { BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +35,10 @@ import {
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -207,6 +210,8 @@ export function EditCollateralScreen ({
                 stackScreenName: 'TokenList',
                 component: BottomSheetTokenList({
                   tokens: collateralTokens,
+                  tokenType: TokenType.CollateralItem,
+                  vault: activeVault,
                   headerLabel: translate('screens/EditCollateralScreen', 'Select token to add'),
                   onCloseButtonPress: dismissModal,
                   navigateToScreen: {
@@ -241,17 +246,20 @@ export function EditCollateralScreen ({
         {activeVault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
           if (collateralItem !== undefined) {
+            const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
             const params = {
               stackScreenName: 'AddOrRemoveCollateralForm',
               component: AddOrRemoveCollateralForm,
               initialParam: {
                 token: collateralItem.token,
+                activePrice,
                 available: '',
                 onButtonPress: undefined,
                 onCloseButtonPress: dismissModal,
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
-                current: new BigNumber(collateral.amount)
+                current: new BigNumber(collateral.amount),
+                vault: activeVault
               },
               option: {
                 header: () => null
@@ -352,7 +360,8 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)} prefix='$'
+        prefix='$'
+        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
@@ -427,10 +436,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
       >
         <View style={tailwind('flex flex-row items-center')}>
           <SymbolIcon
-            symbol={collateral.displaySymbol} styleProps={{
-            width: 24,
-            height: 24
-          }}
+            symbol={collateral.displaySymbol} styleProps={tailwind('w-6 h-6')}
           />
           <ThemedText
             testID={`collateral_card_symbol_${collateral.displaySymbol}`}
@@ -477,30 +483,13 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                   style={tailwind('text-sm font-medium')}
                 >
                   {val}
-                  {
-                    !new BigNumber(prices.activePrice).isZero() &&
-                      <NumberFormat
-                        value={prices.collateralPrice.toFixed(2)}
-                        thousandSeparator
-                        decimalScale={2}
-                        displayType='text'
-                        prefix='$'
-                        renderText={(val: string) => (
-                          <ThemedText
-                            dark={tailwind('text-dfxgray-400')}
-                            light={tailwind('text-dfxgray-500')}
-                            style={tailwind('text-xs')}
-                            testID={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
-                          >
-                            {` /${val}`}
-                          </ThemedText>
-                      )}
-                      />
-                  }
                 </ThemedText>
               )}
             />
-
+            <ActiveUSDValue
+              price={prices.collateralPrice}
+              testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
+            />
           </View>
         </View>
         <View style={tailwind('w-4/12 flex items-end')}>

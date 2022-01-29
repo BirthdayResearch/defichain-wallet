@@ -1,6 +1,6 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
 
@@ -21,14 +21,14 @@ jobs:
           npm i
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@67df31e08a133c6a77008b89689677067fef169e
+        uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/jellyfish dependencies
-          commit-message: Bump @defichain/jellyfish dependencies
+          title: 'build(deps): bump @defichain/jellyfish dependencies'
+          commit-message: 'build(deps): bump @defichain/jellyfish dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
 
@@ -51,14 +51,14 @@ jobs:
           npm i
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@67df31e08a133c6a77008b89689677067fef169e
+        uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/whale dependencies
-          commit-message: Bump @defichain/whale dependencies
+          title: 'build(deps): bump @defichain/whale dependencies'
+          commit-message: 'build(deps): bump @defichain/whale dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
 
@@ -81,14 +81,14 @@ jobs:
           npm i
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@67df31e08a133c6a77008b89689677067fef169e
+        uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/playground dependencies
-          commit-message: Bump @defichain/playground dependencies
+          title: 'build(deps): bump @defichain/playground dependencies'
+          commit-message: 'build(deps): bump @defichain/playground dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies

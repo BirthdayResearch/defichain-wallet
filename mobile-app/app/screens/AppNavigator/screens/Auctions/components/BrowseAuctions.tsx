@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedFlatList } from '@components/themed'
+import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
@@ -30,8 +30,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const { isBetaFeature } = useFeatureFlagContext()
-
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
@@ -85,23 +83,12 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   }
 
   return (
-    <View ref={containerRef} style={tailwind('h-full')}>
-      <View
-        style={tailwind(['p-4', {
-          'pb-16': Platform.OS !== 'web',
-          'flex-1 flex-col pb-0': Platform.OS === 'web'
-        }])}
-        testID='auctions_cards'
-      >
-        {isBetaFeature('auction') && (
-          <View style={tailwind('pb-4')}>
-            <InfoText
-              testID='beta_warning_info_text'
-              text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-            />
-          </View>
-        )}
-        {hasFetchAuctionsData
+    <View
+      ref={containerRef}
+      style={tailwind('h-full')}
+      testID='auctions_cards'
+    >
+      {hasFetchAuctionsData
           ? (
             <>
               {filteredAuctionBatches.length === 0
@@ -115,40 +102,39 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
                 )}
             </>)
           : (
-            <View style={tailwind('pb-4')}>
+            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
               <SkeletonLoader
                 row={6}
                 screen={SkeletonLoaderScreen.BrowseAuction}
               />
-            </View>
+            </ThemedScrollView>
           )}
 
-        {Platform.OS === 'web' && (
-          <BottomSheetWebWithNav
-            modalRef={containerRef}
-            screenList={bottomSheetScreen}
-            isModalDisplayed={isModalDisplayed}
-            modalStyle={{
+      {Platform.OS === 'web' && (
+        <BottomSheetWebWithNav
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          modalStyle={{
               position: 'absolute',
               height: '240px',
               width: '375px',
               zIndex: 50,
               bottom: 0
             }}
-          />
+        />
         )}
 
-        {Platform.OS !== 'web' && (
-          <BottomSheetWithNav
-            modalRef={bottomSheetRef}
-            screenList={bottomSheetScreen}
-            snapPoints={{
-              ios: '40%',
-              android: '40%'
+      {Platform.OS !== 'web' && (
+        <BottomSheetWithNav
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+              ios: ['40%'],
+              android: ['40%']
             }}
-          />
+        />
         )}
-      </View>
     </View>
   )
 }
@@ -162,30 +148,44 @@ function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
       minNextBidInToken: string,
       vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
   }): JSX.Element {
+      const { isBetaFeature } = useFeatureFlagContext()
   return (
     <ThemedFlatList
+      contentContainerStyle={tailwind('p-4 pb-2')}
       data={auctionBatches}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({
-      item,
-      index
-    }: { item: AuctionBatchProps, index: number }): JSX.Element => {
-      const { auction, ...batch } = item
-      return (
-        <View key={auction.vaultId}>
-          <BatchCard
-            vault={auction}
-            batch={batch}
-            key={`${auction.vaultId}_${batch.index}`}
-            testID={`batch_card_${index}`}
-            onQuickBid={onQuickBid}
-            isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
-          />
-        </View>
-      )
-    }}
+        item,
+        index
+      }: { item: AuctionBatchProps, index: number }): JSX.Element => {
+        const { auction, ...batch } = item
+        return (
+          <View key={auction.vaultId}>
+            <BatchCard
+              vault={auction}
+              batch={batch}
+              key={`${auction.vaultId}_${batch.index}`}
+              testID={`batch_card_${index}`}
+              onQuickBid={onQuickBid}
+              isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
+            />
+          </View>
+        )
+      }}
+      ListHeaderComponent={
+        <>
+          {isBetaFeature('auction') && (
+            <View style={tailwind('pb-4')}>
+              <InfoText
+                testID='beta_warning_info_text'
+                text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+              />
+            </View>
+          )}
+        </>
+      }
     />
   )
 }

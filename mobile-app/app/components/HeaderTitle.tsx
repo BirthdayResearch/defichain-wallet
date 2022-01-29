@@ -1,6 +1,5 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import React from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'

@@ -2,7 +2,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { LoanScheme, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 import { View } from '@components'
@@ -19,6 +19,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useVaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'EditLoanSchemeScreen'>
 
@@ -112,7 +113,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         label={translate('screens/EditLoanSchemeScreen', 'CONTINUE')}
         onPress={onSubmit}
         margin='mt-7 mb-2'
-        testID='create_vault_submit_button'
+        testID='edit_loan_scheme_submit_button'
       />
       <ThemedText
         light={tailwind('text-dfxgray-500')}
@@ -158,12 +159,13 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)}
+        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
-        testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
+        testID='text_total_collateral_value'
+        value={getUSDPrecisedPrice(vault.loanValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
       />

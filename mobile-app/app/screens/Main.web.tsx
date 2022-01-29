@@ -1,6 +1,7 @@
+import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
-import React from 'react'
+
 import { StyleSheet, View } from 'react-native'
 import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'

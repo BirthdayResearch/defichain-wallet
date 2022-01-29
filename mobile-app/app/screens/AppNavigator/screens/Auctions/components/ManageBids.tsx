@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedScrollView } from '@components/themed'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
@@ -24,7 +23,7 @@ export function ManageBids (): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchVaults({ address, client }))
-  }, [blockCount])
+  }, [blockCount, address])
 
   const { isBetaFeature } = useFeatureFlagContext()
 

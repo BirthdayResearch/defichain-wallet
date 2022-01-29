@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'

@@ -1,7 +1,7 @@
 import { ThemedIcon, ThemedTextInput, ThemedView } from '@components/themed'
 import { ClearButton } from '@components/WalletTextInput'
 import { tailwind } from '@tailwind'
-import React from 'react'
+
 import { TextInputProps } from 'react-native'
 
 type SearchInputProps = React.PropsWithChildren<TextInputProps> & ISearchInputProps

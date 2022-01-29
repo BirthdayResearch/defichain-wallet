@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import * as React from 'react'
 import { FeeInfoRow } from './FeeInfoRow'
 
 jest.mock('@shared-contexts/ThemeProvider')

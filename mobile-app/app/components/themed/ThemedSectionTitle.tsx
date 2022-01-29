@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { TextProps } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedProps } from '.'

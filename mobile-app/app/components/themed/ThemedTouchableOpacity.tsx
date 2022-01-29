@@ -1,6 +1,6 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
-import React from 'react'
+
 import { TouchableOpacity } from 'react-native'
 import { ThemedProps } from './index'
 

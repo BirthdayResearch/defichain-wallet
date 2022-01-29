@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
           cache: 'npm'
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@d0148023e1293a74904e7af0f9a9cdc60a1ce550
         with:
           expo-version: 4.x
           expo-cache: true

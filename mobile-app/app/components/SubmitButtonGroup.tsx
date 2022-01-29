@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { View } from 'react-native'
 import { translate } from '@translations'
 import { Button } from './Button'

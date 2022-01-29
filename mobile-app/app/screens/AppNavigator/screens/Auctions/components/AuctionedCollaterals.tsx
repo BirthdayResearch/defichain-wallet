@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { ThemedSectionTitle, ThemedText } from '@components/themed'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'

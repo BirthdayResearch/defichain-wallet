@@ -1,7 +1,6 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { translate } from '@translations'
-import * as React from 'react'
 
 export function EmptyBalances (): JSX.Element {
   return (

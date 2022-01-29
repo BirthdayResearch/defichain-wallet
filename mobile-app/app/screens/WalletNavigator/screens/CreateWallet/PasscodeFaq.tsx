@@ -2,7 +2,6 @@ import { ThemedScrollView, ThemedText } from '@components/themed'
 import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
 
 export function PasscodeFaq (): JSX.Element {
   const faqContent: AccordionContent[] = [

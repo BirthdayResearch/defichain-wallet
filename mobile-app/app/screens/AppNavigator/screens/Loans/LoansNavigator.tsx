@@ -1,5 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import * as React from 'react'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { LoanScheme, LoanToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
@@ -70,15 +69,16 @@ export interface LoanParamList {
     resultingColRatio: BigNumber
   }
   PaybackLoanScreen: {
-    loanToken: LoanVaultTokenAmount
+    loanTokenAmount: LoanVaultTokenAmount
     vault: LoanVaultActive
   }
   ConfirmPaybackLoanScreen: {
     fee: BigNumber
     amountToPay: BigNumber
     vault: LoanVaultActive
-    loanToken: LoanVaultTokenAmount
+    loanTokenAmount: LoanVaultTokenAmount
     excessAmount?: BigNumber
+    resultingColRatio: BigNumber
   }
   EditLoanSchemeScreen: {
     vaultId: string

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native'
+import { useEffect, useState } from 'react'
+import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
@@ -23,15 +22,16 @@ import { AuctionsParamList } from '../AuctionNavigator'
 import { CollateralTokenIconGroup } from '../components/CollateralTokenIconGroup'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BottomSheetAuctionedCollateral } from '../components/BottomSheetAuctionedCollateral'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { InfoText } from '@components/InfoText'
-import { getActivePrice } from '../helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
+import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -47,7 +47,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD
-  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
     bottomSheetRef,
@@ -245,10 +245,7 @@ function BidSummaryCard (props: {
         <View style={tailwind('flex flex-row w-6/12 items-center')}>
           <SymbolIcon
             symbol={props.displaySymbol}
-            styleProps={{
-              width: 20,
-              height: 20
-            }}
+            styleProps={tailwind('w-5 h-5')}
           />
           <ThemedText style={tailwind('font-semibold ml-2')}>{props.displaySymbol}</ThemedText>
         </View>
@@ -261,89 +258,37 @@ function BidSummaryCard (props: {
         </View>
       </View>
 
-      <View>
-        <BidCardRow
-          lhs={translate('screens/PlaceBidScreen', 'Total auction value (USD)')}
-          rhs={{
-            suffixType: 'component',
-            value: new BigNumber(props.totalAuctionValue),
-            prefix: '$'
-          }}
-        >
-          <TouchableOpacity onPress={props.onPressFullDetails}>
-            <ThemedText
-              dark={tailwind('text-dfxred-500')}
-              light={tailwind('text-primary-500')}
-              style={tailwind('text-xs')}
-            >{` ${translate('screens/PlaceBidScreen', '(Full details)')}`}
-            </ThemedText>
-          </TouchableOpacity>
-        </BidCardRow>
-        <BidCardRow
-          lhs={translate('screens/PlaceBidScreen', 'Min. next bid')}
-          rhs={{
-            suffixType: 'text',
-            value: props.minNextBid,
-            suffix: props.displaySymbol
-          }}
-        />
+      <VaultSectionTextRow
+        value={getUSDPrecisedPrice(props.totalAuctionValue)}
+        lhs={translate('screens/PlaceBidScreen', 'Total auction value (USD)')}
+        testID='text_total_auction_value'
+        suffixType='component'
+        prefix='$'
+      >
+        <TouchableOpacity onPress={props.onPressFullDetails}>
+          <ThemedText
+            dark={tailwind('text-dfxred-500')}
+            light={tailwind('text-primary-500')}
+            style={tailwind('text-xs')}
+          >{` ${translate('screens/PlaceBidScreen', '(Full details)')}`}
+          </ThemedText>
+        </TouchableOpacity>
+      </VaultSectionTextRow>
+      <VaultSectionTextRow
+        value={props.minNextBid}
+        lhs={translate('screens/PlaceBidScreen', 'Min. next bid')}
+        testID='text_min_next_bid'
+        suffixType='text'
+        suffix={props.displaySymbol}
+      />
+      <View style={tailwind('mt-1')}>
         <AuctionTimeProgress
           liquidationHeight={props.liquidationHeight}
           blockCount={props.blockCount}
           label='Auction time left'
           auctionTextStyle={tailwind('text-xs')}
         />
-
       </View>
     </ThemedView>
-  )
-}
-
-interface BidCardRowProps {
-  lhs: string
-  rhs: {
-    suffixType: 'text' | 'component'
-    value: BigNumber | string
-    suffix?: string
-    prefix?: string
-  }
-}
-
-function BidCardRow (props: React.PropsWithChildren<BidCardRowProps>): JSX.Element {
-  const rhsStyle = {
-    style: tailwind('text-xs')
-  }
-
-  return (
-    <View style={tailwind('flex flex-row mb-1')}>
-      <View style={tailwind('w-6/12')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-dfxgray-400')}
-          style={tailwind('text-xs')}
-        >
-          {props.lhs}
-        </ThemedText>
-      </View>
-      <View style={tailwind('flex flex-row flex-grow justify-end')}>
-        <ThemedText {...rhsStyle}>
-          {props.rhs.prefix !== undefined && <ThemedText {...rhsStyle}>{props.rhs.prefix}</ThemedText>}
-          {BigNumber.isBigNumber(props.rhs.value) &&
-            <NumberFormat
-              decimalScale={8}
-              displayType='text'
-              thousandSeparator
-              value={props.rhs.value.toFixed(2)}
-              renderText={(val: string) => (
-                <ThemedText {...rhsStyle}>{val}</ThemedText>
-            )}
-            />}
-          {!BigNumber.isBigNumber(props.rhs.value) && <ThemedText {...rhsStyle}>{props.rhs.value}</ThemedText>}
-          {props.rhs.suffix !== undefined && props.rhs.suffixType === 'text' &&
-            <ThemedText {...rhsStyle}>{` ${props.rhs.suffix}`}</ThemedText>}
-        </ThemedText>
-        {props.rhs.suffixType === 'component' && props.children}
-      </View>
-    </View>
   )
 }

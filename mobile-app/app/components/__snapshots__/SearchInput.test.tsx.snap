@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Input should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderTopRightRadius": 8,
+        "display": "flex",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingBottom": 4,
+        "paddingLeft": 8,
+        "paddingTop": 4,
+      },
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+>
+  <Text />
+  <TextInput
+    allowFontScaling={true}
+    placeholderTextColor="rgba(0, 0, 0, 0.4)"
+    rejectResponderTermination={true}
+    showClearButton={true}
+    style={
+      Array [
+        Object {
+          "flexGrow": 1,
+          "height": 32,
+          "width": "66.666667%",
+        },
+        Object {
+          "color": "rgba(64, 64, 64, 1)",
+        },
+      ]
+    }
+    underlineColorAndroid="transparent"
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "opacity": 1,
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+        "position": "relative",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
+            "height": 16,
+            "left": 12,
+            "position": "absolute",
+            "top": 8,
+            "width": "75%",
+            "zIndex": -1,
+          },
+          Object {
+            "backgroundColor": "rgba(38, 38, 38, 1)",
+          },
+        ]
+      }
+    />
+    <Text />
+  </View>
+</View>
+`;

@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
@@ -6,7 +5,8 @@ import { getNativeIcon } from '@components/icons/assets'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
-import { getActivePrice } from '../helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
@@ -75,7 +75,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
               {value}
             </ThemedText>}
           thousandSeparator
-          value={new BigNumber(collateralPrice).toFixed(2)}
+          value={getUSDPrecisedPrice(collateralPrice)}
         />
       </View>
     </ThemedView>

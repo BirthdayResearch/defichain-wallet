@@ -11,19 +11,23 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Update to the latest app version to access Decentralized Loan.',
-      de: 'Aktualisiere auf die neueste Version der App, um Zugang zu dezentralen Darlehen zu erhalten.',
-      'zh-Hans': '请更新至最新版本应用程式使用去中心化贷款。',
-      'zh-Hant': '請更新至最新版本應用程式使用去中心化貸款。'
+      en: 'Update to the latest app version to access Auctions.',
+      de: 'Aktualisiere auf die neueste App-Version, um Zugriff auf Auktionen zu bekommen.',
+      'zh-Hans': '请即更新至最新应用程式版本以体验拍卖功能',
+      'zh-Hant': '請即更新至最新應用程式版本以體驗拍賣功能',
+      fr: 'Passez à la dernière version de l\'application pour accéder aux enchères.'
     },
-    version: '<0.17.0'
+    version: '<=0.22.0',
+    id: '0'
   }, {
     lang: {
-      en: 'Decentralized loan is now available on the Light Wallet app.',
-      de: 'Dezentrale Darlehen sind jetzt in der Light Wallet App verfügbar.',
-      'zh-Hans': '去中心化贷款已在轻钱包 Light Wallet 正式推出',
-      'zh-Hant': '去中心化貸款已在輕錢包 Light Wallet 正式推出'
+      en: 'Auctions are now accessible from the bottom menu bar.',
+      de: 'Auktionen lassen sich jetzt über die untere Menüleiste aufrufen.',
+      'zh-Hans': '现在可以从页面下方目录栏点击拍卖',
+      'zh-Hant': '現在可以從頁面下方目錄欄點擊拍賣',
+      fr: 'Les enchères sont désormais accessibles depuis la barre de menu inférieure.'
     },
-    version: '>=0.17.0'
+    version: '>=0.23.0',
+    id: '1'
   }])
 }

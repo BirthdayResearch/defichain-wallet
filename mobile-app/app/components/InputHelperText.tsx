@@ -1,5 +1,4 @@
 import { tailwind } from '@tailwind'
-import React from 'react'
 import { ThemedView, ThemedText } from '@components/themed'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewProps } from 'react-native'

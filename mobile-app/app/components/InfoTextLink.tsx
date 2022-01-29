@@ -1,6 +1,5 @@
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
 import { StyleProp, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import { ThemedIcon, ThemedText } from './themed'
 

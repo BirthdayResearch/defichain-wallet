@@ -4,7 +4,8 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import * as React from 'react'
 import NumberFormat from 'react-number-format'
 import { useSelector, useDispatch } from 'react-redux'
 import { View } from '@components'
@@ -28,6 +29,7 @@ import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
+import { useDebounce } from '@hooks/useDebounce'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -96,15 +98,11 @@ export function DexScreen (): JSX.Element {
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
-  const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourLPTokens)
   const [isSearching, setIsSearching] = useState(false)
   const handleFilter = useCallback(
     debounce((searchString: string) => {
       setIsSearching(false)
       setFilteredAvailablePairs(pairs.filter(pair =>
-        pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
-      ))
-      setFilteredYourPairs(yourLPTokens.filter(pair =>
         pair.data.displaySymbol.toLowerCase().includes(searchString.trim().toLowerCase())
       ))
     }, 500)
@@ -199,12 +197,12 @@ export function DexScreen (): JSX.Element {
       <ThemedView style={tailwind('flex-1')}>
         {
           activeTab === TabKey.AvailablePoolPair && (!hasFetchedPoolpairData || isSearching) && (
-            <View style={tailwind('mt-2')}>
+            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
               <SkeletonLoader
                 row={4}
                 screen={SkeletonLoaderScreen.Dex}
               />
-            </View>
+            </ThemedScrollView>
           )
         }
         {
@@ -222,12 +220,14 @@ export function DexScreen (): JSX.Element {
           )
         }
         {
-          activeTab === TabKey.YourPoolPair && filteredYourPairs.length > 0 && (
+          activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
             <YourPoolPairCards
-              yourPairs={filteredYourPairs}
+              yourPairs={yourLPTokens}
               availablePairs={pairs}
               onAdd={onAdd}
               onRemove={onRemove}
+              setIsSearching={setIsSearching}
+              searchString={searchString}
             />
           )
         }
@@ -294,24 +294,38 @@ interface YourPoolPairCardsItems {
   availablePairs: Array<DexItem<PoolPairData>>
   onAdd: (data: PoolPairData) => void
   onRemove: (data: PoolPairData) => void
+  setIsSearching: (isSearching: boolean) => void
+  searchString: string
 }
 
 function YourPoolPairCards ({
   yourPairs,
   availablePairs,
   onAdd,
-  onRemove
+  onRemove,
+  setIsSearching,
+  searchString
 }: YourPoolPairCardsItems): JSX.Element {
+  const [filteredYourPairs, setFilteredYourPairs] = useState<Array<DexItem<WalletToken>>>(yourPairs)
+  const debouncedSearchTerm = useDebounce(searchString, 2000)
+
+  useEffect(() => {
+    setIsSearching(false)
+    setFilteredYourPairs(yourPairs.filter(pair =>
+      pair.data.displaySymbol.toLowerCase().includes(debouncedSearchTerm.trim().toLowerCase())
+    ))
+  }, [yourPairs, debouncedSearchTerm])
+
   return (
     <ThemedFlatList
-      data={yourPairs}
+      contentContainerStyle={tailwind('p-4 pb-2')}
+      data={filteredYourPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({
-        item,
-        index
-      }: { item: { type: string, data: WalletToken }, index: number }): JSX.Element => {
+        item
+      }: { item: DexItem<WalletToken> }): JSX.Element => {
         const { data: yourPair } = item
         const poolPairData = availablePairs.find(pr => pr.data.symbol === (yourPair as AddressToken).symbol)
         const mappedPair = poolPairData?.data
@@ -331,7 +345,7 @@ function YourPoolPairCards ({
           <ThemedView
             dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
             light={tailwind('bg-white border-gray-200')}
-            style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
+            style={tailwind('p-4 mb-2 border rounded')}
             testID='pool_pair_row_your'
           >
             <View style={tailwind('flex-row items-center justify-between')}>
@@ -353,7 +367,7 @@ function YourPoolPairCards ({
               tokenBTotal={tokenBTotal.toFixed(8)}
               testID='your'
             />
-            <PoolPairActions
+            <YourPoolPairActions
               onAdd={() => onAdd((poolPairData as DexItem<PoolPairData>)?.data)}
               onRemove={() => onRemove((poolPairData as DexItem<PoolPairData>)?.data)}
               symbol={symbol}
@@ -375,13 +389,13 @@ function AvailablePoolPairCards ({
 
   return (
     <ThemedFlatList
+      contentContainerStyle={tailwind('p-4 pb-2')}
       data={sortedPairs}
       numColumns={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({
-        item,
-        index
+        item, index
       }: { item: DexItem<PoolPairData>, index: number }): JSX.Element => {
         const { data: pair } = item
         const [symbolA, symbolB] = (pair?.tokenA != null && pair?.tokenB != null)
@@ -394,10 +408,10 @@ function AvailablePoolPairCards ({
           <ThemedView
             dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
             light={tailwind('bg-white border-gray-200')}
-            style={tailwind('mx-4 p-4 my-1 border rounded', { 'mt-4': index === 0 })}
+            style={tailwind('p-4 mb-2 border rounded')}
             testID='pool_pair_row'
           >
-            <View style={tailwind('flex-row items-center')}>
+            <View style={tailwind('flex-row items-center')} testID={`pool_pair_row_${index}_${symbol}`}>
               <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
               <ThemedText
                 style={tailwind('text-base font-medium')}
@@ -441,7 +455,8 @@ function AvailablePoolPairCards ({
                   light={tailwind('border-gray-300 bg-white')}
                   dark={tailwind('border-dfxblue-900 bg-dfxblue-800')}
                   onPress={() => setFavouritePoolpair(pair.id)}
-                  style={tailwind('p-1.5 border rounded mr-2 mt-2 flex-row items-center')}
+                  style={tailwind('p-1.5 border rounded flex-row items-center')}
+                  testID={`favorite_${symbol}`}
                 >
                   <ThemedIcon
                     iconType='MaterialIcons'
@@ -575,7 +590,7 @@ function PoolPairInfoLine (props: PoolPairInfoLineProps): JSX.Element {
   )
 }
 
-function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symbol: string }): JSX.Element {
+function YourPoolPairActions (props: { onAdd: () => void, onRemove: () => void, symbol: string }): JSX.Element {
   const {
     onAdd,
     onRemove,
@@ -588,7 +603,7 @@ function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symb
         onPress={onAdd}
         pair={symbol}
         label={translate('screens/DexScreen', 'ADD MORE')}
-        style={tailwind('mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mt-2')}
         testID={`pool_pair_add_${symbol}`}
       />
 
@@ -597,7 +612,7 @@ function PoolPairActions (props: { onAdd: () => void, onRemove: () => void, symb
         onPress={onRemove}
         pair={symbol}
         label={translate('screens/DexScreen', 'REMOVE')}
-        style={tailwind('mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mt-2')}
         testID={`pool_pair_remove_${symbol}`}
       />
     </View>
