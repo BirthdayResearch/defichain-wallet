@@ -4,7 +4,7 @@ import { AnnouncementData, FeatureFlag } from '@shared-types/website'
 export const websiteSlice = createApi({
   reducerPath: 'website',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://wallet.defichain.com/api/v0'
+    baseUrl: 'https://api.dfx.swiss/v1/app'
   }),
   endpoints: builder => ({
     getAnnouncements: builder.query<AnnouncementData[], any>({
