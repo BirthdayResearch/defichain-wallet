@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'

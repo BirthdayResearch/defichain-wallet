@@ -1,5 +1,4 @@
 import { tailwind } from '@tailwind'
-import React from 'react'
 import BigNumber from 'bignumber.js'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { ThemedText, ThemedView } from '@components/themed'

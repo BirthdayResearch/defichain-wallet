@@ -42,6 +42,7 @@ context('Wallet - Network detail screen - outside wallet context', () => {
         cy.getByTestID('button_network_Playground').click()
         cy.go('back').wait(3000)
         cy.url().should('include', 'wallet/onboarding/guidelines')
+        cy.getByTestID('guidelines_switch').click()
         cy.getByTestID('create_recovery_words_button').click()
         cy.url().should('include', 'wallet/mnemonic/create')
         cy.getByTestID('header_active_network').first().invoke('text').then((updatedNetwork) => {
@@ -108,10 +109,10 @@ context('Wallet - Network detail screen - outside wallet context', () => {
         cy.getByTestID('network_details_status_icon').should('have.css', 'background-color', statusBgColor)
         cy.getByTestID('network_details_block_height').should('exist').contains(100)
         cy.getByTestID('network_details_total_masternodes').should('exist').contains(10)
-        cy.getByTestID('network_details_last_sync').invoke('text').then((lastSync) => {
+        cy.getByTestID('network_details_last_sync').invoke('text').then((lastSuccessfulSync) => {
           cy.wait(70000)
           cy.getByTestID('network_details_last_sync').invoke('text').then((updatedLastSync) => {
-            expect(dayjs(lastSync).isBefore(dayjs(updatedLastSync))).to.be.eq(true)
+            expect(dayjs(lastSuccessfulSync).isBefore(dayjs(updatedLastSync))).to.be.eq(true)
           })
         })
       })

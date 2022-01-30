@@ -163,6 +163,7 @@ exports[`Batch Card should match snapshot 1`] = `
                 ],
               ]
             }
+            testID="batch_0_DUSD"
           >
             DUSD
           </Text>
@@ -675,7 +676,6 @@ exports[`Batch Card should match snapshot 1`] = `
   <View
     style={
       Object {
-        "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
         "marginBottom": 8,
@@ -686,8 +686,7 @@ exports[`Batch Card should match snapshot 1`] = `
     <View
       style={
         Object {
-          "display": "flex",
-          "flexDirection": "row",
+          "width": "50%",
         }
       }
     >
@@ -719,7 +718,12 @@ exports[`Batch Card should match snapshot 1`] = `
       style={
         Object {
           "display": "flex",
+          "flexBasis": "0%",
           "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "flexWrap": "wrap",
+          "justifyContent": "flex-end",
         }
       }
     >
@@ -733,10 +737,14 @@ exports[`Batch Card should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+              ],
               Object {
                 "color": "rgba(23, 23, 23, 1)",
               },

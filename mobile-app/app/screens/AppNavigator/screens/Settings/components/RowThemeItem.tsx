@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import * as React from 'react'
 import { useState } from 'react'
 import { ThemePersistence } from '@api'
 import { Switch, View } from '@components/index'
@@ -51,6 +50,7 @@ export function RowThemeItem (): JSX.Element {
         <MaterialCommunityIcons
           name='moon-waning-crescent'
           size={20}
+          testID='dark_mode_icon'
           style={tailwind('ml-2 text-dfxgray-300', { 'text-yellow-400': !isLight })}
         />
       </View>

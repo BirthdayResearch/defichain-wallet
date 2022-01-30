@@ -1,6 +1,7 @@
 import * as LocalAuthentication from 'expo-local-authentication'
 import { AuthenticationType, LocalAuthenticationOptions, SecurityLevel } from 'expo-local-authentication'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import * as React from 'react'
 import { PrivacyLockPersistence } from '@api/wallet/privacy_lock'
 import { Platform } from 'react-native'
 import { useLogger } from '../../../shared/contexts/NativeLoggingProvider'

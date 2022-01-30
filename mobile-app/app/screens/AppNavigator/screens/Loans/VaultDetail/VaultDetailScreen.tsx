@@ -3,7 +3,7 @@ import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@component
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { TouchableOpacity } from 'react-native'
 import { ScrollableButton, ScrollButton } from '../components/ScrollableButton'
@@ -26,6 +26,7 @@ import {
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -56,7 +57,8 @@ export function VaultDetailScreen ({
           },
           merge: true
         })
-      }
+      },
+      testID: 'vault_detail_edit_collateral'
     },
     {
       label: 'EDIT LOAN SCHEME',
@@ -73,7 +75,8 @@ export function VaultDetailScreen ({
           },
           merge: true
         })
-      }
+      },
+      testID: 'vault_detail_edit_loan_scheme'
     },
     {
       label: 'CLOSE VAULT',
@@ -90,7 +93,8 @@ export function VaultDetailScreen ({
           },
           merge: true
         })
-      }
+      },
+      testID: 'vault_detail_close_vault'
     }
   ]
 
@@ -249,13 +253,13 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
         : (
           <>
             <VaultSectionTextRow
-              value={new BigNumber(props.vault.collateralValue).toFixed(2)}
+              value={getUSDPrecisedPrice(props.vault.collateralValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total collateral (USD)')}
               testID='text_total_collateral_value'
               prefix='$'
             />
             <VaultSectionTextRow
-              value={new BigNumber(props.vault.loanValue).toFixed(2)}
+              value={getUSDPrecisedPrice(props.vault.loanValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total loans (USD)')}
               testID='text_total_loan_value'
               prefix='$'

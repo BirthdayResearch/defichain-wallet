@@ -9,7 +9,7 @@ import {
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -38,7 +38,9 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
-import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
+import { useBlocksPerDay } from '../hooks/BlocksPerDay'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -62,6 +64,7 @@ export function BorrowLoanTokenScreen ({
     amountInput: ''
   })
   const [totalLoanWithInterest, setTotalLoanWithInterest] = useState(new BigNumber(NaN))
+  const [totalAnnualInterest, setTotalAnnualInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken.interest))
@@ -72,6 +75,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(loanToken.activePrice?.active?.amount ?? 0),
     interestPerBlock
   )
+  const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const canUseOperations = useLoanOperations(vault?.state)
@@ -135,8 +139,9 @@ export function BorrowLoanTokenScreen ({
     if (vault === undefined || amountToBorrow.amountInput === undefined || loanToken.activePrice?.active?.amount === undefined) {
       return
     }
-
-    setTotalLoanWithInterest(amountToBorrow.amountInToken.plus(interestPerBlock))
+    const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToBorrow.amountInToken)
+    setTotalAnnualInterest(annualInterest)
+    setTotalLoanWithInterest(amountToBorrow.amountInToken.plus(annualInterest))
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -185,7 +190,7 @@ export function BorrowLoanTokenScreen ({
       address,
       client
     }))
-  }, [blockCount])
+  }, [blockCount, address])
 
   useEffect(() => {
     const updatedVault = vaults.find(v => v.vaultId === vault?.vaultId) as LoanVaultActive
@@ -283,7 +288,7 @@ export function BorrowLoanTokenScreen ({
                 vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
                 loanTokenInterestRate={new BigNumber(loanToken.interest)}
                 loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-                totalInterestAmount={interestPerBlock}
+                totalInterestAmount={totalAnnualInterest}
                 totalLoanWithInterest={totalLoanWithInterest}
                 loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
                 fee={fee}
@@ -356,10 +361,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row w-2/12 flex-1 items-center')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{
-          width: 24,
-          height: 24
-        }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-6 h-6')}
         />
         <ThemedText style={tailwind('ml-2 text-sm font-medium')}>{props.displaySymbol}</ThemedText>
       </View>
@@ -372,7 +374,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
         </ThemedText>
         <NumberFormat
-          value={currentPrice > 0 ? new BigNumber(currentPrice).toFixed(2) : '-'}
+          value={currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-'}
           decimalScale={2}
           thousandSeparator
           displayType='text'
@@ -511,7 +513,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
       </View>
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
-        value={new BigNumber(props.vault.collateralValue).toFixed(2)}
+        value={getUSDPrecisedPrice(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
       />
@@ -604,19 +606,19 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Estimated annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
-          testID: 'text_total_interest_amount',
+          testID: 'text_estimated_annual_interest',
           suffixType: 'text',
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/BorrowLoanTokenScreen', 'Total loan + interest')}
+        lhs={translate('screens/BorrowLoanTokenScreen', 'Total loan + annual interest')}
         rhs={{
           value: props.totalLoanWithInterest.toFixed(8),
-          testID: 'text_total_interest_amount',
+          testID: 'text_total_loan_with_annual_interest',
           suffixType: 'text',
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}

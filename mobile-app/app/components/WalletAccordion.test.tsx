@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { WalletAccordion } from './WalletAccordion'
 
 jest.mock('@shared-contexts/ThemeProvider')
@@ -12,7 +12,7 @@ describe('wallet accordion', () => {
           {
             title: 'foo',
             content: [{
-              text: 'bar',
+              text: 'foo',
               type: 'paragraph'
             }, {
               text: 'bar',

@@ -22,6 +22,8 @@ import { WalletPersistence } from '@api/wallet'
 import { NativeLoggingProvider } from '@shared-contexts/NativeLoggingProvider'
 import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { tailwind } from '@tailwind'
 
 /**
  * Loads
@@ -50,7 +52,9 @@ export default function App (): JSX.Element | null {
                             <DisplayBalancesProvider>
                               <ConnectionBoundary>
                                 <FeatureFlagProvider>
-                                  <Main />
+                                  <GestureHandlerRootView style={tailwind('flex-1')}>
+                                    <Main />
+                                  </GestureHandlerRootView>
                                 </FeatureFlagProvider>
                               </ConnectionBoundary>
                             </DisplayBalancesProvider>

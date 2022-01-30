@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import { BatchCard } from './BatchCard'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
@@ -35,7 +34,7 @@ describe('Batch Card', () => {
       block: {
         count: 2000,
         masternodeCount: 10,
-        lastSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
+        lastSuccessfulSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
         connected: true,
         isPolling: true
       }

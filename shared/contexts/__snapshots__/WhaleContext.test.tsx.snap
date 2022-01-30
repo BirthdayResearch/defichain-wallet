@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Whale Context test Whale Context test for Local should match snapshot 1`] = `
+<View>
+  <Text>
+    {"url":"http://localhost:19553","timeout":60000,"version":"v0","network":"regtest"}
+  </Text>
+</View>
+`;
+
+exports[`Whale Context test Whale Context test for MainNet should match snapshot 1`] = `
+<View>
+  <Text>
+    {"url":"https://ocean.defichain.com","timeout":60000,"version":"v0","network":"mainnet"}
+  </Text>
+</View>
+`;
+
+exports[`Whale Context test Whale Context test for Playground should match snapshot 1`] = `
+<View>
+  <Text>
+    {"url":"https://playground.defichain.com","timeout":60000,"version":"v0","network":"regtest"}
+  </Text>
+</View>
+`;
+
+exports[`Whale Context test Whale Context test for TestNet should match snapshot 1`] = `
+<View>
+  <Text>
+    {"url":"https://ocean.defichain.com","timeout":60000,"version":"v0","network":"testnet"}
+  </Text>
+</View>
+`;

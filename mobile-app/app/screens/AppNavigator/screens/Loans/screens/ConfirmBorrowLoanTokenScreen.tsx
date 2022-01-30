@@ -6,7 +6,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/th
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -22,8 +22,9 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -200,19 +201,19 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total interest amount')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Estimated annual interest')}
         rhs={{
           value: props.totalInterestAmount.toFixed(8),
-          testID: 'total_interest_amount',
+          testID: 'estimated_annual_interest',
           suffixType: 'text',
           suffix: props.displaySymbol
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + interest')}
+        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Total loan + annual interest')}
         rhs={{
           value: props.totalLoanWithInterest.toFixed(8),
-          testID: 'total_loan_with_interest',
+          testID: 'total_loan_with_annual_interest',
           suffixType: 'text',
           suffix: props.displaySymbol
         }}
@@ -242,14 +243,16 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Vault ID')}
         rhs={{
           value: props.vaultId,
-          testID: 'text_vault_id'
+          testID: 'text_vault_id',
+          numberOfLines: 1,
+          ellipsizeMode: 'middle'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateral amount (USD)')}
         rhs={{
-          value: props.collateralAmount.toFixed(2),
+          value: getUSDPrecisedPrice(props.collateralAmount),
           testID: 'text_collateral_amount',
           prefix: '$'
         }}
@@ -284,27 +287,19 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
 }
 
 function SummaryTransactionResults (props: { resultCollateralRatio: BigNumber, minColRatio: BigNumber, totalLoanValue: BigNumber }): JSX.Element {
-  const colors = useCollateralizationRatioColor({
-    colRatio: props.resultCollateralRatio,
-    minColRatio: props.minColRatio,
-    totalLoanAmount: props.totalLoanValue
-  })
-
   return (
     <>
       <ThemedSectionTitle
         text={translate('screens/ConfirmBorrowLoanTokenScreen', 'TRANSACTION RESULTS')}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
-        rhs={{
-          value: props.resultCollateralRatio.toFixed(2),
-          testID: 'text_result_collateral_ratio',
-          suffixType: 'text',
-          suffix: '%',
-          style: tailwind('ml-0')
-        }}
-        rhsThemedProps={colors}
+      <CollateralizationRatioRow
+        label={translate('screens/ConfirmBorrowLoanTokenScreen', 'Resulting collateralization')}
+        value={props.resultCollateralRatio.toFixed(2)}
+        testId='text_resulting_col_ratio'
+        type='current'
+        minColRatio={props.minColRatio}
+        totalLoanAmount={props.totalLoanValue}
+        colRatio={props.resultCollateralRatio}
       />
     </>
   )

@@ -4,7 +4,7 @@ import { TokenIconGroup } from '@components/TokenIconGroup'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { StyleProp } from 'react-native'
 
 interface VaultInfoProps {

@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js'
 
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
 
-interface LoansState {
+export interface LoansState {
   vaults: LoanVault[]
   loanTokens: LoanToken[]
   loanSchemes: LoanScheme[]
@@ -102,10 +102,6 @@ export const loans = createSlice({
       state.collateralTokens = action.payload
     })
   }
-})
-
-export const nonLiquidatedVault = createSelector((state: LoansState) => state.vaults, vaults => {
-  return vaults.filter(vault => vault.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive[]
 })
 
 export const ascColRatioLoanScheme = createSelector((state: LoansState) => state.loanSchemes,

@@ -2,7 +2,7 @@ import { View } from '@components'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
-import React from 'react'
+
 import NumberFormat from 'react-number-format'
 import { CollateralizationRatioProps, useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -29,6 +28,16 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       label: 'UTXO vs Token',
       testID: 'utxo_and_token_faq',
       onPress: () => navigation.navigate('TokensVsUtxo')
+    },
+    {
+      label: 'DEX',
+      testID: 'dex_faq',
+      onPress: () => navigation.navigate('DexFaq')
+    },
+    {
+      label: 'Liquidity Mining',
+      testID: 'liquidity_mining_faq',
+      onPress: () => navigation.navigate('LiquidityMiningFaq')
     }
   ]
 

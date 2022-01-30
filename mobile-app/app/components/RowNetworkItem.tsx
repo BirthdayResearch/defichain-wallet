@@ -6,7 +6,6 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { SettingsParamList } from '@screens/AppNavigator/screens/Settings/SettingsNavigator'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import * as React from 'react'
 
 interface RowNetworkItemProps {
   network: EnvironmentNetwork

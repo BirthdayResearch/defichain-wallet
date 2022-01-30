@@ -1,7 +1,6 @@
 import { TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from '@components/themed'
-import React from 'react'
 
 interface TransactionIDButtonProps {
   txid: string

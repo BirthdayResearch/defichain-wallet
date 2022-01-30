@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import * as React from 'react'
 import { Linking, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
@@ -192,7 +193,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
 }
 
 function TokenSummary (props: { token: WalletToken}): JSX.Element {
-  const Icon = getNativeIcon(props.token.avatarSymbol)
+  const Icon = getNativeIcon(props.token.displaySymbol)
   const { getTokenUrl } = useDeFiScanContext()
 
   const onTokenUrlPressed = async (): Promise<void> => {

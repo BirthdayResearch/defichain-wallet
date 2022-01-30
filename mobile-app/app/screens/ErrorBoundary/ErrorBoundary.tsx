@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { Component, ReactElement } from 'react'
 import { Text, View } from '../../components'
 import { AppIcon } from '@components/icons/AppIcon'
 import { tailwind } from '@tailwind'
@@ -28,7 +28,7 @@ export function ErrorDisplayComponent (): JSX.Element {
   )
 }
 
-class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = { hasError: false }

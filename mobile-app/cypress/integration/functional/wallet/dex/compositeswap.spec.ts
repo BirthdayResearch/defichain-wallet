@@ -11,11 +11,11 @@ function setupWalletForConversion (): void {
   cy.getByTestID('close_dex_guidelines').click()
 
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
-  cy.getByTestID('composite_swap').click().wait(1000)
-  cy.getByTestID('token_select_button_FROM').click()
-  cy.getByTestID('select_DFI').click().wait(100)
-  cy.getByTestID('token_select_button_TO').click()
-  cy.getByTestID('select_dLTC').click().wait(100)
+  cy.getByTestID('composite_swap').click().wait(3000)
+  cy.getByTestID('token_select_button_FROM').should('exist').click()
+  cy.getByTestID('select_DFI').click().wait(1000)
+  cy.getByTestID('token_select_button_TO').should('exist').click()
+  cy.getByTestID('select_dLTC').click().wait(1000)
 }
 
 context('Wallet - DEX - Swap without balance', () => {
@@ -119,8 +119,36 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('estimated_to_receive').then(($txt: any) => {
       const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
       cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
-      cy.getByTestID('slippage_10%').click()
     })
+  })
+
+  it('should be able to use/validate custom slippage tolerance', function () {
+    cy.getByTestID('text_input_tokenA').type('10')
+    cy.getByTestID('slippage_select').click()
+    cy.getByTestID('slippage_1%').should('exist')
+
+    // Slippage warning
+    cy.getByTestID('slippage_Custom').click()
+    cy.getByTestID('slippage_input').clear().type('21')
+    cy.getByTestID('slippage_warning').should('exist')
+    cy.getByTestID('slippage_input').clear().type('5')
+    cy.getByTestID('slippage_warning').should('not.exist')
+
+    // Slippage validation
+    cy.getByTestID('slippage_Custom').click()
+    cy.getByTestID('slippage_input').should('have.value', '5')
+    cy.getByTestID('slippage_input').clear().type('101').blur().wait(100)
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('slippage_input').clear()
+    cy.getByTestID('slippage_input_error').should('have.text', 'Required field is missing')
+    cy.getByTestID('slippage_input').clear().type('-1').blur().wait(100)
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('slippage_input').clear().type('a1').blur().wait(100)
+    cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
+    cy.getByTestID('button_tolerance_submit').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('slippage_input').clear().type('25').blur().wait(100)
+    cy.getByTestID('button_tolerance_submit').click()
   })
 })
 
@@ -162,6 +190,7 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
 
     it('should be able to swap', function () {
       cy.getByTestID('text_input_tokenA').type('10')
+      cy.getByTestID('slippage_select').click()
       cy.getByTestID('slippage_10%').click()
       cy.getByTestID('estimated_to_receive').then(($txt: any) => {
         const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')

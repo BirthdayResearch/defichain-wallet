@@ -1,6 +1,6 @@
 import * as Progress from 'react-native-progress'
 import BigNumber from 'bignumber.js'
-import React from 'react'
+
 import { getColor, tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { View } from '@components'
@@ -222,12 +222,12 @@ function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normaliz
       <ThemedView
         light={tailwind('bg-error-200')}
         dark={tailwind('bg-darkerror-200')}
-        style={[tailwind('h-1 mr-0.5'), { width: `${props.normalizedLiquidatedThreshold.toFixed(2)}%` }]}
+        style={[tailwind('h-1'), { width: `${props.normalizedLiquidatedThreshold.toFixed(2)}%` }]}
       />
       <ThemedView
         light={tailwind('bg-warning-300')}
         dark={tailwind('bg-darkwarning-300')}
-        style={[tailwind('h-1 mr-0.5'), { width: `${props.normalizedAtRiskThreshold.minus(props.normalizedLiquidatedThreshold).toFixed(2)}%` }]}
+        style={[tailwind('h-1'), { width: `${props.normalizedAtRiskThreshold.minus(props.normalizedLiquidatedThreshold).toFixed(2)}%` }]}
       />
       <ThemedView
         light={tailwind('bg-success-300')}

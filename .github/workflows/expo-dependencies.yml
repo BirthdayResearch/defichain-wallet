@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@04c56d2f954f1e4c69436aa54cfef261a018f458
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
           node-version: 16
 
       - run: npm ci
 
-      - uses: expo/expo-github-action@c3c02de017ef8cf6152daee160e8a47a2340a5e5
+      - uses: expo/expo-github-action@d0148023e1293a74904e7af0f9a9cdc60a1ce550
         with:
           expo-version: 4.x
           packager: npm
@@ -25,14 +25,14 @@ jobs:
       - run: expo upgrade
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@67df31e08a133c6a77008b89689677067fef169e
+        uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
-          commit-message: Bump Expo dependencies
+          commit-message: 'build(deps): bump expo dependencies'
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump Expo dependencies
+          title: 'build(deps): bump expo dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies

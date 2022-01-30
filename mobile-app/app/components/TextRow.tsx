@@ -1,21 +1,23 @@
-import React from 'react'
-import { StyleProp, TextStyle, View } from 'react-native'
+
+import { StyleProp, TextStyle, View, TextProps } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
 
+interface RHSProps extends TextProps {
+  value: string
+  testID: string
+  themedProps?: ThemedProps
+}
 interface TextRowProps {
   lhs: string
-  rhs: {
-    value: string
-    testID: string
-    themedProps?: ThemedProps
-  }
+  rhs: RHSProps
   info?: BottomSheetAlertInfo
   textStyle?: StyleProp<TextStyle>
 }
 
 export function TextRow (props: TextRowProps): JSX.Element {
+  const { themedProps, testID, value, ...otherProps } = props.rhs
   return (
     <ThemedView
       dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
@@ -39,11 +41,12 @@ export function TextRow (props: TextRowProps): JSX.Element {
         <ThemedText
           dark={tailwind('text-dfxgray-400')}
           light={tailwind('text-dfxgray-500')}
-          {...props.rhs.themedProps}
+          {...themedProps}
           style={[tailwind('font-medium text-right'), props.textStyle]}
-          testID={props.rhs.testID}
+          testID={testID}
+          {...otherProps}
         >
-          {props.rhs.value}
+          {value}
         </ThemedText>
       </View>
     </ThemedView>

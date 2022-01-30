@@ -2,7 +2,6 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
@@ -184,7 +183,7 @@ export function BalancesNavigator (): JSX.Element {
         options={({ route }: { route: any }) => ({
           headerTitle: () => {
             const token = route?.params?.token
-            const Icon = getNativeIcon(token.avatarSymbol)
+            const Icon = getNativeIcon(token.displaySymbol)
             return (
               <HeaderTitle containerTestID={headerContainerTestId}>
                 <View style={tailwind('flex-row items-center')}>

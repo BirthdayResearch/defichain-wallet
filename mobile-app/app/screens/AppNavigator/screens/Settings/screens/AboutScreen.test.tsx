@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import * as React from 'react'
 import { Linking } from 'react-native'
 import { AboutScreen } from './AboutScreen'
 

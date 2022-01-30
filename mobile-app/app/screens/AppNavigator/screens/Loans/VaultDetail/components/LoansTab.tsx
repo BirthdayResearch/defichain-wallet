@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BigNumber from 'bignumber.js'
 import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -13,6 +13,8 @@ import { EmptyLoan } from './EmptyLoan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
+import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 interface LoanCardProps {
   symbol: string
@@ -26,7 +28,6 @@ interface LoanCardProps {
 
 export function LoansTab (props: { vault: LoanVault }): JSX.Element {
   const { vault } = props
-
   return (
     <ThemedView
       style={tailwind('p-4')}
@@ -46,7 +47,8 @@ export function LoansTab (props: { vault: LoanVault }): JSX.Element {
               vaultState={LoanVaultState.IN_LIQUIDATION}
               loanToken={batch.loan}
             />
-          ))
+            )
+          )
         )
         : (
           vault.loanAmounts.map(loan => (
@@ -69,6 +71,8 @@ export function LoansTab (props: { vault: LoanVault }): JSX.Element {
 
 function LoanCard (props: LoanCardProps): JSX.Element {
   const canUseOperations = useLoanOperations(props.vault?.state)
+  const activePrice = new BigNumber(getActivePrice(props.symbol, props.loanToken.activePrice))
+
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
@@ -77,10 +81,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row items-center')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{
-          width: 16,
-          height: 16
-        }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-4 h-4')}
         />
         <ThemedText
           light={tailwind({
@@ -116,19 +117,29 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             })
           }}
         />
+        <ActiveUSDValue
+          price={new BigNumber(props.amount).multipliedBy(activePrice)}
+          containerStyle={tailwind('justify-end')}
+        />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION &&
         (
-          <VaultSectionTextRow
-            value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
-            lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
-            testID='text_interest_amount'
-            suffixType='text'
-            suffix={` ${props.displaySymbol}`}
-            info={{
-              title: 'Interest amount',
-              message: 'This amount is the total interest amount from both vault and token interest rate.'
-            }}
-          />
+          <>
+            <VaultSectionTextRow
+              value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
+              lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
+              testID='text_interest_amount'
+              suffixType='text'
+              suffix={` ${props.displaySymbol}`}
+              info={{
+                title: 'Interest amount',
+                message: 'This amount is the total interest amount from both vault and token interest rate.'
+              }}
+            />
+            <ActiveUSDValue
+              price={new BigNumber(props.interestAmount ?? 0).multipliedBy(activePrice)}
+              containerStyle={tailwind('justify-end')}
+            />
+          </>
         )}
       </View>
 
@@ -165,7 +176,7 @@ function ActionButtons ({
               merge: true,
               params: {
                 vault,
-                loanToken
+                loanTokenAmount: loanToken
               }
             })
           }}

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedScrollView } from '@components/themed'
 import { VaultCard } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
@@ -25,7 +24,7 @@ export function Vaults (): JSX.Element {
       address,
       client
     }))
-  }, [blockCount])
+  }, [blockCount, address])
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))

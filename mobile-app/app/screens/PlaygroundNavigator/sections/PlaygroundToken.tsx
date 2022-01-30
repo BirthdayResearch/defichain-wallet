@@ -1,12 +1,13 @@
 import { TokenInfo } from '@defichain/jellyfish-api-core/dist/category/token'
 import { PlaygroundRpcClient } from '@defichain/playground-api-client'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { usePlaygroundContext } from '@contexts/PlaygroundContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { PlaygroundConnectionStatus } from '@screens/PlaygroundNavigator/components/PlaygroundStatus'
 
 export function PlaygroundToken (): JSX.Element | null {
   const { wallet } = useWalletContext()
@@ -14,15 +15,15 @@ export function PlaygroundToken (): JSX.Element | null {
     rpc,
     api
   } = usePlaygroundContext()
-  const [status, setStatus] = useState<string>('loading')
+  const [status, setStatus] = useState<PlaygroundConnectionStatus>(PlaygroundConnectionStatus.loading)
   const [tokens, setTokens] = useState<PlaygroundTokenInfo[]>([])
 
   useEffect(() => {
     getTokens(rpc).then(value => {
       setTokens(value)
-      setStatus('online')
+      setStatus(PlaygroundConnectionStatus.online)
     }).catch(() => {
-      setStatus('error')
+      setStatus(PlaygroundConnectionStatus.error)
     })
   }, [wallet])
 
@@ -52,9 +53,9 @@ export function PlaygroundToken (): JSX.Element | null {
     <View>
       <PlaygroundTitle
         status={{
-          online: status === 'online',
-          loading: status === 'loading',
-          error: status === 'error'
+          online: status === PlaygroundConnectionStatus.online,
+          loading: status === PlaygroundConnectionStatus.loading,
+          error: status === PlaygroundConnectionStatus.error
         }}
         title='Token'
       />

@@ -1,7 +1,6 @@
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '@api/wallet'
-import * as React from 'react'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { Button } from '@components/Button'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator'

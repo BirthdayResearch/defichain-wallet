@@ -1,6 +1,5 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
-import * as React from 'react'
 import { useRef, useCallback } from 'react'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { View } from '@components'
@@ -105,10 +104,10 @@ export function BalanceControlCard (): JSX.Element {
           </View>
           <TouchableOpacity onPress={async () => await openURL(getAddressUrl(address))}>
             <ThemedText
-              ellipsizeMode='middle'
-              numberOfLines={1}
               testID='wallet_address'
               style={tailwind('text-sm font-semibold pr-4')}
+              numberOfLines={1}
+              ellipsizeMode='middle'
             >
               {address}
             </ThemedText>

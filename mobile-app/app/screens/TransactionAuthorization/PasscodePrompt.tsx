@@ -4,11 +4,12 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import React from 'react'
+
 import { Platform, SafeAreaView, View } from 'react-native'
 import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import * as React from 'react'
 
 interface PasscodePromptProps {
   onCancel: () => void

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
+import * as React from 'react'
 import {
   createStackNavigator,
   StackNavigationOptions,
@@ -19,8 +20,8 @@ interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
   screenList: BottomSheetNavScreen[]
   snapPoints?: {
-    ios: string
-    android: string
+    ios: string[]
+    android: string[]
   }
 }
 
@@ -41,9 +42,9 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   const { isLight } = useThemeContext()
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
-      return [props.snapPoints?.ios ?? '50%']
+      return props.snapPoints?.ios ?? ['50%']
     } else if (Platform.OS === 'android') {
-      return [props.snapPoints?.android ?? '60%']
+      return props.snapPoints?.android ?? ['60%']
     }
     return []
   }
@@ -54,6 +55,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       index={0}
       snapPoints={getSnapPoints()}
       enablePanDownToClose={false}
+      keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}

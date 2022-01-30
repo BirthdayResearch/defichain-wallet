@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import * as React from 'react'
 import { Platform } from 'react-native'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen } from '@components/BottomSheetWithNav'

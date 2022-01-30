@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import { ConversionInfoText } from './ConversionInfoText'
 
 jest.mock('@shared-contexts/ThemeProvider')

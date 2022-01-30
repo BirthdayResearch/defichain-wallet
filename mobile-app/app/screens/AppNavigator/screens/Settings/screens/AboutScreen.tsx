@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { nativeApplicationVersion } from 'expo-application'
-import React from 'react'
+
 import { TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '@components/icons/AppIcon'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
@@ -67,7 +67,7 @@ const ABOUT_LINKS: AboutLinks[] = [
   {
     testID: 'privacy_policy_button',
     title: 'Privacy Policy',
-    url: 'https://dfx.swiss/datenschutz.html'
+    url: 'https://dfx.swiss/en/privacy/'
   },
   {
     testID: 'licenses_button',

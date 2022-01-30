@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -25,7 +25,7 @@ import {
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { BottomSheetToken, BottomSheetTokenList } from '@components/BottomSheetTokenList'
+import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { Button } from '@components/Button'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -33,13 +33,13 @@ import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
 import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { TextRow } from '@components/TextRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { checkIfPair, findPath, getAdjacentNodes, GraphProps } from '../helpers/path-finding'
+import { getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 export interface TokenState {
   id: string
@@ -60,6 +60,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
+  const { calculatePriceRates, getArbitraryPoolPair } = useTokenPrice()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
@@ -76,7 +77,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [slippage, setSlippage] = useState<number>(0.03)
+  const [slippage, setSlippage] = useState(new BigNumber(1))
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
@@ -175,6 +176,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
           tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
+          tokenType: TokenType.BottomSheetToken,
           headerLabel: translate('screens/CompositeSwapScreen', direction === 'FROM' ? 'Choose token for swap' : 'Choose token to swap'),
           onCloseButtonPress: () => dismissModal(),
           onTokenPress: (item): void => {
@@ -284,26 +286,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const graph: GraphProps[] = pairs.map(pair => {
-        return {
-          pairId: pair.data.id,
-          a: pair.data.tokenA.symbol,
-          b: pair.data.tokenB.symbol
-        }
-      })
-      // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
-      const { path } = findPath(graph, selectedTokenA.symbol, selectedTokenB.symbol)
-      const poolPairs = path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
-        const pair = pairs.find(pair => checkIfPair({
-          a: pair.data.tokenA.symbol,
-          b: pair.data.tokenB.symbol
-        }, token, path[index + 1]))
-        if ((pair == null) || index === path.length) {
-          return poolPairs
-        }
-        return [...poolPairs, pair.data]
-      }, [])
-
+      const poolPairs = getArbitraryPoolPair(selectedTokenA.symbol, selectedTokenB.symbol)
       setSelectedPoolPairs(poolPairs)
     }
   }, [selectedTokenA, selectedTokenB])
@@ -314,8 +297,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA, selectedPoolPairs, tokenAFormAmount)
+      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, tokenAFormAmount)
+      const slippage = new BigNumber(1).minus(new BigNumber(tokenAFormAmount).div(selectedTokenA.reserve))
 
+      const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
         label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', {
           tokenA: selectedTokenA.displaySymbol,
@@ -335,7 +320,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       }
       ])
 
-      setValue('tokenB', estimated)
+      setValue('tokenB', estimatedAmountAfterSlippage)
     }
   }, [selectedPoolPairs, tokenAFormAmount])
 
@@ -345,11 +330,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     const ownedTokenB = tokens.find(token => token.id === selectedTokenB.id)
+    const slippageInDecimal = new BigNumber(slippage).div(100)
     navigation.navigate('ConfirmCompositeSwapScreen', {
       fee,
       pairs: selectedPoolPairs,
       priceRates,
-      slippage,
+      slippage: slippageInDecimal,
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
@@ -495,7 +481,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               </View>
               {isConversionRequired && <ConversionInfoText />}
             </View>
-            <SlippageTolerance setSlippage={(amount) => setSlippage(amount)} slippage={slippage} />
           </>}
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
@@ -508,8 +493,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               fee={fee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
+              onSetSlippage={(val: BigNumber) => setSlippage(val)}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
+              setIsModalDisplayed={setIsModalDisplayed}
+              setBottomSheetScreen={setBottomSheetScreen}
+              onSlippageTolerancePress={expandModal}
+              onCloseButtonPress={dismissModal}
             />
           </>}
 
@@ -547,6 +537,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <BottomSheetWithNav
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
+            snapPoints={{
+              ios: ['40%'],
+              android: ['45%']
+            }}
           />
         )}
       </ThemedScrollView>
@@ -630,17 +624,27 @@ function TransactionDetailsSection ({
   fee,
   isConversionRequired,
   slippage,
+  onSetSlippage,
   tokenA,
-  tokenB
+  tokenB,
+  setIsModalDisplayed,
+  setBottomSheetScreen,
+  onSlippageTolerancePress,
+  onCloseButtonPress
 }: {
   amountToSwap: string
   conversionAmount: BigNumber
   estimatedAmount: string
   fee: BigNumber
   isConversionRequired: boolean
-  slippage: number
+  slippage: BigNumber
+  onSetSlippage: (val: BigNumber) => void
   tokenA: OwnedTokenState
   tokenB: TokenState
+  setIsModalDisplayed: (val: boolean) => void
+  setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void
+  onSlippageTolerancePress: () => void
+  onCloseButtonPress: () => void
  }): JSX.Element {
   return (
     <>
@@ -679,13 +683,13 @@ function TransactionDetailsSection ({
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      <TextRow
-        lhs={translate('screens/CompositeSwapScreen', 'Slippage Tolerance')}
-        rhs={{
-          value: `${new BigNumber(slippage).times(100).toFixed(2)}%`,
-          testID: 'slippage_tolerance'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
+      <SlippageTolerance
+        setSlippage={(amount) => onSetSlippage(amount)}
+        slippage={slippage}
+        setIsSelectorOpen={setIsModalDisplayed}
+        setBottomSheetScreen={setBottomSheetScreen}
+        onPress={onSlippageTolerancePress}
+        onCloseButtonPress={onCloseButtonPress}
       />
       <FeeInfoRow
         type='ESTIMATED_FEE'
@@ -696,42 +700,6 @@ function TransactionDetailsSection ({
     </>
   )
 }
-
-function calculatePriceRates (tokenA: OwnedTokenState, pairs: PoolPairData[], amount: string): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: string } {
-  const slippage = new BigNumber(1).minus(new BigNumber(amount).div(tokenA.reserve))
-  let lastTokenBySymbol = tokenA.symbol
-  let lastAmount = new BigNumber(amount)
-  const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
-    const [reserveA, reserveB] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.reserve, pair.tokenA.reserve] : [pair.tokenA.reserve, pair.tokenB.reserve]
-    const [tokenASymbol, tokenBSymbol] = pair.tokenB.symbol === lastTokenBySymbol ? [pair.tokenB.symbol, pair.tokenA.symbol] : [pair.tokenA.symbol, pair.tokenB.symbol]
-
-    const priceRateA = new BigNumber(reserveB).div(reserveA)
-    const priceRateB = new BigNumber(reserveA).div(reserveB)
-    // To sequentially convert the token from its last token
-    const aToBPrice = tokenASymbol === lastTokenBySymbol ? priceRateA : priceRateB
-    const bToAPrice = tokenASymbol === lastTokenBySymbol ? priceRateB : priceRateA
-    const estimated = new BigNumber(lastAmount).times(aToBPrice)
-
-    lastAmount = estimated
-    lastTokenBySymbol = tokenBSymbol
-    return {
-      aToBPrice: priceRates.aToBPrice.times(aToBPrice),
-      bToAPrice: priceRates.bToAPrice.times(bToAPrice),
-      estimated
-    }
-  }, {
-    aToBPrice: new BigNumber(1),
-    bToAPrice: new BigNumber(1),
-    estimated: new BigNumber(0)
-  })
-
-  return {
-    aToBPrice: priceRates.aToBPrice,
-    bToAPrice: priceRates.bToAPrice,
-    estimated: priceRates.estimated.times(slippage).toFixed(8)
-  }
-}
-
 interface TokenForm {
   control: Control<{ tokenA: string, tokenB: string }>
   controlName: 'tokenA' | 'tokenB'
@@ -896,7 +864,6 @@ function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], 
         }
       ]
     }
-
     return tokens
   }, [])
 }

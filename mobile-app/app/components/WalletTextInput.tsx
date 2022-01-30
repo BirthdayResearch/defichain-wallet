@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react'
+import { forwardRef, useCallback, useState } from 'react'
 import { Platform, TextInputProps } from 'react-native'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import {

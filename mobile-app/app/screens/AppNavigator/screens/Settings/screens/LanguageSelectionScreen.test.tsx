@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import * as React from 'react'
 import { LanguageSelectionScreen } from './LanguageSelectionScreen'
 
 jest.mock('@react-navigation/native', () => ({

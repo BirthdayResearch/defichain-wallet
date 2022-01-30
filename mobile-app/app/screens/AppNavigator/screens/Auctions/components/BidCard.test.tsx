@@ -1,7 +1,7 @@
 import { RootState } from '@store'
 import { block } from '@store/block'
 import { render } from '@testing-library/react-native'
-import React from 'react'
+
 import { BidCard } from './BidCard'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
@@ -15,7 +15,7 @@ describe('Bid Card', () => {
       block: {
         count: 2000,
         masternodeCount: 10,
-        lastSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
+        lastSuccessfulSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
         connected: true,
         isPolling: true
       }

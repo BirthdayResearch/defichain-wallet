@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { getNativeIcon } from '@components/icons/assets'
 import { SvgProps } from 'react-native-svg'
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Switch as DefaultSwitch, TextInput as DefaultTextInput, View as DefaultView } from 'react-native'
-import { tailwind } from '@tailwind'
+import { Switch as DefaultSwitch, View as DefaultView } from 'react-native'
 import { theme } from '../tailwind.config'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
@@ -10,17 +9,6 @@ export function View (props: DefaultView['props']): JSX.Element {
   return (
     <DefaultView
       style={style}
-      {...otherProps}
-    />
-  )
-}
-
-export function TextInput (props: DefaultTextInput['props']): JSX.Element {
-  const { style, ...otherProps } = props
-
-  return (
-    <DefaultTextInput
-      style={[tailwind('font-normal text-base'), style]}
       {...otherProps}
     />
   )
