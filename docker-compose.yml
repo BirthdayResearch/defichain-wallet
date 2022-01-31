@@ -42,9 +42,11 @@ services:
       -eunosheight=6
       -eunospayaheight=7
       -fortcanningheight=8
+      -fortcanningmuseumheight=9
+      -fortcanninghillheight=10
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.14.0
+    image: ghcr.io/defich/playground:0.15.0
     depends_on:
       - defi-blockchain
     ports:
@@ -57,7 +59,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.19.0
+    image: ghcr.io/defich/whale:0.19.1
     depends_on:
       - defi-blockchain
     ports:
