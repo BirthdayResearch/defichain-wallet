@@ -17,17 +17,24 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       'zh-Hant': '請即更新至最新應用程式版本以體驗拍賣功能',
       fr: 'Passez à la dernière version de l\'application pour accéder aux enchères.'
     },
-    version: '<=0.22.0',
-    id: '0'
+    version: '<=1.0.0',
+    id: '0',
+    url: {
+      ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
+      android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
+      web: '',
+      windows: '',
+      macos: ''
+    }
   }, {
     lang: {
-      en: 'Auctions are now accessible from the bottom menu bar.',
-      de: 'Auktionen lassen sich jetzt über die untere Menüleiste aufrufen.',
-      'zh-Hans': '现在可以从页面下方目录栏点击拍卖',
-      'zh-Hant': '現在可以從頁面下方目錄欄點擊拍賣',
-      fr: 'Les enchères sont désormais accessibles depuis la barre de menu inférieure.'
+      en: '4 new dTokens (dAMZN, dNVDA, dCOIN and dEEM) are live on the DEX!',
+      de: '4 neue dToken (dAMZN, dNVDA, dCOIN und dEEM) sind jetzt auf der DEX verfügbar!',
+      'zh-Hans': '4 个新的去中心化资产代币（dAMZN、dNVDA、dCOIN 和 dEEM）在DEX 上上线！',
+      'zh-Hant': '4 個新的去中心化資產代幣（dAMZN、dNVDA、dCOIN 和 dEEM）在DEX 上上線！',
+      fr: '4 nouveaux dTokens (dAMZN, dNVDA, dCOIN et dEEM) sont en ligne sur le DEX !'
     },
-    version: '>=0.23.0',
+    version: '>=1.1.0',
     id: '1'
   }])
 }
