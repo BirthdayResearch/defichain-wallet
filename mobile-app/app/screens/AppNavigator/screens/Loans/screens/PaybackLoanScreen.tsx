@@ -311,7 +311,7 @@ export function VaultInput ({
     totalCollateralValue: new BigNumber(vault.collateralValue),
     existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
-    loanActivePrice: new BigNumber(loanToken?.activePrice?.active?.amount ?? NaN),
+    loanActivePrice: new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice)),
     interestPerBlock: interestPerBlock ?? new BigNumber(NaN)
   })
 

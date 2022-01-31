@@ -26,6 +26,7 @@ interface LoanCardsProps {
 
 export interface LoanCardOptions {
   loanTokenId: string
+  symbol: string
   displaySymbol: string
   price?: ActivePrice
   interestRate: string
@@ -59,6 +60,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           return (
             <View style={{ flexBasis: '50%' }}>
               <LoanCard
+                symbol={item.token.symbol}
                 displaySymbol={item.token.displaySymbol}
                 interestRate={item.interest}
                 price={item.activePrice}
@@ -86,6 +88,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
 }
 
 function LoanCard ({
+  symbol,
   displaySymbol,
   price,
   interestRate,
@@ -93,7 +96,7 @@ function LoanCard ({
   testID
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol)
-  const currentPrice = getActivePrice(displaySymbol, price)
+  const currentPrice = getUSDPrecisedPrice(getActivePrice(symbol, price))
   return (
     <ThemedTouchableOpacity
       testID={`loan_card_${displaySymbol}`}
@@ -144,7 +147,7 @@ function LoanCard ({
               ${value}
             </ThemedText>
           </View>}
-        value={(currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-')}
+        value={currentPrice}
       />
     </ThemedTouchableOpacity>
   )

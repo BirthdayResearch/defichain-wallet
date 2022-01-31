@@ -72,7 +72,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
     new BigNumber(amountToBorrow.amountInToken),
-    new BigNumber(loanToken.activePrice?.active?.amount ?? 0),
+    new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice)),
     interestPerBlock
   )
   const blocksPerDay = useBlocksPerDay()
@@ -351,7 +351,7 @@ interface LoanTokenInputProps {
 }
 
 function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
-  const currentPrice = getUSDPrecisedPrice(getActivePrice(props.displaySymbol, props.price)) ?? '-'
+  const currentPrice = getUSDPrecisedPrice(getActivePrice(props.displaySymbol, props.price))
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
@@ -481,7 +481,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
     totalCollateralValue: new BigNumber(props.vault.collateralValue),
     existingLoanValue: new BigNumber(props.vault.loanValue),
     minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
-    loanActivePrice: new BigNumber(props.loanToken.activePrice?.active?.amount ?? NaN),
+    loanActivePrice: new BigNumber(getActivePrice(props.loanToken.token.symbol, props.loanToken.activePrice)),
     interestPerBlock: props.interestPerBlock
   })
 

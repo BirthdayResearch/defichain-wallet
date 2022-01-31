@@ -51,7 +51,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
     new BigNumber(amountToAdd.amountInToken),
-    new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
+    new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice)),
     interestPerBlock
   )
   const blocksPerDay = useBlocksPerDay()
