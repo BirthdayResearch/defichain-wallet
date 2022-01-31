@@ -351,7 +351,7 @@ interface LoanTokenInputProps {
 }
 
 function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
-  const currentPrice = props.price?.active?.amount ?? 0
+  const currentPrice = getUSDPrecisedPrice(getActivePrice(props.displaySymbol, props.price)) ?? '-'
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
@@ -374,7 +374,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
         </ThemedText>
         <NumberFormat
-          value={currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-'}
+          value={currentPrice}
           decimalScale={2}
           thousandSeparator
           displayType='text'

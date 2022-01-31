@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 interface LoanCardsProps {
   loans: LoanToken[]
@@ -92,7 +93,7 @@ function LoanCard ({
   testID
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol)
-  const currentPrice = price?.active?.amount ?? 0
+  const currentPrice = getActivePrice(displaySymbol, price)
   return (
     <ThemedTouchableOpacity
       testID={`loan_card_${displaySymbol}`}
