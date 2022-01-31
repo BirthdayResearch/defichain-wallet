@@ -136,7 +136,8 @@ export function BorrowLoanTokenScreen ({
   }
 
   const updateInterestAmount = (): void => {
-    if (vault === undefined || amountToBorrow.amountInput === undefined || loanToken.activePrice?.active?.amount === undefined) {
+    const loanTokenPrice = getActivePrice(loanToken.token.symbol, loanToken.activePrice)
+    if (vault === undefined || amountToBorrow.amountInput === undefined || loanTokenPrice === '0') {
       return
     }
     const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToBorrow.amountInToken)
@@ -290,7 +291,7 @@ export function BorrowLoanTokenScreen ({
                 loanTokenDisplaySymbol={loanToken.token.displaySymbol}
                 totalInterestAmount={totalAnnualInterest}
                 totalLoanWithInterest={totalLoanWithInterest}
-                loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
+                loanTokenPrice={new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice))}
                 fee={fee}
               />
               <Button
