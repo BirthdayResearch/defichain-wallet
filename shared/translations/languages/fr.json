@@ -688,7 +688,7 @@
     "Can I send liquidity pool tokens to an exchange or another entity?": "Puis-je envoyer les tokens du pool de liquidité à une bourse ou à une autre entité ?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Les tokens de liquidité ne peuvent être envoyés que vers une autre adresse de portefeuille DFI, et non vers un échange ou une entité centrale.",
     "How do I receive tokens on my DFI wallet?": "Comment puis-je recevoir des tokens sur mon portefeuille DFI ?",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Vous pouvez recevoir des tokens DFI dans votre portefeuille en partageant votre adresse trouvée dans l'écran Recevoir, ou en demandant à l'expéditeur de scanner le code QR. \n\nNotez que vous ne serez pas en mesure de recevoir des tokens natifs (par exemple BTC, ETH) directement dans votre portefeuille.",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Vous pouvez recevoir des tokens DFI sur votre portefeuille en partageant votre adresse trouvée dans l'écran Recevoir, ou en demandant à l'expéditeur de scanner le code QR. \n\nNotez que vous ne serez pas en mesure de recevoir des tokens natifs (par exemple BTC, ETH) directement sur votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/PasscodeFaq": {
