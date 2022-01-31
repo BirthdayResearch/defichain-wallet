@@ -1,48 +1,21 @@
-import randomColor from 'randomcolor'
-import Svg, { Circle, SvgProps, Text } from 'react-native-svg'
+import { RootState } from '@store'
+import { tokenSelectorByDisplaySymbol } from '@store/wallet'
+import { SvgProps } from 'react-native-svg'
+import { useSelector } from 'react-redux'
+import { DefaultLoanToken } from './DefaultLoanToken'
+import { DefaultLPS } from './DefaultLPS'
+import { DefaultToken } from './DefaultToken'
 
 export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
-  return function (props: SvgProps): JSX.Element {
-    const bg = randomColor({
-      luminosity: 'bright',
-      format: 'rgba',
-      seed: symbol,
-      alpha: 0.2
-    })
-    const text = randomColor({
-      luminosity: 'dark',
-      format: 'rgba',
-      seed: symbol,
-      alpha: 100
-    })
-    const first = symbol?.substring(0, 1)?.toUpperCase() ?? 'T'
+  const tokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, symbol))
 
-    return (
-      <Svg
-        height={32}
-        viewBox='0 0 32 32'
-        width={32}
-        {...props}
-      >
-        <Circle
-          cx={16}
-          cy={16}
-          fill={bg}
-          r={16}
-        />
-
-        <Text
-          alignmentBaseline='central'
-          fill={text}
-          fontSize='24'
-          fontWeight='bolder'
-          textAnchor='middle'
-          x='50%'
-          y='50%'
-        >
-          {first}
-        </Text>
-      </Svg>
-    )
+  if (tokenDetail?.isLoanToken) {
+    return DefaultLoanToken(symbol)
   }
+
+  if (tokenDetail?.isLPS) {
+    return DefaultLPS(tokenDetail.symbol)
+  }
+
+  return DefaultToken(symbol)
 }

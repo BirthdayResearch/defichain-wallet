@@ -23,7 +23,7 @@ export function ManageBids (): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchVaults({ address, client }))
-  }, [blockCount])
+  }, [blockCount, address])
 
   const { isBetaFeature } = useFeatureFlagContext()
 

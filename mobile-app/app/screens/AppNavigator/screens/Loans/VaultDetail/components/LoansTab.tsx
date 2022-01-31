@@ -14,7 +14,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 interface LoanCardProps {
   symbol: string
@@ -81,7 +81,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row items-center')}>
         <SymbolIcon
-          symbol={props.displaySymbol} styleProps={{ width: 16, height: 16 }}
+          symbol={props.displaySymbol} styleProps={tailwind('w-4 h-4')}
         />
         <ThemedText
           light={tailwind({
@@ -117,7 +117,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             })
           }}
         />
-        <ActiveUsdValue
+        <ActiveUSDValue
           price={new BigNumber(props.amount).multipliedBy(activePrice)}
           containerStyle={tailwind('justify-end')}
         />
@@ -135,7 +135,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
                 message: 'This amount is the total interest amount from both vault and token interest rate.'
               }}
             />
-            <ActiveUsdValue
+            <ActiveUSDValue
               price={new BigNumber(props.interestAmount ?? 0).multipliedBy(activePrice)}
               containerStyle={tailwind('justify-end')}
             />

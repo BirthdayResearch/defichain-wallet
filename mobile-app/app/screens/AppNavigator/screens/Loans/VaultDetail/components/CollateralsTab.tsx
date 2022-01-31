@@ -12,7 +12,7 @@ import { EmptyCollateral } from './EmptyCollateral'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useCollateralPrice } from '../../hooks/CollateralPrice'
-import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 interface CollateralCardProps {
   displaySymbol: string
@@ -76,7 +76,7 @@ function LiquidatedVaultCollateralCard ({ displaySymbol }: { displaySymbol: stri
     >
       <View style={tailwind('flex flex-row justify-between items-center')}>
         <View style={tailwind('flex flex-row items-center')}>
-          <SymbolIcon symbol={displaySymbol} styleProps={{ width: 16, height: 16 }} />
+          <SymbolIcon symbol={displaySymbol} styleProps={tailwind('w-4 h-4')} />
           <ThemedText
             light={tailwind('text-gray-300')}
             dark={tailwind('text-gray-600')}
@@ -100,7 +100,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row justify-between items-center')}>
         <View style={tailwind('flex flex-row items-center')}>
-          <SymbolIcon symbol={props.displaySymbol} styleProps={{ width: 16, height: 16 }} />
+          <SymbolIcon symbol={props.displaySymbol} styleProps={tailwind('w-4 h-4')} />
           <ThemedText
             light={tailwind('text-black')}
             dark={tailwind('text-white')}
@@ -149,7 +149,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUsdValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
+            <ActiveUSDValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
           </View>
         </View>
       </View>

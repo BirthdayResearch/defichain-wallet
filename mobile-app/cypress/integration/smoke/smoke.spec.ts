@@ -60,7 +60,7 @@ context('Mainnet - Wallet', () => {
   it('should have displayed default tokens', function () {
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
-    cy.getByTestID('total_dfi_amount').contains('0.00000000')
+    cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
   })
 
   context('Settings - Mnemonic Verification', () => {
@@ -125,10 +125,11 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')
-      cy.getByTestID('total_dfi_amount').contains('20')
+      cy.getByTestID('dfi_total_balance_amount').contains('20')
       cy.checkBalanceRow('16', {
         name: 'Playground ETH-DeFiChain',
         amount: '10.00000000',
+        displaySymbol: 'dETH-DFI',
         symbol: 'dETH-DFI'
       })
     })

@@ -21,3 +21,10 @@ Cypress.Server.defaults({
     return xhr.url.match(/^.+\/v0\/(playground)\/.+$/)
   }
 })
+
+Cypress.on('uncaught:exception', (err) => {
+  if (err.message.includes("Cannot read properties of undefined (reading 'undefined')")) {
+    return false
+  }
+})
+

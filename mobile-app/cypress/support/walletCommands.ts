@@ -43,6 +43,13 @@ declare global {
        * @param resultingToken
        */
       validateConversionDetails: (isTokenToUTXO: boolean, amountToConvert: string, resultingUTXO: string, resultingToken: string) => Chainable<Element>
+
+      /**
+       * @description Change language from settings page
+       * @param language - Language to be used
+       * @example cy.changeLanguage('German')
+       */
+      changeLanguage: (language: string) => Chainable<Element>
     }
   }
 }
@@ -71,12 +78,15 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   const testID = `balances_row_${id}`
   cy.getByTestID(testID).should('exist')
   cy.getByTestID(`${testID}_icon`).should('exist')
-  cy.getByTestID(`${testID}_symbol`).should('have.text', details.symbol)
+  cy.getByTestID(`${testID}_symbol`).should('have.text', details.displaySymbol)
   cy.getByTestID(`${testID}_name`).should('have.text', details.name)
   if (dynamicAmount === true) {
     cy.getByTestID(`${testID}_amount`).contains(details.amount)
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
+  }
+  if (details.usdAmount) {
+    cy.getByTestID(`${testID}_usd_amount`).should('have.text', details.usdAmount)
   }
 })
 
@@ -99,4 +109,15 @@ Cypress.Commands.add('validateConversionDetails', (isTokenToUTXO: boolean, amoun
   cy.getByTestID('resulting_utxo').should('contain', resultingUTXO)
   cy.getByTestID('resulting_token').should('contain', resultingToken)
   cy.getByTestID('conversion_breakdown_text').should('contain', 'Amount above are prior to transaction')
+})
+
+Cypress.Commands.add('changeLanguage', (language: string) => {
+  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('header_settings').click()
+  cy.getByTestID('setting_navigate_language_selection').click()
+  cy.getByTestID('language_option_description').contains(language)
+  cy.getByTestID(`button_language_${language}`).click()
+  cy.on('window:confirm', (message: string) => {
+    expect(message).to.include(language)
+  })
 })

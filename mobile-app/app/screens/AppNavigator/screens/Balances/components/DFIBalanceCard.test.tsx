@@ -1,7 +1,10 @@
-
-import * as redux from 'react-redux'
 import { render } from '@testing-library/react-native'
 import { DFIBalanceCard } from './DFIBalanceCard'
+import { RootState } from '@store'
+import { setTokenSymbol, wallet } from '@store/wallet'
+import { Provider } from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
+import { block } from '@store/block'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('../../../../../contexts/DisplayBalancesContext')
@@ -11,44 +14,38 @@ jest.mock('@react-navigation/native', () => ({
 
 describe('DFI Balance Card', () => {
   it('should match snapshot', async () => {
-    const dfiToken = {
-      id: '0',
-      symbol: 'DFI',
-      symbolKey: 'DFI',
-      isDAT: true,
-      isLPS: false,
-      amount: '123.456',
-      name: 'DeFiChain',
-      displaySymbol: 'DFI (Token)',
-      avatarSymbol: 'DFI (Token)'
+    const initialState: Partial<RootState> = {
+      wallet: {
+        utxoBalance: '77',
+        tokens: [{
+          id: '0',
+          symbol: 'DFI',
+          symbolKey: 'DFI',
+          displaySymbol: 'DFI',
+          isDAT: true,
+          isLPS: false,
+          isLoanToken: false,
+          amount: '23',
+          name: 'DeFiChain'
+        }].map(setTokenSymbol),
+        allTokens: {},
+        poolpairs: [],
+        hasFetchedPoolpairData: false
+      }
     }
-    const dfiUtxo = {
-      id: '0_utxo',
-      symbol: 'DFI',
-      symbolKey: 'DFI',
-      isDAT: true,
-      isLPS: false,
-      amount: '7.891011',
-      name: 'DeFiChain',
-      displaySymbol: 'DFI (UTXO)',
-      avatarSymbol: 'DFI (UTXO)'
-    }
-    const unifiedDFI = {
-      id: '0_unified',
-      symbol: 'DFI',
-      symbolKey: 'DFI',
-      isDAT: true,
-      isLPS: false,
-      amount: '131.347011',
-      name: 'DeFiChain',
-      displaySymbol: 'DFI',
-      avatarSymbol: 'DFI'
-    }
-    const spy = jest.spyOn(redux, 'useSelector')
-    spy.mockReturnValueOnce(dfiToken)
-    spy.mockReturnValueOnce(dfiUtxo)
-    spy.mockReturnValueOnce(unifiedDFI)
-    const rendered = render(<DFIBalanceCard />)
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
+    })
+    const component = (
+      <Provider store={store}>
+        <DFIBalanceCard />
+      </Provider>
+    )
+    const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

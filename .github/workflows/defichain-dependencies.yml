@@ -27,8 +27,8 @@ jobs:
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/jellyfish dependencies
-          commit-message: Bump @defichain/jellyfish dependencies
+          title: 'build(deps): bump @defichain/jellyfish dependencies'
+          commit-message: 'build(deps): bump @defichain/jellyfish dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies
@@ -57,8 +57,8 @@ jobs:
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/whale dependencies
-          commit-message: Bump @defichain/whale dependencies
+          title: 'build(deps): bump @defichain/whale dependencies'
+          commit-message: 'build(deps): bump @defichain/whale dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies
@@ -87,8 +87,8 @@ jobs:
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/playground dependencies
-          commit-message: Bump @defichain/playground dependencies
+          title: 'build(deps): bump @defichain/playground dependencies'
+          commit-message: 'build(deps): bump @defichain/playground dependencies'
           body: |
             #### What kind of PR is this?:
             /kind dependencies

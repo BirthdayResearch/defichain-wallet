@@ -12,7 +12,9 @@
     "Refresh": "刷新",
     "Refresh recovery words": "刷新恢复字组",
     "You are about to generate a new set of recovery words. Continue?": "您正要产生新的恢复字组，确认要继续？",
-    "Passcode FAQ": "密码常见问题"
+    "Passcode FAQ": "密码常见问题",
+    "DEX FAQ": "DEX 问题",
+    "Liquidity Mining FAQ": "流动性挖矿问题"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "ＤＥＸ",
@@ -56,11 +58,10 @@
     "Balances": "我的资产",
     "SEND": "发出",
     "RECEIVE": "接收",
-    "PORTFOLIO": "资产组合",
-    "Show balances": "显示总资产",
-    "Hide balances": "隐藏总资产",
+    "Total Portfolio Value (USD)": "总组合价值(美金)",
     "You do not have any other tokens.": "您现在没有其他代币",
-    "SWITCH": "切换钱包"
+    "SWITCH": "切换钱包",
+    "YOUR ASSETS": "YOUR ASSETS"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -112,7 +113,7 @@
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "确认发出",
     "Convert & send": "转换并发送",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "我承认和了解钱包地址性质，我会将d代币发送至已引入递飞链技术栈的钱包，否则会导致不可逆转的资金损失.",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
     "Transaction type": "交易类型",
     "Amount to send": "发送金额"
   },
@@ -220,7 +221,8 @@
     "Passcode": "密码",
     "UTXO vs Token": "UTXO和代币区别",
     "Loans": "贷款",
-    "Auctions": "清算拍卖"
+    "Auctions": "清算拍卖",
+    "Liquidity Mining": "流动性挖矿"
   },
   "components/LoansFaq": {
     "Loans FAQ": "贷款常见问题",
@@ -660,13 +662,37 @@
     "What happens if I lose my recovery words?": "如果我丢失了恢复字组会怎样？",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "如果遗失恢复字组, 使用者将无法恢复钱包及所储存的资产。建议使用者必须好好保管及存放。",
     "Can I use the 24-words from xxx that I created from xxx?": "如果我的24字组是透过 xxx 产生，可以使用吗 ？",
-    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "若您的24字组是透过Jellyfish水母生态产生的， 您可以重新使用24字组。 \n\n适用的用户端包括 DeFiChain 钱包 (安卓或苹果iOS系统)，及 DFX.SWISS (安卓或苹果iOS系统)。 \n\n但是，我们非常不鼓励您重复使用它，您的24字组的安全性与生成单字的源始电脑/设备/应用程式可能有安全风险。因此，24字组的安全性是不完全确认的。加倍安全的方式是在使用每台电脑/设备/应用程式配置时都用独立一套的24字组。",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "若您的24字组是透过Jellyfish水母生态产生的， 您可以重新使用24字组。\n\n适用的用户端包括 DeFiChain 钱包 (安卓或苹果iOS系统)，及 DFX.SWISS (安卓或苹果iOS系统)。\n\n但是，我们非常不鼓励您重复使用它，您的24字组的安全性与生成单字的源始电脑/设备/应用程式可能有安全风险。因此，24字组的安全性是不完全确认的。加倍安全的方式是在使用每台电脑/设备/应用程式配置时都用独立一套的24字组。",
     "Can someone help me if I lose my recovery words?": "如果我丢失了恢复字组可以请别人帮我吗？",
     "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "不建议。个人的24个字组是不应该透露给任可人。除了自己，没有人有责任和义务给您保管。",
     "Why is it recommended to keep my recovery words offline and on paper?": "为何建议用离线方式或纸张来纪录保存24个字组？",
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "储存24字组在数字网络会有较高的机会给骇客入侵及盗取。最理想的是用纸张记录和保存。",
     "Recovery words": "恢复字组",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的连续显示24个英文字组是指储存在钱包的private key，它由2048个单字所产生的，支持BIP-39 标准的钱包。就算整个硬体钱包被盗或入侵，仍然可以确保安全的。",
+    "FREQUENTLY ASKED QUESTIONS": "常见问题"
+  },
+  "components/DexFaq" : {
+    "Decentralized Exchange": "去中心化交易所",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能让使用者运用点对点的方式兑换加密货币。去中心化交易所能让使用者在不透过第三方中心化交易所之下，直接兑换货币。",
+    "Transaction fees": "交易费用",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每笔交易需要少量的交易费用。交易费用会根据网络的流量情况产生变化。",
+    "What is slippage tolerance?": "什么是交易滑价?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。\n\n这导致了滑价，也就是确认交易前显示出的价格和最终交易价格之间的差异。\n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。\n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
+    "FREQUENTLY ASKED QUESTIONS": "常见问题"
+  },
+  "components/LiquidityMiningFaq" : {
+    "Liquidity Mining": "流动性挖矿",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流动性挖矿是DeFi机制技术，可让使用者透过提供流动资金而赚取比例化的区块奖励和交易费用回报，此比例以「流动性池股份」代表。\n\n流动性池中的资金主要是为去中心化交易所提供资金，当池中有资金时其他使用者可随时兑换池中的两个货币。",
+    "How do I supply liquidity?": "如何能开始提供流动资金?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "当您想好您想参与的流动池配对后，请点入「新增流动资金」，并输入您想在池中增加的资金额度。\n\n当您对配对池的某一个货币输入金额，程序会自动化平衡另一边货币所需的资金。参与流动池配对必须要在两边以同等的金额比例同时输入。",
+    "How do I send tokens from my DFI wallet?": "如何从我的DFI钱包发送代币？",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "递飞链上的代币只能发送至DFI地址。这表示您不能直接发送至没有引入递飞链技术的交易所或第三方平台。同样地，递飞链流动性池代币只能发送到另一个DFI钱包地址。",
+    "What are some exchanges and platforms I can send to?": "目前有哪些平台可支持递飞链和生态代币？",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. 其他有DFI上线交易所\n4. Cake DeFi\n\n请参考更多关于 zhs.DeFiChain.com",
+    "Can I send liquidity pool tokens to an exchange or another entity?": "是否可以把流动性池中的代币直接发送到其他交易所或其他地址？",
+    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "由于流动性池的代币是属于流动性池的代币系统，您只能发送池中的DFI到其他交易所。若您想要发送其他代币，请先使用流动池兑换成DFI，在发出至其他交易所使用。",
+    "How do I receive tokens on my DFI wallet?": "如何在我的DFI钱包中接收代币？",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "您可以前往接收页面找到您钱包的地址，只要使用这个地址（可转发分享或扫一扫QR码来接收DFI代币。\n\n请注意因为递飞链生态中的功能，所以此钱包只能接收递飞链的DFI或生态中的代币，而无法接收其他区块链的代币（如 BTC、ETH）。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/PasscodeFaq": {
@@ -681,7 +707,7 @@
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "了解UTXO 和代币区别"
+    "Learn more about DFI": "了解更多关于 DFI"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO(0.1 DFI)作为费用"
@@ -742,7 +768,7 @@
     "Price (USD)": "价格(美金)"
   },
   "components/InfoTextLink": {
-    "Learn more about UTXO and Token": "了解UTXO和代币区别",
+    "Learn more about DFI": "了解更多关于 DFI",
     "UTXO vs Token, what is the difference?": "UTXO和代币的区别是什么？",
     "Learn more about vaults": "了解更多关于金库的资讯",
     "Learn more about vaults and loan schemes": "了解更多关于金库和贷款计划的资讯",
@@ -760,7 +786,8 @@
   "screens/AuctionScreen": {
     "Auctions": "清算拍卖",
     "Place Bid": "标价",
-    "Confirm Place Bid": "确认出价"
+    "Confirm Place Bid": "确认出价",
+    "Auction details": "拍卖细节"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "抵押品",

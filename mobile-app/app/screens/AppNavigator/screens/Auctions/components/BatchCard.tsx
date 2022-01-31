@@ -48,7 +48,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
     minNextBidInToken,
     totalCollateralsValueInUSD,
     hasFirstBid
-  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
   const nextBidInfo = {
     title: 'Min. next bid',
@@ -93,7 +93,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               <LoanIcon height={17} width={17} />
             </ThemedView>
             <View style={tailwind('flex flex-row items-center justify-center ml-2')}>
-              <ThemedText style={tailwind('font-semibold flex-shrink')}>
+              <ThemedText testID={`batch_${batch.index}_${batch.loan.displaySymbol}`} style={tailwind('font-semibold flex-shrink')}>
                 {batch.loan.displaySymbol}
               </ThemedText>
               <TouchableOpacity

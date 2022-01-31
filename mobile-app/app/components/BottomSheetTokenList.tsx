@@ -13,8 +13,9 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { ActiveUsdValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUsdValue'
 
 interface BottomSheetTokenListProps {
   headerLabel: string
@@ -26,6 +27,7 @@ interface BottomSheetTokenListProps {
   }
   tokens: Array<CollateralItem | BottomSheetToken>
   vault?: LoanVaultActive
+  tokenType: TokenType
 }
 
 export interface BottomSheetToken {
@@ -35,9 +37,15 @@ export interface BottomSheetToken {
     name: string
     displaySymbol: string
     symbol: string
+    isLPS?: boolean
   }
   factor?: string
   reserve?: string
+}
+
+export enum TokenType {
+  BottomSheetToken = 'BottomSheetToken',
+  CollateralItem = 'CollateralItem'
 }
 
 export const BottomSheetTokenList = ({
@@ -46,7 +54,8 @@ export const BottomSheetTokenList = ({
   onTokenPress,
   navigateToScreen,
   tokens,
-  vault
+  vault,
+  tokenType
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
@@ -55,11 +64,14 @@ export const BottomSheetTokenList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
+  const { getTokenPrice } = useTokenPrice()
   return (
     <FlatList
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
-        const activePrice = new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
+        const activePrice = tokenType === TokenType.CollateralItem
+        ? new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
+        : getTokenPrice(item.token.symbol, '1', item.token.isLPS)
         return (
           <ThemedTouchableOpacity
             disabled={new BigNumber(item.available).lte(0)}
@@ -89,7 +101,7 @@ export const BottomSheetTokenList = ({
             <View style={tailwind('flex flex-row items-center')}>
               <SymbolIcon
                 symbol={item.token.displaySymbol}
-                styleProps={{ width: 24, height: 24 }}
+                styleProps={tailwind('w-6 h-6')}
               />
               <View style={tailwind('ml-2')}>
                 <ThemedText
@@ -121,7 +133,7 @@ export const BottomSheetTokenList = ({
                       {value}
                     </ThemedText>}
                 />
-                <ActiveUsdValue
+                <ActiveUSDValue
                   price={new BigNumber(item.available).multipliedBy(activePrice)}
                   containerStyle={tailwind('justify-end')}
                 />
