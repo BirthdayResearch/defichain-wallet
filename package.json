@@ -47,7 +47,7 @@
     "buffer": "^6.0.3",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
-    "defichain": "^2.15.0",
+    "defichain": "^2.16.0",
     "expo": "^44.0.5",
     "expo-asset": "~8.4.6",
     "expo-barcode-scanner": "~11.2.0",
