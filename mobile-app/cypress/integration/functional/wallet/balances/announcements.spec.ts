@@ -50,7 +50,6 @@ context('Wallet - Balances - Announcements', () => {
   }]
 
   beforeEach(function () {
-    cy.clearLocalStorage()
     cy.createEmptyWallet(true)
   })
 
@@ -83,13 +82,11 @@ context('Wallet - Balances - Announcements', () => {
   })
 
   it('should display announcement message - translated', function () {
-    localStorage.setItem('WALLET.LANGUAGE', 'de')
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: sampleAnnouncements
     })
-    cy.reload()
-    cy.getByTestID('playground_wallet_random').click()
+    cy.changeLanguage('German')
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
   })
@@ -99,7 +96,6 @@ context('Wallet - Balances - Announcements', () => {
       statusCode: 200,
       body: sampleAnnouncementsWithID
     })
-    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
     cy.wait(3000)
     cy.getByTestID('close_announcement').click().then(() => {
       cy.wait(3000)
@@ -163,7 +159,6 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
   }]
 
   beforeEach(function () {
-    cy.clearLocalStorage()
     cy.createEmptyWallet(true)
   })
   it('should be able to display announcement with ID not within hidden list', function () {
@@ -213,12 +208,11 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
     cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
   })
 
-  it('should display warning messeage even if announcements are closed', () => {
+  it('should display warning message even if announcements are closed', () => {
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: sampleAnnouncementsWithID
     })
-    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
     cy.getByTestID('close_announcement').click().should(() => {
       expect(localStorage.getItem('WALLET.HIDDEN_ANNOUNCEMENTS')).to.eq('["1"]')
     })
@@ -236,7 +230,6 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
   })
 
   it('should not display warning msg if blockchain is not down and display existing announcements', () => {
-    localStorage.setItem('WALLET.LANGUAGE', 'de')
     cy.intercept('**/regtest/stats', {
       statusCode: 200,
       body: {
@@ -248,11 +241,11 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
         }
       }
     })
-    cy.reload()
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: sampleAnnouncements
     })
+    cy.changeLanguage('German')
     cy.getByTestID('announcements_text').should('contain', 'Richtlinien')
   })
 
@@ -276,6 +269,10 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
   })
 
   it('should not display any announcement if announcement is closed and blockchain is not down', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    })
     cy.intercept('**/regtest/stats', {
       statusCode: 200,
       body: {
@@ -287,11 +284,6 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
         }
       }
     })
-    cy.intercept('**/announcements', {
-      statusCode: 200,
-      body: sampleAnnouncementsWithID
-    })
-    localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
     cy.getByTestID('close_announcement').click().should(() => {
       expect(localStorage.getItem('WALLET.HIDDEN_ANNOUNCEMENTS')).to.eq('["1"]')
     })
@@ -302,6 +294,7 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
 
   it('should display warning msg when blockchain is down after certain time on start of the app', () => {
     cy.reload()
+    cy.createEmptyWallet(true)
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: []
