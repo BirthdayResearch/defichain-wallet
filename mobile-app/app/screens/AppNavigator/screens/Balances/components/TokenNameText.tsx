@@ -18,7 +18,7 @@ export function TokenNameText ({
         {displaySymbol}
       </ThemedText>
       <ThemedText
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
         ellipsizeMode='tail'
         light={tailwind('text-gray-600')}
         numberOfLines={1}

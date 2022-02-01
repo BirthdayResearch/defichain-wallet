@@ -24,7 +24,7 @@ export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Eleme
         prefix='≈ $'
         renderText={(val: string) => (
           <ThemedText
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             light={tailwind('text-gray-500')}
             style={[tailwind('text-xs'), props.style]}
             testID={props.testId}

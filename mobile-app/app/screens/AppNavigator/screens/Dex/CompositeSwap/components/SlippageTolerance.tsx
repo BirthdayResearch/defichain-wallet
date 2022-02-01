@@ -54,7 +54,7 @@ export function SlippageTolerance ({ slippage, setSlippage, setIsSelectorOpen, s
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('flex-row items-center w-full')}
     >
@@ -108,7 +108,7 @@ function SlippageToleranceRow ({ slippage }: { slippage: BigNumber}): JSX.Elemen
               </ThemedText>
               <ThemedIcon
                 light={tailwind('text-primary-500')}
-                dark={tailwind('text-darkprimary-500')}
+                dark={tailwind('text-dfxred-500')}
                 iconType='MaterialIcons'
                 name='unfold-more'
                 size={24}

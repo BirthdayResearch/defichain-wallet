@@ -31,7 +31,7 @@ export const BottomSheetSlippageTolerance = ({
     <ScrollView
       contentContainerStyle={tailwind('py-6 px-4')}
       style={tailwind({
-        'bg-gray-800': !isLight,
+        'bg-dfxblue-800': !isLight,
         'bg-white': isLight
       })}
     >
@@ -216,8 +216,8 @@ export function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage
 }
 
 function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, isActive: boolean, label: string }): JSX.Element {
-  const buttonStyles = 'flex px-2 py-1.5 border border-gray-300 rounded'
-  const activeStyle = 'bg-primary-500 border-primary-500'
+  const buttonStyles = 'flex px-2 py-1.5 border border-dfxblue-900 rounded'
+  const activeStyle = 'bg-dfxred-500 border-dfxred-500'
   return (
     <View style={tailwind('mr-2 mt-2')}>
       <BottomSheetTouchableOpacity
@@ -227,7 +227,7 @@ function SlippageButton ({ onPress, isActive, label }: { onPress: () => void, is
         testID={`slippage_${label}`}
       >
         <ThemedText
-          dark={tailwind(`${isActive ? 'text-gray-200' : ''}`)}
+          dark={tailwind(`${isActive ? 'text-white' : 'text-dfxred-500'}`)}
           light={tailwind(`${isActive ? 'text-white' : ''}`)}
           style={tailwind('text-primary-500 text-sm')}
         >

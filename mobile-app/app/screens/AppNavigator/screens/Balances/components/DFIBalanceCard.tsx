@@ -47,7 +47,7 @@ export function DFIBalanceCard (): JSX.Element {
       >
         <View style={tailwind('flex-col flex-1 m-4')}>
           <ThemedView
-            dark={tailwind('border-b border-gray-700')}
+            dark={tailwind('border-b border-dfxblue-900')}
             light={tailwind('border-b border-gray-100')} style={tailwind('flex-row mb-3 pb-3')}
           >
             <View style={tailwind('flex-row items-center')}>
@@ -113,7 +113,7 @@ export function DFIBreakdownRow ({
     <View style={tailwind('flex-row flex-1 items-center')}>
       <ThemedText
         light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('pr-14 text-sm pb-1.5')}
         testID={`${testID}_label`}
       >
@@ -129,7 +129,7 @@ export function DFIBreakdownRow ({
           renderText={value =>
             <BalanceText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-sm pb-1.5')}
               testID={`${testID}_amount`}
               value={value}

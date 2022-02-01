@@ -83,7 +83,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       testID='announcements_banner'
       style={tailwind('px-4 py-3 flex-row items-center')}
       light={tailwind('bg-primary-700')}
-      dark={tailwind('bg-darkprimary-700')}
+      dark={tailwind('bg-dfxred-500')}
     >
       {announcement.id !== undefined &&
       (

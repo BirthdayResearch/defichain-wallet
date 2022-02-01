@@ -223,7 +223,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
               prefix='$'
               renderText={(val: string) => (
                 <ThemedText
-                  dark={tailwind('text-gray-400')}
+                  dark={tailwind('text-dfxgray-400')}
                   light={tailwind('text-gray-500')}
                   style={tailwind('text-xs leading-5')}
                 >
@@ -236,7 +236,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </ThemedText>
       </InputHelperText>
       <ScrollView
-        horizontal contentContainerStyle={tailwind(['flex justify-between flex-row', {
+        horizontal contentContainerStyle={tailwind(['flex justify-between flex-row bg-dfxblue-800', {
         'flex-grow h-7': Platform.OS !== 'web',
         'w-full': Platform.OS === 'web'
       }])}
@@ -245,7 +245,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         <ThemedText
           style={tailwind('font-semibold')}
           light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
-          dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
+          dark={hasInvalidColRatio ? tailwind('text-dfxgray-300') : colors.dark}
           testID='resulting_collateralization'
         >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>

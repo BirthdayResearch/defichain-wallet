@@ -71,7 +71,7 @@ function LiquidatedVaultCollateralCard ({ displaySymbol }: { displaySymbol: stri
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('p-4 mb-2 border rounded')}
     >
       <View style={tailwind('flex flex-row justify-between items-center')}>

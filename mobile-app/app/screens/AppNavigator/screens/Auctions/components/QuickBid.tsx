@@ -74,7 +74,7 @@ export const QuickBid = ({
       </View>
       <ThemedScrollView
         light={tailwind('bg-white')}
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-dfxblue-800')}
         contentContainerStyle={tailwind('pb-8')}
       >
         <View style={tailwind('px-4')}>
