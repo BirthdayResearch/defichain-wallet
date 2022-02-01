@@ -22,7 +22,13 @@ module.exports = function (api) {
         }
       }
     ],
-    'react-native-reanimated/plugin'
+    'react-native-reanimated/plugin',
+    [
+      '@babel/plugin-transform-react-jsx',
+      {
+        runtime: 'automatic',
+      },
+    ]
   ]
 
   if (process.env.CYPRESS_E2E) {
