@@ -3,6 +3,9 @@ import de from './languages/de.json'
 import zhHans from './languages/zh-Hans.json'
 import zhHant from './languages/zh-Hant.json'
 import fr from './languages/fr.json'
+import it from './languages/it.json'
+import es from './languages/es.json'
+import pt from './languages/pt.json'
 
 /**
  * For testing compatibility, will always be initialized.
@@ -46,7 +49,10 @@ export const translations = {
   de: deepEncode(de),
   'zh-Hans': deepEncode(zhHans),
   'zh-Hant': deepEncode(zhHant),
-  fr: deepEncode(fr)
+  fr: deepEncode(fr),
+  it: deepEncode(it),
+  es: deepEncode(es),
+  pt: deepEncode(pt)
 }
 
 /**
@@ -93,6 +99,9 @@ export enum AppLanguage {
   ChineseSimplified = 'Chinese (Simplified)',
   ChineseTraditional = 'Chinese (Traditional)',
   French = 'French',
+  Italian = 'Italian',
+  Spanish = 'Spanish',
+  Portuguese = 'Portuguese'
 }
 
 export interface AppLanguageItem {
@@ -127,6 +136,22 @@ export function getAppLanguages (): AppLanguageItem[] {
       language: AppLanguage.French,
       displayName: 'Français',
       locale: 'fr'
+    },
+    {
+      language: AppLanguage.Italian,
+      displayName: 'Italiano',
+      locale: 'it'
+    },
+    {
+      language: AppLanguage.Spanish,
+      displayName: 'Español',
+      locale: 'es'
     }
+    // TODO(davidleomay)
+    // {
+    //   language: AppLanguage.Portuguese,
+    //   displayName: 'Português',
+    //   locale: 'pt'
+    // }
   ]
 }
