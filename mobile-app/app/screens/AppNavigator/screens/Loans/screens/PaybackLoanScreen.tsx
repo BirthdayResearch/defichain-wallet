@@ -78,8 +78,8 @@ export function PaybackLoanScreen ({
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id) : new BigNumber(0)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
+  const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
 
-  const tokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
   const [amountToPay, setAmountToPay] = useState(loanTokenAmount.amount)
   const [selectedPaymentToken, setSelectedPaymentToken] = useState<PaymentTokenProps>({
     tokenId: loanTokenAmount.id,
@@ -93,12 +93,14 @@ export function PaybackLoanScreen ({
     selectedPaymentToken
   })
   const [amountToPayInSelectedToken, setAmountToPayInSelectedToken] = useState(new BigNumber(amountToPay))
+  const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInSelectedToken)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isValid, setIsValid] = useState(false)
+  const [isExcess, setIsExcess] = useState(false)
+
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const logger = useLogger()
-  const [isExcess, setIsExcess] = useState(false)
 
   // Resulting col ratio
   const [totalPaybackWithInterest, setTotalPaybackWithInterest] = useState(new BigNumber(NaN))
@@ -225,6 +227,13 @@ export function PaybackLoanScreen ({
           onClearButtonPress={() => setAmountToPay('')}
           style={tailwind('h-9 w-3/5 flex-grow')}
           testID='payback_input_text'
+          valid={hasSufficientPaymentTokenBalance}
+          {...(!hasSufficientPaymentTokenBalance && {
+ inlineText: {
+            type: 'error',
+            text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
+          }
+})}
         />
         <InputHelperText
           label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
@@ -240,7 +249,7 @@ export function PaybackLoanScreen ({
             <Text>{' '}</Text>
             <Text>{loanTokenAmount.displaySymbol}</Text>
             <NumberFormat
-              value={getUSDPrecisedPrice(tokenBalanceInUSD)}
+              value={getUSDPrecisedPrice(loanTokenBalanceInUSD)}
               thousandSeparator
               displayType='text'
               prefix='$'
