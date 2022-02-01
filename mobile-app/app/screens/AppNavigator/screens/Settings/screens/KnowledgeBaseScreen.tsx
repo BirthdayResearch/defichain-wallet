@@ -10,12 +10,17 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { openURL } from '@api/linking'
 
 type Props = StackScreenProps<SettingsParamList, 'KnowledgeBaseScreen'>
 
 export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const knowledgeBaseItems = [
+    {
+      label: 'DFX FAQ',
+      onPress: async () => await openURL('https://defichain-wiki.com/wiki/DFX_FAQ')
+    },
     {
       label: 'Recovery words',
       testID: 'recovery_words_faq',

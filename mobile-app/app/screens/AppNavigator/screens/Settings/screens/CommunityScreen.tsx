@@ -53,9 +53,14 @@ interface CommunityItem {
 const Communities: CommunityItem[] = [
   { id: 'gh', title: 'Report an issue on Github', url: 'https://github.com/DFXswiss/wallet/issues', icon: 'github' },
   { id: 'faq', title: 'Frequently Asked Questions', url: 'https://defichain-wiki.com/wiki/DFX_FAQ', icon: 'help-circle' },
+  { id: 'announcements', title: 'Announcements', url: 'https://t.me/DFXinfo', icon: 'telegram' },
   { id: 'tg_en', title: 'Telegram (EN)', url: 'https://t.me/DFXswiss_en', icon: 'telegram' },
   { id: 'tg_de', title: 'Telegram (DE)', url: 'https://t.me/DFXswiss', icon: 'telegram' },
-  { id: 'announcements', title: 'Announcements', url: 'https://t.me/DFXinfo', icon: 'telegram' }
+  { id: 'tg_de', title: 'Telegram (IT)', url: 'https://t.me/DFXswiss_it', icon: 'telegram' },
+  { id: 'tg_de', title: 'Telegram (FR)', url: 'https://t.me/DFXswiss_fr', icon: 'telegram' },
+  { id: 'tg_de', title: 'Telegram (RU)', url: 'https://t.me/DFXswiss_ru', icon: 'telegram' },
+  { id: 'tg_de', title: 'Telegram (ES)', url: 'https://t.me/DFXswiss_es', icon: 'telegram' },
+  { id: 'tg_de', title: 'Telegram (PT)', url: 'https://t.me/DFXswiss_pt', icon: 'telegram' }
 ]
 
 function CommunityItemRow ({

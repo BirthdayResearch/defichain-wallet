@@ -167,14 +167,14 @@ export function AboutScreen (): JSX.Element {
 
       <View style={tailwind('items-center mt-2 mb-6')}>
         <ThemedText
-          dark={tailwind('text-gray-600')} light={tailwind('text-dfxgray-400')}
+          dark={tailwind('text-dfxgray-500')} light={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs font-normal text-center')}
         >
           {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
         </ThemedText>
 
         <ThemedText
-          dark={tailwind('text-gray-600')} light={tailwind('text-dfxgray-400')}
+          dark={tailwind('text-dfxgray-500')} light={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs font-normal text-center')}
         >
           {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
