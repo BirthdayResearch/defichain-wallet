@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { fetchPoolPairs } from '@store/wallet'
@@ -25,19 +25,26 @@ export function useTokenPrice (): DexTokenPrice {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
 
-  const graph: GraphProps[] = pairs.map(pair => {
+  const graph: GraphProps[] = useMemo(() => pairs.map(pair => {
     return {
       pairId: pair.data.id,
       a: pair.data.tokenA.symbol,
       b: pair.data.tokenB.symbol
     }
-  })
+  }), [pairs])
 
   useEffect(() => {
     dispatch(fetchPoolPairs({ client }))
   }, [blockCount])
 
-  function getTokenPrice (symbol: string, amount: string, isLPS: boolean = false): BigNumber {
+  const getTokenPrice = useCallback((symbol: string, amount: string, isLPS: boolean = false): BigNumber => {
+    performance.mark('getTokenPrice-start')
+    if (new BigNumber(amount).isZero()) {
+      return new BigNumber(0)
+    }
+    if (symbol === 'USDT') {
+      return new BigNumber(amount)
+    }
     if (isLPS) {
       const pair = pairs.find(pair => pair.data.symbol === symbol)
       if (pair === undefined) {
@@ -48,21 +55,23 @@ export function useTokenPrice (): DexTokenPrice {
       const tokenBAmount = ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
       const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount.toFixed(8))
       const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount.toFixed(8))
+      performance.mark('getTokenPrice-end')
+      performance.measure('harsh-test', 'getTokenPrice-start', 'getTokenPrice-end')
       return usdTokenA.plus(usdTokenB)
     }
     // active price for walletTokens based on USDT
     const arbitraryPoolPair = getArbitraryPoolPair(symbol, 'USDT')
 
-    if (symbol === 'USDT') {
-      return new BigNumber(amount)
-    } else if (arbitraryPoolPair.length > 0) {
+    if (arbitraryPoolPair.length > 0) {
       const { estimated } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
+      performance.mark('getTokenPrice-end')
+      performance.measure('harsh-test', 'getTokenPrice-start', 'getTokenPrice-end')
       return estimated
     }
     return new BigNumber('')
-  }
+  }, [blockCount])
 
-  function getArbitraryPoolPair (tokenASymbol: string, tokenBSymbol: string): PoolPairData[] {
+  const getArbitraryPoolPair = useCallback((tokenASymbol: string, tokenBSymbol: string): PoolPairData[] => {
     // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
     const { path } = findPath(graph, tokenASymbol, tokenBSymbol)
     return path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
@@ -75,9 +84,9 @@ export function useTokenPrice (): DexTokenPrice {
       }
       return [...poolPairs, pair.data]
     }, [])
-  }
+  }, [blockCount])
 
-  function calculatePriceRates (fromTokenSymbol: string, pairs: PoolPairData[], amount: string): CalculatePriceRatesI {
+  const calculatePriceRates = useCallback((fromTokenSymbol: string, pairs: PoolPairData[], amount: string): CalculatePriceRatesI => {
     let lastTokenBySymbol = fromTokenSymbol
     let lastAmount = new BigNumber(amount)
     const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
@@ -109,7 +118,7 @@ export function useTokenPrice (): DexTokenPrice {
       bToAPrice: priceRates.bToAPrice,
       estimated: priceRates.estimated
     }
-  }
+  }, [blockCount])
 
   return {
     getTokenPrice,
