@@ -19,11 +19,13 @@ import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import * as Updates from 'expo-updates'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import BtnGatewayDe from '@assets/images/dfx_buttons/btn_gateway_de.png'
-import BtnOverviewDe from '@assets/images/dfx_buttons/btn_overview_de.png'
-import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
 import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
+import BtnOverviewDe from '@assets/images/dfx_buttons/btn_overview_de.png'
 import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
+import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
 import BtnTaxEn from '@assets/images/dfx_buttons/btn_tax_en.png'
+import BtnDobbyDe from '@assets/images/dfx_buttons/btn_dobby_de.png'
+import BtnDobbyEn from '@assets/images/dfx_buttons/btn_dobby_en.png'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 export function DfxButtons (): JSX.Element {
@@ -91,11 +93,45 @@ export function DfxButtons (): JSX.Element {
     await Linking.openURL(url)
   }
 
+  async function onDobbyButtonPress (): Promise<void> {
+    const url = `https://defichain-dobby.com/#/setup/${encodeURIComponent(address)}`
+    await Linking.openURL(url)
+  }
+
+  const buttons: Array<{img: {[key: string]: ImageSourcePropType}, onPress: () => Promise<void>}> = [
+    {
+      img: {
+        de: BtnGatewayDe,
+        en: BtnGatewayEn
+      },
+      onPress: onGatewayButtonPress
+    },
+    {
+      img: {
+        de: BtnOverviewDe,
+        en: BtnOverviewEn
+      },
+      onPress: onOverviewButtonPress
+    },
+    {
+      img: {
+        de: BtnTaxDe,
+        en: BtnTaxEn
+      },
+      onPress: onTaxButtonPress
+    },
+    {
+      img: {
+        de: BtnDobbyDe,
+        en: BtnDobbyEn
+      },
+      onPress: onDobbyButtonPress
+    }
+  ]
+
   return (
     <View style={tailwind('flex flex-row justify-evenly mt-6')}>
-      <ImageButton source={language === 'de' ? BtnGatewayDe : BtnGatewayEn} onPress={onGatewayButtonPress} />
-      <ImageButton source={language === 'de' ? BtnOverviewDe : BtnOverviewEn} onPress={onOverviewButtonPress} />
-      <ImageButton source={language === 'de' ? BtnTaxDe : BtnTaxEn} onPress={onTaxButtonPress} />
+      {buttons.map((b, i) => <ImageButton key={i} source={b.img[language]} onPress={async () => await b.onPress()} />)}
     </View>
   )
 }
@@ -107,7 +143,7 @@ interface ImageButtonProps extends TouchableOpacityProps {
 export function ImageButton (props: ImageButtonProps): JSX.Element {
   const styles = StyleSheet.create({
     button: {
-      aspectRatio: 1.85,
+      aspectRatio: 1.235,
       flex: 1
     },
     image: {
