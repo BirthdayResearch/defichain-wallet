@@ -18,6 +18,7 @@ interface Environment {
   name: EnvironmentName
   debug: boolean
   networks: EnvironmentNetwork[]
+  dfxApiUrl: string
   dfxPaymentUrl: string
 }
 
@@ -30,6 +31,7 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.RemotePlayground
     ],
+    dfxApiUrl: 'https://api.dfx.swiss/v1',
     dfxPaymentUrl: 'https://payment.dfx.swiss'
   },
   Preview: {
@@ -40,6 +42,7 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ],
+    dfxApiUrl: 'https://api.dfx.swiss/v1',
     dfxPaymentUrl: 'https://payment.dfx.swiss'
   },
   Development: {
@@ -51,6 +54,7 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ],
+    dfxApiUrl: 'https://app-dfx-api-dev.azurewebsites.net/v1',
     dfxPaymentUrl: 'https://cdne-dfx-pay-dev.azureedge.net'
   }
 }

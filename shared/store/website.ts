@@ -1,15 +1,17 @@
+import { getEnvironment } from '@environment'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { AnnouncementData, FeatureFlag } from '@shared-types/website'
+import * as Updates from 'expo-updates'
 
 export const websiteSlice = createApi({
   reducerPath: 'website',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.dfx.swiss/v1/app'
+    baseUrl: getEnvironment(Updates.releaseChannel).dfxApiUrl
   }),
   endpoints: builder => ({
     getAnnouncements: builder.query<AnnouncementData[], any>({
       query: () => ({
-        url: '/announcements',
+        url: '/app/announcements',
         method: 'GET',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -19,7 +21,7 @@ export const websiteSlice = createApi({
     }),
     getFeatureFlags: builder.query<FeatureFlag[], any>({
       query: () => ({
-        url: '/settings/flags',
+        url: '/app/settings/flags',
         method: 'GET',
         headers: {
           'Access-Control-Allow-Origin': '*',
