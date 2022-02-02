@@ -1,4 +1,4 @@
-import { ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
@@ -8,8 +8,6 @@ import { openURL } from '@api/linking'
 import { Platform, TouchableOpacity } from 'react-native'
 import { nativeApplicationVersion } from 'expo-application'
 import { translate } from '@translations'
-import { Text } from '@components'
-import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
 import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
@@ -83,12 +81,13 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       testID='announcements_banner'
       style={tailwind('px-4 py-3 flex-row items-center')}
       light={tailwind('bg-primary-700')}
-      dark={tailwind('bg-dfxred-500')}
+      dark={tailwind('bg-dfxblue-900')}
     >
       {announcement.id !== undefined &&
       (
-        <MaterialIcons
+        <ThemedIcon
           style={tailwind('mr-2 text-white')}
+          dark={tailwind('text-dfxblue-500')}
           iconType='MaterialIcons'
           name='close'
           size={20}
@@ -102,27 +101,29 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
         />
       )}
 
-      <MaterialIcons
+      <ThemedIcon
         style={tailwind('mr-2.5 text-white')}
+        dark={tailwind('text-dfxblue-500')}
         iconType='MaterialIcons'
         name='campaign'
         size={22}
       />
-      <Text
+      <ThemedText
         style={tailwind('text-xs flex-auto text-white')}
+        dark={tailwind('text-dfxblue-500')}
         testID='announcements_text'
       >
         {`${announcement.content} `}
-      </Text>
+      </ThemedText>
       {announcement.url !== undefined && announcement.url.length !== 0 &&
       (
         <TouchableOpacity
           onPress={async () => await openURL(announcement.url)}
           style={tailwind('ml-2 py-1 px-2 rounded border border-white')}
         >
-          <Text style={tailwind('text-xs font-medium text-white')}>
+          <ThemedText style={tailwind('text-xs font-medium text-white')} dark={tailwind('text-dfxblue-500')}>
             {translate('components/Announcements', 'VIEW')}
-          </Text>
+          </ThemedText>
         </TouchableOpacity>
       )}
     </ThemedView>
