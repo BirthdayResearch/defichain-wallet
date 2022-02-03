@@ -515,10 +515,10 @@ export function VaultInput ({
               dark={tailwind('text-gray-400')}
               style={tailwind('text-xs')}
             >
-              {translate('screens/BorrowMoreScreen', 'Max loan amount')}
+              {translate('screens/PaybackLoanScreen', 'Max loan amount')}
             </ThemedText>
             <NumberFormat
-              value={maxLoanAmount.isNaN() ? translate('screens/BorrowMoreScreen', 'N/A') : maxLoanAmount.toFixed(8)}
+              value={maxLoanAmount.isNaN() ? translate('screens/PaybackLoanScreen', 'N/A') : maxLoanAmount.toFixed(8)}
               decimalScale={8}
               thousandSeparator
               suffix={` ${loanToken.token.displaySymbol}`}
@@ -568,7 +568,7 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
         }}
         {...(props.selectedPaymentToken.tokenDisplaySymbol !== props.displaySymbol && {
             rhsConversion: {
-              value: getUSDPrecisedPrice(props.amountToPay),
+              value: props.amountToPay.toFixed(8),
               testID: 'text_amount_to_pay',
               suffixType: 'text',
               suffix: props.displaySymbol,
@@ -577,6 +577,18 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
           })
         }
       />
+      {props.isExcess &&
+        (
+          <NumberRow
+            lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
+            rhs={{
+              value: props.amountToPay.minus(props.outstandingBalance).toFixed(8),
+              testID: 'text_resulting_loan_amount',
+              suffixType: 'text',
+              suffix: props.displaySymbol
+            }}
+          />
+      )}
       {props.selectedPaymentToken.tokenDisplaySymbol !== props.displaySymbol &&
         <NumberRow
           lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: props.selectedPaymentToken.tokenDisplaySymbol })}
@@ -598,7 +610,7 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
-        lhs={translate('screens/PaybackLoanScreen', 'Remaining loan')}
+        lhs={translate('screens/PaybackLoanScreen', 'Remaining loan amount')}
         rhs={{
           value: BigNumber.max(props.outstandingBalance.minus(props.amountToPay), 0).toFixed(8),
           testID: 'text_resulting_loan_amount',
@@ -637,18 +649,6 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
         testID='estimated_fee'
         suffix='DFI'
       />
-      {props.isExcess &&
-        (
-          <NumberRow
-            lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
-            rhs={{
-              value: props.amountToPay.minus(props.outstandingBalance).toFixed(8),
-              testID: 'text_resulting_loan_amount',
-              suffixType: 'text',
-              suffix: props.displaySymbol
-            }}
-          />
-        )}
     </>
   )
 }

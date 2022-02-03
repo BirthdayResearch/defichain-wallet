@@ -14,7 +14,7 @@
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
     "DEX FAQ": "DEX FAQ",
-    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ" 
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -220,7 +220,7 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
-    "Liquidity Mining": "Liquiditäts-Mining" 
+    "Liquidity Mining": "Liquiditäts-Mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -1027,7 +1027,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
     "VAULT IN USE": "AKTIVER VAULT",
-    "How much do you want to pay?": "Wie viel willst du abzahlen?",
+    "How much of the loan do you want to pay?": "Wie viel willst du abzahlen?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "CONTINUE": "WEITER",
@@ -1040,7 +1040,10 @@
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Excess amount": "Überschüssiger Betrag",
     "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert.",
-    "Resulting collateralization": "Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote",
+    "Vault ID": "Vault-ID",
+    "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",

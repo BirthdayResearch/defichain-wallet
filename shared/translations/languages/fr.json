@@ -1027,7 +1027,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
     "VAULT IN USE": "VAULT EN SERVICE",
-    "How much do you want to pay?": "Combien voulez-vous rembourser ?",
+    "How much of the loan do you want to pay?": "Combien voulez-vous rembourser ?",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "CONTINUE": "SUIVANT",
@@ -1040,7 +1040,10 @@
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Resulting collateralization": "Garantie correspondante",
     "Excess amount": "Montant excédentaire",
-    "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille."
+    "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille.",
+    "Vault ID": "Vault ID",
+    "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",

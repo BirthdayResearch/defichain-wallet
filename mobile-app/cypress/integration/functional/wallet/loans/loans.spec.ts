@@ -394,7 +394,7 @@ context.only('Wallet - Loans - Payback Loans', () => {
 
     cy.getByTestID('payment_token_card_DFI').should('exist')
     cy.getByTestID('payment_token_card_DFI').click()
-    cy.getByTestID('text_amount_to_pay').should('have.text', '100.00')
+    cy.getByTestID('text_amount_to_pay').should('have.text', '100.00000000')
     cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
     cy.getByTestID('text_amount_to_pay_converted').should('have.text', '1.00000000')
     cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')

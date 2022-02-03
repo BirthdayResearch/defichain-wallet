@@ -1035,7 +1035,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
     "VAULT IN USE": "金庫使用中",
-    "How much do you want to pay?": "您希望付款多少?",
+    "How much of the loan do you want to pay?": "您希望付款多少?",
     "Enter an amount": "輸入金額",
     "Available": "可用的",
     "CONTINUE": "繼續",
@@ -1048,7 +1048,10 @@
     "Min. collateralization ratio": "最低抵押比例率",
     "Excess amount": "超出的金額",
     "Any excess amount will be returned to your wallet.": "任何超出的金額將返還到您的錢包.",
-    "Resulting collateralization": "最終抵押率"
+    "Resulting collateralization": "最終抵押率",
+    "Vault ID": "金庫編號",
+    "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "確認付款",

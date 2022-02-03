@@ -215,15 +215,6 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: props.displaySymbol
         }}
       />
-      <NumberRow
-        lhs={translate('screens/PaybackLoanScreen', 'Remaining loan')}
-        rhs={{
-          value: props.outstandingBalance.toFixed(8),
-          testID: 'text_resulting_loan_amount',
-          suffixType: 'text',
-          suffix: props.displaySymbol
-        }}
-      />
       {props.excessAmount !== undefined &&
         (
           <NumberRow
@@ -235,7 +226,16 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
             suffix: props.displaySymbol
           }}
           />
-        )}
+      )}
+      <NumberRow
+        lhs={translate('screens/PaybackLoanScreen', 'Remaining loan amount')}
+        rhs={{
+          value: props.outstandingBalance.toFixed(8),
+          testID: 'text_resulting_loan_amount',
+          suffixType: 'text',
+          suffix: props.displaySymbol
+        }}
+      />
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
