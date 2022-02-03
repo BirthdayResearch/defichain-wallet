@@ -591,16 +591,15 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
             }}
           />
       )}
-      {props.selectedPaymentToken.tokenDisplaySymbol !== props.displaySymbol &&
-        <NumberRow
-          lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: props.selectedPaymentToken.tokenDisplaySymbol })}
-          rhs={{
-            value: BigNumber.max(props.selectedPaymentTokenBalance.minus(props.amountToPay), 0).toFixed(8),
-            testID: 'text_resulting_dfi_balance',
-            suffixType: 'text',
-            suffix: props.selectedPaymentToken.tokenDisplaySymbol
-          }}
-        />}
+      <NumberRow
+        lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: props.selectedPaymentToken.tokenDisplaySymbol })}
+        rhs={{
+          value: BigNumber.max(props.selectedPaymentTokenBalance.minus(props.amountToPayInSelectedToken), 0).toFixed(8),
+          testID: 'text_resulting_dfi_balance',
+          suffixType: 'text',
+          suffix: props.selectedPaymentToken.tokenDisplaySymbol
+        }}
+      />
       <TextRow
         lhs={translate('screens/PaybackLoanScreen', 'Vault ID')}
         rhs={{
