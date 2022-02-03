@@ -1,6 +1,6 @@
 import QuickLRU from 'quick-lru'
 
-class CacheAPI {
+class LruCache {
   private readonly cache
 
   constructor () {
@@ -28,8 +28,8 @@ class CacheAPI {
   }
 
   clear (): void {
-    this.cache.reset()
+    this.cache.clear()
   }
 }
 
-export const CacheApi = new CacheAPI()
+export const CacheApi = new LruCache()
