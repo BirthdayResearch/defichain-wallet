@@ -51,31 +51,33 @@ export function PaymentTokenCards ({
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-200')}
               style={tailwind('text-xs m-2')}
-            >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
-            </ThemedText>
-            <TouchableOpacity
-              onPress={() => navigation.navigate({
-                name: 'LoansFaq',
-                params: {
-                  activeSessions: [5]
-                }
-              })}
-              style={tailwind('flex flex-row items-center mb-0.5')}
             >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name='help'
-                size={14}
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-              />
-              <ThemedText
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-                style={tailwind('text-xs mx-1 mt-0.5')}
-              >{translate('screens/PaybackLoanScreen', 'Read more')}
-              </ThemedText>
-            </TouchableOpacity>
+              {translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
+              <TouchableOpacity
+                onPress={() => navigation.navigate({
+                  name: 'LoansFaq',
+                  params: {
+                    activeSessions: [5]
+                  }
+                })}
+              >
+                <View style={tailwind('flex flex-row items-center relative -bottom-0.5 ml-1')}>
+                  <ThemedIcon
+                    iconType='MaterialIcons'
+                    name='help'
+                    size={14}
+                    dark={tailwind('text-darkprimary-500')}
+                    light={tailwind('text-primary-500')}
+                  />
+                  <ThemedText
+                    dark={tailwind('text-darkprimary-500')}
+                    light={tailwind('text-primary-500')}
+                    style={tailwind('text-xs mx-1')}
+                  >{translate('screens/PaybackLoanScreen', 'Read more')}
+                  </ThemedText>
+                </View>
+              </TouchableOpacity>
+            </ThemedText>
           </View>
         )}
     </>
