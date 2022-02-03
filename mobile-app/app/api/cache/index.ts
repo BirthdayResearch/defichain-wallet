@@ -22,8 +22,8 @@ class LruCache {
    * @param key {string} of item with 'network' prefixed
    * @param value {any} to set
    */
-  set (key: string, value: any): void {
-    this.cache.set(key, value)
+  set (key: string, value: any, maxAge?: number): void {
+    this.cache.set(key, value, maxAge)
   }
 
   clear (): void {
