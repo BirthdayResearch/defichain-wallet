@@ -1,5 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
