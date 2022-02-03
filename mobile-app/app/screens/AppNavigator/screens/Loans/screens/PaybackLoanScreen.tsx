@@ -126,6 +126,19 @@ export function PaybackLoanScreen ({
     deps: [selectedPaymentToken, amountToPayInSelectedToken, JSON.stringify(tokens)]
   })
 
+  // Payment Tokens
+  const paymentTokens = [
+    {
+      displaySymbol: 'DFI',
+      paymentToken: {
+        tokenId: '0_unified',
+        tokenSymbol: 'DFI',
+        tokenDisplaySymbol: 'DFI'
+      },
+      isSelected: selectedPaymentToken.tokenId === '0_unified'
+    }
+  ]
+
   const isFormValid = (amountToPay: string): boolean => {
     const amount = new BigNumber(amountToPay)
     return !(amount.isNaN() || amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance))
@@ -133,8 +146,7 @@ export function PaybackLoanScreen ({
 
   useEffect(() => {
     dispatch(fetchTokens({ client, address }))
-    // TODO(pierregee): Remove hardcode of DFI
-    dispatch(fetchPrice({ client, currency: 'USD', token: 'DFI' }))
+    dispatch(fetchPrice({ client, currency: 'USD', token: paymentTokens[0].displaySymbol }))
   }, [address, blockCount])
 
   useEffect(() => {
@@ -230,7 +242,7 @@ export function PaybackLoanScreen ({
           onChangeText={(text) => setAmountToPay(text)}
           displayClearButton={amountToPay !== ''}
           onClearButtonPress={() => setAmountToPay('')}
-          style={tailwind('h-9 w-3/5 flex-grow')}
+          style={tailwind('h-9 w-2/5 flex-grow')}
           testID='payback_input_text'
           valid={hasSufficientPaymentTokenBalance}
           {...(!hasSufficientPaymentTokenBalance && {
@@ -289,27 +301,17 @@ export function PaybackLoanScreen ({
         <PaymentTokenCards
           onPaymentTokenSelect={onPaymentTokenSelect}
           paymentTokens={[{
-              displaySymbol: loanTokenAmount.displaySymbol,
-              paymentToken: {
-                tokenId: loanTokenAmount.id,
-                tokenSymbol: loanTokenAmount.symbol,
-                tokenDisplaySymbol: loanTokenAmount.displaySymbol
-              },
-              isSelected: selectedPaymentToken.tokenId === loanTokenAmount.id
-              },
-              {
-                displaySymbol: 'DFI',
-                paymentToken: {
-                  tokenId: '0_unified',
-                  tokenSymbol: 'DFI',
-                  tokenDisplaySymbol: 'DFI'
-                },
-                isSelected: selectedPaymentToken.tokenId === '0_unified'
-              }
-            ]}
+            displaySymbol: loanTokenAmount.displaySymbol,
+            paymentToken: {
+              tokenId: loanTokenAmount.id,
+              tokenSymbol: loanTokenAmount.symbol,
+              tokenDisplaySymbol: loanTokenAmount.displaySymbol
+            },
+            isSelected: selectedPaymentToken.tokenId === loanTokenAmount.id
+          }, ...paymentTokens]}
           loanTokenAmount={loanTokenAmount}
         />}
-      {isConversionRequired && <ConversionInfoText />}
+      {isConversionRequired && isValid && <ConversionInfoText />}
       {
         isValid &&
           <View style={tailwind('mt-4')}>

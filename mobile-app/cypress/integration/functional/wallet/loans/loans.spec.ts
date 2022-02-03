@@ -348,7 +348,6 @@ context.only('Wallet - Loans - Payback Loans', () => {
       .contains('Borrowing 100.00000000 DUSD')
     cy.closeOceanInterface()
 
-    // cy.addLoan
     cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
     cy.getByTestID('loan_card_dTU10').click()
     cy.getByTestID('borrow_loan_vault').click().wait(1000)
