@@ -140,7 +140,8 @@ export function PaybackLoanScreen ({
 
   const isFormValid = (amountToPay: string): boolean => {
     const amount = new BigNumber(amountToPay)
-    return !(amount.isNaN() || amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance))
+
+    return !(amount.isNaN() || amount.isLessThanOrEqualTo(0))
   }
 
   useEffect(() => {
@@ -197,7 +198,7 @@ export function PaybackLoanScreen ({
   }
 
   const onSubmit = async (): Promise<void> => {
-    if (!isValid || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
+    if (!isValid || !hasSufficientPaymentTokenBalance || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
       return
     }
 
@@ -339,7 +340,7 @@ export function PaybackLoanScreen ({
           </View>
       }
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
+        disabled={!isValid || !hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
         label={translate('screens/PaybackLoanScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='payback_loan_button'
