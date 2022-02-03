@@ -311,7 +311,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context.only('Wallet - Loans - Payback Loans', () => {
+context('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
