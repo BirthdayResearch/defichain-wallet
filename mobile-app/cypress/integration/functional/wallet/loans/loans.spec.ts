@@ -16,7 +16,7 @@ function addCollateral (): void {
   cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
 }
 
-context('Wallet - Loans', () => {
+context.skip('Wallet - Loans', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
@@ -150,7 +150,7 @@ context('Wallet - Loans Feature Gated', () => {
   })
 })
 
-context('Wallet - Loans - Take Loans', () => {
+context.skip('Wallet - Loans - Take Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
@@ -311,7 +311,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context('Wallet - Loans - Payback Loans', () => {
+context.skip('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
