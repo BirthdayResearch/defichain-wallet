@@ -58,7 +58,7 @@ export function useTokenPrice (): TokenPrice {
       const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount.toFixed(8))
       return usdTokenA.plus(usdTokenB)
     }
-    const key = `WALLET.${network}.TOKEN_PRICE_${symbol}`
+    const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${symbol}`
     const result = CacheApi.get(key)
     if (result !== undefined) {
       return new BigNumber(result).multipliedBy(amount)
@@ -70,7 +70,7 @@ export function useTokenPrice (): TokenPrice {
       const { aToBPrice, estimated } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
       // store price for each unit in cache
       CacheApi.set(key, aToBPrice.toFixed(8))
-      return estimated.multipliedBy(amount)
+      return estimated
     }
     return new BigNumber('')
   }, [blockCount])

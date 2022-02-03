@@ -1,12 +1,13 @@
-import LRU from 'lru-cache'
+import QuickLRU from 'quick-lru'
 
 class CacheAPI {
   private readonly cache
 
   constructor () {
-    // setting to 30 sec considering block timing as 30 sec to flush old values
-    this.cache = new LRU({
-      maxAge: 30000
+    // setting maxAge to 10 min
+    this.cache = new QuickLRU({
+      maxSize: 10000,
+      maxAge: 1000 * 60 * 10
     })
   }
 
