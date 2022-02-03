@@ -1,7 +1,7 @@
 
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { PaymentTokenProps } from '../screens/PaybackLoanScreen'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
@@ -49,7 +49,7 @@ export function PaymentTokenCards ({
           style={tailwind('text-xs m-2')}
         >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
         </ThemedText>
-        <View style={tailwind('flex flex-row items-center mb-0.5')}>
+        {/* <View style={tailwind('flex flex-row items-center mb-0.5')}>
           <ThemedIcon
             iconType='MaterialIcons'
             name='help'
@@ -63,7 +63,7 @@ export function PaymentTokenCards ({
             style={tailwind('text-xs mx-1 mt-0.5')}
           >{translate('screens/PaybackLoanScreen', 'Read more')}
           </ThemedText>
-        </View>
+        </View> */}
       </View>
     </>
   )
