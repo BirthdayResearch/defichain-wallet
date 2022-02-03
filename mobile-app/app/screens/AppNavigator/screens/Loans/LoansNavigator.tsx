@@ -98,6 +98,9 @@ export interface LoanParamList {
   CloseVaultScreen: {
     vaultId: string
   }
+  LoansFaq: {
+    activeSessions?: number[]
+  }
   [key: string]: undefined | object
 }
 

@@ -1,11 +1,13 @@
 
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { PaymentTokenProps } from '../screens/PaybackLoanScreen'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { LoanParamList } from '../LoansNavigator'
 
 interface PaymentTokenCardsProps {
   testID?: string
@@ -23,6 +25,7 @@ export function PaymentTokenCards ({
     loanTokenAmount,
     onPaymentTokenSelect
 }: PaymentTokenCardsProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
     <>
       <ThemedSectionTitle
@@ -49,7 +52,15 @@ export function PaymentTokenCards ({
           style={tailwind('text-xs m-2')}
         >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
         </ThemedText>
-        <View style={tailwind('flex flex-row items-center mb-0.5')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate({
+            name: 'LoansFaq',
+            params: {
+              activeSessions: [5]
+            }
+          })}
+          style={tailwind('flex flex-row items-center mb-0.5')}
+        >
           <ThemedIcon
             iconType='MaterialIcons'
             name='help'
@@ -63,7 +74,7 @@ export function PaymentTokenCards ({
             style={tailwind('text-xs mx-1 mt-0.5')}
           >{translate('screens/PaybackLoanScreen', 'Read more')}
           </ThemedText>
-        </View>
+        </TouchableOpacity>
       </View>
     </>
   )
