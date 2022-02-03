@@ -45,6 +45,7 @@ import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { PaymentTokenCards } from '../components/PaymentTokenCards'
 import { useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
+import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 export interface PaymentTokenProps {
@@ -180,6 +181,10 @@ export function PaybackLoanScreen ({
     })
   }
 
+  const onChangeFromAmount = (amount: string): void => {
+    setAmountToPay(amount)
+  }
+
   const onSubmit = async (): Promise<void> => {
     if (!isValid || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
       return
@@ -234,7 +239,21 @@ export function PaybackLoanScreen ({
             text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
           }
 })}
-        />
+        >
+          <>
+            <SetAmountButton
+              amount={new BigNumber(loanTokenAmount.amount ?? '0')}
+              onPress={onChangeFromAmount}
+              type={AmountButtonTypes.half}
+            />
+
+            <SetAmountButton
+              amount={new BigNumber(loanTokenAmount.amount ?? '0')}
+              onPress={onChangeFromAmount}
+              type={AmountButtonTypes.max}
+            />
+          </>
+        </WalletTextInput>
         <InputHelperText
           label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
           content={new BigNumber(tokenBalance).toFixed(8)}
@@ -541,7 +560,7 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
       <NumberRowWithConversion
         lhs={translate('screens/PaybackLoanScreen', 'Amount to pay')}
         rhs={{
-          value: getUSDPrecisedPrice(props.amountToPayInSelectedToken),
+          value: props.amountToPayInSelectedToken.toFixed(8),
           testID: 'text_amount_to_pay_converted',
           suffixType: 'text',
           suffix: props.selectedPaymentToken.tokenDisplaySymbol,
