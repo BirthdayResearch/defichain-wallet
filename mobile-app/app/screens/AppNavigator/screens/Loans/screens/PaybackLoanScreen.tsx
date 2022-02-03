@@ -126,7 +126,6 @@ export function PaybackLoanScreen ({
     deps: [selectedPaymentToken, amountToPayInSelectedToken, JSON.stringify(tokens)]
   })
 
-  // Payment Tokens
   const paymentTokens = [
     {
       displaySymbol: 'DFI',
