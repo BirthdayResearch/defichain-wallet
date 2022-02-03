@@ -21,10 +21,10 @@ interface TotalCollateralValueProps {
 }
 
 export function useCollateralPrice (amount: BigNumber, collateralItem: CollateralItem | CollateralToken, totalCollateralValue: BigNumber): CollateralPrice {
-  const activePrice = new BigNumber(collateralItem.activePrice?.active?.amount ?? 0)
-  const collateralPrice = new BigNumber(activePrice).multipliedBy(amount)
+  const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
+  const collateralPrice = activePrice.multipliedBy(amount)
   const collateralFactor = new BigNumber(collateralItem?.factor ?? 0)
-  const vaultShare = useVaultShare(new BigNumber(amount), collateralFactor, new BigNumber(activePrice), new BigNumber(totalCollateralValue.isZero() ? collateralPrice : totalCollateralValue))
+  const vaultShare = useVaultShare(amount, collateralFactor, activePrice, new BigNumber(totalCollateralValue.isZero() ? collateralPrice : totalCollateralValue))
   return {
     activePrice,
     collateralPrice,
