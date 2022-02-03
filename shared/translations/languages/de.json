@@ -1042,7 +1042,7 @@
     "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert.",
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Vault ID": "Vault-ID",
-    "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
+    "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
     "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
     "Select payment token": "Token für die Zahlung auswählen",
     "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",

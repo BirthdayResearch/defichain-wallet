@@ -1035,7 +1035,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
     "VAULT IN USE": "金庫使用中",
-    "How much of the loan do you want to pay?": "您希望付款多少?",
+    "How much of the loan do you want to pay?": "您想償還多少貸款？",
     "Enter an amount": "輸入金額",
     "Available": "可用的",
     "CONTINUE": "繼續",
@@ -1050,8 +1050,11 @@
     "Any excess amount will be returned to your wallet.": "任何超出的金額將返還到您的錢包.",
     "Resulting collateralization": "最終抵押率",
     "Vault ID": "金庫編號",
-    "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
-    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount"
+    "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Select payment token": "選擇付款代幣",
+    "A 1% fee is applied when you pay with DFI.": "當您使用 DFI 付款時，將收取 1% 的費用",
+    "Read more": "閱讀更多"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "確認付款",
@@ -1067,7 +1070,8 @@
     "Collateral amount (USD)": "抵押金額 （美金)",
     "Collateralization ratio": "抵押率",
     "Paying loan": "償還貸款中",
-    "Paying {{amount}} {{symbol}}": "償還款項 {{amount}} {{symbol}} ",
+    "Paying {{amount}} {{symbol}} as loan payment.": "正在付款 {{amount}} {{symbol}} 作為支付貸款。",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) 作為支付貸款。",
     "Confirm Loan Payment": "確認償還貸款",
     "Resulting collateralization": "最終抵押率"
   },
