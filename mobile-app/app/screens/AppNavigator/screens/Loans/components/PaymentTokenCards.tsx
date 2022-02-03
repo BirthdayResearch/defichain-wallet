@@ -1,4 +1,3 @@
-
 import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
@@ -20,9 +19,9 @@ interface PaymentTokenCardsProps {
 }
 
 export function PaymentTokenCards ({
-    paymentTokens,
-    onPaymentTokenSelect,
-    selectedPaymentTokenSymbol
+  paymentTokens,
+  onPaymentTokenSelect,
+  selectedPaymentTokenSymbol
 }: PaymentTokenCardsProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
@@ -42,7 +41,7 @@ export function PaymentTokenCards ({
             onPress={onPaymentTokenSelect}
             {...paymentTokenOption}
           />
-      ))}
+        ))}
       </View>
       {selectedPaymentTokenSymbol === 'DFI' &&
         (
@@ -99,11 +98,11 @@ function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
       light={tailwind({
         'bg-white border-gray-200': !props.isSelected,
         'bg-white border-primary-500': props.isSelected
-    })}
+      })}
       dark={tailwind({
         'bg-gray-800 border-gray-700': !props.isSelected,
         'bg-gray-800 border-darkprimary-500': props.isSelected
-    })}
+      })}
       style={tailwind('p-3 mx-2 rounded border flex-1 flex-row items-center')}
       onPress={() => props.onPress(props.paymentToken)}
     >

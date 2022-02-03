@@ -220,13 +220,13 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           <NumberRow
             lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
             rhs={{
-            value: props.excessAmount.toFixed(8),
-            testID: 'text_excess_amount',
-            suffixType: 'text',
-            suffix: props.displaySymbol
-          }}
+              value: props.excessAmount.toFixed(8),
+              testID: 'text_excess_amount',
+              suffixType: 'text',
+              suffix: props.displaySymbol
+            }}
           />
-      )}
+        )}
       <NumberRow
         lhs={translate('screens/PaybackLoanScreen', 'Remaining loan amount')}
         rhs={{
@@ -325,9 +325,9 @@ async function paybackLoanToken ({
     }
 
     const textToTranslate =
-    paymentToken.tokenDisplaySymbol === loanToken.displaySymbol
-    ? 'Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.'
-    : 'Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.'
+      paymentToken.tokenDisplaySymbol === loanToken.displaySymbol
+        ? 'Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.'
+        : 'Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.'
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
