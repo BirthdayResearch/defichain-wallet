@@ -90,11 +90,20 @@ export function PaybackLoanScreen ({
     tokenDisplaySymbol: loanToken?.token.displaySymbol ?? ''
   })
   const selectedPaymentTokenBalance = getTokenAmount(selectedPaymentToken.tokenId)
-  const { conversionRate } = useLoanPaymentTokenRate({
+  const { conversionRate, getAmounts } = useLoanPaymentTokenRate({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
-    selectedPaymentToken
+    selectedPaymentToken,
+    outstandingBalance: new BigNumber(loanTokenAmount.amount),
+    amountToPay: new BigNumber(amountToPay),
+    loanTokenBalance: tokenBalance,
+    selectedPaymentTokenBalance
+
   })
+  const [resultingBalance, setResultingBalance] = useState(new BigNumber(0))
+  const [amountToPayInPaymentToken, setAmountToPayInPaymentToken] = useState(new BigNumber(loanTokenAmount.amount))
+  const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(new BigNumber(loanTokenAmount.amount))
+
   const [amountToPayInSelectedToken, setAmountToPayInSelectedToken] = useState(new BigNumber(amountToPay))
   const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInSelectedToken)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -123,9 +132,9 @@ export function PaybackLoanScreen ({
   } = useConversion({
     inputToken: {
       type: selectedPaymentToken.tokenId === '0_unified' ? 'token' : 'others',
-      amount: new BigNumber(selectedPaymentToken.tokenId === '0_unified' ? amountToPayInSelectedToken : 0)
+      amount: new BigNumber(selectedPaymentToken.tokenId === '0_unified' ? amountToPayInPaymentToken : 0)
     },
-    deps: [selectedPaymentToken, amountToPayInSelectedToken, JSON.stringify(tokens)]
+    deps: [selectedPaymentToken, amountToPayInPaymentToken, JSON.stringify(tokens)]
   })
 
   const paymentTokens = [
@@ -159,9 +168,15 @@ export function PaybackLoanScreen ({
     const loanTokenToSelectedTokenAmount = new BigNumber(amountToPay).isNaN()
 ? new BigNumber(0)
 : new BigNumber(amountToPay)
-      .multipliedBy(conversionRate)
-      .multipliedBy(selectedPaymentToken.tokenSymbol === 'DFI' ? 1.01 : 1)
     setAmountToPayInSelectedToken(loanTokenToSelectedTokenAmount)
+    const {
+      resultingBalance,
+      amountToPayInLoanToken,
+      amountToPayInPaymentToken
+    } = getAmounts()
+    setResultingBalance(resultingBalance)
+    setAmountToPayInLoanToken(amountToPayInLoanToken)
+    setAmountToPayInPaymentToken(amountToPayInPaymentToken)
   }, [amountToPay, selectedPaymentToken, conversionRate])
 
   useEffect(() => {
@@ -179,8 +194,8 @@ export function PaybackLoanScreen ({
       name: 'ConfirmPaybackLoanScreen',
       params: {
         vault,
-        amountToPay: new BigNumber(amountToPay),
-        amountToPayInSelectedToken: amountToPayInSelectedToken,
+        amountToPay: new BigNumber(amountToPayInLoanToken),
+        amountToPayInSelectedToken: amountToPayInPaymentToken,
         paymentToken: selectedPaymentToken,
         fee,
         loanTokenAmount,
@@ -322,7 +337,8 @@ export function PaybackLoanScreen ({
         isValid &&
           <View style={tailwind('mt-4')}>
             <TransactionDetailsSection
-              fee={fee} outstandingBalance={new BigNumber(loanTokenAmount.amount)}
+              fee={fee}
+              outstandingBalance={new BigNumber(loanTokenAmount.amount)}
               amountToPay={new BigNumber(amountToPay)}
               displaySymbol={loanTokenAmount.displaySymbol}
               isExcess={isExcess}
@@ -331,9 +347,9 @@ export function PaybackLoanScreen ({
               loanTokenPrice={new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice))}
               totalPaybackWithInterest={totalPaybackWithInterest}
               selectedPaymentToken={selectedPaymentToken}
-              amountToPayInSelectedToken={amountToPayInSelectedToken}
-              selectedPaymentTokenBalance={selectedPaymentTokenBalance}
-              conversionRate={conversionRate}
+              resultingBalance={resultingBalance}
+              amountToPayInLoanToken={amountToPayInLoanToken}
+              amountToPayInPaymentToken={amountToPayInPaymentToken}
             />
             {isExcess && (
               <ThemedText
@@ -554,71 +570,78 @@ interface TransactionDetailsProps {
   totalPaybackWithInterest: BigNumber
   loanTokenPrice: BigNumber
   selectedPaymentToken: PaymentTokenProps
-  amountToPayInSelectedToken: BigNumber
-  selectedPaymentTokenBalance: BigNumber
-  conversionRate: BigNumber
+  resultingBalance: BigNumber
+  amountToPayInLoanToken: BigNumber
+  amountToPayInPaymentToken: BigNumber
 }
 
-function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
+function TransactionDetailsSection ({
+  amountToPay,
+  outstandingBalance,
+  fee,
+  displaySymbol,
+  isExcess,
+  resultingColRatio,
+  vault,
+  totalPaybackWithInterest,
+  loanTokenPrice,
+  selectedPaymentToken,
+  resultingBalance,
+  amountToPayInLoanToken,
+  amountToPayInPaymentToken
+}: TransactionDetailsProps): JSX.Element {
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
     message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
-
-  const outstandingBalanceInPaymentToken = props.outstandingBalance
-  .multipliedBy(props.conversionRate)
-  .multipliedBy(props.selectedPaymentToken.tokenSymbol === 'DFI' ? 1.01 : 1)
-  const maxAmountToPayInPaymentToken = BigNumber.min(props.amountToPayInSelectedToken, outstandingBalanceInPaymentToken)
-  const amountToPayInSelectedTokenCeil = BigNumber.max(
-    props.selectedPaymentTokenBalance.minus(maxAmountToPayInPaymentToken), 0).toFixed(8)
 
   return (
     <>
       <NumberRowWithConversion
         lhs={translate('screens/PaybackLoanScreen', 'Amount to pay')}
         rhs={{
-          value: props.amountToPayInSelectedToken.toFixed(8),
+          value: amountToPayInPaymentToken.toFixed(8),
           testID: 'text_amount_to_pay_converted',
           suffixType: 'text',
-          suffix: props.selectedPaymentToken.tokenDisplaySymbol,
+          suffix: selectedPaymentToken.tokenDisplaySymbol,
           style: tailwind('ml-0')
         }}
-        {...(props.selectedPaymentToken.tokenDisplaySymbol !== props.displaySymbol && {
+        {...(selectedPaymentToken.tokenDisplaySymbol !== displaySymbol && {
             rhsConversion: {
-              value: props.amountToPay.toFixed(8),
+              value: amountToPayInLoanToken.toFixed(8),
               testID: 'text_amount_to_pay',
               suffixType: 'text',
-              suffix: props.displaySymbol,
+              suffix: displaySymbol,
               style: tailwind('ml-0')
             }
           })
         }
       />
-      {props.isExcess &&
+      {isExcess &&
         (
           <NumberRow
             lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
             rhs={{
-              value: props.amountToPay.minus(props.outstandingBalance).toFixed(8),
+              value: amountToPay.minus(outstandingBalance).toFixed(8),
               testID: 'text_resulting_loan_amount',
               suffixType: 'text',
-              suffix: props.displaySymbol
+              suffix: displaySymbol
             }}
           />
       )}
       <NumberRow
-        lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: props.selectedPaymentToken.tokenDisplaySymbol })}
+        lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: selectedPaymentToken.tokenDisplaySymbol })}
         rhs={{
-          value: amountToPayInSelectedTokenCeil,
+          value: resultingBalance.toFixed(8),
           testID: 'text_resulting_dfi_balance',
           suffixType: 'text',
-          suffix: props.selectedPaymentToken.tokenDisplaySymbol
+          suffix: selectedPaymentToken.tokenDisplaySymbol
         }}
       />
       <TextRow
         lhs={translate('screens/PaybackLoanScreen', 'Vault ID')}
         rhs={{
-          value: props.vault.vaultId,
+          value: vault.vaultId,
           testID: 'text_vault_id',
           numberOfLines: 1,
           ellipsizeMode: 'middle'
@@ -628,13 +651,13 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
       <NumberRow
         lhs={translate('screens/PaybackLoanScreen', 'Remaining loan amount')}
         rhs={{
-          value: BigNumber.max(props.outstandingBalance.minus(props.amountToPay), 0).toFixed(8),
+          value: BigNumber.max(outstandingBalance.minus(amountToPayInLoanToken), 0).toFixed(8),
           testID: 'text_resulting_loan_amount',
           suffixType: 'text',
-          suffix: props.displaySymbol
+          suffix: displaySymbol
         }}
       />
-      {props.resultingColRatio.isLessThan(0)
+      {resultingColRatio.isLessThan(0)
         ? (
           <TextRow
             lhs={translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
@@ -649,19 +672,19 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
         : (
           <CollateralizationRatioRow
             label={translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
-            value={props.resultingColRatio.toFixed(2)}
+            value={resultingColRatio.toFixed(2)}
             testId='text_resulting_col_ratio'
             type='current'
-            minColRatio={new BigNumber(props.vault.loanScheme.minColRatio)}
-            totalLoanAmount={new BigNumber(props.vault.loanValue).minus(
-              props.totalPaybackWithInterest.multipliedBy(props.loanTokenPrice)
+            minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
+            totalLoanAmount={new BigNumber(vault.loanValue).minus(
+              totalPaybackWithInterest.multipliedBy(loanTokenPrice)
             )}
-            colRatio={props.resultingColRatio}
+            colRatio={resultingColRatio}
           />
       )}
       <FeeInfoRow
         type='ESTIMATED_FEE'
-        value={props.fee.toFixed(8)}
+        value={fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'
       />
