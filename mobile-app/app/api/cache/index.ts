@@ -1,12 +1,11 @@
-import QuickLRU from 'quick-lru'
+import Cache from 'lru-cache'
 
 class LruCache {
   private readonly cache
 
   constructor () {
     // setting maxAge to 10 min
-    this.cache = new QuickLRU({
-      maxSize: 10000,
+    this.cache = new Cache({
       maxAge: 1000 * 60 * 10
     })
   }
@@ -28,7 +27,7 @@ class LruCache {
   }
 
   clear (): void {
-    this.cache.clear()
+    this.cache.reset()
   }
 }
 
