@@ -25,12 +25,12 @@ export interface NumberRowElement {
 }
 
 export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
-  const rhsStyle = [tailwind('text-sm text-right'), props.textStyle, props.rhs.style]
+  const rhsStyle = [tailwind('text-sm text-right w-full'), props.textStyle, props.rhs.style]
   return (
     <ThemedView
       dark={props.dark ?? tailwind('bg-gray-800 border-b border-gray-700')}
       light={props.light ?? tailwind('bg-white border-b border-gray-200')}
-      style={props.style ?? tailwind('p-4 flex-row items-start w-full')}
+      style={props.style ?? tailwind('p-4 flex-row w-full')}
     >
       <View style={tailwind('w-6/12 self-center')}>
         <View style={tailwind('flex-row items-end justify-start')}>
