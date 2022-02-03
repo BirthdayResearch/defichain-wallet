@@ -81,7 +81,7 @@ export function PaybackLoanScreen ({
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
     BigNumber.min(amountToPay, loanTokenAmount.amount).multipliedBy(-1),
-    new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
+    new BigNumber(getActivePrice(loanTokenAmount.symbol, loanTokenAmount?.activePrice)),
     interestPerBlock
   )
 
@@ -199,7 +199,7 @@ export function PaybackLoanScreen ({
               isExcess={isExcess}
               resultingColRatio={resultingColRatio}
               vault={vault}
-              loanTokenPrice={new BigNumber(loanToken?.activePrice?.active?.amount ?? 0)}
+              loanTokenPrice={new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice))}
               totalPaybackWithInterest={totalPaybackWithInterest}
             />
             {isExcess && (
@@ -311,7 +311,7 @@ export function VaultInput ({
     totalCollateralValue: new BigNumber(vault.collateralValue),
     existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
-    loanActivePrice: new BigNumber(loanToken?.activePrice?.active?.amount ?? NaN),
+    loanActivePrice: new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice)),
     interestPerBlock: interestPerBlock ?? new BigNumber(NaN)
   })
 

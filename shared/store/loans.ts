@@ -1,6 +1,5 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
+import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
@@ -22,35 +21,6 @@ const initialState: LoansState = {
   collateralTokens: [],
   hasFetchedVaultsData: false,
   hasFetchedLoansData: false
-}
-
-export const customDUSDActivePrice: ActivePrice = {
-  id: 'custom_DUSD',
-  key: 'custom_DUSD',
-  sort: '',
-  isLive: true,
-  block: {
-    hash: '',
-    height: 0,
-    time: 0,
-    medianTime: 0
-  },
-  active: {
-    amount: '1',
-    weightage: 1,
-    oracles: {
-      active: 1,
-      total: 1
-    }
-  },
-  next: {
-    amount: '1',
-    weightage: 1,
-    oracles: {
-      active: 1,
-      total: 1
-    }
-  }
 }
 
 // TODO (Harsh) Manage pagination for all api
@@ -108,17 +78,7 @@ export const ascColRatioLoanScheme = createSelector((state: LoansState) => state
   (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))
 
 export const loanTokensSelector = createSelector((state: LoansState) => state.loanTokens, loanTokens => {
-  return loanTokens.map(loanToken => {
-    if (loanToken.token.symbol === 'DUSD') {
-      const modifiedLoanToken: LoanToken = {
-        ...loanToken,
-        activePrice: customDUSDActivePrice
-      }
-      return modifiedLoanToken
-    } else {
-      return { ...loanToken }
-    }
-  })
+  return loanTokens
 })
 
 const selectTokenId = (state: LoansState, tokenId: string): string => tokenId
@@ -128,37 +88,5 @@ export const loanTokenByTokenId = createSelector([selectTokenId, loanTokensSelec
 })
 
 export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {
-  return vaults.map(vault => {
-    if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-      return { ...vault }
-    }
-
-    const modifiedLoanAmounts = vault.loanAmounts.map(loanAmount => {
-      if (loanAmount.symbol === 'DUSD') {
-        const modifiedLoanAmount: LoanVaultTokenAmount = {
-          ...loanAmount,
-          activePrice: customDUSDActivePrice
-        }
-        return modifiedLoanAmount
-      }
-      return { ...loanAmount }
-    })
-
-    const modifiedInterestAmounts = vault.interestAmounts.map(interestAmount => {
-      if (interestAmount.symbol === 'DUSD') {
-        const modifiedInterestAmount: LoanVaultTokenAmount = {
-          ...interestAmount,
-          activePrice: customDUSDActivePrice
-        }
-        return modifiedInterestAmount
-      }
-      return { ...interestAmount }
-    })
-
-    return {
-      ...vault,
-      loanAmounts: modifiedLoanAmounts,
-      interestAmounts: modifiedInterestAmounts
-    }
-  }) as LoanVault[]
+  return vaults
 })
