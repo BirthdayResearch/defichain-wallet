@@ -46,6 +46,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { PaymentTokenCards } from '../components/PaymentTokenCards'
 import { useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 export interface PaymentTokenProps {
@@ -58,6 +59,7 @@ export function PaybackLoanScreen ({
   navigation,
   route
 }: Props): JSX.Element {
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const {
     loanTokenAmount,
     vault
@@ -301,7 +303,7 @@ export function PaybackLoanScreen ({
           </ThemedText>
         </InputHelperText>
       </View>
-      {loanTokenAmount.symbol === 'DUSD' &&
+      {loanTokenAmount.symbol === 'DUSD' && isFeatureAvailable('dfi_loan_payment') &&
         <PaymentTokenCards
           onPaymentTokenSelect={onPaymentTokenSelect}
           paymentTokens={[{
@@ -313,7 +315,7 @@ export function PaybackLoanScreen ({
             },
             isSelected: selectedPaymentToken.tokenId === loanTokenAmount.id
           }, ...paymentTokens]}
-          loanTokenAmount={loanTokenAmount}
+          selectedPaymentTokenSymbol={selectedPaymentToken.tokenSymbol}
         />}
       {isConversionRequired && isValid && <ConversionInfoText />}
       {
