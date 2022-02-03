@@ -48,7 +48,7 @@ export const useLoanPaymentTokenRate = (props: {
     const penaltyOfAmountToPay = isDFI
       ? props.amountToPay.div(0.99).minus(props.amountToPay)
       : new BigNumber(0)
-    const minimumPenalty = BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay)
+    const minimumPenalty = BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
     const amountToPayInLoanToken = props.amountToPay.plus(minimumPenalty)
 
     // Payment token
@@ -58,7 +58,7 @@ export const useLoanPaymentTokenRate = (props: {
     const penaltyOfAmountToPayInPaymentToken = isDFI
       ? (props.selectedPaymentTokenBalance.div(0.99).minus(props.selectedPaymentTokenBalance)).multipliedBy(conversionRate)
       : new BigNumber(0)
-    const mininumPenaltyInPaymentToken = BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken)
+    const mininumPenaltyInPaymentToken = BigNumber.max(BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken), 0)
     const amountToPayInPaymentToken = props.amountToPay.multipliedBy(conversionRate).plus(mininumPenaltyInPaymentToken)
 
     //  Resulting Balance
