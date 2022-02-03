@@ -77,7 +77,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [slippage, setSlippage] = useState(new BigNumber(1))
+
+  const tempSlippage = new BigNumber(1)
+  const slippageValFromStorage = localStorage.getItem('slippage-tolerance') ?? tempSlippage
+  const localSlippage = slippageValFromStorage != null ? new BigNumber(slippageValFromStorage) : tempSlippage
+  const [slippage, setSlippage] = useState(localSlippage)
+
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
@@ -491,7 +496,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               fee={fee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
-              onSetSlippage={(val: BigNumber) => setSlippage(val)}
+              onSetSlippage={(val: BigNumber) => {
+                localStorage.setItem('slippage-tolerance', JSON.stringify(val))
+                setSlippage(val)
+}}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
               setIsModalDisplayed={setIsModalDisplayed}
@@ -682,7 +690,10 @@ function TransactionDetailsSection ({
         textStyle={tailwind('text-sm font-normal')}
       />
       <SlippageTolerance
-        setSlippage={(amount) => onSetSlippage(amount)}
+        setSlippage={(amount) => {
+          localStorage.setItem('slippage-tolerance', JSON.stringify(amount))
+          onSetSlippage(amount)
+}}
         slippage={slippage}
         setIsSelectorOpen={setIsModalDisplayed}
         setBottomSheetScreen={setBottomSheetScreen}
