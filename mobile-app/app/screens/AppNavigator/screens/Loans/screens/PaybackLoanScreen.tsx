@@ -46,6 +46,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { PaymentTokenCards } from '../components/PaymentTokenCards'
 import { useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 export interface PaymentTokenProps {
@@ -58,6 +59,7 @@ export function PaybackLoanScreen ({
   navigation,
   route
 }: Props): JSX.Element {
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const {
     loanTokenAmount,
     vault
@@ -140,7 +142,8 @@ export function PaybackLoanScreen ({
 
   const isFormValid = (amountToPay: string): boolean => {
     const amount = new BigNumber(amountToPay)
-    return !(amount.isNaN() || amount.isLessThanOrEqualTo(0) || amount.gt(tokenBalance))
+
+    return !(amount.isNaN() || amount.isLessThanOrEqualTo(0))
   }
 
   useEffect(() => {
@@ -153,7 +156,11 @@ export function PaybackLoanScreen ({
     setIsValid(isValid)
     setIsExcess(new BigNumber(amountToPay).isGreaterThan(loanTokenAmount.amount))
     setTotalPaybackWithInterest(new BigNumber(amountToPay).plus(interestPerBlock))
-    const loanTokenToSelectedTokenAmount = new BigNumber(amountToPay).isNaN() ? new BigNumber(0) : new BigNumber(amountToPay).multipliedBy(conversionRate)
+    const loanTokenToSelectedTokenAmount = new BigNumber(amountToPay).isNaN()
+? new BigNumber(0)
+: new BigNumber(amountToPay)
+      .multipliedBy(conversionRate)
+      .multipliedBy(selectedPaymentToken.tokenSymbol === 'DFI' ? 1.01 : 1)
     setAmountToPayInSelectedToken(loanTokenToSelectedTokenAmount)
   }, [amountToPay, selectedPaymentToken, conversionRate])
 
@@ -197,7 +204,7 @@ export function PaybackLoanScreen ({
   }
 
   const onSubmit = async (): Promise<void> => {
-    if (!isValid || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
+    if (!isValid || !hasSufficientPaymentTokenBalance || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
       return
     }
 
@@ -296,7 +303,7 @@ export function PaybackLoanScreen ({
           </ThemedText>
         </InputHelperText>
       </View>
-      {loanTokenAmount.symbol === 'DUSD' &&
+      {loanTokenAmount.symbol === 'DUSD' && isFeatureAvailable('dfi_loan_payment') &&
         <PaymentTokenCards
           onPaymentTokenSelect={onPaymentTokenSelect}
           paymentTokens={[{
@@ -308,7 +315,7 @@ export function PaybackLoanScreen ({
             },
             isSelected: selectedPaymentToken.tokenId === loanTokenAmount.id
           }, ...paymentTokens]}
-          loanTokenAmount={loanTokenAmount}
+          selectedPaymentTokenSymbol={selectedPaymentToken.tokenSymbol}
         />}
       {isConversionRequired && isValid && <ConversionInfoText />}
       {
@@ -326,6 +333,7 @@ export function PaybackLoanScreen ({
               selectedPaymentToken={selectedPaymentToken}
               amountToPayInSelectedToken={amountToPayInSelectedToken}
               selectedPaymentTokenBalance={selectedPaymentTokenBalance}
+              conversionRate={conversionRate}
             />
             {isExcess && (
               <ThemedText
@@ -339,7 +347,7 @@ export function PaybackLoanScreen ({
           </View>
       }
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
+        disabled={!isValid || !hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
         label={translate('screens/PaybackLoanScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='payback_loan_button'
@@ -548,6 +556,7 @@ interface TransactionDetailsProps {
   selectedPaymentToken: PaymentTokenProps
   amountToPayInSelectedToken: BigNumber
   selectedPaymentTokenBalance: BigNumber
+  conversionRate: BigNumber
 }
 
 function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element {
@@ -555,6 +564,13 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
     title: 'Collateralization ratio',
     message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
+
+  const outstandingBalanceInPaymentToken = props.outstandingBalance
+  .multipliedBy(props.conversionRate)
+  .multipliedBy(props.selectedPaymentToken.tokenSymbol === 'DFI' ? 1.01 : 1)
+  const maxAmountToPayInPaymentToken = BigNumber.min(props.amountToPayInSelectedToken, outstandingBalanceInPaymentToken)
+  const amountToPayInSelectedTokenCeil = BigNumber.max(
+    props.selectedPaymentTokenBalance.minus(maxAmountToPayInPaymentToken), 0).toFixed(8)
 
   return (
     <>
@@ -590,16 +606,15 @@ function TransactionDetailsSection (props: TransactionDetailsProps): JSX.Element
             }}
           />
       )}
-      {props.selectedPaymentToken.tokenDisplaySymbol !== props.displaySymbol &&
-        <NumberRow
-          lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: props.selectedPaymentToken.tokenDisplaySymbol })}
-          rhs={{
-            value: BigNumber.max(props.selectedPaymentTokenBalance.minus(props.amountToPay), 0).toFixed(8),
-            testID: 'text_resulting_dfi_balance',
-            suffixType: 'text',
-            suffix: props.selectedPaymentToken.tokenDisplaySymbol
-          }}
-        />}
+      <NumberRow
+        lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: props.selectedPaymentToken.tokenDisplaySymbol })}
+        rhs={{
+          value: amountToPayInSelectedTokenCeil,
+          testID: 'text_resulting_dfi_balance',
+          suffixType: 'text',
+          suffix: props.selectedPaymentToken.tokenDisplaySymbol
+        }}
+      />
       <TextRow
         lhs={translate('screens/PaybackLoanScreen', 'Vault ID')}
         rhs={{

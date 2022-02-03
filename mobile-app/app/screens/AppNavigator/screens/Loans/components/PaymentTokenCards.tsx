@@ -4,7 +4,6 @@ import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { PaymentTokenProps } from '../screens/PaybackLoanScreen'
-import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { translate } from '@translations'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
@@ -16,14 +15,14 @@ interface PaymentTokenCardsProps {
     isSelected: boolean
     paymentToken: PaymentTokenProps
   }>
-  loanTokenAmount: LoanVaultTokenAmount
   onPaymentTokenSelect: (paymentToken: PaymentTokenProps) => void
+  selectedPaymentTokenSymbol: string
 }
 
 export function PaymentTokenCards ({
     paymentTokens,
-    loanTokenAmount,
-    onPaymentTokenSelect
+    onPaymentTokenSelect,
+    selectedPaymentTokenSymbol
 }: PaymentTokenCardsProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
@@ -45,37 +44,40 @@ export function PaymentTokenCards ({
           />
       ))}
       </View>
-      <View style={tailwind('flex flex-row mx-3 ml-2 p-1 flex-wrap')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-200')}
-          style={tailwind('text-xs m-2')}
-        >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
-        </ThemedText>
-        <TouchableOpacity
-          onPress={() => navigation.navigate({
-            name: 'LoansFaq',
-            params: {
-              activeSessions: [5]
-            }
-          })}
-          style={tailwind('flex flex-row items-center mb-0.5')}
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name='help'
-            size={14}
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-          />
-          <ThemedText
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('text-xs mx-1 mt-0.5')}
-          >{translate('screens/PaybackLoanScreen', 'Read more')}
-          </ThemedText>
-        </TouchableOpacity>
-      </View>
+      {selectedPaymentTokenSymbol === 'DFI' &&
+        (
+          <View style={tailwind('flex flex-row mx-3 ml-2 p-1 flex-wrap')}>
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-200')}
+              style={tailwind('text-xs m-2')}
+            >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
+            </ThemedText>
+            <TouchableOpacity
+              onPress={() => navigation.navigate({
+                name: 'LoansFaq',
+                params: {
+                  activeSessions: [5]
+                }
+              })}
+              style={tailwind('flex flex-row items-center mb-0.5')}
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name='help'
+                size={14}
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+              />
+              <ThemedText
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+                style={tailwind('text-xs mx-1 mt-0.5')}
+              >{translate('screens/PaybackLoanScreen', 'Read more')}
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        )}
     </>
   )
 }
