@@ -1027,7 +1027,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
     "VAULT IN USE": "VAULT EN SERVICE",
-    "How much of the loan do you want to pay?": "Combien voulez-vous rembourser ?",
+    "How much of the loan do you want to pay?": "Quelle part du prêt voulez-vous rembourser?",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "CONTINUE": "SUIVANT",
@@ -1042,8 +1042,11 @@
     "Excess amount": "Montant excédentaire",
     "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille.",
     "Vault ID": "Vault ID",
-    "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
-    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount"
+    "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restant",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Select payment token": "Sélectionner le token de remboursement",
+    "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
+    "Read more": "En savoir plus"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
@@ -1059,7 +1062,7 @@
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Paying loan": "Rembourser le prêt",
-    "Paying {{amount}} {{symbol}}": "Payer {{amount}} {{symbol}}",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
     "Resulting collateralization": "Garantie correspondante"
   },

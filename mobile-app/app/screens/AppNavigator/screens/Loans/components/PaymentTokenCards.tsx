@@ -47,7 +47,7 @@ export function PaymentTokenCards ({
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-200')}
           style={tailwind('text-xs m-2')}
-        >A 1% fee is applied when you pay with DFI.
+        >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
         </ThemedText>
         <ThemedIcon
           iconType='MaterialIcons'
@@ -61,7 +61,7 @@ export function PaymentTokenCards ({
           dark={tailwind('text-darkprimary-500')}
           light={tailwind('text-primary-500')}
           style={tailwind('text-xs')}
-        >Read more
+        >{translate('screens/PaybackLoanScreen', 'Read more')}
         </ThemedText>
       </View>
     </>

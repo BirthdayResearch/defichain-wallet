@@ -1027,7 +1027,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
     "VAULT IN USE": "AKTIVER VAULT",
-    "How much of the loan do you want to pay?": "Wie viel willst du abzahlen?",
+    "How much of the loan do you want to pay?": "Wie viel des Darlehens willst du zurückzahlen?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "CONTINUE": "WEITER",
@@ -1043,7 +1043,10 @@
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Resulting {{displaySymbol}} Balance",
-    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount"
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Select payment token": "Token für die Zahlung auswählen",
+    "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
+    "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -1059,7 +1062,8 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}}",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
     "Resulting collateralization": "Resultierende Besicherungsquote"
   },
