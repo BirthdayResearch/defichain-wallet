@@ -1,3 +1,3 @@
 [build]
-publish = "web-build/"
+publish = "website/.next"
 command = "expo build:web"
