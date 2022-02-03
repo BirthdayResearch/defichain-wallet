@@ -1,10 +1,12 @@
 
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { PaymentTokenProps } from '../screens/PaybackLoanScreen'
 import { translate } from '@translations'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { LoanParamList } from '../LoansNavigator'
 
 interface PaymentTokenCardsProps {
   testID?: string
@@ -22,6 +24,7 @@ export function PaymentTokenCards ({
     onPaymentTokenSelect,
     selectedPaymentTokenSymbol
 }: PaymentTokenCardsProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
     <>
       <ThemedSectionTitle
@@ -41,30 +44,40 @@ export function PaymentTokenCards ({
           />
       ))}
       </View>
-      <View style={tailwind('flex flex-row mx-3 ml-2 p-1 flex-wrap')}>
-        {selectedPaymentTokenSymbol === 'DFI' &&
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-200')}
-            style={tailwind('text-xs m-2')}
-          >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
-          </ThemedText>}
-        {/* <View style={tailwind('flex flex-row items-center mb-0.5')}>
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name='help'
-            size={14}
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-          />
-          <ThemedText
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('text-xs mx-1 mt-0.5')}
-          >{translate('screens/PaybackLoanScreen', 'Read more')}
-          </ThemedText>
-        </View> */}
-      </View>
+      {selectedPaymentTokenSymbol === 'DFI' &&
+        (
+          <View style={tailwind('flex flex-row mx-3 ml-2 p-1 flex-wrap')}>
+            <ThemedText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-200')}
+              style={tailwind('text-xs m-2')}
+            >{translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
+            </ThemedText>
+            <TouchableOpacity
+              onPress={() => navigation.navigate({
+                name: 'LoansFaq',
+                params: {
+                  activeSessions: [5]
+                }
+              })}
+              style={tailwind('flex flex-row items-center mb-0.5')}
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name='help'
+                size={14}
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+              />
+              <ThemedText
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+                style={tailwind('text-xs mx-1 mt-0.5')}
+              >{translate('screens/PaybackLoanScreen', 'Read more')}
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        )}
     </>
   )
 }
