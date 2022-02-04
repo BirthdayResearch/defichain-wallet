@@ -23,7 +23,7 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
         platforms: ['ios', 'android', 'web']
       }
     ],
-    enabledFeatures: ['loan'],
+    enabledFeatures: ['loan', 'dfi_loan_payment'],
     updateEnabledFeatures: jest.fn(),
     isFeatureAvailable: jest.fn(),
     isBetaFeature: jest.fn()
