@@ -1185,5 +1185,8 @@
     },
     "components/WalletAddressRow": {
       "Wallet address": "Dirección de la billetera"
+    },
+    "components/Announcements": {
+      "VIEW": "Ver"
     }
   }

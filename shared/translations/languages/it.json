@@ -1193,5 +1193,8 @@
     },
     "components/WalletAddressRow": {
       "Wallet address": "Indirizzo del wallet"
+    },
+    "components/Announcements": {
+      "VIEW": "Vedi"
     }
   }
