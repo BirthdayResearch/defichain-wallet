@@ -40,6 +40,11 @@ import BtnOverviewIt from '@assets/images/dfx_buttons/btn_overview_it.png'
 import BtnTaxIt from '@assets/images/dfx_buttons/btn_tax_it.png'
 import BtnDobbyIt from '@assets/images/dfx_buttons/btn_dobby_it.png'
 
+import BtnGatewayEs from '@assets/images/dfx_buttons/btn_gateway_es.png'
+import BtnOverviewEs from '@assets/images/dfx_buttons/btn_overview_es.png'
+import BtnTaxEs from '@assets/images/dfx_buttons/btn_tax_es.png'
+import BtnDobbyEs from '@assets/images/dfx_buttons/btn_dobby_es.png'
+
 export function DfxButtons (): JSX.Element {
   const logger = useLogger()
   const { network } = useNetworkContext()
@@ -116,7 +121,8 @@ export function DfxButtons (): JSX.Element {
         de: BtnGatewayDe,
         en: BtnGatewayEn,
         fr: BtnGatewayFr,
-        it: BtnGatewayIt
+        it: BtnGatewayIt,
+        es: BtnGatewayEs
       },
       onPress: onGatewayButtonPress
     },
@@ -125,7 +131,8 @@ export function DfxButtons (): JSX.Element {
         de: BtnOverviewDe,
         en: BtnOverviewEn,
         fr: BtnOverviewFr,
-        it: BtnOverviewIt
+        it: BtnOverviewIt,
+        es: BtnOverviewEs
       },
       onPress: onOverviewButtonPress
     },
@@ -134,7 +141,8 @@ export function DfxButtons (): JSX.Element {
         de: BtnTaxDe,
         en: BtnTaxEn,
         fr: BtnTaxFr,
-        it: BtnTaxIt
+        it: BtnTaxIt,
+        es: BtnTaxEs
       },
       onPress: onTaxButtonPress
     },
@@ -144,7 +152,8 @@ export function DfxButtons (): JSX.Element {
         de: BtnDobbyDe,
         en: BtnDobbyEn,
         fr: BtnDobbyFr,
-        it: BtnDobbyIt
+        it: BtnDobbyIt,
+        es: BtnDobbyEs
       },
       onPress: onDobbyButtonPress
     }
@@ -152,7 +161,7 @@ export function DfxButtons (): JSX.Element {
 
   return (
     <View style={tailwind('flex flex-row justify-evenly mt-6')}>
-      {buttons.filter((b) => !(b.hide ?? false)).map((b, i) => <ImageButton key={i} source={b.img[language]} onPress={async () => await b.onPress()} />)}
+      {buttons.filter((b) => !(b.hide ?? false)).map((b, i) => <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />)}
     </View>
   )
 }
