@@ -43,7 +43,12 @@ export function CreateVaultScreen ({
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const isConversionRequired = new BigNumber(2.1).gt(DFIUtxo.amount)
   const goToVaultsFaq = (): void => {
-    navigation.navigate('LoansFaq')
+    navigation.navigate({
+      name: 'LoansFaq',
+      params: {
+        activeSessions: [2]
+      }
+    })
   }
 
   const onSubmit = async (): Promise<void> => {

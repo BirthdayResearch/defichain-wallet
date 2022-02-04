@@ -50,7 +50,12 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
     knowledgeBaseItems.push({
       label: 'Loans',
       testID: 'loans_faq',
-      onPress: () => navigation.navigate('LoansFaq')
+      onPress: () => navigation.navigate({
+        name: 'LoansFaq',
+        params: {
+          activeSessions: [0]
+        }
+      })
     })
   }
 

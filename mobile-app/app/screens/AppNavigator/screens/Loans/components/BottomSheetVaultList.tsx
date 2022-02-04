@@ -59,16 +59,14 @@ export const BottomSheetVaultList = ({
               style={tailwind('px-4 py-3.5 flex flex-row items-center justify-between')}
             >
               <View style={tailwind('flex flex-row w-6/12 flex-1 mr-12')}>
-                <View style={tailwind('flex flex-row items-center')}>
-                  <ThemedText
-                    ellipsizeMode='middle'
-                    numberOfLines={1}
-                    style={tailwind('w-4/12 flex-grow mr-2')}
-                  >
-                    {item.vaultId}
-                  </ThemedText>
-                  <VaultStatusTag status={vaultState.status} />
-                </View>
+                <ThemedText
+                  ellipsizeMode='middle'
+                  numberOfLines={1}
+                  style={tailwind('w-4/12 flex-grow mr-2')}
+                >
+                  {item.vaultId}
+                </ThemedText>
+                <VaultStatusTag status={vaultState.status} />
               </View>
               <View style={tailwind('flex items-end')}>
                 <ThemedText

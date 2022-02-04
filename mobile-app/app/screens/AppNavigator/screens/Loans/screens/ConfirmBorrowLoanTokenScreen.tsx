@@ -25,6 +25,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -109,7 +110,11 @@ export function ConfirmBorrowLoanTokenScreen ({
       <SummaryTransactionResults
         resultCollateralRatio={resultingColRatio}
         minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
-        totalLoanValue={new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(loanToken.activePrice?.active?.amount ?? 0))}
+        totalLoanValue={new BigNumber(vault.loanValue).plus(
+          totalLoanWithInterest.multipliedBy(
+            getActivePrice(loanToken.token.symbol, loanToken.activePrice)
+          )
+        )}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
