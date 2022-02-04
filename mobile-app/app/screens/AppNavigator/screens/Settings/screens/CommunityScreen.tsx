@@ -56,11 +56,11 @@ const Communities: CommunityItem[] = [
   { id: 'announcements', title: 'Announcements', url: 'https://t.me/DFXinfo', icon: 'telegram' },
   { id: 'tg_en', title: 'Telegram (EN)', url: 'https://t.me/DFXswiss_en', icon: 'telegram' },
   { id: 'tg_de', title: 'Telegram (DE)', url: 'https://t.me/DFXswiss', icon: 'telegram' },
-  { id: 'tg_de', title: 'Telegram (IT)', url: 'https://t.me/DFXswiss_it', icon: 'telegram' },
-  { id: 'tg_de', title: 'Telegram (FR)', url: 'https://t.me/DFXswiss_fr', icon: 'telegram' },
-  { id: 'tg_de', title: 'Telegram (RU)', url: 'https://t.me/DFXswiss_ru', icon: 'telegram' },
-  { id: 'tg_de', title: 'Telegram (ES)', url: 'https://t.me/DFXswiss_es', icon: 'telegram' },
-  { id: 'tg_de', title: 'Telegram (PT)', url: 'https://t.me/DFXswiss_pt', icon: 'telegram' }
+  { id: 'tg_it', title: 'Telegram (IT)', url: 'https://t.me/DFXswiss_it', icon: 'telegram' },
+  { id: 'tg_fr', title: 'Telegram (FR)', url: 'https://t.me/DFXswiss_fr', icon: 'telegram' },
+  { id: 'tg_ru', title: 'Telegram (RU)', url: 'https://t.me/DFXswiss_ru', icon: 'telegram' },
+  { id: 'tg_es', title: 'Telegram (ES)', url: 'https://t.me/DFXswiss_es', icon: 'telegram' },
+  { id: 'tg_pt', title: 'Telegram (PT)', url: 'https://t.me/DFXswiss_pt', icon: 'telegram' }
 ]
 
 function CommunityItemRow ({
