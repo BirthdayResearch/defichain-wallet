@@ -18,15 +18,27 @@ import { getEnvironment } from '@environment'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import * as Updates from 'expo-updates'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import BtnGatewayDe from '@assets/images/dfx_buttons/btn_gateway_de.png'
-import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
-import BtnOverviewDe from '@assets/images/dfx_buttons/btn_overview_de.png'
-import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
-import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
-import BtnTaxEn from '@assets/images/dfx_buttons/btn_tax_en.png'
-import BtnDobbyDe from '@assets/images/dfx_buttons/btn_dobby_de.png'
-import BtnDobbyEn from '@assets/images/dfx_buttons/btn_dobby_en.png'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+
+import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
+import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
+import BtnTaxEn from '@assets/images/dfx_buttons/btn_tax_en.png'
+import BtnDobbyEn from '@assets/images/dfx_buttons/btn_dobby_en.png'
+
+import BtnGatewayDe from '@assets/images/dfx_buttons/btn_gateway_de.png'
+import BtnOverviewDe from '@assets/images/dfx_buttons/btn_overview_de.png'
+import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
+import BtnDobbyDe from '@assets/images/dfx_buttons/btn_dobby_de.png'
+
+import BtnGatewayFr from '@assets/images/dfx_buttons/btn_gateway_fr.png'
+import BtnOverviewFr from '@assets/images/dfx_buttons/btn_overview_fr.png'
+import BtnTaxFr from '@assets/images/dfx_buttons/btn_tax_fr.png'
+import BtnDobbyFr from '@assets/images/dfx_buttons/btn_dobby_fr.png'
+
+import BtnGatewayIt from '@assets/images/dfx_buttons/btn_gateway_it.png'
+import BtnOverviewIt from '@assets/images/dfx_buttons/btn_overview_it.png'
+import BtnTaxIt from '@assets/images/dfx_buttons/btn_tax_it.png'
+import BtnDobbyIt from '@assets/images/dfx_buttons/btn_dobby_it.png'
 
 export function DfxButtons (): JSX.Element {
   const logger = useLogger()
@@ -102,28 +114,36 @@ export function DfxButtons (): JSX.Element {
     {
       img: {
         de: BtnGatewayDe,
-        en: BtnGatewayEn
+        en: BtnGatewayEn,
+        fr: BtnGatewayFr,
+        it: BtnGatewayIt
       },
       onPress: onGatewayButtonPress
     },
     {
       img: {
         de: BtnOverviewDe,
-        en: BtnOverviewEn
+        en: BtnOverviewEn,
+        fr: BtnOverviewFr,
+        it: BtnOverviewIt
       },
       onPress: onOverviewButtonPress
     },
     {
       img: {
         de: BtnTaxDe,
-        en: BtnTaxEn
+        en: BtnTaxEn,
+        fr: BtnTaxFr,
+        it: BtnTaxIt
       },
       onPress: onTaxButtonPress
     },
     {
       img: {
         de: BtnDobbyDe,
-        en: BtnDobbyEn
+        en: BtnDobbyEn,
+        fr: BtnDobbyFr,
+        it: BtnDobbyIt
       },
       onPress: onDobbyButtonPress
     }
