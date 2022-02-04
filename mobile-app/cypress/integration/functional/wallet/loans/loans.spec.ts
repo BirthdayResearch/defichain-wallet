@@ -45,7 +45,7 @@ context.skip('Wallet - Loans', () => {
   })
 })
 
-context('Wallet - Loans Feature Gated', () => {
+context.skip('Wallet - Loans Feature Gated', () => {
   it('should not have loans tab if loan feature is blocked', function () {
     cy.intercept('**/settings/flags', {
       body: []
@@ -393,9 +393,12 @@ context.skip('Wallet - Loans - Payback Loans', () => {
 
     cy.getByTestID('payment_token_card_DFI').should('exist')
     cy.getByTestID('payment_token_card_DFI').click()
-    cy.getByTestID('text_amount_to_pay').should('have.text', '100.00000000')
+    cy.getByTestID('text_amount_to_pay').should('have.text', '101.01010101')
     cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
-    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '1.00000000')
+    // penalty = (100/0.99) - 100
+    // amountToPay = 100 + (100/0.99) - 100
+    // amountToPayConverted = (amountToPay * 0.01) + (penalty * 0.01)
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '1.01010101')
     cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')
     cy.getByTestID('text_vault_id').contains(vaultId)
   })

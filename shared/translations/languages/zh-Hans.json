@@ -251,7 +251,9 @@
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "代币利率适用于特定的代币贷款，不同的代币会有不同的利率。",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
     "What is collateral factor?": "抵押因素是什么？",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。"
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。",
+    "Why is there a 1% fee when paying DUSD loans with DFI?": "為什麼用 DFI 支付 DUSD 貸款要收取 1% 的費用？",
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "根据 递飞链改进提议 DFIP 2112-A，每笔 DUSD 贷款都将由 DFI 支付，以克服目前在 DEX 上 DUSD 溢价的情况。\n\n在计算用多少等值 DFI 作为支付 DUSD 贷款时，将会按照 预言机 上 DFI/USD 的价值收取 1% 的罚款。以举例来说，如果今天 DFI/USD 预言机价格是 10 美元，那么用作支付 DUSD  期间， DFI 的相对价格计算方法 是 10 美元 * (1 - 0.01) 。在这情况下，DFI 的价值实际上减少了 1% 等于 9.90 美元。"
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "拍卖常见问题",
@@ -1067,7 +1069,7 @@
     "Collateral amount (USD)": "抵押金额 (美金)",
     "Collateralization ratio": "抵押率",
     "Paying loan": "贷款还款",
-    "Paying {{amount}} {{symbol}} as loan payment.": "正在付款 {{amount}} {{symbol}} 作为支付贷款。",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} 作为支付贷款。",
     "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) 作为支付贷款。",
     "Confirm Loan Payment": "确认贷款支付",
     "Resulting collateralization": "最终抵押率"
