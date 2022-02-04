@@ -25,6 +25,9 @@
 - color: cc40d8
   name: needs/triage
   description: Waiting for triage to be accepted
+- color: cc40d8
+  name: needs/design
+  description: Waiting for designs
 
 # Kind
 - color: e7e9eb
@@ -89,6 +92,8 @@
   name: area/wallet
 - color: fbca04
   name: area/settings
+- color: fbca04
+  name: area/loans
 
 # Area - Website
 - color: fbca04
