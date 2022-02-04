@@ -161,7 +161,7 @@ function SummaryHeader (props: { amount: BigNumber, paymentToken: PaymentTokenPr
             renderText={(value) => (
               <ThemedText
                 light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
+                dark={tailwind('text-dfxgray-400')}
                 style={tailwind('text-sm pr-1')}
               >
                 {value}
@@ -172,7 +172,7 @@ function SummaryHeader (props: { amount: BigNumber, paymentToken: PaymentTokenPr
           />
           <ThemedText
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-sm')}
           >
             {props.displaySymbol}

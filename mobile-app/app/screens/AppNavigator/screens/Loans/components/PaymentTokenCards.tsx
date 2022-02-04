@@ -65,11 +65,11 @@ export function PaymentTokenCards ({
                     iconType='MaterialIcons'
                     name='help'
                     size={14}
-                    dark={tailwind('text-darkprimary-500')}
+                    dark={tailwind('text-dfxred-500')}
                     light={tailwind('text-primary-500')}
                   />
                   <ThemedText
-                    dark={tailwind('text-darkprimary-500')}
+                    dark={tailwind('text-dfxred-500')}
                     light={tailwind('text-primary-500')}
                     style={tailwind('text-xs mx-1')}
                   >{translate('screens/PaybackLoanScreen', 'Read more')}
@@ -100,8 +100,8 @@ function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
         'bg-white border-primary-500': props.isSelected
       })}
       dark={tailwind({
-        'bg-gray-800 border-gray-700': !props.isSelected,
-        'bg-gray-800 border-darkprimary-500': props.isSelected
+        'bg-dfxblue-800 border-dfxblue-800': !props.isSelected,
+        'bg-dfxblue-800 border-dfxred-500': props.isSelected
       })}
       style={tailwind('p-3 mx-2 rounded border flex-1 flex-row items-center')}
       onPress={() => props.onPress(props.paymentToken)}

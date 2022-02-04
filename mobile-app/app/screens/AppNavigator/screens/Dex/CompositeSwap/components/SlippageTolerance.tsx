@@ -99,7 +99,7 @@ function SlippageToleranceRow ({ slippage }: { slippage: BigNumber}): JSX.Elemen
           renderText={(val: string) => (
             <>
               <ThemedText
-                dark={tailwind('text-gray-400')}
+                dark={tailwind('text-dfxgray-400')}
                 light={tailwind('text-gray-500')}
                 style={tailwind('text-sm text-right')}
                 testID='slippage_value'

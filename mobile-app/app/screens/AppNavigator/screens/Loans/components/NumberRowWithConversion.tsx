@@ -28,7 +28,7 @@ export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
   const rhsStyle = [tailwind('text-sm text-right w-full'), props.textStyle, props.rhs.style]
   return (
     <ThemedView
-      dark={props.dark ?? tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={props.dark ?? tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={props.light ?? tailwind('bg-white border-b border-gray-200')}
       style={props.style ?? tailwind('p-4 flex-row w-full')}
     >
@@ -61,7 +61,7 @@ export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
           renderText={(val: string) => (
             <Text style={rhsStyle}>
               <ThemedText
-                dark={tailwind('text-gray-400')}
+                dark={tailwind('text-dfxgray-400')}
                 light={tailwind('text-gray-500')}
                 style={rhsStyle}
                 testID={props.rhs.testID}
@@ -74,7 +74,7 @@ export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
                     <Text>{' '}</Text>
                     <ThemedText
                       light={tailwind('text-gray-500')}
-                      dark={tailwind('text-gray-400')}
+                      dark={tailwind('text-dfxgray-400')}
                       style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
                       testID={`${props.rhs.testID}_suffix`}
                     >
@@ -99,9 +99,9 @@ export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
                   ? ''
                   : (
                     <>
-                      <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>(</ThemedText>
+                      <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-dfxgray-400')}>(</ThemedText>
                       <ThemedText
-                        dark={tailwind('text-gray-400')}
+                        dark={tailwind('text-dfxgray-400')}
                         light={tailwind('text-gray-500')}
                         style={rhsStyle}
                         testID={props.rhsConversion.testID}
@@ -114,7 +114,7 @@ export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
                             <Text>{' '}</Text>
                             <ThemedText
                               light={tailwind('text-gray-500')}
-                              dark={tailwind('text-gray-400')}
+                              dark={tailwind('text-dfxgray-400')}
                               style={[tailwind('text-sm ml-1'), props.textStyle, props.rhsConversion.style]}
                               testID={`${props.rhsConversion.testID}_suffix`}
                             >
@@ -122,7 +122,7 @@ export function NumberRowWithConversion (props: INumberRowProps): JSX.Element {
                             </ThemedText>
                           </>
                       }
-                      <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>)</ThemedText>
+                      <ThemedText light={tailwind('text-gray-500')} dark={tailwind('text-dfxgray-400')}>)</ThemedText>
                     </>)}
               </Text>
             )}
