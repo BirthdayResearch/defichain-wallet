@@ -16,7 +16,12 @@ interface EmptyVaultProps {
 export function EmptyVault (props: EmptyVaultProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const goToVaultsFaq = (): void => {
-    navigation.navigate('LoansFaq')
+    navigation.navigate({
+      name: 'LoansFaq',
+      params: {
+        activeSessions: [2]
+      }
+    })
   }
   return (
     <ThemedScrollView

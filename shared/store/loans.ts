@@ -1,5 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
@@ -10,6 +11,7 @@ export interface LoansState {
   loanTokens: LoanToken[]
   loanSchemes: LoanScheme[]
   collateralTokens: CollateralToken[]
+  loanPaymentTokenActivePrice?: ActivePrice
   hasFetchedVaultsData: boolean
   hasFetchedLoansData: boolean
 }
@@ -19,6 +21,7 @@ const initialState: LoansState = {
   loanTokens: [],
   loanSchemes: [],
   collateralTokens: [],
+  loanPaymentTokenActivePrice: undefined,
   hasFetchedVaultsData: false,
   hasFetchedLoansData: false
 }
@@ -52,6 +55,14 @@ export const fetchCollateralTokens = createAsyncThunk(
   }
 )
 
+export const fetchPrice = createAsyncThunk(
+  'wallet/fetchPrice',
+  async ({ client, token, currency }: { token: string, currency: string, client: WhaleApiClient }) => {
+    const activePrices = await client.prices.getFeedActive(token, currency, 1)
+    return activePrices[0]
+  }
+)
+
 export const loans = createSlice({
   name: 'loans',
   initialState,
@@ -71,6 +82,9 @@ export const loans = createSlice({
     builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
       state.collateralTokens = action.payload
     })
+    builder.addCase(fetchPrice.fulfilled, (state, action: PayloadAction<any>) => {
+      state.loanPaymentTokenActivePrice = action.payload
+    })
   }
 })
 
@@ -85,6 +99,10 @@ const selectTokenId = (state: LoansState, tokenId: string): string => tokenId
 
 export const loanTokenByTokenId = createSelector([selectTokenId, loanTokensSelector], (tokenId, loanTokens) => {
   return loanTokens.find(loanToken => loanToken.token.id === tokenId)
+})
+
+export const loanPaymentTokenActivePrice = createSelector((state: LoansState) => state.loanPaymentTokenActivePrice, activePrice => {
+  return activePrice
 })
 
 export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {

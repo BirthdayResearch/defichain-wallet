@@ -14,7 +14,7 @@
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
     "DEX FAQ": "DEX FAQ",
-    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ" 
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -220,7 +220,7 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
-    "Liquidity Mining": "Liquiditäts-Mining" 
+    "Liquidity Mining": "Liquiditäts-Mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -249,7 +249,9 @@
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet.",
     "What is collateral factor?": "Was ist der Beleihungsfaktor?",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, würden Token im Wert von 100 $ davon zu einem Besicherungswert von 70 $ in einem Vault führen."
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, würden Token im Wert von 100 $ davon zu einem Besicherungswert von 70 $ in einem Vault führen.",
+    "Why is there a 1% fee when paying DUSD loans with DFI?": "Warum wird bei der Auszahlung von DUSD-Darlehen mit DFI eine Gebühr von 1 % erhoben?",
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Gemäß DFIP 2112-A kann jedes DUSD-Darlehen auch mit DFI beglichen werden, um die gegenwärtigen Preisaufschläge für DUSD auf der DEX zu beseitigen.\n\nBei der Berechnung, wie viel DFI-Gegenwert für ein DUSD-Darlehen zu zahlen ist, wird eine Strafgebühr von 1 % auf den DFI/USD-Preisorakelwert erhoben. Zur Veranschaulichung: Wenn der Preisorakelwert von DFI/USD heute $10 beträgt, wird der Wert eines DFI bei einer DUSD-Zahlung berechnet, indem $10 * (1 - 0,01) multipliziert wird, wodurch der Wert des DFI in einem solchen Szenario um 1% auf $9,90 reduziert wird."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ Auktionen",
@@ -1027,7 +1029,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
     "VAULT IN USE": "AKTIVER VAULT",
-    "How much do you want to pay?": "Wie viel willst du abzahlen?",
+    "How much of the loan do you want to pay?": "Wie viel des Darlehens willst du zurückzahlen?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "CONTINUE": "WEITER",
@@ -1040,7 +1042,13 @@
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Excess amount": "Überschüssiger Betrag",
     "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert.",
-    "Resulting collateralization": "Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote",
+    "Vault ID": "Vault-ID",
+    "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Select payment token": "Token für die Zahlung auswählen",
+    "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
+    "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -1056,7 +1064,8 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}}",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
     "Resulting collateralization": "Resultierende Besicherungsquote"
   },

@@ -1,9 +1,14 @@
 import { ThemedScrollView, ThemedText } from '@components/themed'
 import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { LoanParamList } from '../LoansNavigator'
 
-export function LoansFaq (): JSX.Element {
+type Props = StackScreenProps<LoanParamList, 'LoansFaq'>
+
+export function LoansFaq ({ route }: Props): JSX.Element {
+  const activeSessions = route.params.activeSessions
   const faqContent: AccordionContent[] = [
     {
       title: translate('components/LoansFaq', 'How is the collateralization ratio calculated?'),
@@ -79,6 +84,13 @@ export function LoansFaq (): JSX.Element {
         text: translate('components/LoansFaq', 'The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.'),
         type: 'paragraph'
       }]
+    },
+    {
+      title: translate('components/LoansFaq', 'Why is there a 1% fee when paying DUSD loans with DFI?'),
+      content: [{
+        text: translate('components/LoansFaq', 'Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.'),
+        type: 'paragraph'
+      }]
     }
   ]
 
@@ -101,7 +113,7 @@ export function LoansFaq (): JSX.Element {
 
       <WalletAccordion
         testID='loans_faq_accordion'
-        activeSections={[2]}
+        activeSections={activeSessions}
         title={translate('components/LoansFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
