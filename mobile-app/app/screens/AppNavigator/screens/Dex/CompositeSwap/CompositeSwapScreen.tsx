@@ -40,6 +40,7 @@ import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { SlippageTolerancePersistence } from '@api'
 
 export interface TokenState {
   id: string
@@ -77,12 +78,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-
-  const tempSlippage = new BigNumber(1)
-  const slippageValFromStorage = localStorage.getItem('slippage-tolerance') ?? tempSlippage
-  const localSlippage = slippageValFromStorage != null ? new BigNumber(slippageValFromStorage) : tempSlippage
-  const [slippage, setSlippage] = useState(localSlippage)
-
+  const [slippage, setSlippage] = useState(new BigNumber(1))
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
@@ -194,6 +190,19 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         }
       }])
     expandModal()
+  }
+
+  useEffect(() => {
+    SlippageTolerancePersistence.get().then((slippageValue: string) => {
+      const slippageValueBigNum = JSON.parse(slippageValue)
+      setSlippage(new BigNumber(slippageValueBigNum))
+    })
+    .catch(logger.error)
+  }, [])
+
+  const updateSlippageTolerance = async (slippageValue: string): Promise<void> => {
+    setSlippage(new BigNumber(slippageValue))
+    await SlippageTolerancePersistence.set(slippageValue)
   }
 
   useEffect(() => {
@@ -496,10 +505,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               fee={fee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
+              updateSlippageTolerance={updateSlippageTolerance}
               onSetSlippage={(val: BigNumber) => {
-                localStorage.setItem('slippage-tolerance', JSON.stringify(val))
+                void updateSlippageTolerance(JSON.stringify(val))
                 setSlippage(val)
-}}
+            }}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
               setIsModalDisplayed={setIsModalDisplayed}
@@ -636,7 +646,8 @@ function TransactionDetailsSection ({
   setIsModalDisplayed,
   setBottomSheetScreen,
   onSlippageTolerancePress,
-  onCloseButtonPress
+  onCloseButtonPress,
+  updateSlippageTolerance
 }: {
   amountToSwap: string
   conversionAmount: BigNumber
@@ -651,6 +662,7 @@ function TransactionDetailsSection ({
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void
   onSlippageTolerancePress: () => void
   onCloseButtonPress: () => void
+  updateSlippageTolerance: (val: string) => Promise<void>
  }): JSX.Element {
   return (
     <>
@@ -691,9 +703,9 @@ function TransactionDetailsSection ({
       />
       <SlippageTolerance
         setSlippage={(amount) => {
-          localStorage.setItem('slippage-tolerance', JSON.stringify(amount))
+          void updateSlippageTolerance(JSON.stringify(amount))
           onSetSlippage(amount)
-}}
+        }}
         slippage={slippage}
         setIsSelectorOpen={setIsModalDisplayed}
         setBottomSheetScreen={setBottomSheetScreen}
