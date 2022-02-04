@@ -253,7 +253,9 @@
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Las tasas de interés de los tokens se aplica a distintos préstamos de tokens, por lo que puede cambiar de un token a otro.",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "La tasa de interés total aplicada en un préstamo se deriva de la suma de la tasa de interés de la bóveda y la tasa de interés del token, y se calcula a un año vista.",
     "What is collateral factor?": "¿Qué es el factor colateral?",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "El factor colateral determina el grado de contribución de cada token usado en el colateral. Por ejemplo, si un token es aceptado con una factor colateral del 70%, $100 en el valor del token podrían contribuir a $70 del valor del colateral en una bóveda."
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "El factor colateral determina el grado de contribución de cada token usado en el colateral. Por ejemplo, si un token es aceptado con una factor colateral del 70%, $100 en el valor del token podrían contribuir a $70 del valor del colateral en una bóveda.",
+    "Why is there a 1% fee when paying DUSD loans with DFI?": "Porqué hay una comisión de un 1% cuando pago los prestamos de DUSD en DFI?",
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Para el DFIP 2112-A, cada prestamo de DUSD será pagable con DFI como modo para resolver el sobreprecio acutal de DUSD en el DEX.\n\n Una vez calculado el equivalente en DFI restante para pagar el préstamo de DUSD, una comisión del 1% es aplicada al valor del DFI/DUSD del oráculo. Por ejemplo, si el precio DFI/DUSD del oráculo hoy es de 10$, el valor de una DFI para pagar en DUSD es calculado de siguiente modo $10 * (1 - 0,01), reduciendo en tal escenario efectivamente el valor del DFI en 1% y equivaliendo a $9,90."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "Preguntas frecuentes sobre Subastas",
@@ -1007,7 +1009,14 @@
       "Collateralization ratio": "Ratio de colateralización",
       "Min. collateralization ratio": "Ratio mínimo de colateralización",
       "Excess amount": "Cantidad excedente",
-      "Any excess amount will be returned to your wallet.": "Cualquier cantidad excedente será retornada a tu billetera."
+      "Any excess amount will be returned to your wallet.": "Cualquier cantidad excedente será retornada a tu billetera.",
+      "Resulting collateralization": "Colateralización resultante",
+      "Vault ID": "Vault-ID",
+      "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} resultante",
+      "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
+      "Select payment token": "Selecciona un token para pagar",
+      "A 1% fee is applied when you pay with DFI.": "Una comisión del 1% es aplicada cuando pagas con DFI",
+      "Read more": "Sigue leyendo"
     },
     "screens/ConfirmPaybackLoanScreen": {
       "CONFIRM PAYMENT": "CONFIRMA EL PAGO",
@@ -1023,7 +1032,8 @@
       "Collateral amount (USD)": "Cantidad del colateral (USD)",
       "Collateralization ratio": "Ratio de colateralización",
       "Paying loan": "Pagando préstamo",
-      "Paying {{amount}} {{symbol}}": "Pagando {{amount}} {{symbol}}",
+      "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Estoy pagando  {{amountToPayInSelectedToken}} {{paymentSymbol}} como método para pager el préstamo.",
+      "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Estoy pagando {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) como método para pagar el préstamo.",
       "Confirm Loan Payment": "Confirma el pago del préstamo"
     },
     "components/CollateralizationRatioDisplay": {
