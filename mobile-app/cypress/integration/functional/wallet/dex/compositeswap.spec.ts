@@ -13,6 +13,7 @@ function setupWalletForConversion (): void {
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
   cy.getByTestID('composite_swap').click().wait(3000)
   cy.getByTestID('token_select_button_FROM').should('exist').click()
+  cy.wait(3000)
   cy.getByTestID('select_DFI').click().wait(1000)
   cy.getByTestID('token_select_button_TO').should('exist').click()
   cy.getByTestID('select_dLTC').click().wait(1000)
