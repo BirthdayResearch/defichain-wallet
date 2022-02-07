@@ -114,6 +114,7 @@ Cypress.Commands.add('addCollateral', (amount: string, symbol: string) => {
   cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
   cy.getByTestID('form_input_text').type(amount).blur()
   cy.getByTestID('add_collateral_button_submit').click()
+  cy.wait(3000)
   cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
   cy.closeOceanInterface()
 })
