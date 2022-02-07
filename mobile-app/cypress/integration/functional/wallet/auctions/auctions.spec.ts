@@ -154,7 +154,7 @@ context('Wallet - Auctions Feature Gated', () => {
         {
           id: 'auction',
           name: 'Auction',
-          stage: 'beta',
+          stage: 'public',
           version: '>=0.0.0',
           description: 'Auctions',
           networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
