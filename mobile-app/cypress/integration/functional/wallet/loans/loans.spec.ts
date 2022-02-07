@@ -44,7 +44,7 @@ context('Wallet - Loans', () => {
   })
 })
 
-context.skip('Wallet - Loans - Take Loans', () => {
+context('Wallet - Loans - Take Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
@@ -185,6 +185,7 @@ context.skip('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('loans_search_input').type('dTS25').blur()
     cy.getByTestID('loan_card_dTS25').click()
     cy.getByTestID('borrow_loan_vault').click()
+    cy.wait(2000)
     cy.getByTestID('select_vault_0').click()
     cy.getByTestID('form_input_borrow').clear().type('3').blur()
     cy.wait(3000)
@@ -244,7 +245,8 @@ context('Wallet - Loans - Payback Loans', () => {
 
     cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
     cy.getByTestID('loan_card_dTU10').click()
-    cy.getByTestID('borrow_loan_vault').click().wait(1000)
+    cy.getByTestID('borrow_loan_vault').click()
+    cy.wait(2000)
     cy.getByTestID('select_vault_0').click()
     cy.getByTestID('form_input_borrow').clear().type('10').blur()
     cy.wait(3000)
