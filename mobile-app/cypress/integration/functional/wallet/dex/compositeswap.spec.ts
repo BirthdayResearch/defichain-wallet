@@ -126,6 +126,9 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('text_input_tokenA').type('10')
     cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_1%').should('exist')
+    cy.url().should('include', 'app/DEX/CompositeSwap', () => {
+      expect(localStorage.getItem('WALLET.SLIPPAGE_TOLERANCE')).to.eq('1')
+    })
 
     // Slippage warning
     cy.getByTestID('slippage_Custom').click()
@@ -149,10 +152,18 @@ context('Wallet - DEX - Composite Swap with balance', () => {
 
     cy.getByTestID('slippage_input').clear().type('25').blur().wait(100)
     cy.getByTestID('button_tolerance_submit').click()
+  })
 
+  it('should be able to store selected slippage value in storage', () => {
     cy.url().should('include', 'app/DEX/CompositeSwap', () => {
-      expect(localStorage.getItem('WALLET.SLIPPAGE_TOLERANCE')).to.eq('5')
+      expect(localStorage.getItem('WALLET.SLIPPAGE_TOLERANCE')).to.eq('25')
     })
+  })
+
+  it('previously saved slippage tolerance value should be 25%', () => {
+    cy.getByTestID('text_input_tokenA').type('10')
+    cy.getByTestID('slippage_select').click()
+    cy.getByTestID('slippage_input').should('have.value', '25')
   })
 })
 
