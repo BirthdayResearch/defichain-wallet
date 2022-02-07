@@ -66,8 +66,13 @@ issue:
         owner: true
 
     - prefix: priority
-      multiple: false
-      list: [ "urgent-now", "important-soon" ]
+      multiple: true
+      list: [ "urgent-now", "important-soon", "low" ]
+      needs:
+        comment: |
+          @$AUTHOR: Thanks for opening an issue, an appropriate priority will be added soon.
+          
+          The priority labels can be added by foundation members by writing /priority [type] in a comment.
       author_association:
         collaborator: true
         member: true
@@ -173,7 +178,7 @@ pull_request:
 
     - prefix: priority
       multiple: false
-      list: [ "urgent-now", "important-soon" ]
+      list: [ "urgent-now", "important-soon", "low" ]
       author_association:
         collaborator: true
         member: true

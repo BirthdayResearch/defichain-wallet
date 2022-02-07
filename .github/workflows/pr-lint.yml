@@ -15,7 +15,7 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@e642fa0dddcbe4cd256f0c7f46e88c7f9906f637
+      - uses: amannn/action-semantic-pull-request@c550c946d5e73d5310a5718997502b9f5a8e9e84
         with:
           subjectPattern: ^(?![A-Z]).+$
           validateSingleCommit: true
