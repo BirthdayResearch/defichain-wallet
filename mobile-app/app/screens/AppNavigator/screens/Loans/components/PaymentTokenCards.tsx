@@ -50,6 +50,7 @@ export function PaymentTokenCards ({
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-200')}
               style={tailwind('text-xs m-2')}
+              testID='text_penalty_fee_warning'
             >
               {translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with DFI.')}
               <TouchableOpacity
