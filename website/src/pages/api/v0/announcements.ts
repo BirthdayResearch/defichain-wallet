@@ -11,11 +11,11 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Update to the latest app version to access Auctions.',
-      de: 'Aktualisiere auf die neueste App-Version, um Zugriff auf Auktionen zu bekommen.',
-      'zh-Hans': '请即更新至最新应用程式版本以体验拍卖功能',
-      'zh-Hant': '請即更新至最新應用程式版本以體驗拍賣功能',
-      fr: 'Passez à la dernière version de l\'application pour accéder aux enchères.'
+      en: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      de: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      'zh-Hans': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      'zh-Hant': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      fr: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.'
     },
     version: '<=1.0.0',
     id: '0',
@@ -28,11 +28,11 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }
   }, {
     lang: {
-      en: '4 new dTokens (dAMZN, dNVDA, dCOIN and dEEM) are live on the DEX!',
-      de: '4 neue dToken (dAMZN, dNVDA, dCOIN und dEEM) sind jetzt auf der DEX verfügbar!',
-      'zh-Hans': '4 个新的去中心化资产代币（dAMZN、dNVDA、dCOIN 和 dEEM）在DEX 上上线！',
-      'zh-Hant': '4 個新的去中心化資產代幣（dAMZN、dNVDA、dCOIN 和 dEEM）在DEX 上上線！',
-      fr: '4 nouveaux dTokens (dAMZN, dNVDA, dCOIN et dEEM) sont en ligne sur le DEX !'
+      en: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      de: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      'zh-Hans': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      'zh-Hant': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
+      fr: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.'
     },
     version: '>=1.1.0',
     id: '1'
