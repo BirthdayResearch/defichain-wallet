@@ -615,7 +615,7 @@ function TransactionDetailsSection ({
             lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
             rhs={{
               value: amountToPayInLoanToken.minus(outstandingBalance).toFixed(8),
-              testID: 'text_resulting_loan_amount',
+              testID: 'text_excess_amount',
               suffixType: 'text',
               suffix: displaySymbol
             }}
@@ -625,7 +625,7 @@ function TransactionDetailsSection ({
         lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: selectedPaymentToken.tokenDisplaySymbol })}
         rhs={{
           value: resultingBalance.toFixed(8),
-          testID: 'text_resulting_dfi_balance',
+          testID: 'text_resulting_balance',
           suffixType: 'text',
           suffix: selectedPaymentToken.tokenDisplaySymbol
         }}

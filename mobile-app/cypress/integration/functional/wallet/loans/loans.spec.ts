@@ -15,7 +15,7 @@ function addCollateral (): void {
   cy.getByTestID('vault_card_0_total_collateral').contains('$1,500.00')
 }
 
-context.skip('Wallet - Loans', () => {
+context('Wallet - Loans', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
@@ -205,7 +205,7 @@ context.skip('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context.skip('Wallet - Loans - Payback Loans', () => {
+context('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
@@ -257,6 +257,142 @@ context.skip('Wallet - Loans - Payback Loans', () => {
     cy.closeOceanInterface()
   })
 
+  it('should display tx details in paying DUSD w/o excess payment', function () {
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('loan_card_DUSD_payback_loan').click()
+    cy.getByTestID('payment_token_card_DUSD').should('exist')
+
+    cy.getByTestID('payback_input_text').clear().type('100').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('text_penalty_fee_warning').should('not.exist')
+    cy.getByTestID('text_amount_to_pay').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_suffix').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '100.00000000')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_resulting_balance').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DUSD Balance')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.getByTestID('text_resulting_loan_amount').should('have.text', outstandingBalance.minus(100).toFixed(8))
+    })
+    cy.getByTestID('text_excess_amount').should('not.exist')
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+  })
+
+  it('should display tx details in paying DUSD with excess payment', function () {
+    cy.getByTestID('payback_input_text').clear().type('200').blur()
+    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient DUSD balance to pay the entered amount')
+    cy.getByTestID('text_penalty_fee_warning').should('not.exist')
+    cy.getByTestID('text_amount_to_pay').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_suffix').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '200.00000000')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DUSD Balance')
+    cy.getByTestID('text_resulting_balance').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('text_resulting_loan_amount').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.getByTestID('text_excess_amount').should('have.text', new BigNumber(200).minus(outstandingBalance).toFixed(8))
+    })
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
+  })
+
+  it('should display tx details in paying DFI w/o excess payment', function () {
+    cy.getByTestID('payment_token_card_DFI').click()
+    cy.getByTestID('payback_input_text').clear().type('50').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('text_penalty_fee_warning').should('exist')
+    cy.getByTestID('text_amount_to_pay').should('have.text', '50.50505051')
+    cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '0.50505051')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DFI Balance')
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DFI')
+
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
+      const dfiBalance = new BigNumber(text)
+      cy.getByTestID('bottom_tab_loans').click()
+      cy.getByTestID('text_resulting_balance').should('have.text', dfiBalance.minus('0.50505051').toFixed(8))
+    })
+
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.log('outstandingbalance')
+      cy.log(outstandingBalance.toFixed(8))
+      cy.getByTestID('text_resulting_loan_amount').should('have.text', outstandingBalance.minus('50.50505051').toFixed(8))
+    })
+    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_excess_amount').should('not.exist')
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+  })
+
+  it('should display conversion warning if DFI is not enough', function () {
+    cy.getByTestID('payback_input_text').clear().type('2000').blur()
+    cy.getByTestID('conversion_info_text').should('exist')
+
+    cy.getByTestID('payback_input_text').clear().type('200000').blur()
+    cy.getByTestID('conversion_info_text').should('not.exist')
+  })
+
+  it('should display tx details in paying DFI with excess payment', function () {
+    /* Computations
+      penalty = (100.00076104/0.99) - 100.00076104
+      amountToPayWithPenalty = 200 + ((100.00076104/0.99) - 100.00076104)
+      amountToPayInPaymentTokenWithPenalty = amountToPayWithPenalty * .01
+    */
+    cy.getByTestID('payback_input_text').clear().type('200').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+
+    cy.getByTestID('payback_input_text').clear().type('200').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('text_penalty_fee_warning').should('exist')
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      const penalty = outstandingBalance.div(0.99).minus(outstandingBalance)
+      const conversionRate = 0.01
+
+      cy.getByTestID('text_amount_to_pay').should('have.text', penalty.plus('200').toFixed(8))
+      const convertedPenalty = penalty.multipliedBy(conversionRate)
+      const convertedAmountToPay = new BigNumber(200).multipliedBy(conversionRate)
+      cy.getByTestID('text_amount_to_pay_converted').should('have.text', new BigNumber(convertedAmountToPay).plus(convertedPenalty).toFixed(8))
+      cy.getByTestID('text_excess_amount').should('have.text', new BigNumber(penalty.plus('200')).minus(outstandingBalance).toFixed(8))
+
+      const convertedOutstandingBalance = outstandingBalance.multipliedBy(conversionRate).plus(convertedPenalty)
+      cy.getByTestID('dfi_total_balance_amount').invoke('text').then(dfiText => {
+        const DFIBalance = new BigNumber(dfiText)
+        cy.getByTestID('bottom_tab_loans').click()
+        cy.getByTestID('text_resulting_balance').should('have.text', DFIBalance.minus(convertedOutstandingBalance).toFixed(8))
+      })
+    })
+
+    cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')
+
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DFI')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DFI Balance')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('text_resulting_loan_amount').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
+
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+  })
+
   it('should swap DUSD', function () {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
@@ -274,31 +410,8 @@ context.skip('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('bottom_tab_loans').click()
   })
 
-  it('should display payment options if loan is DUSD', function () {
-    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    cy.getByTestID('vault_card_0_manage_loans_button').click()
-    cy.getByTestID('loan_card_DUSD_payback_loan').click()
-    cy.getByTestID('payment_token_card_DUSD').should('exist')
-    cy.getByTestID('payback_input_text').clear().type('100').blur()
-    cy.getByTestID('text_amount_to_pay').should('not.exist')
-    cy.getByTestID('text_vault_id').contains(vaultId)
-    cy.getByTestID('text_resulting_loan_amount').contains('0.0') // less than 0
-    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
-
-    cy.getByTestID('payment_token_card_DFI').should('exist')
-    cy.getByTestID('payment_token_card_DFI').click()
-    cy.getByTestID('text_amount_to_pay').should('have.text', '101.01010101')
-    cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
-    // penalty = (100/0.99) - 100
-    // amountToPay = 100 + (100/0.99) - 100
-    // amountToPayConverted = (amountToPay * 0.01) + (penalty * 0.01)
-    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '1.01010101')
-    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')
-    cy.getByTestID('text_vault_id').contains(vaultId)
-  })
-
   it('should not display payment options if loan is not DUSD', function () {
-    cy.go('back')
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('loan_card_dTU10_payback_loan').click()
     cy.getByTestID('payment_token_card_DUSD').should('not.exist')
     cy.getByTestID('payment_token_card_DFI').should('not.exist')
