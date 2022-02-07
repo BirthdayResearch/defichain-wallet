@@ -11,14 +11,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Update to the latest app version to access Auctions.',
-      de: 'Aktualisiere auf die neueste App-Version, um Zugriff auf Auktionen zu bekommen.',
-      'zh-Hans': '请即更新至最新应用程式版本以体验拍卖功能',
-      'zh-Hant': '請即更新至最新應用程式版本以體驗拍賣功能',
-      fr: 'Passez à la dernière version de l\'application pour accéder aux enchères.'
+      en: 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      de: 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      'zh-Hans': 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      'zh-Hant': 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      fr: 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.'
     },
-    version: '<=1.0.0',
-    id: '0',
+    version: '<=1.1.0',
+    id: '3',
     url: {
       ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
       android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
@@ -28,13 +28,13 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }
   }, {
     lang: {
-      en: '4 new dTokens (dAMZN, dNVDA, dCOIN and dEEM) are live on the DEX!',
-      de: '4 neue dToken (dAMZN, dNVDA, dCOIN und dEEM) sind jetzt auf der DEX verfügbar!',
-      'zh-Hans': '4 个新的去中心化资产代币（dAMZN、dNVDA、dCOIN 和 dEEM）在DEX 上上线！',
-      'zh-Hant': '4 個新的去中心化資產代幣（dAMZN、dNVDA、dCOIN 和 dEEM）在DEX 上上線！',
-      fr: '4 nouveaux dTokens (dAMZN, dNVDA, dCOIN et dEEM) sont en ligne sur le DEX !'
+      en: 'Fort Canning Hill is officially live!',
+      de: 'Fort Canning Hill is officially live!',
+      'zh-Hans': 'Fort Canning Hill is officially live!',
+      'zh-Hant': 'Fort Canning Hill is officially live!',
+      fr: 'Fort Canning Hill is officially live!'
     },
-    version: '>=1.1.0',
-    id: '1'
+    version: '>=1.2.0',
+    id: '4'
   }])
 }

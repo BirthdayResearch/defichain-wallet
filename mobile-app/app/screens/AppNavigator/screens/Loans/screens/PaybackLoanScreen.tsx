@@ -101,11 +101,10 @@ export function PaybackLoanScreen ({
 
   })
   const [resultingBalance, setResultingBalance] = useState(new BigNumber(0))
-  const [amountToPayInPaymentToken, setAmountToPayInPaymentToken] = useState(new BigNumber(loanTokenAmount.amount))
+  const [amountToPayInPaymentToken, setAmountToPayInPaymentToken] = useState(new BigNumber(loanTokenAmount.amount).multipliedBy(conversionRate))
   const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(new BigNumber(loanTokenAmount.amount))
 
-  const [amountToPayInSelectedToken, setAmountToPayInSelectedToken] = useState(new BigNumber(amountToPay))
-  const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInSelectedToken)
+  const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInPaymentToken)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isValid, setIsValid] = useState(false)
   const [isExcess, setIsExcess] = useState(false)
@@ -149,7 +148,7 @@ export function PaybackLoanScreen ({
     }
   ]
 
-  const isFormValid = (amountToPay: string): boolean => {
+  const isFormValid = (amountToPay: BigNumber): boolean => {
     const amount = new BigNumber(amountToPay)
 
     return !(amount.isNaN() || amount.isLessThanOrEqualTo(0))
@@ -161,19 +160,15 @@ export function PaybackLoanScreen ({
   }, [address, blockCount])
 
   useEffect(() => {
-    const isValid = isFormValid(amountToPay)
-    setIsValid(isValid)
-    setIsExcess(new BigNumber(amountToPay).isGreaterThan(loanTokenAmount.amount))
-    setTotalPaybackWithInterest(new BigNumber(amountToPay).plus(interestPerBlock))
-    const loanTokenToSelectedTokenAmount = new BigNumber(amountToPay).isNaN()
-? new BigNumber(0)
-: new BigNumber(amountToPay)
-    setAmountToPayInSelectedToken(loanTokenToSelectedTokenAmount)
     const {
       resultingBalance,
       amountToPayInLoanToken,
       amountToPayInPaymentToken
     } = getAmounts()
+    const isValid = isFormValid(amountToPayInLoanToken)
+    setIsValid(isValid)
+    setIsExcess(new BigNumber(amountToPayInLoanToken).isGreaterThan(loanTokenAmount.amount))
+    setTotalPaybackWithInterest(new BigNumber(amountToPayInLoanToken).plus(interestPerBlock))
     setResultingBalance(resultingBalance)
     setAmountToPayInLoanToken(amountToPayInLoanToken)
     setAmountToPayInPaymentToken(amountToPayInPaymentToken)
@@ -339,7 +334,6 @@ export function PaybackLoanScreen ({
             <TransactionDetailsSection
               fee={fee}
               outstandingBalance={new BigNumber(loanTokenAmount.amount)}
-              amountToPay={new BigNumber(amountToPay)}
               displaySymbol={loanTokenAmount.displaySymbol}
               isExcess={isExcess}
               resultingColRatio={resultingColRatio}
@@ -560,7 +554,6 @@ export function VaultInput ({
 }
 
 interface TransactionDetailsProps {
-  amountToPay: BigNumber
   outstandingBalance: BigNumber
   fee: BigNumber
   displaySymbol: string
@@ -576,7 +569,6 @@ interface TransactionDetailsProps {
 }
 
 function TransactionDetailsSection ({
-  amountToPay,
   outstandingBalance,
   fee,
   displaySymbol,
@@ -622,7 +614,7 @@ function TransactionDetailsSection ({
           <NumberRow
             lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
             rhs={{
-              value: amountToPay.minus(outstandingBalance).toFixed(8),
+              value: amountToPayInLoanToken.minus(outstandingBalance).toFixed(8),
               testID: 'text_resulting_loan_amount',
               suffixType: 'text',
               suffix: displaySymbol
