@@ -11,14 +11,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
-      de: 'Vaults mit DUSD werden aufgrund des Kursschwankungsschutzes für 120 Blöcke (ca. 60 Minuten) per sofort angehalten. DUSD sollten für die Rückzahlung von Darlehen und Sicherheiten ab Block 1.605.120 offen sein.',
-      'zh-Hans': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
-      'zh-Hant': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
-      fr: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.'
+      en: 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      de: 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      'zh-Hans': 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      'zh-Hant': 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.',
+      fr: 'Fort Canning Hill is officially live! Update to the latest app version to experience key upgrades such as paying back DUSD loan with DFI.'
     },
     version: '<=1.1.0',
-    id: '2',
+    id: '3',
     url: {
       ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
       android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
@@ -28,13 +28,13 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }
   }, {
     lang: {
-      en: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
-      de: 'Vaults mit DUSD werden aufgrund des Kursschwankungsschutzes für 120 Blöcke (ca. 60 Minuten) per sofort angehalten. DUSD sollten für die Rückzahlung von Darlehen und Sicherheiten ab Block 1.605.120 offen sein.',
-      'zh-Hans': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
-      'zh-Hant': 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.',
-      fr: 'Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks (approx. 60 minutes). DUSD should be open for loan payback and collateral at Block 1,605,120.'
+      en: 'Fort Canning Hill is officially live!',
+      de: 'Fort Canning Hill is officially live!',
+      'zh-Hans': 'Fort Canning Hill is officially live!',
+      'zh-Hant': 'Fort Canning Hill is officially live!',
+      fr: 'Fort Canning Hill is officially live!'
     },
     version: '>=1.2.0',
-    id: '3'
+    id: '4'
   }])
 }
