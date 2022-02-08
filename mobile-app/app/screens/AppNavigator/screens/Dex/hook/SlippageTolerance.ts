@@ -13,13 +13,13 @@ export function useSlippageTolerance (): SlippageTolerance {
     const [slippage, setSlippage] = useState(new BigNumber(1))
 
     useEffect(() => {
-        SlippageTolerancePersistence.get().then((slippageValue: BigNumber) => {
+        SlippageTolerancePersistence.get().then((slippageValue: string) => {
           setSlippage(new BigNumber(slippageValue))
         }).catch(logger.error)
     }, [])
 
     const updateSlippageTolerance = async (slippageVal: BigNumber): Promise<void> => {
-        setSlippage(new BigNumber(slippageVal))
+        setSlippage(slippageVal)
         await SlippageTolerancePersistence.set(slippageVal)
     }
 

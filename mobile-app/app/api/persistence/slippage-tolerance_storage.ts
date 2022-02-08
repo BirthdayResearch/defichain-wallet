@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js'
 const KEY = 'WALLET.SLIPPAGE_TOLERANCE'
 
 async function set (slippageTolerance: NonNullable<BigNumber>): Promise<void> {
-  await AsyncStorage.setItem(KEY, slippageTolerance.toString())
+  await AsyncStorage.setItem(KEY, slippageTolerance.toFixed(8))
 }
-async function get (): Promise<BigNumber> {
+async function get (): Promise<string> {
   const slippageVal = await AsyncStorage.getItem(KEY) ?? '1'
   return JSON.parse(slippageVal)
 }
