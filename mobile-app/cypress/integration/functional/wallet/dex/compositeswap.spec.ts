@@ -163,6 +163,7 @@ context('Wallet - DEX - Composite Swap with balance', () => {
 
   it('previously saved slippage tolerance value should be 25%', () => {
     cy.getByTestID('text_input_tokenA').type('10')
+    cy.getByTestID('text_input_tokenA').type('20')
     cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_input').should('have.value', '25')
   })
