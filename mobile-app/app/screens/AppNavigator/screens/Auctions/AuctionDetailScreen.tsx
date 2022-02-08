@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
@@ -231,7 +231,7 @@ interface AuctionActionSectionProps {
   onPlaceBid: () => void
 }
 
-function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
+const AuctionActionSection = memo((props: AuctionActionSectionProps): JSX.Element => {
   const nextBidInfo = {
     title: 'Min. next bid',
     message: 'The minimum bid a user must place in order to take part in the auction.'
@@ -308,4 +308,4 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
       </View>
     </ThemedView>
   )
-}
+})

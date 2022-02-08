@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useCallback, memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -55,19 +56,19 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
     message: 'The minimum bid a user must place in order to take part in the auction.'
   }
 
-  const onCardPress = (): void => {
+  const onCardPress = useCallback((): void => {
     navigation.navigate('AuctionDetailScreen', {
       batch,
       vault
     })
-  }
+  }, [])
 
-  const onPlaceBid = (): void => {
+  const onPlaceBid = useCallback((): void => {
     navigation.navigate('PlaceBidScreen', {
       batch,
       vault
     })
-  }
+  }, [])
 
   const onQuickBid = (): void => {
     props.onQuickBid(batch, vault.vaultId, minNextBidInToken, vault.liquidationHeight)
@@ -207,7 +208,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   )
 }
 
-function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string }): JSX.Element {
+const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string }): JSX.Element => {
   return (
     <View style={tailwind('flex flex-row items-center')}>
       <ThemedIcon
@@ -226,9 +227,9 @@ function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialI
       </ThemedText>
     </View>
   )
-}
+})
 
-function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => void }): JSX.Element {
+const BatchCardButtons = memo((props: { onPlaceBid: () => void, onQuickBid: () => void }): JSX.Element => {
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
@@ -249,11 +250,11 @@ function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => vo
       />
     </ThemedView>
   )
-}
+})
 
 type AuctionBidStatusType = 'lost' | 'highest'
 
-export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX.Element {
+export const AuctionBidStatus = memo(({ type }: { type: AuctionBidStatusType }): JSX.Element => {
   return (
     <View style={tailwind('flex-row w-full items-center justify-between')}>
       <View style={tailwind('flex flex-row items-center justify-between')}>
@@ -298,4 +299,4 @@ export function AuctionBidStatus ({ type }: { type: AuctionBidStatusType }): JSX
       </View>
     </View>
   )
-}
+})
