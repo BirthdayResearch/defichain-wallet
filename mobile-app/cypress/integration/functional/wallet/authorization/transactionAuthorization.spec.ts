@@ -136,6 +136,7 @@ context('Wallet - Transaction Authorization', () => {
     it('should be prompt non-signing authorization', function () {
       cy.createEmptyWallet(true).wait(4000)
       cy.getByTestID('header_settings').click()
+      cy.wait(2000)
       cy.getByTestID('view_recovery_words').click()
     })
 
