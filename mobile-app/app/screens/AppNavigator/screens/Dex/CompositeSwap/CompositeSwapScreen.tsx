@@ -40,6 +40,7 @@ import { SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useSlippageTolerance } from '../hook/SlippageTolerance'
 
 export interface TokenState {
   id: string
@@ -61,6 +62,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const dispatch = useDispatch()
   const { address } = useWalletContext()
   const { calculatePriceRates, getArbitraryPoolPair } = useTokenPrice()
+  const { slippage, setSlippage } = useSlippageTolerance()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
@@ -77,7 +79,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [slippage, setSlippage] = useState(new BigNumber(1))
   const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
@@ -491,7 +492,9 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               fee={fee}
               isConversionRequired={isConversionRequired}
               slippage={slippage}
-              onSetSlippage={(val: BigNumber) => setSlippage(val)}
+              onSetSlippage={(val: BigNumber) => {
+                void setSlippage(val)
+            }}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
               setIsModalDisplayed={setIsModalDisplayed}
@@ -682,7 +685,9 @@ function TransactionDetailsSection ({
         textStyle={tailwind('text-sm font-normal')}
       />
       <SlippageTolerance
-        setSlippage={(amount) => onSetSlippage(amount)}
+        setSlippage={(amount) => {
+          onSetSlippage(amount)
+        }}
         slippage={slippage}
         setIsSelectorOpen={setIsModalDisplayed}
         setBottomSheetScreen={setBottomSheetScreen}
