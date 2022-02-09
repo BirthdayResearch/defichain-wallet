@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -192,8 +192,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
+    batch(() => {
+      dispatch(fetchPoolPairs({ client }))
+      dispatch(fetchTokens({ client, address }))
+    })
   }, [address, blockCount])
 
   useEffect(() => {

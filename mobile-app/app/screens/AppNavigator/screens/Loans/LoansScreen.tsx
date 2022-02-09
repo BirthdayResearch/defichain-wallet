@@ -6,7 +6,7 @@ import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchLoanSchemes, fetchLoanTokens, fetchVaults, loanTokensSelector } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -84,11 +84,13 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
   }, [hasFetchedLoansData])
 
   useEffect(() => {
-    dispatch(fetchVaults({
-      address,
-      client
-    }))
-    dispatch(fetchLoanTokens({ client }))
+    batch(() => {
+      dispatch(fetchVaults({
+        address,
+        client
+      }))
+      dispatch(fetchLoanTokens({ client }))
+    })
   }, [blockCount, address])
 
   useEffect(() => {

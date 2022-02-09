@@ -6,7 +6,7 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
 import { InfoText } from '@components/InfoText'
 import { translate } from '@translations'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -49,9 +49,11 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-    dispatch(fetchAuctions({ client }))
-    dispatch(fetchVaults({ client, address }))
+    batch(() => {
+      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchAuctions({ client }))
+      dispatch(fetchVaults({ client, address }))
+    })
   }, [address, blockCount])
 
   const onQuickBid = (

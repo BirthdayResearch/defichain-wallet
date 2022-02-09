@@ -22,7 +22,7 @@ import {
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -50,8 +50,10 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   const [swapTokenDisplaySymbol, setSwapTokenDisplaySymbol] = useState<string>()
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
+    batch(() => {
+      dispatch(fetchPoolPairs({ client }))
+      dispatch(fetchTokens({ client, address }))
+    })
   }, [address, blockCount])
 
   useEffect(() => {

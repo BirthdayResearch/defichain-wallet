@@ -17,7 +17,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -153,8 +153,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
+    batch(() => {
+      dispatch(fetchPoolPairs({ client }))
+      dispatch(fetchTokens({ client, address }))
+    })
   }, [address, blockCount])
 
   useEffect(() => {

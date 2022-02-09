@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import * as React from 'react'
 import NumberFormat from 'react-number-format'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
@@ -109,8 +109,10 @@ export function DexScreen (): JSX.Element {
   , [activeTab, pairs, yourLPTokens])
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
+    batch(() => {
+      dispatch(fetchPoolPairs({ client }))
+      dispatch(fetchTokens({ client, address }))
+    })
   }, [address, blockCount])
 
   useEffect(() => {

@@ -19,7 +19,7 @@ import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Lo
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { InputHelperText } from '@components/InputHelperText'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -155,8 +155,10 @@ export function PaybackLoanScreen ({
   }
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-    dispatch(fetchPrice({ client, currency: 'USD', token: paymentTokens[0].displaySymbol }))
+    batch(() => {
+      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchPrice({ client, currency: 'USD', token: paymentTokens[0].displaySymbol }))
+    })
   }, [address, blockCount])
 
   useEffect(() => {
