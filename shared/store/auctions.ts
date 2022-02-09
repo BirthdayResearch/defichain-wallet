@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { debounce } from 'lodash'
 
 export interface AuctionsState {
   auctions: LoanVaultLiquidated[]
@@ -19,12 +20,12 @@ const initialState: AuctionsState = {
 
 export const fetchAuctions = createAsyncThunk(
   'wallet/fetchAuctions',
-  async ({
+  debounce(async ({
     size = 200,
     client
   }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listAuction(size)
-  }
+  })
 )
 
 export const auctions = createSlice({
@@ -32,7 +33,10 @@ export const auctions = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<LoanVaultLiquidated[]>) => {
+    builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<LoanVaultLiquidated[] | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.auctions = action.payload
       state.hasFetchAuctionsData = true
     })

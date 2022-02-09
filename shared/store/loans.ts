@@ -3,6 +3,7 @@ import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiqui
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
+import { debounce } from 'lodash'
 
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
 
@@ -29,38 +30,38 @@ const initialState: LoansState = {
 // TODO (Harsh) Manage pagination for all api
 export const fetchVaults = createAsyncThunk(
   'wallet/fetchVaults',
-  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
+  debounce(async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
     return await client.address.listVault(address, size)
-  }
+  })
 )
 
 export const fetchLoanTokens = createAsyncThunk(
   'wallet/fetchLoanTokens',
-  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
+  debounce(async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listLoanToken(size)
-  }
+  })
 )
 
 export const fetchLoanSchemes = createAsyncThunk(
   'wallet/fetchLoanSchemes',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  debounce(async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listScheme(size)
-  }
+  })
 )
 
 export const fetchCollateralTokens = createAsyncThunk(
   'wallet/fetchCollateralTokens',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  debounce(async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listCollateralToken(size)
-  }
+  })
 )
 
 export const fetchPrice = createAsyncThunk(
   'wallet/fetchPrice',
-  async ({ client, token, currency }: { token: string, currency: string, client: WhaleApiClient }) => {
+  debounce(async ({ client, token, currency }: { token: string, currency: string, client: WhaleApiClient }) => {
     const activePrices = await client.prices.getFeedActive(token, currency, 1)
     return activePrices[0]
-  }
+  })
 )
 
 export const loans = createSlice({
@@ -68,18 +69,30 @@ export const loans = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchVaults.fulfilled, (state, action: PayloadAction<LoanVault[]>) => {
+    builder.addCase(fetchVaults.fulfilled, (state, action: PayloadAction<LoanVault[] | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.vaults = action.payload
       state.hasFetchedVaultsData = true
     })
-    builder.addCase(fetchLoanTokens.fulfilled, (state, action: PayloadAction<LoanToken[]>) => {
+    builder.addCase(fetchLoanTokens.fulfilled, (state, action: PayloadAction<LoanToken[] | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.loanTokens = action.payload
       state.hasFetchedLoansData = true
     })
-    builder.addCase(fetchLoanSchemes.fulfilled, (state, action: PayloadAction<LoanScheme[]>) => {
+    builder.addCase(fetchLoanSchemes.fulfilled, (state, action: PayloadAction<LoanScheme[] | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.loanSchemes = action.payload
     })
-    builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
+    builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[] | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.collateralTokens = action.payload
     })
     builder.addCase(fetchPrice.fulfilled, (state, action: PayloadAction<any>) => {

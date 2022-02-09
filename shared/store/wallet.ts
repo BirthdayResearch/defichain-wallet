@@ -5,6 +5,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
+import { debounce } from 'lodash'
 
 interface AssociatedToken {
   [key: string]: TokenData
@@ -88,20 +89,20 @@ const associateTokens = (tokens: TokenData[]): AssociatedToken => {
 
 export const fetchPoolPairs = createAsyncThunk(
   'wallet/fetchPoolPairs',
-  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
+  debounce(async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
     return pairs.map(data => ({ type: 'available', data }))
-  }
+  })
 )
 
 export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
-  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
+  debounce(async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
     const tokens = await client.address.listToken(address, size)
     const allTokens = await client.tokens.list(size)
     const utxoBalance = await client.address.getBalance(address)
     return { tokens, utxoBalance, allTokens }
-  }
+  })
 )
 
 export const wallet = createSlice({
@@ -109,11 +110,17 @@ export const wallet = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
+    builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[] | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
     })
-    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
+    builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string } | undefined>) => {
+      if (action.payload === undefined) {
+        return
+      }
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
       state.allTokens = associateTokens(action.payload.allTokens)
