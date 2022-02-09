@@ -73,7 +73,7 @@ export function useTokenPrice (): TokenPrice {
       return estimated
     }
     return new BigNumber('')
-  }, [blockCount])
+  }, [pairs, blockCount])
 
   const getArbitraryPoolPair = useCallback((tokenASymbol: string, tokenBSymbol: string): PoolPairData[] => {
     // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
@@ -88,7 +88,7 @@ export function useTokenPrice (): TokenPrice {
       }
       return [...poolPairs, pair.data]
     }, [])
-  }, [blockCount])
+  }, [pairs, blockCount])
 
   const calculatePriceRates = useCallback((fromTokenSymbol: string, pairs: PoolPairData[], amount: string): CalculatePriceRatesI => {
     let lastTokenBySymbol = fromTokenSymbol
@@ -122,7 +122,7 @@ export function useTokenPrice (): TokenPrice {
       bToAPrice: priceRates.bToAPrice,
       estimated: priceRates.estimated
     }
-  }, [blockCount])
+  }, [pairs, blockCount])
 
   return {
     getTokenPrice,
