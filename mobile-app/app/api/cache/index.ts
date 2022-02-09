@@ -7,7 +7,7 @@ class LruCache {
     // setting maxAge to 10 min
     this.cache = new Cache({
       max: 1000,
-      maxAge: 1000 * 60 * 10
+      maxAge: 1000 * 60 * 5
     })
   }
 
