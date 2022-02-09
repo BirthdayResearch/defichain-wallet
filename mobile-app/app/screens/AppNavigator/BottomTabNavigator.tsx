@@ -65,22 +65,20 @@ export function BottomTabNavigator (): JSX.Element {
           }}
         />
 
-        {isFeatureAvailable('loan') && (
-          <BottomTab.Screen
-            component={LoansNavigator}
-            name={translate('BottomTabNavigator', 'Loans')}
-            options={{
-              tabBarTestID: 'bottom_tab_loans',
-              tabBarIcon: ({ color }) => (
-                <MaterialIcons
-                  color={color}
-                  name='credit-card'
-                  size={24}
-                />
-              )
-            }}
-          />
-        )}
+        <BottomTab.Screen
+          component={LoansNavigator}
+          name={translate('BottomTabNavigator', 'Loans')}
+          options={{
+            tabBarTestID: 'bottom_tab_loans',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='credit-card'
+                size={24}
+              />
+            )
+          }}
+        />
 
         {isFeatureAvailable('auction') && (
           <BottomTab.Screen
