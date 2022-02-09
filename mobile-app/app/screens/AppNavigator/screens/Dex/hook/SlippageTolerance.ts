@@ -3,7 +3,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 
-export interface SlippageTolerance {
+interface SlippageTolerance {
     slippage: BigNumber
     setSlippage: (val: BigNumber) => Promise<void>
 }

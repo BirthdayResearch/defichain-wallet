@@ -127,9 +127,6 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('text_input_tokenA').type('10')
     cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_1%').should('exist')
-    cy.url().should('include', 'app/DEX/CompositeSwap', () => {
-      expect(localStorage.getItem('WALLET.SLIPPAGE_TOLERANCE')).to.eq('1')
-    })
 
     // Slippage warning
     cy.getByTestID('slippage_Custom').click()
