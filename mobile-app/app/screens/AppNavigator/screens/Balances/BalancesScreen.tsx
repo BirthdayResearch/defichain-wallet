@@ -108,6 +108,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       totalUSDValue: new BigNumber(0),
       dstTokens: []
     })
+    // to sort USD values in descending order
+    const sortedUsdAmt = dstTokens.sort((a, b) => parseInt(b.usdAmount.toFixed(8)) - parseInt(a.usdAmount.toFixed(8)))
 
   return (
     <ThemedScrollView
@@ -175,19 +177,21 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             <EmptyBalances />
           )
           : (
-            dstTokens.map((item) => (
-              <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
-                <BalanceItemRow
-                  onPress={() => navigation.navigate({
-                    name: 'TokenDetail',
-                    params: { token: item },
-                    merge: true
-                  })}
-                  token={item}
-                />
-              </View>
-            ))
-          )
+            <View testID='card_balance_row_container'>
+              {sortedUsdAmt.map((item, index) => (
+                <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
+                  <BalanceItemRow
+                    onPress={() => navigation.navigate({
+                      name: 'TokenDetail',
+                      params: { token: item },
+                      merge: true
+                    })}
+                    token={item}
+                  />
+                </View>
+              ))}
+            </View>
+            )
       }
     </ThemedScrollView>
   )
