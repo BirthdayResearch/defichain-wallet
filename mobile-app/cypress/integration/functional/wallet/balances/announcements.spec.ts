@@ -430,27 +430,8 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
 
     cy.getByTestID('announcements_banner').should('not.exist')
     cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
-    cy.getByTestID('announcements_text').should('not.contain', 'maintenance')
-    cy.getByTestID('announcements_text').should('not.contain', 'Partial Service Outage')
-    cy.getByTestID('announcements_text').should('not.contain', 'Major Service Outage')
-  })
-
-  it('should be able to display major outage', function () {
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: summaryWithMajorOutageOnly
-    })
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Major Service Outage')
-  })
-
-  it('should be able to display partial outage', function () {
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: summaryWithPartialOutageOnly
-    })
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Partial Service Outage')
+    cy.getByTestID('announcements_text').should('not.contain', 'There will be a scheduled maintenance')
+    cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
   })
 
   it('should be able to display upcoming maintenance if schedule <24 hrs', function () {
@@ -471,7 +452,7 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     })
 
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Upcoming maintenance')
+    cy.getByTestID('announcements_text').should('contain', 'There will be a scheduled maintenance')
   })
 
   it('should be able to hide upcoming maintenance if schedule >24 hrs', function () {
@@ -511,7 +492,7 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     })
 
     cy.getByTestID('announcements_banner').should('not.exist')
-    cy.getByTestID('announcements_text').should('contain', 'ongoing')
+    cy.getByTestID('announcements_text').should('contain', 'Scheduled maintenance is currently ongoing.')
   })
 
   it('should be able to display major outage over maintenance', function () {
@@ -521,7 +502,7 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     })
 
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Major Service Outage')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
   })
 
   it('should be able to display partial outage over maintenance', function () {
@@ -531,11 +512,11 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     })
 
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Partial Service Outage')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
 
     cy.getByTestID('close_announcement').click()
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'maintenance')
+    cy.getByTestID('announcements_text').should('contain', 'There will be a scheduled maintenance')
   })
 
   it('should be able to display emergency over any announcement', function () {
@@ -549,34 +530,28 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
       headers: {
         'x-not-found': 'true'
       }
+    }).as('stats')
+    cy.wait('@stats').then(() => {
+      cy.getByTestID('announcements_banner').should('exist')
+      cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
-    cy.visit('/')
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
   })
 
-  it('should display outage announcement after user hides it if another outage event happens', function () {
+  it('should be able to display major outage', function () {
     cy.intercept('**/summary.json', {
       statusCode: 200,
-      body: summaryWithPartialOutageAndMaintenance
+      body: summaryWithMajorOutageOnly
     })
-    cy.visit('/')
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('not.contain', 'Partial Service Outage')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
+  })
 
-    cy.getByTestID('close_announcement').click()
+  it('should be able to display partial outage', function () {
     cy.intercept('**/summary.json', {
       statusCode: 200,
-      body: summaryAllOperational
+      body: summaryWithPartialOutageOnly
     })
-    cy.reload()
-    cy.getByTestID('announcements_text').should('not.contain', 'Partial Service Outage')
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: summaryWithPartialOutageAndMaintenance
-    })
-    cy.reload()
-
-    cy.getByTestID('announcements_text').should('contain', 'Partial Service Outage')
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
   })
 })

@@ -8,11 +8,11 @@ const deFiChainStatusUrl = 'https://status.defichain.com/'
 const majorOutageContent: AnnouncementData[] = [{
   id: 'major_outage',
   lang: {
-    en: 'The defichain has Major Service Outage. See full details in status.defichain.com',
-    de: 'The defichain has Major Service Outage. See full details in status.defichain.com',
-    'zh-Hans': 'The defichain has Major Service Outage. See full details in status.defichain.com',
-    'zh-Hant': 'The defichain has Major Service Outage. See full details in status.defichain.com',
-    fr: 'The defichain has Major Service Outage. See full details in status.defichain.com'
+    en: 'We are currently investigating an unexpected interruption of service.',
+    de: 'We are currently investigating an unexpected interruption of service.',
+    'zh-Hans': 'We are currently investigating an unexpected interruption of service.',
+    'zh-Hant': 'We are currently investigating an unexpected interruption of service.',
+    fr: 'We are currently investigating an unexpected interruption of service.'
   },
   version: '0.0.0',
   url: {
@@ -27,11 +27,11 @@ const majorOutageContent: AnnouncementData[] = [{
 const partialOutageContent: AnnouncementData[] = [{
   id: 'partial_outage',
   lang: {
-    en: 'The defichain has Partial Service Outage. See full details in status.defichain.com',
-    de: 'The defichain has Partial Service Outage. See full details in status.defichain.com',
-    'zh-Hans': 'The defichain has Partial Service Outage. See full details in status.defichain.com',
-    'zh-Hant': 'The defichain has Partial Service Outage. See full details in status.defichain.com',
-    fr: 'The defichain has Partial Service Outage. See full details in status.defichain.com'
+    en: 'We are currently investigating an unexpected interruption of service.',
+    de: 'We are currently investigating an unexpected interruption of service.',
+    'zh-Hans': 'We are currently investigating an unexpected interruption of service.',
+    'zh-Hant': 'We are currently investigating an unexpected interruption of service.',
+    fr: 'We are currently investigating an unexpected interruption of service.'
   },
   version: '0.0.0',
   url: {
@@ -44,16 +44,17 @@ const partialOutageContent: AnnouncementData[] = [{
   type: 'PARTIAL_OUTAGE'
 }]
 
-const getUpcomingMaintenanceContent = (date: string, id: string): AnnouncementData[] => {
-  const formattedDate = dayjs(date).format('MM/DD/YYYY h:mm')
+const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: string, id: string): AnnouncementData[] => {
+  const scheduledUntilDate = dayjs(scheduledUntil).format('dd/mm/yyyy hh:mm a')
+  const scheduledForDate = dayjs(scheduledFor).format('dd/mm/yyyy hh:mm a')
   return [{
     id: `upcoming_maintenance_${id}`,
     lang: {
-      en: `An Upcoming maintenance is due on ${formattedDate}`,
-      de: `An Upcoming maintenance is due on ${formattedDate}`,
-      'zh-Hans': `An Upcoming maintenance is due on ${formattedDate}`,
-      'zh-Hant': `An Upcoming maintenance is due on ${formattedDate}`,
-      fr: `An Upcoming maintenance is due on ${formattedDate}`
+      en: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
+      de: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
+      'zh-Hans': `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
+      'zh-Hant': `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
+      fr: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`
     },
     version: '0.0.0',
     url: {
@@ -67,16 +68,16 @@ const getUpcomingMaintenanceContent = (date: string, id: string): AnnouncementDa
   }]
 }
 
-const getOngoingMaintenanceContent = (date: string, id: string): AnnouncementData[] => {
-  const formattedDate = dayjs(date).format('MM/DD/YYYY h:mm')
+const getOngoingMaintenanceContent = (scheduledUntilDate: string, id: string): AnnouncementData[] => {
+  const formattedDate = dayjs(scheduledUntilDate).format('dd/mm/yyyy hh:mm a')
   return [{
     id: `ongoing_maintenance_${id}`,
     lang: {
-      en: `There a scheduled maintenance (${formattedDate}) is ongoing`,
-      de: `There a scheduled maintenance (${formattedDate}) is ongoing`,
-      'zh-Hans': `There a scheduled maintenance (${formattedDate}) is ongoing`,
-      'zh-Hant': `There a scheduled maintenance (${formattedDate}) is ongoing`,
-      fr: `There a scheduled maintenance (${formattedDate}) is ongoing`
+      en: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
+      de: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
+      'zh-Hans': `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
+      'zh-Hant': `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
+      fr: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`
     },
     version: '0.0.0',
     url: {
@@ -99,7 +100,9 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
   const {
     data: status,
     isSuccess
-  } = useGetStatusQuery({})
+  } = useGetStatusQuery({}, {
+    pollingInterval: 1000 * 60 * 5 // every 5mins
+  })
 
   const resetStatusAnnouncement = async (): Promise<void> => {
     setDefichainStatusAnnouncement(undefined)
@@ -125,9 +128,9 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
       )
 
     if (isSuccess && inProgressMaintenance !== undefined) {
-      setMaintenanceAnnouncement(getOngoingMaintenanceContent(inProgressMaintenance.scheduled_for, inProgressMaintenance.id))
+      setMaintenanceAnnouncement(getOngoingMaintenanceContent(inProgressMaintenance.scheduled_until, inProgressMaintenance.id))
     } else if (isSuccess && upcomingMaintenance !== undefined) {
-      setMaintenanceAnnouncement(getUpcomingMaintenanceContent(upcomingMaintenance.scheduled_for, upcomingMaintenance.id))
+      setMaintenanceAnnouncement(getUpcomingMaintenanceContent(upcomingMaintenance.scheduled_until, upcomingMaintenance.scheduled_for, upcomingMaintenance.id))
     } else {
       setMaintenanceAnnouncement(undefined)
     }
