@@ -109,7 +109,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       dstTokens: []
     })
     // to sort USD values in descending order
-    const sortedUsdAmt = dstTokens.sort((a, b) => parseInt(b.usdAmount.toFixed(8)) - parseInt(a.usdAmount.toFixed(8)))
+    const sortedUsdAmt = dstTokens.sort((a, b) => parseFloat(b.usdAmount.toFixed(8)) - parseFloat(a.usdAmount.toFixed(8)))
 
   return (
     <ThemedScrollView
