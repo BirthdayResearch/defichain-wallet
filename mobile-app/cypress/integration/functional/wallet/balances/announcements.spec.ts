@@ -372,14 +372,6 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     scheduled_maintenances: []
   }
 
-  const summaryWithPartialOutageAndMaintenance = {
-    status: {
-      description: 'Partial System Outage',
-      indicator: 'minor'
-    },
-    scheduled_maintenances: getMaintenance()
-  }
-
   const summaryWithMajorOutageOnly = {
     status: {
       description: 'Major Service Outage',
@@ -505,24 +497,10 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
   })
 
-  it('should be able to display partial outage over maintenance', function () {
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: summaryWithPartialOutageAndMaintenance
-    })
-
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
-
-    cy.getByTestID('close_announcement').click()
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'There will be a scheduled maintenance')
-  })
-
   it('should be able to display emergency over any announcement', function () {
     cy.intercept('**/summary.json', {
       statusCode: 200,
-      body: summaryWithPartialOutageAndMaintenance
+      body: summaryWithMajorOutageAndMaintenance
     })
     cy.intercept('**/regtest/stats', {
       statusCode: 404,
@@ -537,7 +515,7 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     })
   })
 
-  it('should be able to display major outage', function () {
+  it('should be able to display in event of major outage', function () {
     cy.intercept('**/summary.json', {
       statusCode: 200,
       body: summaryWithMajorOutageOnly
@@ -546,12 +524,12 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
   })
 
-  it('should be able to display partial outage', function () {
+  it('should not display banner in event of partial outage', function () {
     cy.intercept('**/summary.json', {
       statusCode: 200,
       body: summaryWithPartialOutageOnly
     })
     cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
+    cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
   })
 })

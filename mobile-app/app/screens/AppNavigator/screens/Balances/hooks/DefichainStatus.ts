@@ -24,25 +24,6 @@ const majorOutageContent: AnnouncementData[] = [{
   },
   type: 'MAJOR_OUTAGE'
 }]
-const partialOutageContent: AnnouncementData[] = [{
-  id: 'partial_outage',
-  lang: {
-    en: 'We are currently investigating an unexpected interruption of service.',
-    de: 'We are currently investigating an unexpected interruption of service.',
-    'zh-Hans': 'We are currently investigating an unexpected interruption of service.',
-    'zh-Hant': 'We are currently investigating an unexpected interruption of service.',
-    fr: 'We are currently investigating an unexpected interruption of service.'
-  },
-  version: '0.0.0',
-  url: {
-    ios: deFiChainStatusUrl,
-    android: deFiChainStatusUrl,
-    windows: deFiChainStatusUrl,
-    web: deFiChainStatusUrl,
-    macos: deFiChainStatusUrl
-  },
-  type: 'PARTIAL_OUTAGE'
-}]
 
 const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: string, id: string): AnnouncementData[] => {
   const scheduledUntilDate = dayjs(scheduledUntil).format('dd/mm/yyyy hh:mm a')
@@ -106,7 +87,7 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
 
   const resetStatusAnnouncement = async (): Promise<void> => {
     setDefichainStatusAnnouncement(undefined)
-    await DisplayAnnouncementPersistence.set(hiddenAnnouncements.filter(announcement => announcement !== 'major_outage' && announcement !== 'partial_outage')).catch()
+    await DisplayAnnouncementPersistence.set(hiddenAnnouncements.filter(announcement => announcement !== 'major_outage'))
   }
 
   const setAnnouncementAsync = useCallback(async () => {
@@ -114,8 +95,6 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
       await resetStatusAnnouncement()
     } else if (isSuccess && status?.status?.description === 'Major Service Outage') {
       setDefichainStatusAnnouncement(majorOutageContent)
-    } else if (isSuccess && status?.status?.description === 'Partial System Outage') {
-      setDefichainStatusAnnouncement(partialOutageContent)
     } else {
       setDefichainStatusAnnouncement(undefined)
     }
