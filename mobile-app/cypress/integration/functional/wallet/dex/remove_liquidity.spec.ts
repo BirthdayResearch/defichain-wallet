@@ -106,7 +106,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
   afterEach(function () {
     cy.getByTestID('pool_pair_row_your').should('not.exist')
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_16').should('not.exist')
+    cy.getByTestID('balances_row_17').should('not.exist')
   })
 
   it('Should be able to remove liquidity', function () {
