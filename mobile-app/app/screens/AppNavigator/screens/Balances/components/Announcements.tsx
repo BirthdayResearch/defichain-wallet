@@ -112,11 +112,11 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       style={tailwind('px-4 py-3 flex-row items-center')}
       light={tailwind({
         'bg-primary-700': isOtherAnnouncement,
-        'bg-yellow-100': !isOtherAnnouncement
+        'bg-warning-100': !isOtherAnnouncement
       })}
       dark={tailwind({
         'bg-darkprimary-700': isOtherAnnouncement,
-        'bg-yellow-100': !isOtherAnnouncement
+        'bg-warning-100': !isOtherAnnouncement
       })}
     >
       {announcement.id !== undefined &&
@@ -141,7 +141,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       <MaterialIcons
         style={tailwind(['mr-2.5', {
           'text-white': isOtherAnnouncement,
-          'text-yellow-600': !isOtherAnnouncement
+          'text-warning-600': !isOtherAnnouncement
         }])}
         iconType='MaterialIcons'
         name={icons[announcement.type ?? 'OTHER_ANNOUNCEMENT']}
@@ -164,7 +164,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
         >
           <Text style={tailwind(['text-sm font-medium', {
             'text-white': isOtherAnnouncement,
-            'text-yellow-600': !isOtherAnnouncement
+            'text-warning-600': !isOtherAnnouncement
           }])}
           >
             {translate('components/Announcements', 'DETAILS')}
