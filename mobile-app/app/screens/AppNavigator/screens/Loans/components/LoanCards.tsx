@@ -4,9 +4,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
-
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { InfoText } from '@components/InfoText'
 import { getNativeIcon } from '@components/icons/assets'
 import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -38,17 +35,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const activeVault = vaults.find((v) => v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive
-  const { isBetaFeature } = useFeatureFlagContext()
   return (
     <>
-      {isBetaFeature('loan') && (
-        <View style={tailwind('p-4 pb-0')}>
-          <InfoText
-            testID='beta_warning_info_text'
-            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-          />
-        </View>
-      )}
       <ThemedFlatList
         contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
         data={props.loans}
