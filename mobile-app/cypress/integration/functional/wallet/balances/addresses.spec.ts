@@ -253,7 +253,7 @@ context('Wallet - Addresses should able to create maximum 10 addresses', () => {
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
-    cy.wrap(Array.from(Array(10), (_v, i) => i)).each(() => {
+    cy.wrap(Array.from(Array(9), (_v, i) => i)).each(() => {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
       cy.url().should('include', 'app/AddressControlScreen')
