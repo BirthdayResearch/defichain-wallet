@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from 'react'
 import { useGetStatusQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
 import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { DisplayAnnouncementPersistence } from '@api/persistence/display_announcement_storage'
 
+dayjs.extend(localizedFormat)
 const deFiChainStatusUrl = 'https://status.defichain.com/'
 const majorOutageContent: AnnouncementData[] = [{
   id: 'major_outage',
@@ -26,8 +28,8 @@ const majorOutageContent: AnnouncementData[] = [{
 }]
 
 const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: string, id: string): AnnouncementData[] => {
-  const scheduledUntilDate = dayjs(scheduledUntil).format('dd/mm/yyyy hh:mm a')
-  const scheduledForDate = dayjs(scheduledFor).format('dd/mm/yyyy hh:mm a')
+  const scheduledUntilDate = dayjs(scheduledUntil).format('LLL')
+  const scheduledForDate = dayjs(scheduledFor).format('LLL')
   return [{
     id: `upcoming_maintenance_${id}`,
     lang: {
@@ -50,7 +52,7 @@ const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: str
 }
 
 const getOngoingMaintenanceContent = (scheduledUntilDate: string, id: string): AnnouncementData[] => {
-  const formattedDate = dayjs(scheduledUntilDate).format('dd/mm/yyyy hh:mm a')
+  const formattedDate = dayjs(scheduledUntilDate).format('LLL')
   return [{
     id: `ongoing_maintenance_${id}`,
     lang: {
