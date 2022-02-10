@@ -554,4 +554,29 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
   })
+
+  it('should display outage announcement after user hides it if another outage event happens', function () {
+    cy.intercept('**/summary.json', {
+      statusCode: 200,
+      body: summaryWithPartialOutageAndMaintenance
+    })
+    cy.visit('/')
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('not.contain', 'Partial Service Outage')
+
+    cy.getByTestID('close_announcement').click()
+    cy.intercept('**/summary.json', {
+      statusCode: 200,
+      body: summaryAllOperational
+    })
+    cy.reload()
+    cy.getByTestID('announcements_text').should('not.contain', 'Partial Service Outage')
+    cy.intercept('**/summary.json', {
+      statusCode: 200,
+      body: summaryWithPartialOutageAndMaintenance
+    })
+    cy.reload()
+
+    cy.getByTestID('announcements_text').should('contain', 'Partial Service Outage')
+  })
 })

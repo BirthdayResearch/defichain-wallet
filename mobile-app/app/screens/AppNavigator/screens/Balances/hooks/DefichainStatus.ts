@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useGetStatusQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
 import dayjs from 'dayjs'
+import { DisplayAnnouncementPersistence } from '@api/persistence/display_announcement_storage'
 
 const deFiChainStatusUrl = 'https://status.defichain.com/'
 const majorOutageContent: AnnouncementData[] = [{
@@ -89,7 +90,7 @@ const getOngoingMaintenanceContent = (date: string, id: string): AnnouncementDat
   }]
 }
 
-export function useDefiChainStatus (): {
+export function useDefiChainStatus (hiddenAnnouncements: string[]): {
   defichainStatusAnnouncement: AnnouncementData[] | undefined
   maintenanceAnnouncement: AnnouncementData[] | undefined
 } {
@@ -100,9 +101,14 @@ export function useDefiChainStatus (): {
     isSuccess
   } = useGetStatusQuery({})
 
-  useEffect(() => {
+  const resetStatusAnnouncement = async (): Promise<void> => {
+    setDefichainStatusAnnouncement(undefined)
+    await DisplayAnnouncementPersistence.set(hiddenAnnouncements.filter(announcement => announcement !== 'major_outage' && announcement !== 'partial_outage')).catch()
+  }
+
+  const setAnnouncementAsync = useCallback(async () => {
     if (isSuccess && status?.status?.description === 'All Systems Operational') {
-      setDefichainStatusAnnouncement(undefined)
+      await resetStatusAnnouncement()
     } else if (isSuccess && status?.status?.description === 'Major Service Outage') {
       setDefichainStatusAnnouncement(majorOutageContent)
     } else if (isSuccess && status?.status?.description === 'Partial System Outage') {
@@ -126,6 +132,10 @@ export function useDefiChainStatus (): {
       setMaintenanceAnnouncement(undefined)
     }
   }, [isSuccess, status?.status?.description, status?.scheduled_maintenances])
+
+  useEffect(() => {
+    void setAnnouncementAsync()
+  }, [setAnnouncementAsync])
 
   return {
     defichainStatusAnnouncement,

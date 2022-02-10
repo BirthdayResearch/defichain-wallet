@@ -23,17 +23,18 @@ export function Announcements (): JSX.Element {
   } = useGetAnnouncementsQuery({})
 
   const {
-    defichainStatusAnnouncement: defichainStatusAnnouncementContent,
-    maintenanceAnnouncement: maintenanceAnnouncementContent
-  } = useDefiChainStatus()
-
-  const {
     language
   } = useLanguageContext()
   const {
     hiddenAnnouncements,
     hideAnnouncement
   } = useDisplayAnnouncement()
+
+  const {
+    defichainStatusAnnouncement: defichainStatusAnnouncementContent,
+    maintenanceAnnouncement: maintenanceAnnouncementContent
+  } = useDefiChainStatus(hiddenAnnouncements)
+
   const isBlockchainDown = useBlockchainStatus()
   const deFiChainStatusUrl = 'https://status.defichain.com/'
 
