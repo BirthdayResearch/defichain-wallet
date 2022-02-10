@@ -190,7 +190,7 @@ function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={auctionBatches}
       numColumns={1}
-      windowSize={5}
+      windowSize={10}
       keyExtractor={useCallback((_item, index) => index.toString(), [])}
       testID='available_liquidity_tab'
       renderItem={RenderItems}
