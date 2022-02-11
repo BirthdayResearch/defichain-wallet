@@ -27,6 +27,7 @@ import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/componen
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { useCallback } from 'react'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -40,11 +41,11 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
   const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
   const nextCollateralizationRatio = useNextCollateralizationRatio(vault.collateralAmounts, vault.loanAmounts)
   const canUseOperations = useLoanOperations(vault?.state)
-  const onCardPress = (): void => {
+  const onCardPress = useCallback((): void => {
     navigation.navigate('VaultDetailScreen', {
       vaultId: vault.vaultId
     })
-  }
+  }, [])
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
