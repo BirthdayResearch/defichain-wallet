@@ -6,13 +6,15 @@ import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
-import { LoanVault } from '@store/loans'
+import { LoanVault, fetchCollateralTokens } from '@store/loans'
 import { CollateralToken, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { EmptyCollateral } from './EmptyCollateral'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useCollateralPrice } from '../../hooks/CollateralPrice'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import { useEffect } from 'react'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 interface CollateralCardProps {
   displaySymbol: string
@@ -23,6 +25,12 @@ interface CollateralCardProps {
 
 export function CollateralsTab ({ vault }: {vault: LoanVault}): JSX.Element {
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+  const client = useWhaleApiClient()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCollateralTokens({ client }))
+  }, [])
 
   if (vault.state === LoanVaultState.ACTIVE && vault.collateralValue === '0') {
     return (
