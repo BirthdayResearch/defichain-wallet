@@ -637,9 +637,9 @@
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
-    "Signing your transaction...": "Authorization de votre transaction...",
+    "Signing your transaction...": "Autorisation de votre transaction...",
     "Transaction authorized": "Transaction autorisée",
-    "Please wait while your transaction is being prepared": "Merci de patienter pendant pendant la préparation de votre transaction",
+    "Please wait while your transaction is being prepared": "Merci de patienter pendant la préparation de votre transaction",
     "Verifying access": "Vérification de l'accès"
   },
   "components/CreateWalletIndicator": {
