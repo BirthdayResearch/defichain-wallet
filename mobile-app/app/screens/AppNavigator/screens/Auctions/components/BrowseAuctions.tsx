@@ -21,6 +21,7 @@ import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
+import { useIsFocused } from '@react-navigation/native'
 
 interface Props {
   searchString: string
@@ -34,6 +35,8 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
+  const isFocused = useIsFocused()
+
   const {
     bottomSheetRef,
     containerRef,
@@ -49,12 +52,14 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
 
   useEffect(() => {
-    batch(() => {
-      dispatch(fetchTokens({ client, address }))
-      dispatch(fetchAuctions({ client }))
-      dispatch(fetchVaults({ client, address }))
-    })
-  }, [address, blockCount])
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchTokens({ client, address }))
+        dispatch(fetchAuctions({ client }))
+        dispatch(fetchVaults({ client, address }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   const onQuickBid = (
     batch: LoanVaultLiquidationBatch,
@@ -118,12 +123,12 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
           modalStyle={{
-              position: 'absolute',
-              height: '240px',
-              width: '375px',
-              zIndex: 50,
-              bottom: 0
-            }}
+            position: 'absolute',
+            height: '240px',
+            width: '375px',
+            zIndex: 50,
+            bottom: 0
+          }}
         />
         )}
 
