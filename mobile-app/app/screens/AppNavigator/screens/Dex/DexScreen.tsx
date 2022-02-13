@@ -2,12 +2,12 @@ import { StyleProp, ViewStyle } from 'react-native'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import * as React from 'react'
 import NumberFormat from 'react-number-format'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
@@ -41,6 +41,7 @@ export function DexScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -109,9 +110,13 @@ export function DexScreen (): JSX.Element {
   , [activeTab, pairs, yourLPTokens])
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchPoolPairs({ client }))
+        dispatch(fetchTokens({ client, address }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
