@@ -419,11 +419,31 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
       statusCode: 200,
       body: summaryAllOperational
     })
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.getByTestID('announcements_banner').should('not.exist')
+      cy.getByTestID('announcements_text').should('not.exist')
+    })
+  })
 
-    cy.getByTestID('announcements_banner').should('not.exist')
-    cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
-    cy.getByTestID('announcements_text').should('not.contain', 'There will be a scheduled maintenance')
-    cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
+  it('should be able to display announcement if no outage or maintenance', function () {
+    cy.intercept('**/summary.json', {
+      statusCode: 200,
+      body: summaryAllOperational
+    })
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.getByTestID('announcements_banner').should('not.exist')
+      cy.getByTestID('announcements_text').should('contain', 'Guidelines')
+      cy.getByTestID('announcements_text').should('not.contain', 'There will be a scheduled maintenance')
+      cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
+    })
   })
 
   it('should be able to display upcoming maintenance if schedule <24 hrs', function () {
