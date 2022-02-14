@@ -12,6 +12,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { fetchLoanTokens, loanTokensSelector } from '@store/loans'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'ChooseLoanTokenScreen'>
 
@@ -21,6 +22,7 @@ export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Elemen
   const blockCount = useSelector((state: RootState) => state.block.count)
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
+  const isFocused = useIsFocused()
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
   const [showSeachInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
@@ -69,8 +71,10 @@ export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Elemen
   }, [showSeachInput, searchString])
 
   useEffect(() => {
-    dispatch(fetchLoanTokens({ client }))
-  }, [blockCount])
+    if (isFocused) {
+      dispatch(fetchLoanTokens({ client }))
+    }
+  }, [blockCount, isFocused])
 
   return (
     <ThemedView style={tailwind('flex-1')}>

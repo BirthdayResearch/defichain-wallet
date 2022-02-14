@@ -22,10 +22,11 @@ import {
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useIsFocused } from '@react-navigation/native'
 
 interface TokenActionItems {
   title: string
@@ -43,6 +44,7 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const isFocused = useIsFocused()
 
   // state
   const [token, setToken] = useState(tokenParam)
@@ -50,9 +52,13 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   const [swapTokenDisplaySymbol, setSwapTokenDisplaySymbol] = useState<string>()
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchPoolPairs({ client }))
+        dispatch(fetchTokens({ client, address }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     const t = tokens.find((t) => t.id === token.id)
