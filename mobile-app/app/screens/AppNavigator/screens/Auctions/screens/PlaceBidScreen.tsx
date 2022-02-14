@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { StackScreenProps } from '@react-navigation/stack'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
@@ -66,12 +66,15 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const logger = useLogger()
   const client = useWhaleApiClient()
+  const isFocused = useIsFocused()
 
   const [bidAmount, setBidAmount] = useState<string>('')
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
