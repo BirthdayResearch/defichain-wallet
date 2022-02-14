@@ -3,12 +3,10 @@ import { useGetStatusQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-import { DisplayAnnouncementPersistence } from '@api/persistence/display_announcement_storage'
 
 dayjs.extend(localizedFormat)
 const deFiChainStatusUrl = 'https://status.defichain.com/'
 const majorOutageContent: AnnouncementData[] = [{
-  id: 'major_outage',
   lang: {
     en: 'We are currently investigating an unexpected interruption of service.',
     de: 'We are currently investigating an unexpected interruption of service.',
@@ -31,7 +29,6 @@ const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: str
   const scheduledUntilDate = dayjs(scheduledUntil).format('LLL')
   const scheduledForDate = dayjs(scheduledFor).format('LLL')
   return [{
-    id: `upcoming_maintenance_${id}`,
     lang: {
       en: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
       de: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
@@ -54,7 +51,6 @@ const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: str
 const getOngoingMaintenanceContent = (scheduledUntilDate: string, id: string): AnnouncementData[] => {
   const formattedDate = dayjs(scheduledUntilDate).format('LLL')
   return [{
-    id: `ongoing_maintenance_${id}`,
     lang: {
       en: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
       de: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
@@ -87,14 +83,9 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
     pollingInterval: 1000 * 60 * 5 // every 5mins
   })
 
-  const resetStatusAnnouncement = async (): Promise<void> => {
-    setDefichainStatusAnnouncement(undefined)
-    await DisplayAnnouncementPersistence.set(hiddenAnnouncements.filter(announcement => announcement !== 'major_outage'))
-  }
-
   const setAnnouncementAsync = useCallback(async () => {
     if (isSuccess && status?.status?.description === 'All Systems Operational') {
-      await resetStatusAnnouncement()
+      setDefichainStatusAnnouncement(undefined)
     } else if (isSuccess && status?.status?.description === 'Major Service Outage') {
       setDefichainStatusAnnouncement(majorOutageContent)
     } else {
