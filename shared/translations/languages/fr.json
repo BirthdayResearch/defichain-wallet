@@ -1230,6 +1230,6 @@
     "Wallet address": "Adresse du portefeuille"
   },
   "components/Announcements": {
-    "VIEW": "VOIR"
+    "DETAILS": "DÉTAILS"
   }
 }

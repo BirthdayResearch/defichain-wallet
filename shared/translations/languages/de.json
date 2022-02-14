@@ -1230,6 +1230,6 @@
     "Wallet address": "Walletadresse"
   },
   "components/Announcements": {
-    "VIEW": "ANZEIGEN"
+    "DETAILS": "DETAILS"
   }
 }
