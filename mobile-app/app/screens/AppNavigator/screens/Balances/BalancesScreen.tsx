@@ -17,7 +17,7 @@ import { ocean } from '@store/ocean'
 import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState, useMemo } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
@@ -76,37 +76,38 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { totalUSDValue, dstTokens } = useMemo(() => {
-    return tokens.reduce(
-      ({
-          totalUSDValue,
-          dstTokens
-        }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
-        token
-      ) => {
-        const usdAmount = getTokenPrice(token.symbol, token.amount, token.isLPS)
+  const {
+    totalUSDValue,
+    dstTokens
+  } = tokens.reduce(
+    ({
+        totalUSDValue,
+        dstTokens
+      }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+      token
+    ) => {
+      const usdAmount = getTokenPrice(token.symbol, token.amount, token.isLPS)
 
-        if (token.symbol === 'DFI') {
-          return {
-            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
-            totalUSDValue: token.id === '0_unified'
-              ? totalUSDValue
-              : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-            dstTokens
-          }
-        }
+      if (token.symbol === 'DFI') {
         return {
-          totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-          dstTokens: [...dstTokens, {
-            ...token,
-            usdAmount
-          }]
+          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
+          totalUSDValue: token.id === '0_unified'
+            ? totalUSDValue
+            : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens
         }
-      }, {
-        totalUSDValue: new BigNumber(0),
-        dstTokens: []
-      })
-  }, [getTokenPrice, tokens])
+      }
+      return {
+        totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+        dstTokens: [...dstTokens, {
+          ...token,
+          usdAmount
+        }]
+      }
+    }, {
+      totalUSDValue: new BigNumber(0),
+      dstTokens: []
+    })
 
   return (
     <ThemedScrollView
