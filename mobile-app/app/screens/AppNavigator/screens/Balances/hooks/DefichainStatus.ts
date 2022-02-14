@@ -33,7 +33,7 @@ const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: str
       en: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
       de: `Am ${scheduledForDate} wird es eine planmäßige Wartung geben. Die Dienste werden am ${scheduledUntilDate} wieder zur Verfügung stehen.`,
       'zh-Hans': `将在 ${scheduledForDate} 进行定期维护. 服务将在 ${scheduledUntilDate} 恢复`,
-      'zh-Hant': `將在  ${scheduledForDate} 進行定期維護. 服務將在 ${scheduledUntilDate} 恢復`,
+      'zh-Hant': `將在 ${scheduledForDate} 進行定期維護. 服務將在 ${scheduledUntilDate} 恢復`,
       fr: `Il y aura une maintenance programmée le ${scheduledForDate}. Les services seront de nouveau disponibles le ${scheduledUntilDate}.`
     },
     version: '0.0.0',
