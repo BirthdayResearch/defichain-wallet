@@ -9,10 +9,10 @@ const deFiChainStatusUrl = 'https://status.defichain.com/'
 const majorOutageContent: AnnouncementData[] = [{
   lang: {
     en: 'We are currently investigating an unexpected interruption of service.',
-    de: 'We are currently investigating an unexpected interruption of service.',
-    'zh-Hans': 'We are currently investigating an unexpected interruption of service.',
-    'zh-Hant': 'We are currently investigating an unexpected interruption of service.',
-    fr: 'We are currently investigating an unexpected interruption of service.'
+    de: 'Wir untersuchen derzeit eine unerwartete Unterbrechung des Dienstes.',
+    'zh-Hans': '我们目前正在调查服务意外中断',
+    'zh-Hant': '我們目前正在調查服務意外中斷',
+    fr: 'Nous enquêtons actuellement sur une interruption de service inattendue.'
   },
   version: '0.0.0',
   url: {
@@ -31,10 +31,10 @@ const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: str
   return [{
     lang: {
       en: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
-      de: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
-      'zh-Hans': `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
-      'zh-Hant': `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`,
-      fr: `There will be a scheduled maintenance on ${scheduledForDate}. Services will be back on ${scheduledUntilDate}`
+      de: `Am ${scheduledForDate} wird es eine planmäßige Wartung geben. Die Dienste werden am ${scheduledUntilDate} wieder zur Verfügung stehen.`,
+      'zh-Hans': `将在 ${scheduledForDate} 进行定期维护. 服务将在 ${scheduledUntilDate} 恢复`,
+      'zh-Hant': `將在  ${scheduledForDate} 進行定期維護. 服務將在 ${scheduledUntilDate} 恢復`,
+      fr: `Il y aura une maintenance programmée le ${scheduledForDate}. Les services seront de nouveau disponibles le ${scheduledUntilDate}.`
     },
     version: '0.0.0',
     url: {
@@ -53,10 +53,10 @@ const getOngoingMaintenanceContent = (scheduledUntilDate: string, id: string): A
   return [{
     lang: {
       en: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
-      de: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
-      'zh-Hans': `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
-      'zh-Hant': `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`,
-      fr: `Scheduled maintenance is currently ongoing. Services will be back on ${formattedDate}`
+      de: `Eine planmäßige Wartung ist derzeit im Gange. Die Dienste werden am ${formattedDate} wieder zur Verfügung stehen.`,
+      'zh-Hans': `目前正在进行已计画的维护。服务将在 ${formattedDate} 恢复`,
+      'zh-Hant': `目前正在進行已計畫的維護。服務將在 ${formattedDate} 恢復`,
+      fr: `Une maintenance planifiée est actuellement en cours. Les services seront de retour le ${formattedDate}.`
     },
     version: '0.0.0',
     url: {
