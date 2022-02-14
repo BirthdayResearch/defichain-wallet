@@ -5,7 +5,7 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native'
 import { RootState } from '@store'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { AuctionTimeProgress } from './components/AuctionTimeProgress'
@@ -50,6 +50,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const { address } = useWalletContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
+  const isFocused = useIsFocused()
   const {
     bottomSheetRef,
     containerRef,
@@ -61,8 +62,10 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
    } = useBottomSheet()
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
