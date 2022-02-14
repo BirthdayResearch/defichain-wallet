@@ -17,7 +17,7 @@ import { ocean } from '@store/ocean'
 import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
@@ -79,7 +79,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const {
     totalUSDValue,
     dstTokens
-  } = tokens.reduce(
+  } = useMemo(() => {
+     return tokens.reduce(
     ({
         totalUSDValue,
         dstTokens
@@ -108,6 +109,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       totalUSDValue: new BigNumber(0),
       dstTokens: []
     })
+  }, [getTokenPrice, tokens])
 
   return (
     <ThemedScrollView
