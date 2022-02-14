@@ -176,7 +176,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           )
           : (
             <View testID='card_balance_row_container'>
-              {dstTokens.sort((a, b) => parseFloat(b.usdAmount.toFixed(8)) - parseFloat(a.usdAmount.toFixed(8))).map((item) => (
+              {dstTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber()).map((item) => (
                 <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
                   <BalanceItemRow
                     onPress={() => navigation.navigate({
