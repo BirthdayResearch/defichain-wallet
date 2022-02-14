@@ -424,6 +424,7 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
       body: []
     }).as('getAnnouncements')
     cy.wait('@getAnnouncements').then(() => {
+      cy.wait(2000)
       cy.getByTestID('announcements_banner').should('not.exist')
       cy.getByTestID('announcements_text').should('not.exist')
     })
@@ -439,7 +440,8 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
       body: sampleAnnouncementsWithID
     }).as('getAnnouncements')
     cy.wait('@getAnnouncements').then(() => {
-      cy.getByTestID('announcements_banner').should('not.exist')
+      cy.wait(2000)
+      cy.getByTestID('announcements_banner').should('exist')
       cy.getByTestID('announcements_text').should('contain', 'Guidelines')
       cy.getByTestID('announcements_text').should('not.contain', 'There will be a scheduled maintenance')
       cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
