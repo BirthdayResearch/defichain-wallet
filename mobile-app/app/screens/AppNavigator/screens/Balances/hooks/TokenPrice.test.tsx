@@ -8,6 +8,9 @@ import { DexItem, wallet } from '@store/wallet'
 import { block } from '@store/block'
 
 jest.mock('@shared-contexts/NetworkContext')
+jest.mock('@react-navigation/native', () => ({
+  useIsFocused: jest.fn()
+}))
 describe('Token Price - Get Token Price (DEX)', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
