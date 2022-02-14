@@ -84,13 +84,7 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
   })
 
   const setAnnouncementAsync = useCallback(async () => {
-    if (isSuccess && status?.status?.description === 'All Systems Operational') {
-      setDefichainStatusAnnouncement(undefined)
-    } else if (isSuccess && status?.status?.description === 'Major Service Outage') {
-      setDefichainStatusAnnouncement(majorOutageContent)
-    } else {
-      setDefichainStatusAnnouncement(undefined)
-    }
+    setDefichainStatusAnnouncement(isSuccess && status?.status?.description === 'Major Service Outage' ? majorOutageContent : undefined)
 
     /* Display upcoming maintenance 24 hours before schedule and when it starts */
     const inProgressMaintenance = status?.scheduled_maintenances.find(maintenance => maintenance.status === 'In Progress')
