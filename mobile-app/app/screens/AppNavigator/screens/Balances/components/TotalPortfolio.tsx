@@ -1,10 +1,12 @@
 import { View } from '@components'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
 import { BalanceText } from './BalanceText'
 
@@ -15,6 +17,7 @@ interface TotalPortfolioProps {
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   return (
     <ThemedView
       light={tailwind('bg-white')}
@@ -31,7 +34,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           {translate('screens/BalancesScreen', 'Total Portfolio Value (USD)')}
         </ThemedText>
         {
-          props.totalUSDValue.isNaN()
+          !hasFetchedToken
             ? (
               <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='32' height='32' textWidth='200' textHeight='30' testID='total_portfolio_skeleton_loader' />
             )

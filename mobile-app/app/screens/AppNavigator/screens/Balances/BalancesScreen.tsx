@@ -73,7 +73,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const {
     totalUSDValue,
     dstTokens
@@ -104,7 +103,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         }]
       }
     }, {
-      totalUSDValue: hasFetchedToken ? new BigNumber(0) : new BigNumber(NaN),
+      totalUSDValue: new BigNumber(0),
       dstTokens: []
     })
   }, [getTokenPrice, tokens])
