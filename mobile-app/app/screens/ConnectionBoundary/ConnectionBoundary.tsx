@@ -18,7 +18,7 @@ export default function ConnectionBoundary (props: React.PropsWithChildren<any>)
 
 function ConnectionErrorComponent (): JSX.Element {
   const checkConnectivity = (): void => {
-    void fetch('wifi')
+    void fetch()
   }
   return (
     <ThemedView
