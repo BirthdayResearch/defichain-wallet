@@ -1241,6 +1241,6 @@
     "Wallet address": "錢包地址"
   },
   "components/Announcements": {
-    "VIEW": "前往"
+    "DETAILS": "了解詳情"
   }
 }
