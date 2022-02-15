@@ -574,6 +574,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ],
               ]
             }
+            testID="vault_next_ratio"
           >
             -~1.00%
           </Text>
@@ -1605,6 +1606,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ],
               ]
             }
+            testID="vault_next_ratio"
           >
             -~1.00%
           </Text>
@@ -2664,6 +2666,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ],
               ]
             }
+            testID="vault_next_ratio"
           >
             -~1.00%
           </Text>

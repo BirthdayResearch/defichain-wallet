@@ -1,4 +1,4 @@
-import { ThemedView } from '@components/themed'
+import { ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
@@ -13,12 +13,16 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
 import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
+import { useDefiChainStatus } from '../hooks/DefichainStatus'
+import { IconProps } from '@expo/vector-icons/build/createIconSet'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export function Announcements (): JSX.Element {
   const {
     data: announcements,
     isSuccess
   } = useGetAnnouncementsQuery({})
+
   const {
     language
   } = useLanguageContext()
@@ -26,6 +30,12 @@ export function Announcements (): JSX.Element {
     hiddenAnnouncements,
     hideAnnouncement
   } = useDisplayAnnouncement()
+
+  const {
+    defichainStatusAnnouncement: defichainStatusAnnouncementContent,
+    maintenanceAnnouncement: maintenanceAnnouncementContent
+  } = useDefiChainStatus(hiddenAnnouncements)
+
   const isBlockchainDown = useBlockchainStatus()
   const deFiChainStatusUrl = 'https://status.defichain.com/'
 
@@ -44,15 +54,25 @@ export function Announcements (): JSX.Element {
       windows: deFiChainStatusUrl,
       web: deFiChainStatusUrl,
       macos: deFiChainStatusUrl
-    }
+    },
+    type: 'EMERGENCY'
   }]
 
   const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
-  const announcement = findAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, announcements)
-  const emergencyAnnouncement = findAnnouncementForVersion('0.0.0', language, emergencyMsgContent)
-  const existingAnnouncements = getDisplayAnnouncement(hiddenAnnouncements, announcement)
-  const displayAnnouncement = emergencyAnnouncement !== null || existingAnnouncements
-  const announcementToDisplay = emergencyAnnouncement ?? announcement
+
+  const announcement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, announcements)
+  const emergencyAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, emergencyMsgContent)
+  const outageAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, defichainStatusAnnouncementContent)
+  const maintenanceAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, maintenanceAnnouncementContent)
+
+  /*
+    Display priority:
+    1. Emergencies
+    2. Outages
+    3. Maintenance
+    4. Other announcements
+  */
+  const announcementToDisplay = emergencyAnnouncement ?? outageAnnouncement ?? maintenanceAnnouncement ?? announcement
 
   useEffect(() => {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
@@ -63,7 +83,7 @@ export function Announcements (): JSX.Element {
     }
   }, [isBlockchainDown])
 
-  if (!isSuccess || !displayAnnouncement || (announcementToDisplay == null) || ((emergencyAnnouncement == null) && !existingAnnouncements)) {
+  if (!isSuccess || announcementToDisplay === undefined) {
     return <></>
   }
 
@@ -78,20 +98,39 @@ interface AnnouncementBannerProps {
 }
 
 function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBannerProps): JSX.Element {
+  const { isLight } = useThemeContext()
+  const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
+    EMERGENCY: 'warning',
+    OTHER_ANNOUNCEMENT: 'campaign',
+    PARTIAL_OUTAGE: 'warning',
+    MAJOR_OUTAGE: 'warning',
+    MAINTENANCE: 'warning'
+  }
+  const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
+
   return (
     <ThemedView
       testID='announcements_banner'
       style={tailwind('px-4 py-3 flex-row items-center')}
-      light={tailwind('bg-primary-700')}
-      dark={tailwind('bg-darkprimary-700')}
+      light={tailwind({
+        'bg-primary-700': isOtherAnnouncement,
+        'bg-warning-100': !isOtherAnnouncement
+      })}
+      dark={tailwind({
+        'bg-darkprimary-700': isOtherAnnouncement,
+        'bg-darkwarning-100': !isOtherAnnouncement
+      })}
     >
       {announcement.id !== undefined &&
       (
         <MaterialIcons
-          style={tailwind('mr-2 text-white')}
+          style={tailwind(['mr-1', {
+            'text-white': !isLight || isOtherAnnouncement,
+            'text-gray-900': !(!isLight || isOtherAnnouncement)
+          }])}
           iconType='MaterialIcons'
           name='close'
-          size={20}
+          size={18}
           onPress={() => {
             if (announcement.id === undefined) {
               return
@@ -103,13 +142,20 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       )}
 
       <MaterialIcons
-        style={tailwind('mr-2.5 text-white')}
+        style={tailwind(['mr-2.5', {
+          'text-white': isOtherAnnouncement,
+          'text-warning-600': !isOtherAnnouncement && isLight,
+          'text-darkwarning-600': !isOtherAnnouncement && !isLight
+        }])}
         iconType='MaterialIcons'
-        name='campaign'
-        size={22}
+        name={icons[announcement.type ?? 'OTHER_ANNOUNCEMENT']}
+        size={icons[announcement.type ?? 'OTHER_ANNOUNCEMENT'] === 'warning' ? 24 : 28}
       />
       <Text
-        style={tailwind('text-xs flex-auto text-white')}
+        style={tailwind(['text-xs flex-auto', {
+          'text-white': !isLight || (isLight && isOtherAnnouncement),
+          'text-gray-900': !isOtherAnnouncement && isLight
+        }])}
         testID='announcements_text'
       >
         {`${announcement.content} `}
@@ -118,11 +164,21 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       (
         <TouchableOpacity
           onPress={async () => await openURL(announcement.url)}
-          style={tailwind('ml-2 py-1 px-2 rounded border border-white')}
+          style={tailwind('ml-2 py-1')}
         >
-          <Text style={tailwind('text-xs font-medium text-white')}>
-            {translate('components/Announcements', 'VIEW')}
-          </Text>
+          <ThemedText
+            style={tailwind('text-sm font-medium')}
+            light={tailwind({
+            'text-white': isOtherAnnouncement,
+            'text-warning-600': !isOtherAnnouncement
+          })}
+            dark={tailwind({
+            'text-white': isOtherAnnouncement,
+            'text-darkwarning-600': !isOtherAnnouncement
+          })}
+          >
+            {translate('components/Announcements', 'DETAILS')}
+          </ThemedText>
         </TouchableOpacity>
       )}
     </ThemedView>
@@ -133,9 +189,10 @@ interface Announcement {
   content: string
   url: string
   id?: string
+  type: AnnouncementData['type']
 }
 
-function findAnnouncementForVersion (version: string, language: string, announcements?: AnnouncementData[]): Announcement | undefined {
+function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return
   }
@@ -144,18 +201,19 @@ function findAnnouncementForVersion (version: string, language: string, announce
     const lang: any = announcement.lang
     const platformUrl: any = announcement.url
 
-    if ((Platform.OS !== 'ios' && Platform.OS !== 'android') ||
-      satisfies(version, announcement.version)) {
+    if (((Platform.OS !== 'ios' && Platform.OS !== 'android') ||
+      satisfies(version, announcement.version)) && getDisplayAnnouncement(hiddenAnnouncements, announcement)) {
       return {
         content: lang[language] ?? lang.en,
         url: platformUrl !== undefined ? platformUrl[Platform.OS] : undefined,
-        id: announcement.id
+        id: announcement.id,
+        type: announcement.type
       }
     }
   }
 }
 
-function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement?: Announcement): boolean {
+function getDisplayAnnouncement (hiddenAnnouncements: string[], announcement: AnnouncementData): boolean {
   if (announcement === undefined) {
     return false
   }
