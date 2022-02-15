@@ -3,7 +3,6 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import ContentLoader, { Rect, IContentLoaderProps } from 'react-content-loader/native'
 import { ImageBackground } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_background.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_background_dark.png'
@@ -20,6 +19,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
+import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -68,10 +68,10 @@ export function DFIBalanceCard (): JSX.Element {
                 : (
                   <View style={tailwind('pt-1')}>
                     <View style={tailwind('mb-1.5')}>
-                      <SkeletonLoader />
+                      <TextSkeletonLoader width='210' height='14' textHorizontalOffset='90' textWidth='120' />
                     </View>
                     <View>
-                      <SkeletonLoader />
+                      <TextSkeletonLoader width='210' height='14' textHorizontalOffset='90' textWidth='120' />
                     </View>
                   </View>
                 )
@@ -158,35 +158,11 @@ export function DFIBreakdownRow ({
             )
             : (
               <View style={tailwind('mb-1')}>
-                <SkeletonLoader />
+                <TextSkeletonLoader width='210' height='14' textHorizontalOffset='90' textWidth='120' />
               </View>
             )
         }
       </View>
     </View>
-  )
-}
-
-function SkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
-  const { isLight } = useThemeContext()
-  return (
-    <ThemedView
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-white')}
-      style={tailwind('items-center justify-center')}
-    >
-      <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
-        height={14}
-        preserveAspectRatio='xMidYMid slice'
-        speed={2}
-        viewBox='0 0 210 14'
-        width='210'
-        {...props}
-      >
-        <Rect x='90' y='0' rx='5' ry='5' width='120' height='14' />
-      </ContentLoader>
-    </ThemedView>
   )
 }
