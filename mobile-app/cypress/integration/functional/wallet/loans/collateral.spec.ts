@@ -118,3 +118,85 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     checkCollateralCardValues('DUSD', '3.27150000 DUSD', '$3.27', '0.22%')
   })
 })
+
+context.only('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
+  const getVault = (loanValue: string): any => ({
+    vaultId: 'vaultidhere',
+    loanScheme: {
+      id: 'MIN150',
+      minColRatio: '150',
+      interestRate: '5'
+    },
+    ownerAddress: 'bcrt1qjk6p9kc28wdj84c500lh2h5zlzf5ce3r8r0y92',
+    state: 'ACTIVE',
+    informativeRatio: '-1',
+    collateralRatio: '100', // must be positive
+    collateralValue: '0',
+    loanValue: loanValue,
+    interestValue: '0',
+    collateralAmounts: [],
+    loanAmounts: [],
+    interestAmounts: []
+  })
+  const walletTheme = { isDark: false }
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(4000)
+    cy.setWalletTheme(walletTheme)
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('empty_vault').should('exist')
+    cy.createVault(0)
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+  })
+
+  it('should display N/A if resulting collateralization is infinity', () => {
+    cy.intercept('**/vaults?size=200', {
+      statusCode: 200,
+      body: { data: getVault('0') }
+    }).as('getVaults')
+    cy.wait('@getVaults').then(() => {
+    /* (collateralValueInUSD / vault.loanValue) * 100
+       (any number / 0) = Infinity
+    */
+      cy.wait(3000)
+      cy.getByTestID('add_collateral_button').click()
+      cy.getByTestID('select_DFI').click()
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('resulting_collateralization').should('have.text', 'N/A')
+    })
+  })
+
+  it('should display N/A if resulting collateralization is NaN', () => {
+    cy.intercept('**/vaults?size=200', {
+      statusCode: 200,
+      body: { data: getVault('0') }
+    }).as('getVaults')
+    cy.wait('@getVaults').then(() => {
+    /* (collateralValueInUSD / vault.loanValue) * 100
+       (any number / '') = NaN
+    */
+      cy.wait(3000)
+      cy.getByTestID('add_collateral_button').click()
+      cy.getByTestID('select_DFI').click()
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('resulting_collateralization').should('have.text', 'N/A')
+    })
+  })
+
+  it('should display N/A if resulting collateralization is negative', () => {
+    cy.intercept('**/vaults?size=200', {
+      statusCode: 200,
+      body: { data: getVault('-10') }
+    }).as('getVaults')
+    cy.wait('@getVaults').then(() => {
+    /* (collateralValueInUSD / vault.loanValue) * 100
+       (any number / -10) = -number
+    */
+      cy.wait(3000)
+      cy.getByTestID('add_collateral_button').click()
+      cy.getByTestID('select_DFI').click()
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('resulting_collateralization').should('have.text', 'N/A')
+    })
+  })
+})
