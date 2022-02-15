@@ -168,7 +168,7 @@ context('Wallet - Loans - Close Vault', () => {
   })
 })
 
-context.only('Wallet - Loans - Health Bar', () => {
+context('Wallet - Loans - Health Bar', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.intercept('**/address/**/vaults?size=*', {
