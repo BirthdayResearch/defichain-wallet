@@ -36,16 +36,16 @@ function ConnectionErrorComponent (): JSX.Element {
         {translate('screens/ConnectionBoundary', 'Connection problem')}
       </ThemedText>
 
-      <ThemedText style={tailwind('text-sm pb-16 text-center opacity-60')}>
+      <ThemedText style={tailwind('text-sm pb-9 text-center opacity-60')}>
         {translate('screens/ConnectionBoundary', 'There seems to be a problem with the connection. Check your network and try again.')}
       </ThemedText>
 
       <Button
-        label={translate('components/EmptyVault', 'TRY AGAIN')}
+        label={translate('screens/ConnectionBoundary', 'TRY AGAIN')}
         onPress={checkConnectivity}
         testID='button_check_connectivity'
         title='Try Again'
-        margin='m-0 mb-4'
+        margin='m-0 mb-4 w-48'
       />
     </ThemedView>
   )
