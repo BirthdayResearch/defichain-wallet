@@ -91,12 +91,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
           totalUSDValue: token.id === '0_unified'
             ? totalUSDValue
-            : totalUSDValue.plus(usdAmount),
+            : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
           dstTokens
         }
       }
       return {
-        totalUSDValue: totalUSDValue.plus(usdAmount),
+        totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
         dstTokens: [...dstTokens, {
           ...token,
           usdAmount
