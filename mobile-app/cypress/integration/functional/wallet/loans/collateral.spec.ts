@@ -119,7 +119,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 })
 
-context.only('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
+context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
   const getVault = (loanValue: string): any => ({
     vaultId: 'vaultidhere',
     loanScheme: {
