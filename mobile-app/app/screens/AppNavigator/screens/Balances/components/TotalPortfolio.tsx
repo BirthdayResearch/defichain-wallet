@@ -1,10 +1,9 @@
 import { View } from '@components'
+import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import ContentLoader, { Rect, IContentLoaderProps } from 'react-content-loader/native'
 import NumberFormat from 'react-number-format'
 import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
 import { BalanceText } from './BalanceText'
@@ -33,25 +32,25 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
         </ThemedText>
         {
           props.totalUSDValue.isNaN()
-? (
-  <PortfolioSkeletonLoader />
-          )
-: (
-  <NumberFormat
-    displayType='text'
-    prefix='$'
-    renderText={(value) =>
-      <BalanceText
-        dark={tailwind('text-gray-200')}
-        light={tailwind('text-black')}
-        style={tailwind('mr-2 flex-wrap text-2xl font-bold')}
-        testID='total_usd_amount'
-        value={value}
-      />}
-    thousandSeparator
-    value={getUSDPrecisedPrice(props.totalUSDValue)}
-  />
-          )
+            ? (
+              <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='32' height='32' textWidth='200' textHeight='30' />
+            )
+            : (
+              <NumberFormat
+                displayType='text'
+                prefix='$'
+                renderText={(value) =>
+                  <BalanceText
+                    dark={tailwind('text-gray-200')}
+                    light={tailwind('text-black')}
+                    style={tailwind('mr-2 flex-wrap text-2xl font-bold')}
+                    testID='total_usd_amount'
+                    value={value}
+                  />}
+                thousandSeparator
+                value={getUSDPrecisedPrice(props.totalUSDValue)}
+              />
+            )
         }
 
       </View>
@@ -71,31 +70,6 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           testID='toggle_balance_icon'
         />
       </ThemedTouchableOpacity>
-    </ThemedView>
-  )
-}
-
-function PortfolioSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
-  const { isLight } = useThemeContext()
-  return (
-    <ThemedView
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-white')}
-      style={tailwind('items-center justify-center')}
-      testID=''
-    >
-      <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
-        height={32}
-        preserveAspectRatio='xMidYMid slice'
-        speed={2}
-        viewBox='0 0 277 32'
-        width='100%'
-        {...props}
-      >
-        <Rect x='0' y='0' rx='5' ry='5' width='200' height='30' />
-      </ContentLoader>
     </ThemedView>
   )
 }

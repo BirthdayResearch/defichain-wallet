@@ -5,6 +5,9 @@ import { ThemedView } from './themed'
 
 interface TextSkeletonLoaderProps {
   textWidth?: string
+  textHeight?: string
+  viewBoxWidth?: string
+  viewBoxHeight?: string
   textHorizontalOffset?: string
   textVerticalOffset?: string
 }
@@ -22,11 +25,11 @@ export function TextSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoa
         height={props.height}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
-        viewBox={`0 0 ${props.width?.toString() ?? '0'} ${props.height?.toString() ?? '0'}`}
+        viewBox={`0 0 ${props.viewBoxWidth ?? props.width?.toString() ?? '0'} ${props.viewBoxHeight ?? props.height?.toString() ?? '0'}`}
         width={props.width ?? '100%'}
         {...props}
       >
-        <Rect x={props.textHorizontalOffset ?? '0'} y={props.textVerticalOffset ?? '0'} rx='5' ry='5' width={props.textWidth ?? props.width} height={props.height} />
+        <Rect x={props.textHorizontalOffset ?? '0'} y={props.textVerticalOffset ?? '0'} rx='5' ry='5' width={props.textWidth ?? props.width} height={props.textHeight ?? props.height} />
       </ContentLoader>
     </ThemedView>
   )
