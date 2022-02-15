@@ -39,6 +39,7 @@ import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from 
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -53,6 +54,7 @@ export function SendScreen ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
+  const isFocused = useIsFocused()
   const {
     control,
     setValue,
@@ -99,8 +101,10 @@ export function SendScreen ({
   }, [])
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

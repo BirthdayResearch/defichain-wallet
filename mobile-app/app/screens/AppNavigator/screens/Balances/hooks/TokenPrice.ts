@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useIsFocused } from '@react-navigation/native'
 
 interface CalculatePriceRatesI {
   aToBPrice: BigNumber
@@ -27,6 +28,7 @@ export function useTokenPrice (): TokenPrice {
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  const isFocused = useIsFocused()
   const graph: GraphProps[] = useMemo(() => pairs.map(pair => {
     return {
       pairId: pair.data.id,
@@ -36,8 +38,10 @@ export function useTokenPrice (): TokenPrice {
   }), [pairs])
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-  }, [blockCount])
+    if (isFocused) {
+      dispatch(fetchPoolPairs({ client }))
+    }
+  }, [blockCount, isFocused])
 
   const getTokenPrice = useCallback((symbol: string, amount: string, isLPS: boolean = false): BigNumber => {
     if (new BigNumber(amount).isZero()) {

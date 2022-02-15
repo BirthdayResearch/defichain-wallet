@@ -1,7 +1,7 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
@@ -42,6 +42,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -153,11 +154,13 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   useEffect(() => {
-    batch(() => {
-      dispatch(fetchPoolPairs({ client }))
-      dispatch(fetchTokens({ client, address }))
-    })
-  }, [address, blockCount])
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchPoolPairs({ client }))
+        dispatch(fetchTokens({ client, address }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

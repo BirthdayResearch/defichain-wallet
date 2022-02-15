@@ -18,6 +18,7 @@ import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { debounce } from 'lodash'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { useIsFocused } from '@react-navigation/native'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
@@ -28,6 +29,7 @@ type Props = StackScreenProps<LoanParamList, 'LoansScreen'>
 
 export function LoansScreen ({ navigation }: Props): JSX.Element {
   const { address } = useWalletContext()
+  const isFocused = useIsFocused()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const {
     vaults,
@@ -84,14 +86,13 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
   }, [hasFetchedLoansData])
 
   useEffect(() => {
-    batch(() => {
-      dispatch(fetchVaults({
-        address,
-        client
-      }))
-      dispatch(fetchLoanTokens({ client }))
-    })
-  }, [blockCount, address])
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchVaults({ address, client }))
+        dispatch(fetchLoanTokens({ client }))
+      })
+    }
+  }, [blockCount, address, isFocused])
 
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }))
