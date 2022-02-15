@@ -400,7 +400,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "Problème de connexion",
-    "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez."
+    "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez.",
+    "TRY AGAIN": "RÉESSAYER"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Prêts",

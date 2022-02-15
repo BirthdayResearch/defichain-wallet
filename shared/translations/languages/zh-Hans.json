@@ -403,7 +403,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "网络连接出了问题",
-    "There seems to be a problem with the connection. Check your network and try again.": "网络连接不良，请查看网络设置后重试."
+    "There seems to be a problem with the connection. Check your network and try again.": "网络连接不良，请查看网络设置后重试.",
+    "TRY AGAIN": "再试一次"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "贷款",
