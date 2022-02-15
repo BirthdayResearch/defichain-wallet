@@ -29,6 +29,8 @@ import { useTokenPrice } from './hooks/TokenPrice'
 import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -127,6 +129,27 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       />
       <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
+      <BalanceList dstTokens={dstTokens} />
+    </ThemedScrollView>
+  )
+}
+
+function BalanceList ({
+  dstTokens
+}: { dstTokens: BalanceRowToken[] }): JSX.Element {
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+
+  if (!hasFetchedToken) {
+    return (
+      <View style={tailwind('px-4 py-1.5 -mb-3')}>
+        <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
+      </View>
+    )
+  }
+
+  return (
+    <>
       {
         dstTokens.length === 0
           ? (
@@ -149,7 +172,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             </View>
             )
       }
-    </ThemedScrollView>
+    </>
   )
 }
 
