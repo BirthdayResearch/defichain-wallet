@@ -18,6 +18,7 @@ export function TextSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoa
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
       style={tailwind('items-center justify-center')}
+      testID={props.testID}
     >
       <ContentLoader
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}

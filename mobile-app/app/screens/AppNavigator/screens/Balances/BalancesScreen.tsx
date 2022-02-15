@@ -10,7 +10,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import { StackScreenProps } from '@react-navigation/stack'
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
 import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
@@ -30,7 +30,6 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -129,15 +128,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       />
       <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
-      <BalanceList dstTokens={dstTokens} />
+      <BalanceList dstTokens={dstTokens} navigation={navigation} />
     </ThemedScrollView>
   )
 }
 
 function BalanceList ({
-  dstTokens
-}: { dstTokens: BalanceRowToken[] }): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  dstTokens,
+  navigation
+}: { dstTokens: BalanceRowToken[], navigation: StackNavigationProp<BalanceParamList> }): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
 
   if (!hasFetchedToken) {

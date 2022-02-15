@@ -33,7 +33,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
         {
           props.totalUSDValue.isNaN()
             ? (
-              <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='32' height='32' textWidth='200' textHeight='30' />
+              <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='32' height='32' textWidth='200' textHeight='30' testID='total_portfolio_skeleton_loader' />
             )
             : (
               <NumberFormat
