@@ -4,9 +4,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
-
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { InfoText } from '@components/InfoText'
 import { getNativeIcon } from '@components/icons/assets'
 import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -16,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 interface LoanCardsProps {
   loans: LoanToken[]
@@ -25,6 +23,7 @@ interface LoanCardsProps {
 
 export interface LoanCardOptions {
   loanTokenId: string
+  symbol: string
   displaySymbol: string
   price?: ActivePrice
   interestRate: string
@@ -36,17 +35,8 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const activeVault = vaults.find((v) => v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive
-  const { isBetaFeature } = useFeatureFlagContext()
   return (
     <>
-      {isBetaFeature('loan') && (
-        <View style={tailwind('p-4 pb-0')}>
-          <InfoText
-            testID='beta_warning_info_text'
-            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-          />
-        </View>
-      )}
       <ThemedFlatList
         contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
         data={props.loans}
@@ -58,6 +48,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
           return (
             <View style={{ flexBasis: '50%' }}>
               <LoanCard
+                symbol={item.token.symbol}
                 displaySymbol={item.token.displaySymbol}
                 interestRate={item.interest}
                 price={item.activePrice}
@@ -85,6 +76,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
 }
 
 function LoanCard ({
+  symbol,
   displaySymbol,
   price,
   interestRate,
@@ -92,7 +84,7 @@ function LoanCard ({
   testID
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol)
-  const currentPrice = price?.active?.amount ?? 0
+  const currentPrice = getUSDPrecisedPrice(getActivePrice(symbol, price))
   return (
     <ThemedTouchableOpacity
       testID={`loan_card_${displaySymbol}`}
@@ -143,7 +135,7 @@ function LoanCard ({
               ${value}
             </ThemedText>
           </View>}
-        value={(currentPrice > 0 ? getUSDPrecisedPrice(currentPrice) : '-')}
+        value={currentPrice}
       />
     </ThemedTouchableOpacity>
   )

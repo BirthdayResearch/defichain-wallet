@@ -14,7 +14,7 @@
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
     "DEX FAQ": "DEX FAQ",
-    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ" 
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -90,7 +90,7 @@
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
@@ -207,7 +207,7 @@
     "Knowledge base": "Wissensdatenbank",
     "Common questions and support documents": "Häufige Fragen und Support-Dokumente",
     "Participate with active community": "An aktiver Community teilnehmen",
-    "Report in Github, discuss in Reddit and Telegram": "In Github melden, in Reddit und Telegram thematisch diskutieren",
+    "Report in Github, discuss in Reddit and Telegram": "Auf Github melden, in Reddit und Telegram thematisch diskutieren",
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
     "Learn more about the blockchain": "Lerne mehr über Blockchain",
@@ -220,7 +220,7 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
-    "Liquidity Mining": "Liquiditäts-Mining" 
+    "Liquidity Mining": "Liquiditäts-Mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -234,7 +234,7 @@
     "Indicators have been included to help visualise the health of your vault, where:": "Um den Zustand deines Vaults zu veranschaulichen, wurden farbliche Indikatoren eingefügt, die wie folgt aussehen:",
     "Red: 1x – 1.25x above the minimum collateralization ratio": "Rot: 1x - 1,25x über dem Mindestbesicherungsverhältnis",
     "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "Gelb: 1,25x - 1,5x über dem Mindestbesicherungsverhältnis",
-    "Green: More than 1.5x the minimum collateralization ratio": "Grün: Mehr als das 1,5-fache des Mindestbesicherungsverhältnisses",
+    "Green: More than 1.5x the minimum collateralization ratio": "Grün: Mehr als das 1,5-Fache des Mindestbesicherungsverhältnisses",
     "What do the different statuses of a vault mean?": "Was bedeuten die verschiedenen Statusanzeigen eines Vaults?",
     "Empty: When a vault has been created but no collateral has been deposited yet.": "Leer: Wenn ein Vault erstellt wurde, aber noch keine Sicherheiten hinterlegt wurden.",
     "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "Bereit: Wenn Sicherheiten im Vault hinterlegt wurden, aber noch kein Darlehen aufgenommen wurde.",
@@ -249,7 +249,9 @@
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet.",
     "What is collateral factor?": "Was ist der Beleihungsfaktor?",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, würden Token im Wert von 100 $ davon zu einem Besicherungswert von 70 $ in einem Vault führen."
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, würden Token im Wert von 100 $ davon zu einem Besicherungswert von 70 $ in einem Vault führen.",
+    "Why is there a 1% fee when paying DUSD loans with DFI?": "Warum wird bei der Auszahlung von DUSD-Darlehen mit DFI eine Gebühr von 1 % erhoben?",
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Gemäß DFIP 2112-A kann jedes DUSD-Darlehen auch mit DFI beglichen werden, um die gegenwärtigen Preisaufschläge für DUSD auf der DEX zu beseitigen.\n\nBei der Berechnung, wie viel DFI-Gegenwert für ein DUSD-Darlehen zu zahlen ist, wird eine Strafgebühr von 1 % auf den DFI/USD-Preisorakelwert erhoben. Zur Veranschaulichung: Wenn der Preisorakelwert von DFI/USD heute $10 beträgt, wird der Wert eines DFI bei einer DUSD-Zahlung berechnet, indem $10 * (1 - 0,01) multipliziert wird, wodurch der Wert des DFI in einem solchen Szenario um 1% auf $9,90 reduziert wird."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ Auktionen",
@@ -409,7 +411,7 @@
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Vermögenswerte ist Vorsicht geboten.",
+    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Aktiva ist Vorsicht geboten.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
@@ -464,7 +466,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
     "Estimated fee": "Voraussichtliche Gebühr",
     "Pooled {{symbol}}": "{{symbol}} im Pool"
   },
@@ -541,7 +543,7 @@
     "CONTINUE": "WEITER"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Slippage toleranz",
+    "Slippage tolerance": "Slippage-Toleranz",
     "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Wähle aus, wie viel von diesen Abweichungen du akzeptieren möchtest.",
     "Custom": "Anpassen",
     "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
@@ -565,7 +567,7 @@
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln"
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei"
   },
   "screens/CompositeSwapScreen": {
     "Swap tokens": "Token-Tausch",
@@ -577,7 +579,7 @@
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
     "CONTINUE": "WEITER",
-    "Authorize transaction in the next screen to convert": "Gib die Transaktion in der nächsten Ansicht frei, um umzuwandeln",
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
     "Choose token to swap": "Token zum Tauschen wählen",
@@ -585,7 +587,7 @@
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Slippage tolerance": "Slippage toleranz",
+    "Slippage tolerance": "Slippage-Toleranz",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
@@ -709,7 +711,7 @@
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
   },
   "components/ConversionInfoText": {
-    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Du wirst nach deinem Passwort gefragt, um beide Transaktionen frei zu geben.",
+    "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Zur Freigabe der beiden Transaktionen bitte jeweils das Passwort eingeben.",
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar.",
     "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen zu einem irreversiblen Verlust von Einlagen führen."
   },
@@ -740,9 +742,9 @@
     "Edit Loan Scheme": "Darlehensmodell bearbeiten",
     "Confirm Edit Loan Scheme": "Darlehensmodellbearbeitung bestätigen",
     "Borrow More": "Mehr ausleihen",
-    "Choose Loan Token to Borrow": "Darlehens-Token zum Ausleihen wählen",
+    "Choose Loan Token to Borrow": "Darlehenstoken zum Ausleihen wählen",
     "Payback Loan": "Darlehensrückzahlung",
-    "Close Vault": "Vault Schließen"
+    "Close Vault": "Vault schließen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -782,7 +784,8 @@
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
     "Place Bid": "Bieten",
-    "Confirm Place Bid": "Gebot bestätigen"
+    "Confirm Place Bid": "Gebot bestätigen",
+    "Auction details": "Auktionsdetails"
   },
   "components/AuctionDetailScreen":{
     "Collaterals": "Sicherheiten",
@@ -797,7 +800,7 @@
     "{{count}} COLLATERAL TOKENS": "{{count}} BESICHERUNGSTOKEN",
     "Total auction value (USD):": "Gesamtauktionswert (USD):",
     "PLACE BID": "GEBOT ABGEBEN",
-    "Batch #{{index}}": "Tranche Nr.{{index}}",
+    "Batch #{{index}}": "Tranche Nr. {{index}}",
     "Min. starting bid": "Mind. Anfangsgebot"
   },
   "components/BatchCard": {
@@ -843,7 +846,7 @@
     "Collateral amount": "Höhe der Sicherheiten",
     "Collateralization ratio": "Besicherungsquote",
     "n/a": "k.A.",
-    "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
+    "ADD COLLATERAL": "SICHERHEIT HINZUFÜGEN",
     "VIEW LOANS": "DARLEHEN ANSEHEN",
     "Borrowed tokens": "Geliehene Token",
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
@@ -1026,7 +1029,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
     "VAULT IN USE": "AKTIVER VAULT",
-    "How much do you want to pay?": "Wie viel willst du abzahlen?",
+    "How much of the loan do you want to pay?": "Wie viel des Darlehens willst du zurückzahlen?",
     "Enter an amount": "Gib eine Menge ein",
     "Available": "Verfügbar",
     "CONTINUE": "WEITER",
@@ -1039,12 +1042,18 @@
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Excess amount": "Überschüssiger Betrag",
     "Any excess amount will be returned to your wallet.": "Jeder überschüssige Betrag wird in deine Wallet zurücktransferiert.",
-    "Resulting collateralization": "Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote",
+    "Vault ID": "Vault-ID",
+    "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Select payment token": "Token für die Zahlung auswählen",
+    "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
+    "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
-    "PAYING": "BEZAHLEN",
-    "You are paying": "Du zahlst",
+    "CONFIRM PAYMENT": "ZÜCKZAHLUNG BESTÄTIGEN",
+    "PAYING": "ZURÜCKZAHLEN",
+    "You are paying": "Du tilgst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Loan payment": "Darlehensrückzahlung",
@@ -1055,7 +1064,8 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amount}} {{symbol}}": "{{amount}} {{symbol}} bezahlen",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}}",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
     "Resulting collateralization": "Resultierende Besicherungsquote"
   },
@@ -1210,7 +1220,7 @@
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
-    "Insufficient amount to place a bid": "Insufficient amount to place a bid",
+    "Insufficient amount to place a bid": "Der Gebotsbetrag reicht nicht aus",
     "Quick bid": "Schnelles Gebot",
     "Place a bid on the auctions with the min. next bid": "Biete auf die Auktionen mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
@@ -1220,6 +1230,6 @@
     "Wallet address": "Walletadresse"
   },
   "components/Announcements": {
-    "VIEW": "ANZEIGEN"
+    "DETAILS": "DETAILS"
   }
 }

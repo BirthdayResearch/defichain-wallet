@@ -1,9 +1,12 @@
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 
-export function getActivePrice (symbol: string, activePrice?: ActivePrice): string {
+type ActivePriceType = 'ACTIVE' | 'NEXT'
+
+export function getActivePrice (symbol: string, activePrice?: ActivePrice, type: ActivePriceType = 'ACTIVE'): string {
+  const dUSDPrice = '1'
   if (symbol !== 'DUSD') {
-    return activePrice?.active?.amount ?? '0'
+    return (type === 'ACTIVE' ? activePrice?.active?.amount : activePrice?.next?.amount) ?? '0'
   }
 
-  return '1'
+  return dUSDPrice
 }
