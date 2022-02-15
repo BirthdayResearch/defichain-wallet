@@ -7,6 +7,7 @@ import { useTokenPrice } from './TokenPrice'
 import { DexItem, wallet } from '@store/wallet'
 import { block } from '@store/block'
 
+jest.mock('@shared-contexts/NetworkContext')
 describe('Token Price - Get Token Price (DEX)', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)

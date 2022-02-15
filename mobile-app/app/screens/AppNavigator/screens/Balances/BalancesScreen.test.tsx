@@ -15,7 +15,7 @@ jest.mock('@shared-contexts/LanguageProvider')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/WalletPersistenceContext')
-
+jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@contexts/DisplayBalancesContext')
 
 jest.mock('@react-navigation/native', () => ({
@@ -78,7 +78,7 @@ describe('balances page', () => {
       block: {
         count: 100,
         masternodeCount: 10,
-        lastSync: undefined,
+        lastSuccessfulSync: undefined,
         connected: true,
         isPolling: true,
         tvl: undefined
@@ -119,7 +119,7 @@ describe('balances page', () => {
       block: {
         count: 100,
         masternodeCount: 10,
-        lastSync: undefined,
+        lastSuccessfulSync: undefined,
         connected: true,
         isPolling: true,
         tvl: undefined

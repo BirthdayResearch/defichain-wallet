@@ -28,7 +28,7 @@
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Choisissez une paire de pool ci-dessous, fournissez des liquidités pour alimenter l’échange décentralisé (DEX), et commencez à gagner des frais et des rendements annuels allant jusqu'à 100%. Retirer à tout moment.",
     "Pooled {{symbol}}": "{{symbol}} du pool",
     "Total pooled {{symbol}}": "Total {{symbol}} du pool",
-    "Your pooled {{symbol}}": "Vos {{symbol}} du pool ",
+    "Your pooled {{symbol}}": "Mes {{symbol}} du pool",
     "SWAP TOKENS": "ÉCHANGER DES TOKENS",
     "REMOVE": "RETIRER",
     "APR": "TAEG",
@@ -61,7 +61,7 @@
     "Total Portfolio Value (USD)": "Valeur totale du portfolio (USD)",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
-    "YOUR ASSETS": "VOS ACTIFS"
+    "YOUR ASSETS": "MES ACTIFS"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -249,7 +249,9 @@
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Le taux d'intérêt des tokens est appliqué à certains tokens de prêt spécifiques, et peut différer d'un token à l'autre.",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Le taux d'intérêt total appliqué sur un prêt est obtenu en prenant le taux d'intérêt du vault + le taux d'intérêt du token, et est calculé sur une base annuelle.",
     "What is collateral factor?": "Qu'est-ce que le facteur de garantie ?",
-    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault."
+    "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault.",
+    "Why is there a 1% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 1% lors du paiement des prêts DUSD avec DFI?",
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Conformément au DFIP 2112-A, chaque prêt DUSD sera payable avec DFI afin de surmonter la prime DUSD actuellement observée sur le DEX.\n\nLors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais de fourniture de 1 % sont appliqués à la valeur oracle DFI/USD. Pour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur d'un DFI lors d'un paiement DUSD est calculée en prenant 10 $ * (1 - 0,01), ce qui réduit effectivement la valeur du DFI de 1 % à 9,90 $ dans un tel scénario."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ - Enchères",
@@ -602,7 +604,7 @@
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir"
   },
@@ -615,7 +617,7 @@
     "SWAP": "ÉCHANGER",
     "SWAPPING": "ÉCHANGE EN COURS",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symboleA}} contre {{amountB}} {{symboleB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "Prix en {{tokenA}} par {{tokenB}}",
     "{{token}} balance": "{{token}} solde",
     "CONFIRM SWAP": "VALIDER L'ÉCHANGE",
@@ -635,9 +637,9 @@
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
-    "Signing your transaction...": "Authorization de votre transaction...",
+    "Signing your transaction...": "Autorisation de votre transaction...",
     "Transaction authorized": "Transaction autorisée",
-    "Please wait while your transaction is being prepared": "Merci de patienter pendant pendant la préparation de votre transaction",
+    "Please wait while your transaction is being prepared": "Merci de patienter pendant la préparation de votre transaction",
     "Verifying access": "Vérification de l'accès"
   },
   "components/CreateWalletIndicator": {
@@ -688,7 +690,7 @@
     "Can I send liquidity pool tokens to an exchange or another entity?": "Puis-je envoyer les tokens du pool de liquidité à une bourse ou à une autre entité ?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Les tokens de liquidité ne peuvent être envoyés que vers une autre adresse de portefeuille DFI, et non vers un échange ou une entité centrale.",
     "How do I receive tokens on my DFI wallet?": "Comment puis-je recevoir des tokens sur mon portefeuille DFI ?",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Vous pouvez recevoir des tokens DFI dans votre portefeuille en partageant votre adresse trouvée dans l'écran Recevoir, ou en demandant à l'expéditeur de scanner le code QR. \n\nNotez que vous ne serez pas en mesure de recevoir des tokens natifs (par exemple BTC, ETH) directement dans votre portefeuille.",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Vous pouvez recevoir des tokens DFI sur votre portefeuille en partageant votre adresse trouvée dans l'écran Recevoir, ou en demandant à l'expéditeur de scanner le code QR. \n\nNotez que vous ne serez pas en mesure de recevoir des tokens natifs (par exemple BTC, ETH) directement sur votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/PasscodeFaq": {
@@ -725,7 +727,7 @@
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "RÉSULTATS DE LA TRANSACTION",
-    "Resulting {{symbol}}": "{{symbole}} restant"
+    "Resulting {{symbol}}": "{{symbol}} restant"
   },
   "screens/LoansScreen": {
     "Loans": "Prêts",
@@ -782,7 +784,8 @@
   "screens/AuctionScreen": {
     "Auctions": "Enchères",
     "Place Bid": "Placer une enchère",
-    "Confirm Place Bid": "Confirmer l'enchére"
+    "Confirm Place Bid": "Confirmer l'enchére",
+    "Auction details": "Détails de l'enchère"
   },
   "components/AuctionDetailScreen": {
     "Collaterals": "Garanties",
@@ -889,7 +892,7 @@
     "APR": "TAEG",
     "CONFIRM CREATE VAULT": "CONFIRMER LA CRÉATION D'UN VAULT",
     "Creating vault": "Création d'un vault",
-    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{montant}}% et un taux d'intérêt de {{ir}}% TAEG",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{amount}}% et un taux d'intérêt de {{ir}}% TAEG",
     "Convert & create vault": "Convertir et créer un vault"
   },
   "components/BottomSheetInfo": {
@@ -981,7 +984,7 @@
     "VAULT DETAILS": "DÉTAILS DU VAULT",
     "COLLATERALS": "GARANTIES",
     "Adding collateral": "Ajouter des Garanties",
-    "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{montant}} {{symbole}} comme garantie",
+    "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{amount}} {{symbol}} comme garantie",
     "Removing collateral": "Retrait de la garantie",
     "Removing {{amount}} {{symbol}} collateral from vault": "Retrait de {{amount}} {{symbol}} de la garantie du vault.",
     "Total loans (USD)": "Total des prêts (USD)",
@@ -1026,7 +1029,7 @@
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
     "VAULT IN USE": "VAULT EN SERVICE",
-    "How much do you want to pay?": "Combien voulez-vous rembourser ?",
+    "How much of the loan do you want to pay?": "Quelle part du prêt voulez-vous rembourser?",
     "Enter an amount": "Donnez un montant",
     "Available": "Disponible",
     "CONTINUE": "SUIVANT",
@@ -1039,7 +1042,13 @@
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Resulting collateralization": "Garantie correspondante",
     "Excess amount": "Montant excédentaire",
-    "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille."
+    "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille.",
+    "Vault ID": "Vault ID",
+    "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restant",
+    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Select payment token": "Sélectionner le token de remboursement",
+    "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
+    "Read more": "En savoir plus"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
@@ -1055,7 +1064,8 @@
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Paying loan": "Rembourser le prêt",
-    "Paying {{amount}} {{symbol}}": "Payer {{amount}} {{symbol}}",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} en remboursement du prêt.",
+    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
     "Resulting collateralization": "Garantie correspondante"
   },
@@ -1220,6 +1230,6 @@
     "Wallet address": "Adresse du portefeuille"
   },
   "components/Announcements": {
-    "VIEW": "VOIR"
+    "DETAILS": "DÉTAILS"
   }
 }

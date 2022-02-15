@@ -1,5 +1,4 @@
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
-import { EnvironmentNetwork } from '../../../../../../shared/environment'
 import {
   checkCollateralDetailValues,
   checkVaultDetailValues
@@ -42,111 +41,6 @@ context('Wallet - Loans', () => {
           .contains(price > 0 ? `$${Number(new BigNumber(price).toFixed(2)).toLocaleString()}` : '-') */
       })
     })
-  })
-})
-
-context('Wallet - Loans Feature Gated', () => {
-  it('should not have loans tab if loan feature is blocked', function () {
-    cy.intercept('**/settings/flags', {
-      body: []
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_loans').should('not.exist')
-  })
-
-  it('should not have loans tab if feature flag api does not contains loan', function () {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'foo',
-          name: 'bar',
-          stage: 'alpha',
-          version: '>=0.0.0',
-          description: 'foo',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_loans').should('not.exist')
-  })
-
-  it('should not have loans tab if feature flag api failed', function () {
-    cy.intercept('**/settings/flags', {
-      statusCode: 404,
-      body: '404 Not Found!',
-      headers: {
-        'x-not-found': 'true'
-      }
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_loans').should('not.exist')
-  })
-
-  it('should not have loans tab if loan feature is beta and not activated by user', function () {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'loan',
-          name: 'Loan',
-          stage: 'beta',
-          version: '>=0.0.0',
-          description: 'Loan',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_loans').should('not.exist')
-  })
-
-  it('should have loans tab if loan feature is beta is activated by user', function () {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'loan',
-          name: 'Loan',
-          stage: 'beta',
-          version: '>=0.0.0',
-          description: 'Loan',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('setting_navigate_About').click()
-    cy.getByTestID('try_beta_features').click()
-    cy.getByTestID('feature_loan_row').should('exist')
-    cy.getByTestID('feature_loan_switch').click().should(() => {
-      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('["loan"]')
-    })
-    cy.getByTestID('bottom_tab_loans').should('exist')
-    cy.getByTestID('feature_loan_switch').click().should(() => {
-      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('[]')
-    })
-  })
-
-  it('should have loans tab if loan feature is public', function () {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'loan',
-          name: 'Loan',
-          stage: 'public',
-          version: '>=0.0.0',
-          description: 'Loan',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_loans').should('exist')
   })
 })
 
@@ -291,6 +185,7 @@ context('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('loans_search_input').type('dTS25').blur()
     cy.getByTestID('loan_card_dTS25').click()
     cy.getByTestID('borrow_loan_vault').click()
+    cy.wait(2000)
     cy.getByTestID('select_vault_0').click()
     cy.getByTestID('form_input_borrow').clear().type('3').blur()
     cy.wait(3000)
@@ -316,7 +211,7 @@ context('Wallet - Loans - Payback Loans', () => {
   const walletTheme = { isDark: false }
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
     cy.setWalletTheme(walletTheme)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
@@ -347,9 +242,160 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('txn_authorization_description')
       .contains('Borrowing 100.00000000 DUSD')
     cy.closeOceanInterface()
+
+    cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+    cy.getByTestID('loan_card_dTU10').click()
+    cy.getByTestID('borrow_loan_vault').click()
+    cy.wait(2000)
+    cy.getByTestID('select_vault_0').click()
+    cy.getByTestID('form_input_borrow').clear().type('10').blur()
+    cy.wait(3000)
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('text_borrow_amount').contains('10.00000000')
+    cy.getByTestID('text_borrow_amount_suffix').contains('dTU10')
+    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.getByTestID('txn_authorization_description')
+      .contains('Borrowing 10.00000000 dTU10')
+    cy.closeOceanInterface()
   })
 
-  it('should be swap DUSD', function () {
+  it('should display tx details in paying DUSD w/o excess payment', function () {
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('loan_card_DUSD_payback_loan').click()
+    cy.getByTestID('payment_token_card_DUSD').should('exist')
+
+    cy.getByTestID('payback_input_text').clear().type('100').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('text_penalty_fee_warning').should('not.exist')
+    cy.getByTestID('text_amount_to_pay').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_suffix').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '100.00000000')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_resulting_balance').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DUSD Balance')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.getByTestID('text_resulting_loan_amount').should('have.text', outstandingBalance.minus(100).toFixed(8))
+    })
+    cy.getByTestID('text_excess_amount').should('not.exist')
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+  })
+
+  it('should display tx details in paying DUSD with excess payment', function () {
+    cy.getByTestID('payback_input_text').clear().type('200').blur()
+    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient DUSD balance to pay the entered amount')
+    cy.getByTestID('text_penalty_fee_warning').should('not.exist')
+    cy.getByTestID('text_amount_to_pay').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_suffix').should('not.exist')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '200.00000000')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DUSD Balance')
+    cy.getByTestID('text_resulting_balance').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('text_resulting_loan_amount').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.getByTestID('text_excess_amount').should('have.text', new BigNumber(200).minus(outstandingBalance).toFixed(8))
+    })
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
+  })
+
+  it('should display tx details in paying DFI w/o excess payment', function () {
+    cy.getByTestID('payment_token_card_DFI').click()
+    cy.getByTestID('payback_input_text').clear().type('50').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('text_penalty_fee_warning').should('exist')
+    cy.getByTestID('text_amount_to_pay').should('have.text', '50.50505051')
+    cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '0.50505051')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DFI Balance')
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DFI')
+
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
+      const dfiBalance = new BigNumber(text)
+      cy.getByTestID('bottom_tab_loans').click()
+      cy.getByTestID('text_resulting_balance').should('have.text', dfiBalance.minus('0.50505051').toFixed(8))
+    })
+
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.log('outstandingbalance')
+      cy.log(outstandingBalance.toFixed(8))
+      cy.getByTestID('text_resulting_loan_amount').should('have.text', outstandingBalance.minus('50.50505051').toFixed(8))
+    })
+    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_excess_amount').should('not.exist')
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+  })
+
+  it('should display conversion warning if DFI is not enough', function () {
+    cy.getByTestID('payback_input_text').clear().type('2000').blur()
+    cy.getByTestID('conversion_info_text').should('exist')
+
+    cy.getByTestID('payback_input_text').clear().type('200000').blur()
+    cy.getByTestID('conversion_info_text').should('not.exist')
+  })
+
+  it('should display tx details in paying DFI with excess payment', function () {
+    /* Computations
+      penalty = (100.00076104/0.99) - 100.00076104
+      amountToPayWithPenalty = 200 + ((100.00076104/0.99) - 100.00076104)
+      amountToPayInPaymentTokenWithPenalty = amountToPayWithPenalty * .01
+    */
+    cy.getByTestID('payback_input_text').clear().type('200').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+
+    cy.getByTestID('payback_input_text').clear().type('200').blur()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('text_penalty_fee_warning').should('exist')
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      const penalty = outstandingBalance.div(0.99).minus(outstandingBalance)
+      const conversionRate = 0.01
+
+      cy.getByTestID('text_amount_to_pay').should('have.text', penalty.plus('200').toFixed(8))
+      const convertedPenalty = penalty.multipliedBy(conversionRate)
+      const convertedAmountToPay = new BigNumber(200).multipliedBy(conversionRate)
+      cy.getByTestID('text_amount_to_pay_converted').should('have.text', new BigNumber(convertedAmountToPay).plus(convertedPenalty).toFixed(8))
+      cy.getByTestID('text_excess_amount').should('have.text', new BigNumber(penalty.plus('200')).minus(outstandingBalance).toFixed(8))
+
+      const convertedOutstandingBalance = outstandingBalance.multipliedBy(conversionRate).plus(convertedPenalty)
+      cy.getByTestID('dfi_total_balance_amount').invoke('text').then(dfiText => {
+        const DFIBalance = new BigNumber(dfiText)
+        cy.getByTestID('bottom_tab_loans').click()
+        cy.getByTestID('text_resulting_balance').should('have.text', DFIBalance.minus(convertedOutstandingBalance).toFixed(8))
+      })
+    })
+
+    cy.getByTestID('text_amount_to_pay_suffix').should('have.text', 'DUSD')
+    cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DFI')
+
+    cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DFI')
+    cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DFI Balance')
+    cy.getByTestID('text_vault_id').contains(vaultId)
+    cy.getByTestID('text_resulting_loan_amount').should('have.text', '0.00000000')
+    cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
+
+    cy.getByTestID('estimated_fee').contains('0.0002')
+    cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
+    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+  })
+
+  it('should swap DUSD', function () {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
@@ -357,36 +403,76 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.wait(4000)
     cy.getByTestID('text_input_tokenA').type('1').blur()
     cy.wait(3000)
+    cy.getByTestID('slippage_select').click()
+    cy.getByTestID('slippage_5%').click()
+    cy.getByTestID('button_tolerance_submit').click()
     cy.getByTestID('button_submit').click()
     cy.getByTestID('button_confirm_swap').click().wait(4000)
     cy.closeOceanInterface()
     cy.getByTestID('bottom_tab_loans').click()
   })
 
-  it('should be able to payback loan', function () {
-    cy.getByTestID('vault_card_0').click()
-    cy.getByTestID('collateral_tab_LOANS').click()
-    cy.getByTestID('loan_card_DUSD_payback_loan').click()
-    cy.getByTestID('payback_input_text').clear().type('100000').blur()
-    cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
-    cy.getByTestID('payback_input_text').clear().type('102').blur()
-    cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
-    cy.getByTestID('text_resulting_col_ratio').contains('N/A')
-    cy.getByTestID('payback_loan_button').click()
-    cy.getByTestID('confirm_title').contains('You are paying')
-    cy.getByTestID('text_payment_amount').contains('102.00000000')
-    cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
-    cy.getByTestID('text_transaction_type').contains('Loan payment')
-    cy.getByTestID('tokens_to_pay').contains('102.00000000')
-    cy.getByTestID('tokens_to_pay_suffix').contains('DUSD')
-    cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
-    cy.getByTestID('text_resulting_loan_amount_suffix').contains('DUSD')
-    cy.getByTestID('text_vault_id').contains(vaultId)
-    cy.getByTestID('text_current_collateral_ratio').contains('N/A')
-    cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
-    cy.getByTestID('txn_authorization_description')
-      .contains('Paying 102.00000000 DUSD')
-    cy.closeOceanInterface()
-    cy.checkVaultTag('READY', VaultStatus.Ready, 'vault_card_0_status', walletTheme.isDark)
+  it('should not display payment options if loan is not DUSD', function () {
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('loan_card_dTU10_payback_loan').click()
+    cy.getByTestID('payment_token_card_DUSD').should('not.exist')
+    cy.getByTestID('payment_token_card_DFI').should('not.exist')
+    cy.getByTestID('payment_token_card_dTU10').should('not.exist')
+    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient dTU10 balance to pay the entered amount')
+    cy.go('back')
+  })
+
+  it('should be able to payback loans', function () {
+    cy.createVault(0, true)
+
+    cy.getByTestID('vault_card_0_status').invoke('text').then((vaultStatus: string) => {
+      // Vaults are not sorted - need to determine which one is ready
+      const [emptyVaultIndex, readyVaultIndex] = vaultStatus === 'EMPTY' ? [0, 1] : [1, 0]
+      cy.getByTestID(`vault_card_${emptyVaultIndex}_edit_collaterals_button`).click()
+      cy.addCollateral('10', 'DFI')
+      cy.go('back')
+      cy.getByTestID(`vault_card_${emptyVaultIndex}_manage_loans_button`).click()
+      cy.getByTestID('button_browse_loans').click()
+      cy.getByTestID('loan_card_dTU10').click()
+      cy.getByTestID('form_input_borrow').clear().type('30').blur()
+      cy.wait(3000)
+      cy.getByTestID('borrow_loan_submit_button').click()
+      cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+      cy.closeOceanInterface()
+
+      cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+      cy.getByTestID(`vault_card_${readyVaultIndex}`).click()
+      cy.getByTestID('collateral_tab_LOANS').click()
+      cy.getByTestID('loan_card_dTU10_payback_loan').click()
+      cy.getByTestID('payback_input_text').clear().type('11').blur()
+      cy.getByTestID('payback_loan_button').click()
+      cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
+      cy.closeOceanInterface()
+
+      cy.getByTestID(`vault_card_${readyVaultIndex}`).click()
+      cy.getByTestID('collateral_tab_LOANS').click()
+      cy.getByTestID('loan_card_DUSD_payback_loan').click()
+      cy.getByTestID('payback_input_text').clear().type('100000').blur()
+      cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
+      cy.getByTestID('payback_input_text').clear().type('102').blur()
+      cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
+      cy.getByTestID('text_resulting_col_ratio').contains('N/A')
+      cy.getByTestID('payback_loan_button').click()
+      cy.getByTestID('confirm_title').contains('You are paying')
+      cy.getByTestID('text_payment_amount').contains('102.00000000')
+      cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
+      cy.getByTestID('text_transaction_type').contains('Loan payment')
+      cy.getByTestID('tokens_to_pay').contains('102.00000000')
+      cy.getByTestID('tokens_to_pay_suffix').contains('DUSD')
+      cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
+      cy.getByTestID('text_resulting_loan_amount_suffix').contains('DUSD')
+      cy.getByTestID('text_vault_id').contains(vaultId)
+      cy.getByTestID('text_current_collateral_ratio').contains('N/A')
+      cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
+      cy.getByTestID('txn_authorization_description')
+        .contains('Paying 102.00000000 DUSD')
+      cy.closeOceanInterface()
+      cy.checkVaultTag('READY', VaultStatus.Ready, `vault_card_${readyVaultIndex}_status`, walletTheme.isDark)
+    })
   })
 })

@@ -433,8 +433,8 @@ context('Wallet - Balances - USD Value', () => {
     // USDT  = ((10 / 2500) * 8330) * 1
     // DFI =  ((10 / 2500) * 830) * (8330 / 830)
     // DFI + USDT
-    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.64' })
-    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $20.07' })
+    cy.checkBalanceRow('18', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.64' })
+    cy.checkBalanceRow('17', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $20.07' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '298.52')
@@ -471,12 +471,12 @@ context('Wallet - Balances - USD Value', () => {
     // USDT = (10 / 2500) * 8300) * 1 == 33.2
     // DFI = (10 / 2500) * 100) * (8300 / 100) == 33.2
     // DFI + USDT
-    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.40' })
+    cy.checkBalanceRow('18', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.40' })
 
     // dETH = (1000 / 100000) * 8300 = 83.0
     // DFI = (1000 / 100000) * 100) * (8300 / 100) == 83.0
     // DFI + dETH
-    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $166.00' })
+    cy.checkBalanceRow('17', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $166.00' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '167083.70', 5)
@@ -507,8 +507,8 @@ context('Wallet - Balances - USD Value', () => {
     cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '20.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '≈ $20.00' })
 
     // LP USD
-    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $132.80' })
-    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $332.00' })
+    cy.checkBalanceRow('18', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $132.80' })
+    cy.checkBalanceRow('17', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $332.00' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '333326.1')
@@ -536,5 +536,22 @@ context('Wallet - Balances - USD Value', () => {
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '334155.89', 5)
     })
+  })
+})
+
+context('Wallet - Balances - display sorted USD values', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(3000)
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  it('should display LTC on top of ETH after topping up more LTC', function () {
+    cy.sendTokenToWallet(['ETH', 'LTC']).wait(3000)
+    // dETH will be displayed at the top of the card on first topup
+    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
+    cy.sendTokenToWallet(['LTC']).wait(3000)
+    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dLTC')
   })
 })
