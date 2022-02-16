@@ -15,6 +15,7 @@ export interface WalletState {
   allTokens: AssociatedToken
   poolpairs: DexItem[]
   hasFetchedPoolpairData: boolean
+  hasFetchedToken: boolean
 }
 
 export interface WalletToken extends AddressToken {
@@ -31,7 +32,8 @@ const initialState: WalletState = {
   tokens: [],
   allTokens: {},
   poolpairs: [],
-  hasFetchedPoolpairData: false
+  hasFetchedPoolpairData: false,
+  hasFetchedToken: false
 }
 
 const tokenDFI: WalletToken = {
@@ -114,6 +116,7 @@ export const wallet = createSlice({
       state.poolpairs = action.payload
     })
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
+      state.hasFetchedToken = true
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
       state.allTokens = associateTokens(action.payload.allTokens)
