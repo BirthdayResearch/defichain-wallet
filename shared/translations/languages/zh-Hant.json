@@ -403,7 +403,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "網絡連接出了問題",
-    "There seems to be a problem with the connection. Check your network and try again.": "網絡連接不良，請查看網絡設定後重試."
+    "There seems to be a problem with the connection. Check your network and try again.": "網絡連接不良，請查看網絡設定後重試.",
+    "TRY AGAIN": "再試一次"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "貸款",
@@ -1241,6 +1242,6 @@
     "Wallet address": "錢包地址"
   },
   "components/Announcements": {
-    "VIEW": "前往"
+    "DETAILS": "了解詳情"
   }
 }

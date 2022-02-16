@@ -400,7 +400,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "Problème de connexion",
-    "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez."
+    "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez.",
+    "TRY AGAIN": "RÉESSAYER"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Prêts",
@@ -637,9 +638,9 @@
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
-    "Signing your transaction...": "Authorization de votre transaction...",
+    "Signing your transaction...": "Autorisation de votre transaction...",
     "Transaction authorized": "Transaction autorisée",
-    "Please wait while your transaction is being prepared": "Merci de patienter pendant pendant la préparation de votre transaction",
+    "Please wait while your transaction is being prepared": "Merci de patienter pendant la préparation de votre transaction",
     "Verifying access": "Vérification de l'accès"
   },
   "components/CreateWalletIndicator": {
@@ -1230,6 +1231,6 @@
     "Wallet address": "Adresse du portefeuille"
   },
   "components/Announcements": {
-    "VIEW": "VOIR"
+    "DETAILS": "DÉTAILS"
   }
 }

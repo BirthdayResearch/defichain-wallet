@@ -400,7 +400,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "Verbindungsproblem",
-    "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut."
+    "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut.",
+    "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
@@ -1230,6 +1231,6 @@
     "Wallet address": "Walletadresse"
   },
   "components/Announcements": {
-    "VIEW": "ANZEIGEN"
+    "DETAILS": "DETAILS"
   }
 }

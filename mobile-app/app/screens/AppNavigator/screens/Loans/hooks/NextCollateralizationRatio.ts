@@ -4,10 +4,10 @@ import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 export function useNextCollateralizationRatio (collateralAmounts: LoanVaultTokenAmount[], loanAmounts: LoanVaultTokenAmount[]): BigNumber {
   const collaterals = collateralAmounts?.map(collateral => {
-    return new BigNumber(collateral.amount).multipliedBy(getActivePrice(collateral.symbol, collateral.activePrice))
+    return new BigNumber(collateral.amount).multipliedBy(getActivePrice(collateral.symbol, collateral.activePrice, 'NEXT'))
   })
   const loans = loanAmounts?.map(loan => {
-    return new BigNumber(loan.amount).multipliedBy(getActivePrice(loan.symbol, loan.activePrice))
+    return new BigNumber(loan.amount).multipliedBy(getActivePrice(loan.symbol, loan.activePrice, 'NEXT'))
   })
 
   if (collaterals === undefined || loans === undefined || collaterals?.length === 0 || loans?.length === 0) {

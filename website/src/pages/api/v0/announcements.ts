@@ -25,7 +25,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       web: '',
       windows: '',
       macos: ''
-    }
+    },
+    type: 'OTHER_ANNOUNCEMENT'
   }, {
     lang: {
       en: 'Fort Canning Hill is officially live!',
@@ -35,6 +36,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       fr: 'Fort Canning Hill est officiellement en ligne !'
     },
     version: '>=1.2.0',
-    id: '4'
+    id: '4',
+    type: 'OTHER_ANNOUNCEMENT'
   }])
 }
