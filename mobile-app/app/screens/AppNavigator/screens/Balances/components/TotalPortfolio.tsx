@@ -37,7 +37,16 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           !hasFetchedToken
             ? (
               <View style={tailwind('mt-1')}>
-                <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='28' height='28' textWidth='200' textHeight='28' testID='total_portfolio_skeleton_loader' />
+                <TextSkeletonLoader
+                  viewBoxWidth='260'
+                  viewBoxHeight='28'
+                  textWidth='180'
+                  textHeight='23'
+                  iContentLoaderProps={{
+                    height: '28',
+                    testID: 'total_portfolio_skeleton_loader'
+                  }}
+                />
               </View>
             )
             : (

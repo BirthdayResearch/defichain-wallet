@@ -19,7 +19,7 @@ export function BalanceSkeletonLoader (props: JSX.IntrinsicAttributes & IContent
         height={40}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
-        viewBox='0 0 343 40'
+        viewBox='0 0 328 40'
         width='100%'
         {...props}
       >
@@ -27,9 +27,8 @@ export function BalanceSkeletonLoader (props: JSX.IntrinsicAttributes & IContent
         <Rect x='58' y='2' rx='5' ry='5' width='110' height='16' />
         <Rect x='58' y='24' rx='5' ry='5' width='110' height='12' />
 
-        <Rect x='220' y='2' rx='5' ry='5' width='108' height='16' />
-        <Rect x='220' y='24' rx='5' ry='5' width='108' height='12' />
-
+        <Rect x='220' y='2' rx='5' ry='5' width='93' height='16' />
+        <Rect x='220' y='24' rx='5' ry='5' width='93' height='12' />
       </ContentLoader>
     </ThemedView>
     )

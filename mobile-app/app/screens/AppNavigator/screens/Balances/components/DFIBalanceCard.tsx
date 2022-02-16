@@ -68,10 +68,26 @@ export function DFIBalanceCard (): JSX.Element {
                 : (
                   <View style={tailwind('pt-1')}>
                     <View style={tailwind('mb-1.5')}>
-                      <TextSkeletonLoader width='150' height='16' textHorizontalOffset='30' textWidth='120' testID='dfi_balance_skeleton_loader' />
+                      <TextSkeletonLoader
+                        iContentLoaderProps={{
+                          width: '150',
+                          height: '16',
+                          testID: 'dfi_balance_skeleton_loader'
+                        }}
+                        textHorizontalOffset='30'
+                        textWidth='120'
+                      />
                     </View>
                     <View>
-                      <TextSkeletonLoader width='150' height='12' textHorizontalOffset='30' textWidth='120' testID='dfi_USD_balance_skeleton_loader' />
+                      <TextSkeletonLoader
+                        iContentLoaderProps={{
+                          width: '150',
+                          height: '12',
+                          testID: 'dfi_USD_balance_skeleton_loader'
+                        }}
+                        textHorizontalOffset='30'
+                        textWidth='120'
+                      />
                     </View>
                   </View>
                 )
@@ -158,7 +174,15 @@ export function DFIBreakdownRow ({
             )
             : (
               <View style={tailwind('mb-1')}>
-                <TextSkeletonLoader width='210' height='14' textHorizontalOffset='90' textWidth='120' testID='dfi_breakdown_row_skeleton_loader' />
+                <TextSkeletonLoader
+                  iContentLoaderProps={{
+                    width: '210',
+                    height: '14',
+                    testID: 'dfi_breakdown_row_skeleton_loader'
+                  }}
+                  textHorizontalOffset='90'
+                  textWidth='120'
+                />
               </View>
             )
         }
