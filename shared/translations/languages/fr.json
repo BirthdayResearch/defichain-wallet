@@ -605,7 +605,7 @@
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir"
   },
@@ -618,7 +618,7 @@
     "SWAP": "ÉCHANGER",
     "SWAPPING": "ÉCHANGE EN COURS",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "Prix en {{tokenA}} par {{tokenB}}",
     "{{token}} balance": "{{token}} solde",
     "CONFIRM SWAP": "VALIDER L'ÉCHANGE",
