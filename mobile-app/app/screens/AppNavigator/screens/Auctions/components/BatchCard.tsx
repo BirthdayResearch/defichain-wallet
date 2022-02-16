@@ -21,6 +21,10 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
 import { MinNextBidTextRow } from './MinNextBidTextRow'
 import { onQuickBidProps } from './BrowseAuctions'
+// import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+// import { getUSDPrecisedPrice } from '../helpers/usd-precision'
+import BigNumber from 'bignumber.js'
+import { useTokenPrice } from '@hooks/wallet/TokenPrice'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -44,10 +48,13 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD,
-    hasFirstBid,
-    minNextBidInUSD
+    hasFirstBid
+    // minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
-
+  // const minNextBidInUSD = '123'
+  // const { getTokenPrice } = useTokenPrice()
+  // const minNextBidInUSD = getUSDPrecisedPrice(getTokenPrice(batch.loan.symbol, new BigNumber(minNextBidInToken)))
+  const minNextBidInUSD = (useTokenPrice({ symbol: batch.loan.symbol, amount: new BigNumber(minNextBidInToken) })).toFixed(8)
   const onCardPress = (): void => {
     navigation.navigate('AuctionDetailScreen', {
       batch,

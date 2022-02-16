@@ -28,7 +28,9 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { MinNextBidTextRow } from './components/MinNextBidTextRow'
-import { useTokenPrice } from '../Balances/hooks/TokenPrice'
+// import { useTokenPrice } from '../Balances/hooks/TokenPrice'
+// import { getUSDPrecisedPrice } from './helpers/usd-precision'
+// import { useTokenPrice } from '@hooks/wallet/TokenPrice'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -47,9 +49,13 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
   const {
     minNextBidInToken,
-    totalCollateralsValueInUSD,
-    minNextBidInUSD
+    totalCollateralsValueInUSD
+    // minNextBidInUSD
    } = useAuctionBidValue(batch, vault.liquidationPenalty)
+   const minNextBidInUSD = '123'
+  // const { getTokenPrice } = useTokenPrice()
+  // const minNextBidInUSD = getUSDPrecisedPrice(getTokenPrice(batch.loan.symbol, new BigNumber(minNextBidInToken)))
+  // const minNextBidInUSD = (useTokenPrice({ symbol: batch.loan.symbol, amount: new BigNumber(minNextBidInToken) })).toFixed(8)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const { address } = useWalletContext()
@@ -63,7 +69,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
     dispatch(fetchTokens({ client, address }))
@@ -89,7 +94,8 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         minNextBid: new BigNumber(minNextBidInToken),
         minNextBidInUSD: minNextBidInUSD,
         currentBalance,
-        currentBalanceInUSD: getTokenPrice(batch.loan.symbol, currentBalance),
+        // currentBalanceInUSD: getTokenPrice(batch.loan.symbol, currentBalance),
+        currentBalanceInUSD: new BigNumber(12),
         vaultLiquidationHeight: vault.liquidationHeight
       })
     }])

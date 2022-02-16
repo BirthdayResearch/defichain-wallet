@@ -33,6 +33,7 @@ import { fetchTokens, tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -47,9 +48,12 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
     minNextBidInToken,
-    totalCollateralsValueInUSD,
-    minNextBidInUSD
+    totalCollateralsValueInUSD
+    // minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
+  // const minNextBidInUSD = '123'
+  const { getTokenPrice } = useTokenPrice()
+  const minNextBidInUSD = getUSDPrecisedPrice(getTokenPrice(batch.loan.symbol, new BigNumber(minNextBidInToken)))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
     bottomSheetRef,
