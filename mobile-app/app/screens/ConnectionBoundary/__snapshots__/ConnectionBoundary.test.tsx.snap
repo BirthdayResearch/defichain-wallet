@@ -62,7 +62,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
             "fontSize": 14,
             "lineHeight": 20,
             "opacity": 0.6,
-            "paddingBottom": 64,
+            "paddingBottom": 36,
             "textAlign": "center",
           },
           Object {
@@ -102,6 +102,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
         "paddingLeft": 12,
         "paddingRight": 12,
         "paddingTop": 12,
+        "width": 192,
       }
     }
     testID="button_check_connectivity"
