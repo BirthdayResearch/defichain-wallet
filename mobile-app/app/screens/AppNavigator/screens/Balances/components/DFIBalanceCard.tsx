@@ -68,10 +68,10 @@ export function DFIBalanceCard (): JSX.Element {
                 : (
                   <View style={tailwind('pt-1')}>
                     <View style={tailwind('mb-1.5')}>
-                      <TextSkeletonLoader width='210' height='14' textHorizontalOffset='90' textWidth='120' testID='dfi_balance_skeleton_loader' />
+                      <TextSkeletonLoader width='150' height='16' textHorizontalOffset='30' textWidth='120' testID='dfi_balance_skeleton_loader' />
                     </View>
                     <View>
-                      <TextSkeletonLoader width='210' height='14' textHorizontalOffset='90' textWidth='120' testID='dfi_USD_balance_skeleton_loader' />
+                      <TextSkeletonLoader width='150' height='12' textHorizontalOffset='30' textWidth='120' testID='dfi_USD_balance_skeleton_loader' />
                     </View>
                   </View>
                 )

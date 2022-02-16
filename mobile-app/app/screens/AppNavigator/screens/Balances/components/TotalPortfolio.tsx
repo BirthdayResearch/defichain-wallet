@@ -36,7 +36,9 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
         {
           !hasFetchedToken
             ? (
-              <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='32' height='32' textWidth='200' textHeight='30' testID='total_portfolio_skeleton_loader' />
+              <View style={tailwind('mt-1')}>
+                <TextSkeletonLoader viewBoxWidth='277' viewBoxHeight='28' height='28' textWidth='200' textHeight='28' testID='total_portfolio_skeleton_loader' />
+              </View>
             )
             : (
               <NumberFormat
