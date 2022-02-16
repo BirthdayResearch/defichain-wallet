@@ -36,7 +36,7 @@ import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { getAdjacentNodes, GraphProps } from '../helpers/path-finding'
-import { SlippageTolerance } from './components/SlippageTolerance'
+import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
@@ -75,6 +75,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const reservedDfi = 0.1
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const [slippageError, setSlippageError] = useState<SlippageError | undefined>()
   const [selectedTokenA, setSelectedTokenA] = useState<OwnedTokenState>()
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
@@ -94,6 +95,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       bottomSheetRef.current?.present()
     }
   }, [])
+
   const dismissModal = useCallback(() => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(false)
@@ -484,6 +486,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
           <>
+            <SlippageTolerance
+              setSlippage={setSlippage}
+              slippageError={slippageError}
+              setSlippageError={setSlippageError}
+              slippage={slippage}
+            />
             <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
             <TransactionDetailsSection
               amountToSwap={tokenAFormAmount}
@@ -491,22 +499,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               estimatedAmount={tokenBFormAmount}
               fee={fee}
               isConversionRequired={isConversionRequired}
-              slippage={slippage}
-              onSetSlippage={(val: BigNumber) => {
-                void setSlippage(val)
-            }}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
-              setIsModalDisplayed={setIsModalDisplayed}
-              setBottomSheetScreen={setBottomSheetScreen}
-              onSlippageTolerancePress={expandModal}
-              onCloseButtonPress={dismissModal}
             />
           </>}
-
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
           <Button
-            disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob}
+            disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined)}
             label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
             onPress={onSubmit}
             testID='button_submit'
@@ -624,28 +623,16 @@ function TransactionDetailsSection ({
   estimatedAmount,
   fee,
   isConversionRequired,
-  slippage,
-  onSetSlippage,
   tokenA,
-  tokenB,
-  setIsModalDisplayed,
-  setBottomSheetScreen,
-  onSlippageTolerancePress,
-  onCloseButtonPress
+  tokenB
 }: {
   amountToSwap: string
   conversionAmount: BigNumber
   estimatedAmount: string
   fee: BigNumber
   isConversionRequired: boolean
-  slippage: BigNumber
-  onSetSlippage: (val: BigNumber) => void
   tokenA: OwnedTokenState
   tokenB: TokenState
-  setIsModalDisplayed: (val: boolean) => void
-  setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void
-  onSlippageTolerancePress: () => void
-  onCloseButtonPress: () => void
  }): JSX.Element {
   return (
     <>
@@ -683,16 +670,6 @@ function TransactionDetailsSection ({
           testID: 'estimated_to_receive'
         }}
         textStyle={tailwind('text-sm font-normal')}
-      />
-      <SlippageTolerance
-        setSlippage={(amount) => {
-          onSetSlippage(amount)
-        }}
-        slippage={slippage}
-        setIsSelectorOpen={setIsModalDisplayed}
-        setBottomSheetScreen={setBottomSheetScreen}
-        onPress={onSlippageTolerancePress}
-        onCloseButtonPress={onCloseButtonPress}
       />
       <FeeInfoRow
         type='ESTIMATED_FEE'
