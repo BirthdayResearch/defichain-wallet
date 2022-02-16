@@ -749,7 +749,7 @@
     "Confirm Edit Loan Scheme": "確認更改貸款方案",
     "Borrow More": "增加借用量",
     "Choose Loan Token to Borrow": "選擇要借用的貸款代幣",
-    "Payback Loan": "Payback Loan",
+    "Payback Loan": "償還貸款",
     "Close Vault": "關閉金庫"
   },
   "components/tabs": {
@@ -1054,7 +1054,7 @@
     "Resulting collateralization": "最終抵押率",
     "Vault ID": "金庫編號",
     "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
-    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Insufficient {{token}} balance to pay the entered amount": "{{token}} 餘額不足以支付輸入的金額",
     "Select payment token": "選擇付款代幣",
     "A 1% fee is applied when you pay with DFI.": "當您使用 DFI 付款時，將收取 1% 的費用",
     "Read more": "閱讀更多"
