@@ -459,7 +459,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('payback_input_text').clear().type('102').blur()
       cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
       cy.getByTestID('text_resulting_col_ratio').contains('N/A')
-      cy.getByTestID('payback_loan_button').click()
+      cy.getByTestID('payback_loan_button').click().wait(3000)
       cy.getByTestID('confirm_title').contains('You are paying')
       cy.getByTestID('text_payment_amount').contains('102.00000000')
       cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
