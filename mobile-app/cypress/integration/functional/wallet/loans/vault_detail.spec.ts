@@ -107,7 +107,7 @@ context('Wallet - Loans - Close Vault', () => {
 
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).sendTokenToWallet(['DUSD']).wait(6000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
@@ -156,7 +156,7 @@ context('Wallet - Loans - Close Vault', () => {
     cy.getByTestID('collateral_tab_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('payback_input_text').clear().type('102').blur()
-    cy.getByTestID('payback_loan_button').click()
+    cy.getByTestID('payback_loan_button').click().wait(3000)
     cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
     cy.closeOceanInterface()
     cy.getByTestID('vault_card_0').click()
