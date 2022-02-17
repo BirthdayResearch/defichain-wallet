@@ -15,7 +15,7 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -153,7 +153,6 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
     dispatch(fetchTokens({ client, address }))
   }, [address, blockCount])
 
