@@ -142,7 +142,6 @@ context('Wallet - Loans - Close Vault', () => {
     cy.wait(4000)
     cy.getByTestID('text_input_tokenA').type('1').blur()
     cy.wait(3000)
-    cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_5%').click()
     cy.getByTestID('button_tolerance_submit').click()
     cy.getByTestID('button_submit').click()
