@@ -32,6 +32,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -46,7 +47,8 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
     minNextBidInToken,
-    totalCollateralsValueInUSD
+    totalCollateralsValueInUSD,
+    minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
@@ -135,6 +137,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             blockCount={blockCount}
             liquidationHeight={vault.liquidationHeight}
             minNextBid={minNextBidInToken}
+            minNextBidInUSD={minNextBidInUSD}
             totalAuctionValue={totalCollateralsValueInUSD}
             onPressFullDetails={onPressFullDetails}
           />
@@ -237,6 +240,7 @@ function BidSummaryCard (props: {
   minNextBid: string
   totalAuctionValue: string
   onPressFullDetails: () => void
+  minNextBidInUSD: string
 }): JSX.Element {
   return (
     <ThemedView
@@ -283,6 +287,12 @@ function BidSummaryCard (props: {
         testID='text_min_next_bid'
         suffixType='text'
         suffix={props.displaySymbol}
+      />
+      <ActiveUSDValue
+        price={new BigNumber(props.minNextBidInUSD)}
+        containerStyle={tailwind('justify-end -mt-1')}
+        style={tailwind('text-2xs')}
+        testId='place_bid_min_next_bid_usd'
       />
       <View style={tailwind('mt-1')}>
         <AuctionTimeProgress

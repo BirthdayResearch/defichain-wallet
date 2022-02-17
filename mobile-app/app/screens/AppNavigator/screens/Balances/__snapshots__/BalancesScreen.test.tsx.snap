@@ -1483,6 +1483,7 @@ exports[`balances page should match snapshot 1`] = `
               Array [
                 Object {
                   "flexDirection": "row",
+                  "justifyContent": "space-between",
                   "marginBottom": 12,
                   "paddingBottom": 12,
                 },
@@ -1622,25 +1623,52 @@ exports[`balances page should match snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "flexDirection": "row",
-                  "flexGrow": 1,
-                  "justifyContent": "flex-end",
                 }
               }
             >
               <View
                 style={
                   Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
+                    "display": "flex",
+                    "lineHeight": 24,
                   }
                 }
               >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexWrap": "wrap",
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="dfi_total_balance_amount"
+                >
+                  100.00000000
+                </Text>
                 <View
                   style={
-                    Object {
-                      "display": "flex",
-                      "lineHeight": 24,
-                    }
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      Object {
+                        "justifyContent": "flex-end",
+                      },
+                    ]
                   }
                 >
                   <Text
@@ -1653,61 +1681,23 @@ exports[`balances page should match snapshot 1`] = `
                           "lineHeight": 24,
                         },
                         Array [
+                          Array [
+                            Object {
+                              "fontSize": 12,
+                              "lineHeight": 16,
+                            },
+                            undefined,
+                          ],
                           Object {
-                            "flexWrap": "wrap",
-                          },
-                          Object {
-                            "color": "rgba(0, 0, 0, 1)",
+                            "color": "rgba(115, 115, 115, 1)",
                           },
                         ],
                       ]
                     }
-                    testID="dfi_total_balance_amount"
+                    testID="dfi_total_balance_usd_amount"
                   >
-                    100.00000000
+                    
                   </Text>
-                  <View
-                    style={
-                      Array [
-                        Object {
-                          "alignItems": "center",
-                          "display": "flex",
-                          "flexDirection": "row",
-                        },
-                        Object {
-                          "justifyContent": "flex-end",
-                        },
-                      ]
-                    }
-                  >
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Array [
-                              Object {
-                                "fontSize": 12,
-                                "lineHeight": 16,
-                              },
-                              undefined,
-                            ],
-                            Object {
-                              "color": "rgba(115, 115, 115, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="dfi_total_balance_usd_amount"
-                    >
-                      
-                    </Text>
-                  </View>
                 </View>
               </View>
             </View>
@@ -2022,179 +2012,114 @@ exports[`balances page should match snapshot 1`] = `
       </View>
     </View>
     <View
-      style={
-        Object {
-          "paddingBottom": 6,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 6,
-        }
-      }
+      testID="card_balance_row_container"
     >
       <View
-        accessible={true}
-        focusable={true}
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 8,
-            "borderBottomRightRadius": 8,
-            "borderTopLeftRadius": 8,
-            "borderTopRightRadius": 8,
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "opacity": 1,
-            "paddingBottom": 16,
+            "paddingBottom": 6,
             "paddingLeft": 16,
             "paddingRight": 16,
-            "paddingTop": 16,
+            "paddingTop": 6,
           }
         }
-        testID="balances_row_1"
       >
         <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 8,
+              "borderBottomRightRadius": 8,
+              "borderTopLeftRadius": 8,
+              "borderTopRightRadius": 8,
               "flexDirection": "row",
-              "flexGrow": 1,
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
             }
           }
+          testID="balances_row_1"
         >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={32}
-            bbWidth={32}
-            focusable={false}
-            height={32}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 32,
-                  "width": 32,
-                },
-              ]
-            }
-            testID="balances_row_1_icon"
-            vbHeight={32}
-            vbWidth={32}
-            width={32}
-          >
-            <RNSVGGroup>
-              <RNSVGPath
-                d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
-                fill={4294830545}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
-                fill={4294415130}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <View
-            style={
-              Object {
-                "flexBasis": "auto",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "marginLeft": 12,
-                "marginRight": 12,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_1_symbol"
-            >
-              dBTC
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={1}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                    },
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_1_name"
-            >
-              Bitcoin
-            </Text>
-          </View>
           <View
             style={
               Object {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "flexGrow": 1,
               }
             }
           >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={32}
+              bbWidth={32}
+              focusable={false}
+              height={32}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 32,
+                    "width": 32,
+                  },
+                ]
+              }
+              testID="balances_row_1_icon"
+              vbHeight={32}
+              vbWidth={32}
+              width={32}
+            >
+              <RNSVGGroup>
+                <RNSVGPath
+                  d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
+                  fill={4294830545}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                />
+                <RNSVGPath
+                  d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
+                  fill={4294415130}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                />
+              </RNSVGGroup>
+            </RNSVGSvgView>
             <View
               style={
                 Object {
-                  "display": "flex",
-                  "lineHeight": 24,
+                  "flexBasis": "auto",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "marginLeft": 12,
+                  "marginRight": 12,
                 }
               }
             >
@@ -2209,7 +2134,8 @@ exports[`balances page should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "flexWrap": "wrap",
+                        "fontFamily": "MediumFont",
+                        "fontWeight": "500",
                       },
                       Object {
                         "color": "rgba(0, 0, 0, 1)",
@@ -2217,22 +2143,52 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
-                testID="balances_row_1_amount"
+                testID="balances_row_1_symbol"
               >
-                777.00000000
+                dBTC
               </Text>
-              <View
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "flexDirection": "row",
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
                     },
-                    Object {
-                      "justifyContent": "flex-end",
-                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
                   ]
+                }
+                testID="balances_row_1_name"
+              >
+                Bitcoin
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "display": "flex",
+                    "lineHeight": 24,
+                  }
                 }
               >
                 <Text
@@ -2245,245 +2201,214 @@ exports[`balances page should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "fontSize": 12,
-                            "lineHeight": 16,
-                          },
-                          undefined,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexWrap": "wrap",
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
                     ]
                   }
-                  testID="balances_row_1_usd_amount"
+                  testID="balances_row_1_amount"
                 >
-                  
+                  777.00000000
                 </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      Object {
+                        "justifyContent": "flex-end",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Array [
+                            Object {
+                              "fontSize": 12,
+                              "lineHeight": 16,
+                            },
+                            undefined,
+                          ],
+                          Object {
+                            "color": "rgba(115, 115, 115, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                    testID="balances_row_1_usd_amount"
+                  >
+                    
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
       </View>
-    </View>
-    <View
-      style={
-        Object {
-          "paddingBottom": 6,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 6,
-        }
-      }
-    >
       <View
-        accessible={true}
-        focusable={true}
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 8,
-            "borderBottomRightRadius": 8,
-            "borderTopLeftRadius": 8,
-            "borderTopRightRadius": 8,
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "opacity": 1,
-            "paddingBottom": 16,
+            "paddingBottom": 6,
             "paddingLeft": 16,
             "paddingRight": 16,
-            "paddingTop": 16,
+            "paddingTop": 6,
           }
         }
-        testID="balances_row_2"
       >
         <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 8,
+              "borderBottomRightRadius": 8,
+              "borderTopLeftRadius": 8,
+              "borderTopRightRadius": 8,
               "flexDirection": "row",
-              "flexGrow": 1,
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
             }
           }
+          testID="balances_row_2"
         >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={32}
-            bbWidth={32}
-            focusable={false}
-            height={32}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 32,
-                  "width": 32,
-                },
-              ]
-            }
-            testID="balances_row_2_icon"
-            vbHeight={32}
-            vbWidth={32}
-            width={32}
-          >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4292929019}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                r={16}
-              />
-              <RNSVGPath
-                d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                fill={4284645098}
-                fillOpacity={0.8}
-                propList={
-                  Array [
-                    "fill",
-                    "fillOpacity",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                fill={4284645098}
-                fillOpacity={0.6}
-                propList={
-                  Array [
-                    "fill",
-                    "fillOpacity",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M15.998 20.573l7.497-4.353-7.497-3.348z"
-                fill={4284645098}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <View
-            style={
-              Object {
-                "flexBasis": "auto",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "marginLeft": 12,
-                "marginRight": 12,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontWeight": "500",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_2_symbol"
-            >
-              dETH
-            </Text>
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={1}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                    },
-                    Object {
-                      "color": "rgba(82, 82, 82, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="balances_row_2_name"
-            >
-              Ethereum
-            </Text>
-          </View>
           <View
             style={
               Object {
                 "alignItems": "center",
                 "flexDirection": "row",
+                "flexGrow": 1,
               }
             }
           >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={32}
+              bbWidth={32}
+              focusable={false}
+              height={32}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 32,
+                    "width": 32,
+                  },
+                ]
+              }
+              testID="balances_row_2_icon"
+              vbHeight={32}
+              vbWidth={32}
+              width={32}
+            >
+              <RNSVGGroup>
+                <RNSVGCircle
+                  cx={16}
+                  cy={16}
+                  fill={4292929019}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                  r={16}
+                />
+                <RNSVGPath
+                  d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+                  fill={4294967295}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                />
+                <RNSVGPath
+                  d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+                  fill={4284645098}
+                  fillOpacity={0.8}
+                  propList={
+                    Array [
+                      "fill",
+                      "fillOpacity",
+                    ]
+                  }
+                />
+                <RNSVGPath
+                  d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+                  fill={4294967295}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                />
+                <RNSVGPath
+                  d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+                  fill={4284645098}
+                  fillOpacity={0.6}
+                  propList={
+                    Array [
+                      "fill",
+                      "fillOpacity",
+                    ]
+                  }
+                />
+                <RNSVGPath
+                  d="M15.998 20.573l7.497-4.353-7.497-3.348z"
+                  fill={4284645098}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                />
+              </RNSVGGroup>
+            </RNSVGSvgView>
             <View
               style={
                 Object {
-                  "display": "flex",
-                  "lineHeight": 24,
+                  "flexBasis": "auto",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "marginLeft": 12,
+                  "marginRight": 12,
                 }
               }
             >
@@ -2498,7 +2423,8 @@ exports[`balances page should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "flexWrap": "wrap",
+                        "fontFamily": "MediumFont",
+                        "fontWeight": "500",
                       },
                       Object {
                         "color": "rgba(0, 0, 0, 1)",
@@ -2506,22 +2432,52 @@ exports[`balances page should match snapshot 1`] = `
                     ],
                   ]
                 }
-                testID="balances_row_2_amount"
+                testID="balances_row_2_symbol"
               >
-                555.00000000
+                dETH
               </Text>
-              <View
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "flexDirection": "row",
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
                     },
-                    Object {
-                      "justifyContent": "flex-end",
-                    },
+                    Array [
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      Object {
+                        "color": "rgba(82, 82, 82, 1)",
+                      },
+                    ],
                   ]
+                }
+                testID="balances_row_2_name"
+              >
+                Ethereum
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "display": "flex",
+                    "lineHeight": 24,
+                  }
                 }
               >
                 <Text
@@ -2534,23 +2490,61 @@ exports[`balances page should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "fontSize": 12,
-                            "lineHeight": 16,
-                          },
-                          undefined,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexWrap": "wrap",
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
                     ]
                   }
-                  testID="balances_row_2_usd_amount"
+                  testID="balances_row_2_amount"
                 >
-                  
+                  555.00000000
                 </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      Object {
+                        "justifyContent": "flex-end",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Array [
+                            Object {
+                              "fontSize": 12,
+                              "lineHeight": 16,
+                            },
+                            undefined,
+                          ],
+                          Object {
+                            "color": "rgba(115, 115, 115, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                    testID="balances_row_2_usd_amount"
+                  >
+                    
+                  </Text>
+                </View>
               </View>
             </View>
           </View>

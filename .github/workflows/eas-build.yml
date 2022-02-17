@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
 
-      - uses: actions/github-script@e3cbab99d3a9b271e1b79fc96d103a4a5534998c
+      - uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e
         id: version
         with:
           script: |
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@d0148023e1293a74904e7af0f9a9cdc60a1ce550
+      - uses: expo/expo-github-action@d4175ed947598c22308599f9cb07490458536a7c
         with:
           eas-version: latest
           expo-version: 4.x

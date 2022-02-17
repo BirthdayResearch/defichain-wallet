@@ -120,7 +120,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     web: ThemedScrollView
   }
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
-  const hasInvalidColRatio = resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN()
+  const hasInvalidColRatio = resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() || !resultingColRatio.isFinite()
 
   return (
     <ScrollView

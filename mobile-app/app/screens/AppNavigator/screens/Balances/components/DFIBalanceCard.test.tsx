@@ -32,7 +32,8 @@ describe('DFI Balance Card', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       }
     }
     const store = configureStore({

@@ -403,7 +403,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "网络连接出了问题",
-    "There seems to be a problem with the connection. Check your network and try again.": "网络连接不良，请查看网络设置后重试."
+    "There seems to be a problem with the connection. Check your network and try again.": "网络连接不良，请查看网络设置后重试.",
+    "TRY AGAIN": "再试一次"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "贷款",
@@ -608,7 +609,7 @@
     "Convert & swap": "转换并兑换",
     "Swap": "兑换",
     "Swapping Token": "兑换代币",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Slippage tolerance": "交易滑点",
     "Estimated to receive": "您大约会收到"
   },
@@ -621,7 +622,7 @@
     "SWAP": "兑换",
     "SWAPPING": "兑换",
     "Swapping Token": "兑换代币",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "正兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
     "{{token}} balance": "{{token}} balance",
     "CONFIRM SWAP": "确认兑换",
@@ -747,7 +748,7 @@
     "Confirm Edit Loan Scheme": "确认更改贷款方案",
     "Borrow More": "增加借用量",
     "Choose Loan Token to Borrow": "选择要借用的贷款代币",
-    "Payback Loan": "Payback Loan",
+    "Payback Loan": "偿还贷款",
     "Close Vault": "关闭金库"
   },
   "components/tabs": {
@@ -1050,7 +1051,7 @@
     "Resulting collateralization": "最终抵押率",
     "Vault ID": "金库编号",
     "Resulting {{displaySymbol}} Balance": "产生的 {{displaySymbol}} 余额",
-    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Insufficient {{token}} balance to pay the entered amount": "{{token}} 余额不足以支付输入的金额",
     "Select payment token": "选择付款代币",
     "A 1% fee is applied when you pay with DFI.": "当您使用 DFI 付款时，将收取 1% 的费用",
     "Read more": "阅读更多"
@@ -1239,6 +1240,6 @@
     "Wallet address": "钱包地址"
   },
   "components/Announcements": {
-    "VIEW": "前往"
+    "DETAILS": "了解详情"
   }
 }

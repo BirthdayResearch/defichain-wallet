@@ -193,7 +193,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
         pair2ReserveA: '8300',
         pair2ReserveB: '100'
       }),
-      hasFetchedPoolpairData: false
+      hasFetchedPoolpairData: false,
+      hasFetchedToken: true
     }
   }
 
@@ -213,7 +214,7 @@ describe('Token Price - Get Token Price (DEX)', () => {
 
     expect(result.current.calculatePriceRates(
       'BTC',
-      result.current.getArbitraryPoolPair('BTC', 'USDT'), '2'))
+      result.current.getArbitraryPoolPair('BTC', 'USDT'), new BigNumber('2')))
       .toStrictEqual({
         aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
         bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
@@ -222,7 +223,7 @@ describe('Token Price - Get Token Price (DEX)', () => {
 
     expect(result.current.calculatePriceRates(
       'BTC',
-      result.current.getArbitraryPoolPair('BTC', 'USDT'), '1'))
+      result.current.getArbitraryPoolPair('BTC', 'USDT'), new BigNumber('1')))
       .toStrictEqual({
         aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
         bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
@@ -235,10 +236,10 @@ describe('Token Price - Get Token Price (DEX)', () => {
 
     // DFI / BTC * USDT / DFI (reserve)
     // (1000 / 5) * (8300 / 100)
-    expect(result.current.getTokenPrice('BTC', '1', false)).toStrictEqual(new BigNumber('16600'))
+    expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('16600'))
 
     // DFI / ETH * USDT / DFI (reserve)
     // (1000 / 100000) * (8300 / 100)
-    expect(result.current.getTokenPrice('ETH', '1', false)).toStrictEqual(new BigNumber('0.83'))
+    expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('0.83'))
   })
 })

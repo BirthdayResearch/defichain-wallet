@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { batch, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector } from '@store/wallet'
+import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -195,10 +195,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      batch(() => {
-        dispatch(fetchPoolPairs({ client }))
-        dispatch(fetchTokens({ client, address }))
-      })
+      dispatch(fetchTokens({ client, address }))
     }
   }, [address, blockCount, isFocused])
 
@@ -303,7 +300,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, tokenAFormAmount)
+      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenAFormAmount))
       const slippage = new BigNumber(1).minus(new BigNumber(tokenAFormAmount).div(selectedTokenA.reserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)

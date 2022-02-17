@@ -82,6 +82,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           Array [
             Object {
               "flexDirection": "row",
+              "justifyContent": "space-between",
               "marginBottom": 12,
               "paddingBottom": 12,
             },
@@ -221,25 +222,52 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             Object {
               "alignItems": "center",
               "flexDirection": "row",
-              "flexGrow": 1,
-              "justifyContent": "flex-end",
             }
           }
         >
           <View
             style={
               Object {
-                "alignItems": "center",
-                "flexDirection": "row",
+                "display": "flex",
+                "lineHeight": 24,
               }
             }
           >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="dfi_total_balance_amount"
+            >
+              100.00000000
+            </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "lineHeight": 24,
-                }
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  },
+                  Object {
+                    "justifyContent": "flex-end",
+                  },
+                ]
               }
             >
               <Text
@@ -252,61 +280,23 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                       "lineHeight": 24,
                     },
                     Array [
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        undefined,
+                      ],
                       Object {
-                        "flexWrap": "wrap",
-                      },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
+                        "color": "rgba(115, 115, 115, 1)",
                       },
                     ],
                   ]
                 }
-                testID="dfi_total_balance_amount"
+                testID="dfi_total_balance_usd_amount"
               >
-                100.00000000
+                
               </Text>
-              <View
-                style={
-                  Array [
-                    Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "flexDirection": "row",
-                    },
-                    Object {
-                      "justifyContent": "flex-end",
-                    },
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Array [
-                          Object {
-                            "fontSize": 12,
-                            "lineHeight": 16,
-                          },
-                          undefined,
-                        ],
-                        Object {
-                          "color": "rgba(115, 115, 115, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="dfi_total_balance_usd_amount"
-                >
-                  
-                </Text>
-              </View>
             </View>
           </View>
         </View>

@@ -74,7 +74,8 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 100,
@@ -115,7 +116,8 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 100,
