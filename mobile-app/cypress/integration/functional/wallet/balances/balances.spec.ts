@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 export interface BalanceTokenDetail {
   symbol: string
@@ -6,13 +6,6 @@ export interface BalanceTokenDetail {
   name: string
   amount: string | number
   usdAmount?: string
-}
-
-function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
-  const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
-  const expectedValue = new BigNumber(expectedVal)
-  expect(value.gte(expectedValue.minus(range))).to.be.eq(true)
-  expect(value.lte(expectedValue.plus(range))).to.be.eq(true)
 }
 
 context('Wallet - Balances', () => {
@@ -555,10 +548,10 @@ context('Wallet - Balances - display sorted USD values', function () {
   })
 
   it('should display LTC on top of ETH after topping up more LTC', function () {
-    cy.sendTokenToWallet(['ETH', 'LTC']).wait(3000)
+    cy.sendTokenToWallet(['ETH', 'LTC']).wait(6000)
     // dETH will be displayed at the top of the card on first topup
     cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
-    cy.sendTokenToWallet(['LTC']).wait(3000)
+    cy.sendTokenToWallet(['LTC']).wait(6000)
     cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dLTC')
   })
 })

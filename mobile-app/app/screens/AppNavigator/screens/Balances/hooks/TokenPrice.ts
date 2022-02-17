@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
-import { fetchPoolPairs } from '@store/wallet'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -16,15 +14,13 @@ interface CalculatePriceRatesI {
 }
 
 interface TokenPrice {
-  getTokenPrice: (symbol: string, amount: string, isLPS?: boolean) => BigNumber
-  calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: string) => CalculatePriceRatesI
+  getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => BigNumber
+  calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber) => CalculatePriceRatesI
   getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
 }
 
 export function useTokenPrice (): TokenPrice {
-  const client = useWhaleApiClient()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const graph: GraphProps[] = useMemo(() => pairs.map(pair => {
@@ -35,11 +31,7 @@ export function useTokenPrice (): TokenPrice {
     }
   }), [pairs])
 
-  useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-  }, [blockCount])
-
-  const getTokenPrice = useCallback((symbol: string, amount: string, isLPS: boolean = false): BigNumber => {
+  const getTokenPrice = useCallback((symbol: string, amount: BigNumber, isLPS: boolean = false): BigNumber => {
     if (new BigNumber(amount).isZero()) {
       return new BigNumber(0)
     }
@@ -54,8 +46,8 @@ export function useTokenPrice (): TokenPrice {
       const ratioToTotal = new BigNumber(amount).div(pair.data.totalLiquidity.token)
       const tokenAAmount = ratioToTotal.times(pair.data.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
       const tokenBAmount = ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount.toFixed(8))
-      const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount.toFixed(8))
+      const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount)
+      const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount)
       return usdTokenA.plus(usdTokenB)
     }
     const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${symbol}`
@@ -67,7 +59,10 @@ export function useTokenPrice (): TokenPrice {
     const arbitraryPoolPair = getArbitraryPoolPair(symbol, 'USDT')
 
     if (arbitraryPoolPair.length > 0) {
-      const { aToBPrice, estimated } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
+      const {
+        aToBPrice,
+        estimated
+      } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
       // store price for each unit in cache
       CacheApi.set(key, aToBPrice.toFixed(8))
       return estimated
@@ -90,7 +85,7 @@ export function useTokenPrice (): TokenPrice {
     }, [])
   }, [pairs, blockCount])
 
-  const calculatePriceRates = useCallback((fromTokenSymbol: string, pairs: PoolPairData[], amount: string): CalculatePriceRatesI => {
+  const calculatePriceRates = useCallback((fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber): CalculatePriceRatesI => {
     let lastTokenBySymbol = fromTokenSymbol
     let lastAmount = new BigNumber(amount)
     const priceRates = pairs.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
