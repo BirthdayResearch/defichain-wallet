@@ -24,8 +24,8 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     })
   })
 
-  it('should display 10 available pool pair', function () {
-    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 10)
+  it('should display 5 available pool pair', function () {
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 5)
   })
 
   it('should have BTC-DFI PoolPair as 1st', () => {

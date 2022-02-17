@@ -38,7 +38,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
         testID={props.testID}
       />
       <View style={tailwind('flex justify-center ml-2')}>
-        <TouchableOpacity onPress={props.onCancelPress}>
+        <TouchableOpacity testID={`${props.testID ?? 'search_dex_bar'}_close`} onPress={props.onCancelPress}>
           <ThemedIcon
             light={tailwind('text-primary-500')}
             dark={tailwind('text-darkprimary-500')}
