@@ -3,7 +3,7 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { translate } from '@translations'
@@ -58,6 +58,7 @@ type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
 export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
+  const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
@@ -195,8 +196,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
