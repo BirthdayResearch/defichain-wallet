@@ -400,6 +400,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('dex_search_icon').click()
     cy.getByTestID('dex_search_input').clear().type('DUSD-DFI').blur()
+    cy.wait(3000)
     cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
     cy.getByTestID('switch_button').click()
     cy.wait(4000)
