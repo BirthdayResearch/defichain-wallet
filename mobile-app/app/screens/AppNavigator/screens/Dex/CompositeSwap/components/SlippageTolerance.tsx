@@ -1,9 +1,8 @@
 import { ReactElement, useEffect, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { View } from '@components'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -36,7 +35,7 @@ export function SlippageTolerance ({ slippage, setSlippage, slippageError, setSl
       <View style={tailwind('px-4 mt-5 w-full')}>
         <View
           testID='slippage_tolerance_heading'
-          style={tailwind(['flex-row mb-3 items-center justify-between'])}
+          style={tailwind(['flex-row items-center justify-between'])}
         >
           <View style={tailwind('flex-row items-center')}>
             <ThemedText
@@ -153,12 +152,11 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
           style={tailwind('flex-row w-full')}
         >
           <WalletTextInput
-            autoFocus
             onChangeText={onSlippageChange}
             keyboardType='numeric'
             autoCapitalize='none'
             placeholder='0.00%'
-            style={tailwind('flex-grow h-8')}
+            style={tailwind('flex-grow w-2/5 h-8')}
             containerStyle='mb-1 w-full flex-col'
             testID='slippage_input'
             value={selectedSlippage !== undefined ? selectedSlippage.toString() : ''}
@@ -186,13 +184,15 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
 }
 
 function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => void, isActive: boolean, label: string, icon?: ReactElement }): JSX.Element {
-  const buttonStyles = 'flex flex-row px-2 py-1.5 border border-gray-300 rounded items-center'
+  const buttonStyles = 'flex flex-row px-2 py-1.5 border rounded items-center'
   const activeStyle = 'bg-primary-50 border-primary-100 text-primary-500'
   return (
     <View style={tailwind('mr-1.5 mt-2')}>
-      <TouchableOpacity
+      <ThemedTouchableOpacity
         key={label}
         onPress={onPress}
+        light={tailwind('border-gray-300')}
+        dark={tailwind('border-gray-600')}
         style={tailwind(`${buttonStyles} ${isActive ? activeStyle : ''} `)}
         testID={`slippage_${label}`}
       >
@@ -204,7 +204,7 @@ function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => vo
         >
           {label}
         </ThemedText>
-      </TouchableOpacity>
+      </ThemedTouchableOpacity>
     </View>
   )
 }
