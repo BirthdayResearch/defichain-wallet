@@ -153,7 +153,7 @@ context('Mainnet - Wallet', () => {
   })
 })
 
-context.only('Mainnet - Wallet - Pool Pair Values', () => {
+context('Mainnet - Wallet - Pool Pair Values', () => {
   beforeEach(function () {
     cy.restoreLocalStorage()
   })
