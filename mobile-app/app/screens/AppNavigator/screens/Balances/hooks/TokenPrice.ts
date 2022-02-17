@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
-import { fetchPoolPairs } from '@store/wallet'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -22,9 +20,7 @@ interface TokenPrice {
 }
 
 export function useTokenPrice (): TokenPrice {
-  const client = useWhaleApiClient()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const graph: GraphProps[] = useMemo(() => pairs.map(pair => {
@@ -34,10 +30,6 @@ export function useTokenPrice (): TokenPrice {
       b: pair.data.tokenB.symbol
     }
   }), [pairs])
-
-  useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-  }, [blockCount])
 
   const getTokenPrice = useCallback((symbol: string, amount: BigNumber, isLPS: boolean = false): BigNumber => {
     if (new BigNumber(amount).isZero()) {
@@ -67,7 +59,10 @@ export function useTokenPrice (): TokenPrice {
     const arbitraryPoolPair = getArbitraryPoolPair(symbol, 'USDT')
 
     if (arbitraryPoolPair.length > 0) {
-      const { aToBPrice, estimated } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
+      const {
+        aToBPrice,
+        estimated
+      } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
       // store price for each unit in cache
       CacheApi.set(key, aToBPrice.toFixed(8))
       return estimated

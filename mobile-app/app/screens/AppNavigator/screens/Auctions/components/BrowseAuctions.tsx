@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
@@ -27,13 +27,13 @@ interface Props {
   searchString: string
 }
 
-  export interface onQuickBidProps {
-    batch: LoanVaultLiquidationBatch
-    vaultId: string
-    minNextBidInToken: string
-    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
-    minNextBidInUSD: string
-  }
+export interface onQuickBidProps {
+  batch: LoanVaultLiquidationBatch
+  vaultId: string
+  minNextBidInToken: string
+  vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
+  minNextBidInUSD: string
+}
 
 export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const dispatch = useDispatch()
@@ -59,9 +59,15 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
+    dispatch(fetchTokens({
+      client,
+      address
+    }))
     dispatch(fetchAuctions({ client }))
-    dispatch(fetchVaults({ client, address }))
+    dispatch(fetchVaults({
+      client,
+      address
+    }))
   }, [address, blockCount])
 
   const onQuickBid = (props: onQuickBidProps): void => {
@@ -98,26 +104,26 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
       testID='auctions_cards'
     >
       {hasFetchAuctionsData
-          ? (
-            <>
-              {filteredAuctionBatches.length === 0
-                ? <EmptyAuction />
-                : (
-                  <BatchCards
-                    auctionBatches={filteredAuctionBatches}
-                    onQuickBid={onQuickBid}
-                    vaults={vaults}
-                  />
-                )}
-            </>)
-          : (
-            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
-              <SkeletonLoader
-                row={6}
-                screen={SkeletonLoaderScreen.BrowseAuction}
-              />
-            </ThemedScrollView>
-          )}
+        ? (
+          <>
+            {filteredAuctionBatches.length === 0
+              ? <EmptyAuction />
+              : (
+                <BatchCards
+                  auctionBatches={filteredAuctionBatches}
+                  onQuickBid={onQuickBid}
+                  vaults={vaults}
+                />
+              )}
+          </>)
+        : (
+          <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
+            <SkeletonLoader
+              row={6}
+              screen={SkeletonLoaderScreen.BrowseAuction}
+            />
+          </ThemedScrollView>
+        )}
 
       {Platform.OS === 'web' && (
         <BottomSheetWebWithNav
@@ -125,47 +131,62 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
           modalStyle={{
-              position: 'absolute',
-              height: '240px',
-              width: '375px',
-              zIndex: 50,
-              bottom: 0
-            }}
+            position: 'absolute',
+            height: '240px',
+            width: '375px',
+            zIndex: 50,
+            bottom: 0
+          }}
         />
-        )}
+      )}
 
       {Platform.OS !== 'web' && (
         <BottomSheetWithNav
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-              ios: ['40%'],
-              android: ['40%']
-            }}
+            ios: ['40%'],
+            android: ['40%']
+          }}
         />
-        )}
+      )}
     </View>
   )
 }
 
-function BatchCards ({ auctionBatches, vaults, onQuickBid }: {
+function BatchCards ({
+  auctionBatches,
+  vaults,
+  onQuickBid
+}: {
   auctionBatches: AuctionBatchProps[]
-    vaults: LoanVault[]
-    onQuickBid: (props: onQuickBidProps) => void
-  }): JSX.Element {
-      const { isBetaFeature } = useFeatureFlagContext()
+  vaults: LoanVault[]
+  onQuickBid: (props: onQuickBidProps) => void
+}): JSX.Element {
+  const currentAuctions = [...auctionBatches]
+  const { isBetaFeature } = useFeatureFlagContext()
+  const [auctionLength, setAuctionLength] = useState<number>(5)
   return (
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
-      data={auctionBatches}
+      data={currentAuctions.splice(0, auctionLength)}
       numColumns={1}
+      onEndReached={() => {
+        const length = auctionLength + 5
+        const newLength = length > auctionBatches.length ? auctionBatches.length : length
+        setAuctionLength(newLength)
+      }}
+      onEndReachedThreshold={1}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({
         item,
         index
       }: { item: AuctionBatchProps, index: number }): JSX.Element => {
-        const { auction, ...batch } = item
+        const {
+          auction,
+          ...batch
+        } = item
         return (
           <View key={auction.vaultId}>
             <BatchCard

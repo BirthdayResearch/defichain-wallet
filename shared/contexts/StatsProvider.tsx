@@ -6,8 +6,11 @@ import { block } from '@store/block'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { fetchPoolPairs } from '@store/wallet'
 
 export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | null {
+  const blockCount = useSelector((state: RootState) => state.block.count)
+  const client = useWhaleApiClient()
   const { network } = useNetworkContext()
   const logger = useLogger()
   const isPolling = useSelector((state: RootState) => state.block.isPolling)
@@ -25,7 +28,10 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
     function refresh (): void {
       dispatch(block.actions.setPolling(true))
       // if blockchain is connected successfully, update both lastSync & lastSuccessfulSync to current date
-      api.stats.get().then(({ count, tvl }) => {
+      api.stats.get().then(({
+        count,
+        tvl
+      }) => {
         dispatch(block.actions.updateBlockDetails({
           count: count.blocks,
           masternodeCount: count.masternodes,
@@ -36,7 +42,11 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
         dispatch(block.actions.setConnected(true))
       }).catch((err) => {
         // if blockchain is not connected successfully, only update value of lastSync to current date
-        dispatch(block.actions.updateBlockDetails({ count: 0, masternodeCount: 0, lastSync: new Date().toString() }))
+        dispatch(block.actions.updateBlockDetails({
+          count: 0,
+          masternodeCount: 0,
+          lastSync: new Date().toString()
+        }))
         dispatch(block.actions.setConnected(false))
         logger.error(err)
       })
@@ -53,6 +63,11 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
       }
     }
   }, [api, interval, network, dispatch])
+
+  // Global polling based on blockCount and network, so no need to fetch per page
+  useEffect(() => {
+    dispatch(fetchPoolPairs({ client }))
+  }, [blockCount, network])
 
   return (
     <>

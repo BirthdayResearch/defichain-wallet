@@ -20,7 +20,7 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
@@ -109,7 +109,6 @@ export function DexScreen (): JSX.Element {
   , [activeTab, pairs, yourLPTokens])
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
     dispatch(fetchTokens({ client, address }))
   }, [address, blockCount])
 
