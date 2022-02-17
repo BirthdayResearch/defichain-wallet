@@ -6,11 +6,8 @@ import { block } from '@store/block'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { fetchPoolPairs } from '@store/wallet'
 
 export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | null {
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const client = useWhaleApiClient()
   const { network } = useNetworkContext()
   const logger = useLogger()
   const isPolling = useSelector((state: RootState) => state.block.isPolling)
@@ -63,11 +60,6 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
       }
     }
   }, [api, interval, network, dispatch])
-
-  // Global polling based on blockCount and network, so no need to fetch per page
-  useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-  }, [blockCount, network])
 
   return (
     <>
