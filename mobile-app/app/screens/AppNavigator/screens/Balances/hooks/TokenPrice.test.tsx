@@ -190,7 +190,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
         pair2ReserveA: '8300',
         pair2ReserveB: '100'
       }),
-      hasFetchedPoolpairData: false
+      hasFetchedPoolpairData: false,
+      hasFetchedToken: true
     }
   }
 
