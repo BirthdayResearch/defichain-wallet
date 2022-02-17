@@ -40,7 +40,8 @@
     "Your pool pairs": "Deine Pool-Paare",
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
     "SWAP": "TAUSCH",
-    "Swap tokens": "Token-Tausch"
+    "Swap tokens": "Token-Tausch",
+    "Total Value Locked in pool pairs (USD): ": "In Pool-Paaren angelegter Gesamtwert (USD): "
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
