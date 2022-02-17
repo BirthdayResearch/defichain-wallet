@@ -9,7 +9,7 @@ import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { debounce } from 'lodash'
 
-const percentageList = ['1', '3', '5', '10', '20']
+const percentageList = ['0.5', '1', '3', '5', '10']
 
 interface SlippageToleranceProps {
   slippage: BigNumber
@@ -77,7 +77,6 @@ export interface SlippageError {
 }
 
 function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIsCustomSlippage, slippageError, setSlippageError }: SlippageSelectorProps): JSX.Element {
-  const percentageList = ['1', '3', '5', '10', '20']
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false)
   const submitSlippage = debounce(onSubmitSlippage, 500)

@@ -438,6 +438,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
       cy.closeOceanInterface()
 
+      cy.wait(3000)
       cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
       cy.getByTestID(`vault_card_${readyVaultIndex}`).click()
       cy.getByTestID('collateral_tab_LOANS').click()
@@ -447,6 +448,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
       cy.closeOceanInterface()
 
+      cy.wait(3000)
       cy.getByTestID(`vault_card_${readyVaultIndex}`).click()
       cy.getByTestID('collateral_tab_LOANS').click()
       cy.getByTestID('loan_card_DUSD_payback_loan').click()
@@ -470,6 +472,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('txn_authorization_description')
         .contains('Paying 102.00000000 DUSD')
       cy.closeOceanInterface()
+      cy.wait(3000)
       cy.checkVaultTag('READY', VaultStatus.Ready, `vault_card_${readyVaultIndex}_status`, walletTheme.isDark)
     })
   })
