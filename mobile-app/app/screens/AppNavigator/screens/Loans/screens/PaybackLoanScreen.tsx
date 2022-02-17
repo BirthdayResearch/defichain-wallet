@@ -86,7 +86,7 @@ export function PaybackLoanScreen ({
   const client = useWhaleApiClient()
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id) : new BigNumber(0)
-  const chooseAvailableMaxPaybackAmt = BigNumber.min(loanTokenOutstandingBal, tokenBalance)
+  const chooseAvailableMaxLoanPaybackAmt = BigNumber.min(loanTokenOutstandingBal, tokenBalance)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
   const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
   const [amountToPay, setAmountToPay] = useState(getAvailableLoanAmountToPay())
@@ -276,13 +276,13 @@ export function PaybackLoanScreen ({
         >
           <>
             <SetAmountButton
-              amount={chooseAvailableMaxPaybackAmt}
+              amount={chooseAvailableMaxLoanPaybackAmt}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.half}
             />
 
             <SetAmountButton
-              amount={chooseAvailableMaxPaybackAmt}
+              amount={chooseAvailableMaxLoanPaybackAmt}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.max}
             />
