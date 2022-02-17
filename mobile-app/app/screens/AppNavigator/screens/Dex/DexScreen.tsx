@@ -30,10 +30,17 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 import { useDebounce } from '@hooks/useDebounce'
+import { ButtonGroup } from './components/ButtonGroup'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
   AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
+}
+
+enum ButtonGroupKey {
+  AllPairs = 'ALL_PAIRS',
+  DFIPairs = 'DFI_PAIRS',
+  DUSDPairs = 'DUSD_PAIRS'
 }
 
 export function DexScreen (): JSX.Element {
@@ -43,6 +50,7 @@ export function DexScreen (): JSX.Element {
   const dispatch = useDispatch()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
+  const [activeButtonGroupItem, setActiveButtonGroupItem] = useState<string>(ButtonGroupKey.AllPairs)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
@@ -72,6 +80,23 @@ export function DexScreen (): JSX.Element {
     label: translate('screens/DexScreen', 'Your pool pairs'),
     disabled: false,
     handleOnPress: () => onTabChange(TabKey.YourPoolPair)
+  }]
+
+  const onButtonGroupItemChange = (buttonGroupKey: ButtonGroupKey): void => {
+    setActiveButtonGroupItem(buttonGroupKey)
+  }
+  const buttonGroup = [{
+    id: ButtonGroupKey.AllPairs,
+    label: translate('screens/DexScreen', 'All pairs'),
+    handleOnPress: () => onButtonGroupItemChange(ButtonGroupKey.AllPairs)
+  }, {
+    id: ButtonGroupKey.DFIPairs,
+    label: translate('screens/DexScreen', 'DFI pairs'),
+    handleOnPress: () => onButtonGroupItemChange(ButtonGroupKey.DFIPairs)
+  }, {
+    id: ButtonGroupKey.DUSDPairs,
+    label: translate('screens/DexScreen', 'DUSD pairs'),
+    handleOnPress: () => onButtonGroupItemChange(ButtonGroupKey.DUSDPairs)
   }]
 
   const {
@@ -187,6 +212,9 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
+      <View style={tailwind('mt-6 mx-4 mb-4')}>
+        <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={activeButtonGroupItem} />
+      </View>
       <TVLSection tvl={tvl ?? 0} />
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
