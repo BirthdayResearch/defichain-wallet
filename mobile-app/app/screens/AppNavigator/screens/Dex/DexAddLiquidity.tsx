@@ -15,9 +15,9 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
-import { batch, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -155,10 +155,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      batch(() => {
-        dispatch(fetchPoolPairs({ client }))
-        dispatch(fetchTokens({ client, address }))
-      })
+      dispatch(fetchTokens({ client, address }))
     }
   }, [address, blockCount, isFocused])
 

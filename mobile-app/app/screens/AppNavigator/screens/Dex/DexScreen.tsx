@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import * as React from 'react'
 import NumberFormat from 'react-number-format'
-import { useSelector, useDispatch, batch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
 import { getNativeIcon } from '@components/icons/assets'
@@ -20,7 +20,7 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
@@ -111,10 +111,7 @@ export function DexScreen (): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      batch(() => {
-        dispatch(fetchPoolPairs({ client }))
-        dispatch(fetchTokens({ client, address }))
-      })
+      dispatch(fetchTokens({ client, address }))
     }
   }, [address, blockCount, isFocused])
 
@@ -321,6 +318,8 @@ function YourPoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={filteredYourPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({
@@ -392,6 +391,8 @@ function AvailablePoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={sortedPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({

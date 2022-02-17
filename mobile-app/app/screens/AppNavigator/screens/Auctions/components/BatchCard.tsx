@@ -15,22 +15,19 @@ import { AuctionTimeProgress } from './AuctionTimeProgress'
 import { AuctionsParamList } from '../AuctionNavigator'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { CollateralTokenIconGroup } from './CollateralTokenIconGroup'
-import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
+import { MinNextBidTextRow } from './MinNextBidTextRow'
+import { onQuickBidProps } from './BrowseAuctions'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
   testID?: string
-  onQuickBid: (
-    batch: LoanVaultLiquidationBatch,
-    vaultId: string,
-    minNextBidInToken: string,
-    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
+  onQuickBid: (props: onQuickBidProps) => void
   isVaultOwner: boolean
 }
 
@@ -48,13 +45,9 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD,
-    hasFirstBid
+    hasFirstBid,
+    minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
-
-  const nextBidInfo = {
-    title: 'Min. next bid',
-    message: 'The minimum bid a user must place in order to take part in the auction.'
-  }
 
   const onCardPress = useCallback((): void => {
     navigation.navigate('AuctionDetailScreen', {
@@ -71,7 +64,13 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   }, [])
 
   const onQuickBid = (): void => {
-    props.onQuickBid(batch, vault.vaultId, minNextBidInToken, vault.liquidationHeight)
+    props.onQuickBid({
+      batch: batch,
+      vaultId: vault.vaultId,
+      minNextBidInToken,
+      minNextBidInUSD,
+      vaultLiquidationHeight: vault.liquidationHeight
+    })
   }
 
   return (
@@ -162,37 +161,12 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </View>
         </View>
 
-        <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-          <View style={tailwind('flex-row items-center justify-start')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('text-xs')}
-            >
-              {translate('components/BatchCard', 'Min. next bid')}
-            </ThemedText>
-            <View style={tailwind('ml-1')}>
-              <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-xs')} />
-            </View>
-          </View>
-          <View style={tailwind('flex flex-row')}>
-            <NumberFormat
-              displayType='text'
-              suffix={` ${batch.loan.displaySymbol}`}
-              renderText={(value: string) => (
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm')}
-                >
-                  {value}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={minNextBidInToken}
-            />
-          </View>
-        </View>
+        <MinNextBidTextRow
+          displaySymbol={batch.loan.displaySymbol}
+          minNextBidInToken={minNextBidInToken}
+          minNextBidInUSD={minNextBidInUSD}
+          testID={`batch_${batch.index}_min_next_bid`}
+        />
       </TouchableOpacity>
 
       <AuctionTimeProgress
@@ -241,12 +215,14 @@ const BatchCardButtons = memo((props: { onPlaceBid: () => void, onQuickBid: () =
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onPlaceBid}
+        testID='batch_card_place_bid_button'
       />
       <IconButton
         iconLabel={translate('components/QuickBid', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onQuickBid}
+        testID='batch_card_quick_bid_button'
       />
     </ThemedView>
   )
