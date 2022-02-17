@@ -13,6 +13,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { BidCard } from './BidCard'
 import { EmptyBidsScreen } from './EmptyBidsScreen'
+import { useIsFocused } from '@react-navigation/native'
 
 export function ManageBids (): JSX.Element {
   const dispatch = useDispatch()
@@ -20,10 +21,13 @@ export function ManageBids (): JSX.Element {
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const auctions = useSelector((state: RootState) => state.auctions.auctions)
+  const isFocused = useIsFocused()
 
   useEffect(() => {
-    dispatch(fetchVaults({ address, client }))
-  }, [blockCount, address])
+    if (isFocused) {
+      dispatch(fetchVaults({ address, client }))
+    }
+  }, [blockCount, address, isFocused])
 
   const { isBetaFeature } = useFeatureFlagContext()
 
