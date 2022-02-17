@@ -223,7 +223,8 @@ describe('AuctionDetails', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 2000,
