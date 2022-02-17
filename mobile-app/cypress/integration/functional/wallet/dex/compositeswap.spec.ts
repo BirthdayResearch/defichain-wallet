@@ -145,10 +145,9 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
     cy.getByTestID('slippage_input').clear().type('a1').blur().wait(100)
     cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
-    cy.getByTestID('button_tolerance_submit').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('slippage_input').clear().type('25').blur().wait(100)
-    cy.getByTestID('button_tolerance_submit').click()
   })
 
   it('should be able to store selected slippage value in storage', () => {
