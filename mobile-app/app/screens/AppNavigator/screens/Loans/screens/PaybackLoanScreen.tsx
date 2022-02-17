@@ -49,6 +49,7 @@ import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
+
 export interface PaymentTokenProps {
   tokenId: string
   tokenSymbol: string
@@ -96,7 +97,10 @@ export function PaybackLoanScreen ({
     tokenDisplaySymbol: loanToken?.token.displaySymbol ?? ''
   })
   const selectedPaymentTokenBalance = getTokenAmount(selectedPaymentToken.tokenId)
-  const { conversionRate, getAmounts } = useLoanPaymentTokenRate({
+  const {
+    conversionRate,
+    getAmounts
+  } = useLoanPaymentTokenRate({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
     selectedPaymentToken,
@@ -161,8 +165,15 @@ export function PaybackLoanScreen ({
   }
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-    dispatch(fetchPrice({ client, currency: 'USD', token: paymentTokens[0].displaySymbol }))
+    dispatch(fetchTokens({
+      client,
+      address
+    }))
+    dispatch(fetchPrice({
+      client,
+      currency: 'USD',
+      token: paymentTokens[0].displaySymbol
+    }))
   }, [address, blockCount])
 
   useEffect(() => {
@@ -268,11 +279,11 @@ export function PaybackLoanScreen ({
           testID='payback_input_text'
           valid={hasSufficientPaymentTokenBalance}
           {...(!hasSufficientPaymentTokenBalance && {
- inlineText: {
-            type: 'error',
-            text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
-          }
-})}
+            inlineText: {
+              type: 'error',
+              text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
+            }
+          })}
         >
           <>
             <SetAmountButton
@@ -375,8 +386,8 @@ export function PaybackLoanScreen ({
         style={tailwind('text-center text-xs mb-12')}
       >
         {isConversionRequired
-            ? translate('screens/PaybackLoanScreen', 'Authorize transaction in the next screen to convert')
-            : translate('screens/PaybackLoanScreen', 'Review and confirm transaction in the next screen')}
+          ? translate('screens/PaybackLoanScreen', 'Authorize transaction in the next screen to convert')
+          : translate('screens/PaybackLoanScreen', 'Review and confirm transaction in the next screen')}
       </ThemedText>
     </ThemedScrollView>
   )
@@ -493,7 +504,10 @@ export function VaultInput ({
           >
             {translate('screens/PaybackLoanScreen', 'Collateralization ratio')}
           </ThemedText>
-          <BottomSheetInfo alertInfo={collateralAlertInfo} name={collateralAlertInfo.title} infoIconStyle={tailwind('text-xs')} />
+          <BottomSheetInfo
+            alertInfo={collateralAlertInfo} name={collateralAlertInfo.title}
+            infoIconStyle={tailwind('text-xs')}
+          />
         </View>
         <NumberFormat
           value={new BigNumber(vault.collateralRatio === '-1' ? NaN : vault.collateralRatio).toFixed(2)}
@@ -502,7 +516,10 @@ export function VaultInput ({
           suffix={vault.collateralRatio === '-1' ? translate('screens/PaybackLoanScreen', 'N/A') : '%'}
           displayType='text'
           renderText={(value) => (
-            <ThemedText testID='loan_col_ratio' light={colors.light} dark={colors.dark} style={tailwind('text-sm font-medium')}>
+            <ThemedText
+              testID='loan_col_ratio' light={colors.light} dark={colors.dark}
+              style={tailwind('text-sm font-medium')}
+            >
               {value}
             </ThemedText>
           )}
@@ -517,7 +534,10 @@ export function VaultInput ({
           >
             {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
           </ThemedText>
-          <BottomSheetInfo alertInfo={minCollateralRatioInfo} name={minCollateralRatioInfo.title} infoIconStyle={tailwind('text-xs')} />
+          <BottomSheetInfo
+            alertInfo={minCollateralRatioInfo} name={minCollateralRatioInfo.title}
+            infoIconStyle={tailwind('text-xs')}
+          />
         </View>
         <NumberFormat
           value={new BigNumber(vault.loanScheme.minColRatio).toFixed(2)}
@@ -605,14 +625,14 @@ function TransactionDetailsSection ({
           style: tailwind('ml-0')
         }}
         {...(selectedPaymentToken.tokenDisplaySymbol !== displaySymbol && {
-            rhsConversion: {
-              value: amountToPayInLoanToken.toFixed(8),
-              testID: 'text_amount_to_pay',
-              suffixType: 'text',
-              suffix: displaySymbol,
-              style: tailwind('ml-0')
-            }
-          })
+          rhsConversion: {
+            value: amountToPayInLoanToken.toFixed(8),
+            testID: 'text_amount_to_pay',
+            suffixType: 'text',
+            suffix: displaySymbol,
+            style: tailwind('ml-0')
+          }
+        })
         }
       />
       {isExcess &&
@@ -626,7 +646,7 @@ function TransactionDetailsSection ({
               suffix: displaySymbol
             }}
           />
-      )}
+        )}
       <NumberRow
         lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: selectedPaymentToken.tokenDisplaySymbol })}
         rhs={{
@@ -679,7 +699,7 @@ function TransactionDetailsSection ({
             )}
             colRatio={resultingColRatio}
           />
-      )}
+        )}
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={fee.toFixed(8)}
