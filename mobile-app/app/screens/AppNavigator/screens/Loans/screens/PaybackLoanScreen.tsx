@@ -79,8 +79,8 @@ export function PaybackLoanScreen ({
   const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
   const getAvailableLoanAmountToPay = (): string => {
     const availableMaxPaybackAmt = BigNumber.min(loanTokenOutstandingBal, tokenBalance)
-      return availableMaxPaybackAmt.toFixed(8)
-    }
+    return availableMaxPaybackAmt.toFixed(8)
+  }
 
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
