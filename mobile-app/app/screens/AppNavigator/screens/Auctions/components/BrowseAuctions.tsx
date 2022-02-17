@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
@@ -163,20 +163,14 @@ function BatchCards ({
   vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
 }): JSX.Element {
-  const currentAuctions = [...auctionBatches]
   const { isBetaFeature } = useFeatureFlagContext()
-  const [auctionLength, setAuctionLength] = useState<number>(5)
   return (
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
-      data={currentAuctions.splice(0, auctionLength)}
+      data={auctionBatches}
       numColumns={1}
-      onEndReached={() => {
-        const length = auctionLength + 5
-        const newLength = length > auctionBatches.length ? auctionBatches.length : length
-        setAuctionLength(newLength)
-      }}
-      onEndReachedThreshold={1}
+      initialNumToRender={5}
+      windowSize={2}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({

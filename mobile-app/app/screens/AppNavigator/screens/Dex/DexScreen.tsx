@@ -315,6 +315,8 @@ function YourPoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={filteredYourPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({
@@ -386,6 +388,8 @@ function AvailablePoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={sortedPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({
