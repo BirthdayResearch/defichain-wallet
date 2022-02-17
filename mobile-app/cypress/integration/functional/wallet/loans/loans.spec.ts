@@ -421,7 +421,6 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('payment_token_card_DUSD').should('not.exist')
     cy.getByTestID('payment_token_card_DFI').should('not.exist')
     cy.getByTestID('payment_token_card_dTU10').should('not.exist')
-    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient dTU10 balance to pay the entered amount')
     cy.go('back')
   })
 
