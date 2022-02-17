@@ -75,15 +75,18 @@ export function PaybackLoanScreen ({
     const id = tokenId === '0' ? '0_unified' : tokenId
     return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
   }
+
+  const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
   const getAvailableLoanAmountToPay = (): string => {
-    const displayAmt = new BigNumber(loanTokenAmount.amount) > loanTokenBalanceInUSD ? loanTokenBalanceInUSD : new BigNumber(loanTokenAmount.amount)
-      return displayAmt.toFixed(8)
+    const availableMaxPaybackAmt = BigNumber.min(loanTokenOutstandingBal, tokenBalance)
+      return availableMaxPaybackAmt.toFixed(8)
     }
 
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id) : new BigNumber(0)
+  const chooseAvailableMaxPaybackAmt = BigNumber.min(loanTokenOutstandingBal, tokenBalance)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
   const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
   const [amountToPay, setAmountToPay] = useState(getAvailableLoanAmountToPay())
@@ -97,15 +100,15 @@ export function PaybackLoanScreen ({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
     selectedPaymentToken,
-    outstandingBalance: new BigNumber(loanTokenAmount.amount),
+    outstandingBalance: loanTokenOutstandingBal,
     amountToPay: new BigNumber(amountToPay),
     loanTokenBalance: tokenBalance,
     selectedPaymentTokenBalance
 
   })
   const [resultingBalance, setResultingBalance] = useState(new BigNumber(0))
-  const [amountToPayInPaymentToken, setAmountToPayInPaymentToken] = useState(new BigNumber(loanTokenAmount.amount).multipliedBy(conversionRate))
-  const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(new BigNumber(loanTokenAmount.amount))
+  const [amountToPayInPaymentToken, setAmountToPayInPaymentToken] = useState(loanTokenOutstandingBal.multipliedBy(conversionRate))
+  const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(loanTokenOutstandingBal)
 
   const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInPaymentToken)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -243,7 +246,7 @@ export function PaybackLoanScreen ({
           loanTokenId={loanTokenAmount.id}
           displaySymbol={loanTokenAmount.displaySymbol}
           price={loanTokenAmount.activePrice}
-          outstandingBalance={new BigNumber(loanTokenAmount.amount)}
+          outstandingBalance={loanTokenOutstandingBal}
         />
       </View>
       <ThemedSectionTitle
@@ -273,13 +276,13 @@ export function PaybackLoanScreen ({
         >
           <>
             <SetAmountButton
-              amount={new BigNumber(loanTokenAmount.amount) > loanTokenBalanceInUSD ? loanTokenBalanceInUSD : new BigNumber('0')}
+              amount={chooseAvailableMaxPaybackAmt}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.half}
             />
 
             <SetAmountButton
-              amount={new BigNumber(loanTokenAmount.amount) > loanTokenBalanceInUSD ? loanTokenBalanceInUSD : new BigNumber('0')}
+              amount={chooseAvailableMaxPaybackAmt}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.max}
             />
@@ -336,7 +339,7 @@ export function PaybackLoanScreen ({
           <View style={tailwind('mt-4')}>
             <TransactionDetailsSection
               fee={fee}
-              outstandingBalance={new BigNumber(loanTokenAmount.amount)}
+              outstandingBalance={loanTokenOutstandingBal}
               displaySymbol={loanTokenAmount.displaySymbol}
               isExcess={isExcess}
               resultingColRatio={resultingColRatio}
