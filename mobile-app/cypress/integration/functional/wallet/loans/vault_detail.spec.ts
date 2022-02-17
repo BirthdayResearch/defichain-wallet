@@ -137,6 +137,8 @@ context('Wallet - Loans - Close Vault', () => {
   it('should be swap DUSD', function () {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').clear().type('DUSD-DFI').blur()
     cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
     cy.getByTestID('switch_button').click()
     cy.wait(4000)
