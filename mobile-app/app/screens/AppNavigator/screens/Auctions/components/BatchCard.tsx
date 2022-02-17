@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCallback, memo } from 'react'
+import { memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -49,19 +49,19 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
     minNextBidInUSD
   } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
-  const onCardPress = useCallback((): void => {
+  const onCardPress = (): void => {
     navigation.navigate('AuctionDetailScreen', {
       batch,
       vault
     })
-  }, [])
+  }
 
-  const onPlaceBid = useCallback((): void => {
+  const onPlaceBid = (): void => {
     navigation.navigate('PlaceBidScreen', {
       batch,
       vault
     })
-  }, [])
+  }
 
   const onQuickBid = (): void => {
     props.onQuickBid({

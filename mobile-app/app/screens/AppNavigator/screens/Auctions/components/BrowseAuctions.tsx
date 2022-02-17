@@ -206,7 +206,7 @@ function BatchCards ({
       numColumns={1}
       initialNumToRender={5}
       windowSize={2}
-      keyExtractor={useCallback((_item, index) => index.toString(), [])}
+      keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={RenderItems}
       ListHeaderComponent={ListHeaderComponent}
