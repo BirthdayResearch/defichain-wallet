@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native'
 import { RootState } from '@store'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { AuctionTimeProgress } from './components/AuctionTimeProgress'
@@ -54,6 +54,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const { address } = useWalletContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
+  const isFocused = useIsFocused()
   const {
     bottomSheetRef,
     containerRef,
@@ -66,8 +67,10 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
@@ -244,7 +247,7 @@ interface AuctionActionSectionProps {
   onPlaceBid: () => void
 }
 
-function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
+const AuctionActionSection = memo((props: AuctionActionSectionProps): JSX.Element => {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
@@ -290,4 +293,4 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
       </View>
     </ThemedView>
   )
-}
+})
