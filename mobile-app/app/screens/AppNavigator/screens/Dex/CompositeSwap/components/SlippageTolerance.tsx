@@ -138,8 +138,8 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
               name='edit'
               iconType='MaterialIcons'
               style={tailwind('mr-1')}
-              dark={tailwind(`${isCustomSlippage ? 'text-darkprimary-500' : ''}`)}
-              light={tailwind(`${isCustomSlippage ? 'text-primary-500' : ''}`)}
+              dark={tailwind(`${isCustomSlippage ? 'text-darkprimary-500' : 'text-gray-50'}`)}
+              light={tailwind(`${isCustomSlippage ? 'text-primary-500' : 'text-gray-900'}`)}
             />
           }
           isActive={isCustomSlippage}
@@ -188,7 +188,7 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
 
 function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => void, isActive: boolean, label: string, icon?: ReactElement }): JSX.Element {
   const buttonStyles = 'flex flex-row px-2 py-1.5 border border-gray-300 rounded items-center'
-  const activeStyle = 'bg-primary-50 border-primary-50 text-primary-500'
+  const activeStyle = 'bg-primary-50 border-primary-100 text-primary-500'
   return (
     <View style={tailwind('mr-1.5 mt-2')}>
       <TouchableOpacity
@@ -199,8 +199,8 @@ function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => vo
       >
         {icon}
         <ThemedText
-          dark={tailwind(`${isActive ? 'text-darkprimary-500 font-semibold' : ''}`)}
-          light={tailwind(`${isActive ? 'text-primary-500 font-semibold' : ''}`)}
+          dark={tailwind(`${isActive ? 'text-darkprimary-500 font-semibold' : 'text-gray-50'}`)}
+          light={tailwind(`${isActive ? 'text-primary-500 font-semibold' : 'text-gray-900'}`)}
           style={tailwind('text-sm')}
         >
           {label}
