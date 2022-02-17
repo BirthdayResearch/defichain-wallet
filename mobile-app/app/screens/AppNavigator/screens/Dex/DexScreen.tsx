@@ -20,7 +20,7 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
@@ -109,7 +109,6 @@ export function DexScreen (): JSX.Element {
   , [activeTab, pairs, yourLPTokens])
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
     dispatch(fetchTokens({ client, address }))
   }, [address, blockCount])
 
@@ -316,6 +315,8 @@ function YourPoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={filteredYourPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({
@@ -387,6 +388,8 @@ function AvailablePoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={sortedPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({

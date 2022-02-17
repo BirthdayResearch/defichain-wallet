@@ -22,7 +22,8 @@ describe('receive page', () => {
         tokens: [],
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       }
     }
     const store = configureStore({
@@ -45,7 +46,8 @@ describe('receive page', () => {
         tokens: [],
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       }
     }
     const store = configureStore({
@@ -71,7 +73,8 @@ describe('receive page', () => {
         tokens: [],
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       }
     }
     const store = configureStore({
