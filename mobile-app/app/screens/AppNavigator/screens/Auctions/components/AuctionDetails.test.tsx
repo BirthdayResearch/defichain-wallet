@@ -224,7 +224,7 @@ describe('AuctionDetails', () => {
         allTokens: {},
         poolpairs: [],
         hasFetchedPoolpairData: false,
-        hasFetchedToken: false
+        hasFetchedToken: true
       },
       block: {
         count: 2000,
