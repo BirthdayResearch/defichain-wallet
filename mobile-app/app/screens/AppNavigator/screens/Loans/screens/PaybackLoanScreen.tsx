@@ -198,8 +198,7 @@ export function PaybackLoanScreen ({
   }, [])
 
   useEffect(() => {
-    const isZeroVal = new BigNumber(amountToPay).lte(0) || amountToPay === ''
-    return setIsZeroInput(isZeroVal)
+    return setIsZeroInput(new BigNumber(amountToPay).lte(0) || amountToPay === '')
   }, [amountToPay])
 
   const onPaymentTokenSelect = (paymentToken: PaymentTokenProps): void => {
