@@ -105,6 +105,7 @@ export function PaybackLoanScreen ({
   const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(new BigNumber(loanTokenAmount.amount))
 
   const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInPaymentToken)
+  const [zeroInputAmt, setZeroInputAmt] = useState(false)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isValid, setIsValid] = useState(false)
   const [isExcess, setIsExcess] = useState(false)
@@ -179,6 +180,14 @@ export function PaybackLoanScreen ({
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error)
   }, [])
+
+  useEffect(() => {
+    if (new BigNumber(amountToPay).lte(0) || amountToPay === '') {
+      setZeroInputAmt(false)
+    } else {
+      setZeroInputAmt(true)
+    }
+  }, [amountToPay])
 
   const onPaymentTokenSelect = (paymentToken: PaymentTokenProps): void => {
     setSelectedPaymentToken(paymentToken)
@@ -260,8 +269,8 @@ export function PaybackLoanScreen ({
           onClearButtonPress={() => setAmountToPay('')}
           style={tailwind('h-9 w-2/5 flex-grow')}
           testID='payback_input_text'
-          valid={hasSufficientPaymentTokenBalance}
-          {...(!hasSufficientPaymentTokenBalance && {
+          valid={hasSufficientPaymentTokenBalance || !zeroInputAmt}
+          {...(!hasSufficientPaymentTokenBalance && zeroInputAmt && {
  inlineText: {
             type: 'error',
             text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
