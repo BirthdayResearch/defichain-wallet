@@ -1,6 +1,6 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import Slider from '@react-native-community/slider'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
@@ -31,6 +31,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
 
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -76,8 +77,10 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

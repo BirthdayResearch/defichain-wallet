@@ -548,10 +548,10 @@ context('Wallet - Balances - display sorted USD values', function () {
   })
 
   it('should display LTC on top of ETH after topping up more LTC', function () {
-    cy.sendTokenToWallet(['ETH', 'LTC']).wait(3000)
+    cy.sendTokenToWallet(['ETH', 'LTC']).wait(6000)
     // dETH will be displayed at the top of the card on first topup
     cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
-    cy.sendTokenToWallet(['LTC']).wait(3000)
+    cy.sendTokenToWallet(['LTC']).wait(6000)
     cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dLTC')
   })
 })
