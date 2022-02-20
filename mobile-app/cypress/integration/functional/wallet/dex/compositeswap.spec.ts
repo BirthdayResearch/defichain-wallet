@@ -125,7 +125,6 @@ context('Wallet - DEX - Composite Swap with balance', () => {
 
   it('should be able to use/validate custom slippage tolerance', function () {
     cy.getByTestID('text_input_tokenA').type('10')
-    cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_1%').should('exist')
 
     // Slippage warning
@@ -146,10 +145,9 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
     cy.getByTestID('slippage_input').clear().type('a1').blur().wait(100)
     cy.getByTestID('slippage_input_error').should('have.text', 'Slippage rate must range from 0-100%')
-    cy.getByTestID('button_tolerance_submit').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('slippage_input').clear().type('25').blur().wait(100)
-    cy.getByTestID('button_tolerance_submit').click()
   })
 
   it('should be able to store selected slippage value in storage', () => {
@@ -161,7 +159,6 @@ context('Wallet - DEX - Composite Swap with balance', () => {
   it('previously saved slippage tolerance value should be 25%', () => {
     cy.getByTestID('text_input_tokenA').type('10')
     cy.getByTestID('text_input_tokenA').type('20')
-    cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_input').should('have.value', '25')
   })
 })
@@ -204,7 +201,6 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
 
     it('should be able to swap', function () {
       cy.getByTestID('text_input_tokenA').type('10')
-      cy.getByTestID('slippage_select').click()
       cy.getByTestID('slippage_10%').click()
       cy.getByTestID('estimated_to_receive').then(($txt: any) => {
         const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
@@ -300,7 +296,7 @@ context('Wallet - DEX - Composite Swap with Conversion', () => {
 
   it('should trigger convert and swap token', function () {
     cy.getByTestID('text_input_tokenA').type('11.00000000')
-    cy.getByTestID('button_submit').click()
+    cy.getByTestID('button_submit').click().wait(3000)
     cy.getByTestID('txn_authorization_description')
       .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to Token`)
     cy.closeOceanInterface().wait(3000)
