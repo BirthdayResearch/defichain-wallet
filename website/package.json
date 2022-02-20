@@ -28,7 +28,7 @@
     "schema-dts": "^1.0.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.2.6",
+    "@netlify/plugin-nextjs": "^4.2.7",
     "@next/eslint-plugin-next": "12.1.0",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/cors": "^2.8.12",
