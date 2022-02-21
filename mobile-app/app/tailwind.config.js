@@ -63,7 +63,7 @@ module.exports = {
           900: '#171717'
         },
         darkprimary: {
-          50: '#fcf4fa',
+          50: '#460632',
           100: '#faeaf5',
           200: '#f2cae6',
           300: '#eba9d6',

@@ -30,6 +30,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { TVLSection } from './components/TVLSection'
 import { PoolPairCards } from './components/PoolPairCards/PoolPairCards'
+import { SwapButton } from './components/SwapButton'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -149,16 +150,22 @@ export function DexScreen (): JSX.Element {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: (): JSX.Element => {
+      headerLeft: (): JSX.Element => {
         if (!displayGuidelines) {
           return (
             <HeaderSearchIcon
               onPress={() => setShowSearchInput(true)}
               testID='dex_search_icon'
+              style={tailwind('pl-4')}
             />
           )
         }
-
+        return <></>
+      },
+      headerRight: (): JSX.Element => {
+        if (!displayGuidelines) {
+          return <SwapButton />
+        }
         return <></>
       }
     })
