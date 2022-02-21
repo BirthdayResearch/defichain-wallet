@@ -102,7 +102,7 @@ export function PoolPairCards ({
       .decimalPlaces(8, BigNumber.ROUND_DOWN)
     const priceRates = calculatePriceRates(
       mappedPair?.tokenA.symbol ?? '',
-      ((poolPairData?.data) != null) ? [poolPairData?.data] : [],
+      poolPairData?.data != null ? [poolPairData?.data] : [],
       new BigNumber('1')
     )
     const isExpanded = expandedCardIds.some((id) => id === yourPair.id)
@@ -140,7 +140,7 @@ export function PoolPairCards ({
           />
           {mappedPair?.apr?.total !== undefined && (
             <APRSection
-              label={translate('screens/DexScreen', 'APR:')}
+              label={`${translate('screens/DexScreen', 'APR')}:`}
               value={{
                 text: new BigNumber(
                   isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
@@ -167,7 +167,9 @@ export function PoolPairCards ({
             bToAPrice: priceRates.bToAPrice
           }}
         />
-        <View style={tailwind('flex flex-row justify-between items-center')}>
+        <View
+          style={tailwind('flex flex-row justify-between items-center mt-2')}
+        >
           <ActionSection
             onAdd={() => onAdd(mappedPair)}
             onRemove={() => onRemove(mappedPair)}
@@ -177,17 +179,17 @@ export function PoolPairCards ({
           />
           <TouchableOpacity
             onPress={onCollapseToggle}
-            style={tailwind('flex flex-row')}
+            style={tailwind('flex flex-row mt-1')}
           >
             <ThemedText
-              style={tailwind('text-sm font-medium leading-4')}
+              style={tailwind('text-sm font-medium')}
               light={tailwind('text-primary-500')}
               dark={tailwind('text-darkprimary-500')}
             >
-              Details
+              {translate('screens/DexScreen', 'DETAILS')}
             </ThemedText>
             <ThemedIcon
-              light={tailwind('text-primary-500')}
+              light={tailwind('text-primary-500 ml-0.5')}
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
               name={!isExpanded ? 'expand-less' : 'expand-more'}

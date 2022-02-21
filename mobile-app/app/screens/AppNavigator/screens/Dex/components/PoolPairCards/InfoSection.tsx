@@ -57,7 +57,7 @@ export function InfoSection ({
               }}
               usdValue={getUSDValue(
                 new BigNumber(pairAmount),
-                pairSymbol,
+                pair.symbol,
                 true
               )}
             />
@@ -65,7 +65,7 @@ export function InfoSection ({
           <PoolPairInfoLine
             label={translate(
               'screens/DexScreen',
-              `${type === 'available' ? 'Pooled' : 'Your pooled'} {{symbol}}`,
+              `${type === 'available' ? 'Pooled' : 'Your shared'} {{symbol}}`,
               { symbol: pair.tokenA.displaySymbol }
             )}
             value={{
@@ -82,7 +82,7 @@ export function InfoSection ({
           <PoolPairInfoLine
             label={translate(
               'screens/DexScreen',
-              `${type === 'available' ? 'Pooled' : 'Your pooled'} {{symbol}}`,
+              `${type === 'available' ? 'Pooled' : 'Your shared'} {{symbol}}`,
               { symbol: pair.tokenB.displaySymbol }
             )}
             value={{
@@ -102,7 +102,8 @@ export function InfoSection ({
               value={{
                 text: pair.totalLiquidity.usd,
                 decimalScale: 2,
-                testID: `totalLiquidity_${pairSymbol}`
+                testID: `totalLiquidity_${pairSymbol}`,
+                prefix: '$'
               }}
             />
           )}
@@ -117,6 +118,7 @@ interface PoolPairInfoLineProps {
   value: {
     decimalScale: number
     suffix?: string
+    prefix?: string
     testID: string
     text: string
   }
@@ -129,7 +131,14 @@ function PoolPairInfoLine ({
   usdValue
 }: PoolPairInfoLineProps): JSX.Element {
   return (
-    <View style={tailwind('flex-row justify-between mt-3 w-full')}>
+    <View
+      style={tailwind([
+        'flex-row justify-between mt-3 w-full',
+        {
+          'items-center': usdValue === undefined
+        }
+      ])}
+    >
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
@@ -142,12 +151,24 @@ function PoolPairInfoLine ({
           decimalScale={value.decimalScale}
           displayType='text'
           renderText={(textValue) => (
-            <ThemedText style={tailwind('text-sm')} testID={value.testID}>
+            <ThemedText
+              style={tailwind([
+                '',
+                {
+                  'text-base font-semibold': usdValue === undefined
+                },
+                {
+                  'text-sm': usdValue !== undefined
+                }
+              ])}
+              testID={value.testID}
+            >
               {textValue}
             </ThemedText>
           )}
           thousandSeparator
           suffix={value.suffix}
+          prefix={value.prefix}
           value={value.text}
         />
         {usdValue !== undefined && (
