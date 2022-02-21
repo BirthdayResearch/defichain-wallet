@@ -96,7 +96,7 @@ export function InfoSection ({
               pair.tokenB.symbol
             )}
           />
-          {pair.totalLiquidity.usd !== undefined && (
+          {pair.totalLiquidity.usd !== undefined && type === 'available' && (
             <PoolPairInfoLine
               label={translate('screens/DexScreen', 'Total liquidity (USD)')}
               value={{
@@ -142,23 +142,22 @@ function PoolPairInfoLine ({
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
-        style={tailwind('text-xs font-normal')}
+        style={tailwind('text-xs font-normal leading-3')}
       >
         {label}
       </ThemedText>
-      <View>
+      <View style={tailwind('items-end')}>
         <NumberFormat
           decimalScale={value.decimalScale}
           displayType='text'
           renderText={(textValue) => (
             <ThemedText
               style={tailwind([
-                '',
                 {
                   'text-base font-semibold': usdValue === undefined
                 },
                 {
-                  'text-sm': usdValue !== undefined
+                  'text-sm leading-3 mb-1': usdValue !== undefined
                 }
               ])}
               testID={value.testID}

@@ -156,16 +156,11 @@ export function PoolPairCards ({
         </View>
         {/* TODO(PIERRE): Check how to optimize a lot of reloads happening here */}
         <PriceRatesSection
-          tokenA={{
-            symbol: mappedPair.tokenA.symbol,
-            displaySymbol: mappedPair.tokenA.displaySymbol,
-            aToBPrice: priceRates.aToBPrice
-          }}
-          tokenB={{
-            symbol: mappedPair.tokenB.symbol,
-            displaySymbol: mappedPair.tokenB.displaySymbol,
+          {...getSortedPriceRates({
+            mappedPair,
+            aToBPrice: priceRates.aToBPrice,
             bToAPrice: priceRates.bToAPrice
-          }}
+          })}
         />
         <View
           style={tailwind('flex flex-row justify-between items-center mt-2')}
@@ -226,10 +221,59 @@ export function PoolPairCards ({
       windowSize={2}
       initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
-      testID={type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'}
+      testID={
+        type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
+      }
       renderItem={renderItem}
     />
   )
+}
+
+function getSortedPriceRates ({
+  mappedPair,
+  aToBPrice,
+  bToAPrice
+}: {
+  mappedPair: PoolPairData
+  aToBPrice: BigNumber
+  bToAPrice: BigNumber
+}): {
+  tokenA: {
+    symbol: string
+    displaySymbol: string
+    priceRate: BigNumber
+  }
+  tokenB: {
+    symbol: string
+    displaySymbol: string
+    priceRate: BigNumber
+  }
+} {
+  const tokenA = {
+    symbol: mappedPair.tokenA.symbol,
+    displaySymbol: mappedPair.tokenA.displaySymbol,
+    priceRate: aToBPrice
+  }
+  const tokenB = {
+    symbol: mappedPair.tokenB.symbol,
+    displaySymbol: mappedPair.tokenB.displaySymbol,
+    priceRate: bToAPrice
+  }
+
+  if (
+    mappedPair.tokenB.symbol === 'DFI' ||
+    (mappedPair.tokenB.symbol === 'DUSD' && mappedPair.tokenA.symbol !== 'DFI')
+  ) {
+    return {
+      tokenA: tokenB,
+      tokenB: tokenA
+    }
+  }
+
+  return {
+    tokenA,
+    tokenB
+  }
 }
 
 function sortPoolpairsByFavourite (

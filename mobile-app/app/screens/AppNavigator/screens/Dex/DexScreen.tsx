@@ -33,7 +33,7 @@ import { PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
-  AvailablePoolPair = 'AVAILABLE_POOL_PAIRS',
+  AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
 }
 
 interface DexItem<T> {

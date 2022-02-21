@@ -9,12 +9,12 @@ interface PriceRatesSectionProps {
   tokenA: {
     symbol: string
     displaySymbol: string
-    aToBPrice: BigNumber
+    priceRate: BigNumber
   }
   tokenB: {
     symbol: string
     displaySymbol: string
-    bToAPrice: BigNumber
+    priceRate: BigNumber
   }
 }
 
@@ -25,8 +25,8 @@ export function PriceRatesSection ({
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
   if (
-    new BigNumber(tokenA.aToBPrice).isNaN() ||
-    new BigNumber(tokenB.bToAPrice).isNaN()
+    new BigNumber(tokenA.priceRate).isNaN() ||
+    new BigNumber(tokenB.priceRate).isNaN()
   ) {
     return <></>
   }
@@ -42,28 +42,34 @@ export function PriceRatesSection ({
       </ThemedText>
       <View style={tailwind('flex flex-row items-center m-0.5')}>
         <TokenAIcon height={16} width={16} />
-        <ThemedText style={tailwind('text-xs ml-1')}>
+        <ThemedText
+          testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
+          style={tailwind('text-xs ml-1')}
+        >
           {translate(
             'screens/PriceRatesSection',
             '1 {{tokenASymbol}} = {{aToBPrice}} {{tokenBSymbol}}',
             {
               tokenASymbol: tokenA.displaySymbol,
               tokenBSymbol: tokenB.displaySymbol,
-              aToBPrice: tokenA.aToBPrice.toFixed(8)
+              aToBPrice: tokenA.priceRate.toFixed(8)
             }
           )}
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row items-center m-0.5')}>
         <TokenBIcon height={16} width={16} />
-        <ThemedText style={tailwind('text-xs ml-1')}>
+        <ThemedText
+          testID={`price_rate_${tokenB.displaySymbol}-${tokenA.displaySymbol}`}
+          style={tailwind('text-xs ml-1')}
+        >
           {translate(
             'screens/PriceRatesSection',
             '1 {{tokenBSymbol}} = {{bToAPrice}} {{tokenASymbol}}',
             {
               tokenASymbol: tokenA.displaySymbol,
               tokenBSymbol: tokenB.displaySymbol,
-              bToAPrice: tokenB.bToAPrice.toFixed(8)
+              bToAPrice: tokenB.priceRate.toFixed(8)
             }
           )}
         </ThemedText>
