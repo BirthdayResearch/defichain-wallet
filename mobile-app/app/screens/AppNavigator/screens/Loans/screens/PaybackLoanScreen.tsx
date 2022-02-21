@@ -286,8 +286,8 @@ export function PaybackLoanScreen ({
             inlineText: {
               type: 'error',
               text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
-          }
-        })}
+              }
+          })}
         >
           <>
             <SetAmountButton
