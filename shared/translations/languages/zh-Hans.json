@@ -45,7 +45,8 @@
     "Total Value Locked in pool pairs (USD): ": "流动池锁定的总价值 (美元)：",
     "All pairs": "所有交易对",
     "DFI pairs": "DFI 对",
-    "DUSD pairs": "DUSD 对"
+    "DUSD pairs": "DUSD 对",
+    "Your share in pool": "您在流动池中的份额"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",

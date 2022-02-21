@@ -22,6 +22,8 @@ import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
 import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import NumberFormat from 'react-number-format'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -52,7 +54,7 @@ export function PoolPairCards ({
     availablePairs,
     isFavouritePoolpair
   )
-  const { calculatePriceRates } = useTokenPrice()
+  const { getTokenPrice, calculatePriceRates } = useTokenPrice()
   const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
 
   const [filteredYourPairs, setFilteredYourPairs] =
@@ -155,13 +157,49 @@ export function PoolPairCards ({
           )}
         </View>
         {/* TODO(PIERRE): Check how to optimize a lot of reloads happening here */}
-        <PriceRatesSection
-          {...getSortedPriceRates({
-            mappedPair,
-            aToBPrice: priceRates.aToBPrice,
-            bToAPrice: priceRates.bToAPrice
-          })}
-        />
+        {type === 'available'
+? (
+  <PriceRatesSection
+    {...getSortedPriceRates({
+              mappedPair,
+              aToBPrice: priceRates.aToBPrice,
+              bToAPrice: priceRates.bToAPrice
+            })}
+  />
+        )
+: (
+  <View style={tailwind('flex flex-col mt-2')}>
+    <ThemedText
+      dark={tailwind('text-gray-400')}
+      light={tailwind('text-gray-500')}
+      style={tailwind('text-xs font-normal leading-3 mt-1')}
+    >
+      {translate('screens/DexScreen', 'Your share in pool')}
+    </ThemedText>
+    <NumberFormat
+      decimalScale={2}
+      displayType='text'
+      renderText={(textValue) => (
+        <ThemedText
+          style={tailwind('text-sm leading-3 font-semibold mb-1 mt-2')}
+        >
+          {textValue}
+        </ThemedText>
+              )}
+      thousandSeparator
+      value={(yourPair as WalletToken).amount}
+    />
+    <ActiveUSDValue
+      price={getTokenPrice(
+                yourPair.symbol,
+                new BigNumber((yourPair as WalletToken).amount),
+                true
+              )}
+      containerStyle={tailwind('')}
+      testId='testID_here'
+    />
+  </View>
+        )}
         <View
           style={tailwind('flex flex-row justify-between items-center mt-2')}
         >
@@ -174,7 +212,7 @@ export function PoolPairCards ({
           />
           <TouchableOpacity
             onPress={onCollapseToggle}
-            style={tailwind('flex flex-row mt-1')}
+            style={tailwind('flex flex-row mt-1 pt-0.5')}
           >
             <ThemedText
               style={tailwind('text-sm font-medium')}

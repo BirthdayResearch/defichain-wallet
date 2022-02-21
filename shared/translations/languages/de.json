@@ -45,7 +45,8 @@
     "Total Value Locked in pool pairs (USD): ": "In Pool-Paaren angelegter Gesamtwert (USD): ",
     "All pairs": "Alle Paare",
     "DFI pairs": "DFI-Paare",
-    "DUSD pairs": "DUSD-Paare"
+    "DUSD pairs": "DUSD-Paare",
+    "Your share in pool": "Dein Pool-Anteil"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",

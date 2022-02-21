@@ -10,7 +10,6 @@ import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/Toke
 
 interface InfoSectionProps {
   type: 'available' | 'your'
-  pairAmount?: string
   pair: PoolPairData | undefined
   tokenATotal: string
   tokenBTotal: string
@@ -20,7 +19,6 @@ interface InfoSectionProps {
 export function InfoSection ({
   type,
   pair,
-  pairAmount,
   tokenATotal,
   tokenBTotal,
   testID
@@ -45,23 +43,6 @@ export function InfoSection ({
     <View style={tailwind('mt-1 -mb-1 flex flex-row flex-wrap')}>
       {pair !== undefined && (
         <>
-          {type === 'your' && pairAmount !== undefined && (
-            <PoolPairInfoLine
-              label={translate('screens/DexScreen', 'Pooled {{symbol}}', {
-                symbol: pairSymbol
-              })}
-              value={{
-                text: pairAmount,
-                decimalScale: 8,
-                testID: `your_${pairSymbol}`
-              }}
-              usdValue={getUSDValue(
-                new BigNumber(pairAmount),
-                pair.symbol,
-                true
-              )}
-            />
-          )}
           <PoolPairInfoLine
             label={translate(
               'screens/DexScreen',
