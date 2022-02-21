@@ -40,7 +40,8 @@
     "Your pool pairs": "您的流动池股份",
     "Total Value Locked (USD)": "总体价值锁定 (美元)",
     "Swap tokens": "兑换货币",
-    "SWAP": "兑换"
+    "SWAP": "兑换",
+    "DETAILS": "了解详情"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",

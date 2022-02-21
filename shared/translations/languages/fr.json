@@ -40,7 +40,8 @@
     "Your pool pairs": "Mes paires de pool",
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
     "SWAP": "ÉCHANGER",
-    "Swap tokens": "Échange de tokens"
+    "Swap tokens": "Échange de tokens",
+    "DETAILS": "DÉTAILS"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",
