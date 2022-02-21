@@ -226,11 +226,11 @@
     "Loans FAQ": "FAQ Darlehen",
     "Decentralized Loans": "Dezentrale Darlehen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
-    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
+    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
     "How is the collateralization ratio calculated?": "Wie wird die Besicherungsquote berechnet?",
     "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "Die Besicherungsquote wird berechnet, indem der Gesamtwert der in einem Vault hinterlegten Sicherheiten durch den aufgenommenen Darlehensbetrag und die Gesamtzinsen geteilt wird, ausgedrückt in Prozent.",
     "What is the collateralization ratio used for?": "Wozu dient die Besicherungsquote?",
-    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "Die Besicherungsquote bestimmt den Zustand des Vaults. Liegt der Besicherungsgrad unter der Mindestbesicherungsquote, werden die Sicherheiten des Vaults zur Versteigerung (Auktion) freigegeben.",
+    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collateral will be sent for auction.": "Die Besicherungsquote bestimmt den Zustand des Vaults. Liegt der Besicherungsgrad unter der Mindestbesicherungsquote, werden die Sicherheiten des Vaults zur Versteigerung (Auktion) freigegeben.",
     "Indicators have been included to help visualise the health of your vault, where:": "Um den Zustand deines Vaults zu veranschaulichen, wurden farbliche Indikatoren eingefügt, die wie folgt aussehen:",
     "Red: 1x – 1.25x above the minimum collateralization ratio": "Rot: 1x - 1,25x über dem Mindestbesicherungsverhältnis",
     "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "Gelb: 1,25x - 1,5x über dem Mindestbesicherungsverhältnis",
@@ -737,7 +737,7 @@
     "Vault Detail": "Vault Detailansicht",
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
-    "Edit Collaterals": "Sicherheiten bearbeiten",
+    "Edit Collateral": "Sicherheiten bearbeiten",
     "Borrow Loan Token": "Darlehenstoken entleihen",
     "Confirm Borrow Loan Token": "Ausleihen des Darlehenstokens bestätigen",
     "Edit Loan Scheme": "Darlehensmodell bearbeiten",
@@ -752,7 +752,7 @@
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
     "Details": "Details",
-    "Collaterals": "Sicherheiten",
+    "Collateral": "Sicherheiten",
     "Auctions": "Auktionen",
     "Loans": "Darlehen",
     "Browse auctions": "Auktionen durchsuchen",
@@ -789,7 +789,7 @@
     "Auction details": "Auktionsdetails"
   },
   "components/AuctionDetailScreen":{
-    "Collaterals": "Sicherheiten",
+    "Collateral": "Sicherheiten",
     "Min. next bid": "Nächstes Mind. Gebot",
     "VAULT DETAILS": "VAULT-DETAILS",
     "Vault ID": "Vault-ID",
@@ -836,7 +836,7 @@
     "Auction time remaining": "Verbleibende Auktionszeit"
   },
   "components/VaultCard": {
-    "Collaterals:": "Sicherheiten:",
+    "Collateral:": "Sicherheiten:",
     "None": "Keine",
     "Locked": "Gesperrt",
     "At risk": "Gefährdet",
@@ -853,7 +853,7 @@
     "Interest amount (1.5%)": "Zinsbetrag (1.5%)",
     "Amount payable": "Auszahlbarer Betrag",
     "Price per token (USD)": "Preis pro Token (USD)",
-    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN",
+    "EDIT COLLATERAL": "SICHERHEITEN BEARBEITEN",
     "MANAGE LOANS": "DARLEHEN VERWALTEN",
     "ACTIVE": "AKTIV",
     "HEALTHY": "GUT",
@@ -865,7 +865,7 @@
   },
   "components/EmptyVault": {
     "No vault created": "Kein Vault erstellt",
-    "To get started, create a vault and add DFI and other tokens as collaterals": "Um loszulegen, erstelle einen Vault und füge DFI und andere Token als Sicherheiten hinzu",
+    "To get started, create a vault and add DFI and other tokens as collateral": "Um loszulegen, erstelle einen Vault und füge DFI und andere Token als Sicherheiten hinzu",
     "CREATE VAULT": "VAULT ERSTELLEN"
   },
   "screens/CreateVaultScreen": {
@@ -901,7 +901,7 @@
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Jede Transaktion unterliegt einer geringen Gebühr. Der Betrag kann je nach Auslastung des Netzwerks variieren.",
     "Vault fee": "Vaultgebühr",
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Diese Gebühr dient als Ersteinlage für deinen Vault. Du erhältst 1 DFI zurück, wenn du dich entscheidest, diesen Vault zu schließen.",
-    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "Die Besicherungsquote stellt die Menge der in einem Vault hinterlegten Sicherheiten im Verhältnis zum Darlehensbetrag dar, ausgedrückt in Prozent.",
+    "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "Die Besicherungsquote stellt die Menge der in einem Vault hinterlegten Sicherheiten im Verhältnis zum Darlehensbetrag dar, ausgedrückt in Prozent.",
     "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Nächste Besicherungsquote stellt den Besicherungsgrad des Vaults auf der Grundlage der Preise der Sicherheiten/Darlehenstoken in der nächsten Stunde dar.",
     "Annual vault interest rate based on the loan scheme selected.": "Vault-Jahreszinssatz auf Basis des gewählten Darlehensmodells.",
     "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Erforderliche Mindestbesicherungsquote je nach ausgewähltem Darlehensmodell. Ein Vault wird liquidiert, wenn die Besicherungsquote unter die Mindestanforderung sinkt.",
@@ -917,8 +917,8 @@
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
     "Your vault is locked for liquidation.": "Dein Vault ist im Rahmen der Liquidation eingefroren.",
-    "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Dein Vault ist von der Liquidation bedroht. Verhindere die Liquidation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
-    "Collaterals required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collateral or paying back loans.": "Dein Vault ist von der Liquidation bedroht. Verhindere die Liquidation, indem du weitere Sicherheiten hinzufügst oder Darlehen zurückzahlst.",
+    "Collateral required to use this vault.": "Für die Nutzung dieses Vaults sind Sicherheiten erforderlich.",
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Total loans (USD)": "Gesamtes Darlehen (USD)",
     "Vault interest (APR)": "Vault-Jahreszins",
@@ -928,7 +928,7 @@
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",
     "EDIT SCHEME": "DARLEHENSMODELL BEARBEITEN",
-    "EDIT COLLATERALS": "SICHERHEITEN BEARBEITEN",
+    "EDIT COLLATERAL": "SICHERHEITEN BEARBEITEN",
     "EDIT LOAN SCHEME": "DARLEHENSMODELL BEARBEITEN",
     "CLOSE VAULT": "VAULT SCHLIESSEN"
   },
@@ -966,7 +966,7 @@
     "Collateral amount": "Höhe der Sicherheiten"
   },
   "screens/EditCollateralScreen": {
-    "COLLATERALS WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
+    "COLLATERAL WILL BE ADDED TO VAULT": "DIE SICHERHEITEN WERDEN DEM VAULT HINZUGEFÜGT",
     "ADD DFI AND TOKENS FOR COLLATERAL": "FÜGE DFI UND TOKEN ALS SICHERHEITEN HINZU",
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Vault %": "Vault %",
@@ -983,7 +983,7 @@
     "Cancel": "Abbrechen",
     "Remove": "Entfernen",
     "VAULT DETAILS": "VAULT-DETAILS",
-    "COLLATERALS": "SICHERHEITEN",
+    "COLLATERAL": "SICHERHEITEN",
     "Adding collateral": "Sicherheiten hinzufügen",
     "Adding {{amount}} {{symbol}} as collateral": "Hinzufügen von {{amount}} {{symbol}} als Sicherheit",
     "Removing collateral": "Sicherheiten entfernen",
@@ -1169,8 +1169,8 @@
     "Search for loan token": "Suche nach Darlehenstoken"
   },
   "components/EmptyCollateral": {
-    "No collaterals": "Keine Sicherheiten",
-    "ADD COLLATERALS": "ADD COLLATERALS",
+    "No collateral": "Keine Sicherheiten",
+    "ADD COLLATERAL": "ADD COLLATERAL",
     "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   },
   "screens/CloseVaultScreen": {
@@ -1198,7 +1198,7 @@
     "(Full details)": "(Alle Details)",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Insufficient funds": "Unzureichende Deckung",
-    "Collaterals": "Sicherheiten",
+    "Collateral": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
     "Collateral for auction": "Zu ersteigern"
