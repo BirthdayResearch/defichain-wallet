@@ -114,7 +114,7 @@ export function PaybackLoanScreen ({
   const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(loanTokenOutstandingBal)
 
   const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInPaymentToken)
-  const [isValidInput, setIsValidInput] = useState(false)
+  const [isValidInput, setIsValidInput] = useState(true)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [isValid, setIsValid] = useState(false)
   const [isExcess, setIsExcess] = useState(false)
