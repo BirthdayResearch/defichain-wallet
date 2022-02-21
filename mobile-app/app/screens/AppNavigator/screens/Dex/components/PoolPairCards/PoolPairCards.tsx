@@ -223,8 +223,10 @@ export function PoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
-      testID='available_liquidity_tab'
+      testID={type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'}
       renderItem={renderItem}
     />
   )
