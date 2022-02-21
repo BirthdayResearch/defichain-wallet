@@ -1,0 +1,163 @@
+import { View } from 'react-native'
+import NumberFormat from 'react-number-format'
+import BigNumber from 'bignumber.js'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { ThemedText } from '@components/themed'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+
+interface InfoSectionProps {
+  type: 'available' | 'your'
+  pairAmount?: string
+  pair: PoolPairData | undefined
+  tokenATotal: string
+  tokenBTotal: string
+  testID: string
+}
+
+export function InfoSection ({
+  type,
+  pair,
+  pairAmount,
+  tokenATotal,
+  tokenBTotal,
+  testID
+}: InfoSectionProps): JSX.Element {
+  const pairSymbol =
+    pair?.tokenA.displaySymbol !== undefined &&
+    pair?.tokenB.displaySymbol !== undefined
+      ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
+      : ''
+  const decimalScale = type === 'available' ? 2 : 8
+  const { getTokenPrice } = useTokenPrice()
+
+  const getUSDValue = (
+    amount: BigNumber,
+    symbol: string,
+    isLPs: boolean = false
+  ): BigNumber => {
+    return getTokenPrice(symbol, amount, isLPs)
+  }
+
+  return (
+    <View style={tailwind('mt-1 -mb-1 flex flex-row flex-wrap')}>
+      {pair !== undefined && (
+        <>
+          {type === 'your' && pairAmount !== undefined && (
+            <PoolPairInfoLine
+              label={translate('screens/DexScreen', 'Pooled {{symbol}}', {
+                symbol: pairSymbol
+              })}
+              value={{
+                text: pairAmount,
+                decimalScale: 8,
+                testID: `your_${pairSymbol}`
+              }}
+              usdValue={getUSDValue(
+                new BigNumber(pairAmount),
+                pairSymbol,
+                true
+              )}
+            />
+          )}
+          <PoolPairInfoLine
+            label={translate(
+              'screens/DexScreen',
+              `${type === 'available' ? 'Pooled' : 'Your pooled'} {{symbol}}`,
+              { symbol: pair.tokenA.displaySymbol }
+            )}
+            value={{
+              text: tokenATotal,
+              decimalScale: decimalScale,
+              testID: `${testID}_${pair.tokenA.displaySymbol}`,
+              suffix: ` ${pair.tokenA.displaySymbol}`
+            }}
+            usdValue={getUSDValue(
+              new BigNumber(tokenATotal),
+              pair.tokenA.symbol
+            )}
+          />
+          <PoolPairInfoLine
+            label={translate(
+              'screens/DexScreen',
+              `${type === 'available' ? 'Pooled' : 'Your pooled'} {{symbol}}`,
+              { symbol: pair.tokenB.displaySymbol }
+            )}
+            value={{
+              text: tokenBTotal,
+              decimalScale: decimalScale,
+              testID: `${testID}_${pair.tokenB.displaySymbol}`,
+              suffix: ` ${pair.tokenB.displaySymbol}`
+            }}
+            usdValue={getUSDValue(
+              new BigNumber(tokenBTotal),
+              pair.tokenB.symbol
+            )}
+          />
+          {pair.totalLiquidity.usd !== undefined && (
+            <PoolPairInfoLine
+              label={translate('screens/DexScreen', 'Total liquidity (USD)')}
+              value={{
+                text: pair.totalLiquidity.usd,
+                decimalScale: 2,
+                testID: `totalLiquidity_${pairSymbol}`
+              }}
+            />
+          )}
+        </>
+      )}
+    </View>
+  )
+}
+
+interface PoolPairInfoLineProps {
+  label: string
+  value: {
+    decimalScale: number
+    suffix?: string
+    testID: string
+    text: string
+  }
+  usdValue?: BigNumber
+}
+
+function PoolPairInfoLine ({
+  label,
+  value,
+  usdValue
+}: PoolPairInfoLineProps): JSX.Element {
+  return (
+    <View style={tailwind('flex-row justify-between mt-3 w-full')}>
+      <ThemedText
+        dark={tailwind('text-gray-400')}
+        light={tailwind('text-gray-500')}
+        style={tailwind('text-xs font-normal')}
+      >
+        {label}
+      </ThemedText>
+      <View>
+        <NumberFormat
+          decimalScale={value.decimalScale}
+          displayType='text'
+          renderText={(textValue) => (
+            <ThemedText style={tailwind('text-sm')} testID={value.testID}>
+              {textValue}
+            </ThemedText>
+          )}
+          thousandSeparator
+          suffix={value.suffix}
+          value={value.text}
+        />
+        {usdValue !== undefined && (
+          <ActiveUSDValue
+            price={usdValue}
+            containerStyle={tailwind('justify-end -mt-0.5')}
+            testId='testID_here'
+          />
+        )}
+      </View>
+    </View>
+  )
+}
