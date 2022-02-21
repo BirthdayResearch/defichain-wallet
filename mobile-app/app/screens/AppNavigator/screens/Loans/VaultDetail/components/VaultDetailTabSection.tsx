@@ -10,7 +10,7 @@ import { DetailsTab } from './DetailsTab'
 export enum TabKey {
   Loans = 'LOANS',
   Details = 'DETAILS',
-  Collaterals = 'COLLATERALS',
+  Collaterals = 'COLLATERAL',
   Auctions = 'AUCTIONS'
 }
 
@@ -59,7 +59,7 @@ function getDetailTabs (vault: LoanVault, tabOnPress: (tabId: string) => void): 
     tabs = [ // TODO: add auction tab
       {
         id: TabKey.Collaterals,
-        label: 'Collaterals',
+        label: 'Collateral',
         disabled: false,
         handleOnPress: tabOnPress
       },
@@ -74,7 +74,7 @@ function getDetailTabs (vault: LoanVault, tabOnPress: (tabId: string) => void): 
     tabs = [
       {
         id: TabKey.Collaterals,
-        label: 'Collaterals',
+        label: 'Collateral',
         disabled: false,
         handleOnPress: tabOnPress
       },

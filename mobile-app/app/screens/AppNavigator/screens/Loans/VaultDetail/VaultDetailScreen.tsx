@@ -43,7 +43,7 @@ export function VaultDetailScreen ({
   const canUseOperations = useLoanOperations(vault?.state)
   const vaultActionButtons: ScrollButton[] = [
     {
-      label: 'EDIT COLLATERALS',
+      label: 'EDIT COLLATERAL',
       disabled: !canUseOperations,
       handleOnPress: () => {
         if (vault === undefined) {

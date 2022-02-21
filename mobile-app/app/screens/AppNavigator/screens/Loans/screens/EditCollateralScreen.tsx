@@ -246,7 +246,7 @@ export function EditCollateralScreen ({
         />
         {
           activeVault.collateralAmounts?.length > 0 && (
-            <SectionTitle title='COLLATERALS' />
+            <SectionTitle title='COLLATERAL' />
           )
         }
         {activeVault.collateralAmounts.map((collateral, index) => {
@@ -388,7 +388,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         rhsThemedProps={colors}
         info={{
           title: 'Collateralization ratio',
-          message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+          message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
         }}
       />
       <VaultSectionTextRow
