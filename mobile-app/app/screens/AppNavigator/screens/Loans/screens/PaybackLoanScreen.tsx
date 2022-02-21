@@ -198,7 +198,7 @@ export function PaybackLoanScreen ({
   }, [])
 
   useEffect(() => {
-    return setIsValidInput(new BigNumber(amountToPay).isNaN())
+    return setIsValidInput(new BigNumber(amountToPay).lte(0) || new BigNumber(amountToPay).isNaN())
   }, [amountToPay])
 
   const onPaymentTokenSelect = (paymentToken: PaymentTokenProps): void => {
