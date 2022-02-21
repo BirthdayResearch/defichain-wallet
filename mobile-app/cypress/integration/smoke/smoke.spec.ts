@@ -180,6 +180,12 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
       available.forEach((pair, index) => {
         const data: PoolPairData = pair.data
+        cy.intercept('**/poolpairs?size=*', {
+          statusCode: 200,
+          body: {
+            data: pairs
+          }
+        })
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
         cy.getByTestID('dex_search_icon').click()
         cy.getByTestID('dex_search_input').clear().type(symbol).blur()
