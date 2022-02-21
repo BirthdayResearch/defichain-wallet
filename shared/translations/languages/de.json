@@ -41,7 +41,10 @@
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
     "SWAP": "TAUSCH",
     "Swap tokens": "Token-Tausch",
-    "Total Value Locked in pool pairs (USD): ": "In Pool-Paaren angelegter Gesamtwert (USD): "
+    "Total Value Locked in pool pairs (USD): ": "In Pool-Paaren angelegter Gesamtwert (USD): ",
+    "All pairs": "Alle Paare",
+    "DFI pairs": "DFI-Paare",
+    "DUSD pairs": "DUSD-Paare"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -560,7 +563,7 @@
     "After": "Danach",
     "You have": "Du hast aktuell",
     "CONTINUE": "WEITER",
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "Price": "Preis",
     "Estimated to receive": "Geschätzter Betrag",
     "Balance: ": "Guthaben: ",
@@ -607,14 +610,14 @@
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
-    "Slippage tolerance": "Slippage toleranz",
+    "Slippage tolerance": "Slippage-Toleranz",
     "Estimated to receive": "Geschätzter Betrag"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
     "ESTIMATED BALANCE AFTER SWAP": "GESCHÄTZTES GUTHABEN NACH DEM TAUSCH",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
-    "Slippage tolerance": "Slippage toleranz",
+    "Slippage tolerance": "Slippage-Toleranz",
     "Estimated fee": "Voraussichtliche Gebühr",
     "SWAP": "TAUSCH",
     "SWAPPING": "WIRD GETAUSCHT",
@@ -893,8 +896,8 @@
     "Interest rate (APR)": "Jahreszinssatz",
     "APR": "Jahreszins",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
-    "Creating vault": "Vault anlegen",
-    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Anlegen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
+    "Creating vault": "Erstellen eines Vaults",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
     "Convert & create vault": "Umwandeln und Vault erstellen"
   },
   "components/BottomSheetInfo": {
@@ -997,7 +1000,7 @@
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "Wie viele {{symbol}} sollen hinzugefügt werden?",
     "collateral factor": "Besicherungsfaktor",
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "Available": "Verfügbar",
     "ADD TOKEN AS COLLATERAL": "TOKEN ALS BESICHERUNG HINZUFÜGEN",
     "REMOVE COLLATERAL AMOUNT": "BETRAG DER SICHERHEITEN REDUZIEREN",
@@ -1032,7 +1035,7 @@
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
     "VAULT IN USE": "AKTIVER VAULT",
     "How much of the loan do you want to pay?": "Wie viel des Darlehens willst du zurückzahlen?",
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "Available": "Verfügbar",
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
@@ -1086,7 +1089,7 @@
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Vault interest": "Vault-Jahreszins",
     "How much do you want to borrow?": "Wie viel willst du leihen?",
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Collateralization ratio": "Besicherungsquote",
     "Resulting collateralization": "Resultierende Besicherungsquote",
@@ -1158,7 +1161,7 @@
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",
     "How much do you want to add?": "Wie viel möchtest du zusätzlich aufnehmen?",
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "VAULT IN USE": "AKTIVER VAULT",
     "CONTINUE": "WEITER",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
@@ -1188,7 +1191,7 @@
     "more": "weitere"
   },
   "screens/PlaceBidScreen": {
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "MIN. BID": "MIND. GEBOT",
     "Bid amount is lower than required": "Gebotsbetrag ist niedriger als erforderlich",
     "Available": "Verfügbar",
@@ -1224,7 +1227,7 @@
     "QUICK BID": "SCHNELLES GEBOT",
     "Insufficient amount to place a bid": "Der Gebotsbetrag reicht nicht aus",
     "Quick bid": "Schnelles Gebot",
-    "Place a bid on the auctions with the min. next bid": "Biete auf die Auktionen mit dem nächsten Mindestgebot",
+    "Place a bid on the auctions with the min. next bid": "Biete auf die Auktion mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Current balance": "Aktueller Stand"
   },

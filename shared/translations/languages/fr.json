@@ -41,7 +41,10 @@
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
     "SWAP": "ÉCHANGER",
     "Swap tokens": "Échange de tokens",
-    "Total Value Locked in pool pairs (USD): ": "Valeur totale bloquée dans les paires de pool (USD): "
+    "Total Value Locked in pool pairs (USD): ": "Valeur totale bloquée dans les paires de pool (USD): ",
+    "All pairs": "Toutes les paires",
+    "DFI pairs": "Paires DFI",
+    "DUSD pairs": "Paires DUSD"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",
