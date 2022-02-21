@@ -40,7 +40,10 @@
     "Your pool pairs": "您的流動池股份",
     "Total Value Locked (USD)": "總體價值鎖定 (美元)",
     "Swap tokens": "兌換貨幣",
-    "SWAP": "兌換"
+    "SWAP": "兌換",
+    "All pairs": "所有交易對",
+    "DFI pairs": "DFI 對",
+    "DUSD pairs": "DUSD 對"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
