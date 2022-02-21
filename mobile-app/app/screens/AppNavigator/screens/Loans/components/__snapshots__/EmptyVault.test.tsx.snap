@@ -81,7 +81,7 @@ exports[`Empty vault should match snapshot 1`] = `
         ]
       }
     >
-      To get started, create a vault and add DFI and other tokens as collaterals
+      To get started, create a vault and add DFI and other tokens as collateral
     </Text>
     <View
       accessible={true}
