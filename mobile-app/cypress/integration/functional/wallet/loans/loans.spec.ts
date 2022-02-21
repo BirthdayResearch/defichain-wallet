@@ -350,6 +350,11 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('conversion_info_text').should('not.exist')
   })
 
+  it('should not display warning msg when input is NaN or less than 0', function () {
+    cy.getByTestID('payback_input_text').clear()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+  })
+
   it('should display tx details in paying DFI with excess payment', function () {
     /* Computations
       penalty = (100.00076104/0.99) - 100.00076104
