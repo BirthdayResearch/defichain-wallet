@@ -33,8 +33,8 @@ export function APRSection (props: APRSectionProps): JSX.Element {
         renderText={(value) => (
           <ThemedText
             style={tailwind('text-sm font-semibold')}
-            dark={tailwind('text-success-500')}
-            light={tailwind('text-darksuccess-500')}
+            light={tailwind('text-success-600')}
+            dark={tailwind('text-darksuccess-600')}
             testID={props.value.testID}
           >
             {value}
