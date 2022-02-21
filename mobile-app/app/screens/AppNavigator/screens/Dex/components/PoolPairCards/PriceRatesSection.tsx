@@ -44,7 +44,7 @@ export function PriceRatesSection ({
         <TokenAIcon height={16} width={16} />
         <ThemedText
           testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
-          style={tailwind('text-xs ml-1')}
+          style={tailwind('text-sm ml-1')}
         >
           {translate(
             'screens/PriceRatesSection',
@@ -61,7 +61,7 @@ export function PriceRatesSection ({
         <TokenBIcon height={16} width={16} />
         <ThemedText
           testID={`price_rate_${tokenB.displaySymbol}-${tokenA.displaySymbol}`}
-          style={tailwind('text-xs ml-1')}
+          style={tailwind('text-sm ml-1')}
         >
           {translate(
             'screens/PriceRatesSection',

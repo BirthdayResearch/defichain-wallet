@@ -23,7 +23,7 @@ export function PoolPairTextSection ({
     <View style={tailwind('flex-row items-center')}>
       <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
       <ThemedText
-        style={tailwind('text-base font-medium')}
+        style={tailwind('text-lg font-medium')}
         testID={`your_symbol_${poolpairSymbol}`}
       >
         {poolpairSymbol}

@@ -142,7 +142,7 @@ export function PoolPairCards ({
           />
           {mappedPair?.apr?.total !== undefined && (
             <APRSection
-              label={`${translate('screens/DexScreen', 'APR')}:`}
+              label={`${translate('screens/DexScreen', 'APR')}: `}
               value={{
                 text: new BigNumber(
                   isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
@@ -158,48 +158,48 @@ export function PoolPairCards ({
         </View>
         {/* TODO(PIERRE): Check how to optimize a lot of reloads happening here */}
         {type === 'available'
-? (
-  <PriceRatesSection
-    {...getSortedPriceRates({
-              mappedPair,
-              aToBPrice: priceRates.aToBPrice,
-              bToAPrice: priceRates.bToAPrice
-            })}
-  />
-        )
-: (
-  <View style={tailwind('flex flex-col mt-2')}>
-    <ThemedText
-      dark={tailwind('text-gray-400')}
-      light={tailwind('text-gray-500')}
-      style={tailwind('text-xs font-normal leading-3 mt-1')}
-    >
-      {translate('screens/DexScreen', 'Your share in pool')}
-    </ThemedText>
-    <NumberFormat
-      decimalScale={2}
-      displayType='text'
-      renderText={(textValue) => (
-        <ThemedText
-          style={tailwind('text-sm leading-3 font-semibold mb-1 mt-2')}
-        >
-          {textValue}
-        </ThemedText>
-              )}
-      thousandSeparator
-      value={(yourPair as WalletToken).amount}
-    />
-    <ActiveUSDValue
-      price={getTokenPrice(
-                yourPair.symbol,
-                new BigNumber((yourPair as WalletToken).amount),
-                true
-              )}
-      containerStyle={tailwind('')}
-      testId='testID_here'
-    />
-  </View>
-        )}
+          ? (
+            <PriceRatesSection
+              {...getSortedPriceRates({
+                mappedPair,
+                aToBPrice: priceRates.aToBPrice,
+                bToAPrice: priceRates.bToAPrice
+              })}
+            />
+          )
+          : (
+            <View style={tailwind('flex flex-col mt-2')}>
+              <ThemedText
+                dark={tailwind('text-gray-400')}
+                light={tailwind('text-gray-500')}
+                style={tailwind('text-xs font-normal leading-3 mt-1')}
+              >
+                {translate('screens/DexScreen', 'Your share in pool')}
+              </ThemedText>
+              <NumberFormat
+                decimalScale={2}
+                displayType='text'
+                renderText={(textValue) => (
+                  <ThemedText
+                    style={tailwind('text-sm leading-3 font-semibold mb-1 mt-2')}
+                  >
+                    {textValue}
+                  </ThemedText>
+                )}
+                thousandSeparator
+                value={(yourPair as WalletToken).amount}
+              />
+              <ActiveUSDValue
+                price={getTokenPrice(
+                  yourPair.symbol,
+                  new BigNumber((yourPair as WalletToken).amount),
+                  true
+                )}
+                containerStyle={tailwind('')}
+                testId='testID_here'
+              />
+            </View>
+          )}
         <View
           style={tailwind('flex flex-row justify-between items-center mt-2')}
         >
@@ -219,13 +219,13 @@ export function PoolPairCards ({
               light={tailwind('text-primary-500')}
               dark={tailwind('text-darkprimary-500')}
             >
-              {translate('screens/DexScreen', 'DETAILS')}
+              {!isExpanded ? translate('screens/DexScreen', 'DETAILS') : translate('screens/DexScreen', 'HIDE')}
             </ThemedText>
             <ThemedIcon
               light={tailwind('text-primary-500 ml-0.5')}
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
-              name={!isExpanded ? 'expand-less' : 'expand-more'}
+              name={!isExpanded ? 'expand-more' : 'expand-less'}
               size={20}
             />
           </TouchableOpacity>
