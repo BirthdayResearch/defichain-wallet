@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 export interface BalanceTokenDetail {
   symbol: string
@@ -6,13 +6,6 @@ export interface BalanceTokenDetail {
   name: string
   amount: string | number
   usdAmount?: string
-}
-
-function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
-  const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
-  const expectedValue = new BigNumber(expectedVal)
-  expect(value.gte(expectedValue.minus(range))).to.be.eq(true)
-  expect(value.lte(expectedValue.plus(range))).to.be.eq(true)
 }
 
 context('Wallet - Balances', () => {
@@ -232,7 +225,7 @@ context('Wallet - Balances - Failed API', () => {
     cy.createEmptyWallet(true)
   })
 
-  it('should handle failed API calls', function () {
+  it('should not display any value when API failed', function () {
     cy.intercept('**/regtest/address/**', {
       statusCode: 404,
       body: '404 Not Found!',
@@ -240,11 +233,11 @@ context('Wallet - Balances - Failed API', () => {
         'x-not-found': 'true'
       }
     })
-    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
-    cy.getByTestID('dfi_token_amount').contains('0.00000000')
-    cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
-    cy.getByTestID('dfi_total_balance_usd_amount').should('have.text', '≈ $0.00000000')
-    cy.getByTestID('total_usd_amount').should('have.text', '$0.00000000')
+    cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
+    cy.getByTestID('balance_skeleton_loader').should('exist')
   })
 
   it('should display correct address', function () {
@@ -440,8 +433,8 @@ context('Wallet - Balances - USD Value', () => {
     // USDT  = ((10 / 2500) * 8330) * 1
     // DFI =  ((10 / 2500) * 830) * (8330 / 830)
     // DFI + USDT
-    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.64' })
-    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $20.07' })
+    cy.checkBalanceRow('18', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.64' })
+    cy.checkBalanceRow('17', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $20.07' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '298.52')
@@ -478,12 +471,12 @@ context('Wallet - Balances - USD Value', () => {
     // USDT = (10 / 2500) * 8300) * 1 == 33.2
     // DFI = (10 / 2500) * 100) * (8300 / 100) == 33.2
     // DFI + USDT
-    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.40' })
+    cy.checkBalanceRow('18', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.40' })
 
     // dETH = (1000 / 100000) * 8300 = 83.0
     // DFI = (1000 / 100000) * 100) * (8300 / 100) == 83.0
     // DFI + dETH
-    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $166.00' })
+    cy.checkBalanceRow('17', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $166.00' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '167083.70', 5)
@@ -514,8 +507,8 @@ context('Wallet - Balances - USD Value', () => {
     cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '20.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '≈ $20.00' })
 
     // LP USD
-    cy.checkBalanceRow('17', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $132.80' })
-    cy.checkBalanceRow('16', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $332.00' })
+    cy.checkBalanceRow('18', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $132.80' })
+    cy.checkBalanceRow('17', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $332.00' })
 
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '333326.1')
@@ -542,6 +535,56 @@ context('Wallet - Balances - USD Value', () => {
     })
     cy.getByTestID('total_usd_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '334155.89', 5)
+    })
+  })
+})
+
+context('Wallet - Balances - display sorted USD values', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().wait(3000)
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  it('should display LTC on top of ETH after topping up more LTC', function () {
+    cy.sendTokenToWallet(['ETH', 'LTC']).wait(6000)
+    // dETH will be displayed at the top of the card on first topup
+    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
+    cy.sendTokenToWallet(['LTC']).wait(6000)
+    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dLTC')
+  })
+})
+
+context('Wallet - Balances - Skeleton Loader', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet()
+  })
+
+  it('should display skeleton loader when API has yet to return', () => {
+    cy.intercept('**/address/**/tokens?size=*', {
+      body: {
+        data: [
+          {}
+        ]
+      },
+      delay: 3000
+    })
+    cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
+    cy.getByTestID('balance_skeleton_loader').should('exist')
+  })
+
+  it('should not display skeleton loader when API has return', () => {
+    cy.intercept('**/address/**/tokens?size=*').as('getTokens')
+    cy.wait('@getTokens').then(() => {
+      cy.getByTestID('total_portfolio_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_balance_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
+      cy.getByTestID('balance_skeleton_loader').should('not.exist')
     })
   })
 })

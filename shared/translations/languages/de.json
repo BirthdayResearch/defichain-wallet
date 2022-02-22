@@ -405,7 +405,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "Verbindungsproblem",
-    "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut."
+    "There seems to be a problem with the connection. Check your network and try again.": "Ein Problem mit der Internetverbindung ist aufgetreten. Überprüfe deine Datenverbindung und versuche es erneut.",
+    "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Darlehen",
@@ -609,7 +610,7 @@
     "Convert & swap": "Umwandeln & tauschen",
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Slippage toleranz",
     "Estimated to receive": "Geschätzter Betrag"
   },
@@ -622,7 +623,7 @@
     "SWAP": "TAUSCH",
     "SWAPPING": "WIRD GETAUSCHT",
     "Swapping Token": "Token-Tausch",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausche {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "{{token}} balance": "{{token}} Saldo",
     "CONFIRM SWAP": "TAUSCH BESTÄTIGEN",
@@ -1050,15 +1051,15 @@
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
-    "Insufficient {{token}} balance to pay the entered amount": "Nicht ausreichend {{token}} für die Rückzahlung des eingegebenen Betrags",
+    "Insufficient {{token}} balance to pay the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
     "Select payment token": "Token für die Zahlung auswählen",
     "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
     "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
-    "PAYING": "BEZAHLEN",
-    "You are paying": "Du zahlst",
+    "CONFIRM PAYMENT": "ZÜCKZAHLUNG BESTÄTIGEN",
+    "PAYING": "ZURÜCKZAHLEN",
+    "You are paying": "Du tilgst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Loan payment": "Darlehensrückzahlung",
@@ -1235,6 +1236,6 @@
     "Wallet address": "Walletadresse"
   },
   "components/Announcements": {
-    "VIEW": "ANZEIGEN"
+    "DETAILS": "DETAILS"
   }
 }

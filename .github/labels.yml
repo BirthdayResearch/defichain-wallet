@@ -25,6 +25,9 @@
 - color: cc40d8
   name: needs/triage
   description: Waiting for triage to be accepted
+- color: cc40d8
+  name: needs/design
+  description: Waiting for designs
 
 # Kind
 - color: e7e9eb
@@ -89,6 +92,8 @@
   name: area/wallet
 - color: fbca04
   name: area/settings
+- color: fbca04
+  name: area/loans
 
 # Area - Website
 - color: fbca04
@@ -103,12 +108,15 @@
   name: platform/android
 
 # Priority
-- color: d93f0b
+- color: da0b0b
   name: priority/urgent-now
   description: Urgent fix, as fast as possible
-- color: d93f0b
+- color: daaa0b
   name: priority/important-soon
   description: Will be important soon
+- color: dad30b
+  name: priority/low
+  description: Least priority
 
 # Design
 - color: 137fdd
@@ -124,14 +132,37 @@
   description: Triage has been accepted
 
 # Bug
-- color: ff3a3a
+- color: ffb638
   name: bug/minor
   description: Minor issue which is non-breaking and has a workaround
-- color: ff3a3a
+- color: ff7a38
   name: bug/major
   description: Major issue which is non-breaking but no workaround
 - color: ff3a3a
   name: bug/critical
   description: Critical issue that affects core functionalities. Needs to be hotfix
+
+# Time Estimate
+- color: 0bdacc
+  name: T3d
+  description: Time Estimate 3 days
+- color: 0bdacc
+  name: T1d
+  description: Time Estimate 1 day
+- color: 0bdacc
+  name: T1h
+  description: Time Estimate 1 hour
+- color: 0bdacc
+  name: T2h
+  description: Time Estimate 2 hours
+- color: 0bdacc
+  name: T4h
+  description: Time Estimate 4 hours
+- color: 0bdacc
+  name: T25m
+  description: Time Estimate 25 minutes
+- color: 0bdacc
+  name: T5m
+  description: Time Estimate 5 minutes or less
 
 

@@ -1,4 +1,5 @@
 import { View } from '@components'
+import { memo } from 'react'
 import { ThemedText } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getColor, tailwind } from '@tailwind'
@@ -16,7 +17,7 @@ interface AuctionTimeProgressProps {
   auctionTextStyle?: StyleProp<TextStyle>
 }
 
-export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Element {
+export const AuctionTimeProgress = memo((props: AuctionTimeProgressProps): JSX.Element => {
   const { isLight } = useThemeContext()
   const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTime(props.liquidationHeight, props.blockCount)
   const normalizedBlocks = new BigNumber(blocksRemaining).dividedBy(blocksPerAuction).toNumber()
@@ -54,4 +55,4 @@ export function AuctionTimeProgress (props: AuctionTimeProgressProps): JSX.Eleme
       />
     </>
   )
-}
+})

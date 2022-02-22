@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native'
 import { RootState } from '@store'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { AuctionTimeProgress } from './components/AuctionTimeProgress'
@@ -20,8 +20,6 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { AuctionDetails } from './components/AuctionDetails'
 import { AuctionedCollaterals } from './components/AuctionedCollaterals'
 import { IconButton } from '@components/IconButton'
-import NumberFormat from 'react-number-format'
-import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useAuctionBidValue } from './hooks/AuctionBidValue'
 import { useAuctionTime } from './hooks/AuctionTimeLeft'
 import { QuickBid } from './components/QuickBid'
@@ -29,6 +27,8 @@ import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/compone
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { MinNextBidTextRow } from './components/MinNextBidTextRow'
+import { useTokenPrice } from '../Balances/hooks/TokenPrice'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -45,11 +45,16 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
-  const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty)
+  const {
+    minNextBidInToken,
+    totalCollateralsValueInUSD,
+    minNextBidInUSD
+   } = useAuctionBidValue(batch, vault.liquidationPenalty)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const { address } = useWalletContext()
   const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
+  const isFocused = useIsFocused()
   const {
     bottomSheetRef,
     containerRef,
@@ -58,14 +63,19 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     isModalDisplayed,
     bottomSheetScreen,
     setBottomSheetScreen
-   } = useBottomSheet()
+  } = useBottomSheet()
+  const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
+    const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
+
     setBottomSheetScreen([{
       stackScreenName: 'Quick Bid',
       option: {
@@ -80,7 +90,9 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         loanTokenDisplaySymbol: batch.loan.displaySymbol,
         onCloseButtonPress: dismissModal,
         minNextBid: new BigNumber(minNextBidInToken),
-        currentBalance: new BigNumber(ownedToken?.amount ?? 0),
+        minNextBidInUSD: minNextBidInUSD,
+        currentBalance,
+        currentBalanceInUSD: getTokenPrice(batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: vault.liquidationHeight
       })
     }])
@@ -196,6 +208,8 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
       <AuctionActionSection
         minNextBidInToken={minNextBidInToken}
         displaySymbol={batch.loan.displaySymbol}
+        symbol={batch.loan.symbol}
+        minNextBidInUSD={minNextBidInUSD}
         blocksRemaining={blocksRemaining}
         onQuickBid={onQuickBid}
         onPlaceBid={onPlaceBid}
@@ -225,61 +239,31 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
 interface AuctionActionSectionProps {
   minNextBidInToken: string
+  minNextBidInUSD: string
+  symbol: string
   displaySymbol: string
   blocksRemaining: number
   onQuickBid: () => void
   onPlaceBid: () => void
 }
 
-function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
-  const nextBidInfo = {
-    title: 'Min. next bid',
-    message: 'The minimum bid a user must place in order to take part in the auction.'
-  }
-
+const AuctionActionSection = memo((props: AuctionActionSectionProps): JSX.Element => {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
     >
-      <View style={tailwind('flex flex-row items-center justify-center w-full')}>
-        <View style={tailwind('w-6/12')}>
-          <View style={tailwind('flex-row items-center')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-dfxgray-400')}
-              style={tailwind('text-sm items-center')}
-            >
-              {translate('components/AuctionDetailScreen', 'Min. next bid')}
-            </ThemedText>
-            <View style={tailwind('ml-1')}>
-              <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-sm')} />
-            </View>
-          </View>
-        </View>
-        <View
-          style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
-        >
-          <NumberFormat
-            suffix={` ${props.displaySymbol}`}
-            displayType='text'
-            renderText={(value) =>
-              <ThemedText
-                dark={tailwind('text-gray-50')}
-                light={tailwind('text-gray-900')}
-                style={tailwind('font-semibold')}
-                testID='total_auction_value'
-              >
-                {value}
-              </ThemedText>}
-            thousandSeparator
-            value={props.minNextBidInToken}
-          />
-        </View>
-      </View>
+      <MinNextBidTextRow
+        displaySymbol={props.displaySymbol}
+        minNextBidInToken={props.minNextBidInToken}
+        minNextBidInUSD={props.minNextBidInUSD}
+        labelTextStyle={tailwind('text-sm items-center')}
+        valueTextStyle={tailwind('font-semibold text-base')}
+        testID='auction_detail_min_next_bid'
+      />
       <View
-        style={tailwind('flex flex-row mt-6 items-center justify-center')}
+        style={tailwind('flex flex-row mt-4 items-center justify-center')}
       >
         <IconButton
           iconLabel={translate('components/QuickBid', 'QUICK BID')}
@@ -288,6 +272,7 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
           onPress={props.onQuickBid}
           disabled={props.blocksRemaining === 0}
           textStyle={tailwind('text-base')}
+          testID='auction_details_quick_bid_button'
         />
         <IconButton
           iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
@@ -308,4 +293,4 @@ function AuctionActionSection (props: AuctionActionSectionProps): JSX.Element {
       </View>
     </ThemedView>
   )
-}
+})

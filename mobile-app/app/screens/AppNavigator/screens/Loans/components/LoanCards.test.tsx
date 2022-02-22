@@ -144,7 +144,8 @@ describe('loan cards', () => {
         tokens: [],
         allTokens: { dTS25: TS25, dTR50: TR50, dTU10: TU10 },
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       }
     }
     const store = configureStore({

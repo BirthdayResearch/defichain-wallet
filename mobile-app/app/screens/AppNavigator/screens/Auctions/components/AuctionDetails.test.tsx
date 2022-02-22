@@ -5,6 +5,7 @@ import { render } from '@testing-library/react-native'
 import { AuctionDetails } from './AuctionDetails'
 import { Provider } from 'react-redux'
 import { block } from '@store/block'
+import { setTokenSymbol, wallet } from '@store/wallet'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/DeFiScanContext')
@@ -12,6 +13,38 @@ jest.mock('@shared-contexts/NetworkContext')
 
 describe('AuctionDetails', () => {
   it('should match snapshot', async () => {
+    const tokens = [{
+      id: '0',
+      symbol: 'DFI',
+      symbolKey: 'DFI',
+      displaySymbol: 'DFI',
+      isDAT: true,
+      isLPS: false,
+      isLoanToken: false,
+      amount: '23',
+      name: 'Defi'
+    }, {
+      id: '1',
+      symbol: 'BTC',
+      symbolKey: 'BTC',
+      displaySymbol: 'dBTC',
+      isDAT: true,
+      isLPS: false,
+      isLoanToken: false,
+      amount: '777',
+      name: 'Bitcoin'
+    },
+    {
+      id: '2',
+      symbol: 'ETH',
+      symbolKey: 'ETH',
+      displaySymbol: 'dETH',
+      isDAT: true,
+      isLPS: false,
+      isLoanToken: false,
+      amount: '555',
+      name: 'Ethereum'
+    }]
     const batches: LoanVaultLiquidationBatch[] = [{
       index: 0,
       collaterals: [
@@ -185,6 +218,14 @@ describe('AuctionDetails', () => {
     }
 
     const initialState: Partial<RootState> = {
+      wallet: {
+        utxoBalance: '77',
+        tokens: tokens.map(setTokenSymbol),
+        allTokens: {},
+        poolpairs: [],
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
+      },
       block: {
         count: 2000,
         masternodeCount: 10,
@@ -196,7 +237,10 @@ describe('AuctionDetails', () => {
 
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
 
     const rendered = render(

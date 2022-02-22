@@ -1,9 +1,28 @@
 import { getEnvironment } from '@environment'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { AnnouncementData, FeatureFlag } from '@shared-types/website'
 import * as Updates from 'expo-updates'
+import { AnnouncementData, DefiChainStatus, FeatureFlag } from '@shared-types/website'
 
-export const websiteSlice = createApi({
+export const statusWebsiteSlice = createApi({
+  reducerPath: 'websiteStatus',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://status.defichain.com/api'
+  }),
+  endpoints: builder => ({
+    getStatus: builder.query<DefiChainStatus, any>({
+      query: () => ({
+        url: '/v2/summary.json',
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          mode: 'no-cors'
+        }
+      })
+    })
+  })
+})
+
+export const announcementWebsiteSlice = createApi({
   reducerPath: 'website',
   baseQuery: fetchBaseQuery({
     baseUrl: getEnvironment(Updates.releaseChannel).dfxApiUrl
@@ -32,8 +51,16 @@ export const websiteSlice = createApi({
   })
 })
 
-export const {
+const { useGetStatusQuery } = statusWebsiteSlice
+const {
   useGetAnnouncementsQuery,
   useGetFeatureFlagsQuery,
   usePrefetch
-} = websiteSlice
+} = announcementWebsiteSlice
+
+export {
+  useGetStatusQuery,
+  useGetAnnouncementsQuery,
+  useGetFeatureFlagsQuery,
+  usePrefetch
+}

@@ -164,6 +164,7 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
                   light={tailwind('text-dfxgray-500')}
                   dark={tailwind('text-dfxgray-500')}
                   style={tailwind('text-xs')}
+                  testID={`${props.testID}_next_ratio`}
                 >
                   {value}
                 </ThemedText>}

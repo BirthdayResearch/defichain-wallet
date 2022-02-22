@@ -50,7 +50,8 @@ describe('token icons', () => {
             }
           },
           poolpairs: [],
-          hasFetchedPoolpairData: false
+          hasFetchedPoolpairData: false,
+          hasFetchedToken: true
         }
       }
 

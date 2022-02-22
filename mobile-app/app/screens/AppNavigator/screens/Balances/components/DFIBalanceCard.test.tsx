@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { block } from '@store/block'
 
 jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('@shared-contexts/NetworkContext')
 jest.mock('../../../../../contexts/DisplayBalancesContext')
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
@@ -30,7 +31,8 @@ describe('DFI Balance Card', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       }
     }
     const store = configureStore({

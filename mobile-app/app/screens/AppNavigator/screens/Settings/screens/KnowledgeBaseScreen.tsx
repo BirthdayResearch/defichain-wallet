@@ -43,11 +43,8 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       label: 'Liquidity Mining',
       testID: 'liquidity_mining_faq',
       onPress: () => navigation.navigate('LiquidityMiningFaq')
-    }
-  ]
-
-  if (isFeatureAvailable('loan')) {
-    knowledgeBaseItems.push({
+    },
+    {
       label: 'Loans',
       testID: 'loans_faq',
       onPress: () => navigation.navigate({
@@ -56,8 +53,8 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
           activeSessions: [0]
         }
       })
-    })
-  }
+    }
+  ]
 
   if (isFeatureAvailable('auction')) {
     knowledgeBaseItems.push({

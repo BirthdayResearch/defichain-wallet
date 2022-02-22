@@ -126,7 +126,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')
       cy.getByTestID('dfi_total_balance_amount').contains('20')
-      cy.checkBalanceRow('16', {
+      cy.checkBalanceRow('17', {
         name: 'Playground ETH-DeFiChain',
         amount: '10.00000000',
         displaySymbol: 'dETH-DFI',
@@ -181,10 +181,13 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       available.forEach((pair, index) => {
         const data: PoolPairData = pair.data
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
+        cy.getByTestID('dex_search_icon').click()
+        cy.getByTestID('dex_search_input').clear().type(symbol).blur()
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
         cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
         cy.getByTestID(`available_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
         cy.getByTestID(`available_${data.tokenB.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
+        cy.getByTestID('dex_search_input_close').click()
       })
     })
   })

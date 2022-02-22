@@ -152,7 +152,7 @@ Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
 Cypress.Commands.add('closeOceanInterface', (pin?: string) => {
   const inputPin = pin !== undefined ? pin : '000000'
   cy.getByTestID('pin_authorize').type(inputPin)
-  cy.wait(5000).getByTestID('oceanInterface_close').click().wait(2000)
+  cy.wait(7000).getByTestID('oceanInterface_close').should('exist').click().wait(2000)
 })
 
 Cypress.Commands.add('exitWallet', () => {

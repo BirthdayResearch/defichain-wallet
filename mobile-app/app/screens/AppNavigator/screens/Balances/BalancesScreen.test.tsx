@@ -15,7 +15,7 @@ jest.mock('@shared-contexts/LanguageProvider')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/WalletPersistenceContext')
-
+jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@contexts/DisplayBalancesContext')
 
 jest.mock('@react-navigation/native', () => ({
@@ -73,7 +73,8 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 100,
@@ -114,7 +115,8 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 100,

@@ -5,6 +5,7 @@ import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
 import { AddressSkeletonLoader } from './skeletonLoaders/AddressSkeletonLoader'
 import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
+import { BalanceSkeletonLoader } from './skeletonLoaders/BalanceSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -18,7 +19,8 @@ export enum SkeletonLoaderScreen {
   'Loan' = 'Loan',
   'Address' = 'Address',
   'BrowseAuction' = 'BrowseAuction',
-  'Vault' = 'Vault'
+  'Vault' = 'Vault',
+  'Balance' = 'Balance'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
@@ -78,6 +80,14 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <VaultSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.Balance:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <BalanceSkeletonLoader key={i} />
           ))}
         </>
       )

@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { MaterialIcons } from '@expo/vector-icons'
 import { translate } from '@translations'
-import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components/index'
@@ -50,7 +50,6 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   const [swapTokenDisplaySymbol, setSwapTokenDisplaySymbol] = useState<string>()
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
     dispatch(fetchTokens({ client, address }))
   }, [address, blockCount])
 

@@ -1,4 +1,5 @@
 import { checkVaultDetailCollateralAmounts, checkVaultDetailValues } from '../../../../support/loanCommands'
+import BigNumber from 'bignumber.js'
 
 context('Wallet - Loans - Vault Details', () => {
   let vaultId = ''
@@ -106,7 +107,7 @@ context('Wallet - Loans - Close Vault', () => {
 
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).sendTokenToWallet(['DUSD']).wait(6000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
@@ -136,14 +137,14 @@ context('Wallet - Loans - Close Vault', () => {
   it('should be swap DUSD', function () {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').clear().type('DUSD-DFI').blur()
     cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
     cy.getByTestID('switch_button').click()
     cy.wait(4000)
     cy.getByTestID('text_input_tokenA').type('1').blur()
     cy.wait(3000)
-    cy.getByTestID('slippage_select').click()
     cy.getByTestID('slippage_5%').click()
-    cy.getByTestID('button_tolerance_submit').click()
     cy.getByTestID('button_submit').click()
     cy.getByTestID('button_confirm_swap').click().wait(4000)
     cy.closeOceanInterface()
@@ -155,7 +156,7 @@ context('Wallet - Loans - Close Vault', () => {
     cy.getByTestID('collateral_tab_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('payback_input_text').clear().type('102').blur()
-    cy.getByTestID('payback_loan_button').click()
+    cy.getByTestID('payback_loan_button').click().wait(3000)
     cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
     cy.closeOceanInterface()
     cy.getByTestID('vault_card_0').click()
@@ -164,5 +165,164 @@ context('Wallet - Loans - Close Vault', () => {
     cy.getByTestID('txn_authorization_description').contains(`You are about to close vault ${vaultId}`)
     cy.closeOceanInterface()
     cy.getByTestID('button_create_vault').should('exist')
+  })
+})
+
+context('Wallet - Loans - Health Bar', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: [
+          {
+            vaultId: '85a5fbbb7a73ed0586b43d3fb2eb75e06d44c043692e9090bf316a7ff18c5ecc',
+            loanScheme: {
+              id: 'MIN150',
+              minColRatio: '150',
+              interestRate: '5'
+            },
+            ownerAddress: 'bcrt1qvlu82whrzgayss7x2t6jmjp70eu78ls7r54grj',
+            state: 'ACTIVE',
+            informativeRatio: '993.92181328',
+            collateralRatio: '994',
+            collateralValue: '100',
+            loanValue: '10.06115357',
+            interestValue: '0.00097623',
+            collateralAmounts: [
+              {
+                id: '0',
+                amount: '1.00000000',
+                symbol: 'DFI',
+                symbolKey: 'DFI',
+                name: 'Default Defi token',
+                displaySymbol: 'DFI',
+                activePrice: {
+                  id: 'DFI-USD-258',
+                  key: 'DFI-USD',
+                  isLive: true,
+                  block: {
+                    hash: 'f7cd0948080cc9c6bd1c05fdc387bd99db9f95b890b9b6d28e3688a24be4c55e',
+                    height: 258,
+                    medianTime: 1644834131,
+                    time: 1644834137
+                  },
+                  active: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '150.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00000102'
+                }
+              }
+            ],
+            loanAmounts: [
+              {
+                id: '11',
+                amount: '1.00000000',
+                symbol: 'TU10',
+                symbolKey: 'TU10',
+                name: 'Decentralized TU10',
+                displaySymbol: 'dTU10',
+                activePrice: {
+                  id: 'TU10-USD-258',
+                  key: 'TU10-USD',
+                  isLive: true,
+                  block: {
+                    hash: 'f7cd0948080cc9c6bd1c05fdc387bd99db9f95b890b9b6d28e3688a24be4c55e',
+                    height: 258,
+                    medianTime: 1644834131,
+                    time: 1644834137
+                  },
+                  active: {
+                    amount: '10',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '20',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00000102'
+                }
+              }
+            ],
+            interestAmounts: [
+              {
+                id: '11',
+                amount: '0.00009704',
+                symbol: 'TU10',
+                symbolKey: 'TU10',
+                name: 'Decentralized TU10',
+                displaySymbol: 'dTU10',
+                activePrice: {
+                  id: 'TU10-USD-258',
+                  key: 'TU10-USD',
+                  isLive: true,
+                  block: {
+                    hash: 'f7cd0948080cc9c6bd1c05fdc387bd99db9f95b890b9b6d28e3688a24be4c55e',
+                    height: 258,
+                    medianTime: 1644834131,
+                    time: 1644834137
+                  },
+                  active: {
+                    amount: '10.06017734',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '10.06319570',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00000102'
+                }
+              }
+            ]
+          }
+        ]
+      }
+    })
+    cy.getByTestID('bottom_tab_loans').click()
+  })
+
+  it('should display col ratio from vault API', function () {
+    cy.getByTestID('vault_card_0_col_ratio').contains('994')
+  })
+
+  it('should calculate next ratio using next price from oracle', function () {
+    const loanInNextPrice = new BigNumber(1.00000000).multipliedBy(20)
+    const nextRatioValue = new BigNumber(150.00000000).dividedBy(loanInNextPrice).multipliedBy(100).toFixed(2)
+    cy.getByTestID('vault_card_0_next_ratio').invoke('text').then(function (nextRatio: string) {
+      expect(nextRatio).to.equal(`~${nextRatioValue}%`)
+    })
+    cy.getByTestID('vault_card_0_col_ratio').invoke('text').then(function (colRatio: string) {
+      const colRatioValue = new BigNumber(colRatio.replace('%', ''))
+      expect(colRatioValue.isGreaterThan(nextRatioValue)).equal(true)
+    })
   })
 })

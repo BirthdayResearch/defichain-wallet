@@ -1,6 +1,14 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import '@testing-library/cypress/add-commands'
 import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
+import BigNumber from 'bignumber.js'
+
+export function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
+  const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
+  const expectedValue = new BigNumber(expectedVal)
+  expect(value.gte(expectedValue.minus(range))).to.be.eq(true)
+  expect(value.lte(expectedValue.plus(range))).to.be.eq(true)
+}
 
 declare global {
   namespace Cypress {

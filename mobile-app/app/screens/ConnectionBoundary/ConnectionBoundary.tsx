@@ -1,8 +1,9 @@
-import { useNetInfo } from '@react-native-community/netinfo'
+import { useNetInfo, fetch } from '@react-native-community/netinfo'
 
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { Button } from '@components/Button'
 
 export default function ConnectionBoundary (props: React.PropsWithChildren<any>): JSX.Element | null {
   const netInfo = useNetInfo()
@@ -16,6 +17,9 @@ export default function ConnectionBoundary (props: React.PropsWithChildren<any>)
 }
 
 function ConnectionErrorComponent (): JSX.Element {
+  const checkConnectivity = (): void => {
+    void fetch()
+  }
   return (
     <ThemedView
       style={tailwind('flex-1 items-center justify-center px-8')}
@@ -32,9 +36,17 @@ function ConnectionErrorComponent (): JSX.Element {
         {translate('screens/ConnectionBoundary', 'Connection problem')}
       </ThemedText>
 
-      <ThemedText style={tailwind('text-sm pb-16 text-center opacity-60')}>
+      <ThemedText style={tailwind('text-sm pb-9 text-center opacity-60')}>
         {translate('screens/ConnectionBoundary', 'There seems to be a problem with the connection. Check your network and try again.')}
       </ThemedText>
+
+      <Button
+        label={translate('screens/ConnectionBoundary', 'TRY AGAIN')}
+        onPress={checkConnectivity}
+        testID='button_check_connectivity'
+        title='Try Again'
+        margin='m-0 mb-4 w-48'
+      />
     </ThemedView>
   )
 }

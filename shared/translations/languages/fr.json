@@ -359,7 +359,7 @@
     "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "Il est important que vous écriviez vos mots de récupération de manière lisible et dans le bon ordre. Conservez vos mots de récupération en toute sécurité, à l'abri des regards indiscrets. Vous pouvez également penser à les mettre à l'abri du feu."
   },
   "screens/PinConfirmation": {
-    "It may take a few seconds to securely encrypt your wallet...": "Cela peut prendre quelques secondes de crypter votre portefeuille de manière sécurisée...",
+    "It may take a few seconds to securely encrypt your wallet...": "Cela peut prendre quelques secondes de chiffrer votre portefeuille de manière sécurisée...",
     "Enter your passcode again to verify": " Entrez à nouveau votre code d'accès",
     "Wrong passcode entered": "Code d'accès erroné",
     "Wallet Unlinked": "Portefeuille dissocié",
@@ -404,7 +404,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "Problème de connexion",
-    "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez."
+    "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez.",
+    "TRY AGAIN": "RÉESSAYER"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Prêts",
@@ -608,7 +609,7 @@
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} à {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir"
   },
@@ -621,7 +622,7 @@
     "SWAP": "ÉCHANGER",
     "SWAPPING": "ÉCHANGE EN COURS",
     "Swapping Token": "Échange du token",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échanger {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "{{tokenA}} price per {{tokenB}}": "Prix en {{tokenA}} par {{tokenB}}",
     "{{token}} balance": "{{token}} solde",
     "CONFIRM SWAP": "VALIDER L'ÉCHANGE",
@@ -641,9 +642,9 @@
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
-    "Signing your transaction...": "Authorization de votre transaction...",
+    "Signing your transaction...": "Autorisation de votre transaction...",
     "Transaction authorized": "Transaction autorisée",
-    "Please wait while your transaction is being prepared": "Merci de patienter pendant pendant la préparation de votre transaction",
+    "Please wait while your transaction is being prepared": "Merci de patienter pendant la préparation de votre transaction",
     "Verifying access": "Vérification de l'accès"
   },
   "components/CreateWalletIndicator": {
@@ -1049,7 +1050,7 @@
     "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille.",
     "Vault ID": "Vault ID",
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restant",
-    "Insufficient {{token}} balance to pay the entered amount": "Insufficient {{token}} balance to pay the entered amount",
+    "Insufficient {{token}} balance to pay the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
     "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
     "Read more": "En savoir plus"
@@ -1234,6 +1235,6 @@
     "Wallet address": "Adresse du portefeuille"
   },
   "components/Announcements": {
-    "VIEW": "VOIR"
+    "DETAILS": "DÉTAILS"
   }
 }

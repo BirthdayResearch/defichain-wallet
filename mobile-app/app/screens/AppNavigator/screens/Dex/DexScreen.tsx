@@ -2,7 +2,7 @@ import { StyleProp, ViewStyle } from 'react-native'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import * as React from 'react'
@@ -20,7 +20,7 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
@@ -41,6 +41,7 @@ export function DexScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -109,9 +110,10 @@ export function DexScreen (): JSX.Element {
   , [activeTab, pairs, yourLPTokens])
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()
@@ -321,6 +323,8 @@ function YourPoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={filteredYourPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='your_liquidity_tab'
       renderItem={({
@@ -392,6 +396,8 @@ function AvailablePoolPairCards ({
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={sortedPairs}
       numColumns={1}
+      windowSize={2}
+      initialNumToRender={5}
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={({

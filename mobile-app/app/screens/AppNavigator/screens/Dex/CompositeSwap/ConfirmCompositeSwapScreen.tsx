@@ -225,8 +225,8 @@ async function constructSignedSwapAndSend (
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/CompositeSwapConfirmScreen', 'Swapping Token'),
-      description: translate('screens/CompositeSwapConfirmScreen', 'Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}', {
+      title: translate('screens/ConfirmCompositeSwapScreen', 'Swapping Token'),
+      description: translate('screens/ConfirmCompositeSwapScreen', 'Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}', {
         amountA: cSwapForm.amountFrom.toFixed(8),
         symbolA: cSwapForm.tokenFrom.displaySymbol,
         amountB: cSwapForm.amountTo.toFixed(8),
