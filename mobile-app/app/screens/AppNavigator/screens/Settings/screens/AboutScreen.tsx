@@ -49,7 +49,7 @@ const MAIN_LINKS: AboutScreenLinks[] = [
   },
   {
     testID: 'explorer_link',
-    title: 'DeFiChain Explorer',
+    title: 'DeFi Scan',
     subtitle: 'Track transactions, tokens and DEX pairs',
     iconName: 'compass-outline',
     url: 'https://defiscan.live/'
