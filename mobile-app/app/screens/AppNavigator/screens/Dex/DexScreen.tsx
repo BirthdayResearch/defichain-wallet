@@ -170,6 +170,11 @@ export function DexScreen (): JSX.Element {
     handleFilter(searchString)
   }, [searchString, hasFetchedPoolpairData])
 
+  // Update local state - filtered available pair when pairs update
+  useEffect(() => {
+    handleFilter(searchString)
+  }, [pairs])
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: (): JSX.Element => {
