@@ -30,6 +30,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { fetchUserPreferences } from '@store/userPreferences'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -62,6 +63,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       address
     }))
   }, [address, blockCount])
+
+  useEffect(() => {
+    dispatch(fetchUserPreferences())
+  }, [])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
