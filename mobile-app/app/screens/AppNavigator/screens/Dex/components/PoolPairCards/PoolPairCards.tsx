@@ -140,7 +140,7 @@ export function PoolPairCards ({
             isFavouritePair={isFavouritePair}
             setFavouritePoolpair={setFavouritePoolpair}
           />
-          {mappedPair?.apr?.total !== undefined && (
+          {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
             <APRSection
               label={`${translate('screens/DexScreen', 'APR')}: `}
               value={{
@@ -177,10 +177,11 @@ export function PoolPairCards ({
                 {translate('screens/DexScreen', 'Your share in pool')}
               </ThemedText>
               <NumberFormat
-                decimalScale={2}
+                decimalScale={8}
                 displayType='text'
                 renderText={(textValue) => (
                   <ThemedText
+                    testID={`share_in_pool_${symbol}`}
                     style={tailwind('text-sm leading-4 font-semibold mb-1 mt-2')}
                   >
                     {textValue}
@@ -196,7 +197,7 @@ export function PoolPairCards ({
                   true
                 )}
                 containerStyle={tailwind('')}
-                testId='testID_here'
+                testId={`share_in_pool_${symbol}_USD`}
               />
             </View>
           )}

@@ -70,7 +70,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 })
 
-context('Wallet - DEX - Available Pool Pairs - Values', () => {
+context('Wallet - DEX - Pool Pair Card - Values', () => {
   const samplePoolPair = [
     {
       id: '15',
@@ -197,13 +197,14 @@ context('Wallet - DEX - Available Pool Pairs - Values', () => {
     }
   ]
 
-  beforeEach(function () {
-    cy.createEmptyWallet()
+  before(() => {
+    cy.createEmptyWallet(true)
+    cy.sendTokenToWallet(['ETH-DFI']).wait(3000)
     localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
     cy.getByTestID('bottom_tab_dex').click()
   })
 
-  it('should display card values correctly', () => {
+  it('should display available pair values correctly', () => {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: samplePoolPair
@@ -238,6 +239,35 @@ context('Wallet - DEX - Available Pool Pairs - Values', () => {
 
     // 66.8826 * 100
     cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
+  })
+
+  it('should display your pool pair values correctly', () => {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: samplePoolPair
+      }
+    })
+
+    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
+    cy.getByTestID('details_dETH-DFI').click()
+    cy.getByTestID('your_liquidity_tab').getByTestID('pool_pair_row_your').first()
+      .invoke('text').should(text => {
+        expect(text).to.contains('dETH-DFI')
+        expect(text).to.contains('APR')
+        expect(text).to.contains('Your share in pool')
+        expect(text).to.contains('Your shared DFI')
+        expect(text).to.contains('Your shared dETH')
+
+        expect(text).to.not.contains('Prices')
+        expect(text).to.not.contains('Total liquidity (USD)')
+      })
+
+    cy.getByTestID('share_in_pool_dETH-DFI').should('have.text', '10.00000000')
+    cy.getByTestID('share_in_pool_dETH-DFI_USD').should('have.text', '≈ $20,000.00')
+    cy.getByTestID('your_ETH-DFI_dETH').should('have.text', '100.00000000 dETH')
+    cy.getByTestID('your_ETH-DFI_DFI').should('have.text', '1.00000000 DFI')
+    cy.getByTestID('your_ETH-DFI_dETH_USD').should('have.text', '≈ $10,000.00')
+    cy.getByTestID('your_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000.00')
   })
 })
 
