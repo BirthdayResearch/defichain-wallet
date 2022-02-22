@@ -276,7 +276,7 @@ export function PoolPairCards ({
             />
           </TouchableOpacity>
         </View>
-        <Collapsible collapsed={!isExpanded}>
+        <Collapsible collapsed={!isExpanded} renderChildrenCollapsed={false}>
           <ThemedView
             style={tailwind('border-b h-px mt-4')}
             light={tailwind('border-gray-100')}
