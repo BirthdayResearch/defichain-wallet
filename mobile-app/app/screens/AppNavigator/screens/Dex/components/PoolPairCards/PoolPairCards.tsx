@@ -24,10 +24,20 @@ import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import NumberFormat from 'react-number-format'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import { ButtonGroup } from '../ButtonGroup'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { TotalValueLocked } from '../TotalValueLocked'
 
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
+}
+
+export enum ButtonGroupTabKey {
+  AllPairs = 'All_PAIRS',
+  DFIPairs = 'DFI_PAIRS',
+  DUSDPairs = 'DUSD_PAIRS'
 }
 
 interface PoolPairCardProps {
@@ -38,6 +48,8 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
+  onButtonGroupPress?: (key: ButtonGroupTabKey) => void
+  showSearchInput?: boolean
 }
 
 export function PoolPairCards ({
@@ -47,7 +59,9 @@ export function PoolPairCards ({
   type,
   searchString,
   setIsSearching,
-  yourPairs
+  yourPairs,
+  onButtonGroupPress,
+  showSearchInput
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
@@ -60,6 +74,31 @@ export function PoolPairCards ({
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 2000)
+  const { tvl } = useSelector((state: RootState) => state.block)
+  const buttonGroup = [
+    {
+      id: ButtonGroupTabKey.AllPairs,
+      label: translate('screens/DexScreen', 'All pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DFIPairs,
+      label: translate('screens/DexScreen', 'DFI pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DUSDPairs,
+      label: translate('screens/DexScreen', 'DUSD pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
+    }
+  ]
+  const [activeButtonGroup, setActiveButtonGroup] = useState<string>(ButtonGroupTabKey.AllPairs)
+  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    setActiveButtonGroup(buttonGroupTabKey)
+    if (onButtonGroupPress !== undefined) {
+      onButtonGroupPress(buttonGroupTabKey)
+    }
+  }
 
   useEffect(() => {
     setIsSearching(false)
@@ -259,6 +298,8 @@ export function PoolPairCards ({
   }
   return (
     <ThemedFlatList
+      light={tailwind('bg-gray-50')}
+      dark={tailwind('bg-gray-900')}
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
@@ -269,6 +310,22 @@ export function PoolPairCards ({
         type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
       }
       renderItem={renderItem}
+      ListHeaderComponent={
+        <>
+          {type === 'available' &&
+            showSearchInput === false &&
+            (
+              <>
+                <View style={tailwind('mb-4')}>
+                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={activeButtonGroup} />
+                </View>
+                <View style={tailwind('mb-4')}>
+                  <TotalValueLocked tvl={tvl ?? 0} />
+                </View>
+              </>
+            )}
+        </>
+      }
     />
   )
 }

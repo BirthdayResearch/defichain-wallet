@@ -28,8 +28,7 @@ import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { TVLSection } from './components/TVLSection'
-import { PoolPairCards } from './components/PoolPairCards/PoolPairCards'
+import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
 
 enum TabKey {
@@ -85,8 +84,6 @@ export function DexScreen (): JSX.Element {
     }
   ]
 
-  const { tvl } = useSelector((state: RootState) => state.block)
-
   const onAdd = (data: PoolPairData): void => {
     navigation.navigate({
       name: 'AddLiquidity',
@@ -122,6 +119,26 @@ export function DexScreen (): JSX.Element {
     }, 500),
     [activeTab, pairs, yourLPTokens]
   )
+  const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
+    const filteredPairs = pairs.filter((pair) => {
+      const displaySymbol = pair.data.displaySymbol
+      switch (buttonGroupTabKey) {
+        case ButtonGroupTabKey.DFIPairs:
+          return displaySymbol.includes('-DFI') || displaySymbol.includes('DFI-')
+
+        case ButtonGroupTabKey.DUSDPairs:
+          return displaySymbol.includes('-DUSD') || displaySymbol.includes('DUSD-')
+
+        default:
+          return true
+      }
+    })
+    setFilteredAvailablePairs(
+      filteredPairs
+    )
+  },
+    [pairs, yourLPTokens]
+  )
 
   useEffect(() => {
     if (isFocused) {
@@ -142,11 +159,6 @@ export function DexScreen (): JSX.Element {
     setIsSearching(true)
     handleFilter(searchString)
   }, [searchString, hasFetchedPoolpairData])
-
-  // Hide loader when pool pair API updates
-  useEffect(() => {
-    handleFilter(searchString)
-  }, [pairs])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -212,7 +224,6 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
-      <TVLSection tvl={tvl ?? 0} />
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
@@ -232,6 +243,8 @@ export function DexScreen (): JSX.Element {
               type='available'
               setIsSearching={setIsSearching}
               searchString={searchString}
+              onButtonGroupPress={handleButtonFilter}
+              showSearchInput={showSearchInput}
             />
           )}
 
