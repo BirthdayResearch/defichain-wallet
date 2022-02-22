@@ -16,33 +16,27 @@ export function DexSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoad
       <ContentLoader
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
         foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
-        height={190}
+        height={156}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
-        viewBox='0 0 328 190'
+        viewBox='0 0 343 156'
         width='100%'
         {...props}
       >
-        <Circle cx='30' cy='20' r='12' />
-        <Rect x='60' y='13' rx='5' ry='5' width='110' height='16' />
+        <Circle cx='30' cy='19' r='12' />
+        <Rect x='60' y='7' rx='4' ry='4' width='110' height='24' />
+        <Rect x='228' y='5' rx='4' ry='4' width='100' height='28' />
 
-        <Rect x='16' y='46' rx='4' ry='4' width='100' height='12' />
-        <Rect x='16' y='64' rx='4' ry='4' width='60' height='14' />
+        <Rect x='16' y='48' rx='4' ry='4' width='45' height='12' />
+        <Circle cx='25' cy='75' r='8' />
+        <Rect x='38' y='68' rx='4' ry='4' width='150' height='14' />
+        <Circle cx='25' cy='95' r='8' />
+        <Rect x='38' y='88' rx='4' ry='4' width='150' height='14' />
 
-        <Rect x='166' y='46' rx='4' ry='4' width='100' height='12' />
-        <Rect x='166' y='64' rx='4' ry='4' width='60' height='14' />
-
-        <Rect x='16' y='96' rx='4' ry='4' width='100' height='12' />
-        <Rect x='16' y='114' rx='4' ry='4' width='60' height='14' />
-
-        <Rect x='166' y='96' rx='4' ry='4' width='100' height='12' />
-        <Rect x='166' y='114' rx='4' ry='4' width='60' height='14' />
-
-        <Rect x='16' y='145' rx='4' ry='4' width='144' height='30' />
-        <Rect x='168' y='145' rx='4' ry='4' width='80' height='30' />
-        <Rect x='280' y='145' rx='4' ry='4' width='32' height='30' />
-
+        <Rect x='16' y='118' rx='4' ry='4' width='68' height='32' />
+        <Rect x='93' y='118' rx='4' ry='4' width='84' height='32' />
+        <Rect x='245' y='118' rx='4' ry='4' width='81' height='32' />
       </ContentLoader>
     </ThemedView>
-    )
+  )
 }
