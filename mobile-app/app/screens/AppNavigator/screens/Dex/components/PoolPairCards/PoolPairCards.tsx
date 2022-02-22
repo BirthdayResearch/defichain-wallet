@@ -45,6 +45,7 @@ interface PoolPairCardProps {
   yourPairs: Array<DexItem<WalletToken>>
   onAdd: (data: PoolPairData) => void
   onRemove: (data: PoolPairData) => void
+  onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
@@ -56,6 +57,7 @@ export function PoolPairCards ({
   availablePairs,
   onAdd,
   onRemove,
+  onSwap,
   type,
   searchString,
   setIsSearching,
@@ -245,6 +247,7 @@ export function PoolPairCards ({
           <ActionSection
             onAdd={() => onAdd(mappedPair)}
             onRemove={() => onRemove(mappedPair)}
+            onSwap={() => onSwap(mappedPair)}
             symbol={symbol}
             type={type}
             pair={mappedPair}

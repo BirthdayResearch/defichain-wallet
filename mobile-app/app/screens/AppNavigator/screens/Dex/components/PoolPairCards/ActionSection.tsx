@@ -1,17 +1,15 @@
-import { useCallback } from 'react'
 import { StyleProp, View, ViewStyle } from 'react-native'
-import { NavigationProp, useNavigation } from '@react-navigation/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { IconButton } from '@components/IconButton'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { DexParamList } from '../../DexNavigator'
 
 interface ActionSectionProps {
   type: 'your' | 'available'
-  onAdd: (data: PoolPairData) => void
+  onAdd: () => void
   onRemove: () => void
+  onSwap: () => void
   symbol: string
   pair: PoolPairData
 }
@@ -32,43 +30,31 @@ interface YourPairActionsProps {
 export function ActionSection ({
   onAdd,
   onRemove,
+  onSwap,
   symbol,
   type,
   pair
 }: ActionSectionProps): JSX.Element {
-  const navigation = useNavigation<NavigationProp<DexParamList>>()
   const isSwapDisabled = !pair.tradeEnabled || !pair.status
-
-  const onAddLiquidity = useCallback(() => {
-    onAdd(pair)
-  }, [])
-
-  const onSwap = useCallback(() => {
-    navigation.navigate({
-      name: 'CompositeSwap',
-      params: { pair },
-      merge: true
-    })
-  }, [])
 
   return (
     <View style={tailwind('flex-row flex-wrap -mr-2')}>
       {type === 'your'
-? (
-  <YourPairActions
-    onAdd={onAddLiquidity}
-    onRemove={onRemove}
-    symbol={symbol}
-  />
-      )
-: (
-  <AvailablePairActions
-    onAdd={onAddLiquidity}
-    onSwap={onSwap}
-    symbol={symbol}
-    isSwapDisabled={isSwapDisabled}
-  />
-      )}
+        ? (
+          <YourPairActions
+            onAdd={onAdd}
+            onRemove={onRemove}
+            symbol={symbol}
+          />
+        )
+        : (
+          <AvailablePairActions
+            onAdd={onAdd}
+            onSwap={onSwap}
+            symbol={symbol}
+            isSwapDisabled={isSwapDisabled}
+          />
+        )}
     </View>
   )
 }

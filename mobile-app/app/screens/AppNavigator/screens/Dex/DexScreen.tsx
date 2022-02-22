@@ -100,6 +100,14 @@ export function DexScreen (): JSX.Element {
     })
   }
 
+  const onSwap = (data: PoolPairData): void => {
+    navigation.navigate({
+      name: 'CompositeSwap',
+      params: { pair: data },
+      merge: true
+    })
+  }
+
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
@@ -242,6 +250,7 @@ export function DexScreen (): JSX.Element {
               yourPairs={yourLPTokens}
               onAdd={onAdd}
               onRemove={onRemove}
+              onSwap={onSwap}
               type='available'
               setIsSearching={setIsSearching}
               searchString={searchString}
@@ -259,6 +268,7 @@ export function DexScreen (): JSX.Element {
             yourPairs={yourLPTokens}
             onAdd={onAdd}
             onRemove={onRemove}
+            onSwap={onSwap}
             type='your'
             setIsSearching={setIsSearching}
             searchString={searchString}
