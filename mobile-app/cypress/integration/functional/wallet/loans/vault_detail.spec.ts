@@ -18,7 +18,7 @@ context('Wallet - Loans - Vault Details', () => {
 
   it('should check empty state', function () {
     cy.getByTestID('vault_card_0').click()
-    cy.getByTestID('collateral_tab_COLLATERALS').click()
+    cy.getByTestID('collateral_tab_COLLATERAL').click()
     cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
     cy.getByTestID('button_add_collateral').click()
     cy.addCollateral('10', 'DFI')
