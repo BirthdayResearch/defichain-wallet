@@ -232,6 +232,11 @@ export function PoolPairCards ({
           </TouchableOpacity>
         </View>
         <Collapsible collapsed={!isExpanded}>
+          <ThemedView
+            style={tailwind('border-b h-px mt-4')}
+            light={tailwind('border-gray-100')}
+            dark={tailwind('border-gray-700')}
+          />
           <InfoSection
             type={type}
             pair={mappedPair}
