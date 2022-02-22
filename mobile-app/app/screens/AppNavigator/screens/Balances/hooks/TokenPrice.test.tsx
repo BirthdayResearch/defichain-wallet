@@ -62,7 +62,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
       },
       apr: {
         reward: 66.8826,
-        total: 66.8826
+        total: 66.8826,
+        commission: 0
       }
     }
   },
@@ -106,7 +107,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
       },
       apr: {
         reward: 80291.23649459783,
-        total: 80291.23649459783
+        total: 80291.23649459783,
+        commission: 0
       }
     }
   },
@@ -150,7 +152,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
       },
       apr: {
         reward: 66.8826,
-        total: 66.8826
+        total: 66.8826,
+        commission: 0
       }
     }
   }
