@@ -16,7 +16,7 @@ export function TotalValueLocked (props: {tvl: number}): JSX.Element {
         dark={tailwind('text-gray-400')}
         style={tailwind('text-xs text-center')}
       >
-        {translate('screens/DexScreen', 'Total Value Locked in pool pairs: ')}
+        {translate('screens/DexScreen', 'Total Value Locked in pool pairs (USD): ')}
         <NumberFormat
           displayType='text'
           prefix='$'

@@ -46,7 +46,10 @@
     "All pairs": "Toutes les paires",
     "DFI pairs": "Paires DFI",
     "DUSD pairs": "Paires DUSD",
-    "Your share in pool": "Votre part dans le pool"
+    "Your share in pool": "Votre part dans le pool",
+    "ADD": "AJOUTER",
+    "Prices": "Prix",
+    "Available pool pairs": "Paires disponibles"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",

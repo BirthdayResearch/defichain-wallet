@@ -46,7 +46,10 @@
     "All pairs": "所有交易对",
     "DFI pairs": "DFI 对",
     "DUSD pairs": "DUSD 对",
-    "Your share in pool": "您在流动池中的份额"
+    "Your share in pool": "您在流动池中的份额",
+    "ADD": "增加",
+    "Prices": "价格",
+    "Available pool pairs": "可选流动池"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
