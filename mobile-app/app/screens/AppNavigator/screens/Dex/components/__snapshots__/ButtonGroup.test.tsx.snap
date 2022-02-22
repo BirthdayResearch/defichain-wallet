@@ -40,7 +40,6 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "paddingLeft": 12,
         "paddingRight": 12,
         "paddingTop": 8,
-        "textAlign": "center",
         "width": "33.33%",
       }
     }
@@ -58,6 +57,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
             Object {
               "fontFamily": "MediumFont",
               "fontWeight": "500",
+              "textAlign": "center",
             },
             Object {
               "color": "rgba(255, 0, 175, 1)",
@@ -90,7 +90,6 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "paddingLeft": 12,
         "paddingRight": 12,
         "paddingTop": 8,
-        "textAlign": "center",
         "width": "33.33%",
       }
     }
@@ -108,6 +107,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
             Object {
               "fontFamily": "MediumFont",
               "fontWeight": "500",
+              "textAlign": "center",
             },
             Object {
               "color": "rgba(23, 23, 23, 1)",
@@ -140,7 +140,6 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "paddingLeft": 12,
         "paddingRight": 12,
         "paddingTop": 8,
-        "textAlign": "center",
         "width": "33.33%",
       }
     }
@@ -158,6 +157,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
             Object {
               "fontFamily": "MediumFont",
               "fontWeight": "500",
+              "textAlign": "center",
             },
             Object {
               "color": "rgba(23, 23, 23, 1)",
