@@ -235,7 +235,6 @@ export function PoolPairCards ({
                   new BigNumber((yourPair as WalletToken).amount),
                   true
                 )}
-                containerStyle={tailwind('')}
                 testId={`share_in_pool_${symbol}_USD`}
               />
             </View>

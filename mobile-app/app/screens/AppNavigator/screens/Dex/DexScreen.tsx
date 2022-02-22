@@ -121,13 +121,15 @@ export function DexScreen (): JSX.Element {
   )
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {
-      const displaySymbol = pair.data.displaySymbol
+      const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
+      const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
+
       switch (buttonGroupTabKey) {
         case ButtonGroupTabKey.DFIPairs:
-          return displaySymbol.includes('-DFI') || displaySymbol.includes('DFI-')
+          return tokenADisplaySymbol.includes('DFI') || tokenBDisplaySymbol.includes('DFI')
 
         case ButtonGroupTabKey.DUSDPairs:
-          return displaySymbol.includes('-DUSD') || displaySymbol.includes('DUSD-')
+          return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
 
         default:
           return true
