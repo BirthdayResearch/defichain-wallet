@@ -107,7 +107,7 @@ context('Wallet - Loans - Close Vault', () => {
 
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).sendTokenToWallet(['DUSD']).wait(6000)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
@@ -134,9 +134,24 @@ context('Wallet - Loans - Close Vault', () => {
     cy.closeOceanInterface()
   })
 
-  it('should be able to close vault', function () {
-    cy.sendTokenToWallet(['DUSD'])
+  it('should be swap DUSD', function () {
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('close_dex_guidelines').click()
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').clear().type('DUSD-DFI').blur()
+    cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
+    cy.getByTestID('switch_button').click()
+    cy.wait(4000)
+    cy.getByTestID('text_input_tokenA').type('1').blur()
     cy.wait(3000)
+    cy.getByTestID('slippage_5%').click()
+    cy.getByTestID('button_submit').click()
+    cy.getByTestID('button_confirm_swap').click().wait(4000)
+    cy.closeOceanInterface()
+    cy.getByTestID('bottom_tab_loans').click()
+  })
+
+  it('should be able to close vault', function () {
     cy.getByTestID('vault_card_0').click()
     cy.getByTestID('collateral_tab_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()

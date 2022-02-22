@@ -146,21 +146,19 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
   })
 
   it('should display N/A if resulting collateralization is infinity', () => {
-    cy.getByTestID('bottom_tab_loans').click()
     cy.intercept('**/vaults?size=200', {
       statusCode: 200,
       body: { data: getVault('0') }
     }).as('getVaults')
-
     cy.wait('@getVaults').then(() => {
     /* (collateralValueInUSD / vault.loanValue) * 100
        (any number / 0) = Infinity
     */
       cy.wait(3000)
-      cy.getByTestID('vault_card_0_edit_collaterals_button').click()
       cy.getByTestID('add_collateral_button').click()
       cy.getByTestID('select_DFI').click()
       cy.getByTestID('MAX_amount_button').click()
@@ -169,7 +167,6 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
   })
 
   it('should display N/A if resulting collateralization is NaN', () => {
-    cy.getByTestID('bottom_tab_loans').click()
     cy.intercept('**/vaults?size=200', {
       statusCode: 200,
       body: { data: getVault('0') }
@@ -179,7 +176,6 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
        (any number / '') = NaN
     */
       cy.wait(3000)
-      cy.getByTestID('vault_card_0_edit_collaterals_button').click()
       cy.getByTestID('add_collateral_button').click()
       cy.getByTestID('select_DFI').click()
       cy.getByTestID('MAX_amount_button').click()
@@ -188,7 +184,6 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
   })
 
   it('should display N/A if resulting collateralization is negative', () => {
-    cy.getByTestID('bottom_tab_loans').click()
     cy.intercept('**/vaults?size=200', {
       statusCode: 200,
       body: { data: getVault('-10') }
@@ -198,7 +193,6 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
        (any number / -10) = -number
     */
       cy.wait(3000)
-      cy.getByTestID('vault_card_0_edit_collaterals_button').click()
       cy.getByTestID('add_collateral_button').click()
       cy.getByTestID('select_DFI').click()
       cy.getByTestID('MAX_amount_button').click()
