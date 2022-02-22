@@ -350,7 +350,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('conversion_info_text').should('not.exist')
   })
 
-  it('should not display warning msg when input is NaN or less than 0', function () {
+  it('should not display warning msg when input is NaN', function () {
     cy.getByTestID('payback_input_text').clear()
     cy.getByTestID('payback_input_text_error').should('not.exist')
   })
