@@ -181,7 +181,7 @@ export function PoolPairCards ({
                 displayType='text'
                 renderText={(textValue) => (
                   <ThemedText
-                    style={tailwind('text-sm leading-3 font-semibold mb-1 mt-2')}
+                    style={tailwind('text-sm leading-4 font-semibold mb-1 mt-2')}
                   >
                     {textValue}
                   </ThemedText>
@@ -213,6 +213,7 @@ export function PoolPairCards ({
           <TouchableOpacity
             onPress={onCollapseToggle}
             style={tailwind('flex flex-row mt-1 pt-0.5')}
+            testID={`details_${symbol}`}
           >
             <ThemedText
               style={tailwind('text-sm font-medium')}
@@ -244,7 +245,6 @@ export function PoolPairCards ({
                 ? tokenBTotal.toFixed(8)
                 : mappedPair?.tokenB.reserve
             }
-            pairAmount={(yourPair as WalletToken).amount}
             testID={type}
           />
         </Collapsible>

@@ -25,7 +25,7 @@ export function InfoSection ({
 }: InfoSectionProps): JSX.Element {
   const pairSymbol =
     pair?.tokenA.displaySymbol !== undefined &&
-    pair?.tokenB.displaySymbol !== undefined
+      pair?.tokenB.displaySymbol !== undefined
       ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
       : ''
   const decimalScale = type === 'available' ? 2 : 8
@@ -123,7 +123,7 @@ function PoolPairInfoLine ({
       <ThemedText
         dark={tailwind('text-gray-400')}
         light={tailwind('text-gray-500')}
-        style={tailwind('text-xs font-normal leading-3')}
+        style={tailwind('text-xs font-normal')}
       >
         {label}
       </ThemedText>
@@ -138,7 +138,7 @@ function PoolPairInfoLine ({
                   'text-base font-semibold': usdValue === undefined
                 },
                 {
-                  'text-sm leading-3 mb-1': usdValue !== undefined
+                  'text-sm leading-4 mb-1': usdValue !== undefined
                 }
               ])}
               testID={value.testID}
