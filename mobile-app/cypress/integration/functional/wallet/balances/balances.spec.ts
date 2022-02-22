@@ -539,7 +539,7 @@ context('Wallet - Balances - USD Value', () => {
   })
 })
 
-context.only('Wallet - Balances - display sorted USD values', function () {
+context('Wallet - Balances - display sorted USD values', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(3000)
