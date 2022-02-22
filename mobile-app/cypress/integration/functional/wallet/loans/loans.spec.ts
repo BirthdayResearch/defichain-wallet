@@ -400,24 +400,6 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
   })
 
-  it('should swap DUSD', function () {
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
-    cy.getByTestID('dex_search_icon').click()
-    cy.getByTestID('dex_search_input').clear().type('DUSD-DFI').blur()
-    cy.wait(3000)
-    cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
-    cy.getByTestID('switch_button').click()
-    cy.wait(4000)
-    cy.getByTestID('text_input_tokenA').type('1').blur()
-    cy.wait(3000)
-    cy.getByTestID('slippage_5%').click()
-    cy.getByTestID('button_submit').click()
-    cy.getByTestID('button_confirm_swap').click().wait(4000)
-    cy.closeOceanInterface()
-    cy.getByTestID('bottom_tab_loans').click()
-  })
-
   it('should not display payment options if loan is not DUSD', function () {
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('loan_card_dTU10_payback_loan').click()
@@ -444,6 +426,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('borrow_loan_submit_button').click()
       cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
       cy.closeOceanInterface()
+      cy.sendTokenToWallet(['DUSD'])
 
       cy.wait(3000)
       cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
