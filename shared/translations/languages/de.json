@@ -1170,7 +1170,7 @@
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",
-    "ADD COLLATERAL": "ADD COLLATERAL",
+    "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "Add DFI and tokens as collateral to get started with loans.": "Füge DFI und Token als Sicherheiten hinzu, um Darlehen aufnehmen zu können."
   },
   "screens/CloseVaultScreen": {
