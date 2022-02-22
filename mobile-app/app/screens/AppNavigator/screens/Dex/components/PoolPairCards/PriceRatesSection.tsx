@@ -1,5 +1,7 @@
+import { memo } from 'react'
 import BigNumber from 'bignumber.js'
 import { View } from 'react-native'
+import { isEqual } from 'lodash'
 import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
 import { ThemedText } from '@components/themed'
@@ -18,10 +20,10 @@ interface PriceRatesSectionProps {
   }
 }
 
-export function PriceRatesSection ({
+export const PriceRatesSection = memo(({
   tokenA,
   tokenB
-}: PriceRatesSectionProps): JSX.Element {
+}: PriceRatesSectionProps): JSX.Element => {
   const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
   const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
   if (
@@ -60,4 +62,4 @@ export function PriceRatesSection ({
       </View>
     </View>
   )
-}
+}, isEqual)

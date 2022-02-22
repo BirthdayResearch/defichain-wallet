@@ -16,7 +16,7 @@ import { APRSection } from './APRSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { PriceRatesSection } from './PriceRatesSection'
 import Collapsible from 'react-native-collapsible'
-import { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
@@ -113,6 +113,10 @@ export function PoolPairCards ({
     )
   }, [yourPairs, debouncedSearchTerm])
 
+  const onFavouritePoolPair = useCallback((id: string): void => {
+    setFavouritePoolpair(id)
+  }, [])
+
   const renderItem = ({
     item,
     index
@@ -179,7 +183,7 @@ export function PoolPairCards ({
             symbolB={symbolB}
             pairId={yourPair.id}
             isFavouritePair={isFavouritePair}
-            setFavouritePoolpair={setFavouritePoolpair}
+            setFavouritePoolpair={onFavouritePoolPair}
           />
           {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
             <APRSection
@@ -197,7 +201,6 @@ export function PoolPairCards ({
             />
           )}
         </View>
-        {/* TODO(PIERRE): Check how to optimize a lot of reloads happening here */}
         {type === 'available'
           ? (
             <PriceRatesSection

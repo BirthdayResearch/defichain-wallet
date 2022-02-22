@@ -1,3 +1,4 @@
+import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { ThemedIcon, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -11,13 +12,13 @@ interface PoolPairTextSectionProps {
   setFavouritePoolpair: (id: string) => void
 }
 
-export function PoolPairTextSection ({
+export const PoolPairTextSection = React.memo(({
   symbolA,
   symbolB,
   pairId,
   isFavouritePair,
   setFavouritePoolpair
-}: PoolPairTextSectionProps): JSX.Element {
+}: PoolPairTextSectionProps): JSX.Element => {
   const poolpairSymbol = `${symbolA}-${symbolB}`
   return (
     <View style={tailwind('flex-row items-center')}>
@@ -51,7 +52,7 @@ export function PoolPairTextSection ({
       </View>
     </View>
   )
-}
+})
 
 export function PoolPairIcon (props: {
   symbolA: string
