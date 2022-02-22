@@ -52,13 +52,16 @@ export function InfoSection ({
             value={{
               text: tokenATotal,
               decimalScale: decimalScale,
-              testID: `${testID}_${pair.tokenA.displaySymbol}`,
+              testID: `${testID}_${pair.symbol}_${pair.tokenA.displaySymbol}`,
               suffix: ` ${pair.tokenA.displaySymbol}`
             }}
-            usdValue={getUSDValue(
-              new BigNumber(tokenATotal),
-              pair.tokenA.symbol
-            )}
+            usdValue={{
+              text: getUSDValue(
+                new BigNumber(tokenATotal),
+                pair.tokenA.symbol
+              ),
+              testID: `${testID}_${pair.symbol}_${pair.tokenA.displaySymbol}_USD`
+            }}
           />
           <PoolPairInfoLine
             label={translate(
@@ -69,13 +72,16 @@ export function InfoSection ({
             value={{
               text: tokenBTotal,
               decimalScale: decimalScale,
-              testID: `${testID}_${pair.tokenB.displaySymbol}`,
+              testID: `${testID}_${pair.symbol}_${pair.tokenB.displaySymbol}`,
               suffix: ` ${pair.tokenB.displaySymbol}`
             }}
-            usdValue={getUSDValue(
-              new BigNumber(tokenBTotal),
-              pair.tokenB.symbol
-            )}
+            usdValue={{
+              text: getUSDValue(
+                new BigNumber(tokenBTotal),
+                pair.tokenB.symbol
+              ),
+              testID: `${testID}_${pair.symbol}_${pair.tokenB.displaySymbol}_USD`
+            }}
           />
           {pair.totalLiquidity.usd !== undefined && type === 'available' && (
             <PoolPairInfoLine
@@ -103,7 +109,10 @@ interface PoolPairInfoLineProps {
     testID: string
     text: string
   }
-  usdValue?: BigNumber
+  usdValue?: {
+    text: BigNumber
+    testID: string
+  }
 }
 
 function PoolPairInfoLine ({
@@ -153,9 +162,9 @@ function PoolPairInfoLine ({
         />
         {usdValue !== undefined && (
           <ActiveUSDValue
-            price={usdValue}
+            price={usdValue.text}
             containerStyle={tailwind('justify-end -mt-0.5')}
-            testId='testID_here'
+            testId={usdValue.testID}
           />
         )}
       </View>

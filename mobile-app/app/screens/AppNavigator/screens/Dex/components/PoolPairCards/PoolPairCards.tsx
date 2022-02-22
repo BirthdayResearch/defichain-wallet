@@ -127,7 +127,7 @@ export function PoolPairCards ({
         dark={tailwind('bg-gray-800 border-gray-700')}
         light={tailwind('bg-white border-gray-200')}
         style={tailwind('p-4 mb-2 border rounded')}
-        testID='pool_pair_row'
+        testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
       >
         <View
           style={tailwind('flex flex-row justify-between')}
