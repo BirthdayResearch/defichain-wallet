@@ -745,6 +745,7 @@
     "Vault Detail": "金库明细",
     "Add Collateral": "添加抵押资金",
     "Confirm Add Collateral": "确认添加抵押资金",
+    "Confirm Remove Collateral": "确认移除抵押品",
     "Edit Collateral": "更改抵押品",
     "Borrow Loan Token": "借用贷款代币",
     "Confirm Borrow Loan Token": "确认借用贷款代币",
@@ -1034,7 +1035,8 @@
     "Convert & add collateral": "转换和加入抵押",
     "Convert & remove collateral": "转换和移除抵押",
     "Add Collateral": "加入抵押",
-    "Remove Collateral": "移除抵押"
+    "Remove Collateral": "移除抵押",
+    "CONFIRM REMOVE COLLATERAL": "确认移除抵押品"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在清还贷款",

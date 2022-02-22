@@ -741,6 +741,7 @@
     "Vault Detail": "Vault Detailansicht",
     "Add Collateral": "Sicherheiten Hinzufügen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
+    "Confirm Remove Collateral": "Entfernen von Sicherheiten",
     "Edit Collateral": "Sicherheiten bearbeiten",
     "Borrow Loan Token": "Darlehenstoken entleihen",
     "Confirm Borrow Loan Token": "Ausleihen des Darlehenstokens bestätigen",
@@ -1029,7 +1030,8 @@
     "Convert & add collateral": "Umwandeln u. Sicherheiten hinzufügen",
     "Convert & remove collateral": "Umwandeln u. Sicherheiten entfernen",
     "Add Collateral": "Sicherheiten hinzufügen",
-    "Remove Collateral": "Sicherheiten entfernen"
+    "Remove Collateral": "Sicherheiten entfernen",
+    "CONFIRM REMOVE COLLATERAL": "BESTÄTIGEN, SICHERHEITEN ZU ENTFERNEN"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",

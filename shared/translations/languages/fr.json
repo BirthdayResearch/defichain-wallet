@@ -741,6 +741,7 @@
     "Vault Detail": "Vue détaillée du vault",
     "Add Collateral": "Ajouter des garanties",
     "Confirm Add Collateral": "Confirmez l'ajout de garantie",
+    "Confirm Remove Collateral": "Retrait de garantie",
     "Edit Collateral": "Modifier les garanties",
     "Borrow Loan Token": "Emprunter un token de prêt",
     "Confirm Borrow Loan Token": "Confirmer l'emprunt de tokens de prêt",
@@ -1029,7 +1030,8 @@
     "Convert & add collateral": "Convertir et ajouter des garanties",
     "Convert & remove collateral": "Convertir et retirer des garanties",
     "Add Collateral": "Ajouter des garanties",
-    "Remove Collateral": "Retirer des garanties"
+    "Remove Collateral": "Retirer des garanties",
+    "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
