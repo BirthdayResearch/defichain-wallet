@@ -131,7 +131,8 @@ describe('wallet reducer', () => {
         },
         apr: {
           reward: 133.7652,
-          total: 133.7652
+          total: 133.7652,
+          commission: 0
         }
       }
     }]
