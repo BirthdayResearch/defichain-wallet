@@ -38,7 +38,7 @@ export function PriceRatesSection ({
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
       >
-        {translate('screens/PriceRatesSection', 'Prices')}
+        {translate('screens/DexScreen', 'Prices')}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center m-0.5')}>
         <TokenAIcon height={16} width={16} />
@@ -46,15 +46,7 @@ export function PriceRatesSection ({
           testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
           style={tailwind('text-sm ml-1')}
         >
-          {translate(
-            'screens/PriceRatesSection',
-            '1 {{tokenASymbol}} = {{aToBPrice}} {{tokenBSymbol}}',
-            {
-              tokenASymbol: tokenA.displaySymbol,
-              tokenBSymbol: tokenB.displaySymbol,
-              aToBPrice: tokenA.priceRate.toFixed(8)
-            }
-          )}
+          {`1 ${tokenA.displaySymbol} = ${tokenA.priceRate.toFixed(8)} ${tokenB.displaySymbol}`}
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row items-center m-0.5')}>
@@ -63,15 +55,7 @@ export function PriceRatesSection ({
           testID={`price_rate_${tokenB.displaySymbol}-${tokenA.displaySymbol}`}
           style={tailwind('text-sm ml-1')}
         >
-          {translate(
-            'screens/PriceRatesSection',
-            '1 {{tokenBSymbol}} = {{bToAPrice}} {{tokenASymbol}}',
-            {
-              tokenASymbol: tokenA.displaySymbol,
-              tokenBSymbol: tokenB.displaySymbol,
-              bToAPrice: tokenB.priceRate.toFixed(8)
-            }
-          )}
+          {`1 ${tokenB.displaySymbol} = ${tokenB.priceRate.toFixed(8)} ${tokenA.displaySymbol}`}
         </ThemedText>
       </View>
     </View>
