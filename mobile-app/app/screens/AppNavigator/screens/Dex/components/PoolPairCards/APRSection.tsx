@@ -1,5 +1,7 @@
+import { memo } from 'react'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { isEqual } from 'lodash'
 import { tailwind } from '@tailwind'
 import { ThemedText } from '@components/themed'
 
@@ -13,11 +15,11 @@ interface APRSectionProps {
   }
 }
 
-export function APRSection (props: APRSectionProps): JSX.Element {
+export const APRSection = memo((props: APRSectionProps): JSX.Element => {
   return (
     <View
       style={tailwind(
-        'flex flex-row py-1 px-1.5 items-center border border-gray-200 rounded'
+        'flex flex-row flex-wrap py-1 px-1.5 items-center border border-gray-200 rounded'
       )}
     >
       <ThemedText
@@ -46,4 +48,4 @@ export function APRSection (props: APRSectionProps): JSX.Element {
       />
     </View>
   )
-}
+}, isEqual)

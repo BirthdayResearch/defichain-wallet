@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import { View } from '@components'
 import {
   ThemedFlatList,
@@ -15,8 +16,7 @@ import { InfoSection } from './InfoSection'
 import { APRSection } from './APRSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { PriceRatesSection } from './PriceRatesSection'
-import Collapsible from 'react-native-collapsible'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
@@ -28,7 +28,6 @@ import { ButtonGroup } from '../ButtonGroup'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
-
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
@@ -153,15 +152,16 @@ export function PoolPairCards ({
     )
     const isExpanded = expandedCardIds.some((id) => id === yourPair.id)
 
-    const onCollapseToggle = (): void =>
-      setExpandedCardIds(
-        isExpanded
-          ? expandedCardIds.filter((id) => id !== yourPair.id)
-          : [...expandedCardIds, yourPair.id]
-      )
+    const onCollapseToggle = (): void => {
+      if (isExpanded) {
+        setExpandedCardIds(
+          expandedCardIds.filter((id) => id !== yourPair.id))
+      } else {
+        setExpandedCardIds([...expandedCardIds, yourPair.id])
+      }
+    }
 
     const isFavouritePair = isFavouritePoolpair(yourPair.id)
-
     if (mappedPair === undefined) {
       return <></>
     }
@@ -174,16 +174,32 @@ export function PoolPairCards ({
         testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
       >
         <View
-          style={tailwind('flex flex-row justify-between')}
+          style={tailwind('flex flex-row justify-between flex-wrap')}
           testID={`pool_pair_row_${index}_${symbol}`}
         >
-          <PoolPairTextSection
-            symbolA={symbolA}
-            symbolB={symbolB}
-            pairId={yourPair.id}
-            isFavouritePair={isFavouritePair}
-            setFavouritePoolpair={setFavouritePoolpair}
-          />
+          <View style={tailwind('w-7/12 flex-row items-center')}>
+            <PoolPairTextSection
+              symbolA={symbolA}
+              symbolB={symbolB}
+            />
+            <TouchableOpacity
+              onPress={() => setFavouritePoolpair(yourPair.id)}
+              style={tailwind('p-1.5 flex-row items-center')}
+              testID={`favorite_${symbolA}-${symbolB}`}
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name={isFavouritePair ? 'star' : 'star-outline'}
+                size={20}
+                light={tailwind(
+                  isFavouritePair ? 'text-warning-500' : 'text-gray-600'
+                )}
+                dark={tailwind(
+                  isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
+                )}
+              />
+            </TouchableOpacity>
+          </View>
           {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
             <APRSection
               label={`${translate('screens/DexScreen', 'APR')}: `}
@@ -200,7 +216,6 @@ export function PoolPairCards ({
             />
           )}
         </View>
-        {/* TODO(PIERRE): Check how to optimize a lot of reloads happening here */}
         {type === 'available'
           ? (
             <PriceRatesSection
@@ -276,28 +291,33 @@ export function PoolPairCards ({
             />
           </TouchableOpacity>
         </View>
-        <Collapsible collapsed={!isExpanded}>
-          <ThemedView
-            style={tailwind('border-b h-px mt-4')}
-            light={tailwind('border-gray-100')}
-            dark={tailwind('border-gray-700')}
-          />
-          <InfoSection
-            type={type}
-            pair={mappedPair}
-            tokenATotal={
+        {
+        isExpanded &&
+          <Animated.View
+            entering={FadeInUp}
+          >
+            <ThemedView
+              style={tailwind('border-b h-px mt-4')}
+              light={tailwind('border-gray-100')}
+              dark={tailwind('border-gray-700')}
+            />
+            <InfoSection
+              type={type}
+              pair={mappedPair}
+              tokenATotal={
               type === 'your'
                 ? tokenATotal.toFixed(8)
                 : mappedPair?.tokenA.reserve
             }
-            tokenBTotal={
+              tokenBTotal={
               type === 'your'
                 ? tokenBTotal.toFixed(8)
                 : mappedPair?.tokenB.reserve
             }
-            testID={type}
-          />
-        </Collapsible>
+              testID={type}
+            />
+          </Animated.View>
+        }
       </ThemedView>
     )
   }
