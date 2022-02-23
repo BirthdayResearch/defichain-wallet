@@ -72,7 +72,7 @@ export function DexScreen (): JSX.Element {
   const tabsList = [
     {
       id: TabKey.AvailablePoolPair,
-      label: translate('screens/DexScreen', 'Available pool pairs'),
+      label: translate('screens/DexScreen', 'Browse pool pairs'),
       disabled: false,
       handleOnPress: () => onTabChange(TabKey.AvailablePoolPair)
     },

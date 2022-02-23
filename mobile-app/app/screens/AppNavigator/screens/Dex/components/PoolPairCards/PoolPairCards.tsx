@@ -68,6 +68,9 @@ export function PoolPairCards ({
   buttonGroupOptions,
   showSearchInput
 }: PoolPairCardProps): JSX.Element {
+  const { poolpairs: pairs } = useSelector(
+    (state: RootState) => state.wallet
+  )
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
@@ -123,7 +126,7 @@ export function PoolPairCards ({
     index: number
   }): JSX.Element => {
     const { data: yourPair } = item
-    const poolPairData = availablePairs.find(
+    const poolPairData = pairs.find(
       (pr) => pr.data.symbol === (yourPair as AddressToken).symbol
     )
     const mappedPair = poolPairData?.data
@@ -182,23 +185,25 @@ export function PoolPairCards ({
               symbolA={symbolA}
               symbolB={symbolB}
             />
-            <TouchableOpacity
-              onPress={() => setFavouritePoolpair(yourPair.id)}
-              style={tailwind('p-1.5 flex-row items-center')}
-              testID={`favorite_${symbolA}-${symbolB}`}
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name={isFavouritePair ? 'star' : 'star-outline'}
-                size={20}
-                light={tailwind(
-                  isFavouritePair ? 'text-warning-500' : 'text-gray-600'
-                )}
-                dark={tailwind(
-                  isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
-                )}
-              />
-            </TouchableOpacity>
+            {type === 'available' && (
+              <TouchableOpacity
+                onPress={() => setFavouritePoolpair(yourPair.id)}
+                style={tailwind('p-1.5 flex-row items-center')}
+                testID={`favorite_${symbolA}-${symbolB}`}
+              >
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  name={isFavouritePair ? 'star' : 'star-outline'}
+                  size={20}
+                  light={tailwind(
+                    isFavouritePair ? 'text-warning-500' : 'text-gray-600'
+                  )}
+                  dark={tailwind(
+                    isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
+                  )}
+                />
+              </TouchableOpacity>
+            )}
           </View>
           {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
             <APRSection
