@@ -200,11 +200,11 @@ export function PoolPairCards ({
           style={tailwind('flex flex-row justify-between flex-wrap')}
           testID={`pool_pair_row_${index}_${symbol}`}
         >
-          <PoolPairTextSection
-            symbolA={symbolA}
-            symbolB={symbolB}
-          />
-          <View style={tailwind('flex justify-end')}>
+          <View style={tailwind('w-7/12 flex-row items-center')}>
+            <PoolPairTextSection
+              symbolA={symbolA}
+              symbolB={symbolB}
+            />
             <TouchableOpacity
               onPress={() => setFavouritePoolpair(yourPair.id)}
               style={tailwind('p-1.5 flex-row items-center')}
