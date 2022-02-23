@@ -1,4 +1,8 @@
-import { LoanVaultLiquidated, LoanVaultLiquidationBatch, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import {
+  LoanVaultLiquidated,
+  LoanVaultLiquidationBatch,
+  LoanVaultState
+} from '@defichain/whale-api-client/dist/api/loan'
 import { configureStore } from '@reduxjs/toolkit'
 import { RootState } from '@store'
 import { render } from '@testing-library/react-native'
@@ -191,6 +195,11 @@ describe('AuctionDetails', () => {
             sort: '001527f0'
           }
         }
+      ],
+      froms: [
+        '0014b5561e1cefa71f30efb6951c3d6d12ebd0baba02',
+        '001477e853f11c5881465978b731e8bdfd4abc079bc8',
+        '001480a0db34bbcc146d81458662b9d5432b5a4aaefc'
       ],
       loan: {
         id: '15',
