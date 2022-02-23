@@ -49,7 +49,11 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
-  onButtonGroupPress?: (key: ButtonGroupTabKey) => void
+  buttonGroupOptions?: {
+    onButtonGroupPress: (key: ButtonGroupTabKey) => void
+    activeButtonGroup: string
+    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
+  }
   showSearchInput?: boolean
 }
 
@@ -62,7 +66,7 @@ export function PoolPairCards ({
   searchString,
   setIsSearching,
   yourPairs,
-  onButtonGroupPress,
+  buttonGroupOptions,
   showSearchInput
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
@@ -94,11 +98,10 @@ export function PoolPairCards ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
     }
   ]
-  const [activeButtonGroup, setActiveButtonGroup] = useState<string>(ButtonGroupTabKey.AllPairs)
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    setActiveButtonGroup(buttonGroupTabKey)
-    if (onButtonGroupPress !== undefined) {
-      onButtonGroupPress(buttonGroupTabKey)
+    if (buttonGroupOptions !== undefined) {
+      buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
+      buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
     }
   }
 
@@ -331,11 +334,12 @@ export function PoolPairCards ({
       ListHeaderComponent={
         <>
           {type === 'available' &&
+            buttonGroupOptions !== undefined &&
             showSearchInput === false &&
             (
               <>
                 <View style={tailwind('mb-4')}>
-                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={activeButtonGroup} />
+                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} />
                 </View>
                 <View style={tailwind('mb-4')}>
                   <TotalValueLocked tvl={tvl ?? 0} />
