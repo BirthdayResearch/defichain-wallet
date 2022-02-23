@@ -174,7 +174,7 @@ export function PoolPairCards ({
         testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
       >
         <View
-          style={tailwind('flex flex-row justify-between')}
+          style={tailwind('flex flex-row justify-between flex-wrap')}
           testID={`pool_pair_row_${index}_${symbol}`}
         >
           <PoolPairTextSection
