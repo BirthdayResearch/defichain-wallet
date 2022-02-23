@@ -335,7 +335,7 @@ export function PoolPairCards ({
       numColumns={1}
       windowSize={2}
       initialNumToRender={5}
-      keyExtractor={(_item, index) => index.toString()}
+      keyExtractor={(item) => item.data.id}
       testID={
         type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
       }
