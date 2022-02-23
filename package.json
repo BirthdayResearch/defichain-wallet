@@ -108,7 +108,7 @@
     "@testing-library/react-native": "^8.0.0",
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.2",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
     "@types/randomcolor": "^0.5.6",
     "@types/react": "~17.0.21",
