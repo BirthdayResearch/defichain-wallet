@@ -265,19 +265,21 @@ export function PoolPairCards ({
             </View>
           )}
         <View
-          style={tailwind('flex flex-row justify-between items-center mt-2')}
+          style={tailwind('flex flex-row justify-between items-center mt-4 -mb-2 flex-wrap')}
         >
-          <ActionSection
-            onAdd={() => onAdd(mappedPair)}
-            onRemove={() => onRemove(mappedPair)}
-            onSwap={() => onSwap(mappedPair)}
-            symbol={symbol}
-            type={type}
-            pair={mappedPair}
-          />
+          <View style={tailwind('mb-2')}>
+            <ActionSection
+              onAdd={() => onAdd(mappedPair)}
+              onRemove={() => onRemove(mappedPair)}
+              onSwap={() => onSwap(mappedPair)}
+              symbol={symbol}
+              type={type}
+              pair={mappedPair}
+            />
+          </View>
           <TouchableOpacity
             onPress={onCollapseToggle}
-            style={tailwind('flex flex-row mt-1 pt-0.5')}
+            style={tailwind('flex flex-row mb-2 pt-1.5')}
             testID={`details_${symbol}`}
           >
             <ThemedText

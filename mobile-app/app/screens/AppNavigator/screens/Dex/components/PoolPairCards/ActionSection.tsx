@@ -38,7 +38,7 @@ export function ActionSection ({
   const isSwapDisabled = !pair.tradeEnabled || !pair.status
 
   return (
-    <View style={tailwind('flex-row flex-wrap -mr-2')}>
+    <View style={tailwind('flex-row flex-wrap -mb-2')}>
       {type === 'your'
         ? (
           <YourPairActions
@@ -71,7 +71,7 @@ export function YourPairActions ({
         onPress={onAdd}
         pair={symbol}
         label={translate('screens/DexScreen', 'ADD')}
-        style={tailwind('p-2 mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mb-2')}
         testID={`pool_pair_add_${symbol}`}
       />
       <ActionButton
@@ -79,7 +79,7 @@ export function YourPairActions ({
         onPress={onRemove}
         pair={symbol}
         label={translate('screens/DexScreen', 'REMOVE')}
-        style={tailwind('p-2 mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mb-2')}
         testID={`pool_pair_remove_${symbol}`}
       />
     </>
@@ -99,7 +99,7 @@ function AvailablePairActions ({
         onPress={onAdd}
         pair={symbol}
         label={translate('screens/DexScreen', 'ADD')}
-        style={tailwind('p-2 mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mb-2')}
         testID={`pool_pair_add_${symbol}`}
       />
       <ActionButton
@@ -108,7 +108,7 @@ function AvailablePairActions ({
         pair={symbol}
         label={translate('screens/DexScreen', 'SWAP')}
         disabled={isSwapDisabled}
-        style={tailwind('p-2 mr-2 mt-2')}
+        style={tailwind('p-2 mr-2 mb-2')}
         testID={`pool_pair_swap-horiz_${symbol}`}
       />
     </>
