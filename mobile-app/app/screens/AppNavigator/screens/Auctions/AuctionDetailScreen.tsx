@@ -33,7 +33,7 @@ import { useTokenPrice } from '../Balances/hooks/TokenPrice'
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
 enum TabKey {
-  Collaterals = 'COLLATERALS',
+  Collaterals = 'COLLATERAL',
   AuctionDetails = 'AUCTION_DETAILS'
 }
 
@@ -173,7 +173,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
             <View style={tailwind('flex flex-row')}>
               <CollateralTokenIconGroup
                 maxIconToDisplay={3}
-                title={translate('components/AuctionDetailScreen', 'Collaterals')}
+                title={translate('components/AuctionDetailScreen', 'Collateral')}
                 symbols={batch.collaterals.map(collateral => collateral.displaySymbol)}
               />
             </View>

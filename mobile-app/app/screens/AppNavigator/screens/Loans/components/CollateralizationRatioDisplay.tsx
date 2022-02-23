@@ -61,7 +61,7 @@ function CollateralizationRatioText (props: { colRatio: string, minColRatio: str
   })
   const alertInfo = {
     title: 'Collateralization ratio',
-    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+    message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
   return (
     <View style={tailwind('flex-row justify-between')}>

@@ -464,7 +464,7 @@ export function VaultInput ({
 
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
-    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+    message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
 
   const minCollateralRatioInfo = {
@@ -614,7 +614,7 @@ function TransactionDetailsSection ({
 }: TransactionDetailsProps): JSX.Element {
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
-    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+    message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
 
   return (
