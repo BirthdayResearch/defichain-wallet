@@ -97,7 +97,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
             textStyle={tailwind('text-sm font-normal')}
             info={{
               title: 'Collateralization ratio',
-              message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+              message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
             }}
           />
         )

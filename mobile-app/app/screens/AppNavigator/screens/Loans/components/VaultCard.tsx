@@ -112,7 +112,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                   dark={tailwind('text-gray-300')}
                   style={tailwind('text-xs mr-1')}
                 >
-                  {translate('components/VaultCard', 'Collaterals:')}
+                  {translate('components/VaultCard', 'Collateral:')}
                 </ThemedText>
                 {
                   (vault.collateralAmounts?.length === 0 || vault.collateralAmounts === undefined) &&
@@ -206,7 +206,7 @@ function VaultActionButton ({
       <IconButton
         testID={`${testID}_edit_collaterals_button`}
         disabled={!canUseOperation}
-        iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
+        iconLabel={translate('components/VaultCard', 'EDIT COLLATERAL')}
         style={tailwind('mr-2 mb-2 items-center')}
         onPress={() => {
           navigation.navigate({
