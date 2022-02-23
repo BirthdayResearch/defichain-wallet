@@ -104,9 +104,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     setPin(inputPin)
   }
 
-  const onCancel = (err?: string): void => {
+  const onCancel = (err: string): void => {
     if (PROMPT_PIN_PROMISE !== undefined) {
-      PROMPT_PIN_PROMISE.reject(new Error(err ?? USER_CANCELED))
+      PROMPT_PIN_PROMISE.reject(new Error(err))
       // remove proxied promised, allow next prompt() call
       PROMPT_PIN_PROMISE = undefined
     } else if (transactionStatus === TransactionStatus.AUTHORIZED) {
@@ -197,6 +197,9 @@ export function TransactionAuthorization (): JSX.Element | null {
         await resetPasscodeCounter()
         await clearWallets()
         alertUnlinkWallet()
+      } else if (e.message === UNEXPECTED_FAILURE) {
+        // case 5: Unexpected error
+        dispatch(transactionQueue.actions.setError(e))
       } else if (e.message !== USER_CANCELED) {
         // case 4: unknown error type
         dispatch(ocean.actions.setError(e))
