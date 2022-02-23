@@ -15,8 +15,7 @@ import { InfoSection } from './InfoSection'
 import { APRSection } from './APRSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { PriceRatesSection } from './PriceRatesSection'
-import Collapsible from 'react-native-collapsible'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
@@ -28,6 +27,7 @@ import { ButtonGroup } from '../ButtonGroup'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
+import { Animated } from 'react-native'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -116,6 +116,24 @@ export function PoolPairCards ({
     )
   }, [yourPairs, debouncedSearchTerm])
 
+  const itemsRef = useRef<Animated.Value[]>([])
+  const fadeIn = (id: number): void => {
+    itemsRef.current[id] = new Animated.Value(0)
+    Animated.timing(itemsRef.current[id], {
+      duration: 100,
+      toValue: 148,
+      useNativeDriver: false
+    }).start()
+  }
+  const fadeOut = (id: number): void => {
+    itemsRef.current[id] = new Animated.Value(0)
+    Animated.timing(itemsRef.current[id], {
+      duration: 100,
+      toValue: 0,
+      useNativeDriver: false
+    }).start()
+  }
+
   const renderItem = ({
     item,
     index
@@ -153,15 +171,20 @@ export function PoolPairCards ({
     )
     const isExpanded = expandedCardIds.some((id) => id === yourPair.id)
 
-    const onCollapseToggle = (): void =>
-      setExpandedCardIds(
-        isExpanded
-          ? expandedCardIds.filter((id) => id !== yourPair.id)
-          : [...expandedCardIds, yourPair.id]
-      )
+    const onCollapseToggle = (): void => {
+      if (isExpanded) {
+        fadeOut(parseInt(yourPair.id))
+        setExpandedCardIds(
+          expandedCardIds.filter((id) => id !== yourPair.id))
+      } else {
+        fadeIn(parseInt(yourPair.id))
+        setExpandedCardIds([...expandedCardIds, yourPair.id])
+      }
+    }
 
     const isFavouritePair = isFavouritePoolpair(yourPair.id)
 
+    console.log({ whut: itemsRef.current[parseInt(yourPair.id)] })
     if (mappedPair === undefined) {
       return <></>
     }
@@ -292,28 +315,36 @@ export function PoolPairCards ({
             />
           </TouchableOpacity>
         </View>
-        <Collapsible collapsed={!isExpanded} renderChildrenCollapsed={false}>
-          <ThemedView
-            style={tailwind('border-b h-px mt-4')}
-            light={tailwind('border-gray-100')}
-            dark={tailwind('border-gray-700')}
-          />
-          <InfoSection
-            type={type}
-            pair={mappedPair}
-            tokenATotal={
+        {
+        itemsRef.current[parseInt(yourPair.id)] !== undefined &&
+        itemsRef.current[parseInt(yourPair.id)] !== null &&
+          <Animated.View
+            style={[tailwind(''), {
+            height: itemsRef.current[parseInt(yourPair.id)] ?? 0
+          }]}
+          >
+            <ThemedView
+              style={tailwind('border-b h-px mt-4')}
+              light={tailwind('border-gray-100')}
+              dark={tailwind('border-gray-700')}
+            />
+            <InfoSection
+              type={type}
+              pair={mappedPair}
+              tokenATotal={
               type === 'your'
                 ? tokenATotal.toFixed(8)
                 : mappedPair?.tokenA.reserve
             }
-            tokenBTotal={
+              tokenBTotal={
               type === 'your'
                 ? tokenBTotal.toFixed(8)
                 : mappedPair?.tokenB.reserve
             }
-            testID={type}
-          />
-        </Collapsible>
+              testID={type}
+            />
+          </Animated.View>
+        }
       </ThemedView>
     )
   }
