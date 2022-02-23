@@ -138,7 +138,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('close_dex_guidelines').click()
       cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
-      cy.getByTestID('your_dETH-DFI').contains('10.00000000')
+      cy.getByTestID('share_in_pool_dETH-DFI').contains('10.00000000')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
