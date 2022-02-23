@@ -1,23 +1,17 @@
 import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { View } from 'react-native'
+import { ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
 
 interface PoolPairTextSectionProps {
   symbolA: string
   symbolB: string
-  pairId: string
-  isFavouritePair: boolean
-  setFavouritePoolpair: (id: string) => void
 }
 
 export const PoolPairTextSection = React.memo(({
   symbolA,
-  symbolB,
-  pairId,
-  isFavouritePair,
-  setFavouritePoolpair
+  symbolB
 }: PoolPairTextSectionProps): JSX.Element => {
   const poolpairSymbol = `${symbolA}-${symbolB}`
   return (
@@ -29,27 +23,6 @@ export const PoolPairTextSection = React.memo(({
       >
         {poolpairSymbol}
       </ThemedText>
-      <View style={tailwind('flex justify-end')}>
-        <TouchableOpacity
-          onPress={() => setFavouritePoolpair(pairId)}
-          style={tailwind('p-1.5 flex-row items-center')}
-          testID={`favorite_${poolpairSymbol}`}
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name={isFavouritePair ? 'star' : 'star-outline'}
-            onPress={() => setFavouritePoolpair(pairId)}
-            size={20}
-            light={tailwind(
-              isFavouritePair ? 'text-warning-500' : 'text-gray-600'
-            )}
-            dark={tailwind(
-              isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
-            )}
-            style={tailwind('')}
-          />
-        </TouchableOpacity>
-      </View>
     </View>
   )
 })

@@ -16,7 +16,7 @@ import { APRSection } from './APRSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { PriceRatesSection } from './PriceRatesSection'
 import Collapsible from 'react-native-collapsible'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
@@ -113,10 +113,6 @@ export function PoolPairCards ({
     )
   }, [yourPairs, debouncedSearchTerm])
 
-  const onFavouritePoolPair = useCallback((id: string): void => {
-    setFavouritePoolpair(id)
-  }, [])
-
   const renderItem = ({
     item,
     index
@@ -181,10 +177,27 @@ export function PoolPairCards ({
           <PoolPairTextSection
             symbolA={symbolA}
             symbolB={symbolB}
-            pairId={yourPair.id}
-            isFavouritePair={isFavouritePair}
-            setFavouritePoolpair={onFavouritePoolPair}
           />
+          <View style={tailwind('flex justify-end')}>
+            <TouchableOpacity
+              onPress={() => setFavouritePoolpair(yourPair.id)}
+              style={tailwind('p-1.5 flex-row items-center')}
+              testID={`favorite_${symbolA}-${symbolB}`}
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name={isFavouritePair ? 'star' : 'star-outline'}
+                size={20}
+                light={tailwind(
+                  isFavouritePair ? 'text-warning-500' : 'text-gray-600'
+                )}
+                dark={tailwind(
+                  isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
+                )}
+                style={tailwind('')}
+              />
+            </TouchableOpacity>
+          </View>
           {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
             <APRSection
               label={`${translate('screens/DexScreen', 'APR')}: `}
