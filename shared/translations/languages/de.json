@@ -1060,7 +1060,7 @@
     "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "ZÜCKZAHLUNG BESTÄTIGEN",
+    "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
     "PAYING": "ZURÜCKZAHLEN",
     "You are paying": "Du tilgst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
