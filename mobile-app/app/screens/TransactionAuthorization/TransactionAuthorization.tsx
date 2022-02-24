@@ -88,6 +88,10 @@ export function TransactionAuthorization (): JSX.Element | null {
 
   const openModal = useCallback(() => {
     bottomSheetModalRef.current?.present()
+    // setTimeout(() => {
+    //   // TODO  added close modal to test the functionality Need to remove this before PR gets merge
+    //   closeModal()
+    // }, 2000)
   }, [])
 
   // generic callbacks
