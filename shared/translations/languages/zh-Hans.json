@@ -188,6 +188,7 @@
     "German": "德语",
     "Chinese (Simplified)": "简体中文",
     "Chinese (Traditional)": "繁體中文",
+    "French": "法语",
     "Switch Language": "切换语言",
     "ADDITIONAL OPTIONS": "更多选项",
     "SECURITY": "安全设置",
@@ -903,7 +904,8 @@
     "CONFIRM CREATE VAULT": "确认创建金库",
     "Creating vault": "创建金库",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "创建金库时，设置的最低抵押率为{{amount}}%，利率为{{ir}}%年回报率",
-    "Convert & create vault": "转换和创建金库"
+    "Convert & create vault": "转换和创建金库",
+    "CREATING": "正在产生中"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "所需费用（大约）",

@@ -900,7 +900,8 @@
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Erstellen eines Vaults",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
-    "Convert & create vault": "Umwandeln und Vault erstellen"
+    "Convert & create vault": "Umwandeln und Vault erstellen",
+    "CREATING": "ERSTELLEN"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -1059,7 +1060,7 @@
     "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "ZÜCKZAHLUNG BESTÄTIGEN",
+    "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
     "PAYING": "ZURÜCKZAHLEN",
     "You are paying": "Du tilgst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",

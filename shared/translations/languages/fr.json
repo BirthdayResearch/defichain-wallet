@@ -900,7 +900,8 @@
     "CONFIRM CREATE VAULT": "CONFIRMER LA CRÉATION D'UN VAULT",
     "Creating vault": "Création d'un vault",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{amount}}% et un taux d'intérêt de {{ir}}% TAEG",
-    "Convert & create vault": "Convertir et créer un vault"
+    "Convert & create vault": "Convertir et créer un vault",
+    "CREATING": "CRÉATION"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "Frais estimés",
