@@ -41,10 +41,17 @@
     "Total Value Locked (USD)": "总体价值锁定 (美元)",
     "Swap tokens": "兑换货币",
     "SWAP": "兑换",
+    "DETAILS": "详情",
+    "HIDE": "隐藏",
     "Total Value Locked in pool pairs (USD): ": "流动池锁定的总价值 (美元)：",
     "All pairs": "所有交易对",
     "DFI pairs": "DFI 对",
-    "DUSD pairs": "DUSD 对"
+    "DUSD pairs": "DUSD 对",
+    "Your share in pool": "您在流动池中的份额",
+    "ADD": "增加",
+    "Prices": "价格",
+    "Available pool pairs": "可选流动池",
+    "Your shared {{symbol}}": "您的股份 {{symbol}}"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -1179,9 +1186,10 @@
     "Max loan amount": "最高的贷款金额",
     "N/A": "不适用"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "搜寻贷款",
-    "Search for loan token": "搜寻贷款代币"
+    "Search for loan token": "搜寻贷款代币",
+    "Search for pool pairs": "搜索流动池配对"
   },
   "components/EmptyCollateral": {
     "No collateral": "没有抵押",

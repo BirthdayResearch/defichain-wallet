@@ -41,10 +41,16 @@
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
     "SWAP": "ÉCHANGER",
     "Swap tokens": "Échange de tokens",
+    "DETAILS": "DÉTAILS",
+    "HIDE": "CACHER",
     "Total Value Locked in pool pairs (USD): ": "Valeur totale bloquée dans les paires de pool (USD): ",
     "All pairs": "Toutes les paires",
     "DFI pairs": "Paires DFI",
-    "DUSD pairs": "Paires DUSD"
+    "DUSD pairs": "Paires DUSD",
+    "Your share in pool": "Votre part dans le pool",
+    "ADD": "AJOUTER",
+    "Prices": "Prix",
+    "Available pool pairs": "Paires disponibles"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",
@@ -1172,7 +1178,7 @@
     "N/A": "S/O",
     "Max loan amount": "Montant max. du prêt"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "Rechercher des prêts",
     "Search for loan token": "Rechercher de token de prêt"
   },
