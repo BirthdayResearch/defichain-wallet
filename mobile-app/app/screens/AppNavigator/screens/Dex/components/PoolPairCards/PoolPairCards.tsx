@@ -288,7 +288,7 @@ export function PoolPairCards ({
           </View>
           <TouchableOpacity
             onPress={onCollapseToggle}
-            style={tailwind('flex flex-row mb-2 pt-1.5')}
+            style={tailwind('flex flex-row pb-2 pl-2 pt-1.5')}
             testID={`details_${symbol}`}
           >
             <ThemedIcon
