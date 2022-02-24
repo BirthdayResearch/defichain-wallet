@@ -120,10 +120,7 @@ export function PoolPairCards ({
         pair.data.displaySymbol
           .toLowerCase()
           .includes(debouncedSearchTerm.trim().toLowerCase())
-      ).sort((a, b) =>
-          availablePairs.findIndex(x => x.data.id === a.data.id) -
-          availablePairs.findIndex(x => x.data.id === b.data.id
-          ))
+      )
     )
   }, [yourPairs, debouncedSearchTerm])
 
