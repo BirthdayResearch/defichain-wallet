@@ -31,7 +31,7 @@ export function SubmitButtonGroup ({
 }: SubmitButtonGroupItems): JSX.Element {
   const error = useSelector((state: RootState) => state.transactionQueue.err)
   const [intervalId, setIntervalId] = useState<ReturnType<typeof setInterval> | null>(null)
-  const [counter, setCounter] = useState(TRY_AGAIN_TIMER_COUNT)
+  const [counter, setCounter] = useState<number | null>(null)
   const [tryAgain, setTryAgain] = useState(false)
 
   // avoid setting up try again button on initial load
@@ -48,12 +48,13 @@ export function SubmitButtonGroup ({
   }, [error])
 
   const submit = (): void => {
+    let count = TRY_AGAIN_TIMER_COUNT
+    setCounter(count)
     if (intervalId !== null) {
       clearInterval(intervalId)
       setIntervalId(null)
     }
     void onSubmit()
-    let count = TRY_AGAIN_TIMER_COUNT
     const id: ReturnType<typeof setInterval> = setInterval(() => {
       count -= 1
       setCounter(count)
@@ -72,6 +73,16 @@ export function SubmitButtonGroup ({
     }
   }
 
+  const getSubmittingLabel = (): string | undefined => {
+    if (counter === null && processingLabel !== undefined) {
+      return processingLabel
+    }
+    if (processingLabel !== undefined) {
+      return `${processingLabel} (${counter ?? '-'})`
+    }
+    return undefined
+  }
+
   return (
     <View>
       {tryAgain
@@ -79,7 +90,6 @@ export function SubmitButtonGroup ({
           <Button
             label={translate('screens/common', 'TRY AGAIN')}
             onPress={() => {
-              setCounter(TRY_AGAIN_TIMER_COUNT)
               submit()
               setTryAgain(false)
             }}
@@ -95,7 +105,7 @@ export function SubmitButtonGroup ({
             testID={`button_confirm_${title}`}
             title={title}
             isSubmitting={isProcessing}
-            submittingLabel={(processingLabel != null) ? `${processingLabel} (${counter})` : undefined}
+            submittingLabel={getSubmittingLabel()}
            />
         )}
       <Button
