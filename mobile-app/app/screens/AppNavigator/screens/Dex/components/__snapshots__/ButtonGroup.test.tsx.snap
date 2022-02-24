@@ -17,6 +17,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
       },
     ]
   }
+  testID="foo"
 >
   <View
     accessible={true}
@@ -43,6 +44,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "width": "33.33%",
       }
     }
+    testID="foo_ALL_PAIRS_active"
   >
     <Text
       style={
@@ -93,6 +95,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "width": "33.33%",
       }
     }
+    testID="foo_DFI_PAIRS"
   >
     <Text
       style={
@@ -143,6 +146,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "width": "33.33%",
       }
     }
+    testID="foo_DUSD_PAIRS"
   >
     <Text
       style={
