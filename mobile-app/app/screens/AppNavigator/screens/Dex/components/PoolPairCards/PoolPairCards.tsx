@@ -24,10 +24,10 @@ import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import NumberFormat from 'react-number-format'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { ButtonGroup } from '../ButtonGroup'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
+
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
@@ -71,19 +71,25 @@ export function PoolPairCards ({
   const { poolpairs: pairs } = useSelector(
     (state: RootState) => state.wallet
   )
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const {
+    isFavouritePoolpair,
+    setFavouritePoolpair
+  } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
   )
-  const { getTokenPrice, calculatePriceRates } = useTokenPrice()
+  const {
+    getTokenPrice,
+    calculatePriceRates
+  } = useTokenPrice()
   const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
 
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 2000)
   const { tvl } = useSelector((state: RootState) => state.block)
-  const buttonGroup = [
+  /* const buttonGroup = [
     {
       id: ButtonGroupTabKey.AllPairs,
       label: translate('screens/DexScreen', 'All pairs'),
@@ -105,7 +111,7 @@ export function PoolPairCards ({
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
     }
-  }
+  } */
 
   useEffect(() => {
     setIsSearching(false)
@@ -299,31 +305,31 @@ export function PoolPairCards ({
           </TouchableOpacity>
         </View>
         {
-        isExpanded &&
-          <Animated.View
-            entering={FadeInUp}
-          >
-            <ThemedView
-              style={tailwind('border-b h-px mt-4')}
-              light={tailwind('border-gray-100')}
-              dark={tailwind('border-gray-700')}
-            />
-            <InfoSection
-              type={type}
-              pair={mappedPair}
-              tokenATotal={
-              type === 'your'
-                ? tokenATotal.toFixed(8)
-                : mappedPair?.tokenA.reserve
-            }
-              tokenBTotal={
-              type === 'your'
-                ? tokenBTotal.toFixed(8)
-                : mappedPair?.tokenB.reserve
-            }
-              testID={type}
-            />
-          </Animated.View>
+          isExpanded &&
+            <Animated.View
+              entering={FadeInUp}
+            >
+              <ThemedView
+                style={tailwind('border-b h-px mt-4')}
+                light={tailwind('border-gray-100')}
+                dark={tailwind('border-gray-700')}
+              />
+              <InfoSection
+                type={type}
+                pair={mappedPair}
+                tokenATotal={
+                type === 'your'
+                  ? tokenATotal.toFixed(8)
+                  : mappedPair?.tokenA.reserve
+              }
+                tokenBTotal={
+                type === 'your'
+                  ? tokenBTotal.toFixed(8)
+                  : mappedPair?.tokenB.reserve
+              }
+                testID={type}
+              />
+            </Animated.View>
         }
       </ThemedView>
     )
@@ -349,9 +355,9 @@ export function PoolPairCards ({
             showSearchInput === false &&
             (
               <>
-                <View style={tailwind('mb-4')}>
+                {/* <View style={tailwind('mb-4')}>
                   <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} />
-                </View>
+                </View> */}
                 <View style={tailwind('mb-4')}>
                   <TotalValueLocked tvl={tvl ?? 0} />
                 </View>

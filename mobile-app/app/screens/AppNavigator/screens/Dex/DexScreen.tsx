@@ -53,7 +53,10 @@ export function DexScreen (): JSX.Element {
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const { poolpairs: pairs, hasFetchedPoolpairData } = useSelector(
+  const {
+    poolpairs: pairs,
+    hasFetchedPoolpairData
+  } = useSelector(
     (state: RootState) => state.wallet
   )
   const yourLPTokens = useSelector(() => {
@@ -129,31 +132,34 @@ export function DexScreen (): JSX.Element {
   )
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
-    const filteredPairs = pairs.filter((pair) => {
-      const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
-      const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
+      const filteredPairs = pairs.filter((pair) => {
+        const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
+        const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
 
-      switch (buttonGroupTabKey) {
-        case ButtonGroupTabKey.DFIPairs:
-          return tokenADisplaySymbol.includes('DFI') || tokenBDisplaySymbol.includes('DFI')
+        switch (buttonGroupTabKey) {
+          case ButtonGroupTabKey.DFIPairs:
+            return tokenADisplaySymbol.includes('DFI') || tokenBDisplaySymbol.includes('DFI')
 
-        case ButtonGroupTabKey.DUSDPairs:
-          return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
+          case ButtonGroupTabKey.DUSDPairs:
+            return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
 
-        default:
-          return true
-      }
-    })
-    setFilteredAvailablePairs(
-      filteredPairs
-    )
-  },
+          default:
+            return true
+        }
+      })
+      setFilteredAvailablePairs(
+        filteredPairs
+      )
+    },
     [pairs, yourLPTokens]
   )
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
     }
   }, [address, blockCount, isFocused])
 
