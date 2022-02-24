@@ -205,6 +205,11 @@ context.only('Wallet - DEX - Button filtering', () => {
   })
 
   it('should be able to display poolpair information upon switching filters', function () {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: samplePoolpairs
+      }
+    })
     // DUSD pairs filter
     cy.getByTestID('details_dTU10-DUSD').click()
     cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
