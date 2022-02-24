@@ -26,6 +26,7 @@ import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
+import { ButtonGroup } from '../ButtonGroup'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -47,11 +48,11 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
-  // buttonGroupOptions?: {
-  //   onButtonGroupPress: (key: ButtonGroupTabKey) => void
-  //   activeButtonGroup: string
-  //   setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  // }
+  buttonGroupOptions?: {
+    onButtonGroupPress: (key: ButtonGroupTabKey) => void
+    activeButtonGroup: string
+    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
+  }
   showSearchInput?: boolean
 }
 
@@ -64,7 +65,7 @@ export function PoolPairCards ({
   searchString,
   setIsSearching,
   yourPairs,
-  // buttonGroupOptions,
+  buttonGroupOptions,
   showSearchInput
 }: PoolPairCardProps): JSX.Element {
   const { poolpairs: pairs } = useSelector(
@@ -88,7 +89,7 @@ export function PoolPairCards ({
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 2000)
   const { tvl } = useSelector((state: RootState) => state.block)
-  /* const buttonGroup = [
+  const buttonGroup = [
     {
       id: ButtonGroupTabKey.AllPairs,
       label: translate('screens/DexScreen', 'All pairs'),
@@ -110,7 +111,7 @@ export function PoolPairCards ({
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
     }
-  } */
+  }
 
   useEffect(() => {
     setIsSearching(false)
@@ -344,13 +345,13 @@ export function PoolPairCards ({
       ListHeaderComponent={
         <>
           {type === 'available' &&
-            // buttonGroupOptions !== undefined &&
+            buttonGroupOptions !== undefined &&
             showSearchInput === false &&
             (
               <>
-                {/* <View style={tailwind('mb-4')}>
+                <View style={tailwind('mb-4')}>
                   <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} />
-                </View> */}
+                </View>
                 <View style={tailwind('mb-4')}>
                   <TotalValueLocked tvl={tvl ?? 0} />
                 </View>

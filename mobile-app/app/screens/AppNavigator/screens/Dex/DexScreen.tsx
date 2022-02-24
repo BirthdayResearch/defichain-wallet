@@ -29,7 +29,7 @@ import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { /* ButtonGroupTabKey, */ PoolPairCards } from './components/PoolPairCards/PoolPairCards'
+import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
 
 enum TabKey {
@@ -134,29 +134,32 @@ export function DexScreen (): JSX.Element {
     }, 500),
     [activeTab, pairs, yourLPTokens]
   )
-  // const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
-  // const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
-  //     const filteredPairs = pairs.filter((pair) => {
-  //       const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
-  //       const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
+  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
+  const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
+    const filteredPairs = pairs.filter((pair) => {
+      const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
+      const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
 
-  //       switch (buttonGroupTabKey) {
-  //         case ButtonGroupTabKey.DFIPairs:
-  //           return tokenADisplaySymbol.includes('DFI') || tokenBDisplaySymbol.includes('DFI')
+      switch (buttonGroupTabKey) {
+        case ButtonGroupTabKey.DFIPairs:
+          return tokenADisplaySymbol.includes('DFI') || tokenBDisplaySymbol.includes('DFI')
 
-  //         case ButtonGroupTabKey.DUSDPairs:
-  //           return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
+        case ButtonGroupTabKey.DUSDPairs:
+          return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
 
-  //         default:
-  //           return true
-  //       }
-  //     })
-  //     setFilteredAvailablePairs(
-  //       filteredPairs
-  //     )
-  //   },
-  //   [pairs, yourLPTokens]
-  // )
+        default:
+          return true
+      }
+    }).sort((firstPair, secondPair) =>
+      new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
+      new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+    )
+    setFilteredAvailablePairs(
+      filteredPairs
+    )
+  },
+    [pairs, yourLPTokens]
+  )
 
   useEffect(() => {
     if (isFocused) {
@@ -275,11 +278,11 @@ export function DexScreen (): JSX.Element {
               type='available'
               setIsSearching={setIsSearching}
               searchString={searchString}
-              // buttonGroupOptions={{
-              //   activeButtonGroup: activeButtonGroup,
-              //   setActiveButtonGroup: setActiveButtonGroup,
-              //   onButtonGroupPress: handleButtonFilter
-              // }}
+              buttonGroupOptions={{
+                activeButtonGroup: activeButtonGroup,
+                setActiveButtonGroup: setActiveButtonGroup,
+                onButtonGroupPress: handleButtonFilter
+              }}
               showSearchInput={showSearchInput}
             />
           )}
