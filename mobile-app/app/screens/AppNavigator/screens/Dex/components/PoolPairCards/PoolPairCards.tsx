@@ -186,10 +186,10 @@ export function PoolPairCards ({
         testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
       >
         <View
-          style={tailwind('flex flex-row justify-between flex-wrap')}
+          style={tailwind('flex flex-row justify-between w-full')}
           testID={`pool_pair_row_${index}_${symbol}`}
         >
-          <View style={tailwind('w-7/12 flex-row items-center')}>
+          <View style={tailwind('w-8/12 flex-row items-center')}>
             <PoolPairTextSection
               symbolA={symbolA}
               symbolB={symbolB}
@@ -291,15 +291,8 @@ export function PoolPairCards ({
             style={tailwind('flex flex-row mb-2 pt-1.5')}
             testID={`details_${symbol}`}
           >
-            <ThemedText
-              style={tailwind('text-sm font-medium')}
-              light={tailwind('text-primary-500')}
-              dark={tailwind('text-darkprimary-500')}
-            >
-              {!isExpanded ? translate('screens/DexScreen', 'DETAILS') : translate('screens/DexScreen', 'HIDE')}
-            </ThemedText>
             <ThemedIcon
-              light={tailwind('text-primary-500 ml-0.5')}
+              light={tailwind('text-primary-500')}
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
               name={!isExpanded ? 'expand-more' : 'expand-less'}
