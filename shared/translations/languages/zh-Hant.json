@@ -906,7 +906,8 @@
     "CONFIRM CREATE VAULT": "確認創建金庫",
     "Creating vault": "創建金庫",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
-    "Convert & create vault": "轉換和創建金庫"
+    "Convert & create vault": "轉換和創建金庫",
+    "CREATING": "正在產生中"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "所需費用（大約）",
