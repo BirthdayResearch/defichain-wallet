@@ -108,6 +108,7 @@ export function PoolPairCards ({
   ]
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
+      setExpandedCardIds([])
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
     }
@@ -350,7 +351,7 @@ export function PoolPairCards ({
             (
               <>
                 <View style={tailwind('mb-4')}>
-                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} />
+                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='dex_button_group' />
                 </View>
                 <View style={tailwind('mb-4')}>
                   <TotalValueLocked tvl={tvl ?? 0} />
