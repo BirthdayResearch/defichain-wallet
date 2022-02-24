@@ -1177,7 +1177,7 @@
     "N/A": "K/A",
     "Max loan amount": "Max. Darlehensbetrag"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "Nach Darlehen suchen",
     "Search for loan token": "Suche nach Darlehenstoken"
   },

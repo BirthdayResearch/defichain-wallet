@@ -50,7 +50,8 @@
     "Your share in pool": "您在流动池中的份额",
     "ADD": "增加",
     "Prices": "价格",
-    "Available pool pairs": "可选流动池"
+    "Available pool pairs": "可选流动池",
+    "Your shared {{symbol}}": "您的股份 {{symbol}}"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -1183,9 +1184,10 @@
     "Max loan amount": "最高的贷款金额",
     "N/A": "不适用"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "搜寻贷款",
-    "Search for loan token": "搜寻贷款代币"
+    "Search for loan token": "搜寻贷款代币",
+    "Search for pool pairs": "搜索流动池配对"
   },
   "components/EmptyCollateral": {
     "No collateral": "没有抵押",

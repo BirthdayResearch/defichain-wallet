@@ -1177,7 +1177,7 @@
     "N/A": "S/O",
     "Max loan amount": "Montant max. du prêt"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "Rechercher des prêts",
     "Search for loan token": "Rechercher de token de prêt"
   },
