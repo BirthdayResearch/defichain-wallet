@@ -295,7 +295,7 @@ export function PoolPairCards ({
               dark={tailwind('text-darkprimary-500')}
               iconType='MaterialIcons'
               name={!isExpanded ? 'expand-more' : 'expand-less'}
-              size={20}
+              size={32}
             />
           </TouchableOpacity>
         </View>
