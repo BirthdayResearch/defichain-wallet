@@ -48,11 +48,11 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
-  buttonGroupOptions?: {
-    onButtonGroupPress: (key: ButtonGroupTabKey) => void
-    activeButtonGroup: string
-    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  }
+  // buttonGroupOptions?: {
+  //   onButtonGroupPress: (key: ButtonGroupTabKey) => void
+  //   activeButtonGroup: string
+  //   setActiveButtonGroup: (key: ButtonGroupTabKey) => void
+  // }
   showSearchInput?: boolean
 }
 
@@ -65,7 +65,7 @@ export function PoolPairCards ({
   searchString,
   setIsSearching,
   yourPairs,
-  buttonGroupOptions,
+  // buttonGroupOptions,
   showSearchInput
 }: PoolPairCardProps): JSX.Element {
   const { poolpairs: pairs } = useSelector(
@@ -120,7 +120,10 @@ export function PoolPairCards ({
         pair.data.displaySymbol
           .toLowerCase()
           .includes(debouncedSearchTerm.trim().toLowerCase())
-      )
+      ).sort((a, b) =>
+          availablePairs.findIndex(x => x.data.id === a.data.id) -
+          availablePairs.findIndex(x => x.data.id === b.data.id
+          ))
     )
   }, [yourPairs, debouncedSearchTerm])
 
@@ -351,7 +354,7 @@ export function PoolPairCards ({
       ListHeaderComponent={
         <>
           {type === 'available' &&
-            buttonGroupOptions !== undefined &&
+            // buttonGroupOptions !== undefined &&
             showSearchInput === false &&
             (
               <>
