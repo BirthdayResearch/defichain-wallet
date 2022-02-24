@@ -62,7 +62,7 @@ export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount
         />
         <NumberFormat
           decimalScale={8}
-          prefix='≈ '
+          prefix='≈ $'
           displayType='text'
           renderText={(value) =>
             <ThemedText
