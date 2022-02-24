@@ -6,6 +6,7 @@ import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
 import { ThemedText } from '@components/themed'
 import { translate } from '@translations'
+import NumberFormat from 'react-number-format'
 
 interface PriceRatesSectionProps {
   tokenA: {
@@ -44,22 +45,45 @@ export const PriceRatesSection = memo(({
       </ThemedText>
       <View style={tailwind('flex flex-row items-center m-0.5')}>
         <TokenAIcon height={16} width={16} />
-        <ThemedText
-          testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
-          style={tailwind('text-sm ml-1')}
-        >
-          {`1 ${tokenA.displaySymbol} = ${tokenA.priceRate.toFixed(8)} ${tokenB.displaySymbol}`}
-        </ThemedText>
+        <View style={tailwind('flex flex-row items-center')}>
+          <ThemedText style={tailwind('text-sm ml-1')}>
+            {`1 ${tokenA.displaySymbol} =`}
+          </ThemedText>
+          <PriceRateValue
+            value={tokenA.priceRate.toFixed(8)}
+            suffix={tokenB.displaySymbol}
+            testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
+          />
+        </View>
       </View>
       <View style={tailwind('flex flex-row items-center m-0.5')}>
         <TokenBIcon height={16} width={16} />
-        <ThemedText
-          testID={`price_rate_${tokenB.displaySymbol}-${tokenA.displaySymbol}`}
-          style={tailwind('text-sm ml-1')}
-        >
-          {`1 ${tokenB.displaySymbol} = ${tokenB.priceRate.toFixed(8)} ${tokenA.displaySymbol}`}
+        <ThemedText style={tailwind('text-sm ml-1')}>
+          {`1 ${tokenB.displaySymbol} =`}
         </ThemedText>
+        <PriceRateValue
+          value={tokenB.priceRate.toFixed(8)}
+          suffix={tokenA.displaySymbol}
+          testID={`price_rate_${tokenB.displaySymbol}-${tokenA.displaySymbol}`}
+        />
       </View>
     </View>
   )
 }, isEqual)
+
+const PriceRateValue = (props: { value: string, suffix: string, testID: string }): JSX.Element => {
+  return (
+    <NumberFormat
+      decimalScale={8}
+      displayType='text'
+      renderText={(textValue) => (
+        <ThemedText style={tailwind('text-sm ml-1')} testID={props.testID}>
+          {textValue}
+        </ThemedText>
+      )}
+      thousandSeparator
+      value={props.value}
+      suffix={` ${props.suffix}`}
+    />
+  )
+}
