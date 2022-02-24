@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js'
-import Animated, { FadeInUp } from 'react-native-reanimated'
 import { View } from '@components'
 import {
   ThemedFlatList,
@@ -121,9 +120,9 @@ export function PoolPairCards ({
           .toLowerCase()
           .includes(debouncedSearchTerm.trim().toLowerCase())
       ).sort((a, b) =>
-          availablePairs.findIndex(x => x.data.id === a.data.id) -
-          availablePairs.findIndex(x => x.data.id === b.data.id
-          ))
+        availablePairs.findIndex(x => x.data.id === a.data.id) -
+        availablePairs.findIndex(x => x.data.id === b.data.id
+        ))
     )
   }, [yourPairs, debouncedSearchTerm])
 
@@ -302,9 +301,7 @@ export function PoolPairCards ({
         </View>
         {
           isExpanded &&
-            <Animated.View
-              entering={FadeInUp}
-            >
+            <View>
               <ThemedView
                 style={tailwind('border-b h-px mt-4')}
                 light={tailwind('border-gray-100')}
@@ -325,7 +322,7 @@ export function PoolPairCards ({
               }
                 testID={type}
               />
-            </Animated.View>
+            </View>
         }
       </ThemedView>
     )
