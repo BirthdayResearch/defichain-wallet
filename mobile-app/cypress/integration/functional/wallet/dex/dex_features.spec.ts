@@ -1,4 +1,4 @@
-context.only('Wallet - DEX - Features', () => {
+context('Wallet - DEX - Features', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()

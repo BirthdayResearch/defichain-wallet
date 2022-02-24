@@ -165,6 +165,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
   afterEach(function () {
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
     cy.getByTestID('share_in_pool_dBTC-DFI').contains('10.00000000')
+    cy.getByTestID('details_dBTC-DFI').click()
     cy.getByTestID('your_BTC-DFI_dBTC').contains('9.99999999')
     cy.getByTestID('your_BTC-DFI_DFI').contains('9.99999999')
 
