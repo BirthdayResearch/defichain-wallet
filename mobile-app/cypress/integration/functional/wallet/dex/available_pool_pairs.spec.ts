@@ -28,8 +28,9 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 5)
   })
 
-  it('should have BTC-DFI PoolPair as 1st', () => {
-    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').first()
+  it('should have BTC-DFI PoolPair as 4th', () => {
+    cy.getByTestID('details_dBTC-DFI').click()
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(3)
       .invoke('text').should(text => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
@@ -39,8 +40,9 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       })
   })
 
-  it('should have DFI-USDT PoolPair as 3rd', () => {
-    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(2)
+  it('should have DFI-USDT PoolPair as 2nd', () => {
+    cy.getByTestID('details_dUSDT-DFI').click()
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
       .invoke('text').should(text => {
         expect(text).to.contains('dUSDT-DFI')
         expect(text).to.contains('Pooled DFI')
@@ -53,6 +55,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   it('should be able to search available poolpair by querying in search input', () => {
     cy.getByTestID('dex_search_icon').click()
     cy.getByTestID('dex_search_input').type('btc')
+    cy.getByTestID('details_dBTC-DFI').click()
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 1)
       .invoke('text').should(text => {
         expect(text).to.contains('dBTC-DFI')
@@ -205,40 +208,43 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
   })
 
   it('should display available pair values correctly', () => {
+    cy.getByTestID('playground_generate_blocks').click() // to ensure poolpairs api will be called
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: samplePoolPair
       }
+    }).as('getPoolPairs')
+    cy.wait('@getPoolPairs').then(() => {
+      cy.getByTestID('details_dETH-DFI').click()
+      cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
+        .invoke('text').should(text => {
+          expect(text).to.contains('dETH-DFI')
+          expect(text).to.contains('APR')
+          // TODO: Check favourite is only displaying on browse pool pairs
+
+          // TODO: Check order of price rates
+          expect(text).to.contains('Prices')
+          expect(text).to.contains('1 dETH')
+          expect(text).to.contains('1 DFI')
+
+          expect(text).to.contains('Pooled DFI')
+          expect(text).to.contains('Pooled dETH')
+          expect(text).to.contains('Total liquidity (USD)')
+        })
+
+      cy.getByTestID('price_rate_DFI-dETH').should('have.text', '100.00000000 dETH')
+      cy.getByTestID('price_rate_dETH-DFI').should('have.text', '0.01000000 DFI')
+      cy.getByTestID('available_ETH-DFI_dETH').should('have.text', '100,000 dETH')
+      cy.getByTestID('available_ETH-DFI_DFI').should('have.text', '1,000 DFI')
+      // (1000 / 100000) * (10000000 / 1000) * 100,000 ETH
+      cy.getByTestID('available_ETH-DFI_dETH_USD').should('have.text', '≈ $10,000,000.00')
+      // (10000000 / 1000) * 1,000 DFI
+      cy.getByTestID('available_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000,000.00')
+      cy.getByTestID('totalLiquidity_dETH-DFI').should('have.text', '$20,000,000')
+
+      // 66.8826 * 100
+      cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
     })
-    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
-      .invoke('text').should(text => {
-        expect(text).to.contains('dETH-DFI')
-        expect(text).to.contains('APR')
-        // TODO: Check favourite is only displaying on browse pool pairs
-
-        // TODO: Check order of price rates
-        expect(text).to.contains('Prices')
-        expect(text).to.contains('1 dETH')
-        expect(text).to.contains('1 DFI')
-
-        expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled dETH')
-        expect(text).to.contains('Total liquidity (USD)')
-      })
-
-    cy.getByTestID('details_dETH-DFI').click()
-    cy.getByTestID('price_rate_DFI-dETH').should('have.text', '1 DFI = 100.00000000 dETH')
-    cy.getByTestID('price_rate_dETH-DFI').should('have.text', '1 dETH = 0.01000000 DFI')
-    cy.getByTestID('available_ETH-DFI_dETH').should('have.text', '100,000 dETH')
-    cy.getByTestID('available_ETH-DFI_DFI').should('have.text', '1,000 DFI')
-    // (1000 / 100000) * (10000000 / 1000) * 100,000 ETH
-    cy.getByTestID('available_ETH-DFI_dETH_USD').should('have.text', '≈ $10,000,000.00')
-    // (10000000 / 1000) * 1,000 DFI
-    cy.getByTestID('available_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000,000.00')
-    cy.getByTestID('totalLiquidity_dETH-DFI').should('have.text', '$20,000,000')
-
-    // 66.8826 * 100
-    cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
   })
 
   it('should display your pool pair values correctly', () => {

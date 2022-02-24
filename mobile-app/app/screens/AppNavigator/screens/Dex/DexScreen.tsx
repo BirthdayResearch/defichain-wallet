@@ -127,7 +127,9 @@ export function DexScreen (): JSX.Element {
             .toLowerCase()
             .includes(searchString.trim().toLowerCase())
         ).sort((firstPair, secondPair) =>
-          new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber()
+          secondPair.data.totalLiquidity.usd !== firstPair.data.totalLiquidity.usd
+            ? new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber()
+            : new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
         )
       )
     }, 500),
