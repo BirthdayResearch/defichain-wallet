@@ -188,7 +188,7 @@ export function PoolPairCards ({
           style={tailwind('flex flex-row justify-between w-full')}
           testID={`pool_pair_row_${index}_${symbol}`}
         >
-          <View style={tailwind('w-8/12 flex-row items-center')}>
+          <View style={tailwind('w-9/12 flex-row items-center')}>
             <PoolPairTextSection
               symbolA={symbolA}
               symbolB={symbolB}
