@@ -191,6 +191,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
         cy.getByTestID('dex_search_input').clear().type(symbol).blur()
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
         cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
+        cy.getByTestID(`details_${symbol}`).click()
         cy.getByTestID(`available_${data.symbol}_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
         cy.getByTestID(`available_${data.symbol}_${data.tokenB.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
         cy.getByTestID('dex_search_input_close').click()
