@@ -542,7 +542,6 @@ describe('loans reducer', () => {
     const actual = vaultsSelector(state)
     expect(actual).toStrictEqual([{
       ...vault,
-      vaultState: 'HEALTHY',
       loanAmounts: [
         {
           id: '14',
