@@ -1,5 +1,4 @@
 import { CollateralToken, LoanScheme, LoanToken, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import { ascColRatioLoanScheme, fetchCollateralTokens, fetchLoanSchemes, fetchLoanTokens, fetchVaults, loans, LoansState, loanTokenByTokenId, loanTokensSelector, LoanVault, vaultsSelector } from './loans'
 
@@ -91,7 +90,8 @@ describe('loans reducer', () => {
           height: -1
         },
         collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-        displaySymbol: 'dTD10'
+        displaySymbol: 'dTD10',
+        isLoanToken: true
       },
       interest: '1.5',
       fixedIntervalPriceId: 'TD10/USD'
@@ -120,7 +120,8 @@ describe('loans reducer', () => {
           height: -1
         },
         collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-        displaySymbol: 'DUSD'
+        displaySymbol: 'DUSD',
+        isLoanToken: true
       },
       interest: '0',
       fixedIntervalPriceId: 'DUSD/USD'
@@ -149,40 +150,13 @@ describe('loans reducer', () => {
           height: -1
         },
         collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-        displaySymbol: 'dTR50'
+        displaySymbol: 'dTR50',
+        isLoanToken: true
       },
       interest: '3',
       fixedIntervalPriceId: 'TR50/USD'
     }
   ]
-  const customDUSDActivePrice: ActivePrice = {
-    id: 'custom_DUSD',
-    key: 'custom_DUSD',
-    sort: '',
-    isLive: true,
-    block: {
-      hash: '',
-      height: 0,
-      time: 0,
-      medianTime: 0
-    },
-    active: {
-      amount: '1',
-      weightage: 1,
-      oracles: {
-        active: 1,
-        total: 1
-      }
-    },
-    next: {
-      amount: '1',
-      weightage: 1,
-      oracles: {
-        active: 1,
-        total: 1
-      }
-    }
-  }
   const loanSchemes: LoanScheme[] = [
     {
       id: 'MIN10000',
@@ -282,7 +256,8 @@ describe('loans reducer', () => {
             height: -1
           },
           collateralAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-          displaySymbol: 'dCS25'
+          displaySymbol: 'dCS25',
+          isLoanToken: false
         },
         factor: '1',
         activateAfterBlock: 130,
@@ -312,7 +287,8 @@ describe('loans reducer', () => {
             height: -1
           },
           collateralAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-          displaySymbol: 'dUSDT'
+          displaySymbol: 'dUSDT',
+          isLoanToken: false
         },
         factor: '1',
         activateAfterBlock: 129,
@@ -342,7 +318,8 @@ describe('loans reducer', () => {
             height: -1
           },
           collateralAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-          displaySymbol: 'dCR50'
+          displaySymbol: 'dCR50',
+          isLoanToken: false
         },
         factor: '1',
         activateAfterBlock: 130,
@@ -424,7 +401,8 @@ describe('loans reducer', () => {
             height: -1
           },
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-          displaySymbol: 'dTD10'
+          displaySymbol: 'dTD10',
+          isLoanToken: true
         },
         interest: '1.5',
         fixedIntervalPriceId: 'TD10/USD'
@@ -453,11 +431,11 @@ describe('loans reducer', () => {
             height: -1
           },
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-          displaySymbol: 'DUSD'
+          displaySymbol: 'DUSD',
+          isLoanToken: true
         },
         interest: '0',
-        fixedIntervalPriceId: 'DUSD/USD',
-        activePrice: customDUSDActivePrice
+        fixedIntervalPriceId: 'DUSD/USD'
       },
       {
         tokenId: 'ffbaea57f155a36700c65a018aafe5e7d9984416339fb623df887f1a82b12142',
@@ -483,7 +461,8 @@ describe('loans reducer', () => {
             height: -1
           },
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-          displaySymbol: 'dTR50'
+          displaySymbol: 'dTR50',
+          isLoanToken: true
         },
         interest: '3',
         fixedIntervalPriceId: 'TR50/USD'
@@ -523,11 +502,11 @@ describe('loans reducer', () => {
           height: -1
         },
         collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
-        displaySymbol: 'DUSD'
+        displaySymbol: 'DUSD',
+        isLoanToken: true
       },
       interest: '0',
-      fixedIntervalPriceId: 'DUSD/USD',
-      activePrice: customDUSDActivePrice
+      fixedIntervalPriceId: 'DUSD/USD'
     })
   })
 
@@ -571,8 +550,7 @@ describe('loans reducer', () => {
           symbol: 'DUSD',
           symbolKey: 'DUSD',
           name: 'Decentralized USD',
-          displaySymbol: 'DUSD',
-          activePrice: customDUSDActivePrice
+          displaySymbol: 'DUSD'
         },
         {
           id: '13',
@@ -590,8 +568,7 @@ describe('loans reducer', () => {
           symbol: 'DUSD',
           symbolKey: 'DUSD',
           name: 'Decentralized USD',
-          displaySymbol: 'DUSD',
-          activePrice: customDUSDActivePrice
+          displaySymbol: 'DUSD'
         },
         {
           id: '13',

@@ -62,7 +62,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
             "fontSize": 14,
             "lineHeight": 20,
             "opacity": 0.6,
-            "paddingBottom": 64,
+            "paddingBottom": 36,
             "textAlign": "center",
           },
           Object {
@@ -74,6 +74,60 @@ exports[`offline screen should match snapshot when offline 1`] = `
   >
     There seems to be a problem with the connection. Check your network and try again.
   </Text>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgba(255, 229, 247, 1)",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginBottom": 16,
+        "marginLeft": 0,
+        "marginRight": 0,
+        "marginTop": 0,
+        "opacity": 1,
+        "paddingBottom": 12,
+        "paddingLeft": 12,
+        "paddingRight": 12,
+        "paddingTop": 12,
+        "width": 192,
+      }
+    }
+    testID="button_check_connectivity"
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+            "fontFamily": "BoldFont",
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      TRY AGAIN
+    </Text>
+  </View>
 </View>
 `;
 

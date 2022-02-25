@@ -23,6 +23,7 @@ import { useLoanOperations } from '../hooks/LoanOperations'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -50,7 +51,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
     new BigNumber(amountToAdd.amountInToken),
-    new BigNumber(loanTokenAmount.activePrice?.active?.amount ?? 0),
+    new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice)),
     interestPerBlock
   )
   const blocksPerDay = useBlocksPerDay()
@@ -70,7 +71,8 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   const updateInterestAmount = (): void => {
-    if (vault === undefined || amountToAdd === undefined || loanToken?.activePrice?.active?.amount === undefined) {
+    const loanTokenPrice = getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice)
+    if (vault === undefined || amountToAdd === undefined || loanTokenPrice === '0') {
       return
     }
     const annualInterest = interestPerBlock.multipliedBy(blocksPerDay * 365).multipliedBy(amountToAdd.amountInToken)
@@ -194,7 +196,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
           placeholder='0.00'
           style={tailwind('flex-grow w-2/5')}
           testID='text_input_usd_value'
-          value={amountToAdd.amountInUSD.toFixed(2)}
+          value={getUSDPrecisedPrice(amountToAdd.amountInUSD)}
           displayClearButton={false}
           inputType='numeric'
         >
@@ -210,7 +212,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         loanTokenDisplaySymbol={loanToken.token.displaySymbol}
         totalInterestAmount={totalAnnualInterest}
         totalLoanWithInterest={totalLoanWithInterest}
-        loanTokenPrice={new BigNumber(loanToken.activePrice?.active?.amount ?? 0)}
+        loanTokenPrice={new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice))}
         fee={fee}
       />
       <Button

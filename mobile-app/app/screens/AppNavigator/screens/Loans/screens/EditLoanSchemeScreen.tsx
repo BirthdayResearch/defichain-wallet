@@ -19,6 +19,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useVaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'EditLoanSchemeScreen'>
 
@@ -158,12 +159,13 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={new BigNumber(vault.collateralValue ?? 0).toFixed(2)}
+        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
-        testID='text_total_collateral_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
+        testID='text_total_collateral_value'
+        value={getUSDPrecisedPrice(vault.loanValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
       />
@@ -176,7 +178,7 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
         rhsThemedProps={colors}
         info={{
           title: 'Collateralization ratio',
-          message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+          message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
         }}
       />
       <VaultSectionTextRow

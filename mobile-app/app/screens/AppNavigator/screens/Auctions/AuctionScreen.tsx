@@ -2,10 +2,8 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '@components/themed'
 import { Tabs } from '@components/Tabs'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { fetchAuctions } from '@store/auctions'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { StackScreenProps } from '@react-navigation/stack'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { BrowseAuctions } from './components/BrowseAuctions'
@@ -21,10 +19,7 @@ enum TabKey {
 type Props = StackScreenProps<AuctionsParamList, 'AuctionScreen'>
 
 export function AuctionsScreen ({ navigation }: Props): JSX.Element {
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseAuctions)
-  const dispatch = useDispatch()
-  const client = useWhaleApiClient()
   const { auctions } = useSelector((state: RootState) => state.auctions)
 
   // Search
@@ -43,10 +38,6 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
     setActiveTab(tabId)
   }
 
-  useEffect(() => {
-    dispatch(fetchAuctions({ client }))
-  }, [blockCount])
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: (): JSX.Element => {
@@ -55,7 +46,6 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
             <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
           )
         }
-
         return <></>
       }
     })

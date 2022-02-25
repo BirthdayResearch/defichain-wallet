@@ -22,7 +22,7 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - uses: expo/expo-github-action@109c3edde0cc8a592df359d438663bd14c183b4d
+      - uses: expo/expo-github-action@d4175ed947598c22308599f9cb07490458536a7c
         with:
           expo-version: 4.x
           expo-cache: true

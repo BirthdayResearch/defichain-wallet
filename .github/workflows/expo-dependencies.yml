@@ -17,7 +17,7 @@ jobs:
 
       - run: npm ci
 
-      - uses: expo/expo-github-action@109c3edde0cc8a592df359d438663bd14c183b4d
+      - uses: expo/expo-github-action@d4175ed947598c22308599f9cb07490458536a7c
         with:
           expo-version: 4.x
           packager: npm
@@ -25,7 +25,7 @@ jobs:
       - run: expo upgrade
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
+        uses: peter-evans/create-pull-request@f22a7da129c901513876a2380e2dae9f8e145330
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies

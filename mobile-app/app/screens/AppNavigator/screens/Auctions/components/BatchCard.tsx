@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -14,23 +15,20 @@ import { AuctionTimeProgress } from './AuctionTimeProgress'
 import { AuctionsParamList } from '../AuctionNavigator'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { CollateralTokenIconGroup } from './CollateralTokenIconGroup'
-import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
+import { MinNextBidTextRow } from './MinNextBidTextRow'
+import { onQuickBidProps } from './BrowseAuctions'
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
   testID: string
-  onQuickBid: (
-    batch: LoanVaultLiquidationBatch,
-    vaultId: string,
-    minNextBidInToken: string,
-    vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']) => void
-    isVaultOwner: boolean
+  onQuickBid: (props: onQuickBidProps) => void
+  isVaultOwner: boolean
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
@@ -47,13 +45,9 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD,
-    hasFirstBid
-  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
-
-  const nextBidInfo = {
-    title: 'Min. next bid',
-    message: 'The minimum bid a user must place in order to take part in the auction.'
-  }
+    hasFirstBid,
+    minNextBidInUSD
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
   const onCardPress = (): void => {
     navigation.navigate('AuctionDetailScreen', {
@@ -70,7 +64,13 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   }
 
   const onQuickBid = (): void => {
-    props.onQuickBid(batch, vault.vaultId, minNextBidInToken, vault.liquidationHeight)
+    props.onQuickBid({
+      batch: batch,
+      vaultId: vault.vaultId,
+      minNextBidInToken,
+      minNextBidInUSD,
+      vaultLiquidationHeight: vault.liquidationHeight
+    })
   }
 
   return (
@@ -161,37 +161,12 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
           </View>
         </View>
 
-        <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-          <View style={tailwind('flex-row items-center justify-start')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('text-xs')}
-            >
-              {translate('components/BatchCard', 'Min. next bid')}
-            </ThemedText>
-            <View style={tailwind('ml-1')}>
-              <BottomSheetInfo alertInfo={nextBidInfo} name={nextBidInfo.title} infoIconStyle={tailwind('text-xs')} />
-            </View>
-          </View>
-          <View style={tailwind('flex flex-row')}>
-            <NumberFormat
-              displayType='text'
-              suffix={` ${batch.loan.displaySymbol}`}
-              renderText={(value: string) => (
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm')}
-                >
-                  {value}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={minNextBidInToken}
-            />
-          </View>
-        </View>
+        <MinNextBidTextRow
+          displaySymbol={batch.loan.displaySymbol}
+          minNextBidInToken={minNextBidInToken}
+          minNextBidInUSD={minNextBidInUSD}
+          testID={`batch_${batch.index}_min_next_bid`}
+        />
       </TouchableOpacity>
 
       <AuctionTimeProgress
@@ -208,7 +183,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   )
 }
 
-function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element {
+const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element => {
   return (
     <View style={tailwind('flex flex-row items-center')}>
       <ThemedIcon
@@ -228,9 +203,9 @@ function BatchCardInfo (props: { iconName: React.ComponentProps<typeof MaterialI
       </ThemedText>
     </View>
   )
-}
+})
 
-function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => void, testID: string }): JSX.Element {
+const BatchCardButtons = memo((props: { onPlaceBid: () => void, onQuickBid: () => void, testID: string }): JSX.Element => {
   return (
     <ThemedView
       light={tailwind('border-gray-200')}
@@ -242,22 +217,22 @@ function BatchCardButtons (props: { onPlaceBid: () => void, onQuickBid: () => vo
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onPlaceBid}
-        testID={`${props.testID}_place_bid`}
+        testID={`${props.testID}_place_bid_button`}
       />
       <IconButton
         iconLabel={translate('components/QuickBid', 'QUICK BID')}
         iconSize={16}
         style={tailwind('mr-2 mb-2')}
         onPress={props.onQuickBid}
-        testID={`${props.testID}_quick_bid`}
+        testID={`${props.testID}_quick_bid_button`}
       />
     </ThemedView>
   )
-}
+})
 
 type AuctionBidStatusType = 'lost' | 'highest'
 
-export function AuctionBidStatus ({ type, testID }: { type: AuctionBidStatusType, testID: string }): JSX.Element {
+export const AuctionBidStatus = memo(({ type, testID }: { type: AuctionBidStatusType, testID: string }): JSX.Element => {
   return (
     <View style={tailwind('flex-row w-full items-center justify-between')}>
       <View style={tailwind('flex flex-row items-center justify-between')}>
@@ -304,4 +279,4 @@ export function AuctionBidStatus ({ type, testID }: { type: AuctionBidStatusType
       </View>
     </View>
   )
-}
+})

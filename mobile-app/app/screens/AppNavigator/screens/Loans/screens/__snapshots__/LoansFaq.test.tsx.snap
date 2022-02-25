@@ -68,7 +68,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.
+      The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.
     </Text>
     <RCTScrollView
       style={
@@ -140,7 +140,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
             <View
               accessibilityState={
                 Object {
-                  "expanded": false,
+                  "expanded": true,
                 }
               }
               accessible={true}
@@ -166,10 +166,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "paddingRight": 16,
                         "paddingTop": 16,
                       },
-                      Object {
-                        "borderBottomWidth": 1,
-                      },
                       false,
+                      Object {
+                        "paddingBottom": 4,
+                      },
                     ],
                     Object {
                       "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -198,10 +198,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                             "fontSize": 14,
                             "lineHeight": 20,
                           },
-                          false,
+                          Object {
+                            "fontFamily": "SemiBoldFont",
+                            "fontWeight": "600",
+                          },
                         ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "color": "rgba(23, 23, 23, 1)",
                         },
                       ],
                     ]
@@ -213,13 +216,8 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
-              pointerEvents="none"
-              style={
-                Object {
-                  "height": 0,
-                  "overflow": "hidden",
-                }
-              }
+              pointerEvents="auto"
+              style={Object {}}
             >
               <View
                 forwardedRef={[Function]}
@@ -236,7 +234,9 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           "paddingRight": 16,
                           "paddingTop": 0,
                         },
-                        false,
+                        Object {
+                          "borderBottomWidth": 1,
+                        },
                       ],
                       Object {
                         "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -431,7 +431,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.
+                      The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collateral will be sent for auction.
                     </Text>
                   </View>
                   <View
@@ -662,7 +662,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
             <View
               accessibilityState={
                 Object {
-                  "expanded": true,
+                  "expanded": false,
                 }
               }
               accessible={true}
@@ -688,10 +688,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "paddingRight": 16,
                         "paddingTop": 16,
                       },
-                      false,
                       Object {
-                        "paddingBottom": 4,
+                        "borderBottomWidth": 1,
                       },
+                      false,
                     ],
                     Object {
                       "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -720,13 +720,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                             "fontSize": 14,
                             "lineHeight": 20,
                           },
-                          Object {
-                            "fontFamily": "SemiBoldFont",
-                            "fontWeight": "600",
-                          },
+                          false,
                         ],
                         Object {
-                          "color": "rgba(23, 23, 23, 1)",
+                          "color": "rgba(115, 115, 115, 1)",
                         },
                       ],
                     ]
@@ -738,8 +735,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
-              pointerEvents="auto"
-              style={Object {}}
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
             >
               <View
                 forwardedRef={[Function]}
@@ -756,9 +758,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           "paddingRight": 16,
                           "paddingTop": 0,
                         },
-                        Object {
-                          "borderBottomWidth": 1,
-                        },
+                        false,
                       ],
                       Object {
                         "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -1541,7 +1541,9 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "paddingRight": 16,
                         "paddingTop": 16,
                       },
-                      false,
+                      Object {
+                        "borderBottomWidth": 1,
+                      },
                       false,
                     ],
                     Object {
@@ -1653,6 +1655,158 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                       }
                     >
                       The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "paddingBottom": 16,
+                        "paddingLeft": 16,
+                        "paddingRight": 16,
+                        "paddingTop": 16,
+                      },
+                      false,
+                      false,
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(229, 229, 229, 1)",
+                      "borderLeftColor": "rgba(229, 229, 229, 1)",
+                      "borderRightColor": "rgba(229, 229, 229, 1)",
+                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Array [
+                          Object {
+                            "flexBasis": "0%",
+                            "flexGrow": 1,
+                            "flexShrink": 1,
+                            "fontSize": 14,
+                            "lineHeight": 20,
+                          },
+                          false,
+                        ],
+                        Object {
+                          "color": "rgba(115, 115, 115, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Why is there a 1% fee when paying DUSD loans with DFI?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "paddingBottom": 16,
+                          "paddingLeft": 16,
+                          "paddingRight": 16,
+                          "paddingTop": 0,
+                        },
+                        false,
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(229, 229, 229, 1)",
+                        "borderLeftColor": "rgba(229, 229, 229, 1)",
+                        "borderRightColor": "rgba(229, 229, 229, 1)",
+                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontSize": 14,
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(82, 82, 82, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.
+
+When calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.
                     </Text>
                   </View>
                 </View>

@@ -6,7 +6,7 @@ import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dis
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 import { useNextCollateralizationRatio } from '../../hooks/NextCollateralizationRatio'
 import { CollateralizationRatioRow } from '../../components/CollateralizationRatioRow'
 
@@ -97,7 +97,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
             textStyle={tailwind('text-sm font-normal')}
             info={{
               title: 'Collateralization ratio',
-              message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+              message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
             }}
           />
         )
@@ -141,7 +141,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
       <NumberRow
         lhs={translate('components/VaultDetailDetailsTab', 'Total collateral (USD)')}
         rhs={{
-          value: props.totalCollateralsValue.toFixed(2),
+          value: getUSDPrecisedPrice(props.totalCollateralsValue),
           testID: 'text_collateral_value',
           prefix: '$'
         }}
@@ -156,7 +156,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
       <NumberRow
         lhs={translate('components/VaultDetailDetailsTab', 'Total loans (USD)')}
         rhs={{
-          value: props.totalLoansValue.toFixed(2),
+          value: getUSDPrecisedPrice(props.totalLoansValue),
           testID: 'text_total_loan_value',
           prefix: '$'
         }}

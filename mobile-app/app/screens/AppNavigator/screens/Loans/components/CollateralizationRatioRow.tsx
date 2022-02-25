@@ -25,7 +25,7 @@ export function CollateralizationRatioRow (props: CollateralizationRatioRowProps
 
   const alertInfo = {
     title: 'Collateralization ratio',
-    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+    message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
   const nextAlertInfo = {
     title: 'Next collateralization',

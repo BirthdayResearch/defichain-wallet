@@ -18,7 +18,7 @@ import { ConversionParam } from '@screens/AppNavigator/screens/Balances/Balances
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
-import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
+import { PaybackLoanScreen, PaymentTokenProps } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
 import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen'
 import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
 import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
@@ -75,10 +75,13 @@ export interface LoanParamList {
   ConfirmPaybackLoanScreen: {
     fee: BigNumber
     amountToPay: BigNumber
+    amountToPayInSelectedToken: BigNumber
+    paymentToken: PaymentTokenProps
     vault: LoanVaultActive
     loanTokenAmount: LoanVaultTokenAmount
     excessAmount?: BigNumber
     resultingColRatio: BigNumber
+    conversion?: ConversionParam
   }
   EditLoanSchemeScreen: {
     vaultId: string
@@ -94,6 +97,9 @@ export interface LoanParamList {
   }
   CloseVaultScreen: {
     vaultId: string
+  }
+  LoansFaq: {
+    activeSessions?: number[]
   }
   [key: string]: undefined | object
 }
@@ -176,7 +182,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Edit Collaterals')}
+              text={translate('screens/LoansScreen', 'Edit Collateral')}
             />
           )
         }}

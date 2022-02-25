@@ -1,3 +1,4 @@
+
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -14,6 +15,7 @@ export interface WalletState {
   allTokens: AssociatedToken
   poolpairs: DexItem[]
   hasFetchedPoolpairData: boolean
+  hasFetchedToken: boolean
 }
 
 export interface WalletToken extends AddressToken {
@@ -30,7 +32,8 @@ const initialState: WalletState = {
   tokens: [],
   allTokens: {},
   poolpairs: [],
-  hasFetchedPoolpairData: false
+  hasFetchedPoolpairData: false,
+  hasFetchedToken: false
 }
 
 const tokenDFI: WalletToken = {
@@ -60,7 +63,7 @@ const unifiedDFI: WalletToken = {
   avatarSymbol: 'DFI'
 }
 
-export const setTokenDetails = (t: AddressToken): WalletToken => {
+export const setTokenSymbol = (t: AddressToken): WalletToken => {
   let displaySymbol = t.displaySymbol
   let avatarSymbol = t.displaySymbol
   if (t.id === '0') {
@@ -113,7 +116,8 @@ export const wallet = createSlice({
       state.poolpairs = action.payload
     })
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
-      state.tokens = action.payload.tokens.map(setTokenDetails)
+      state.hasFetchedToken = true
+      state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
       state.allTokens = associateTokens(action.payload.allTokens)
     })

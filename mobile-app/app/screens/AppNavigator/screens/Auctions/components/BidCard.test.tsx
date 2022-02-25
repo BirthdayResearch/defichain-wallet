@@ -15,7 +15,7 @@ describe('Bid Card', () => {
       block: {
         count: 2000,
         masternodeCount: 10,
-        lastSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
+        lastSuccessfulSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
         connected: true,
         isPolling: true
       }
@@ -66,6 +66,11 @@ describe('Bid Card', () => {
             sort: '001527f0'
           }
         }
+      ],
+      froms: [
+        '0014b5561e1cefa71f30efb6951c3d6d12ebd0baba02',
+        '001477e853f11c5881465978b731e8bdfd4abc079bc8',
+        '001480a0db34bbcc146d81458662b9d5432b5a4aaefc'
       ],
       loan: {
         id: '15',

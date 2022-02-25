@@ -14,7 +14,7 @@ export function EmptyCollateral (props: {vaultId: string}): JSX.Element {
       testID='empty_active_loans'
     >
       <ThemedText style={tailwind('text-2xl pb-2 font-semibold text-center')}>
-        {translate('components/EmptyCollateral', 'No collaterals')}
+        {translate('components/EmptyCollateral', 'No collateral')}
       </ThemedText>
 
       <ThemedText style={tailwind('text-sm pb-4 text-center opacity-60')}>
@@ -22,7 +22,7 @@ export function EmptyCollateral (props: {vaultId: string}): JSX.Element {
       </ThemedText>
 
       <Button
-        label={translate('components/EmptyCollateral', 'ADD COLLATERALS')}
+        label={translate('components/EmptyCollateral', 'ADD COLLATERAL')}
         onPress={() => {
           navigation.navigate({
             name: 'EditCollateralScreen',

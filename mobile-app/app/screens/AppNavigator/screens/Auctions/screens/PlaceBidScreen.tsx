@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { StackScreenProps } from '@react-navigation/stack'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
@@ -31,6 +31,8 @@ import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/A
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -45,8 +47,9 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
     minNextBidInToken,
-    totalCollateralsValueInUSD
-  } = useAuctionBidValue(batch, vault.liquidationPenalty, vault.loanScheme.interestRate)
+    totalCollateralsValueInUSD,
+    minNextBidInUSD
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const {
     bottomSheetRef,
@@ -65,12 +68,15 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const logger = useLogger()
   const client = useWhaleApiClient()
+  const isFocused = useIsFocused()
 
   const [bidAmount, setBidAmount] = useState<string>('')
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
@@ -131,6 +137,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
             blockCount={blockCount}
             liquidationHeight={vault.liquidationHeight}
             minNextBid={minNextBidInToken}
+            minNextBidInUSD={minNextBidInUSD}
             totalAuctionValue={totalCollateralsValueInUSD}
             onPressFullDetails={onPressFullDetails}
           />
@@ -233,6 +240,7 @@ function BidSummaryCard (props: {
   minNextBid: string
   totalAuctionValue: string
   onPressFullDetails: () => void
+  minNextBidInUSD: string
 }): JSX.Element {
   return (
     <ThemedView
@@ -250,7 +258,7 @@ function BidSummaryCard (props: {
         </View>
         <View style={tailwind('flex flex-row')}>
           <CollateralTokenIconGroup
-            title={translate('screens/PlaceBidScreen', 'Collaterals')}
+            title={translate('screens/PlaceBidScreen', 'Collateral')}
             symbols={props.collateralDisplaySymbols}
             maxIconToDisplay={3}
           />
@@ -258,7 +266,7 @@ function BidSummaryCard (props: {
       </View>
 
       <VaultSectionTextRow
-        value={new BigNumber(props.totalAuctionValue).toFixed(2)}
+        value={getUSDPrecisedPrice(props.totalAuctionValue)}
         lhs={translate('screens/PlaceBidScreen', 'Total auction value (USD)')}
         testID='text_total_auction_value'
         suffixType='component'
@@ -279,6 +287,12 @@ function BidSummaryCard (props: {
         testID='text_min_next_bid'
         suffixType='text'
         suffix={props.displaySymbol}
+      />
+      <ActiveUSDValue
+        price={new BigNumber(props.minNextBidInUSD)}
+        containerStyle={tailwind('justify-end -mt-1')}
+        style={tailwind('text-2xs')}
+        testId='place_bid_min_next_bid_usd'
       />
       <View style={tailwind('mt-1')}>
         <AuctionTimeProgress

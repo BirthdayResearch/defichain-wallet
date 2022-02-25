@@ -10,7 +10,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
-import { ActiveUsdValue } from '../../Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUsdValue'
 import { useBidTimeAgo } from '../hooks/BidTimeAgo'
 
 interface BidHistoryProps {
@@ -141,7 +141,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row justify-between')}>
-        <ActiveUsdValue price={new BigNumber(props.bidAmount).multipliedBy(props.loanActivePrice)} />
+        <ActiveUSDValue price={new BigNumber(props.bidAmount).multipliedBy(props.loanActivePrice)} />
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}

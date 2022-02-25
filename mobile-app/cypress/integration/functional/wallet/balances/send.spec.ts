@@ -221,8 +221,8 @@ context('Wallet - Send', function () {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_list').should('exist')
-        cy.getByTestID('balances_row_15').should('exist')
-        cy.getByTestID('balances_row_15_amount').contains(10).click()
+        cy.getByTestID('balances_row_17').should('exist')
+        cy.getByTestID('balances_row_17_amount').contains(10).click()
         cy.getByTestID('send_button').click()
         cy.getByTestID('lp_info_text').should('exist')
         cy.getByTestID('address_input').type(address)
@@ -232,7 +232,7 @@ context('Wallet - Send', function () {
         cy.getByTestID('lp_ack_switch').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('balances_row_15_amount').should('not.exist')
+        cy.getByTestID('balances_row_17_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC-DFI']).wait(3000)
       })
@@ -373,5 +373,36 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('send_button').click()
     cy.getByTestID('selected_token').should('have.text', 'dETH')
     cy.getByTestID('max_value').contains('dETH')
+  })
+
+  it('should be able to enable/disable token selection', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.createEmptyWallet(true)
+
+    // No token
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')
+
+    // With DFI
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('select_token_placeholder').should('not.exist')
+    cy.getByTestID('selected_token').should('have.text', 'DFI')
+
+    // With DFI and other token
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('select_token_placeholder').should('not.exist')
+    cy.getByTestID('selected_token').should('have.text', 'DFI')
+
+    // No DFI, with other token
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.createEmptyWallet(true).wait(3000)
+    cy.sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('select_token_input').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('select_token_placeholder').should('exist')
   })
 })

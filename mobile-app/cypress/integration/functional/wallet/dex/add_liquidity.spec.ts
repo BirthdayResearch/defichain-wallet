@@ -164,13 +164,14 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
 
   afterEach(function () {
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
-    cy.getByTestID('your_dBTC-DFI').contains('10.00000000')
-    cy.getByTestID('your_dBTC').contains('9.99999999')
-    cy.getByTestID('your_DFI').contains('9.99999999')
+    cy.getByTestID('share_in_pool_dBTC-DFI').contains('10.00000000')
+    cy.getByTestID('details_dBTC-DFI').click()
+    cy.getByTestID('your_BTC-DFI_dBTC').contains('9.99999999')
+    cy.getByTestID('your_BTC-DFI_DFI').contains('9.99999999')
 
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_row_15').should('exist')
-    cy.getByTestID('balances_row_15_symbol').contains('dBTC-DFI')
+    cy.getByTestID('balances_row_17').should('exist')
+    cy.getByTestID('balances_row_17_symbol').contains('dBTC-DFI')
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()

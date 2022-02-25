@@ -26,6 +26,7 @@ import {
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
+import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -42,7 +43,7 @@ export function VaultDetailScreen ({
   const canUseOperations = useLoanOperations(vault?.state)
   const vaultActionButtons: ScrollButton[] = [
     {
-      label: 'EDIT COLLATERALS',
+      label: 'EDIT COLLATERAL',
       disabled: !canUseOperations,
       handleOnPress: () => {
         if (vault === undefined) {
@@ -252,13 +253,13 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
         : (
           <>
             <VaultSectionTextRow
-              value={new BigNumber(props.vault.collateralValue).toFixed(2)}
+              value={getUSDPrecisedPrice(props.vault.collateralValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total collateral (USD)')}
               testID='text_total_collateral_value'
               prefix='$'
             />
             <VaultSectionTextRow
-              value={new BigNumber(props.vault.loanValue).toFixed(2)}
+              value={getUSDPrecisedPrice(props.vault.loanValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total loans (USD)')}
               testID='text_total_loan_value'
               prefix='$'

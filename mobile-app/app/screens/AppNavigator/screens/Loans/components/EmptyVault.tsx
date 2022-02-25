@@ -16,7 +16,12 @@ interface EmptyVaultProps {
 export function EmptyVault (props: EmptyVaultProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const goToVaultsFaq = (): void => {
-    navigation.navigate('LoansFaq')
+    navigation.navigate({
+      name: 'LoansFaq',
+      params: {
+        activeSessions: [2]
+      }
+    })
   }
   return (
     <ThemedScrollView
@@ -43,7 +48,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
       </ThemedText>
 
       <ThemedText style={tailwind('text-sm pb-4 text-center opacity-60')}>
-        {translate('components/EmptyVault', 'To get started, create a vault and add DFI and other tokens as collaterals')}
+        {translate('components/EmptyVault', 'To get started, create a vault and add DFI and other tokens as collateral')}
       </ThemedText>
 
       <Button

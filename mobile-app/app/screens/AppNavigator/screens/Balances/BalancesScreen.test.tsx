@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { fireEvent, render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
-import { wallet, setTokenDetails } from '@store/wallet'
+import { wallet, setTokenSymbol } from '@store/wallet'
 import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
 
@@ -15,7 +15,7 @@ jest.mock('@shared-contexts/LanguageProvider')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('@shared-contexts/WalletContext')
 jest.mock('@shared-contexts/WalletPersistenceContext')
-
+jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@contexts/DisplayBalancesContext')
 
 jest.mock('@react-navigation/native', () => ({
@@ -70,15 +70,16 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: tokens.map(setTokenDetails),
+        tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 100,
         masternodeCount: 10,
-        lastSync: undefined,
+        lastSuccessfulSync: undefined,
         connected: true,
         isPolling: true,
         tvl: undefined
@@ -111,15 +112,16 @@ describe('balances page', () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
-        tokens: tokens.map(setTokenDetails),
+        tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true
       },
       block: {
         count: 100,
         masternodeCount: 10,
-        lastSync: undefined,
+        lastSuccessfulSync: undefined,
         connected: true,
         isPolling: true,
         tvl: undefined

@@ -331,6 +331,62 @@ exports[`knowledge base screen should render 1`] = `
       </Text>
       <Text />
     </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "opacity": 1,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 8,
+          "paddingTop": 16,
+        }
+      }
+      testID="loans_faq"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Loans
+      </Text>
+      <Text />
+    </View>
   </View>
 </RCTScrollView>
 `;
