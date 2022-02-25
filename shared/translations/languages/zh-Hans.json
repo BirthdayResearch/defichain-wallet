@@ -836,6 +836,11 @@
     "From your vault": "来自您的金库",
     "Waiting for first bid": "等待第一次标价"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "{{h}}时 {{m}}分前",
+    "{{h}}h ago": "{{h}}时前",
+    "{{m}}m ago": "{{m}}分前"
+  },
   "components/BidCard": {
     "BID HIGHER": "出价更高",
     "VIEW REWARDS": "查看奖励",

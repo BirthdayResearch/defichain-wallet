@@ -838,6 +838,11 @@
     "From your vault": "來自您的金庫",
     "Waiting for first bid": "等待第一次標價"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "{{h}}時 {{m}}分前",
+    "{{h}}h ago": "{{h}}時前",
+    "{{m}}m ago": "{{m}}分前"
+  },
   "components/BidCard": {
     "BID HIGHER": "出價更高",
     "VIEW REWARDS": "查看獎勵",
@@ -853,7 +858,7 @@
     "Bidder ID": "競標者ID",
     "BID #{{bidIndex}}": "出價 #{{bidIndex}}",
     "Waiting for first bid": "等待第一次標價",
-    "{{h}}{{m}} ago": "{{h}}{{m}}前"    
+    "{{h}}{{m}} ago": "{{h}}{{m}}前"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
