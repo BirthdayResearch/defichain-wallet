@@ -41,10 +41,17 @@
     "Total Value Locked (USD)": "总体价值锁定 (美元)",
     "Swap tokens": "兑换货币",
     "SWAP": "兑换",
+    "DETAILS": "详情",
+    "HIDE": "隐藏",
     "Total Value Locked in pool pairs (USD): ": "流动池锁定的总价值 (美元)：",
     "All pairs": "所有交易对",
     "DFI pairs": "DFI 对",
-    "DUSD pairs": "DUSD 对"
+    "DUSD pairs": "DUSD 对",
+    "Your share in pool": "您在流动池中的份额",
+    "ADD": "增加",
+    "Prices": "价格",
+    "Available pool pairs": "可选流动池",
+    "Your shared {{symbol}}": "您的股份 {{symbol}}"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -188,6 +195,7 @@
     "German": "德语",
     "Chinese (Simplified)": "简体中文",
     "Chinese (Traditional)": "繁體中文",
+    "French": "法语",
     "Switch Language": "切换语言",
     "ADDITIONAL OPTIONS": "更多选项",
     "SECURITY": "安全设置",
@@ -904,7 +912,8 @@
     "CONFIRM CREATE VAULT": "确认创建金库",
     "Creating vault": "创建金库",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "创建金库时，设置的最低抵押率为{{amount}}%，利率为{{ir}}%年回报率",
-    "Convert & create vault": "转换和创建金库"
+    "Convert & create vault": "转换和创建金库",
+    "CREATING": "正在产生中"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "所需费用（大约）",
@@ -1178,9 +1187,10 @@
     "Max loan amount": "最高的贷款金额",
     "N/A": "不适用"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "搜寻贷款",
-    "Search for loan token": "搜寻贷款代币"
+    "Search for loan token": "搜寻贷款代币",
+    "Search for pool pairs": "搜索流动池配对"
   },
   "components/EmptyCollateral": {
     "No collateral": "没有抵押",
@@ -1238,7 +1248,7 @@
     "QUICK BID": "快速标价",
     "Insufficient amount to place a bid": "余额不足，无法出价",
     "Quick bid": "快速标价",
-    "Place a bid on the auctions with the min. next bid": "以下个最低底价进行快标",
+    "Place a bid on the auction with the min. next bid": "以下个最低底价进行快标",
     "Min. next bid": "最低标价",
     "Current balance": "目前余额"
   },

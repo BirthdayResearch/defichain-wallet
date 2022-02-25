@@ -39,7 +39,109 @@ context('Wallet - DEX - Swap without balance', () => {
   })
 })
 
-context('Wallet - DEX - Pool Swap', () => {
+context('Wallet - DEX - Composite Swap with disabled pool pairs', () => {
+  before(function () {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: [
+          {
+            id: '26',
+            symbol: 'ZERO-DFI',
+            displaySymbol: 'dZERO-DFI',
+            name: 'Playground ZERO-Default Defi token',
+            status: true,
+            tokenA: {
+              symbol: 'ZERO',
+              displaySymbol: 'dZERO',
+              id: '10',
+              reserve: '0',
+              blockCommission: '0'
+            },
+            tokenB: {
+              symbol: 'DFI',
+              displaySymbol: 'DFI',
+              id: '0',
+              reserve: '0',
+              blockCommission: '0'
+            },
+            priceRatio: {
+              ab: '0',
+              ba: '0'
+            },
+            commission: '0',
+            totalLiquidity: {
+              token: '0',
+              usd: '0'
+            },
+            tradeEnabled: false,
+            ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+            rewardPct: '0.09090909',
+            creation: {
+              tx: '864a7b1900daa6a635e4b8ccfb263c708e5863aef85e81d6b82cbe9f82136a15',
+              height: 149
+            },
+            apr: {
+              reward: null,
+              total: null
+            }
+          },
+          {
+            id: '28',
+            symbol: 'OFF-DFI',
+            displaySymbol: 'dOFF-DFI',
+            name: 'Playground OFF-Default Defi token',
+            status: false,
+            tokenA: {
+              symbol: 'OFF',
+              displaySymbol: 'dOFF',
+              id: '11',
+              reserve: '0',
+              blockCommission: '0'
+            },
+            tokenB: {
+              symbol: 'DFI',
+              displaySymbol: 'DFI',
+              id: '0',
+              reserve: '0',
+              blockCommission: '0'
+            },
+            priceRatio: {
+              ab: '0',
+              ba: '0'
+            },
+            commission: '0',
+            totalLiquidity: {
+              token: '0',
+              usd: '0'
+            },
+            tradeEnabled: false,
+            ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+            rewardPct: '0.09090909',
+            creation: {
+              tx: '864a7b1900daa6a635e4b8ccfb263c708e5863aef85e81d6b82cbe9f82136a15',
+              height: 149
+            },
+            apr: {
+              reward: null,
+              total: null
+            }
+          }
+        ]
+      }
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('close_dex_guidelines').click()
+  })
+
+  it('should disable pool swap button if pair is disabled on API', function () {
+    cy.getByTestID('pool_pair_swap-horiz_dZERO-DFI').should('have.attr', 'aria-disabled') // tradeEnabled: false
+    cy.getByTestID('pool_pair_swap-horiz_dOFF-DFI').should('have.attr', 'aria-disabled') // status: false
+  })
+})
+
+context('Wallet - DEX - Composite Swap without balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()

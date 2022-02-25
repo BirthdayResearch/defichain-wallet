@@ -41,10 +41,16 @@
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
     "SWAP": "ÉCHANGER",
     "Swap tokens": "Échange de tokens",
+    "DETAILS": "DÉTAILS",
+    "HIDE": "CACHER",
     "Total Value Locked in pool pairs (USD): ": "Valeur totale bloquée dans les paires de pool (USD): ",
     "All pairs": "Toutes les paires",
     "DFI pairs": "Paires DFI",
-    "DUSD pairs": "Paires DUSD"
+    "DUSD pairs": "Paires DUSD",
+    "Your share in pool": "Votre part dans le pool",
+    "ADD": "AJOUTER",
+    "Prices": "Prix",
+    "Available pool pairs": "Paires disponibles"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",
@@ -901,7 +907,8 @@
     "CONFIRM CREATE VAULT": "CONFIRMER LA CRÉATION D'UN VAULT",
     "Creating vault": "Création d'un vault",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Création d'un vault avec un ratio de garantie minimum de {{amount}}% et un taux d'intérêt de {{ir}}% TAEG",
-    "Convert & create vault": "Convertir et créer un vault"
+    "Convert & create vault": "Convertir et créer un vault",
+    "CREATING": "CRÉATION"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "Frais estimés",
@@ -1172,7 +1179,7 @@
     "N/A": "S/O",
     "Max loan amount": "Montant max. du prêt"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "Rechercher des prêts",
     "Search for loan token": "Rechercher de token de prêt"
   },
@@ -1231,7 +1238,7 @@
     "QUICK BID": "ENCHÈRE RAPIDE",
     "Insufficient amount to place a bid": "Montant insuffisant pour placer une enchère",
     "Quick bid": "Enchère rapide",
-    "Place a bid on the auctions with the min. next bid": "Surenchérir avec le plus petit montant possible",
+    "Place a bid on the auction with the min. next bid": "Surenchérir avec le plus petit montant possible",
     "Min. next bid": "Surenchère min.",
     "Current balance": "Solde actuel"
   },

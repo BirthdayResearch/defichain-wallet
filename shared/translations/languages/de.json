@@ -41,10 +41,16 @@
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
     "SWAP": "TAUSCH",
     "Swap tokens": "Token-Tausch",
+    "DETAILS": "DETAILS",
+    "HIDE": "VERBERGEN",
     "Total Value Locked in pool pairs (USD): ": "In Pool-Paaren angelegter Gesamtwert (USD): ",
     "All pairs": "Alle Paare",
     "DFI pairs": "DFI-Paare",
-    "DUSD pairs": "DUSD-Paare"
+    "DUSD pairs": "DUSD-Paare",
+    "Your share in pool": "Dein Pool-Anteil",
+    "ADD": "HINZUFÜGEN",
+    "Prices": "Preise",
+    "Available pool pairs": "Verfügbare Pool-Paare"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -91,7 +97,7 @@
     "Paste wallet address here": "Walletadresse eingeben",
     "Where do you want to send?": "Wohin möchtest du senden?",
     "How much do you want to send?": "Wie viel möchtest du senden?",
-    "Enter an amount": "Gib eine Menge ein",
+    "Enter an amount": "Gib einen Betrag ein",
     "Available": "Verfügbar",
     "UTXO to be converted": "Umzuwandelnde UTXO",
     "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
@@ -108,7 +114,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Recipient address": "Adresse des Empfängers",
     "Network": "Netzwerk",
-    "Amount": "Menge",
+    "Amount": "Betrag",
     "Estimated fee": "Voraussichtliche Gebühr",
     "Remaining balance": "Verbleibendes Guthaben",
     "SEND": "SENDEN",
@@ -676,7 +682,7 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
-  "components/DexFaq" : {
+  "components/DexFaq": {
     "Decentralized Exchange": "Dezentrale Börse",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z.B. Währungen.",
     "Transaction fees": "Transaktionsgebühren",
@@ -685,7 +691,7 @@
     "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Aufgrund der dynamischen Natur der Blockchain ändern sich die Preise auf der DEX mit jedem Block.\n\nDaraus resultiert Slippage, also die Differenz zwischen dem endgültigen Transaktionspreis und dem Preis, der vor der Transaktionsbestätigung in der App angezeigt wird.\n\nMit der Slippage-Toleranzfunktion kannst du die maximale Slippage angeben, die du bei einer Transaktion zu akzeptieren bereit bist.\n\nWenn die Abweichung für deine Transaktion höher ist als deine Slippage-Toleranz, wird die Transaktion nicht abgeschlossen und der ursprüngliche Betrag wird auf deine Wallet zurücktransferiert.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
-  "components/LiquidityMiningFaq" : {
+  "components/LiquidityMiningFaq": {
     "Liquidity Mining": "Liquiditäts-Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden.\n\nDie Liquiditätspools der DeFiChain bestehen aus Liquidität in Token-Paaren, die von der DeFiChain DEX (Dezentrale Börse) verwendet werden.",
     "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
@@ -901,7 +907,8 @@
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Erstellen eines Vaults",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
-    "Convert & create vault": "Umwandeln und Vault erstellen"
+    "Convert & create vault": "Umwandeln und Vault erstellen",
+    "CREATING": "ERSTELLEN"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -1060,7 +1067,7 @@
     "Read more": "Mehr dazu"
   },
   "screens/ConfirmPaybackLoanScreen": {
-    "CONFIRM PAYMENT": "ZÜCKZAHLUNG BESTÄTIGEN",
+    "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
     "PAYING": "ZURÜCKZAHLEN",
     "You are paying": "Du tilgst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1172,7 +1179,7 @@
     "N/A": "K/A",
     "Max loan amount": "Max. Darlehensbetrag"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "Nach Darlehen suchen",
     "Search for loan token": "Suche nach Darlehenstoken"
   },
@@ -1231,7 +1238,7 @@
     "QUICK BID": "SCHNELLES GEBOT",
     "Insufficient amount to place a bid": "Der Gebotsbetrag reicht nicht aus",
     "Quick bid": "Schnelles Gebot",
-    "Place a bid on the auctions with the min. next bid": "Biete auf die Auktion mit dem nächsten Mindestgebot",
+    "Place a bid on the auction with the min. next bid": "Biete auf die Auktion mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
     "Current balance": "Aktueller Stand"
   },
