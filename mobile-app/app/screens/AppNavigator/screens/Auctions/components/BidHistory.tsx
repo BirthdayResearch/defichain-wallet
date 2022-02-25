@@ -10,7 +10,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
-import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUsdValue'
+import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 import { useBidTimeAgo } from '../hooks/BidTimeAgo'
 
 interface BidHistoryProps {
