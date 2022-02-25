@@ -9,14 +9,14 @@ export function TotalValueLocked (props: {tvl: number}): JSX.Element {
     <ThemedView
       light={tailwind('bg-gray-50 border-gray-200')}
       dark={tailwind('bg-gray-900 border-gray-700')}
-      style={tailwind('px-4 py-1 mx-4 rounded border')}
+      style={tailwind('px-4 py-1 rounded border')}
     >
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('text-xs text-center')}
       >
-        {translate('screens/DexScreen', 'Total Value Locked in pool pairs: ')}
+        {translate('screens/DexScreen', 'Total Value Locked in pool pairs (USD): ')}
         <NumberFormat
           displayType='text'
           prefix='$'

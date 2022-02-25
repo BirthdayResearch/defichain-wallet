@@ -534,7 +534,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             ]
           }
         >
-          DeFiChain Explorer
+          DeFi Scan
         </Text>
         <Text
           style={

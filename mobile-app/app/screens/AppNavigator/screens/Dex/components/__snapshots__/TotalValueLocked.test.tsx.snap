@@ -13,8 +13,6 @@ exports[`Total Value Locked should match snapshot 1`] = `
         "borderTopLeftRadius": 4,
         "borderTopRightRadius": 4,
         "borderTopWidth": 1,
-        "marginLeft": 16,
-        "marginRight": 16,
         "paddingBottom": 4,
         "paddingLeft": 16,
         "paddingRight": 16,
@@ -52,7 +50,7 @@ exports[`Total Value Locked should match snapshot 1`] = `
       ]
     }
   >
-    Total Value Locked in pool pairs: 
+    Total Value Locked in pool pairs (USD): 
     <Text
       style={
         Array [
