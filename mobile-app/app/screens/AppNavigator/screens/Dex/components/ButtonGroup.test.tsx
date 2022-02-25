@@ -19,7 +19,7 @@ describe('ButtonGroup component', () => {
       handleOnPress: jest.fn
     }]
 
-    const rendered = render(<ButtonGroup buttons={buttonGroup} activeButtonGroupItem='ALL_PAIRS' />)
+    const rendered = render(<ButtonGroup buttons={buttonGroup} activeButtonGroupItem='ALL_PAIRS' testID='foo' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

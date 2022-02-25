@@ -2,7 +2,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   initJellyfishWallet,
@@ -81,13 +81,13 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
 
-  const closeModal = useCallback(() => {
+  const closeModal = (): void => {
     dismiss(modalName)
-  }, [])
+  }
 
-  const openModal = useCallback(() => {
+  const openModal = (): void => {
     bottomSheetModalRef.current?.present()
-  }, [])
+  }
 
   // generic callbacks
   const onPinInput = (inputPin: string): void => {

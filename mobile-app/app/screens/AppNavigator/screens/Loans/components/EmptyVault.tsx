@@ -48,7 +48,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
       </ThemedText>
 
       <ThemedText style={tailwind('text-sm pb-4 text-center opacity-60')}>
-        {translate('components/EmptyVault', 'To get started, create a vault and add DFI and other tokens as collaterals')}
+        {translate('components/EmptyVault', 'To get started, create a vault and add DFI and other tokens as collateral')}
       </ThemedText>
 
       <Button
