@@ -40,7 +40,10 @@ export function InfoSection ({
   }
 
   return (
-    <View style={tailwind('mt-1 -mb-1 flex flex-row flex-wrap')}>
+    <View
+      style={tailwind('mt-1 -mb-1 flex flex-row flex-wrap')}
+      testID={pair !== undefined ? `${type}_info_section_${pair.displaySymbol}` : undefined}
+    >
       {pair !== undefined && (
         <>
           <PoolPairInfoLine
