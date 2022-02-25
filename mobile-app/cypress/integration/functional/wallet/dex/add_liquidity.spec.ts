@@ -89,7 +89,7 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
     cy.getByTestID('share_of_pool').contains('0.20000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
-    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('button_confirm_continue_add_liq').click()
   })
 
   it('should have correct confirm info', function () {
@@ -113,46 +113,46 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
 
   it('should get disabled submit button when value is zero', function () {
     cy.getByTestID('token_input_primary').type('0')
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('0')
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should get disabled submit button when value is nan', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type('test value')
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('test value')
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should get disabled submit button when value is more than input token A and token B', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type('20.00000000')
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('15.00000000')
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should get disabled submit button when max for token A, while token B doesn\'t have enough balanceB', function () {
     cy.sendTokenToWallet(['BTC']).wait(3000)
     cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should get disabled submit button when max for token B, while token A doesn\'t have enough balanceB', function () {
     cy.sendDFITokentoWallet().sendDFITokentoWallet().wait(3000)
     cy.getByTestID('MAX_amount_button').eq(1).click()
-    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
   })
 
   it('should get redirect to confirm page after clicking on continue', function () {
     cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('button_continue_add_liq').should('not.have.attr', 'disabled')
-    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('button_confirm_continue_add_liq').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_confirm_continue_add_liq').click()
     cy.url().should('include', 'DEX/ConfirmAddLiquidity')
   })
 })
@@ -183,7 +183,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
 
   it('should have updated confirm info', function () {
     cy.getByTestID('token_input_primary').type('10')
-    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('button_confirm_continue_add_liq').click()
     cy.getByTestID('text_add_amount').contains('10.00000000')
     cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
     cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
@@ -201,7 +201,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     const oldAmount = '5.00000000'
     const newAmount = '10.00000000'
     cy.getByTestID('token_input_primary').type(oldAmount)
-    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('button_confirm_continue_add_liq').click()
     cy.getByTestID('text_add_amount').contains(`${oldAmount}`)
     cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
     cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
@@ -222,7 +222,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     // Update the input amount
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type(newAmount)
-    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('button_confirm_continue_add_liq').click()
     cy.getByTestID('text_add_amount').contains(`${newAmount}`)
     cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
     cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
@@ -257,7 +257,7 @@ context('Wallet - DEX - Add Liquidity with Conversion', () => {
 
   it('should trigger convert and add liquidity', function () {
     cy.getByTestID('token_input_primary').type('11')
-    cy.getByTestID('button_continue_add_liq').click()
+    cy.getByTestID('button_confirm_continue_add_liq').click()
     cy.getByTestID('txn_authorization_description')
       .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to Token`)
     cy.closeOceanInterface().wait(3000)
