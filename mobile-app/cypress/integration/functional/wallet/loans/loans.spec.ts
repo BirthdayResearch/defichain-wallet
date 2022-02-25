@@ -339,7 +339,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('text_excess_amount').should('not.exist')
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('button_confirm_payback_loan').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
   })
 
   it('should display conversion warning if DFI is not enough', function () {
@@ -397,7 +397,7 @@ context('Wallet - Loans - Payback Loans', () => {
 
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('button_confirm_payback_loan').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
   })
 
   it('should not display payment options if loan is not DUSD', function () {
@@ -434,7 +434,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('collateral_tab_LOANS').click()
       cy.getByTestID('loan_card_dTU10_payback_loan').click()
       cy.getByTestID('payback_input_text').clear().type('11').blur()
-      cy.getByTestID('button_confirm_payback_loan').click()
+      cy.getByTestID('button_confirm_payback_loan_continue').click()
       cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
       cy.closeOceanInterface()
 
@@ -443,11 +443,11 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.getByTestID('collateral_tab_LOANS').click()
       cy.getByTestID('loan_card_DUSD_payback_loan').click()
       cy.getByTestID('payback_input_text').clear().type('100000').blur()
-      cy.getByTestID('button_confirm_payback_loan').should('have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_payback_loan_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('payback_input_text').clear().type('102').blur()
       cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
       cy.getByTestID('text_resulting_col_ratio').contains('N/A')
-      cy.getByTestID('button_confirm_payback_loan').click().wait(3000)
+      cy.getByTestID('button_confirm_payback_loan_continue').click().wait(3000)
       cy.getByTestID('confirm_title').contains('You are paying')
       cy.getByTestID('text_payment_amount').contains('102.00000000')
       cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
