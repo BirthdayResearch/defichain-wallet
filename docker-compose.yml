@@ -46,7 +46,7 @@ services:
       -fortcanninghillheight=10
 
   defi-playground:
-    image: ghcr.io/defich/playground:0.16.0
+    image: ghcr.io/defich/playground:0.17.0
     depends_on:
       - defi-blockchain
     ports:
@@ -59,7 +59,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.26.1
+    image: ghcr.io/defich/whale:0.26.2
     depends_on:
       - defi-blockchain
     ports:
