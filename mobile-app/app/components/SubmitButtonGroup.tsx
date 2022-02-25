@@ -60,10 +60,11 @@ export function SubmitButtonGroup ({
     const id: ReturnType<typeof setInterval> = setInterval(() => {
       count -= 1
       setCounter(count)
-      if (count <= 0) {
+      if (count < 0) {
         updateTryAgainStat()
         clearInterval(id)
         setIntervalId(null)
+        setCounter(null)
       }
     }, 1000)
     setIntervalId(id)

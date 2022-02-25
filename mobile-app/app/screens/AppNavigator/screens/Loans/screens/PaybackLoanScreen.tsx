@@ -23,7 +23,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { Button } from '@components/Button'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
@@ -47,6 +46,7 @@ import { PaymentTokenCards } from '../components/PaymentTokenCards'
 import { useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -377,13 +377,17 @@ export function PaybackLoanScreen ({
           )}
           </View>
       }
-      <Button
-        disabled={!isValid || !hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
-        label={translate('screens/PaybackLoanScreen', 'CONTINUE')}
-        onPress={onSubmit}
-        testID='payback_loan_button'
-        margin='mt-12 mb-2 mx-4'
-      />
+      <View style={tailwind('mt-4 mb-2')}>
+        <SubmitButtonGroup
+          isDisabled={!isValid || !hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
+          label={translate('screens/PaybackLoanScreen', 'CONTINUE~')}
+          processingLabel={translate('screens/PaybackLoanScreen', 'CONTINUE~')}
+          onSubmit={onSubmit}
+          title='payback_loan'
+          isProcessing={hasPendingJob || hasPendingBroadcastJob}
+          displayCancelBtn={false}
+        />
+      </View>
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}

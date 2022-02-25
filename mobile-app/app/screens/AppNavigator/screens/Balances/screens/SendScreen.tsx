@@ -9,7 +9,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
@@ -39,6 +38,7 @@ import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from 
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -283,15 +283,17 @@ export function SendScreen ({
                 </ThemedText>
               </>
             )}
-
-        <Button
-          disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-          label={translate('screens/SendScreen', 'CONTINUE')}
-          onPress={onSubmit}
-          testID='send_submit_button'
-          title='Send'
-          margin='mt-14 mx-4'
-        />
+        <View style={tailwind('mt-6')}>
+          <SubmitButtonGroup
+            isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+            label={translate('screens/SendScreen', 'CONTINUE')}
+            processingLabel={translate('screens/SendScreen', 'CONTINUE')}
+            onSubmit={onSubmit}
+            title='send_continue'
+            isProcessing={hasPendingJob || hasPendingBroadcastJob}
+            displayCancelBtn={false}
+          />
+        </View>
 
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav

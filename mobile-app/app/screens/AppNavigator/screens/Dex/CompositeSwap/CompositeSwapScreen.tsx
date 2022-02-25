@@ -26,7 +26,6 @@ import {
 import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
-import { Button } from '@components/Button'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { InputHelperText } from '@components/InputHelperText'
@@ -41,6 +40,7 @@ import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 
 export interface TokenState {
   id: string
@@ -506,14 +506,18 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
-          <Button
-            disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined)}
-            label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-            onPress={onSubmit}
-            testID='button_submit'
-            title='CONTINUE'
-            margin='mx-4 mb-2 mt-8'
-          />)}
+          <View style={tailwind('mb-2')}>
+            <SubmitButtonGroup
+              isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined)}
+              label={translate('screens/CompositeSwapScreen', 'CONTINUE~')}
+              processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE~')}
+              onSubmit={onSubmit}
+              title='submit'
+              isProcessing={hasPendingJob || hasPendingBroadcastJob}
+              displayCancelBtn={false}
+            />
+          </View>
+          )}
 
         {formState.isValid && selectedTokenA !== undefined && selectedTokenB !== undefined &&
           <ThemedText
