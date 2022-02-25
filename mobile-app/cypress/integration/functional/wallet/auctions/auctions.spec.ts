@@ -18,7 +18,7 @@ function generateBlockUntilLiquidate (): void {
 function getLoanTokenToPlaceBid (): void {
   // Loan dTU10 for placing bid
   cy.createVault(0, true)
-  cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+  cy.getByTestID('vault_card_1_edit_collaterals_button').click()
   cy.addCollateral('0.60000000', 'DFI')
   cy.getByTestID('bottom_tab_loans').click()
   cy.getByTestID('vault_card_1_manage_loans_button').click()
@@ -59,7 +59,7 @@ context('Wallet - Auctions', () => {
 
       retries += 1
       cy.wait(5000)
-      void runIfAuctionsIsAvailable(callback)
+      runIfAuctionsIsAvailable(callback)
     })
   }
 
@@ -297,7 +297,7 @@ context('Wallet - Auctions', () => {
   })
 
   it('should display important auction details', function () {
-    void runIfAuctionsIsAvailable(() => {
+    runIfAuctionsIsAvailable(() => {
       cy.getByTestID('batch_card_0_owned_vault').should('exist')
       cy.getByTestID('batch_card_0_no_bid').should('exist')
     })
@@ -306,7 +306,7 @@ context('Wallet - Auctions', () => {
   it('should be able to quick/place bid', function () {
     getLoanTokenToPlaceBid()
 
-    void runIfAuctionsIsAvailable(() => {
+    runIfAuctionsIsAvailable(() => {
       cy.getByTestID('batch_card_0').click()
       cy.getByTestID('empty_bid_history').should('exist')
       cy.getByTestID('collateral_tab_COLLATERALS').click()
