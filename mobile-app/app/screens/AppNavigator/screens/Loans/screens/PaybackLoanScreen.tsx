@@ -380,10 +380,10 @@ export function PaybackLoanScreen ({
       <View style={tailwind('mt-4 mb-2')}>
         <SubmitButtonGroup
           isDisabled={!isValid || !hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
-          label={translate('screens/PaybackLoanScreen', 'CONTINUE~')}
-          processingLabel={translate('screens/PaybackLoanScreen', 'CONTINUE~')}
+          label={translate('screens/PaybackLoanScreen', 'CONTINUE')}
+          processingLabel={translate('screens/PaybackLoanScreen', 'CONTINUE')}
           onSubmit={onSubmit}
-          title='payback_loan'
+          title='payback_loan_continue'
           isProcessing={hasPendingJob || hasPendingBroadcastJob}
           displayCancelBtn={false}
         />

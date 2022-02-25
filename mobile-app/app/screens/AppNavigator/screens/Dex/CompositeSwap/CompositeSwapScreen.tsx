@@ -509,8 +509,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           <View style={tailwind('mb-2')}>
             <SubmitButtonGroup
               isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined)}
-              label={translate('screens/CompositeSwapScreen', 'CONTINUE~')}
-              processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE~')}
+              label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
+              processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               onSubmit={onSubmit}
               title='submit'
               isProcessing={hasPendingJob || hasPendingBroadcastJob}
