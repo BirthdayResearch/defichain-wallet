@@ -13,15 +13,17 @@ interface SubmitButtonGroupItems {
   isCancelDisabled?: boolean
   title: string
   label: string
+  displayCancelBtn: boolean
   isProcessing?: boolean
   processingLabel?: string
   onSubmit: () => Promise<void>
-  onCancel: () => void
+  onCancel?: () => void
 }
 
 export function SubmitButtonGroup ({
   isDisabled,
   isCancelDisabled,
+  displayCancelBtn,
   title,
   label,
   isProcessing,
@@ -58,7 +60,7 @@ export function SubmitButtonGroup ({
     const id: ReturnType<typeof setInterval> = setInterval(() => {
       count -= 1
       setCounter(count)
-      if (count < 0) {
+      if (count <= 0) {
         updateTryAgainStat()
         clearInterval(id)
         setIntervalId(null)
@@ -108,15 +110,17 @@ export function SubmitButtonGroup ({
             submittingLabel={getSubmittingLabel()}
            />
         )}
-      <Button
-        disabled={isCancelDisabled === undefined ? isDisabled : isCancelDisabled}
-        fill='flat'
-        label={translate('screens/common', 'CANCEL')}
-        margin='m-4 mt-0'
-        onPress={onCancel}
-        testID={`button_cancel_${title}`}
-        title='cancel'
-      />
+
+      {displayCancelBtn &&
+        <Button
+          disabled={isCancelDisabled === undefined ? isDisabled : isCancelDisabled}
+          fill='flat'
+          label={translate('screens/common', 'CANCEL')}
+          margin='m-4 mt-0'
+          onPress={onCancel}
+          testID={`button_cancel_${title}`}
+          title='cancel'
+        />}
     </View>
   )
 }
