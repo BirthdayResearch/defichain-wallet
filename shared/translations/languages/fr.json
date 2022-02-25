@@ -739,7 +739,7 @@
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "RÉSULTATS DE LA TRANSACTION",
-    "Resulting {{symbol}}": "{{symbol}} restant"
+    "Resulting {{symbol}}": "{{symbol}} restants"
   },
   "screens/LoansScreen": {
     "Loans": "Prêts",
@@ -1059,7 +1059,7 @@
     "Excess amount": "Montant excédentaire",
     "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille.",
     "Vault ID": "Vault ID",
-    "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restant",
+    "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} balance to pay the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
     "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
