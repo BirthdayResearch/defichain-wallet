@@ -27,5 +27,5 @@ export function AddressSkeletonLoader (props: JSX.IntrinsicAttributes & IContent
         <Rect x='60' y='5' rx='3' ry='3' width='280' height='20' />
       </ContentLoader>
     </ThemedView>
-    )
+  )
 }
