@@ -207,7 +207,7 @@ function SuccessMessage ({ message }: { message?: { title: string, description: 
   return (
     <View style={tailwind('flex-col items-center p-6')}>
       <ThemedIcon
-        dark={tailwind('text-darksuccess-500')}
+        dark={tailwind('text-dfxgreen-500')}
         iconType='MaterialIcons'
         light={tailwind('text-success-500')}
         name='check-circle-outline'

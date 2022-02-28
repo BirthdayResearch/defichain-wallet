@@ -36,7 +36,7 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
           <ThemedText
             style={tailwind('text-sm font-semibold')}
             light={tailwind('text-success-600')}
-            dark={tailwind('text-darksuccess-600')}
+            dark={tailwind('text-dfxgreen-500')}
             testID={props.value.testID}
           >
             {value}

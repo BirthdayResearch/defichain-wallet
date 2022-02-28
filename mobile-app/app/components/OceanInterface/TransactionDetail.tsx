@@ -29,7 +29,7 @@ export function TransactionDetail ({
           ? <ThemedActivityIndicator />
           : (
             <ThemedIcon
-              dark={tailwind('text-darksuccess-500')}
+              dark={tailwind('text-dfxgreen-500')}
               iconType='MaterialIcons'
               light={tailwind('text-success-500')}
               name='check-circle'

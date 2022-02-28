@@ -91,7 +91,7 @@ export function ReceiveScreen (): JSX.Element {
                 style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
               >
                 <ThemedIcon
-                  dark={tailwind('text-darksuccess-500')}
+                  dark={tailwind('text-dfxgreen-500')}
                   iconType='MaterialIcons'
                   light={tailwind('text-success-500')}
                   name='check'
@@ -100,7 +100,7 @@ export function ReceiveScreen (): JSX.Element {
                 />
 
                 <ThemedText
-                  dark={tailwind('text-darksuccess-500')}
+                  dark={tailwind('text-dfxgreen-500')}
                   light={tailwind('text-success-500')}
                   style={tailwind('ml-1 uppercase font-medium')}
                 >
