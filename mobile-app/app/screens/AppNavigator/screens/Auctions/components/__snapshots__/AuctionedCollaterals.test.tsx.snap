@@ -238,7 +238,7 @@ Array [
         }
         testID="collateral_row_0_amount"
       >
-        ≈ 1,000.00 USD
+        ≈ $1,000.00
       </Text>
     </View>
   </View>,

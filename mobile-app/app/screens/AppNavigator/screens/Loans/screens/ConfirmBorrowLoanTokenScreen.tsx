@@ -236,7 +236,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
 function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNumber, collateralRatio: BigNumber }): JSX.Element {
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
-    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+    message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
 
   return (

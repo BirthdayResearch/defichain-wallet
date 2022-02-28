@@ -126,7 +126,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')
       cy.getByTestID('dfi_total_balance_amount').contains('20')
-      cy.checkBalanceRow('17', {
+      cy.checkBalanceRow('18', {
         name: 'Playground ETH-DeFiChain',
         amount: '10.00000000',
         displaySymbol: 'dETH-DFI',
@@ -138,7 +138,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('bottom_tab_dex').click()
       cy.getByTestID('close_dex_guidelines').click()
       cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
-      cy.getByTestID('your_dETH-DFI').contains('10.00000000')
+      cy.getByTestID('share_in_pool_dETH-DFI').contains('10.00000000')
       cy.getByTestID('bottom_tab_balances').click()
     })
 
@@ -174,19 +174,26 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
 
   it('should verify poolpair values', function () {
     cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
-    cy.wrap<DexItem[]>(whale.poolpairs.list(50), { timeout: 20000 }).then((pairs) => {
+    cy.wrap<DexItem[]>(whale.poolpairs.list(5), { timeout: 20000 }).then((pairs) => {
       const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
       cy.wait(5000)
       cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
       available.forEach((pair, index) => {
         const data: PoolPairData = pair.data
+        cy.intercept('**/poolpairs?size=*', {
+          statusCode: 200,
+          body: {
+            data: pairs
+          }
+        })
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
         cy.getByTestID('dex_search_icon').click()
         cy.getByTestID('dex_search_input').clear().type(symbol).blur()
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
         cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
-        cy.getByTestID(`available_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
-        cy.getByTestID(`available_${data.tokenB.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
+        cy.getByTestID(`details_${symbol}`).click()
+        cy.getByTestID(`available_${data.symbol}_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
+        cy.getByTestID(`available_${data.symbol}_${data.tokenB.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
         cy.getByTestID('dex_search_input_close').click()
       })
     })

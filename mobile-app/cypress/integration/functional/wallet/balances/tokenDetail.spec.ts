@@ -44,9 +44,9 @@ context('Wallet - Token Detail - LP', () => {
       .wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
-    cy.getByTestID('balances_row_17').should('exist')
-    cy.getByTestID('balances_row_17_amount').contains(10)
-    cy.getByTestID('balances_row_17').click()
+    cy.getByTestID('balances_row_18').should('exist')
+    cy.getByTestID('balances_row_18_amount').contains(10)
+    cy.getByTestID('balances_row_18').click()
   })
 
   it('should be able to click token ETH-DFI', function () {

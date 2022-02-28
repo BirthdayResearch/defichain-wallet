@@ -30,7 +30,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
     >
       <SearchInput
         value={props.searchString}
-        placeholder={translate('screens/ChooseLoanTokenScreen', props.placeholder)}
+        placeholder={translate('components/HeaderSearchInput', props.placeholder)}
         autoFocus
         showClearButton={props.searchString !== ''}
         onClearInput={props.onClearInput}

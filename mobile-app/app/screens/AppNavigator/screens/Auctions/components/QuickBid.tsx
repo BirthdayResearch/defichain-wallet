@@ -148,7 +148,7 @@ function HeaderSection (props: { symbol: string }): JSX.Element {
           dark={tailwind('text-gray-200')}
           style={tailwind('text-xs')}
         >
-          {translate('components/QuickBid', 'Place a bid on the auctions with the min. next bid')}
+          {translate('components/QuickBid', 'Place a bid on the auction with the min. next bid')}
         </ThemedText>
       </View>
     </View>
