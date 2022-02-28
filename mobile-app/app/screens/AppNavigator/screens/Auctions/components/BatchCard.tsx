@@ -239,14 +239,14 @@ export const AuctionBidStatus = memo(({ type }: { type: AuctionBidStatusType }):
             <>
               <ThemedIcon
                 light={tailwind('text-warning-500')}
-                dark={tailwind('text-darkwarning-500')}
+                dark={tailwind('text-dfxyellow-500')}
                 iconType='MaterialIcons'
                 name='not-interested'
                 size={12}
               />
               <ThemedText
                 light={tailwind('text-warning-500')}
-                dark={tailwind('text-darkwarning-500')}
+                dark={tailwind('text-dfxyellow-500')}
                 style={tailwind('text-xs ml-1')}
               >
                 {translate('components/BatchCard', 'Your placed bid lost')}

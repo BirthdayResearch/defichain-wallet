@@ -209,7 +209,7 @@ export function PoolPairCards ({
                     isFavouritePair ? 'text-warning-500' : 'text-gray-600'
                   )}
                   dark={tailwind(
-                    isFavouritePair ? 'text-darkwarning-500' : 'text-dfxgray-300'
+                    isFavouritePair ? 'text-dfxyellow-500' : 'text-dfxgray-300'
                   )}
                 />
               </TouchableOpacity>

@@ -146,6 +146,7 @@ If you discover a security vulnerability in
 - border-gray-700 => border-dfxblue-900
 - text-darkprimary-500 => text-dfxred-500
 - text-darksuccess-500 => text-dfxgreen-500
+- text-darkwarning-500 => text-dfxyellow-500
 - gray-300 => dfxgray-300
 - gray-400 => dfxgray-400
 - gray-500 => dfxgray-500

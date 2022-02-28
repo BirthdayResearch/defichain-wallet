@@ -115,10 +115,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
         'bg-primary-700': isOtherAnnouncement,
         'bg-warning-100': !isOtherAnnouncement
       })}
-      dark={tailwind({
-        'bg-dfxblue-900': isOtherAnnouncement,
-        'bg-darkwarning-100': !isOtherAnnouncement // TODO
-      })}
+      dark={tailwind('bg-dfxblue-900')}
     >
       {announcement.id !== undefined &&
       (
@@ -144,17 +141,14 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
         style={tailwind(['mr-2.5', {
           'text-white': isOtherAnnouncement,
           'text-warning-600': !isOtherAnnouncement && isLight,
-          'text-darkwarning-600': !isOtherAnnouncement && !isLight
+          'text-dfxyellow-300': !isOtherAnnouncement && !isLight
         }])}
         iconType='MaterialIcons'
         name={icons[announcement.type ?? 'OTHER_ANNOUNCEMENT']}
         size={icons[announcement.type ?? 'OTHER_ANNOUNCEMENT'] === 'warning' ? 24 : 28}
       />
       <ThemedText
-        style={tailwind(['text-xs flex-auto', { // TODO
-          'text-white': !isLight || (isLight && isOtherAnnouncement),
-          'text-gray-900': !isOtherAnnouncement && isLight
-        }])}
+        style={tailwind('text-xs flex-auto text-white')}
         testID='announcements_text'
       >
         {`${announcement.content} `}
@@ -171,10 +165,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
             'text-white': isOtherAnnouncement,
             'text-warning-600': !isOtherAnnouncement
           })}
-            dark={tailwind({
-            'text-white': isOtherAnnouncement,
-            'text-darkwarning-600': !isOtherAnnouncement
-          })}
+            dark={tailwind('text-white')}
           >
             {translate('components/Announcements', 'DETAILS')}
           </ThemedText>

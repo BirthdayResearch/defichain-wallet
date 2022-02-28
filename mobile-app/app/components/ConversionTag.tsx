@@ -15,7 +15,7 @@ export function ConversionTag (): JSX.Element {
         name='swap-vert'
         size={12}
         style={tailwind('mt-0.5 mr-1')}
-        dark={tailwind('text-darkwarning-500')}
+        dark={tailwind('text-dfxyellow-500')}
       />
       <ThemedText
         light={tailwind('text-dfxgray-500')}
