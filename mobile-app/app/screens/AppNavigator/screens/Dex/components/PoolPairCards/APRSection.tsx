@@ -23,7 +23,7 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
       )}
     >
       <ThemedText
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
         light={tailwind('text-gray-500')}
         style={tailwind('text-xs font-normal')}
       >

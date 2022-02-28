@@ -3,19 +3,20 @@ import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 export function BalanceSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       light={tailwind('bg-white')}
       style={tailwind('py-4 mb-3 items-center justify-center rounded-lg')}
       testID='balance_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         height={40}
         preserveAspectRatio='xMidYMid slice'
         speed={2}

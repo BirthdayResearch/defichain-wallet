@@ -2,6 +2,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import ContentLoader, { Rect, IContentLoaderProps } from 'react-content-loader/native'
 import { ThemedView } from './themed'
+import { theme } from '../tailwind.config'
 
 interface TextSkeletonLoaderProps {
   iContentLoaderProps: IContentLoaderProps
@@ -16,14 +17,14 @@ export function TextSkeletonLoader (props: TextSkeletonLoaderProps): JSX.Element
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       light={tailwind('bg-white')}
       style={tailwind('items-center justify-center')}
       testID={props.iContentLoaderProps.testID}
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         height={props.iContentLoaderProps.height}
         preserveAspectRatio='xMidYMid slice'
         speed={2}

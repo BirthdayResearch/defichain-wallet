@@ -18,7 +18,7 @@ export function SwapButton (): JSX.Element {
     >
       <ThemedText
         light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        dark={tailwind('text-dfxred-500')}
         style={tailwind('font-medium')}
         testID='composite_swap'
       >

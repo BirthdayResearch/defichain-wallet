@@ -181,7 +181,7 @@ export function PoolPairCards ({
 
     return (
       <ThemedView
-        dark={tailwind('bg-gray-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         light={tailwind('bg-white border-gray-200')}
         style={tailwind('p-4 mb-2 border rounded')}
         testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
@@ -209,7 +209,7 @@ export function PoolPairCards ({
                     isFavouritePair ? 'text-warning-500' : 'text-gray-600'
                   )}
                   dark={tailwind(
-                    isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
+                    isFavouritePair ? 'text-darkwarning-500' : 'text-dfxgray-300'
                   )}
                 />
               </TouchableOpacity>
@@ -244,7 +244,7 @@ export function PoolPairCards ({
           : (
             <View style={tailwind('flex flex-col mt-2')}>
               <ThemedText
-                dark={tailwind('text-gray-400')}
+                dark={tailwind('text-dfxgray-400')}
                 light={tailwind('text-gray-500')}
                 style={tailwind('text-xs font-normal leading-3 mt-1')}
               >
@@ -294,7 +294,7 @@ export function PoolPairCards ({
           >
             <ThemedIcon
               light={tailwind('text-primary-500')}
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               iconType='MaterialIcons'
               name={!isExpanded ? 'expand-more' : 'expand-less'}
               size={32}
@@ -307,7 +307,7 @@ export function PoolPairCards ({
               <ThemedView
                 style={tailwind('border-b h-px mt-4')}
                 light={tailwind('border-gray-100')}
-                dark={tailwind('border-gray-700')}
+                dark={tailwind('border-dfxblue-900')}
               />
               <InfoSection
                 type={type}
@@ -332,7 +332,7 @@ export function PoolPairCards ({
   return (
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
-      dark={tailwind('bg-gray-900')}
+      dark={tailwind('bg-dfxblue-900')}
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}

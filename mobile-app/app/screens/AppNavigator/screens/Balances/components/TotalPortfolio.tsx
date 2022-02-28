@@ -21,7 +21,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       style={tailwind('mx-4 my-4 p-4 rounded-lg flex flex-row justify-between items-center')}
       testID='total_portfolio_card'
     >
@@ -71,13 +71,13 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
       <ThemedTouchableOpacity
         testID='toggle_balance'
         light={tailwind('bg-transparent border-gray-200')}
-        dark={tailwind('bg-transparent border-gray-700')}
+        dark={tailwind('bg-transparent border-dfxblue-900')}
         style={tailwind('p-1.5 border rounded text-center')}
         onPress={props.onToggleDisplayBalances}
       >
         <ThemedIcon
           iconType='MaterialIcons'
-          dark={tailwind('text-darkprimary-500')}
+          dark={tailwind('text-dfxred-500')}
           light={tailwind('text-primary-500')}
           name={`${props.isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
           size={20}

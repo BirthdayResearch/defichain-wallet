@@ -39,7 +39,7 @@ export const PriceRatesSection = memo(({
       <ThemedText
         style={tailwind('text-xs m-1 mt-2')}
         light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
       >
         {translate('screens/DexScreen', 'Prices')}
       </ThemedText>

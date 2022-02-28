@@ -28,7 +28,7 @@ export function MinNextBidTextRow (props: MinNextBidTextRowProps): JSX.Element {
       <View style={tailwind('flex-row mt-0.5')}>
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           style={[tailwind('text-xs'), props.labelTextStyle]}
         >
           {translate('components/BatchCard', 'Min. next bid')}
