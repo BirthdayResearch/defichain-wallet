@@ -305,6 +305,7 @@ context('Wallet - Auctions', () => {
 
   it('should be able to quick/place bid', function () {
     getLoanTokenToPlaceBid()
+    cy.getByTestID('bottom_tab_auctions').click()
 
     runIfAuctionsIsAvailable(() => {
       cy.getByTestID('batch_card_0').click()
