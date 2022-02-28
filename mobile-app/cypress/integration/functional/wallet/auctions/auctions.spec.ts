@@ -63,58 +63,39 @@ context('Wallet - Auctions', () => {
     })
   }
 
-  // const flags = {
-  //   body: [{
-  //     id: 'loan',
-  //     name: 'Loan',
-  //     stage: 'public',
-  //     version: '>=0.0.0',
-  //     description: 'Browse loan tokens provided by DeFiChain',
-  //     networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-  //     platforms: ['ios', 'android', 'web']
-  //   }, {
-  //     id: 'auction',
-  //     name: 'Auction',
-  //     stage: 'public',
-  //     version: '>=0.0.0',
-  //     description: 'Browse auctions provided by DeFiChain',
-  //     networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-  //     platforms: ['ios', 'android', 'web']
-  //   }]
-  // }
   // const recoveryWords: string[] = []
 
-  before(function () {
-    // cy.intercept('**/settings/flags', flags)
-    // cy.visit('/')
-    // Bidder 2
-    // cy.startCreateMnemonicWallet(recoveryWords)
-    // cy.selectMnemonicWords(recoveryWords)
-    // cy.setupPinCode()
-    // cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet()
-    // cy.wait(6000)
-    // cy.getByTestID('dfi_token_amount').contains('10.00000000')
-    // cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
-    // cy.getByTestID('total_dfi_amount').contains('30.00000000')
-    // cy.getByTestID('bottom_tab_loans').click()
-    // cy.createVault(0)
-    // cy.getByTestID('vault_card_0_edit_collaterals_button').click()
-    // cy.addCollateral('0.60000000', 'DFI')
-    // cy.getByTestID('bottom_tab_loans').click()
-    // cy.getByTestID('vault_card_0_manage_loans_button').click()
-    // cy.getByTestID('button_browse_loans').click()
-    // cy.getByTestID('loan_card_dTU10').click()
-    // cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
-    //   const maxLoanAmount = new BigNumber(text).toFixed(2, 1) // use 2dp and round down
-    //   cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
-    // })
-    // cy.getByTestID('borrow_loan_submit_button').click()
-    // cy.getByTestID('button_confirm_borrow_loan').click()
-    // cy.closeOceanInterface()
+  // before(function () {
+  // cy.intercept('**/settings/flags', flags)
+  // cy.visit('/')
+  // Bidder 2
+  // cy.startCreateMnemonicWallet(recoveryWords)
+  // cy.selectMnemonicWords(recoveryWords)
+  // cy.setupPinCode()
+  // cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet()
+  // cy.wait(6000)
+  // cy.getByTestID('dfi_token_amount').contains('10.00000000')
+  // cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
+  // cy.getByTestID('total_dfi_amount').contains('30.00000000')
+  // cy.getByTestID('bottom_tab_loans').click()
+  // cy.createVault(0)
+  // cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+  // cy.addCollateral('0.60000000', 'DFI')
+  // cy.getByTestID('bottom_tab_loans').click()
+  // cy.getByTestID('vault_card_0_manage_loans_button').click()
+  // cy.getByTestID('button_browse_loans').click()
+  // cy.getByTestID('loan_card_dTU10').click()
+  // cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
+  //   const maxLoanAmount = new BigNumber(text).toFixed(2, 1) // use 2dp and round down
+  //   cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
+  // })
+  // cy.getByTestID('borrow_loan_submit_button').click()
+  // cy.getByTestID('button_confirm_borrow_loan').click()
+  // cy.closeOceanInterface()
 
-    // Bidder 1
-    // cy.exitWallet()
-  })
+  // Bidder 1
+  // cy.exitWallet()
+  // })
   const samplePoolPair = [
     {
       id: '17',
@@ -336,6 +317,7 @@ context('Wallet - Auctions', () => {
     })
   })
 
+  // TODO: add e2e to check if other user can place bid
   // it('should allow others to place bid', function () {
   //   cy.wait(5000)
   //   cy.exitWallet()
