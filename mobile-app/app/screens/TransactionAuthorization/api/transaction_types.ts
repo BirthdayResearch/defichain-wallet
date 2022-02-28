@@ -1,6 +1,6 @@
 export const MAX_PASSCODE_ATTEMPT = 3 // allowed 2 failures
 export const PASSCODE_LENGTH = 6
-export const TRY_AGAIN_TIMER_COUNT = 5
+export const TRY_AGAIN_TIMER_COUNT = 10
 export const INVALID_HASH = 'invalid hash'
 export const USER_CANCELED = 'USER_CANCELED'
 export const UNEXPECTED_FAILURE = 'UNEXPECTED_FAILURE'
