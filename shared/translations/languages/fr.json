@@ -772,7 +772,7 @@
     "Collateral for auction": "Garanties mises en vente",
     "Auction details": "Détails de l'enchère",
     "Vault details": "Vault details",
-    "Bid history": "Bid history",
+    "Bid history": "Historique des enchères",
     "Rewards": "Rewards"
   },
   "components/LoanCard": {
@@ -834,9 +834,9 @@
     "Waiting for first bid": "En attente de la première offre"
   },
   "components/BatchHistory": {
-    "{{h}}h {{m}}m ago": "{{h}}h {{m}}m ago",
-    "{{h}}h ago": "{{h}}h ago",
-    "{{m}}m ago": "{{m}}m ago"
+    "{{h}}h {{m}}m ago": "Il y a {{h}}h {{m}}m ",
+    "{{h}}h ago": "Il y a  {{h}}h",
+    "{{m}}m ago": "Il y a  {{m}}m"
   },
   "components/BidCard": {
     "BID HIGHER": "SURENCHÉRIR",
@@ -849,11 +849,11 @@
     "Auction ended": "Enchère terminée"
   },
   "components/BidHistory": {
-    "Bidder ID": "Bidder ID",
-    "BID #{{bidIndex}}": "BID #{{bidIndex}}",
-    "Waiting for first bid": "Waiting for first bid",
-    "{{h}}{{m}} ago": "{{h}}{{m}} ago",
-    "Minimum amount to bid is": "Mindestgebot ist"
+    "Bidder ID": "Enchérisseur N°",
+    "BID #{{bidIndex}}": "OFFRE N° {{bidIndex}}",
+    "Waiting for first bid": "En attente de la première offre",
+    "{{h}}{{m}} ago": "Il y a {{h}} {{m}}",
+    "Minimum amount to bid is": "Offre minimale d'enchère est de"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
