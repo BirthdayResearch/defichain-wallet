@@ -20,7 +20,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   const { minStartingBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pb-4')}>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-8')}>
       <ThemedSectionTitle
         testID='auction_details'
         text={translate('components/AuctionDetailScreen', 'VAULT DETAILS')}

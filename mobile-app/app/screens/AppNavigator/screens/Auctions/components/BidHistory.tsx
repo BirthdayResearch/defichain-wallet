@@ -62,9 +62,11 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
         />
       )}
       keyExtractor={(item: VaultAuctionBatchHistory) => item.id}
-      contentContainerStyle={tailwind('p-4')}
+      contentContainerStyle={tailwind('p-4 pb-8')}
       light={tailwind('bg-gray-50')}
       style={tailwind('-mb-1')}
+      initialNumToRender={5}
+      windowSize={2}
     />
   )
 }

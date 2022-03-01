@@ -10,7 +10,7 @@ import { CollateralTokenItemRow } from './CollateralTokenItemRow'
 export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount[], auctionAmount: string }): JSX.Element {
   const { collaterals, auctionAmount } = props
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pb-2')}>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-6')}>
       <ThemedSectionTitle
         testID='collateral_token_count'
         text={translate('components/AuctionDetailScreen', '{{count}} COLLATERAL TOKENS', { count: collaterals.length })}
