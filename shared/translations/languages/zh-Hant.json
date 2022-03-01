@@ -858,7 +858,8 @@
     "Bidder ID": "競標者ID",
     "BID #{{bidIndex}}": "出價 #{{bidIndex}}",
     "Waiting for first bid": "等待第一次標價",
-    "{{h}}{{m}} ago": "{{h}}{{m}}前"
+    "{{h}}{{m}} ago": "{{h}}{{m}}前",
+    "Minimum amount to bid is": "最低投標金額"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",

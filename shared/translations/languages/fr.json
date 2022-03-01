@@ -852,7 +852,8 @@
     "Bidder ID": "Bidder ID",
     "BID #{{bidIndex}}": "BID #{{bidIndex}}",
     "Waiting for first bid": "Waiting for first bid",
-    "{{h}}{{m}} ago": "{{h}}{{m}} ago"
+    "{{h}}{{m}} ago": "{{h}}{{m}} ago",
+    "Minimum amount to bid is": "Mindestgebot ist"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
