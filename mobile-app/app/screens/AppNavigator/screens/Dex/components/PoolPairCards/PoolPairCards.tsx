@@ -192,7 +192,7 @@ export function PoolPairCards ({
         >
           <View style={tailwind('w-3/5 flex-row items-center')}>
             <PoolPairTextSection
-              symbolA='ADS-DSA-SDS-ADS'
+              symbolA={symbolA}
               symbolB={symbolB}
             />
             {type === 'available' && (
