@@ -30,6 +30,8 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { BidHistory } from '../components/BidHistory'
 import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { fetchAuctions } from '@store/auctions'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -41,7 +43,8 @@ enum TabKey {
 
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
-  const { batch, vault } = props.route.params
+  const { batch: batchFromParam, vault } = props.route.params
+  const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam)
   const client = useWhaleApiClient()
   const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
@@ -67,12 +70,28 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     setBottomSheetScreen
   } = useBottomSheet()
   const { getTokenPrice } = useTokenPrice()
+  const { auctions } = useSelector((state: RootState) => state.auctions)
 
   useEffect(() => {
     if (isFocused) {
       dispatch(fetchTokens({ client, address }))
+      dispatch(fetchAuctions({ client }))
     }
   }, [address, blockCount, isFocused])
+
+  useEffect(() => {
+    const _vault = auctions.find(auction => auction.vaultId === vault.vaultId)
+    if (_vault === undefined) {
+      return
+    }
+
+    const _batch = _vault.batches.find(batch => batch.index === batchFromParam.index)
+    if (_batch === undefined) {
+      return
+    }
+
+    setBatch(_batch)
+  }, [auctions])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
