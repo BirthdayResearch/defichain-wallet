@@ -36,7 +36,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
       client: client,
       size: 200
     }))
-  }, [blockCount, props])
+  }, [blockCount])
 
   return (
     <ThemedFlatList
