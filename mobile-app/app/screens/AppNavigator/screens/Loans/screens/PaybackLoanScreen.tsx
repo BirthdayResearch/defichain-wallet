@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { Text, View } from 'react-native'
@@ -32,7 +32,7 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
@@ -55,6 +55,7 @@ export interface PaymentTokenProps {
   tokenId: string
   tokenSymbol: string
   tokenDisplaySymbol: string
+  tokenBalance: BigNumber
 }
 
 export function PaybackLoanScreen ({
@@ -74,59 +75,81 @@ export function PaybackLoanScreen ({
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const loanToken = useSelector((state: RootState) => loanTokenByTokenId(state.loans, loanTokenAmount.id))
-  const getTokenAmount = (tokenId: string): BigNumber => {
-    const id = tokenId === '0' ? '0_unified' : tokenId
-    return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
-  }
-
-  const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
-  const getAvailableLoanAmountToPay = (): string => {
-    return BigNumber.min(loanTokenOutstandingBal, tokenBalance).toFixed(8)
-  }
-
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
+
+  const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
-  const tokenBalance = (token != null) ? getTokenAmount(token.id) : new BigNumber(0)
-  const availableLoanPaybackAmt = BigNumber.min(loanTokenOutstandingBal, tokenBalance)
+  const tokenBalance = (token != null) ? getTokenAmount(token.id, tokens) : new BigNumber(0)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
   const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
-  const [amountToPay, setAmountToPay] = useState(getAvailableLoanAmountToPay())
+  const [amountToPay, setAmountToPay] = useState(BigNumber.min(loanTokenOutstandingBal).toFixed(8))
   const [selectedPaymentToken, setSelectedPaymentToken] = useState<PaymentTokenProps>({
     tokenId: loanTokenAmount.id,
     tokenSymbol: loanToken?.token.symbol ?? '',
-    tokenDisplaySymbol: loanToken?.token.displaySymbol ?? ''
+    tokenDisplaySymbol: loanToken?.token.displaySymbol ?? '',
+    tokenBalance
   })
-  const selectedPaymentTokenBalance = getTokenAmount(selectedPaymentToken.tokenId)
+  const selectedPaymentTokenBalance = getTokenAmount(selectedPaymentToken.tokenId, tokens)
+
+  const paymentTokens = useMemo(() => {
+    return token === undefined ? [] : getPaymentTokens(token, tokenBalance, selectedPaymentToken.tokenId, tokens)
+  }, [token])
   const {
-    conversionRate,
-    getAmounts
+    getAmounts,
+    hasSufficientPaymentInOneToken
   } = useLoanPaymentTokenRate({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
-    selectedPaymentToken,
+    paymentTokens: paymentTokens.map(pToken => ({
+      ...pToken.paymentToken
+    })),
     outstandingBalance: loanTokenOutstandingBal,
     amountToPay: new BigNumber(amountToPay),
-    loanTokenBalance: tokenBalance,
-    selectedPaymentTokenBalance
-
+    loanTokenBalance: tokenBalance
   })
-  const [resultingBalance, setResultingBalance] = useState(new BigNumber(0))
-  const [amountToPayInPaymentToken, setAmountToPayInPaymentToken] = useState(loanTokenOutstandingBal.multipliedBy(conversionRate))
-  const [amountToPayInLoanToken, setAmountToPayInLoanToken] = useState(loanTokenOutstandingBal)
 
-  const hasSufficientPaymentTokenBalance = selectedPaymentTokenBalance.gte(amountToPayInPaymentToken)
+  const [paymentTokensWithAmount, setPaymentTokensWithAmount] = useState<Array<{
+    paymentToken: {
+      tokenId: string
+      tokenSymbol: string
+      tokenDisplaySymbol: string
+      tokenBalance: BigNumber
+      resultingBalance?: BigNumber
+      amountToPayInPaymentToken?: BigNumber
+      amountToPayInLoanToken?: BigNumber
+    }
+    isSelected: boolean
+  }>>(paymentTokens)
+  const {
+    isExcess,
+    amountToPayInLoanToken,
+    amountToPayInPaymentToken,
+    resultingBalance,
+    totalPaybackWithInterest,
+    hasSufficientPaymentTokenBalance
+  } = useMemo(() => {
+    const selectedPaymentTokenWithAmount = paymentTokensWithAmount.find(pTokenWithAmount => pTokenWithAmount.paymentToken.tokenId === selectedPaymentToken.tokenId)
+    const amountToPayInLoanToken = selectedPaymentTokenWithAmount?.paymentToken.amountToPayInLoanToken ?? new BigNumber(NaN)
+    const amountToPayInPaymentToken = selectedPaymentTokenWithAmount?.paymentToken.amountToPayInPaymentToken ?? new BigNumber(NaN)
+
+    return {
+      isExcess: new BigNumber(amountToPayInLoanToken).isGreaterThan(loanTokenAmount.amount),
+      totalPaybackWithInterest: new BigNumber(amountToPayInLoanToken).plus(interestPerBlock),
+      resultingBalance: selectedPaymentTokenWithAmount?.paymentToken.resultingBalance ?? new BigNumber(NaN),
+      amountToPayInPaymentToken,
+      amountToPayInLoanToken,
+      hasSufficientPaymentTokenBalance: selectedPaymentTokenBalance.gte(amountToPayInPaymentToken)
+    }
+  }, [paymentTokensWithAmount, selectedPaymentToken, selectedPaymentTokenBalance])
   const [isInputEmpty, setIsInputEmpty] = useState(true)
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-  const [isValid, setIsValid] = useState(false)
-  const [isExcess, setIsExcess] = useState(false)
 
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const logger = useLogger()
 
   // Resulting col ratio
-  const [totalPaybackWithInterest, setTotalPaybackWithInterest] = useState(new BigNumber(NaN))
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
   const resultingColRatio = useResultingCollateralRatio(
     new BigNumber(vault?.collateralValue ?? NaN),
@@ -148,45 +171,39 @@ export function PaybackLoanScreen ({
     deps: [selectedPaymentToken, amountToPayInPaymentToken, JSON.stringify(tokens)]
   })
 
-  const paymentTokens = [
-    {
-      displaySymbol: 'DFI',
-      paymentToken: {
-        tokenId: '0_unified',
-        tokenSymbol: 'DFI',
-        tokenDisplaySymbol: 'DFI'
-      },
-      isSelected: selectedPaymentToken.tokenId === '0_unified'
-    }
-  ]
-
-  const isFormValid = (amountToPay: BigNumber): boolean => {
-    const amount = new BigNumber(amountToPay)
-
-    return !(amount.isNaN() || amount.isLessThanOrEqualTo(0))
-  }
-
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-      dispatch(fetchPrice({ client, currency: 'USD', token: paymentTokens[0].displaySymbol }))
-   }
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
+      if (paymentTokens.length > 1) {
+        dispatch(fetchPrice({
+          client,
+          currency: 'USD',
+          token: paymentTokens[1].paymentToken.tokenDisplaySymbol
+        }))
+      }
+    }
   }, [address, blockCount, isFocused])
 
   useEffect(() => {
-    const {
-      resultingBalance,
-      amountToPayInLoanToken,
-      amountToPayInPaymentToken
-    } = getAmounts()
-    const isValid = isFormValid(amountToPayInLoanToken)
-    setIsValid(isValid)
-    setIsExcess(new BigNumber(amountToPayInLoanToken).isGreaterThan(loanTokenAmount.amount))
-    setTotalPaybackWithInterest(new BigNumber(amountToPayInLoanToken).plus(interestPerBlock))
-    setResultingBalance(resultingBalance)
-    setAmountToPayInLoanToken(amountToPayInLoanToken)
-    setAmountToPayInPaymentToken(amountToPayInPaymentToken)
-  }, [amountToPay, selectedPaymentToken, conversionRate])
+    const { paymentTokenAmounts } = getAmounts()
+    const updatedPaymentTokenAmounts = paymentTokens.map((pToken) => {
+      const pTokenWithAmount = paymentTokenAmounts.find(pTokenWithAmount => pTokenWithAmount.paymentToken.tokenId === pToken.paymentToken.tokenId)
+      return {
+        ...pToken,
+        paymentToken: {
+          ...pToken.paymentToken,
+          amountToPayInPaymentToken: pTokenWithAmount?.amountToPayInPaymentToken ?? new BigNumber(NaN),
+          amountToPayInLoanToken: pTokenWithAmount?.amountToPayInLoanToken ?? new BigNumber(NaN),
+          resultingBalance: pTokenWithAmount?.resultingBalance ?? new BigNumber(NaN)
+        }
+      }
+    })
+
+    setPaymentTokensWithAmount(updatedPaymentTokenAmounts)
+  }, [amountToPay, paymentTokens])
 
   useEffect(() => {
     client.fee.estimate()
@@ -232,7 +249,7 @@ export function PaybackLoanScreen ({
   }
 
   const onSubmit = async (): Promise<void> => {
-    if (!isValid || !hasSufficientPaymentTokenBalance || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
+    if (!hasSufficientPaymentTokenBalance || vault === undefined || hasPendingJob || hasPendingBroadcastJob) {
       return
     }
 
@@ -278,23 +295,25 @@ export function PaybackLoanScreen ({
           onClearButtonPress={() => setAmountToPay('')}
           style={tailwind('h-9 w-2/5 flex-grow')}
           testID='payback_input_text'
-          valid={hasSufficientPaymentTokenBalance || isInputEmpty}
-          {...(!hasSufficientPaymentTokenBalance && !isInputEmpty && {
+          valid={(hasSufficientPaymentInOneToken && hasSufficientPaymentTokenBalance) || isInputEmpty}
+          {...((!hasSufficientPaymentTokenBalance || !hasSufficientPaymentInOneToken) && !isInputEmpty && {
             inlineText: {
               type: 'error',
-              text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
+              text: !hasSufficientPaymentInOneToken && paymentTokensWithAmount.length > 1
+                ? translate('screens/PaybackLoanScreen', 'Insufficient balance to pay the entered amount')
+                : translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
             }
           })}
         >
           <>
             <SetAmountButton
-              amount={availableLoanPaybackAmt}
+              amount={loanTokenOutstandingBal}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.half}
             />
 
             <SetAmountButton
-              amount={availableLoanPaybackAmt}
+              amount={loanTokenOutstandingBal}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.max}
             />
@@ -331,23 +350,19 @@ export function PaybackLoanScreen ({
           </ThemedText>
         </InputHelperText>
       </View>
-      {loanTokenAmount.symbol === 'DUSD' && isFeatureAvailable('dfi_loan_payment') &&
+      {paymentTokens?.length > 1 && isFeatureAvailable('dfi_loan_payment') &&
         <PaymentTokenCards
           onPaymentTokenSelect={onPaymentTokenSelect}
-          paymentTokens={[{
-            displaySymbol: loanTokenAmount.displaySymbol,
-            paymentToken: {
-              tokenId: loanTokenAmount.id,
-              tokenSymbol: loanTokenAmount.symbol,
-              tokenDisplaySymbol: loanTokenAmount.displaySymbol
-            },
-            isSelected: selectedPaymentToken.tokenId === loanTokenAmount.id
-          }, ...paymentTokens]}
+          paymentTokens={paymentTokensWithAmount.map(pTokenWithAmount => ({
+            ...pTokenWithAmount,
+            isSelected: selectedPaymentToken.tokenId === pTokenWithAmount.paymentToken.tokenId,
+            isDisabled: pTokenWithAmount.paymentToken.resultingBalance?.lt(0)
+          }))}
           selectedPaymentTokenSymbol={selectedPaymentToken.tokenSymbol}
         />}
-      {isConversionRequired && isValid && <ConversionInfoText />}
+      {isConversionRequired && hasSufficientPaymentTokenBalance && <ConversionInfoText />}
       {
-        isValid &&
+        hasSufficientPaymentTokenBalance &&
           <View style={tailwind('mt-4')}>
             <TransactionDetailsSection
               fee={fee}
@@ -375,7 +390,7 @@ export function PaybackLoanScreen ({
           </View>
       }
       <Button
-        disabled={!isValid || !hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
+        disabled={!hasSufficientPaymentTokenBalance || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
         label={translate('screens/PaybackLoanScreen', 'CONTINUE')}
         onPress={onSubmit}
         testID='payback_loan_button'
@@ -651,7 +666,7 @@ function TransactionDetailsSection ({
       <NumberRow
         lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: selectedPaymentToken.tokenDisplaySymbol })}
         rhs={{
-          value: resultingBalance.toFixed(8),
+          value: BigNumber.max(resultingBalance, 0).toFixed(8),
           testID: 'text_resulting_balance',
           suffixType: 'text',
           suffix: selectedPaymentToken.tokenDisplaySymbol
@@ -709,4 +724,41 @@ function TransactionDetailsSection ({
       />
     </>
   )
+}
+
+const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
+  const id = tokenId === '0' ? '0_unified' : tokenId
+  return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
+}
+
+const getPaymentTokens = (loanToken: WalletToken, tokenBalance: BigNumber, selectedPaymentTokenId: string, tokens: any): Array<{
+  paymentToken: PaymentTokenProps
+  isSelected: boolean
+}> => {
+  const paymentTokens = [{
+    paymentToken: {
+      tokenId: loanToken.id,
+      tokenSymbol: loanToken.symbol,
+      tokenDisplaySymbol: loanToken.displaySymbol,
+      tokenBalance: tokenBalance
+    },
+    isSelected: selectedPaymentTokenId === loanToken.id
+  }]
+
+  /*
+    Feature: Allow DFI payments on DUSD loans
+  */
+  if (loanToken.displaySymbol === 'DUSD') {
+    return [...paymentTokens, {
+      paymentToken: {
+        tokenId: '0_unified',
+        tokenSymbol: 'DFI',
+        tokenDisplaySymbol: 'DFI',
+        tokenBalance: getTokenAmount('0_unified', tokens)
+      },
+      isSelected: selectedPaymentTokenId === '0_unified'
+    }]
+  }
+
+  return paymentTokens
 }

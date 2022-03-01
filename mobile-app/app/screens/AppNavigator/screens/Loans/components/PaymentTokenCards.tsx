@@ -6,13 +6,17 @@ import { PaymentTokenProps } from '../screens/PaybackLoanScreen'
 import { translate } from '@translations'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
+import BigNumber from 'bignumber.js'
 
 interface PaymentTokenCardsProps {
   testID?: string
   paymentTokens: Array<{
-    displaySymbol: string
     isSelected: boolean
     paymentToken: PaymentTokenProps
+    isDisabled?: boolean
+    resultingBalance?: BigNumber
+    amountToPayInPaymentToken?: BigNumber
+    amountToPayInLoanToken?: BigNumber
   }>
   onPaymentTokenSelect: (paymentToken: PaymentTokenProps) => void
   selectedPaymentTokenSymbol: string
@@ -85,34 +89,43 @@ export function PaymentTokenCards ({
 }
 
 interface PaymentTokenCardProps {
-  displaySymbol: string
   isSelected: boolean
+  isDisabled?: boolean
   paymentToken: PaymentTokenProps
   onPress: (paymentToken: PaymentTokenProps) => void
 }
 
 function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
-  const Icon = getNativeIcon(props.displaySymbol)
+  const Icon = getNativeIcon(props.paymentToken.tokenDisplaySymbol)
   return (
     <ThemedTouchableOpacity
-      testID={`payment_token_card_${props.displaySymbol}`}
+      testID={`payment_token_card_${props.paymentToken.tokenDisplaySymbol}`}
       light={tailwind({
         'bg-white border-gray-200': !props.isSelected,
-        'bg-white border-primary-500': props.isSelected
+        'bg-white border-primary-500': props.isSelected,
+        'bg-gray-200 border-0': props.isDisabled
       })}
       dark={tailwind({
         'bg-gray-800 border-gray-700': !props.isSelected,
-        'bg-gray-800 border-darkprimary-500': props.isSelected
+        'bg-gray-800 border-darkprimary-500': props.isSelected,
+        'bg-gray-600 border-0': props.isDisabled
       })}
       style={tailwind('p-3 mx-2 rounded border flex-1 flex-row items-center')}
       onPress={() => props.onPress(props.paymentToken)}
+      disabled={props.isDisabled}
     >
       <Icon width={30} height={30} style={tailwind('mr-2')} />
       <View>
         <ThemedText
-          testID={`payment_token_card_${props.displaySymbol}_display_symbol`}
+          testID={`payment_token_card_${props.paymentToken.tokenDisplaySymbol}_display_symbol`}
           style={tailwind('font-medium')}
-        >{props.displaySymbol}
+          light={tailwind({
+            'text-gray-500': props.isDisabled
+          })}
+          dark={tailwind({
+            'text-gray-400': props.isDisabled
+          })}
+        >{props.paymentToken.tokenDisplaySymbol}
         </ThemedText>
       </View>
     </ThemedTouchableOpacity>
