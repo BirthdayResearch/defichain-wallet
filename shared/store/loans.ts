@@ -109,9 +109,9 @@ export const loanPaymentTokenActivePrice = createSelector((state: LoansState) =>
 
 export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {
   const order = {
-    [VaultStatus.Healthy]: 1,
+    [VaultStatus.NearLiquidation]: 1,
     [VaultStatus.AtRisk]: 2,
-    [VaultStatus.NearLiquidation]: 3,
+    [VaultStatus.Healthy]: 3,
     [VaultStatus.Liquidated]: 4,
     [VaultStatus.Ready]: 5,
     [VaultStatus.Halted]: 6,
