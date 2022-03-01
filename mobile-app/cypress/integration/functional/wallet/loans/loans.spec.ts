@@ -118,7 +118,7 @@ context('Wallet - Loans - Take Loans', () => {
   it('should borrow more loan', function () {
     let annualInterest: string
     cy.getByTestID('vault_card_0').click()
-    cy.getByTestID('collateral_tab_LOANS').click()
+    cy.getByTestID('vault_detail_tabs_LOANS').click()
     cy.getByTestID('loan_card_DUSD_borrow_more').click()
     cy.getByTestID('loan_symbol').contains('DUSD')
     cy.getByTestID('loan_outstanding_balance').contains('100')
@@ -431,7 +431,7 @@ context('Wallet - Loans - Payback Loans', () => {
       cy.wait(3000)
       cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
       cy.getByTestID(`vault_card_${readyVaultIndex}`).click()
-      cy.getByTestID('collateral_tab_LOANS').click()
+      cy.getByTestID('vault_detail_tabs_LOANS').click()
       cy.getByTestID('loan_card_dTU10_payback_loan').click()
       cy.getByTestID('payback_input_text').clear().type('11').blur()
       cy.getByTestID('payback_loan_button').click()
@@ -440,7 +440,7 @@ context('Wallet - Loans - Payback Loans', () => {
 
       cy.wait(3000)
       cy.getByTestID(`vault_card_${readyVaultIndex}`).click()
-      cy.getByTestID('collateral_tab_LOANS').click()
+      cy.getByTestID('vault_detail_tabs_LOANS').click()
       cy.getByTestID('loan_card_DUSD_payback_loan').click()
       cy.getByTestID('payback_input_text').clear().type('100000').blur()
       cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
