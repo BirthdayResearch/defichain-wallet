@@ -4,7 +4,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {
-      "paddingBottom": 16,
+      "paddingBottom": 32,
     }
   }
   style={

@@ -577,7 +577,8 @@ describe('loans reducer', () => {
           name: 'Decentralized TD10',
           displaySymbol: 'dTD10'
         }
-      ]
+      ],
+      vaultState: 'HEALTHY'
     }])
   })
 })
