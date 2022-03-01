@@ -53,13 +53,13 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       onPress={props.onPress}
       light={tailwind({ 'bg-primary-50': props.isActive })}
       dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
-      style={[tailwind('rounded-2xl py-2 px-3'), { width: `${props.width.toFixed(2)}%` }]}
+      style={[tailwind('rounded-2xl py-2 px-3 break-words'), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
       <ThemedText
         light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
         dark={tailwind({ 'text-darkprimary-500': props.isActive, 'text-gray-50': !props.isActive })}
-        style={tailwind('font-medium text-center')}
+        style={tailwind('font-medium text-sm text-center')}
       >
         {props.label}
       </ThemedText>
