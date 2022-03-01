@@ -222,7 +222,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           />
 
         </ThemedView>
-        <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
+        <Tabs tabSections={tabsList} testID='auction_detail_tab' activeTabKey={activeTab} />
         {activeTab === TabKey.BidHistory && (
           <BidHistory
             vaultId={vault.vaultId}
