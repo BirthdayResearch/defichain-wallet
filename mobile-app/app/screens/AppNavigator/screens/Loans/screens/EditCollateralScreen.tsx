@@ -40,6 +40,7 @@ import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/A
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -64,6 +65,7 @@ export function EditCollateralScreen ({
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const logger = useLogger()
+  const isFocused = useIsFocused()
   const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
@@ -99,8 +101,10 @@ export function EditCollateralScreen ({
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))

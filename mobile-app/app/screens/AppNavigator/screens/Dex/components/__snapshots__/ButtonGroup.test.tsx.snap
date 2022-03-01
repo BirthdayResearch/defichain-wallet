@@ -37,6 +37,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "borderTopLeftRadius": 16,
         "borderTopRightRadius": 16,
         "opacity": 1,
+        "overflowWrap": "break-word",
         "paddingBottom": 8,
         "paddingLeft": 12,
         "paddingRight": 12,
@@ -58,7 +59,9 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
           Array [
             Object {
               "fontFamily": "MediumFont",
+              "fontSize": 14,
               "fontWeight": "500",
+              "lineHeight": 20,
               "textAlign": "center",
             },
             Object {
@@ -88,6 +91,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "borderTopLeftRadius": 16,
         "borderTopRightRadius": 16,
         "opacity": 1,
+        "overflowWrap": "break-word",
         "paddingBottom": 8,
         "paddingLeft": 12,
         "paddingRight": 12,
@@ -109,7 +113,9 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
           Array [
             Object {
               "fontFamily": "MediumFont",
+              "fontSize": 14,
               "fontWeight": "500",
+              "lineHeight": 20,
               "textAlign": "center",
             },
             Object {
@@ -139,6 +145,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "borderTopLeftRadius": 16,
         "borderTopRightRadius": 16,
         "opacity": 1,
+        "overflowWrap": "break-word",
         "paddingBottom": 8,
         "paddingLeft": 12,
         "paddingRight": 12,
@@ -160,7 +167,9 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
           Array [
             Object {
               "fontFamily": "MediumFont",
+              "fontSize": 14,
               "fontWeight": "500",
+              "lineHeight": 20,
               "textAlign": "center",
             },
             Object {

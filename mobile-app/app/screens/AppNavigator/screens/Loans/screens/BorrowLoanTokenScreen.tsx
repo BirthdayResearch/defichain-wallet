@@ -41,6 +41,7 @@ import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -52,6 +53,7 @@ export function BorrowLoanTokenScreen ({
     loanToken
   } = route.params
   const client = useWhaleApiClient()
+  const isFocused = useIsFocused()
   const logger = useLogger()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
@@ -187,11 +189,10 @@ export function BorrowLoanTokenScreen ({
   }, [])
 
   useEffect(() => {
-    dispatch(fetchVaults({
-      address,
-      client
-    }))
-  }, [blockCount, address])
+    if (isFocused) {
+      dispatch(fetchVaults({ address, client }))
+    }
+  }, [blockCount, address, isFocused])
 
   useEffect(() => {
     const updatedVault = vaults.find(v => v.vaultId === vault?.vaultId) as LoanVaultActive
