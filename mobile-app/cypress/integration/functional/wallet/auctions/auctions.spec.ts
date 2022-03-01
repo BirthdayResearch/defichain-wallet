@@ -293,14 +293,12 @@ context('Wallet - Auctions', () => {
       cy.getByTestID('empty_bid_history').should('exist')
       cy.getByTestID('collateral_tab_COLLATERALS').click()
       cy.getByTestID('collateral_row_0_amount').contains('0.20000000 DFI')
-      cy.getByTestID('bottom_tab_auctions').click()
-      cy.getByTestID('batch_card_0_quick_bid_button').click()
+      cy.getByTestID('auction_details_quick_bid_button').click()
       cy.getByTestID('quick_bid_submit_button').click().wait(1000)
       cy.closeOceanInterface()
 
-      cy.getByTestID('batch_card_0_no_bid').should('not.exist')
-      cy.getByTestID('batch_card_0_highest_text').should('exist')
-      cy.getByTestID('batch_card_0').click()
+      cy.getByTestID('empty_bid_history').should('not.exist')
+      cy.getByTestID('batch_detail_highest_text').should('exist')
       cy.getByTestID('bid_1').should('exist')
 
       // place bid
