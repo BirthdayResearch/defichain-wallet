@@ -125,34 +125,41 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
 
   const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0' // check if there's existing collateral
   const currentExistingToken = vault?.collateralAmounts?.find((c) => c.id === token.id) // check if add/remove on the same collateral
-  const totalCollateralValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
-
-  const totalAmount = isAdd ? totalCollateralValue?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, totalCollateralValue?.minus(new BigNumber(collateralValue)))
+  const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
+  const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(new BigNumber(collateralValue)))
   const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
-  const totalCalculatedCollateralValue = isAdd ? new BigNumber(currentBalance).plus(initialPrices?.collateralPrice) : new BigNumber(currentBalance).minus(initialPrices.collateralPrice)
+  const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
   const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
-  console.log('prices', prices)
 
   useEffect(() => {
-    // check if there is existing collateral || check if adding/removing on existing collateral
+    // setVaultValue(vault?.collateralAmounts?.length === 0 ? '100' : prices.vaultShare.toFixed(2))
     if (vault?.collateralAmounts?.length === 0 || (vault?.collateralAmounts?.length === 1 && currentExistingToken !== undefined)) {
       setVaultValue('100.00')
-    } else if (collateralItem !== undefined) {
-      // const totalAmount = isAdd ? totalCollateralValue?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, totalCollateralValue?.minus(new BigNumber(collateralValue)))
-      // const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
-      // const totalCalculatedCollateralValue = isAdd ? new BigNumber(currentBalance).plus(initialPrices?.collateralPrice) : new BigNumber(currentBalance).minus(initialPrices.collateralPrice)
-      // const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
-      // setVaultValue(prices?.vaultShare.toFixed(2))
+    } else {
+      setVaultValue(prices.vaultShare.toFixed(2))
     }
-  }, [vault?.collateralAmounts?.length,
-      currentExistingToken,
-      collateralItem,
-      collateralValue,
-      currentBalance,
-      totalCollateralValue,
-      isAdd,
-      vault.collateralValue
-    ])
+  }, [prices.vaultShare, vault?.collateralAmounts, currentExistingToken])
+
+  // useEffect(() => {
+  //   // check if there is existing collateral || check if adding/removing on existing collateral
+  //   if (vault?.collateralAmounts?.length === 0 || (vault?.collateralAmounts?.length === 1 && currentExistingToken !== undefined)) {
+  //     setVaultValue('100.00')
+  //   } else if (collateralItem !== undefined) {
+  //     const totalAmount = isAdd ? totalCollateralValue?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, totalCollateralValue?.minus(new BigNumber(collateralValue)))
+  //     const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
+  //     const totalCalculatedCollateralValue = isAdd ? new BigNumber(currentBalance).plus(initialPrices?.collateralPrice) : new BigNumber(currentBalance).minus(initialPrices.collateralPrice)
+  //     const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+  //     setVaultValue(prices?.vaultShare.toFixed(2))
+  //   }
+  // }, [vault?.collateralAmounts?.length,
+  //     currentExistingToken,
+  //     collateralItem,
+  //     collateralValue,
+  //     currentBalance,
+  //     totalCollateralValue,
+  //     isAdd,
+  //     vault.collateralValue
+  //   ])
 
   useEffect(() => {
     validateInput(collateralValue)
