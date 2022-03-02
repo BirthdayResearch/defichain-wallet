@@ -38,6 +38,12 @@ export interface FeatureFlag {
   platforms: Platform[]
 }
 
+export interface AdvertisementData {
+  id: string
+  url: string
+  displayTime: number
+}
+
 export interface DefiChainStatus {
   page?: {
     id: string
