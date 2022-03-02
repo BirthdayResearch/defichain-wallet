@@ -23,7 +23,7 @@ import { DFITokenSelector } from '@store/wallet'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { useCollateralizationRatioColor, useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
-import { useTotalCollateralValue } from '../hooks/CollateralPrice'
+import { useCollateralPrice, useTotalCollateralValue } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
@@ -58,13 +58,15 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     onCloseButtonPress,
     collateralFactor,
     isAdd,
-    vault
+    vault,
+    collateralItem
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
   const [collateralValue, setCollateralValue] = useState<string>('')
+  const [vaultValue, setVaultValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0'
   ? (
       new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
@@ -109,7 +111,48 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
 
   const onAmountChange = (amount: string): void => {
     setCollateralValue(amount)
+    // setVaultValue(amount)
   }
+
+  // getting the vault % = (number of dBTC x collateral factor) / (USD price of dBTC + USD price of DFI) x 100%
+
+  // 1. no collateral yet - 100%
+    // - return vault share 100% (done)
+  // 2. adding on the same collateral - 100%
+  // 3. adding (new) different collateral
+  // 4. additional collateral
+  // 5. removing
+
+  const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0' // check if there's existing collateral
+  const currentExistingToken = vault?.collateralAmounts?.find((c) => c.id === token.id) // check if add/remove on the same collateral
+  const totalCollateralValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
+
+  const totalAmount = isAdd ? totalCollateralValue?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, totalCollateralValue?.minus(new BigNumber(collateralValue)))
+  const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
+  const totalCalculatedCollateralValue = isAdd ? new BigNumber(currentBalance).plus(initialPrices?.collateralPrice) : new BigNumber(currentBalance).minus(initialPrices.collateralPrice)
+  const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+  console.log('prices', prices)
+
+  useEffect(() => {
+    // check if there is existing collateral || check if adding/removing on existing collateral
+    if (vault?.collateralAmounts?.length === 0 || (vault?.collateralAmounts?.length === 1 && currentExistingToken !== undefined)) {
+      setVaultValue('100.00')
+    } else if (collateralItem !== undefined) {
+      // const totalAmount = isAdd ? totalCollateralValue?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, totalCollateralValue?.minus(new BigNumber(collateralValue)))
+      // const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
+      // const totalCalculatedCollateralValue = isAdd ? new BigNumber(currentBalance).plus(initialPrices?.collateralPrice) : new BigNumber(currentBalance).minus(initialPrices.collateralPrice)
+      // const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+      // setVaultValue(prices?.vaultShare.toFixed(2))
+    }
+  }, [vault?.collateralAmounts?.length,
+      currentExistingToken,
+      collateralItem,
+      collateralValue,
+      currentBalance,
+      totalCollateralValue,
+      isAdd,
+      vault.collateralValue
+    ])
 
   useEffect(() => {
     validateInput(collateralValue)
@@ -177,7 +220,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         inputType='numeric'
         displayClearButton={collateralValue !== ''}
         onChangeText={onAmountChange}
-        onClearButtonPress={() => setCollateralValue('')}
+        onClearButtonPress={() => {
+          setCollateralValue('')
+          // setVaultValue('')
+        }}
         placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
@@ -239,20 +285,49 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </ThemedText>
       </InputHelperText>
       <ScrollView
-        horizontal contentContainerStyle={tailwind(['flex justify-between flex-row', {
+        horizontal contentContainerStyle={tailwind(['flex justify-between items-center flex-row', {
         'flex-grow h-7': Platform.OS !== 'web',
         'w-full': Platform.OS === 'web'
       }])}
       >
+        <ThemedText style={tailwind('mr-2 w-full justify-between')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
+        <SymbolIcon
+          symbol={token.displaySymbol}
+        />
+        <NumberFormat
+          value={vaultValue}
+          thousandSeparator
+          decimalScale={2}
+          displayType='text'
+          suffix='%'
+          renderText={(val: string) => (
+            <ThemedView
+              light={tailwind('bg-gray-100')}
+              dark={tailwind('bg-gray-900')}
+              style={tailwind('px-2 py-0.5 rounded')}
+            >
+              <ThemedText
+                light={tailwind('text-gray-900')}
+                dark={tailwind('text-gray-50')}
+                style={tailwind('text-sm font-medium')}
+                // testID={`collateral_card_vault_${collateral.displaySymbol}`}
+              >
+                {val}
+              </ThemedText>
+            </ThemedView>
+          )}
+        />
+      </ScrollView>
+      <View style={tailwind('pt-2 flex justify-between flex-row')}>
         <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
         <ThemedText
-          style={tailwind('font-semibold')}
+          style={tailwind('font-semibold pr-2')}
           light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
           dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
           testID='resulting_collateralization'
         >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>
-      </ScrollView>
+      </View>
       <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired && (
         <View style={tailwind('mt-4 mb-6')}>
@@ -266,7 +341,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           token,
           amount: new BigNumber(collateralValue)
         })}
-        margin='mt-8 mb-2'
+        margin='mt-6 mb-2'
         testID='add_collateral_button_submit'
       />
       <ThemedText style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>

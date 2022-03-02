@@ -265,7 +265,8 @@ export function EditCollateralScreen ({
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
                 current: new BigNumber(collateral.amount),
-                vault: activeVault
+                vault: activeVault,
+                collateralItem
               },
               option: {
                 header: () => null
@@ -313,12 +314,17 @@ export function EditCollateralScreen ({
           modalRef={containerRef}
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
+          modalStyle={{ height: '60%' }}
         />
       )}
       {Platform.OS !== 'web' && (
         <BottomSheetWithNav
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ['60%'],
+            android: ['70%']
+          }}
         />
       )}
     </View>
