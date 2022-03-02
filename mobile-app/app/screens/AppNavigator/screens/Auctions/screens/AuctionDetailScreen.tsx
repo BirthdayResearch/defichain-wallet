@@ -229,7 +229,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
             liquidationHeight={vault.liquidationHeight}
             batchIndex={batch.index}
             loanDisplaySymbol={batch.loan.displaySymbol}
-            loanActivePrice={batch.loan.activePrice?.active?.amount ?? '0'}
+            loanSymbol={batch.loan.symbol}
             minNextBidInToken={minNextBidInToken}
           />
         )}

@@ -10,6 +10,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 import { useBidTimeAgo } from '../hooks/BidTimeAgo'
 
@@ -18,7 +19,7 @@ interface BidHistoryProps {
   liquidationHeight: number
   batchIndex: number
   loanDisplaySymbol: string
-  loanActivePrice: string
+  loanSymbol: string
   minNextBidInToken: string
 }
 
@@ -27,6 +28,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const bidHistory = useSelector((state: RootState) => state.auctions.bidHistory)
+  const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
     dispatch(fetchBidHistory({
@@ -49,7 +51,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
             bidAmount={item.amount}
             loanDisplaySymbol={props.loanDisplaySymbol}
             bidderAddress={item.from}
-            loanActivePrice={props.loanActivePrice}
+            bidAmountInUSD={getTokenPrice(props.loanSymbol, new BigNumber(item.amount))}
             isLatestBid={index === 0}
             bidBlockTime={item.block.time}
           />
@@ -77,7 +79,7 @@ interface BidHistoryItemProps {
   bidAmount: string
   loanDisplaySymbol: string
   bidderAddress: string
-  loanActivePrice: string
+  bidAmountInUSD: BigNumber
   isLatestBid: boolean
   bidBlockTime: number
 }
@@ -118,6 +120,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
           value={props.bidAmount}
           thousandSeparator
           decimalScale={8}
+          fixedDecimalScale
           displayType='text'
           renderText={value =>
             <ThemedText
@@ -143,7 +146,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row justify-between')}>
-        <ActiveUSDValue price={new BigNumber(props.bidAmount).multipliedBy(props.loanActivePrice)} />
+        <ActiveUSDValue price={props.bidAmountInUSD} />
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
