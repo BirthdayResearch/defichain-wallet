@@ -47,10 +47,10 @@
     "All pairs": "Todos los pares",
     "DFI pairs": "Pares DFI",
     "DUSD pairs": "Pares DUSD",
-    "Your share in pool": "Su participación en el fondo común",
-    "ADD": "ADD",
+    "Your share in pool": "Su participación en el pool",
+    "ADD": "AÑADIR",
     "Prices": "Precios",
-    "Available pool pairs": "Parejas de piscinas disponibles"
+    "Available pool pairs": "Pares del pool disponibles"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instrucciones",
@@ -321,10 +321,10 @@
     "Receiving DFI from other wallets": "Recibir DFI de otras billeteras",
     "Transaction fees": "Tasas de transacción",
     "DFI in token form": "DFI en forma de token.",
-    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI en forma de token se utilizan para piscinas de liquidez, préstamos, subastas e intercambios.",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI en forma de token se utilizan para fondos de liquidez, préstamos, subastas e intercambios.",
     "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Intercambiar DFI con otros tokens (ex. dBTC, dETH, dUSDT)",
-    "Liquidity pools": "Piscinas de Liquidez",
-    "Auctions and Loans": "Subastas y Préstamos"
+    "Liquidity pools": "Fondos de liquidez",
+    "Auctions and Loans": "Subastas y préstamos"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREAR UNA BILLETERA",
@@ -652,7 +652,7 @@
     "Access granted": "Acceso concedido",
     "You may now proceed": "Ahora puedes continuar",
     "Sign to verify access": "Confirma para verificar el acceso",
-    "To access DFX Services, we need you to enter your current passcode.":"Para acceder a los servicios DFX, necesitamos que introduzca su código de acceso actual."
+    "To access DFX Services, we need you to enter your passcode.": "Para acceder a los servicios DFX, necesitamos que introduzca su código de acceso."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Confirma la transacción",

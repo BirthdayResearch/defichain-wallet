@@ -653,7 +653,7 @@
     "Access granted": "Accès accordé",
     "You may now proceed": "Vous pouvez maintenant procéder",
     "Sign to verify access": "Vérification de l'accès",
-	"To access DFX Services, we need you to enter your current passcode.":"Pour accéder à services de DFX, vous devez entrer votre code d'accès."
+    "To access DFX Services, we need you to enter your passcode.": "Pour accéder à services de DFX, vous devez entrer votre code d'accès."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
@@ -1224,7 +1224,7 @@
     "How much do you want to bid?": "Combien voulez-vous proposer?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Le montant des tokens de votre enchère est bien suppérieur à la valeur mise en vente.",
     "Collateral for auction": "Garantie en vente",
-    "Search for pool pairs":"Chercher des paires de pool"
+    "Search for pool pairs": "Chercher des paires de pool"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",

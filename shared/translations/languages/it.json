@@ -14,7 +14,7 @@
       "You are about to generate a new set of recovery words. Continue?": "Stai per generare un nuovo set di parole di ripristino. Vuoi continuare?",
       "Passcode FAQ": "Password FAQ",
       "DEX FAQ": "FAQ DEX",
-      "Liquidity Mining FAQ":"FAQ liquidity mining"
+      "Liquidity Mining FAQ": "FAQ liquidity mining"
     },
     "screens/DexScreen": {
       "Decentralized Exchange": "Exchange Decentralizzato",
@@ -43,14 +43,14 @@
       "Swap tokens": "Token-Scambiati",
       "DETAILS": "DETTAGLI",
       "HIDE": "NASCONDERE",
-      "Total Value Locked in pool pairs (USD): ": "Valore totale bloccato in coppie di piscine (USD): ",
+      "Total Value Locked in pool pairs (USD): ": "Valore totale bloccato in Pool-Pairs (USD): ",
       "All pairs": "Tutte le Pool-Pair",
       "DFI pairs": "Pool-Pair DFI",
       "DUSD pairs": "Pool-Pair DUSD",
-      "Your share in pool": "La tua quota in piscina",
+      "Your share in pool": "La tua quota in pool",
       "ADD": "AGGIUNGERE",
       "Prices": "Prezzi",
-      "Available pool pairs": "Coppie di piscine disponibili"
+      "Available pool pairs": "Pool-Pairs disponibili"
     },
     "screens/DexGuidelines": {
       "Guidelines": "Linee Guida",
@@ -313,19 +313,19 @@
       "Swap with {{token}}": "Scambiare con {{token}}"
     },
     "screens/TokensVsUtxoScreen": {
-	"Learn about UTXOs and Tokens": "Per saperne di più su UTXO e Token",
-	"DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI è disponibile in due forme - UTXO e token. Possono essere convertiti l'uno con l'altro nel tuo light wallet per servire diversi scopi .",
-	"DFI in UTXO form": "DFI sotto forma di UTXO",
-	"DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "Una DFI in forma UTXO è la forma primaria di DFI. L'UTXO è utilizzato per le operazioni di base della criptovaluta come l'invio, la ricezione e il pagamento delle commissioni.",
-	"Use cases include:": "I casi d'uso includono:",
-	"Sending DFI to other wallets": "Invio di DFI ad altri wallet",
-	"Receiving DFI from other wallets": "Ricevere DFI da altri wallet",
-	"Transaction fees": "Commissioni di transazione",
-	"DFI in token form": "DFI sotto forma di token.",
-	"DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "I DFI sotto forma di token sono utilizzati per varie funzioni della DeFiChain come i liquidity pool, i prestiti, le aste e gli scambi tramite il DEX.",
-	"Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Scambio di DFI con altri token (es. dBTC, dETH, dUSDT)",
-	"Liquidity pools": "Liquidity pool",
-	"Auctions and Loans": "Aste e prestiti"
+      "Learn about UTXOs and Tokens": "Per saperne di più su UTXO e Token",
+      "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI è disponibile in due forme - UTXO e token. Possono essere convertiti l'uno con l'altro nel tuo light wallet per servire diversi scopi .",
+      "DFI in UTXO form": "DFI sotto forma di UTXO",
+      "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "Una DFI in forma UTXO è la forma primaria di DFI. L'UTXO è utilizzato per le operazioni di base della criptovaluta come l'invio, la ricezione e il pagamento delle commissioni.",
+      "Use cases include:": "I casi d'uso includono:",
+      "Sending DFI to other wallets": "Invio di DFI ad altri wallet",
+      "Receiving DFI from other wallets": "Ricevere DFI da altri wallet",
+      "Transaction fees": "Commissioni di transazione",
+      "DFI in token form": "DFI sotto forma di token.",
+      "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "I DFI sotto forma di token sono utilizzati per varie funzioni della DeFiChain come i liquidity pool, i prestiti, le aste e gli scambi tramite il DEX.",
+      "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Scambio di DFI con altri token (es. dBTC, dETH, dUSDT)",
+      "Liquidity pools": "Liquidity pool",
+      "Auctions and Loans": "Aste e prestiti"
     },
     "screens/Onboarding": {
       "CREATE A WALLET": "CREA UN WALLET",
@@ -561,13 +561,13 @@
       "CONTINUE": "CONTINUA"
     },
     "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolleranza di slippage",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
-    "Custom": "Personalizza",
-    "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
-    "Required field is missing": "Il campo richiesto è mancante",
-    "Slippage rate must range from 0-100%": "Il tasso di slippage deve essere compreso tra lo 0 e il 100%.",
-    "Proceed at your own risk": "Procedere a proprio rischio"	  
+      "Slippage tolerance": "Tolleranza di slippage",
+      "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
+      "Custom": "Personalizza",
+      "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
+      "Required field is missing": "Il campo richiesto è mancante",
+      "Slippage rate must range from 0-100%": "Il tasso di slippage deve essere compreso tra lo 0 e il 100%.",
+      "Proceed at your own risk": "Procedere a proprio rischio"	  
 	},
     "screens/PoolSwapScreen": {
       "Swap": "Scambia",
@@ -652,7 +652,7 @@
       "Access granted": "Accesso concesso",
       "You may now proceed": "Ora puoi procedere",
       "Sign to verify access": "Firma per verificare l'accesso",
-      "To access DFX Services, we need you to enter your current passcode.":"Per accedere ai Servizi DFX, abbiamo bisogno che tu inserisca il tuo attuale codice di accesso."
+      "To access DFX Services, we need you to enter your passcode.": "Per accedere ai Servizi DFX, abbiamo bisogno che tu inserisca il tuo codice di accesso."
     },
     "screens/TransactionAuthorization": {
       "Sign Transaction": "Firma la transazione",
@@ -689,29 +689,29 @@
       "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
     },
 	  "components/DexFaq": {
-    "Decentralized Exchange": "Scambio decentralizzato",
-    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "La funzione di scambio decentralizzata consente agli utenti di DeFiChain di scambiare criptovalute su base peer-to-peer. Questa funzione permette alle persone di effettuare direttamente uno scambio, senza la necessità di comprare e vendere valute attraverso un intermediario (tramite order book).",
-    "Transaction fees": "Commissioni di transazione",
-    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Una piccola commissione sarà applicata ad ogni transazione. Questa quantità può variare a seconda della congestione della rete.",
-    "What is slippage tolerance?": "Cos'è la tolleranza di slippage?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "A causa della natura dinamica della blockchain, i prezzi sul DEX cambiano ad ogni blocco. \nQuesto si traduce in uno slippage, che è la differenza tra il prezzo finale della transazione e il prezzo visualizzato sull'app prima che la transazione venga confermata. \nLa funzione di tolleranza dello slippage ti permette di specificare lo slippage massimo che sei disposto ad accettare in una transazione.\nSe la ricevuta della transazione è superiore alla tua tolleranza, la transazione non sarà completata e l'importo originale sarà restituito direttamente al tuo wallet.",
-    "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
-  },
+      "Decentralized Exchange": "Scambio decentralizzato",
+      "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "La funzione di scambio decentralizzata consente agli utenti di DeFiChain di scambiare criptovalute su base peer-to-peer. Questa funzione permette alle persone di effettuare direttamente uno scambio, senza la necessità di comprare e vendere valute attraverso un intermediario (tramite order book).",
+      "Transaction fees": "Commissioni di transazione",
+      "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Una piccola commissione sarà applicata ad ogni transazione. Questa quantità può variare a seconda della congestione della rete.",
+      "What is slippage tolerance?": "Cos'è la tolleranza di slippage?",
+      "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "A causa della natura dinamica della blockchain, i prezzi sul DEX cambiano ad ogni blocco. \nQuesto si traduce in uno slippage, che è la differenza tra il prezzo finale della transazione e il prezzo visualizzato sull'app prima che la transazione venga confermata. \nLa funzione di tolleranza dello slippage ti permette di specificare lo slippage massimo che sei disposto ad accettare in una transazione.\nSe la ricevuta della transazione è superiore alla tua tolleranza, la transazione non sarà completata e l'importo originale sarà restituito direttamente al tuo wallet.",
+      "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
+    },
     "components/LiquidityMiningFaq": {
-    "Liquidity Mining": "Liquidity Mining",
-    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Il liquidity mining è un meccanismo DeFi in cui i partecipanti contribuiscono con le criptovalute ai pool di liquidità, e sono a loro volta ricompensati con commissioni e token basati sulla loro quota rispetto al totale del liquidity pool. \nI liquidity pool di DeFiChain sono costituiti da liquidità per coppia di token, che viene utilizzata dal DEX (Decentralized Exchange) di DeFiChain.",
-    "How do I supply liquidity?": "Come posso fornire denaro?",
-    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Una volta che hai deciso a quale coppia del pool vuoi fornire liquidità, clicca su AGGIUNGI LIQUIDITA' e inserisci l'importo di ingresso per uno dei token della coppia. \nUna volta che l'importo è stato inserito su un lato della coppia, l'applicazione bilancia automaticamente l'importo sull'altro lato, in base al rapporto di liquidità corrente del pool.",
-    "How do I send tokens from my DFI wallet?": "Come posso inviare token dal mio portafoglio DFI?",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "I token sulla DeFiChain possono essere inviati solo a indirizzi DFI. Questo significa che non si deve inviare direttamente ad uno exchange (eccetto dfx) o ad una piattaforma di terze parti che non supporta la DeFiChain. \nAllo stesso modo, i token di liquidità possono essere inviati solo ad un altro indirizzo wallet DFI.",
-    "What are some exchanges and platforms I can send to?": "Su quali borse e piattaforme posso inviare i token DeFiChain?",
-    "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nVoir plus sur DeFiChain.com",
-    "Can I send liquidity pool tokens to an exchange or another entity?": "Posso inviare token dal liquidity pool ad un exchange o ad un'altra entità?",
-    "Liquidity tokens can only be sent to another DFI wallet address or DFX, and not to an exchange of central entity.": "I token di liquidità possono essere inviati solo a un altro indirizzo di portafoglio DFI e dfx, non agli altri un exchange o ad un'entità centrale.",
-    "How do I receive tokens on my DFI wallet?": "Come posso ricevere token sul mio wallet DFI?",
-    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Puoi ricevere token DFI nel tuo wallet condividendo il tuo indirizzo che si trova nella schermata di ricezione, o chiedendo al mittente di scansionare il codice QR. \nNota che non sarai in grado di ricevere token nativi (ad esempio BTC, ETH) direttamente nel tuo portafoglio.",
-    "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
-  },
+      "Liquidity Mining": "Liquidity Mining",
+      "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Il liquidity mining è un meccanismo DeFi in cui i partecipanti contribuiscono con le criptovalute ai pool di liquidità, e sono a loro volta ricompensati con commissioni e token basati sulla loro quota rispetto al totale del liquidity pool. \nI liquidity pool di DeFiChain sono costituiti da liquidità per coppia di token, che viene utilizzata dal DEX (Decentralized Exchange) di DeFiChain.",
+      "How do I supply liquidity?": "Come posso fornire denaro?",
+      "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Una volta che hai deciso a quale coppia del pool vuoi fornire liquidità, clicca su AGGIUNGI LIQUIDITA' e inserisci l'importo di ingresso per uno dei token della coppia. \nUna volta che l'importo è stato inserito su un lato della coppia, l'applicazione bilancia automaticamente l'importo sull'altro lato, in base al rapporto di liquidità corrente del pool.",
+      "How do I send tokens from my DFI wallet?": "Come posso inviare token dal mio portafoglio DFI?",
+      "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "I token sulla DeFiChain possono essere inviati solo a indirizzi DFI. Questo significa che non si deve inviare direttamente ad uno exchange (eccetto dfx) o ad una piattaforma di terze parti che non supporta la DeFiChain. \nAllo stesso modo, i token di liquidità possono essere inviati solo ad un altro indirizzo wallet DFI.",
+      "What are some exchanges and platforms I can send to?": "Su quali borse e piattaforme posso inviare i token DeFiChain?",
+      "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nVoir plus sur DeFiChain.com",
+      "Can I send liquidity pool tokens to an exchange or another entity?": "Posso inviare token dal liquidity pool ad un exchange o ad un'altra entità?",
+      "Liquidity tokens can only be sent to another DFI wallet address or DFX, and not to an exchange of central entity.": "I token di liquidità possono essere inviati solo a un altro indirizzo di portafoglio DFI e dfx, non agli altri un exchange o ad un'entità centrale.",
+      "How do I receive tokens on my DFI wallet?": "Come posso ricevere token sul mio wallet DFI?",
+      "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Puoi ricevere token DFI nel tuo wallet condividendo il tuo indirizzo che si trova nella schermata di ricezione, o chiedendo al mittente di scansionare il codice QR. \nNota che non sarai in grado di ricevere token nativi (ad esempio BTC, ETH) direttamente nel tuo portafoglio.",
+      "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
+    },
     "components/PasscodeFaq": {
       "Passcode": "Codice di accesso",
       "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
@@ -1121,7 +1121,6 @@
       "This amount may place the vault in liquidation": "Questo importo può mettere il vault in liquidazione",
       "Unable to proceed because of errors": "Impossibile procedere a causa di errori",
       "Max loan amount": "Importo massimo del prestito",
-
       "USD": "USD",
       "How many {{token}} tokens to borrow?": "Quanti {{token}} token vuoi prendere in prestito?"
     },
@@ -1223,7 +1222,7 @@
       "How much do you want to bid?": "Quanto vuoi offrire?",
       "The value of the tokens you are placing is considerably higher than the total auction value.": "Il valore dei token che stai piazzando è notevolmente superiore al valore totale dell'asta.",
       "Collateral for auction": "Collaterali messi all'asta",
-      "Search for pool pairs":"Ricerca di coppie di piscine"
+      "Search for pool pairs": "Ricerca di Pool-Pairs"
     },
     "screens/ConfirmPlaceBidScreen": {
       "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",

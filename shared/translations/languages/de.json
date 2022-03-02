@@ -649,7 +649,8 @@
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
     "Access granted": "Zugriff gewährt",
     "You may now proceed": "Du kannst nun fortfahren",
-    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen"
+    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen",
+    "To access DFX Services, we need you to enter your passcode.": "Um auf die DFX-Services zugreifen zu können, musst du das Passwort eingeben."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",
@@ -1220,7 +1221,7 @@
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
     "Collateral for auction": "Zu ersteigern",
-	"Search for pool pairs":"Nach Pool Paare suchen"
+	"Search for pool pairs": "Nach Pool Paaren suchen"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
