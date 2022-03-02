@@ -63,8 +63,8 @@ context('Wallet - Auctions', () => {
     })
   }
 
+  // TODO: to prepare portfolio for Bidder #2 to place bid
   // const recoveryWords: string[] = []
-
   // before(function () {
   // cy.intercept('**/settings/flags', flags)
   // cy.visit('/')

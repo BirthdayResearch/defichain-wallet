@@ -10,6 +10,12 @@ import { setTokenSymbol, wallet } from '@store/wallet'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/NetworkContext')
+jest.mock('@screens/AppNavigator/screens/Auctions/hooks/BidTimeAgo', () => ({
+  useBidTimeAgo: (_bidTime: number) => ('1m 2h ago')
+}))
+jest.mock('@react-navigation/native', () => ({
+  useIsFocused: jest.fn()
+}))
 
 describe('Bid History', () => {
   it('should match snapshot', async () => {
@@ -279,7 +285,6 @@ describe('Bid History', () => {
           }
         ]
       }
-
     }
 
     const store = configureStore({
