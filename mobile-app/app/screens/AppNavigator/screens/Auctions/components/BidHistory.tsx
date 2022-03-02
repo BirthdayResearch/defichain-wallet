@@ -8,6 +8,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { useEffect } from 'react'
+import { Platform } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
@@ -46,7 +47,6 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
       renderItem={({ item, index }: { item: VaultAuctionBatchHistory, index: number }): JSX.Element => {
         return (
           <BidHistoryItem
-            vaultLiquidationHeight={props.liquidationHeight}
             bidIndex={bidHistory.length - index}
             bidAmount={item.amount}
             loanDisplaySymbol={props.loanDisplaySymbol}
@@ -64,7 +64,7 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
         />
       )}
       keyExtractor={(item: VaultAuctionBatchHistory) => item.id}
-      contentContainerStyle={tailwind('p-4 pb-8')}
+      contentContainerStyle={[tailwind('p-4 pb-8'), tailwind({ 'pb-44': Platform.OS !== 'android' && Platform.OS !== 'ios' })]}
       light={tailwind('bg-gray-50')}
       style={tailwind('-mb-1')}
       initialNumToRender={5}
@@ -74,7 +74,6 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
 }
 
 interface BidHistoryItemProps {
-  vaultLiquidationHeight: number
   bidIndex: number
   bidAmount: string
   loanDisplaySymbol: string
