@@ -206,7 +206,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context.only('Wallet - Loans - Payback Loans', () => {
+context('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
@@ -409,7 +409,7 @@ context.only('Wallet - Loans - Payback Loans', () => {
     cy.go('back')
   })
 
-  it.only('should be able to payback loans', function () {
+  it('should be able to payback loans', function () {
     cy.createVault(0, true)
     cy.getByTestID('vault_card_1_edit_collaterals_button').click()
     cy.addCollateral('10', 'DFI')
