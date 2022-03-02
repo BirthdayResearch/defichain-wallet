@@ -1,9 +1,10 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
+import { useIsFocused } from '@react-navigation/native'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
-import { fetchBidHistory } from '@store/auctions'
+import { auctions, fetchBidHistory } from '@store/auctions'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -30,16 +31,21 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const bidHistory = useSelector((state: RootState) => state.auctions.bidHistory)
   const { getTokenPrice } = useTokenPrice()
+  const isFocused = useIsFocused()
 
   useEffect(() => {
-    dispatch(fetchBidHistory({
-      vaultId: props.vaultId,
-      liquidationHeight: props.liquidationHeight,
-      batchIndex: props.batchIndex,
-      client: client,
-      size: 200
-    }))
-  }, [blockCount])
+    if (isFocused) {
+      dispatch(fetchBidHistory({
+        vaultId: props.vaultId,
+        liquidationHeight: props.liquidationHeight,
+        batchIndex: props.batchIndex,
+        client: client,
+        size: 200
+      }))
+    } else {
+      dispatch(auctions.actions.resetBidHistory())
+    }
+  }, [blockCount, isFocused])
 
   return (
     <ThemedFlatList
@@ -94,7 +100,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
     >
       <View style={tailwind('flex flex-row justify-between mb-2 items-center')}>
         <ThemedView
-          style={tailwind('px-1')}
+          style={tailwind('px-1 rounded-sm')}
           light={tailwind('bg-blue-500 text-white')}
           dark={tailwind('bg-darkblue-500 text-black')}
         >

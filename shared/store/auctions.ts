@@ -45,7 +45,11 @@ export const fetchBidHistory = createAsyncThunk(
 export const auctions = createSlice({
   name: 'auctions',
   initialState,
-  reducers: {},
+  reducers: {
+    resetBidHistory: (state) => {
+      state.bidHistory = []
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<LoanVaultLiquidated[]>) => {
       state.auctions = action.payload
