@@ -1068,7 +1068,7 @@
     "Resulting collateralization": "最終抵押率",
     "Vault ID": "金庫編號",
     "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
-    "Insufficient {{token}} balance to pay the entered amount": "{{token}} 餘額不足以支付輸入的金額",
+    "Insufficient {{token}} to pay for the entered amount": "{{token}} 餘額不足以支付輸入的金額",
     "Select payment token": "選擇付款代幣",
     "A 1% fee is applied when you pay with DFI.": "當您使用 DFI 付款時，將收取 1% 的費用",
     "Read more": "閱讀更多"
