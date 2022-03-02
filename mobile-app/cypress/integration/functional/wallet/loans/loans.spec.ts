@@ -435,7 +435,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.closeOceanInterface()
 
     cy.wait(3000)
-    cy.getByTestID('vault_card_0').click()
+    cy.getByTestID('vault_card_1').click()
     cy.getByTestID('vault_detail_tabs_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('payback_input_text').clear().type('100000').blur()
@@ -459,6 +459,6 @@ context('Wallet - Loans - Payback Loans', () => {
       .contains('Paying 102.00000000 DUSD')
     cy.closeOceanInterface()
     cy.wait(3000)
-    cy.checkVaultTag('READY', VaultStatus.Ready, 'vault_card_0_status', walletTheme.isDark)
+    cy.checkVaultTag('READY', VaultStatus.Ready, 'vault_card_1_status', walletTheme.isDark)
   })
 })
