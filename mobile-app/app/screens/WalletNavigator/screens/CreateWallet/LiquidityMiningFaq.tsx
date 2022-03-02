@@ -15,21 +15,21 @@ export function LiquidityMiningFaq (): JSX.Element {
     {
       title: translate('components/LiquidityMiningFaq', 'How do I send tokens from my DFI wallet?'),
       content: [{
-        text: translate('components/LiquidityMiningFaq', 'Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.'),
+        text: translate('components/LiquidityMiningFaq', 'Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.'),
         type: 'paragraph'
       }]
     },
     {
       title: translate('components/LiquidityMiningFaq', 'What are some exchanges and platforms I can send to?'),
       content: [{
-        text: translate('components/LiquidityMiningFaq', '1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com'),
+        text: translate('components/LiquidityMiningFaq', '1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com'),
         type: 'paragraph'
       }]
     },
     {
       title: translate('components/LiquidityMiningFaq', 'Can I send liquidity pool tokens to an exchange or another entity?'),
       content: [{
-        text: translate('components/LiquidityMiningFaq', 'Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.'),
+        text: translate('components/LiquidityMiningFaq', 'Liquidity tokens can only be sent to another DFI wallet address or DFX, and not to an other exchange of central entity.'),
         type: 'paragraph'
       }]
     },

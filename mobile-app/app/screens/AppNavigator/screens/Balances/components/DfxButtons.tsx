@@ -68,7 +68,7 @@ export function DfxButtons (): JSX.Element {
         },
         onAuthenticated: onMessageSigned,
         onError: e => logger.error(e),
-        message: translate('screens/BalancesScreen', 'To activate Fiat exchange, we need you to enter your current passcode.'),
+        message: translate('screens/BalancesScreen', 'To access DFX Services, we need you to enter your current passcode.'),
         loading: translate('screens/BalancesScreen', 'Verifying passcode...')
       }
       dispatch(authentication.actions.prompt(auth))

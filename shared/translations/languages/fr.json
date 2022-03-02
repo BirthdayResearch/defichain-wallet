@@ -42,7 +42,7 @@
     "SWAP": "ÉCHANGER",
     "Swap tokens": "Échange de tokens",
     "DETAILS": "DÉTAILS",
-    "HIDE": "CACHER",
+    "HIDE": "OCULTAR",
     "Total Value Locked in pool pairs (USD): ": "Valeur totale bloquée dans les paires de pool (USD): ",
     "All pairs": "Toutes les paires",
     "DFI pairs": "Paires DFI",
@@ -68,7 +68,11 @@
     "Balances": "Soldes",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
+    "BUY WITH FIAT": "ACHETEZ AVEC FIAT",
     "Total Portfolio Value (USD)": "Valeur totale du portfolio (USD)",
+    "PORTFOLIO": "WALLET",
+    "Show balances": "Montrer les soldes",
+    "Hide balances": "Cacher les soldes",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
     "YOUR ASSETS": "MES ACTIFS"
@@ -123,7 +127,7 @@
     "Sending {{amount}} {{symbol}}": "Envoyer {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "CONFIRMER LA TRANSACTION",
     "Convert & send": "Convertir et envoyer",
-    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Envoyez les tokens du pool de liquidité uniquement vers des portefeuilles compatibles avec DeFiChain. Sinon, l'envoi vers d'autres échanges peut entraîner une perte irréversible des fonds.",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange (except DFX) or a central entity will result in irreversible loss of funds.": "Envoyez les tokens du pool de liquidité uniquement vers des portefeuilles compatibles avec DeFiChain. Sinon, l'envoi vers d'autres échanges (Excepté  DFX) peut entraîner une perte irréversible des fonds.",
     "Transaction type": "Type de transaction",
     "Amount to send": "Montant à envoyer"
   },
@@ -648,7 +652,8 @@
     "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code d'accès pour autoriser votre transaction en toute sécurité.",
     "Access granted": "Accès accordé",
     "You may now proceed": "Vous pouvez maintenant procéder",
-    "Sign to verify access": "Autoriser pour vérifier l'accès"
+    "Sign to verify access": "Vérification de l'accès",
+	"To access DFX Services, we need you to enter your current passcode.":"Pour accéder à services de DFX, vous devez entrer votre code d'accès."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
@@ -699,9 +704,9 @@
     "How do I supply liquidity?": "Comment puis-je fournir des liquidités ?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Après avoir décidé de la paire de pool à laquelle vous souhaitez fournir des liquidités, cliquez sur AJOUTER LIQUIDITÉ et saisissez le montant d'entrée pour l'un ou l'autre des tokens de la paire. \n\nUne fois le montant saisi d'un côté de la paire, l'application équilibre automatiquement le montant de l'autre côté, sur la base du ratio de liquidité actuel du pool.",
     "How do I send tokens from my DFI wallet?": "Comment puis-je envoyer des tokens à partir de mon portefeuille DFI ?",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Les tokens sur la DeFiChain ne peuvent être envoyés qu'à des adresses DFI uniquement. Cela signifie que vous ne devez pas envoyer directement à un échange ou à une plateforme tierce qui ne supporte pas la DeFiChain. \n\nDe même, les tokens de liquidité ne peuvent être envoyés qu'à une autre adresse de portefeuille DFI.",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "Les tokens sur la DeFiChain ne peuvent être envoyés qu'à des adresses DFI uniquement. Cela signifie que vous ne devez pas envoyer directement à un échange ou à une plateforme tierce qui ne supporte pas la DeFiChain. \n\nDe même, les tokens de liquidité ne peuvent être envoyés qu'à une autre adresse de portefeuille DFI et DFX.",
     "What are some exchanges and platforms I can send to?": "Quels sont les échanges et les plates-formes vers lesquels je peux envoyer les tokens de la DeFiChain ?",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nVoir plus sur DeFiChain.com",
+    "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nVoir plus sur DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "Puis-je envoyer les tokens du pool de liquidité à une bourse ou à une autre entité ?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Les tokens de liquidité ne peuvent être envoyés que vers une autre adresse de portefeuille DFI, et non vers un échange ou une entité centrale.",
     "How do I receive tokens on my DFI wallet?": "Comment puis-je recevoir des tokens sur mon portefeuille DFI ?",
@@ -1218,7 +1223,8 @@
     "Collateral": "Garantie",
     "How much do you want to bid?": "Combien voulez-vous proposer?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Le montant des tokens de votre enchère est bien suppérieur à la valeur mise en vente.",
-    "Collateral for auction": "Garantie en vente"
+    "Collateral for auction": "Garantie en vente",
+    "Search for pool pairs":"Chercher des paires de pool"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",

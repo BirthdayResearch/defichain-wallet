@@ -700,11 +700,11 @@
     "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Nachdem du dich entschieden hast, welches Pool-Paar du mit Liquidität versorgen möchtest, klickst du auf LIQUIDITÄT HINZUFÜGEN und gibst den Betrag für einen der Token in dem Paar ein.\n\nSobald ein Betrag auf einer Seite des Paares eingegeben wurde, gleicht die App den Betrag der anderen Seite automatisch entsprechend dem Verhältnis der aktuellen Liquidität im Pool aus.",
     "How do I send tokens from my DFI wallet?": "Wie versende ich Token von meiner DFI-Wallet?",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt.\n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse gesendet werden.",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt.\n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse oder DFX gesendet werden.",
     "What are some exchanges and platforms I can send to?": "Welche Börsen und Plattformen gibt es, an die ich senden kann?",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nMehr ansehen auf DeFiChain.com",
+    "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nMehr ansehen auf DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
-    "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
+    "Liquidity tokens can only be sent to another DFI wallet address or DFX, and not to an other exchange of central entity.": "Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden oder an DFX, nicht an eine Börse oder eine zentrale Einrichtung.",
     "How do I receive tokens on my DFI wallet?": "Wie erhalte ich Token auf meiner DFI-Wallet?",
     "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen.\n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
@@ -1219,7 +1219,8 @@
     "Collateral": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
-    "Collateral for auction": "Zu ersteigern"
+    "Collateral for auction": "Zu ersteigern",
+	"Search for pool pairs":"Nach Pool Paare suchen"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",

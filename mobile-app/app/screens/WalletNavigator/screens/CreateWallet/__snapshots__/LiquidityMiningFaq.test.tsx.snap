@@ -435,9 +435,9 @@ Once an amount is entered on one side of the pair, the app automatically balance
                         ]
                       }
                     >
-                      Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.
+                      Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.
 
-Similarly, liquidity tokens can only be sent to another DFI wallet address.
+Similarly, liquidity tokens can only be sent to another DFI wallet address or DFX.
                     </Text>
                   </View>
                 </View>
@@ -589,10 +589,11 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                         ]
                       }
                     >
-                      1. Kucoin
-2. Bittrex
-3. Transak
-4. Cake DeFi
+                      1. DFX
+                      2. Kucoin
+                      3. Bittrex
+                      4. Transak
+                      5. Cake DeFi
 
 View more at DeFiChain.com
                     </Text>
@@ -746,7 +747,7 @@ View more at DeFiChain.com
                         ]
                       }
                     >
-                      Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.
+                      Liquidity tokens can only be sent to another DFI wallet address or DFX, and not to an other exchange of central entity.
                     </Text>
                   </View>
                 </View>

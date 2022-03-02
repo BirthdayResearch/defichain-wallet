@@ -12,7 +12,9 @@
     "Refresh": "Actualizar",
     "Refresh recovery words": "Actualizar palabras the recuperación",
     "You are about to generate a new set of recovery words. Continue?": "Estás a punto de crear un nuevo lote de palabras de recuperación",
-    "Passcode FAQ": "Preguntas frecuentes sobre la contraseña"
+    "Passcode FAQ": "Preguntas frecuentes sobre la contraseña",
+    "DEX FAQ": "FAQ DEX",
+    "Liquidity Mining FAQ": "FAQ liquidity mining"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Exchange descentralizado",
@@ -38,7 +40,17 @@
     "Your pool pairs": "Tus Piscinas de Liquidez",
     "Total Value Locked (USD)": "Valor total bloqueado (USD)",
     "SWAP": "INTERCAMBIA",
-    "Swap tokens": "Intercambia Tokens"
+    "Swap tokens": "Intercambia Tokens",
+    "DETAILS": "DETALLES",
+    "HIDE": "CACHER",
+    "Total Value Locked in pool pairs (USD): ": "Valor total bloqueado en pares del pool (USD): ",
+    "All pairs": "Todos los pares",
+    "DFI pairs": "Pares DFI",
+    "DUSD pairs": "Pares DUSD",
+    "Your share in pool": "Su participación en el fondo común",
+    "ADD": "ADD",
+    "Prices": "Precios",
+    "Available pool pairs": "Parejas de piscinas disponibles"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instrucciones",
@@ -61,7 +73,8 @@
     "Show balances": "Mostrar saldos",
     "Hide balances": "Esconder saldos",
     "You do not have any other tokens.": "No posees otros tokens",
-    "SWITCH": "CAMBIAR"
+    "SWITCH": "CAMBIAR",
+    "YOUR ASSETS": "TUS ACTIVOS"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
@@ -121,7 +134,6 @@
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Escanear código QR del receptor",
     "Balance": "Saldo",
-    "UTXO vs Token, what is the difference?": "UTXO vs Token, ¿Cúal es la diferencia?",
     "CONVERT {{symbol}}": "{{symbol}} CONVERTIR",
     "TO {{symbol}}": "EN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una pequeña cantidad (0.1 DFI (UTXO)) se reserva para comisiones.",
@@ -300,16 +312,19 @@
     "Swap with {{token}}": "Intercambia con {{token}}"
   },
   "screens/TokensVsUtxoScreen": {
-     "DFI exists in two forms – UTXO and token, which are interchangeable depending on the usage. You can easily convert between the two forms with the app.": "DFI existe en dos formas - UTXO y token, los cúales son intercambiables dependiendo del uso. Puedes fácilmente convertir entre estos dos formatos con la app.",
-     "UTXO DFI is the main form DFI and is used for core cryptocurrency purposes like send, receive and fees. DFI tokens are used for DeFi functions such as swaps and liquidity mining.": "UTXO DFI es la forma principal de DFI y se usa para funciones importantes de crypto, ya sea enviar, recibir o comisiones. Los tokens DFI son usados para funciones DeFI como intercambios y piscinas de liquidez.",
-     "Your DFI balance includes both UTXO and tokens.": "Tu saldo DFI incluye tanto UTXO como los tokens.",
-     "Core crypto services": "Servicios básicos de crypto",
-     "Send to other wallets": "Envía a otras billeteras",
-     "Receive tokens": "Recibe tokens",
-     "Service fees": "Comisiones por el servicio",
-     "DeFi services": "Servicios DeFi",
-     "Liquidity mining": "Piscinas de Liquidez",
-     "Atomic Swaps": "Intercambios atómicas"
+    "Learn about UTXOs and Tokens": "Aprende sobre UTXOs y Tokens",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI existe en dos formas - UTXO y token. Se puede intercambiar el uno con el otro para servir distintas funciones en la billetera.",
+    "DFI in UTXO form": "DFI en forma de UTXO",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI en forma de UTXO es la forma más común. Se utiliza para funciones básicas de compra, venta e intercambio.",
+    "Use cases include:": "Usos típicos incluyen:",
+    "Sending DFI to other wallets": "Enviar DFI a otras billeteras",
+    "Receiving DFI from other wallets": "Recibir DFI de otras billeteras",
+    "Transaction fees": "Tasas de transacción",
+    "DFI in token form": "DFI en forma de token.",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI en forma de token se utilizan para piscinas de liquidez, préstamos, subastas e intercambios.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Intercambiar DFI con otros tokens (ex. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Piscinas de Liquidez",
+    "Auctions and Loans": "Subastas y Préstamos"
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREAR UNA BILLETERA",
@@ -401,7 +416,8 @@
   },
   "screens/ConnectionBoundary": {
     "Connection problem": "Problema de conexión",
-    "There seems to be a problem with the connection. Check your network and try again.": "Parece que hay un problema con la conexión. Comprueba tu red e inténtalo de nuevo."
+    "There seems to be a problem with the connection. Check your network and try again.": "Parece que hay un problema con la conexión. Comprueba tu red e inténtalo de nuevo.",
+    "TRY AGAIN": "INTENTAR DE NUEVO"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Préstamos",
@@ -411,7 +427,7 @@
     "Cancel": "Cancela",
     "Enable {{feature}} (Beta)": "Permite {{feature}} (Beta Experimental)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Esta función está aún en pruebas, por lo que su uso te expone a ciertos riesgos. ¿Quieres continuar?",
-    "Características en prueba": "",
+    "Beta Features": "Herramienta en desarrollo",
     "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Los servicios en prueba de la billetera precisan de desarrollo antes de su salida oficial.",
     "Feature is still in Beta. Use at your own risk.": "Estas características están aún en prueba. Usalas a tu propio riesgo."
   },
@@ -544,7 +560,13 @@
     "CONTINUE": "CONTINUA"
   },
   "screens/SlippageTolerance": {
-    "SLIPPAGE TOLERANCE": "TOLERANCIA A LA FLUCTUACIÓN"
+    "Slippage tolerance": "Tolerancia a la fluctuación",
+    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
+    "Custom": "Personalizado",
+    "USE THIS SLIPPAGE TOLERANCE": "USA ESTA TOLERANCIA DE FLUCTUACION.",
+    "Required field is missing": "Falta la información requerida",
+    "Slippage rate must range from 0-100%": "La tasa de fluctuación debe cubrir desde 0-100%.",
+    "Proceed at your own risk": "Continúa a tu propio riesgo"
   },
   "screens/PoolSwapScreen": {
     "Swap": "Intercambio",
@@ -629,7 +651,8 @@
     "Please enter passcode to securely sign your transaction": "Por favor, introduce contraseña para asegurar tu transacción",
     "Access granted": "Acceso concedido",
     "You may now proceed": "Ahora puedes continuar",
-    "Sign to verify access": "Confirma para verificar el acceso"
+    "Sign to verify access": "Confirma para verificar el acceso",
+    "To access DFX Services, we need you to enter your current passcode.":"Para acceder a los servicios DFX, necesitamos que introduzca su código de acceso actual."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Confirma la transacción",
@@ -653,16 +676,36 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "Estás a punto de cambiar a {{network}}. ¿Quieres continuar?"
   },
   "components/RecoveryWordFaq": {
-    "What happens if I lose my recovery words?": "¿Qué pasa si pierdo mis palabras de recuperación?",
-    "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Cuando pierdes tus palabras de recuperación, tu no podrás restaurar tu billetera y ninguno de los fondos que allí tenías. Te animamos a que seas responsable con tus palabras de recuperación",
-    "Can I use the 24-words from xxx that I created from xxx?": "¿Puedo usar las 24 palabras de recuperación de xxx que he creado de xxx?",
-    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Tu sólo puedes reusar las 24 palabras de recuperación si se han creado con el ecosistema de Jellyfish. Los clientes compatibles son la billetera de DeFiChain (Android/iOS) y DFX.SWISS (Android/iOS). De todas formas, se desaconseja que las vuelvas a utilizar. Tus 24 palabras son sólo tan seguras como el ordenador que usas y las genera. Si tu dispositivo no es fiable, tus 24 palabras están en riesgo. Esencialmente, crea un grupo de 24 por equipo",
-    "Can someone help me if I lose my recovery words?": "¿Puede alguien ayudarme si pierdo mis 24 palabras?",
-    "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "No. Tu tienes acceso único a tus palabras de recuperación. Sólo tu eres responsable.",
-    "Why is it recommended to keep my recovery words offline and on paper?": "¿Porqué se recomienda guardar mis palabras de recuperación fuera de la red y en papel?",
-    "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Al guardarlas en redes digitales son accesibles a hackers. Lo mejor es escribirlas en papel y guardarlas en un lugar seguro.",
-    "Recovery words": "Palabras de recuperación",
-    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Tus 24 palabras son únicas como una representación de tu billetera que son leíbles por un humano, generadas de una lista de 2048 palabras con el estándar BIP-39. Esto previene cualquier intento de hackeo a la seguridad de tu billetera.",
+    "Decentralized Exchange": "Exchange descentralizado",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Las funciones del exchange descentralizado permite a los usuarios de DeFiChain intercambia cryptomonedas de persona a persona. Esta función permite la relación directa entre comprador y vendedor, sin la necesidad de comprar y vender a través de un exchange.",
+    "Transaction fees": "Comisión de la transacción",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Cada transacción estará sujeta a unas pequeñas comisiones. La cantidad variará dependiendo de la congestión de la red.",
+    "What is slippage tolerance?": "¿Qué es la tolerancia a la fluctuación?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Debido a la naturaleza dinámica de la blockchain, los precios en el Exchange descentralizado cambian en cada bloque.\n\nEsto implica una fluctuación, la cúal es la diferencia entre el precio final de la transacción, y el precio mostrado en la app antes de la confirmación de la transacción.\n\nLa herramienta que mide la tolerancia a la fluctuación te indica la fluctuación máxima que estás dispuesto a aceptar en la transacción.\n\nSi la fluctuación de tu transacción es mayor a la tolerancia que habías seleccionado, la transacción no se completará y la cantidad original será devuelta a tu billetera.",
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
+  },
+  "components/DexFaq": {
+    "Decentralized Exchange": "Dezentrale Börse",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z.B. Währungen.",
+    "Transaction fees": "Transaktionsgebühren",
+    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Für jede Transaktion wird ein kleiner Betrag an Gebühren erhoben. Der Betrag kann je nach Auslastung des Netzes variieren.",
+    "What is slippage tolerance?": "Was ist die Slippage-Toleranz?",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Aufgrund der dynamischen Natur der Blockchain ändern sich die Preise auf der DEX mit jedem Block.\n\nDaraus resultiert Slippage, also die Differenz zwischen dem endgültigen Transaktionspreis und dem Preis, der vor der Transaktionsbestätigung in der App angezeigt wird.\n\nMit der Slippage-Toleranzfunktion kannst du die maximale Slippage angeben, die du bei einer Transaktion zu akzeptieren bereit bist.\n\nWenn die Abweichung für deine Transaktion höher ist als deine Slippage-Toleranz, wird die Transaktion nicht abgeschlossen und der ursprüngliche Betrag wird auf deine Wallet zurücktransferiert.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+  },
+  "components/LiquidityMiningFaq": {
+    "Liquidity Mining": "Minería de Liquidez",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "La Minería de Liquidez es un mecanismo de DeFiChain con el cúal los participantes añaden liquidez con sus activos crypto en las piscinas de liquidez, y son recompensados dependiendo del porcentaje de su contribución en la piscina. \n\nLas piscinas de liquidez de DeFiChain se constituyen con la aportación de un par de tokens, que son utilizados por el Exchange Descentralizado de DeFiChain.",
+    "How do I supply liquidity?": "¿Cómo puedo aportar liquidez?",
+    "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Despúes de decidir a que piscina vas a aportar liquidez, apreta AÑADIR LIQUIDEZ, y escribe la cantidad de cada uno de los tokens que quieres aportar. \n\nUna vez escribas la cantidad de un token, la app calculará automáticamente la cantidad del otro token para que tengan un valor igual, basado en el ratio de liquidez que tenga la piscina en ese momento.",
+    "How do I send tokens from my DFI wallet?": "¿Cómo envio tokens desde my billetera DFI?",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "Los tokens en DeFiChain sólo pueden ser enviados a billeteras de DeFiChain. Esto significa que deberías enviar tus tokens a un exchange, (a parte de DFX) que no sea compatible con DeFiChain \n\nSimilarmente, los tokens de liquidez no pueden ser enviado a otra dirección que no se para DFI.",
+    "What are some exchanges and platforms I can send to?": "¿Cúales son los exchanges y plataformas a los que puedo enviar?",
+    "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nEncuentra más en DeFiChain.com",
+    "Can I send liquidity pool tokens to an exchange or another entity?": "¿Puedo enviar token de la piscina de liquidez a un exchange o a otra entidad?",
+    "Liquidity tokens can only be sent to another DFI wallet address or DFX, and not to an other exchange of central entity.": "Los tokens de liquidez sólo se pueden enviar a otra dirección de billetera de DeFiChain y no a otro exchange centralizado.",
+    "How do I receive tokens on my DFI wallet?": "¿Cómo puedo recibir tokens en mi billetera de DFI?",
+    "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Tu puedes recibir tus tokens en la billetera compartiendo la dirección que se encuentra en el botón RECIBIR, o haciendo que la persona que envía escanee tu código QR.\n\nDate cuenta de que no serás capaz de recibir tokens nativos (por ejemplo BTC, ETH) directamente en tu billetera.",
     "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
   },
   "components/PasscodeFaq": {
@@ -670,6 +713,7 @@
     "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Tu contraseña de 6 números, creada por ti, se utilizaría para autorizar todas las transacciones. Mantén tu contraseña privada y segura. Es tu responsabilidad.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "¿Qué pasaría si olvido mi contraseña? ¿Podría alguien ayudarme a recuperar mi contraseña?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Tu contraseña es tu responsabilidad, por lo que nadie debería conocerla. Es importante que mantengas tu contraseña segura y que la cambies de vez en cuando.",
+    "Can I change my passcode?": "¿Puedo cambiar mi contraseña?",
     "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Sí, tu puedes cambiar tu contraseña desde los ajustes en la aplicación. Recomendamos cambiar la contraseña regularmente para una mayor seguridad.",
     "Is passcode the same as phone PIN code?": "¿Es la contraseña lo mismo que código PIN del teléfono?",
     "Your passcode is valid only for DeFiChain wallet.": "Tu contraseña sólo es válida para la billetera en DeFiChain.",
@@ -707,6 +751,7 @@
       "Vault Detail": "Detalles de la bóveda",
       "Add Collateral": "Añade el colateral",
       "Confirm Add Collateral": "Confirma la adición del colateral",
+      "Confirm Remove Collateral": "Confirmar la eliminación de la garantía",
       "Edit Collaterals": "Edita los colaterales",
       "Borrow Loan Token": "Pide prestado un préstamos de tokens",
       "Confirm Borrow Loan Token": "Confirma el préstamo del token",
@@ -755,7 +800,8 @@
     "screens/AuctionScreen": {
       "Auctions": "Subastas",
       "Place Bid": "Haz oferta",
-      "Confirm Place Bid": "Confirma la oferta"
+      "Confirm Place Bid": "Confirma la oferta",
+      "Auction details": "Detalles de la subasta"
     },
     "components/AuctionDetailScreen":{
       "Collaterals": "Colaterales",
@@ -863,7 +909,8 @@
       "CONFIRM CREATE VAULT": "CONFIRMA LA CREACION DE UNA BOVEDA",
       "Creating vault": "Creando bóveda",
       "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Creando bóveda con el ratio mínimo de colateralización de {{amount}}% y la tasa de interés de {{ir}}% de tasa de interés anual",
-      "Convert & create vault": "Convierte y crea tu bóveda"
+      "Convert & create vault": "Convierte y crea tu bóveda",
+      "CREATING": "CREAR"
     },
     "components/BottomSheetInfo": {
       "Estimated fee": "Comisión estimada",
@@ -971,7 +1018,9 @@
       "REMOVE COLLATERAL AMOUNT": "QUITA CANTIDAD DEL COLATERAL",
       "How much {{symbol}} to remove?": "¿Cúantos {{symbol}} para quitar?",
       "Current": "Actual",
-      "The collateral factor determines the degree of contribution of each collateral token.": "El factor del colateral determina el grado de contribución de cada token colateral."
+      "The collateral factor determines the degree of contribution of each collateral token.": "El factor del colateral determina el grado de contribución de cada token colateral.",
+      "Resulting collateralization": "Collateralización resultante",
+      "N/A": "N/A"
     },
     "screens/ConfirmEditCollateralScreen": {
       "You are adding collateral to": "Tu estás añadiendo colateral a",
@@ -992,7 +1041,8 @@
       "Convert & add collateral": "Convierte y añade colateral",
       "Convert & remove collateral": "Convierte y quita colateral",
       "Add Collateral": "Añade colateral",
-      "Remove Collateral": "Quita colateral"
+      "Remove Collateral": "Quita colateral",
+      "CONFIRM REMOVE COLLATERAL": "CONFIRMAR LA ELIMINACIÓN DE LA GARANTÍA"
     },
     "screens/PaybackLoanScreen": {
       "YOU ARE PAYING FOR LOAN": "TU ESTAS PAGANDO EL PRESTAMO",
@@ -1008,9 +1058,9 @@
       "Outstanding balance": "Saldo pendiente",
       "Collateralization ratio": "Ratio de colateralización",
       "Min. collateralization ratio": "Ratio mínimo de colateralización",
+      "Resulting collateralization": "Colateralización resultante",
       "Excess amount": "Cantidad excedente",
       "Any excess amount will be returned to your wallet.": "Cualquier cantidad excedente será retornada a tu billetera.",
-      "Resulting collateralization": "Colateralización resultante",
       "Vault ID": "Vault-ID",
       "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} resultante",
       "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
@@ -1034,7 +1084,8 @@
       "Paying loan": "Pagando préstamo",
       "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Estoy pagando  {{amountToPayInSelectedToken}} {{paymentSymbol}} como método para pager el préstamo.",
       "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Estoy pagando {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) como método para pagar el préstamo.",
-      "Confirm Loan Payment": "Confirma el pago del préstamo"
+      "Confirm Loan Payment": "Confirma el pago del préstamo",
+      "Resulting collateralization": "Colateralización resultante"
     },
     "components/CollateralizationRatioDisplay": {
       "Collateralization ratio": "Ratio de colateralización",
@@ -1057,7 +1108,7 @@
       "Resulting collateralization": "Colateralización resultante",
       "Min. collateralization ratio": "Ratio mínimo de colateralización",
       "Interest (Vault + Token)": "Interés (Bóveda + Token)",
-      "Total interest amount": "Cantidad total de interés",
+      "Estimated annual interest": "Interés anual estimado",
       "Total loan + interest": "Préstamo total + interés",
       "Review and confirm transaction in the next screen": "Revisa y confirma la transacción en la siguiente pantalla",
       "SELECT LOAN TOKEN": "SELECCIONA UN TOKEN PARA EL PRESTAMO",
@@ -1079,7 +1130,7 @@
       "Loan tokens to borrow": "Tokens para pedir prestados",
       "Token interest": "Interés del token",
       "Vault interest": "Interés de la bóveda",
-      "Total interest amount": "Cantidad total de interés",
+      "Estimated annual interest": "Interés anual estimado",
       "Total loan + interest": "Préstamo total + interés",
       "VAULT DETAILS": "DETALLES DE LA BOVEDA",
       "Vault ID": "Identificador de la bóveda",
@@ -1130,7 +1181,7 @@
       "N/A": "No se aplica",
       "Max loan amount": "Máxima cantidad del préstamo"
     },
-    "screens/ChooseLoanTokenScreen": {
+    "components/HeaderSearchInput": {
       "Search for loans": "Busca préstamos",
       "Search for loan token": "Busca tokens para préstamos"
     },
@@ -1181,9 +1232,9 @@
       "Liquidation Height": "Límite para la liquidación",
       "CONFIRM PLACE BID": "CONFIRMA LA OFERTA",
       "Sign Transaction": "Confirma la transacción",
-      "Placing {{amount}} {{token}} as bid for auction.": "Aportando {{amount}} {{token}} como oferta para la subasta.",
-      "Collateral for auction": "Collateral para la subasta",
-      "Insufficient funds": "Fondos insuficientes"
+      "Placing {{amount}} {{token}} as bid for auction.": "Aportando {{amount}} {{token}} como oferta para la subasta.",   
+      "Insufficient funds": "Fondos insuficientes",
+      "Collateral for auction": "Collateral para la subasta"
     },
     "components/QuickBid": {
       "QUICK BID": "OFERTA RAPIDA",
@@ -1197,6 +1248,6 @@
       "Wallet address": "Dirección de la billetera"
     },
     "components/Announcements": {
-      "VIEW": "Ver"
+      "DETALLES": "Ver"
     }
   }
