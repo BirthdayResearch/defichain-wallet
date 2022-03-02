@@ -414,7 +414,7 @@ context('Wallet - Loans - Payback Loans', () => {
 
     cy.getByTestID('vault_card_0_status').invoke('text').then((vaultStatus: string) => {
       // Vaults are not sorted - need to determine which one is ready
-      const [emptyVaultIndex, readyVaultIndex] = vaultStatus === 'EMPTY' ? [0, 1] : [1, 0]
+      const [emptyVaultIndex, readyVaultIndex] = vaultStatus === 'EMPTY' ? [1, 0] : [0, 1]
       cy.getByTestID(`vault_card_${emptyVaultIndex}_edit_collaterals_button`).click()
       cy.addCollateral('10', 'DFI')
       cy.go('back')
