@@ -26,6 +26,7 @@ import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
+import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
@@ -117,7 +118,8 @@ export function DexScreen (): JSX.Element {
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
   const [isSearching, setIsSearching] = useState(false)
-  const handleFilter = useCallback((searchString: string) => {
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
       setIsSearching(false)
       setFilteredAvailablePairs(
         pairs.filter((pair) =>
@@ -129,7 +131,7 @@ export function DexScreen (): JSX.Element {
           new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
         )
       )
-    },
+    }, 500),
     [activeTab, pairs, yourLPTokens]
   )
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
@@ -178,18 +180,21 @@ export function DexScreen (): JSX.Element {
   }, [])
 
   useEffect(() => {
-    setIsSearching(true)
-    handleFilter(searchString)
+    if (showSearchInput) {
+      setIsSearching(true)
+      handleFilter(searchString)
+    }
   }, [searchString, hasFetchedPoolpairData])
 
   // Update local state - filter available pair when pairs update
   useEffect(() => {
-    if (searchString !== undefined && searchString.trim().length > 0) {
-      handleFilter(searchString)
+    if (showSearchInput) {
+      if (searchString !== undefined && searchString.trim().length > 0) {
+        handleFilter(searchString)
+      }
+    } else {
+      handleButtonFilter(activeButtonGroup)
     }
-    // else {
-    //   handleButtonFilter(activeButtonGroup)
-    // }
   }, [pairs])
 
   useLayoutEffect(() => {
