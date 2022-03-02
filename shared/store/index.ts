@@ -9,6 +9,7 @@ import { loans } from './loans'
 import { auctions } from './auctions'
 import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
 import { userPreferences } from '@store/userPreferences'
+import { useDispatch } from 'react-redux'
 
 /**
  * RootState for DeFiChain Wallet App
@@ -35,10 +36,11 @@ export function initializeStore () {
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false })
-      .concat(announcementWebsiteSlice.middleware)
-      .concat(statusWebsiteSlice.middleware)
+        .concat(announcementWebsiteSlice.middleware)
+        .concat(statusWebsiteSlice.middleware)
   })
 }
 
 export type RootStore = ReturnType<typeof initializeStore>
 export type RootState = ReturnType<RootStore['getState']>
+export const useAppDispatch = () => useDispatch<any>()

@@ -16,7 +16,7 @@ import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
@@ -24,13 +24,12 @@ import { translate } from '@translations'
 import { RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
-import { RootState } from '@store'
+import { RootState, useAppDispatch } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { fetchUserPreferences } from '@store/userPreferences'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -49,7 +48,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useDisplayBalancesContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
 
@@ -63,10 +62,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       address
     }))
   }, [address, blockCount])
-
-  useEffect(() => {
-    dispatch(fetchUserPreferences())
-  }, [])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
@@ -82,35 +77,35 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     totalUSDValue,
     dstTokens
   } = useMemo(() => {
-     return tokens.reduce(
-    ({
-      totalUSDValue,
-      dstTokens
-    }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
-      token
-    ) => {
-      const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
-
-      if (token.symbol === 'DFI') {
-        return {
-          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
-          totalUSDValue: token.id === '0_unified'
-            ? totalUSDValue
-            : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+    return tokens.reduce(
+      ({
+          totalUSDValue,
           dstTokens
+        }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        token
+      ) => {
+        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+
+        if (token.symbol === 'DFI') {
+          return {
+            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
+            totalUSDValue: token.id === '0_unified'
+              ? totalUSDValue
+              : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+            dstTokens
+          }
         }
-      }
-      return {
-        totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-        dstTokens: [...dstTokens, {
-          ...token,
-          usdAmount
-        }]
-      }
-    }, {
-      totalUSDValue: new BigNumber(0),
-      dstTokens: []
-    })
+        return {
+          totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens: [...dstTokens, {
+            ...token,
+            usdAmount
+          }]
+        }
+      }, {
+        totalUSDValue: new BigNumber(0),
+        dstTokens: []
+      })
   }, [getTokenPrice, tokens])
 
   return (
@@ -130,7 +125,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         onToggleDisplayBalances={onToggleDisplayBalances}
         isBalancesDisplayed={isBalancesDisplayed}
       />
-      <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
+      <ThemedSectionTitle
+        text={translate('screens/BalancesScreen', 'YOUR ASSETS')}
+        style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')}
+      />
       <DFIBalanceCard />
       <BalanceList dstTokens={dstTokens} navigation={navigation} />
     </ThemedScrollView>
@@ -173,7 +171,7 @@ function BalanceList ({
                 </View>
               ))}
             </View>
-            )
+          )
       }
     </>
   )

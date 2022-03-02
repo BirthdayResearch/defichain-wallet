@@ -1,35 +1,40 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import * as FileSystem from 'expo-file-system'
-import { Platform } from 'react-native'
+import { LocalStorageProvider } from '@api/local_storage/provider'
+import { EnvironmentNetwork } from '@environment'
 
-const initialState: any = {
-  settings: {}
+export interface LabeledAddress {
+  [address: string]: string
+}
+
+export interface UserPreferences {
+  addresses: LabeledAddress
+}
+
+const initialState: UserPreferences = {
+  addresses: {}
 }
 
 export const fetchUserPreferences = createAsyncThunk(
   'userPreferences/fetchUserPreferences',
-  async () => {
-    let userPreferences = {}
-    if ((Platform.OS === 'android' || Platform.OS === 'ios') && FileSystem.documentDirectory != null) {
-      const fileName = 'defichain_wallet_settings.json'
-      const directory = `${FileSystem.documentDirectory}${fileName}`
-      const fileInfo = await FileSystem.getInfoAsync(directory)
-      if (!fileInfo.exists) {
-        console.log('Does not exist!!!')
-        try {
-          await FileSystem.writeAsStringAsync(directory, JSON.stringify({}), { encoding: 'utf8' })
-          userPreferences = {}
-        } catch (e) {
-          console.log(e)
-        }
-      } else {
-        const fileContents = await FileSystem.readAsStringAsync(directory)
-        userPreferences = fileContents !== undefined ? JSON.parse(fileContents) : userPreferences
-        console.log(userPreferences)
-        await FileSystem.writeAsStringAsync(directory, JSON.stringify({ ...userPreferences, dateToday: new Date().getTime() }), { encoding: 'utf8' })
-      }
-    }
-    return userPreferences
+  async (network: EnvironmentNetwork) => {
+    return await LocalStorageProvider.getUserPreferences(network)
+  }
+)
+
+export const setUserPreferences = createAsyncThunk(
+  'userPreferences/setUserPreferences',
+  async ({
+    network,
+    preferences
+  }: { network: EnvironmentNetwork, preferences: UserPreferences }) => {
+    await LocalStorageProvider.setUserPreferences(network, preferences)
+  }
+)
+
+export const setAddresses = createAsyncThunk(
+  'userPreferences/setAddresses',
+  async (addresses: LabeledAddress) => {
+    return addresses
   }
 )
 
@@ -38,8 +43,13 @@ export const userPreferences = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchUserPreferences.fulfilled, (state, action: PayloadAction<any>) => {
-      state.settings = action.payload
+    builder.addCase(fetchUserPreferences.fulfilled, (state, action: PayloadAction<UserPreferences>) => {
+      state = action.payload
+      return state
+    })
+    builder.addCase(setAddresses.fulfilled, (state, action: PayloadAction<LabeledAddress>) => {
+      state.addresses = action.payload
+      return state
     })
   }
 })
