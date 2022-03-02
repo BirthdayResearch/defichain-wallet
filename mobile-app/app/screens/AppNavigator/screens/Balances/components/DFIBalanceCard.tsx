@@ -29,6 +29,7 @@ export function DFIBalanceCard (): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
+  const dfiPriceInUsd = getTokenPrice(DFIUnified.symbol, new BigNumber(1), DFIUnified.isLPS)
   const usdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
@@ -55,7 +56,7 @@ export function DFIBalanceCard (): JSX.Element {
           >
             <View style={tailwind('flex-row items-center')}>
               <DFIIcon width={32} height={32} />
-              <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
+              <TokenNameText displaySymbol={'DFI ($' + dfiPriceInUsd.toFixed(2).toString() + ')'} name='DeFiChain' testID='total_dfi_label' />
             </View>
 
             {
