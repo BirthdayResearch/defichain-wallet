@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import {
   ThemedScrollView,
   ThemedSectionTitle,
@@ -18,7 +18,6 @@ import { LoanToken, LoanVaultActive } from '@defichain/whale-api-client/dist/api
 import { useVaultStatus, VaultStatusTag } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { InputHelperText } from '@components/InputHelperText'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -39,7 +38,6 @@ import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { fetchPrice, loanTokenByTokenId } from '@store/loans'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { TextRow } from '@components/TextRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 import { NumberRowWithConversion } from '../components/NumberRowWithConversion'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { ConversionInfoText } from '@components/ConversionInfoText'
@@ -82,7 +80,6 @@ export function PaybackLoanScreen ({
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id, tokens) : new BigNumber(0)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
-  const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
   const [amountToPay, setAmountToPay] = useState(BigNumber.min(loanTokenOutstandingBal).toFixed(8))
   const [selectedPaymentToken, setSelectedPaymentToken] = useState<PaymentTokenProps>({
     tokenId: loanTokenAmount.id,
@@ -95,10 +92,7 @@ export function PaybackLoanScreen ({
   const paymentTokens = useMemo(() => {
     return token === undefined ? [] : getPaymentTokens(token, tokenBalance, selectedPaymentToken.tokenId, tokens)
   }, [token])
-  const {
-    getAmounts,
-    hasSufficientPaymentInOneToken
-  } = useLoanPaymentTokenRate({
+  const { getAmounts } = useLoanPaymentTokenRate({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
     paymentTokens: paymentTokens.map(pToken => ({
@@ -295,13 +289,11 @@ export function PaybackLoanScreen ({
           onClearButtonPress={() => setAmountToPay('')}
           style={tailwind('h-9 w-2/5 flex-grow')}
           testID='payback_input_text'
-          valid={(hasSufficientPaymentInOneToken && hasSufficientPaymentTokenBalance) || isInputEmpty}
-          {...((!hasSufficientPaymentTokenBalance || !hasSufficientPaymentInOneToken) && !isInputEmpty && {
+          valid={hasSufficientPaymentTokenBalance || isInputEmpty}
+          {...(!hasSufficientPaymentTokenBalance && !isInputEmpty && {
             inlineText: {
               type: 'error',
-              text: !hasSufficientPaymentInOneToken && paymentTokensWithAmount.length > 1
-                ? translate('screens/PaybackLoanScreen', 'Insufficient balance to pay the entered amount')
-                : translate('screens/PaybackLoanScreen', 'Insufficient {{token}} balance to pay the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
+              text: translate('screens/PaybackLoanScreen', 'Insufficient {{token}} to pay for the entered amount', { token: selectedPaymentToken.tokenDisplaySymbol })
             }
           })}
         >
@@ -316,47 +308,17 @@ export function PaybackLoanScreen ({
               amount={loanTokenOutstandingBal}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.max}
+              customText='100%'
             />
           </>
         </WalletTextInput>
-        <InputHelperText
-          label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
-          content={new BigNumber(tokenBalance).toFixed(8)}
-          suffixType='component'
-          styleProps={tailwind('font-medium leading-5')}
-        >
-          <ThemedText
-            light={tailwind('text-gray-700')}
-            dark={tailwind('text-gray-200')}
-            style={tailwind('text-sm font-medium')}
-          >
-            <Text>{' '}</Text>
-            <Text>{loanTokenAmount.displaySymbol}</Text>
-            <NumberFormat
-              value={getUSDPrecisedPrice(loanTokenBalanceInUSD)}
-              thousandSeparator
-              displayType='text'
-              prefix='$'
-              renderText={(val: string) => (
-                <ThemedText
-                  dark={tailwind('text-gray-400')}
-                  light={tailwind('text-gray-500')}
-                  style={tailwind('text-xs leading-5')}
-                >
-                  {` /${val}`}
-                </ThemedText>
-              )}
-            />
-          </ThemedText>
-        </InputHelperText>
       </View>
       {paymentTokens?.length > 1 && isFeatureAvailable('dfi_loan_payment') &&
         <PaymentTokenCards
           onPaymentTokenSelect={onPaymentTokenSelect}
           paymentTokens={paymentTokensWithAmount.map(pTokenWithAmount => ({
             ...pTokenWithAmount,
-            isSelected: selectedPaymentToken.tokenId === pTokenWithAmount.paymentToken.tokenId,
-            isDisabled: pTokenWithAmount.paymentToken.resultingBalance?.lt(0)
+            isSelected: selectedPaymentToken.tokenId === pTokenWithAmount.paymentToken.tokenId
           }))}
           selectedPaymentTokenSymbol={selectedPaymentToken.tokenSymbol}
         />}

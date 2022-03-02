@@ -13,7 +13,6 @@ interface PaymentTokenCardsProps {
   paymentTokens: Array<{
     isSelected: boolean
     paymentToken: PaymentTokenProps
-    isDisabled?: boolean
     resultingBalance?: BigNumber
     amountToPayInPaymentToken?: BigNumber
     amountToPayInLoanToken?: BigNumber
@@ -90,7 +89,6 @@ export function PaymentTokenCards ({
 
 interface PaymentTokenCardProps {
   isSelected: boolean
-  isDisabled?: boolean
   paymentToken: PaymentTokenProps
   onPress: (paymentToken: PaymentTokenProps) => void
 }
@@ -102,29 +100,20 @@ function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
       testID={`payment_token_card_${props.paymentToken.tokenDisplaySymbol}`}
       light={tailwind({
         'bg-white border-gray-200': !props.isSelected,
-        'bg-white border-primary-500': props.isSelected,
-        'bg-gray-200 border-0': props.isDisabled
+        'bg-white border-primary-500': props.isSelected
       })}
       dark={tailwind({
         'bg-gray-800 border-gray-700': !props.isSelected,
-        'bg-gray-800 border-darkprimary-500': props.isSelected,
-        'bg-gray-600 border-0': props.isDisabled
+        'bg-gray-800 border-darkprimary-500': props.isSelected
       })}
       style={tailwind('p-3 mx-2 rounded border flex-1 flex-row items-center')}
       onPress={() => props.onPress(props.paymentToken)}
-      disabled={props.isDisabled}
     >
       <Icon width={30} height={30} style={tailwind('mr-2')} />
       <View>
         <ThemedText
           testID={`payment_token_card_${props.paymentToken.tokenDisplaySymbol}_display_symbol`}
           style={tailwind('font-medium')}
-          light={tailwind({
-            'text-gray-500': props.isDisabled
-          })}
-          dark={tailwind({
-            'text-gray-400': props.isDisabled
-          })}
         >{props.paymentToken.tokenDisplaySymbol}
         </ThemedText>
       </View>

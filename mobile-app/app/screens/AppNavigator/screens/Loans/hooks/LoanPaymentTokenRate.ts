@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
@@ -24,12 +23,9 @@ export const useLoanPaymentTokenRate = (props: {
   loanTokenBalance: BigNumber
 }): {
   getAmounts: () => GetAmountProps
-  hasSufficientPaymentInOneToken: boolean
 } => {
-  const [hasSufficientPaymentInOneToken, setSufficientPaymentInOneToken] = useState(false)
   const paymentTokenActivePrice = useSelector((state: RootState) => loanPaymentTokenActivePrice(state.loans)) // DFI
   const getAmounts = (): GetAmountProps => {
-    setSufficientPaymentInOneToken(false)
     const paymentTokenAmounts = props.paymentTokens.map(paymentToken => {
       const paymentTokenActivePriceInUSD = getActivePrice(paymentToken.tokenSymbol ?? '', paymentTokenActivePrice) // DUSD, dTU10
       const conversionRate = paymentToken.tokenSymbol === props.loanToken?.token.symbol
@@ -62,9 +58,7 @@ export const useLoanPaymentTokenRate = (props: {
       const resultingBalanceInLoanToken = props.loanTokenBalance.minus(BigNumber.min(amountToPayInLoanToken, outstandingBalanceInLoanToken))
       const resultingBalanceInPaymentToken = paymentToken.tokenBalance.minus(BigNumber.min(amountToPayInPaymentToken, outstandingBalanceInPaymentToken))
       const resultingBalance = hasPenalty ? resultingBalanceInPaymentToken : resultingBalanceInLoanToken
-      if (resultingBalance.gte(0)) {
-        setSufficientPaymentInOneToken(true)
-      }
+
       return {
         amountToPayInLoanToken,
         amountToPayInPaymentToken,
@@ -79,7 +73,6 @@ export const useLoanPaymentTokenRate = (props: {
   }
 
   return {
-    getAmounts,
-    hasSufficientPaymentInOneToken
+    getAmounts
   }
 }
