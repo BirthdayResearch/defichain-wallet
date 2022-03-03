@@ -24,7 +24,7 @@ export const AuctionTimeProgress = memo((props: AuctionTimeProgressProps): JSX.E
 
   return (
     <>
-      <View style={tailwind('flex-row w-full justify-between mb-2')}>
+      <View style={tailwind('flex-row w-full justify-between items-end mb-1')}>
         <View style={tailwind('w-6/12')}>
           <ThemedText
             light={tailwind('text-gray-500')}

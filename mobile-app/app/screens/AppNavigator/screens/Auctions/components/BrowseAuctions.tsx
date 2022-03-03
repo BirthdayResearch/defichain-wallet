@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedFlatList, ThemedScrollView } from '@components/themed'
+import { ThemedFlatList, ThemedScrollView, ThemedText } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
@@ -11,7 +11,7 @@ import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { AuctionBatchProps, auctionsSearchByTermSelector, fetchAuctions } from '@store/auctions'
+import { AuctionBatchProps, auctionsSearchByFilterSelector, fetchAuctions } from '@store/auctions'
 import { EmptyAuction } from './EmptyAuction'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useBottomSheet } from '@hooks/useBottomSheet'
@@ -23,9 +23,16 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useIsFocused } from '@react-navigation/native'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 
 interface Props {
   searchString: string
+}
+
+export enum AuctionTabGroupKey {
+  AllAuctions = 'ALL_AUCTIONS',
+  FromYourVault = 'FROM_YOUR_VAULT',
+  WithPlacedBids = 'WITH_PLACED_BIDS'
 }
 
 export interface onQuickBidProps {
@@ -42,7 +49,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
+  const { hasFetchAuctionsData, auctions } = useSelector((state: RootState) => state.auctions)
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const isFocused = useIsFocused()
 
@@ -57,9 +64,10 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   } = useBottomSheet()
   const { getTokenPrice } = useTokenPrice()
 
-  // Search
+  // Search and Tab Group
+  const [activeAuctionTabGroupKey, setActiveAuctionTabGroupKey] = useState<AuctionTabGroupKey>(AuctionTabGroupKey.AllAuctions)
   const debouncedSearchTerm = useDebounce(searchString, 500)
-  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
+  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByFilterSelector(state.auctions, state.loans, { searchTerm: debouncedSearchTerm, activeAuctionTabGroupKey, walletAddress: address }))
 
   useEffect(() => {
     if (isFocused) {
@@ -70,6 +78,10 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
       })
     }
   }, [address, blockCount, isFocused])
+
+  const onAuctionTabGroupChange = (auctionTabGroupKey: AuctionTabGroupKey): void => {
+    setActiveAuctionTabGroupKey(auctionTabGroupKey)
+  }
 
   const onQuickBid = (props: onQuickBidProps): void => {
     const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
@@ -107,15 +119,20 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
       {hasFetchAuctionsData
         ? (
           <>
-            {filteredAuctionBatches.length === 0
+            {auctions.length === 0
               ? <EmptyAuction />
               : (
                 <BatchCards
                   auctionBatches={filteredAuctionBatches}
                   onQuickBid={onQuickBid}
                   vaults={vaults}
+                  buttonGroupOptions={{
+                activeButtonGroup: activeAuctionTabGroupKey,
+                setActiveButtonGroup: setActiveAuctionTabGroupKey,
+                onButtonGroupPress: onAuctionTabGroupChange
+              }}
                 />
-              )}
+          )}
           </>)
         : (
           <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
@@ -158,11 +175,17 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 function BatchCards ({
   auctionBatches,
   vaults,
-  onQuickBid
+  onQuickBid,
+  buttonGroupOptions
 }: {
   auctionBatches: AuctionBatchProps[]
   vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
+  buttonGroupOptions?: {
+    onButtonGroupPress: (key: AuctionTabGroupKey) => void
+    activeButtonGroup: string
+    setActiveButtonGroup: (key: AuctionTabGroupKey) => void
+  }
 }): JSX.Element {
   const { isBetaFeature } = useFeatureFlagContext()
 
@@ -185,19 +208,59 @@ function BatchCards ({
     )
   }, [])
 
-  const ListHeaderComponent = useCallback(() => {
-    if (isBetaFeature('auction')) {
-      return (
-        <View style={tailwind('pb-4')}>
-          <InfoText
-            testID='beta_warning_info_text'
-            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-          />
-        </View>
-      )
+  const onButtonGroupChange = (auctionTabGroupKey: AuctionTabGroupKey): void => {
+    if (buttonGroupOptions !== undefined) {
+      buttonGroupOptions.setActiveButtonGroup(auctionTabGroupKey)
+      buttonGroupOptions.onButtonGroupPress(auctionTabGroupKey)
     }
-  return <></>
-  }, [])
+  }
+
+  const ListHeaderComponent = useCallback(() => {
+    const buttonGroup = [
+      {
+        id: AuctionTabGroupKey.AllAuctions,
+        label: translate('screens/BrowseAuctions', 'All'),
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions)
+      },
+      {
+        id: AuctionTabGroupKey.FromYourVault,
+        label: translate('screens/BrowseAuctions', 'From your vault'),
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault)
+      },
+      {
+        id: AuctionTabGroupKey.WithPlacedBids,
+        label: translate('screens/BrowseAuctions', 'With placed bids'),
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids)
+      }
+    ]
+
+    return (
+      <>
+        {isBetaFeature('auction') &&
+          <View style={tailwind('pb-4')}>
+            <InfoText
+              testID='beta_warning_info_text'
+              text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+            />
+          </View>}
+        {buttonGroupOptions !== undefined &&
+          <View style={tailwind('mb-4')}>
+            <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='auctions_button_group' />
+          </View>}
+      </>
+    )
+  }, [buttonGroupOptions])
+
+  const getEmptyAuctionsText = (): string => {
+    switch (buttonGroupOptions?.activeButtonGroup) {
+      case AuctionTabGroupKey.FromYourVault:
+        return translate('screens/BrowseAuctions', 'No available auctions from your vault')
+      case AuctionTabGroupKey.WithPlacedBids:
+        return translate('screens/BrowseAuctions', 'No available auctions with placed bids')
+      default:
+        return translate('screens/BrowseAuctions', 'No available auctions')
+    }
+  }
 
   return (
     <ThemedFlatList
@@ -210,6 +273,7 @@ function BatchCards ({
       testID='available_liquidity_tab'
       renderItem={RenderItems}
       ListHeaderComponent={ListHeaderComponent}
+      ListEmptyComponent={() => <ThemedText>{getEmptyAuctionsText()}</ThemedText>}
     />
   )
 }
