@@ -111,10 +111,9 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
 
   const onAmountChange = (amount: string): void => {
     setCollateralValue(amount)
-    // setVaultValue(amount)
   }
 
-  const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0' // check if there's existing collateral
+  const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0'
   const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
   const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(new BigNumber(collateralValue)))
   const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
