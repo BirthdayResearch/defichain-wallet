@@ -55,7 +55,7 @@ export function BalanceControlCard (): JSX.Element {
   return (
     <ThemedView
       testID='balance_control_card'
-      style={tailwind('p-4 flex flex-col')}
+      style={tailwind('p-4 pb-2 flex flex-col')}
       dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-200')}
     >

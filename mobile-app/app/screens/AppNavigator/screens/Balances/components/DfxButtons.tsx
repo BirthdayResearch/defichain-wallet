@@ -160,7 +160,7 @@ export function DfxButtons (): JSX.Element {
   ]
 
   return (
-    <View style={tailwind('flex flex-row justify-evenly mt-6')}>
+    <View style={tailwind('flex flex-row justify-evenly mt-3')}>
       {buttons.filter((b) => !(b.hide ?? false)).map((b, i) => <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />)}
     </View>
   )

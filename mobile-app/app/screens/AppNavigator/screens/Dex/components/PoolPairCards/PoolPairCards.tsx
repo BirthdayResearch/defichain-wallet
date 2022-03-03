@@ -223,8 +223,8 @@ export function PoolPairCards ({
                   isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
                 )
                   .times(100)
-                  .toFixed(2),
-                decimalScale: 2,
+                  .toFixed(1),
+                decimalScale: 1,
                 testID: `apr_${symbol}`,
                 suffix: '%'
               }}
