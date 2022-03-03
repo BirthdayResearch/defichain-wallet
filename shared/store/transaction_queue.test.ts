@@ -5,7 +5,8 @@ describe('transaction reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      transactions: []
+      transactions: [],
+      err: undefined
     }
   })
 
@@ -21,9 +22,9 @@ describe('transaction reducer', () => {
       title: 'Sample Transaction'
     }
     const actual = transactionQueue.reducer(initialState, transactionQueue.actions.push(payload))
-    expect(actual).toStrictEqual({ transactions: [payload] })
+    expect(actual).toStrictEqual({ transactions: [payload], err: undefined })
     const pop = transactionQueue.reducer(initialState, transactionQueue.actions.pop())
-    expect(pop).toStrictEqual({ transactions: [] })
+    expect(pop).toStrictEqual({ transactions: [], err: undefined })
   })
 
   it('should able to select first and check queue transaction', () => {

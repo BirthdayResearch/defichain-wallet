@@ -73,6 +73,7 @@ export function CloseVaultScreen ({ route, navigation }: Props): JSX.Element {
         processingLabel={translate('screens/CloseVaultScreen', 'CLOSING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='create_vault'
       />
     </ThemedScrollView>
