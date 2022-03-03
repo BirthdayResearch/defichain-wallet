@@ -118,8 +118,8 @@ export function DexScreen (): JSX.Element {
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
   const [isSearching, setIsSearching] = useState(false)
-  const handleFilter = useCallback(
-    debounce((searchString: string) => {
+
+  const handleFilter = useCallback(() => {
       setIsSearching(false)
       setFilteredAvailablePairs(
         pairs.filter((pair) =>
@@ -131,9 +131,10 @@ export function DexScreen (): JSX.Element {
           new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
         )
       )
-    }, 500),
+    },
     [activeTab, pairs, yourLPTokens]
   )
+
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {
@@ -180,8 +181,10 @@ export function DexScreen (): JSX.Element {
   }, [])
 
   useEffect(() => {
-    setIsSearching(true)
-    handleFilter(searchString)
+    if (showSearchInput) {
+      setIsSearching(true)
+      debounce(handleFilter, 500)
+    }
   }, [searchString, hasFetchedPoolpairData])
 
   // Update local state - filter available pair when pairs update
@@ -193,6 +196,15 @@ export function DexScreen (): JSX.Element {
     //   handleButtonFilter(activeButtonGroup)
     // }
   }, [pairs])
+
+  useEffect(() => {
+    if (showSearchInput) {
+      handleFilter(searchString)
+    } else {
+      setIsSearching(false)
+      handleButtonFilter(activeButtonGroup)
+    }
+  }, [showSearchInput])
 
   useLayoutEffect(() => {
     navigation.setOptions({
