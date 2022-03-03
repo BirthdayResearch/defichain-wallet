@@ -50,7 +50,9 @@
     "Your share in pool": "Votre part dans le pool",
     "ADD": "AJOUTER",
     "Prices": "Prix",
-    "Available pool pairs": "Paires disponibles"
+    "Available pool pairs": "Paires disponibles",
+    "Search for pool pairs": "Rechercher des paires de pool",
+    "Your shared {{symbol}}": "Mes {{symbol}} partagés"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",

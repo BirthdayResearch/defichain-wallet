@@ -231,7 +231,7 @@ export function DexScreen (): JSX.Element {
               setSearchString('')
               setShowSearchInput(false)
             }}
-            placeholder='Search for pool pairs'
+            placeholder={translate('screens/DexScreen', 'Search for pool pairs')}
             testID='dex_search_input'
           />
         )

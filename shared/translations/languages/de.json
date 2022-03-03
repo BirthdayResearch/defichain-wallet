@@ -50,7 +50,9 @@
     "Your share in pool": "Dein Pool-Anteil",
     "ADD": "HINZUFÜGEN",
     "Prices": "Preise",
-    "Available pool pairs": "Verfügbare Pool-Paare"
+    "Available pool pairs": "Verfügbare Pool-Paare",
+    "Search for pool pairs": "Suche nach Pool-Paaren",
+    "Your shared {{symbol}}": "Dein {{symbol}}-Anteil"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
