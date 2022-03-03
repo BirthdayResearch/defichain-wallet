@@ -77,6 +77,9 @@ export function EditCollateralScreen ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
+  const modalSnapPoints = { ios: ['60%'], android: ['60%'] }
+  const modalHeight = { height: '60%' }
+
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
     const _token = tokens.find(t => t.id === id)
@@ -314,17 +317,14 @@ export function EditCollateralScreen ({
           modalRef={containerRef}
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
-          modalStyle={{ height: '60%' }}
+          modalStyle={modalHeight}
         />
       )}
       {Platform.OS !== 'web' && (
         <BottomSheetWithNav
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
-          snapPoints={{
-            ios: ['60%'],
-            android: ['70%']
-          }}
+          snapPoints={modalSnapPoints}
         />
       )}
     </View>

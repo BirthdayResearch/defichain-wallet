@@ -286,7 +286,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
                 light={tailwind('text-gray-900')}
                 dark={tailwind('text-gray-50')}
                 style={tailwind('text-sm font-medium')}
-                // testID={`collateral_card_vault_${collateral.displaySymbol}`}
+                testID='bottom-sheet-vault-percentage-text'
               >
                 {val}
               </ThemedText>
