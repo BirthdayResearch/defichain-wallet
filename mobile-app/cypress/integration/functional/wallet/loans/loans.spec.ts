@@ -206,9 +206,28 @@ context('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context('Wallet - Loans - Payback Loans', () => {
+context.only('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
+
+  function getLoanTokenToPayback (): void {
+    cy.createVault(0, true)
+    cy.getByTestID('vault_card_1_edit_collaterals_button').click()
+    cy.addCollateral('10', 'DFI')
+    cy.go('back')
+    cy.getByTestID('vault_card_1_manage_loans_button').click()
+    cy.getByTestID('button_browse_loans').click()
+    cy.getByTestID('loan_card_dTU10').click()
+    cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
+      const maxLoanAmount = new BigNumber(text).minus(1).toFixed(0, 1) // use 0dp and round down
+      cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur() // force vault to be in near liquidation so that the order will be deterministic after sorting
+    })
+    cy.wait(3000)
+    cy.getByTestID('borrow_loan_submit_button').click()
+    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+    cy.closeOceanInterface()
+  }
+
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
@@ -409,9 +428,20 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.go('back')
   })
 
-  it('should be able to payback DUSD loans', function () {
-    cy.sendTokenToWallet(['DUSD'])
-    cy.getByTestID('vault_card_0').click()
+  it('should be able to payback loans', function () {
+    getLoanTokenToPayback()
+    cy.sendTokenToWallet(['DUSD']).wait(3000)
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.getByTestID('vault_card_1').click()
+    cy.getByTestID('vault_detail_tabs_LOANS').click()
+    cy.getByTestID('loan_card_dTU10_payback_loan').click()
+    cy.getByTestID('payback_input_text').clear().type('11').blur()
+    cy.getByTestID('payback_loan_button').click()
+    cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
+    cy.closeOceanInterface()
+
+    cy.wait(3000)
+    cy.getByTestID('vault_card_1').click()
     cy.getByTestID('vault_detail_tabs_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('payback_input_text').clear().type('100000').blur()
@@ -435,32 +465,6 @@ context('Wallet - Loans - Payback Loans', () => {
       .contains('Paying 102.00000000 DUSD')
     cy.closeOceanInterface()
     cy.wait(3000)
-    cy.checkVaultTag('READY', VaultStatus.Ready, 'vault_card_0_status', walletTheme.isDark)
-  })
-
-  it('should be able to payback non-DUSD loans', function () {
-    cy.createEmptyWallet(true) // clear previous vault created to avoid random order of vault even after sorting by status
-    cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000)
-    cy.createVault(0, true)
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
-    cy.addCollateral('10', 'DFI')
-    cy.go('back')
-    cy.getByTestID('vault_card_0_manage_loans_button').click()
-    cy.getByTestID('button_browse_loans').click()
-    cy.getByTestID('loan_card_dTU10').click()
-    cy.getByTestID('form_input_borrow').clear().type('30').blur()
-    cy.wait(3000)
-    cy.getByTestID('borrow_loan_submit_button').click()
-    cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
-    cy.closeOceanInterface()
-    cy.wait(3000)
-    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
-    cy.getByTestID('vault_card_0').click()
-    cy.getByTestID('vault_detail_tabs_LOANS').click()
-    cy.getByTestID('loan_card_dTU10_payback_loan').click()
-    cy.getByTestID('payback_input_text').clear().type('11').blur()
-    cy.getByTestID('payback_loan_button').click()
-    cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
-    cy.closeOceanInterface()
+    cy.checkVaultTag('READY', VaultStatus.Ready, 'vault_card_1_status', walletTheme.isDark)
   })
 })
