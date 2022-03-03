@@ -260,33 +260,35 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         'w-full': Platform.OS === 'web'
       }])}
       >
-        <ThemedText style={tailwind('mr-2 w-full justify-between')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
-        <SymbolIcon
-          symbol={token.displaySymbol}
-        />
-        <NumberFormat
-          value={vaultValue}
-          thousandSeparator
-          decimalScale={2}
-          displayType='text'
-          suffix='%'
-          renderText={(val: string) => (
-            <ThemedView
-              light={tailwind('bg-gray-100')}
-              dark={tailwind('bg-gray-900')}
-              style={tailwind('px-2 py-0.5 rounded')}
-            >
-              <ThemedText
-                light={tailwind('text-gray-900')}
-                dark={tailwind('text-gray-50')}
-                style={tailwind('text-sm font-medium')}
-                testID='bottom-sheet-vault-percentage-text'
+        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
+        <ThemedView
+          style={tailwind('items-center flex flex-row py-1 px-1.5 rounded-2xl')}
+        >
+          <SymbolIcon
+            symbol={token.displaySymbol}
+          />
+          <NumberFormat
+            value={vaultValue}
+            thousandSeparator
+            decimalScale={2}
+            displayType='text'
+            suffix='%'
+            renderText={(val: string) => (
+              <ThemedView
+                style={tailwind('px-1 items-center rounded')}
               >
-                {val}
-              </ThemedText>
-            </ThemedView>
-          )}
-        />
+                <ThemedText
+                  light={tailwind('text-gray-900')}
+                  dark={tailwind('text-gray-50')}
+                  style={tailwind('text-sm font-medium')}
+                  testID='bottom-sheet-vault-percentage-text'
+                >
+                  {val}
+                </ThemedText>
+              </ThemedView>
+            )}
+          />
+        </ThemedView>
       </ScrollView>
       <View style={tailwind('pt-2 flex justify-between flex-row')}>
         <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
