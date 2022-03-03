@@ -29,13 +29,11 @@ export function RootNavigator (): JSX.Element {
   const { showAd, counter, adUrl } = useShowAdvertisement()
   if (showAd && !skipped) {
     return (
-      <ThemedView style={tailwind('flex-1 flex justify-end')}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: adUrl }}
-            style={styles.image}
-          />
-        </View>
+      <ThemedView style={tailwind('flex-1 flex')}>
+        <Image
+          source={{ uri: adUrl }}
+          style={styles.image}
+        />
         {counter > 0 && (
           <View style={tailwind('absolute bottom-3 right-3')}>
             <ThemedTouchableOpacity
@@ -77,10 +75,7 @@ export function RootNavigator (): JSX.Element {
 const styles = StyleSheet.create({
   image: {
     flex: 1,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     width: '100%'
-  },
-  imageContainer: {
-    aspectRatio: 9 / 16
   }
 })
