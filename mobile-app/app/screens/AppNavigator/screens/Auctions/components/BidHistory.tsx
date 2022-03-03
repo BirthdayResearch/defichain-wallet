@@ -93,16 +93,16 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
   const bidTime = useBidTimeAgo(props.bidBlockTime)
   return (
     <ThemedView
-      light={tailwind({ 'bg-white border-gray-100': props.isLatestBid, 'bg-gray-100 border-gray-100': !props.isLatestBid })}
-      dark={tailwind({ 'bg-gray-800 border-gray-900': props.isLatestBid, 'bg-gray-900 border-gray-800': !props.isLatestBid })}
+      light={tailwind(['border-gray-200', { 'bg-white': props.isLatestBid, 'bg-gray-50': !props.isLatestBid }])}
+      dark={tailwind(['border-gray-800', { 'bg-gray-800': props.isLatestBid, 'bg-gray-900': !props.isLatestBid }])}
       style={tailwind('border rounded px-4 py-3 mb-1')}
       testID={`bid_${props.bidIndex.toString()}`}
     >
       <View style={tailwind('flex flex-row justify-between mb-2 items-center')}>
         <ThemedView
           style={tailwind('px-1 rounded-sm')}
-          light={tailwind('bg-blue-500 text-white')}
-          dark={tailwind('bg-darkblue-500 text-black')}
+          light={tailwind(['text-white', { 'bg-blue-500': props.isLatestBid, 'bg-gray-400': !props.isLatestBid }])}
+          dark={tailwind(['text-black', { 'bg-darkblue-500': props.isLatestBid, 'bg-gray-500': !props.isLatestBid }])}
         >
           <ThemedText
             style={tailwind('text-2xs')}
