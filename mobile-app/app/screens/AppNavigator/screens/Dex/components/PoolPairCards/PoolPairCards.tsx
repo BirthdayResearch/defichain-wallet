@@ -87,7 +87,7 @@ export function PoolPairCards ({
 
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
-  const debouncedSearchTerm = useDebounce(searchString, 2000)
+  const debouncedSearchTerm = useDebounce(searchString, 500)
   const { tvl } = useSelector((state: RootState) => state.block)
   const buttonGroup = [
     {
@@ -116,17 +116,29 @@ export function PoolPairCards ({
 
   useEffect(() => {
     setIsSearching(false)
-    setFilteredYourPairs(
-      yourPairs.filter((pair) =>
-        pair.data.displaySymbol
-          .toLowerCase()
-          .includes(debouncedSearchTerm.trim().toLowerCase())
-      ).sort((a, b) =>
-        availablePairs.findIndex(x => x.data.id === a.data.id) -
-        availablePairs.findIndex(x => x.data.id === b.data.id
+    if (showSearchInput) {
+      if (debouncedSearchTerm !== undefined && debouncedSearchTerm.trim().length > 0) {
+        setFilteredYourPairs(
+          yourPairs.filter((pair) =>
+            pair.data.displaySymbol
+              .toLowerCase()
+              .includes(debouncedSearchTerm.trim().toLowerCase())
+          ).sort((a, b) =>
+            availablePairs.findIndex(x => x.data.id === a.data.id) -
+            availablePairs.findIndex(x => x.data.id === b.data.id
+            ))
+        )
+      } else {
+        setFilteredYourPairs([])
+      }
+    } else {
+      setFilteredYourPairs(yourPairs
+        .sort((a, b) =>
+          availablePairs.findIndex(x => x.data.id === a.data.id) -
+          availablePairs.findIndex(x => x.data.id === b.data.id)
         ))
-    )
-  }, [yourPairs, debouncedSearchTerm])
+    }
+  }, [yourPairs, debouncedSearchTerm, showSearchInput])
 
   const renderItem = ({
     item,

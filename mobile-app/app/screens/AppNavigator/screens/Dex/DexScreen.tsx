@@ -136,7 +136,7 @@ export function DexScreen (): JSX.Element {
         setFilteredAvailablePairs([])
       }
     }, 500),
-    [activeTab, pairs, yourLPTokens]
+    [activeTab, pairs]
   )
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
@@ -162,7 +162,7 @@ export function DexScreen (): JSX.Element {
       filteredPairs
     )
   },
-    [pairs, yourLPTokens]
+    [pairs]
   )
 
   useEffect(() => {
@@ -311,6 +311,7 @@ export function DexScreen (): JSX.Element {
             type='your'
             setIsSearching={setIsSearching}
             searchString={searchString}
+            showSearchInput={showSearchInput}
           />
         )}
       </View>
