@@ -1,14 +1,20 @@
 // @ts-expect-error
 import Avatar from 'react-native-boring-avatars'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export function RandomAvatar (props: Avatar['props']): JSX.Element {
-  const { name, size, ...otherProps } = props
+  const {
+    name,
+    size,
+    ...otherProps
+  } = props
+  const { isLight } = useThemeContext()
   return (
     <Avatar
       size={size}
       name={name}
-      variant='pixel'
-      colors={['#EE2CB1', '#604EBF', '#DB69B8', '#FAEAF5', '#262626']}
+      variant='bauhaus'
+      colors={isLight ? ['#EE63B9', '#346DCD', '#F5D547', '#09200D', '#2FA66B'] : ['#CD5099', '#4471BA', '#E1C94E', '#F0F7F1', '#6CC99C']}
       {...otherProps}
     />
   )

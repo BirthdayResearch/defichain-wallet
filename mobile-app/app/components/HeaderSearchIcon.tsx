@@ -1,5 +1,9 @@
 import { tailwind } from '@tailwind'
-import { StyleProp, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import {
+  StyleProp,
+  TouchableOpacity,
+  TouchableOpacityProps
+} from 'react-native'
 import { ThemedIcon } from './themed'
 
 interface HeaderSearchIconProps {

@@ -68,11 +68,11 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const [collateralValue, setCollateralValue] = useState<string>('')
   const [vaultValue, setVaultValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0'
-  ? (
+    ? (
       new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
       new BigNumber(collateralValue).isLessThanOrEqualTo(available)
     )
-  : false
+    : false
   const [isValid, setIsValid] = useState(false)
   const collateralInputValue = new BigNumber(collateralValue).isNaN() ? 0 : collateralValue
   const { totalCollateralValueInUSD } = useTotalCollateralValue({
@@ -234,25 +234,25 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           <Text>{' '}</Text>
           {token.displaySymbol}
           {
-          !new BigNumber(activePrice).isZero() && (
-            <NumberFormat
-              value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
-              thousandSeparator
-              decimalScale={2}
-              displayType='text'
-              prefix='$'
-              renderText={(val: string) => (
-                <ThemedText
-                  dark={tailwind('text-gray-400')}
-                  light={tailwind('text-gray-500')}
-                  style={tailwind('text-xs leading-5')}
-                >
-                  {` /${val}`}
-                </ThemedText>
-            )}
-            />
-        )
-        }
+            !new BigNumber(activePrice).isZero() && (
+              <NumberFormat
+                value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                prefix='$'
+                renderText={(val: string) => (
+                  <ThemedText
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('text-xs leading-5')}
+                  >
+                    {` /${val}`}
+                  </ThemedText>
+                )}
+              />
+            )
+          }
         </ThemedText>
       </InputHelperText>
       <ScrollView
@@ -315,7 +315,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         margin='mt-6 mb-2'
         testID='add_collateral_button_submit'
       />
-      <ThemedText style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')} dark={tailwind('text-gray-400')}>
+      <ThemedText
+        style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      >
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
       </ThemedText>
     </ScrollView>
@@ -349,7 +352,7 @@ function ColorBar (props: { colorBarsLen: number, displayedBarsLen: number }): J
             })}
             style={[tailwind('h-1 mr-0.5'), { width: `${width}%` }]}
           />
-          )
+        )
       })}
     </View>
   )

@@ -31,5 +31,5 @@ export function BalanceSkeletonLoader (props: JSX.IntrinsicAttributes & IContent
         <Rect x='220' y='24' rx='5' ry='5' width='93' height='12' />
       </ContentLoader>
     </ThemedView>
-    )
+  )
 }

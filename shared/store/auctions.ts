@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultLiquidated, LoanVaultLiquidationBatch, VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface AuctionsState {
   auctions: LoanVaultLiquidated[]
   hasFetchAuctionsData: boolean
+  bidHistory: VaultAuctionBatchHistory[]
 }
 
 export interface AuctionBatchProps extends LoanVaultLiquidationBatch {
@@ -14,7 +15,8 @@ export interface AuctionBatchProps extends LoanVaultLiquidationBatch {
 
 const initialState: AuctionsState = {
   auctions: [],
-  hasFetchAuctionsData: false
+  hasFetchAuctionsData: false,
+  bidHistory: []
 }
 
 export const fetchAuctions = createAsyncThunk(
@@ -27,14 +29,34 @@ export const fetchAuctions = createAsyncThunk(
   }
 )
 
+export const fetchBidHistory = createAsyncThunk(
+  'wallet/fetchBidHistory',
+  async ({
+    vaultId,
+    liquidationHeight,
+    batchIndex,
+    client,
+    size = 200
+  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient, size: number}) => {
+    return await client.loan.listVaultAuctionHistory(vaultId, liquidationHeight, batchIndex, size)
+  }
+)
+
 export const auctions = createSlice({
   name: 'auctions',
   initialState,
-  reducers: {},
+  reducers: {
+    resetBidHistory: (state) => {
+      state.bidHistory = []
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAuctions.fulfilled, (state, action: PayloadAction<LoanVaultLiquidated[]>) => {
       state.auctions = action.payload
       state.hasFetchAuctionsData = true
+    })
+    builder.addCase(fetchBidHistory.fulfilled, (state, action: PayloadAction<VaultAuctionBatchHistory[]>) => {
+      state.bidHistory = action.payload
     })
   }
 })

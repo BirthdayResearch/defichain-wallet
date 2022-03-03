@@ -9,7 +9,7 @@ import {
   MnemonicEncrypted,
   MnemonicUnprotected,
   PasscodeAttemptCounter
-} from '../../api/wallet'
+} from '@api/wallet'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
@@ -28,6 +28,7 @@ import {
 } from '@screens/TransactionAuthorization/api/transaction_signer'
 import {
   CANCELED_ERROR,
+  UNEXPECTED_FAILURE,
   DEFAULT_MESSAGES,
   INVALID_HASH,
   MAX_PASSCODE_ATTEMPT,
@@ -103,9 +104,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     setPin(inputPin)
   }
 
-  const onCancel = (): void => {
+  const onCancel = (err: string): void => {
     if (PROMPT_PIN_PROMISE !== undefined) {
-      PROMPT_PIN_PROMISE.reject(new Error(USER_CANCELED))
+      PROMPT_PIN_PROMISE.reject(new Error(err))
       // remove proxied promised, allow next prompt() call
       PROMPT_PIN_PROMISE = undefined
     } else if (transactionStatus === TransactionStatus.AUTHORIZED) {
@@ -196,6 +197,9 @@ export function TransactionAuthorization (): JSX.Element | null {
         await resetPasscodeCounter()
         await clearWallets()
         alertUnlinkWallet()
+      } else if (e.message === UNEXPECTED_FAILURE) {
+        // case 5: Unexpected error
+        dispatch(transactionQueue.actions.setError(e))
       } else if (e.message !== USER_CANCELED) {
         // case 4: unknown error type
         dispatch(ocean.actions.setError(e))
@@ -347,7 +351,13 @@ export function TransactionAuthorization (): JSX.Element | null {
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
       modalRef={bottomSheetModalRef}
       promptModalName={modalName}
-      onModalCancel={closeModal}
+      onModalCancel={() => {
+        if (![TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
+          onCancel(UNEXPECTED_FAILURE)
+        } else {
+          closeModal()
+        }
+      }}
     />
   )
 }

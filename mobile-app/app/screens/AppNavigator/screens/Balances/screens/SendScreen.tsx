@@ -9,7 +9,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button } from '@components/Button'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
@@ -39,6 +38,8 @@ import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from 
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -53,6 +54,7 @@ export function SendScreen ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
+  const isFocused = useIsFocused()
   const {
     control,
     setValue,
@@ -99,8 +101,13 @@ export function SendScreen ({
   }, [])
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
@@ -195,103 +202,106 @@ export function SendScreen ({
         <TokenInput token={token} onPress={expandModal} isDisabled={!hasBalance} />
 
         {token === undefined
-            ? (
-              <ThemedText style={tailwind('px-4')}>
-                {translate('screens/SendScreen', 'Select a token you want to send to get started')}
+          ? (
+            <ThemedText style={tailwind('px-4')}>
+              {translate('screens/SendScreen', 'Select a token you want to send to get started')}
+            </ThemedText>
+          )
+          : (
+            <>
+              <View style={tailwind('px-4')}>
+                <AddressRow
+                  control={control}
+                  networkName={networkName}
+                  onQrButtonPress={() => navigation.navigate({
+                    name: 'BarCodeScanner',
+                    params: {
+                      onQrScanned: async (value) => {
+                        setValue('address', value, { shouldDirty: true })
+                        await trigger('address')
+                      }
+                    },
+                    merge: true
+                  })}
+                  onClearButtonPress={async () => {
+                    setValue('address', '')
+                    await trigger('address')
+                  }}
+                  onAddressChange={async (address) => {
+                    setValue('address', address, { shouldDirty: true })
+                    await trigger('address')
+                  }}
+                />
+
+                <AmountRow
+                  control={control}
+                  onAmountChange={async (amount) => {
+                    setValue('amount', amount, { shouldDirty: true })
+                    await trigger('amount')
+                  }}
+                  onClearButtonPress={async () => {
+                    setValue('amount', '')
+                    await trigger('amount')
+                  }}
+                  token={token}
+                />
+
+                <ReservedDFIInfoText />
+                {isConversionRequired &&
+                  <View style={tailwind('mt-2')}>
+                    <ConversionInfoText />
+                  </View>}
+              </View>
+              {
+                fee !== undefined && (
+                  <View style={tailwind()}>
+                    <ThemedSectionTitle
+                      text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                    />
+                    {isConversionRequired &&
+                      <NumberRow
+                        lhs={translate('screens/SendScreen', 'UTXO to be converted')}
+                        rhs={{
+                          value: conversionAmount.toFixed(8),
+                          testID: 'text_amount_to_convert',
+                          suffixType: 'text',
+                          suffix: token.displaySymbol
+                        }}
+                      />}
+
+                    <FeeInfoRow
+                      type='ESTIMATED_FEE'
+                      value={fee.toString()}
+                      testID='transaction_fee'
+                      suffix='DFI'
+                    />
+                  </View>
+                )
+              }
+              <ThemedText
+                testID='transaction_details_info_text'
+                light={tailwind('text-gray-600')}
+                dark={tailwind('text-gray-300')}
+                style={tailwind('mt-2 mx-4 text-sm')}
+              >
+                {isConversionRequired
+                  ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
+                  : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
               </ThemedText>
-            )
-            : (
-              <>
-                <View style={tailwind('px-4')}>
-                  <AddressRow
-                    control={control}
-                    networkName={networkName}
-                    onQrButtonPress={() => navigation.navigate({
-                      name: 'BarCodeScanner',
-                      params: {
-                        onQrScanned: async (value) => {
-                          setValue('address', value, { shouldDirty: true })
-                          await trigger('address')
-                        }
-                      },
-                      merge: true
-                    })}
-                    onClearButtonPress={async () => {
-                      setValue('address', '')
-                      await trigger('address')
-                    }}
-                    onAddressChange={async (address) => {
-                      setValue('address', address, { shouldDirty: true })
-                      await trigger('address')
-                    }}
-                  />
+            </>
+          )}
 
-                  <AmountRow
-                    control={control}
-                    onAmountChange={async (amount) => {
-                      setValue('amount', amount, { shouldDirty: true })
-                      await trigger('amount')
-                    }}
-                    onClearButtonPress={async () => {
-                      setValue('amount', '')
-                      await trigger('amount')
-                    }}
-                    token={token}
-                  />
-
-                  <ReservedDFIInfoText />
-                  {isConversionRequired &&
-                    <View style={tailwind('mt-2')}>
-                      <ConversionInfoText />
-                    </View>}
-                </View>
-                {
-                  fee !== undefined && (
-                    <View style={tailwind()}>
-                      <ThemedSectionTitle
-                        text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-                      />
-                      {isConversionRequired &&
-                        <NumberRow
-                          lhs={translate('screens/SendScreen', 'UTXO to be converted')}
-                          rhs={{
-                            value: conversionAmount.toFixed(8),
-                            testID: 'text_amount_to_convert',
-                            suffixType: 'text',
-                            suffix: token.displaySymbol
-                          }}
-                        />}
-
-                      <FeeInfoRow
-                        type='ESTIMATED_FEE'
-                        value={fee.toString()}
-                        testID='transaction_fee'
-                        suffix='DFI'
-                      />
-                    </View>
-                  )
-                }
-                <ThemedText
-                  testID='transaction_details_info_text'
-                  light={tailwind('text-gray-600')}
-                  dark={tailwind('text-gray-300')}
-                  style={tailwind('mt-2 mx-4 text-sm')}
-                >
-                  {isConversionRequired
-                    ? translate('screens/SendScreen', 'Authorize transaction in the next screen to convert')
-                    : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
-                </ThemedText>
-              </>
-            )}
-
-        <Button
-          disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-          label={translate('screens/SendScreen', 'CONTINUE')}
-          onPress={onSubmit}
-          testID='send_submit_button'
-          title='Send'
-          margin='mt-14 mx-4'
-        />
+        <View style={tailwind('mt-6')}>
+          <SubmitButtonGroup
+            isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+            label={translate('screens/SendScreen', 'CONTINUE')}
+            processingLabel={translate('screens/SendScreen', 'CONTINUE')}
+            onSubmit={onSubmit}
+            title='send_continue'
+            isProcessing={hasPendingJob || hasPendingBroadcastJob}
+            displayCancelBtn={false}
+          />
+        </View>
 
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
@@ -312,7 +322,7 @@ export function SendScreen ({
   )
 }
 
-function TokenInput (props: {token?: WalletToken, onPress: () => void, isDisabled: boolean}): JSX.Element {
+function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabled: boolean }): JSX.Element {
   const hasNoBalanceForSelectedToken = props.token?.amount === undefined ? true : new BigNumber(props.token?.amount).lte(0)
   return (
     <View style={tailwind('px-4')}>
@@ -377,13 +387,13 @@ function TokenInput (props: {token?: WalletToken, onPress: () => void, isDisable
         />
       </ThemedTouchableOpacity>
       {props.token?.isLPS === true &&
-          (
-            <InfoText
-              testID='lp_info_text'
-              text={translate('components/ConversionInfoText', 'Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.')}
-              style={tailwind('mb-10')}
-            />
-          )}
+        (
+          <InfoText
+            testID='lp_info_text'
+            text={translate('components/ConversionInfoText', 'Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.')}
+            style={tailwind('mb-10')}
+          />
+        )}
     </View>
   )
 }
@@ -477,59 +487,59 @@ function AmountRow ({
         defaultValue={defaultValue}
         name='amount'
         render={({
-        field: {
-          onChange,
-          value
-        }
-      }) => (
-        <ThemedView
-          dark={tailwind('bg-transparent')}
-          light={tailwind('bg-transparent')}
-          style={tailwind('flex-row w-full')}
-        >
-          <WalletTextInput
-            autoCapitalize='none'
-            onChange={onChange}
-            onChangeText={onAmountChange}
-            placeholder={translate('screens/SendScreen', 'Enter an amount')}
-            style={tailwind('flex-grow w-2/5')}
-            testID='amount_input'
-            value={value}
-            displayClearButton={value !== defaultValue}
-            onClearButtonPress={onClearButtonPress}
-            title={translate('screens/SendScreen', 'How much do you want to send?')}
-            titleTestID='title_send'
-            inputType='numeric'
+          field: {
+            onChange,
+            value
+          }
+        }) => (
+          <ThemedView
+            dark={tailwind('bg-transparent')}
+            light={tailwind('bg-transparent')}
+            style={tailwind('flex-row w-full')}
           >
-            <ThemedView
-              dark={tailwind('bg-gray-800')}
-              light={tailwind('bg-white')}
-              style={tailwind('flex-row items-center')}
+            <WalletTextInput
+              autoCapitalize='none'
+              onChange={onChange}
+              onChangeText={onAmountChange}
+              placeholder={translate('screens/SendScreen', 'Enter an amount')}
+              style={tailwind('flex-grow w-2/5')}
+              testID='amount_input'
+              value={value}
+              displayClearButton={value !== defaultValue}
+              onClearButtonPress={onClearButtonPress}
+              title={translate('screens/SendScreen', 'How much do you want to send?')}
+              titleTestID='title_send'
+              inputType='numeric'
             >
-              <SetAmountButton
-                amount={new BigNumber(maxAmount)}
-                onPress={onAmountChange}
-                type={AmountButtonTypes.half}
-              />
+              <ThemedView
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                style={tailwind('flex-row items-center')}
+              >
+                <SetAmountButton
+                  amount={new BigNumber(maxAmount)}
+                  onPress={onAmountChange}
+                  type={AmountButtonTypes.half}
+                />
 
-              <SetAmountButton
-                amount={new BigNumber(maxAmount)}
-                onPress={onAmountChange}
-                type={AmountButtonTypes.max}
-              />
-            </ThemedView>
-          </WalletTextInput>
+                <SetAmountButton
+                  amount={new BigNumber(maxAmount)}
+                  onPress={onAmountChange}
+                  type={AmountButtonTypes.max}
+                />
+              </ThemedView>
+            </WalletTextInput>
 
-        </ThemedView>
-      )}
+          </ThemedView>
+        )}
         rules={{
-        required: true,
-        pattern: /^\d*\.?\d*$/,
-        max: maxAmount,
-        validate: {
-          greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
-        }
-      }}
+          required: true,
+          pattern: /^\d*\.?\d*$/,
+          max: maxAmount,
+          validate: {
+            greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+          }
+        }}
       />
 
       <InputHelperText
@@ -539,7 +549,7 @@ function AmountRow ({
         suffix={` ${token.displaySymbol}`}
       />
     </>
-)
+  )
 }
 
 function getBottomSheetToken (tokens: WalletToken[]): BottomSheetToken[] {

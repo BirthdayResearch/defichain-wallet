@@ -41,10 +41,17 @@
     "Total Value Locked (USD)": "總體價值鎖定 (美元)",
     "Swap tokens": "兌換貨幣",
     "SWAP": "兌換",
+    "DETAILS": "詳情",
+    "HIDE": "隱藏",
     "Total Value Locked in pool pairs (USD): ": "鎖定在池對中的總價值 (美元): ",
     "All pairs": "所有交易對",
     "DFI pairs": "DFI 對",
-    "DUSD pairs": "DUSD 對"
+    "DUSD pairs": "DUSD 對",
+    "Your share in pool": "您在流動池中的份額",
+    "ADD": "增加",
+    "Prices": "價格",
+    "Available pool pairs": "可選流動池",
+    "Your shared {{symbol}}": "您的股份 {{symbol}}"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -188,6 +195,7 @@
     "German": "德語",
     "Chinese (Simplified)": "简体中文",
     "Chinese (Traditional)": "繁體中文",
+    "French": "法語",
     "Switch Language": "切換語言",
     "ADDITIONAL OPTIONS": "更多選項",
     "SECURITY": "安全設定",
@@ -451,7 +459,8 @@
     "MAX": "最高值"
   },
   "screens/common": {
-    "CANCEL": "取消"
+    "CANCEL": "取消",
+    "TRY AGAIN": "再試一次"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼"
@@ -767,7 +776,9 @@
     "Manage bids": "管理競投出價",
     "Loans": "貸款",
     "Collateral for auction": "待拍賣的抵押品",
-    "Auction details": "拍賣細節"
+    "Vault details": "金庫明細",
+    "Bid history": "競標歷史",
+    "Rewards": "獎勵"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -828,6 +839,11 @@
     "From your vault": "來自您的金庫",
     "Waiting for first bid": "等待第一次標價"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "{{h}}時 {{m}}分前",
+    "{{h}}h ago": "{{h}}時前",
+    "{{m}}m ago": "{{m}}分前"
+  },
   "components/BidCard": {
     "BID HIGHER": "出價更高",
     "VIEW REWARDS": "查看獎勵",
@@ -838,6 +854,13 @@
     "Lost": "競投失敗",
     "Highest bid": "最高的競投價格",
     "Auction ended": "拍賣完結"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "競標者ID",
+    "BID #{{bidIndex}}": "出價 #{{bidIndex}}",
+    "Waiting for first bid": "等待第一次標價",
+    "{{h}}{{m}} ago": "{{h}}{{m}}前",
+    "Minimum amount to bid is": "最低投標金額"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
@@ -906,7 +929,8 @@
     "CONFIRM CREATE VAULT": "確認創建金庫",
     "Creating vault": "創建金庫",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "創建金庫時，設定的最低抵押率為{{amount}}%，利率為{{ir}}%年回報率",
-    "Convert & create vault": "轉換和創建金庫"
+    "Convert & create vault": "轉換和創建金庫",
+    "CREATING": "正在產生中"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "所需費用（大約）",
@@ -1059,7 +1083,7 @@
     "Resulting collateralization": "最終抵押率",
     "Vault ID": "金庫編號",
     "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
-    "Insufficient {{token}} balance to pay the entered amount": "{{token}} 餘額不足以支付輸入的金額",
+    "Insufficient {{token}} to pay for the entered amount": "{{token}} 餘額不足以支付輸入的金額",
     "Select payment token": "選擇付款代幣",
     "A 1% fee is applied when you pay with DFI.": "當您使用 DFI 付款時，將收取 1% 的費用",
     "Read more": "閱讀更多"
@@ -1180,9 +1204,10 @@
     "Max loan amount": "最高的貸款金額",
     "N/A": "不適用"
   },
-  "screens/ChooseLoanTokenScreen": {
+  "components/HeaderSearchInput": {
     "Search for loans": "搜尋貸款",
-    "Search for loan token": "搜尋貸款代幣"
+    "Search for loan token": "搜尋貸款代幣",
+    "Search for pool pairs": "搜索流動池配對"
   },
   "components/EmptyCollateral": {
     "No collateral": "沒有抵押",
@@ -1239,7 +1264,7 @@
     "QUICK BID": "快速標價",
     "Insufficient amount to place a bid": "餘額不足，無法出價",
     "Quick bid": "快速標價",
-    "Place a bid on the auctions with the min. next bid": "以下個最低底價進行快標",
+    "Place a bid on the auction with the min. next bid": "以下個最低底價進行快標",
     "Min. next bid": "最低標價",
     "Current balance": "目前餘額"
   },

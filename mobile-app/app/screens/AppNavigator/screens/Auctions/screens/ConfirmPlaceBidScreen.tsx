@@ -29,12 +29,12 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const {
-      bidAmount,
-      estimatedFees,
-      totalAuctionValue,
-      vault,
-      batch
-     } = props.route.params
+    bidAmount,
+    estimatedFees,
+    totalAuctionValue,
+    vault,
+    batch
+  } = props.route.params
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isOnPage, setIsOnPage] = useState(true)
@@ -48,7 +48,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
-        return
+      return
     }
 
     setIsSubmitting(true)
@@ -62,7 +62,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
       batch.loan.displaySymbol,
       dispatch, () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
-    }, logger)
+      }, logger)
     setIsSubmitting(false)
   }
 
@@ -168,11 +168,12 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmPlaceBidScreen', getSubmitLabel())}
         onCancel={onCancel}
+        displayCancelBtn
         onSubmit={onSubmit}
         title='bid'
       />
     </ThemedScrollView>
-    )
+  )
 }
 
 async function constructSignedBidAndSend (

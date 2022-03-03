@@ -38,23 +38,23 @@ context('Wallet - Send', function () {
       // Valid form
       cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+      cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
       cy.getByTestID('amount_input_clear_button').click()
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
-      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('address_input_clear_button').click()
-      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
 
       // Invalid amount - Character, over max amount, zero
       cy.getByTestID('address_input').clear().type(addresses[0])
       cy.getByTestID('amount_input').clear().type('a')
-      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('amount_input').clear().type('12')
-      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('amount_input').clear().type('0')
-      cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
     })
 
     it('should be able to display elements', function () {
@@ -74,7 +74,7 @@ context('Wallet - Send', function () {
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('MAX_amount_button').click()
           cy.getByTestID('amount_input').should('have.value', maxValue)
-          cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+          cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
         })
       })
     })
@@ -89,7 +89,7 @@ context('Wallet - Send', function () {
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('50%_amount_button').click()
           cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
-          cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+          cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
         })
       })
     })
@@ -102,8 +102,8 @@ context('Wallet - Send', function () {
           const sendAmount = '1'
           const slippage = '0.1'
           cy.getByTestID('amount_input').clear().type(sendAmount)
-          cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
-          cy.getByTestID('send_submit_button').click()
+          cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
+          cy.getByTestID('button_confirm_send_continue').click()
           // Check txn value
           cy.getByTestID('text_send_amount').invoke('text').then((textAmount) => {
             const amount = textAmount.replace(' DFI', '')
@@ -133,14 +133,14 @@ context('Wallet - Send', function () {
         cy.getByTestID('send_dfi_button').click()
         cy.getByTestID('address_input').clear().type(address)
         cy.getByTestID('amount_input').clear().type('1')
-        cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
-        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
+        cy.getByTestID('button_confirm_send_continue').click()
         cy.getByTestID('confirm_title').contains('You are sending')
         // Cancel button
         cy.getByTestID('button_cancel_send').click()
         cy.getByTestID('address_input').should('exist')
 
-        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send_continue').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
       })
@@ -163,8 +163,8 @@ context('Wallet - Send', function () {
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(oldAddress)
       cy.getByTestID('amount_input').clear().type(oldAmount)
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       // Check for authorization page description
@@ -182,8 +182,8 @@ context('Wallet - Send', function () {
       // Update the input amount
       cy.getByTestID('address_input').clear().type(newAddress)
       cy.getByTestID('amount_input').clear().type(newAmount)
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
+      cy.getByTestID('button_confirm_send_continue').click()
       // Check address and amount in confirm send page
       cy.getByTestID('address_input').should('have.value', newAddress)
       cy.getByTestID('amount_input').should('have.value', newAmount)
@@ -206,7 +206,7 @@ context('Wallet - Send', function () {
         cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
-        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send_continue').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
         cy.getByTestID('balances_row_1_amount').should('not.exist')
@@ -221,18 +221,18 @@ context('Wallet - Send', function () {
       it(`should be able to send to address ${address}`, function () {
         cy.getByTestID('bottom_tab_balances').click()
         cy.getByTestID('balances_list').should('exist')
-        cy.getByTestID('balances_row_16').should('exist')
-        cy.getByTestID('balances_row_16_amount').contains(10).click()
+        cy.getByTestID('balances_row_17').should('exist')
+        cy.getByTestID('balances_row_17_amount').contains(10).click()
         cy.getByTestID('send_button').click()
         cy.getByTestID('lp_info_text').should('exist')
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
-        cy.getByTestID('send_submit_button').click()
+        cy.getByTestID('button_confirm_send_continue').click()
         cy.getByTestID('button_confirm_send').should('have.attr', 'aria-disabled')
         cy.getByTestID('lp_ack_switch').click()
         cy.getByTestID('button_confirm_send').click().wait(3000)
         cy.closeOceanInterface()
-        cy.getByTestID('balances_row_16_amount').should('not.exist')
+        cy.getByTestID('balances_row_17_amount').should('not.exist')
 
         cy.sendTokenToWallet(['BTC-DFI']).wait(3000)
       })
@@ -264,8 +264,8 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('MAX_amount_button').click()
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('text_send_amount').contains('9.90000000')
       cy.getByTestID('text_send_amount_suffix').contains('DFI')
@@ -314,7 +314,7 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('text_amount_to_convert_label').should('contain', 'UTXO to be converted')
       cy.getByTestID('text_amount_to_convert').should('contain', '2.10000000')
       cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('txn_authorization_description')
         .contains(`Converting ${new BigNumber('2.1').toFixed(8)} Token to UTXO`)
       cy.closeOceanInterface().wait(3000)
@@ -345,7 +345,7 @@ context('Wallet - Send - Switch token', function () {
   it('should be able to select token', function () {
     cy.getByTestID('send_balance_button').click()
     cy.getByTestID('select_token_placeholder').should('exist')
-    cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
     cy.getByTestID('select_token_input').click()
     cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
     cy.getByTestID('select_dBTC_value').should('have.text', '10.00000000')
@@ -362,7 +362,7 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('select_dBTC').click()
     cy.getByTestID('selected_token').should('have.text', 'dBTC')
     cy.getByTestID('max_value').contains('dBTC')
-    cy.getByTestID('send_submit_button').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
   })
 
   it('should be able to pre-select token', function () {
