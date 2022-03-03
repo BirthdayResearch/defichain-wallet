@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { View, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -20,7 +20,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   const { minStartingBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(batch, vault.liquidationPenalty)
 
   return (
-    <>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-8')}>
       <ThemedSectionTitle
         testID='auction_details'
         text={translate('components/AuctionDetailScreen', 'VAULT DETAILS')}
@@ -78,7 +78,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-    </>
+    </ThemedScrollView>
   )
 }
 

@@ -770,7 +770,9 @@
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
     "Collateral for auction": "Zu ersteigern",
-    "Auction details": "Auktionsdetails"
+    "Vault details": "Vault-details",
+    "Bid history": "Gebotsverlauf",
+    "Rewards": "Belohnungen"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -830,6 +832,11 @@
     "From your vault": "Aus deinem Vault",
     "Waiting for first bid": "Warten auf das erste Gebot"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "Vor {{h}}h {{m}}min",
+    "{{h}}h ago": "Vor {{h}}h",
+    "{{m}}m ago": "Vor {{m}}min"
+  },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
     "VIEW REWARDS": "REWARDS ANSEHEN",
@@ -839,6 +846,13 @@
     "Lost": "Verloren",
     "Highest bid": "Höchstes Gebot",
     "Auction ended": "Auktion beendet"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "Bieter-ID",
+    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}",
+    "Waiting for first bid": "Warten auf das erste Gebot",
+    "{{h}}{{m}} ago": "Vor {{h}}{{m}}",
+    "Minimum amount to bid is": "Mindestgebot ist"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",
