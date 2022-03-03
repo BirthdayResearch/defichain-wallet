@@ -278,12 +278,35 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.closeOceanInterface()
   })
 
-  it('should display tx details in paying DUSD w/o excess payment', function () {
+  it('should show correct max/half amount of loan', function () {
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
-    cy.getByTestID('payment_token_card_DUSD').should('exist')
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
+      cy.getByTestID('payback_input_text').should('have.value', outstandingBalance.toFixed(8))
 
+      cy.getByTestID('50%_amount_button').click()
+      cy.getByTestID('payback_input_text').should('have.value', outstandingBalance.div(2).toFixed(8))
+
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('payback_input_text').should('have.value', outstandingBalance.toFixed(8))
+    })
+  })
+
+  it('should not allow payment if balance is enough', function () {
+    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient DUSD to pay for the entered amount')
+    cy.getByTestID('payback_input_text').clear().type('10000').blur()
+    cy.getByTestID('payment_token_card_DFI').click()
+    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient DFI to pay for the entered amount')
+
+    cy.getByTestID('50%_amount_button').click()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+    cy.getByTestID('payment_token_card_DUSD').click()
+    cy.getByTestID('payback_input_text_error').should('not.exist')
+  })
+
+  it('should display tx details in paying DUSD w/o excess payment', function () {
     cy.getByTestID('payback_input_text').clear().type('100').blur()
     cy.getByTestID('payback_input_text_error').should('not.exist')
     cy.getByTestID('text_penalty_fee_warning').should('not.exist')
@@ -306,26 +329,27 @@ context('Wallet - Loans - Payback Loans', () => {
   })
 
   it('should display tx details in paying DUSD with excess payment', function () {
-    cy.getByTestID('payback_input_text').clear().type('200').blur()
-    cy.getByTestID('payback_input_text_error').should('have.text', 'Insufficient DUSD balance to pay the entered amount')
-    cy.getByTestID('text_penalty_fee_warning').should('not.exist')
+    cy.sendTokenToWallet(['DUSD']).wait(3000)
+    cy.getByTestID('payback_input_text').clear().type('102').blur()
     cy.getByTestID('text_amount_to_pay').should('not.exist')
     cy.getByTestID('text_amount_to_pay_suffix').should('not.exist')
-    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '200.00000000')
+    cy.getByTestID('text_amount_to_pay_converted').should('have.text', '102.00000000')
     cy.getByTestID('text_amount_to_pay_converted_suffix').should('have.text', 'DUSD')
     cy.getByTestID('text_resulting_balance_label').should('have.text', 'Resulting DUSD Balance')
-    cy.getByTestID('text_resulting_balance').should('have.text', '0.00000000')
     cy.getByTestID('text_resulting_balance_suffix').should('have.text', 'DUSD')
     cy.getByTestID('text_vault_id').contains(vaultId)
     cy.getByTestID('text_resulting_loan_amount').should('have.text', '0.00000000')
     cy.getByTestID('text_resulting_loan_amount_suffix').should('have.text', 'DUSD')
     cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
       const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
-      cy.getByTestID('text_excess_amount').should('have.text', new BigNumber(200).minus(outstandingBalance).toFixed(8))
+      const excessAmount = new BigNumber(102).minus(outstandingBalance)
+      const resultingBalance = new BigNumber(110).minus(102).plus(excessAmount)
+      cy.getByTestID('text_excess_amount').should('have.text', excessAmount.toFixed(8))
+      // wallet balance - amount to pay + excess amount
+      cy.getByTestID('text_resulting_balance').should('have.text', resultingBalance.toFixed(8))
     })
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('payback_loan_button').should('have.attr', 'aria-disabled')
   })
 
   it('should display tx details in paying DFI w/o excess payment', function () {

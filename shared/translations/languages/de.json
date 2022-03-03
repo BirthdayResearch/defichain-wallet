@@ -1074,7 +1074,7 @@
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
-    "Insufficient {{token}} balance to pay the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
+    "Insufficient {{token}} to pay for the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
     "Select payment token": "Token für die Zahlung auswählen",
     "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
     "Read more": "Mehr dazu"
