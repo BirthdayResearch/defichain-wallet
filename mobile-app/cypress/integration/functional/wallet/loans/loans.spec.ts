@@ -350,7 +350,6 @@ context('Wallet - Loans - Payback Loans', () => {
     })
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('button_confirm_payback_loan_continue').should('have.attr', 'aria-disabled')
   })
 
   it('should display tx details in paying DFI w/o excess payment', function () {
