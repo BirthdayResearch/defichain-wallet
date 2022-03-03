@@ -46,12 +46,12 @@ interface ButtonGroupItemProps {
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
-    <View style={tailwind('p-0.5')}>
+    <View style={tailwind('p-0.5 flex-shrink')}>
       <ThemedTouchableOpacity
         onPress={props.onPress}
         light={tailwind({ 'bg-primary-50': props.isActive })}
         dark={tailwind({ 'bg-dfxblue-900': props.isActive })}
-        style={tailwind('rounded-2xl py-2 px-3')}
+        style={[tailwind('py-2 px-3'), { borderRadius: 14 }]}
         testID={`${props.testID}${props.isActive ? '_active' : ''}`}
       >
         <ThemedText
