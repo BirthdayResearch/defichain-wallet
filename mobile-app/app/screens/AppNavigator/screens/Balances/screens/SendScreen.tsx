@@ -102,7 +102,10 @@ export function SendScreen ({
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
     }
   }, [address, blockCount, isFocused])
 

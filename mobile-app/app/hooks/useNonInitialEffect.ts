@@ -9,7 +9,7 @@ import { useEffect, EffectCallback, DependencyList, useRef } from 'react'
  * @example
  * ```
  *  useNonInitialEffect(()=>{
- *      alert("Dependency changed!")
+ *      alert('Dependency changed!')
  * },[dependency])
  * ```
  */
@@ -18,7 +18,7 @@ export const useNonInitialEffect = (effect: EffectCallback, deps?: DependencyLis
 
   useEffect(() => {
     let effectReturns
-      if (initialRender.current) {
+    if (initialRender.current) {
       initialRender.current = false
     } else {
       effectReturns = effect()

@@ -1,5 +1,5 @@
 
-import { ThemedSectionTitle, ThemedText } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/themed'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -10,7 +10,7 @@ import { CollateralTokenItemRow } from './CollateralTokenItemRow'
 export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount[], auctionAmount: string }): JSX.Element {
   const { collaterals, auctionAmount } = props
   return (
-    <>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-6')}>
       <ThemedSectionTitle
         testID='collateral_token_count'
         text={translate('components/AuctionDetailScreen', '{{count}} COLLATERAL TOKENS', { count: collaterals.length })}
@@ -25,6 +25,7 @@ export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
+          testID='total_auction_value_in_usd'
         >
           {translate('components/AuctionDetailScreen', 'Total auction value (USD):')}
         </ThemedText>
@@ -45,6 +46,6 @@ export function AuctionedCollaterals (props: { collaterals: LoanVaultTokenAmount
           value={auctionAmount}
         />
       </View>
-    </>
+    </ThemedScrollView>
   )
 }

@@ -62,8 +62,14 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const { calculatePriceRates, getArbitraryPoolPair } = useTokenPrice()
-  const { slippage, setSlippage } = useSlippageTolerance()
+  const {
+    calculatePriceRates,
+    getArbitraryPoolPair
+  } = useTokenPrice()
+  const {
+    slippage,
+    setSlippage
+  } = useSlippageTolerance()
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
@@ -197,7 +203,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
     }
   }, [address, blockCount, isFocused])
 
@@ -446,10 +455,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               maxAmount={getMaxAmount(selectedTokenA)}
               enableMaxButton
               onChangeFromAmount={async (amount) => {
-              amount = isNaN(+amount) ? '0' : amount
-              setValue('tokenA', amount)
-              await trigger('tokenA')
-            }}
+                amount = isNaN(+amount) ? '0' : amount
+                setValue('tokenA', amount)
+                await trigger('tokenA')
+              }}
               token={selectedTokenA}
             />
             <InputHelperText
@@ -517,7 +526,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               displayCancelBtn={false}
             />
           </View>
-          )}
+        )}
 
         {formState.isValid && selectedTokenA !== undefined && selectedTokenB !== undefined &&
           <ThemedText
@@ -527,8 +536,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             style={tailwind('pb-8 px-4 text-sm text-center')}
           >
             {isConversionRequired
-            ? translate('screens/CompositeSwapScreen', 'Authorize transaction in the next screen to convert')
-            : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
+              ? translate('screens/CompositeSwapScreen', 'Authorize transaction in the next screen to convert')
+              : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
           </ThemedText>}
 
         {Platform.OS === 'web' && (
@@ -593,13 +602,13 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
             <ThemedText
               style={tailwind('ml-2')}
               dark={tailwind({
-              'text-gray-200': !props.disabled,
-              'text-gray-400': props.disabled
-            })}
+                'text-gray-200': !props.disabled,
+                'text-gray-400': props.disabled
+              })}
               light={tailwind({
-              'text-gray-900': !props.disabled,
-              'text-gray-500': props.disabled
-            })}
+                'text-gray-900': !props.disabled,
+                'text-gray-500': props.disabled
+              })}
             >{props.symbol}
             </ThemedText>
           </>}
@@ -639,7 +648,7 @@ function TransactionDetailsSection ({
   isConversionRequired: boolean
   tokenA: OwnedTokenState
   tokenB: TokenState
- }): JSX.Element {
+}): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -651,11 +660,11 @@ function TransactionDetailsSection ({
         <NumberRow
           lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
           rhs={{
-          testID: 'amount_to_convert',
-          value: conversionAmount.toFixed(8),
-          suffixType: 'text',
-          suffix: tokenA.displaySymbol
-        }}
+            testID: 'amount_to_convert',
+            value: conversionAmount.toFixed(8),
+            suffixType: 'text',
+            suffix: tokenA.displaySymbol
+          }}
         />}
       <NumberRow
         lhs={translate('screens/CompositeSwapScreen', 'Total to be swapped')}
@@ -686,6 +695,7 @@ function TransactionDetailsSection ({
     </>
   )
 }
+
 interface TokenForm {
   control: Control<{ tokenA: string, tokenB: string }>
   controlName: 'tokenA' | 'tokenB'

@@ -50,7 +50,8 @@
     "Your share in pool": "Votre part dans le pool",
     "ADD": "AJOUTER",
     "Prices": "Prix",
-    "Available pool pairs": "Paires disponibles"
+    "Available pool pairs": "Paires disponibles",
+    "Your shared {{symbol}}": "Mes {{symbol}} partagés"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",
@@ -771,7 +772,10 @@
     "Browse auctions": "Parcourir les enchères",
     "Manage bids": "Gérer les enchères",
     "Collateral for auction": "Garanties mises en vente",
-    "Auction details": "Détails de l'enchère"
+    "Auction details": "Détails de l'enchère",
+    "Vault details": "Vault details",
+    "Bid history": "Historique des enchères",
+    "Rewards": "Rewards"
   },
   "components/LoanCard": {
     "Active Price": "Prix actuel",
@@ -831,6 +835,11 @@
     "From your vault": "De votre vault",
     "Waiting for first bid": "En attente de la première offre"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "Il y a {{h}}h {{m}}m ",
+    "{{h}}h ago": "Il y a  {{h}}h",
+    "{{m}}m ago": "Il y a  {{m}}m"
+  },
   "components/BidCard": {
     "BID HIGHER": "SURENCHÉRIR",
     "VIEW REWARDS": "VOIR LA RÉCOMPENSE",
@@ -840,6 +849,13 @@
     "Lost": "Perdu",
     "Highest bid": "Offre la plus élevée",
     "Auction ended": "Enchère terminée"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "Enchérisseur N°",
+    "BID #{{bidIndex}}": "OFFRE N° {{bidIndex}}",
+    "Waiting for first bid": "En attente de la première offre",
+    "{{h}}{{m}} ago": "Il y a {{h}} {{m}}",
+    "Minimum amount to bid is": "Offre minimale d'enchère est de"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
@@ -1181,7 +1197,8 @@
   },
   "components/HeaderSearchInput": {
     "Search for loans": "Rechercher des prêts",
-    "Search for loan token": "Rechercher de token de prêt"
+    "Search for loan token": "Rechercher de token de prêt",
+    "Search for pool pairs": "Rechercher des paires de pool"
   },
   "components/EmptyCollateral": {
     "No collateral": "Pas de garanties",
