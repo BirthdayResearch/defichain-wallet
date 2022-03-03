@@ -1,6 +1,5 @@
 import { ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
-import BigNumber from 'bignumber.js'
 import { View } from 'react-native'
 
 interface ButtonGroupProps {
@@ -16,7 +15,6 @@ interface Buttons {
 }
 
 export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
-  const buttonWidth = new BigNumber(100).dividedBy(props.buttons.length)
   return (
     <ThemedView
       light={tailwind('bg-gray-100')}
@@ -30,7 +28,6 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             label={button.label}
             onPress={button.handleOnPress}
             isActive={props.activeButtonGroupItem === button.id}
-            width={buttonWidth}
             key={button.id}
             testID={`${props.testID}_${button.id}`}
           />
@@ -44,18 +41,17 @@ interface ButtonGroupItemProps {
   label: string
   onPress: () => void
   isActive: boolean
-  width: BigNumber
   testID: string
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
-    <View style={tailwind('p-0.5 flex flex-row')}>
+    <View style={tailwind('p-0.5')}>
       <ThemedTouchableOpacity
         onPress={props.onPress}
         light={tailwind({ 'bg-primary-50': props.isActive })}
         dark={tailwind({ 'bg-dfxblue-900': props.isActive })}
-        style={[tailwind('flex-1 rounded-2xl py-2 px-3'), { width: `${props.width.toFixed(2)}%` }]}
+        style={tailwind('rounded-2xl py-2 px-3')}
         testID={`${props.testID}${props.isActive ? '_active' : ''}`}
       >
         <ThemedText
