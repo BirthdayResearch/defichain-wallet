@@ -459,7 +459,8 @@
     "MAX": "最高值"
   },
   "screens/common": {
-    "CANCEL": "取消"
+    "CANCEL": "取消",
+    "TRY AGAIN": "再試一次"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼"

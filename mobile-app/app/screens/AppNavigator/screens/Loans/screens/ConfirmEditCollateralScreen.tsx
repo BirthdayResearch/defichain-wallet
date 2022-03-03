@@ -122,6 +122,7 @@ export function ConfirmEditCollateralScreen ({
         processingLabel={translate('screens/ConfirmEditCollateralScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='confirm_edit_collateral'
       />
     </ThemedScrollView>
