@@ -88,6 +88,7 @@ interface AuctionFilterAndGroup {
         const isIncludedInSearchTerm = hasNoSearchTerm || (filters.searchTerm !== '' && filters.searchTerm !== undefined && batch.loan.displaySymbol.toLowerCase().includes(filters.searchTerm.trim().toLowerCase()))
         const hasPlacedBid = batch.froms.some(bidder => bidder === filters.walletAddress)
         const isVaultOwner = vaults.some(vault => vault.vaultId === auction.vaultId)
+
         if (isIncludedInSearchTerm && isVaultOwner && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.FromYourVault) {
           filteredAuctionBatches.push({
             ...batch, auction
@@ -108,13 +109,19 @@ interface AuctionFilterAndGroup {
     .sort((a, b) => {
       const hasPlacedBidA = a.froms.some(bidder => bidder === filters.walletAddress) ? 1 : 0
       const hasPlacedBidB = b.froms.some(bidder => bidder === filters.walletAddress) ? 1 : 0
-      const hasHighestBidA = a.highestBid?.owner === filters.walletAddress ? 1 : 0
-      const hasHighestBidB = b.highestBid?.owner === filters.walletAddress ? 1 : 0
-      return (
-        hasHighestBidA - hasHighestBidB ??
-        hasPlacedBidA - hasPlacedBidB ??
-        new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
-      )
+      const isHighestBidA = a.highestBid?.owner === filters.walletAddress ? 1 : 0
+      const isHighestBidB = b.highestBid?.owner === filters.walletAddress ? 1 : 0
+
+      const isHighestBid = isHighestBidB - isHighestBidA
+      const hasPlacedBid = hasPlacedBidB - hasPlacedBidA
+
+      if (isHighestBid === 1) {
+        return isHighestBid
+      } else if (hasPlacedBid === 1) {
+        return hasPlacedBid
+      }
+
+      return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
     })
   }
 )
