@@ -1188,7 +1188,8 @@
   },
   "components/HeaderSearchInput": {
     "Search for loans": "Rechercher des prêts",
-    "Search for loan token": "Rechercher de token de prêt"
+    "Search for loan token": "Rechercher de token de prêt",
+    "Search for pool pairs": "Chercher des paires de pool"
   },
   "components/EmptyCollateral": {
     "No collateral": "Pas de garanties",
@@ -1223,8 +1224,7 @@
     "Collateral": "Garantie",
     "How much do you want to bid?": "Combien voulez-vous proposer?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Le montant des tokens de votre enchère est bien suppérieur à la valeur mise en vente.",
-    "Collateral for auction": "Garantie en vente",
-    "Search for pool pairs": "Chercher des paires de pool"
+    "Collateral for auction": "Garantie en vente"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",

@@ -25,7 +25,7 @@
     "Remove Liquidity": "Eliminar liquidez",
     "Confirm Removal": "Confirmar eliminación de liquidez",
     "Confirm swap": "Confirmar intercambio",
-    "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Selecciona una de las piscinas de liquidez, aporta liquidez en el Exchange descentralizado (DEX) y empieza a ganar comisiones con una rentabilidad de hasta el 140%. Puedes eliminar liquidez en cualquier momento.",
+    "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Selecciona una de los pares del pool, aporta liquidez en el Exchange descentralizado (DEX) y empieza a ganar comisiones con una rentabilidad de hasta el 140%. Puedes eliminar liquidez en cualquier momento.",
     "Pooled {{symbol}}": "{{symbol}} en piscina de liquidez",
     "Total pooled {{symbol}}": "Total {{symbol}} en piscina de liquidez",
     "Your pooled {{symbol}}": "Tus {{symbol}} en piscina de liquidez",
@@ -34,10 +34,10 @@
     "APR": "APR",
     "ADD MORE": "AÑADIR MÁS",
     "No active pool pairs": "Ningúna piscina de liquidez activa",
-    "Supply liquidity pool tokens to earn high yields": "Aporte Tokens en las piscinas de liquidez para obtener una mayor rentabilidad",
+    "Supply liquidity pool tokens to earn high yields": "Aporte Tokens en los pares del pool para obtener una mayor rentabilidad",
     "Total liquidity (USD)":"Liquidez total (USD)",
-    "Browse pool pairs": "Todos los Piscinas de Liquidez",
-    "Your pool pairs": "Tus Piscinas de Liquidez",
+    "Browse pool pairs": "Todos los pares del pool",
+    "Your pool pairs": "Tus pares del pool",
     "Total Value Locked (USD)": "Valor total bloqueado (USD)",
     "SWAP": "INTERCAMBIA",
     "Swap tokens": "Intercambia Tokens",
@@ -340,7 +340,7 @@
     "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Envía, añade liquidez, intercambia y muchas otras funciones de una billetera completamente descentralizada",
     "Earn high yields": "Obtén altos rendimientos",
     "of up to 90% with DEX": "de hasta 140% con el DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Añade liquidez a BTC, ETH y muchas otras piscinas. ¡Puedes retirarlo en cualquier momento!"
+    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Añade liquidez a BTC, ETH y muchas otras pares del pool. ¡Puedes retirarlo en cualquier momento!"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Abandonar pantalla",
@@ -695,7 +695,7 @@
   },
   "components/LiquidityMiningFaq": {
     "Liquidity Mining": "Minería de Liquidez",
-    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "La Minería de Liquidez es un mecanismo de DeFiChain con el cúal los participantes añaden liquidez con sus activos crypto en las piscinas de liquidez, y son recompensados dependiendo del porcentaje de su contribución en la piscina. \n\nLas piscinas de liquidez de DeFiChain se constituyen con la aportación de un par de tokens, que son utilizados por el Exchange Descentralizado de DeFiChain.",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "La Minería de Liquidez es un mecanismo de DeFiChain con el cúal los participantes añaden liquidez con sus activos crypto en las los pares del pool, y son recompensados dependiendo del porcentaje de su contribución en la piscina. \n\nLas pares del pool de DeFiChain se constituyen con la aportación de un par de tokens, que son utilizados por el Exchange Descentralizado de DeFiChain.",
     "How do I supply liquidity?": "¿Cómo puedo aportar liquidez?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Despúes de decidir a que piscina vas a aportar liquidez, apreta AÑADIR LIQUIDEZ, y escribe la cantidad de cada uno de los tokens que quieres aportar. \n\nUna vez escribas la cantidad de un token, la app calculará automáticamente la cantidad del otro token para que tengan un valor igual, basado en el ratio de liquidez que tenga la piscina en ese momento.",
     "How do I send tokens from my DFI wallet?": "¿Cómo envio tokens desde my billetera DFI?",
@@ -1183,7 +1183,8 @@
     },
     "components/HeaderSearchInput": {
       "Search for loans": "Busca préstamos",
-      "Search for loan token": "Busca tokens para préstamos"
+      "Search for loan token": "Busca tokens para préstamos",
+      "Search for pool pairs": "Búsqueda de pares del pool"
     },
     "components/EmptyCollateral": {
       "No collaterals": "No hay colaterales",

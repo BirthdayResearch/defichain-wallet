@@ -1186,7 +1186,8 @@
     },
     "components/HeaderSearchInput": {
       "Search for loans": "Cerca prestiti",
-      "Search for loan token": "Cerca il token da prendere in prestito"
+      "Search for loan token": "Cerca il token da prendere in prestito",
+      "Search for pool pairs": "Ricerca di Pool-Pairs"
     },
     "components/EmptyCollateral": {
       "No collateral": "Nessun collaterale",
@@ -1221,8 +1222,7 @@
       "Collateral": "Collaterali",
       "How much do you want to bid?": "Quanto vuoi offrire?",
       "The value of the tokens you are placing is considerably higher than the total auction value.": "Il valore dei token che stai piazzando è notevolmente superiore al valore totale dell'asta.",
-      "Collateral for auction": "Collaterali messi all'asta",
-      "Search for pool pairs": "Ricerca di Pool-Pairs"
+      "Collateral for auction": "Collaterali messi all'asta"
     },
     "screens/ConfirmPlaceBidScreen": {
       "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
