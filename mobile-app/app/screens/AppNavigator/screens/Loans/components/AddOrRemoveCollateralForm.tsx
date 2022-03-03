@@ -115,7 +115,6 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   }
 
   const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0' // check if there's existing collateral
-  const currentExistingToken = vault?.collateralAmounts?.find((c) => c.id === token.id) // check if add/remove on the same collateral
   const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
   const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(new BigNumber(collateralValue)))
   const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
@@ -123,12 +122,8 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
 
   useEffect(() => {
-    if (vault?.collateralAmounts?.length === 0 || (vault?.collateralAmounts?.length === 1 && currentExistingToken !== undefined)) {
-      setVaultValue('100.00')
-    } else {
       setVaultValue(prices.vaultShare.toFixed(2))
-    }
-  }, [prices.vaultShare, vault?.collateralAmounts, currentExistingToken])
+  }, [prices.vaultShare])
 
   useEffect(() => {
     validateInput(collateralValue)
