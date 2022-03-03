@@ -50,7 +50,8 @@
     "Your share in pool": "Dein Pool-Anteil",
     "ADD": "HINZUFÜGEN",
     "Prices": "Preise",
-    "Available pool pairs": "Verfügbare Pool-Paare"
+    "Available pool pairs": "Verfügbare Pool-Paare",
+    "Your shared {{symbol}}": "Dein {{symbol}}-Anteil"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -1194,7 +1195,8 @@
   },
   "components/HeaderSearchInput": {
     "Search for loans": "Nach Darlehen suchen",
-    "Search for loan token": "Suche nach Darlehenstoken"
+    "Search for loan token": "Suche nach Darlehenstoken",
+    "Search for pool pairs": "Suche nach Pool-Paaren"
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",
