@@ -141,7 +141,7 @@ context('Wallet - Loans - Close Vault', () => {
     cy.getByTestID('vault_detail_tabs_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('payback_input_text').clear().type('102').blur()
-    cy.getByTestID('payback_loan_button').click().wait(3000)
+    cy.getByTestID('button_confirm_payback_loan_continue').click().wait(3000)
     cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
     cy.closeOceanInterface()
     cy.getByTestID('vault_card_0').click()

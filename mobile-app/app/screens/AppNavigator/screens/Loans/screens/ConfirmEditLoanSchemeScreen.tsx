@@ -93,6 +93,7 @@ export function ConfirmEditLoanSchemeScreen ({ route, navigation }: Props): JSX.
         processingLabel={translate('screens/ConfirmEditLoanSchemeScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='edit_loan_scheme'
       />
     </ThemedScrollView>

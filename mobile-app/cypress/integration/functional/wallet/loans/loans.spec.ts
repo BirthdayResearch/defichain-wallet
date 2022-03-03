@@ -325,7 +325,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('text_excess_amount').should('not.exist')
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
   })
 
   it('should display tx details in paying DUSD with excess payment', function () {
@@ -382,7 +382,7 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('text_excess_amount').should('not.exist')
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
   })
 
   it('should display conversion warning if DFI is not enough', function () {
@@ -440,7 +440,7 @@ context('Wallet - Loans - Payback Loans', () => {
 
     cy.getByTestID('estimated_fee').contains('0.0002')
     cy.getByTestID('estimated_fee_suffix').should('have.text', 'DFI')
-    cy.getByTestID('payback_loan_button').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
   })
 
   it('should not display payment options if loan is not DUSD', function () {

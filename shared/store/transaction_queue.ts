@@ -14,10 +14,12 @@ export interface DfTxSigner {
 
 export interface TransactionQueue {
   transactions: DfTxSigner[]
+  err?: Error
 }
 
 const initialState: TransactionQueue = {
-  transactions: []
+  transactions: [],
+  err: undefined
 }
 
 export const transactionQueue = createSlice({
@@ -26,10 +28,14 @@ export const transactionQueue = createSlice({
   reducers: {
     push: (state, action: PayloadAction<DfTxSigner>) => {
       state.transactions = [...state.transactions, action.payload]
+      state.err = undefined
     },
     pop: (state) => {
       state.transactions.shift()
       state.transactions = [...state.transactions]
+    },
+    setError: (state, action: PayloadAction<Error>) => {
+      state.err = action.payload
     }
   }
 })

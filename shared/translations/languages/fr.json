@@ -456,7 +456,8 @@
     "MAX": "MAX"
   },
   "screens/common": {
-    "CANCEL": "ANNULER"
+    "CANCEL": "ANNULER",
+    "TRY AGAIN": "RÉESSAYER"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"

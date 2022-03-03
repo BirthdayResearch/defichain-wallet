@@ -20,7 +20,7 @@ context('Wallet - Receive', () => {
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('address_input').type(address)
-      cy.getByTestID('send_submit_button').should('not.have.attr', 'disabled')
+      cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
     })
   })
 })
