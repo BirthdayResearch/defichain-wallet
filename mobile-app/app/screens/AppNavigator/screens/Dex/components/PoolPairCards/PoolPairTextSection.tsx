@@ -15,7 +15,7 @@ export const PoolPairTextSection = React.memo(({
 }: PoolPairTextSectionProps): JSX.Element => {
   const poolpairSymbol = `${symbolA}-${symbolB}`
   return (
-    <View style={tailwind('flex-row items-center')}>
+    <View style={tailwind('flex-row flex-shrink break-words items-center')}>
       <PoolPairIcon symbolA={symbolA} symbolB={symbolB} />
       <ThemedText
         style={tailwind('text-lg font-medium')}

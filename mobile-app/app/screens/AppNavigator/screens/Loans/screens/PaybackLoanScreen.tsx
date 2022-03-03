@@ -47,6 +47,7 @@ import { PaymentTokenCards } from '../components/PaymentTokenCards'
 import { useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -67,6 +68,7 @@ export function PaybackLoanScreen ({
   } = route.params
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -165,16 +167,11 @@ export function PaybackLoanScreen ({
   }
 
   useEffect(() => {
-    dispatch(fetchTokens({
-      client,
-      address
-    }))
-    dispatch(fetchPrice({
-      client,
-      currency: 'USD',
-      token: paymentTokens[0].displaySymbol
-    }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchPrice({ client, currency: 'USD', token: paymentTokens[0].displaySymbol }))
+   }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     const {
