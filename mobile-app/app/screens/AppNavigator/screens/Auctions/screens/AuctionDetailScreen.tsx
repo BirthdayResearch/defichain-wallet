@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from 'react'
-import { ThemedText, ThemedView, ThemedIcon, ThemedScrollView } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
@@ -8,43 +8,48 @@ import { useSelector, useDispatch } from 'react-redux'
 import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native'
 import { RootState } from '@store'
 import { useBottomSheet } from '@hooks/useBottomSheet'
-import { AuctionTimeProgress } from './components/AuctionTimeProgress'
+import { AuctionTimeProgress } from '../components/AuctionTimeProgress'
 import { StackScreenProps } from '@react-navigation/stack'
-import { AuctionsParamList } from './AuctionNavigator'
-import { CollateralTokenIconGroup } from './components/CollateralTokenIconGroup'
+import { AuctionsParamList } from '../AuctionNavigator'
+import { CollateralTokenIconGroup } from '../components/CollateralTokenIconGroup'
 import { Tabs } from '@components/Tabs'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import BigNumber from 'bignumber.js'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { AuctionDetails } from './components/AuctionDetails'
-import { AuctionedCollaterals } from './components/AuctionedCollaterals'
+import { AuctionDetails } from '../components/AuctionDetails'
+import { AuctionedCollaterals } from '../components/AuctionedCollaterals'
 import { IconButton } from '@components/IconButton'
-import { useAuctionBidValue } from './hooks/AuctionBidValue'
-import { useAuctionTime } from './hooks/AuctionTimeLeft'
-import { QuickBid } from './components/QuickBid'
+import { useAuctionBidValue } from '../hooks/AuctionBidValue'
+import { useAuctionTime } from '../hooks/AuctionTimeLeft'
+import { QuickBid } from '../components/QuickBid'
 import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { MinNextBidTextRow } from './components/MinNextBidTextRow'
-import { useTokenPrice } from '../Balances/hooks/TokenPrice'
+import { BidHistory } from '../components/BidHistory'
+import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
+import { fetchAuctions } from '@store/auctions'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
 enum TabKey {
-  Collaterals = 'COLLATERAL',
+  BidHistory = 'BID_HISTORY',
+  Collaterals = 'COLLATERALS',
   AuctionDetails = 'AUCTION_DETAILS'
 }
 
 export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
-  const { batch, vault } = props.route.params
+  const { batch: batchFromParam, vault } = props.route.params
+  const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam)
   const client = useWhaleApiClient()
   const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
-  const [activeTab, setActiveTab] = useState<string>(TabKey.Collaterals)
+  const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory)
   const {
     minNextBidInToken,
     totalCollateralsValueInUSD,
@@ -65,12 +70,28 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     setBottomSheetScreen
   } = useBottomSheet()
   const { getTokenPrice } = useTokenPrice()
+  const { auctions } = useSelector((state: RootState) => state.auctions)
 
   useEffect(() => {
     if (isFocused) {
       dispatch(fetchTokens({ client, address }))
+      dispatch(fetchAuctions({ client }))
     }
   }, [address, blockCount, isFocused])
+
+  useEffect(() => {
+    const _vault = auctions.find(auction => auction.vaultId === vault.vaultId)
+    if (_vault === undefined) {
+      return
+    }
+
+    const _batch = _vault.batches.find(batch => batch.index === batchFromParam.index)
+    if (_batch === undefined) {
+      return
+    }
+
+    setBatch(_batch)
+  }, [auctions])
 
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
@@ -111,6 +132,11 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   }
 
   const tabsList = [{
+    id: TabKey.BidHistory,
+    label: 'Bid history',
+    disabled: false,
+    handleOnPress: onPress
+  }, {
     id: TabKey.Collaterals,
     label: 'Collateral for auction',
     disabled: false,
@@ -124,7 +150,11 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   return (
     <View style={tailwind('flex-1')} ref={containerRef}>
-      <ThemedScrollView contentContainerStyle={tailwind('pb-52')}>
+      <ThemedView
+        light={tailwind('bg-gray-50')}
+        style={tailwind(['flex-1', { 'pb-36': Platform.OS !== 'web' }
+      ])}
+      >
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
           dark={tailwind('bg-gray-800 border-gray-700')}
@@ -181,7 +211,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
           {batch?.highestBid?.owner === address && (
             <View style={tailwind('mb-1')}>
-              <AuctionBidStatus type='highest' />
+              <AuctionBidStatus testID='batch_detail' type='highest' />
             </View>
           )}
 
@@ -192,7 +222,17 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
           />
 
         </ThemedView>
-        <Tabs tabSections={tabsList} testID='auctions_tabs' activeTabKey={activeTab} />
+        <Tabs tabSections={tabsList} testID='auction_detail_tab' activeTabKey={activeTab} />
+        {activeTab === TabKey.BidHistory && (
+          <BidHistory
+            vaultId={vault.vaultId}
+            liquidationHeight={vault.liquidationHeight}
+            batchIndex={batch.index}
+            loanDisplaySymbol={batch.loan.displaySymbol}
+            loanSymbol={batch.loan.symbol}
+            minNextBidInToken={minNextBidInToken}
+          />
+        )}
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
@@ -203,8 +243,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         {activeTab === TabKey.AuctionDetails && (
           <AuctionDetails vault={vault} batch={batch} />
         )}
-
-      </ThemedScrollView>
+      </ThemedView>
       <AuctionActionSection
         minNextBidInToken={minNextBidInToken}
         displaySymbol={batch.loan.displaySymbol}

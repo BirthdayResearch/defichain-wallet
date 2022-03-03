@@ -18,8 +18,8 @@ context('Wallet - Loans - Vault Details', () => {
 
   it('should check empty state', function () {
     cy.getByTestID('vault_card_0').click()
-    cy.getByTestID('collateral_tab_COLLATERAL').click()
-    cy.getByTestID('collateral_tab_LOANS').should('have.attr', 'aria-disabled')
+    cy.getByTestID('vault_detail_tabs_COLLATERAL').click()
+    cy.getByTestID('vault_detail_tabs_LOANS').should('have.attr', 'aria-disabled')
     cy.getByTestID('button_add_collateral').click()
     cy.addCollateral('10', 'DFI')
     cy.addCollateral('10', 'dBTC')
@@ -53,7 +53,7 @@ context('Wallet - Loans - Vault Details', () => {
   })
 
   it('should verify vault details tab', function () {
-    cy.getByTestID('collateral_tab_DETAILS').click()
+    cy.getByTestID('vault_detail_tabs_DETAILS').click()
     cy.getByTestID('text_min_col_ratio').contains('150')
     cy.getByTestID('text_vault_interest_ratio').contains('5.00')
     cy.getByTestID('text_col_ratio').contains('1,500.00%')
@@ -63,7 +63,7 @@ context('Wallet - Loans - Vault Details', () => {
   })
 
   it('should verify loan tab', function () {
-    cy.getByTestID('collateral_tab_LOANS').click()
+    cy.getByTestID('vault_detail_tabs_LOANS').click()
     cy.getByTestID('loan_card_DUSD').contains('DUSD')
     cy.getByTestID('loan_card_DUSD_outstanding_balance').contains('100')
     cy.getByTestID('loan_card_DUSD_payback_loan').should('exist')
@@ -96,7 +96,7 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('vault_card_0').click()
     cy.getByTestID('vault_id_section_min_ratio').contains('175%')
     cy.getByTestID('text_vault_interest').contains('3')
-    cy.getByTestID('collateral_tab_DETAILS').click()
+    cy.getByTestID('vault_detail_tabs_DETAILS').click()
     cy.getByTestID('text_min_col_ratio').contains('175.00')
     cy.getByTestID('text_vault_interest_ratio').contains('3.00')
   })
@@ -138,10 +138,10 @@ context('Wallet - Loans - Close Vault', () => {
     cy.sendTokenToWallet(['DUSD'])
     cy.wait(3000)
     cy.getByTestID('vault_card_0').click()
-    cy.getByTestID('collateral_tab_LOANS').click()
+    cy.getByTestID('vault_detail_tabs_LOANS').click()
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('payback_input_text').clear().type('102').blur()
-    cy.getByTestID('payback_loan_button').click().wait(3000)
+    cy.getByTestID('button_confirm_payback_loan_continue').click().wait(3000)
     cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
     cy.closeOceanInterface()
     cy.getByTestID('vault_card_0').click()

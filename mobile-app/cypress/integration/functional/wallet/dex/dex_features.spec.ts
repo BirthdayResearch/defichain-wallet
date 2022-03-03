@@ -168,12 +168,17 @@ context('Wallet - DEX - Button filtering', () => {
       }
     }
   ]
-  before(function () {
+
+  function interceptPoolpairWithSampleData (): void {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: samplePoolpairs
       }
     })
+  }
+
+  before(function () {
+    interceptPoolpairWithSampleData()
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()
     cy.url().should('include', 'app/DEX/DexScreen')
@@ -182,6 +187,7 @@ context('Wallet - DEX - Button filtering', () => {
   })
 
   it('should set filter as All pairs by default and display all pairs', function () {
+    interceptPoolpairWithSampleData()
     cy.getByTestID('dex_button_group_All_PAIRS_active').should('exist')
     cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
     cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
@@ -189,6 +195,7 @@ context('Wallet - DEX - Button filtering', () => {
   })
 
   it('should set display all DFI pairs', function () {
+    interceptPoolpairWithSampleData()
     cy.getByTestID('dex_button_group_DFI_PAIRS').click()
     cy.getByTestID('dex_button_group_DFI_PAIRS_active').should('exist')
     cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
@@ -197,6 +204,7 @@ context('Wallet - DEX - Button filtering', () => {
   })
 
   it('should set display all DUSD pairs', function () {
+    interceptPoolpairWithSampleData()
     cy.getByTestID('dex_button_group_DUSD_PAIRS').click()
     cy.getByTestID('dex_button_group_DUSD_PAIRS_active').should('exist')
     cy.getByTestID('your_symbol_dBTC-DFI').should('not.exist')
@@ -205,11 +213,7 @@ context('Wallet - DEX - Button filtering', () => {
   })
 
   it('should be able to display poolpair information upon switching filters', function () {
-    cy.intercept('**/poolpairs?size=*', {
-      body: {
-        data: samplePoolpairs
-      }
-    })
+    interceptPoolpairWithSampleData()
     // DUSD pairs filter
     cy.getByTestID('details_dTU10-DUSD').click()
     cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
@@ -226,11 +230,7 @@ context('Wallet - DEX - Button filtering', () => {
   })
 
   it('should be able to navigate to add liquidity and swap page upon switching filters', function () {
-    cy.intercept('**/poolpairs?size=*', {
-      body: {
-        data: samplePoolpairs
-      }
-    })
+    interceptPoolpairWithSampleData()
     // All pairs filter
     validateAvailablePoolpairAction('dBTC-DFI')
     // DFI pairs filter

@@ -133,6 +133,7 @@ export function ConfirmPaybackLoanScreen ({
         processingLabel={translate('screens/ConfirmPaybackLoanScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='payback_loan'
       />
     </ThemedScrollView>

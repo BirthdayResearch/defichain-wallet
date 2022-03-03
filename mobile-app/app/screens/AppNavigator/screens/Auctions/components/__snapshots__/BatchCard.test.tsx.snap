@@ -44,6 +44,7 @@ exports[`Batch Card should match snapshot 1`] = `
         "opacity": 1,
       }
     }
+    testID="batch_card"
   >
     <View
       style={
@@ -506,6 +507,7 @@ exports[`Batch Card should match snapshot 1`] = `
               ],
             ]
           }
+          testID="batch_card_no_bid"
         >
           Waiting for first bid
         </Text>
@@ -802,7 +804,7 @@ exports[`Batch Card should match snapshot 1`] = `
           ]
         }
       >
-        ~4h 45m left
+        ~28m left
          (
         570 blks
         )

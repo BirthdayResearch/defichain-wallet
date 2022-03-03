@@ -1,131 +1,207 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Auctioned collaterals should match snapshot 1`] = `
-Array [
-  <Text
-    style={
-      Array [
-        Object {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 24,
+    }
+  }
+  style={
+    Array [
+      undefined,
+      Object {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+>
+  <View>
+    <Text
+      style={
         Array [
           Object {
-            "color": "rgba(115, 115, 115, 1)",
-            "fontFamily": "MediumFont",
-            "fontSize": 12,
-            "fontWeight": "500",
-            "lineHeight": 16,
-            "paddingBottom": 8,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 24,
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
           },
-          Object {
-            "backgroundColor": "rgba(245, 245, 245, 1)",
-            "color": "rgba(115, 115, 115, 1)",
-          },
-        ],
-      ]
-    }
-    testID="collateral_token_count"
-    text="1 COLLATERAL TOKENS"
-  >
-    1 COLLATERAL TOKENS
-  </Text>,
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(245, 245, 245, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(245, 245, 245, 1)",
-          "borderRightColor": "rgba(245, 245, 245, 1)",
-          "borderTopColor": "rgba(245, 245, 245, 1)",
-        },
-      ]
-    }
-    testID="collateral_row_0"
-  >
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "width": "50%",
-        }
-      }
-    >
-      <RNSVGSvgView
-        align="xMidYMid"
-        bbHeight={32}
-        bbWidth={32}
-        focusable={false}
-        height={32}
-        meetOrSlice={0}
-        minX={0}
-        minY={0}
-        style={
           Array [
             Object {
-              "backgroundColor": "transparent",
-              "borderWidth": 0,
+              "color": "rgba(115, 115, 115, 1)",
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "paddingBottom": 8,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
             },
             Object {
-              "flex": 0,
-              "height": 32,
-              "width": 32,
+              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "color": "rgba(115, 115, 115, 1)",
             },
-          ]
-        }
-        testID="collateral_row_0_icon"
-        vbHeight={32}
-        vbWidth={32}
-        width={32}
-      >
-        <RNSVGGroup>
-          <RNSVGCircle
-            cx={16}
-            cy={16}
-            fill={4294954223}
-            propList={
-              Array [
-                "fill",
-              ]
-            }
-            r={16}
-          />
-          <RNSVGPath
-            d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
-            fill={4294901935}
-            propList={
-              Array [
-                "fill",
-              ]
-            }
-          />
-        </RNSVGGroup>
-      </RNSVGSvgView>
+          ],
+        ]
+      }
+      testID="collateral_token_count"
+      text="1 COLLATERAL TOKENS"
+    >
+      1 COLLATERAL TOKENS
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomColor": "rgba(245, 245, 245, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(245, 245, 245, 1)",
+            "borderRightColor": "rgba(245, 245, 245, 1)",
+            "borderTopColor": "rgba(245, 245, 245, 1)",
+          },
+        ]
+      }
+      testID="collateral_row_0"
+    >
       <View
         style={
           Object {
-            "flexBasis": "auto",
+            "alignItems": "center",
+            "flexDirection": "row",
+            "width": "50%",
+          }
+        }
+      >
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={32}
+          bbWidth={32}
+          focusable={false}
+          height={32}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 32,
+                "width": 32,
+              },
+            ]
+          }
+          testID="collateral_row_0_icon"
+          vbHeight={32}
+          vbWidth={32}
+          width={32}
+        >
+          <RNSVGGroup>
+            <RNSVGCircle
+              cx={16}
+              cy={16}
+              fill={4294954223}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              r={16}
+            />
+            <RNSVGPath
+              d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
+              fill={4294901935}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
+        <View
+          style={
+            Object {
+              "flexBasis": "auto",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "marginLeft": 12,
+              "marginRight": 12,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  undefined,
+                  Object {
+                    "color": "rgba(23, 23, 23, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="collateral_row_0_symbol"
+          >
+            DFI
+          </Text>
+          <Text
+            ellipsizeMode="tail"
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="collateral_row_0_name"
+          >
+            Default Defi token
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
-            "marginLeft": 12,
-            "marginRight": 12,
+            "justifyContent": "flex-end",
           }
         }
       >
@@ -139,20 +215,21 @@ Array [
                 "lineHeight": 24,
               },
               Array [
-                undefined,
+                Object {
+                  "flexWrap": "wrap",
+                  "textAlign": "right",
+                },
                 Object {
                   "color": "rgba(23, 23, 23, 1)",
                 },
               ],
             ]
           }
-          testID="collateral_row_0_symbol"
+          testID="collateral_row_0_amount"
         >
-          DFI
+          10.00000000 DFI
         </Text>
         <Text
-          ellipsizeMode="tail"
-          numberOfLines={1}
           style={
             Array [
               Object {
@@ -163,8 +240,10 @@ Array [
               },
               Array [
                 Object {
+                  "flexWrap": "wrap",
                   "fontSize": 12,
                   "lineHeight": 16,
+                  "textAlign": "right",
                 },
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
@@ -172,21 +251,22 @@ Array [
               ],
             ]
           }
-          testID="collateral_row_0_name"
+          testID="collateral_row_0_amount"
         >
-          Default Defi token
+          ≈ $1,000.00
         </Text>
       </View>
     </View>
     <View
       style={
         Object {
-          "alignItems": "flex-end",
           "display": "flex",
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
+          "flexDirection": "row",
           "justifyContent": "flex-end",
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
         }
       }
     >
@@ -200,9 +280,30 @@ Array [
               "lineHeight": 24,
             },
             Array [
+              undefined,
               Object {
-                "flexWrap": "wrap",
-                "textAlign": "right",
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="total_auction_value_in_usd"
+      >
+        Total auction value (USD):
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
               },
               Object {
                 "color": "rgba(23, 23, 23, 1)",
@@ -210,95 +311,11 @@ Array [
             ],
           ]
         }
-        testID="collateral_row_0_amount"
+        testID="total_auction_value"
       >
-        10.00000000 DFI
-      </Text>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "flexWrap": "wrap",
-                "fontSize": 12,
-                "lineHeight": 16,
-                "textAlign": "right",
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-        testID="collateral_row_0_amount"
-      >
-        ≈ $1,000.00
+         $100
       </Text>
     </View>
-  </View>,
-  <View
-    style={
-      Object {
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "flex-end",
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      }
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            undefined,
-            Object {
-              "color": "rgba(115, 115, 115, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Total auction value (USD):
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "rgba(23, 23, 23, 1)",
-            },
-          ],
-        ]
-      }
-      testID="total_auction_value"
-    >
-       $100
-    </Text>
-  </View>,
-]
+  </View>
+</RCTScrollView>
 `;
