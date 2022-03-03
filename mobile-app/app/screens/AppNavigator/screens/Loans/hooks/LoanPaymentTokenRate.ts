@@ -54,7 +54,7 @@ export const useLoanPaymentTokenRate = (props: {
       const amountToPayInPaymentToken = props.amountToPay.multipliedBy(conversionRate).plus(mininumPenaltyInPaymentToken)
       const outstandingBalanceInPaymentToken = props.outstandingBalance.multipliedBy(conversionRate).plus(mininumPenaltyInPaymentToken)
 
-      //  Resulting Balance
+      // Resulting Balance
       const resultingBalanceInLoanToken = props.loanTokenBalance.minus(BigNumber.min(amountToPayInLoanToken, outstandingBalanceInLoanToken))
       const resultingBalanceInPaymentToken = paymentToken.tokenBalance.minus(BigNumber.min(amountToPayInPaymentToken, outstandingBalanceInPaymentToken))
       const resultingBalance = hasPenalty ? resultingBalanceInPaymentToken : resultingBalanceInLoanToken

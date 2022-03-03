@@ -46,6 +46,9 @@ import { useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useIsFocused } from '@react-navigation/native'
+import { InputHelperText } from '@components/InputHelperText'
+import { Text } from '@components'
+import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -80,6 +83,7 @@ export function PaybackLoanScreen ({
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id, tokens) : new BigNumber(0)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
+  const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
   const [amountToPay, setAmountToPay] = useState(BigNumber.min(loanTokenOutstandingBal).toFixed(8))
   const [selectedPaymentToken, setSelectedPaymentToken] = useState<PaymentTokenProps>({
     tokenId: loanTokenAmount.id,
@@ -312,6 +316,37 @@ export function PaybackLoanScreen ({
             />
           </>
         </WalletTextInput>
+        {loanToken?.token.symbol !== 'DUSD' &&
+          <InputHelperText
+            label={`${translate('screens/PaybackLoanScreen', 'Available')}: `}
+            content={new BigNumber(tokenBalance).toFixed(8)}
+            suffixType='component'
+            styleProps={tailwind('font-medium leading-5')}
+          >
+            <ThemedText
+              light={tailwind('text-gray-700')}
+              dark={tailwind('text-gray-200')}
+              style={tailwind('text-sm font-medium')}
+            >
+              <Text>{' '}</Text>
+              <Text>{loanTokenAmount.displaySymbol}</Text>
+              <NumberFormat
+                value={getUSDPrecisedPrice(loanTokenBalanceInUSD)}
+                thousandSeparator
+                displayType='text'
+                prefix='$'
+                renderText={(val: string) => (
+                  <ThemedText
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('text-xs leading-5')}
+                  >
+                    {` /${val}`}
+                  </ThemedText>
+                )}
+              />
+            </ThemedText>
+          </InputHelperText>}
       </View>
       {paymentTokens?.length > 1 && isFeatureAvailable('dfi_loan_payment') &&
         <PaymentTokenCards
