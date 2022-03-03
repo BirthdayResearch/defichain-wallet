@@ -19,7 +19,7 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
   return (
     <View
       style={tailwind(
-        'flex flex-1 py-1 px-2 items-center border border-gray-200 rounded'
+        'flex flex-1 py-1 px-2 items-center border border-dfxblue-900 rounded'
       )}
     >
       <ThemedText
