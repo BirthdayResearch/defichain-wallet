@@ -6,7 +6,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 import { View } from '@components'
-import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -25,6 +24,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -261,6 +261,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
       </ThemedText>
 
       <ContinueButton
+        isProcessing={hasPendingJob || hasPendingBroadcastJob}
         enabled={canContinue}
         onPress={onSubmit}
       />
@@ -407,15 +408,16 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
   )
 }
 
-function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
+function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
   return (
-    <Button
-      disabled={!props.enabled}
+    <SubmitButtonGroup
+      isDisabled={!props.enabled}
       label={translate('components/Button', 'CONTINUE')}
-      onPress={props.onPress}
-      testID='button_continue_add_liq'
-      title='Continue'
-      margin='m-4'
+      processingLabel={translate('components/Button', 'CONTINUE')}
+      onSubmit={props.onPress}
+      title='continue_add_liq'
+      isProcessing={props.isProcessing}
+      displayCancelBtn={false}
     />
   )
 }

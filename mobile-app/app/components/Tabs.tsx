@@ -76,7 +76,7 @@ const Tabs = memo((props: TabsProps): JSX.Element => {
                 style={tailwind('flex items-center mr-6 border-transparent')}
                 onPress={() => tab.handleOnPress(tab.id)}
                 disabled={tab.disabled}
-                testID={`collateral_tab_${tab.id}`}
+                testID={`${props.testID}_${tab.id}`}
               >
                 <TabLabel tab={tab} isActive={isActive} />
               </ThemedTouchableOpacity>

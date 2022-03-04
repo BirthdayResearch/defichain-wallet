@@ -188,6 +188,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         processingLabel={translate('screens/ConfirmCompositeSwapScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='swap'
       />
     </ThemedScrollView>

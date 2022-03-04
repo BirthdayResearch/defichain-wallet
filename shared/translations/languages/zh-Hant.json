@@ -459,7 +459,8 @@
     "MAX": "最高值"
   },
   "screens/common": {
-    "CANCEL": "取消"
+    "CANCEL": "取消",
+    "TRY AGAIN": "再試一次"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼"
@@ -775,7 +776,9 @@
     "Manage bids": "管理競投出價",
     "Loans": "貸款",
     "Collateral for auction": "待拍賣的抵押品",
-    "Auction details": "拍賣細節"
+    "Vault details": "金庫明細",
+    "Bid history": "競標歷史",
+    "Rewards": "獎勵"
   },
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
@@ -836,6 +839,11 @@
     "From your vault": "來自您的金庫",
     "Waiting for first bid": "等待第一次標價"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "{{h}}時 {{m}}分前",
+    "{{h}}h ago": "{{h}}時前",
+    "{{m}}m ago": "{{m}}分前"
+  },
   "components/BidCard": {
     "BID HIGHER": "出價更高",
     "VIEW REWARDS": "查看獎勵",
@@ -846,6 +854,13 @@
     "Lost": "競投失敗",
     "Highest bid": "最高的競投價格",
     "Auction ended": "拍賣完結"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "競標者ID",
+    "BID #{{bidIndex}}": "出價 #{{bidIndex}}",
+    "Waiting for first bid": "等待第一次標價",
+    "{{h}}{{m}} ago": "{{h}}{{m}}前",
+    "Minimum amount to bid is": "最低投標金額"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
@@ -1068,7 +1083,7 @@
     "Resulting collateralization": "最終抵押率",
     "Vault ID": "金庫編號",
     "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
-    "Insufficient {{token}} balance to pay the entered amount": "{{token}} 餘額不足以支付輸入的金額",
+    "Insufficient {{token}} to pay for the entered amount": "{{token}} 餘額不足以支付輸入的金額",
     "Select payment token": "選擇付款代幣",
     "A 1% fee is applied when you pay with DFI.": "當您使用 DFI 付款時，將收取 1% 的費用",
     "Read more": "閱讀更多"

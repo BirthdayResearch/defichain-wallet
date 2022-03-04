@@ -190,7 +190,7 @@ export function PoolPairCards ({
           style={tailwind('flex flex-row justify-between w-full')}
           testID={`pool_pair_row_${index}_${symbol}`}
         >
-          <View style={tailwind('w-9/12 flex-row items-center')}>
+          <View style={tailwind('w-3/5 flex-row items-center')}>
             <PoolPairTextSection
               symbolA={symbolA}
               symbolB={symbolB}
@@ -289,7 +289,7 @@ export function PoolPairCards ({
           </View>
           <TouchableOpacity
             onPress={onCollapseToggle}
-            style={tailwind('flex flex-row pb-2 pl-2 pt-1.5')}
+            style={tailwind('flex flex-row pb-2 pt-1.5')}
             testID={`details_${symbol}`}
           >
             <ThemedIcon

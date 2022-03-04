@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bid History should match snapshot 1`] = `
+<RCTScrollView
+  ListEmptyComponent={[Function]}
+  contentContainerStyle={
+    Array [
+      Object {
+        "paddingBottom": 32,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      Object {},
+    ]
+  }
+  data={Array []}
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={5}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  onContentSizeChange={[Function]}
+  onEndReachedThreshold={2}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={Array []}
+  style={
+    Array [
+      Object {
+        "marginBottom": -4,
+      },
+      Object {
+        "backgroundColor": "rgba(250, 250, 250, 1)",
+      },
+    ]
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={2}
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "marginTop": 96,
+        }
+      }
+      testID="empty_bid_history"
+    >
+      <Text />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "SemiBoldFont",
+                "fontSize": 18,
+                "fontWeight": "600",
+                "lineHeight": 28,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Waiting for first bid
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(64, 64, 64, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Minimum amount to bid is
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SemiBoldFont",
+                  "fontSize": 14,
+                  "fontWeight": "600",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(64, 64, 64, 1)",
+                },
+              ],
+            ]
+          }
+          testID="empty_bid_min_bid_amount"
+        >
+           0.09633602 dTU10
+        </Text>
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

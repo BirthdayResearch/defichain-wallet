@@ -278,7 +278,7 @@ describe('Batch Card', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} isVaultOwner={false} />
+        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} isVaultOwner={false} testID='batch_card' />
       </Provider>
     )
     expect(rendered.toJSON()).toMatchSnapshot()

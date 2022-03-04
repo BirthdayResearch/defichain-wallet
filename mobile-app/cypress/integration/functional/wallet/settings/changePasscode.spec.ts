@@ -4,7 +4,7 @@ function sendWithNewPin (): void {
   cy.getByTestID('send_dfi_button').click()
   cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
   cy.getByTestID('amount_input').clear().type('1')
-  cy.getByTestID('send_submit_button').click()
+  cy.getByTestID('button_confirm_send_continue').click()
   cy.getByTestID('button_confirm_send').click().wait(3000)
   cy.getByTestID('pin_authorize').type('000000').wait(3000)
   cy.closeOceanInterface('696969')

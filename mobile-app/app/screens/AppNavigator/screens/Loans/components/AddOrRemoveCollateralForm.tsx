@@ -21,7 +21,10 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { DFITokenSelector } from '@store/wallet'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { useCollateralizationRatioColor, useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
+import {
+  useCollateralizationRatioColor,
+  useResultingCollateralizationRatioByCollateral
+} from '../hooks/CollateralizationRatio'
 import { useTotalCollateralValue } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
@@ -64,11 +67,11 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
 
   const [collateralValue, setCollateralValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0'
-  ? (
+    ? (
       new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
       new BigNumber(collateralValue).isLessThanOrEqualTo(available)
     )
-  : false
+    : false
   const [isValid, setIsValid] = useState(false)
   const collateralInputValue = new BigNumber(collateralValue).isNaN() ? 0 : collateralValue
   const { totalCollateralValueInUSD } = useTotalCollateralValue({
@@ -214,25 +217,25 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           <Text>{' '}</Text>
           {token.displaySymbol}
           {
-          !new BigNumber(activePrice).isZero() && (
-            <NumberFormat
-              value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
-              thousandSeparator
-              decimalScale={2}
-              displayType='text'
-              prefix='$'
-              renderText={(val: string) => (
-                <ThemedText
-                  dark={tailwind('text-dfxgray-400')}
-                  light={tailwind('text-gray-500')}
-                  style={tailwind('text-xs leading-5')}
-                >
-                  {` /${val}`}
-                </ThemedText>
-            )}
-            />
-        )
-        }
+            !new BigNumber(activePrice).isZero() && (
+              <NumberFormat
+                value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                prefix='$'
+                renderText={(val: string) => (
+                  <ThemedText
+                    dark={tailwind('text-dfxgray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('text-xs leading-5')}
+                  >
+                    {` /${val}`}
+                  </ThemedText>
+                )}
+              />
+            )
+          }
         </ThemedText>
       </InputHelperText>
       <ScrollView
@@ -241,7 +244,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         'w-full': Platform.OS === 'web'
       }])}
       >
-        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+        <ThemedText
+          style={tailwind('mr-2')}
+        >{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}
+        </ThemedText>
         <ThemedText
           style={tailwind('font-semibold')}
           light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
@@ -266,7 +272,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         margin='mt-8 mb-2'
         testID='add_collateral_button_submit'
       />
-      <ThemedText style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-dfxgray-500')} dark={tailwind('text-dfxgray-400')}>
+      <ThemedText
+        style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-400')}
+      >
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
       </ThemedText>
     </ThemedScrollView>
@@ -300,7 +309,7 @@ function ColorBar (props: { colorBarsLen: number, displayedBarsLen: number }): J
             })}
             style={[tailwind('h-1 mr-0.5'), { width: `${width}%` }]}
           />
-          )
+        )
       })}
     </View>
   )

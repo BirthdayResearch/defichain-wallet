@@ -104,6 +104,7 @@ export function ConfirmCreateVaultScreen ({
         processingLabel={translate('screens/ConfirmCreateVaultScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='create_vault'
       />
     </ThemedScrollView>

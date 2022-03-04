@@ -1,7 +1,7 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
@@ -40,6 +40,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const isFocused = useIsFocused()
 
   // global state
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -53,8 +54,10 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [amount, setAmount] = useState<string>('')
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

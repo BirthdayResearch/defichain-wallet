@@ -268,6 +268,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmAddLiq', getSubmitLabel())}
         onCancel={onCancel}
+        displayCancelBtn
         onSubmit={addLiquidity}
         title='add'
       />

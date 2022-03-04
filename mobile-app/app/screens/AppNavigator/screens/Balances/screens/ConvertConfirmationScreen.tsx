@@ -158,6 +158,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         processingLabel={translate('screens/ConvertConfirmScreen', 'CONVERTING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='convert'
       />
     </ThemedScrollView>

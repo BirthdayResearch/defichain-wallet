@@ -50,7 +50,8 @@
     "Your share in pool": "Votre part dans le pool",
     "ADD": "AJOUTER",
     "Prices": "Prix",
-    "Available pool pairs": "Paires disponibles"
+    "Available pool pairs": "Paires disponibles",
+    "Your shared {{symbol}}": "Mes {{symbol}} partagés"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instructions",
@@ -462,7 +463,8 @@
     "MAX": "MAX"
   },
   "screens/common": {
-    "CANCEL": "ANNULER"
+    "CANCEL": "ANNULER",
+    "TRY AGAIN": "RÉESSAYER"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
@@ -747,7 +749,7 @@
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "RÉSULTATS DE LA TRANSACTION",
-    "Resulting {{symbol}}": "{{symbol}} restant"
+    "Resulting {{symbol}}": "{{symbol}} restants"
   },
   "screens/LoansScreen": {
     "Loans": "Prêts",
@@ -778,7 +780,10 @@
     "Browse auctions": "Parcourir les enchères",
     "Manage bids": "Gérer les enchères",
     "Collateral for auction": "Garanties mises en vente",
-    "Auction details": "Détails de l'enchère"
+    "Auction details": "Détails de l'enchère",
+    "Vault details": "Vault details",
+    "Bid history": "Historique des enchères",
+    "Rewards": "Rewards"
   },
   "components/LoanCard": {
     "Active Price": "Prix actuel",
@@ -838,6 +843,11 @@
     "From your vault": "De votre vault",
     "Waiting for first bid": "En attente de la première offre"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "Il y a {{h}}h {{m}}m ",
+    "{{h}}h ago": "Il y a  {{h}}h",
+    "{{m}}m ago": "Il y a  {{m}}m"
+  },
   "components/BidCard": {
     "BID HIGHER": "SURENCHÉRIR",
     "VIEW REWARDS": "VOIR LA RÉCOMPENSE",
@@ -847,6 +857,13 @@
     "Lost": "Perdu",
     "Highest bid": "Offre la plus élevée",
     "Auction ended": "Enchère terminée"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "Enchérisseur N°",
+    "BID #{{bidIndex}}": "OFFRE N° {{bidIndex}}",
+    "Waiting for first bid": "En attente de la première offre",
+    "{{h}}{{m}} ago": "Il y a {{h}} {{m}}",
+    "Minimum amount to bid is": "Offre minimale d'enchère est de"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
@@ -993,11 +1010,11 @@
     "Vault %": "Vault %",
     "Each token has their own collateral factor that would affect its respective collateral value. ": "Chaque token a son propre facteur de garantie qui affecte sa valeur de garantie respective.",
     "Learn more": "En savoir plus",
-    "ADD TOKEN AS COLLATERAL": "AJOUTER LE TOKEN COMME GARANTIE",
+    "ADD TOKEN AS COLLATERAL": "AJOUTER UN TOKEN COMME GARANTIE",
     "Total collateral (USD)": "Total des garanties (USD)",
     "Vault needs DFI to be in 50% vault share": "Le vault a besoin d'une part des garanties en DFI d'au moins 50%.",
     "Confirm details in next screen": "Validez les détails à l'étape suivante",
-    "Select token to add": "Sélectionner le token à ajouter",
+    "Select token to add": "Sélectionner un token à ajouter",
     "Are you sure you want to remove collateral token?": "Êtes-vous sûr de vouloir retirer des tokens de garantie ?",
     "CONTINUE": "SUIVANT",
     "BACK": "RETOUR",
@@ -1040,7 +1057,7 @@
     "Collateralization factor": "Facteur de garantie",
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateral value (USD)": "Valeur de la garantie (USD)",
-    "CONFIRM ADD COLLATERAL": "CONFIRMEZ L'AJOUT DE GARANTIE",
+    "CONFIRM ADD COLLATERAL": "CONFIRMER L'AJOUT DE GARANTIE",
     "ADDING": "AJOUT...",
     "You are removing collateral from": "Vous retirez la garantie de",
     "Convert & add collateral": "Convertir et ajouter des garanties",
@@ -1067,8 +1084,8 @@
     "Excess amount": "Montant excédentaire",
     "Any excess amount will be returned to your wallet.": "Tout montant excédentaire sera reversé dans votre portefeuille.",
     "Vault ID": "Vault ID",
-    "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restant",
-    "Insufficient {{token}} balance to pay the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
+    "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
+    "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
     "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
     "Read more": "En savoir plus"
@@ -1189,7 +1206,7 @@
   "components/HeaderSearchInput": {
     "Search for loans": "Rechercher des prêts",
     "Search for loan token": "Rechercher de token de prêt",
-    "Search for pool pairs": "Chercher des paires de pool"
+    "Search for pool pairs": "Rechercher des paires de pool"
   },
   "components/EmptyCollateral": {
     "No collateral": "Pas de garanties",

@@ -123,6 +123,7 @@ export function ConfirmBorrowLoanTokenScreen ({
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='borrow_loan'
       />
     </ThemedScrollView>
