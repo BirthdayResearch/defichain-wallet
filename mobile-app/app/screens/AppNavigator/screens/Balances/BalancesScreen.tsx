@@ -1,6 +1,7 @@
 import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components'
 import {
+  ThemedIcon,
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedTouchableOpacity
@@ -15,13 +16,13 @@ import { ocean } from '@store/ocean'
 import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { RefreshControl } from 'react-native'
+import { RefreshControl, TouchableOpacity } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
@@ -30,6 +31,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { WalletSelectionButton } from './components/WalletSelectionButton'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -51,6 +53,29 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Settings')}
+          testID='header_settings'
+        >
+          <ThemedIcon
+            iconType='MaterialIcons'
+            name='settings'
+            size={28}
+            style={tailwind('ml-2')}
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+          />
+        </TouchableOpacity>
+      ),
+      headerRight: (): JSX.Element => (
+        <WalletSelectionButton address={address} onPress={() => {}} />
+      )
+    })
+  }, [navigation, address])
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
