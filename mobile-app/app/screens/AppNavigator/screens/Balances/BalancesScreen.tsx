@@ -1,5 +1,5 @@
 import { getNativeIcon } from '@components/icons/assets'
-import { View } from '@components'
+import { View, Platform, RefreshControl, TouchableOpacity } from 'react-native'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -16,13 +16,12 @@ import { ocean } from '@store/ocean'
 import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { RefreshControl, TouchableOpacity } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
@@ -31,7 +30,10 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { WalletSelectionButton } from './components/WalletSelectionButton'
+import { AddressSelectionButton } from './components/AddressSelectionButton'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -54,6 +56,41 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
 
+  // Bottom sheet
+  const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
+  const containerRef = useRef(null)
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const expandModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
+  }, [])
+  const dismissModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
+  }, [])
+  const bottomSheetScreen = useMemo(() => {
+    return [
+    {
+      stackScreenName: 'AddressDetail',
+      component: BottomSheetAddressDetail({
+        address: address,
+        addressLabel: 'Test label',
+        onReceiveButtonPress: () => { },
+        onCloseButtonPress: () => dismissModal()
+      }),
+      option: {
+        header: () => null
+      }
+    }
+  ]
+}, [address])
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -72,7 +109,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         </TouchableOpacity>
       ),
       headerRight: (): JSX.Element => (
-        <WalletSelectionButton address={address} onPress={() => {}} />
+        <AddressSelectionButton address={address} onPress={expandModal} />
       )
     })
   }, [navigation, address])
@@ -102,58 +139,74 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     totalUSDValue,
     dstTokens
   } = useMemo(() => {
-     return tokens.reduce(
-    ({
-      totalUSDValue,
-      dstTokens
-    }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
-      token
-    ) => {
-      const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+    return tokens.reduce(
+      ({
+        totalUSDValue,
+        dstTokens
+      }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        token
+      ) => {
+        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
 
-      if (token.symbol === 'DFI') {
-        return {
-          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
-          totalUSDValue: token.id === '0_unified'
-            ? totalUSDValue
-            : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-          dstTokens
+        if (token.symbol === 'DFI') {
+          return {
+            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
+            totalUSDValue: token.id === '0_unified'
+              ? totalUSDValue
+              : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+            dstTokens
+          }
         }
-      }
-      return {
-        totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-        dstTokens: [...dstTokens, {
-          ...token,
-          usdAmount
-        }]
-      }
-    }, {
+        return {
+          totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens: [...dstTokens, {
+            ...token,
+            usdAmount
+          }]
+        }
+      }, {
       totalUSDValue: new BigNumber(0),
       dstTokens: []
     })
   }, [getTokenPrice, tokens])
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('pb-8')} testID='balances_list'
-      refreshControl={
-        <RefreshControl
-          onRefresh={onRefresh}
-          refreshing={refreshing}
+    <View ref={containerRef}>
+      <ThemedScrollView
+        contentContainerStyle={tailwind('pb-8')} testID='balances_list'
+        refreshControl={
+          <RefreshControl
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+          />
+        }
+      >
+        <Announcements />
+        <BalanceControlCard />
+        <TotalPortfolio
+          totalUSDValue={totalUSDValue}
+          onToggleDisplayBalances={onToggleDisplayBalances}
+          isBalancesDisplayed={isBalancesDisplayed}
         />
-      }
-    >
-      <Announcements />
-      <BalanceControlCard />
-      <TotalPortfolio
-        totalUSDValue={totalUSDValue}
-        onToggleDisplayBalances={onToggleDisplayBalances}
-        isBalancesDisplayed={isBalancesDisplayed}
-      />
-      <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
-      <DFIBalanceCard />
-      <BalanceList dstTokens={dstTokens} navigation={navigation} />
-    </ThemedScrollView>
+        <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
+        <DFIBalanceCard />
+        <BalanceList dstTokens={dstTokens} navigation={navigation} />
+        {Platform.OS === 'web'
+          ? (
+            <BottomSheetWebWithNav
+              modalRef={containerRef}
+              screenList={bottomSheetScreen}
+              isModalDisplayed={isModalDisplayed}
+            />
+          )
+: (
+  <BottomSheetWithNav
+    modalRef={bottomSheetRef}
+    screenList={bottomSheetScreen}
+  />
+          )}
+      </ThemedScrollView>
+    </View>
   )
 }
 
@@ -193,7 +246,7 @@ function BalanceList ({
                 </View>
               ))}
             </View>
-            )
+          )
       }
     </>
   )
