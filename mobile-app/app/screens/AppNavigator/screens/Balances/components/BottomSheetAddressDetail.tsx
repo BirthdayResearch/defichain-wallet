@@ -85,8 +85,8 @@ function ReceiveButton ({ onPress }: { onPress: () => void }): JSX.Element {
         <ThemedIcon
           iconType='MaterialIcons'
           name='arrow-downward'
-          size={18}
-          style={tailwind('mr-2 pt-0.5')}
+          size={22}
+          style={tailwind('mr-1 mt-0.5')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-white')}
         />
@@ -113,7 +113,7 @@ function DefiscanButton ({ address }: { address: string }): JSX.Element {
         iconType='MaterialIcons'
         name='open-in-new'
         size={18}
-        style={tailwind('mr-1')}
+        style={tailwind('mr-1 pt-0.5')}
         light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
       />
