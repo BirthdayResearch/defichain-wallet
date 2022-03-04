@@ -2,12 +2,12 @@ import { ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
 
-interface WalletSelectionButtonProps {
+interface AddressSelectionButtonProps {
   address: string
   onPress: () => void
 }
 
-export function WalletSelectionButton (props: WalletSelectionButtonProps): JSX.Element {
+export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-gray-50')}
