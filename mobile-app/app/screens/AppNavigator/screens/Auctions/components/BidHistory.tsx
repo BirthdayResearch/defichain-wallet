@@ -94,7 +94,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind(['border-gray-200', { 'bg-white': props.isLatestBid, 'bg-gray-50': !props.isLatestBid }])}
-      dark={tailwind(['border-gray-800', { 'bg-gray-800': props.isLatestBid, 'bg-gray-900': !props.isLatestBid }])}
+      dark={tailwind(['border-dfxblue-800', { 'bg-dfxblue-800': props.isLatestBid, 'bg-dfxblue-900': !props.isLatestBid }])}
       style={tailwind('border rounded px-4 py-3 mb-1')}
       testID={`bid_${props.bidIndex.toString()}`}
     >
@@ -102,7 +102,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         <ThemedView
           style={tailwind('px-1 rounded-sm')}
           light={tailwind(['text-white', { 'bg-blue-500': props.isLatestBid, 'bg-gray-400': !props.isLatestBid }])}
-          dark={tailwind(['text-black', { 'bg-darkblue-500': props.isLatestBid, 'bg-gray-500': !props.isLatestBid }])}
+          dark={tailwind(['text-black', { 'bg-dfxblue-500': props.isLatestBid, 'bg-dfxgray-500': !props.isLatestBid }])}
         >
           <ThemedText
             style={tailwind('text-2xs')}
@@ -114,7 +114,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         </ThemedView>
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {bidTime}
@@ -130,7 +130,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
           renderText={value =>
             <ThemedText
               light={tailwind('text-gray-700')}
-              dark={tailwind('text-gray-300')}
+              dark={tailwind('text-dfxgray-300')}
               style={tailwind('text-sm font-medium')}
               testID={`bid_${props.loanDisplaySymbol}_amount`}
             >
@@ -154,7 +154,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         <ActiveUSDValue price={props.bidAmountInUSD} />
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('components/BidHistory', 'Bidder ID')}

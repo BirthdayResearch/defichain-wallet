@@ -32,7 +32,7 @@ export function InfoText (props: InfoTextProp): JSX.Element {
         name={type === 'success' ? 'check-circle-outline' : type === 'warning' ? 'info' : 'warning'}
         size={14}
         light={tailwind({ 'text-warning-500': type === 'warning', 'text-error-500': type === 'error', 'text-success-500': type === 'success' })}
-        dark={tailwind({ 'text-dfxyellow-500': type === 'warning', 'text-darkerror-500': type === 'error', 'text-darksuccess-500': type === 'success' })}
+        dark={tailwind({ 'text-dfxyellow-500': type === 'warning', 'text-darkerror-500': type === 'error', 'text-dfxgreen-500': type === 'success' })}
       />
       <ThemedText
         style={tailwind('text-xs pl-2 font-medium flex-1')}

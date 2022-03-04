@@ -28,8 +28,8 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
       <View style={tailwind('w-10/12 flex-grow')}>
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-sm text-gray-500')}
+          dark={tailwind('text-dfxgray-400')}
+          style={tailwind('text-sm')}
         >
           {translate('screens/BalancesScreen', 'Total Portfolio Value (USD)')}
         </ThemedText>

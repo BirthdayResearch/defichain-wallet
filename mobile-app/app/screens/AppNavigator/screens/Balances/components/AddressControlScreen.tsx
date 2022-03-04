@@ -188,7 +188,7 @@ export function AddressItemRow ({ address, isActive, index, onPress }: { address
       disabled={hasPendingJob || hasPendingBroadcastJob}
     >
       <View style={tailwind('flex-row items-center flex-grow')}>
-        <RandomAvatar name={address} size={20} />
+        <RandomAvatar name={address} size={30} />
         <View style={tailwind('ml-3 flex-auto')}>
           <ThemedText
             light={tailwind('text-gray-900')}

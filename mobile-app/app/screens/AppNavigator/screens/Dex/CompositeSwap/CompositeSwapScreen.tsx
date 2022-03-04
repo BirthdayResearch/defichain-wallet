@@ -491,8 +491,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   enableMaxButton={false}
                 />
               </View>
-              {isConversionRequired && <ConversionInfoText />}
             </View>
+            {isConversionRequired && <ConversionInfoText />}
           </View>}
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
