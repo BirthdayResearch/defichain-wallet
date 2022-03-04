@@ -78,7 +78,8 @@
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
     "Switch to another address": "Wechsel zu einer anderen Adresse",
     "Wallet Address": "Walletadresse",
-    "ACTIVE": "AKTIV"
+    "ACTIVE": "AKTIV",
+    "Switch to another wallet": "Wechsel zu einem anderen Wallet"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -289,10 +290,13 @@
     "Sent": "Gesendet"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "Transaktion",
     "Type": "Typ",
     "Amount": "Betrag",
     "Block": "Block",
-    "Date": "Datum"
+    "Date": "Datum",
+    "Received": "Empfangen",
+    "Sent": "Gesendet"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transaktionen"

@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react'
 import i18n from 'i18n-js'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+dayjs.extend(localizedFormat)
+require('dayjs/locale/de')
+require('dayjs/locale/en')
+require('dayjs/locale/fr')
+require('dayjs/locale/zh')
 
 interface LanguageLoader {
   isLanguageLoaded: boolean
@@ -67,6 +74,20 @@ export function LanguageProvider (props: LanguageContextI & PropsWithChildren<an
 
   useEffect(() => {
     i18n.locale = currentLanguage
+    switch (currentLanguage) {
+      case 'de':
+        dayjs.locale('de')
+        break;
+      case 'fr':
+        dayjs.locale('fr')
+        break;
+      case 'zh-Hans':
+      case 'zh-Hant':
+        dayjs.locale('zh')
+        break;
+      default:
+        dayjs.locale('en')
+    }
   }, [currentLanguage])
 
   const setLanguage = async (locale: string): Promise<void> => {
