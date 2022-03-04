@@ -80,8 +80,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       stackScreenName: 'AddressDetail',
       component: BottomSheetAddressDetail({
         address: address,
-        addressLabel: 'Test label',
-        onReceiveButtonPress: () => { },
+        addressLabel: 'TODO: get label from storage api',
+        onReceiveButtonPress: () => {
+          dismissModal()
+          navigation.navigate('Receive')
+        },
         onCloseButtonPress: () => dismissModal()
       }),
       option: {

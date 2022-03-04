@@ -6,8 +6,6 @@ import React, { memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { BalanceParamList } from '../BalancesNavigator'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 
@@ -46,7 +44,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
       >
         {props.address}
       </ThemedText>
-      <ReceiveButton />
+      <ReceiveButton onPress={props.onReceiveButtonPress} />
       <DefiscanButton address={props.address} />
     </ThemedScrollView>
   )
@@ -77,19 +75,18 @@ function ChangeAddressButton ({ addressLabel }: { addressLabel: string }): JSX.E
     </ThemedTouchableOpacity>
   )
 }
-function ReceiveButton (): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+function ReceiveButton ({ onPress }: { onPress: () => void }): JSX.Element {
   return (
     <Button
-      onPress={() => navigation.navigate('Receive')}
+      onPress={onPress}
       margin='mb-2'
     >
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedIcon
           iconType='MaterialIcons'
           name='arrow-downward'
-          size={16}
-          style={tailwind('mr-2')}
+          size={18}
+          style={tailwind('mr-2 pt-0.5')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-white')}
         />
