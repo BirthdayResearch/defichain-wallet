@@ -114,29 +114,28 @@ export function PoolPairCards ({
     }
   }
 
+  const pairCompareFn = (a, b) => {
+    availablePairs.findIndex(x => x.data.id === a.data.id) -
+    availablePairs.findIndex(x => x.data.id === b.data.id)
+  }
+
   useEffect(() => {
     setIsSearching(false)
-    if (showSearchInput) {
-      if (debouncedSearchTerm !== undefined && debouncedSearchTerm.trim().length > 0) {
-        setFilteredYourPairs(
-          yourPairs.filter((pair) =>
-            pair.data.displaySymbol
-              .toLowerCase()
-              .includes(debouncedSearchTerm.trim().toLowerCase())
-          ).sort((a, b) =>
-            availablePairs.findIndex(x => x.data.id === a.data.id) -
-            availablePairs.findIndex(x => x.data.id === b.data.id
-            ))
-        )
-      } else {
-        setFilteredYourPairs([])
-      }
+    if (!showSearchInput) {
+      setFilteredYourPairs(yourPairs.sort(pairCompareFn))
+      return
+    }
+
+    if (debouncedSearchTerm !== undefined && debouncedSearchTerm.trim().length > 0) {
+      setFilteredYourPairs(
+        yourPairs.filter((pair) =>
+          pair.data.displaySymbol
+            .toLowerCase()
+            .includes(debouncedSearchTerm.trim().toLowerCase())
+        ).sort(pairCompareFn)
+      )
     } else {
-      setFilteredYourPairs(yourPairs
-        .sort((a, b) =>
-          availablePairs.findIndex(x => x.data.id === a.data.id) -
-          availablePairs.findIndex(x => x.data.id === b.data.id)
-        ))
+      setFilteredYourPairs([])
     }
   }, [yourPairs, debouncedSearchTerm, showSearchInput])
 

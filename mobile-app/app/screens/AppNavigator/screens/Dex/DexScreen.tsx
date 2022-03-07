@@ -192,12 +192,13 @@ export function DexScreen (): JSX.Element {
 
   // Update local state - filter available pair when pairs update
   useEffect(() => {
-    if (showSearchInput) {
-      if (searchString !== undefined && searchString.trim().length > 0) {
-        handleFilter(searchString)
-      }
-    } else {
+    if (!showSearchInput) {
       handleButtonFilter(activeButtonGroup)
+      return
+    }
+
+    if (searchString !== undefined && searchString.trim().length > 0) {
+      handleFilter(searchString)
     }
   }, [pairs])
 
