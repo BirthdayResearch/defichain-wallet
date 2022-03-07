@@ -21,6 +21,7 @@ import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/Toke
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import BigNumber from 'bignumber.js'
+import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -95,9 +96,9 @@ export function DFIBalanceCard (): JSX.Element {
             }
           </ThemedView>
 
+          <TokenBreakdownPercentage availableDFI={new BigNumber(DFIUnified.amount)} />
           <DFIBreakdownRow testID='dfi_utxo' amount={DFIUtxo.amount} label='UTXO' hasFetchedToken={hasFetchedToken} />
           <DFIBreakdownRow testID='dfi_token' amount={DFIToken.amount} label='Token' hasFetchedToken={hasFetchedToken} />
-
           <View style={tailwind('flex-row mt-2')}>
             <InfoTextLink
               onPress={() => navigation.navigate('TokensVsUtxo')}
