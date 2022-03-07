@@ -4,10 +4,10 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 dayjs.extend(localizedFormat)
-require('dayjs/locale/de')
-require('dayjs/locale/en')
-require('dayjs/locale/fr')
-require('dayjs/locale/zh')
+import 'dayjs/locale/de'
+import 'dayjs/locale/en'
+import 'dayjs/locale/fr'
+import 'dayjs/locale/zh'
 
 interface LanguageLoader {
   isLanguageLoaded: boolean
