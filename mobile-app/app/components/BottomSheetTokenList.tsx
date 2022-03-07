@@ -66,7 +66,6 @@ export const BottomSheetTokenList = ({
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
   const { getTokenPrice } = useTokenPrice()
 
-  // typescript type guard
   function isCollateralItem (item: CollateralItem | BottomSheetToken): item is CollateralItem {
     return (item as CollateralItem).activateAfterBlock !== undefined
   }
