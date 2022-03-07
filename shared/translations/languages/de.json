@@ -72,7 +72,9 @@
     "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN",
-    "YOUR ASSETS": "DEINE AKTIVA"
+    "YOUR ASSETS": "DEINE AKTIVA",
+    "locked in vault(s)": "hinterlegt in Vault(s)",
+    "available": "verfügbar"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -428,7 +430,7 @@
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
-    "Balances": "Guthaben",
+    "Portfolio": "Portfolio",
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen",
