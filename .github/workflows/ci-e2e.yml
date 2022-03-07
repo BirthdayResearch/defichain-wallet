@@ -36,7 +36,7 @@ jobs:
       - run: npm ci
 
       - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 120
-      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 360
       - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
 
       - uses: cypress-io/github-action@90f0f494f47dd0a22ac4759978de892d3e3fd340
