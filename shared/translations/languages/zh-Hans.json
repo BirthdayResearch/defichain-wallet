@@ -459,7 +459,8 @@
     "MAX": "最高值"
   },
   "screens/common": {
-    "CANCEL": "取消"
+    "CANCEL": "取消",
+    "TRY AGAIN": "再试一次"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码"
@@ -1079,7 +1080,7 @@
     "Resulting collateralization": "最终抵押率",
     "Vault ID": "金库编号",
     "Resulting {{displaySymbol}} Balance": "产生的 {{displaySymbol}} 余额",
-    "Insufficient {{token}} balance to pay the entered amount": "{{token}} 余额不足以支付输入的金额",
+    "Insufficient {{token}} to pay for the entered amount": "{{token}} 余额不足以支付输入的金额",
     "Select payment token": "选择付款代币",
     "A 1% fee is applied when you pay with DFI.": "当您使用 DFI 付款时，将收取 1% 的费用",
     "Read more": "阅读更多"

@@ -182,6 +182,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='remove'
       />
     </ThemedScrollView>

@@ -108,7 +108,7 @@ exports[`balances page should match snapshot 1`] = `
                   ]
                 }
                 maskUnits={1}
-                name="mask0"
+                name="mask__bauhaus"
                 width={80}
                 x={0}
                 y={0}
@@ -128,775 +128,86 @@ exports[`balances page should match snapshot 1`] = `
                 />
               </RNSVGMask>
               <RNSVGGroup
-                mask="mask0"
+                mask="mask__bauhaus"
               >
                 <RNSVGRect
-                  fill={4292569528}
-                  height={10}
+                  fill={4281626061}
+                  height={80}
                   propList={
                     Array [
                       "fill",
                     ]
                   }
-                  width={10}
+                  width={80}
                   x={0}
                   y={0}
                 />
                 <RNSVGRect
-                  fill={4292569528}
-                  height={10}
+                  fill={4294300999}
+                  height={80}
+                  matrix={
+                    Array [
+                      -0.46947156278589075,
+                      -0.882947592858927,
+                      0.882947592858927,
+                      -0.46947156278589075,
+                      23.46095879707855,
+                      94.0967662257927,
+                    ]
+                  }
                   propList={
                     Array [
                       "fill",
                     ]
                   }
-                  width={10}
-                  x={20}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={10}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4294634229}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4292569528}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={0}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4292569528}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4292569528}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={20}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4294634229}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4292569528}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={40}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4292569528}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4294634229}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4294634229}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={60}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={10}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={10}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
+                  width={80}
                   x={10}
                   y={30}
                 />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
+                <RNSVGCircle
+                  cx={40}
+                  cy={40}
+                  fill={4278788109}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
                   propList={
                     Array [
                       "fill",
                     ]
                   }
-                  width={10}
-                  x={10}
-                  y={40}
+                  r={16}
                 />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
+                <RNSVGLine
+                  matrix={
                     Array [
-                      "fill",
+                      -0.5591929034707467,
+                      0.8290375725550417,
+                      -0.8290375725550417,
+                      -0.5591929034707467,
+                      91.52921904103154,
+                      33.2062132366282,
                     ]
                   }
-                  width={10}
-                  x={10}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
                   propList={
                     Array [
-                      "fill",
+                      "stroke",
+                      "strokeWidth",
                     ]
                   }
-                  width={10}
-                  x={10}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={10}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={30}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4293799089}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={50}
-                  y={70}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={10}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={20}
-                />
-                <RNSVGRect
-                  fill={4280690214}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={30}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={40}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={50}
-                />
-                <RNSVGRect
-                  fill={4284501695}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={60}
-                />
-                <RNSVGRect
-                  fill={4294634229}
-                  height={10}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={10}
-                  x={70}
-                  y={70}
+                  stroke={4281312875}
+                  strokeWidth={2}
+                  x1={0}
+                  x2={80}
+                  y1={40}
+                  y2={40}
                 />
               </RNSVGGroup>
             </RNSVGGroup>

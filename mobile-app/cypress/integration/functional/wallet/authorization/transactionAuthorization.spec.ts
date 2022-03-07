@@ -87,7 +87,7 @@ context('Wallet - Transaction Authorization', () => {
     it('should be able to cancel', function () {
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.getByTestID('cancel_authorization').click()
     })
@@ -96,7 +96,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.go('back')
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
@@ -114,7 +114,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.wrap(Array(MAX_PASSCODE_ATTEMPT - 1)).each(() => {
         cy.getByTestID('pin_authorize').type('696969').wait(1000)
@@ -125,7 +125,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
       cy.getByTestID('amount_input').clear().type('1')
-      cy.getByTestID('send_submit_button').click()
+      cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(1000)

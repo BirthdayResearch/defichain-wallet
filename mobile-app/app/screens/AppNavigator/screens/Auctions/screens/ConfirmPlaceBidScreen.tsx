@@ -168,6 +168,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmPlaceBidScreen', getSubmitLabel())}
         onCancel={onCancel}
+        displayCancelBtn
         onSubmit={onSubmit}
         title='bid'
       />
