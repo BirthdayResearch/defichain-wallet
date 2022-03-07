@@ -73,7 +73,7 @@
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
     "YOUR ASSETS": "MES ACTIFS",
-    "locked in vault(s)": "bloqués dans le ou les vault(s)",
+    "locked": "verrouillé",
     "available": "disponible"
   },
   "screens/AddressControlScreen": {
