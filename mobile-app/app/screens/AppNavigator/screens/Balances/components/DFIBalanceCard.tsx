@@ -49,13 +49,13 @@ export function DFIBalanceCard (): JSX.Element {
       style={tailwind('mx-4 mb-1.5 rounded-lg flex-1')}
       testID='dfi_balance_card'
     >
-      <ImageBackground
-        source={isLight ? DFIBackground : DFIBackgroundDark}
-        style={tailwind('flex-1 rounded-lg overflow-hidden')}
-        resizeMode='cover'
-        resizeMethod='scale'
-      >
-        <View style={tailwind('flex-col flex-1 m-4 mb-0')}>
+      <View style={tailwind('flex-col flex-1 m-4 mb-0')}>
+        <ImageBackground
+          source={isLight ? DFIBackground : DFIBackgroundDark}
+          style={tailwind('flex-1 rounded-lg overflow-hidden')}
+          resizeMode='cover'
+          resizeMethod='scale'
+        >
           <ThemedView
             dark={tailwind('border-b border-gray-700')}
             light={tailwind('border-b border-gray-100')}
@@ -102,7 +102,6 @@ export function DFIBalanceCard (): JSX.Element {
                 )
             }
           </ThemedView>
-
           <TokenBreakdownPercentage
             symbol='DFI'
             availableAmount={new BigNumber(DFIUnified.amount)}
@@ -110,20 +109,21 @@ export function DFIBalanceCard (): JSX.Element {
             isBreakdownExpanded={isBreakdownExpanded}
             lockedAmount={lockedAmount}
           />
-          {isBreakdownExpanded && (
-            <>
-              <DFIBreakdown
-                lockedAmount={lockedAmount}
-                hasFetchedToken={hasFetchedToken}
-                DFIUnified={DFIUnified}
-                DFIToken={DFIToken}
-                DFIUtxo={DFIUtxo}
-              />
-              <DFIBreakdownAction DFIUnified={DFIUnified} />
-            </>
-          )}
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+
+        {isBreakdownExpanded && (
+          <View style={tailwind('mb-4')}>
+            <DFIBreakdown
+              lockedAmount={lockedAmount}
+              hasFetchedToken={hasFetchedToken}
+              DFIUnified={DFIUnified}
+              DFIToken={DFIToken}
+              DFIUtxo={DFIUtxo}
+            />
+            <DFIBreakdownAction DFIUnified={DFIUnified} />
+          </View>
+        )}
+      </View>
     </ThemedView>
   )
 }
