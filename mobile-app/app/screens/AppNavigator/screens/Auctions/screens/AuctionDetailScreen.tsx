@@ -31,6 +31,7 @@ import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchAuctions } from '@store/auctions'
+import { AuctionBidStatus } from '../components/BatchCard'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -53,7 +54,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     minNextBidInToken,
     totalCollateralsValueInUSD,
     minNextBidInUSD
-   } = useAuctionBidValue(batch, vault.liquidationPenalty)
+  } = useAuctionBidValue(batch, vault.liquidationPenalty)
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const { address } = useWalletContext()
@@ -152,7 +153,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
       <ThemedView
         light={tailwind('bg-gray-50')}
         style={tailwind(['flex-1', { 'pb-36': Platform.OS !== 'web' }
-      ])}
+        ])}
       >
         <ThemedView
           light={tailwind('bg-white border-gray-200')}
@@ -212,7 +213,11 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
             blockCount={blockCount}
             label='Auction time remaining'
           />
-
+          {batch?.highestBid?.owner === address && (
+            <View style={tailwind('mb-1')}>
+              <AuctionBidStatus testID='batch_detail' type='highest' />
+            </View>
+          )}
         </ThemedView>
         <Tabs tabSections={tabsList} testID='auction_detail_tab' activeTabKey={activeTab} />
         {activeTab === TabKey.BidHistory && (

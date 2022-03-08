@@ -170,7 +170,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             label='Auction ends in'
           />
         </View>
-        <View style={tailwind('flex flex-row mt-1 items-baseline')}>
+        <View style={tailwind('flex flex-row mt-1 items-center')}>
           <NumberFormat
             displayType='text'
             prefix='$'
@@ -263,5 +263,56 @@ const BatchCardButtons = memo((props: { onPlaceBid: () => void, onQuickBid: () =
         testID={`${props.testID}_quick_bid_button`}
       />
     </ThemedView>
+  )
+})
+
+type AuctionBidStatusType = 'lost' | 'highest'
+
+export const AuctionBidStatus = memo(({ type, testID }: { type: AuctionBidStatusType, testID: string }): JSX.Element => {
+  return (
+    <View style={tailwind('flex-row w-full items-center justify-between')}>
+      <View style={tailwind('flex flex-row items-center justify-between')}>
+        {type === 'lost'
+          ? (
+            <>
+              <ThemedIcon
+                light={tailwind('text-warning-500')}
+                dark={tailwind('text-darkwarning-500')}
+                iconType='MaterialIcons'
+                name='not-interested'
+                size={12}
+              />
+              <ThemedText
+                light={tailwind('text-warning-500')}
+                dark={tailwind('text-darkwarning-500')}
+                style={tailwind('text-xs ml-1')}
+                testID={`${testID}_lost_text`}
+              >
+                {translate('components/BatchCard', 'Your placed bid lost')}
+              </ThemedText>
+            </>
+          )
+          : (
+            <>
+              <ThemedIcon
+                light={tailwind('text-blue-500')}
+                dark={tailwind('text-darkblue-500')}
+                iconType='MaterialIcons'
+                name='person-pin'
+                size={12}
+                style={tailwind('mr-1 mt-0.5')}
+              />
+              <ThemedText
+                light={tailwind('text-blue-500')}
+                dark={tailwind('text-darkblue-500')}
+                style={tailwind('text-2xs mr-2')}
+                testID={`${testID}_highest_text`}
+              >
+                {translate('components/BatchCard', 'You are the highest bidder')}
+              </ThemedText>
+            </>
+          )}
+      </View>
+    </View>
   )
 })

@@ -113,7 +113,7 @@ export function MinNextBidTextCompact (props: MinNextBidTextRowProps): JSX.Eleme
   } = _useMinNextBidTextRowComponent({ ...props })
 
   return (
-    <View style={tailwind('flex flex-row items-baseline')}>
+    <View style={tailwind('flex flex-row items-center')}>
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
