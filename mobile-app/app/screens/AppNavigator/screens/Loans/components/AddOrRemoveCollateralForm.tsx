@@ -262,7 +262,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
       >
         <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
         <ThemedView
-          style={tailwind('items-center flex flex-row py-1 px-1.5 rounded-2xl')}
+          style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
         >
           <SymbolIcon
             symbol={token.displaySymbol}
@@ -272,7 +272,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
               <ThemedText
                 light={tailwind('text-gray-900')}
                 dark={tailwind('text-gray-50')}
-                style={tailwind('px-1 text-sm font-medium')}
+                style={tailwind('px-1 text-sm font-medium item-center')}
                 testID='bottom-sheet-vault-percentage-text'
               >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
               </ThemedText>
@@ -286,7 +286,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
                 suffix='%'
                 renderText={(val: string) => (
                   <ThemedView
-                    style={tailwind('px-1 items-center rounded')}
+                    style={tailwind('px-1 rounded')}
                   >
                     <ThemedText
                       light={tailwind('text-gray-900')}
