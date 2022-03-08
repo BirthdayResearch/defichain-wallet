@@ -833,7 +833,11 @@
     "Min. next bid": "Surenchère min.",
     "You are the highest bidder": "Vous êtes le plus offrant",
     "From your vault": "De votre vault",
-    "Waiting for first bid": "En attente de la première offre"
+    "Waiting for first bid": "En attente de la première offre",
+    "worth of collaterals": "valeur des garanties",
+    "Bid lost": "Enchère perdue",
+    "Placed bid is active": "L'offre placée est active",
+    "Min. next bid is": "Surenchère min. est de"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "Il y a {{h}}h {{m}}m ",
@@ -1264,5 +1268,13 @@
   },
   "components/Announcements": {
     "DETAILS": "DÉTAILS"
+  },
+  "screens/BrowseAuctions": {
+    "All": "Toutes",
+    "From your vault": "De mon vault",
+    "With placed bids": "Avec des offres",
+    "No available auctions": "Aucune enchère disponible",
+    "No available auctions from your vault": "Aucune enchère disponible correspondant à votre vault",
+    "No available auctions with placed bids": "Pas de ventes aux enchères disponibles avec des offres placées"
   }
 }

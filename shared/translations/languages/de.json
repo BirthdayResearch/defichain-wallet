@@ -832,7 +832,11 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "You are the highest bidder": "Du bist Höchstbietender",
     "From your vault": "Aus deinem Vault",
-    "Waiting for first bid": "Warten auf das erste Gebot"
+    "Waiting for first bid": "Warten auf das erste Gebot",
+    "worth of collaterals": "Sicherheitengesamtwert",
+    "Bid lost": "Du warst nicht der Höchstbietende",
+    "Placed bid is active": "Das abgegebene Gebot ist aktiv",
+    "Min. next bid is": "Nächstes Mindestgebot ist"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "Vor {{h}}h {{m}}min",
@@ -1263,5 +1267,13 @@
   },
   "components/Announcements": {
     "DETAILS": "DETAILS"
+  },
+  "screens/BrowseAuctions": {
+    "All": "Alle",
+    "From your vault": "Zu deinem Vault",
+    "With placed bids": "Mit Geboten",
+    "No available auctions": "Keine verfügbaren Auktionen",
+    "No available auctions from your vault": "Keine verfügbaren Auktionen zu deinem Vault passend",
+    "No available auctions with placed bids": "Keine verfügbaren Auktionen mit abgegebenen Geboten"
   }
 }
