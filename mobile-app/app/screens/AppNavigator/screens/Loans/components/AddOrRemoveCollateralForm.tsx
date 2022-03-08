@@ -116,12 +116,12 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0'
   const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
   const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(new BigNumber(collateralValue)))
-  const initialPrices = useCollateralPrice(totalAmount, collateralItem, new BigNumber(vault.collateralValue))
+  const initialPrices = useCollateralPrice(new BigNumber(collateralValue), collateralItem, new BigNumber(vault.collateralValue))
   const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
   const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
 
   useEffect(() => {
-      setVaultValue(prices.vaultShare.toFixed(2))
+    setVaultValue(prices.vaultShare.toFixed(2))
   }, [prices.vaultShare])
 
   useEffect(() => {
@@ -256,9 +256,9 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
       </InputHelperText>
       <ScrollView
         horizontal contentContainerStyle={tailwind(['flex justify-between items-center flex-row', {
-        'flex-grow h-7': Platform.OS !== 'web',
-        'w-full': Platform.OS === 'web'
-      }])}
+          'flex-grow h-7': Platform.OS !== 'web',
+          'w-full': Platform.OS === 'web'
+        }])}
       >
         <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
         <ThemedView
@@ -267,27 +267,38 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           <SymbolIcon
             symbol={token.displaySymbol}
           />
-          <NumberFormat
-            value={vaultValue}
-            thousandSeparator
-            decimalScale={2}
-            displayType='text'
-            suffix='%'
-            renderText={(val: string) => (
-              <ThemedView
-                style={tailwind('px-1 items-center rounded')}
-              >
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm font-medium')}
-                  testID='bottom-sheet-vault-percentage-text'
-                >
-                  {val}
-                </ThemedText>
-              </ThemedView>
-            )}
-          />
+          {collateralValue === ''
+            ? (
+              <ThemedText
+                light={tailwind('text-gray-900')}
+                dark={tailwind('text-gray-50')}
+                style={tailwind('px-1 text-sm font-medium')}
+                testID='bottom-sheet-vault-percentage-text'
+              >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
+              </ThemedText>
+            )
+            : (
+              <NumberFormat
+                value={vaultValue}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                suffix='%'
+                renderText={(val: string) => (
+                  <ThemedView
+                    style={tailwind('px-1 items-center rounded')}
+                  >
+                    <ThemedText
+                      light={tailwind('text-gray-900')}
+                      dark={tailwind('text-gray-50')}
+                      style={tailwind('text-sm font-medium')}
+                      testID='bottom-sheet-vault-percentage-text'
+                    >
+                      {val}
+                    </ThemedText>
+                  </ThemedView>
+                )}
+              />)}
         </ThemedView>
       </ScrollView>
       <View style={tailwind('pt-2 flex justify-between flex-row')}>
