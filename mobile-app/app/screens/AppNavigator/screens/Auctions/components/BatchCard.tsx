@@ -126,7 +126,26 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
                   light={tailwind('text-warning-500')}
                   dark={tailwind('text-darkwarning-500')}
                   style={tailwind('text-2xs')}
+                  testID={`${testID}_bid_lost`}
                 >{translate('components/BatchCard', 'Bid lost')}
+                </ThemedText>
+              </View>}
+            {batch?.highestBid?.owner === address && batch.froms.some(bidder => bidder === address) &&
+              <View style={tailwind('flex flex-row justify-center items-center')}>
+                <ThemedIcon
+                  size={12}
+                  name='thumb-up'
+                  iconType='MaterialIcons'
+                  style={tailwind('mr-1 mb-0.5')}
+                  light={tailwind('text-success-500')}
+                  dark={tailwind('text-darksuccess-500')}
+                />
+                <ThemedText
+                  light={tailwind('text-success-500')}
+                  dark={tailwind('text-darksuccess-500')}
+                  style={tailwind('text-2xs')}
+                  testID={`${testID}_bid_winning`}
+                >{translate('components/BatchCard', 'Placed bid is active')}
                 </ThemedText>
               </View>}
             <ThemedIcon
@@ -191,6 +210,8 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
         displaySymbol={batch.loan.displaySymbol}
         minNextBidInToken={minNextBidInToken}
         minNextBidInUSD={minNextBidInUSD}
+        valueTextStyle={tailwind('text-2xs')}
+        usdValueTextStyle={tailwind('text-2xs')}
         testID={`batch_${batch.index}_min_next_bid`}
       />
 

@@ -18,7 +18,7 @@ import { useBottomSheet } from '@hooks/useBottomSheet'
 import BigNumber from 'bignumber.js'
 import { QuickBid } from './QuickBid'
 import { useDebounce } from '@hooks/useDebounce'
-import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
+import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useIsFocused } from '@react-navigation/native'
@@ -50,7 +50,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { hasFetchAuctionsData, auctions } = useSelector((state: RootState) => state.auctions)
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const isFocused = useIsFocused()
 
   const {
@@ -67,7 +66,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   // Search and Tab Group
   const [activeAuctionTabGroupKey, setActiveAuctionTabGroupKey] = useState<AuctionTabGroupKey>(AuctionTabGroupKey.AllAuctions)
   const debouncedSearchTerm = useDebounce(searchString, 500)
-  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByFilterSelector(state.auctions, state.loans, { searchTerm: debouncedSearchTerm, activeAuctionTabGroupKey, walletAddress: address }))
+  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByFilterSelector(state.auctions, { searchTerm: debouncedSearchTerm, activeAuctionTabGroupKey, walletAddress: address }))
 
   useEffect(() => {
     if (isFocused) {
@@ -125,7 +124,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
                 <BatchCards
                   auctionBatches={filteredAuctionBatches}
                   onQuickBid={onQuickBid}
-                  vaults={vaults}
                   buttonGroupOptions={{
                 activeButtonGroup: activeAuctionTabGroupKey,
                 setActiveButtonGroup: setActiveAuctionTabGroupKey,
@@ -174,12 +172,10 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
 
 function BatchCards ({
   auctionBatches,
-  vaults,
   onQuickBid,
   buttonGroupOptions
 }: {
   auctionBatches: AuctionBatchProps[]
-  vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
   buttonGroupOptions?: {
     onButtonGroupPress: (key: AuctionTabGroupKey) => void
@@ -188,7 +184,7 @@ function BatchCards ({
   }
 }): JSX.Element {
   const { isBetaFeature } = useFeatureFlagContext()
-
+  const { address } = useWalletContext()
   const RenderItems = useCallback(({
     item,
     index
@@ -202,7 +198,7 @@ function BatchCards ({
           key={`${auction.vaultId}_${batch.index}`}
           testID={`batch_card_${index}`}
           onQuickBid={onQuickBid}
-          isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
+          isVaultOwner={auction.ownerAddress === address}
         />
       </View>
     )
@@ -220,17 +216,20 @@ function BatchCards ({
       {
         id: AuctionTabGroupKey.AllAuctions,
         label: translate('screens/BrowseAuctions', 'All'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions)
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions),
+        widthPercentage: new BigNumber(16)
       },
       {
         id: AuctionTabGroupKey.FromYourVault,
         label: translate('screens/BrowseAuctions', 'From your vault'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault)
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault),
+        widthPercentage: new BigNumber(42)
       },
       {
         id: AuctionTabGroupKey.WithPlacedBids,
         label: translate('screens/BrowseAuctions', 'With placed bids'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids)
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids),
+        widthPercentage: new BigNumber(42)
       }
     ]
 
@@ -273,7 +272,7 @@ function BatchCards ({
       testID='available_liquidity_tab'
       renderItem={RenderItems}
       ListHeaderComponent={ListHeaderComponent}
-      ListEmptyComponent={() => <ThemedText>{getEmptyAuctionsText()}</ThemedText>}
+      ListEmptyComponent={() => <ThemedText testID='empty_auctions_list'>{getEmptyAuctionsText()}</ThemedText>}
     />
   )
 }

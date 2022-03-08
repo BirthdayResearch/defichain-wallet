@@ -23,7 +23,6 @@ import { IconButton } from '@components/IconButton'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { QuickBid } from '../components/QuickBid'
-import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -208,13 +207,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
               />
             </View>
           </View>
-
-          {batch?.highestBid?.owner === address && (
-            <View style={tailwind('mb-1')}>
-              <AuctionBidStatus testID='batch_detail' type='highest' />
-            </View>
-          )}
-
           <AuctionTimeProgress
             liquidationHeight={vault.liquidationHeight}
             blockCount={blockCount}

@@ -3,7 +3,6 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch, VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuctionTabGroupKey } from '@screens/AppNavigator/screens/Auctions/components/BrowseAuctions'
-import { LoansState } from './loans'
 
 export interface AuctionsState {
   auctions: LoanVaultLiquidated[]
@@ -39,7 +38,7 @@ export const fetchBidHistory = createAsyncThunk(
     batchIndex,
     client,
     size = 200
-  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient, size: number}) => {
+  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient, size: number }) => {
     return await client.loan.listVaultAuctionHistory(vaultId, liquidationHeight, batchIndex, size)
   }
 )
@@ -74,54 +73,57 @@ interface AuctionFilterAndGroup {
   activeAuctionTabGroupKey: AuctionTabGroupKey
   walletAddress: string
 }
- export const auctionsSearchByFilterSelector = createSelector([
+export const auctionsSearchByFilterSelector = createSelector([
   (state: AuctionsState) => state.auctions,
-  (_state: AuctionsState, loansState: LoansState) => loansState.vaults,
-  (_state: AuctionsState, _vaults: LoansState, filters: AuctionFilterAndGroup) => filters
-  ],
-  (auctions, vaults, filters) => {
+  (_state: AuctionsState, filters: AuctionFilterAndGroup) => filters
+],
+  (auctions, filters) => {
     const hasNoSearchTerm = filters.searchTerm === '' || filters.searchTerm === undefined
     return auctions
-    .reduce<AuctionBatchProps[]>((auctionBatches, auction): AuctionBatchProps[] => {
-      const filteredAuctionBatches = auctionBatches
-      auction.batches.forEach(batch => {
-        const isIncludedInSearchTerm = hasNoSearchTerm || (filters.searchTerm !== '' && filters.searchTerm !== undefined && batch.loan.displaySymbol.toLowerCase().includes(filters.searchTerm.trim().toLowerCase()))
-        const hasPlacedBid = batch.froms.some(bidder => bidder === filters.walletAddress)
-        const isVaultOwner = vaults.some(vault => vault.vaultId === auction.vaultId)
+      .reduce<AuctionBatchProps[]>((auctionBatches, auction): AuctionBatchProps[] => {
+        const filteredAuctionBatches = auctionBatches
+        auction.batches.forEach(batch => {
+          const isIncludedInSearchTerm = hasNoSearchTerm || (filters.searchTerm !== '' && filters.searchTerm !== undefined && batch.loan.displaySymbol.toLowerCase().includes(filters.searchTerm.trim().toLowerCase()))
+          const hasPlacedBid = batch.froms.some(bidder => bidder === filters.walletAddress)
+          const isVaultOwner = auction.ownerAddress === filters.walletAddress
+          if (isIncludedInSearchTerm && isVaultOwner && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.FromYourVault) {
+            filteredAuctionBatches.push({
+              ...batch, auction
+            })
+          } else if (isIncludedInSearchTerm && hasPlacedBid && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.WithPlacedBids) {
+            filteredAuctionBatches.push({
+              ...batch, auction
+            })
+          } else if (isIncludedInSearchTerm && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.AllAuctions) {
+            filteredAuctionBatches.push({
+              ...batch, auction
+            })
+          }
+        })
 
-        if (isIncludedInSearchTerm && isVaultOwner && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.FromYourVault) {
-          filteredAuctionBatches.push({
-            ...batch, auction
-          })
-        } else if (isIncludedInSearchTerm && hasPlacedBid && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.WithPlacedBids) {
-          filteredAuctionBatches.push({
-            ...batch, auction
-          })
-        } else if (isIncludedInSearchTerm && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.AllAuctions) {
-          filteredAuctionBatches.push({
-            ...batch, auction
-          })
+        return filteredAuctionBatches
+      }, [])
+      .sort((a, b) => {
+        const hasPlacedBidA = a.froms.some(bidder => bidder === filters.walletAddress)
+        const hasPlacedBidB = b.froms.some(bidder => bidder === filters.walletAddress)
+        const isHighestBidA = a.highestBid?.owner === filters.walletAddress
+        const isHighestBidB = b.highestBid?.owner === filters.walletAddress
+        const fromYourVaultA = a.auction.ownerAddress === filters.walletAddress
+        const fromYourVaultB = b.auction.ownerAddress === filters.walletAddress
+
+        if (
+          hasPlacedBidA && hasPlacedBidB &&
+          !isHighestBidA && !isHighestBidB) {
+          return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
+        } else if (hasPlacedBidA !== hasPlacedBidB) {
+          return hasPlacedBidA ? -1 : 1
+        } else if (fromYourVaultA !== fromYourVaultB) {
+          return fromYourVaultA ? -1 : 1
+        } else if (isHighestBidA !== isHighestBidB) {
+          return isHighestBidA ? 1 : -1
         }
+
+        return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
       })
-
-      return filteredAuctionBatches
-    }, [])
-    .sort((a, b) => {
-      const hasPlacedBidA = a.froms.some(bidder => bidder === filters.walletAddress) ? 1 : 0
-      const hasPlacedBidB = b.froms.some(bidder => bidder === filters.walletAddress) ? 1 : 0
-      const isHighestBidA = a.highestBid?.owner === filters.walletAddress ? 1 : 0
-      const isHighestBidB = b.highestBid?.owner === filters.walletAddress ? 1 : 0
-
-      const isHighestBid = isHighestBidB - isHighestBidA
-      const hasPlacedBid = hasPlacedBidB - hasPlacedBidA
-
-      if (isHighestBid === 1) {
-        return isHighestBid
-      } else if (hasPlacedBid === 1) {
-        return hasPlacedBid
-      }
-
-      return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
-    })
   }
 )

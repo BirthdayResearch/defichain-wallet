@@ -13,38 +13,49 @@ const _useMinNextBidTextRowComponent = ({
   minNextBidInUSD,
   displaySymbol,
   valueTextStyle,
+  usdValueTextStyle,
   testID
 }: {
   minNextBidInToken: string
   minNextBidInUSD: string
   displaySymbol: string
   valueTextStyle?: StyleProp<TextStyle>
+  usdValueTextStyle?: StyleProp<TextStyle>
   testID?: string
 }): {
   MinNextBidInToken: () => JSX.Element
   MinNextBidInUSD: () => JSX.Element
 } => {
-  const MinNextBidInToken = (): JSX.Element => <NumberFormat
-    displayType='text'
-    suffix={` ${displaySymbol}`}
-    renderText={(value: string) => (
-      <ThemedText
-        light={tailwind('text-gray-900')}
-        dark={tailwind('text-gray-50')}
-        style={[tailwind('text-sm text-right flex-wrap'), valueTextStyle]}
-        testID={testID}
-      >
-        {value}
-      </ThemedText>
-    )}
-    thousandSeparator
-    value={minNextBidInToken}
-                                               />
+  const MinNextBidInToken = (): JSX.Element => {
+    return (
+      <NumberFormat
+        displayType='text'
+        suffix={` ${displaySymbol}`}
+        renderText={(value: string) => (
+          <ThemedText
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-50')}
+            style={[tailwind('text-sm text-right flex-wrap'), valueTextStyle]}
+            testID={testID}
+          >
+            {value}
+          </ThemedText>
+      )}
+        thousandSeparator
+        value={minNextBidInToken}
+      />
+    )
+  }
 
-  const MinNextBidInUSD = (): JSX.Element => <ActiveUSDValue
-    price={new BigNumber(minNextBidInUSD)}
-    testId={testID !== undefined ? `${testID}_usd` : testID}
-                                             />
+  const MinNextBidInUSD = (): JSX.Element => {
+    return (
+      <ActiveUSDValue
+        price={new BigNumber(minNextBidInUSD)}
+        testId={testID !== undefined ? `${testID}_usd` : testID}
+        {...(usdValueTextStyle !== undefined && { style: valueTextStyle })}
+      />
+)
+  }
 
   return {
     MinNextBidInToken,
@@ -58,6 +69,7 @@ interface MinNextBidTextRowProps {
   displaySymbol: string
   labelTextStyle?: StyleProp<TextStyle>
   valueTextStyle?: StyleProp<TextStyle>
+  usdValueTextStyle?: StyleProp<TextStyle>
   testID?: string
 }
 
@@ -95,18 +107,17 @@ export function MinNextBidTextRow (props: MinNextBidTextRowProps): JSX.Element {
 }
 
 export function MinNextBidTextCompact (props: MinNextBidTextRowProps): JSX.Element {
-  const { labelTextStyle, ...otherProps } = props
   const {
     MinNextBidInToken,
     MinNextBidInUSD
-  } = _useMinNextBidTextRowComponent({ ...otherProps })
+  } = _useMinNextBidTextRowComponent({ ...props })
 
   return (
-    <View style={tailwind('flex flex-row items-end')}>
+    <View style={tailwind('flex flex-row items-baseline')}>
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={[tailwind('text-xs mr-1'), labelTextStyle]}
+        style={tailwind('text-2xs mr-1')}
       >
         {translate('components/BatchCard', 'Min. next bid is')}
       </ThemedText>
@@ -116,7 +127,7 @@ export function MinNextBidTextCompact (props: MinNextBidTextRowProps): JSX.Eleme
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={[tailwind('text-xs mr-1'), labelTextStyle]}
+        style={tailwind('text-2xs mr-1')}
       >
         /
       </ThemedText>

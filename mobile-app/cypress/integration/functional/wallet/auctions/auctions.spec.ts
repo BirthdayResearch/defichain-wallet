@@ -2,7 +2,7 @@ import { EnvironmentNetwork } from '../../../../../../shared/environment'
 import { VaultStatus } from '../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import BigNumber from 'bignumber.js'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 function generateBlockUntilLiquidate (): void {
@@ -487,5 +487,389 @@ context('Wallet - Auctions Feature Gated', () => {
     })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_auctions').should('exist')
+  })
+})
+
+context('Wallet - Auctions - Filters and Sorting', () => {
+  const vaultIds = {
+    fromYourVaultWithBidLost1: 'from-your-vault-with-bid-lost-1',
+    fromYourVaultWithBidLost2: 'from-your-vault-with-bid-lost-2',
+    fromYourVaultWithWinningBid1: 'from-your-vault-with-winning-bid-1',
+    fromYourVaultWithWinningBid2: 'from-your-vault-with-winning-bid-2',
+    fromYourVault1: 'from-your-vault-1',
+    fromYourVault2: 'from-your-vault-2',
+    otherVault1: 'other-vault-1',
+    otherVault2: 'other-vault-2'
+  }
+
+  const getAuctions = (
+    ownerAddress: string,
+    otherAddresses: string[]
+  ): LoanVaultLiquidated[] => {
+    const getAuctionData = ({
+      ownerAddress,
+      hasPlacedBid,
+      isHighestBidder,
+      liquidationHeight,
+      vaultId
+    }: {
+      ownerAddress: string
+      hasPlacedBid: boolean
+      isHighestBidder: boolean
+      liquidationHeight: number
+      vaultId: string
+    }): LoanVaultLiquidated => {
+      return {
+        vaultId: vaultId,
+        loanScheme: {
+          id: 'MIN150',
+          minColRatio: '150',
+          interestRate: '5'
+        },
+        ownerAddress: ownerAddress,
+        state: LoanVaultState.IN_LIQUIDATION,
+        batchCount: 1,
+        liquidationHeight: liquidationHeight,
+        liquidationPenalty: 5,
+        batches: [
+          {
+            index: 0,
+            collaterals: [
+              {
+                id: '0',
+                amount: '20.00000000',
+                symbol: 'DFI',
+                symbolKey: 'DFI',
+                name: 'Default Defi token',
+                displaySymbol: 'DFI',
+                activePrice: {
+                  id: 'DFI-USD-3330',
+                  key: 'DFI-USD',
+                  isLive: true,
+                  block: {
+                    hash: '5c28aee7e41f7210120059400870a528a87bd27cebd2a75e63fe0a4c6dec3ee5',
+                    height: 3330,
+                    medianTime: 1646632901,
+                    time: 1646632908
+                  },
+                  active: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00000d02'
+                }
+              }
+            ],
+            loan: {
+              id: '15',
+              amount: '114.12742562',
+              symbol: 'TU10',
+              symbolKey: 'TU10',
+              name: 'Decentralized TU10',
+              displaySymbol: 'dTU10',
+              activePrice: {
+                id: 'TU10-USD-3330',
+                key: 'TU10-USD',
+                isLive: true,
+                block: {
+                  hash: '5c28aee7e41f7210120059400870a528a87bd27cebd2a75e63fe0a4c6dec3ee5',
+                  height: 3330,
+                  medianTime: 1646632901,
+                  time: 1646632908
+                },
+                active: {
+                  amount: '11.72914909',
+                  weightage: 3,
+                  oracles: {
+                    active: 3,
+                    total: 3
+                  }
+                },
+                next: {
+                  amount: '11.73305927',
+                  weightage: 3,
+                  oracles: {
+                    active: 3,
+                    total: 3
+                  }
+                },
+                sort: '00000d02'
+              }
+            },
+            froms: hasPlacedBid ? [ownerAddress, ...otherAddresses] : [],
+            ...(hasPlacedBid && {
+              highestBid: {
+                owner: isHighestBidder ? ownerAddress : otherAddresses[0],
+                amount: {
+                  id: '15',
+                  amount: '322.65909673',
+                  symbol: 'TU10',
+                  symbolKey: 'TU10',
+                  name: 'Decentralized TU10',
+                  displaySymbol: 'dTU10',
+                  activePrice: {
+                    id: 'TU10-USD-1302',
+                    key: 'TU10-USD',
+                    isLive: true,
+                    block: {
+                      hash: '6e5328f43012d0940255b83c802e82355aade267df04f64f82871e119d3df2be',
+                      height: 1302,
+                      medianTime: 1646644048,
+                      time: 1646644054
+                    },
+                    active: {
+                      amount: '10.59605962',
+                      weightage: 3,
+                      oracles: {
+                        active: 3,
+                        total: 3
+                      }
+                    },
+                    next: {
+                      amount: '10.59923876',
+                      weightage: 3,
+                      oracles: {
+                        active: 3,
+                        total: 3
+                      }
+                    },
+                    sort: '00000516'
+                  }
+                }
+              }
+            })
+          }
+        ]
+      }
+    }
+
+    const fromYourVault1 = getAuctionData({ vaultId: vaultIds.fromYourVault1, ownerAddress, hasPlacedBid: false, isHighestBidder: false, liquidationHeight: 1100 })
+    const fromYourVault2 = getAuctionData({ vaultId: vaultIds.fromYourVault2, ownerAddress, hasPlacedBid: false, isHighestBidder: false, liquidationHeight: 1200 })
+    const fromYourVaultWithWinningBid1 = getAuctionData({ vaultId: vaultIds.fromYourVaultWithWinningBid1, ownerAddress, hasPlacedBid: true, isHighestBidder: true, liquidationHeight: 1100 })
+    const fromYourVaultWithWinningBid2 = getAuctionData({ vaultId: vaultIds.fromYourVaultWithWinningBid2, ownerAddress, hasPlacedBid: true, isHighestBidder: true, liquidationHeight: 1200 })
+    const fromYourVaultWithBidLost1 = getAuctionData({ vaultId: vaultIds.fromYourVaultWithBidLost1, ownerAddress, hasPlacedBid: true, isHighestBidder: false, liquidationHeight: 1100 })
+    const fromYourVaultWithBidLost2 = getAuctionData({ vaultId: vaultIds.fromYourVaultWithBidLost2, ownerAddress, hasPlacedBid: true, isHighestBidder: false, liquidationHeight: 1200 })
+    const otherVault1 = getAuctionData({ vaultId: vaultIds.otherVault1, ownerAddress: otherAddresses[0], hasPlacedBid: false, isHighestBidder: false, liquidationHeight: 1100 })
+    const otherVault2 = getAuctionData({ vaultId: vaultIds.otherVault2, ownerAddress: otherAddresses[1], hasPlacedBid: false, isHighestBidder: false, liquidationHeight: 1200 })
+
+    return [otherVault1, fromYourVaultWithBidLost2, fromYourVault1, fromYourVaultWithWinningBid2, fromYourVault2, otherVault2, fromYourVaultWithBidLost1, fromYourVaultWithWinningBid1]
+  }
+
+  const getVaults = (vaultIds: string[], ownerAddress: string): Array<LoanVaultActive | LoanVaultLiquidated> => {
+    return vaultIds.map(vaultId => {
+      return {
+        vaultId: vaultId,
+        loanScheme: {
+          id: 'MIN150',
+          minColRatio: '150',
+          interestRate: '5'
+        },
+        ownerAddress: ownerAddress,
+        state: LoanVaultState.IN_LIQUIDATION,
+        batchCount: 1,
+        liquidationHeight: 3835,
+        liquidationPenalty: 5,
+        batches: [
+          {
+            index: 0,
+            collaterals: [
+              {
+                id: '0',
+                amount: '20.00000000',
+                symbol: 'DFI',
+                symbolKey: 'DFI',
+                name: 'Default Defi token',
+                displaySymbol: 'DFI',
+                activePrice: {
+                  id: 'DFI-USD-3798',
+                  key: 'DFI-USD',
+                  isLive: true,
+                  block: {
+                    hash: 'block-hash-1',
+                    height: 3798,
+                    medianTime: 1646634305,
+                    time: 1646634311
+                  },
+                  active: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00000ed6'
+                }
+              }
+            ],
+            loan: {
+              id: '15',
+              amount: '114.12911939',
+              symbol: 'TU10',
+              symbolKey: 'TU10',
+              name: 'Decentralized TU10',
+              displaySymbol: 'dTU10',
+              activePrice: {
+                id: 'TU10-USD-3798',
+                key: 'TU10-USD',
+                isLive: true,
+                block: {
+                  hash: 'block-hash-1',
+                  height: 3798,
+                  medianTime: 1646634305,
+                  time: 1646634311
+                },
+                active: {
+                  amount: '12.00683353',
+                  weightage: 3,
+                  oracles: {
+                    active: 3,
+                    total: 3
+                  }
+                },
+                next: {
+                  amount: '12.01043594',
+                  weightage: 3,
+                  oracles: {
+                    active: 3,
+                    total: 3
+                  }
+                },
+                sort: '00000ed6'
+              }
+            },
+            froms: []
+          }
+        ]
+      }
+    })
+  }
+
+  beforeEach(() => {
+    // To keep vaults in liquidation status
+    cy.intercept('**/regtest/stats', {
+      statusCode: 200,
+      body: {
+        data: {
+          count: {
+            blocks: 100,
+            prices: 0,
+            tokens: 11,
+            masternodes: 10
+          },
+          tvl: {
+            dex: 1
+          }
+        }
+      }
+    })
+    cy.createEmptyWallet(true).wait(3000)
+    cy.getByTestID('receive_balance_button').click()
+    cy.getByTestID('address_text').invoke('text').then((ownerAddress: string) => {
+      cy.intercept('**/vaults?size=*', {
+        statusCode: 200,
+        body: { data: getVaults(Object.values(vaultIds), ownerAddress) }
+      }).as('getVaults')
+      cy.intercept('**/auctions?size=*', {
+        body: {
+          data: getAuctions(ownerAddress, ['owner-address-abcdefghijklmopqrstuvexyz-1', 'owner-address-abcdefghijklmopqrstuvexyz-2'])
+        }
+      })
+    })
+    cy.getByTestID('bottom_tab_auctions').click()
+  })
+
+  it('should sort auctions correctly', function () {
+    /*
+      Sort Order:
+        - Placed bid lost
+        - Placed bid winning
+        - Time remaining (desc)
+    */
+    Object.values(vaultIds).forEach((vaultId, index) => {
+      cy.getByTestID(`batch_card_${index}`).click()
+      cy.getByTestID('auction_detail_tab_AUCTION_DETAILS').click()
+      cy.getByTestID('vault_id').should('have.text', vaultId)
+      cy.go('back')
+    })
+  })
+
+  it('should filter auctions from your vault with correct sorting', function () {
+    cy.getByTestID('auctions_button_group_FROM_YOUR_VAULT').click()
+    Object.values([
+      vaultIds.fromYourVaultWithBidLost1,
+      vaultIds.fromYourVaultWithBidLost2,
+      vaultIds.fromYourVaultWithWinningBid1,
+      vaultIds.fromYourVaultWithWinningBid2,
+      vaultIds.fromYourVault1,
+      vaultIds.fromYourVault2]).forEach((vaultId, index) => {
+      cy.getByTestID(`batch_card_${index}`).click()
+      cy.getByTestID('auction_detail_tab_AUCTION_DETAILS').click()
+      cy.getByTestID('vault_id').should('have.text', vaultId)
+      cy.go('back')
+    })
+    cy.getByTestID('batch_card_6').should('not.exist')
+  })
+
+  it('should filter auctions with placed bids with correct sorting', function () {
+    cy.getByTestID('auctions_button_group_WITH_PLACED_BIDS').click()
+    Object.values([
+      vaultIds.fromYourVaultWithBidLost1,
+      vaultIds.fromYourVaultWithBidLost2,
+      vaultIds.fromYourVaultWithWinningBid1,
+      vaultIds.fromYourVaultWithWinningBid2]).forEach((vaultId, index) => {
+      cy.getByTestID(`batch_card_${index}`).click()
+      cy.getByTestID('auction_detail_tab_AUCTION_DETAILS').click()
+      cy.getByTestID('vault_id').should('have.text', vaultId)
+      cy.go('back')
+    })
+    cy.getByTestID('batch_card_4').should('not.exist')
+  })
+
+  it('should display bid lost/winning on card', function () {
+    cy.getByTestID('batch_card_0_bid_lost').should('exist')
+    cy.getByTestID('batch_card_1_bid_lost').should('exist')
+    cy.getByTestID('batch_card_0_no_bid').should('not.exist')
+    cy.getByTestID('batch_card_1_no_bid').should('not.exist')
+    cy.getByTestID('batch_card_0_no_winning').should('not.exist')
+    cy.getByTestID('batch_card_1_no_winning').should('not.exist')
+
+    cy.getByTestID('batch_card_2_bid_winning').should('exist')
+    cy.getByTestID('batch_card_3_bid_winning').should('exist')
+    cy.getByTestID('batch_card_2_no_bid').should('not.exist')
+    cy.getByTestID('batch_card_3_no_bid').should('not.exist')
+    cy.getByTestID('batch_card_2_bid_lost').should('not.exist')
+    cy.getByTestID('batch_card_3_bid_lost').should('not.exist')
+  })
+
+  it('should display empty results on each tab', function () {
+    cy.getByTestID('header_auctions_search').click()
+    cy.getByTestID('auctions_search_input').clear().type('XXX').blur()
+    cy.getByTestID('empty_auctions_list').should('exist')
+    cy.getByTestID('empty_auctions_list').should('have.text', 'No available auctions')
+    cy.getByTestID('auctions_button_group_FROM_YOUR_VAULT').click()
+    cy.getByTestID('empty_auctions_list').should('have.text', 'No available auctions from your vault')
+    cy.getByTestID('auctions_button_group_WITH_PLACED_BIDS').click()
+    cy.getByTestID('empty_auctions_list').should('have.text', 'No available auctions with placed bids')
   })
 })
