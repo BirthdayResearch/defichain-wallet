@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch, VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AuctionTabGroupKey } from '@screens/AppNavigator/screens/Auctions/components/BrowseAuctions'
+import { AuctionTabGroupKey } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 
 export interface AuctionsState {
   auctions: LoanVaultLiquidated[]

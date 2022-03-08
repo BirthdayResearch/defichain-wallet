@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView, ThemedText } from '@components/themed'
-import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
+import { AuctionTabGroupKey, BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
 import { InfoText } from '@components/InfoText'
@@ -27,12 +27,6 @@ import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 
 interface Props {
   searchString: string
-}
-
-export enum AuctionTabGroupKey {
-  AllAuctions = 'ALL_AUCTIONS',
-  FromYourVault = 'FROM_YOUR_VAULT',
-  WithPlacedBids = 'WITH_PLACED_BIDS'
 }
 
 export interface onQuickBidProps {
@@ -125,12 +119,12 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
                   auctionBatches={filteredAuctionBatches}
                   onQuickBid={onQuickBid}
                   buttonGroupOptions={{
-                activeButtonGroup: activeAuctionTabGroupKey,
-                setActiveButtonGroup: setActiveAuctionTabGroupKey,
-                onButtonGroupPress: onAuctionTabGroupChange
-              }}
+                    activeButtonGroup: activeAuctionTabGroupKey,
+                    setActiveButtonGroup: setActiveAuctionTabGroupKey,
+                    onButtonGroupPress: onAuctionTabGroupChange
+                  }}
                 />
-          )}
+              )}
           </>)
         : (
           <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
@@ -263,6 +257,8 @@ function BatchCards ({
 
   return (
     <ThemedFlatList
+      light={tailwind('bg-gray-50')}
+      dark={tailwind('bg-gray-900')}
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={auctionBatches}
       numColumns={1}
@@ -272,7 +268,7 @@ function BatchCards ({
       testID='available_liquidity_tab'
       renderItem={RenderItems}
       ListHeaderComponent={ListHeaderComponent}
-      ListEmptyComponent={() => <ThemedText testID='empty_auctions_list'>{getEmptyAuctionsText()}</ThemedText>}
+      ListEmptyComponent={() => <ThemedText style={tailwind('text-sm')} testID='empty_auctions_list'>{getEmptyAuctionsText()}</ThemedText>}
     />
   )
 }

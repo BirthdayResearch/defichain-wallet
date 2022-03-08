@@ -23,6 +23,12 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { MinNextBidTextCompact } from './MinNextBidTextRow'
 import { onQuickBidProps } from './BrowseAuctions'
 
+export enum AuctionTabGroupKey {
+  AllAuctions = 'ALL_AUCTIONS',
+  FromYourVault = 'FROM_YOUR_VAULT',
+  WithPlacedBids = 'WITH_PLACED_BIDS'
+}
+
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
   batch: LoanVaultLiquidationBatch
@@ -158,10 +164,6 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        <View style={tailwind('flex flex-row', { 'mt-0.5': props.isVaultOwner || !hasFirstBid })}>
-          {props.isVaultOwner && <BatchCardInfo testID={`${testID}_owned_vault`} iconName='account-circle' text='From your vault' />}
-          {!hasFirstBid && <BatchCardInfo testID={`${testID}_no_bid`} iconName='hourglass-top' text='Waiting for first bid' />}
-        </View>
         <View style={tailwind('mt-3')}>
           <AuctionTimeProgress
             liquidationHeight={vault.liquidationHeight}
@@ -183,7 +185,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               >
                 {value}
               </ThemedText>
-          )}
+            )}
             thousandSeparator
             value={totalCollateralsValueInUSD}
           />
@@ -199,6 +201,10 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             maxIconToDisplay={3}
             isCompact
           />
+        </View>
+        <View style={tailwind('flex flex-row', { 'mt-1.5': props.isVaultOwner || !hasFirstBid })}>
+          {props.isVaultOwner && <BatchCardInfo testID={`${testID}_owned_vault`} iconName='account-circle' text='From your vault' />}
+          {!hasFirstBid && <BatchCardInfo testID={`${testID}_no_bid`} iconName='hourglass-top' text='Waiting for first bid' />}
         </View>
       </TouchableOpacity>
       <BatchCardButtons
@@ -221,19 +227,19 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
 
 const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element => {
   return (
-    <View style={tailwind('flex flex-row items-center')}>
+    <View style={tailwind('flex flex-row items-center p-1 rounded-xl mr-2')}>
       <ThemedIcon
         size={12}
         name={props.iconName}
         iconType='MaterialIcons'
         style={tailwind('mr-1')}
         dark={tailwind('text-gray-500')}
-        light={tailwind('text-gray-400')}
+        light={tailwind('text-gray-600')}
       />
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('text-2xs mr-2 leading-2')}
+        style={tailwind('text-2xs leading-3')}
         testID={props.testID}
       >{translate('components/BatchCard', props.text)}
       </ThemedText>
@@ -246,7 +252,7 @@ const BatchCardButtons = memo((props: { onPlaceBid: () => void, onQuickBid: () =
     <ThemedView
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
-      style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
+      style={tailwind('flex flex-row mt-3 flex-wrap -mb-2')}
     >
       <IconButton
         iconLabel={translate('components/BatchCard', 'PLACE BID')}
