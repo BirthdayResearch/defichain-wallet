@@ -50,7 +50,8 @@
     "Your share in pool": "Dein Pool-Anteil",
     "ADD": "HINZUFÜGEN",
     "Prices": "Preise",
-    "Available pool pairs": "Verfügbare Pool-Paare"
+    "Available pool pairs": "Verfügbare Pool-Paare",
+    "Your shared {{symbol}}": "Dein {{symbol}}-Anteil"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",
@@ -455,7 +456,8 @@
     "MAX": "MAX"
   },
   "screens/common": {
-    "CANCEL": "ABBRECHEN"
+    "CANCEL": "ABBRECHEN",
+    "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet"
@@ -770,7 +772,9 @@
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
     "Collateral for auction": "Zu ersteigern",
-    "Auction details": "Auktionsdetails"
+    "Vault details": "Vault-details",
+    "Bid history": "Gebotsverlauf",
+    "Rewards": "Belohnungen"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
@@ -830,6 +834,11 @@
     "From your vault": "Aus deinem Vault",
     "Waiting for first bid": "Warten auf das erste Gebot"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "Vor {{h}}h {{m}}min",
+    "{{h}}h ago": "Vor {{h}}h",
+    "{{m}}m ago": "Vor {{m}}min"
+  },
   "components/BidCard": {
     "BID HIGHER": "HÖHERES GEBOT",
     "VIEW REWARDS": "REWARDS ANSEHEN",
@@ -839,6 +848,13 @@
     "Lost": "Verloren",
     "Highest bid": "Höchstes Gebot",
     "Auction ended": "Auktion beendet"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "Bieter-ID",
+    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}",
+    "Waiting for first bid": "Warten auf das erste Gebot",
+    "{{h}}{{m}} ago": "Vor {{h}}{{m}}",
+    "Minimum amount to bid is": "Mindestgebot ist"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",
@@ -1060,7 +1076,7 @@
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
-    "Insufficient {{token}} balance to pay the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
+    "Insufficient {{token}} to pay for the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
     "Select payment token": "Token für die Zahlung auswählen",
     "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
     "Read more": "Mehr dazu"
@@ -1180,7 +1196,8 @@
   },
   "components/HeaderSearchInput": {
     "Search for loans": "Nach Darlehen suchen",
-    "Search for loan token": "Suche nach Darlehenstoken"
+    "Search for loan token": "Suche nach Darlehenstoken",
+    "Search for pool pairs": "Suche nach Pool-Paaren"
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",

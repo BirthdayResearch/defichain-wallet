@@ -184,6 +184,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='send'
       />
     </ThemedScrollView>

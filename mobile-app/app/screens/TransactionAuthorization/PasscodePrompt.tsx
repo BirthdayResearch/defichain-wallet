@@ -4,15 +4,14 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-
 import { Platform, SafeAreaView, View } from 'react-native'
-import { TransactionStatus } from '@screens/TransactionAuthorization/api/transaction_types'
+import { TransactionStatus, USER_CANCELED } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
 
 interface PasscodePromptProps {
-  onCancel: () => void
+  onCancel: (err: string) => void
   message: string
   transaction: DfTxSigner
   status: TransactionStatus
@@ -38,7 +37,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
       <ThemedTouchableOpacity
         dark={tailwind('bg-gray-900')}
         light={tailwind('bg-white')}
-        onPress={props.onCancel}
+        onPress={() => props.onCancel(USER_CANCELED)}
         style={tailwind('items-end pt-2 pr-2')}
         testID='cancel_authorization'
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
