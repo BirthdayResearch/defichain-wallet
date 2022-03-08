@@ -623,68 +623,107 @@ exports[`balances page should match snapshot 1`] = `
           <View
             style={
               Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-                "flexWrap": "wrap",
-                "justifyContent": "flex-start",
-                "marginRight": 8,
-                "width": "100%",
+                "marginTop": 4,
               }
             }
           >
-            <Text
+            <View
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "alignItems": "center",
+                    "justifyContent": "center",
                   },
-                  Array [
-                    Object {
-                      "flexWrap": "wrap",
-                      "fontFamily": "BoldFont",
-                      "fontSize": 24,
-                      "fontWeight": "700",
-                      "lineHeight": 32,
-                      "maxWidth": "75%",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
+                  Object {
+                    "backgroundColor": "rgba(255, 255, 255, 1)",
+                  },
                 ]
               }
-              testID="total_usd_amount"
+              testID="total_portfolio_skeleton_loader"
             >
-              $0.00000000
-            </Text>
-            <View
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingTop": 6,
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="28"
+                bbWidth="100%"
+                focusable={false}
+                height="28"
+                interval={0.25}
+                meetOrSlice={1}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {},
+                    Object {
+                      "flex": 0,
+                      "height": 28,
+                      "width": "100%",
+                    },
+                  ]
                 }
-              }
-              testID="toggle_portfolio"
-            >
-              <Text />
+                testID="total_portfolio_skeleton_loader"
+                vbHeight={28}
+                vbWidth={260}
+                width="100%"
+              >
+                <RNSVGGroup>
+                  <RNSVGRect
+                    clipPath="rmoisal-animated-diff"
+                    fill={
+                      Array [
+                        1,
+                        "rmoisal-diff",
+                      ]
+                    }
+                    height="100%"
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    width="100%"
+                    x="0"
+                    y="0"
+                  />
+                  <RNSVGDefs>
+                    <RNSVGClipPath
+                      name="rmoisal-animated-diff"
+                    >
+                      <RNSVGRect
+                        height="23"
+                        rx="5"
+                        ry="5"
+                        width="180"
+                        x="0"
+                        y="0"
+                      />
+                    </RNSVGClipPath>
+                    <RNSVGLinearGradient
+                      gradient={
+                        Array [
+                          0,
+                          -1250325,
+                          0.5,
+                          -1,
+                          1,
+                          -1250325,
+                        ]
+                      }
+                      gradientTransform={null}
+                      gradientUnits={0}
+                      name="rmoisal-diff"
+                      x1="-100%"
+                      x2="0%"
+                      y1={0}
+                      y2={0}
+                    />
+                  </RNSVGDefs>
+                </RNSVGGroup>
+              </RNSVGSvgView>
             </View>
           </View>
         </View>

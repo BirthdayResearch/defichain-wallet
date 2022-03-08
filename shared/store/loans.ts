@@ -68,7 +68,11 @@ export const fetchPrice = createAsyncThunk(
 export const loans = createSlice({
   name: 'loans',
   initialState,
-  reducers: {},
+  reducers: {
+    setHasFetchedVaultsData: (state, action: PayloadAction<boolean>) => {
+      state.hasFetchedVaultsData = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchVaults.fulfilled, (state, action: PayloadAction<LoanVault[]>) => {
       state.vaults = action.payload
