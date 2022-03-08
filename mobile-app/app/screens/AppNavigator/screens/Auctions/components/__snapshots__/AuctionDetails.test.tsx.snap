@@ -160,6 +160,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
                 ],
               ]
             }
+            testID="vault_id"
           >
             92dcef48f0109d007f6c02a263fdb9d30e618739a8d749584e0b732c5b968f54
           </Text>

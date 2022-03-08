@@ -199,272 +199,481 @@ exports[`Batch Card should match snapshot 1`] = `
           }
         }
       >
+        <Text />
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "marginTop": 12,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginBottom": 4,
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "width": "50%",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Auction ends in
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(23, 23, 23, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            ~28m left
+             (
+            570 blks
+            )
+          </Text>
+        </View>
+      </View>
+      <View
+        animated={true}
+        animationConfig={
+          Object {
+            "bounciness": 0,
+          }
+        }
+        animationType="spring"
+        indeterminate={false}
+        indeterminateAnimationDuration={1000}
+        onLayout={[Function]}
+        progress={15.833333333333334}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "gray-100",
+              "borderColor": "rgba(212, 212, 212, 1)",
+              "borderRadius": 8,
+              "borderWidth": 1,
+              "overflow": "hidden",
+              "width": null,
+            },
+            undefined,
+          ]
+        }
+        useNativeDriver={false}
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(90, 169, 230, 1)",
+              "height": 8,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "scaleX": 1,
+                },
+              ],
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "marginTop": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "SemiBoldFont",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "lineHeight": 20,
+              },
+              Object {
+                "color": "rgba(23, 23, 23, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        $12,345
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontSize": 12,
+                "lineHeight": 16,
+                "marginLeft": 4,
+                "marginRight": 4,
+              },
+              Object {
+                "color": "rgba(23, 23, 23, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        worth of collaterals
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderBottomWidth": 1,
+              "borderLeftWidth": 1,
+              "borderRightWidth": 1,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "borderTopWidth": 1,
+              "display": "flex",
+              "flexDirection": "row",
+              "paddingBottom": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+              "paddingTop": 4,
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomColor": "rgba(229, 229, 229, 1)",
+              "borderLeftColor": "rgba(229, 229, 229, 1)",
+              "borderRightColor": "rgba(229, 229, 229, 1)",
+              "borderTopColor": "rgba(229, 229, 229, 1)",
+            },
+          ]
+        }
+      >
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={16}
+          bbWidth={16}
+          focusable={false}
+          height={16}
+          marginRight={2}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 16,
+                "width": 16,
+              },
+            ]
+          }
+          vbHeight={32}
+          vbWidth={32}
+          width={16}
+        >
+          <RNSVGGroup>
+            <RNSVGCircle
+              cx={16}
+              cy={16}
+              fill={4294954223}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              r={16}
+            />
+            <RNSVGPath
+              d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
+              fill={4294901935}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={16}
+          bbWidth={16}
+          focusable={false}
+          height={16}
+          marginRight={2}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 16,
+                "width": 16,
+              },
+            ]
+          }
+          vbHeight={32}
+          vbWidth={32}
+          width={16}
+        >
+          <RNSVGGroup>
+            <RNSVGCircle
+              cx={16}
+              cy={16}
+              fill={4292929019}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              r={16}
+            />
+            <RNSVGPath
+              d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+              fill={4294967295}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+            <RNSVGPath
+              d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+              fill={4284645098}
+              fillOpacity={0.8}
+              propList={
+                Array [
+                  "fill",
+                  "fillOpacity",
+                ]
+              }
+            />
+            <RNSVGPath
+              d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+              fill={4294967295}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+            <RNSVGPath
+              d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+              fill={4284645098}
+              fillOpacity={0.6}
+              propList={
+                Array [
+                  "fill",
+                  "fillOpacity",
+                ]
+              }
+            />
+            <RNSVGPath
+              d="M15.998 20.573l7.497-4.353-7.497-3.348z"
+              fill={4284645098}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={16}
+          bbWidth={16}
+          focusable={false}
+          height={16}
+          marginRight={2}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 16,
+                "width": 16,
+              },
+            ]
+          }
+          vbHeight={32}
+          vbWidth={32}
+          width={16}
+        >
+          <RNSVGGroup>
+            <RNSVGPath
+              d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
+              fill={4294415130}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+            <RNSVGPath
+              d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
+              fill={4294967295}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
         <View
           style={
             Array [
               Object {
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderBottomWidth": 1,
-                "borderLeftWidth": 1,
-                "borderRightWidth": 1,
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "borderTopWidth": 1,
+                "alignItems": "center",
+                "borderBottomLeftRadius": 9999,
+                "borderBottomRightRadius": 9999,
+                "borderTopLeftRadius": 9999,
+                "borderTopRightRadius": 9999,
                 "display": "flex",
-                "flexDirection": "row",
-                "paddingBottom": 4,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "paddingTop": 4,
+                "height": 16,
+                "justifyContent": "center",
+                "width": 16,
               },
               Object {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(229, 229, 229, 1)",
-                "borderLeftColor": "rgba(229, 229, 229, 1)",
-                "borderRightColor": "rgba(229, 229, 229, 1)",
-                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "backgroundColor": "rgba(64, 64, 64, 1)",
+                "borderBottomColor": "rgba(255, 255, 255, 1)",
+                "borderLeftColor": "rgba(255, 255, 255, 1)",
+                "borderRightColor": "rgba(255, 255, 255, 1)",
+                "borderTopColor": "rgba(255, 255, 255, 1)",
               },
             ]
           }
         >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={16}
-            bbWidth={16}
-            focusable={false}
-            height={16}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
+          <Text
             style={
               Array [
                 Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
                 },
-                Object {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={16}
-          >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4294954223}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                r={16}
-              />
-              <RNSVGPath
-                d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
-                fill={4294901935}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={16}
-            bbWidth={16}
-            focusable={false}
-            height={16}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={16}
-          >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4292929019}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-                r={16}
-              />
-              <RNSVGPath
-                d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                fill={4284645098}
-                fillOpacity={0.8}
-                propList={
-                  Array [
-                    "fill",
-                    "fillOpacity",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                fill={4284645098}
-                fillOpacity={0.6}
-                propList={
-                  Array [
-                    "fill",
-                    "fillOpacity",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M15.998 20.573l7.497-4.353-7.497-3.348z"
-                fill={4284645098}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={16}
-            bbWidth={16}
-            focusable={false}
-            height={16}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={16}
-          >
-            <RNSVGGroup>
-              <RNSVGPath
-                d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
-                fill={4294415130}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
-                fill={4294967295}
-                propList={
-                  Array [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
-                  "display": "flex",
-                  "height": 16,
-                  "justifyContent": "center",
-                  "width": 16,
-                },
-                Object {
-                  "backgroundColor": "rgba(64, 64, 64, 1)",
-                  "borderBottomColor": "rgba(255, 255, 255, 1)",
-                  "borderLeftColor": "rgba(255, 255, 255, 1)",
-                  "borderRightColor": "rgba(255, 255, 255, 1)",
-                  "borderTopColor": "rgba(255, 255, 255, 1)",
-                },
-              ]
-            }
-          >
-            <Text
-              style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "textAlign": "center",
                   },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "textAlign": "center",
-                    },
-                    Object {
-                      "color": "rgba(255, 255, 255, 0.9)",
-                    },
-                  ],
-                ]
-              }
-              testID="collateral_token_count_badge"
-            >
-              +1
-            </Text>
-          </View>
+                  Object {
+                    "color": "rgba(255, 255, 255, 0.9)",
+                  },
+                ],
+              ]
+            }
+            testID="collateral_token_count_badge"
+          >
+            +1
+          </Text>
         </View>
-        <Text />
       </View>
     </View>
     <View
@@ -472,17 +681,31 @@ exports[`Batch Card should match snapshot 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "row",
-          "marginTop": 2,
+          "marginTop": 6,
         }
       }
     >
       <View
         style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderBottomLeftRadius": 12,
+              "borderBottomRightRadius": 12,
+              "borderTopLeftRadius": 12,
+              "borderTopRightRadius": 12,
+              "display": "flex",
+              "flexDirection": "row",
+              "marginRight": 8,
+              "paddingBottom": 4,
+              "paddingLeft": 4,
+              "paddingRight": 4,
+              "paddingTop": 4,
+            },
+            Object {
+              "backgroundColor": "rgba(250, 250, 250, 1)",
+            },
+          ]
         }
       >
         <Text />
@@ -499,7 +722,6 @@ exports[`Batch Card should match snapshot 1`] = `
                 Object {
                   "fontSize": 10,
                   "lineHeight": 12,
-                  "marginRight": 8,
                 },
                 Object {
                   "color": "rgba(115, 115, 115, 1)",
@@ -513,350 +735,6 @@ exports[`Batch Card should match snapshot 1`] = `
         </Text>
       </View>
     </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 8,
-          "marginTop": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Total auction value (USD)
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          $12,345
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "marginTop": 2,
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Min. next bid
-        </Text>
-        <View
-          style={
-            Object {
-              "marginLeft": 4,
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "flexWrap": "wrap",
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "textAlign": "right",
-                  },
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
-          }
-          testID="batch_0_min_next_bid"
-        >
-          11 DUSD
-        </Text>
-        <View
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                    },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="batch_0_min_next_bid_usd"
-          >
-            ≈ $10.00
-          </Text>
-        </View>
-      </View>
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginBottom": 8,
-        "width": "100%",
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "width": "50%",
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Auction time remaining
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "display": "flex",
-          "flexBasis": "0%",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(23, 23, 23, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        ~28m left
-         (
-        570 blks
-        )
-      </Text>
-    </View>
-  </View>
-  <View
-    animated={true}
-    animationConfig={
-      Object {
-        "bounciness": 0,
-      }
-    }
-    animationType="spring"
-    indeterminate={false}
-    indeterminateAnimationDuration={1000}
-    onLayout={[Function]}
-    progress={15.833333333333334}
-    style={
-      Array [
-        Object {
-          "backgroundColor": "gray-100",
-          "borderColor": "rgba(212, 212, 212, 1)",
-          "borderRadius": 8,
-          "borderWidth": 1,
-          "overflow": "hidden",
-          "width": null,
-        },
-        undefined,
-      ]
-    }
-    useNativeDriver={false}
-  >
-    <View
-      style={
-        Object {
-          "backgroundColor": "rgba(90, 169, 230, 1)",
-          "height": 8,
-          "transform": Array [
-            Object {
-              "translateX": 0,
-            },
-            Object {
-              "translateX": 0,
-            },
-            Object {
-              "scaleX": 1,
-            },
-          ],
-        }
-      }
-    />
   </View>
   <View
     style={
@@ -866,7 +744,7 @@ exports[`Batch Card should match snapshot 1`] = `
           "flexDirection": "row",
           "flexWrap": "wrap",
           "marginBottom": -8,
-          "marginTop": 16,
+          "marginTop": 12,
         },
         Object {
           "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -1013,6 +891,143 @@ exports[`Batch Card should match snapshot 1`] = `
         }
       >
         QUICK BID
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 10,
+              "marginRight": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Min. next bid is
+    </Text>
+    <View
+      style={
+        Object {
+          "marginRight": 4,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "flexWrap": "wrap",
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                Object {
+                  "fontSize": 10,
+                },
+              ],
+              Object {
+                "color": "rgba(23, 23, 23, 1)",
+              },
+            ],
+          ]
+        }
+        testID="batch_0_min_next_bid"
+      >
+        11 DUSD
+      </Text>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 10,
+              "marginRight": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      /
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Array [
+                Object {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                Object {
+                  "fontSize": 10,
+                },
+              ],
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="batch_0_min_next_bid_usd"
+      >
+        ≈ $10.00
       </Text>
     </View>
   </View>

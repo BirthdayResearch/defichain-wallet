@@ -5,9 +5,10 @@ Array [
   <View
     style={
       Object {
+        "alignItems": "flex-end",
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "marginBottom": 8,
+        "marginBottom": 4,
         "width": "100%",
       }
     }

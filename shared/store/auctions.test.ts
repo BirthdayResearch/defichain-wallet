@@ -1,5 +1,6 @@
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch, LoanVaultState, VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
-import { auctions, auctionsSearchByTermSelector, AuctionsState, fetchAuctions, fetchBidHistory } from './auctions'
+import { AuctionTabGroupKey } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
+import { auctions, auctionsSearchByFilterSelector, AuctionsState, fetchAuctions, fetchBidHistory } from './auctions'
 
 describe('auctions reducer', () => {
   let initialState: AuctionsState
@@ -78,7 +79,8 @@ describe('auctions reducer', () => {
         },
         sort: '000006f0'
       }
-    }
+    },
+    froms: []
   }
   const loanBatchBar: LoanVaultLiquidationBatch = {
     index: 0,
@@ -127,7 +129,8 @@ describe('auctions reducer', () => {
       symbolKey: 'DUSD',
       name: 'Decentralized USD',
       displaySymbol: 'DUSD'
-    }
+    },
+    froms: []
   }
   const liquidatedVaults: LoanVaultLiquidated[] = [
     {
@@ -213,7 +216,7 @@ describe('auctions reducer', () => {
       ...initialState,
       auctions: liquidatedVaults
     }
-    const actual = auctionsSearchByTermSelector(state, 'dTU10')
+    const actual = auctionsSearchByFilterSelector(state, { searchTerm: 'dTU10', walletAddress: '', activeAuctionTabGroupKey: AuctionTabGroupKey.AllAuctions })
     expect(actual).toStrictEqual([
       {
         ...loanBatchFoo,
@@ -231,7 +234,7 @@ describe('auctions reducer', () => {
       ...initialState,
       auctions: liquidatedVaults
     }
-    const actual = auctionsSearchByTermSelector(state, '')
+    const actual = auctionsSearchByFilterSelector(state, { searchTerm: '', walletAddress: '', activeAuctionTabGroupKey: AuctionTabGroupKey.AllAuctions })
     expect(actual).toStrictEqual([
       {
         ...loanBatchFoo,
