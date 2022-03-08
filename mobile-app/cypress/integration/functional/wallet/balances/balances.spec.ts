@@ -557,6 +557,39 @@ context('Wallet - Balances - display sorted USD values', function () {
   })
 })
 
+context('Wallet - Balances - Skeleton Loader', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet()
+  })
+
+  it('should display skeleton loader when API has yet to return', () => {
+    cy.intercept('**/address/**/tokens?size=*', {
+      body: {
+        data: [
+          {}
+        ]
+      },
+      delay: 3000
+    })
+    cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
+    cy.getByTestID('balance_skeleton_loader').should('exist')
+  })
+
+  it('should not display skeleton loader when API has return', () => {
+    cy.intercept('**/address/**/tokens?size=*').as('getTokens')
+    cy.wait('@getTokens').then(() => {
+      cy.getByTestID('total_portfolio_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_balance_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
+      cy.getByTestID('balance_skeleton_loader').should('not.exist')
+    })
+  })
+})
+
 context('Wallet - Balances - portfolio', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
