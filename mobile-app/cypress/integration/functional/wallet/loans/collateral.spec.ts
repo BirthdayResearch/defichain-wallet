@@ -1,3 +1,4 @@
+import { CollateralToken } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
 import {
   checkCollateralCardValues,
@@ -78,8 +79,19 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.getByTestID('collateral_vault_id').contains(vaultId)
     checkCollateralDetailValues('EMPTY', '$0.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
-    cy.wait(3000)
     cy.getByTestID('add_collateral_button').click()
+    cy.wait(['@loanCollaterals']).then((intercept: any) => {
+      const amounts: any = {
+        DFI: 18,
+        dBTC: 10,
+        DUSD: 10
+      }
+      const data: any[] = intercept.response.body.data
+      data.forEach((collateralToken: CollateralToken) => {
+        cy.getByTestID(`token_symbol_${collateralToken.token.displaySymbol}`).contains(collateralToken.token.displaySymbol)
+        cy.getByTestID(`select_${collateralToken.token.displaySymbol}_value`).contains(amounts[collateralToken.token.displaySymbol] ?? 0)
+      })
+    })
   })
 
   it('should add DFI as collateral', function () {
