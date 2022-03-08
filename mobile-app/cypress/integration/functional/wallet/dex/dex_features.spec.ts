@@ -33,7 +33,7 @@ context('Wallet - DEX - Features', () => {
   })
 })
 
-context.only('Wallet - DEX - Button filtering', () => {
+context('Wallet - DEX - Button filtering', () => {
   function validateAvailablePoolpairAction (poolpairDisplaySymbol: string): void {
     cy.getByTestID(`pool_pair_add_${poolpairDisplaySymbol}`).click()
     cy.url().should('include', 'DEX/AddLiquidity')
