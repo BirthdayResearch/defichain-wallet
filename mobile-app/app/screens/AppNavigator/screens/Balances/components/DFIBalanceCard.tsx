@@ -4,8 +4,8 @@ import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/Balance
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { ImageBackground, TextProps, StyleProp, ViewProps } from 'react-native'
-import DFIBackground from '@assets/images/DFI_balance_background.png'
-import DFIBackgroundDark from '@assets/images/DFI_balance_background_dark.png'
+import DFIBackground from '@assets/images/DFI_balance_bg_gradient.png'
+import DFIBackgroundDark from '@assets/images/DFI_balance_bg_gradient_dark.png'
 import { IconButton } from '@components/IconButton'
 import { ThemedProps, ThemedText, ThemedView } from '@components/themed'
 import { View } from '@components'
@@ -49,7 +49,7 @@ export function DFIBalanceCard (): JSX.Element {
       style={tailwind('mx-4 mb-1.5 rounded-lg flex-1')}
       testID='dfi_balance_card'
     >
-      <View style={tailwind('flex-col flex-1 m-4 mb-0')}>
+      <View style={tailwind('flex-col flex-1')}>
         <ImageBackground
           source={isLight ? DFIBackground : DFIBackgroundDark}
           style={tailwind('flex-1 rounded-lg overflow-hidden')}
@@ -59,7 +59,7 @@ export function DFIBalanceCard (): JSX.Element {
           <ThemedView
             dark={tailwind('border-b border-gray-700')}
             light={tailwind('border-b border-gray-100')}
-            style={tailwind('flex-row mb-1 pb-3 justify-between')}
+            style={tailwind('flex-row m-4 mb-1 pb-3 justify-between')}
           >
             <View style={tailwind('flex-row items-center')}>
               <DFIIcon width={32} height={32} />
@@ -102,17 +102,19 @@ export function DFIBalanceCard (): JSX.Element {
                 )
             }
           </ThemedView>
-          <TokenBreakdownPercentage
-            symbol='DFI'
-            availableAmount={new BigNumber(DFIUnified.amount)}
-            onBreakdownPress={onBreakdownPress}
-            isBreakdownExpanded={isBreakdownExpanded}
-            lockedAmount={lockedAmount}
-          />
+          <View style={tailwind('mx-4')}>
+            <TokenBreakdownPercentage
+              symbol='DFI'
+              availableAmount={new BigNumber(DFIUnified.amount)}
+              onBreakdownPress={onBreakdownPress}
+              isBreakdownExpanded={isBreakdownExpanded}
+              lockedAmount={lockedAmount}
+            />
+          </View>
         </ImageBackground>
 
         {isBreakdownExpanded && (
-          <View style={tailwind('mb-4')}>
+          <View style={tailwind('mx-4 mb-4')}>
             <DFIBreakdown
               lockedAmount={lockedAmount}
               hasFetchedToken={hasFetchedToken}
