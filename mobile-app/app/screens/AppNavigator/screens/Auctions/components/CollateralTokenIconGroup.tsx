@@ -40,6 +40,7 @@ export function CollateralTokenIconGroup (props: Props): JSX.Element {
               <SymbolIcon
                 key={symbol}
                 symbol={symbol}
+                {...isCompact && { styleProps: tailwind('mr-0.5') }}
               />
             )
           }
