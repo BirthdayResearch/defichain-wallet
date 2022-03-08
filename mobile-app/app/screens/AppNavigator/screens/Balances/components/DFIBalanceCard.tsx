@@ -225,17 +225,15 @@ function DFIBreakdownRow ({
               />
             )
             : (
-              <View style={tailwind('mb-1')}>
-                <TextSkeletonLoader
-                  iContentLoaderProps={{
-                    width: '210',
-                    height: '14',
-                    testID: 'dfi_breakdown_row_skeleton_loader'
-                  }}
-                  textHorizontalOffset='90'
-                  textWidth='120'
-                />
-              </View>
+              <TextSkeletonLoader
+                iContentLoaderProps={{
+                  width: '150',
+                  height: '14',
+                  testID: 'dfi_breakdown_row_skeleton_loader'
+                }}
+                textHorizontalOffset='30'
+                textWidth='120'
+              />
             )
         }
       </View>
