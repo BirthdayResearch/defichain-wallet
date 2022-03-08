@@ -837,7 +837,11 @@
     "Min. next bid": "最低標價",
     "You are the highest bidder": "您目前是出價最高的人",
     "From your vault": "來自您的金庫",
-    "Waiting for first bid": "等待第一次標價"
+    "Waiting for first bid": "等待第一次標價",
+    "worth of collaterals": "worth of collaterals",
+    "Bid lost": "Bid lost",
+    "Placed bid is active": "Placed bid is active",
+    "Min. next bid is": "Min. next bid is"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}時 {{m}}分前",
@@ -1273,5 +1277,13 @@
   },
   "components/Announcements": {
     "DETAILS": "了解詳情"
+  },
+  "screens/BrowseAuctions": {
+    "All": "All",
+    "From your vault": "From your vault",
+    "With placed bids": "With placed bids",
+    "No available auctions": "No available auctions",
+    "No available auctions from your vault": "No available auctions from your vault",
+    "No available auctions with placed bids": "No available auctions with placed bids"
   }
 }
