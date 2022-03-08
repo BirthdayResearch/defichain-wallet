@@ -31,6 +31,8 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID(`collateral_card_remove_${token}`).click()
     checkCollateralFormValues(`How much ${token} to remove?`, token, balance)
     cy.getByTestID('form_input_text').type(amount).blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains(vaultShare)
     cy.getByTestID('add_collateral_button_submit').click()
     checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
     cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
