@@ -106,17 +106,17 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     removeCollateral('DUSD', '5.1357', '1.8642', '$3.27', '99', '0.22%')
   })
 
-  it('should update collateral list', function () {
-    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '68.81%')
-    checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '30.97%')
-    checkCollateralCardValues('DUSD', '3.27150000 DUSD', '$3.27', '0.22%')
-  })
-
-  it('should remove all DUSD collateral and vault % should be empty', function () {
+  it('vault % should be empty when MAX amount of DUSD is entered', function () {
     cy.getByTestID('collateral_card_remove_DUSD').click()
     cy.getByTestID('form_input_text').type('3.27150000').blur()
     cy.wait(3000)
     cy.getByTestID('bottom-sheet-vault-percentage-text').should('have.value', '')
+  })
+
+  it('should update collateral list', function () {
+    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '68.81%')
+    checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '30.97%')
+    checkCollateralCardValues('DUSD', '0 DUSD', '$3.27', '0.22%')
   })
 })
 
