@@ -34,7 +34,7 @@ interface DexItem<T> {
 }
 
 export enum ButtonGroupTabKey {
-  AllPairs = 'All_PAIRS',
+  AllPairs = 'ALL_PAIRS',
   DFIPairs = 'DFI_PAIRS',
   DUSDPairs = 'DUSD_PAIRS'
 }
