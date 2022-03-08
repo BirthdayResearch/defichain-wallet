@@ -27,6 +27,7 @@ context('Wallet - Send', function () {
   describe('DFI UTXO', function () {
     it('should be able redirect to QR screen page', function () {
       cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('qr_code_button').click()
@@ -272,6 +273,7 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('dfi_utxo_amount').contains('0.09')
     })
 

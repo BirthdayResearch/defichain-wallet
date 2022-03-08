@@ -32,6 +32,7 @@ context('Wallet - Change Passcode', () => {
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
   })
 

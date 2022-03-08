@@ -156,6 +156,7 @@ context('Wallet - Balances', () => {
     cy.sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(3000)
     cy.getByTestID('dfi_balance_card').should('exist')
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_utxo_label').contains('UTXO')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
@@ -182,6 +183,7 @@ context('Wallet - Balances', () => {
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
     cy.getByTestID('toggle_balance').click()
     cy.getByTestID('dfi_total_balance_amount').should('have.text', '*****')
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
