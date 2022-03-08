@@ -7,17 +7,22 @@ interface Props {
   title?: string
   symbols: string[]
   maxIconToDisplay: number
+  isCompact?: boolean
 }
 
 export function CollateralTokenIconGroup (props: Props): JSX.Element {
-  const { symbols, maxIconToDisplay, title } = props
+  const { symbols, maxIconToDisplay, title, isCompact = false } = props
   const additionalIcon = BigNumber.max(symbols?.length - maxIconToDisplay, 0)
 
   return (
     <ThemedView
       light={tailwind('border-gray-200 bg-white')}
       dark={tailwind('border-gray-700 bg-gray-900')}
-      style={tailwind('flex flex-row py-1 px-2 border rounded', { 'py-1.5': title !== undefined })}
+      style={tailwind('flex flex-row border', {
+        'rounded py-1 px-2': !isCompact,
+        'rounded-full py-1 px-1': isCompact,
+        'py-1.5': title !== undefined
+})}
     >
       {title !== undefined && (
         <ThemedText
@@ -35,6 +40,7 @@ export function CollateralTokenIconGroup (props: Props): JSX.Element {
               <SymbolIcon
                 key={symbol}
                 symbol={symbol}
+                {...isCompact && { styleProps: tailwind('mr-0.5') }}
               />
             )
           }

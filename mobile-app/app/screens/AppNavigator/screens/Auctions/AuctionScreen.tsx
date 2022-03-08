@@ -43,7 +43,7 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => {
         if (activeTab === TabKey.BrowseAuctions && auctions.length !== 0) {
           return (
-            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />
+            <HeaderSearchIcon onPress={() => setShowSearchInput(true)} testID='header_auctions_search' />
           )
         }
         return <></>
@@ -66,6 +66,7 @@ export function AuctionsScreen ({ navigation }: Props): JSX.Element {
               setShowSearchInput(false)
             }}
             placeholder='Search for loan token'
+            testID='auctions_search_input'
           />
         )
       })

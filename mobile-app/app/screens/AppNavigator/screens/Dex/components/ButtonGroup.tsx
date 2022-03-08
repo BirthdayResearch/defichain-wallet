@@ -11,6 +11,7 @@ interface ButtonGroupProps {
 interface Buttons {
   id: string
   label: string
+  widthPercentage?: BigNumber
   handleOnPress: () => void
 }
 
@@ -29,7 +30,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             label={button.label}
             onPress={button.handleOnPress}
             isActive={props.activeButtonGroupItem === button.id}
-            width={buttonWidth}
+            width={button.widthPercentage ?? buttonWidth}
             key={button.id}
             testID={`${props.testID}_${button.id}`}
           />

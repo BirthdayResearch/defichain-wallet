@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch, VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AuctionTabGroupKey } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 
 export interface AuctionsState {
   auctions: LoanVaultLiquidated[]
@@ -37,7 +38,7 @@ export const fetchBidHistory = createAsyncThunk(
     batchIndex,
     client,
     size = 200
-  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient, size: number}) => {
+  }: { vaultId: string, liquidationHeight: number, batchIndex: number, client: WhaleApiClient, size: number }) => {
     return await client.loan.listVaultAuctionHistory(vaultId, liquidationHeight, batchIndex, size)
   }
 )
@@ -66,32 +67,63 @@ export const auctions = createSlice({
  * Filters by search term
  * Sorts by liquidation height
  */
- export const auctionsSearchByTermSelector = createSelector([
+
+interface AuctionFilterAndGroup {
+  searchTerm: string
+  activeAuctionTabGroupKey: AuctionTabGroupKey
+  walletAddress: string
+}
+export const auctionsSearchByFilterSelector = createSelector([
   (state: AuctionsState) => state.auctions,
-  (_state: AuctionsState, searchTerm: string) => searchTerm
-  ],
-  (auctions, searchTerm: string) => {
+  (_state: AuctionsState, filters: AuctionFilterAndGroup) => filters
+],
+  (auctions, filters) => {
+    const hasNoSearchTerm = filters.searchTerm === '' || filters.searchTerm === undefined
     return auctions
-    .reduce<AuctionBatchProps[]>((auctionBatches, auction): AuctionBatchProps[] => {
-      const filteredAuctionBatches = auctionBatches
-      if (searchTerm === '' || searchTerm === undefined) {
+      .reduce<AuctionBatchProps[]>((auctionBatches, auction): AuctionBatchProps[] => {
+        const filteredAuctionBatches = auctionBatches
         auction.batches.forEach(batch => {
-          filteredAuctionBatches.push({
-            ...batch, auction
-          })
-        })
-      } else {
-        auction.batches.forEach(batch => {
-        if (batch.loan.displaySymbol.toLowerCase().includes(searchTerm.trim().toLowerCase())) {
+          const isIncludedInSearchTerm = hasNoSearchTerm || (filters.searchTerm !== '' && filters.searchTerm !== undefined && batch.loan.displaySymbol.toLowerCase().includes(filters.searchTerm.trim().toLowerCase()))
+          const hasPlacedBid = batch.froms.some(bidder => bidder === filters.walletAddress)
+          const isVaultOwner = auction.ownerAddress === filters.walletAddress
+          if (isIncludedInSearchTerm && isVaultOwner && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.FromYourVault) {
+            filteredAuctionBatches.push({
+              ...batch, auction
+            })
+          } else if (isIncludedInSearchTerm && hasPlacedBid && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.WithPlacedBids) {
+            filteredAuctionBatches.push({
+              ...batch, auction
+            })
+          } else if (isIncludedInSearchTerm && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.AllAuctions) {
             filteredAuctionBatches.push({
               ...batch, auction
             })
           }
         })
-      }
 
-      return filteredAuctionBatches
-    }, [])
-    .sort((a, b) => new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber())
+        return filteredAuctionBatches
+      }, [])
+      .sort((a, b) => {
+        const hasPlacedBidA = a.froms.some(bidder => bidder === filters.walletAddress)
+        const hasPlacedBidB = b.froms.some(bidder => bidder === filters.walletAddress)
+        const isHighestBidA = a.highestBid?.owner === filters.walletAddress
+        const isHighestBidB = b.highestBid?.owner === filters.walletAddress
+        const fromYourVaultA = a.auction.ownerAddress === filters.walletAddress
+        const fromYourVaultB = b.auction.ownerAddress === filters.walletAddress
+
+        if (
+          hasPlacedBidA && hasPlacedBidB &&
+          !isHighestBidA && !isHighestBidB) {
+          return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
+        } else if (hasPlacedBidA !== hasPlacedBidB) {
+          return hasPlacedBidA ? -1 : 1
+        } else if (fromYourVaultA !== fromYourVaultB) {
+          return fromYourVaultA ? -1 : 1
+        } else if (isHighestBidA !== isHighestBidB) {
+          return isHighestBidA ? 1 : -1
+        }
+
+        return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
+      })
   }
 )

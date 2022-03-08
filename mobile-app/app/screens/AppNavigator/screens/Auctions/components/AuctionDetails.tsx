@@ -30,6 +30,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
         label={translate('components/AuctionDetailScreen', 'Vault ID')}
         value={vault.vaultId}
         onPress={async () => await openURL(getVaultsUrl(vault.vaultId))}
+        testID='vault_id'
       />
 
       <RowLinkItem
@@ -82,7 +83,7 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
   )
 }
 
-function RowLinkItem (props: {label: string, value: string, onPress: () => void }): JSX.Element {
+function RowLinkItem (props: {label: string, value: string, onPress: () => void, testID?: string }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -105,6 +106,7 @@ function RowLinkItem (props: {label: string, value: string, onPress: () => void 
             style={tailwind('text-right w-11/12 text-sm font-normal')}
             numberOfLines={1}
             ellipsizeMode='middle'
+            testID={props.testID}
           >
             {props.value}
           </ThemedText>

@@ -20,8 +20,14 @@ import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { MaterialIcons } from '@expo/vector-icons'
-import { MinNextBidTextRow } from './MinNextBidTextRow'
+import { MinNextBidTextCompact } from './MinNextBidTextRow'
 import { onQuickBidProps } from './BrowseAuctions'
+
+export enum AuctionTabGroupKey {
+  AllAuctions = 'ALL_AUCTIONS',
+  FromYourVault = 'FROM_YOUR_VAULT',
+  WithPlacedBids = 'WITH_PLACED_BIDS'
+}
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated
@@ -112,10 +118,42 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             </View>
           </View>
           <View style={tailwind('flex flex-row items-center justify-center')}>
-            <CollateralTokenIconGroup
-              symbols={batch.collaterals.map(collateral => collateral.displaySymbol)}
-              maxIconToDisplay={3}
-            />
+            {batch?.highestBid?.owner !== address && batch.froms.some(bidder => bidder === address) &&
+              <View style={tailwind('flex flex-row justify-center items-center')}>
+                <ThemedIcon
+                  size={12}
+                  name='thumb-down'
+                  iconType='MaterialIcons'
+                  style={tailwind('mr-1 mb-0.5')}
+                  light={tailwind('text-warning-500')}
+                  dark={tailwind('text-darkwarning-500')}
+                />
+                <ThemedText
+                  light={tailwind('text-warning-500')}
+                  dark={tailwind('text-darkwarning-500')}
+                  style={tailwind('text-2xs')}
+                  testID={`${testID}_bid_lost`}
+                >{translate('components/BatchCard', 'Bid lost')}
+                </ThemedText>
+              </View>}
+            {batch?.highestBid?.owner === address && batch.froms.some(bidder => bidder === address) &&
+              <View style={tailwind('flex flex-row justify-center items-center')}>
+                <ThemedIcon
+                  size={12}
+                  name='thumb-up'
+                  iconType='MaterialIcons'
+                  style={tailwind('mr-1 mb-0.5')}
+                  light={tailwind('text-success-500')}
+                  dark={tailwind('text-darksuccess-500')}
+                />
+                <ThemedText
+                  light={tailwind('text-success-500')}
+                  dark={tailwind('text-darksuccess-500')}
+                  style={tailwind('text-2xs')}
+                  testID={`${testID}_bid_winning`}
+                >{translate('components/BatchCard', 'Placed bid is active')}
+                </ThemedText>
+              </View>}
             <ThemedIcon
               size={24}
               name='chevron-right'
@@ -126,82 +164,90 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-        <View style={tailwind('flex flex-row', { 'mt-0.5': props.isVaultOwner || !hasFirstBid })}>
+        <View style={tailwind('mt-3')}>
+          <AuctionTimeProgress
+            liquidationHeight={vault.liquidationHeight}
+            blockCount={blockCount}
+            auctionTextStyle={tailwind('text-xs')}
+            label='Auction ends in'
+          />
+        </View>
+        <View style={tailwind('flex flex-row mt-1 items-center')}>
+          <NumberFormat
+            displayType='text'
+            prefix='$'
+            decimalScale={2}
+            renderText={(value: string) => (
+              <ThemedText
+                light={tailwind('text-gray-900')}
+                dark={tailwind('text-gray-50')}
+                style={tailwind('text-sm font-semibold')}
+              >
+                {value}
+              </ThemedText>
+            )}
+            thousandSeparator
+            value={totalCollateralsValueInUSD}
+          />
+          <ThemedText
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-50')}
+            style={tailwind('text-xs mx-1')}
+          >
+            {translate('components/BatchCard', 'worth of collaterals')}
+          </ThemedText>
+          <CollateralTokenIconGroup
+            symbols={batch.collaterals.map(collateral => collateral.displaySymbol)}
+            maxIconToDisplay={3}
+            isCompact
+          />
+        </View>
+        <View style={tailwind('flex flex-row', { 'mt-1.5': props.isVaultOwner || !hasFirstBid })}>
           {props.isVaultOwner && <BatchCardInfo testID={`${testID}_owned_vault`} iconName='account-circle' text='From your vault' />}
           {!hasFirstBid && <BatchCardInfo testID={`${testID}_no_bid`} iconName='hourglass-top' text='Waiting for first bid' />}
         </View>
-        {batch?.highestBid?.owner === address && <AuctionBidStatus testID={testID} type='highest' />}
-        <View style={tailwind('flex-row w-full items-center justify-between my-2')}>
-          <View style={tailwind('flex flex-row')}>
-            <ThemedText
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              style={tailwind('text-xs')}
-            >
-              {translate('components/BatchCard', 'Total auction value (USD)')}
-            </ThemedText>
-          </View>
-          <View style={tailwind('flex flex-row')}>
-            <NumberFormat
-              displayType='text'
-              prefix='$'
-              decimalScale={2}
-              renderText={(value: string) => (
-                <ThemedText
-                  light={tailwind('text-gray-900')}
-                  dark={tailwind('text-gray-50')}
-                  style={tailwind('text-sm')}
-                >
-                  {value}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={totalCollateralsValueInUSD}
-            />
-          </View>
-        </View>
-
-        <MinNextBidTextRow
-          displaySymbol={batch.loan.displaySymbol}
-          minNextBidInToken={minNextBidInToken}
-          minNextBidInUSD={minNextBidInUSD}
-          testID={`batch_${batch.index}_min_next_bid`}
-        />
       </TouchableOpacity>
-
-      <AuctionTimeProgress
-        liquidationHeight={vault.liquidationHeight}
-        blockCount={blockCount}
-        label='Auction time remaining'
-      />
       <BatchCardButtons
         onPlaceBid={onPlaceBid}
         onQuickBid={onQuickBid}
         testID={testID}
       />
+      <MinNextBidTextCompact
+        displaySymbol={batch.loan.displaySymbol}
+        minNextBidInToken={minNextBidInToken}
+        minNextBidInUSD={minNextBidInUSD}
+        valueTextStyle={tailwind('text-2xs')}
+        usdValueTextStyle={tailwind('text-2xs')}
+        testID={`batch_${batch.index}_min_next_bid`}
+      />
+
     </ThemedView>
   )
 }
 
 const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element => {
   return (
-    <View style={tailwind('flex flex-row items-center')}>
+    <ThemedView
+      dark={tailwind('bg-gray-200')}
+      light={tailwind('bg-gray-50')}
+      style={tailwind('flex flex-row items-center p-1 rounded-xl mr-2')}
+    >
       <ThemedIcon
         size={12}
         name={props.iconName}
         iconType='MaterialIcons'
         style={tailwind('mr-1')}
-        dark={tailwind('text-gray-200')}
-        light={tailwind('text-gray-700')}
+        dark={tailwind('text-gray-500')}
+        light={tailwind('text-gray-600')}
       />
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('text-2xs mr-2 leading-3')}
+        style={tailwind('text-2xs leading-3')}
         testID={props.testID}
       >{translate('components/BatchCard', props.text)}
       </ThemedText>
-    </View>
+    </ThemedView>
   )
 })
 
@@ -210,7 +256,7 @@ const BatchCardButtons = memo((props: { onPlaceBid: () => void, onQuickBid: () =
     <ThemedView
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
-      style={tailwind('flex flex-row mt-4 flex-wrap -mb-2')}
+      style={tailwind('flex flex-row mt-3 flex-wrap -mb-2')}
     >
       <IconButton
         iconLabel={translate('components/BatchCard', 'PLACE BID')}
