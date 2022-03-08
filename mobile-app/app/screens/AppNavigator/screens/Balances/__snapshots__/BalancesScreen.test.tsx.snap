@@ -1037,7 +1037,11 @@ exports[`balances page should match snapshot 1`] = `
                   Object {
                     "alignItems": "center",
                     "display": "flex",
+                    "flexBasis": "0%",
                     "flexDirection": "row",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "flexWrap": "wrap",
                   }
                 }
               >
@@ -1052,6 +1056,7 @@ exports[`balances page should match snapshot 1`] = `
                         "borderTopRightRadius": 12,
                         "display": "flex",
                         "flexDirection": "row",
+                        "marginBottom": 4,
                         "marginRight": 4,
                         "paddingBottom": 4,
                         "paddingLeft": 4,
@@ -1173,6 +1178,7 @@ exports[`balances page should match snapshot 1`] = `
                         "borderTopRightRadius": 12,
                         "display": "flex",
                         "flexDirection": "row",
+                        "marginBottom": 4,
                         "marginRight": 4,
                         "paddingBottom": 4,
                         "paddingLeft": 4,
@@ -1254,6 +1260,7 @@ exports[`balances page should match snapshot 1`] = `
                     "opacity": 1,
                     "paddingBottom": 8,
                     "paddingTop": 6,
+                    "width": "8.333333%",
                   }
                 }
                 testID="details_DFI"

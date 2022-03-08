@@ -24,7 +24,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
 
   return (
     <View style={tailwind('flex flex-row items-center bg-transparent justify-between mb-1')}>
-      <View style={tailwind('flex flex-row items-center')}>
+      <View style={tailwind('flex flex-row items-center flex-wrap flex-1')}>
         <BreakdownPercentageItem
           type='available'
           isDfi={props.symbol === 'DFI'}
@@ -37,7 +37,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
       </View>
       <TouchableOpacity
         onPress={props.onBreakdownPress}
-        style={tailwind('flex flex-row pb-2 pt-1.5')}
+        style={tailwind('flex flex-row pb-2 pt-1.5 w-1/12')}
         testID={`details_${props.symbol}`}
       >
         <ThemedIcon
@@ -62,7 +62,7 @@ interface BreakdownPercentageItemProps {
 function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Element {
   return (
     <ThemedView
-      style={tailwind('flex flex-row items-center p-1 rounded-xl mr-1')}
+      style={tailwind('flex flex-row items-center p-1 rounded-xl mr-1 mb-1')}
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
     >
