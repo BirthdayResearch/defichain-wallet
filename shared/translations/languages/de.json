@@ -72,7 +72,9 @@
     "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN",
-    "YOUR ASSETS": "DEINE AKTIVA"
+    "YOUR ASSETS": "DEINE AKTIVA",
+    "Available: ": "Verfügbar: ",
+    "Locked: ": "Hinterlegt: "
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -719,7 +721,11 @@
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "Erfahre mehr über DFI"
+    "Learn more about DFI": "Erfahre mehr über DFI",
+    "Available": "Verfügbar",
+    "Locked in vault(s)": "In Vault(s) hinterlegt",
+    "as UTXO": "als UTXO",
+    "as Token": "als Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
