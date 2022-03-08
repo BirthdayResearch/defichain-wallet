@@ -37,7 +37,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={tailwind('text-sm text-gray-500')}
           >
-            {translate('screens/BalancesScreen', 'Total Portfolio Value (USD)')}
+            {translate('screens/BalancesScreen', 'Total Portfolio Value')}
           </ThemedText>
           {
             !hasFetchedToken
