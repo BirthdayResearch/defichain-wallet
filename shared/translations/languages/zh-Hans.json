@@ -73,7 +73,7 @@
     "You do not have any other tokens.": "您现在没有其他代币",
     "SWITCH": "切换钱包",
     "YOUR ASSETS": "YOUR ASSETS",
-    "locked": "锁定",
+    "locked in vault(s)": "锁定在金库",
     "available": "可发送资金"
   },
   "screens/AddressControlScreen": {

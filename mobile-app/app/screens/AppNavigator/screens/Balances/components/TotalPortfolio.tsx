@@ -156,7 +156,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               dark={tailwind('text-gray-400')}
               style={tailwind('text-xs text-gray-500 ml-1')}
             >
-              {translate('screens/BalancesScreen', 'locked')}
+              {translate('screens/BalancesScreen', 'locked in vault(s)')}
             </ThemedText>
           </View>
         </ThemedView>
