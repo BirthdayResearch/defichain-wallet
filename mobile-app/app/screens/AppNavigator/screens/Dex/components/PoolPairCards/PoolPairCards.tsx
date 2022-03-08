@@ -34,7 +34,7 @@ interface DexItem<T> {
 }
 
 export enum ButtonGroupTabKey {
-  AllPairs = 'All_PAIRS',
+  AllPairs = 'ALL_PAIRS',
   DFIPairs = 'DFI_PAIRS',
   DUSDPairs = 'DUSD_PAIRS'
 }
@@ -87,7 +87,7 @@ export function PoolPairCards ({
 
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
-  const debouncedSearchTerm = useDebounce(searchString, 2000)
+  const debouncedSearchTerm = useDebounce(searchString, 500)
   const { tvl } = useSelector((state: RootState) => state.block)
   const buttonGroup = [
     {
@@ -114,19 +114,30 @@ export function PoolPairCards ({
     }
   }
 
+  const pairSortingFn = (pairA: DexItem<WalletToken>, pairB: DexItem<WalletToken>): number => (
+    availablePairs.findIndex(x => x.data.id === pairA.data.id) -
+    availablePairs.findIndex(x => x.data.id === pairB.data.id)
+  )
+
   useEffect(() => {
     setIsSearching(false)
-    setFilteredYourPairs(
-      yourPairs.filter((pair) =>
-        pair.data.displaySymbol
-          .toLowerCase()
-          .includes(debouncedSearchTerm.trim().toLowerCase())
-      ).sort((a, b) =>
-        availablePairs.findIndex(x => x.data.id === a.data.id) -
-        availablePairs.findIndex(x => x.data.id === b.data.id
-        ))
-    )
-  }, [yourPairs, debouncedSearchTerm])
+    if (showSearchInput === false) {
+      setFilteredYourPairs(yourPairs.sort(pairSortingFn))
+      return
+    }
+
+    if (debouncedSearchTerm !== undefined && debouncedSearchTerm.trim().length > 0) {
+      setFilteredYourPairs(
+        yourPairs.filter((pair) =>
+          pair.data.displaySymbol
+            .toLowerCase()
+            .includes(debouncedSearchTerm.trim().toLowerCase())
+        ).sort(pairSortingFn)
+      )
+    } else {
+      setFilteredYourPairs([])
+    }
+  }, [yourPairs, debouncedSearchTerm, showSearchInput])
 
   const renderItem = ({
     item,
