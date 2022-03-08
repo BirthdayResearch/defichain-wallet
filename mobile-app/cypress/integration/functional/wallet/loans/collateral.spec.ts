@@ -14,6 +14,8 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID(`select_${token}`).click()
     cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
     checkCollateralFormValues(`How much ${token} to add?`, token, balance)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('N/A')
+    cy.wait(3000)
     cy.getByTestID('form_input_text').type(amount).blur()
     cy.wait(3000)
     cy.getByTestID('bottom-sheet-vault-percentage-text').contains(vaultShare)
@@ -55,27 +57,13 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     })
   })
 
-  function goToCollaterals (): void {
+  it('should go to collateral page', function () {
     cy.intercept('**/loans/collaterals?size=50').as('loanCollaterals')
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.getByTestID('collateral_vault_id').contains(vaultId)
     checkCollateralDetailValues('EMPTY', '$0.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
     cy.wait(3000)
     cy.getByTestID('add_collateral_button').click()
-  }
-
-  it('should go to collateral page', function () {
-    goToCollaterals()
-  })
-
-  it('should display vault % in BottomSheetModal as N/A without amount input', function () {
-    cy.getByTestID('select_DFI').click()
-    cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
-    checkCollateralFormValues('How much DFI to add?', 'DFI', '18')
-    cy.wait(3000)
-    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('N/A')
-    cy.getByTestID('bottom_tab_loans').click()
-    goToCollaterals()
   })
 
   it('should add DFI as collateral', function () {
@@ -122,6 +110,13 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '68.81%')
     checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '30.97%')
     checkCollateralCardValues('DUSD', '3.27150000 DUSD', '$3.27', '0.22%')
+  })
+
+  it('should remove all DUSD collateral and vault % should be empty', function () {
+    cy.getByTestID('collateral_card_remove_DUSD').click()
+    cy.getByTestID('form_input_text').type('3.27150000').blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').should('have.value', '')
   })
 })
 
