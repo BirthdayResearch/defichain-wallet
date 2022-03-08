@@ -1,11 +1,14 @@
 import { View } from '@components'
 import { SymbolIcon } from '@components/SymbolIcon'
+import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 import { useTokenBreakdownPercentage } from '../hooks/TokenLockedBalance'
 
 interface TokenBreakdownPercentageProps {
@@ -21,19 +24,51 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
     availablePercentage,
     lockedPercentage
   } = useTokenBreakdownPercentage({ available: props.availableAmount, locked: props.lockedAmount })
+  const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
 
   return (
     <View style={tailwind('flex flex-row items-center bg-transparent justify-between mb-1')}>
       <View style={tailwind('flex flex-row items-center flex-wrap flex-1')}>
-        <BreakdownPercentageItem
-          type='available'
-          isDfi={props.symbol === 'DFI'}
-          percentage={availablePercentage}
-        />
-        <BreakdownPercentageItem
-          type='locked'
-          percentage={lockedPercentage}
-        />
+        {hasFetchedToken
+          ? (
+            <>
+              <BreakdownPercentageItem
+                type='available'
+                isDfi={props.symbol === 'DFI'}
+                percentage={availablePercentage}
+              />
+              <BreakdownPercentageItem
+                type='locked'
+                percentage={lockedPercentage}
+              />
+            </>
+          )
+          : (
+            <View style={tailwind('flex flex-row')}>
+              <View style={tailwind('mr-1')}>
+                <TextSkeletonLoader
+                  iContentLoaderProps={{
+                    width: '120',
+                    height: '18',
+                    testID: 'available_percentage_skeleton_loader'
+                  }}
+                  textWidth='120'
+                  textXRadius='10'
+                  textYRadius='10'
+                />
+              </View>
+              <TextSkeletonLoader
+                iContentLoaderProps={{
+                  width: '120',
+                  height: '18',
+                  testID: 'locked_percentage_skeleton_loader'
+                }}
+                textWidth='120'
+                textXRadius='10'
+                textYRadius='10'
+              />
+            </View>
+          )}
       </View>
       <TouchableOpacity
         onPress={props.onBreakdownPress}
