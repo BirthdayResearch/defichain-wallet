@@ -432,6 +432,7 @@
     "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。"
   },
   "BottomTabNavigator": {
+    "Balances": "總資金",
     "Portfolio": "資產組合",
     "Liquidity": "流動",
     "Transactions": "交易",

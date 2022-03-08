@@ -430,6 +430,7 @@
     "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls."
   },
   "BottomTabNavigator": {
+    "Balances": "Soldes",
     "Portfolio": "Portfolio",
     "Liquidity": "Liquidité",
     "Transactions": "Transactions",

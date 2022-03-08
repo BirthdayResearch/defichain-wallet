@@ -37,8 +37,9 @@ export function BottomTabNavigator (): JSX.Element {
       >
         <BottomTab.Screen
           component={BalancesNavigator}
-          name={translate('BottomTabNavigator', 'Portfolio')}
+          name={translate('BottomTabNavigator', 'Balances')}
           options={{
+            tabBarLabel: translate('BottomTabNavigator', 'Portfolio'),
             tabBarTestID: 'bottom_tab_balances',
             tabBarIcon: ({ color }) => (
               <MaterialIcons
