@@ -208,16 +208,16 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
               />
             </View>
           </View>
-          <AuctionTimeProgress
-            liquidationHeight={vault.liquidationHeight}
-            blockCount={blockCount}
-            label='Auction time remaining'
-          />
           {batch?.highestBid?.owner === address && (
             <View style={tailwind('mb-1')}>
               <AuctionBidStatus testID='batch_detail' type='highest' />
             </View>
           )}
+          <AuctionTimeProgress
+            liquidationHeight={vault.liquidationHeight}
+            blockCount={blockCount}
+            label='Auction time remaining'
+          />
         </ThemedView>
         <Tabs tabSections={tabsList} testID='auction_detail_tab' activeTabKey={activeTab} />
         {activeTab === TabKey.BidHistory && (
