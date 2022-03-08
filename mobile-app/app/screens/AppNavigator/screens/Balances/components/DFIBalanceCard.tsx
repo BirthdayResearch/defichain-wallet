@@ -33,14 +33,14 @@ export function DFIBalanceCard (): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const usdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
+  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' })
+  const usdAmount = getTokenPrice(DFIUnified.symbol, lockedAmount.plus(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
   const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
   const onBreakdownPress = (): void => {
     setIsBreakdownExpanded(!isBreakdownExpanded)
   }
-  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' })
 
   return (
     <ThemedView
@@ -70,7 +70,7 @@ export function DFIBalanceCard (): JSX.Element {
               hasFetchedToken
                 ? (
                   <TokenAmountText
-                    tokenAmount={DFIUnified.amount} usdAmount={usdAmount} testID='dfi_total_balance'
+                    tokenAmount={lockedAmount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
                     isBalancesDisplayed={isBalancesDisplayed}
                   />
                 )
