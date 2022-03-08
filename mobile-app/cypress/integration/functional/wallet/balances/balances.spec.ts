@@ -590,7 +590,7 @@ context('Wallet - Balances - Skeleton Loader', () => {
   })
 })
 
-context.only('Wallet - Balances - DFI Breakdown', () => {
+context('Wallet - Balances - DFI Breakdown', () => {
   const sampleVault = [
     {
       vaultId: '097db86536d104fe4230ff011ad03ee24940666ef20c5649c2f9a258092b83ea',
