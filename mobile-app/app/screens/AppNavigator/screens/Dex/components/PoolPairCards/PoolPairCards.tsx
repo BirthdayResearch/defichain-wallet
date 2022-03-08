@@ -114,15 +114,15 @@ export function PoolPairCards ({
     }
   }
 
-  const pairCompareFn = (a, b) => {
-    availablePairs.findIndex(x => x.data.id === a.data.id) -
-    availablePairs.findIndex(x => x.data.id === b.data.id)
-  }
+  const pairSortingFn = (pairA: DexItem<WalletToken>, pairB: DexItem<WalletToken>): number => (
+    availablePairs.findIndex(x => x.data.id === pairA.data.id) -
+    availablePairs.findIndex(x => x.data.id === pairB.data.id)
+  )
 
   useEffect(() => {
     setIsSearching(false)
-    if (!showSearchInput) {
-      setFilteredYourPairs(yourPairs.sort(pairCompareFn))
+    if (showSearchInput === false) {
+      setFilteredYourPairs(yourPairs.sort(pairSortingFn))
       return
     }
 
@@ -132,7 +132,7 @@ export function PoolPairCards ({
           pair.data.displaySymbol
             .toLowerCase()
             .includes(debouncedSearchTerm.trim().toLowerCase())
-        ).sort(pairCompareFn)
+        ).sort(pairSortingFn)
       )
     } else {
       setFilteredYourPairs([])
