@@ -42,6 +42,22 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.closeOceanInterface()
   }
 
+  function removeMaxCollateral (token: string, balance: string, amount: string, usdValue: string, colFactor: string, vaultShare: string): void {
+    const precisedAmount = new BigNumber(amount).toFixed(8)
+    cy.getByTestID(`collateral_card_remove_${token}`).click()
+    checkCollateralFormValues(`How much ${token} to remove?`, token, balance)
+    cy.getByTestID('form_input_text').type(amount).blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('0.00%')
+    cy.getByTestID('add_collateral_button_submit').click()
+    checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
+    cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${precisedAmount} ${token} collateral from vault`)
+    cy.wait(3000)
+    cy.closeOceanInterface()
+  }
+
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'DUSD']).wait(6000)
@@ -105,22 +121,6 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   it('should remove DUSD collateral', function () {
     removeCollateral('DUSD', '5.1357', '1.8642', '$3.27', '99', '0.22%')
   })
-
-  function removeMaxCollateral (token: string, balance: string, amount: string, usdValue: string, colFactor: string, vaultShare: string): void {
-    const precisedAmount = new BigNumber(amount).toFixed(8)
-    cy.getByTestID(`collateral_card_remove_${token}`).click()
-    checkCollateralFormValues(`How much ${token} to remove?`, token, balance)
-    cy.getByTestID('form_input_text').type(amount).blur()
-    cy.wait(3000)
-    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('0.00%')
-    cy.getByTestID('add_collateral_button_submit').click()
-    checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
-    cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
-    cy.getByTestID('txn_authorization_description')
-      .contains(`Removing ${precisedAmount} ${token} collateral from vault`)
-    cy.wait(3000)
-    cy.closeOceanInterface()
-  }
 
   it('vault % should be empty when MAX amount of DUSD is entered', function () {
     removeMaxCollateral('DUSD', '3.2715', '3.2715', '0.00000000', '99', '0.00%')
