@@ -121,18 +121,22 @@ export function DexScreen (): JSX.Element {
   const handleFilter = useCallback(
     debounce((searchString: string) => {
       setIsSearching(false)
-      setFilteredAvailablePairs(
-        pairs.filter((pair) =>
-          pair.data.displaySymbol
-            .toLowerCase()
-            .includes(searchString.trim().toLowerCase())
-        ).sort((firstPair, secondPair) =>
-          new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
-          new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+      if (searchString !== undefined && searchString.trim().length > 0) {
+        setFilteredAvailablePairs(
+          pairs.filter((pair) =>
+            pair.data.displaySymbol
+              .toLowerCase()
+              .includes(searchString.trim().toLowerCase())
+          ).sort((firstPair, secondPair) =>
+            new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
+            new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+          )
         )
-      )
+      } else {
+        setFilteredAvailablePairs([])
+      }
     }, 500),
-    [activeTab, pairs, yourLPTokens]
+    [activeTab, pairs]
   )
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
@@ -158,7 +162,7 @@ export function DexScreen (): JSX.Element {
       filteredPairs
     )
   },
-    [pairs, yourLPTokens]
+    [pairs]
   )
 
   useEffect(() => {
@@ -180,18 +184,22 @@ export function DexScreen (): JSX.Element {
   }, [])
 
   useEffect(() => {
-    setIsSearching(true)
-    handleFilter(searchString)
+    if (showSearchInput) {
+      setIsSearching(true)
+      handleFilter(searchString)
+    }
   }, [searchString, hasFetchedPoolpairData])
 
   // Update local state - filter available pair when pairs update
   useEffect(() => {
+    if (!showSearchInput) {
+      handleButtonFilter(activeButtonGroup)
+      return
+    }
+
     if (searchString !== undefined && searchString.trim().length > 0) {
       handleFilter(searchString)
     }
-    // else {
-    //   handleButtonFilter(activeButtonGroup)
-    // }
   }, [pairs])
 
   useLayoutEffect(() => {
@@ -200,7 +208,10 @@ export function DexScreen (): JSX.Element {
         if (!displayGuidelines) {
           return (
             <HeaderSearchIcon
-              onPress={() => setShowSearchInput(true)}
+              onPress={() => {
+                setShowSearchInput(true)
+                setFilteredAvailablePairs([])
+              }}
               testID='dex_search_icon'
               style={tailwind('pl-4')}
             />
@@ -240,6 +251,7 @@ export function DexScreen (): JSX.Element {
       navigation.setOptions({
         header: undefined
       })
+      handleButtonFilter(activeButtonGroup)
     }
   }, [showSearchInput, searchString])
 
@@ -300,6 +312,7 @@ export function DexScreen (): JSX.Element {
             type='your'
             setIsSearching={setIsSearching}
             searchString={searchString}
+            showSearchInput={showSearchInput}
           />
         )}
       </View>
