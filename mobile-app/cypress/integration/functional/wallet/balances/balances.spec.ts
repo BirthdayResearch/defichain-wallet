@@ -589,3 +589,85 @@ context('Wallet - Balances - Skeleton Loader', () => {
     })
   })
 })
+
+context.only('Wallet - Balances - DFI Breakdown', () => {
+  const sampleVault = [
+    {
+      vaultId: '097db86536d104fe4230ff011ad03ee24940666ef20c5649c2f9a258092b83ea',
+      loanScheme: {
+        id: 'MIN150',
+        minColRatio: '150',
+        interestRate: '5'
+      },
+      ownerAddress: 'bcrt1qsr645glm3krcskdvak5hzs5eez6u4385k9a3wv',
+      state: 'ACTIVE',
+      informativeRatio: '-1',
+      collateralRatio: '-1',
+      collateralValue: '212.3',
+      loanValue: '0',
+      interestValue: '0',
+      collateralAmounts: [
+        {
+          id: '0',
+          amount: '2.12300000',
+          symbol: 'DFI',
+          symbolKey: 'DFI',
+          name: 'Default Defi token',
+          displaySymbol: 'DFI',
+          activePrice: {
+            id: 'DFI-USD-4650',
+            key: 'DFI-USD',
+            isLive: true,
+            block: {
+              hash: '06adc1f93be11b638ec8f42ed9d75e4023131dfd5aec1ba85afe3c8c56657f48',
+              height: 4650,
+              medianTime: 1646723682,
+              time: 1646723688
+            },
+            active: {
+              amount: '100.00000000',
+              weightage: 3,
+              oracles: {
+                active: 3,
+                total: 3
+              }
+            },
+            next: {
+              amount: '100.00000000',
+              weightage: 3,
+              oracles: {
+                active: 3,
+                total: 3
+              }
+            },
+            sort: '0000122a'
+          }
+        }
+      ],
+      loanAmounts: [],
+      interestAmounts: []
+    }
+  ]
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  it('should display DFI percentage breakdown', () => {
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: sampleVault
+      }
+    })
+    cy.getByTestID('dfi_total_balance_amount').contains('22.12300000')
+    cy.getByTestID('available_percentage').contains('90.40%')
+    cy.getByTestID('locked_percentage').contains('9.60%')
+    cy.getByTestID('details_DFI').click()
+    cy.getByTestID('dfi_locked_amount').contains('2.12300000')
+    cy.getByTestID('dfi_available_amount').contains('20.00000000')
+    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+    cy.getByTestID('dfi_token_amount').contains('10.00000000')
+  })
+})

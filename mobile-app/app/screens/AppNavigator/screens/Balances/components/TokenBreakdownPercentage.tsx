@@ -95,7 +95,7 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
         renderText={value =>
           <ThemedText
             style={tailwind('text-xs')}
-            testID='locked_percentage'
+            testID={`${props.type}_percentage`}
           >
             {value}
           </ThemedText>}
