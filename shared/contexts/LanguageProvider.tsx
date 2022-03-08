@@ -3,11 +3,11 @@ import i18n from 'i18n-js'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-dayjs.extend(localizedFormat)
 import 'dayjs/locale/de'
 import 'dayjs/locale/en'
 import 'dayjs/locale/fr'
 import 'dayjs/locale/zh'
+dayjs.extend(localizedFormat)
 
 interface LanguageLoader {
   isLanguageLoaded: boolean
@@ -77,14 +77,14 @@ export function LanguageProvider (props: LanguageContextI & PropsWithChildren<an
     switch (currentLanguage) {
       case 'de':
         dayjs.locale('de')
-        break;
+        break
       case 'fr':
         dayjs.locale('fr')
-        break;
+        break
       case 'zh-Hans':
       case 'zh-Hant':
         dayjs.locale('zh')
-        break;
+        break
       default:
         dayjs.locale('en')
     }
