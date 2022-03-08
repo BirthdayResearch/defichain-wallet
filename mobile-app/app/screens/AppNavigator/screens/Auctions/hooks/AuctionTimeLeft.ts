@@ -19,7 +19,7 @@ export function useAuctionTime (liquidationHeight: number, blockCount: number): 
   const timeSpent = blocksPerAuction - blocksRemaining
   return {
     timeRemaining: (blocksRemaining > 0) ? secondsToHmDisplay(blocksRemaining * secondsPerBlock) : '',
-    startTime: timeSpent > 0 ? dayjs().subtract(timeSpent * secondsPerBlock, 's').format('h:mm a') : '',
+    startTime: timeSpent > 0 ? dayjs().subtract(timeSpent * secondsPerBlock, 's').format('LT') : '',
     blocksRemaining,
     blocksPerAuction
   }

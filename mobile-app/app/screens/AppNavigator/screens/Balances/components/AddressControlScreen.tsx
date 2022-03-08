@@ -29,7 +29,7 @@ export function AddressControlScreen (): JSX.Element {
     <ThemedScrollView>
       <ThemedSectionTitle
         testID='switch_address_screen_title'
-        text={translate('screens/OnboardingNetworkSelectScreen', 'Switch to another wallet')}
+        text={translate('screens/AddressControlScreen', 'Switch to another wallet')}
       />
       <AddressControlCard onClose={() => navigation.goBack()} />
     </ThemedScrollView>
