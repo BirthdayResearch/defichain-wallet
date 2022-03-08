@@ -69,11 +69,12 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                         value={value}
                       />}
                     thousandSeparator
-                    value={getUSDPrecisedPrice(props.totalAvailableUSDValue)}
+                    value={getUSDPrecisedPrice(new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue))}
                   />
                   <TouchableOpacity
                     onPress={() => setIsExpanded(!isExpanded)}
                     style={tailwind('flex flex-row pb-2 pt-1.5')}
+                    testID='toggle_portfolio'
                   >
                     <ThemedIcon
                       light={tailwind('text-primary-500')}
@@ -107,7 +108,11 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
       </View>
       {
       isExpanded &&
-        <>
+        <ThemedView
+          style={tailwind('mb-2 mt-2 border-t')}
+          light={tailwind('border-gray-100')}
+          dark={tailwind('border-gray-700')}
+        >
           <View style={tailwind('flex flex-row justify-start items-center w-full mt-2')}>
             <NumberFormat
               displayType='text'
@@ -154,7 +159,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               {translate('screens/BalancesScreen', 'locked')}
             </ThemedText>
           </View>
-        </>
+        </ThemedView>
       }
     </ThemedView>
   )
