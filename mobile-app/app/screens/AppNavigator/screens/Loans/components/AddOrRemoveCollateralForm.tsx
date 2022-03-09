@@ -120,6 +120,9 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
   const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
 
+  const removeMaxCollateralAmount = !isAdd && collateralValue === available && prices.vaultShare.isNaN() && collateralItem !== undefined
+  const displayNA = new BigNumber(collateralValue).isZero() || collateralValue === '' || removeMaxCollateralAmount
+
   useEffect(() => {
     setVaultValue(prices.vaultShare.toFixed(2))
   }, [prices.vaultShare])
@@ -267,12 +270,12 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           <SymbolIcon
             symbol={token.displaySymbol}
           />
-          {collateralValue === ''
+          {displayNA
             ? (
               <ThemedText
                 light={tailwind('text-gray-900')}
                 dark={tailwind('text-gray-50')}
-                style={tailwind('px-1 text-sm font-medium item-center')}
+                style={tailwind('px-1 text-sm font-medium')}
                 testID='bottom-sheet-vault-percentage-text'
               >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
               </ThemedText>
