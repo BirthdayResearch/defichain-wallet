@@ -405,6 +405,7 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('bottom_tab_balances').click()
     cy.createEmptyWallet(true).wait(3000)
     cy.sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('select_token_input').should('not.have.attr', 'aria-disabled')
     cy.getByTestID('select_token_placeholder').should('exist')

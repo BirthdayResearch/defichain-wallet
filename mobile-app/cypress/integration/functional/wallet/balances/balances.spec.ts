@@ -183,7 +183,6 @@ context('Wallet - Balances', () => {
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
     cy.getByTestID('toggle_balance').click()
     cy.getByTestID('dfi_total_balance_amount').should('have.text', '*****')
-    cy.getByTestID('details_DFI').click()
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
