@@ -1282,7 +1282,7 @@
     "DETAILS": "了解详情"
   },
   "screens/BrowseAuctions": {
-    "All": "All",
+    "All auctions": "All auctions",
     "From your vault": "From your vault",
     "With placed bids": "With placed bids",
     "No available auctions": "No available auctions",

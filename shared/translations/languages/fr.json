@@ -1275,7 +1275,7 @@
     "DETAILS": "DÉTAILS"
   },
   "screens/BrowseAuctions": {
-    "All": "Toutes",
+    "All auctions": "Toutes les enchères",
     "From your vault": "De mon vault",
     "With placed bids": "Avec des offres",
     "No available auctions": "Aucune enchère disponible",
