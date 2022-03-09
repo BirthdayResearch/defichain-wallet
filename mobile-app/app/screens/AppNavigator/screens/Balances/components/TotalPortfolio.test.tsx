@@ -6,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { block } from '@store/block'
 import { TotalPortfolio } from './TotalPortfolio'
 import BigNumber from 'bignumber.js'
+import { loans } from '@store/loans'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@contexts/DisplayBalancesContext')
@@ -30,13 +31,22 @@ describe('DFI Total Portfolio Card', () => {
         poolpairs: [],
         hasFetchedPoolpairData: false,
         hasFetchedToken: true
+      },
+      loans: {
+        vaults: [],
+        collateralTokens: [],
+        hasFetchedLoansData: true,
+        hasFetchedVaultsData: true,
+        loanSchemes: [],
+        loanTokens: []
       }
     }
     const store = configureStore({
       preloadedState: initialState,
       reducer: {
         wallet: wallet.reducer,
-        block: block.reducer
+        block: block.reducer,
+        loans: loans.reducer
       }
     })
     const component = (
