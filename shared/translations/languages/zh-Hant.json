@@ -728,8 +728,8 @@
     "Learn more about DFI": "了解更多關於 DFI",
     "Locked in vault(s)": "已鎖定在金庫",
     "Available": "現有可使用",
-    "as UTXO": "UTXO",
-    "as Token": "Token"
+    "as UTXO": "as UTXO",
+    "as Token": "as Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"
