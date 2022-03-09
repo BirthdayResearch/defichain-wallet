@@ -76,7 +76,7 @@
     "Available: ": "現有可使用: ",
     "Locked: ": "已鎖定: ",
     "locked in vault(s)": "鎖定在金庫",
-    "available": "現有可使用"
+    "available": "可使用資金"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "創建錢包",
