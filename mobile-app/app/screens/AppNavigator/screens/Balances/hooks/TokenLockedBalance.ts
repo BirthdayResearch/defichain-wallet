@@ -1,11 +1,15 @@
-import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { fetchVaults, vaultsSelector } from '@store/loans'
 import BigNumber from 'bignumber.js'
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+interface TokenLockedBalance {
+  [key: string]: BigNumber
+}
 
 export function useTokenLockedBalance ({ symbol }: { symbol: string }): BigNumber {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
@@ -13,30 +17,38 @@ export function useTokenLockedBalance ({ symbol }: { symbol: string }): BigNumbe
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const [totalLockedBalance, setTotalLockedBalance] = useState<TokenLockedBalance>({})
 
   useEffect(() => {
     dispatch(fetchVaults({ client, address }))
   }, [address, blockCount])
 
-  const totalLockedAmount = useMemo(() => {
-    return vaults.reduce((totalLockedAmount, vault) => {
-      if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-        return totalLockedAmount
-      }
-      const totalCollateralTokenAmount: BigNumber = vault.collateralAmounts.reduce(
-        (totalCollateralTokenAmount: BigNumber, token: LoanVaultTokenAmount) => {
-          if (token.symbol !== symbol) {
-            return totalCollateralTokenAmount.plus(0)
-          }
-
-          return totalCollateralTokenAmount.plus(token.amount)
-        }, new BigNumber(0))
-
-      return totalLockedAmount.plus(totalCollateralTokenAmount.isNaN() ? 0 : totalCollateralTokenAmount)
-    }, new BigNumber(0))
+  useEffect(() => {
+    setTotalLockedBalance(computeLockedAmount())
   }, [vaults])
 
-  return totalLockedAmount
+  const computeLockedAmount = useCallback(() => {
+    const totalLockedBalance: TokenLockedBalance = {}
+
+    vaults.forEach(vault => {
+      if (vault.state === LoanVaultState.IN_LIQUIDATION) {
+        return
+      }
+
+      vault.collateralAmounts.forEach(collateral => {
+        const tokenExist = totalLockedBalance[collateral.symbol]
+        if (tokenExist !== undefined) {
+          totalLockedBalance[collateral.symbol] = totalLockedBalance[collateral.symbol].plus(collateral.amount)
+        } else {
+          totalLockedBalance[collateral.symbol] = new BigNumber(collateral.amount)
+        }
+      })
+    })
+
+    return totalLockedBalance
+  }, [vaults])
+
+  return totalLockedBalance[symbol] ?? new BigNumber(0)
 }
 
 interface TokenBreakdownPercentage {
