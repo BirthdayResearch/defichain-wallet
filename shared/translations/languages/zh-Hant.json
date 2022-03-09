@@ -1066,7 +1066,8 @@
     "Convert & remove collateral": "轉換和移除抵押",
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押",
-    "CONFIRM REMOVE COLLATERAL": "確認移除抵押品"
+    "CONFIRM REMOVE COLLATERAL": "確認移除抵押品",
+    "N/A": "不適用"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在償還貸款",

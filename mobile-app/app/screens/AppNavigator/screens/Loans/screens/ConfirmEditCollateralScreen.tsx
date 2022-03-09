@@ -274,22 +274,33 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
         style={tailwind('flex flex-row py-1 px-1.5 rounded-2xl')}
       >
         <SymbolIcon symbol={props.tokenId} />
-        <NumberFormat
-          value={props.proportion.toFixed(2)}
-          decimalScale={2}
-          displayType='text'
-          thousandSeparator
-          suffix='%'
-          renderText={value =>
+        {props.proportion.isNaN()
+          ? (
             <ThemedText
-              light={tailwind('text-gray-700')}
-              dark={tailwind('text-gray-300')}
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-50')}
               style={tailwind('text-xs font-medium ml-1')}
               testID='edit_collateral_confirm_vault_share'
-            >
-              {value}
-            </ThemedText>}
-        />
+            >{translate('screens/ConfirmEditCollateralScreen', 'N/A')}
+            </ThemedText>
+          )
+          : (
+            <NumberFormat
+              value={props.proportion.toFixed(2)}
+              decimalScale={2}
+              displayType='text'
+              thousandSeparator
+              suffix='%'
+              renderText={value =>
+                <ThemedText
+                  light={tailwind('text-gray-700')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('text-xs font-medium ml-1')}
+                  testID='edit_collateral_confirm_vault_share'
+                >
+                  {value}
+                </ThemedText>}
+            />)}
       </ThemedView>
     </ThemedView>
   )

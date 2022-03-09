@@ -1059,7 +1059,8 @@
     "Convert & remove collateral": "Umwandeln u. Sicherheiten entfernen",
     "Add Collateral": "Sicherheiten hinzufügen",
     "Remove Collateral": "Sicherheiten entfernen",
-    "CONFIRM REMOVE COLLATERAL": "BESTÄTIGEN, SICHERHEITEN ZU ENTFERNEN"
+    "CONFIRM REMOVE COLLATERAL": "BESTÄTIGEN, SICHERHEITEN ZU ENTFERNEN",
+    "N/A": "K/A"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",
