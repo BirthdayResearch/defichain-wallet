@@ -62,21 +62,22 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [height, wallets])
 
   useEffect(() => {
-    if (isFocused) {
-      fetchPortfolioData()
-    }
+    fetchPortfolioData()
   }, [address, blockCount])
 
   const fetchPortfolioData = (): void => {
     batch(() => {
+      // do not add isFocused condition as its keeping token data updated in background
       dispatch(fetchTokens({
         client,
         address
       }))
-      dispatch(fetchVaults({
-        address,
-        client
-      }))
+      if (isFocused) {
+        dispatch(fetchVaults({
+          address,
+          client
+        }))
+      }
     })
   }
 
