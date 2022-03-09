@@ -16,7 +16,7 @@ import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
@@ -32,6 +32,7 @@ import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -43,6 +44,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
+  const isFocused = useIsFocused()
   const { wallets } = useWalletPersistenceContext()
   const {
     isBalancesDisplayed,
@@ -60,18 +62,22 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [height, wallets])
 
   useEffect(() => {
-    fetchPortfolioData()
+    if (isFocused) {
+      fetchPortfolioData()
+    }
   }, [address, blockCount])
 
   const fetchPortfolioData = (): void => {
-    dispatch(fetchTokens({
-      client,
-      address
-    }))
-    dispatch(fetchVaults({
-      address,
-      client
-    }))
+    batch(() => {
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
+      dispatch(fetchVaults({
+        address,
+        client
+      }))
+    })
   }
 
   const onRefresh = useCallback(async () => {

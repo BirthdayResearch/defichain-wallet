@@ -623,107 +623,68 @@ exports[`balances page should match snapshot 1`] = `
           <View
             style={
               Object {
-                "marginTop": 4,
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-start",
+                "marginRight": 8,
+                "width": "100%",
               }
             }
           >
-            <View
+            <Text
               style={
                 Array [
                   Object {
-                    "alignItems": "center",
-                    "justifyContent": "center",
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                  },
-                ]
-              }
-              testID="total_portfolio_skeleton_loader"
-            >
-              <RNSVGSvgView
-                align="xMidYMid"
-                bbHeight="28"
-                bbWidth="100%"
-                focusable={false}
-                height="28"
-                interval={0.25}
-                meetOrSlice={1}
-                minX={0}
-                minY={0}
-                style={
                   Array [
                     Object {
-                      "backgroundColor": "transparent",
-                      "borderWidth": 0,
+                      "flexWrap": "wrap",
+                      "fontFamily": "BoldFont",
+                      "fontSize": 24,
+                      "fontWeight": "700",
+                      "lineHeight": 32,
+                      "maxWidth": "75%",
                     },
-                    Object {},
                     Object {
-                      "flex": 0,
-                      "height": 28,
-                      "width": "100%",
+                      "color": "rgba(0, 0, 0, 1)",
                     },
-                  ]
+                  ],
+                ]
+              }
+              testID="total_usd_amount"
+            >
+              $0.00000000
+            </Text>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingTop": 6,
                 }
-                testID="total_portfolio_skeleton_loader"
-                vbHeight={28}
-                vbWidth={260}
-                width="100%"
-              >
-                <RNSVGGroup>
-                  <RNSVGRect
-                    clipPath="rh42fco-animated-diff"
-                    fill={
-                      Array [
-                        1,
-                        "rh42fco-diff",
-                      ]
-                    }
-                    height="100%"
-                    propList={
-                      Array [
-                        "fill",
-                      ]
-                    }
-                    width="100%"
-                    x="0"
-                    y="0"
-                  />
-                  <RNSVGDefs>
-                    <RNSVGClipPath
-                      name="rh42fco-animated-diff"
-                    >
-                      <RNSVGRect
-                        height="23"
-                        rx="5"
-                        ry="5"
-                        width="180"
-                        x="0"
-                        y="0"
-                      />
-                    </RNSVGClipPath>
-                    <RNSVGLinearGradient
-                      gradient={
-                        Array [
-                          0,
-                          -1250325,
-                          0.5,
-                          -1,
-                          1,
-                          -1250325,
-                        ]
-                      }
-                      gradientTransform={null}
-                      gradientUnits={0}
-                      name="rh42fco-diff"
-                      x1="-100%"
-                      x2="0%"
-                      y1={0}
-                      y2={0}
-                    />
-                  </RNSVGDefs>
-                </RNSVGGroup>
-              </RNSVGSvgView>
+              }
+              testID="toggle_portfolio"
+            >
+              <Text />
             </View>
           </View>
         </View>

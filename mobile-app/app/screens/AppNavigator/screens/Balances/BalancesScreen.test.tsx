@@ -99,8 +99,8 @@ describe('balances page', () => {
           interestValue: '1'
         }],
         collateralTokens: [],
-        hasFetchedLoansData: false,
-        hasFetchedVaultsData: false,
+        hasFetchedLoansData: true,
+        hasFetchedVaultsData: true,
         loanSchemes: [],
         loanTokens: []
       },
