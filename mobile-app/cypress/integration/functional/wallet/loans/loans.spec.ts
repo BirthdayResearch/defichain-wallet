@@ -206,7 +206,7 @@ context('Wallet - Loans - Take Loans', () => {
   })
 })
 
-context('Wallet - Loans - Payback Loans', () => {
+context.only('Wallet - Loans - Payback Loans', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
 
@@ -367,8 +367,9 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
       const dfiBalance = new BigNumber(text)
+      const lockedDFI = 10
       cy.getByTestID('bottom_tab_loans').click()
-      cy.getByTestID('text_resulting_balance').should('have.text', dfiBalance.minus('0.50505051').toFixed(8))
+      cy.getByTestID('text_resulting_balance').should('have.text', dfiBalance.minus('0.50505051').minus(lockedDFI).toFixed(8))
     })
 
     cy.getByTestID('text_vault_id').contains(vaultId)
@@ -424,8 +425,8 @@ context('Wallet - Loans - Payback Loans', () => {
       const convertedOutstandingBalance = outstandingBalance.multipliedBy(conversionRate).plus(convertedPenalty)
       cy.getByTestID('dfi_total_balance_amount').invoke('text').then(dfiText => {
         const DFIBalance = new BigNumber(dfiText)
-        cy.getByTestID('bottom_tab_loans').click()
-        cy.getByTestID('text_resulting_balance').should('have.text', DFIBalance.minus(convertedOutstandingBalance).toFixed(8))
+        const lockedDFI = 10
+        cy.getByTestID('text_resulting_balance').should('have.text', DFIBalance.minus(convertedOutstandingBalance).minus(lockedDFI).toFixed(8))
       })
     })
 
