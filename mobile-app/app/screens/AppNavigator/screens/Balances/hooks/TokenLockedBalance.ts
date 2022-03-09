@@ -11,7 +11,7 @@ interface TokenLockedBalance {
   [key: string]: BigNumber
 }
 
-export function useTokenLockedBalance ({ symbol }: { symbol: string }): BigNumber {
+export function useTokenLockedBalance ({ symbol }: { symbol?: string }): TokenLockedBalance | BigNumber {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -48,7 +48,7 @@ export function useTokenLockedBalance ({ symbol }: { symbol: string }): BigNumbe
     return totalLockedBalance
   }, [vaults])
 
-  return totalLockedBalance[symbol] ?? new BigNumber(0)
+  return symbol === undefined ? totalLockedBalance : totalLockedBalance[symbol] ?? new BigNumber(0)
 }
 
 interface TokenBreakdownPercentage {

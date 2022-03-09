@@ -25,11 +25,12 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
     lockedPercentage
   } = useTokenBreakdownPercentage({ available: props.availableAmount, locked: props.lockedAmount })
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
+  const { hasFetchedVaultsData } = useSelector((state: RootState) => state.loans)
 
   return (
     <View style={tailwind('flex flex-row items-center bg-transparent justify-between mb-3')}>
       <View style={tailwind('flex flex-row items-center flex-wrap flex-1')}>
-        {hasFetchedToken
+        {hasFetchedToken && hasFetchedVaultsData
           ? (
             <>
               <BreakdownPercentageItem

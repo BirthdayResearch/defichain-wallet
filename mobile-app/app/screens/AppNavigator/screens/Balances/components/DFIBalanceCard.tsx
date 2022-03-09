@@ -33,7 +33,7 @@ export function DFIBalanceCard (): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' })
+  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' }) as BigNumber
   const usdAmount = getTokenPrice(DFIUnified.symbol, lockedAmount.plus(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
@@ -118,11 +118,11 @@ export function DFIBalanceCard (): JSX.Element {
             <DFIBreakdown
               lockedAmount={lockedAmount}
               hasFetchedToken={hasFetchedToken}
-              DFIUnified={DFIUnified}
-              DFIToken={DFIToken}
-              DFIUtxo={DFIUtxo}
+              dfiUnified={DFIUnified}
+              dfiUtxo={DFIUtxo}
+              dfiToken={DFIToken}
             />
-            <DFIBreakdownAction DFIUnified={DFIUnified} />
+            <DFIBreakdownAction dfiUnified={DFIUnified} />
           </ThemedView>
         )}
       </View>
@@ -133,9 +133,9 @@ export function DFIBalanceCard (): JSX.Element {
 interface DFIBreakdownProps {
   lockedAmount: BigNumber
   hasFetchedToken: boolean
-  DFIUnified: WalletToken
-  DFIUtxo: WalletToken
-  DFIToken: WalletToken
+  dfiUnified: WalletToken
+  dfiUtxo: WalletToken
+  dfiToken: WalletToken
 }
 
 function DFIBreakdown (props: DFIBreakdownProps): JSX.Element {
@@ -241,7 +241,7 @@ function DFIBreakdownRow ({
   )
 }
 
-function DFIBreakdownAction ({ DFIUnified }: { DFIUnified: WalletToken }): JSX.Element {
+function DFIBreakdownAction ({ dfiUnified }: { dfiUnified: WalletToken }): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   return (
@@ -271,7 +271,7 @@ function DFIBreakdownAction ({ DFIUnified }: { DFIUnified: WalletToken }): JSX.E
           iconType='MaterialIcons'
           onPress={() => navigation.navigate({
             name: 'Send',
-            params: { token: DFIUnified },
+            params: { token: dfiUnified },
             merge: true
           })}
           testID='send_dfi_button'
