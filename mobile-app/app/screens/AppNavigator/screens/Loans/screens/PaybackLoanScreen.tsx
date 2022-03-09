@@ -85,7 +85,7 @@ export function PaybackLoanScreen ({
   const availableLoanPaybackAmt = loanToken?.token.symbol === 'DUSD' ? loanTokenOutstandingBal : BigNumber.min(loanTokenOutstandingBal, tokenBalance)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
   const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
-  const [amountToPay, setAmountToPay] = useState(BigNumber.min(loanTokenOutstandingBal).toFixed(8))
+  const [amountToPay, setAmountToPay] = useState(BigNumber.min(availableLoanPaybackAmt).toFixed(8))
   const [selectedPaymentToken, setSelectedPaymentToken] = useState<PaymentTokenProps>({
     tokenId: loanTokenAmount.id,
     tokenSymbol: loanToken?.token.symbol ?? '',
