@@ -80,7 +80,8 @@
     "CREATE WALLET ADDRESS": "創建錢包",
     "Switch to another address": "切換到另一個地址",
     "Wallet Address": "錢包地址",
-    "ACTIVE": "激活"
+    "ACTIVE": "激活",
+    "Switch to another wallet": "Changer de portefeuille"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -292,10 +293,13 @@
     "Sent": "已發送"
   },
   "screens/TransactionDetailScreen": {
+    "Transactions": "交易紀錄",
     "Type": "交易類型",
     "Amount": "資金數量",
     "Block": "區塊",
-    "Date": "時間"
+    "Date": "時間",
+    "Received": "收到",
+    "Sent": "已發送"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "交易"
