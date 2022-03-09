@@ -124,8 +124,6 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
               "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
-              "paddingBottom": 8,
-              "paddingTop": 6,
             }
           }
           testID="toggle_portfolio"

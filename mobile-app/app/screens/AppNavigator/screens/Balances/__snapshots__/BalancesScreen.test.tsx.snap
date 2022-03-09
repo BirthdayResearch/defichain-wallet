@@ -678,8 +678,6 @@ exports[`balances page should match snapshot 1`] = `
                   "display": "flex",
                   "flexDirection": "row",
                   "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingTop": 6,
                 }
               }
               testID="toggle_portfolio"
@@ -1295,7 +1293,6 @@ exports[`balances page should match snapshot 1`] = `
                     "display": "flex",
                     "flexDirection": "row",
                     "opacity": 1,
-                    "paddingBottom": 4,
                     "width": "8.333333%",
                   }
                 }

@@ -534,7 +534,6 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 "display": "flex",
                 "flexDirection": "row",
                 "opacity": 1,
-                "paddingBottom": 4,
                 "width": "8.333333%",
               }
             }
