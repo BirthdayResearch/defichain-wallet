@@ -6,10 +6,8 @@ import { fetchVaults, vaultsSelector } from '@store/loans'
 import BigNumber from 'bignumber.js'
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTokenPrice } from './TokenPrice'
 
 export function useTokenLockedBalance ({ symbol }: { symbol: string }): BigNumber {
-  const { getTokenPrice } = useTokenPrice()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -36,7 +34,7 @@ export function useTokenLockedBalance ({ symbol }: { symbol: string }): BigNumbe
 
       return totalLockedAmount.plus(totalCollateralTokenAmount.isNaN() ? 0 : totalCollateralTokenAmount)
     }, new BigNumber(0))
-  }, [getTokenPrice, vaults])
+  }, [vaults])
 
   return totalLockedAmount
 }
