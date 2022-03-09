@@ -672,11 +672,11 @@ exports[`balances page should match snapshot 1`] = `
               >
                 <RNSVGGroup>
                   <RNSVGRect
-                    clipPath="rmoisal-animated-diff"
+                    clipPath="rh42fco-animated-diff"
                     fill={
                       Array [
                         1,
-                        "rmoisal-diff",
+                        "rh42fco-diff",
                       ]
                     }
                     height="100%"
@@ -691,7 +691,7 @@ exports[`balances page should match snapshot 1`] = `
                   />
                   <RNSVGDefs>
                     <RNSVGClipPath
-                      name="rmoisal-animated-diff"
+                      name="rh42fco-animated-diff"
                     >
                       <RNSVGRect
                         height="23"
@@ -715,7 +715,7 @@ exports[`balances page should match snapshot 1`] = `
                       }
                       gradientTransform={null}
                       gradientUnits={0}
-                      name="rmoisal-diff"
+                      name="rh42fco-diff"
                       x1="-100%"
                       x2="0%"
                       y1={0}
