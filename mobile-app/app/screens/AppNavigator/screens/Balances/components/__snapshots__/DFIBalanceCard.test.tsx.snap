@@ -75,24 +75,14 @@ exports[`DFI Balance Card should match snapshot 1`] = `
       />
       <View
         style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "marginBottom": 4,
-              "marginLeft": 16,
-              "marginRight": 16,
-              "marginTop": 16,
-              "paddingBottom": 12,
-            },
-            Object {
-              "borderBottomColor": "rgba(245, 245, 245, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(245, 245, 245, 1)",
-              "borderRightColor": "rgba(245, 245, 245, 1)",
-              "borderTopColor": "rgba(245, 245, 245, 1)",
-            },
-          ]
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginBottom": 8,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "marginTop": 16,
+          }
         }
       >
         <View
@@ -316,7 +306,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
               "display": "flex",
               "flexDirection": "row",
               "justifyContent": "space-between",
-              "marginBottom": 4,
+              "marginBottom": 12,
             }
           }
         >
@@ -544,8 +534,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 "display": "flex",
                 "flexDirection": "row",
                 "opacity": 1,
-                "paddingBottom": 8,
-                "paddingTop": 6,
+                "paddingBottom": 4,
                 "width": "8.333333%",
               }
             }

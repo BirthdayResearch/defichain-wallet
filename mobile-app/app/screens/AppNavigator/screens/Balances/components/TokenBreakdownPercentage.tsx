@@ -27,7 +27,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
 
   return (
-    <View style={tailwind('flex flex-row items-center bg-transparent justify-between mb-1')}>
+    <View style={tailwind('flex flex-row items-center bg-transparent justify-between mb-3')}>
       <View style={tailwind('flex flex-row items-center flex-wrap flex-1')}>
         {hasFetchedToken
           ? (
@@ -72,7 +72,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
       </View>
       <TouchableOpacity
         onPress={props.onBreakdownPress}
-        style={tailwind('flex flex-row pb-2 pt-1.5 w-1/12')}
+        style={tailwind('flex flex-row pb-1 w-1/12')}
         testID={`details_${props.symbol}`}
       >
         <ThemedIcon

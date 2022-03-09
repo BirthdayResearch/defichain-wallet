@@ -56,11 +56,7 @@ export function DFIBalanceCard (): JSX.Element {
           resizeMode='cover'
           resizeMethod='scale'
         >
-          <ThemedView
-            dark={tailwind('border-b border-gray-700')}
-            light={tailwind('border-b border-gray-100')}
-            style={tailwind('flex-row m-4 mb-1 pb-3 justify-between')}
-          >
+          <View style={tailwind('flex-row m-4 mb-2 justify-between')}>
             <View style={tailwind('flex-row items-center')}>
               <DFIIcon width={32} height={32} />
               <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
@@ -101,7 +97,7 @@ export function DFIBalanceCard (): JSX.Element {
                   </View>
                 )
             }
-          </ThemedView>
+          </View>
           <View style={tailwind('mx-4')}>
             <TokenBreakdownPercentage
               symbol='DFI'
@@ -114,7 +110,11 @@ export function DFIBalanceCard (): JSX.Element {
         </ImageBackground>
 
         {isBreakdownExpanded && (
-          <View style={tailwind('mx-4 mb-4')}>
+          <ThemedView
+            light={tailwind('border-t border-gray-100')}
+            dark={tailwind('border-t border-gray-700')}
+            style={tailwind('mx-4 mb-4 pt-2')}
+          >
             <DFIBreakdown
               lockedAmount={lockedAmount}
               hasFetchedToken={hasFetchedToken}
@@ -123,7 +123,7 @@ export function DFIBalanceCard (): JSX.Element {
               DFIUtxo={DFIUtxo}
             />
             <DFIBreakdownAction DFIUnified={DFIUnified} />
-          </View>
+          </ThemedView>
         )}
       </View>
     </ThemedView>
