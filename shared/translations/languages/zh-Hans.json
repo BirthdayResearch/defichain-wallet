@@ -69,10 +69,12 @@
     "Balances": "我的资产",
     "SEND": "发出",
     "RECEIVE": "接收",
-    "Total Portfolio Value (USD)": "总组合价值(美金)",
+    "Total Portfolio Value": "总组合价值",
     "You do not have any other tokens.": "您现在没有其他代币",
     "SWITCH": "切换钱包",
-    "YOUR ASSETS": "YOUR ASSETS"
+    "YOUR ASSETS": "YOUR ASSETS",
+    "locked in vault(s)": "锁定在金库",
+    "available": "可发送资金"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -431,6 +433,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "总资金",
+    "Portfolio": "资产组合",
     "Liquidity": "流动",
     "Transactions": "交易",
     "Settings": "设置",
@@ -1064,7 +1067,8 @@
     "Convert & remove collateral": "转换和移除抵押",
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押",
-    "CONFIRM REMOVE COLLATERAL": "确认移除抵押品"
+    "CONFIRM REMOVE COLLATERAL": "确认移除抵押品",
+    "N/A": "不适用"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在清还贷款",

@@ -557,14 +557,10 @@ exports[`balances page should match snapshot 1`] = `
       style={
         Array [
           Object {
-            "alignItems": "center",
             "borderBottomLeftRadius": 8,
             "borderBottomRightRadius": 8,
             "borderTopLeftRadius": 8,
             "borderTopRightRadius": 8,
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
             "marginBottom": 16,
             "marginLeft": 16,
             "marginRight": 16,
@@ -584,102 +580,153 @@ exports[`balances page should match snapshot 1`] = `
       <View
         style={
           Object {
-            "flexGrow": 1,
-            "width": "83.333333%",
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "width": "100%",
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
+            Object {
+              "flexGrow": 1,
+              "width": "83.333333%",
+            }
           }
         >
-          Total Portfolio Value (USD)
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+          <Text
+            style={
               Array [
                 Object {
-                  "flexWrap": "wrap",
-                  "fontFamily": "BoldFont",
-                  "fontSize": 24,
-                  "fontWeight": "700",
-                  "lineHeight": 32,
-                  "marginRight": 8,
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
                 },
+                Array [
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Total Portfolio Value
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-start",
+                "marginRight": 8,
+                "width": "100%",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexWrap": "wrap",
+                      "fontFamily": "BoldFont",
+                      "fontSize": 24,
+                      "fontWeight": "700",
+                      "lineHeight": 32,
+                      "maxWidth": "75%",
+                    },
+                    Object {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="total_usd_amount"
+            >
+              $0.00000000
+            </Text>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
                 Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingTop": 6,
+                }
+              }
+              testID="toggle_portfolio"
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          focusable={false}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderBottomColor": "rgba(229, 229, 229, 1)",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderBottomWidth": 1,
+              "borderLeftColor": "rgba(229, 229, 229, 1)",
+              "borderLeftWidth": 1,
+              "borderRightColor": "rgba(229, 229, 229, 1)",
+              "borderRightWidth": 1,
+              "borderTopColor": "rgba(229, 229, 229, 1)",
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "borderTopWidth": 1,
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingLeft": 6,
+              "paddingRight": 6,
+              "paddingTop": 6,
+              "textAlign": "center",
+            }
           }
-          testID="total_usd_amount"
+          testID="toggle_balance"
         >
-          $0.00000000
-        </Text>
-      </View>
-      <View
-        accessible={true}
-        focusable={false}
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderBottomLeftRadius": 4,
-            "borderBottomRightRadius": 4,
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderLeftWidth": 1,
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderRightWidth": 1,
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-            "borderTopLeftRadius": 4,
-            "borderTopRightRadius": 4,
-            "borderTopWidth": 1,
-            "opacity": 1,
-            "paddingBottom": 6,
-            "paddingLeft": 6,
-            "paddingRight": 6,
-            "paddingTop": 6,
-            "textAlign": "center",
-          }
-        }
-        testID="toggle_balance"
-      >
-        <Text />
+          <Text />
+        </View>
       </View>
     </View>
     <Text

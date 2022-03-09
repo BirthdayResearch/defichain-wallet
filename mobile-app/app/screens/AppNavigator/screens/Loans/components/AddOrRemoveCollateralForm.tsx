@@ -22,7 +22,10 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { DFITokenSelector } from '@store/wallet'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { useCollateralizationRatioColor, useResultingCollateralizationRatioByCollateral } from '../hooks/CollateralizationRatio'
+import {
+  useCollateralizationRatioColor,
+  useResultingCollateralizationRatioByCollateral
+} from '../hooks/CollateralizationRatio'
 import { useCollateralPrice, useTotalCollateralValue } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
@@ -119,6 +122,9 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const initialPrices = useCollateralPrice(new BigNumber(collateralValue), collateralItem, new BigNumber(vault.collateralValue))
   const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
   const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+
+  const removeMaxCollateralAmount = !isAdd && new BigNumber(collateralValue).isEqualTo(new BigNumber(available)) && prices.vaultShare.isNaN() && collateralItem !== undefined
+  const displayNA = new BigNumber(collateralValue).isZero() || collateralValue === '' || removeMaxCollateralAmount
 
   useEffect(() => {
     setVaultValue(prices.vaultShare.toFixed(2))
@@ -256,9 +262,9 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
       </InputHelperText>
       <ScrollView
         horizontal contentContainerStyle={tailwind(['flex justify-between items-center flex-row', {
-          'flex-grow h-7': Platform.OS !== 'web',
-          'w-full': Platform.OS === 'web'
-        }])}
+        'flex-grow h-7': Platform.OS !== 'web',
+        'w-full': Platform.OS === 'web'
+      }])}
       >
         <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
         <ThemedView
@@ -267,12 +273,12 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           <SymbolIcon
             symbol={token.displaySymbol}
           />
-          {collateralValue === ''
+          {displayNA
             ? (
               <ThemedText
                 light={tailwind('text-gray-900')}
                 dark={tailwind('text-gray-50')}
-                style={tailwind('px-1 text-sm font-medium item-center')}
+                style={tailwind('px-1 text-sm font-medium')}
                 testID='bottom-sheet-vault-percentage-text'
               >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
               </ThemedText>
@@ -302,7 +308,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </ThemedView>
       </ScrollView>
       <View style={tailwind('pt-2 flex justify-between flex-row')}>
-        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}</ThemedText>
+        <ThemedText
+          style={tailwind('mr-2')}
+        >{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}
+        </ThemedText>
         <ThemedText
           style={tailwind('font-semibold pr-2')}
           light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}

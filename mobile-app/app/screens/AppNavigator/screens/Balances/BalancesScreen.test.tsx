@@ -5,6 +5,8 @@ import { RootState } from '@store'
 import { wallet, setTokenSymbol } from '@store/wallet'
 import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
+import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { loans } from '@store/loans'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
@@ -77,6 +79,31 @@ describe('balances page', () => {
         hasFetchedPoolpairData: false,
         hasFetchedToken: true
       },
+      loans: {
+        vaults: [{
+          vaultId: '22ffasd5ca123123123123123121231061',
+          loanAmounts: [],
+          collateralRatio: '',
+          collateralValue: '',
+          collateralAmounts: [],
+          loanScheme: {
+            id: '0',
+            interestRate: '3',
+            minColRatio: '100'
+          },
+          loanValue: '100',
+          ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+          state: LoanVaultState.ACTIVE,
+          informativeRatio: '0',
+          interestAmounts: [],
+          interestValue: '1'
+        }],
+        collateralTokens: [],
+        hasFetchedLoansData: true,
+        hasFetchedVaultsData: true,
+        loanSchemes: [],
+        loanTokens: []
+      },
       block: {
         count: 100,
         masternodeCount: 10,
@@ -90,7 +117,8 @@ describe('balances page', () => {
       preloadedState: initialState,
       reducer: {
         wallet: wallet.reducer,
-        block: block.reducer
+        block: block.reducer,
+        loans: loans.reducer
       }
     })
     const navigation: any = {
@@ -119,6 +147,31 @@ describe('balances page', () => {
         hasFetchedPoolpairData: false,
         hasFetchedToken: true
       },
+      loans: {
+        vaults: [{
+          vaultId: '22ffasd5ca123123123123123121231061',
+          loanAmounts: [],
+          collateralRatio: '',
+          collateralValue: '',
+          collateralAmounts: [],
+          loanScheme: {
+            id: '0',
+            interestRate: '3',
+            minColRatio: '100'
+          },
+          loanValue: '100',
+          ownerAddress: 'bcrt1qxzj8pnkeqznvx6xgeepdywus8lkxq3vvmeccyt',
+          state: LoanVaultState.ACTIVE,
+          informativeRatio: '0',
+          interestAmounts: [],
+          interestValue: '1'
+        }],
+        collateralTokens: [],
+        hasFetchedLoansData: false,
+        hasFetchedVaultsData: false,
+        loanSchemes: [],
+        loanTokens: []
+      },
       block: {
         count: 100,
         masternodeCount: 10,
@@ -132,7 +185,8 @@ describe('balances page', () => {
       preloadedState: initialState,
       reducer: {
         wallet: wallet.reducer,
-        block: block.reducer
+        block: block.reducer,
+        loans: loans.reducer
       }
     })
     const navigation: any = {
