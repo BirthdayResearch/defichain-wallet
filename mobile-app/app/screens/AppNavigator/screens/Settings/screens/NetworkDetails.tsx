@@ -20,7 +20,7 @@ export function NetworkDetails (): JSX.Element {
     masternodeCount,
     lastSuccessfulSync
   } = useSelector((state: RootState) => state.block)
-  const syncFormattedDate = (lastSuccessfulSync != null) ? dayjs(lastSuccessfulSync).format('MMM D, h:mm a') : ''
+  const syncFormattedDate = (lastSuccessfulSync != null) ? dayjs(lastSuccessfulSync).format('lll') : ''
 
   return (
     <ThemedScrollView testID='network_details'>
