@@ -278,9 +278,30 @@ context('Wallet - Loans - Payback Loans', () => {
     cy.closeOceanInterface()
   })
 
-  it('should show correct max/half amount of loan', function () {
+  it('should show payment tokens for DUSD loans regardless of wallet balance', function () {
+    cy.intercept('**/tokens?size=*', {
+      body: {
+        data: []
+      }
+    }).as('getTokens')
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('loan_card_DUSD_payback_loan').click()
+    cy.wait('@getTokens').then(() => {
+      cy.getByTestID('payment_token_card_DUSD').should('exist')
+      cy.getByTestID('payment_token_card_DFI').should('exist')
+    })
+  })
+
+  it('should hide payment tokens for non-DUSD loans', function () {
+    cy.go('back')
+    cy.getByTestID('loan_card_dTU10_payback_loan').click()
+    cy.getByTestID('payment_token_card_DUSD').should('not.exist')
+    cy.getByTestID('payment_token_card_DFI').should('not.exist')
+  })
+
+  it('should show correct max/half amount of loan', function () {
+    cy.go('back')
     cy.getByTestID('loan_card_DUSD_payback_loan').click()
     cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
       const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
