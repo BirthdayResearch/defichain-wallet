@@ -72,7 +72,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
       </View>
       <TouchableOpacity
         onPress={props.onBreakdownPress}
-        style={tailwind('flex flex-row pb-1 w-1/12')}
+        style={tailwind('flex flex-row w-1/12')}
         testID={`details_${props.symbol}`}
       >
         <ThemedIcon
