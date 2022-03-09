@@ -56,14 +56,14 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): LockedB
 
       vault.collateralAmounts.forEach(collateral => {
         const tokenExist = totalLockedBalance[collateral.symbol]
-        const TokenUSDValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
+        const tokenUSDValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
         if (tokenExist !== undefined) {
           totalLockedBalance[collateral.symbol].amount = totalLockedBalance[collateral.symbol].amount?.plus(collateral.amount)
-          totalLockedBalance[collateral.symbol].usdValue = totalLockedBalance[collateral.symbol].usdValue.plus(TokenUSDValue)
+          totalLockedBalance[collateral.symbol].usdValue = totalLockedBalance[collateral.symbol].usdValue.plus(tokenUSDValue)
         } else {
           totalLockedBalance[collateral.symbol] = {
             amount: new BigNumber(collateral.amount),
-            usdValue: TokenUSDValue
+            usdValue: tokenUSDValue
           }
         }
       })
@@ -76,7 +76,7 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): LockedB
     return sum.plus(totalLockedBalance[token].usdValue)
   }, new BigNumber(0))
 
-  return symbol === undefined ? sumOfLockedBalance : totalLockedBalance[symbol] ?? new BigNumber(0)
+  return symbol === undefined ? sumOfLockedBalance : totalLockedBalance[symbol]
 }
 
 interface TokenBreakdownPercentage {
