@@ -69,10 +69,12 @@
     "Balances": "Soldes",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
-    "Total Portfolio Value (USD)": "Valeur totale du portfolio (USD)",
+    "Total Portfolio Value": "Valeur totale du portfolio",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
-    "YOUR ASSETS": "MES ACTIFS"
+    "YOUR ASSETS": "MES ACTIFS",
+    "locked in vault(s)": "verrouillé",
+    "available": "disponible"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -429,6 +431,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "Liquidity": "Liquidité",
     "Transactions": "Transactions",
     "Settings": "Paramètres",
@@ -1034,7 +1037,8 @@
     "Current": "Actuel",
     "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque token à la garantie.",
     "Resulting collateralization": "Garantie correspondante",
-    "N/A": "S/O"
+    "N/A": "S/O",
+    "Vault %": "Vault %"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",
@@ -1056,7 +1060,8 @@
     "Convert & remove collateral": "Convertir et retirer des garanties",
     "Add Collateral": "Ajouter des garanties",
     "Remove Collateral": "Retirer des garanties",
-    "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE"
+    "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE",
+    "N/A": "S/O"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",

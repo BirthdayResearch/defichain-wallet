@@ -16,7 +16,7 @@ import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
@@ -30,6 +30,9 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
+import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -41,12 +44,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
+  const isFocused = useIsFocused()
   const { wallets } = useWalletPersistenceContext()
   const {
     isBalancesDisplayed,
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
 
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
@@ -57,56 +62,81 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [height, wallets])
 
   useEffect(() => {
-    dispatch(fetchTokens({
-      client,
-      address
-    }))
+    fetchPortfolioData()
   }, [address, blockCount])
+
+  const fetchPortfolioData = (): void => {
+    batch(() => {
+      // do not add isFocused condition as its keeping token data updated in background
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
+      if (isFocused) {
+        dispatch(fetchVaults({
+          address,
+          client
+        }))
+      }
+    })
+  }
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
-    dispatch(fetchTokens({
-      client,
-      address
-    }))
+    fetchPortfolioData()
     setRefreshing(false)
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const {
-    totalUSDValue,
+    totalAvailableUSDValue,
     dstTokens
   } = useMemo(() => {
      return tokens.reduce(
     ({
-      totalUSDValue,
+      totalAvailableUSDValue,
       dstTokens
-    }: { totalUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+    }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
       token
     ) => {
       const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
 
       if (token.symbol === 'DFI') {
         return {
-          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalUSDValue
-          totalUSDValue: token.id === '0_unified'
-            ? totalUSDValue
-            : totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
+          totalAvailableUSDValue: token.id === '0_unified'
+            ? totalAvailableUSDValue
+            : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
           dstTokens
         }
       }
       return {
-        totalUSDValue: totalUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+        totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
         dstTokens: [...dstTokens, {
           ...token,
           usdAmount
         }]
       }
     }, {
-      totalUSDValue: new BigNumber(0),
+      totalAvailableUSDValue: new BigNumber(0),
       dstTokens: []
     })
   }, [getTokenPrice, tokens])
+
+  const totalLockedUSDValue = useMemo(() => {
+     return vaults.reduce((totalLockedUSDValue: BigNumber, vault: LoanVault) => {
+      if (vault.state === LoanVaultState.IN_LIQUIDATION) {
+        return totalLockedUSDValue
+      }
+      const totalCollateralUSDAmount: BigNumber = vault.collateralAmounts.reduce(
+        (totalCollateralUSDAmount: BigNumber, token: LoanVaultTokenAmount) => {
+        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount))
+          return totalCollateralUSDAmount.plus(usdAmount.isNaN() ? 0 : usdAmount)
+      }, new BigNumber(0))
+
+      return totalLockedUSDValue.plus(totalCollateralUSDAmount.isNaN() ? 0 : totalCollateralUSDAmount)
+    }, new BigNumber(0))
+  }, [getTokenPrice, vaults])
 
   return (
     <ThemedScrollView
@@ -121,7 +151,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <Announcements />
       <BalanceControlCard />
       <TotalPortfolio
-        totalUSDValue={totalUSDValue}
+        totalAvailableUSDValue={totalAvailableUSDValue}
+        totalLockedUSDValue={totalLockedUSDValue}
         onToggleDisplayBalances={onToggleDisplayBalances}
         isBalancesDisplayed={isBalancesDisplayed}
       />
