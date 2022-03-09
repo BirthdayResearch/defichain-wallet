@@ -1,6 +1,7 @@
 function sendWithNewPin (): void {
   cy.getByTestID('bottom_tab_balances').click()
   cy.getByTestID('balances_list').should('exist')
+  cy.getByTestID('details_DFI').click()
   cy.getByTestID('send_dfi_button').click()
   cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
   cy.getByTestID('amount_input').clear().type('1')

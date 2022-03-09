@@ -262,6 +262,7 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('MAX_amount_button').click()
@@ -273,7 +274,6 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('details_DFI').click()
       cy.getByTestID('dfi_utxo_amount').contains('0.09')
     })
 
@@ -306,6 +306,7 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('transaction_details_info_text').should('contain', 'Review full transaction details in the next screen')
@@ -382,6 +383,7 @@ context('Wallet - Send - Switch token', function () {
     cy.createEmptyWallet(true)
 
     // No token
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')
 
