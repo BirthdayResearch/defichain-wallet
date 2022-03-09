@@ -234,6 +234,7 @@ context('Wallet - Balances - Failed API', () => {
         'x-not-found': 'true'
       }
     })
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
@@ -572,6 +573,7 @@ context('Wallet - Balances - Skeleton Loader', () => {
       },
       delay: 3000
     })
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
