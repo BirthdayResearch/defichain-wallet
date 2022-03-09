@@ -16,7 +16,7 @@ export function CollateralTokenIconGroup (props: Props): JSX.Element {
 
   return (
     <ThemedView
-      light={tailwind('border-gray-200 bg-white')}
+      light={tailwind('border-gray-100 bg-white')}
       dark={tailwind('border-gray-700 bg-gray-900')}
       style={tailwind('flex flex-row border', {
         'rounded py-1 px-2': !isCompact,
