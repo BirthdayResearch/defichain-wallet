@@ -8141,9 +8141,6 @@
 	"normal-nums": {
 		"fontVariantNumeric": "normal"
 	},
-	"leading-2": {
-		"lineHeight": 10
-	},
 	"leading-3": {
 		"lineHeight": 12
 	},
