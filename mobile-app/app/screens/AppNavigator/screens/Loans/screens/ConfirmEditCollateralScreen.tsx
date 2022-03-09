@@ -283,24 +283,24 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
               testID='edit_collateral_confirm_vault_share'
             >{translate('screens/ConfirmEditCollateralScreen', 'N/A')}
             </ThemedText>
-            )
-            : (
-              <NumberFormat
-                value={props.proportion.toFixed(2)}
-                decimalScale={2}
-                displayType='text'
-                thousandSeparator
-                suffix='%'
-                renderText={value =>
-                  <ThemedText
-                    light={tailwind('text-gray-700')}
-                    dark={tailwind('text-gray-300')}
-                    style={tailwind('text-xs font-medium ml-1')}
-                    testID='edit_collateral_confirm_vault_share'
-                  >
-                    {value}
-                  </ThemedText>}
-              />)}
+          )
+          : (
+            <NumberFormat
+              value={props.proportion.toFixed(2)}
+              decimalScale={2}
+              displayType='text'
+              thousandSeparator
+              suffix='%'
+              renderText={value =>
+                <ThemedText
+                  light={tailwind('text-gray-700')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('text-xs font-medium ml-1')}
+                  testID='edit_collateral_confirm_vault_share'
+                >
+                  {value}
+                </ThemedText>}
+            />)}
       </ThemedView>
     </ThemedView>
   )
