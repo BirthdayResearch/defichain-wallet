@@ -33,7 +33,7 @@ export function DFIBalanceCard (): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' }) as BigNumber
+  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' })
   const usdAmount = getTokenPrice(DFIUnified.symbol, lockedAmount.plus(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
@@ -155,7 +155,7 @@ function DFIBreakdown (props: DFIBreakdownProps): JSX.Element {
       />
       <DFIBreakdownRow
         testID='dfi_available'
-        amount={props.DFIUnified.amount}
+        amount={props.dfiUnified.amount}
         label='Available'
         hasFetchedToken={props.hasFetchedToken}
         labelTextStyle={tailwind('font-medium')}
@@ -165,8 +165,8 @@ function DFIBreakdown (props: DFIBreakdownProps): JSX.Element {
         }}
         containerStyle={tailwind('mb-1.5')}
       />
-      <DFIBreakdownRow testID='dfi_utxo' amount={props.DFIUtxo.amount} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
-      <DFIBreakdownRow testID='dfi_token' amount={props.DFIToken.amount} label='as Token' hasFetchedToken={props.hasFetchedToken} />
+      <DFIBreakdownRow testID='dfi_utxo' amount={props.dfiUtxo.amount} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
+      <DFIBreakdownRow testID='dfi_token' amount={props.dfiToken.amount} label='as Token' hasFetchedToken={props.hasFetchedToken} />
     </>
   )
 }

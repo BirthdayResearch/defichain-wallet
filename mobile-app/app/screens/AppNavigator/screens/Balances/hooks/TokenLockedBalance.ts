@@ -11,13 +11,14 @@ interface TokenLockedBalance {
   [key: string]: BigNumber
 }
 
-export function useTokenLockedBalance ({ symbol }: { symbol?: string }): TokenLockedBalance | BigNumber {
+export function useTokenLockedBalance ({ symbol }: { symbol?: string }): BigNumber {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const [totalLockedBalance, setTotalLockedBalance] = useState<TokenLockedBalance>({})
+  const [sumOfLockedBalance, setSumOfLockedBalance] = useState<BigNumber>(new BigNumber(0))
 
   useEffect(() => {
     dispatch(fetchVaults({ client, address }))
@@ -25,6 +26,7 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): TokenLo
 
   useEffect(() => {
     setTotalLockedBalance(computeLockedAmount())
+    setSumOfLockedBalance(computeSumOfLockedBalance())
   }, [vaults])
 
   const computeLockedAmount = useCallback(() => {
@@ -48,7 +50,11 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): TokenLo
     return totalLockedBalance
   }, [vaults])
 
-  return symbol === undefined ? totalLockedBalance : totalLockedBalance[symbol] ?? new BigNumber(0)
+  const computeSumOfLockedBalance = (): BigNumber => Object.keys(totalLockedBalance).reduce((sum, token) => {
+    return sum.plus(totalLockedBalance[token])
+  }, new BigNumber(0))
+
+  return symbol === undefined ? sumOfLockedBalance : totalLockedBalance[symbol] ?? new BigNumber(0)
 }
 
 interface TokenBreakdownPercentage {
