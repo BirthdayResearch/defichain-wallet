@@ -69,12 +69,14 @@
     "Balances": "我的资产",
     "SEND": "发出",
     "RECEIVE": "接收",
-    "Total Portfolio Value (USD)": "总组合价值(美金)",
+    "Total Portfolio Value": "总组合价值",
     "You do not have any other tokens.": "您现在没有其他代币",
     "SWITCH": "切换钱包",
     "YOUR ASSETS": "YOUR ASSETS",
     "Available: ": "现有可使用: ",
-    "Locked: ": "已鎖定: "
+    "Locked: ": "已鎖定: ",
+    "locked in vault(s)": "锁定在金库",
+    "available": "现有可使用"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -433,6 +435,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "总资金",
+    "Portfolio": "资产组合",
     "Liquidity": "流动",
     "Transactions": "交易",
     "Settings": "设置",
