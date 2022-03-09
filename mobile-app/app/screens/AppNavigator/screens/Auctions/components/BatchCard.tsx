@@ -228,7 +228,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
 const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element => {
   return (
     <ThemedView
-      dark={tailwind('bg-gray-200')}
+      dark={tailwind('bg-gray-900')}
       light={tailwind('bg-gray-50')}
       style={tailwind('flex flex-row items-center p-1 rounded-xl mr-2')}
     >
