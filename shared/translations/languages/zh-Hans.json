@@ -293,7 +293,7 @@
     "Sent": "已发送"
   },
   "screens/TransactionDetailScreen": {
-    "Transactions": "交易纪录",
+    "Transaction": "交易纪录",
     "Type": "交易类型",
     "Amount": "资金数量",
     "Block": "区块",

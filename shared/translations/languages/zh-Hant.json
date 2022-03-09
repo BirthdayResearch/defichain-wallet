@@ -293,7 +293,7 @@
     "Sent": "已發送"
   },
   "screens/TransactionDetailScreen": {
-    "Transactions": "交易紀錄",
+    "Transaction": "交易紀錄",
     "Type": "交易類型",
     "Amount": "資金數量",
     "Block": "區塊",
