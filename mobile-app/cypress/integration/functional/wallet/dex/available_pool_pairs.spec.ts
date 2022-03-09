@@ -1,11 +1,5 @@
 context('Wallet - DEX - Available Pool Pairs', () => {
-  beforeEach(function () {
-    cy.createEmptyWallet()
-    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
-    cy.getByTestID('bottom_tab_dex').click()
-  })
-
-  it('should display skeleton loader when API has yet to return', () => {
+  before(function () {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: [
@@ -14,6 +8,12 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       },
       delay: 3000
     })
+    cy.createEmptyWallet()
+    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
+    cy.getByTestID('bottom_tab_dex').click()
+  })
+
+  it('should display skeleton loader when API has yet to return', () => {
     cy.getByTestID('dex_skeleton_loader').should('exist')
   })
 
@@ -67,8 +67,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 
   it('should not display any pool pair with non-exist query', () => {
-    cy.getByTestID('dex_search_icon').click()
-    cy.getByTestID('dex_search_input').type('foo')
+    cy.getByTestID('dex_search_input').clear().type('foo')
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('not.exist')
   })
 })

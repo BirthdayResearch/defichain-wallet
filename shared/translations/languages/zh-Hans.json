@@ -1043,7 +1043,8 @@
     "Current": "目前余额",
     "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素决定了每款抵押代币的贡献程度比例。",
     "Resulting collateralization": "最终抵押率",
-    "N/A": "不适用"
+    "N/A": "不适用",
+    "Vault %": "金库 %"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "向金库增加抵押品",
