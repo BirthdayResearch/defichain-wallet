@@ -1,17 +1,15 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView, ThemedText } from '@components/themed'
 import { AuctionTabGroupKey, BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
-import { InfoText } from '@components/InfoText'
 import { translate } from '@translations'
-import { useDispatch, useSelector, batch } from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { AuctionBatchProps, auctionsSearchByFilterSelector, fetchAuctions } from '@store/auctions'
+import { AuctionBatchProps, fetchAuctions } from '@store/auctions'
 import { EmptyAuction } from './EmptyAuction'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { useBottomSheet } from '@hooks/useBottomSheet'
@@ -60,7 +58,59 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   // Search and Tab Group
   const [activeAuctionTabGroupKey, setActiveAuctionTabGroupKey] = useState<AuctionTabGroupKey>(AuctionTabGroupKey.AllAuctions)
   const debouncedSearchTerm = useDebounce(searchString, 500)
-  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByFilterSelector(state.auctions, { searchTerm: debouncedSearchTerm, activeAuctionTabGroupKey, walletAddress: address }))
+  const filteredAuctionBatches = useMemo(() => {
+    const filters = {
+      searchTerm: debouncedSearchTerm,
+      activeAuctionTabGroupKey,
+      walletAddress: address
+    }
+    const hasNoSearchTerm = filters.searchTerm === '' || filters.searchTerm === undefined
+    return auctions.reduce<AuctionBatchProps[]>((auctionBatches, auction): AuctionBatchProps[] => {
+      const filteredAuctionBatches = auctionBatches
+      auction.batches.forEach(batch => {
+        const isIncludedInSearchTerm = hasNoSearchTerm || (filters.searchTerm !== '' && filters.searchTerm !== undefined && batch.loan.displaySymbol.toLowerCase().includes(filters.searchTerm.trim().toLowerCase()))
+        const hasPlacedBid = batch.froms.some(bidder => bidder === filters.walletAddress)
+        const isVaultOwner = auction.ownerAddress === filters.walletAddress
+        if (isIncludedInSearchTerm && isVaultOwner && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.FromYourVault) {
+          filteredAuctionBatches.push({
+            ...batch, auction
+          })
+        } else if (isIncludedInSearchTerm && hasPlacedBid && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.WithPlacedBids) {
+          filteredAuctionBatches.push({
+            ...batch, auction
+          })
+        } else if (isIncludedInSearchTerm && filters.activeAuctionTabGroupKey === AuctionTabGroupKey.AllAuctions) {
+          filteredAuctionBatches.push({
+            ...batch, auction
+          })
+        }
+      })
+
+      return filteredAuctionBatches
+    }, [])
+      .sort((a, b) => {
+        const hasPlacedBidA = a.froms.some(bidder => bidder === filters.walletAddress)
+        const hasPlacedBidB = b.froms.some(bidder => bidder === filters.walletAddress)
+        const isHighestBidA = a.highestBid?.owner === filters.walletAddress
+        const isHighestBidB = b.highestBid?.owner === filters.walletAddress
+        const fromYourVaultA = a.auction.ownerAddress === filters.walletAddress
+        const fromYourVaultB = b.auction.ownerAddress === filters.walletAddress
+
+        if (
+          hasPlacedBidA && hasPlacedBidB &&
+          !isHighestBidA && !isHighestBidB) {
+          return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
+        } else if (hasPlacedBidA !== hasPlacedBidB) {
+          return hasPlacedBidA ? -1 : 1
+        } else if (fromYourVaultA !== fromYourVaultB) {
+          return fromYourVaultA ? -1 : 1
+        } else if (isHighestBidA !== isHighestBidB) {
+          return isHighestBidA ? 1 : -1
+        }
+
+        return new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber()
+      })
+  }, [auctions, debouncedSearchTerm, activeAuctionTabGroupKey, address])
 
   useEffect(() => {
     if (isFocused) {
@@ -177,7 +227,6 @@ function BatchCards ({
     setActiveButtonGroup: (key: AuctionTabGroupKey) => void
   }
 }): JSX.Element {
-  const { isBetaFeature } = useFeatureFlagContext()
   const { address } = useWalletContext()
   const RenderItems = useCallback(({
     item,
@@ -209,33 +258,23 @@ function BatchCards ({
     const buttonGroup = [
       {
         id: AuctionTabGroupKey.AllAuctions,
-        label: translate('screens/BrowseAuctions', 'All'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions),
-        widthPercentage: new BigNumber(16)
+        label: translate('screens/BrowseAuctions', 'All auctions'),
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions)
       },
       {
         id: AuctionTabGroupKey.FromYourVault,
         label: translate('screens/BrowseAuctions', 'From your vault'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault),
-        widthPercentage: new BigNumber(42)
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault)
       },
       {
         id: AuctionTabGroupKey.WithPlacedBids,
         label: translate('screens/BrowseAuctions', 'With placed bids'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids),
-        widthPercentage: new BigNumber(42)
+        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids)
       }
     ]
 
     return (
       <>
-        {isBetaFeature('auction') &&
-          <View style={tailwind('pb-4')}>
-            <InfoText
-              testID='beta_warning_info_text'
-              text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-            />
-          </View>}
         {buttonGroupOptions !== undefined &&
           <View style={tailwind('mb-4')}>
             <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='auctions_button_group' />

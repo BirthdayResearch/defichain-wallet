@@ -243,7 +243,7 @@ const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof Mater
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
-        style={tailwind('text-2xs leading-3')}
+        style={tailwind('text-2xs mr-2 leading-3')}
         testID={props.testID}
       >{translate('components/BatchCard', props.text)}
       </ThemedText>
