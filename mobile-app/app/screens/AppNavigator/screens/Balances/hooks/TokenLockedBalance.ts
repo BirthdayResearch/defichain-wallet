@@ -6,19 +6,34 @@ import { fetchVaults, vaultsSelector } from '@store/loans'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTokenPrice } from './TokenPrice'
 
 interface TokenLockedBalance {
-  [key: string]: BigNumber
+  [key: string]: LockedBalance
 }
 
-export function useTokenLockedBalance ({ symbol }: { symbol?: string }): BigNumber {
+interface LockedBalance {
+  /**
+   * total portfolio value will not return amount
+   */
+  amount?: BigNumber
+  usdValue: BigNumber
+}
+
+/**
+ *
+ * @param symbol optional token symbol
+ * @returns total portfolio value in USD when `symbol` is not passed. Otherwise, amount of token and usd value of locked token
+ */
+export function useTokenLockedBalance ({ symbol }: { symbol?: string }): LockedBalance {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const [totalLockedBalance, setTotalLockedBalance] = useState<TokenLockedBalance>({})
-  const [sumOfLockedBalance, setSumOfLockedBalance] = useState<BigNumber>(new BigNumber(0))
+  const [sumOfLockedBalance, setSumOfLockedBalance] = useState<LockedBalance>({ usdValue: new BigNumber(0) })
+  const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
     dispatch(fetchVaults({ client, address }))
@@ -26,7 +41,9 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): BigNumb
 
   useEffect(() => {
     setTotalLockedBalance(computeLockedAmount())
-    setSumOfLockedBalance(computeSumOfLockedBalance())
+    setSumOfLockedBalance({
+      usdValue: computeSumOfLockedBalance()
+    })
   }, [vaults])
 
   const computeLockedAmount = useCallback(() => {
@@ -39,10 +56,15 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): BigNumb
 
       vault.collateralAmounts.forEach(collateral => {
         const tokenExist = totalLockedBalance[collateral.symbol]
+        const TokenUSDValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
         if (tokenExist !== undefined) {
-          totalLockedBalance[collateral.symbol] = totalLockedBalance[collateral.symbol].plus(collateral.amount)
+          totalLockedBalance[collateral.symbol].amount = totalLockedBalance[collateral.symbol].amount?.plus(collateral.amount)
+          totalLockedBalance[collateral.symbol].usdValue = totalLockedBalance[collateral.symbol].usdValue.plus(TokenUSDValue)
         } else {
-          totalLockedBalance[collateral.symbol] = new BigNumber(collateral.amount)
+          totalLockedBalance[collateral.symbol] = {
+            amount: new BigNumber(collateral.amount),
+            usdValue: TokenUSDValue
+          }
         }
       })
     })
@@ -51,7 +73,7 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): BigNumb
   }, [vaults])
 
   const computeSumOfLockedBalance = (): BigNumber => Object.keys(totalLockedBalance).reduce((sum, token) => {
-    return sum.plus(totalLockedBalance[token])
+    return sum.plus(totalLockedBalance[token].usdValue)
   }, new BigNumber(0))
 
   return symbol === undefined ? sumOfLockedBalance : totalLockedBalance[symbol] ?? new BigNumber(0)
