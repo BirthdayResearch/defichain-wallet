@@ -69,10 +69,12 @@
     "Balances": "Soldes",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
-    "Total Portfolio Value (USD)": "Valeur totale du portfolio (USD)",
+    "Total Portfolio Value": "Valeur totale du portfolio",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
-    "YOUR ASSETS": "MES ACTIFS"
+    "YOUR ASSETS": "MES ACTIFS",
+    "locked in vault(s)": "verrouillé",
+    "available": "disponible"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -429,6 +431,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "Liquidity": "Liquidité",
     "Transactions": "Transactions",
     "Settings": "Paramètres",

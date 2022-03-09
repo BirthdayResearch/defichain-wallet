@@ -69,10 +69,12 @@
     "Balances": "Guthaben",
     "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
-    "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
+    "Total Portfolio Value": "Gesamtwert des Portfolios",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN",
-    "YOUR ASSETS": "DEINE AKTIVA"
+    "YOUR ASSETS": "DEINE AKTIVA",
+    "locked in vault(s)": "hinterlegt in Vault(s)",
+    "available": "verfügbar"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -429,6 +431,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
+    "Portfolio": "Portfolio",
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen",
