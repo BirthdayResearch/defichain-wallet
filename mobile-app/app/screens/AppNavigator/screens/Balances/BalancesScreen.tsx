@@ -33,6 +33,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { useIsFocused } from '@react-navigation/native'
+import { BalanceCards, ButtonGroupTabKey } from './components/BalanceCards'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -138,6 +139,35 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }, new BigNumber(0))
   }, [getTokenPrice, vaults])
 
+  const [filteredTokens, setFilteredTokens] = useState(dstTokens) // TODO: check the type state declaration
+
+  // tab items
+  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
+  const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
+    const filterTokens = dstTokens.filter((dstToken) => {
+      switch (buttonGroupTabKey) {
+        case ButtonGroupTabKey.LPTokens:
+          return dstToken.isLPS
+
+        case ButtonGroupTabKey.Crypto:
+          return dstToken.isDAT
+
+        case ButtonGroupTabKey.dAssets:
+          return dstToken.isLoanToken
+
+        // for All token tab will return true for list of dstToken
+        default:
+          return true
+      }
+    })
+    setFilteredTokens(filterTokens)
+  }, [dstTokens])
+
+  // to update filter list from selected tab
+  useEffect(() => {
+    handleButtonFilter(activeButtonGroup)
+  }, [dstTokens])
+
   return (
     <ThemedScrollView
       contentContainerStyle={tailwind('pb-8')} testID='balances_list'
@@ -158,11 +188,25 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       />
       <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
-      <BalanceList dstTokens={dstTokens} navigation={navigation} />
+      {/* filter tab  */}
+      <View style={tailwind('flex')}>
+        <BalanceCards
+          // dstTokens={filteredTokens}
+          // navigation={navigation}
+          buttonGroupOptions={{
+            activeButtonGroup: activeButtonGroup,
+            setActiveButtonGroup: setActiveButtonGroup,
+            onButtonGroupPress: handleButtonFilter
+          }}
+        />
+        <BalanceList dstTokens={filteredTokens} navigation={navigation} />
+      </View>
+
     </ThemedScrollView>
   )
 }
 
+// TODO: refactoring this function into BalanceCards component
 function BalanceList ({
   dstTokens,
   navigation
@@ -185,20 +229,22 @@ function BalanceList ({
             <EmptyBalances />
           )
           : (
-            <View testID='card_balance_row_container'>
-              {dstTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber()).map((item) => (
-                <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
-                  <BalanceItemRow
-                    onPress={() => navigation.navigate({
-                      name: 'TokenDetail',
-                      params: { token: item },
-                      merge: true
-                    })}
-                    token={item}
-                  />
-                </View>
-              ))}
-            </View>
+            <>
+              <View testID='card_balance_row_container'>
+                {dstTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber()).map((item) => (
+                  <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
+                    <BalanceItemRow
+                      onPress={() => navigation.navigate({
+                        name: 'TokenDetail',
+                        params: { token: item },
+                        merge: true
+                      })}
+                      token={item}
+                    />
+                  </View>
+                ))}
+              </View>
+            </>
             )
       }
     </>
