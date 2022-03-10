@@ -46,7 +46,7 @@ export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: stri
 
       vault.collateralAmounts.forEach(collateral => {
         const token = clone(lockedBalance.get(collateral.displaySymbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-        const tokenValue = getTokenPrice(collateral.displaySymbol, new BigNumber(collateral.amount))
+        const tokenValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
         lockedBalance.set(collateral.displaySymbol, {
           amount: token.amount.plus(collateral.amount),
           tokenValue: token.tokenValue.plus(tokenValue)

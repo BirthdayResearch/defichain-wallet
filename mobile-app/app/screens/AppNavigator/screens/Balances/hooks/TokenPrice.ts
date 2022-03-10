@@ -31,6 +31,12 @@ export function useTokenPrice (): TokenPrice {
     }
   }), [pairs])
 
+  /**
+   * @param symbol {string} token symbol
+   * @param amount {string} token amount
+   * @param isLPS {boolean} is liquidity pool token
+   * @return BigNumber
+   */
   const getTokenPrice = useCallback((symbol: string, amount: BigNumber, isLPS: boolean = false): BigNumber => {
     if (new BigNumber(amount).isZero()) {
       return new BigNumber(0)

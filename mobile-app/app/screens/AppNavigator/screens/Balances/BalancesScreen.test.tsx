@@ -35,6 +35,11 @@ jest.mock('react-native/Libraries/Utilities/Platform', () => ({
   select: () => jest.fn
 }))
 
+jest.mock('@screens/AppNavigator/screens/Balances/components/Announcements', () => {
+  const Announcements = (): JSX.element => (<></>)
+  return { Announcements }
+})
+
 describe('balances page', () => {
   const tokens = [{
     id: '0',

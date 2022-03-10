@@ -117,14 +117,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     if (lockedTokens === undefined) {
       return new BigNumber(0)
     }
-    return [...lockedTokens.keys()]
-     .reduce((totalLockedUSDValue: BigNumber, tokenSymbol: string) => {
-        const token = lockedTokens.get(tokenSymbol)
-        if (token === undefined) {
-         return totalLockedUSDValue
-        }
-        return totalLockedUSDValue.plus(token.tokenValue.isNaN() ? 0 : token.tokenValue)
-    }, new BigNumber(0))
+    return [...lockedTokens.values()]
+      .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
+        totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+      new BigNumber(0))
   }, [lockedTokens])
 
   return (
