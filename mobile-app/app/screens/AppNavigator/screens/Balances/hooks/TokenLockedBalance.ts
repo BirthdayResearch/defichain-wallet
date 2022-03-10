@@ -4,35 +4,28 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { fetchVaults, vaultsSelector } from '@store/loans'
 import BigNumber from 'bignumber.js'
+import { clone } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTokenPrice } from './TokenPrice'
 
-interface TokenLockedBalance {
-  [key: string]: LockedBalance
-}
-
-interface LockedBalance {
-  /**
-   * total portfolio value will not return amount
-   */
-  amount?: BigNumber
-  usdValue: BigNumber
+export interface LockedBalance {
+  amount: BigNumber
+  tokenValue: BigNumber
 }
 
 /**
  *
- * @param symbol optional token symbol
- * @returns total portfolio value in USD when `symbol` is not passed. Otherwise, amount of token and usd value of locked token
+ * @param displaySymbol optional token display symbol
+ * @returns Map of all token's locked balance or single object of displaySymbol passed
  */
-export function useTokenLockedBalance ({ symbol }: { symbol?: string }): LockedBalance {
+export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const [totalLockedBalance, setTotalLockedBalance] = useState<TokenLockedBalance>({})
-  const [sumOfLockedBalance, setSumOfLockedBalance] = useState<LockedBalance>({ usdValue: new BigNumber(0) })
+  const [lockedBalance, setLockedBalance] = useState<Map<string, LockedBalance>>()
   const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
@@ -40,14 +33,11 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): LockedB
   }, [address, blockCount])
 
   useEffect(() => {
-    setTotalLockedBalance(computeLockedAmount())
-    setSumOfLockedBalance({
-      usdValue: computeSumOfLockedBalance()
-    })
+    setLockedBalance(computeLockedAmount())
   }, [vaults])
 
   const computeLockedAmount = useCallback(() => {
-    const totalLockedBalance: TokenLockedBalance = {}
+    const lockedBalance = new Map<string, LockedBalance>()
 
     vaults.forEach(vault => {
       if (vault.state === LoanVaultState.IN_LIQUIDATION) {
@@ -55,28 +45,19 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): LockedB
       }
 
       vault.collateralAmounts.forEach(collateral => {
-        const tokenExist = totalLockedBalance[collateral.symbol]
-        const tokenUSDValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
-        if (tokenExist !== undefined) {
-          totalLockedBalance[collateral.symbol].amount = totalLockedBalance[collateral.symbol].amount?.plus(collateral.amount)
-          totalLockedBalance[collateral.symbol].usdValue = totalLockedBalance[collateral.symbol].usdValue.plus(tokenUSDValue)
-        } else {
-          totalLockedBalance[collateral.symbol] = {
-            amount: new BigNumber(collateral.amount),
-            usdValue: tokenUSDValue
-          }
-        }
+        const token = clone(lockedBalance.get(collateral.displaySymbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+        const tokenValue = getTokenPrice(collateral.displaySymbol, new BigNumber(collateral.amount))
+        lockedBalance.set(collateral.displaySymbol, {
+          amount: token.amount.plus(collateral.amount),
+          tokenValue: token.tokenValue.plus(tokenValue)
+        })
       })
     })
 
-    return totalLockedBalance
+    return lockedBalance
   }, [vaults])
 
-  const computeSumOfLockedBalance = (): BigNumber => Object.keys(totalLockedBalance).reduce((sum, token) => {
-    return sum.plus(totalLockedBalance[token].usdValue)
-  }, new BigNumber(0))
-
-  return symbol === undefined ? sumOfLockedBalance : totalLockedBalance[symbol]
+  return displaySymbol === undefined ? lockedBalance : lockedBalance?.get(displaySymbol)
 }
 
 interface TokenBreakdownPercentage {

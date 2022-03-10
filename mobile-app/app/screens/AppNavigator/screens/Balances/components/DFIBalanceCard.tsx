@@ -24,7 +24,7 @@ import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { useState } from 'react'
 import { translate } from '@translations'
-import { useTokenLockedBalance } from '../hooks/TokenLockedBalance'
+import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -33,8 +33,8 @@ export function DFIBalanceCard (): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const lockedAmount = useTokenLockedBalance({ symbol: 'DFI' }).amount ?? new BigNumber(0)
-  const usdAmount = getTokenPrice(DFIUnified.symbol, lockedAmount.plus(DFIUnified.amount), DFIUnified.isLPS)
+  const lockedToken = useTokenLockedBalance({ displaySymbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
   const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
@@ -66,7 +66,7 @@ export function DFIBalanceCard (): JSX.Element {
               hasFetchedToken
                 ? (
                   <TokenAmountText
-                    tokenAmount={lockedAmount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
+                    tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
                     isBalancesDisplayed={isBalancesDisplayed}
                   />
                 )
@@ -104,7 +104,7 @@ export function DFIBalanceCard (): JSX.Element {
               availableAmount={new BigNumber(DFIUnified.amount)}
               onBreakdownPress={onBreakdownPress}
               isBreakdownExpanded={isBreakdownExpanded}
-              lockedAmount={lockedAmount}
+              lockedAmount={lockedToken.amount}
             />
           </View>
         </ImageBackground>
@@ -116,7 +116,7 @@ export function DFIBalanceCard (): JSX.Element {
             style={tailwind('mx-4 mb-4 pt-2')}
           >
             <DFIBreakdown
-              lockedAmount={lockedAmount}
+              lockedAmount={lockedToken.amount}
               hasFetchedToken={hasFetchedToken}
               dfiUnified={DFIUnified}
               dfiUtxo={DFIUtxo}
