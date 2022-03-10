@@ -880,7 +880,7 @@
   "components/VaultCard": {
     "Collateral:": "Garanties:",
     "None": "Aucune",
-    "Locked": "Verrouillé",
+    "Locked": "Verrouillés",
     "At risk": "Critique",
     "Safe": "Hors de danger",
     "Active loans": "Prêts actifs",
