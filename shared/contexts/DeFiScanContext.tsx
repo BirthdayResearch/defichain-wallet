@@ -2,6 +2,7 @@ import React, { createContext, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from '@environment'
 import { useNetworkContext } from './NetworkContext'
 
+// sample
 interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string
   getBlocksUrl: (blockCount: number) => string
