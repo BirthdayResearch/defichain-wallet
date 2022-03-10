@@ -16,10 +16,10 @@ export interface LockedBalance {
 
 /**
  *
- * @param displaySymbol optional token display symbol
- * @returns Map of all token's locked balance or single object of displaySymbol passed
+ * @param symbol optional token symbol
+ * @returns Map of all token's locked balance or single object of symbol passed
  */
-export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
+export function useTokenLockedBalance ({ symbol }: { symbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -45,9 +45,9 @@ export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: stri
       }
 
       vault.collateralAmounts.forEach(collateral => {
-        const token = clone(lockedBalance.get(collateral.displaySymbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-        const tokenValue = getTokenPrice(collateral.displaySymbol, new BigNumber(collateral.amount))
-        lockedBalance.set(collateral.displaySymbol, {
+        const token = clone(lockedBalance.get(collateral.symbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+        const tokenValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
+        lockedBalance.set(collateral.symbol, {
           amount: token.amount.plus(collateral.amount),
           tokenValue: token.tokenValue.plus(tokenValue)
         })
@@ -57,7 +57,7 @@ export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: stri
     return lockedBalance
   }, [vaults])
 
-  return displaySymbol === undefined ? lockedBalance : lockedBalance?.get(displaySymbol)
+  return symbol === undefined ? lockedBalance : lockedBalance?.get(symbol)
 }
 
 interface TokenBreakdownPercentage {

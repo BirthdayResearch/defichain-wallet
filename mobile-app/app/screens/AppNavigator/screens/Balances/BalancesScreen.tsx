@@ -30,9 +30,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
-import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { useIsFocused } from '@react-navigation/native'
+import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -44,15 +42,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const isFocused = useIsFocused()
   const { wallets } = useWalletPersistenceContext()
+  const lockedTokens = useTokenLockedBalance({}) as Map<string, LockedBalance>
   const {
     isBalancesDisplayed,
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
-
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
@@ -72,12 +68,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         client,
         address
       }))
-      if (isFocused) {
-        dispatch(fetchVaults({
-          address,
-          client
-        }))
-      }
     })
   }
 
@@ -124,19 +114,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [getTokenPrice, tokens])
 
   const totalLockedUSDValue = useMemo(() => {
-     return vaults.reduce((totalLockedUSDValue: BigNumber, vault: LoanVault) => {
-      if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-        return totalLockedUSDValue
-      }
-      const totalCollateralUSDAmount: BigNumber = vault.collateralAmounts.reduce(
-        (totalCollateralUSDAmount: BigNumber, token: LoanVaultTokenAmount) => {
-        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount))
-          return totalCollateralUSDAmount.plus(usdAmount.isNaN() ? 0 : usdAmount)
-      }, new BigNumber(0))
-
-      return totalLockedUSDValue.plus(totalCollateralUSDAmount.isNaN() ? 0 : totalCollateralUSDAmount)
-    }, new BigNumber(0))
-  }, [getTokenPrice, vaults])
+    if (lockedTokens === undefined) {
+      return new BigNumber(0)
+    }
+    return [...lockedTokens.values()]
+      .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
+        totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+      new BigNumber(0))
+  }, [lockedTokens])
 
   return (
     <ThemedScrollView
