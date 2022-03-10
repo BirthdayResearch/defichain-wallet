@@ -36,7 +36,7 @@ jest.mock('react-native/Libraries/Utilities/Platform', () => ({
 }))
 
 jest.mock('@screens/AppNavigator/screens/Balances/components/Announcements', () => {
-  const Announcements = (): JSX.element => (<></>)
+  const Announcements = (): JSX.Element => (<></>)
   return { Announcements }
 })
 
