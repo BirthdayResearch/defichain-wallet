@@ -243,7 +243,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
               }
               testID="dfi_total_balance_amount"
             >
-              104.24600000
+              102.12300000
             </Text>
             <View
               style={
@@ -442,7 +442,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 }
                 testID="available_percentage"
               >
-                95.93%
+                97.92%
               </Text>
             </View>
             <View
@@ -515,7 +515,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 }
                 testID="locked_percentage"
               >
-                4.07%
+                2.08%
               </Text>
             </View>
           </View>
