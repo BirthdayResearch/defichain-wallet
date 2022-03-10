@@ -27,6 +27,7 @@ context('Wallet - Send', function () {
   describe('DFI UTXO', function () {
     it('should be able redirect to QR screen page', function () {
       cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('qr_code_button').click()
@@ -261,6 +262,7 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('MAX_amount_button').click()
@@ -304,6 +306,7 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('balances_list').should('exist')
       cy.getByTestID('dfi_balance_card').should('exist')
+      cy.getByTestID('details_DFI').click()
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('transaction_details_info_text').should('contain', 'Review full transaction details in the next screen')
@@ -380,6 +383,7 @@ context('Wallet - Send - Switch token', function () {
     cy.createEmptyWallet(true)
 
     // No token
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')
 
@@ -401,6 +405,7 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('bottom_tab_balances').click()
     cy.createEmptyWallet(true).wait(3000)
     cy.sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('select_token_input').should('not.have.attr', 'aria-disabled')
     cy.getByTestID('select_token_placeholder').should('exist')

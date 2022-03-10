@@ -60,7 +60,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   />
                   <TouchableOpacity
                     onPress={() => setIsExpanded(!isExpanded)}
-                    style={tailwind('flex flex-row pb-2 pt-1.5')}
+                    style={tailwind('flex flex-row')}
                     testID='toggle_portfolio'
                   >
                     <ThemedIcon
@@ -68,7 +68,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                       dark={tailwind('text-darkprimary-500')}
                       iconType='MaterialIcons'
                       name={!isExpanded ? 'expand-more' : 'expand-less'}
-                      size={22}
+                      size={30}
                     />
                   </TouchableOpacity>
                 </View>

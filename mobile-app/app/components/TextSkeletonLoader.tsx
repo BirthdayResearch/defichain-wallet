@@ -11,6 +11,8 @@ interface TextSkeletonLoaderProps {
   viewBoxHeight?: string
   textHorizontalOffset?: string
   textVerticalOffset?: string
+  textXRadius?: string
+  textYRadius?: string
 }
 export function TextSkeletonLoader (props: TextSkeletonLoaderProps): JSX.Element {
   const { isLight } = useThemeContext()
@@ -31,7 +33,7 @@ export function TextSkeletonLoader (props: TextSkeletonLoaderProps): JSX.Element
         width={props.iContentLoaderProps.width ?? '100%'}
         {...props.iContentLoaderProps}
       >
-        <Rect x={props.textHorizontalOffset ?? '0'} y={props.textVerticalOffset ?? '0'} rx='5' ry='5' width={props.textWidth ?? props.iContentLoaderProps.width} height={props.textHeight ?? props.iContentLoaderProps.height} />
+        <Rect x={props.textHorizontalOffset ?? '0'} y={props.textVerticalOffset ?? '0'} rx={props.textXRadius ?? '5'} ry={props.textYRadius ?? '5'} width={props.textWidth ?? props.iContentLoaderProps.width} height={props.textHeight ?? props.iContentLoaderProps.height} />
       </ContentLoader>
     </ThemedView>
   )
