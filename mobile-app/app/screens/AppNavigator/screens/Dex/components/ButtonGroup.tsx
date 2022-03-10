@@ -34,7 +34,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             width={buttonWidth}
             key={button.id}
             testID={`${props.testID}_${button.id}`}
-            modalTextStyle={props.modalStyle}
+            modalStyle={props.modalStyle}
           />
         ))
       }
@@ -48,7 +48,7 @@ interface ButtonGroupItemProps {
   isActive: boolean
   width: BigNumber
   testID: string
-  modalTextStyle?: StyleProp<TextStyle>
+  modalStyle?: StyleProp<TextStyle>
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
@@ -63,7 +63,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       <ThemedText
         light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
         dark={tailwind({ 'text-darkprimary-500': props.isActive, 'text-gray-50': !props.isActive })}
-        style={props.modalTextStyle ?? tailwind('font-medium text-sm text-center')}
+        style={props.modalStyle ?? tailwind('font-medium text-sm text-center')}
       >
         {props.label}
       </ThemedText>
