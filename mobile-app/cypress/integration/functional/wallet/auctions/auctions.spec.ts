@@ -240,7 +240,7 @@ context('Wallet - Auctions', () => {
     })
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['CD10']).wait(6000)
-
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
     cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('30.00000000')

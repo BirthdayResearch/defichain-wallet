@@ -442,8 +442,8 @@ context('Wallet - Loans - Payback Loans', () => {
       const convertedOutstandingBalance = outstandingBalance.multipliedBy(conversionRate).plus(convertedPenalty)
       cy.getByTestID('dfi_total_balance_amount').invoke('text').then(dfiText => {
         const DFIBalance = new BigNumber(dfiText)
-        cy.getByTestID('bottom_tab_loans').click()
-        cy.getByTestID('text_resulting_balance').should('have.text', DFIBalance.minus(convertedOutstandingBalance).toFixed(8))
+        const lockedDFI = 10
+        cy.getByTestID('text_resulting_balance').should('have.text', DFIBalance.minus(convertedOutstandingBalance).minus(lockedDFI).toFixed(8))
       })
     })
 
@@ -462,6 +462,7 @@ context('Wallet - Loans - Payback Loans', () => {
   })
 
   it('should not display payment options if loan is not DUSD', function () {
+    cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     cy.getByTestID('loan_card_dTU10_payback_loan').click()
     cy.getByTestID('payment_token_card_DUSD').should('not.exist')
