@@ -95,8 +95,8 @@ export function PaybackLoanScreen ({
   const selectedPaymentTokenBalance = getTokenAmount(selectedPaymentToken.tokenId, tokens)
 
   const paymentTokens = useMemo(() => {
-    return token === undefined ? [] : getPaymentTokens(token, tokenBalance, selectedPaymentToken.tokenId, tokens)
-  }, [token])
+    return getPaymentTokens({ id: loanTokenAmount?.id, symbol: loanTokenAmount?.symbol, displaySymbol: loanTokenAmount?.displaySymbol }, tokenBalance, selectedPaymentToken.tokenId, tokens)
+  }, [token, selectedPaymentToken])
   const { getAmounts } = useLoanPaymentTokenRate({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
@@ -733,7 +733,7 @@ const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
   return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
 }
 
-const getPaymentTokens = (loanToken: WalletToken, tokenBalance: BigNumber, selectedPaymentTokenId: string, tokens: any): Array<{
+const getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, selectedPaymentTokenId: string, tokens: any): Array<{
   paymentToken: PaymentTokenProps
   isSelected: boolean
 }> => {
