@@ -33,7 +33,7 @@ export function DFIBalanceCard (): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
   const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const lockedToken = useTokenLockedBalance({ displaySymbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const lockedToken = useTokenLockedBalance({ symbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
