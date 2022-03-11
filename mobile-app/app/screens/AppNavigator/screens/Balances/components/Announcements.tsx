@@ -198,8 +198,8 @@ function findDisplayedAnnouncementForVersion (version: string, language: string,
   }
 
   for (const announcement of announcements) {
-    const lang: any = announcement.lang
-    const platformUrl: any = announcement.url
+    const lang: any = announcement?.lang
+    const platformUrl: any = announcement?.url
 
     if (((Platform.OS !== 'ios' && Platform.OS !== 'android') ||
       satisfies(version, announcement.version)) && getDisplayAnnouncement(hiddenAnnouncements, announcement)) {

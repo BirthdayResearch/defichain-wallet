@@ -69,7 +69,7 @@ describe('balances page', () => {
     name: 'Ethereum'
   }]
 
-  it('should match snapshot', async () => {
+  it('should match snapshot balances screen', async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: '77',
