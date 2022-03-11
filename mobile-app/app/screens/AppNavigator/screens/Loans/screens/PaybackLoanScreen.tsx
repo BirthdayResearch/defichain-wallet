@@ -79,12 +79,13 @@ export function PaybackLoanScreen ({
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
 
-  const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id, tokens) : new BigNumber(0)
+  const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
+  const availableLoanPaybackAmt = loanToken?.token.symbol === 'DUSD' ? loanTokenOutstandingBal : BigNumber.min(loanTokenOutstandingBal, tokenBalance)
   const loanTokenAmountActivePriceInUSD = getActivePrice(loanTokenAmount.symbol, loanTokenAmount.activePrice)
   const loanTokenBalanceInUSD = tokenBalance.multipliedBy(loanTokenAmountActivePriceInUSD)
-  const [amountToPay, setAmountToPay] = useState(BigNumber.min(loanTokenOutstandingBal).toFixed(8))
+  const [amountToPay, setAmountToPay] = useState(BigNumber.min(availableLoanPaybackAmt).toFixed(8))
   const [selectedPaymentToken, setSelectedPaymentToken] = useState<PaymentTokenProps>({
     tokenId: loanTokenAmount.id,
     tokenSymbol: loanToken?.token.symbol ?? '',
@@ -94,8 +95,8 @@ export function PaybackLoanScreen ({
   const selectedPaymentTokenBalance = getTokenAmount(selectedPaymentToken.tokenId, tokens)
 
   const paymentTokens = useMemo(() => {
-    return token === undefined ? [] : getPaymentTokens(token, tokenBalance, selectedPaymentToken.tokenId, tokens)
-  }, [token])
+    return getPaymentTokens({ id: loanTokenAmount?.id, symbol: loanTokenAmount?.symbol, displaySymbol: loanTokenAmount?.displaySymbol }, tokenBalance, selectedPaymentToken.tokenId, tokens)
+  }, [token, selectedPaymentToken])
   const { getAmounts } = useLoanPaymentTokenRate({
     loanToken,
     loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenAmountActivePriceInUSD),
@@ -303,13 +304,13 @@ export function PaybackLoanScreen ({
         >
           <>
             <SetAmountButton
-              amount={loanTokenOutstandingBal}
+              amount={availableLoanPaybackAmt}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.half}
             />
 
             <SetAmountButton
-              amount={loanTokenOutstandingBal}
+              amount={availableLoanPaybackAmt}
               onPress={onChangeFromAmount}
               type={AmountButtonTypes.max}
               customText='100%'
@@ -732,7 +733,7 @@ const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
   return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
 }
 
-const getPaymentTokens = (loanToken: WalletToken, tokenBalance: BigNumber, selectedPaymentTokenId: string, tokens: any): Array<{
+const getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, selectedPaymentTokenId: string, tokens: any): Array<{
   paymentToken: PaymentTokenProps
   isSelected: boolean
 }> => {

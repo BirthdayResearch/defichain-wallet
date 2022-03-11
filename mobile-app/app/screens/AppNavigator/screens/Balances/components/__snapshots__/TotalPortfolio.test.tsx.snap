@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DFI Total Portfolio Card should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "borderBottomLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderTopRightRadius": 8,
+        "marginBottom": 16,
+        "marginLeft": 16,
+        "marginRight": 16,
+        "marginTop": 16,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+  testID="total_portfolio_card"
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexGrow": 1,
+          "width": "83.333333%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+              Object {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Total Portfolio Value
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-start",
+            "marginRight": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "flexWrap": "wrap",
+                  "fontFamily": "BoldFont",
+                  "fontSize": 24,
+                  "fontWeight": "700",
+                  "lineHeight": 32,
+                  "maxWidth": "75%",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 1)",
+                },
+              ],
+            ]
+          }
+          testID="total_usd_amount"
+        >
+          $1,300.00
+        </Text>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "opacity": 1,
+            }
+          }
+          testID="toggle_portfolio"
+        >
+          <Text />
+        </View>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderBottomColor": "rgba(229, 229, 229, 1)",
+          "borderBottomLeftRadius": 4,
+          "borderBottomRightRadius": 4,
+          "borderBottomWidth": 1,
+          "borderLeftColor": "rgba(229, 229, 229, 1)",
+          "borderLeftWidth": 1,
+          "borderRightColor": "rgba(229, 229, 229, 1)",
+          "borderRightWidth": 1,
+          "borderTopColor": "rgba(229, 229, 229, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+          "borderTopWidth": 1,
+          "opacity": 1,
+          "paddingBottom": 6,
+          "paddingLeft": 6,
+          "paddingRight": 6,
+          "paddingTop": 6,
+          "textAlign": "center",
+        }
+      }
+      testID="toggle_balance"
+    >
+      <Text />
+    </View>
+  </View>
+</View>
+`;

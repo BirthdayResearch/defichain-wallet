@@ -15,7 +15,11 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID(`select_${token}`).click()
     cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
     checkCollateralFormValues(`How much ${token} to add?`, token, balance)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('N/A')
+    cy.wait(3000)
     cy.getByTestID('form_input_text').type(amount).blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains(vaultShare)
     cy.getByTestID('add_collateral_button_submit').click()
     checkConfirmEditCollateralValues('You are adding collateral to', vaultId, 'Add Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
     cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
@@ -29,12 +33,47 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID(`collateral_card_remove_${token}`).click()
     checkCollateralFormValues(`How much ${token} to remove?`, token, balance)
     cy.getByTestID('form_input_text').type(amount).blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains(vaultShare)
     cy.getByTestID('add_collateral_button_submit').click()
     checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
     cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
     cy.getByTestID('txn_authorization_description')
       .contains(`Removing ${precisedAmount} ${token} collateral from vault`)
     cy.closeOceanInterface()
+  }
+
+  function removeMaxCollateral (token: string, balance: string, amount: string, usdValue: string, colFactor: string, vaultShare: string): void {
+    const precisedAmount = new BigNumber(amount).toFixed(8)
+    cy.getByTestID(`collateral_card_remove_${token}`).click()
+    checkCollateralFormValues(`How much ${token} to remove?`, token, balance)
+    cy.getByTestID('form_input_text').type(amount).blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('0.00%')
+    cy.getByTestID('add_collateral_button_submit').click()
+    checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
+    cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${precisedAmount} ${token} collateral from vault`)
+    cy.wait(3000)
+    cy.closeOceanInterface()
+  }
+
+  function removeMaxCollateralNA (token: string, balance: string, amount: string, usdValue: string, colFactor: string, vaultShare: string): void {
+    const precisedAmount = new BigNumber(amount).toFixed(8)
+    cy.getByTestID(`collateral_card_remove_${token}`).click()
+    checkCollateralFormValues(`How much ${token} to remove?`, token, balance)
+    cy.getByTestID('form_input_text').type(amount).blur()
+    cy.wait(3000)
+    cy.getByTestID('bottom-sheet-vault-percentage-text').contains('N/A')
+    cy.getByTestID('add_collateral_button_submit').click()
+    checkConfirmEditCollateralValues('You are removing collateral from', vaultId, 'Remove Collateral', colFactor, token, precisedAmount, usdValue, vaultShare)
+    cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Removing ${precisedAmount} ${token} collateral from vault`)
+    cy.wait(3000)
+    cy.closeOceanInterface()
+    cy.getByTestID('add_collateral_button').click()
   }
 
   before(function () {
@@ -70,6 +109,11 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
         cy.getByTestID(`select_${collateralToken.token.displaySymbol}_value`).contains(amounts[collateralToken.token.displaySymbol] ?? 0)
       })
     })
+  })
+
+  it('should display vault % as N/A with addition and removal of one collateral', function () {
+    addCollateral('DFI', '18', '10', '$1,000.00', '100', '100.00%')
+    removeMaxCollateralNA('DFI', '10', '10', '$0.00', '100', 'N/A')
   })
 
   it('should add DFI as collateral', function () {
@@ -112,10 +156,13 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     removeCollateral('DUSD', '5.1357', '1.8642', '$3.27', '99', '0.22%')
   })
 
+  it('vault % should be 0.00% when MAX amount of DUSD collateral is removed', function () {
+    removeMaxCollateral('DUSD', '3.2715', '3.2715', '0.00000000', '99', '0.00%')
+  })
+
   it('should update collateral list', function () {
-    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '68.81%')
-    checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '30.97%')
-    checkCollateralCardValues('DUSD', '3.27150000 DUSD', '$3.27', '0.22%')
+    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '68.97%')
+    checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '31.03%')
   })
 })
 

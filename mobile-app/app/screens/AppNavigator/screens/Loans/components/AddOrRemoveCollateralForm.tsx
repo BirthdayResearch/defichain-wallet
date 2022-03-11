@@ -26,7 +26,7 @@ import {
   useCollateralizationRatioColor,
   useResultingCollateralizationRatioByCollateral
 } from '../hooks/CollateralizationRatio'
-import { useTotalCollateralValue } from '../hooks/CollateralPrice'
+import { useCollateralPrice, useTotalCollateralValue } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
@@ -61,13 +61,15 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     onCloseButtonPress,
     collateralFactor,
     isAdd,
-    vault
+    vault,
+    collateralItem
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
 
   const [collateralValue, setCollateralValue] = useState<string>('')
+  const [vaultValue, setVaultValue] = useState<string>('')
   const isConversionRequired = isAdd && token.id === '0'
     ? (
       new BigNumber(collateralValue).isGreaterThan(DFIToken.amount) &&
@@ -113,6 +115,20 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const onAmountChange = (amount: string): void => {
     setCollateralValue(amount)
   }
+
+  const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0'
+  const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
+  const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(new BigNumber(collateralValue)))
+  const initialPrices = useCollateralPrice(new BigNumber(collateralValue), collateralItem, new BigNumber(vault.collateralValue))
+  const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
+  const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+
+  const removeMaxCollateralAmount = !isAdd && new BigNumber(collateralValue).isEqualTo(new BigNumber(available)) && prices.vaultShare.isNaN() && collateralItem !== undefined
+  const displayNA = new BigNumber(collateralValue).isZero() || collateralValue === '' || removeMaxCollateralAmount
+
+  useEffect(() => {
+    setVaultValue(prices.vaultShare.toFixed(2))
+  }, [prices.vaultShare])
 
   useEffect(() => {
     validateInput(collateralValue)
@@ -180,7 +196,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         inputType='numeric'
         displayClearButton={collateralValue !== ''}
         onChangeText={onAmountChange}
-        onClearButtonPress={() => setCollateralValue('')}
+        onClearButtonPress={() => {
+          setCollateralValue('')
+          setVaultValue('')
+        }}
         placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
@@ -242,23 +261,65 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </ThemedText>
       </InputHelperText>
       <ScrollView
-        horizontal contentContainerStyle={tailwind(['flex justify-between flex-row', {
+        horizontal contentContainerStyle={tailwind(['flex justify-between items-center flex-row', {
         'flex-grow h-7': Platform.OS !== 'web',
         'w-full': Platform.OS === 'web'
       }])}
       >
+        <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
+        <ThemedView
+          style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+        >
+          <SymbolIcon
+            symbol={token.displaySymbol}
+          />
+          {displayNA
+            ? (
+              <ThemedText
+                light={tailwind('text-gray-900')}
+                dark={tailwind('text-gray-50')}
+                style={tailwind('px-1 text-sm font-medium')}
+                testID='bottom-sheet-vault-percentage-text'
+              >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
+              </ThemedText>
+            )
+            : (
+              <NumberFormat
+                value={vaultValue}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                suffix='%'
+                renderText={(val: string) => (
+                  <ThemedView
+                    style={tailwind('px-1 rounded')}
+                  >
+                    <ThemedText
+                      light={tailwind('text-gray-900')}
+                      dark={tailwind('text-gray-50')}
+                      style={tailwind('text-sm font-medium')}
+                      testID='bottom-sheet-vault-percentage-text'
+                    >
+                      {val}
+                    </ThemedText>
+                  </ThemedView>
+                )}
+              />)}
+        </ThemedView>
+      </ScrollView>
+      <View style={tailwind('pt-2 flex justify-between flex-row')}>
         <ThemedText
           style={tailwind('mr-2')}
         >{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}
         </ThemedText>
         <ThemedText
-          style={tailwind('font-semibold')}
+          style={tailwind('font-semibold pr-2')}
           light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
           dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
           testID='resulting_collateralization'
         >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>
-      </ScrollView>
+      </View>
       <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
       {isConversionRequired && (
         <View style={tailwind('mt-4 mb-6')}>
@@ -272,7 +333,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           token,
           amount: new BigNumber(collateralValue)
         })}
-        margin='mt-8 mb-2'
+        margin='mt-6 mb-2'
         testID='add_collateral_button_submit'
       />
       <ThemedText

@@ -8,6 +8,142 @@ export interface BalanceTokenDetail {
   usdAmount?: string
 }
 
+const getChangingPoolPairReserve = ({
+  pair1ReserveA, // BTC (BTC-DFI)
+  pair1ReserveB, // DFI (BTC-DFI)
+  pair2ReserveA, // USDT (USDT-DFI)
+  pair2ReserveB // DFI (USDT-DFI)
+}: {
+  pair1ReserveA: string
+  pair1ReserveB: string
+  pair2ReserveA: string
+  pair2ReserveB: string
+}): any => [
+  {
+    id: '15',
+    symbol: 'BTC-DFI',
+    displaySymbol: 'dBTC-DFI',
+    name: 'Playground BTC-Default Defi token',
+    status: true,
+    tokenA: {
+      symbol: 'BTC',
+      displaySymbol: 'dBTC',
+      id: '1',
+      reserve: pair1ReserveA,
+      blockCommission: '0'
+    },
+    tokenB: {
+      symbol: 'DFI',
+      displaySymbol: 'DFI',
+      id: '0',
+      reserve: pair1ReserveB,
+      blockCommission: '0'
+    },
+    priceRatio: {
+      ab: '1',
+      ba: '1'
+    },
+    commission: '0',
+    totalLiquidity: {
+      token: '2500',
+      usd: '20000000'
+    },
+    tradeEnabled: true,
+    ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+    rewardPct: '0.1',
+    creation: {
+      tx: '79b5f7853f55f762c7550dd7c734dff0a473898bfb5639658875833accc6d461',
+      height: 132
+    },
+    apr: {
+      reward: 66.8826,
+      total: 66.8826
+    }
+  },
+  {
+    id: '16',
+    symbol: 'ETH-DFI',
+    displaySymbol: 'dETH-DFI',
+    name: 'Playground ETH-Default Defi token',
+    status: true,
+    tokenA: {
+      symbol: 'ETH',
+      displaySymbol: 'dETH',
+      id: '2',
+      reserve: '100000',
+      blockCommission: '0'
+    },
+    tokenB: {
+      symbol: 'DFI',
+      displaySymbol: 'DFI',
+      id: '0',
+      reserve: '1000',
+      blockCommission: '0'
+    },
+    priceRatio: {
+      ab: '100',
+      ba: '0.01'
+    },
+    commission: '0',
+    totalLiquidity: {
+      token: '10000',
+      usd: '20000000'
+    },
+    tradeEnabled: true,
+    ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+    rewardPct: '0.1',
+    creation: {
+      tx: '351c80a14f441af1c237f4abc138df242e67c8ef47cfbc1af3437798ce14bd1b',
+      height: 135
+    },
+    apr: {
+      reward: 66.8826,
+      total: 66.8826
+    }
+  },
+  {
+    id: '17',
+    symbol: 'USDT-DFI',
+    displaySymbol: 'dUSDT-DFI',
+    name: 'Decentralized USD-Default Defi token',
+    status: true,
+    tokenA: {
+      symbol: 'USDT',
+      displaySymbol: 'dUSDT',
+      id: '14',
+      reserve: pair2ReserveA,
+      blockCommission: '0'
+    },
+    tokenB: {
+      symbol: 'DFI',
+      displaySymbol: 'DFI',
+      id: '0',
+      reserve: pair2ReserveB,
+      blockCommission: '0'
+    },
+    priceRatio: {
+      ab: '10',
+      ba: '0.1'
+    },
+    commission: '0.02',
+    totalLiquidity: {
+      token: '2500',
+      usd: '16660'
+    },
+    tradeEnabled: true,
+    ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+    rewardPct: '0.1',
+    creation: {
+      tx: '4b8d5ec122052cdb8e8ffad63865444a10edc396d44e52957758ef7a39b228fa',
+      height: 147
+    },
+    apr: {
+      reward: 80291.23649459783,
+      total: 80291.23649459783
+    }
+  }
+]
+
 context('Wallet - Balances', () => {
   const samplePoolPair = [
     {
@@ -156,6 +292,7 @@ context('Wallet - Balances', () => {
     cy.sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(3000)
     cy.getByTestID('dfi_balance_card').should('exist')
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_utxo_label').contains('UTXO')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
@@ -233,6 +370,7 @@ context('Wallet - Balances - Failed API', () => {
         'x-not-found': 'true'
       }
     })
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
@@ -265,142 +403,6 @@ context('Wallet - Balances - No balance', () => {
 })
 
 context('Wallet - Balances - USD Value', () => {
-  const getChangingPoolPairReserve = ({
-    pair1ReserveA, // BTC (BTC-DFI)
-    pair1ReserveB, // DFI (BTC-DFI)
-    pair2ReserveA, // USDT (USDT-DFI)
-    pair2ReserveB // DFI (USDT-DFI)
-  }: {
-    pair1ReserveA: string
-    pair1ReserveB: string
-    pair2ReserveA: string
-    pair2ReserveB: string
-  }): any => [
-    {
-      id: '15',
-      symbol: 'BTC-DFI',
-      displaySymbol: 'dBTC-DFI',
-      name: 'Playground BTC-Default Defi token',
-      status: true,
-      tokenA: {
-        symbol: 'BTC',
-        displaySymbol: 'dBTC',
-        id: '1',
-        reserve: pair1ReserveA,
-        blockCommission: '0'
-      },
-      tokenB: {
-        symbol: 'DFI',
-        displaySymbol: 'DFI',
-        id: '0',
-        reserve: pair1ReserveB,
-        blockCommission: '0'
-      },
-      priceRatio: {
-        ab: '1',
-        ba: '1'
-      },
-      commission: '0',
-      totalLiquidity: {
-        token: '2500',
-        usd: '20000000'
-      },
-      tradeEnabled: true,
-      ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-      rewardPct: '0.1',
-      creation: {
-        tx: '79b5f7853f55f762c7550dd7c734dff0a473898bfb5639658875833accc6d461',
-        height: 132
-      },
-      apr: {
-        reward: 66.8826,
-        total: 66.8826
-      }
-    },
-    {
-      id: '16',
-      symbol: 'ETH-DFI',
-      displaySymbol: 'dETH-DFI',
-      name: 'Playground ETH-Default Defi token',
-      status: true,
-      tokenA: {
-        symbol: 'ETH',
-        displaySymbol: 'dETH',
-        id: '2',
-        reserve: '100000',
-        blockCommission: '0'
-      },
-      tokenB: {
-        symbol: 'DFI',
-        displaySymbol: 'DFI',
-        id: '0',
-        reserve: '1000',
-        blockCommission: '0'
-      },
-      priceRatio: {
-        ab: '100',
-        ba: '0.01'
-      },
-      commission: '0',
-      totalLiquidity: {
-        token: '10000',
-        usd: '20000000'
-      },
-      tradeEnabled: true,
-      ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-      rewardPct: '0.1',
-      creation: {
-        tx: '351c80a14f441af1c237f4abc138df242e67c8ef47cfbc1af3437798ce14bd1b',
-        height: 135
-      },
-      apr: {
-        reward: 66.8826,
-        total: 66.8826
-      }
-    },
-    {
-      id: '17',
-      symbol: 'USDT-DFI',
-      displaySymbol: 'dUSDT-DFI',
-      name: 'Decentralized USD-Default Defi token',
-      status: true,
-      tokenA: {
-        symbol: 'USDT',
-        displaySymbol: 'dUSDT',
-        id: '14',
-        reserve: pair2ReserveA,
-        blockCommission: '0'
-      },
-      tokenB: {
-        symbol: 'DFI',
-        displaySymbol: 'DFI',
-        id: '0',
-        reserve: pair2ReserveB,
-        blockCommission: '0'
-      },
-      priceRatio: {
-        ab: '10',
-        ba: '0.1'
-      },
-      commission: '0.02',
-      totalLiquidity: {
-        token: '2500',
-        usd: '16660'
-      },
-      tradeEnabled: true,
-      ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
-      rewardPct: '0.1',
-      creation: {
-        tx: '4b8d5ec122052cdb8e8ffad63865444a10edc396d44e52957758ef7a39b228fa',
-        height: 147
-      },
-      apr: {
-        reward: 80291.23649459783,
-        total: 80291.23649459783
-      }
-    }
-  ]
-
   before(function () {
     cy.intercept('**/poolpairs?size=*', {
       body: {
@@ -571,6 +573,7 @@ context('Wallet - Balances - Skeleton Loader', () => {
       },
       delay: 3000
     })
+    cy.getByTestID('details_DFI').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
@@ -586,6 +589,189 @@ context('Wallet - Balances - Skeleton Loader', () => {
       cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
       cy.getByTestID('balance_skeleton_loader').should('not.exist')
+    })
+  })
+})
+
+context('Wallet - Balances - DFI Breakdown', () => {
+  const sampleVault = [
+    {
+      vaultId: '097db86536d104fe4230ff011ad03ee24940666ef20c5649c2f9a258092b83ea',
+      loanScheme: {
+        id: 'MIN150',
+        minColRatio: '150',
+        interestRate: '5'
+      },
+      ownerAddress: 'bcrt1qsr645glm3krcskdvak5hzs5eez6u4385k9a3wv',
+      state: 'ACTIVE',
+      informativeRatio: '-1',
+      collateralRatio: '-1',
+      collateralValue: '212.3',
+      loanValue: '0',
+      interestValue: '0',
+      collateralAmounts: [
+        {
+          id: '0',
+          amount: '2.12300000',
+          symbol: 'DFI',
+          symbolKey: 'DFI',
+          name: 'Default Defi token',
+          displaySymbol: 'DFI',
+          activePrice: {
+            id: 'DFI-USD-4650',
+            key: 'DFI-USD',
+            isLive: true,
+            block: {
+              hash: '06adc1f93be11b638ec8f42ed9d75e4023131dfd5aec1ba85afe3c8c56657f48',
+              height: 4650,
+              medianTime: 1646723682,
+              time: 1646723688
+            },
+            active: {
+              amount: '100.00000000',
+              weightage: 3,
+              oracles: {
+                active: 3,
+                total: 3
+              }
+            },
+            next: {
+              amount: '100.00000000',
+              weightage: 3,
+              oracles: {
+                active: 3,
+                total: 3
+              }
+            },
+            sort: '0000122a'
+          }
+        }
+      ],
+      loanAmounts: [],
+      interestAmounts: []
+    }
+  ]
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(3000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+
+  it('should display DFI percentage breakdown', () => {
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: sampleVault
+      }
+    })
+    cy.getByTestID('dfi_total_balance_amount').contains('22.12300000')
+    cy.getByTestID('available_percentage').contains('90.40%')
+    cy.getByTestID('locked_percentage').contains('9.60%')
+    cy.getByTestID('details_DFI').click()
+    cy.getByTestID('dfi_locked_amount').contains('2.12300000')
+    cy.getByTestID('dfi_available_amount').contains('20.00000000')
+    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+    cy.getByTestID('dfi_token_amount').contains('10.00000000')
+  })
+})
+
+context('Wallet - Balances - portfolio', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: getChangingPoolPairReserve({
+          pair1ReserveA: '1001',
+          pair1ReserveB: '1001',
+          pair2ReserveA: '8330',
+          pair2ReserveB: '830'
+        })
+      }
+    })
+    cy.sendDFItoWallet().wait(5000)
+    cy.intercept('**/vaults?size=200', {
+      statusCode: 200,
+      body: {
+        data: [{
+          vaultId: 'vaultidhere',
+          loanScheme: {
+            id: 'MIN150',
+            minColRatio: '150',
+            interestRate: '5'
+          },
+          ownerAddress: 'bcrt1qjk6p9kc28wdj84c500lh2h5zlzf5ce3r8r0y92',
+          state: 'ACTIVE',
+          informativeRatio: '-1',
+          collateralRatio: '100', // must be positive
+          collateralValue: '0',
+          loanValue: 10,
+          interestValue: '0',
+          collateralAmounts: [{
+            id: '0',
+            amount: '1.00000000',
+            symbol: 'DFI',
+            symbolKey: 'DFI',
+            name: 'Default Defi token',
+            displaySymbol: 'DFI',
+            activePrice: {
+              id: 'DFI-USD-906',
+              key: 'DFI-USD',
+              isLive: true,
+              block: {
+                hash: '9353d4b75886d68f0c9d788aee236c7c7e2722f0147dea98cde3a84719095e78',
+                height: 906,
+                medianTime: 1646660089,
+                time: 1646660095
+              },
+              active: {
+                amount: '100.00000000',
+                weightage: 3,
+                oracles: {
+                  active: 3,
+                  total: 3
+                }
+              },
+              next: {
+                amount: '100.00000000',
+                weightage: 3,
+                oracles: {
+                  active: 3,
+                  total: 3
+                }
+              },
+              sort: '0000038a'
+            }
+          }
+          ],
+          loanAmounts: [],
+          interestAmounts: []
+        }]
+      }
+    }).as('getVaults')
+  })
+
+  it('should show portfolio breakdown', () => {
+    cy.wait('@getVaults').then(() => {
+      cy.getByTestID('toggle_portfolio').click()
+      cy.getByTestID('total_usd_amount').invoke('text').then(text => {
+        checkValueWithinRange(text, '110', 1)
+      })
+      cy.getByTestID('total_available_usd_amount').invoke('text').then(text => {
+        checkValueWithinRange(text, '100', 1)
+      })
+      cy.getByTestID('total_locked_usd_amount').invoke('text').then(text => {
+        checkValueWithinRange(text, '10', 1)
+      })
+    })
+  })
+
+  it('should hide portfolio breakdown on hide balance toggle', () => {
+    cy.wait('@getVaults').then(() => {
+      cy.getByTestID('toggle_balance').click()
+      cy.getByTestID('toggle_portfolio').click()
+      cy.getByTestID('total_usd_amount').should('have.text', '*****')
+      cy.getByTestID('total_available_usd_amount').should('have.text', '*****')
+      cy.getByTestID('total_locked_usd_amount').should('have.text', '*****')
     })
   })
 })

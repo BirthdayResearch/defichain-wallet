@@ -5,6 +5,8 @@ import { RootState } from '@store'
 import { wallet, setTokenSymbol } from '@store/wallet'
 import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
+import { loans } from '@store/loans'
+import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
@@ -32,6 +34,11 @@ jest.mock('react-native/Libraries/Utilities/Platform', () => ({
   OS: 'web',
   select: () => jest.fn
 }))
+
+jest.mock('@screens/AppNavigator/screens/Balances/components/Announcements', () => {
+  const Announcements = (): JSX.Element => (<></>)
+  return { Announcements }
+})
 
 describe('balances page', () => {
   const tokens = [{
@@ -84,13 +91,78 @@ describe('balances page', () => {
         connected: true,
         isPolling: true,
         tvl: undefined
+      },
+      loans: {
+        vaults: [
+          {
+            vaultId: 'd3f52b85e004fda0244dc2f73771c7ecc91fda1a0ca1e439b421ebbb9573dae2',
+            loanScheme: {
+              id: 'MIN150',
+              minColRatio: '150',
+              interestRate: '5'
+            },
+            ownerAddress: 'bcrt1qsr645glm3krcskdvak5hzs5eez6u4385k9a3wv',
+            state: LoanVaultState.ACTIVE,
+            informativeRatio: '-1',
+            collateralRatio: '-1',
+            collateralValue: '212.3',
+            loanValue: '0',
+            interestValue: '0',
+            collateralAmounts: [
+              {
+                id: '0',
+                amount: '2.12300000',
+                symbol: 'DFI',
+                symbolKey: 'DFI',
+                name: 'Default Defi token',
+                displaySymbol: 'DFI',
+                activePrice: {
+                  id: 'DFI-USD-4224',
+                  key: 'DFI-USD',
+                  isLive: true,
+                  block: {
+                    hash: '01ff6c392764d0bba244369e3b6c096eac73bd5a5a1fc6a187ea7358baa56111',
+                    height: 4224,
+                    medianTime: 1646706425,
+                    time: 1646706431
+                  },
+                  active: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00001080'
+                }
+              }
+            ],
+            loanAmounts: [],
+            interestAmounts: []
+          }
+        ],
+        collateralTokens: [],
+        hasFetchedLoansData: false,
+        hasFetchedVaultsData: true,
+        loanSchemes: [],
+        loanTokens: []
       }
     }
     const store = configureStore({
       preloadedState: initialState,
       reducer: {
         wallet: wallet.reducer,
-        block: block.reducer
+        block: block.reducer,
+        loans: loans.reducer
       }
     })
     const navigation: any = {
@@ -126,13 +198,78 @@ describe('balances page', () => {
         connected: true,
         isPolling: true,
         tvl: undefined
+      },
+      loans: {
+        vaults: [
+          {
+            vaultId: 'd3f52b85e004fda0244dc2f73771c7ecc91fda1a0ca1e439b421ebbb9573dae2',
+            loanScheme: {
+              id: 'MIN150',
+              minColRatio: '150',
+              interestRate: '5'
+            },
+            ownerAddress: 'bcrt1qsr645glm3krcskdvak5hzs5eez6u4385k9a3wv',
+            state: LoanVaultState.ACTIVE,
+            informativeRatio: '-1',
+            collateralRatio: '-1',
+            collateralValue: '212.3',
+            loanValue: '0',
+            interestValue: '0',
+            collateralAmounts: [
+              {
+                id: '0',
+                amount: '2.12300000',
+                symbol: 'DFI',
+                symbolKey: 'DFI',
+                name: 'Default Defi token',
+                displaySymbol: 'DFI',
+                activePrice: {
+                  id: 'DFI-USD-4224',
+                  key: 'DFI-USD',
+                  isLive: true,
+                  block: {
+                    hash: '01ff6c392764d0bba244369e3b6c096eac73bd5a5a1fc6a187ea7358baa56111',
+                    height: 4224,
+                    medianTime: 1646706425,
+                    time: 1646706431
+                  },
+                  active: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  next: {
+                    amount: '100.00000000',
+                    weightage: 3,
+                    oracles: {
+                      active: 3,
+                      total: 3
+                    }
+                  },
+                  sort: '00001080'
+                }
+              }
+            ],
+            loanAmounts: [],
+            interestAmounts: []
+          }
+        ],
+        collateralTokens: [],
+        hasFetchedLoansData: false,
+        hasFetchedVaultsData: true,
+        loanSchemes: [],
+        loanTokens: []
       }
     }
     const store = configureStore({
       preloadedState: initialState,
       reducer: {
         wallet: wallet.reducer,
-        block: block.reducer
+        block: block.reducer,
+        loans: loans.reducer
       }
     })
     const navigation: any = {

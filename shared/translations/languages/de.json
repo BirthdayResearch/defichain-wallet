@@ -67,18 +67,24 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
+    "Portfolio": "Portfolio",
     "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
-    "Total Portfolio Value (USD)": "Gesamtwert des Portfolios (USD)",
+    "Total Portfolio Value": "Gesamtwert des Portfolios",
     "You do not have any other tokens.": "Keine weiteren Token in deinem Bestand.",
     "SWITCH": "WECHSELN",
-    "YOUR ASSETS": "DEINE AKTIVA"
+    "YOUR ASSETS": "DEINE AKTIVA",
+    "Available: ": "Verfügbar: ",
+    "Locked: ": "Hinterlegt: ",
+    "locked in vault(s)": "hinterlegt in Vault(s)",
+    "available": "verfügbar"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
     "Switch to another address": "Wechsel zu einer anderen Adresse",
     "Wallet Address": "Walletadresse",
-    "ACTIVE": "AKTIV"
+    "ACTIVE": "AKTIV",
+    "Switch to another wallet": "Wechsel zu einer anderen Wallet"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -289,10 +295,13 @@
     "Sent": "Gesendet"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "Transaktion",
     "Type": "Typ",
     "Amount": "Betrag",
     "Block": "Block",
-    "Date": "Datum"
+    "Date": "Datum",
+    "Received": "Empfangen",
+    "Sent": "Gesendet"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transaktionen"
@@ -429,6 +438,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
+    "Portfolio": "Portfolio",
     "Liquidity": "Liquidität",
     "Transactions": "Transaktionen",
     "Settings": "Einstellungen",
@@ -719,7 +729,11 @@
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "Erfahre mehr über DFI"
+    "Learn more about DFI": "Erfahre mehr über DFI",
+    "Available": "Verfügbar",
+    "Locked in vault(s)": "In Vault(s) hinterlegt",
+    "as UTXO": "als UTXO",
+    "as Token": "als Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
@@ -1033,7 +1047,8 @@
     "Current": "Aktueller Stand",
     "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens.",
     "Resulting collateralization": "Resultierende Besicherungsquote",
-    "N/A": "K/A"
+    "N/A": "K/A",
+    "Vault %": "Vault %"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
@@ -1055,7 +1070,8 @@
     "Convert & remove collateral": "Umwandeln u. Sicherheiten entfernen",
     "Add Collateral": "Sicherheiten hinzufügen",
     "Remove Collateral": "Sicherheiten entfernen",
-    "CONFIRM REMOVE COLLATERAL": "BESTÄTIGEN, SICHERHEITEN ZU ENTFERNEN"
+    "CONFIRM REMOVE COLLATERAL": "BESTÄTIGEN, SICHERHEITEN ZU ENTFERNEN",
+    "N/A": "K/A"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "RÜCKZAHLUNG FÜR FOLGENDES DARLEHEN",

@@ -67,18 +67,24 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的资产",
+    "Portfolio": "资产组合",
     "SEND": "发出",
     "RECEIVE": "接收",
-    "Total Portfolio Value (USD)": "总组合价值(美金)",
+    "Total Portfolio Value": "总组合价值",
     "You do not have any other tokens.": "您现在没有其他代币",
     "SWITCH": "切换钱包",
-    "YOUR ASSETS": "YOUR ASSETS"
+    "YOUR ASSETS": "YOUR ASSETS",
+    "Available: ": "现有可使用: ",
+    "Locked: ": "已鎖定: ",
+    "locked in vault(s)": "锁定在金库",
+    "available": "可使用资金"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "创建钱包",
     "Switch to another address": "切换到另一个地址",
     "Wallet Address": "钱包地址",
-    "ACTIVE": "激活"
+    "ACTIVE": "激活",
+    "Switch to another wallet": "Changer de portefeuille"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -290,10 +296,13 @@
     "Sent": "已发送"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "交易纪录",
     "Type": "交易类型",
     "Amount": "资金数量",
     "Block": "区块",
-    "Date": "时间"
+    "Date": "时间",
+    "Received": "收到",
+    "Sent": "已发送"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "交易"
@@ -431,6 +440,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "总资金",
+    "Portfolio": "资产组合",
     "Liquidity": "流动",
     "Transactions": "交易",
     "Settings": "设置",
@@ -722,7 +732,11 @@
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "了解更多关于 DFI"
+    "Learn more about DFI": "了解更多关于 DFI",
+    "Locked in vault(s)": "已锁定在金库",
+    "Available": "现有可使用",
+    "as UTXO": "as UTXO",
+    "as Token": "as Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO(0.1 DFI)作为费用"
@@ -1037,7 +1051,8 @@
     "Current": "目前余额",
     "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素决定了每款抵押代币的贡献程度比例。",
     "Resulting collateralization": "最终抵押率",
-    "N/A": "不适用"
+    "N/A": "不适用",
+    "Vault %": "金库 %"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "向金库增加抵押品",
@@ -1059,7 +1074,8 @@
     "Convert & remove collateral": "转换和移除抵押",
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押",
-    "CONFIRM REMOVE COLLATERAL": "确认移除抵押品"
+    "CONFIRM REMOVE COLLATERAL": "确认移除抵押品",
+    "N/A": "不适用"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在清还贷款",

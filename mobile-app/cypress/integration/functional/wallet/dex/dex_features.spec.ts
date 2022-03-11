@@ -43,6 +43,13 @@ context('Wallet - DEX - Button filtering', () => {
     cy.go('back')
   }
 
+  function validateEmptyPairsInSearch (filter: string): void {
+    cy.getByTestID(`dex_button_group_${filter}_PAIRS`).click()
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('pool_pair_row').should('not.exist')
+    cy.getByTestID('dex_search_input_close').click()
+  }
+
   const samplePoolpairs = [
     {
       id: '16',
@@ -176,68 +183,143 @@ context('Wallet - DEX - Button filtering', () => {
       }
     })
   }
+  describe('Tab - Available pool pairs', function () {
+    before(function () {
+      interceptPoolpairWithSampleData()
+      cy.createEmptyWallet(true)
+      cy.getByTestID('bottom_tab_dex').click()
+      cy.url().should('include', 'app/DEX/DexScreen')
+      cy.getByTestID('dex_guidelines_screen').should('exist')
+      cy.getByTestID('close_dex_guidelines').click()
+    })
 
-  before(function () {
-    interceptPoolpairWithSampleData()
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.url().should('include', 'app/DEX/DexScreen')
-    cy.getByTestID('dex_guidelines_screen').should('exist')
-    cy.getByTestID('close_dex_guidelines').click()
+    it('should set filter as All pairs by default and display all pairs', function () {
+      interceptPoolpairWithSampleData()
+      cy.getByTestID('dex_button_group_ALL_PAIRS_active').should('exist')
+      cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
+      cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
+      cy.getByTestID('your_symbol_dTU10-DUSD').should('exist')
+    })
+
+    it('should set display all DFI pairs', function () {
+      interceptPoolpairWithSampleData()
+      cy.getByTestID('dex_button_group_DFI_PAIRS').click()
+      cy.getByTestID('dex_button_group_DFI_PAIRS_active').should('exist')
+      cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
+      cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
+      cy.getByTestID('your_symbol_dTU10-DUSD').should('not.exist')
+    })
+
+    it('should set display all DUSD pairs', function () {
+      interceptPoolpairWithSampleData()
+      cy.getByTestID('dex_button_group_DUSD_PAIRS').click()
+      cy.getByTestID('dex_button_group_DUSD_PAIRS_active').should('exist')
+      cy.getByTestID('your_symbol_dBTC-DFI').should('not.exist')
+      cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
+      cy.getByTestID('your_symbol_dTU10-DUSD').should('exist')
+    })
+
+    it('should be able to display poolpair information upon switching filters', function () {
+      interceptPoolpairWithSampleData()
+      // DUSD pairs filter
+      cy.getByTestID('details_dTU10-DUSD').click()
+      cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
+      // DFI pairs filter
+      cy.getByTestID('dex_button_group_DFI_PAIRS').click()
+      cy.getByTestID('details_DUSD-DFI').click()
+      cy.getByTestID('available_info_section_DUSD-DFI').should('exist')
+      // All pairs filter
+      cy.getByTestID('dex_button_group_ALL_PAIRS').click()
+      cy.getByTestID('details_dTU10-DUSD').click()
+      cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
+      cy.getByTestID('details_DUSD-DFI').click()
+      cy.getByTestID('available_info_section_DUSD-DFI').should('exist')
+    })
+
+    it('should be able to navigate to add liquidity and swap page upon switching filters', function () {
+      interceptPoolpairWithSampleData()
+      // All pairs filter
+      validateAvailablePoolpairAction('dBTC-DFI')
+      // DFI pairs filter
+      cy.getByTestID('dex_button_group_DFI_PAIRS').click()
+      validateAvailablePoolpairAction('DUSD-DFI')
+      // DUSD pairs filter
+      cy.getByTestID('dex_button_group_DUSD_PAIRS').click()
+      validateAvailablePoolpairAction('dTU10-DUSD')
+    })
+
+    it('should not display any poolpair when search input is active and empty regardless of filter', function () {
+      interceptPoolpairWithSampleData()
+      validateEmptyPairsInSearch('ALL')
+      validateEmptyPairsInSearch('DFI')
+      validateEmptyPairsInSearch('DUSD')
+    })
   })
 
-  it('should set filter as All pairs by default and display all pairs', function () {
-    interceptPoolpairWithSampleData()
-    cy.getByTestID('dex_button_group_All_PAIRS_active').should('exist')
-    cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
-    cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
-    cy.getByTestID('your_symbol_dTU10-DUSD').should('exist')
-  })
+  describe('Tab - Your pool pairs', function () {
+    function validateYourPoolpairs (filter: string): void {
+      cy.getByTestID(`dex_button_group_${filter}_PAIRS`).click()
+      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
+      cy.getByTestID('pool_pair_row_0_dBTC-DFI').should('exist')
+      cy.getByTestID('pool_pair_row_1_DUSD-DFI').should('exist')
+      cy.getByTestID('details_dBTC-DFI').click()
+      cy.getByTestID('your_info_section_dBTC-DFI').should('exist')
+      cy.getByTestID('details_DUSD-DFI').click()
+      cy.getByTestID('your_info_section_DUSD-DFI').should('exist')
+    }
 
-  it('should set display all DFI pairs', function () {
-    interceptPoolpairWithSampleData()
-    cy.getByTestID('dex_button_group_DFI_PAIRS').click()
-    cy.getByTestID('dex_button_group_DFI_PAIRS_active').should('exist')
-    cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
-    cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
-    cy.getByTestID('your_symbol_dTU10-DUSD').should('not.exist')
-  })
+    function validateEmptyPoolpairsInSearch (filter: string): void {
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      cy.getByTestID(`dex_button_group_${filter}_PAIRS`).click()
+      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
+      cy.getByTestID('dex_search_icon').click()
+      cy.getByTestID('pool_pair_row_your').should('not.exist')
+      cy.getByTestID('dex_search_input_close').click()
+    }
 
-  it('should set display all DUSD pairs', function () {
-    interceptPoolpairWithSampleData()
-    cy.getByTestID('dex_button_group_DUSD_PAIRS').click()
-    cy.getByTestID('dex_button_group_DUSD_PAIRS_active').should('exist')
-    cy.getByTestID('your_symbol_dBTC-DFI').should('not.exist')
-    cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
-    cy.getByTestID('your_symbol_dTU10-DUSD').should('exist')
-  })
+    function validateMatchingPairsInSearch (filter: string): void {
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      cy.getByTestID(`dex_button_group_${filter}_PAIRS`).click()
+      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
+      cy.getByTestID('dex_search_icon').click()
+      cy.getByTestID('dex_search_input').type('btc')
+      cy.getByTestID('pool_pair_row_0_dBTC-DFI').should('exist')
+      cy.getByTestID('details_dBTC-DFI').click()
+      cy.getByTestID('your_info_section_dBTC-DFI').should('exist')
+      cy.getByTestID('dex_search_input').clear().type('dusd')
+      cy.getByTestID('pool_pair_row_0_DUSD-DFI').should('exist')
+      cy.getByTestID('details_DUSD-DFI').click()
+      cy.getByTestID('your_info_section_DUSD-DFI').should('exist')
+      cy.getByTestID('dex_search_input').clear()
+      cy.getByTestID('pool_pair_row_your').should('not.exist')
+      cy.getByTestID('dex_search_input_close').click()
+    }
 
-  it('should be able to display poolpair information upon switching filters', function () {
-    interceptPoolpairWithSampleData()
-    // DUSD pairs filter
-    cy.getByTestID('details_dTU10-DUSD').click()
-    cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
-    // DFI pairs filter
-    cy.getByTestID('dex_button_group_DFI_PAIRS').click()
-    cy.getByTestID('details_DUSD-DFI').click()
-    cy.getByTestID('available_info_section_DUSD-DFI').should('exist')
-    // All pairs filter
-    cy.getByTestID('dex_button_group_All_PAIRS').click()
-    cy.getByTestID('details_dTU10-DUSD').click()
-    cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
-    cy.getByTestID('details_DUSD-DFI').click()
-    cy.getByTestID('available_info_section_DUSD-DFI').should('exist')
-  })
+    before(function () {
+      cy.sendTokenToWallet(['BTC-DFI']).sendTokenToWallet(['DUSD-DFI']).wait(3000)
+      cy.getByTestID('bottom_tab_dex').click()
+    })
 
-  it('should be able to navigate to add liquidity and swap page upon switching filters', function () {
-    interceptPoolpairWithSampleData()
-    // All pairs filter
-    validateAvailablePoolpairAction('dBTC-DFI')
-    // DFI pairs filter
-    cy.getByTestID('dex_button_group_DFI_PAIRS').click()
-    validateAvailablePoolpairAction('DUSD-DFI')
-    // DUSD pairs filter
-    cy.getByTestID('dex_button_group_DUSD_PAIRS').click()
-    validateAvailablePoolpairAction('dTU10-DUSD')
+    it('should not be affected by filters in Available pool pairs tab', function () {
+      validateYourPoolpairs('ALL')
+      // DFI pairs
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      validateYourPoolpairs('DFI')
+      // DUSD pairs
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      validateYourPoolpairs('DUSD')
+    })
+
+    it('should not display any poolpair when search input is active and empty regardless of filter', function () {
+      validateEmptyPoolpairsInSearch('ALL')
+      validateEmptyPoolpairsInSearch('DFI')
+      validateEmptyPoolpairsInSearch('DUSD')
+    })
+
+    it('should display matching poolpair when search input is not empty regardless of filter', function () {
+      validateMatchingPairsInSearch('ALL')
+      validateMatchingPairsInSearch('DFI')
+      validateMatchingPairsInSearch('DUSD')
+    })
   })
 })

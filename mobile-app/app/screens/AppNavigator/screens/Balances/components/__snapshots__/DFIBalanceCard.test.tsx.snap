@@ -28,72 +28,61 @@ exports[`DFI Balance Card should match snapshot 1`] = `
   testID="dfi_balance_card"
 >
   <View
-    accessibilityIgnoresInvertColors={true}
     style={
       Object {
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
         "flexBasis": "0%",
+        "flexDirection": "column",
         "flexGrow": 1,
         "flexShrink": 1,
-        "overflow": "hidden",
       }
     }
   >
-    <Image
-      resizeMethod="scale"
-      resizeMode="cover"
-      source={1}
-      style={
-        Array [
-          Object {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          },
-          Object {
-            "height": undefined,
-            "width": undefined,
-          },
-          undefined,
-        ]
-      }
-    />
     <View
+      accessibilityIgnoresInvertColors={true}
       style={
         Object {
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderTopLeftRadius": 8,
+          "borderTopRightRadius": 8,
           "flexBasis": "0%",
-          "flexDirection": "column",
           "flexGrow": 1,
           "flexShrink": 1,
-          "marginBottom": 16,
-          "marginLeft": 16,
-          "marginRight": 16,
-          "marginTop": 16,
+          "overflow": "hidden",
         }
       }
     >
-      <View
+      <Image
+        resizeMethod="scale"
+        resizeMode="cover"
+        source={1}
         style={
           Array [
             Object {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "marginBottom": 12,
-              "paddingBottom": 12,
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
             },
             Object {
-              "borderBottomColor": "rgba(245, 245, 245, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(245, 245, 245, 1)",
-              "borderRightColor": "rgba(245, 245, 245, 1)",
-              "borderTopColor": "rgba(245, 245, 245, 1)",
+              "height": undefined,
+              "width": undefined,
             },
+            undefined,
           ]
+        }
+      />
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginBottom": 8,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "marginTop": 16,
+          }
         }
       >
         <View
@@ -254,7 +243,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
               }
               testID="dfi_total_balance_amount"
             >
-              100.00000000
+              102.12300000
             </Text>
             <View
               style={
@@ -304,262 +293,231 @@ exports[`DFI Balance Card should match snapshot 1`] = `
       <View
         style={
           Object {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "paddingBottom": 6,
-                  "paddingRight": 56,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="dfi_utxo_label"
-        >
-          UTXO
-        </Text>
-        <View
-          style={
-            Object {
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "paddingBottom": 6,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="dfi_utxo_amount"
-          >
-            77.00000000
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "paddingBottom": 6,
-                  "paddingRight": 56,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="dfi_token_label"
-        >
-          Token
-        </Text>
-        <View
-          style={
-            Object {
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "paddingBottom": 6,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="dfi_token_amount"
-          >
-            23.00000000
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "marginTop": 8,
+            "marginLeft": 16,
+            "marginRight": 16,
           }
         }
       >
         <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "flex-end",
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
               "flexDirection": "row",
-              "justifyContent": "flex-start",
-              "opacity": 1,
-              "width": "75%",
-            }
-          }
-          testID="token_vs_utxo_info"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 12,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Learn more about DFI
-          </Text>
-        </View>
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "justifyContent": "flex-end",
+              "justifyContent": "space-between",
+              "marginBottom": 12,
             }
           }
         >
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(212, 212, 212, 1)",
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderBottomWidth": 1,
-                "borderLeftColor": "rgba(212, 212, 212, 1)",
-                "borderLeftWidth": 1,
-                "borderRightColor": "rgba(212, 212, 212, 1)",
-                "borderRightWidth": 1,
-                "borderTopColor": "rgba(212, 212, 212, 1)",
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "borderTopWidth": 1,
+                "display": "flex",
+                "flexBasis": "0%",
                 "flexDirection": "row",
-                "marginRight": 8,
-                "opacity": 1,
-                "paddingBottom": 4,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-                "paddingTop": 4,
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "flexWrap": "wrap",
               }
             }
-            testID="convert_dfi_button"
           >
-            <Text />
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "borderBottomLeftRadius": 12,
+                    "borderBottomRightRadius": 12,
+                    "borderTopLeftRadius": 12,
+                    "borderTopRightRadius": 12,
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "marginBottom": 4,
+                    "marginRight": 4,
+                    "paddingBottom": 4,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                    "paddingTop": 4,
+                  },
+                  Object {
+                    "backgroundColor": "rgba(250, 250, 250, 1)",
+                  },
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={16}
+                bbWidth={16}
+                focusable={false}
+                height={16}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {
+                      "flex": 0,
+                      "height": 16,
+                      "width": 16,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={16}
+              >
+                <RNSVGGroup>
+                  <RNSVGCircle
+                    cx={16}
+                    cy={16}
+                    fill={4294954223}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGPath
+                    d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
+                    fill={4294901935}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                        "marginLeft": 4,
+                      },
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Available: 
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="available_percentage"
+              >
+                97.92%
+              </Text>
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "borderBottomLeftRadius": 12,
+                    "borderBottomRightRadius": 12,
+                    "borderTopLeftRadius": 12,
+                    "borderTopRightRadius": 12,
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "marginBottom": 4,
+                    "marginRight": 4,
+                    "paddingBottom": 4,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                    "paddingTop": 4,
+                  },
+                  Object {
+                    "backgroundColor": "rgba(250, 250, 250, 1)",
+                  },
+                ]
+              }
+            >
+              <Text />
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Locked: 
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="locked_percentage"
+              >
+                2.08%
+              </Text>
+            </View>
           </View>
           <View
             accessible={true}
@@ -573,29 +531,13 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignItems": "center",
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(212, 212, 212, 1)",
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderBottomWidth": 1,
-                "borderLeftColor": "rgba(212, 212, 212, 1)",
-                "borderLeftWidth": 1,
-                "borderRightColor": "rgba(212, 212, 212, 1)",
-                "borderRightWidth": 1,
-                "borderTopColor": "rgba(212, 212, 212, 1)",
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "borderTopWidth": 1,
+                "display": "flex",
                 "flexDirection": "row",
                 "opacity": 1,
-                "paddingBottom": 4,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-                "paddingTop": 4,
+                "width": "8.333333%",
               }
             }
-            testID="send_dfi_button"
+            testID="details_DFI"
           >
             <Text />
           </View>

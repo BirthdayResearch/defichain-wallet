@@ -48,7 +48,7 @@ export function TransactionsNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/TransactionsDetailScreen', 'Transaction')}
+              text={translate('screens/TransactionDetailScreen', 'Transaction')}
               containerTestID={headerContainerTestId}
             />
           ),

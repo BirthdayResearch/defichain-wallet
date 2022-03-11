@@ -49,22 +49,22 @@ export function TransactionDetailScreen (props: Props): JSX.Element {
   return (
     <View>
       <RenderRow
-        lhs='Type'
+        lhs={translate('screens/TransactionDetailScreen', 'Type')}
         rhs={translate('screens/TransactionDetailScreen', tx.desc)}
       />
 
       <RenderRow
-        lhs='Amount'
+        lhs={translate('screens/TransactionDetailScreen', 'Amount')}
         rhs={translate('screens/TransactionDetailScreen', tx.amount)}
       />
 
       <RenderRow
-        lhs='Block'
+        lhs={translate('screens/TransactionDetailScreen', 'Block')}
         rhs={translate('screens/TransactionDetailScreen', `${tx.block}`)}
       />
 
       <RenderRow
-        lhs='Date'
+        lhs={translate('screens/TransactionDetailScreen', 'Date')}
         rhs={translate('screens/TransactionDetailScreen', `${formatBlockTime(tx.medianTime)}`)}
       />
 
