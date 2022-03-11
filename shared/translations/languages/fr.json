@@ -76,7 +76,7 @@
     "YOUR ASSETS": "MES ACTIFS",
     "Available: ": "Disponibles: ",
     "Locked: ": "Verrouillés: ",
-    "locked in vault(s)": "verrouillé",
+    "locked in vault(s)": "verrouillés",
     "available": "disponible"
   },
   "screens/AddressControlScreen": {
