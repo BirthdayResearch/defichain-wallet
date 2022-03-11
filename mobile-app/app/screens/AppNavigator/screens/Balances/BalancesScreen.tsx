@@ -239,6 +239,7 @@ function BalanceItemRow ({
               onBreakdownPress={onBreakdownPress}
               isBreakdownExpanded={isBreakdownExpanded}
               lockedAmount={lockedToken.amount}
+              testID={token.displaySymbol}
             />
             {isBreakdownExpanded && (
               <ThemedView
@@ -252,7 +253,7 @@ function BalanceItemRow ({
                   lockedValue={lockedToken.tokenValue}
                   availableAmount={new BigNumber(token.amount)}
                   availableValue={token.usdAmount}
-                  testID={token.symbol}
+                  testID={token.displaySymbol}
                 />
               </ThemedView>
             )}

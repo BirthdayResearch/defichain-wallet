@@ -1197,7 +1197,7 @@ exports[`balances page should match snapshot 1`] = `
                         ],
                       ]
                     }
-                    testID="available_percentage"
+                    testID="dfi_available_percentage"
                   >
                     97.92%
                   </Text>
@@ -1270,7 +1270,7 @@ exports[`balances page should match snapshot 1`] = `
                         ],
                       ]
                     }
-                    testID="locked_percentage"
+                    testID="dfi_locked_percentage"
                   >
                     2.08%
                   </Text>
@@ -1296,7 +1296,7 @@ exports[`balances page should match snapshot 1`] = `
                     "width": "8.333333%",
                   }
                 }
-                testID="details_DFI"
+                testID="details_dfi"
               >
                 <Text />
               </View>
@@ -1661,7 +1661,7 @@ exports[`balances page should match snapshot 1`] = `
                       ],
                     ]
                   }
-                  testID="available_percentage"
+                  testID="dBTC_available_percentage"
                 >
                   100.00%
                 </Text>
@@ -1734,7 +1734,7 @@ exports[`balances page should match snapshot 1`] = `
                       ],
                     ]
                   }
-                  testID="locked_percentage"
+                  testID="dBTC_locked_percentage"
                 >
                   0.00%
                 </Text>
@@ -1760,7 +1760,7 @@ exports[`balances page should match snapshot 1`] = `
                   "width": "8.333333%",
                 }
               }
-              testID="details_BTC"
+              testID="details_dBTC"
             >
               <Text />
             </View>
@@ -2162,7 +2162,7 @@ exports[`balances page should match snapshot 1`] = `
                       ],
                     ]
                   }
-                  testID="available_percentage"
+                  testID="dETH_available_percentage"
                 >
                   100.00%
                 </Text>
@@ -2235,7 +2235,7 @@ exports[`balances page should match snapshot 1`] = `
                       ],
                     ]
                   }
-                  testID="locked_percentage"
+                  testID="dETH_locked_percentage"
                 >
                   0.00%
                 </Text>
@@ -2261,7 +2261,7 @@ exports[`balances page should match snapshot 1`] = `
                   "width": "8.333333%",
                 }
               }
-              testID="details_ETH"
+              testID="details_dETH"
             >
               <Text />
             </View>

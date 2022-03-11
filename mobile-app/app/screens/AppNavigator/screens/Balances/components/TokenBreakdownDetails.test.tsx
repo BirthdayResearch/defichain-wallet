@@ -2,6 +2,9 @@ import { render } from '@testing-library/react-native'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import BigNumber from 'bignumber.js'
 
+jest.mock('@shared-contexts/ThemeProvider')
+jest.mock('../../../../../contexts/DisplayBalancesContext')
+
 describe('Token Breakdown Details', () => {
   it('should match snapshot', async () => {
     const component = (

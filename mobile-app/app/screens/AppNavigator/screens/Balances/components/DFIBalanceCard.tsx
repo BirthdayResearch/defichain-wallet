@@ -104,6 +104,7 @@ export function DFIBalanceCard (): JSX.Element {
               onBreakdownPress={onBreakdownPress}
               isBreakdownExpanded={isBreakdownExpanded}
               lockedAmount={lockedToken.amount}
+              testID='dfi'
             />
           </View>
         </ImageBackground>
