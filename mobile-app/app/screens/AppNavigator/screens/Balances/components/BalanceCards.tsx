@@ -1,4 +1,10 @@
-import { ThemedView, ThemedFlatList, ThemedTouchableOpacity } from '@components/themed'
+import {
+  ThemedView,
+  ThemedFlatList,
+  ThemedTouchableOpacity,
+  ThemedIcon,
+  ThemedText
+} from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { BalanceRowToken } from '../BalancesScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -14,7 +20,9 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
-// import BigNumber from 'bignumber.js'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useState } from 'react'
+import BigNumber from 'bignumber.js'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -68,6 +76,15 @@ export function BalanceCards ({
   }
 
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
+
+  if (isExpanded) {
+    // display value in increasing order
+    filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
+  } else {
+    // display value in decreasing order
+    filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
+  }
 
   const renderItem = ({
     item,
@@ -84,10 +101,10 @@ export function BalanceCards ({
         <View testID='card_balance_row_container'>
           <BalanceItemRow
             onPress={() => navigation.navigate({
-                name: 'TokenDetail',
-                params: { token: item },
-                merge: true
-              })}
+              name: 'TokenDetail',
+              params: { token: item },
+              merge: true
+            })}
             token={item}
             key={index}
           />
@@ -95,28 +112,12 @@ export function BalanceCards ({
       </ThemedView>
     )
   }
-  const filterCriteria = 'defaultId'
-  const sortFilter = (filteredTokens: BalanceRowToken[]): BalanceRowToken[] => {
-    // filter criteria
-    switch (filterCriteria) {
-      // case 'highest':
-      //   return filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
-      default:
-        return filteredTokens.sort((a, b) => a.id.localeCompare(b.id))
-    }
-
-    // highest value
-
-    // lowest value
-
-    // return []
-  }
 
   return (
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
       contentContainerStyle={tailwind('p-4 pb-2')}
-      data={sortFilter(filteredTokens)} // TODO: sorting function
+      data={filteredTokens}
       keyExtractor={(item) => item.id}
       testID='portfolio_balance_tab'
       renderItem={renderItem}
@@ -135,19 +136,21 @@ export function BalanceCards ({
                     testID='balance_button_group'
                   />
                 </View>
+                {/*  dropdown tab appears when there tokens */}
+                {
+                  filteredTokens.length > 0 && hasFetchedToken &&
+                    <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+                }
               </>
             )
           }
           {
-            // display loader if fetching
             !hasFetchedToken &&
-              <View style={tailwind('')}>
-                <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
-              </View>
+              <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
           }
           {
-            // display empty balance
-            filteredTokens.length === 0 &&
+            // display empty balance component
+            filteredTokens.length === 0 && hasFetchedToken &&
               <EmptyBalances />
           }
         </>
@@ -179,5 +182,45 @@ function BalanceItemRow ({
         />
       </View>
     </ThemedTouchableOpacity>
+  )
+}
+
+function DropdownArrow ({
+  isExpanded,
+  setIsExpanded
+}: { isExpanded: boolean, setIsExpanded: (isExpanded: boolean) => void }): JSX.Element {
+  return (
+    <ThemedView
+      style={tailwind('rounded-lg')}
+      testID='assets_balance_section'
+    >
+      <View style={tailwind('flex flex-row items-center')}>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs text-gray-500')}
+        >
+          {translate('screens/BalancesScreen', 'YOUR ASSETS ')}
+        </ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs text-gray-600')}
+        >
+          {translate('screens/BalancesScreen', `(From ${!isExpanded ? 'highest' : 'lowest'} value)`)}
+        </ThemedText>
+        <TouchableOpacity
+          onPress={() => setIsExpanded(!isExpanded)}
+          style={tailwind('flex flex-row pb-2 pt-2.5')}
+          testID='toggle_sorting_assets'
+        >
+          <ThemedIcon
+            iconType='MaterialIcons'
+            name={!isExpanded ? 'expand-more' : 'expand-less'}
+            size={22}
+          />
+        </TouchableOpacity>
+      </View>
+    </ThemedView>
   )
 }
