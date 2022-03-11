@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { tailwind } from '@tailwind'
-import { ThemedFlatList, ThemedScrollView, ThemedText } from '@components/themed'
+import { ThemedScrollView } from '@components/themed'
 import { AuctionTabGroupKey, BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { Platform, View } from 'react-native'
-import { translate } from '@translations'
+import { Dimensions, Platform, View } from 'react-native'
 import { batch, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -21,7 +20,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useIsFocused } from '@react-navigation/native'
 import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
-import { ButtonGroup } from '../../Dex/components/ButtonGroup'
+import { RecyclerListView, DataProvider, LayoutProvider } from 'recyclerlistview'
 
 interface Props {
   searchString: string
@@ -35,7 +34,12 @@ export interface onQuickBidProps {
   minNextBidInUSD: string
 }
 
+const ViewTypes = {
+  FULL: 0
+}
+
 export function BrowseAuctions ({ searchString }: Props): JSX.Element {
+  console.log('browse auctions rerender')
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -239,74 +243,119 @@ function BatchCards ({
   }
 }): JSX.Element {
   const { address } = useWalletContext()
-  const RenderItems = useCallback(({
-    item,
-    index
-  }: { item: AuctionBatchProps, index: number }): JSX.Element => {
-    const { auction, ...batch } = item
-    return (
-      <View key={auction.vaultId}>
-        <BatchCard
-          vault={auction}
-          batch={batch}
-          key={`${auction.vaultId}_${batch.index}`}
-          testID={`batch_card_${index}`}
-          onQuickBid={onQuickBid}
-          isVaultOwner={auction.ownerAddress === address}
-        />
-      </View>
-    )
-  }, [])
+  // const RenderItems = useCallback(({
+  //   item,
+  //   index
+  // }: { item: AuctionBatchProps, index: number }): JSX.Element => {
+  //   const { auction, ...batch } = item
+  //   return (
+  //     <View key={auction.vaultId}>
+  //       <BatchCard
+  //         vault={auction}
+  //         batch={batch}
+  //         key={`${auction.vaultId}_${batch.index}`}
+  //         testID={`batch_card_${index}`}
+  //         onQuickBid={onQuickBid}
+  //         isVaultOwner={auction.ownerAddress === address}
+  //       />
+  //     </View>
+  //   )
+  // }, [])
 
-  const onButtonGroupChange = (auctionTabGroupKey: AuctionTabGroupKey): void => {
-    if (buttonGroupOptions !== undefined) {
-      buttonGroupOptions.setActiveButtonGroup(auctionTabGroupKey)
-      buttonGroupOptions.onButtonGroupPress(auctionTabGroupKey)
-    }
+  // const onButtonGroupChange = (auctionTabGroupKey: AuctionTabGroupKey): void => {
+  //   if (buttonGroupOptions !== undefined) {
+  //     buttonGroupOptions.setActiveButtonGroup(auctionTabGroupKey)
+  //     buttonGroupOptions.onButtonGroupPress(auctionTabGroupKey)
+  //   }
+  // }
+
+  // const ListHeaderComponent = useCallback(() => {
+  //   const buttonGroup = [
+  //     {
+  //       id: AuctionTabGroupKey.AllAuctions,
+  //       label: translate('screens/BrowseAuctions', 'All auctions'),
+  //       handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions)
+  //     },
+  //     {
+  //       id: AuctionTabGroupKey.FromYourVault,
+  //       label: translate('screens/BrowseAuctions', 'From your vault'),
+  //       handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault)
+  //     },
+  //     {
+  //       id: AuctionTabGroupKey.WithPlacedBids,
+  //       label: translate('screens/BrowseAuctions', 'With placed bids'),
+  //       handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids)
+  //     }
+  //   ]
+
+  //   return (
+  //     <>
+  //       {buttonGroupOptions !== undefined &&
+  //         <View style={tailwind('mb-4')}>
+  //           <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='auctions_button_group' />
+  //         </View>}
+  //     </>
+  //   )
+  // }, [buttonGroupOptions])
+
+  // const getEmptyAuctionsText = (): string => {
+  //   switch (buttonGroupOptions?.activeButtonGroup) {
+  //     case AuctionTabGroupKey.FromYourVault:
+  //       return translate('screens/BrowseAuctions', 'No available auctions from your vault')
+  //     case AuctionTabGroupKey.WithPlacedBids:
+  //       return translate('screens/BrowseAuctions', 'No available auctions with placed bids')
+  //     default:
+  //       return translate('screens/BrowseAuctions', 'No available auctions')
+  //   }
+  // }
+  const { width } = Dimensions.get('window')
+  const layoutProvider = useMemo(() => {
+    return new LayoutProvider(
+    index => {
+      return ViewTypes.FULL
+    },
+    (type, dim) => {
+      dim.width = width
+      dim.height = 233
+    })
+  }, [width])
+
+  // Create the data provider and provide method which takes in two rows of data and return if those two are different or not.
+  // THIS IS VERY IMPORTANT, FORGET PERFORMANCE IF THIS IS MESSED UP
+  const dataProviderX = new DataProvider((r1, r2): any => {
+    return r1 !== r2
+  })
+
+  const _generateArray = (): any => {
+    return auctionBatches
   }
+  const dataProvider = dataProviderX.cloneWithRows(_generateArray())
 
-  const ListHeaderComponent = useCallback(() => {
-    const buttonGroup = [
-      {
-        id: AuctionTabGroupKey.AllAuctions,
-        label: translate('screens/BrowseAuctions', 'All auctions'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.AllAuctions)
-      },
-      {
-        id: AuctionTabGroupKey.FromYourVault,
-        label: translate('screens/BrowseAuctions', 'From your vault'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.FromYourVault)
-      },
-      {
-        id: AuctionTabGroupKey.WithPlacedBids,
-        label: translate('screens/BrowseAuctions', 'With placed bids'),
-        handleOnPress: () => onButtonGroupChange(AuctionTabGroupKey.WithPlacedBids)
-      }
-    ]
-
+  // Given type and data return the view component
+  const _rowRenderer = (_type: string, data: AuctionBatchProps): JSX.Element => {
+    const { auction, ...batch } = data
     return (
-      <>
-        {buttonGroupOptions !== undefined &&
-          <View style={tailwind('mb-4')}>
-            <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='auctions_button_group' />
-          </View>}
-      </>
+      <BatchCard
+        vault={auction}
+        batch={batch}
+        key={`${auction.vaultId}_${batch.index}`}
+        testID='test'
+        onQuickBid={onQuickBid}
+        isVaultOwner={auction.ownerAddress === address}
+      />
     )
-  }, [buttonGroupOptions])
-
-  const getEmptyAuctionsText = (): string => {
-    switch (buttonGroupOptions?.activeButtonGroup) {
-      case AuctionTabGroupKey.FromYourVault:
-        return translate('screens/BrowseAuctions', 'No available auctions from your vault')
-      case AuctionTabGroupKey.WithPlacedBids:
-        return translate('screens/BrowseAuctions', 'No available auctions with placed bids')
-      default:
-        return translate('screens/BrowseAuctions', 'No available auctions')
-    }
   }
 
   return (
-    <ThemedFlatList
+    <>
+      <RecyclerListView
+        layoutProvider={layoutProvider}
+        dataProvider={dataProvider}
+        rowRenderer={_rowRenderer}
+        initialOffset={0}
+        renderAheadOffset={400}
+      />
+      {/* <ThemedFlatList
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
       contentContainerStyle={tailwind('p-4 pb-2')}
@@ -319,6 +368,7 @@ function BatchCards ({
       renderItem={RenderItems}
       ListHeaderComponent={ListHeaderComponent}
       ListEmptyComponent={() => <ThemedText style={tailwind('text-sm')} testID='empty_auctions_list'>{getEmptyAuctionsText()}</ThemedText>}
-    />
+    /> */}
+    </>
   )
 }

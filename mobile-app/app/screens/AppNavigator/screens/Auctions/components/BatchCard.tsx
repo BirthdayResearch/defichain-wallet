@@ -38,6 +38,7 @@ export interface BatchCardProps {
 }
 
 export function BatchCard (props: BatchCardProps): JSX.Element {
+  console.log('rerendering batchcard')
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const { address } = useWalletContext()
   const { getVaultsUrl } = useDeFiScanContext()
