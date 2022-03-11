@@ -67,6 +67,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的资产",
+    "Portfolio": "资产组合",
     "SEND": "发出",
     "RECEIVE": "接收",
     "Total Portfolio Value": "总组合价值",

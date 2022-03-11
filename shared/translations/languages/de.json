@@ -67,6 +67,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Guthaben",
+    "Portfolio": "Portfolio",
     "SEND": "SENDEN",
     "RECEIVE": "EMPFANGEN",
     "Total Portfolio Value": "Gesamtwert des Portfolios",

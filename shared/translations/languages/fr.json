@@ -67,6 +67,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
     "Total Portfolio Value": "Valeur totale du portfolio",
