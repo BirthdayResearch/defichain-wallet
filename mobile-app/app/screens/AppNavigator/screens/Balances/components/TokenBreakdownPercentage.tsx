@@ -102,11 +102,8 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
     >
-      {props.type === 'available'
-        ? (props.isDfi === true && (
-          <SymbolIcon symbol='DFI' styleProps={tailwind('w-4 h-4')} />
-        ))
-        : (
+      {props.type === 'locked'
+        ? (
           <ThemedIcon
             light={tailwind('text-gray-600')}
             dark={tailwind('text-gray-500')}
@@ -114,7 +111,10 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
             name='lock'
             size={16}
           />
-        )}
+        )
+: (props.isDfi === true && (
+  <SymbolIcon symbol='DFI' styleProps={tailwind('w-4 h-4')} />
+        ))}
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
