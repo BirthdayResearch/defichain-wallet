@@ -77,7 +77,7 @@
     "Available: ": "Disponibles: ",
     "Locked: ": "Verrouillés: ",
     "locked in vault(s)": "verrouillés",
-    "available": "disponible"
+    "available": "disponibles"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -105,7 +105,7 @@
     "Where do you want to send?": "Où voulez-vous envoyer ?",
     "How much do you want to send?": "Combien voulez-vous envoyer ?",
     "Enter an amount": "Donnez un montant",
-    "Available": "Disponible",
+    "Available": "Disponibles",
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
     "Send to other wallet": "Envoyer à un autre portefeuille",
@@ -731,7 +731,7 @@
   "components/DFIBalanceCard": {
     "Learn more about DFI": "En savoir plus sur DFI",
     "Locked in vault(s)": "Verrouillés",
-    "Available": "Disponible",
+    "Available": "Disponibles",
     "as UTXO": "comme UTXO",
     "as Token": "comme Token"
   },
