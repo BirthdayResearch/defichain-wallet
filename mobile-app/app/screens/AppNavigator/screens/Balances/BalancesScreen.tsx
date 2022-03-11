@@ -191,8 +191,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       {/* filter tab  */}
       <View style={tailwind('flex')}>
         <BalanceCards
-          // dstTokens={filteredTokens}
-          // navigation={navigation}
+          dstTokens={filteredTokens}
+          navigation={navigation}
           buttonGroupOptions={{
             activeButtonGroup: activeButtonGroup,
             setActiveButtonGroup: setActiveButtonGroup,

@@ -1,6 +1,8 @@
 import { ThemedView } from '@components/themed'
-// import { BalanceParamList } from '../BalancesNavigator'
-// import { BalanceRowToken, BalanceItemRow } from '../BalancesScreen'
+import { BalanceParamList } from '../BalancesNavigator'
+import { BalanceRowToken } from '../BalancesScreen'
+import { StackNavigationProp } from '@react-navigation/stack'
+
 // import { EmptyBalances } from './EmptyBalances'
 // import BigNumber from 'bignumber.js'
 
@@ -8,13 +10,13 @@ import { ThemedView } from '@components/themed'
 // import { useSelector } from 'react-redux'
 // import { useState } from 'react'
 // import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-// import { StackNavigationProp } from '@react-navigation/stack'
 
 import { View } from '@components'
 
 import { translate } from '@translations'
 import tailwind from 'tailwind-rn'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
+// import { Platform } from 'react-native'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -25,8 +27,8 @@ export enum ButtonGroupTabKey {
 
 interface BalanceCardProps {
   // passed props into BalanceList from Balance screen
-  // dstTokens: BalanceRowToken[]
-  // navigation: StackNavigationProp<BalanceParamList>
+  dstTokens: BalanceRowToken[]
+  navigation: StackNavigationProp<BalanceParamList>
 
   // required props for tabs - need to pass props from balance screen too
   buttonGroupOptions?: {
@@ -38,16 +40,12 @@ interface BalanceCardProps {
 
 export function BalanceCards ({
   // passed props into BalanceList from Balance screen
-  // dstTokens,
-  // navigation,
+  dstTokens,
+  navigation,
 
   // required props for tabs - need to pass props from balance screen too
   buttonGroupOptions
 }: BalanceCardProps): JSX.Element {
-  // TODO: call dstTokens
-  // const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
-  // const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet)) // for loading skeleton loader
-
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.AllTokens,
@@ -72,7 +70,6 @@ export function BalanceCards ({
   ]
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
-      // setExpandedCardIds([])
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
     }
@@ -81,16 +78,15 @@ export function BalanceCards ({
   return (
     <ThemedView
       light={tailwind('bg-gray-50')}
-      // dark={tailwind('bg-gray-900')}
       style={tailwind('p-4')}
 
     >{
         buttonGroupOptions !== undefined &&
-          <View style={tailwind('text-xs text-center')}>
+          <View style={tailwind('text-xs text-center rounded-2xl')}>
             <ButtonGroup
               buttons={buttonGroup}
               activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-              modalStyle={tailwind('font-semibold text-xs py-1')}
+              modalStyle={tailwind('font-semibold text-xs py-1')} // style for smaller text
               testID='balance_button_group'
             />
           </View>
