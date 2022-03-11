@@ -75,14 +75,8 @@ export function BalanceCards ({
     item: BalanceRowToken
     index: number
   }): JSX.Element => {
-    console.log('item', item)
-    console.log('filteredTokens', filteredTokens)
-    console.log('=====')
-
     return (
-
       <View testID='card_balance_row_container'>
-
         <View key={index}>
           <BalanceItemRow
             onPress={() => navigation.navigate({
@@ -112,6 +106,7 @@ export function BalanceCards ({
       ListHeaderComponent={
         <>
           {
+            // filter tab
             buttonGroupOptions !== undefined &&
             (
               <>
@@ -122,6 +117,7 @@ export function BalanceCards ({
             )
           }
           {
+            // display loader if fetching
             !hasFetchedToken &&
               <View style={tailwind('')}>
                 <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
@@ -131,9 +127,7 @@ export function BalanceCards ({
             // display empty balance
             filteredTokens.length === 0 &&
               <EmptyBalances />
-
           }
-
         </>
       }
     />
