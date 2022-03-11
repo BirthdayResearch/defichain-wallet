@@ -90,7 +90,7 @@ export function BalanceCards ({
             <ButtonGroup
               buttons={buttonGroup}
               activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-              modalStyle={tailwind('font-semibold text-xs')}
+              modalStyle={tailwind('font-semibold text-xs py-1')}
               testID='balance_button_group'
             />
           </View>
