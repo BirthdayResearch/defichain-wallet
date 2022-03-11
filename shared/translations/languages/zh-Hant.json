@@ -67,6 +67,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的資產",
+    "Portfolio": "資產組合",
     "SEND": "發出",
     "RECEIVE": "接收",
     "Total Portfolio Value": "總組合價值",
