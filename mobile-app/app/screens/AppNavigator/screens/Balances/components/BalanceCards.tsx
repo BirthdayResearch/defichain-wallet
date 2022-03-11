@@ -120,7 +120,7 @@ export function BalanceCards ({
                 </View>
               </>
             )
-}
+          }
           {
             !hasFetchedToken &&
               <View style={tailwind('')}>
