@@ -1,4 +1,4 @@
-import { ThemedFlatList, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedView, ThemedFlatList, ThemedTouchableOpacity } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { BalanceRowToken } from '../BalancesScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -14,6 +14,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
+// import BigNumber from 'bignumber.js'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -76,32 +77,48 @@ export function BalanceCards ({
     index: number
   }): JSX.Element => {
     return (
-      <View testID='card_balance_row_container'>
-        <View key={index}>
+      <ThemedView
+        light={tailwind('bg-white border-gray-200')}
+        style={tailwind('mb-2 rounded')}
+      >
+        <View testID='card_balance_row_container'>
           <BalanceItemRow
             onPress={() => navigation.navigate({
-              name: 'TokenDetail',
-              params: { token: item },
-              merge: true
-            })}
+                name: 'TokenDetail',
+                params: { token: item },
+                merge: true
+              })}
             token={item}
+            key={index}
           />
         </View>
-      </View>
+      </ThemedView>
     )
+  }
+  const filterCriteria = 'defaultId'
+  const sortFilter = (filteredTokens: BalanceRowToken[]): BalanceRowToken[] => {
+    // filter criteria
+    switch (filterCriteria) {
+      // case 'highest':
+      //   return filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
+      default:
+        return filteredTokens.sort((a, b) => a.id.localeCompare(b.id))
+    }
+
+    // highest value
+
+    // lowest value
+
+    // return []
   }
 
   return (
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
-      dark={tailwind('bg-gray-900')}
       contentContainerStyle={tailwind('p-4 pb-2')}
-      data={filteredTokens}
-      numColumns={1}
-      windowSize={2}
-      // initialNumToRender={5}
-      // keyExtractor={(item) => item.data.id}
-      testID=''
+      data={sortFilter(filteredTokens)} // TODO: sorting function
+      keyExtractor={(item) => item.id}
+      testID='portfolio_balance_tab'
       renderItem={renderItem}
       ListHeaderComponent={
         <>
@@ -111,7 +128,12 @@ export function BalanceCards ({
             (
               <>
                 <View style={tailwind('mb-4')}>
-                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='dex_button_group' />
+                  <ButtonGroup
+                    buttons={buttonGroup}
+                    activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
+                    modalStyle={tailwind('font-semibold text-center text-xs py-1')}
+                    testID='balance_button_group'
+                  />
                 </View>
               </>
             )
@@ -143,7 +165,6 @@ function BalanceItemRow ({
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
       onPress={onPress}
       style={tailwind('p-4 rounded-lg flex-row justify-between items-center')}

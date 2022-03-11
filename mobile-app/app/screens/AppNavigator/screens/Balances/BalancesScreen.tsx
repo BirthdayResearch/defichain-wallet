@@ -137,7 +137,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }, new BigNumber(0))
   }, [getTokenPrice, vaults])
 
-  const [filteredTokens, setFilteredTokens] = useState(dstTokens) // TODO: check the type state declaration
+  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
 
   // tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
@@ -197,7 +197,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }}
         />
       </View>
-
     </ThemedScrollView>
   )
 }
