@@ -20,7 +20,7 @@ export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
   LPTokens = 'LP_TOKENS',
   Crypto = 'CRYPTO',
-  dAssets = 'd_ASSETS'
+  dTokens = 'd_TOKENS'
 }
 
 interface BalanceCardProps {
@@ -65,9 +65,9 @@ export function BalanceCards ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.Crypto)
     },
     {
-      id: ButtonGroupTabKey.dAssets,
-      label: translate('screens/BalancesScreen', 'dAssets'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dAssets)
+      id: ButtonGroupTabKey.dTokens,
+      label: translate('screens/BalancesScreen', 'dTokens'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     }
   ]
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
@@ -81,7 +81,7 @@ export function BalanceCards ({
   return (
     <ThemedView
       light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-gray-900')}
+      // dark={tailwind('bg-gray-900')}
       style={tailwind('p-4')}
 
     >{

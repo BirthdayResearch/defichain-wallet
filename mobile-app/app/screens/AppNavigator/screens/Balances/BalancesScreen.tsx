@@ -152,7 +152,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         case ButtonGroupTabKey.Crypto:
           return dstToken.isDAT
 
-        case ButtonGroupTabKey.dAssets:
+        case ButtonGroupTabKey.dTokens:
           return dstToken.isLoanToken
 
         // for All token tab will return true for list of dstToken
