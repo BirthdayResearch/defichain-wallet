@@ -224,7 +224,9 @@ function BalanceItemRow ({
           <Icon testID={`${testID}_icon`} />
           <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
           <TokenAmountText
-            tokenAmount={token.amount} usdAmount={token.usdAmount} testID={testID}
+            tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
+            usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+            testID={testID}
             isBalancesDisplayed={isBalancesDisplayed}
           />
         </View>
