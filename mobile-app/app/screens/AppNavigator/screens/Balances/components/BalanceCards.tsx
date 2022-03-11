@@ -80,7 +80,7 @@ export function BalanceCards ({
 
   return (
     <ThemedView
-      light={tailwind('bg-gray-100')}
+      light={tailwind('bg-gray-50')}
       // dark={tailwind('bg-gray-900')}
       style={tailwind('p-4')}
 
