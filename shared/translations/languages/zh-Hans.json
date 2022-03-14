@@ -67,20 +67,24 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的资产",
+    "Portfolio": "资产组合",
     "SEND": "发出",
     "RECEIVE": "接收",
     "Total Portfolio Value": "总组合价值",
     "You do not have any other tokens.": "您现在没有其他代币",
     "SWITCH": "切换钱包",
     "YOUR ASSETS": "YOUR ASSETS",
+    "Available: ": "现有可使用: ",
+    "Locked: ": "已鎖定: ",
     "locked in vault(s)": "锁定在金库",
-    "available": "可发送资金"
+    "available": "可使用资金"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "创建钱包",
     "Switch to another address": "切换到另一个地址",
     "Wallet Address": "钱包地址",
-    "ACTIVE": "激活"
+    "ACTIVE": "激活",
+    "Switch to another wallet": "Changer de portefeuille"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -292,10 +296,13 @@
     "Sent": "已发送"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "交易纪录",
     "Type": "交易类型",
     "Amount": "资金数量",
     "Block": "区块",
-    "Date": "时间"
+    "Date": "时间",
+    "Received": "收到",
+    "Sent": "已发送"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "交易"
@@ -725,7 +732,11 @@
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "了解更多关于 DFI"
+    "Learn more about DFI": "了解更多关于 DFI",
+    "Locked in vault(s)": "已锁定在金库",
+    "Available": "现有可使用",
+    "as UTXO": "as UTXO",
+    "as Token": "as Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO(0.1 DFI)作为费用"

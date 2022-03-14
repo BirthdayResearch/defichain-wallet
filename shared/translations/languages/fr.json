@@ -67,20 +67,24 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
     "Total Portfolio Value": "Valeur totale du portfolio",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
     "YOUR ASSETS": "MES ACTIFS",
-    "locked in vault(s)": "verrouillé",
-    "available": "disponible"
+    "Available: ": "Disponibles: ",
+    "Locked: ": "Verrouillés: ",
+    "locked in vault(s)": "verrouillés",
+    "available": "disponibles"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
     "Switch to another address": "Passer à une autre adresse",
     "Wallet Address": "Adresse du portefeuille",
-    "ACTIVE": "ACTIF"
+    "ACTIVE": "ACTIF",
+    "Switch to another wallet": "Changer de portefeuille"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recevoir",
@@ -101,7 +105,7 @@
     "Where do you want to send?": "Où voulez-vous envoyer ?",
     "How much do you want to send?": "Combien voulez-vous envoyer ?",
     "Enter an amount": "Donnez un montant",
-    "Available": "Disponible",
+    "Available": "Disponibles",
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
     "Send to other wallet": "Envoyer à un autre portefeuille",
@@ -291,10 +295,13 @@
     "Sent": "Envoyé"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "Transaktion",
     "Type": "Type",
     "Amount": "Montant",
     "Block": "Block",
-    "Date": "Date"
+    "Date": "Date",
+    "Received": "Reçues",
+    "Sent": "Envoyés"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transactions"
@@ -722,7 +729,11 @@
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "En savoir plus sur DFI"
+    "Learn more about DFI": "En savoir plus sur DFI",
+    "Locked in vault(s)": "Verrouillés",
+    "Available": "Disponibles",
+    "as UTXO": "comme UTXO",
+    "as Token": "comme Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI) est réservée aux frais."
@@ -870,7 +881,7 @@
   "components/VaultCard": {
     "Collateral:": "Garanties:",
     "None": "Aucune",
-    "Locked": "Verrouillé",
+    "Locked": "Verrouillés",
     "At risk": "Critique",
     "Safe": "Hors de danger",
     "Active loans": "Prêts actifs",

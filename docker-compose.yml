@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:2.6.1
+    image: defi/defichain:2.6.2
     command: >
       defid
       -printtoconsole
@@ -46,7 +46,7 @@ services:
       -fortcanninghillheight=10
 
   defi-playground:
-    image: ghcr.io/defich/playground-api:2.28.2
+    image: ghcr.io/defich/playground-api:2.29.0
     depends_on:
       - defi-blockchain
     ports:
@@ -59,7 +59,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/defich/whale:0.27.0
+    image: ghcr.io/defich/whale:0.28.0
     depends_on:
       - defi-blockchain
     ports:

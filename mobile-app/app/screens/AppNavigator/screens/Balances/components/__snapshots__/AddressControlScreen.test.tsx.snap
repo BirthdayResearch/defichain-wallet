@@ -178,9 +178,9 @@ exports[`DFI address control should match snapshot for Address Control Screen 1`
         ]
       }
       testID="switch_address_screen_title"
-      text="Switch to another wallet"
+      text="Switch to another address"
     >
-      Switch to another wallet
+      Switch to another address
     </Text>
   </View>
 </RCTScrollView>
