@@ -34,7 +34,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { TokenBreakdownPercentage } from './components/TokenBreakdownPercentage'
 import { TokenBreakdownDetails } from './components/TokenBreakdownDetails'
-import { fetchVaults } from '@store/loans'
+import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -56,6 +56,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
+
+  useEffect(() => {
+    // fetch only once to decide flag to display locked balance breakdown
+    fetchCollateralTokens({ client })
+  }, [])
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -208,6 +213,11 @@ function BalanceItemRow ({
   }
   const lockedToken = useTokenLockedBalance({ symbol: token.symbol }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+
+  const hasLockedBalance = useMemo((): boolean => {
+    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
+  }, [token])
 
   return (
     <ThemedView
@@ -234,7 +244,7 @@ function BalanceItemRow ({
         </View>
       </ThemedTouchableOpacity>
 
-      {!token.isLoanToken && !token.isLPS &&
+      {hasLockedBalance &&
         (
           <>
             <TokenBreakdownPercentage
