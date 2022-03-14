@@ -34,6 +34,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { TokenBreakdownPercentage } from './components/TokenBreakdownPercentage'
 import { TokenBreakdownDetails } from './components/TokenBreakdownDetails'
+import { fetchVaults } from '@store/loans'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -71,6 +72,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         client,
         address
       }))
+      dispatch(fetchVaults({ client, address }))
     })
   }
 
