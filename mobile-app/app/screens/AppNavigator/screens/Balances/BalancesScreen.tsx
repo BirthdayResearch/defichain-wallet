@@ -1,5 +1,3 @@
-
-import { View } from '@components'
 import {
   ThemedScrollView,
   ThemedSectionTitle
@@ -171,17 +169,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       />
       <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
-      <View style={tailwind('flex')}>
-        <BalanceCards
-          filteredTokens={filteredTokens}
-          navigation={navigation}
-          buttonGroupOptions={{
+      <BalanceCards
+        filteredTokens={filteredTokens}
+        navigation={navigation}
+        buttonGroupOptions={{
             activeButtonGroup: activeButtonGroup,
             setActiveButtonGroup: setActiveButtonGroup,
             onButtonGroupPress: handleButtonFilter
           }}
-        />
-      </View>
+      />
     </ThemedScrollView>
   )
 }

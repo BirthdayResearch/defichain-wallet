@@ -1,6 +1,5 @@
 import {
   ThemedView,
-  ThemedFlatList,
   ThemedTouchableOpacity,
   ThemedIcon,
   ThemedText
@@ -10,7 +9,7 @@ import { BalanceRowToken } from '../BalancesScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { View } from '@components'
 import { translate } from '@translations'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '@tailwind'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
@@ -20,7 +19,7 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 import { useState } from 'react'
 import BigNumber from 'bignumber.js'
 
@@ -86,76 +85,55 @@ export function BalanceCards ({
     filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
   }
 
-  const renderItem = ({
-    item,
-    index
-  }: {
-    item: BalanceRowToken
-    index: number
-  }): JSX.Element => {
-    return (
-      <ThemedView
-        light={tailwind('bg-white border-gray-200')}
-        style={tailwind('mb-2 rounded')}
-      >
-        <View testID='card_balance_row_container'>
-          <BalanceItemRow
-            onPress={() => navigation.navigate({
-              name: 'TokenDetail',
-              params: { token: item },
-              merge: true
-            })}
-            token={item}
-            key={index}
-          />
-        </View>
-      </ThemedView>
-    )
-  }
-
   return (
-    <ThemedFlatList
-      light={tailwind('bg-gray-50')}
-      contentContainerStyle={tailwind('p-4 pb-2')}
-      data={filteredTokens}
-      keyExtractor={(item) => item.id}
-      testID='portfolio_balance_tab'
-      renderItem={renderItem}
-      ListHeaderComponent={
-        <>
-          {
-            // filter tab
-            buttonGroupOptions !== undefined &&
-            (
-              <>
-                <View style={tailwind('mb-4')}>
-                  <ButtonGroup
-                    buttons={buttonGroup}
-                    activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                    modalStyle={tailwind('font-semibold text-center text-xs py-1')}
-                    testID='balance_button_group'
-                  />
-                </View>
-                {/*  dropdown tab appears when there are tokens */}
-                {
-                  filteredTokens.length > 0 && hasFetchedToken &&
-                    <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-                }
-              </>
-            )
-          }
-          {
-            !hasFetchedToken &&
-              <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
-          }
-          {
-            // display empty balance component
-            filteredTokens.length === 0 && hasFetchedToken &&
-              <EmptyBalances />
-          }
-        </>
+    <ThemedView
+      style={tailwind('flex')}
+    >
+      {
+        // filter tab
+        buttonGroupOptions !== undefined &&
+        (
+          <>
+            <View style={tailwind('p-4')}>
+              <ButtonGroup
+                buttons={buttonGroup}
+                activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
+                modalStyle={tailwind('font-semibold text-center text-xs py-1')}
+                testID='balance_button_group'
+              />
+            </View>
+            {/*  dropdown tab appears when there are tokens */}
+            {
+              filteredTokens.length > 0 && hasFetchedToken &&
+                <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+            }
+          </>
+        )
       }
-    />
+      <View testID='card_balance_row_container'>
+        {filteredTokens.map((item) => (
+          <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
+            <BalanceItemRow
+              onPress={() => navigation.navigate({
+                name: 'TokenDetail',
+                params: { token: item },
+                merge: true
+              })}
+              token={item}
+            />
+          </View>
+        ))}
+      </View>
+      {
+        !hasFetchedToken &&
+          <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
+      }
+      {
+        // display empty balance component
+        filteredTokens.length === 0 && hasFetchedToken &&
+          <EmptyBalances />
+      }
+    </ThemedView>
   )
 }
 
@@ -190,37 +168,32 @@ function DropdownArrow ({
   setIsExpanded
 }: { isExpanded: boolean, setIsExpanded: (isExpanded: boolean) => void }): JSX.Element {
   return (
-    <ThemedView
-      style={tailwind('rounded-lg')}
-      testID='assets_balance_section'
-    >
-      <View style={tailwind('flex flex-row items-center')}>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs text-gray-500')}
-        >
-          {translate('screens/BalancesScreen', 'YOUR ASSETS ')}
-        </ThemedText>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs text-gray-600')}
-        >
-          {translate('screens/BalancesScreen', `(From ${!isExpanded ? 'highest' : 'lowest'} value)`)}
-        </ThemedText>
-        <TouchableOpacity
-          onPress={() => setIsExpanded(!isExpanded)}
-          style={tailwind('flex flex-row pb-2 pt-2.5')}
-          testID='toggle_sorting_assets'
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name={!isExpanded ? 'expand-more' : 'expand-less'}
-            size={22}
-          />
-        </TouchableOpacity>
-      </View>
-    </ThemedView>
+    <View style={tailwind('px-4 flex flex-row items-center')}>
+      <ThemedText
+        style={tailwind('text-xs text-gray-400')}
+      >
+        {translate('screens/BalancesScreen', 'YOUR ASSETS ')}
+      </ThemedText>
+      <ThemedText
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+        style={tailwind('text-xs')}
+      >
+        {translate('screens/BalancesScreen', `(From ${!isExpanded ? 'highest' : 'lowest'} value)`)}
+      </ThemedText>
+      <TouchableOpacity
+        onPress={() => setIsExpanded(!isExpanded)}
+        style={tailwind('flex flex-row pb-2 pt-2.5')}
+        testID='toggle_sorting_assets'
+      >
+        <ThemedIcon
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          iconType='MaterialIcons'
+          name={!isExpanded ? 'expand-more' : 'expand-less'}
+          size={22}
+        />
+      </TouchableOpacity>
+    </View>
   )
 }
