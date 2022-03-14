@@ -58,17 +58,17 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
-    // fetch only once to decide flag to display locked balance breakdown
-    fetchCollateralTokens({ client })
-  }, [])
-
-  useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets])
 
   useEffect(() => {
     fetchPortfolioData()
   }, [address, blockCount])
+
+  useEffect(() => {
+    // fetch only once to decide flag to display locked balance breakdown
+    dispatch(fetchCollateralTokens({ client }))
+  }, [blockCount])
 
   const fetchPortfolioData = (): void => {
     batch(() => {
