@@ -20,7 +20,7 @@ import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/componen
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
 import { TouchableOpacity } from 'react-native'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import BigNumber from 'bignumber.js'
 
 export enum ButtonGroupTabKey {
@@ -77,19 +77,13 @@ export function BalanceCards ({
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
-  function sortValues (): void {
-    if (isExpanded) {
-      // display value in increasing order
-      filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
-    } else {
-      // display value in decreasing order
-      filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
-    }
+  if (isExpanded) {
+    // display value in increasing order
+    filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
+  } else {
+    // display value in decreasing order
+    filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
   }
-
-  useEffect(() => {
-    sortValues()
-  })
 
   return (
     <ThemedView
@@ -132,9 +126,7 @@ export function BalanceCards ({
       </View>
       {
         !hasFetchedToken &&
-          <View style={tailwind('flex-1')}>
-            <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
-          </View>
+          <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
       }
       {
         // display empty balance component
