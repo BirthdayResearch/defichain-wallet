@@ -35,14 +35,10 @@ jest.mock('react-native/Libraries/Utilities/Platform', () => ({
   select: () => jest.fn
 }))
 
-jest.mock('./components/BalanceCards', () => 'BalanceCards')
-
-// enum ButtonGroupTabKey {
-//   AllTokens = 'ALL_TOKENS',
-//   LPTokens = 'LP_TOKENS',
-//   Crypto = 'CRYPTO',
-//   dTokens = 'd_TOKENS'
-// }
+jest.mock('@store/website', () => ({
+  useGetAnnouncementsQuery: () => ({ data: [], isSuccess: true }),
+  useGetStatusQuery: () => jest.fn()
+}))
 
 describe('balances page', () => {
   const tokens = [{
@@ -203,13 +199,11 @@ describe('balances page', () => {
     }
     const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')
-    // const buttonGroupOptions = jest.fn()
     const component = (
       <Provider store={store}>
         <BalancesScreen
           navigation={navigation}
           route={route}
-          // pass activeButtonGroup props
         />
       </Provider>
     )
