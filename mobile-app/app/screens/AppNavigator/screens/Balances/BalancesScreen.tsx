@@ -15,13 +15,13 @@ import { ocean } from '@store/ocean'
 import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { batch, useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { RefreshControl } from 'react-native'
+import { Platform, RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
@@ -31,6 +31,11 @@ import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/componen
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
+import { AddressSelectionButton } from './components/AddressSelectionButton'
+import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import { AddressControlModal } from './components/AddressControlScreen'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { HeaderSettingButton } from './components/HeaderSettingButton'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -61,6 +66,25 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     fetchPortfolioData()
   }, [address, blockCount])
 
+  const onAddressClick = (): void => {
+    if (Platform.OS === 'web') {
+      navigation.navigate('AddressControlScreen')
+    } else {
+      bottomSheetModalRef.current?.present()
+    }
+  }
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: (): JSX.Element => (
+        <HeaderSettingButton />
+      ),
+      headerRight: (): JSX.Element => (
+        <AddressSelectionButton address={address} onPress={onAddressClick} />
+      )
+    })
+  }, [navigation, address])
+
   const fetchPortfolioData = (): void => {
     batch(() => {
       // do not add isFocused condition as its keeping token data updated in background
@@ -82,32 +106,32 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     totalAvailableUSDValue,
     dstTokens
   } = useMemo(() => {
-     return tokens.reduce(
-    ({
-      totalAvailableUSDValue,
-      dstTokens
-    }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
-      token
-    ) => {
-      const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+    return tokens.reduce(
+      ({
+        totalAvailableUSDValue,
+        dstTokens
+      }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        token
+      ) => {
+        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
 
-      if (token.symbol === 'DFI') {
-        return {
-          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
-          totalAvailableUSDValue: token.id === '0_unified'
-            ? totalAvailableUSDValue
-            : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-          dstTokens
+        if (token.symbol === 'DFI') {
+          return {
+            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
+            totalAvailableUSDValue: token.id === '0_unified'
+              ? totalAvailableUSDValue
+              : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+            dstTokens
+          }
         }
-      }
-      return {
-        totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-        dstTokens: [...dstTokens, {
-          ...token,
-          usdAmount
-        }]
-      }
-    }, {
+        return {
+          totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens: [...dstTokens, {
+            ...token,
+            usdAmount
+          }]
+        }
+      }, {
       totalAvailableUSDValue: new BigNumber(0),
       dstTokens: []
     })
@@ -120,8 +144,28 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     return [...lockedTokens.values()]
       .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
         totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
-      new BigNumber(0))
+        new BigNumber(0))
   }, [lockedTokens])
+
+  // Address selection bottom sheet
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const { dismiss } = useBottomSheetModal()
+  const switchAddressModalName = 'SwitchAddress'
+  const closeModal = useCallback(() => {
+    dismiss(switchAddressModalName)
+  }, [])
+  const { isLight } = useThemeContext()
+  const { addressLength } = useWalletContext()
+
+  const getSnapPoints = (): string[] => {
+    if (addressLength > 5) {
+      return ['80%']
+    }
+    if (addressLength > 2) {
+      return ['60%']
+    }
+    return ['40%']
+  }
 
   return (
     <ThemedScrollView
@@ -144,6 +188,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
       <BalanceList dstTokens={dstTokens} navigation={navigation} />
+      {Platform.OS !== 'web' && (
+        <BottomSheetModal
+          name={switchAddressModalName}
+          ref={bottomSheetModalRef}
+          snapPoints={getSnapPoints()}
+          backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
+            <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
+          )}
+          backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+            <View
+              {...backgroundProps}
+              style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+            />
+          )}
+        >
+          <AddressControlModal onClose={closeModal} />
+        </BottomSheetModal>
+      )}
     </ThemedScrollView>
   )
 }
@@ -184,7 +246,7 @@ function BalanceList ({
                 </View>
               ))}
             </View>
-            )
+          )
       }
     </>
   )
