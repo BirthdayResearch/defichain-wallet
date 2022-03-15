@@ -172,9 +172,9 @@ function DropdownArrow ({
   return (
     <View style={tailwind('px-4 flex flex-row items-center')}>
       <ThemedText
-        style={tailwind('text-xs text-gray-400')}
+        style={tailwind('text-xs text-gray-400 pr-1')}
       >
-        {translate('screens/BalancesScreen', 'YOUR ASSETS ')}
+        {translate('screens/BalancesScreen', 'YOUR ASSETS')}
       </ThemedText>
       <ThemedText
         light={tailwind('text-gray-500')}
