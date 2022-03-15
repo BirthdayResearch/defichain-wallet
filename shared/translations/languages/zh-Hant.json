@@ -77,7 +77,13 @@
     "Available: ": "現有可使用: ",
     "Locked: ": "已鎖定: ",
     "locked in vault(s)": "鎖定在金庫",
-    "available": "可使用資金"
+    "available": "可使用資金",
+    "All tokens": "所有代幣",
+    "LP tokens": "資金池代幣",
+    "Crypto": "加密貨幣",
+    "dTokens": "去中心化資產代幣",
+    "(From highest value)": "（從最高值開始）",
+    "(From lowest value)": "(從最低值開始)"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "創建錢包",
