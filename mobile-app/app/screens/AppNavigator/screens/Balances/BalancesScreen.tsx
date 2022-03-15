@@ -2,7 +2,8 @@ import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components'
 import {
   ThemedScrollView,
-  ThemedTouchableOpacity
+  ThemedTouchableOpacity,
+  ThemedView
 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -35,6 +36,9 @@ import { AddressControlModal } from './components/AddressControlScreen'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
+import { TokenBreakdownPercentage } from './components/TokenBreakdownPercentage'
+import { TokenBreakdownDetails } from './components/TokenBreakdownDetails'
+import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -84,6 +88,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )
     })
   }, [navigation, address, addressLength])
+  useEffect(() => {
+    // fetch only once to decide flag to display locked balance breakdown
+    dispatch(fetchCollateralTokens({ client }))
+  }, [])
 
   const fetchPortfolioData = (): void => {
     batch(() => {
@@ -92,6 +100,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         client,
         address
       }))
+      dispatch(fetchVaults({ client, address }))
     })
   }
 
@@ -264,23 +273,73 @@ function BalanceItemRow ({
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
+  const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
+  const onBreakdownPress = (): void => {
+    setIsBreakdownExpanded(!isBreakdownExpanded)
+  }
+  const lockedToken = useTokenLockedBalance({ symbol: token.symbol }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+
+  const hasLockedBalance = useMemo((): boolean => {
+    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
+  }, [token])
+
   return (
-    <ThemedTouchableOpacity
+    <ThemedView
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
-      onPress={onPress}
-      style={tailwind('p-4 rounded-lg flex-row justify-between items-center')}
-      testID={testID}
+      style={tailwind('p-4 pb-0 rounded-lg')}
     >
-      <View style={tailwind('flex-row items-center flex-grow')}>
-        <Icon testID={`${testID}_icon`} />
-        <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
-        <TokenAmountText
-          tokenAmount={token.amount} usdAmount={token.usdAmount} testID={testID}
-          isBalancesDisplayed={isBalancesDisplayed}
-        />
-      </View>
-    </ThemedTouchableOpacity>
+      <ThemedTouchableOpacity
+        onPress={onPress}
+        dark={tailwind('border-0')}
+        light={tailwind('border-0')}
+        style={tailwind('flex-row justify-between items-center mb-4')}
+        testID={testID}
+      >
+        <View style={tailwind('flex-row items-center flex-grow')}>
+          <Icon testID={`${testID}_icon`} />
+          <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
+          <TokenAmountText
+            tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
+            usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+            testID={testID}
+            isBalancesDisplayed={isBalancesDisplayed}
+          />
+        </View>
+      </ThemedTouchableOpacity>
+
+      {hasLockedBalance &&
+        (
+          <>
+            <TokenBreakdownPercentage
+              symbol={token.symbol}
+              availableAmount={new BigNumber(token.amount)}
+              onBreakdownPress={onBreakdownPress}
+              isBreakdownExpanded={isBreakdownExpanded}
+              lockedAmount={lockedToken.amount}
+              testID={token.displaySymbol}
+            />
+            {isBreakdownExpanded && (
+              <ThemedView
+                light={tailwind('border-t border-gray-100')}
+                dark={tailwind('border-t border-gray-700')}
+                style={tailwind('pt-2 pb-4')}
+              >
+                <TokenBreakdownDetails
+                  hasFetchedToken={hasFetchedToken}
+                  lockedAmount={lockedToken.amount}
+                  lockedValue={lockedToken.tokenValue}
+                  availableAmount={new BigNumber(token.amount)}
+                  availableValue={token.usdAmount}
+                  testID={token.displaySymbol}
+                />
+              </ThemedView>
+            )}
+          </>
+        )}
+    </ThemedView>
   )
 }
 
@@ -292,6 +351,7 @@ function BalanceActionSection ({ navigation, isZeroBalance }: { navigation: Stac
     </View>
   )
 }
+
 type BalanceActionButtonType = 'SEND' | 'RECEIVE'
 function BalanceActionButton ({ type, onPress, disabled }: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
   return (

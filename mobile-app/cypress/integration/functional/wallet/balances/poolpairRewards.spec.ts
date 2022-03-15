@@ -22,7 +22,7 @@ context('Wallet - Pool Pair Rewards', () => {
 
     it('should not have any DFI tokens', function () {
       cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('details_DFI').click()
+      cy.getByTestID('details_dfi').click()
       cy.getByTestID('dfi_token_amount').contains('0.00000000')
     })
 
@@ -53,7 +53,7 @@ context('Wallet - Pool Pair Rewards', () => {
       cy.exitWallet()
       cy.restoreMnemonicWords(walletA.recoveryWords)
       cy.getByTestID('balances_row_17_amount').contains('10')
-      cy.getByTestID('details_DFI').click()
+      cy.getByTestID('details_dfi').click()
       cy.getByTestID('dfi_token_amount').then(($txt: any) => {
         const balanceAmount = $txt[0].textContent.replace(' DFI', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gt(0)

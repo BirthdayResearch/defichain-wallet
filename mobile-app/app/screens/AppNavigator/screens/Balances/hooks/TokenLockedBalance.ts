@@ -1,12 +1,10 @@
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
-import { fetchVaults, vaultsSelector } from '@store/loans'
+import { vaultsSelector } from '@store/loans'
 import BigNumber from 'bignumber.js'
 import { clone } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useTokenPrice } from './TokenPrice'
 
 export interface LockedBalance {
@@ -21,16 +19,8 @@ export interface LockedBalance {
  */
 export function useTokenLockedBalance ({ symbol }: { symbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
-  const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const dispatch = useDispatch()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const [lockedBalance, setLockedBalance] = useState<Map<string, LockedBalance>>()
   const { getTokenPrice } = useTokenPrice()
-
-  useEffect(() => {
-    dispatch(fetchVaults({ client, address }))
-  }, [address, blockCount])
 
   useEffect(() => {
     setLockedBalance(computeLockedAmount())

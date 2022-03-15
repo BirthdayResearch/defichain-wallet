@@ -3,17 +3,15 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import { ImageBackground, TextProps, StyleProp, ViewProps } from 'react-native'
+import { ImageBackground } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_bg_gradient.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_bg_gradient_dark.png'
 import { IconButton } from '@components/IconButton'
-import { ThemedProps, ThemedText, ThemedView } from '@components/themed'
+import { ThemedView } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
-import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { BalanceText } from './BalanceText'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
@@ -23,8 +21,8 @@ import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { useState } from 'react'
-import { translate } from '@translations'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
+import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -35,6 +33,7 @@ export function DFIBalanceCard (): JSX.Element {
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ symbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
+  const availableValue = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount))
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
   const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
@@ -105,6 +104,7 @@ export function DFIBalanceCard (): JSX.Element {
               onBreakdownPress={onBreakdownPress}
               isBreakdownExpanded={isBreakdownExpanded}
               lockedAmount={lockedToken.amount}
+              testID='dfi'
             />
           </View>
         </ImageBackground>
@@ -115,10 +115,13 @@ export function DFIBalanceCard (): JSX.Element {
             dark={tailwind('border-t border-gray-700')}
             style={tailwind('mx-4 mb-4 pt-2')}
           >
-            <DFIBreakdown
-              lockedAmount={lockedToken.amount}
+            <TokenBreakdownDetails
               hasFetchedToken={hasFetchedToken}
-              dfiUnified={DFIUnified}
+              lockedAmount={lockedToken.amount}
+              lockedValue={lockedToken.tokenValue}
+              availableAmount={new BigNumber(DFIUnified.amount)}
+              availableValue={availableValue}
+              testID='dfi'
               dfiUtxo={DFIUtxo}
               dfiToken={DFIToken}
             />
@@ -127,117 +130,6 @@ export function DFIBalanceCard (): JSX.Element {
         )}
       </View>
     </ThemedView>
-  )
-}
-
-interface DFIBreakdownProps {
-  lockedAmount: BigNumber
-  hasFetchedToken: boolean
-  dfiUnified: WalletToken
-  dfiUtxo: WalletToken
-  dfiToken: WalletToken
-}
-
-function DFIBreakdown (props: DFIBreakdownProps): JSX.Element {
-  return (
-    <>
-      <DFIBreakdownRow
-        testID='dfi_locked'
-        amount={props.lockedAmount.toFixed(8)}
-        label='Locked in vault(s)'
-        hasFetchedToken={props.hasFetchedToken}
-        labelTextStyle={tailwind('font-medium')}
-        valueThemeProps={{
-          light: tailwind('text-black'),
-          dark: tailwind('text-white')
-        }}
-        containerStyle={tailwind('mb-3.5')}
-      />
-      <DFIBreakdownRow
-        testID='dfi_available'
-        amount={props.dfiUnified.amount}
-        label='Available'
-        hasFetchedToken={props.hasFetchedToken}
-        labelTextStyle={tailwind('font-medium')}
-        valueThemeProps={{
-          light: tailwind('text-black'),
-          dark: tailwind('text-white')
-        }}
-        containerStyle={tailwind('mb-1.5')}
-      />
-      <DFIBreakdownRow testID='dfi_utxo' amount={props.dfiUtxo.amount} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
-      <DFIBreakdownRow testID='dfi_token' amount={props.dfiToken.amount} label='as Token' hasFetchedToken={props.hasFetchedToken} />
-    </>
-  )
-}
-
-interface DFIBreakdownRowProps {
-  amount: string
-  label: string
-  testID: string
-  hasFetchedToken: boolean
-  labelTextStyle?: StyleProp<TextProps>
-  valueTextStyle?: StyleProp<TextProps>
-  valueThemeProps?: ThemedProps
-  containerStyle?: StyleProp<ViewProps>
-}
-function DFIBreakdownRow ({
-  amount,
-  label,
-  testID,
-  hasFetchedToken,
-  labelTextStyle,
-  valueTextStyle,
-  valueThemeProps = {
-    light: tailwind('text-gray-500'),
-    dark: tailwind('text-gray-400')
-  },
-  containerStyle
-}: DFIBreakdownRowProps): JSX.Element {
-  return (
-    <View style={[tailwind('flex-row flex-1 items-center'), containerStyle]}>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={[tailwind('pr-14 text-sm'), labelTextStyle]}
-        testID={`${testID}_label`}
-      >
-        {translate('components/DFIBalanceCard', label)}
-      </ThemedText>
-      <View style={tailwind('flex-row flex-1 justify-end')}>
-        {
-          hasFetchedToken
-            ? (
-              <NumberFormat
-                value={amount}
-                thousandSeparator
-                decimalScale={8}
-                fixedDecimalScale
-                displayType='text'
-                renderText={value =>
-                  <BalanceText
-                    light={valueThemeProps.light}
-                    dark={valueThemeProps.dark}
-                    style={[tailwind('text-sm'), valueTextStyle]}
-                    testID={`${testID}_amount`}
-                    value={value}
-                  />}
-              />
-            )
-            : (
-              <TextSkeletonLoader
-                iContentLoaderProps={{
-                  width: '150',
-                  height: '14',
-                  testID: 'dfi_breakdown_row_skeleton_loader'
-                }}
-                textHorizontalOffset='30'
-                textWidth='120'
-              />
-            )
-        }
-      </View>
-    </View>
   )
 }
 
