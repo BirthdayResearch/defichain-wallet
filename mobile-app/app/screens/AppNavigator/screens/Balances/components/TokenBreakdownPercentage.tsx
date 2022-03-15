@@ -17,6 +17,7 @@ interface TokenBreakdownPercentageProps {
   symbol: string
   onBreakdownPress: () => void
   isBreakdownExpanded: boolean
+  testID: string
 }
 
 export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps): JSX.Element {
@@ -37,10 +38,12 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
                 type='available'
                 isDfi={props.symbol === 'DFI'}
                 percentage={availablePercentage}
+                testID={props.testID}
               />
               <BreakdownPercentageItem
                 type='locked'
                 percentage={lockedPercentage}
+                testID={props.testID}
               />
             </>
           )
@@ -74,7 +77,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
       <TouchableOpacity
         onPress={props.onBreakdownPress}
         style={tailwind('flex flex-row w-1/12')}
-        testID={`details_${props.symbol}`}
+        testID={`details_${props.testID}`}
       >
         <ThemedIcon
           light={tailwind('text-primary-500')}
@@ -93,6 +96,7 @@ interface BreakdownPercentageItemProps {
   type: BreakdownType
   isDfi?: boolean
   percentage: BigNumber
+  testID: string
 }
 
 function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Element {
@@ -102,11 +106,8 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
     >
-      {props.type === 'available'
-        ? (props.isDfi === true && (
-          <SymbolIcon symbol='DFI' styleProps={tailwind('w-4 h-4')} />
-        ))
-        : (
+      {props.type === 'locked'
+        ? (
           <ThemedIcon
             light={tailwind('text-gray-600')}
             dark={tailwind('text-gray-500')}
@@ -114,7 +115,10 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
             name='lock'
             size={16}
           />
-        )}
+        )
+        : (props.isDfi === true && (
+          <SymbolIcon symbol='DFI' styleProps={tailwind('w-4 h-4')} />
+        ))}
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
@@ -131,7 +135,7 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
         renderText={value =>
           <ThemedText
             style={tailwind('text-xs')}
-            testID={`${props.type}_percentage`}
+            testID={`${props.testID}_${props.type}_percentage`}
           >
             {value}
           </ThemedText>}
