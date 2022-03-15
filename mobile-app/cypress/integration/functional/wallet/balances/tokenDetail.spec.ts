@@ -34,7 +34,7 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_select_button_TO').should('not.have.attr', 'aria-disabled')
     cy.getByTestID('token_select_button_FROM').should('contain', 'dBTC')
-    cy.getByTestID('token_select_button_TO').should('have.text', '')
+    cy.getByTestID('token_select_button_TO').should('contain', 'Select token')
   })
 })
 
