@@ -2,7 +2,6 @@ import { getNativeIcon } from '@components/icons/assets'
 import { View } from '@components'
 import {
   ThemedScrollView,
-  ThemedSectionTitle,
   ThemedTouchableOpacity
 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
@@ -22,7 +21,6 @@ import { Announcements } from '@screens/AppNavigator/screens/Balances/components
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
 import { Platform, RefreshControl } from 'react-native'
-import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
@@ -36,6 +34,7 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal,
 import { AddressControlModal } from './components/AddressControlScreen'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
+import { IconButton } from '@components/IconButton'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -57,6 +56,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
+  const [isZeroBalance, setIsZeroBalance] = useState(true)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -147,6 +147,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         new BigNumber(0))
   }, [lockedTokens])
 
+  useEffect(() => {
+    setIsZeroBalance(
+      !tokens.some(token => new BigNumber(token.amount).isGreaterThan(0))
+    )
+  }, [tokens])
+
   // Address selection bottom sheet
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { dismiss } = useBottomSheetModal()
@@ -168,6 +174,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
+      light={tailwind('bg-gray-50')}
       contentContainerStyle={tailwind('pb-8')} testID='balances_list'
       refreshControl={
         <RefreshControl
@@ -177,14 +184,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       }
     >
       <Announcements />
-      <BalanceControlCard />
       <TotalPortfolio
         totalAvailableUSDValue={totalAvailableUSDValue}
         totalLockedUSDValue={totalLockedUSDValue}
         onToggleDisplayBalances={onToggleDisplayBalances}
         isBalancesDisplayed={isBalancesDisplayed}
       />
-      <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
+      <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
       <DFIBalanceCard />
       <BalanceList dstTokens={dstTokens} navigation={navigation} />
       {Platform.OS !== 'web' && (
@@ -275,5 +281,38 @@ function BalanceItemRow ({
         />
       </View>
     </ThemedTouchableOpacity>
+  )
+}
+
+function BalanceActionSection ({ navigation, isZeroBalance }: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
+  return (
+    <View style={tailwind('flex flex-row mb-4 mx-4')}>
+      <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
+      <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
+    </View>
+  )
+}
+type BalanceActionButtonType = 'SEND' | 'RECEIVE'
+function BalanceActionButton ({ type, onPress, disabled }: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
+  return (
+    <IconButton
+      iconName={type === 'SEND' ? 'arrow-upward' : 'arrow-downward'}
+      iconSize={20}
+      iconType='MaterialIcons'
+      onPress={onPress}
+      testID={type === 'SEND' ? 'send_balance_button' : 'receive_balance_button'}
+      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', { 'mr-1': type === 'SEND', 'ml-1': type === 'RECEIVE' })}
+      textStyle={tailwind('text-base')}
+      themedProps={{
+        light: tailwind('bg-white'),
+        dark: tailwind('bg-gray-800')
+      }}
+      disabledThemedProps={{
+        light: tailwind('bg-gray-100'),
+        dark: tailwind('bg-gray-800')
+      }}
+      iconLabel={translate('screens/BalancesScreen', type)}
+      disabled={disabled}
+    />
   )
 }

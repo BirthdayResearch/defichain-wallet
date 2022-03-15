@@ -17,7 +17,7 @@ exports[`balances page should match snapshot 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
   }
@@ -29,539 +29,11 @@ exports[`balances page should match snapshot 1`] = `
       style={
         Array [
           Object {
-            "display": "flex",
-            "flexDirection": "column",
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
-          },
-          Object {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
-            "borderRightColor": "rgba(229, 229, 229, 1)",
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-          },
-        ]
-      }
-      testID="balance_control_card"
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <View>
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={40}
-            bbWidth={40}
-            fill="none"
-            focusable={false}
-            height={40}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                Object {
-                  "flex": 0,
-                  "height": 40,
-                  "width": 40,
-                },
-              ]
-            }
-            vbHeight={80}
-            vbWidth={80}
-            width={40}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <RNSVGGroup
-              fill={null}
-              propList={
-                Array [
-                  "fill",
-                ]
-              }
-            >
-              <RNSVGMask
-                height={80}
-                maskContentUnits={1}
-                maskTransform={
-                  Array [
-                    1,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                  ]
-                }
-                maskUnits={1}
-                name="mask__bauhaus"
-                width={80}
-                x={0}
-                y={0}
-              >
-                <RNSVGRect
-                  fill={4294967295}
-                  height={80}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  rx={160}
-                  width={80}
-                  x={0}
-                  y={0}
-                />
-              </RNSVGMask>
-              <RNSVGGroup
-                mask="mask__bauhaus"
-              >
-                <RNSVGRect
-                  fill={4281626061}
-                  height={80}
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={80}
-                  x={0}
-                  y={0}
-                />
-                <RNSVGRect
-                  fill={4294300999}
-                  height={80}
-                  matrix={
-                    Array [
-                      -0.46947156278589075,
-                      -0.882947592858927,
-                      0.882947592858927,
-                      -0.46947156278589075,
-                      23.46095879707855,
-                      94.0967662257927,
-                    ]
-                  }
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  width={80}
-                  x={10}
-                  y={30}
-                />
-                <RNSVGCircle
-                  cx={40}
-                  cy={40}
-                  fill={4278788109}
-                  matrix={
-                    Array [
-                      1,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                    ]
-                  }
-                  propList={
-                    Array [
-                      "fill",
-                    ]
-                  }
-                  r={16}
-                />
-                <RNSVGLine
-                  matrix={
-                    Array [
-                      -0.5591929034707467,
-                      0.8290375725550417,
-                      -0.8290375725550417,
-                      -0.5591929034707467,
-                      91.52921904103154,
-                      33.2062132366282,
-                    ]
-                  }
-                  propList={
-                    Array [
-                      "stroke",
-                      "strokeWidth",
-                    ]
-                  }
-                  stroke={4281312875}
-                  strokeWidth={2}
-                  x1={0}
-                  x2={80}
-                  y1={40}
-                  y2={40}
-                />
-              </RNSVGGroup>
-            </RNSVGGroup>
-          </RNSVGSvgView>
-        </View>
-        <View
-          style={
-            Object {
-              "display": "flex",
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 12,
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "display": "flex",
-                "flexDirection": "row",
-                "marginBottom": 2,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginRight": 6,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Wallet Address
-            </Text>
-            <View
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "opacity": 1,
-                }
-              }
-            >
-              <Text />
-            </View>
-          </View>
-          <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "opacity": 1,
-              }
-            }
-          >
-            <Text
-              ellipsizeMode="middle"
-              numberOfLines={1}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "SemiBoldFont",
-                      "fontSize": 14,
-                      "fontWeight": "600",
-                      "lineHeight": 20,
-                      "paddingRight": 16,
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="wallet_address"
-            >
-              bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "marginRight": -8,
-            "marginTop": 16,
-          }
-        }
-      >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(212, 212, 212, 1)",
-              "borderBottomLeftRadius": 4,
-              "borderBottomRightRadius": 4,
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(212, 212, 212, 1)",
-              "borderLeftWidth": 1,
-              "borderRightColor": "rgba(212, 212, 212, 1)",
-              "borderRightWidth": 1,
-              "borderTopColor": "rgba(212, 212, 212, 1)",
-              "borderTopLeftRadius": 4,
-              "borderTopRightRadius": 4,
-              "borderTopWidth": 1,
-              "flexDirection": "row",
-              "marginRight": 8,
-              "opacity": 1,
-              "paddingBottom": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 4,
-            }
-          }
-          testID="send_balance_button"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            SEND
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(212, 212, 212, 1)",
-              "borderBottomLeftRadius": 4,
-              "borderBottomRightRadius": 4,
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(212, 212, 212, 1)",
-              "borderLeftWidth": 1,
-              "borderRightColor": "rgba(212, 212, 212, 1)",
-              "borderRightWidth": 1,
-              "borderTopColor": "rgba(212, 212, 212, 1)",
-              "borderTopLeftRadius": 4,
-              "borderTopRightRadius": 4,
-              "borderTopWidth": 1,
-              "flexDirection": "row",
-              "marginRight": 8,
-              "opacity": 1,
-              "paddingBottom": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 4,
-            }
-          }
-          testID="receive_balance_button"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            RECEIVE
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(212, 212, 212, 1)",
-              "borderBottomLeftRadius": 4,
-              "borderBottomRightRadius": 4,
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(212, 212, 212, 1)",
-              "borderLeftWidth": 1,
-              "borderRightColor": "rgba(212, 212, 212, 1)",
-              "borderRightWidth": 1,
-              "borderTopColor": "rgba(212, 212, 212, 1)",
-              "borderTopLeftRadius": 4,
-              "borderTopRightRadius": 4,
-              "borderTopWidth": 1,
-              "flexDirection": "row",
-              "marginRight": 8,
-              "opacity": 1,
-              "paddingBottom": 4,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 4,
-            }
-          }
-          testID="switch_account_button"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            SWITCH
-          </Text>
-        </View>
-      </View>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
             "borderBottomLeftRadius": 8,
             "borderBottomRightRadius": 8,
             "borderTopLeftRadius": 8,
             "borderTopRightRadius": 8,
-            "marginBottom": 16,
+            "marginBottom": 8,
             "marginLeft": 16,
             "marginRight": 16,
             "marginTop": 16,
@@ -727,37 +199,166 @@ exports[`balances page should match snapshot 1`] = `
         </View>
       </View>
     </View>
-    <Text
+    <View
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "MediumFont",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-              "paddingBottom": 8,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 8,
-            },
-            Object {
-              "backgroundColor": "rgba(245, 245, 245, 1)",
-              "color": "rgba(115, 115, 115, 1)",
-            },
-          ],
-        ]
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "marginBottom": 16,
+          "marginLeft": 16,
+          "marginRight": 16,
+        }
       }
-      text="YOUR ASSETS"
     >
-      YOUR ASSETS
-    </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 0,
+            "borderLeftWidth": 0,
+            "borderRightWidth": 0,
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "borderTopWidth": 0,
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "justifyContent": "center",
+            "marginRight": 4,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "paddingTop": 8,
+          }
+        }
+        testID="send_balance_button"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                  },
+                  Object {
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                ],
+                Object {
+                  "color": "rgba(255, 0, 175, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          SEND
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 0,
+            "borderLeftWidth": 0,
+            "borderRightWidth": 0,
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "borderTopWidth": 0,
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "justifyContent": "center",
+            "marginLeft": 4,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "paddingTop": 8,
+          }
+        }
+        testID="receive_balance_button"
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 16,
+                    "paddingLeft": 4,
+                    "paddingRight": 4,
+                  },
+                  Object {
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                ],
+                Object {
+                  "color": "rgba(255, 0, 175, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          RECEIVE
+        </Text>
+      </View>
+    </View>
     <View
       style={
         Array [
