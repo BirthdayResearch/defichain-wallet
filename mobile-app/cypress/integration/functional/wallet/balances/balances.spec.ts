@@ -144,6 +144,61 @@ const getChangingPoolPairReserve = ({
   }
 ]
 
+const addTokensWithFourCategories = [
+  {
+    amount: '5.00000000',
+    displaySymbol: 'dBTC-DFI',
+    id: '16',
+    isDAT: true,
+    isLPS: true,
+    isLoanToken: false,
+    name: 'Playground BTC-Default Defi token',
+    symbol: 'BTC-DFI',
+    symbolKey: 'BTC-DFI'
+  },
+  {
+    amount: '5.00000000',
+    displaySymbol: 'dBTC',
+    id: '1',
+    isDAT: true,
+    isLPS: false,
+    isLoanToken: false,
+    name: 'Playground BTC',
+    symbol: 'BTC',
+    symbolKey: 'BTC'
+  },
+  {
+    amount: '10.00000000',
+    displaySymbol: 'dETH',
+    id: '2',
+    isDAT: true,
+    isLPS: false,
+    isLoanToken: false,
+    name: 'Playground ETH',
+    symbol: 'ETH',
+    symbolKey: 'ETH'
+  },
+  {
+    amount: '11.00000000',
+    displaySymbol: 'DUSD',
+    id: '14',
+    isDAT: true,
+    isLPS: false,
+    isLoanToken: true,
+    name: 'Decentralized USD',
+    symbol: 'DUSD',
+    symbolKey: 'DUSD'
+  }
+]
+
+function interceptTokenWithSampleData (): void {
+  cy.intercept('**/tokens?size=*', {
+    body: {
+      data: addTokensWithFourCategories
+    }
+  })
+}
+
 context('Wallet - Balances', () => {
   const samplePoolPair = [
     {
@@ -541,7 +596,53 @@ context('Wallet - Balances - USD Value', () => {
   })
 })
 
-context('Wallet - Balances - display sorted USD values', function () {
+context('Wallet - Balances - Assets filter tab', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    interceptTokenWithSampleData()
+  })
+
+  it('should display All tokens that are available in asset', function () {
+    cy.getByTestID('toggle_sorting_assets').should('exist')
+    cy.getByTestID('balance_button_group_ALL_TOKENS_active').should('exist')
+    cy.getByTestID('balances_row_1').should('exist') // dBTC = row 1
+    cy.getByTestID('balances_row_2').should('exist') // dETH = row 2
+    cy.getByTestID('balances_row_14').should('exist') // DUSD = row 14
+    cy.getByTestID('balances_row_16').should('exist') // dBTC-DFI = row 16
+  })
+
+  it('should display only LP tokens that are available in asset', function () {
+    cy.getByTestID('toggle_sorting_assets').should('exist')
+    cy.getByTestID('balance_button_group_LP_TOKENS').click()
+    cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
+    cy.getByTestID('balances_row_1').should('not.exist')
+    cy.getByTestID('balances_row_2').should('not.exist')
+    cy.getByTestID('balances_row_14').should('not.exist')
+    cy.getByTestID('balances_row_16').should('exist')
+  })
+
+  it('should display only Crypto that are available in asset', function () {
+    cy.getByTestID('toggle_sorting_assets').should('exist')
+    cy.getByTestID('balance_button_group_CRYPTO').click()
+    cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
+    cy.getByTestID('balances_row_14').should('not.exist')
+    cy.getByTestID('balances_row_1').should('exist')
+    cy.getByTestID('balances_row_2').should('exist')
+    cy.getByTestID('balances_row_16').should('exist')
+  })
+
+  it('should display only dTokens that are available in asset', function () {
+    cy.getByTestID('toggle_sorting_assets').should('exist')
+    cy.getByTestID('balance_button_group_d_TOKENS').click()
+    cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
+    cy.getByTestID('balances_row_16').should('not.exist')
+    cy.getByTestID('balances_row_1').should('not.exist')
+    cy.getByTestID('balances_row_2').should('not.exist')
+    cy.getByTestID('balances_row_14').should('exist')
+  })
+})
+
+context('Wallet - Balances - Your Assets - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(3000)
@@ -549,13 +650,31 @@ context('Wallet - Balances - display sorted USD values', function () {
     cy.getByTestID('bottom_tab_balances').click()
   })
 
-  it('should display LTC on top of ETH after topping up more LTC', function () {
+  it('should not display sorting arrow if there are no tokens', function () {
+    cy.intercept('**/tokens?size=*', {
+      body: {
+        data: []
+      }
+    })
+    cy.getByTestID('empty_balances').should('exist')
+    cy.getByTestID('toggle_sorting_assets').should('not.exist')
+  })
+
+  it('should display highest value by default', function () {
     // token transfer taking time sometime to avoid failure increasing wait time here
     cy.sendTokenToWallet(['ETH', 'LTC']).wait(7000)
-    // dETH will be displayed at the top of the card on first topup
+    cy.getByTestID('your_assets_dropdown_arrow').contains('From highest value')
     cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
     cy.sendTokenToWallet(['LTC']).wait(7000)
     cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dLTC')
+  })
+
+  it('should display lowest value on toggle', function () {
+    cy.sendTokenToWallet(['ETH', 'LTC']).wait(7000)
+    cy.getByTestID('toggle_sorting_assets').click()
+    cy.wait(2000)
+    cy.getByTestID('your_assets_dropdown_arrow').contains('From lowest value')
+    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
   })
 })
 
