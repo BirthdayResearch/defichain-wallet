@@ -1,5 +1,4 @@
 import { getNativeIcon } from '@components/icons/assets'
-import { View } from '@components'
 import {
   ThemedScrollView,
   ThemedTouchableOpacity,
@@ -21,7 +20,7 @@ import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl } from 'react-native'
+import { Platform, RefreshControl, View } from 'react-native'
 import { EmptyBalances } from '@screens/AppNavigator/screens/Balances/components/EmptyBalances'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
@@ -31,14 +30,14 @@ import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { AddressSelectionButton } from './components/AddressSelectionButton'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
-import { AddressControlModal } from './components/AddressControlScreen'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { TokenBreakdownPercentage } from './components/TokenBreakdownPercentage'
 import { TokenBreakdownDetails } from './components/TokenBreakdownDetails'
 import { fetchCollateralTokens, fetchVaults } from '@store/loans'
+import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -70,21 +69,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     fetchPortfolioData()
   }, [address, blockCount])
 
-  const onAddressClick = (): void => {
-    if (Platform.OS === 'web') {
-      navigation.navigate('AddressControlScreen')
-    } else {
-      bottomSheetModalRef.current?.present()
-    }
-  }
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: (): JSX.Element => (
         <HeaderSettingButton />
       ),
       headerRight: (): JSX.Element => (
-        <AddressSelectionButton address={address} addressLength={addressLength} onPress={onAddressClick} />
+        <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} />
       )
     })
   }, [navigation, address, addressLength])
@@ -163,64 +154,81 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [tokens])
 
   // Address selection bottom sheet
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-  const { dismiss } = useBottomSheetModal()
-  const switchAddressModalName = 'SwitchAddress'
-  const closeModal = useCallback(() => {
-    dismiss(switchAddressModalName)
+  const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
+  const containerRef = useRef(null)
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const expandModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
   }, [])
-  const { isLight } = useThemeContext()
-
-  const getSnapPoints = (): string[] => {
-    if (addressLength > 5) {
-      return ['80%']
+  const dismissModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
     }
-    if (addressLength > 2) {
-      return ['60%']
-    }
-    return ['40%']
-  }
+  }, [])
+  const bottomSheetScreen = useMemo(() => {
+    return [
+      {
+        stackScreenName: 'AddressDetail',
+        component: BottomSheetAddressDetail({
+          address: address,
+          addressLabel: 'TODO: get label from storage api',
+          onReceiveButtonPress: () => {
+            dismissModal()
+            navigation.navigate('Receive')
+          },
+          onCloseButtonPress: () => dismissModal()
+        }),
+        option: {
+          header: () => null
+        }
+      }
+    ]
+  }, [address])
 
   return (
-    <ThemedScrollView
-      light={tailwind('bg-gray-50')}
-      contentContainerStyle={tailwind('pb-8')} testID='balances_list'
-      refreshControl={
-        <RefreshControl
-          onRefresh={onRefresh}
-          refreshing={refreshing}
+    <View ref={containerRef}>
+      <ThemedScrollView
+        light={tailwind('bg-gray-50')}
+        contentContainerStyle={tailwind('pb-8')} testID='balances_list'
+        refreshControl={
+          <RefreshControl
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+          />
+        }
+      >
+        <Announcements />
+        <TotalPortfolio
+          totalAvailableUSDValue={totalAvailableUSDValue}
+          totalLockedUSDValue={totalLockedUSDValue}
+          onToggleDisplayBalances={onToggleDisplayBalances}
+          isBalancesDisplayed={isBalancesDisplayed}
         />
-      }
-    >
-      <Announcements />
-      <TotalPortfolio
-        totalAvailableUSDValue={totalAvailableUSDValue}
-        totalLockedUSDValue={totalLockedUSDValue}
-        onToggleDisplayBalances={onToggleDisplayBalances}
-        isBalancesDisplayed={isBalancesDisplayed}
-      />
-      <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-      <DFIBalanceCard />
-      <BalanceList dstTokens={dstTokens} navigation={navigation} />
-      {Platform.OS !== 'web' && (
-        <BottomSheetModal
-          name={switchAddressModalName}
-          ref={bottomSheetModalRef}
-          snapPoints={getSnapPoints()}
-          backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
-            <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
-          )}
-          backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-            <View
-              {...backgroundProps}
-              style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-700'} border-t rounded`)]}
+        <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
+        <DFIBalanceCard />
+        <BalanceList dstTokens={dstTokens} navigation={navigation} />
+        {Platform.OS === 'web'
+          ? (
+            <BottomSheetWebWithNav
+              modalRef={containerRef}
+              screenList={bottomSheetScreen}
+              isModalDisplayed={isModalDisplayed}
+            />
+          )
+          : (
+            <BottomSheetWithNav
+              modalRef={bottomSheetRef}
+              screenList={bottomSheetScreen}
             />
           )}
-        >
-          <AddressControlModal onClose={closeModal} />
-        </BottomSheetModal>
-      )}
-    </ThemedScrollView>
+      </ThemedScrollView>
+    </View>
   )
 }
 
