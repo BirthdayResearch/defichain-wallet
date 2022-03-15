@@ -29,6 +29,7 @@ exports[`Address Selection Button should match snapshot 1`] = `
       "paddingTop": 4,
     }
   }
+  testID="switch_account_button"
 >
   <RNSVGSvgView
     align="xMidYMid"
@@ -208,8 +209,55 @@ exports[`Address Selection Button should match snapshot 1`] = `
         ],
       ]
     }
+    testID="wallet_address"
   >
     foo
   </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
+          "height": 16,
+          "marginRight": 4,
+          "width": 16,
+        },
+        Object {
+          "backgroundColor": "rgba(230, 135, 37, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 10,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(255, 255, 255, 1)",
+            },
+          ],
+        ]
+      }
+      testID="address_count_badge"
+    >
+      5
+    </Text>
+  </View>
 </View>
 `;

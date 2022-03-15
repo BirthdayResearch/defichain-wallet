@@ -7,7 +7,7 @@ describe('Address Selection Button', () => {
   it('should match snapshot', async () => {
     const onPress = jest.fn()
     const component = (
-      <AddressSelectionButton address='foo' onPress={onPress} />
+      <AddressSelectionButton address='foo' addressLength={4} onPress={onPress} />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()

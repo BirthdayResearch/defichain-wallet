@@ -46,7 +46,7 @@ export interface BalanceRowToken extends WalletToken {
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
+  const { address, addressLength } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
   const lockedTokens = useTokenLockedBalance({}) as Map<string, LockedBalance>
   const {
@@ -80,10 +80,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <HeaderSettingButton />
       ),
       headerRight: (): JSX.Element => (
-        <AddressSelectionButton address={address} onPress={onAddressClick} />
+        <AddressSelectionButton address={address} addressLength={addressLength} onPress={onAddressClick} />
       )
     })
-  }, [navigation, address])
+  }, [navigation, address, addressLength])
 
   const fetchPortfolioData = (): void => {
     batch(() => {
@@ -155,7 +155,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     dismiss(switchAddressModalName)
   }, [])
   const { isLight } = useThemeContext()
-  const { addressLength } = useWalletContext()
 
   const getSnapPoints = (): string[] => {
     if (addressLength > 5) {
