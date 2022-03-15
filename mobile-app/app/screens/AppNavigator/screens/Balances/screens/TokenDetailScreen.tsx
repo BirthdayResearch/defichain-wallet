@@ -94,11 +94,34 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
-  const onNavigate = ({ destination, pair }: {destination: 'AddLiquidity' | 'RemoveLiquidity' | 'CompositeSwap', pair: PoolPairData}): void => {
+  const onNavigateLiquidity = ({ destination, pair }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
     navigation.navigate('DEX', {
       screen: destination,
       initial: false,
-      params: { pair },
+      params: {
+        pair
+      },
+      merge: true
+    })
+  }
+
+  const onNavigateSwap = ({ pair }: { pair: PoolPairData }): void => {
+    navigation.navigate('CompositeSwap', {
+      screen: 'CompositeSwap',
+      initial: false,
+      params: {
+        pair,
+        tokenSelectOption: {
+          from: {
+            isDisabled: true,
+            isPreselected: true
+          },
+          to: {
+            isDisabled: false,
+            isPreselected: false
+          }
+        }
+      },
       merge: true
     })
   }
@@ -157,12 +180,9 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
           <TokenActionRow
             icon='swap-horiz'
-            onPress={() => onNavigate({
-              destination: 'CompositeSwap',
-              pair
-            })}
+            onPress={() => onNavigateSwap({ pair })}
             testID='swap_button'
-            title={translate('screens/TokenDetailScreen', 'Swap with {{token}}', { token: swapTokenDisplaySymbol })}
+            title={translate('screens/TokenDetailScreen', 'Swap token')}
           />)
       }
 
@@ -170,10 +190,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         pair !== undefined && (
           <TokenActionRow
             icon='add'
-            onPress={() => onNavigate({
-                destination: 'AddLiquidity',
-                pair
-              })}
+            onPress={() => onNavigateLiquidity({
+              destination: 'AddLiquidity',
+              pair
+            })}
             testID='add_liquidity_button'
             title={translate('screens/TokenDetailScreen', 'Add to liquidity pool')}
           />)
@@ -183,19 +203,19 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.isLPS && pair !== undefined && (
           <TokenActionRow
             icon='remove'
-            onPress={() => onNavigate({
-                destination: 'RemoveLiquidity',
-                pair
-              })}
+            onPress={() => onNavigateLiquidity({
+              destination: 'RemoveLiquidity',
+              pair
+            })}
             testID='remove_liquidity_button'
             title={translate('screens/TokenDetailScreen', 'Remove liquidity')}
           />)
-        }
+      }
     </ThemedScrollView>
   )
 }
 
-function TokenSummary (props: { token: WalletToken}): JSX.Element {
+function TokenSummary (props: { token: WalletToken }): JSX.Element {
   const Icon = getNativeIcon(props.token.displaySymbol)
   const { getTokenUrl } = useDeFiScanContext()
 
