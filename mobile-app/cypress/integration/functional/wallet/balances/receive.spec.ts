@@ -17,7 +17,7 @@ context('Wallet - Receive', () => {
     cy.getByTestID('address_text').then(($txt: any) => {
       const address = $txt[0].textContent
       cy.go('back')
-      cy.getByTestID('details_DFI').click()
+      cy.getByTestID('details_dfi').click()
       cy.getByTestID('send_dfi_button').click()
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('address_input').type(address)

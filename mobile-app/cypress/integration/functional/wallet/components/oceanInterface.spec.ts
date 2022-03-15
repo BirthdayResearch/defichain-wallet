@@ -4,7 +4,7 @@ context('Wallet - Ocean Interface', () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet().wait(3000)
     cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('details_DFI').click()
+    cy.getByTestID('details_dfi').click()
     cy.getByTestID('convert_dfi_button').click()
   })
 
