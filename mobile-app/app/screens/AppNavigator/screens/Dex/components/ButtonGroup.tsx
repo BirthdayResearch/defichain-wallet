@@ -57,7 +57,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       onPress={props.onPress}
       light={tailwind({ 'bg-primary-50': props.isActive })}
       dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
-      style={[tailwind('rounded-2xl py-2 px-3 break-words'), { width: `${props.width.toFixed(2)}%` }]}
+      style={[tailwind('rounded-2xl py-2 px-3 break-words justify-center'), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
       <ThemedText

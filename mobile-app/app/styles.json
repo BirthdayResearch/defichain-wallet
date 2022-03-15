@@ -8070,7 +8070,8 @@
 		"fontSize": 10
 	},
 	"text-xsl": {
-		"fontSize": 11
+		"fontSize": 11,
+		"lineHeight": 16
 	},
 	"font-thin": {
 		"fontWeight": "100"
