@@ -105,7 +105,9 @@ export function BalanceCards ({
             {/*  dropdown arrow (sorting) appears when there are tokens */}
             {
               filteredTokens.length > 0 && hasFetchedToken &&
-                <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+                <View testID='your_assets_dropdown_arrow'>
+                  <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+                </View>
             }
           </>
         )

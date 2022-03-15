@@ -1,6 +1,5 @@
 import {
-  ThemedScrollView,
-  ThemedSectionTitle
+  ThemedScrollView
 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -16,7 +15,6 @@ import { batch, useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
-import { translate } from '@translations'
 import { RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
 
@@ -131,7 +129,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           return dstToken.isLPS
 
         case ButtonGroupTabKey.Crypto:
-          return dstToken.isDAT && dstToken.isLoanToken
+          return dstToken.isDAT && !dstToken.isLoanToken
 
         case ButtonGroupTabKey.dTokens:
           return dstToken.isLoanToken
@@ -167,7 +165,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         onToggleDisplayBalances={onToggleDisplayBalances}
         isBalancesDisplayed={isBalancesDisplayed}
       />
-      <ThemedSectionTitle text={translate('screens/BalancesScreen', 'YOUR ASSETS')} style={tailwind('px-4 pt-2 pb-2 text-xs font-medium')} />
       <DFIBalanceCard />
       <BalanceCards
         filteredTokens={filteredTokens}
