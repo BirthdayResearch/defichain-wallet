@@ -1,7 +1,7 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
@@ -23,7 +23,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { InfoTextLink } from '@components/InfoTextLink'
-import { fetchTokens, tokensSelector } from '@store/wallet'
+import { tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
@@ -37,10 +37,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
   const dispatch = useDispatch()
-  const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const isFocused = useIsFocused()
 
   // global state
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -52,12 +49,6 @@ export function ConvertScreen (props: Props): JSX.Element {
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

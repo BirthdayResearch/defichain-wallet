@@ -8,6 +8,7 @@ import { TransactionAuthorization } from './TransactionAuthorization/Transaction
 import { WalletNavigator } from './WalletNavigator/WalletNavigator'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { WalletDataProvider } from '@shared-contexts/WalletDataProvider'
 
 /**
  * Top Root Level Wallet State to control what screen to show
@@ -30,11 +31,13 @@ export function RootNavigator (): JSX.Element {
   return (
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider api={WalletAddressIndexPersistence}>
-        <PrivacyLock />
-        <BottomSheetModalProvider>
-          <TransactionAuthorization />
-          <AppNavigator />
-        </BottomSheetModalProvider>
+        <WalletDataProvider>
+          <PrivacyLock />
+          <BottomSheetModalProvider>
+            <TransactionAuthorization />
+            <AppNavigator />
+          </BottomSheetModalProvider>
+        </WalletDataProvider>
       </WalletContextProvider>
     </WalletNodeProvider>
   )

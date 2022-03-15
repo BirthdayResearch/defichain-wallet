@@ -13,7 +13,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -73,10 +73,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const fetchPortfolioData = (): void => {
     batch(() => {
       // do not add isFocused condition as its keeping token data updated in background
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
       dispatch(fetchVaults({ client, address }))
     })
   }

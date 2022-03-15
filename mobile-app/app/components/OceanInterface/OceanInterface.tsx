@@ -17,7 +17,6 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { TransactionDetail } from './TransactionDetail'
 import { TransactionError } from './TransactionError'
 import { getReleaseChannel } from '@api/releaseChannel'
-import { fetchTokens } from '@store/wallet'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -144,7 +143,6 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
-          dispatch(fetchTokens({ client, address }))
         }) // remove the job as soon as completion
     }
   }, [transaction, wallet, address])

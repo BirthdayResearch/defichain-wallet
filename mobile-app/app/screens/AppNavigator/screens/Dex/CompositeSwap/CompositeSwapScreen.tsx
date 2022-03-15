@@ -3,14 +3,14 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
-import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DexItem, DFITokenSelector, DFIUtxoSelector, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -58,10 +58,8 @@ type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
 export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
-  const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
-  const { address } = useWalletContext()
   const {
     calculatePriceRates,
     getArbitraryPoolPair
@@ -71,7 +69,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setSlippage
   } = useSlippageTolerance()
 
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -201,15 +198,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       }])
     expandModal()
   }
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

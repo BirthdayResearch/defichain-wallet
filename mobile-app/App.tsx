@@ -24,7 +24,6 @@ import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { tailwind } from '@tailwind'
-import { WalletDataProvider } from '@shared-contexts/WalletDataProvider'
 
 /**
  * Loads
@@ -67,21 +66,19 @@ export default function App (): JSX.Element | null {
                   <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
                     <StoreProvider>
                       <StatsProvider>
-                        <WalletDataProvider>
-                          <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
-                            <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
-                              <DisplayBalancesProvider>
-                                <ConnectionBoundary>
-                                  <FeatureFlagProvider>
-                                    <GestureHandlerRootView style={tailwind('flex-1')}>
-                                      <Main />
-                                    </GestureHandlerRootView>
-                                  </FeatureFlagProvider>
-                                </ConnectionBoundary>
-                              </DisplayBalancesProvider>
-                            </LanguageProvider>
-                          </ThemeProvider>
-                        </WalletDataProvider>
+                        <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
+                          <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
+                            <DisplayBalancesProvider>
+                              <ConnectionBoundary>
+                                <FeatureFlagProvider>
+                                  <GestureHandlerRootView style={tailwind('flex-1')}>
+                                    <Main />
+                                  </GestureHandlerRootView>
+                                </FeatureFlagProvider>
+                              </ConnectionBoundary>
+                            </DisplayBalancesProvider>
+                          </LanguageProvider>
+                        </ThemeProvider>
                       </StatsProvider>
                     </StoreProvider>
                   </WalletPersistenceProvider>
