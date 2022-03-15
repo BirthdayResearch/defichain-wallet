@@ -237,31 +237,32 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled)
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
-    if (pair !== undefined) {
-      if (tokenSelectOption.from.isPreselected) {
-        onTokenSelect({
-          tokenId: pair.data.tokenA.id,
-          available: new BigNumber(pair.data.tokenA.reserve),
-          token: {
-            displaySymbol: pair.data.tokenA.displaySymbol,
-            symbol: pair.data.tokenA.symbol,
-            name: '' // not available in API
-          },
-          reserve: pair.data.tokenA.reserve
-        }, 'FROM')
-      }
-      if (tokenSelectOption.to.isPreselected) {
-        onTokenSelect({
-          tokenId: pair.data.tokenB.id,
-          available: new BigNumber(pair.data.tokenB.reserve),
-          token: {
-            displaySymbol: pair.data.tokenB.displaySymbol,
-            symbol: pair.data.tokenB.symbol,
-            name: '' // not available in API
-          },
-          reserve: pair.data.tokenB.reserve
-        }, 'TO')
-      }
+    if (pair === undefined) {
+return
+}
+    if (tokenSelectOption.from.isPreselected) {
+      onTokenSelect({
+        tokenId: pair.data.tokenA.id,
+        available: new BigNumber(pair.data.tokenA.reserve),
+        token: {
+          displaySymbol: pair.data.tokenA.displaySymbol,
+          symbol: pair.data.tokenA.symbol,
+          name: '' // not available in API
+        },
+        reserve: pair.data.tokenA.reserve
+      }, 'FROM')
+    }
+    if (tokenSelectOption.to.isPreselected) {
+      onTokenSelect({
+        tokenId: pair.data.tokenB.id,
+        available: new BigNumber(pair.data.tokenB.reserve),
+        token: {
+          displaySymbol: pair.data.tokenB.displaySymbol,
+          symbol: pair.data.tokenB.symbol,
+          name: '' // not available in API
+        },
+        reserve: pair.data.tokenB.reserve
+      }, 'TO')
     }
   }, [route.params.pair, route.params.tokenSelectOption])
 
