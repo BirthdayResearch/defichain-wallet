@@ -31,6 +31,10 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('swap_button').should('exist')
     cy.getByTestID('swap_button').click()
     cy.url().should('include', 'DEX/CompositeSwap')
+    cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_TO').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_FROM').should('contain', 'dBTC')
+    cy.getByTestID('token_select_button_TO').should('have.text', '')
   })
 })
 
