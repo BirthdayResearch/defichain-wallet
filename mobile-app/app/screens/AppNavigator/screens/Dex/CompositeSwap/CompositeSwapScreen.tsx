@@ -91,7 +91,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
   const [allTokens, setAllTokens] = useState<TokenState[]>()
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const [isTokenSelectDisabled, setIsTokenSelectDisabled] = useState(false)
+  const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] = useState(false)
+  const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false)
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
@@ -221,10 +222,25 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       return
     }
 
-    setIsTokenSelectDisabled(true)
+    const tokenSelectOption: DexParamList['CompositeSwapScreen']['tokenSelectOption'] = route.params.tokenSelectOption ?? {
+      from: {
+        isDisabled: true,
+        isPreselected: true
+      },
+      to: {
+        isDisabled: true,
+        isPreselected: true
+      }
+    }
+
+    setIsFromTokenSelectDisabled(tokenSelectOption.from.isDisabled)
+    setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled)
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
-    if (pair !== undefined) {
+    if (pair === undefined) {
+      return
+    }
+    if (tokenSelectOption.from.isPreselected) {
       onTokenSelect({
         tokenId: pair.data.tokenA.id,
         available: new BigNumber(pair.data.tokenA.reserve),
@@ -235,6 +251,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         },
         reserve: pair.data.tokenA.reserve
       }, 'FROM')
+    }
+    if (tokenSelectOption.to.isPreselected) {
       onTokenSelect({
         tokenId: pair.data.tokenB.id,
         available: new BigNumber(pair.data.tokenB.reserve),
@@ -246,7 +264,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         reserve: pair.data.tokenB.reserve
       }, 'TO')
     }
-  }, [route.params.pair])
+  }, [route.params.pair, route.params.tokenSelectOption])
 
   useEffect(() => {
     if (pairs === undefined) {
@@ -427,12 +445,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             label={translate('screens/CompositeSwapScreen', 'FROM')}
             symbol={selectedTokenA?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
-            disabled={isTokenSelectDisabled || allowedSwapFromTokens === undefined || allowedSwapFromTokens?.length === 0}
+            disabled={isFromTokenSelectDisabled || allowedSwapFromTokens === undefined || allowedSwapFromTokens?.length === 0}
           />
           <TokenSelection
             label={translate('screens/CompositeSwapScreen', 'TO')} symbol={selectedTokenB?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'TO' })}
-            disabled={isTokenSelectDisabled || allowedSwapToTokens === undefined || allowedSwapToTokens?.length === 0}
+            disabled={isToTokenSelectDisabled || allowedSwapToTokens === undefined || allowedSwapToTokens?.length === 0}
           />
         </View>
 
