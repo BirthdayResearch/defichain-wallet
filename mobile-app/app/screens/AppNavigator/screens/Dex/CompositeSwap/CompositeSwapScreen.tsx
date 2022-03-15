@@ -238,8 +238,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
     if (pair === undefined) {
-return
-}
+      return
+    }
     if (tokenSelectOption.from.isPreselected) {
       onTokenSelect({
         tokenId: pair.data.tokenA.id,
