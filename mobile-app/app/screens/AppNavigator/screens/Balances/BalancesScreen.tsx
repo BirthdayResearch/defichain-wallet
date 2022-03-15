@@ -17,12 +17,9 @@ import { Announcements } from '@screens/AppNavigator/screens/Balances/components
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { RefreshControl } from 'react-native'
 import { BalanceControlCard } from '@screens/AppNavigator/screens/Balances/components/BalanceControlCard'
-
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
-
 import { StackScreenProps } from '@react-navigation/stack'
-
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { BalanceCards, ButtonGroupTabKey } from './components/BalanceCards'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
