@@ -86,9 +86,7 @@ export function BalanceCards ({
   }
 
   return (
-    <ThemedView
-      style={tailwind('flex')}
-    >
+    <ThemedView>
       {
         // filter tab
         buttonGroupOptions !== undefined &&
@@ -98,7 +96,7 @@ export function BalanceCards ({
               <ButtonGroup
                 buttons={buttonGroup}
                 activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                modalStyle={tailwind('font-semibold text-center text-xs py-1')}
+                modalStyle={tailwind('font-semibold text-center text-xsl py-1')}
                 testID='balance_button_group'
               />
             </View>
