@@ -106,7 +106,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   const onNavigateSwap = ({ pair }: { pair: PoolPairData }): void => {
-    navigation.navigate('CompositeSwap', {
+    navigation.navigate('DEX', {
       screen: 'CompositeSwap',
       initial: false,
       params: {
