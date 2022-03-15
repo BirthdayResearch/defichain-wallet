@@ -144,7 +144,7 @@ function BalanceItemRow ({
   onPress
 }: { token: BalanceRowToken, onPress: () => void }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
-  const testID = `balances_row_${token.displaySymbol}`
+  const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   return (
     <ThemedTouchableOpacity
