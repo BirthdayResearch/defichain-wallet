@@ -171,6 +171,7 @@ import {
       <View style={tailwind('px-4 flex flex-row items-center')}>
         <ThemedText
           style={tailwind('text-xs text-gray-400 pr-1')}
+          onPress={() => setIsExpanded(!isExpanded)}
         >
           {translate('screens/BalancesScreen', 'YOUR ASSETS')}
         </ThemedText>
@@ -178,6 +179,7 @@ import {
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs')}
+          onPress={() => setIsExpanded(!isExpanded)}
         >
           {translate('screens/BalancesScreen', `(From ${!isExpanded ? 'highest' : 'lowest'} value)`)}
         </ThemedText>
