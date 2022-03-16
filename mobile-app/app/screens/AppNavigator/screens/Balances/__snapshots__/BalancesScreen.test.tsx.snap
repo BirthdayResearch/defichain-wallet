@@ -1355,9 +1355,9 @@ exports[`balances page should match snapshot 1`] = `
                   Array [
                     Object {
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "500",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                       "textAlign": "center",
                     },
                     Object {
@@ -1412,9 +1412,9 @@ exports[`balances page should match snapshot 1`] = `
                   Array [
                     Object {
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "500",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                       "textAlign": "center",
                     },
                     Object {
@@ -1469,9 +1469,9 @@ exports[`balances page should match snapshot 1`] = `
                   Array [
                     Object {
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "500",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                       "textAlign": "center",
                     },
                     Object {
@@ -1526,9 +1526,9 @@ exports[`balances page should match snapshot 1`] = `
                   Array [
                     Object {
                       "fontFamily": "MediumFont",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "500",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                       "textAlign": "center",
                     },
                     Object {
@@ -1558,6 +1558,7 @@ exports[`balances page should match snapshot 1`] = `
           }
         >
           <Text
+            onPress={[Function]}
             style={
               Array [
                 Object {
@@ -1583,6 +1584,7 @@ exports[`balances page should match snapshot 1`] = `
             YOUR ASSETS
           </Text>
           <Text
+            onPress={[Function]}
             style={
               Array [
                 Object {
