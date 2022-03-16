@@ -96,7 +96,7 @@ import {
                 <ButtonGroup
                   buttons={buttonGroup}
                   activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                //   modalStyle={tailwind('font-semibold text-center text-xsl py-1')}
+                  // modalStyle={tailwind('text-center')}
                   testID='balance_button_group'
                 />
               </View>
