@@ -9,7 +9,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
         "borderBottomRightRadius": 8,
         "borderTopLeftRadius": 8,
         "borderTopRightRadius": 8,
-        "marginBottom": 8,
+        "marginBottom": 16,
         "marginLeft": 16,
         "marginRight": 16,
         "marginTop": 16,

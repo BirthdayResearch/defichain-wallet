@@ -40,6 +40,18 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       })
   })
 
+  it('should have DFI-USDT PoolPair as 4th', () => {
+    cy.getByTestID('details_dUSDT-DFI').click()
+    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(3)
+      .invoke('text').should(text => {
+        expect(text).to.contains('dUSDT-DFI')
+        expect(text).to.contains('Pooled DFI')
+        expect(text).to.contains('Pooled dUSDT')
+        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('APR')
+      })
+  })
+
   it('should be able to search available poolpair by querying in search input', () => {
     cy.getByTestID('dex_search_icon').click()
     cy.getByTestID('dex_search_input').type('btc')
