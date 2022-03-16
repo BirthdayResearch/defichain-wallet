@@ -596,7 +596,7 @@ context('Wallet - Balances - USD Value', () => {
   })
 })
 
-context('Wallet - Balances - Assets filter tab', function () {
+context.only('Wallet - Balances - Assets filter tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     interceptTokenWithSampleData()
@@ -626,18 +626,18 @@ context('Wallet - Balances - Assets filter tab', function () {
     cy.getByTestID('balance_button_group_CRYPTO').click()
     cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
     cy.getByTestID('balances_row_14').should('not.exist')
+    cy.getByTestID('balances_row_16').should('not.exist')
     cy.getByTestID('balances_row_1').should('exist')
     cy.getByTestID('balances_row_2').should('exist')
-    cy.getByTestID('balances_row_16').should('exist')
   })
 
   it('should display only dTokens that are available in asset', function () {
     cy.getByTestID('toggle_sorting_assets').should('exist')
     cy.getByTestID('balance_button_group_d_TOKENS').click()
     cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_16').should('not.exist')
     cy.getByTestID('balances_row_1').should('not.exist')
     cy.getByTestID('balances_row_2').should('not.exist')
+    cy.getByTestID('balances_row_16').should('not.exist')
     cy.getByTestID('balances_row_14').should('exist')
   })
 })
