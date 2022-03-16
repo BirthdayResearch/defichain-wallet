@@ -5,6 +5,7 @@ import { translate } from '@translations'
 export function EmptyBalances (): JSX.Element {
   return (
     <ThemedView
+      light={tailwind('bg-gray-50')}
       style={tailwind('px-8 mt-8 pb-2 text-center')}
       testID='empty_balances'
     >
