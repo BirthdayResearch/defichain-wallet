@@ -440,7 +440,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                     ],
                   ]
                 }
-                testID="available_percentage"
+                testID="dfi_available_percentage"
               >
                 97.92%
               </Text>
@@ -513,7 +513,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                     ],
                   ]
                 }
-                testID="locked_percentage"
+                testID="dfi_locked_percentage"
               >
                 2.08%
               </Text>
@@ -537,7 +537,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 "width": "8.333333%",
               }
             }
-            testID="details_DFI"
+            testID="details_dfi"
           >
             <Text />
           </View>

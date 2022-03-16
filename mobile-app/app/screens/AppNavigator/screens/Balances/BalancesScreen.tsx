@@ -3,7 +3,8 @@ import { View } from '@components'
 import {
   ThemedScrollView,
   ThemedSectionTitle,
-  ThemedTouchableOpacity
+  ThemedTouchableOpacity,
+  ThemedView
 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -31,6 +32,9 @@ import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/componen
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
+import { TokenBreakdownPercentage } from './components/TokenBreakdownPercentage'
+import { TokenBreakdownDetails } from './components/TokenBreakdownDetails'
+import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -61,6 +65,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     fetchPortfolioData()
   }, [address, blockCount])
 
+  useEffect(() => {
+    // fetch only once to decide flag to display locked balance breakdown
+    dispatch(fetchCollateralTokens({ client }))
+  }, [])
+
   const fetchPortfolioData = (): void => {
     batch(() => {
       // do not add isFocused condition as its keeping token data updated in background
@@ -68,6 +77,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         client,
         address
       }))
+      dispatch(fetchVaults({ client, address }))
     })
   }
 
@@ -82,32 +92,32 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     totalAvailableUSDValue,
     dstTokens
   } = useMemo(() => {
-     return tokens.reduce(
-    ({
-      totalAvailableUSDValue,
-      dstTokens
-    }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
-      token
-    ) => {
-      const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+    return tokens.reduce(
+      ({
+        totalAvailableUSDValue,
+        dstTokens
+      }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        token
+      ) => {
+        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
 
-      if (token.symbol === 'DFI') {
-        return {
-          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
-          totalAvailableUSDValue: token.id === '0_unified'
-            ? totalAvailableUSDValue
-            : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-          dstTokens
+        if (token.symbol === 'DFI') {
+          return {
+            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
+            totalAvailableUSDValue: token.id === '0_unified'
+              ? totalAvailableUSDValue
+              : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+            dstTokens
+          }
         }
-      }
-      return {
-        totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-        dstTokens: [...dstTokens, {
-          ...token,
-          usdAmount
-        }]
-      }
-    }, {
+        return {
+          totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens: [...dstTokens, {
+            ...token,
+            usdAmount
+          }]
+        }
+      }, {
       totalAvailableUSDValue: new BigNumber(0),
       dstTokens: []
     })
@@ -200,22 +210,72 @@ function BalanceItemRow ({
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
+  const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
+  const onBreakdownPress = (): void => {
+    setIsBreakdownExpanded(!isBreakdownExpanded)
+  }
+  const lockedToken = useTokenLockedBalance({ symbol: token.symbol }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+
+  const hasLockedBalance = useMemo((): boolean => {
+    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
+  }, [token])
+
   return (
-    <ThemedTouchableOpacity
+    <ThemedView
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
-      onPress={onPress}
-      style={tailwind('p-4 rounded-lg flex-row justify-between items-center')}
-      testID={testID}
+      style={tailwind('p-4 pb-0 rounded-lg')}
     >
-      <View style={tailwind('flex-row items-center flex-grow')}>
-        <Icon testID={`${testID}_icon`} />
-        <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
-        <TokenAmountText
-          tokenAmount={token.amount} usdAmount={token.usdAmount} testID={testID}
-          isBalancesDisplayed={isBalancesDisplayed}
-        />
-      </View>
-    </ThemedTouchableOpacity>
+      <ThemedTouchableOpacity
+        onPress={onPress}
+        dark={tailwind('border-0')}
+        light={tailwind('border-0')}
+        style={tailwind('flex-row justify-between items-center mb-4')}
+        testID={testID}
+      >
+        <View style={tailwind('flex-row items-center flex-grow')}>
+          <Icon testID={`${testID}_icon`} />
+          <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
+          <TokenAmountText
+            tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
+            usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+            testID={testID}
+            isBalancesDisplayed={isBalancesDisplayed}
+          />
+        </View>
+      </ThemedTouchableOpacity>
+
+      {hasLockedBalance &&
+        (
+          <>
+            <TokenBreakdownPercentage
+              symbol={token.symbol}
+              availableAmount={new BigNumber(token.amount)}
+              onBreakdownPress={onBreakdownPress}
+              isBreakdownExpanded={isBreakdownExpanded}
+              lockedAmount={lockedToken.amount}
+              testID={token.displaySymbol}
+            />
+            {isBreakdownExpanded && (
+              <ThemedView
+                light={tailwind('border-t border-gray-100')}
+                dark={tailwind('border-t border-gray-700')}
+                style={tailwind('pt-2 pb-4')}
+              >
+                <TokenBreakdownDetails
+                  hasFetchedToken={hasFetchedToken}
+                  lockedAmount={lockedToken.amount}
+                  lockedValue={lockedToken.tokenValue}
+                  availableAmount={new BigNumber(token.amount)}
+                  availableValue={token.usdAmount}
+                  testID={token.displaySymbol}
+                />
+              </ThemedView>
+            )}
+          </>
+        )}
+    </ThemedView>
   )
 }

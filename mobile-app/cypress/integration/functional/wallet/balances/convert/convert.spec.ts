@@ -9,7 +9,7 @@ function createDFIWallet (): void {
 
   cy.getByTestID('bottom_tab_balances').click()
   cy.getByTestID('balances_list').should('exist')
-  cy.getByTestID('details_DFI').click()
+  cy.getByTestID('details_dfi').click()
   cy.getByTestID('dfi_token_amount').contains('10.00000000')
   cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
   cy.getByTestID('convert_dfi_button').click()

@@ -40,6 +40,8 @@ context('Wallet - DEX - Button filtering', () => {
     cy.go('back')
     cy.getByTestID(`pool_pair_swap-horiz_${poolpairDisplaySymbol}`).click()
     cy.url().should('include', 'DEX/CompositeSwap')
+    cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_TO').should('have.attr', 'aria-disabled')
     cy.go('back')
   }
 
