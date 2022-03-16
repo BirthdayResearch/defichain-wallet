@@ -171,7 +171,8 @@ describe('balances page', () => {
       }
     })
     const navigation: any = {
-      navigate: jest.fn()
+      navigate: jest.fn(),
+      setOptions: jest.fn()
     }
     const route: any = {}
     const component = (
@@ -278,7 +279,8 @@ describe('balances page', () => {
       }
     })
     const navigation: any = {
-      navigate: jest.fn()
+      navigate: jest.fn(),
+      setOptions: jest.fn()
     }
     const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')
