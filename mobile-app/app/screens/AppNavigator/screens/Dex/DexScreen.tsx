@@ -117,9 +117,16 @@ export function DexScreen (): JSX.Element {
     new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
     new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
   )
+
+  const [sortedAvailablePairs, setSortedAvailablePairs] =
+    useState<Array<DexItem<PoolPairData>>>([...pairs].sort(availablePairsSortingFn))
+  useEffect(() => {
+    setSortedAvailablePairs([...pairs].sort(availablePairsSortingFn))
+  }, [pairs])
+
   const yourPairsSortingFn = (firstPair: DexItem<WalletToken>, secondPair: DexItem<WalletToken>): number => (
-    pairs.findIndex(x => x.data.id === firstPair.data.id) -
-    pairs.findIndex(x => x.data.id === secondPair.data.id)
+    sortedAvailablePairs.findIndex(x => x.data.id === firstPair.data.id) -
+    sortedAvailablePairs.findIndex(x => x.data.id === secondPair.data.id)
   )
 
   // Search
@@ -135,11 +142,11 @@ export function DexScreen (): JSX.Element {
     setIsSearching(false)
     if (debouncedSearchString !== undefined && debouncedSearchString.trim().length > 0) {
       setFilteredAvailablePairs(
-        pairs.filter((pair) =>
+        sortedAvailablePairs.filter((pair) =>
           pair.data.displaySymbol
             .toLowerCase()
             .includes(debouncedSearchString.trim().toLowerCase())
-        ).sort(availablePairsSortingFn)
+        )
       )
     } else {
       setFilteredAvailablePairs([])
@@ -183,7 +190,7 @@ export function DexScreen (): JSX.Element {
 
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const handleButtonFilter = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    const filteredPairs = pairs.filter((pair) => {
+    const filteredPairs = sortedAvailablePairs.filter((pair) => {
       const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
       const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
 
@@ -197,7 +204,7 @@ export function DexScreen (): JSX.Element {
         default:
           return true
       }
-    }).sort(availablePairsSortingFn)
+    })
     setFilteredAvailablePairs(filteredPairs)
   }
 
