@@ -29,7 +29,6 @@ async function getUserPreferences (network: EnvironmentNetwork): Promise<UserPre
   let userPreferences = null
   if (FileSystem.documentDirectory != null) {
     const directory = getFileName(network, FileSystem.documentDirectory)
-    console.log(directory)
     await ensureFileExist(directory)
     const fileContents = await FileSystem.readAsStringAsync(directory)
     userPreferences = fileContents !== undefined ? JSON.parse(fileContents) : userPreferences

@@ -1,6 +1,7 @@
 import { ILocalStorage } from './index'
 import { UserPreferences } from '@store/userPreferences'
 import { EnvironmentNetwork } from '@environment'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LOCAL_STORAGE_KEY = 'WALLET.SETTINGS'
 
@@ -9,12 +10,12 @@ function getKey (network: EnvironmentNetwork): string {
 }
 
 async function getUserPreferences (network: EnvironmentNetwork): Promise<UserPreferences> {
-  const value = localStorage.getItem(getKey(network)) ?? ''
+  const value = await AsyncStorage.getItem(getKey(network)) ?? ''
   return JSON.parse(value)
 }
 
 async function setUserPreferences (network: EnvironmentNetwork, userPreferences: UserPreferences): Promise<void> {
-  localStorage.setItem(getKey(network), JSON.stringify(userPreferences))
+  await AsyncStorage.setItem(getKey(network), JSON.stringify(userPreferences))
 }
 
 export const Provider: ILocalStorage = {
