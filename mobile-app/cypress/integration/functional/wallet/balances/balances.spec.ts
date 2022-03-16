@@ -593,7 +593,7 @@ context('Wallet - Balances - Skeleton Loader', () => {
   })
 })
 
-context.only('Wallet - Balances - Token Breakdown', () => {
+context('Wallet - Balances - Token Breakdown', () => {
   const sampleVault = [
     {
       vaultId: '8ad217890f454de73c5eb095dbe9d9870a62840978970a4a5f38978d430dcfe5',
