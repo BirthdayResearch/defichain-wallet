@@ -1,5 +1,6 @@
 import { ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
+import { Platform } from 'react-native'
 import { RandomAvatar } from './RandomAvatar'
 
 interface AddressSelectionButtonProps {
@@ -38,7 +39,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
             <ThemedText
               light={tailwind('text-white')}
               dark={tailwind('text-black')}
-              style={tailwind('text-2xs leading-4 text-center font-medium')}
+              style={tailwind('text-2xs h-4 font-medium text-center leading-4', { 'relative top-0.5 leading-3': Platform.OS === 'android' })}
               testID='address_count_badge'
             >
               {props.addressLength > 9 ? '9+' : props.addressLength + 1}
