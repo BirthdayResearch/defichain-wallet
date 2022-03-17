@@ -22,7 +22,7 @@ interface BottomSheetAddressDetailProps {
 export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const toast = useToast()
   const [showToast, setShowToast] = useState(false)
-  const TOAST_DURATION = 3000
+  const TOAST_DURATION = 2000
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -35,8 +35,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   useEffect(() => {
     if (showToast) {
       Clipboard.setString(props.address)
-      toast.show('Copied to clipboard', {
-        type: 'wallet_success',
+      toast.show('Copied', {
+        type: 'wallet_toast',
         placement: 'top',
         duration: TOAST_DURATION
       })

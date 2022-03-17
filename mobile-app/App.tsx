@@ -60,8 +60,8 @@ export default function App (): JSX.Element | null {
     .catch(logger.error)
 
   const customToast = {
-    wallet_success: (toast: ToastProps) => (
-      <WalletToast toast={toast} type='success' />
+    wallet_toast: (toast: ToastProps) => (
+      <WalletToast toast={toast} />
     )
   }
 
