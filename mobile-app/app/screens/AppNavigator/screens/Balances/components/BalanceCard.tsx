@@ -239,7 +239,7 @@ function DropdownArrow ({
       </ThemedText>
       <TouchableOpacity
         onPress={() => setIsCollapsed(!isCollapsed)}
-        style={tailwind('flex flex-row pb-1 pt-1')}
+        style={tailwind('flex flex-row pt-1')}
         testID='toggle_sorting_assets'
       >
         <ThemedIcon
