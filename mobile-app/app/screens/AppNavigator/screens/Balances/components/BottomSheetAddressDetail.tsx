@@ -1,8 +1,8 @@
 import { View } from '@components'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { translate } from '@translations'
 import React, { memo, useCallback, useEffect, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
 import { openURL } from '@api/linking'
@@ -11,6 +11,14 @@ import { IconButton } from '@components/IconButton'
 import { useToast } from 'react-native-toast-notifications'
 import { debounce } from 'lodash'
 import * as Clipboard from 'expo-clipboard'
+import { MAX_ALLOWED_ADDRESSES, useWalletContext } from '@shared-contexts/WalletContext'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { wallet as walletReducer } from '@store/wallet'
+import { useDispatch, useSelector } from 'react-redux'
+import { loans } from '@store/loans'
+import { RootState } from '@store'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -20,9 +28,21 @@ interface BottomSheetAddressDetailProps {
 }
 
 export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const { isLight } = useThemeContext()
+  const flatListComponents = {
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatList
+  }
+  const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
+  const { addressLength, setIndex, wallet } = useWalletContext()
   const toast = useToast()
   const [showToast, setShowToast] = useState(false)
   const TOAST_DURATION = 2000
+  const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
+  const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
+  const logger = useLogger()
+  const dispatch = useDispatch()
+  const blockCount = useSelector((state: RootState) => state.block.count)
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -45,14 +65,75 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     }
   }, [showToast, props.address])
 
-  return (
-    <ThemedScrollView
-      style={tailwind('flex flex-col')}
-      contentContainerStyle={tailwind('px-4 pb-4 items-center')}
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-    >
-      <View style={tailwind('flex flex-col items-center')}>
+  // Getting addresses
+  const fetchAddresses = async (): Promise<void> => {
+    const addresses: string[] = []
+    for (let i = 0; i <= addressLength; i++) {
+      const account = wallet.get(i)
+      const address = await account.getAddress()
+      addresses.push(address)
+    }
+    setAvailableAddresses(addresses)
+    await isNextAddressUsable()
+  }
+
+  const isNextAddressUsable = async (): Promise<void> => {
+    // incremented 1 to check if next account in the wallet is usable.
+    const next = addressLength + 1
+    const isUsable = await wallet.isUsable(next)
+    setCanCreateAddress(isUsable && MAX_ALLOWED_ADDRESSES > next)
+  }
+
+  useEffect(() => {
+    fetchAddresses().catch(logger.error)
+  }, [wallet, addressLength])
+
+  useEffect(() => {
+    isNextAddressUsable().catch(logger.error)
+  }, [blockCount])
+
+  const AddressListItem = useCallback(({
+    item,
+    index
+  }: { item: string, index: number }): JSX.Element => {
+    return (
+      <ThemedTouchableOpacity
+        key={item}
+        style={tailwind('p-4 flex flex-row items-center justify-between')}
+        onPress={async () => {
+          await onChangeAddress(index)
+        }}
+      >
+        <View style={tailwind('flex flex-row items-center')}>
+          <RandomAvatar name={item} size={32} />
+          <ThemedText
+            style={tailwind('text-sm ml-2 w-8/12')}
+            ellipsizeMode='middle'
+          >
+            {item}
+          </ThemedText>
+        </View>
+        {item === props.address &&
+          (
+            <ThemedIcon
+              size={24}
+              name='check'
+              iconType='MaterialIcons'
+              light={tailwind('text-success-600')}
+              dark={tailwind('text-success-600')}
+            />
+          )}
+      </ThemedTouchableOpacity>
+    )
+  }, [])
+
+  const AddressDetail = useCallback(() => {
+    return (
+      <ThemedView
+        light={tailwind('bg-white border-gray-100')}
+        dark={tailwind('bg-gray-800 border-gray-700')}
+        style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
+      >
         <View style={tailwind('flex-row justify-end w-full mb-3')}>
           <TouchableOpacity onPress={props.onCloseButtonPress}>
             <ThemedIcon
@@ -67,8 +148,72 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         <RandomAvatar name={props.address} size={64} />
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
         <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
-      </View>
-    </ThemedScrollView>
+        <WalletCounterDisplay addressLength={addressLength} />
+      </ThemedView>
+    )
+  }, [props, addressLength])
+
+  const CreateAddress = useCallback(() => {
+    if (!canCreateAddress) {
+      return <></>
+    }
+
+    return (
+      <ThemedTouchableOpacity
+        light={tailwind('bg-white border-gray-100')}
+        dark={tailwind('bg-gray-800 border-gray-700')}
+        style={tailwind('py-4 pl-4 pr-2 border-b')}
+        onPress={async () => {
+          await onChangeAddress(addressLength + 1)
+        }}
+        testID='create_new_address'
+      >
+        <View style={tailwind('flex-row items-center flex-grow')}>
+          <ThemedIcon
+            size={20}
+            name='add'
+            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-primary-500')}
+            style={tailwind('font-normal')}
+            iconType='MaterialIcons'
+          />
+
+          <View style={tailwind('mx-3 flex-auto')}>
+            <ThemedText
+              dark={tailwind('text-darkprimary-500')}
+              light={tailwind('text-primary-500')}
+              style={tailwind('text-sm font-normal')}
+            >
+              {translate('screens/AddressControlScreen', 'CREATE WALLET ADDRESS')}
+            </ThemedText>
+          </View>
+        </View>
+      </ThemedTouchableOpacity>
+    )
+  }, [canCreateAddress, addressLength])
+
+  const onChangeAddress = async (index: number): Promise<void> => {
+    dispatch(walletReducer.actions.setHasFetchedToken(false))
+    dispatch(loans.actions.setHasFetchedVaultsData(false))
+    await setIndex(index)
+    props.onCloseButtonPress()
+  }
+
+  return (
+    <FlatList
+      keyExtractor={(item) => item}
+      stickyHeaderIndices={[0]}
+      style={tailwind({
+        'bg-gray-800': !isLight,
+        'bg-white': isLight
+      })}
+      light={tailwind('bg-white')}
+      dark={tailwind('bg-gray-800')}
+      data={availableAddresses}
+      renderItem={AddressListItem}
+      ListHeaderComponent={AddressDetail}
+      ListFooterComponent={CreateAddress}
+    />
   )
 })
 
@@ -113,6 +258,20 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         style={tailwind('py-2 px-3 ml-1 w-6/12 flex-row justify-center')}
         onPress={async () => await openURL(getAddressUrl(address))}
       />
+    </View>
+  )
+}
+
+function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JSX.Element {
+  return (
+    <View style={tailwind('mt-8 flex flex-row justify-start w-full')}>
+      <ThemedText
+        light={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-500')}
+        style={tailwind('text-xs')}
+      >
+        {translate('screens/AddressControlScreen', '{{length}} WALLET', { length: addressLength })}
+      </ThemedText>
     </View>
   )
 }
