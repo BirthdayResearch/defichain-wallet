@@ -91,51 +91,51 @@ export function BalanceCard ({
     return (
       <ThemedView>
         {
-                // filter tab
-                buttonGroupOptions !== undefined &&
-                (
-                  <>
-                    <View style={tailwind('p-4')}>
-                      <ButtonGroup
-                        buttons={buttonGroup}
-                        activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                        modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
-                        testID='balance_button_group'
-                      />
-                    </View>
-                    {/*  dropdown arrow (sorting) appears when there are tokens */}
-                    {
-                            filteredTokens.length > 0 && hasFetchedToken &&
-                              <View testID='your_assets_dropdown_arrow'>
-                                <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-                              </View>
-                        }
-                  </>
-                )
-            }
+          // filter tab
+          buttonGroupOptions !== undefined &&
+          (
+            <>
+              <View style={tailwind('p-4')}>
+                <ButtonGroup
+                  buttons={buttonGroup}
+                  activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
+                  modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
+                  testID='balance_button_group'
+                />
+              </View>
+              {/*  dropdown arrow (sorting) appears when there are tokens */}
+              {
+                filteredTokens.length > 0 && hasFetchedToken &&
+                  <View testID='your_assets_dropdown_arrow'>
+                    <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+                  </View>
+              }
+            </>
+          )
+        }
         <View testID='card_balance_row_container'>
           {filteredTokens.map((item) => (
             <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
               <BalanceItemRow
                 onPress={() => navigation.navigate({
-                                name: 'TokenDetail',
-                                params: { token: item },
-                                merge: true
-                            })}
+                  name: 'TokenDetail',
+                  params: { token: item },
+                  merge: true
+                })}
                 token={item}
               />
             </View>
-                ))}
+          ))}
         </View>
         {
-                !hasFetchedToken &&
-                  <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
-            }
+          !hasFetchedToken &&
+            <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
+        }
         {
-                // display empty balance component
-                filteredTokens.length === 0 && hasFetchedToken &&
-                  <EmptyBalances />
-            }
+          // display empty balance component
+          filteredTokens.length === 0 && hasFetchedToken &&
+            <EmptyBalances />
+        }
       </ThemedView>
     )
 }
