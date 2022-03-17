@@ -26,11 +26,11 @@ import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
-import { debounce } from 'lodash'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
+import { useDebounce } from '@hooks/useDebounce'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -112,35 +112,85 @@ export function DexScreen (): JSX.Element {
     })
   }
 
+  // sorting functions
+  const availablePairsSortingFn = (firstPair: DexItem<PoolPairData>, secondPair: DexItem<PoolPairData>): number => (
+    new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
+    new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+  )
+
+  const [sortedAvailablePairs, setSortedAvailablePairs] =
+    useState<Array<DexItem<PoolPairData>>>([...pairs].sort(availablePairsSortingFn))
+  useEffect(() => {
+    setSortedAvailablePairs([...pairs].sort(availablePairsSortingFn))
+  }, [pairs])
+
+  const yourPairsSortingFn = (firstPair: DexItem<WalletToken>, secondPair: DexItem<WalletToken>): number => (
+    sortedAvailablePairs.findIndex(x => x.data.id === firstPair.data.id) -
+    sortedAvailablePairs.findIndex(x => x.data.id === secondPair.data.id)
+  )
+
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
+  const debouncedSearchString = useDebounce(searchString, 500)
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [filteredYourPairs, setFilteredYourPairs] =
+    useState<Array<DexItem<WalletToken>>>(yourLPTokens)
   const [isSearching, setIsSearching] = useState(false)
-  const handleFilter = useCallback(
-    debounce((searchString: string) => {
-      setIsSearching(false)
-      if (searchString !== undefined && searchString.trim().length > 0) {
-        setFilteredAvailablePairs(
-          pairs.filter((pair) =>
-            pair.data.displaySymbol
-              .toLowerCase()
-              .includes(searchString.trim().toLowerCase())
-          ).sort((firstPair, secondPair) =>
-            new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
-            new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
-          )
+  const handleFilter = () => {
+    setIsSearching(false)
+    if (debouncedSearchString !== undefined && debouncedSearchString.trim().length > 0) {
+      setFilteredAvailablePairs(
+        sortedAvailablePairs.filter((pair) =>
+          pair.data.displaySymbol
+            .toLowerCase()
+            .includes(debouncedSearchString.trim().toLowerCase())
         )
-      } else {
-        setFilteredAvailablePairs([])
-      }
-    }, 500),
-    [activeTab, pairs]
-  )
+      )
+    } else {
+      setFilteredAvailablePairs([])
+    }
+  }
+  const handleYourPairsFilter = () => {
+    setIsSearching(false)
+    if (debouncedSearchString !== undefined && debouncedSearchString.trim().length > 0) {
+      setFilteredYourPairs(
+        yourLPTokens.filter((pair) =>
+          pair.data.displaySymbol
+            .toLowerCase()
+            .includes(debouncedSearchString.trim().toLowerCase())
+        ).sort(yourPairsSortingFn)
+      )
+    } else {
+      setFilteredYourPairs([])
+    }
+  }
+
+  // trigger search filter
+  useEffect(() => {
+    if (showSearchInput && activeTab === TabKey.AvailablePoolPair) {
+      handleFilter()
+    }
+
+    if (showSearchInput && activeTab === TabKey.YourPoolPair) {
+      handleYourPairsFilter()
+    }
+
+    if (!showSearchInput && activeTab === TabKey.YourPoolPair) {
+      setFilteredYourPairs(yourLPTokens.sort(yourPairsSortingFn))
+    }
+  }, [showSearchInput, pairs, debouncedSearchString, hasFetchedPoolpairData, activeTab])
+
+  useEffect(() => {
+    if (showSearchInput) {
+      setIsSearching(true)
+    }
+  }, [searchString])
+
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
-  const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
-    const filteredPairs = pairs.filter((pair) => {
+  const handleButtonFilter = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    const filteredPairs = sortedAvailablePairs.filter((pair) => {
       const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
       const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
 
@@ -154,16 +204,16 @@ export function DexScreen (): JSX.Element {
         default:
           return true
       }
-    }).sort((firstPair, secondPair) =>
-      new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
-      new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
-    )
-    setFilteredAvailablePairs(
-      filteredPairs
-    )
-  },
-    [pairs]
-  )
+    })
+    setFilteredAvailablePairs(filteredPairs)
+  }
+
+  // trigger handleButtonFilter
+  useEffect(() => {
+    if (!showSearchInput && activeTab === TabKey.AvailablePoolPair) {
+      handleButtonFilter(activeButtonGroup)
+    }
+  }, [showSearchInput, pairs, activeTab])
 
   useEffect(() => {
     if (isFocused) {
@@ -183,25 +233,6 @@ export function DexScreen (): JSX.Element {
       .finally(() => setIsLoaded(true))
   }, [])
 
-  useEffect(() => {
-    if (showSearchInput) {
-      setIsSearching(true)
-      handleFilter(searchString)
-    }
-  }, [searchString, hasFetchedPoolpairData])
-
-  // Update local state - filter available pair when pairs update
-  useEffect(() => {
-    if (!showSearchInput) {
-      handleButtonFilter(activeButtonGroup)
-      return
-    }
-
-    if (searchString !== undefined && searchString.trim().length > 0) {
-      handleFilter(searchString)
-    }
-  }, [pairs])
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: (): JSX.Element => {
@@ -210,7 +241,6 @@ export function DexScreen (): JSX.Element {
             <HeaderSearchIcon
               onPress={() => {
                 setShowSearchInput(true)
-                setFilteredAvailablePairs([])
               }}
               testID='dex_search_icon'
               style={tailwind('pl-4')}
@@ -251,7 +281,6 @@ export function DexScreen (): JSX.Element {
       navigation.setOptions({
         header: undefined
       })
-      handleButtonFilter(activeButtonGroup)
     }
   }, [showSearchInput, searchString])
 
@@ -272,8 +301,7 @@ export function DexScreen (): JSX.Element {
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
       <View style={tailwind('flex-1')}>
-        {activeTab === TabKey.AvailablePoolPair &&
-          (!hasFetchedPoolpairData || isSearching) && (
+        {(!hasFetchedPoolpairData || isSearching) && (
             <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
               <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
             </ThemedScrollView>
@@ -283,7 +311,7 @@ export function DexScreen (): JSX.Element {
           !isSearching && (
             <PoolPairCards
               availablePairs={filteredAvailablePairs}
-              yourPairs={yourLPTokens}
+              yourPairs={filteredYourPairs}
               onAdd={onAdd}
               onRemove={onRemove}
               onSwap={onSwap}
@@ -302,10 +330,10 @@ export function DexScreen (): JSX.Element {
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
           <EmptyActivePoolpair />
         )}
-        {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
+        {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && !isSearching && (
           <PoolPairCards
             availablePairs={filteredAvailablePairs}
-            yourPairs={yourLPTokens}
+            yourPairs={filteredYourPairs}
             onAdd={onAdd}
             onRemove={onRemove}
             onSwap={onSwap}
