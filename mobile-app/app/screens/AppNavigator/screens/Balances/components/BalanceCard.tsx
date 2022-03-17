@@ -78,9 +78,9 @@ export function BalanceCard ({
   }
 
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
-  const [isExpanded, setIsExpanded] = useState<boolean>(false)
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
 
-  if (isExpanded) {
+  if (isCollapsed) {
     // display value in increasing order
     filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
   } else {
@@ -107,7 +107,7 @@ export function BalanceCard ({
             {
               filteredTokens.length > 0 && hasFetchedToken &&
                 <View testID='your_assets_dropdown_arrow'>
-                  <DropdownArrow isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+                  <DropdownArrow isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
                 </View>
             }
           </>
@@ -218,14 +218,14 @@ function BalanceItemRow ({
 }
 
 function DropdownArrow ({
-  isExpanded,
-  setIsExpanded
-}: { isExpanded: boolean, setIsExpanded: (isExpanded: boolean) => void }): JSX.Element {
+  isCollapsed,
+  setIsCollapsed
+}: { isCollapsed: boolean, setIsCollapsed: (isCollapsed: boolean) => void }): JSX.Element {
   return (
     <View style={tailwind('px-4 flex flex-row items-center')}>
       <ThemedText
         style={tailwind('text-xs text-gray-400 pr-1')}
-        onPress={() => setIsExpanded(!isExpanded)}
+        onPress={() => setIsCollapsed(!isCollapsed)}
       >
         {translate('screens/BalancesScreen', 'YOUR ASSETS')}
       </ThemedText>
@@ -233,12 +233,12 @@ function DropdownArrow ({
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
         style={tailwind('text-xs')}
-        onPress={() => setIsExpanded(!isExpanded)}
+        onPress={() => setIsCollapsed(!isCollapsed)}
       >
-        {translate('screens/BalancesScreen', `(From ${!isExpanded ? 'highest' : 'lowest'} value)`)}
+        {translate('screens/BalancesScreen', `(From ${!isCollapsed ? 'highest' : 'lowest'} value)`)}
       </ThemedText>
       <TouchableOpacity
-        onPress={() => setIsExpanded(!isExpanded)}
+        onPress={() => setIsCollapsed(!isCollapsed)}
         style={tailwind('flex flex-row pb-1 pt-1')}
         testID='toggle_sorting_assets'
       >
@@ -246,7 +246,7 @@ function DropdownArrow ({
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
           iconType='MaterialIcons'
-          name={!isExpanded ? 'expand-more' : 'expand-less'}
+          name={!isCollapsed ? 'expand-more' : 'expand-less'}
           size={22}
         />
       </TouchableOpacity>
