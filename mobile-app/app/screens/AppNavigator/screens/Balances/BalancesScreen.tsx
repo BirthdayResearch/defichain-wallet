@@ -192,7 +192,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address])
 
   return (
-    <View ref={containerRef}>
+    <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollView
         light={tailwind('bg-gray-50')}
         contentContainerStyle={tailwind('pb-8')} testID='balances_list'
@@ -219,12 +219,17 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               modalRef={containerRef}
               screenList={bottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
+              modalStyle={{ height: '100%' }}
             />
           )
           : (
             <BottomSheetWithNav
               modalRef={bottomSheetRef}
               screenList={bottomSheetScreen}
+              snapPoints={{
+                ios: ['60%'],
+                android: ['60%']
+              }}
             />
           )}
       </ThemedScrollView>
