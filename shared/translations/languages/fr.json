@@ -67,6 +67,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
     "Total Portfolio Value": "Valeur totale du portfolio",
@@ -75,8 +76,8 @@
     "YOUR ASSETS": "MES ACTIFS",
     "Available: ": "Disponibles: ",
     "Locked: ": "Verrouillés: ",
-    "locked in vault(s)": "verrouillé",
-    "available": "disponible"
+    "locked in vault(s)": "verrouillés",
+    "available": "disponibles"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -104,7 +105,7 @@
     "Where do you want to send?": "Où voulez-vous envoyer ?",
     "How much do you want to send?": "Combien voulez-vous envoyer ?",
     "Enter an amount": "Donnez un montant",
-    "Available": "Disponible",
+    "Available": "Disponibles",
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
     "Send to other wallet": "Envoyer à un autre portefeuille",
@@ -313,7 +314,7 @@
     "Convert to {{symbol}}": "Convertir en {{symbol}}",
     "Add to liquidity pool": "Ajouter au pool de liquidité",
     "Remove liquidity": "Retirer la liquidité",
-    "Swap with {{token}}": "Échanger avec {{token}}"
+    "Swap token": "Échanger le token"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les tokens",
@@ -730,7 +731,7 @@
   "components/DFIBalanceCard": {
     "Learn more about DFI": "En savoir plus sur DFI",
     "Locked in vault(s)": "Verrouillés",
-    "Available": "Disponible",
+    "Available": "Disponibles",
     "as UTXO": "comme UTXO",
     "as Token": "comme Token"
   },
@@ -884,7 +885,7 @@
   "components/VaultCard": {
     "Collateral:": "Garanties:",
     "None": "Aucune",
-    "Locked": "Verrouillé",
+    "Locked": "Verrouillés",
     "At risk": "Critique",
     "Safe": "Hors de danger",
     "Active loans": "Prêts actifs",

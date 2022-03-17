@@ -35,6 +35,11 @@ jest.mock('react-native/Libraries/Utilities/Platform', () => ({
   select: () => jest.fn
 }))
 
+jest.mock('@screens/AppNavigator/screens/Balances/components/Announcements', () => {
+  const Announcements = (): JSX.Element => (<></>)
+  return { Announcements }
+})
+
 describe('balances page', () => {
   const tokens = [{
     id: '0',
@@ -161,7 +166,8 @@ describe('balances page', () => {
       }
     })
     const navigation: any = {
-      navigate: jest.fn()
+      navigate: jest.fn(),
+      setOptions: jest.fn()
     }
     const route: any = {}
     const component = (
@@ -268,7 +274,8 @@ describe('balances page', () => {
       }
     })
     const navigation: any = {
-      navigate: jest.fn()
+      navigate: jest.fn(),
+      setOptions: jest.fn()
     }
     const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')

@@ -1,12 +1,10 @@
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
-import { fetchVaults, vaultsSelector } from '@store/loans'
+import { vaultsSelector } from '@store/loans'
 import BigNumber from 'bignumber.js'
 import { clone } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useTokenPrice } from './TokenPrice'
 
 export interface LockedBalance {
@@ -16,21 +14,13 @@ export interface LockedBalance {
 
 /**
  *
- * @param displaySymbol optional token display symbol
- * @returns Map of all token's locked balance or single object of displaySymbol passed
+ * @param symbol optional token symbol
+ * @returns Map of all token's locked balance or single object of symbol passed
  */
-export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
+export function useTokenLockedBalance ({ symbol }: { symbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
-  const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const dispatch = useDispatch()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const [lockedBalance, setLockedBalance] = useState<Map<string, LockedBalance>>()
   const { getTokenPrice } = useTokenPrice()
-
-  useEffect(() => {
-    dispatch(fetchVaults({ client, address }))
-  }, [address, blockCount])
 
   useEffect(() => {
     setLockedBalance(computeLockedAmount())
@@ -45,9 +35,9 @@ export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: stri
       }
 
       vault.collateralAmounts.forEach(collateral => {
-        const token = clone(lockedBalance.get(collateral.displaySymbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-        const tokenValue = getTokenPrice(collateral.displaySymbol, new BigNumber(collateral.amount))
-        lockedBalance.set(collateral.displaySymbol, {
+        const token = clone(lockedBalance.get(collateral.symbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+        const tokenValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
+        lockedBalance.set(collateral.symbol, {
           amount: token.amount.plus(collateral.amount),
           tokenValue: token.tokenValue.plus(tokenValue)
         })
@@ -57,7 +47,7 @@ export function useTokenLockedBalance ({ displaySymbol }: { displaySymbol?: stri
     return lockedBalance
   }, [vaults])
 
-  return displaySymbol === undefined ? lockedBalance : lockedBalance?.get(displaySymbol)
+  return symbol === undefined ? lockedBalance : lockedBalance?.get(symbol)
 }
 
 interface TokenBreakdownPercentage {
