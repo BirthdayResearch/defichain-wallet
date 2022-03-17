@@ -547,6 +547,10 @@ context('Wallet - balances - Announcements - Outages and Maintenances', () => {
   })
 
   it('should not display banner in event of partial outage', function () {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    })
     cy.intercept('**/summary.json', {
       statusCode: 200,
       body: summaryWithPartialOutageOnly
