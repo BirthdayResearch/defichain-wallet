@@ -596,7 +596,7 @@ context('Wallet - Balances - USD Value', () => {
   })
 })
 
-context.only('Wallet - Balances - Assets filter tab', function () {
+context('Wallet - Balances - Assets filter tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     interceptTokenWithSampleData()
