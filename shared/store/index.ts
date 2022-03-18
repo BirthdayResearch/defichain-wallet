@@ -8,6 +8,7 @@ import { wallet } from './wallet'
 import { loans } from './loans'
 import { auctions } from './auctions'
 import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
+import { poolpairs } from './poolpairs'
 
 /**
  * RootState for DeFiChain Wallet App
@@ -28,13 +29,14 @@ export function initializeStore () {
       ocean: ocean.reducer,
       transactionQueue: transactionQueue.reducer,
       authentication: authentication.reducer,
+      poolpairs: poolpairs.reducer,
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false })
-      .concat(announcementWebsiteSlice.middleware)
-      .concat(statusWebsiteSlice.middleware)
+        .concat(announcementWebsiteSlice.middleware)
+        .concat(statusWebsiteSlice.middleware)
   })
 }
 
