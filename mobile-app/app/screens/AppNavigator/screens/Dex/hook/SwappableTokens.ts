@@ -85,7 +85,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
     useEffect(() => {
         if (fromTokenId !== undefined) {
             dispatch(fetchSwappableTokens({
-                client, fromTokenId
+                client, fromTokenId: fromTokenId === '0_unified' ? '0' : fromTokenId
             }))
         }
     }, [blockCount, fromTokenId])
