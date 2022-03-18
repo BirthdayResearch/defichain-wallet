@@ -57,7 +57,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
                     },
                     reserve: tokenData?.reserve ?? '' // TODO(PIERRE): Ask whale to add reserve on response
                 }
-            }).sort((a, b) => b.available.minus(a.available).toNumber())
+            })
 
         return toTokens
     }, [swappableTokens, fromTokenId])
