@@ -29,6 +29,7 @@ import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
+import { EmptyPortfolio } from './components/EmptyPortfolio'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -163,7 +164,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // to update filter list from selected tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
-  }, [dstTokens])
+  }, [dstTokens, activeButtonGroup, handleButtonFilter])
 
   const totalLockedUSDValue = useMemo(() => {
     if (lockedTokens === undefined) {
@@ -220,15 +221,19 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       />
       <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
       <DFIBalanceCard />
-      <BalanceCard
-        filteredTokens={filteredTokens}
-        navigation={navigation}
-        buttonGroupOptions={{
-          activeButtonGroup: activeButtonGroup,
-          setActiveButtonGroup: setActiveButtonGroup,
-          onButtonGroupPress: handleButtonFilter
-        }}
-      />
+      {
+        isZeroBalance || dstTokens.length === 0
+        ? <EmptyPortfolio />
+        : <BalanceCard
+            filteredTokens={filteredTokens}
+            navigation={navigation}
+            buttonGroupOptions={{
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+              }}
+          />
+      }
       {Platform.OS !== 'web' && (
         <BottomSheetModal
           name={switchAddressModalName}
