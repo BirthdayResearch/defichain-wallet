@@ -45,17 +45,17 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
         const toTokens: BottomSheetToken[] = swappableToTokens.swappableTokens
             .map((token) => {
                 const tokenId = token.id === '0' ? '0_unified' : token.id
-                const ownedToken = tokens.find(t => t.id === tokenId)
-                const tokenReserve = _allTokens.find(t => t.id === tokenId)?.reserve ?? '0'
+                const tokenData = _allTokens.find(t => t.id === token.id)
+
                 return {
                     tokenId: tokenId,
-                    available: new BigNumber(ownedToken === undefined ? 0 : ownedToken.amount),
+                    available: new BigNumber(tokenData?.reserve ?? NaN),
                     token: {
                         displaySymbol: token.displaySymbol,
                         name: '', // not available in API,
                         symbol: token.symbol
                     },
-                    reserve: tokenReserve // TODO(PIERRE): Ask whale to add reserve on response
+                    reserve: tokenData?.reserve ?? '' // TODO(PIERRE): Ask whale to add reserve on response
                 }
             }).sort((a, b) => b.available.minus(a.available).toNumber())
 
