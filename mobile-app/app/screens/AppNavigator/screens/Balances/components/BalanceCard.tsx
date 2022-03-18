@@ -25,6 +25,7 @@ import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
+import { EmptyPortfolio } from './EmptyPortfolio'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -34,6 +35,7 @@ export enum ButtonGroupTabKey {
 }
 
 interface BalanceCardProps {
+  isZeroBalance: boolean
   filteredTokens: BalanceRowToken[]
   navigation: StackNavigationProp<BalanceParamList>
   buttonGroupOptions?: {
@@ -46,7 +48,8 @@ interface BalanceCardProps {
 export function BalanceCard ({
   filteredTokens,
   navigation,
-  buttonGroupOptions
+  buttonGroupOptions,
+  isZeroBalance
 }: BalanceCardProps): JSX.Element {
   const buttonGroup = [
     {
@@ -101,6 +104,11 @@ export function BalanceCard ({
     // display value in decreasing order
     filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
   }
+
+  if (isZeroBalance) {
+    return <EmptyPortfolio />
+  }
+
   return (
     <ThemedView>
       {

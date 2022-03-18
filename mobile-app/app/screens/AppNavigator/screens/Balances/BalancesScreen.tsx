@@ -29,7 +29,6 @@ import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
-import { EmptyPortfolio } from './components/EmptyPortfolio'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -146,13 +145,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       switch (buttonGroupTabKey) {
         case ButtonGroupTabKey.LPTokens:
           return dstToken.isLPS
-
         case ButtonGroupTabKey.Crypto:
           return dstToken.isDAT && !dstToken.isLoanToken && !dstToken.isLPS
-
         case ButtonGroupTabKey.dTokens:
           return dstToken.isLoanToken
-
         // for All token tab will return true for list of dstToken
         default:
           return true
@@ -160,11 +156,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     })
     setFilteredTokens(filterTokens)
   }, [dstTokens])
-
-  // to update filter list from selected tab
-  useEffect(() => {
-    handleButtonFilter(activeButtonGroup)
-  }, [dstTokens, activeButtonGroup, handleButtonFilter])
 
   const totalLockedUSDValue = useMemo(() => {
     if (lockedTokens === undefined) {
@@ -175,6 +166,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens])
+
+  // to update filter list from selected tab
+  useEffect(() => {
+    handleButtonFilter(activeButtonGroup)
+  }, [dstTokens, activeButtonGroup, handleButtonFilter])
 
   useEffect(() => {
     setIsZeroBalance(
@@ -222,9 +218,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
       <DFIBalanceCard />
       {
-        isZeroBalance || dstTokens.length === 0
-        ? <EmptyPortfolio />
+        !isZeroBalance && dstTokens.length === 0
+        ? <></>
         : <BalanceCard
+            isZeroBalance={isZeroBalance}
             filteredTokens={filteredTokens}
             navigation={navigation}
             buttonGroupOptions={{
