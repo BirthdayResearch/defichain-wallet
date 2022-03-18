@@ -267,7 +267,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconName='arrow-downward'
         iconSize={18}
         iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
+        style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center', { 'w-7/12': Platform.OS !== 'ios' && Platform.OS !== 'android' })}
         onPress={onReceivePress}
       />
       <IconButton
@@ -275,7 +275,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconName='open-in-new'
         iconSize={18}
         iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center')}
+        style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center', { 'w-7/12': Platform.OS !== 'ios' && Platform.OS !== 'android' })}
         onPress={async () => await openURL(getAddressUrl(address))}
       />
     </View>
