@@ -219,7 +219,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               modalRef={containerRef}
               screenList={bottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
-              modalStyle={{ height: '100%' }}
+              modalStyle={{
+                position: 'fixed',
+                height: '387px',
+                width: '375px',
+                zIndex: 50,
+                top: '42%'
+              }}
             />
           )
           : (
