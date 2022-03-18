@@ -36,7 +36,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const { addressLength, setIndex, wallet, activeAddressIndex } = useWalletContext()
+  const { addressLength, setIndex, wallet, activeAddressIndex, discoverWalletAddresses } = useWalletContext()
   const toast = useToast()
   const [showToast, setShowToast] = useState(false)
   const TOAST_DURATION = 2000
@@ -179,10 +179,11 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               iconType='MaterialIcons'
               light={tailwind('text-success-600')}
               dark={tailwind('text-success-600')}
+              testID={`address_active_indicator_${item}`}
             />
           )
-: (
-  <View style={tailwind('h-6 w-6')} />
+          : (
+            <View style={tailwind('h-6 w-6')} />
           )}
       </ThemedTouchableOpacity>
     )
@@ -203,13 +204,17 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               iconType='MaterialIcons'
               dark={tailwind('text-white text-opacity-70')}
               light={tailwind('text-gray-600')}
+              testID='close_address_detail_button'
             />
           </TouchableOpacity>
         </View>
         <RandomAvatar name={props.address} size={64} />
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
         <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
-        <WalletCounterDisplay addressLength={addressLength} />
+        <View style={tailwind('mt-8 flex flex-row items-center justify-start w-full')}>
+          <WalletCounterDisplay addressLength={addressLength} />
+          <DiscoverWalletAddress onPress={discoverWalletAddresses} />
+        </View>
       </ThemedView>
     )
   }, [props, addressLength])
@@ -244,7 +249,7 @@ function ActiveAddress ({ address, onPress }: { address: string, onPress: () => 
         style={tailwind('text-sm')}
         light={tailwind('text-black')}
         dark={tailwind('text-white')}
-        selectable
+        testID='active_address'
       >
         {address}
       </ThemedText>
@@ -279,14 +284,29 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
 
 function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JSX.Element {
   return (
-    <View style={tailwind('mt-8 flex flex-row justify-start w-full')}>
-      <ThemedText
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
-        style={tailwind('text-xs')}
-      >
-        {translate('screens/AddressControlScreen', '{{length}} WALLET', { length: addressLength + 1 })}
-      </ThemedText>
-    </View>
+    <ThemedText
+      light={tailwind('text-gray-400')}
+      dark={tailwind('text-gray-500')}
+      style={tailwind('text-xs mr-1.5')}
+    >
+      {translate('screens/AddressControlScreen', '{{length}} WALLET', { length: addressLength + 1 })}
+    </ThemedText>
+  )
+}
+
+function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Element {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      testID='discover_wallet_addresses'
+    >
+      <ThemedIcon
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        name='sync'
+        size={16}
+      />
+    </TouchableOpacity>
   )
 }
