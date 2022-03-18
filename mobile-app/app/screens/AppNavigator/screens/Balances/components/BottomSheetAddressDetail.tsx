@@ -19,6 +19,8 @@ import { wallet as walletReducer } from '@store/wallet'
 import { useDispatch, useSelector } from 'react-redux'
 import { loans } from '@store/loans'
 import { RootState } from '@store'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -34,7 +36,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const { addressLength, setIndex, wallet } = useWalletContext()
+  const { addressLength, setIndex, wallet, activeAddressIndex } = useWalletContext()
   const toast = useToast()
   const [showToast, setShowToast] = useState(false)
   const TOAST_DURATION = 2000
@@ -43,6 +45,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const logger = useLogger()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -92,67 +96,6 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     isNextAddressUsable().catch(logger.error)
   }, [blockCount])
 
-  const AddressListItem = useCallback(({
-    item,
-    index
-  }: { item: string, index: number }): JSX.Element => {
-    return (
-      <ThemedTouchableOpacity
-        key={item}
-        style={tailwind('p-4 flex flex-row items-center justify-between')}
-        onPress={async () => {
-          await onChangeAddress(index)
-        }}
-      >
-        <View style={tailwind('flex flex-row items-center')}>
-          <RandomAvatar name={item} size={32} />
-          <ThemedText
-            style={tailwind('text-sm ml-2 w-8/12')}
-            ellipsizeMode='middle'
-          >
-            {item}
-          </ThemedText>
-        </View>
-        {item === props.address &&
-          (
-            <ThemedIcon
-              size={24}
-              name='check'
-              iconType='MaterialIcons'
-              light={tailwind('text-success-600')}
-              dark={tailwind('text-success-600')}
-            />
-          )}
-      </ThemedTouchableOpacity>
-    )
-  }, [])
-
-  const AddressDetail = useCallback(() => {
-    return (
-      <ThemedView
-        light={tailwind('bg-white border-gray-100')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
-      >
-        <View style={tailwind('flex-row justify-end w-full mb-3')}>
-          <TouchableOpacity onPress={props.onCloseButtonPress}>
-            <ThemedIcon
-              size={24}
-              name='close'
-              iconType='MaterialIcons'
-              dark={tailwind('text-white text-opacity-70')}
-              light={tailwind('text-gray-600')}
-            />
-          </TouchableOpacity>
-        </View>
-        <RandomAvatar name={props.address} size={64} />
-        <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
-        <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
-        <WalletCounterDisplay addressLength={addressLength} />
-      </ThemedView>
-    )
-  }, [props, addressLength])
-
   const CreateAddress = useCallback(() => {
     if (!canCreateAddress) {
       return <></>
@@ -193,11 +136,83 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   }, [canCreateAddress, addressLength])
 
   const onChangeAddress = async (index: number): Promise<void> => {
+    if (hasPendingJob || hasPendingBroadcastJob || index === activeAddressIndex) {
+      return
+    }
+
     dispatch(walletReducer.actions.setHasFetchedToken(false))
     dispatch(loans.actions.setHasFetchedVaultsData(false))
     await setIndex(index)
     props.onCloseButtonPress()
   }
+
+  const AddressListItem = useCallback(({
+    item,
+    index
+  }: { item: string, index: number }): JSX.Element => {
+    return (
+      <ThemedTouchableOpacity
+        key={item}
+        style={tailwind('p-4 flex flex-row items-center justify-between')}
+        onPress={async () => {
+          await onChangeAddress(index)
+        }}
+        testID={`address_row_${index}`}
+        disabled={hasPendingJob || hasPendingBroadcastJob}
+      >
+        <View style={tailwind('flex flex-row items-center flex-auto')}>
+          <RandomAvatar name={item} size={32} />
+          <ThemedText
+            style={tailwind('text-sm ml-2 w-9/12')}
+            ellipsizeMode='middle'
+            numberOfLines={1}
+            testID={`address_row_text_${index}`}
+          >
+            {item}
+          </ThemedText>
+        </View>
+        {item === props.address
+          ? (
+            <ThemedIcon
+              size={24}
+              name='check'
+              iconType='MaterialIcons'
+              light={tailwind('text-success-600')}
+              dark={tailwind('text-success-600')}
+            />
+          )
+: (
+  <View style={tailwind('h-6 w-6')} />
+          )}
+      </ThemedTouchableOpacity>
+    )
+  }, [])
+
+  const AddressDetail = useCallback(() => {
+    return (
+      <ThemedView
+        light={tailwind('bg-white border-gray-100')}
+        dark={tailwind('bg-gray-800 border-gray-700')}
+        style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
+      >
+        <View style={tailwind('flex-row justify-end w-full mb-3 relative -right-0.5')}>
+          <TouchableOpacity onPress={props.onCloseButtonPress}>
+            <ThemedIcon
+              size={24}
+              name='close'
+              iconType='MaterialIcons'
+              dark={tailwind('text-white text-opacity-70')}
+              light={tailwind('text-gray-600')}
+            />
+          </TouchableOpacity>
+        </View>
+        <RandomAvatar name={props.address} size={64} />
+        <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
+        <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
+        <WalletCounterDisplay addressLength={addressLength} />
+      </ThemedView>
+    )
+  }, [props, addressLength])
 
   return (
     <FlatList
@@ -241,13 +256,13 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
   const { getAddressUrl } = useDeFiScanContext()
 
   return (
-    <View style={tailwind('flex flex-row')}>
+    <View style={tailwind('flex flex-row justify-center')}>
       <IconButton
         iconLabel={translate('components/BottomSheetAddressDetail', 'RECEIVE')}
         iconName='arrow-downward'
         iconSize={18}
         iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 mr-1 w-6/12 flex-row justify-center')}
+        style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
         onPress={onReceivePress}
       />
       <IconButton
@@ -255,7 +270,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconName='open-in-new'
         iconSize={18}
         iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 ml-1 w-6/12 flex-row justify-center')}
+        style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center')}
         onPress={async () => await openURL(getAddressUrl(address))}
       />
     </View>
@@ -270,7 +285,7 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
         dark={tailwind('text-gray-500')}
         style={tailwind('text-xs')}
       >
-        {translate('screens/AddressControlScreen', '{{length}} WALLET', { length: addressLength })}
+        {translate('screens/AddressControlScreen', '{{length}} WALLET', { length: addressLength + 1 })}
       </ThemedText>
     </View>
   )
