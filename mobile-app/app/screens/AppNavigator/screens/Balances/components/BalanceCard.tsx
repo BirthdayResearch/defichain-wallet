@@ -70,15 +70,29 @@ export function BalanceCard ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     }
   ]
+
+  const [tabButtonLabel, setTabButtonLabel] = useState('')
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
+      setButtonLabel(buttonGroupTabKey)
     }
   }
 
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+
+  function setButtonLabel (buttonGroupTabKey: ButtonGroupTabKey): void {
+    switch (buttonGroupTabKey) {
+      case (ButtonGroupTabKey.LPTokens):
+        return setTabButtonLabel('LP Tokens')
+      case (ButtonGroupTabKey.Crypto):
+        return setTabButtonLabel('Crypto')
+      case (ButtonGroupTabKey.dTokens):
+        return setTabButtonLabel('dTokens')
+    }
+  }
 
   if (isCollapsed) {
     // display value in increasing order
@@ -87,7 +101,6 @@ export function BalanceCard ({
     // display value in decreasing order
     filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
   }
-
   return (
     <ThemedView>
       {
@@ -134,7 +147,7 @@ export function BalanceCard ({
       {
         // display empty balance component
         filteredTokens.length === 0 && hasFetchedToken &&
-          <EmptyBalances />
+          <EmptyBalances type={tabButtonLabel} />
       }
     </ThemedView>
   )
