@@ -192,7 +192,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const AddressDetail = useCallback(() => {
     return (
       <ThemedView
-        light={tailwind('bg-white border-gray-100')}
+        light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
       >
