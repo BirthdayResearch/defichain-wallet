@@ -1,4 +1,4 @@
-import Svg, { Path } from 'react-native-Svg'
+import Svg, { Path } from 'react-native-svg'
 
 export function NoTokensLight (): JSX.Element {
     return (
