@@ -2,8 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
-import { DexItem, tokensSelector } from '@store/wallet'
-import { fetchSwappableTokens } from '@store/poolpairs'
+import { DexItem, fetchSwappableTokens, tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { BottomSheetToken } from '@components/BottomSheetTokenList'
 import { TokenState } from '../CompositeSwap/CompositeSwapScreen'
@@ -16,12 +15,11 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
     const client = useWhaleApiClient()
     const dispatch = useDispatch()
     const blockCount = useSelector((state: RootState) => state.block.count)
-    const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
-    const { swappableTokens } = useSelector((state: RootState) => state.poolpairs)
+    const { swappableTokens, poolpairs } = useSelector((state: RootState) => state.wallet)
     const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
     const _allTokens = useMemo(() => {
-        return pairs.reduce((tokensInPair: TokenState[], pair: DexItem): TokenState[] => {
+        return poolpairs.reduce((tokensInPair: TokenState[], pair: DexItem): TokenState[] => {
             const hasTokenA = tokensInPair.some(token => pair.data.tokenA.id === token.id)
             const hasTokenB = tokensInPair.some(token => pair.data.tokenB.id === token.id)
             const tokensToAdd: TokenState[] = []
@@ -34,7 +32,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
 
             return [...tokensInPair, ...tokensToAdd]
         }, [])
-    }, [pairs])
+    }, [poolpairs])
 
     const toTokens = useMemo(() => {
         const swappableToTokens = swappableTokens[fromTokenId === '0_unified' ? '0' : fromTokenId ?? '']
@@ -80,7 +78,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
             }).sort((a, b) => b.available.minus(a.available).toNumber())
 
         return swappableFromTokens
-    }, [pairs])
+    }, [poolpairs])
 
     useEffect(() => {
         if (fromTokenId !== undefined) {
