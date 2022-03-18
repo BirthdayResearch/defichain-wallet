@@ -81,8 +81,10 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        swappableTokens: {},
         hasFetchedPoolpairData: false,
-        hasFetchedToken: true
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       },
       block: {
         count: 100,
@@ -189,8 +191,10 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        swappableTokens: {},
         hasFetchedPoolpairData: false,
-        hasFetchedToken: true
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       },
       block: {
         count: 100,
