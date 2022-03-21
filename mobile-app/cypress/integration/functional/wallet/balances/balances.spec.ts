@@ -599,10 +599,10 @@ context('Wallet - Balances - USD Value', () => {
 context('Wallet - Balances - Assets filter tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
-    interceptTokenWithSampleData()
   })
 
   it('should display All tokens that are available in asset', function () {
+    interceptTokenWithSampleData()
     cy.getByTestID('toggle_sorting_assets').should('exist')
     cy.getByTestID('balance_button_group_ALL_TOKENS_active').should('exist')
     cy.getByTestID('balances_row_1').should('exist') // dBTC = row 1
@@ -612,6 +612,7 @@ context('Wallet - Balances - Assets filter tab', function () {
   })
 
   it('should display only LP tokens that are available in asset', function () {
+    interceptTokenWithSampleData()
     cy.getByTestID('toggle_sorting_assets').should('exist')
     cy.getByTestID('balance_button_group_LP_TOKENS').click()
     cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
@@ -622,6 +623,7 @@ context('Wallet - Balances - Assets filter tab', function () {
   })
 
   it('should display only Crypto that are available in asset', function () {
+    interceptTokenWithSampleData()
     cy.getByTestID('toggle_sorting_assets').should('exist')
     cy.getByTestID('balance_button_group_CRYPTO').click()
     cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
@@ -632,6 +634,7 @@ context('Wallet - Balances - Assets filter tab', function () {
   })
 
   it('should display only dTokens that are available in asset', function () {
+    interceptTokenWithSampleData()
     cy.getByTestID('toggle_sorting_assets').should('exist')
     cy.getByTestID('balance_button_group_d_TOKENS').click()
     cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
