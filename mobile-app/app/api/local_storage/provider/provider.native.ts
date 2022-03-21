@@ -16,7 +16,7 @@ async function ensureFileExist (directory: string): Promise<void> {
   if (!fileInfo.exists) {
     try {
       await FileSystem.writeAsStringAsync(directory, JSON.stringify({}), { encoding: 'utf8' })
-    } catch (e) {
+    } catch (e: any) {
       Logging.error(e)
       throw new Error(e)
     }
