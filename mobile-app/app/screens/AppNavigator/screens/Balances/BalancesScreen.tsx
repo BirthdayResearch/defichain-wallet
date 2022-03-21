@@ -38,6 +38,8 @@ import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -154,6 +156,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [tokens])
 
   // Address selection bottom sheet
+  const { isLight } = useThemeContext()
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -182,10 +185,28 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             dismissModal()
             navigation.navigate('Receive')
           },
-          onCloseButtonPress: () => dismissModal()
+          onCloseButtonPress: () => dismissModal(),
+          navigateToScreen: {
+            screenName: 'CreateOrEditAddressLabelForm',
+            onButtonPress: () => console.log('click')
+          }
         }),
         option: {
           header: () => null
+        }
+      },
+      {
+        stackScreenName: 'CreateOrEditAddressLabelForm',
+        component: CreateOrEditAddressLabelForm,
+        option: {
+          headerStatusBarHeight: 1,
+          headerBackgroundContainerStyle: tailwind('border-b', {
+            'border-gray-200': isLight,
+            'border-gray-700': !isLight,
+            '-top-5': Platform.OS !== 'web'
+          }),
+          headerTitle: '',
+          headerBackTitleVisible: false
         }
       }
     ]
