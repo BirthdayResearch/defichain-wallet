@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@a522d656e4f6d826cb2c33e4959cac1c13ba4067
+      - uses: expo/expo-github-action@1bde34e5c788ddc62e8d0fa9fc2dea222cdcaae1
         with:
           eas-version: latest
           expo-version: 4.x
