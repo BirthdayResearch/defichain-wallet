@@ -171,7 +171,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // to update filter list from selected tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
-  }, [dstTokens, activeButtonGroup, handleButtonFilter])
+  }, [activeButtonGroup, handleButtonFilter])
 
   useEffect(() => {
     setIsZeroBalance(
