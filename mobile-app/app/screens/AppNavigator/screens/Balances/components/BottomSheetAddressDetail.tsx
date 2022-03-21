@@ -21,12 +21,18 @@ import { loans } from '@store/loans'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 
 interface BottomSheetAddressDetailProps {
   address: string
   addressLabel: string
   onReceiveButtonPress: () => void
   onCloseButtonPress: () => void
+  navigateToScreen: {
+    screenName: string
+    onButtonPress: (item: { address: string, addressLabel: string}) => void
+  }
 }
 
 export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
@@ -47,6 +53,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const [isEditing, setIsEditing] = useState(false)
+  const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -155,7 +163,21 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         key={item}
         style={tailwind('p-4 flex flex-row items-center justify-between')}
         onPress={async () => {
-          await onChangeAddress(index)
+          if (isEditing) {
+            navigation.navigate({
+              name: props.navigateToScreen.screenName,
+              params: {
+                address: item,
+                addressLabel: '',
+                type: 'edit',
+                onCloseButtonPress: props.onCloseButtonPress,
+                onSubmitButtonPress: props.navigateToScreen.onButtonPress
+              },
+              merge: true
+            })
+          } else {
+            await onChangeAddress(index)
+          }
         }}
         testID={`address_row_${index}`}
         disabled={hasPendingJob || hasPendingBroadcastJob}
@@ -171,23 +193,34 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             {item}
           </ThemedText>
         </View>
-        {item === props.address
+        {isEditing
           ? (
             <ThemedIcon
               size={24}
-              name='check'
+              name='edit'
               iconType='MaterialIcons'
-              light={tailwind('text-success-600')}
-              dark={tailwind('text-success-600')}
-              testID={`address_active_indicator_${item}`}
+              light={tailwind('text-primary-500')}
+              dark={tailwind('text-darkprimary-500')}
+              testID={`address_edit_indicator_${item}`}
             />
           )
-          : (
-            <View style={tailwind('h-6 w-6')} />
-          )}
+          : item === props.address
+            ? (
+              <ThemedIcon
+                size={24}
+                name='check'
+                iconType='MaterialIcons'
+                light={tailwind('text-success-600')}
+                dark={tailwind('text-success-600')}
+                testID={`address_active_indicator_${item}`}
+              />
+            )
+: (
+  <View style={tailwind('h-6 w-6')} />
+            )}
       </ThemedTouchableOpacity>
     )
-  }, [])
+  }, [isEditing])
 
   const AddressDetail = useCallback(() => {
     return (
@@ -211,13 +244,16 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         <RandomAvatar name={props.address} size={64} />
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
         <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
-        <View style={tailwind('mt-8 flex flex-row items-center justify-start w-full')}>
-          <WalletCounterDisplay addressLength={addressLength} />
-          <DiscoverWalletAddress onPress={discoverWalletAddresses} />
+        <View style={tailwind('mt-8 flex flex-row items-center justify-between w-full')}>
+          <View style={tailwind('flex flex-row items-center justify-start')}>
+            <WalletCounterDisplay addressLength={addressLength} />
+            <DiscoverWalletAddress onPress={discoverWalletAddresses} />
+          </View>
+          <EditButton isEditing={isEditing} onPress={() => setIsEditing(!isEditing)} />
         </View>
       </ThemedView>
     )
-  }, [props, addressLength])
+  }, [props, addressLength, isEditing])
 
   return (
     <FlatList
@@ -302,12 +338,40 @@ function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Eleme
       testID='discover_wallet_addresses'
     >
       <ThemedIcon
+        light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
         iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
         name='sync'
         size={16}
       />
     </TouchableOpacity>
+  )
+}
+
+function EditButton ({
+  isEditing,
+  onPress
+}: { isEditing: boolean, onPress: () => void }): JSX.Element {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={tailwind('flex flex-row items-center')}
+    >
+      <ThemedIcon
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+        name={isEditing ? 'close' : 'drive-file-rename-outline'}
+        size={16}
+      />
+      <ThemedText
+        light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+        style={tailwind('text-2xs ml-1.5')}
+      >
+        {translate('components/BottomSheetAddressDetail', `${isEditing ? 'CANCEL' : 'EDIT'}`)}
+      </ThemedText>
+    </TouchableOpacity>
+
   )
 }
