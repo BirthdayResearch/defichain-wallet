@@ -996,8 +996,13 @@
     "Wallet Address": "Walletadresse"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "Noch keine weiteren Token",
-    "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
+    "No LP tokens in portfolio": "Keine Liquiditätspool-Token im Portfolio",
+    "No Crypto in portfolio": "Keine Kryptowährungen im Portfolio",
+    "No dTokens in portfolio": "Keine dToken im Portfolio"
+  },
+  "components/EmptyPortfolio": {
+    "Nothing here yet": "Noch nichts vorhanden",
+    "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",
