@@ -79,12 +79,11 @@
     "locked in vault(s)": "hinterlegt in Vault(s)",
     "available": "verfügbar"
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
-    "Switch to another address": "Wechsel zu einer anderen Adresse",
-    "Wallet Address": "Walletadresse",
-    "ACTIVE": "AKTIV",
-    "Switch to another wallet": "Wechsel zu einer anderen Wallet"
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(N)",
+    "RECEIVE": "EMPFANGEN",
+    "VIEW ON SCAN": "VOIRE SUR DeFi SCAN"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",

@@ -79,12 +79,11 @@
     "locked in vault(s)": "锁定在金库",
     "available": "可使用资金"
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
-    "Switch to another address": "切换到另一个地址",
-    "Wallet Address": "钱包地址",
-    "ACTIVE": "激活",
-    "Switch to another wallet": "Changer de portefeuille"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "RECEIVE": "接收",
+    "VIEW ON SCAN": "往 DeFi Scan 查看"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
