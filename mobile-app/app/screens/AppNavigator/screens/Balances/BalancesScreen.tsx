@@ -146,13 +146,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       switch (buttonGroupTabKey) {
         case ButtonGroupTabKey.LPTokens:
           return dstToken.isLPS
-
         case ButtonGroupTabKey.Crypto:
           return dstToken.isDAT && !dstToken.isLoanToken && !dstToken.isLPS
-
         case ButtonGroupTabKey.dTokens:
           return dstToken.isLoanToken
-
         // for All token tab will return true for list of dstToken
         default:
           return true
@@ -160,11 +157,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     })
     setFilteredTokens(filterTokens)
   }, [dstTokens])
-
-  // to update filter list from selected tab
-  useEffect(() => {
-    handleButtonFilter(activeButtonGroup)
-  }, [dstTokens, activeButtonGroup, handleButtonFilter])
 
   const totalLockedUSDValue = useMemo(() => {
     if (lockedTokens === undefined) {
@@ -175,6 +167,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens])
+
+  // to update filter list from selected tab
+  useEffect(() => {
+    handleButtonFilter(activeButtonGroup)
+  }, [dstTokens, activeButtonGroup, handleButtonFilter])
 
   useEffect(() => {
     setIsZeroBalance(
