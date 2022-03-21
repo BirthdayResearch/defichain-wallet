@@ -29,7 +29,7 @@ import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
-import { EmptyPortfolio } from './components/EmptyPortfolio'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -52,6 +52,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -219,17 +220,19 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
       <DFIBalanceCard />
       {
-        isZeroBalance || dstTokens.length === 0
-        ? <EmptyPortfolio />
-        : <BalanceCard
-            filteredTokens={filteredTokens}
-            navigation={navigation}
-            buttonGroupOptions={{
+        !hasFetchedToken
+          ? <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
+          : <BalanceCard
+              isZeroBalance={isZeroBalance}
+              dstTokens={dstTokens}
+              filteredTokens={filteredTokens}
+              navigation={navigation}
+              buttonGroupOptions={{
               activeButtonGroup: activeButtonGroup,
               setActiveButtonGroup: setActiveButtonGroup,
               onButtonGroupPress: handleButtonFilter
-              }}
-          />
+            }}
+            />
       }
       {Platform.OS !== 'web' && (
         <BottomSheetModal
