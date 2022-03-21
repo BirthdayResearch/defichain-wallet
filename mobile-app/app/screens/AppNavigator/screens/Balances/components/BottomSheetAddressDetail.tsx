@@ -127,7 +127,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               light={tailwind('text-primary-500')}
               style={tailwind('text-sm font-normal')}
             >
-              {translate('screens/AddressControlScreen', 'CREATE WALLET ADDRESS')}
+              {translate('components/BottomSheetAddressDetail', 'CREATE WALLET ADDRESS')}
             </ThemedText>
           </View>
         </View>
@@ -267,7 +267,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconName='arrow-downward'
         iconSize={18}
         iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center', { 'w-7/12': Platform.OS !== 'ios' && Platform.OS !== 'android' })}
+        style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
         onPress={onReceivePress}
       />
       <IconButton
@@ -275,7 +275,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconName='open-in-new'
         iconSize={18}
         iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center', { 'w-7/12': Platform.OS !== 'ios' && Platform.OS !== 'android' })}
+        style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center')}
         onPress={async () => await openURL(getAddressUrl(address))}
       />
     </View>
@@ -290,7 +290,7 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
       style={tailwind('text-xs mr-1.5')}
       testID='address_detail_address_count'
     >
-      {translate('screens/AddressControlScreen', '{{length}} WALLET', { length: addressLength + 1 })}
+      {translate('components/BottomSheetAddressDetail', '{{length}} ADDRESS(ES)', { length: addressLength + 1 })}
     </ThemedText>
   )
 }
