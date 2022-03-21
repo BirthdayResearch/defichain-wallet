@@ -219,21 +219,23 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       />
       <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
       <DFIBalanceCard />
-      {
-        !hasFetchedToken
-          ? <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
-          : <BalanceCard
-              isZeroBalance={isZeroBalance}
-              dstTokens={dstTokens}
-              filteredTokens={filteredTokens}
-              navigation={navigation}
-              buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
-            />
-      }
+      {!hasFetchedToken
+        ? (
+          <View style={tailwind('p-4')}>
+            <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
+          </View>
+          )
+        : <BalanceCard
+            isZeroBalance={isZeroBalance}
+            dstTokens={dstTokens}
+            filteredTokens={filteredTokens}
+            navigation={navigation}
+            buttonGroupOptions={{
+            activeButtonGroup: activeButtonGroup,
+            setActiveButtonGroup: setActiveButtonGroup,
+            onButtonGroupPress: handleButtonFilter
+          }}
+          />}
       {Platform.OS !== 'web' && (
         <BottomSheetModal
           name={switchAddressModalName}
