@@ -690,7 +690,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
     cy.getByTestID('balances_row_1').should('exist') // dBTC = row 1
     cy.getByTestID('balance_button_group_LP_TOKENS').click()
     cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP Tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
     cy.getByTestID('balance_button_group_d_TOKENS').click()
     cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
@@ -717,7 +717,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
     cy.getByTestID('balances_row_14').should('exist') // DUSD = row 14
     cy.getByTestID('balance_button_group_LP_TOKENS').click()
     cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP Tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
     cy.getByTestID('balance_button_group_CRYPTO').click()
     cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No Crypto in portfolio')
