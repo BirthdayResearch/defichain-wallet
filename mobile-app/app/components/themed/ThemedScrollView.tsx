@@ -10,7 +10,7 @@ export function ThemedScrollView (props: ThemedScrollViewProps): JSX.Element {
   const { isLight } = useThemeContext()
   const {
     style,
-    light = tailwind('bg-gray-100'),
+    light = tailwind('bg-gray-50'),
     dark = tailwind('bg-gray-900'),
     ...otherProps
   } = props
