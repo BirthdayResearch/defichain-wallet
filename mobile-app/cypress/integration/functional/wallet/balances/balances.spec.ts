@@ -377,6 +377,8 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
+    cy.getByTestID('dfi_available_percentage_text').should('have.text', '*****')
+    cy.getByTestID('dfi_locked_percentage_text').should('have.text', '*****')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', displaySymbol: 'dBTC', symbol: 'BTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', displaySymbol: 'dETH', symbol: 'ETH' })
   })
