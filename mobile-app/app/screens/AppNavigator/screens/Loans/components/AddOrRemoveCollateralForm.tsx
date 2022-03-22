@@ -26,7 +26,7 @@ import {
   useCollateralizationRatioColor,
   useResultingCollateralizationRatioByCollateral
 } from '../hooks/CollateralizationRatio'
-import { useCollateralPrice, useTotalCollateralValue } from '../hooks/CollateralPrice'
+import { getCollateralPrice, useTotalCollateralValue, useValidCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 
@@ -119,9 +119,15 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const currentBalance = vault?.collateralAmounts?.find((c) => c.id === token.id)?.amount ?? '0'
   const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
   const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(new BigNumber(collateralValue)) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(new BigNumber(collateralValue)))
-  const initialPrices = useCollateralPrice(new BigNumber(collateralValue), collateralItem, new BigNumber(vault.collateralValue))
+  const initialPrices = getCollateralPrice(new BigNumber(collateralValue), collateralItem, new BigNumber(vault.collateralValue))
   const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
-  const prices = useCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+  const prices = getCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
+  const { requiredVaultShareTokens, isValidCollateralRatio } = useValidCollateralRatio(
+    vault?.collateralAmounts ?? [],
+    new BigNumber(vault?.collateralValue ?? NaN),
+    token.symbol,
+    totalAmount
+  )
 
   const removeMaxCollateralAmount = !isAdd && new BigNumber(collateralValue).isEqualTo(new BigNumber(available)) && prices.vaultShare.isNaN() && collateralItem !== undefined
   const displayNA = new BigNumber(collateralValue).isZero() || collateralValue === '' || removeMaxCollateralAmount
@@ -336,6 +342,15 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         margin='mt-6 mb-2'
         testID='add_collateral_button_submit'
       />
+      {(!isValidCollateralRatio && !isAdd && requiredVaultShareTokens.includes(token.symbol)) && (
+        <ThemedText
+          dark={tailwind('text-red-500')}
+          light={tailwind('text-red-500')}
+          style={tailwind('text-sm')}
+        >
+          {translate('screens/BorrowLoanTokenScreen', 'Your vault needs at least 50% of DFI and/or DUSD as collateral')}
+        </ThemedText>
+      )}
       <ThemedText
         style={tailwind('text-xs text-center p-2 px-6 pb-12')} light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}

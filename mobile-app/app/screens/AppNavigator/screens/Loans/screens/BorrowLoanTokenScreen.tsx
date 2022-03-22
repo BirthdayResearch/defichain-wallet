@@ -32,7 +32,7 @@ import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
+import { useResultingCollateralRatio, useValidCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
@@ -77,6 +77,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice)),
     interestPerBlock
   )
+  const { isValidCollateralRatio } = useValidCollateralRatio(vault?.collateralAmounts ?? [], new BigNumber(vault?.collateralValue ?? NaN))
   const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -244,75 +245,88 @@ export function BorrowLoanTokenScreen ({
           />
         </View>
 
-        {vault !== undefined &&
-          (
-            <>
-              <View style={tailwind('px-4 mb-12')}>
-                <WalletTextInput
-                  inputType='numeric'
-                  value={amountToBorrow.amountInput}
-                  title={translate('screens/BorrowLoanTokenScreen', 'How many {{token}} tokens to borrow?', { token: loanToken.token.displaySymbol })}
-                  placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
-                  onChangeText={(text: string) => setAmountToBorrow({
-                    ...amountToBorrow,
-                    amountInput: text
-                  })}
-                  displayClearButton={amountToBorrow.amountInput !== ''}
-                  onClearButtonPress={() => setAmountToBorrow({
-                    ...amountToBorrow,
-                    amountInput: ''
-                  })}
-                  valid={inputValidationMessage === ''}
-                  inlineText={{
-                    type: 'error',
-                    text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
-                  }}
-                  style={tailwind('h-9 w-3/5 flex-grow')}
-                  testID='form_input_borrow'
-                />
-                <WalletTextInput
-                  autoCapitalize='none'
-                  editable={false}
-                  placeholder='0.00'
-                  style={tailwind('flex-grow w-2/5')}
-                  testID='text_input_usd_value'
-                  value={amountToBorrow.amountInUSD.toFixed(2)}
-                  displayClearButton={false}
-                  inputType='numeric'
+        {vault !== undefined && (
+          <>
+            {isValidCollateralRatio
+              ? (
+                <View style={tailwind('mt-8')}>
+                  <View style={tailwind('px-4 mb-12')}>
+                    <WalletTextInput
+                      inputType='numeric'
+                      value={amountToBorrow.amountInput}
+                      title={translate('screens/BorrowLoanTokenScreen', 'How many {{token}} tokens to borrow?', { token: loanToken.token.displaySymbol })}
+                      placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
+                      onChangeText={(text: string) => setAmountToBorrow({
+                                ...amountToBorrow,
+                                amountInput: text
+                              })}
+                      displayClearButton={amountToBorrow.amountInput !== ''}
+                      onClearButtonPress={() => setAmountToBorrow({
+                                ...amountToBorrow,
+                                amountInput: ''
+                              })}
+                      valid={inputValidationMessage === ''}
+                      inlineText={{
+                                type: 'error',
+                                text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
+                              }}
+                      style={tailwind('h-9 w-3/5 flex-grow')}
+                      testID='form_input_borrow'
+                    />
+                    <WalletTextInput
+                      autoCapitalize='none'
+                      editable={false}
+                      placeholder='0.00'
+                      style={tailwind('flex-grow w-2/5')}
+                      testID='text_input_usd_value'
+                      value={amountToBorrow.amountInUSD.toFixed(2)}
+                      displayClearButton={false}
+                      inputType='numeric'
+                    >
+                      <ThemedText>{translate('screens/BorrowLoanTokenScreen', 'USD')}</ThemedText>
+                    </WalletTextInput>
+                  </View>
+                  <TransactionDetailsSection
+                    vault={vault}
+                    amountToBorrowInToken={amountToBorrow.amountInToken}
+                    resultingColRatio={resultingColRatio}
+                    vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
+                    loanTokenInterestRate={new BigNumber(loanToken.interest)}
+                    loanTokenDisplaySymbol={loanToken.token.displaySymbol}
+                    totalInterestAmount={totalAnnualInterest}
+                    totalLoanWithInterest={totalLoanWithInterest}
+                    loanTokenPrice={new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice))}
+                    fee={fee}
+                  />
+                  <Button
+                    disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
+                    label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
+                    onPress={onSubmit}
+                    testID='borrow_loan_submit_button'
+                    margin='mt-12 mb-2 mx-4'
+                  />
+                  <ThemedText
+                    light={tailwind('text-gray-500', { 'text-error-500': inputValidationMessage !== '' })}
+                    dark={tailwind('text-gray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
+                    style={tailwind('text-center text-xs mb-12')}
+                  >
+                    {inputValidationMessage === ''
+                      ? translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')
+                      : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
+                  </ThemedText>
+                </View>
+              )
+              : (
+                <ThemedText
+                  dark={tailwind('text-red-500')}
+                  light={tailwind('text-red-500')}
+                  style={tailwind('text-sm text-center mt-2 px-4')}
                 >
-                  <ThemedText>{translate('screens/BorrowLoanTokenScreen', 'USD')}</ThemedText>
-                </WalletTextInput>
-              </View>
-              <TransactionDetailsSection
-                vault={vault}
-                amountToBorrowInToken={amountToBorrow.amountInToken}
-                resultingColRatio={resultingColRatio}
-                vaultInterestRate={new BigNumber(vault?.loanScheme.interestRate ?? 0)}
-                loanTokenInterestRate={new BigNumber(loanToken.interest)}
-                loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-                totalInterestAmount={totalAnnualInterest}
-                totalLoanWithInterest={totalLoanWithInterest}
-                loanTokenPrice={new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice))}
-                fee={fee}
-              />
-              <Button
-                disabled={!valid || hasPendingJob || hasPendingBroadcastJob || !canUseOperations}
-                label={translate('screens/BorrowLoanTokenScreen', 'CONTINUE')}
-                onPress={onSubmit}
-                testID='borrow_loan_submit_button'
-                margin='mt-12 mb-2 mx-4'
-              />
-              <ThemedText
-                light={tailwind('text-gray-500', { 'text-error-500': inputValidationMessage !== '' })}
-                dark={tailwind('text-gray-400', { 'text-darkerror-500': inputValidationMessage !== '' })}
-                style={tailwind('text-center text-xs mb-12')}
-              >
-                {inputValidationMessage === ''
-                  ? translate('screens/BorrowLoanTokenScreen', 'Review and confirm transaction in the next screen')
-                  : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
-              </ThemedText>
-            </>
-          )}
+                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens')}
+                </ThemedText>
+              )}
+          </>
+        )}
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
             modalRef={containerRef}
@@ -433,7 +447,7 @@ function VaultInput (props: VaultInputProps): JSX.Element {
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('border py-2.5 px-4 rounded-lg mb-8')}
+        style={tailwind('border py-2.5 px-4 rounded-lg')}
         onPress={props.onPress}
         testID={props.testID}
       >
@@ -491,7 +505,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
       dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('border py-2.5 px-4 rounded-lg mb-8')}
+      style={tailwind('border py-2.5 px-4 rounded-lg')}
       onPress={props.onPress}
     >
       <View style={tailwind('flex flex-row items-center mb-2')}>
