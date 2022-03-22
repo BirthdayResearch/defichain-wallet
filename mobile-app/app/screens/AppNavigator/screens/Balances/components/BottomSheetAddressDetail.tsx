@@ -169,6 +169,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               params: {
                 address: item,
                 addressLabel: '',
+                index: index + 1,
                 type: 'edit',
                 onSubmitButtonPress: props.navigateToScreen.onButtonPress
               },

@@ -14,6 +14,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 export interface CreateOrEditAddressLabelFormProps {
   address: string
   addressLabel: string
+  index: number
   type: AddressLabelFormType
   onSubmitButtonPress: () => Promise<void>
 }
@@ -27,6 +28,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     address,
     addressLabel,
     // type,
+    index,
     onSubmitButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel)
@@ -64,7 +66,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         onClearButtonPress={() => {
           setLabelInput('')
         }}
-        placeholder={translate('components/CreateOrEditAddressLabelForm', `${addressLabel !== '' ? addressLabel : 'Address'}`)}
+        placeholder={translate('components/CreateOrEditAddressLabelForm', `${addressLabel !== '' ? addressLabel : 'Address {{index}}'}`, { index })}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
       />
