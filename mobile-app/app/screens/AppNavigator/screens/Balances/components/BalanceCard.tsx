@@ -74,7 +74,6 @@ export function BalanceCard ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     }
   ]
-
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
