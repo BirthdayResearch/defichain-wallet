@@ -210,7 +210,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         }
       }
     ]
-  }, [address])
+  }, [address, isLight])
 
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>

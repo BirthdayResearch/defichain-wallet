@@ -105,7 +105,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   }, [blockCount])
 
   const CreateAddress = useCallback(() => {
-    if (!canCreateAddress) {
+    if (!canCreateAddress || isEditing) {
       return <></>
     }
 
@@ -141,7 +141,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [canCreateAddress, addressLength])
+  }, [canCreateAddress, addressLength, isEditing])
 
   const onChangeAddress = async (index: number): Promise<void> => {
     if (hasPendingJob || hasPendingBroadcastJob || index === activeAddressIndex) {

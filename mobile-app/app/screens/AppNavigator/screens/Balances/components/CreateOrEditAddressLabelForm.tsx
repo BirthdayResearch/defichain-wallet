@@ -88,7 +88,7 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
     <View style={tailwind('flex flex-row mb-4 items-center')}>
       <RandomAvatar name={address} size={32} />
       <ThemedText
-        style={tailwind('text-sm ml-2', { 'w-10/12': Platform.OS === 'web' })}
+        style={tailwind('text-sm ml-2 flex-1', { 'w-10/12': Platform.OS === 'web' })}
       >
         {address}
       </ThemedText>
