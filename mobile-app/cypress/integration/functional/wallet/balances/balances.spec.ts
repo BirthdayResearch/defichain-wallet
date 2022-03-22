@@ -210,7 +210,7 @@ context.only('Wallet - Balances page', () => {
         data: []
       }
     })
-    cy.getByTestID('empty_tokens_title').should('have.text', 'Nothing here yet')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'Empty portfolio')
     cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add your DFI and other tokens to get started')
   })
 })

@@ -20,7 +20,7 @@ export function EmptyPortfolio (): JSX.Element {
         }
       </View>
       <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
-        {translate('components/EmptyPortfolio', 'Nothing here yet')}
+        {translate('components/EmptyPortfolio', 'Empty portfolio')}
       </ThemedText>
       <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
         {translate('components/EmptyPortfolio', 'Add your DFI and other tokens to get started')}
