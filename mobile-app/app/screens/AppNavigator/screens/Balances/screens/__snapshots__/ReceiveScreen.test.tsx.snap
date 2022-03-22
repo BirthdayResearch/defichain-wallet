@@ -16,7 +16,7 @@ exports[`receive page should match snapshot 1`] = `
         "width": "100%",
       },
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
   }
@@ -230,7 +230,7 @@ exports[`receive page should match snapshot 1`] = `
             "marginTop": 24,
           },
           Object {
-            "backgroundColor": "rgba(245, 245, 245, 1)",
+            "backgroundColor": "rgba(250, 250, 250, 1)",
           },
         ]
       }

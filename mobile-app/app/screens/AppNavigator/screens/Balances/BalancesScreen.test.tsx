@@ -38,6 +38,11 @@ jest.mock('react-native/Libraries/Utilities/Platform', () => ({
   select: () => jest.fn
 }))
 
+jest.mock('@store/website', () => ({
+  useGetAnnouncementsQuery: () => ({ data: [], isSuccess: true }),
+  useGetStatusQuery: () => jest.fn()
+}))
+
 jest.mock('@screens/AppNavigator/screens/Balances/components/Announcements', () => {
   const Announcements = (): JSX.Element => (<></>)
   return { Announcements }

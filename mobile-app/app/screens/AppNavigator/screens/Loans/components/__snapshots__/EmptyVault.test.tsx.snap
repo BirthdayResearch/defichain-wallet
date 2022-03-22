@@ -21,7 +21,7 @@ exports[`Empty vault should match snapshot 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
   }
