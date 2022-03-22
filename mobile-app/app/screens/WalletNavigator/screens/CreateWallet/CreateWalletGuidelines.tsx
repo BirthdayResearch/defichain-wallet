@@ -9,6 +9,7 @@ import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
+import { openURL } from '@api/linking'
 
 type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
 
@@ -38,7 +39,11 @@ const guidelines: GuidelineItem[] = [
 
 export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
-  const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
+  const [isTermsEnabled, setIsTermsEnabled] = useState(false)
+
+  const toggleSwitch = (): void => setIsEnabled(!isEnabled)
+  const toggleSwitchTerms = (): void => setIsTermsEnabled(!isTermsEnabled)
+
   return (
     <ThemedScrollView
       dark={tailwind('bg-dfxblue-900')}
@@ -119,8 +124,38 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
         </View>
       </View>
 
+      <View style={tailwind('flex-row items-center my-4')}>
+        <Switch
+          onValueChange={toggleSwitchTerms}
+          testID='guidelines_switch_terms'
+          value={isTermsEnabled}
+        />
+
+        <View style={tailwind('flex-auto ml-4')}>
+          <ThemedText
+            style={tailwind('text-sm font-medium')}
+          >
+            {translate('screens/Guidelines', 'I have read and agree to the terms and conditions.')}
+          </ThemedText>
+
+          <TouchableOpacity
+            onPress={async () => await openURL(translate('screens/Guidelines', 'https://dfx.swiss/en/terms/'))}
+            style={tailwind('mb-2')}
+            testID='recovery_words_button'
+          >
+            <ThemedText
+              dark={tailwind('text-dfxred-500')}
+              light={tailwind('text-primary-500')}
+              style={tailwind('font-medium text-sm')}
+            >
+              {translate('screens/Guidelines', 'View terms and conditions.')}
+            </ThemedText>
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <Button
-        disabled={!isEnabled}
+        disabled={!(isEnabled && isTermsEnabled)}
         label={translate('screens/Guidelines', 'SHOW MY 24 RECOVERY WORDS')}
         margin='mx-0 mt-8 mb-8'
         onPress={() => navigation.navigate('CreateMnemonicWallet')}

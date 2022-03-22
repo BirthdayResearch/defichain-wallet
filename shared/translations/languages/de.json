@@ -361,7 +361,10 @@
     "Secure them in a safe space": "Verstaue sie an einem sicheren Platz",
     "Store them offline and in a safe place.": "Bewahre sie offline und an einem geschützten Ort auf.",
     "Keep them private": "Behalte sie für dich",
-    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungsatz kennen."
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungsatz kennen.",
+    "I have read and agree to the terms and conditions.": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere diese.",
+    "View terms and conditions.": "Allgemeine Geschäftsbedingungen anzeigen.",
+    "https://dfx.swiss/en/terms/": "https://dfx.swiss/de/agb/"
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
