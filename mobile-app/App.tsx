@@ -76,23 +76,23 @@ export default function App (): JSX.Element | null {
                   <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
                     <StoreProvider>
                       <StatsProvider>
-                        <WalletDataProvider>
-                          <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
-                            <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
-                              <DisplayBalancesProvider>
-                                <ConnectionBoundary>
-                                  <FeatureFlagProvider>
+                        <FeatureFlagProvider>
+                          <WalletDataProvider>
+                            <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
+                              <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
+                                <DisplayBalancesProvider>
+                                  <ConnectionBoundary>
                                     <GestureHandlerRootView style={tailwind('flex-1')}>
                                       <ToastProvider renderType={customToast}>
                                         <Main />
                                       </ToastProvider>
                                     </GestureHandlerRootView>
-                                  </FeatureFlagProvider>
-                                </ConnectionBoundary>
-                              </DisplayBalancesProvider>
-                            </LanguageProvider>
-                          </ThemeProvider>
-                        </WalletDataProvider>
+                                  </ConnectionBoundary>
+                                </DisplayBalancesProvider>
+                              </LanguageProvider>
+                            </ThemeProvider>
+                          </WalletDataProvider>
+                        </FeatureFlagProvider>
                       </StatsProvider>
                     </StoreProvider>
                   </WalletPersistenceProvider>
