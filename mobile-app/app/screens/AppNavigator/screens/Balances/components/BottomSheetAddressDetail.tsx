@@ -31,7 +31,7 @@ interface BottomSheetAddressDetailProps {
   onCloseButtonPress: () => void
   navigateToScreen: {
     screenName: string
-    onButtonPress: (item: { address: string, addressLabel: string}) => void
+    onButtonPress: (item: { address: string, addressLabel: string }) => void
   }
 }
 
@@ -170,7 +170,6 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 address: item,
                 addressLabel: '',
                 type: 'edit',
-                onCloseButtonPress: props.onCloseButtonPress,
                 onSubmitButtonPress: props.navigateToScreen.onButtonPress
               },
               merge: true
@@ -215,8 +214,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 testID={`address_active_indicator_${item}`}
               />
             )
-: (
-  <View style={tailwind('h-6 w-6')} />
+            : (
+              <View style={tailwind('h-6 w-6')} />
             )}
       </ThemedTouchableOpacity>
     )

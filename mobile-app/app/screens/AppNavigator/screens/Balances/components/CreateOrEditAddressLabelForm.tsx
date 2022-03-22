@@ -1,58 +1,52 @@
 import { memo, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
-import { BottomSheetView } from '@gorhom/bottom-sheet'
-import { Platform, TouchableOpacity } from 'react-native'
+import { ThemedScrollView, ThemedText } from '@components/themed'
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import { Platform, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { RandomAvatar } from './RandomAvatar'
-import { View } from '@components'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 
 export interface CreateOrEditAddressLabelFormProps {
   address: string
   addressLabel: string
   type: AddressLabelFormType
-  onCloseButtonPress: () => void
-  onSubmitButtonPress: () => void
+  onSubmitButtonPress: () => Promise<void>
 }
 
 type AddressLabelFormType = 'create' | 'edit'
 type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'CreateOrEditAddressLabelFormProps'>
 
-export const CreateOrEditAddressLabelForm = memo(({ route }: Props): JSX.Element => {
+export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props): JSX.Element => {
   const { isLight } = useThemeContext()
   const {
     address,
     addressLabel,
     // type,
-    onCloseButtonPress
+    onSubmitButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel)
   const bottomSheetComponents = {
-    mobile: BottomSheetView,
-    web: ThemedView
+    mobile: BottomSheetScrollView,
+    web: ThemedScrollView
   }
-  const View = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
+  const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
 
   return (
-    <View
-      style={tailwind(['p-4 flex-1', {
+    <ScrollView
+      style={tailwind(['p-4 flex-1 pb-0', {
         'bg-white': isLight,
         'bg-gray-800': !isLight
       }])}
     >
-      <View style={tailwind('flex flex-row items-center justify-between mb-2')}>
+      <View style={tailwind('mb-2')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
           {translate('components/CreateOrEditAddressLabelForm', 'EDIT ADDRESS LABEL')}
         </ThemedText>
-        {onCloseButtonPress !== undefined && (
-          <TouchableOpacity onPress={onCloseButtonPress}>
-            <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
-          </TouchableOpacity>
-        )}
       </View>
       <AddressDisplay address={address} />
       <ThemedText
@@ -70,11 +64,22 @@ export const CreateOrEditAddressLabelForm = memo(({ route }: Props): JSX.Element
         onClearButtonPress={() => {
           setLabelInput('')
         }}
-        placeholder={translate('components/AddOrRemoveCollateralForm', `${addressLabel !== '' ? addressLabel : 'Address'}`)}
+        placeholder={translate('components/CreateOrEditAddressLabelForm', `${addressLabel !== '' ? addressLabel : 'Address'}`)}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
       />
-    </View>
+      <View style={tailwind('mt-4')}>
+        <SubmitButtonGroup
+          isDisabled={labelInput === addressLabel}
+          isCancelDisabled={false}
+          label={translate('components/CreateOrEditAddressLabelForm', 'SAVE CHANGES')}
+          onCancel={() => navigation.goBack()}
+          onSubmit={onSubmitButtonPress}
+          displayCancelBtn
+          title='edit_address_label'
+        />
+      </View>
+    </ScrollView>
   )
 })
 
@@ -83,7 +88,7 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
     <View style={tailwind('flex flex-row mb-4 items-center')}>
       <RandomAvatar name={address} size={32} />
       <ThemedText
-        style={tailwind('text-sm ml-2 flex-1')}
+        style={tailwind('text-sm ml-2', { 'w-10/12': Platform.OS === 'web' })}
       >
         {address}
       </ThemedText>
