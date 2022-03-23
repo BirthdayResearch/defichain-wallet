@@ -78,9 +78,9 @@ export function BalanceCard ({
   }
 
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+  const [isSorted, setIsSorted] = useState<boolean>(false)
 
-  if (isCollapsed) {
+  if (isSorted) {
     // display value in increasing order
     filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
   } else {
@@ -107,7 +107,7 @@ export function BalanceCard ({
             {
               filteredTokens.length > 0 && hasFetchedToken &&
                 <View testID='your_assets_dropdown_arrow'>
-                  <SortTokens isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+                  <SortTokens isSorted={isSorted} setIsSorted={setIsSorted} />
                 </View>
             }
           </>
@@ -218,13 +218,13 @@ function BalanceItemRow ({
 }
 
 function SortTokens ({
-  isCollapsed,
-  setIsCollapsed
-}: { isCollapsed: boolean, setIsCollapsed: (isCollapsed: boolean) => void }): JSX.Element {
+  isSorted,
+  setIsSorted
+}: { isSorted: boolean, setIsSorted: (isSorted: boolean) => void }): JSX.Element {
   return (
     <View style={tailwind('px-4 flex flex-row items-center')}>
       <TouchableOpacity
-        onPress={() => setIsCollapsed(!isCollapsed)}
+        onPress={() => setIsSorted(!isSorted)}
         style={tailwind('flex flex-row')}
         testID='toggle_sorting_assets'
       >
@@ -238,14 +238,14 @@ function SortTokens ({
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs')}
         >
-          {translate('screens/BalancesScreen', `(From ${!isCollapsed ? 'highest' : 'lowest'} value)`)}
+          {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
         </ThemedText>
         <ThemedIcon
           style={tailwind('ml-1 pt-px')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
           iconType='MaterialCommunityIcons'
-          name={!isCollapsed ? 'sort-ascending' : 'sort-descending'}
+          name={!isSorted ? 'sort-ascending' : 'sort-descending'}
           size={16}
         />
       </TouchableOpacity>
