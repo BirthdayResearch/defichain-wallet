@@ -199,7 +199,7 @@ function interceptTokenWithSampleData (): void {
   })
 }
 
-context.only('Wallet - Balances page', () => {
+context('Wallet - Balances page', () => {
   before(function () {
     cy.createEmptyWallet(true)
   })

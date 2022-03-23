@@ -1002,7 +1002,7 @@
     "No dTokens in portfolio": "Aucun dToken dans le portfolio"
   },
   "components/EmptyPortfolio": {
-    "Empty portfolio": "",
+    "Empty portfolio": "Portfolio vide",
     "Add your DFI and other tokens to get started": "Ajoutez vos DFI et autres tokens pour démarrer"
   },
   "components/VaultDetailDetailsTab": {

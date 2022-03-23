@@ -1008,7 +1008,7 @@
     "No dTokens in portfolio": "資產組合中沒有dTokens 代幣"
   },
   "components/EmptyPortfolio": {
-    "Empty portfolio": "",
+    "Empty portfolio": "Empty portfolio",
     "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
   },
   "components/VaultDetailDetailsTab": {

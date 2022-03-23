@@ -22,7 +22,12 @@ import { useTokenPrice } from './hooks/TokenPrice'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { AddressSelectionButton } from './components/AddressSelectionButton'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetBackdropProps,
+  BottomSheetBackgroundProps,
+  BottomSheetModal,
+  useBottomSheetModal
+} from '@gorhom/bottom-sheet'
 import { AddressControlModal } from './components/AddressControlScreen'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
@@ -40,7 +45,10 @@ export interface BalanceRowToken extends WalletToken {
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
-  const { address, addressLength } = useWalletContext()
+  const {
+    address,
+    addressLength
+  } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
   const lockedTokens = useTokenLockedBalance({}) as Map<string, LockedBalance>
   const {
@@ -92,7 +100,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         client,
         address
       }))
-      dispatch(fetchVaults({ client, address }))
+      dispatch(fetchVaults({
+        client,
+        address
+      }))
     })
   }
 
@@ -109,9 +120,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-        totalAvailableUSDValue,
-        dstTokens
-      }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+          totalAvailableUSDValue,
+          dstTokens
+        }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -133,9 +144,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-      totalAvailableUSDValue: new BigNumber(0),
-      dstTokens: []
-    })
+        totalAvailableUSDValue: new BigNumber(0),
+        dstTokens: []
+      })
   }, [getTokenPrice, tokens])
 
   const [filteredTokens, setFilteredTokens] = useState(dstTokens)
@@ -165,7 +176,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
-        totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+          totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens])
 
@@ -224,7 +235,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           <View style={tailwind('p-4')}>
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
           </View>
-          )
+        )
         : <BalanceCard
             isZeroBalance={isZeroBalance}
             dstTokens={dstTokens}
@@ -258,7 +269,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceActionSection ({ navigation, isZeroBalance }: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
+function BalanceActionSection ({
+  navigation,
+  isZeroBalance
+}: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row mb-4 mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
@@ -268,7 +282,12 @@ function BalanceActionSection ({ navigation, isZeroBalance }: { navigation: Stac
 }
 
 type BalanceActionButtonType = 'SEND' | 'RECEIVE'
-function BalanceActionButton ({ type, onPress, disabled }: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
+
+function BalanceActionButton ({
+  type,
+  onPress,
+  disabled
+}: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
   return (
     <IconButton
       iconName={type === 'SEND' ? 'arrow-upward' : 'arrow-downward'}
@@ -276,7 +295,10 @@ function BalanceActionButton ({ type, onPress, disabled }: { type: BalanceAction
       iconType='MaterialIcons'
       onPress={onPress}
       testID={type === 'SEND' ? 'send_balance_button' : 'receive_balance_button'}
-      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', { 'mr-1': type === 'SEND', 'ml-1': type === 'RECEIVE' })}
+      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', {
+        'mr-1': type === 'SEND',
+        'ml-1': type === 'RECEIVE'
+      })}
       textStyle={tailwind('text-base')}
       themedProps={{
         light: tailwind('bg-white'),
