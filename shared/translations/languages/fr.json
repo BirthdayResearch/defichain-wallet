@@ -85,6 +85,12 @@
     "(From highest value)": "(valeurs décroissantes)",
     "(From lowest value)": "(valeurs croissantes)"
   },
+  "components/BottomSheetAddressDetail": {
+    "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
+    "RECEIVE": "RECEVOIR",
+    "VIEW ON SCAN": "VOIR SUR DeFi SCAN"
+  },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
     "Switch to another address": "Passer à une autre adresse",
