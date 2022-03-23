@@ -237,6 +237,7 @@ function BalanceItemRow ({
   )
 }
 
+// TODO Rename to sorted not a dropdown arrow
 function DropdownArrow ({
   isCollapsed,
   setIsCollapsed
@@ -263,11 +264,12 @@ function DropdownArrow ({
         testID='toggle_sorting_assets'
       >
         <ThemedIcon
+          style={tailwind('ml-1')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
-          iconType='MaterialIcons'
-          name={!isCollapsed ? 'expand-more' : 'expand-less'}
-          size={22}
+          iconType='MaterialCommunityIcons'
+          name={!isCollapsed ? 'sort-ascending' : 'sort-descending'}
+          size={16}
         />
       </TouchableOpacity>
     </View>
