@@ -83,7 +83,8 @@
     "Crypto": "加密货币",
     "dTokens": "去中心化资产代币",
     "(From highest value)": "(从最高值开始)",
-    "(From lowest value)": "(从最低值开始)"
+    "(From lowest value)": "(从最低值开始)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Total Portfolio Value now excludes loan amount based on the oracle price."
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",

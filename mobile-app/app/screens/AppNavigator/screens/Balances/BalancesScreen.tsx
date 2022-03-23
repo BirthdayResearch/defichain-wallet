@@ -23,12 +23,13 @@ import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance
 import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
-import { fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { activeVaultsSelector, fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -50,6 +51,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
+
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
@@ -166,6 +169,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         new BigNumber(0))
   }, [lockedTokens])
 
+  const totalLoansUSDValue = useMemo(() => {
+    if (vaults === undefined) {
+      return new BigNumber(0)
+    }
+    return vaults
+      .reduce((totalLoansUSDValue: BigNumber, vault: LoanVaultActive) =>
+          totalLoansUSDValue.plus(new BigNumber(vault.loanValue).isNaN() ? 0 : new BigNumber(vault.loanValue)),
+        new BigNumber(0))
+  }, [vaults])
+
   // to update filter list from selected tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
@@ -231,6 +244,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <TotalPortfolio
           totalAvailableUSDValue={totalAvailableUSDValue}
           totalLockedUSDValue={totalLockedUSDValue}
+          totalLoansUSDValue={totalLoansUSDValue}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
         />
