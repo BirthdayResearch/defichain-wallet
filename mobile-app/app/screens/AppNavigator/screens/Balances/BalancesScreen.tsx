@@ -28,6 +28,7 @@ import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomShe
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
@@ -56,6 +57,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -248,15 +250,23 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         <DFIBalanceCard />
-        <BalanceCard
-          filteredTokens={filteredTokens}
-          navigation={navigation}
-          buttonGroupOptions={{
-            activeButtonGroup: activeButtonGroup,
-            setActiveButtonGroup: setActiveButtonGroup,
-            onButtonGroupPress: handleButtonFilter
-          }}
-        />
+        {!hasFetchedToken
+          ? (
+            <View style={tailwind('p-4')}>
+              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
+            </View>
+          )
+          : (<BalanceCard
+              isZeroBalance={isZeroBalance}
+              dstTokens={dstTokens}
+              filteredTokens={filteredTokens}
+              navigation={navigation}
+              buttonGroupOptions={{
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
+             />)}
         {Platform.OS === 'web'
           ? (
             <BottomSheetWebWithNav

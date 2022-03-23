@@ -1002,8 +1002,13 @@
     "Wallet Address": "錢包地址"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "尚未添加其他貨幣",
-    "Get started by adding your tokens here in your wallet": "在您的錢包中添加代幣便可以開始操作"
+    "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
+    "No Crypto in portfolio": "資產組合中沒有加密貨幣",
+    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "沒有資產",
+    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",
