@@ -730,7 +730,6 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
 context('Wallet - Balances - Your Assets - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
@@ -746,6 +745,7 @@ context('Wallet - Balances - Your Assets - All tokens tab', function () {
   })
 
   it('should display highest value by default', function () {
+    cy.sendDFItoWallet().wait(3000)
     // token transfer taking time sometime to avoid failure increasing wait time here
     cy.sendTokenToWallet(['ETH', 'LTC']).wait(7000)
     // dETH will be displayed at the top of the card on first topup
