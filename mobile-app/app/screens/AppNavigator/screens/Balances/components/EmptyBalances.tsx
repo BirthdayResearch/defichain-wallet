@@ -17,7 +17,7 @@ export function EmptyBalances (props: EmptyBalancesProps): JSX.Element {
       style={tailwind('px-4 mt-8 text-center')}
       testID='empty_balances'
     >
-      <View style={tailwind('items-center pb-4')}>
+      <View style={tailwind('items-center pb-4 pr-2')}>
         {isLight ? <NoTokensLight /> : <NoTokensDark />}
       </View>
       <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
