@@ -120,9 +120,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableUSDValue,
-          dstTokens
-        }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        totalAvailableUSDValue,
+        dstTokens
+      }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -144,9 +144,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-        totalAvailableUSDValue: new BigNumber(0),
-        dstTokens: []
-      })
+      totalAvailableUSDValue: new BigNumber(0),
+      dstTokens: []
+    })
   }, [getTokenPrice, tokens])
 
   const [filteredTokens, setFilteredTokens] = useState(dstTokens)
@@ -176,7 +176,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
-          totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+        totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens])
 
@@ -236,7 +236,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
           </View>
         )
-        : <BalanceCard
+        : (<BalanceCard
             isZeroBalance={isZeroBalance}
             dstTokens={dstTokens}
             filteredTokens={filteredTokens}
@@ -246,7 +246,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             setActiveButtonGroup: setActiveButtonGroup,
             onButtonGroupPress: handleButtonFilter
           }}
-          />}
+           />)}
       {Platform.OS !== 'web' && (
         <BottomSheetModal
           name={switchAddressModalName}
