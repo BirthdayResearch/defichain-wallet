@@ -21,9 +21,12 @@ jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@contexts/DisplayBalancesContext')
 
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn(),
-  useIsFocused: jest.fn()
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => {
+    return { navigate: jest.fn() }
+  }
 }))
+
 jest.mock('@gorhom/bottom-sheet', () => ({
   useBottomSheetModal: () => ({
     dismiss: jest.fn()
