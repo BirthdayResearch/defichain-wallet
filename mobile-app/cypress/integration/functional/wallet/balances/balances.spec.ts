@@ -1050,8 +1050,9 @@ context('Wallet - Balances - portfolio', () => {
   it('should show portfolio breakdown', () => {
     cy.wait('@getVaults').then(() => {
       cy.getByTestID('toggle_portfolio').click()
+      // subtract loan amount
       cy.getByTestID('total_usd_amount').invoke('text').then(text => {
-        checkValueWithinRange(text, '110', 1)
+        checkValueWithinRange(text, '100', 1)
       })
       cy.getByTestID('total_available_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '100', 1)
