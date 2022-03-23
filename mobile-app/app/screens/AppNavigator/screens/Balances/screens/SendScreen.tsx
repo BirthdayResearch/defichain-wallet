@@ -5,7 +5,7 @@ import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,7 +34,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -82,7 +82,6 @@ export function SendScreen ({
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const expandModal = useCallback(() => {
@@ -128,8 +127,8 @@ export function SendScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  useEffect(() => {
-    setBottomSheetScreen([
+  const bottomSheetScreen = useMemo(() => {
+    return [
       {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
@@ -150,8 +149,8 @@ export function SendScreen ({
         option: {
           header: () => null
         }
-      }])
-  }, [tokens])
+      }]
+  }, [])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
