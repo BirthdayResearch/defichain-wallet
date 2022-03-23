@@ -76,7 +76,7 @@ export function BalanceCard ({
   ]
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+  const [isSorted, setIsSorted] = useState<boolean>(false)
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -96,10 +96,11 @@ export function BalanceCard ({
     }
   }
 
-  // dropdown arrow sorting values in increasing or decreasing order
-  if (isCollapsed) {
+  if (isSorted) {
+    // display value in increasing order
     filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
   } else {
+    // display value in decreasing order
     filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
   }
 
@@ -132,7 +133,7 @@ export function BalanceCard ({
             {
               filteredTokens.length > 0 && hasFetchedToken &&
                 <View testID='your_assets_dropdown_arrow'>
-                  <DropdownArrow isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+                  <SortTokens isSorted={isSorted} setIsSorted={setIsSorted} />
                 </View>
             }
           </>
@@ -237,38 +238,35 @@ function BalanceItemRow ({
   )
 }
 
-// TODO Rename to sorted not a dropdown arrow
-function DropdownArrow ({
-  isCollapsed,
-  setIsCollapsed
-}: { isCollapsed: boolean, setIsCollapsed: (isCollapsed: boolean) => void }): JSX.Element {
+function SortTokens ({
+  isSorted,
+  setIsSorted
+}: { isSorted: boolean, setIsSorted: (isSorted: boolean) => void }): JSX.Element {
   return (
     <View style={tailwind('px-4 flex flex-row items-center')}>
-      <ThemedText
-        style={tailwind('text-xs text-gray-400 pr-1')}
-        onPress={() => setIsCollapsed(!isCollapsed)}
-      >
-        {translate('screens/BalancesScreen', 'YOUR ASSETS')}
-      </ThemedText>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs')}
-        onPress={() => setIsCollapsed(!isCollapsed)}
-      >
-        {translate('screens/BalancesScreen', `(From ${!isCollapsed ? 'highest' : 'lowest'} value)`)}
-      </ThemedText>
       <TouchableOpacity
-        onPress={() => setIsCollapsed(!isCollapsed)}
-        style={tailwind('flex flex-row pt-1')}
+        onPress={() => setIsSorted(!isSorted)}
+        style={tailwind('flex flex-row')}
         testID='toggle_sorting_assets'
       >
+        <ThemedText
+          style={tailwind('text-xs text-gray-400 pr-1')}
+        >
+          {translate('screens/BalancesScreen', 'YOUR ASSETS')}
+        </ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
+          {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
+        </ThemedText>
         <ThemedIcon
-          style={tailwind('ml-1')}
+          style={tailwind('ml-1 pt-px')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
           iconType='MaterialCommunityIcons'
-          name={!isCollapsed ? 'sort-ascending' : 'sort-descending'}
+          name={!isSorted ? 'sort-ascending' : 'sort-descending'}
           size={16}
         />
       </TouchableOpacity>

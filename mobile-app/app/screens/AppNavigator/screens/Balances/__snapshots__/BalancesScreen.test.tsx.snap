@@ -1206,56 +1206,6 @@ exports[`balances page should match snapshot 1`] = `
               }
             }
           >
-            <Text
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "color": "rgba(163, 163, 163, 1)",
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "paddingRight": 4,
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              YOUR ASSETS
-            </Text>
-            <Text
-              onPress={[Function]}
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              (From highest value)
-            </Text>
             <View
               accessible={true}
               focusable={true}
@@ -1273,11 +1223,58 @@ exports[`balances page should match snapshot 1`] = `
                   "display": "flex",
                   "flexDirection": "row",
                   "opacity": 1,
-                  "paddingTop": 4,
                 }
               }
               testID="toggle_sorting_assets"
             >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "color": "rgba(163, 163, 163, 1)",
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                        "paddingRight": 4,
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                YOUR ASSETS
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                (From highest value)
+              </Text>
               <Text />
             </View>
           </View>
