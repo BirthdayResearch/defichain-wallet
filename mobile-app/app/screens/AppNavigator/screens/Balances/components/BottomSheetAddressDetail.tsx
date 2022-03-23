@@ -160,31 +160,33 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         testID={`address_row_${index}`}
         disabled={hasPendingJob || hasPendingBroadcastJob}
       >
-        <View style={tailwind('flex flex-row items-center', { 'flex-auto': Platform.OS === 'web' })}>
+        <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
-          <ThemedText
-            style={tailwind('text-sm ml-2 w-9/12 flex-shrink')}
-            ellipsizeMode='middle'
-            numberOfLines={1}
-            testID={`address_row_text_${index}`}
-          >
-            {item}
-          </ThemedText>
+          <View style={tailwind('mx-2 flex-auto')}>
+            <ThemedText
+              style={tailwind('text-sm w-full')}
+              ellipsizeMode='middle'
+              numberOfLines={1}
+              testID={`address_row_text_${index}`}
+            >
+              {item}
+            </ThemedText>
+          </View>
+          {item === props.address
+            ? (
+              <ThemedIcon
+                size={24}
+                name='check'
+                iconType='MaterialIcons'
+                light={tailwind('text-success-600')}
+                dark={tailwind('text-darksuccess-600')}
+                testID={`address_active_indicator_${item}`}
+              />
+            )
+            : (
+              <View style={tailwind('h-6 w-6')} />
+            )}
         </View>
-        {item === props.address
-          ? (
-            <ThemedIcon
-              size={24}
-              name='check'
-              iconType='MaterialIcons'
-              light={tailwind('text-success-600')}
-              dark={tailwind('text-success-600')}
-              testID={`address_active_indicator_${item}`}
-            />
-          )
-          : (
-            <View style={tailwind('h-6 w-6')} />
-          )}
       </ThemedTouchableOpacity>
     )
   }, [])
