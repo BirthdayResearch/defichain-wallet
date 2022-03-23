@@ -347,6 +347,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           dark={tailwind('text-red-500')}
           light={tailwind('text-red-500')}
           style={tailwind('text-sm')}
+          testID='vault_min_share_warning'
         >
           {translate('screens/BorrowLoanTokenScreen', 'Your vault needs at least 50% of DFI and/or DUSD as collateral')}
         </ThemedText>
