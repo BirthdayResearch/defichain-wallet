@@ -442,7 +442,7 @@ context('Wallet - Auctions Feature Gated', () => {
     cy.getByTestID('bottom_tab_auctions').should('not.exist')
   })
 
-  it('should have auctions tab if auction feature is beta is activated by user', function () {
+  it('should have auctions tab if auction feature is beta is activated', function () {
     cy.intercept('**/settings/flags', {
       body: [
         {
@@ -456,19 +456,9 @@ context('Wallet - Auctions Feature Gated', () => {
         }
       ]
     })
+    localStorage.setItem('WALLET.ENABLED_FEATURES', '["auction"]')
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('setting_navigate_About').click()
-    cy.getByTestID('try_beta_features').click()
-    cy.getByTestID('feature_auction_row').should('exist')
-    cy.getByTestID('feature_auction_switch').click().should(() => {
-      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('["auction"]')
-    })
     cy.getByTestID('bottom_tab_auctions').should('exist')
-    cy.getByTestID('feature_auction_switch').click().should(() => {
-      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('[]')
-    })
   })
 
   it('should have auctions tab if auction feature is public', function () {

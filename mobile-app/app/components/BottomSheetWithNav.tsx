@@ -61,7 +61,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <View
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white' : 'bg-gray-800'} rounded`)]}
         />
       )}
     >
