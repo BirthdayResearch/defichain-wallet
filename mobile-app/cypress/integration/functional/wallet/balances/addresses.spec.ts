@@ -22,6 +22,13 @@ context('Wallet - Addresses', () => {
     cy.saveLocalStorage()
   })
 
+  it('should display full address and can be click to copy', function () {
+    cy.getByTestID('switch_account_button').click()
+    cy.getByTestID('active_address').invoke('css', 'text-overflow').should('eq', 'clip')
+    cy.getByTestID('active_address').click()
+    cy.getByTestID('wallet_toast').should('exist')
+  })
+
   it('should not present create new address when wallet is freshly setup', function () {
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000).should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
@@ -30,9 +37,9 @@ context('Wallet - Addresses', () => {
     })
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
-      cy.url().should('include', 'app/AddressControlScreen')
       cy.getByTestID('create_new_address').should('not.exist')
-      cy.go('back')
+      cy.getByTestID('address_detail_address_count').contains('1')
+      cy.getByTestID('close_address_detail_button').click()
       cy.getByTestID('address_count_badge').should('not.exist')
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
@@ -46,7 +53,6 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-    cy.url().should('include', 'app/AddressControlScreen')
     cy.getByTestID('create_new_address').should('exist').click().should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
       expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('1')
@@ -57,12 +63,13 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('address_row_0').should('exist')
     cy.getByTestID('address_row_1').should('exist')
-    cy.go('back')
+    cy.getByTestID('address_detail_address_count').contains('2')
+    cy.getByTestID('close_address_detail_button').click()
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('create_new_address').should('not.exist')
     cy.getByTestID('address_row_text_1').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
-      cy.go('back')
+      cy.getByTestID('close_address_detail_button').click()
       cy.getByTestID('address_count_badge').should('exist').contains('2')
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
@@ -71,7 +78,6 @@ context('Wallet - Addresses', () => {
 
   it('should be able to persist selected address', function () {
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-    cy.url().should('include', 'app/AddressControlScreen')
     cy.getByTestID('address_row_text_1').invoke('text').then((activeAddress: string) => {
       cy.getByTestID('address_row_1').click()
       cy.reload()
@@ -79,7 +85,7 @@ context('Wallet - Addresses', () => {
       cy.getByTestID('wallet_address').contains(activeAddress)
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
       cy.getByTestID(`address_active_indicator_${activeAddress}`).should('exist')
-      cy.go('back')
+      cy.getByTestID('close_address_detail_button').click()
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(activeAddress)
     })
@@ -89,7 +95,6 @@ context('Wallet - Addresses', () => {
     let address: string
     it('should able to transfer dfi between addresses', function () {
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-      cy.url().should('include', 'app/AddressControlScreen')
       cy.getByTestID('address_row_text_1').invoke('text').then((sendAddress: string) => {
         address = sendAddress
         cy.getByTestID('address_row_0').should('exist').click().should(() => {
@@ -160,7 +165,6 @@ context('Wallet - Addresses should persist addresses after restore with no activ
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-    cy.url().should('include', 'app/AddressControlScreen')
     cy.getByTestID('address_row_text_0').invoke('text').then((activeAddress: string) => {
       address = activeAddress
     })
@@ -207,7 +211,6 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('switch_account_button').should('exist').click()
-    cy.url().should('include', 'app/AddressControlScreen')
     cy.getByTestID('create_new_address').should('exist').click().should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
       maxAddress = localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)
@@ -263,7 +266,6 @@ context('Wallet - Addresses should able to create maximum 10 addresses', () => {
     for (let i = 1; i < 10; i++) {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-      cy.url().should('include', 'app/AddressControlScreen')
       cy.getByTestID('create_new_address').should('exist').click()
       cy.sendDFItoWallet().wait(3000)
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
