@@ -384,3 +384,98 @@ context('Wallet - Auctions', () => {
     })
   })
 })
+
+context('Wallet - Auctions Feature Gated', () => {
+  it('should not have auctions tab if auction feature is blocked', function () {
+    cy.intercept('**/settings/flags', {
+      body: []
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_auctions').should('not.exist')
+  })
+
+  it('should not have auctions tab if feature flag api does not contains auction', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'foo',
+          name: 'bar',
+          stage: 'alpha',
+          version: '>=0.0.0',
+          description: 'foo',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
+        }
+      ]
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_auctions').should('not.exist')
+  })
+
+  it('should not have auctions tab if feature flag api failed', function () {
+    cy.intercept('**/settings/flags', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_auctions').should('not.exist')
+  })
+
+  it('should not have auctions tab if auction feature is beta and not activated by user', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'auction',
+          name: 'Auction',
+          stage: 'beta',
+          version: '>=0.0.0',
+          description: 'Auction',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
+        }
+      ]
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_auctions').should('not.exist')
+  })
+
+  it('should have auctions tab if auction feature is beta is activated', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'auction',
+          name: 'Auction',
+          stage: 'beta',
+          version: '>=0.0.0',
+          description: 'Auctions',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
+        }
+      ]
+    })
+    localStorage.setItem('WALLET.ENABLED_FEATURES', '["auction"]')
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_auctions').should('exist')
+  })
+
+  it('should have auctions tab if auction feature is public', function () {
+    cy.intercept('**/settings/flags', {
+      body: [
+        {
+          id: 'auction',
+          name: 'Auction',
+          stage: 'public',
+          version: '>=0.0.0',
+          description: 'Auctions',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+          platforms: ['ios', 'android', 'web']
+        }
+      ]
+    })
+    cy.createEmptyWallet(true)
+    cy.getByTestID('bottom_tab_auctions').should('exist')
+  })
+})
