@@ -85,7 +85,7 @@ export function BalanceCard ({
     }
   }
 
-  function setButtonLabel (buttonGroupTabKey: ButtonGroupTabKey): void {
+  const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     switch (buttonGroupTabKey) {
       case (ButtonGroupTabKey.LPTokens):
         return setTabButtonLabel('LP tokens')
