@@ -22,13 +22,19 @@ import { useTokenPrice } from './hooks/TokenPrice'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { AddressSelectionButton } from './components/AddressSelectionButton'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetBackdropProps,
+  BottomSheetBackgroundProps,
+  BottomSheetModal,
+  useBottomSheetModal
+} from '@gorhom/bottom-sheet'
 import { AddressControlModal } from './components/AddressControlScreen'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
-import { fetchCollateralTokens, fetchVaults } from '@store/loans'
+import { activeVaultsSelector, fetchCollateralTokens, fetchVaults } from '@store/loans'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -39,7 +45,10 @@ export interface BalanceRowToken extends WalletToken {
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
-  const { address, addressLength } = useWalletContext()
+  const {
+    address,
+    addressLength
+  } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
   const lockedTokens = useTokenLockedBalance({}) as Map<string, LockedBalance>
   const {
@@ -47,6 +56,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     toggleDisplayBalances: onToggleDisplayBalances
   } = useDisplayBalancesContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
+  const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
+
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
@@ -90,7 +101,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         client,
         address
       }))
-      dispatch(fetchVaults({ client, address }))
+      dispatch(fetchVaults({
+        client,
+        address
+      }))
     })
   }
 
@@ -107,9 +121,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-        totalAvailableUSDValue,
-        dstTokens
-      }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+          totalAvailableUSDValue,
+          dstTokens
+        }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -131,9 +145,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-      totalAvailableUSDValue: new BigNumber(0),
-      dstTokens: []
-    })
+        totalAvailableUSDValue: new BigNumber(0),
+        dstTokens: []
+      })
   }, [getTokenPrice, tokens])
 
   const [filteredTokens, setFilteredTokens] = useState(dstTokens)
@@ -163,9 +177,19 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
-        totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+          totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens])
+
+  const totalLoansUSDValue = useMemo(() => {
+    if (vaults === undefined) {
+      return new BigNumber(0)
+    }
+    return vaults
+      .reduce((totalLoansUSDValue: BigNumber, vault: LoanVaultActive) =>
+          totalLoansUSDValue.plus(new BigNumber(vault.loanValue).isNaN() ? 0 : new BigNumber(vault.loanValue)),
+        new BigNumber(0))
+  }, [vaults])
 
   // to update filter list from selected tab
   useEffect(() => {
@@ -212,6 +236,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       <TotalPortfolio
         totalAvailableUSDValue={totalAvailableUSDValue}
         totalLockedUSDValue={totalLockedUSDValue}
+        totalLoansUSDValue={totalLoansUSDValue}
         onToggleDisplayBalances={onToggleDisplayBalances}
         isBalancesDisplayed={isBalancesDisplayed}
       />
@@ -248,7 +273,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceActionSection ({ navigation, isZeroBalance }: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
+function BalanceActionSection ({
+  navigation,
+  isZeroBalance
+}: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row mb-4 mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
@@ -258,7 +286,12 @@ function BalanceActionSection ({ navigation, isZeroBalance }: { navigation: Stac
 }
 
 type BalanceActionButtonType = 'SEND' | 'RECEIVE'
-function BalanceActionButton ({ type, onPress, disabled }: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
+
+function BalanceActionButton ({
+  type,
+  onPress,
+  disabled
+}: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
   return (
     <IconButton
       iconName={type === 'SEND' ? 'arrow-upward' : 'arrow-downward'}
@@ -266,7 +299,10 @@ function BalanceActionButton ({ type, onPress, disabled }: { type: BalanceAction
       iconType='MaterialIcons'
       onPress={onPress}
       testID={type === 'SEND' ? 'send_balance_button' : 'receive_balance_button'}
-      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', { 'mr-1': type === 'SEND', 'ml-1': type === 'RECEIVE' })}
+      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', {
+        'mr-1': type === 'SEND',
+        'ml-1': type === 'RECEIVE'
+      })}
       textStyle={tailwind('text-base')}
       themedProps={{
         light: tailwind('bg-white'),

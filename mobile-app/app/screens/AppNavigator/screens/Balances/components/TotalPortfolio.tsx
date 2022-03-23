@@ -15,6 +15,7 @@ import { useState } from 'react'
 interface TotalPortfolioProps {
   totalAvailableUSDValue: BigNumber
   totalLockedUSDValue: BigNumber
+  totalLoansUSDValue: BigNumber
   onToggleDisplayBalances: () => Promise<void>
   isBalancesDisplayed: boolean
 }
@@ -56,7 +57,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                         value={value}
                       />}
                     thousandSeparator
-                    value={getUSDPrecisedPrice(new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue))}
+                    value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
                   />
                   <TouchableOpacity
                     onPress={() => setIsExpanded(!isExpanded)}
