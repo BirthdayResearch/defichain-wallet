@@ -2,10 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
-import { InfoText } from '@components/InfoText'
-import { translate } from '@translations'
 import { useDispatch, useSelector, batch } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -164,8 +161,6 @@ function BatchCards ({
   vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
 }): JSX.Element {
-  const { isBetaFeature } = useFeatureFlagContext()
-
   const RenderItems = useCallback(({
     item,
     index
@@ -185,20 +180,6 @@ function BatchCards ({
     )
   }, [])
 
-  const ListHeaderComponent = useCallback(() => {
-    if (isBetaFeature('auction')) {
-      return (
-        <View style={tailwind('pb-4')}>
-          <InfoText
-            testID='beta_warning_info_text'
-            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-          />
-        </View>
-      )
-    }
-  return <></>
-  }, [])
-
   return (
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
@@ -209,7 +190,6 @@ function BatchCards ({
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={RenderItems}
-      ListHeaderComponent={ListHeaderComponent}
     />
   )
 }
