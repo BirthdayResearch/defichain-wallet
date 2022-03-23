@@ -107,7 +107,7 @@ export function BalanceCard ({
             {
               filteredTokens.length > 0 && hasFetchedToken &&
                 <View testID='your_assets_dropdown_arrow'>
-                  <DropdownArrow isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+                  <SortTokens isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
                 </View>
             }
           </>
@@ -217,34 +217,31 @@ function BalanceItemRow ({
   )
 }
 
-// TODO Rename to sorted not a dropdown arrow
-function DropdownArrow ({
+function SortTokens ({
   isCollapsed,
   setIsCollapsed
 }: { isCollapsed: boolean, setIsCollapsed: (isCollapsed: boolean) => void }): JSX.Element {
   return (
     <View style={tailwind('px-4 flex flex-row items-center')}>
-      <ThemedText
-        style={tailwind('text-xs text-gray-400 pr-1')}
-        onPress={() => setIsCollapsed(!isCollapsed)}
-      >
-        {translate('screens/BalancesScreen', 'YOUR ASSETS')}
-      </ThemedText>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs')}
-        onPress={() => setIsCollapsed(!isCollapsed)}
-      >
-        {translate('screens/BalancesScreen', `(From ${!isCollapsed ? 'highest' : 'lowest'} value)`)}
-      </ThemedText>
       <TouchableOpacity
         onPress={() => setIsCollapsed(!isCollapsed)}
-        style={tailwind('flex flex-row pt-1')}
+        style={tailwind('flex flex-row')}
         testID='toggle_sorting_assets'
       >
+        <ThemedText
+          style={tailwind('text-xs text-gray-400 pr-1')}
+        >
+          {translate('screens/BalancesScreen', 'YOUR ASSETS')}
+        </ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
+          {translate('screens/BalancesScreen', `(From ${!isCollapsed ? 'highest' : 'lowest'} value)`)}
+        </ThemedText>
         <ThemedIcon
-          style={tailwind('ml-1')}
+          style={tailwind('ml-1 pt-px')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
           iconType='MaterialCommunityIcons'
