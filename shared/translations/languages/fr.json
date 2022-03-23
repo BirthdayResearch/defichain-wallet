@@ -77,7 +77,19 @@
     "Available: ": "Disponibles: ",
     "Locked: ": "Verrouillés: ",
     "locked in vault(s)": "verrouillés",
-    "available": "disponibles"
+    "available": "disponibles",
+    "All tokens": "Tous",
+    "LP tokens": "Tokens PL",
+    "Crypto": "Crypto",
+    "dTokens": "dTokens",
+    "(From highest value)": "(valeurs décroissantes)",
+    "(From lowest value)": "(valeurs croissantes)"
+  },
+  "components/BottomSheetAddressDetail": {
+    "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
+    "RECEIVE": "RECEVOIR",
+    "VIEW ON SCAN": "VOIR SUR DeFi SCAN"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",

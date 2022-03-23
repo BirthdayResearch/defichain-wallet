@@ -211,7 +211,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 name='check'
                 iconType='MaterialIcons'
                 light={tailwind('text-success-600')}
-                dark={tailwind('text-success-600')}
+                dark={tailwind('text-darksuccess-600')}
                 testID={`address_active_indicator_${item}`}
               />
             )
@@ -263,8 +263,6 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         'bg-gray-800': !isLight,
         'bg-white': isLight
       })}
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
       data={availableAddresses}
       renderItem={AddressListItem}
       ListHeaderComponent={AddressDetail}
