@@ -1,5 +1,12 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { CollateralToken, LoanScheme, LoanToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import {
+  CollateralToken,
+  LoanScheme,
+  LoanToken,
+  LoanVaultActive,
+  LoanVaultLiquidated,
+  LoanVaultState
+} from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import { useVaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
@@ -31,35 +38,52 @@ const initialState: LoansState = {
 // TODO (Harsh) Manage pagination for all api
 export const fetchVaults = createAsyncThunk(
   'wallet/fetchVaults',
-  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }) => {
+  async ({
+    size = 200,
+    address,
+    client
+  }: { size?: number, address: string, client: WhaleApiClient }) => {
     return await client.address.listVault(address, size)
   }
 )
 
 export const fetchLoanTokens = createAsyncThunk(
   'wallet/fetchLoanTokens',
-  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }) => {
+  async ({
+    size = 200,
+    client
+  }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listLoanToken(size)
   }
 )
 
 export const fetchLoanSchemes = createAsyncThunk(
   'wallet/fetchLoanSchemes',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  async ({
+    size = 50,
+    client
+  }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listScheme(size)
   }
 )
 
 export const fetchCollateralTokens = createAsyncThunk(
   'wallet/fetchCollateralTokens',
-  async ({ size = 50, client }: { size?: number, client: WhaleApiClient }) => {
+  async ({
+    size = 50,
+    client
+  }: { size?: number, client: WhaleApiClient }) => {
     return await client.loan.listCollateralToken(size)
   }
 )
 
 export const fetchPrice = createAsyncThunk(
   'wallet/fetchPrice',
-  async ({ client, token, currency }: { token: string, currency: string, client: WhaleApiClient }) => {
+  async ({
+    client,
+    token,
+    currency
+  }: { token: string, currency: string, client: WhaleApiClient }) => {
     const activePrices = await client.prices.getFeedActive(token, currency, 1)
     return activePrices[0]
   }
@@ -125,7 +149,10 @@ export const vaultsSelector = createSelector((state: LoansState) => state.vaults
 
   return vaults.map(vault => {
     if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-      return { ...vault, vaultState: VaultStatus.Liquidated }
+      return {
+        ...vault,
+        vaultState: VaultStatus.Liquidated
+      }
     }
 
     const colRatio = new BigNumber(vault.collateralRatio)
@@ -139,3 +166,7 @@ export const vaultsSelector = createSelector((state: LoansState) => state.vaults
     }
   }).sort((a, b) => order[a.vaultState] - order[b.vaultState]) as LoanVault[]
 })
+
+//* Filter vaults that will be removed with Total Portfolio Amount
+export const activeVaultsSelector = createSelector(vaultsSelector, vaults => vaults.filter((value: LoanVault) => [LoanVaultState.ACTIVE,
+  LoanVaultState.MAY_LIQUIDATE, LoanVaultState.FROZEN].includes(value.state)) as LoanVaultActive[])

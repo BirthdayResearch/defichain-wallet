@@ -52,6 +52,7 @@ describe('DFI Total Portfolio Card', () => {
     const component = (
       <Provider store={store}>
         <TotalPortfolio
+          totalLoansUSDValue={new BigNumber(100)}
           totalAvailableUSDValue={new BigNumber(1000)}
           totalLockedUSDValue={new BigNumber(300)}
           onToggleDisplayBalances={jest.fn()}

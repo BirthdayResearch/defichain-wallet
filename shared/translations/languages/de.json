@@ -83,7 +83,8 @@
     "Crypto": "Krypto",
     "dTokens": "dToken",
     "(From highest value)": "(vom höchsten Wert an)",
-    "(From lowest value)": "(vom niedrigsten Wert aus)"
+    "(From lowest value)": "(vom niedrigsten Wert aus)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet."
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",

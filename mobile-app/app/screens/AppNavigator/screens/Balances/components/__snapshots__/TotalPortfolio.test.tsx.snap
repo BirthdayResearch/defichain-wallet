@@ -107,7 +107,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
           }
           testID="total_usd_amount"
         >
-          $1,300.00
+          $1,200.00
         </Text>
         <View
           accessible={true}

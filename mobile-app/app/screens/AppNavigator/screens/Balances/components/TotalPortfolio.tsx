@@ -15,6 +15,7 @@ import { useState } from 'react'
 interface TotalPortfolioProps {
   totalAvailableUSDValue: BigNumber
   totalLockedUSDValue: BigNumber
+  totalLoansUSDValue: BigNumber
   onToggleDisplayBalances: () => Promise<void>
   isBalancesDisplayed: boolean
 }
@@ -56,7 +57,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                         value={value}
                       />}
                     thousandSeparator
-                    value={getUSDPrecisedPrice(new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue))}
+                    value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
                   />
                   <TouchableOpacity
                     onPress={() => setIsExpanded(!isExpanded)}
@@ -108,33 +109,34 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
         </ThemedTouchableOpacity>
       </View>
       {
-      isExpanded &&
-        <ThemedView
-          style={tailwind('mb-2 mt-2 border-t')}
-          light={tailwind('border-gray-100')}
-          dark={tailwind('border-gray-700')}
-        >
-          <View style={tailwind('mt-2')}>
+        isExpanded &&
+          <ThemedView
+            style={tailwind('mb-2 mt-2 border-t')}
+            light={tailwind('border-gray-100')}
+            dark={tailwind('border-gray-700')}
+          >
+            <View style={tailwind('mt-2')}>
+              <USDValueRow
+                testId='total_available_usd_amount'
+                isLoading={!hasFetchedToken}
+                label={translate('screens/BalancesScreen', 'available')}
+                value={props.totalAvailableUSDValue}
+              />
+            </View>
             <USDValueRow
-              testId='total_available_usd_amount'
-              isLoading={!hasFetchedToken}
-              label={translate('screens/BalancesScreen', 'available')}
-              value={props.totalAvailableUSDValue}
+              testId='total_locked_usd_amount'
+              isLoading={!hasFetchedVaultsData}
+              label={translate('screens/BalancesScreen', 'locked in vault(s)')}
+              value={props.totalLockedUSDValue}
             />
-          </View>
-          <USDValueRow
-            testId='total_locked_usd_amount'
-            isLoading={!hasFetchedVaultsData}
-            label={translate('screens/BalancesScreen', 'locked in vault(s)')}
-            value={props.totalLockedUSDValue}
-          />
-        </ThemedView>
+            <ThemedText style={tailwind('italic text-xs mt-2')}>{translate('screens/BalancesScreen', '*Total Portfolio Value now excludes loan amount based on the oracle price.')}</ThemedText>
+          </ThemedView>
       }
     </ThemedView>
   )
 }
 
-function USDValueRow (props: {isLoading: boolean, testId: string, value: BigNumber, label: string }): JSX.Element {
+function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string }): JSX.Element {
   if (props.isLoading) {
     return (
       <View style={tailwind('mt-1')}>
