@@ -34,7 +34,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
           <ThemedView
             light={tailwind('bg-warning-600')}
             dark={tailwind('bg-darkwarning-600')}
-            style={tailwind('rounded-full w-4 h-4 mr-1')}
+            style={tailwind('rounded-full w-4 h-4 mx-1')}
           >
             <ThemedText
               light={tailwind('text-white')}

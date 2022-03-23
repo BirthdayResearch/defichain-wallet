@@ -160,10 +160,10 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         testID={`address_row_${index}`}
         disabled={hasPendingJob || hasPendingBroadcastJob}
       >
-        <View style={tailwind('flex flex-row items-center flex-auto')}>
+        <View style={tailwind('flex flex-row items-center', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
           <ThemedText
-            style={tailwind('text-sm ml-2 w-9/12')}
+            style={tailwind('text-sm ml-2 w-9/12 flex-shrink')}
             ellipsizeMode='middle'
             numberOfLines={1}
             testID={`address_row_text_${index}`}
@@ -227,8 +227,6 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         'bg-gray-800': !isLight,
         'bg-white': isLight
       })}
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
       data={availableAddresses}
       renderItem={AddressListItem}
       ListHeaderComponent={AddressDetail}
