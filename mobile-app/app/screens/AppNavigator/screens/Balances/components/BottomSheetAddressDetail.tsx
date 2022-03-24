@@ -25,6 +25,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPreferences'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -66,6 +67,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const { network } = useNetworkContext()
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const labeledAddresses = userPreferences.addresses
+  const activeLabel = useAddressLabel(props.address)
   console.log('Labelled Address')
   console.log(labeledAddresses)
 
@@ -271,6 +273,17 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           </TouchableOpacity>
         </View>
         <RandomAvatar name={props.address} size={64} />
+        {
+          activeLabel != null && (
+            <View style={tailwind('mt-2')}>
+              <ThemedText
+                light={tailwind('text-black')}
+                dark={tailwind('text-white')} style={tailwind('font-bold')}
+              >{activeLabel}
+              </ThemedText>
+            </View>
+          )
+        }
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
         <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
         <View style={tailwind('mt-8 flex flex-row items-center justify-between w-full')}>
@@ -306,15 +319,17 @@ function ActiveAddress ({
 }: { address: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      style={tailwind('my-4 rounded-2xl py-1 px-2')}
+      style={tailwind('mb-4 mt-2 rounded-2xl py-1 px-2 w-5/12')}
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
       onPress={onPress}
     >
       <ThemedText
+        ellipsizeMode='middle'
         style={tailwind('text-sm')}
         light={tailwind('text-black')}
         dark={tailwind('text-white')}
+        numberOfLines={1}
         testID='active_address'
       >
         {address}
