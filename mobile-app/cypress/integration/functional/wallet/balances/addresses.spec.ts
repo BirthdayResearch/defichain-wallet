@@ -22,9 +22,9 @@ context('Wallet - Addresses', () => {
     cy.saveLocalStorage()
   })
 
-  it('should display full address and can be click to copy', function () {
+  it('should display partial address and can tap to copy', function () {
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('active_address').invoke('css', 'text-overflow').should('eq', 'clip')
+    cy.getByTestID('active_address').invoke('css', 'text-overflow').should('eq', 'ellipsis')
     cy.getByTestID('active_address').click()
     cy.getByTestID('wallet_toast').should('exist')
   })
