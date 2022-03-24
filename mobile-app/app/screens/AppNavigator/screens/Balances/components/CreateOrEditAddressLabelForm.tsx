@@ -39,6 +39,31 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   }
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
 
+  const [inputErrorMessage, setInputErrorMessage] = useState('')
+  const validateInput = (): boolean => {
+    if (labelInput !== undefined && labelInput.length > 30) {
+      setInputErrorMessage('Address label is limited to 30 characters')
+      return false
+    }
+    return true
+  }
+  const handleSubmit = async (): Promise<void> => {
+      if (labelInput === undefined) {
+        return
+      }
+
+      if (!validateInput()) {
+        return
+      }
+
+      const newAddress: LabeledAddress = {}
+      newAddress[address] = {
+        label: labelInput,
+        isMine: true
+      }
+      await onSubmitButtonPress(newAddress)
+  }
+
   return (
     <ScrollView
       style={tailwind(['p-4 flex-1 pb-0', {
@@ -66,10 +91,16 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         onChangeText={(text: string) => setLabelInput(text)}
         onClearButtonPress={() => {
           setLabelInput('')
+          setInputErrorMessage('')
         }}
         placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof labelInput === 'string' ? labelInput : 'Address {{index}}'}`, { index })}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
+        valid={inputErrorMessage === ''}
+        inlineText={{
+          type: 'error',
+          text: translate('components/CreateOrEditAddressLabelForm', inputErrorMessage)
+        }}
       />
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroup
@@ -77,17 +108,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
           isCancelDisabled={false}
           label={translate('components/CreateOrEditAddressLabelForm', 'SAVE CHANGES')}
           onCancel={() => navigation.goBack()}
-          onSubmit={async () => {
-            if (labelInput === undefined) {
-              return
-            }
-            const newAddress: LabeledAddress = {}
-            newAddress[address] = {
-              label: labelInput,
-              isMine: true
-            }
-            await onSubmitButtonPress(newAddress)
-          }}
+          onSubmit={handleSubmit}
           displayCancelBtn
           title='edit_address_label'
         />

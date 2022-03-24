@@ -66,8 +66,6 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const { network } = useNetworkContext()
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const labeledAddresses = userPreferences.addresses
-  console.log('Labelled Address')
-  console.log(labeledAddresses)
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -185,7 +183,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 index: index + 1,
                 type: 'edit',
                 onSubmitButtonPress: (labelAddress: LabeledAddress) => {
-                  return dispatch(setAddresses(labelAddress)).then(() => {
+                  dispatch(setAddresses(labelAddress)).then(() => {
                     const addresses = { ...labeledAddresses, ...labelAddress }
                     dispatch(setUserPreferences({
                       network,
@@ -195,6 +193,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                       }
                     }))
                   })
+                  navigation.goBack()
+                  setIsEditing(false)
                 }
               },
               merge: true
@@ -239,7 +239,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 name='check'
                 iconType='MaterialIcons'
                 light={tailwind('text-success-600')}
-                dark={tailwind('text-success-600')}
+                dark={tailwind('text-darksuccess-600')}
                 testID={`address_active_indicator_${item}`}
               />
             )
@@ -249,7 +249,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [isEditing])
+  }, [isEditing, labeledAddresses])
 
   const AddressDetail = useCallback(() => {
     return (

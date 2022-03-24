@@ -299,7 +299,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                 height: '387px',
                 width: '375px',
                 zIndex: 50,
-                top: '38%'
+                top: '42%'
               }}
             />
           )
