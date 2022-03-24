@@ -12,7 +12,7 @@ export function EmptyPortfolio (): JSX.Element {
     <ThemedView
       light={tailwind('bg-gray-50')}
       style={tailwind('px-8 mt-8 pb-2 text-center')}
-      testID='empty_balances'
+      testID='empty_portfolio'
     >
       <View style={tailwind('items-center pb-4')}>
         {

@@ -210,6 +210,7 @@ context('Wallet - Balances page', () => {
         data: []
       }
     })
+    cy.getByTestID('empty_portfolio').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'Empty portfolio')
     cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add your DFI and other tokens to get started')
   })
@@ -470,8 +471,9 @@ context('Wallet - Balances - No balance', () => {
     cy.getByTestID('send_balance_button').should('have.attr', 'aria-disabled')
   })
 
-  it('should display empty balance to replace token list', function () {
-    cy.getByTestID('empty_balances').should('exist')
+  it('should display empty portfolio to replace token list', function () {
+    cy.getByTestID('empty_balances').should('not.exist')
+    cy.getByTestID('empty_portfolio').should('exist')
   })
 })
 
@@ -737,13 +739,14 @@ context('Wallet - Balances - Your Assets - All tokens tab', function () {
     cy.getByTestID('bottom_tab_balances').click()
   })
 
-  it('should not display sorting arrow if there are no tokens', function () {
+  it('should not display sorting icon if there are no other tokens', function () {
     cy.intercept('**/tokens?size=*', {
       body: {
         data: []
       }
     })
-    cy.getByTestID('empty_balances').should('exist')
+    cy.getByTestID('empty_balances').should('not.exist')
+    cy.getByTestID('empty_portfolio').should('not.exist')
     cy.getByTestID('toggle_sorting_assets').should('not.exist')
   })
 
