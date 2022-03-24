@@ -35,7 +35,6 @@ interface BottomSheetAddressDetailProps {
   onCloseButtonPress: () => void
   navigateToScreen: {
     screenName: string
-    onButtonPress: (item: { address: string, addressLabel: string }) => void
   }
 }
 

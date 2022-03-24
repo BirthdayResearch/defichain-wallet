@@ -224,8 +224,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           },
           onCloseButtonPress: () => dismissModal(),
           navigateToScreen: {
-            screenName: 'CreateOrEditAddressLabelForm',
-            onButtonPress: () => console.log('click')
+            screenName: 'CreateOrEditAddressLabelForm'
           }
         }),
         option: {
