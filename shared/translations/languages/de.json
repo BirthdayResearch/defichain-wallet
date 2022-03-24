@@ -83,7 +83,8 @@
     "Crypto": "Krypto",
     "dTokens": "dToken",
     "(From highest value)": "(vom höchsten Wert an)",
-    "(From lowest value)": "(vom niedrigsten Wert aus)"
+    "(From lowest value)": "(vom niedrigsten Wert aus)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet."
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -995,8 +996,13 @@
     "Wallet Address": "Walletadresse"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "Noch keine weiteren Token",
-    "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
+    "No LP tokens in portfolio": "Keine Liquiditätspool-Token im Portfolio",
+    "No Crypto in portfolio": "Keine Kryptowährungen im Portfolio",
+    "No dTokens in portfolio": "Keine dToken im Portfolio"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "Portfolio leer",
+    "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",

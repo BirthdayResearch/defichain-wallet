@@ -10,6 +10,7 @@ import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { useTokenBreakdownPercentage } from '../hooks/TokenLockedBalance'
+import { BalanceText } from './BalanceText'
 
 interface TokenBreakdownPercentageProps {
   lockedAmount: BigNumber
@@ -137,7 +138,13 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
             style={tailwind('text-xs')}
             testID={`${props.testID}_${props.type}_percentage`}
           >
-            {value}
+            <BalanceText
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+              style={tailwind('text-xs')}
+              testID={`${props.testID}_${props.type}_percentage_text`}
+              value={value}
+            />
           </ThemedText>}
       />
     </ThemedView>
