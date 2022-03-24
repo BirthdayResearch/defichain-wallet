@@ -83,14 +83,14 @@
     "Crypto": "加密货币",
     "dTokens": "去中心化资产代币",
     "(From highest value)": "(从最高值开始)",
-    "(From lowest value)": "(从最低值开始)"
+    "(From lowest value)": "(从最低值开始)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Total Portfolio Value now excludes loan amount based on the oracle price."
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
-    "Switch to another address": "切换到另一个地址",
-    "Wallet Address": "钱包地址",
-    "ACTIVE": "激活",
-    "Switch to another wallet": "Changer de portefeuille"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "RECEIVE": "接收",
+    "VIEW ON SCAN": "往 DeFi Scan 查看"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -1000,8 +1000,13 @@
     "Wallet Address": "钱包地址"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "尚未添加其他货币",
-    "Get started by adding your tokens here in your wallet": "在您的钱包中添加代币便可以开始操作"
+    "No LP tokens in portfolio": "资产组合中没有资金池代币",
+    "No Crypto in portfolio": "资产组合中没有加密货币",
+    "No dTokens in portfolio": "资产组合中没有dTokens 代币"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "没有资产",
+    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代币以开始使用"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "贷款计划",

@@ -83,14 +83,14 @@
     "Crypto": "加密貨幣",
     "dTokens": "去中心化資產代幣",
     "(From highest value)": "（從最高值開始）",
-    "(From lowest value)": "(從最低值開始)"
+    "(From lowest value)": "(從最低值開始)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Total Portfolio Value now excludes loan amount based on the oracle price."
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
-    "Switch to another address": "切換到另一個地址",
-    "Wallet Address": "錢包地址",
-    "ACTIVE": "激活",
-    "Switch to another wallet": "Changer de portefeuille"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "RECEIVE": "接收",
+    "VIEW ON SCAN": "往 DeFi Scan 查看"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -703,16 +703,16 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的連續顯示24個英文字組是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
-  "components/DexFaq" : {
+  "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能讓使用者運用點對點的方式兌換加密貨幣。去中心化交易所能讓使用者在不透過第三方中心化交易所之下，直接兌換貨幣。",
     "Transaction fees": "交易費用",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每筆交易需要少量的交易費用。交易費用會根據網絡的流量情況產生變化。",
     "What is slippage tolerance?": "什麼是交易滑價?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet." : "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
-  "components/LiquidityMiningFaq" : {
+  "components/LiquidityMiningFaq": {
     "Liquidity Mining": "流動性挖礦",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流動性挖礦是DeFi機制技術，可讓使用者透過提供流動資金而賺取比例化的區塊獎勵和交易費用回報，此比例以「流動性池股份」代表。\n\n流動性池中的資金主要是為去中心化交易所提供資金，當池中有資金時其他使用者可隨時兌換池中的兩個貨幣。",
     "How do I supply liquidity?": "如何能開始提供流動資金?",
@@ -828,7 +828,7 @@
     "Confirm Place Bid": "確認出價",
     "Auction details": "拍賣細節"
   },
-  "components/AuctionDetailScreen":{
+  "components/AuctionDetailScreen": {
     "Collateral": "抵押品",
     "Min. next bid": "最低標價",
     "VAULT DETAILS": "金庫資料",
@@ -1003,8 +1003,13 @@
     "Wallet Address": "錢包地址"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "尚未添加其他貨幣",
-    "Get started by adding your tokens here in your wallet": "在您的錢包中添加代幣便可以開始操作"
+    "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
+    "No Crypto in portfolio": "資產組合中沒有加密貨幣",
+    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "沒有資產",
+    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",

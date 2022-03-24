@@ -341,7 +341,7 @@ context('Wallet - Send - Switch token', function () {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH'])
-      .wait(3000)
+      .wait(6000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 

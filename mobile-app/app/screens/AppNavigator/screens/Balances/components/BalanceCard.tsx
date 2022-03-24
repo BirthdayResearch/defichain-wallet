@@ -13,7 +13,6 @@ import { tailwind } from '@tailwind'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
-import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { EmptyBalances } from './EmptyBalances'
 import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
@@ -25,6 +24,7 @@ import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
+import { EmptyPortfolio } from './EmptyPortfolio'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -34,7 +34,9 @@ export enum ButtonGroupTabKey {
 }
 
 interface BalanceCardProps {
+  isZeroBalance: boolean
   filteredTokens: BalanceRowToken[]
+  dstTokens: BalanceRowToken[]
   navigation: StackNavigationProp<BalanceParamList>
   buttonGroupOptions?: {
     onButtonGroupPress: (key: ButtonGroupTabKey) => void
@@ -44,7 +46,9 @@ interface BalanceCardProps {
 }
 
 export function BalanceCard ({
+  isZeroBalance,
   filteredTokens,
+  dstTokens,
   navigation,
   buttonGroupOptions
 }: BalanceCardProps): JSX.Element {
@@ -70,22 +74,44 @@ export function BalanceCard ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     }
   ]
+  const [tabButtonLabel, setTabButtonLabel] = useState('')
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const [isSorted, setIsSorted] = useState<boolean>(false)
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
+      setButtonLabel(buttonGroupTabKey)
     }
   }
 
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+  const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    switch (buttonGroupTabKey) {
+      case (ButtonGroupTabKey.LPTokens):
+        return setTabButtonLabel('LP tokens')
+      case (ButtonGroupTabKey.Crypto):
+        return setTabButtonLabel('Crypto')
+      case (ButtonGroupTabKey.dTokens):
+        return setTabButtonLabel('dTokens')
+    }
+  }
 
-  if (isCollapsed) {
+  if (isSorted) {
     // display value in increasing order
     filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
   } else {
     // display value in decreasing order
     filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
+  }
+
+  // return empty component if there are DFI but no other tokens
+  if (!isZeroBalance && dstTokens.length === 0) {
+    return <></>
+  }
+
+  // return empty portfolio if no DFI and other tokens
+  if (isZeroBalance) {
+    return <EmptyPortfolio />
   }
 
   return (
@@ -103,11 +129,11 @@ export function BalanceCard ({
                 testID='balance_button_group'
               />
             </View>
-            {/*  dropdown arrow (sorting) appears when there are tokens */}
+            {/*  dropdown arrow (sorting) appears when there are other tokens */}
             {
               filteredTokens.length > 0 && hasFetchedToken &&
                 <View testID='your_assets_dropdown_arrow'>
-                  <DropdownArrow isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+                  <SortTokens isSorted={isSorted} setIsSorted={setIsSorted} />
                 </View>
             }
           </>
@@ -128,13 +154,9 @@ export function BalanceCard ({
         ))}
       </View>
       {
-        !hasFetchedToken &&
-          <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Balance} />
-      }
-      {
-        // display empty balance component
+        // display empty balance component if tokens under selected tab does not exist
         filteredTokens.length === 0 && hasFetchedToken &&
-          <EmptyBalances />
+          <EmptyBalances type={tabButtonLabel} />
       }
     </ThemedView>
   )
@@ -154,7 +176,6 @@ function BalanceItemRow ({
   const lockedToken = useTokenLockedBalance({ symbol: token.symbol }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
-
   const hasLockedBalance = useMemo((): boolean => {
     return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
   }, [token])
@@ -217,37 +238,36 @@ function BalanceItemRow ({
   )
 }
 
-function DropdownArrow ({
-  isCollapsed,
-  setIsCollapsed
-}: { isCollapsed: boolean, setIsCollapsed: (isCollapsed: boolean) => void }): JSX.Element {
+function SortTokens ({
+  isSorted,
+  setIsSorted
+}: { isSorted: boolean, setIsSorted: (isSorted: boolean) => void }): JSX.Element {
   return (
     <View style={tailwind('px-4 flex flex-row items-center')}>
-      <ThemedText
-        style={tailwind('text-xs text-gray-400 pr-1')}
-        onPress={() => setIsCollapsed(!isCollapsed)}
-      >
-        {translate('screens/BalancesScreen', 'YOUR ASSETS')}
-      </ThemedText>
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs')}
-        onPress={() => setIsCollapsed(!isCollapsed)}
-      >
-        {translate('screens/BalancesScreen', `(From ${!isCollapsed ? 'highest' : 'lowest'} value)`)}
-      </ThemedText>
       <TouchableOpacity
-        onPress={() => setIsCollapsed(!isCollapsed)}
-        style={tailwind('flex flex-row pt-1')}
+        onPress={() => setIsSorted(!isSorted)}
+        style={tailwind('flex flex-row')}
         testID='toggle_sorting_assets'
       >
+        <ThemedText
+          style={tailwind('text-xs text-gray-400 pr-1')}
+        >
+          {translate('screens/BalancesScreen', 'YOUR ASSETS')}
+        </ThemedText>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
+          {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
+        </ThemedText>
         <ThemedIcon
+          style={tailwind('ml-1 pt-px')}
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
-          iconType='MaterialIcons'
-          name={!isCollapsed ? 'expand-more' : 'expand-less'}
-          size={22}
+          iconType='MaterialCommunityIcons'
+          name={!isSorted ? 'sort-ascending' : 'sort-descending'}
+          size={16}
         />
       </TouchableOpacity>
     </View>
