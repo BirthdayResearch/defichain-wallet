@@ -49,20 +49,20 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     return true
   }
   const handleSubmit = async (): Promise<void> => {
-      if (labelInput === undefined) {
-        return
-      }
+    if (labelInput === undefined) {
+      return
+    }
 
-      if (!validateInput(labelInput)) {
-        return
-      }
+    if (!validateInput(labelInput)) {
+      return
+    }
 
-      const newAddress: LabeledAddress = {}
-      newAddress[address] = {
+    await onSubmitButtonPress({
+      [address]: {
         label: labelInput,
         isMine: true
       }
-      await onSubmitButtonPress(newAddress)
+    })
   }
 
   return (
