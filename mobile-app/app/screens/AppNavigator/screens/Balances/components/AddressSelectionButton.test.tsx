@@ -22,7 +22,7 @@ describe('Address Selection Button', () => {
     }
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { userPreference: userPreferences.reducer }
+      reducer: { userPreferences: userPreferences.reducer }
     })
 
     const rendered = render(
