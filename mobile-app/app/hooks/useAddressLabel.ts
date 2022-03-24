@@ -7,5 +7,5 @@ export function useAddressLabel (address: string): string | null {
   if (addresses?.[address] != null) {
     label = addresses[address].label
   }
-  return label
+  return label !== '' ? label : null
 }
