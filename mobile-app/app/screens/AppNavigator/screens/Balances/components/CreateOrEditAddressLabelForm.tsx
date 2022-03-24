@@ -14,7 +14,7 @@ import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 
 export interface CreateOrEditAddressLabelFormProps {
   address: string
-  labeledAddress?: LocalAddress
+  addressLabel?: LocalAddress
   index: number
   type: AddressLabelFormType // currently only `edit`
   onSubmitButtonPress: (labelAddress: LabeledAddress) => Promise<void>
@@ -27,12 +27,12 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   const { isLight } = useThemeContext()
   const {
     address,
-    labeledAddress,
+    addressLabel,
     // type,
-    index
-    // onSubmitButtonPress
+    index,
+    onSubmitButtonPress
   } = route.params
-  const [labelInput, setLabelInput] = useState(labeledAddress?.label)
+  const [labelInput, setLabelInput] = useState(addressLabel?.label)
   const bottomSheetComponents = {
     mobile: BottomSheetScrollView,
     web: ThemedScrollView
@@ -73,22 +73,21 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       />
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroup
-          isDisabled={labelInput === labeledAddress || labelInput === undefined}
+          isDisabled={labelInput === addressLabel?.label || labelInput === undefined}
           isCancelDisabled={false}
           label={translate('components/CreateOrEditAddressLabelForm', 'SAVE CHANGES')}
           onCancel={() => navigation.goBack()}
-          // onSubmit={async () => {
-          //   if (labelInput === undefined) {
-          //     return
-          //   }
-          //   const newAddress: LabeledAddress = {}
-          //   newAddress[address] = {
-          //     label: labelInput,
-          //     isMine: true
-          //   }
-          //   await onSubmitButtonPress(newAddress)
-          // }}
-          onSubmit={async () => {}}
+          onSubmit={async () => {
+            if (labelInput === undefined) {
+              return
+            }
+            const newAddress: LabeledAddress = {}
+            newAddress[address] = {
+              label: labelInput,
+              isMine: true
+            }
+            await onSubmitButtonPress(newAddress)
+          }}
           displayCancelBtn
           title='edit_address_label'
         />

@@ -16,14 +16,15 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { wallet as walletReducer } from '@store/wallet'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { loans } from '@store/loans'
-import { RootState } from '@store'
+import { RootState, useAppDispatch } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
-import { LabeledAddress, setAddresses } from '@store/userPreferences'
+import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPreferences'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -43,21 +44,30 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const { addressLength, setIndex, wallet, activeAddressIndex, discoverWalletAddresses } = useWalletContext()
+  const {
+    addressLength,
+    setIndex,
+    wallet,
+    activeAddressIndex,
+    discoverWalletAddresses
+  } = useWalletContext()
   const toast = useToast()
   const [showToast, setShowToast] = useState(false)
   const TOAST_DURATION = 2000
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const logger = useLogger()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isEditing, setIsEditing] = useState(false)
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
-  // const { network } = useNetworkContext()
-  // const labeledAddresses = useSelector((state: RootState) => state.userPreferences.addresses)
+  const { network } = useNetworkContext()
+  const userPreferences = useSelector((state: RootState) => state.userPreferences)
+  const labeledAddresses = userPreferences.addresses
+  console.log('Labelled Address')
+  console.log(labeledAddresses)
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -106,14 +116,6 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   useEffect(() => {
     isNextAddressUsable().catch(logger.error)
   }, [blockCount])
-
-  // useEffect(() => {
-  //   dispatch(fetchUserPreferences(network))
-  // }, [])
-
-  // useEffect(() => {
-  //   dispatch(setAddresses(labeledAddresses))
-  // }, [labeledAddresses])
 
   const CreateAddress = useCallback(() => {
     if (!canCreateAddress || isEditing) {
@@ -179,11 +181,21 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               name: props.navigateToScreen.screenName,
               params: {
                 address: item,
-                // addressLabel: 'labeledAddresses[item]',
-                addressLabel: '',
+                addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
                 index: index + 1,
                 type: 'edit',
-                onSubmitButtonPress: (labelAddress: LabeledAddress) => dispatch(setAddresses(labelAddress))
+                onSubmitButtonPress: (labelAddress: LabeledAddress) => {
+                  return dispatch(setAddresses(labelAddress)).then(() => {
+                    const addresses = { ...labeledAddresses, ...labelAddress }
+                    dispatch(setUserPreferences({
+                      network,
+                      preferences: {
+                        ...userPreferences,
+                        addresses
+                      }
+                    }))
+                  })
+                }
               },
               merge: true
             })
@@ -198,8 +210,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           <RandomAvatar name={item} size={32} />
           <View style={tailwind('mx-2 flex-auto')}>
             <ThemedText style={tailwind('text-sm w-full')}>
-              {/* {labeledAddresses[item] ?? `Address ${index + 1}`} */}
-              {`Address ${index + 1}`}
+              {labeledAddresses != null ? labeledAddresses[item]?.label : ''}
             </ThemedText>
             <ThemedText
               style={tailwind('text-sm w-full')}
@@ -278,7 +289,10 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   )
 })
 
-function ActiveAddress ({ address, onPress }: { address: string, onPress: () => void }): JSX.Element {
+function ActiveAddress ({
+  address,
+  onPress
+}: { address: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       style={tailwind('my-4 rounded-2xl py-1 px-2')}
@@ -298,7 +312,10 @@ function ActiveAddress ({ address, onPress }: { address: string, onPress: () => 
   )
 }
 
-function AddressDetailAction ({ address, onReceivePress }: { address: string, onReceivePress: () => void }): JSX.Element {
+function AddressDetailAction ({
+  address,
+  onReceivePress
+}: { address: string, onReceivePress: () => void }): JSX.Element {
   const { getAddressUrl } = useDeFiScanContext()
 
   return (
