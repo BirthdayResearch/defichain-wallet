@@ -211,9 +211,12 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
           <View style={tailwind('mx-2 flex-auto')}>
-            <ThemedText style={tailwind('text-sm w-full')}>
-              {labeledAddresses != null ? labeledAddresses[item]?.label : ''}
-            </ThemedText>
+            {labeledAddresses?.[item]?.label != null && labeledAddresses?.[item]?.label !== '' &&
+              (
+                <ThemedText style={tailwind('text-sm w-full font-medium')}>
+                  {labeledAddresses[item]?.label}
+                </ThemedText>
+              )}
             <ThemedText
               style={tailwind('text-sm w-full')}
               ellipsizeMode='middle'
@@ -224,30 +227,30 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             </ThemedText>
           </View>
           {isEditing
-          ? (
-            <ThemedIcon
-              size={24}
-              name='edit'
-              iconType='MaterialIcons'
-              light={tailwind('text-primary-500')}
-              dark={tailwind('text-darkprimary-500')}
-              testID={`address_edit_indicator_${item}`}
-            />
-          )
-          : item === props.address
             ? (
               <ThemedIcon
                 size={24}
-                name='check'
+                name='edit'
                 iconType='MaterialIcons'
-                light={tailwind('text-success-600')}
-                dark={tailwind('text-darksuccess-600')}
-                testID={`address_active_indicator_${item}`}
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+                testID={`address_edit_indicator_${item}`}
               />
             )
-            : (
-              <View style={tailwind('h-6 w-6')} />
-            )}
+            : item === props.address
+              ? (
+                <ThemedIcon
+                  size={24}
+                  name='check'
+                  iconType='MaterialIcons'
+                  light={tailwind('text-success-600')}
+                  dark={tailwind('text-darksuccess-600')}
+                  testID={`address_active_indicator_${item}`}
+                />
+              )
+              : (
+                <View style={tailwind('h-6 w-6')} />
+              )}
         </View>
       </ThemedTouchableOpacity>
     )

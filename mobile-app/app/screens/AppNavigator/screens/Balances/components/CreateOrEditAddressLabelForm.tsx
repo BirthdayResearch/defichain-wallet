@@ -42,7 +42,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   const [inputErrorMessage, setInputErrorMessage] = useState('')
   const validateInput = (input: string): boolean => {
     if (input !== undefined && input.length > 30) {
-      setInputErrorMessage('Address label is limited to 30 characters')
+      setInputErrorMessage('Address label is too long (max 30 characters)')
       return false
     }
     setInputErrorMessage('')
@@ -72,7 +72,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         'bg-gray-800': !isLight
       }])}
     >
-      <View style={tailwind('mb-2')}>
+      <View style={tailwind('mb-2 flex-1')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
           {translate('components/CreateOrEditAddressLabelForm', 'EDIT ADDRESS LABEL')}
         </ThemedText>
