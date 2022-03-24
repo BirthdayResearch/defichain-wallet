@@ -295,7 +295,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         </View>
       </ThemedView>
     )
-  }, [props, addressLength, isEditing])
+  }, [props, addressLength, isEditing, activeLabel])
 
   return (
     <FlatList
