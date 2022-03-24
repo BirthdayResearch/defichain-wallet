@@ -221,14 +221,25 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               {item}
             </ThemedText>
           </View>
-          {item === props.address
+          {isEditing
+          ? (
+            <ThemedIcon
+              size={24}
+              name='edit'
+              iconType='MaterialIcons'
+              light={tailwind('text-primary-500')}
+              dark={tailwind('text-darkprimary-500')}
+              testID={`address_edit_indicator_${item}`}
+            />
+          )
+          : item === props.address
             ? (
               <ThemedIcon
                 size={24}
                 name='check'
                 iconType='MaterialIcons'
                 light={tailwind('text-success-600')}
-                dark={tailwind('text-darksuccess-600')}
+                dark={tailwind('text-success-600')}
                 testID={`address_active_indicator_${item}`}
               />
             )
