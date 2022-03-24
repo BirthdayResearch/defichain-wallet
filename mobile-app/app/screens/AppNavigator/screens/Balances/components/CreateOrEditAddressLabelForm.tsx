@@ -16,7 +16,7 @@ export interface CreateOrEditAddressLabelFormProps {
   address: string
   labeledAddress?: LocalAddress
   index: number
-  type: AddressLabelFormType
+  type: AddressLabelFormType // currently only `edit`
   onSubmitButtonPress: (labelAddress: LabeledAddress) => Promise<void>
 }
 
@@ -29,8 +29,8 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     address,
     labeledAddress,
     // type,
-    index,
-    onSubmitButtonPress
+    index
+    // onSubmitButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(labeledAddress?.label)
   const bottomSheetComponents = {
@@ -77,17 +77,18 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
           isCancelDisabled={false}
           label={translate('components/CreateOrEditAddressLabelForm', 'SAVE CHANGES')}
           onCancel={() => navigation.goBack()}
-          onSubmit={async () => {
-            if (labelInput === undefined) {
-              return
-            }
-            const newAddress: LabeledAddress = {}
-            newAddress[address] = {
-              label: labelInput,
-              isMine: true
-            }
-            await onSubmitButtonPress(newAddress)
-}}
+          // onSubmit={async () => {
+          //   if (labelInput === undefined) {
+          //     return
+          //   }
+          //   const newAddress: LabeledAddress = {}
+          //   newAddress[address] = {
+          //     label: labelInput,
+          //     isMine: true
+          //   }
+          //   await onSubmitButtonPress(newAddress)
+          // }}
+          onSubmit={async () => {}}
           displayCancelBtn
           title='edit_address_label'
         />

@@ -23,8 +23,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { fetchUserPreferences, LabeledAddress, setAddresses } from '@store/userPreferences'
+import { LabeledAddress, setAddresses } from '@store/userPreferences'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -57,8 +56,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isEditing, setIsEditing] = useState(false)
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
-  const { network } = useNetworkContext()
-  const labeledAddresses = useSelector((state: RootState) => state.userPreferences.addresses)
+  // const { network } = useNetworkContext()
+  // const labeledAddresses = useSelector((state: RootState) => state.userPreferences.addresses)
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -108,13 +107,13 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     isNextAddressUsable().catch(logger.error)
   }, [blockCount])
 
-  useEffect(() => {
-    dispatch(fetchUserPreferences(network))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchUserPreferences(network))
+  // }, [])
 
-  useEffect(() => {
-    dispatch(setAddresses(labeledAddresses))
-  }, [labeledAddresses])
+  // useEffect(() => {
+  //   dispatch(setAddresses(labeledAddresses))
+  // }, [labeledAddresses])
 
   const CreateAddress = useCallback(() => {
     if (!canCreateAddress || isEditing) {
@@ -180,7 +179,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               name: props.navigateToScreen.screenName,
               params: {
                 address: item,
-                addressLabel: labeledAddresses[item],
+                // addressLabel: 'labeledAddresses[item]',
+                addressLabel: '',
                 index: index + 1,
                 type: 'edit',
                 onSubmitButtonPress: (labelAddress: LabeledAddress) => dispatch(setAddresses(labelAddress))
@@ -198,7 +198,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           <RandomAvatar name={item} size={32} />
           <View style={tailwind('mx-2 flex-auto')}>
             <ThemedText style={tailwind('text-sm w-full')}>
-              {labeledAddresses[item] ?? `Address ${index + 1}`}
+              {/* {labeledAddresses[item] ?? `Address ${index + 1}`} */}
+              {`Address ${index + 1}`}
             </ThemedText>
             <ThemedText
               style={tailwind('text-sm w-full')}
