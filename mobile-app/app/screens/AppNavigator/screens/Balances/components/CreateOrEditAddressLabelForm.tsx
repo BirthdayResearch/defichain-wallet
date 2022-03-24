@@ -10,13 +10,14 @@ import { RandomAvatar } from './RandomAvatar'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 
 export interface CreateOrEditAddressLabelFormProps {
   address: string
-  addressLabel: string
+  labeledAddress?: LocalAddress
   index: number
   type: AddressLabelFormType
-  onSubmitButtonPress: () => Promise<void>
+  onSubmitButtonPress: (labelAddress: LabeledAddress) => Promise<void>
 }
 
 type AddressLabelFormType = 'create' | 'edit'
@@ -26,12 +27,12 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   const { isLight } = useThemeContext()
   const {
     address,
-    addressLabel,
+    labeledAddress,
     // type,
     index,
     onSubmitButtonPress
   } = route.params
-  const [labelInput, setLabelInput] = useState(addressLabel)
+  const [labelInput, setLabelInput] = useState(labeledAddress?.label)
   const bottomSheetComponents = {
     mobile: BottomSheetScrollView,
     web: ThemedScrollView
@@ -61,22 +62,32 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       <WalletTextInput
         value={labelInput}
         inputType='default'
-        displayClearButton={labelInput !== ''}
+        displayClearButton={labelInput !== '' && labelInput !== undefined}
         onChangeText={(text: string) => setLabelInput(text)}
         onClearButtonPress={() => {
           setLabelInput('')
         }}
-        placeholder={translate('components/CreateOrEditAddressLabelForm', `${addressLabel !== '' ? addressLabel : 'Address {{index}}'}`, { index })}
+        placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof labelInput === 'string' ? labelInput : 'Address {{index}}'}`, { index })}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
       />
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroup
-          isDisabled={labelInput === addressLabel}
+          isDisabled={labelInput === labeledAddress || labelInput === undefined}
           isCancelDisabled={false}
           label={translate('components/CreateOrEditAddressLabelForm', 'SAVE CHANGES')}
           onCancel={() => navigation.goBack()}
-          onSubmit={onSubmitButtonPress}
+          onSubmit={async () => {
+            if (labelInput === undefined) {
+              return
+            }
+            const newAddress: LabeledAddress = {}
+            newAddress[address] = {
+              label: labelInput,
+              isMine: true
+            }
+            await onSubmitButtonPress(newAddress)
+}}
           displayCancelBtn
           title='edit_address_label'
         />

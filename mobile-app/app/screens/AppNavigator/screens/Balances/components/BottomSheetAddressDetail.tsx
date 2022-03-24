@@ -23,6 +23,8 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { fetchUserPreferences, LabeledAddress, setAddresses } from '@store/userPreferences'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -55,6 +57,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isEditing, setIsEditing] = useState(false)
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
+  const { network } = useNetworkContext()
+  const labeledAddresses = useSelector((state: RootState) => state.userPreferences.addresses)
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -103,6 +107,14 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   useEffect(() => {
     isNextAddressUsable().catch(logger.error)
   }, [blockCount])
+
+  useEffect(() => {
+    dispatch(fetchUserPreferences(network))
+  }, [])
+
+  useEffect(() => {
+    dispatch(setAddresses(labeledAddresses))
+  }, [labeledAddresses])
 
   const CreateAddress = useCallback(() => {
     if (!canCreateAddress || isEditing) {
@@ -168,10 +180,10 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               name: props.navigateToScreen.screenName,
               params: {
                 address: item,
-                addressLabel: '',
+                addressLabel: labeledAddresses[item],
                 index: index + 1,
                 type: 'edit',
-                onSubmitButtonPress: props.navigateToScreen.onButtonPress
+                onSubmitButtonPress: (labelAddress: LabeledAddress) => dispatch(setAddresses(labelAddress))
               },
               merge: true
             })
@@ -182,29 +194,22 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         testID={`address_row_${index}`}
         disabled={hasPendingJob || hasPendingBroadcastJob}
       >
-        <View style={tailwind('flex flex-row items-center flex-auto')}>
+        <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
-          <ThemedText
-            style={tailwind('text-sm ml-2 w-9/12')}
-            ellipsizeMode='middle'
-            numberOfLines={1}
-            testID={`address_row_text_${index}`}
-          >
-            {item}
-          </ThemedText>
-        </View>
-        {isEditing
-          ? (
-            <ThemedIcon
-              size={24}
-              name='edit'
-              iconType='MaterialIcons'
-              light={tailwind('text-primary-500')}
-              dark={tailwind('text-darkprimary-500')}
-              testID={`address_edit_indicator_${item}`}
-            />
-          )
-          : item === props.address
+          <View style={tailwind('mx-2 flex-auto')}>
+            <ThemedText style={tailwind('text-sm w-full')}>
+              {labeledAddresses[item] ?? `Address ${index + 1}`}
+            </ThemedText>
+            <ThemedText
+              style={tailwind('text-sm w-full')}
+              ellipsizeMode='middle'
+              numberOfLines={1}
+              testID={`address_row_text_${index}`}
+            >
+              {item}
+            </ThemedText>
+          </View>
+          {item === props.address
             ? (
               <ThemedIcon
                 size={24}
@@ -218,6 +223,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             : (
               <View style={tailwind('h-6 w-6')} />
             )}
+        </View>
       </ThemedTouchableOpacity>
     )
   }, [isEditing])
