@@ -2,6 +2,7 @@ import { ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/them
 import { tailwind } from '@tailwind'
 import { Platform } from 'react-native'
 import { RandomAvatar } from './RandomAvatar'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 
 interface AddressSelectionButtonProps {
   address: string
@@ -10,6 +11,7 @@ interface AddressSelectionButtonProps {
 }
 
 export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX.Element {
+  const addressLabel = useAddressLabel(props.address)
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-gray-50')}
@@ -27,7 +29,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
         dark={tailwind('text-white')}
         testID='wallet_address'
       >
-        {props.address}
+        {addressLabel != null ? addressLabel : props.address}
       </ThemedText>
       {props.addressLength > 0 &&
         (
