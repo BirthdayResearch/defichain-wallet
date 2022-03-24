@@ -39,7 +39,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'local_storage',
       name: 'Native local storage',
-      stage: 'beta',
+      stage: 'public',
       version: '>1.6.0',
       description: 'Native local storage',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
