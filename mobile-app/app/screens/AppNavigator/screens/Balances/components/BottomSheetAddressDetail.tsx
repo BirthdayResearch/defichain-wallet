@@ -360,6 +360,7 @@ function AddressDetailAction ({
         iconType='MaterialIcons'
         style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
         onPress={onReceivePress}
+        textStyle={tailwind('pt-0.5')}
       />
       <IconButton
         iconLabel={translate('components/BottomSheetAddressDetail', 'VIEW ON SCAN')}
@@ -368,6 +369,7 @@ function AddressDetailAction ({
         iconType='MaterialIcons'
         style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center')}
         onPress={async () => await openURL(getAddressUrl(address))}
+        textStyle={tailwind('pt-0.5')}
       />
     </View>
   )
