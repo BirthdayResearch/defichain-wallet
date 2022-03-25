@@ -95,7 +95,7 @@
     "CANCEL": "取消"
   },
   "components/CreateOrEditAddressLabelForm": {
-    "EDIT ADDRESS LABEL": "更改地址标签",
+    "Edit Address Label": "更改地址标签",
     "ADDRESS LABEL": "地址标签",
     "Address {{index}}": "地址 {{index}}",
     "SAVE CHANGES": "储存修改",
