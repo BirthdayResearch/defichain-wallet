@@ -71,6 +71,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         'bg-white': isLight,
         'bg-gray-800': !isLight
       }])}
+      testID='create_or_edit_label_address_form'
     >
       <View style={tailwind('mb-2 flex-1')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
@@ -105,6 +106,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
           type: 'error',
           text: translate('components/CreateOrEditAddressLabelForm', inputErrorMessage)
         }}
+        testID='edit_label_input'
       />
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroup
