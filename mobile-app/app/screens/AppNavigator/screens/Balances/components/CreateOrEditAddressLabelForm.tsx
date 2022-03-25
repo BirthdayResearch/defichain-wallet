@@ -41,7 +41,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
 
   const [inputErrorMessage, setInputErrorMessage] = useState('')
   const validateInput = (input: string): boolean => {
-    if (input !== undefined && input.length > 30) {
+    if (input !== undefined && input.trim().length > 30) {
       setInputErrorMessage('Address label is too long (max 30 characters)')
       return false
     }
@@ -59,7 +59,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
 
     await onSubmitButtonPress({
       [address]: {
-        label: labelInput,
+        label: labelInput.trim(),
         isMine: true
       }
     })
