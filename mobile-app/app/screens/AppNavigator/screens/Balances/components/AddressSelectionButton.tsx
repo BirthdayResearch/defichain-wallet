@@ -16,7 +16,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
     <ThemedTouchableOpacity
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
-      style={tailwind('rounded-2xl p-1 flex flex-row items-center mr-2')}
+      style={tailwind('rounded-2xl p-1 pr-2 flex flex-row items-center mr-2')}
       onPress={props.onPress}
       testID='switch_account_button'
     >
@@ -24,7 +24,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
       <ThemedText
         ellipsizeMode='middle'
         numberOfLines={1}
-        style={tailwind('text-xs w-14 ml-1')}
+        style={[tailwind('text-xs ml-1'), { minWidth: 10, maxWidth: 56 }]}
         light={tailwind('text-black')}
         dark={tailwind('text-white')}
         testID='wallet_address'
@@ -36,7 +36,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
           <ThemedView
             light={tailwind('bg-warning-600')}
             dark={tailwind('bg-darkwarning-600')}
-            style={tailwind('rounded-full w-4 h-4 mr-1')}
+            style={tailwind('rounded-full w-4 h-4 ml-1')}
           >
             <ThemedText
               light={tailwind('text-white')}

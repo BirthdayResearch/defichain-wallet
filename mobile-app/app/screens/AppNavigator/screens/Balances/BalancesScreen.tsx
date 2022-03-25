@@ -295,10 +295,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               isModalDisplayed={isModalDisplayed}
               modalStyle={{
                 position: 'fixed',
-                height: '387px',
+                height: '505px',
                 width: '375px',
                 zIndex: 50,
-                top: '42%'
+                top: '33%'
               }}
             />
           )
