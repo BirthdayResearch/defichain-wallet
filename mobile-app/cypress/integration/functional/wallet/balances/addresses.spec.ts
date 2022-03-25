@@ -53,7 +53,6 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-    cy.getByTestID('address_bottomsheet_container').scrollTo('bottom')
     cy.getByTestID('create_new_address').should('exist').click().should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
       expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('1')
@@ -212,7 +211,6 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('switch_account_button').should('exist').click()
-    cy.getByTestID('address_bottomsheet_container').scrollTo('bottom')
     cy.getByTestID('create_new_address').should('exist').click().should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
       maxAddress = localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)
@@ -268,7 +266,6 @@ context('Wallet - Addresses should able to create maximum 10 addresses', () => {
     for (let i = 1; i < 10; i++) {
       cy.getByTestID('bottom_tab_balances').click()
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
-      cy.getByTestID('address_bottomsheet_container').scrollTo('bottom')
       cy.getByTestID('create_new_address').should('exist').click()
       cy.sendDFItoWallet().wait(3000)
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
@@ -295,7 +292,6 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('switch_account_button').should('exist').click()
-    cy.getByTestID('address_bottomsheet_container').scrollTo('bottom')
     cy.getByTestID('create_new_address').should('exist').click()
     cy.getByTestID('wallet_address').invoke('text').then(text => {
       address = text
