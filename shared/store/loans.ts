@@ -23,6 +23,7 @@ export interface LoansState {
   loanPaymentTokenActivePrice?: ActivePrice
   hasFetchedVaultsData: boolean
   hasFetchedLoansData: boolean
+  hasFetchedLoanSchemes: boolean
 }
 
 const initialState: LoansState = {
@@ -32,7 +33,8 @@ const initialState: LoansState = {
   collateralTokens: [],
   loanPaymentTokenActivePrice: undefined,
   hasFetchedVaultsData: false,
-  hasFetchedLoansData: false
+  hasFetchedLoansData: false,
+  hasFetchedLoanSchemes: false
 }
 
 // TODO (Harsh) Manage pagination for all api
@@ -108,6 +110,7 @@ export const loans = createSlice({
     })
     builder.addCase(fetchLoanSchemes.fulfilled, (state, action: PayloadAction<LoanScheme[]>) => {
       state.loanSchemes = action.payload
+      state.hasFetchedLoanSchemes = true
     })
     builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
       state.collateralTokens = action.payload

@@ -27,6 +27,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
   const { vaultId } = route.params
   const { vaults } = useSelector((state: RootState) => state.loans)
   const loanSchemes = useSelector((state: RootState) => ascColRatioLoanScheme(state.loans))
+  const hasFetchedLoanSchemes = useSelector((state: RootState) => state.loans.hasFetchedLoanSchemes)
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
   const [filteredLoanSchemes, setFilteredLoanSchemes] = useState<WalletLoanScheme[]>()
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme>()
@@ -104,6 +105,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         {translate('screens/EditLoanSchemeScreen', 'Make sure your collateralization ratio is still above your min. collateralization ratio')}
       </ThemedText>
       <LoanSchemeOptions
+        isLoading={!hasFetchedLoanSchemes}
         loanSchemes={filteredLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
