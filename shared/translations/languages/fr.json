@@ -91,11 +91,11 @@
     "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
     "RECEIVE": "RECEVOIR",
     "VIEW ON SCAN": "VOIR SUR DeFi SCAN",
-    "EDIT": "Modifier",
+    "EDIT": "MODIFIER",
     "CANCEL": "ANNULER"
   },
   "components/CreateOrEditAddressLabelForm": {
-    "EDIT ADDRESS LABEL": "MODIFIER L'ÉTIQUETTE D'ADRESSE",
+    "Edit Address Label": "Modifier l'étiquette d'adresse",
     "ADDRESS LABEL": "ÉTIQUETTE D'ADRESSE",
     "Address {{index}}": "Adresse {{index}}",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",

@@ -74,7 +74,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     >
       <View style={tailwind('mb-2 flex-1')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
-          {translate('components/CreateOrEditAddressLabelForm', 'EDIT ADDRESS LABEL')}
+          {translate('components/CreateOrEditAddressLabelForm', 'Edit Address Label')}
         </ThemedText>
       </View>
       <AddressDisplay address={address} />
