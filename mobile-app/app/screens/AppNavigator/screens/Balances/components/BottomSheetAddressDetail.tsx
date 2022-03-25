@@ -306,6 +306,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
 
   return (
     <FlatList
+      testID='address_bottomsheet_container'
       keyExtractor={(item) => item}
       stickyHeaderIndices={[0]}
       style={tailwind({
