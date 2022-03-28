@@ -16,6 +16,7 @@ export function WalletAddressRow (): JSX.Element {
     >
       <ThemedText
         style={tailwind('text-sm')}
+        testID='wallet_address_text'
       >
         {translate('components/WalletAddressRow', 'Wallet address')}
       </ThemedText>
