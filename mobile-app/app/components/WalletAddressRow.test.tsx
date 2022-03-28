@@ -11,7 +11,6 @@ jest.mock('@shared-contexts/WalletContext')
 
 describe('Wallet Address Row', () => {
   it('should match snapshot', async () => {
-    // const rendered = render(<WalletAddressRow />)
     const initialState: Partial<RootState> = {
       userPreferences: {
         addresses: {
