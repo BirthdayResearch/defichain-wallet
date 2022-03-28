@@ -40,6 +40,9 @@ import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
+import { BottomSheetAddressBook } from '../components/BottomSheetAddressBook'
+import { CreateOrEditAddressLabelForm } from '../components/CreateOrEditAddressLabelForm'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -47,6 +50,7 @@ export function SendScreen ({
   route,
   navigation
 }: Props): JSX.Element {
+  const { isLight } = useThemeContext()
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
@@ -128,7 +132,7 @@ export function SendScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  useEffect(() => {
+  const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
       {
         stackScreenName: 'TokenList',
@@ -151,6 +155,41 @@ export function SendScreen ({
           header: () => null
         }
       }])
+  }, [])
+
+  const setAddressBookBottomSheet = useCallback(() => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'AddressBook',
+        component: BottomSheetAddressBook({
+          address: getValues('address'),
+          onAddressSelect: (address: string) => {
+            setValue('address', address, { shouldDirty: true })
+          },
+          onCloseButtonPress: () => dismissModal(),
+          navigateToScreen: {
+            screenName: 'CreateOrEditAddressLabelForm'
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      },
+      {
+        stackScreenName: 'CreateOrEditAddressLabelForm',
+        component: CreateOrEditAddressLabelForm,
+        option: {
+          headerStatusBarHeight: 1,
+          headerBackgroundContainerStyle: tailwind('border-b', {
+            'border-gray-200': isLight,
+            'border-gray-700': !isLight,
+            '-top-5': Platform.OS !== 'web'
+          }),
+          headerTitle: '',
+          headerBackTitleVisible: false
+        }
+      }
+    ])
   }, [])
 
   async function onSubmit (): Promise<void> {
@@ -199,7 +238,14 @@ export function SendScreen ({
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
-        <TokenInput token={token} onPress={expandModal} isDisabled={!hasBalance} />
+        <TokenInput
+          token={token}
+          onPress={() => {
+            setTokenListBottomSheet()
+            expandModal()
+          }}
+          isDisabled={!hasBalance}
+        />
 
         {token === undefined
           ? (
@@ -213,7 +259,10 @@ export function SendScreen ({
                 <AddressRow
                   control={control}
                   networkName={networkName}
-                  onContactButtonPress={() => { /* TODO: open bottom sheet */ }}
+                  onContactButtonPress={() => {
+                    setAddressBookBottomSheet()
+                    expandModal()
+                  }}
                   onQrButtonPress={() => navigation.navigate({
                     name: 'BarCodeScanner',
                     params: {
@@ -309,6 +358,13 @@ export function SendScreen ({
             modalRef={containerRef}
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
+            modalStyle={{
+              position: 'absolute',
+              height: '350px',
+              width: '375px',
+              zIndex: 50,
+              bottom: '0'
+            }}
           />
         )}
 
@@ -439,21 +495,6 @@ function AddressRow ({
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800')}
                 light={tailwind('bg-white')}
-                onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 mr-2')}
-                testID='address_book_button'
-              >
-                <ThemedIcon
-                  dark={tailwind('text-darkprimary-500')}
-                  iconType='MaterialIcons'
-                  light={tailwind('text-primary-500')}
-                  name='contacts'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800')}
-                light={tailwind('bg-white')}
                 onPress={onQrButtonPress}
                 style={tailwind('w-9 p-1.5')}
                 testID='qr_code_button'
@@ -463,6 +504,21 @@ function AddressRow ({
                   iconType='MaterialIcons'
                   light={tailwind('text-primary-500')}
                   name='qr-code-scanner'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+                onPress={onContactButtonPress}
+                style={tailwind('w-9 p-1.5 ml-2')}
+                testID='address_book_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='contacts'
                   size={24}
                 />
               </ThemedTouchableOpacity>
