@@ -13,10 +13,12 @@ export interface LocalAddress {
 
 export interface UserPreferences {
   addresses: LabeledAddress
+  addressBook: Map<string, LocalAddress>
 }
 
 const initialState: UserPreferences = {
-  addresses: {}
+  addresses: {},
+  addressBook: new Map()
 }
 
 export const fetchUserPreferences = createAsyncThunk(
@@ -43,6 +45,13 @@ export const setAddresses = createAsyncThunk(
   }
 )
 
+export const setAddressBook = createAsyncThunk(
+  'userPreferences/setAddressBook',
+  async (addressBook: Map<string, LocalAddress>) => {
+    return addressBook
+  }
+)
+
 export const userPreferences = createSlice({
   name: 'userPreferences',
   initialState,
@@ -55,6 +64,13 @@ export const userPreferences = createSlice({
     builder.addCase(setAddresses.fulfilled, (state, action: PayloadAction<LabeledAddress>) => {
       state.addresses = {
         ...state.addresses,
+        ...action.payload
+      }
+      return state
+    })
+    builder.addCase(setAddressBook.fulfilled, (state, action: PayloadAction<Map<string, LocalAddress>>) => {
+      state.addressBook = {
+        ...state.addressBook,
         ...action.payload
       }
       return state
