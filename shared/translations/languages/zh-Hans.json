@@ -77,14 +77,29 @@
     "Available: ": "现有可使用: ",
     "Locked: ": "已鎖定: ",
     "locked in vault(s)": "锁定在金库",
-    "available": "可使用资金"
+    "available": "可使用资金",
+    "All tokens": "所有代币",
+    "LP tokens": "资金池代币",
+    "Crypto": "加密货币",
+    "dTokens": "去中心化资产代币",
+    "(From highest value)": "(从最高值开始)",
+    "(From lowest value)": "(从最低值开始)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额"
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
-    "Switch to another address": "切换到另一个地址",
-    "Wallet Address": "钱包地址",
-    "ACTIVE": "激活",
-    "Switch to another wallet": "Changer de portefeuille"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "RECEIVE": "接收",
+    "VIEW ON SCAN": "往 DeFi Scan 查看",
+    "EDIT": "编辑",
+    "CANCEL": "取消"
+  },
+  "components/CreateOrEditAddressLabelForm": {
+    "Edit Address Label": "更改地址标签",
+    "ADDRESS LABEL": "地址标签",
+    "Address {{index}}": "地址 {{index}}",
+    "SAVE CHANGES": "储存修改",
+    "Address label is too long (max 30 characters)": "地址标签太长（最多 30 个字符）"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -994,8 +1009,13 @@
     "Wallet Address": "钱包地址"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "尚未添加其他货币",
-    "Get started by adding your tokens here in your wallet": "在您的钱包中添加代币便可以开始操作"
+    "No LP tokens in portfolio": "资产组合中没有资金池代币",
+    "No Crypto in portfolio": "资产组合中没有加密货币",
+    "No dTokens in portfolio": "资产组合中没有dTokens 代币"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "没有资产",
+    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代币以开始使用"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "贷款计划",

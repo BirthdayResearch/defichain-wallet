@@ -13,14 +13,6 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
         description: 'Browse loan tokens provided by DeFiChain',
         networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
         platforms: ['ios', 'android', 'web']
-      }, {
-        id: 'auction',
-        name: 'Auction',
-        stage: 'beta',
-        version: '>=0.12.2',
-        description: 'Browse auctions provided by DeFiChain',
-        networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-        platforms: ['ios', 'android', 'web']
       }
     ],
     enabledFeatures: ['loan', 'dfi_loan_payment'],

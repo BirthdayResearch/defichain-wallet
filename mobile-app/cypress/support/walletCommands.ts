@@ -90,6 +90,7 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   cy.getByTestID(`${testID}_name`).should('have.text', details.name)
   if (dynamicAmount === true) {
     cy.getByTestID(`${testID}_amount`).contains(details.amount)
+    cy.getByTestID(`${testID}_available_percentage_text`).should('have.text', details.amount)
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
   }
