@@ -75,7 +75,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <HeaderSettingButton />
       ),
       headerRight: (): JSX.Element => (
-        <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} />
+        <View style={tailwind('mr-2')}>
+          <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} hasCount />
+        </View>
       )
     })
   }, [navigation, address, addressLength])
