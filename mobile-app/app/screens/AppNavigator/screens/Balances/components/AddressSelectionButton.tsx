@@ -7,7 +7,7 @@ import { useAddressLabel } from '@hooks/useAddressLabel'
 interface AddressSelectionButtonProps {
   address: string
   addressLength: number
-  onPress: () => void
+  onPress?: () => void
 }
 
 export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX.Element {
