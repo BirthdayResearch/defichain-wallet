@@ -13,11 +13,12 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 
 export interface CreateOrEditAddressLabelFormProps {
-  address: string
+  address?: string
   addressLabel?: LocalAddress
-  index: number
+  index?: number
   type: AddressLabelFormType // currently only `edit`
-  onSubmitButtonPress: (labelAddress: LabeledAddress) => Promise<void>
+  onSubmitButtonPress?: (labelAddress: LabeledAddress) => Promise<void>
+  onCreateButtonPress?: (localAddress: LocalAddress, address: string) => void
 }
 
 type AddressLabelFormType = 'create' | 'edit'
@@ -28,9 +29,10 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   const {
     address,
     addressLabel,
-    // type,
+    type,
     index,
-    onSubmitButtonPress
+    onSubmitButtonPress,
+    onCreateButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
   const bottomSheetComponents = {
@@ -49,20 +51,27 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     return true
   }
   const handleSubmit = async (): Promise<void> => {
-    if (labelInput === undefined) {
+    if (labelInput === undefined ||
+      address === undefined ||
+      !validateInput(labelInput) ||
+      onCreateButtonPress === undefined ||
+      onSubmitButtonPress === undefined) {
       return
     }
 
-    if (!validateInput(labelInput)) {
-      return
-    }
-
-    await onSubmitButtonPress({
-      [address]: {
+    if (type === 'create') {
+      onCreateButtonPress({
         label: labelInput.trim(),
-        isMine: true
-      }
-    })
+        isMine: false
+      }, address)
+    } else {
+      await onSubmitButtonPress({
+        [address]: {
+          label: labelInput.trim(),
+          isMine: true
+        }
+      })
+    }
   }
 
   return (
@@ -74,10 +83,10 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     >
       <View style={tailwind('mb-2 flex-1')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
-          {translate('components/CreateOrEditAddressLabelForm', 'Edit Address Label')}
+          {translate('components/CreateOrEditAddressLabelForm', type === 'create' ? 'Add New Address' : 'Edit Address Label')}
         </ThemedText>
       </View>
-      <AddressDisplay address={address} />
+      {address !== undefined && <AddressDisplay address={address} />}
       <ThemedText
         style={tailwind('text-xs font-medium')}
         light={tailwind('text-gray-400')}
