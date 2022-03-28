@@ -21,7 +21,6 @@ exports[`Address Selection Button should match snapshot 1`] = `
       "borderTopRightRadius": 16,
       "display": "flex",
       "flexDirection": "row",
-      "marginRight": 8,
       "opacity": 1,
       "paddingBottom": 4,
       "paddingLeft": 4,
