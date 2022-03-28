@@ -84,13 +84,22 @@
     "dTokens": "去中心化資產代幣",
     "(From highest value)": "（從最高值開始）",
     "(From lowest value)": "(從最低值開始)",
-    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Total Portfolio Value now excludes loan amount based on the oracle price."
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*總資產組合價值已撇除以預言機價格計算的貸款金額"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
     "{{length}} ADDRESS(ES)": "{{length}} 地址",
     "RECEIVE": "接收",
-    "VIEW ON SCAN": "往 DeFi Scan 查看"
+    "VIEW ON SCAN": "往 DeFi Scan 查看",
+    "EDIT": "編輯",
+    "CANCEL": "取消"
+  },
+  "components/CreateOrEditAddressLabelForm": {
+    "Edit Address Label": "更改地址標籤",
+    "ADDRESS LABEL": "地址標籤",
+    "Address {{index}}": "地址 {{index}}",
+    "SAVE CHANGES": "儲存修改",
+    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",

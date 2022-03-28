@@ -90,7 +90,16 @@
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
     "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(N)",
     "RECEIVE": "EMPFANGEN",
-    "VIEW ON SCAN": "VOIRE SUR DeFi SCAN"
+    "VIEW ON SCAN": "AUF DeFi SCAN ANSEHEN",
+    "EDIT": "EDITIEREN",
+    "CANCEL": "ABBRECHEN"
+  },
+  "components/CreateOrEditAddressLabelForm": {
+    "Edit Address Label": "Adressbezeichnung bearbeiten",
+    "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
+    "Address {{index}}": "Adresse {{index}}",
+    "SAVE CHANGES": "ÄNDERUNGEN SICHER",
+    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
