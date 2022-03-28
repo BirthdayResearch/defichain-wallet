@@ -7,7 +7,8 @@ import { useAddressLabel } from '@hooks/useAddressLabel'
 interface AddressSelectionButtonProps {
   address: string
   addressLength: number
-  onPress: () => void
+  onPress?: () => void
+  hasCount?: boolean
 }
 
 export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX.Element {
@@ -16,7 +17,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
     <ThemedTouchableOpacity
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
-      style={tailwind('rounded-2xl p-1 pr-2 flex flex-row items-center mr-2')}
+      style={tailwind('rounded-2xl p-1 pr-2 flex flex-row items-center')}
       onPress={props.onPress}
       testID='switch_account_button'
     >
@@ -31,7 +32,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
       >
         {addressLabel != null ? addressLabel : props.address}
       </ThemedText>
-      {props.addressLength > 0 &&
+      {props.addressLength > 0 && props.hasCount &&
         (
           <ThemedView
             light={tailwind('bg-warning-600')}
