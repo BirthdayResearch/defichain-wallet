@@ -410,16 +410,16 @@ context('Wallet - Address Label', () => {
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('edit_address_label_button').click()
     validateAddressLabel('😀🙌👶👩🏻‍💻', 1)
+    cy.sendDFItoWallet().wait(6000)
   })
 
   it('should trim leading and trailing empty spaces upon save', function () {
-    cy.sendDFItoWallet().wait(6000)
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('create_new_address').click().wait(1000)
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('edit_address_label_button').click()
     cy.getByTestID('address_row_text_2').invoke('text').then((address: string) => {
-      const inputLabel = ' a  b   c    '
+      const inputLabel = ' abc    '
       const trimmedLabel = inputLabel.trim()
       cy.getByTestID(`address_edit_indicator_${address}`).should('exist').click()
       cy.getByTestID('edit_label_input').clear().type(inputLabel)
