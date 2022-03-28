@@ -20,7 +20,7 @@ export function WalletAddressRow (): JSX.Element {
       >
         {translate('components/WalletAddressRow', 'Wallet address')}
       </ThemedText>
-      <View style={tailwind('-mr-2')}>
+      <View>
         <AddressSelectionButton address={address} addressLength={addressLength} />
       </View>
     </ThemedView>
