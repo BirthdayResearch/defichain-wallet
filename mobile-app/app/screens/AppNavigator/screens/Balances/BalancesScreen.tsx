@@ -199,6 +199,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
@@ -308,10 +309,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             <BottomSheetWithNav
               modalRef={bottomSheetRef}
               screenList={bottomSheetScreen}
-              snapPoints={{
-                ios: ['60%'],
-                android: ['60%']
-              }}
+              snapPoints={modalSnapPoints}
             />
           )}
       </ThemedScrollView>
