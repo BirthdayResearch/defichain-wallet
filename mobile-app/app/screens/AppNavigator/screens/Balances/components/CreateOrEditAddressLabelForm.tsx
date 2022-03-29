@@ -11,14 +11,17 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { fromAddress } from '@defichain/jellyfish-address'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 export interface CreateOrEditAddressLabelFormProps {
   address?: string
   addressLabel?: LocalAddress
   index?: number
   type: AddressLabelFormType // currently only `edit`
-  onSubmitButtonPress?: (labelAddress: LabeledAddress) => Promise<void>
-  onCreateButtonPress?: (localAddress: LocalAddress, address: string) => void
+  onSaveButtonPress?: (labelAddress: LabeledAddress) => void
 }
 
 type AddressLabelFormType = 'create' | 'edit'
@@ -31,47 +34,98 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     addressLabel,
     type,
     index,
-    onSubmitButtonPress,
-    onCreateButtonPress
+    onSaveButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
+  const [addressInput, setAddressInput] = useState<string | undefined>()
   const bottomSheetComponents = {
     mobile: BottomSheetScrollView,
     web: ThemedScrollView
   }
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
-
-  const [inputErrorMessage, setInputErrorMessage] = useState('')
-  const validateInput = (input: string): boolean => {
+  const { networkName } = useNetworkContext()
+  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const [labelInputErrorMessage, setLabelInputErrorMessage] = useState('')
+  const [addressInputErrorMessage, setAddressInputErrorMessage] = useState('')
+  const validateLabelInput = (input: string): boolean => {
     if (input !== undefined && input.trim().length > 30) {
-      setInputErrorMessage('Address label is too long (max 30 characters)')
+      setLabelInputErrorMessage('Address label is too long (max 30 characters)')
       return false
     }
-    setInputErrorMessage('')
+    if (type === 'create' && input.trim() === '') {
+      setLabelInputErrorMessage('Address label is mandatory')
+      return false
+    }
+    setLabelInputErrorMessage('')
     return true
   }
+
+  const validateAddressInput = (input: string): boolean => {
+    const decodedAddress = fromAddress(input, networkName)
+    if (decodedAddress === undefined) {
+      setAddressInputErrorMessage('Address is invalid')
+      return false
+    }
+    if (input.trim() === '') {
+      setAddressInputErrorMessage('Address is mandatory')
+      return false
+    }
+    if (addressBook?.[input.trim()] !== undefined) {
+      setAddressInputErrorMessage('Address is duplicated')
+      return false
+    }
+    setAddressInputErrorMessage('')
+    return true
+  }
+
   const handleSubmit = async (): Promise<void> => {
+    if (type === 'edit') {
+      handleEditSubmit()
+    } else {
+      handleCreateSubmit()
+    }
+  }
+
+  const handleEditSubmit = (): void => {
     if (labelInput === undefined ||
       address === undefined ||
-      !validateInput(labelInput) ||
-      onCreateButtonPress === undefined ||
-      onSubmitButtonPress === undefined) {
+      !validateLabelInput(labelInput) ||
+      onSaveButtonPress === undefined) {
       return
     }
+    onSaveButtonPress({
+      [address]: {
+        label: labelInput.trim(),
+        isMine: true
+      }
+    })
+  }
 
-    if (type === 'create') {
-      onCreateButtonPress({
+  const handleCreateSubmit = (): void => {
+    if (addressInput === undefined ||
+      labelInput === undefined ||
+      !validateLabelInput(labelInput) ||
+      !validateAddressInput(addressInput) ||
+      onSaveButtonPress === undefined) {
+      return
+    }
+    onSaveButtonPress({
+      [addressInput]: {
         label: labelInput.trim(),
         isMine: false
-      }, address)
-    } else {
-      await onSubmitButtonPress({
-        [address]: {
-          label: labelInput.trim(),
-          isMine: true
-        }
-      })
+      }
+    })
+  }
+
+  const isSaveDisabled = (): boolean => {
+    if (type === 'create' && (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '')) {
+      return true
     }
+    if (type === 'edit' && (labelInput === undefined || labelInput === addressLabel?.label || labelInputErrorMessage !== '')) {
+      return true
+    }
+
+    return false
   }
 
   return (
@@ -80,6 +134,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         'bg-white': isLight,
         'bg-gray-800': !isLight
       }])}
+      contentContainerStyle={tailwind('pb-6')}
       testID='create_or_edit_label_address_form'
     >
       <View style={tailwind('mb-2 flex-1')}>
@@ -101,25 +156,59 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         displayClearButton={labelInput !== '' && labelInput !== undefined}
         onChangeText={(text: string) => {
           setLabelInput(text)
-          validateInput(text)
+          validateLabelInput(text)
         }}
         onClearButtonPress={() => {
           setLabelInput('')
-          setInputErrorMessage('')
+          type === 'create' ? validateLabelInput('') : setLabelInputErrorMessage('')
         }}
-        placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof labelInput === 'string' ? labelInput : 'Address {{index}}'}`, { index })}
+        placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof labelInput === 'string' ? labelInput : 'Address label {{index}}'}`, { index })}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
-        valid={inputErrorMessage === ''}
+        valid={labelInputErrorMessage === ''}
         inlineText={{
           type: 'error',
-          text: translate('components/CreateOrEditAddressLabelForm', inputErrorMessage)
+          text: translate('components/CreateOrEditAddressLabelForm', labelInputErrorMessage)
         }}
         testID='edit_label_input'
       />
+
+      <ThemedText
+        style={tailwind('text-xs font-medium mt-4')}
+        light={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-500')}
+      >
+        {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')}
+      </ThemedText>
+      {type === 'create' &&
+        (
+          <WalletTextInput
+            value={addressInput}
+            inputType='default'
+            displayClearButton={addressInput !== '' && addressInput !== undefined}
+            onChangeText={(text: string) => {
+              setAddressInput(text)
+              validateAddressInput(text)
+            }}
+            onClearButtonPress={() => {
+              setAddressInput('')
+              validateAddressInput('')
+            }}
+            placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof addressInput === 'string' ? addressInput : 'Address {{index}}'}`, { index })}
+            style={tailwind('h-9 w-6/12 flex-grow')}
+            hasBottomSheet
+            valid={addressInputErrorMessage === ''}
+            inlineText={{
+              type: 'error',
+              text: translate('components/CreateOrEditAddressLabelForm', addressInputErrorMessage)
+            }}
+            testID='edit_address_input'
+          />
+        )}
+
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroup
-          isDisabled={labelInput === addressLabel?.label || labelInput === undefined || inputErrorMessage !== ''}
+          isDisabled={isSaveDisabled()}
           isCancelDisabled={false}
           label={translate('components/CreateOrEditAddressLabelForm', 'SAVE CHANGES')}
           onCancel={() => navigation.goBack()}
