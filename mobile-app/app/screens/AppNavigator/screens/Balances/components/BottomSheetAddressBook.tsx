@@ -122,6 +122,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         <View style={tailwind('flex-row justify-between w-full mb-3')}>
           <ThemedText
             style={tailwind('text-lg font-medium')}
+            testID='address_book_title'
           >
             {translate('components/BottomSheetAddressBook', 'Address book')}
           </ThemedText>
@@ -162,7 +163,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
           <View style={tailwind('mx-2 flex-auto')}>
             {addressBook?.[item]?.label != null && addressBook?.[item]?.label !== '' &&
               (
-                <ThemedText style={tailwind('text-sm w-full font-medium')}>
+                <ThemedText style={tailwind('text-sm w-full font-medium')} testID={`address_row_label_${item}`}>
                   {addressBook[item]?.label}
                 </ThemedText>
               )}

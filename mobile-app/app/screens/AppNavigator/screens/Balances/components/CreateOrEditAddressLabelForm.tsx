@@ -186,7 +186,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
           type: 'error',
           text: translate('components/CreateOrEditAddressLabelForm', labelInputErrorMessage)
         }}
-        testID='edit_label_input'
+        testID='address_book_label_input'
       />
 
       <ThemedText
@@ -218,7 +218,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
               type: 'error',
               text: translate('components/CreateOrEditAddressLabelForm', addressInputErrorMessage)
             }}
-            testID='edit_address_input'
+            testID='address_book_address_input'
           />
         )}
 
@@ -230,7 +230,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
           onCancel={() => navigation.goBack()}
           onSubmit={handleSubmit}
           displayCancelBtn
-          title='edit_address_label'
+          title='save_address_label'
         />
       </View>
     </ScrollView>
