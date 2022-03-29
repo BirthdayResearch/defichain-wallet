@@ -57,7 +57,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       return false
     }
     if (type === 'create' && input.trim() === '') {
-      setLabelInputErrorMessage('Address label is mandatory')
+      setLabelInputErrorMessage('Please enter an address label')
       return false
     }
     setLabelInputErrorMessage('')
@@ -67,15 +67,11 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   const validateAddressInput = (input: string): boolean => {
     const decodedAddress = fromAddress(input, networkName)
     if (decodedAddress === undefined) {
-      setAddressInputErrorMessage('Address is invalid')
-      return false
-    }
-    if (input.trim() === '') {
-      setAddressInputErrorMessage('Address is mandatory')
+      setAddressInputErrorMessage('Please enter a valid address')
       return false
     }
     if (addressBook?.[input.trim()] !== undefined) {
-      setAddressInputErrorMessage('Address is duplicated')
+      setAddressInputErrorMessage('Please enter a unique address')
       return false
     }
     setAddressInputErrorMessage('')
