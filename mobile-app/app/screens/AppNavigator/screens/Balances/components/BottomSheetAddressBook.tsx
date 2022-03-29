@@ -1,11 +1,10 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { translate } from '@translations'
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
@@ -14,7 +13,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
-import { LocalAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
+import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 interface BottomSheetAddressBookProps {
@@ -33,9 +32,6 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const {
-    addressLength
-  } = useWalletContext()
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -43,8 +39,15 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const { network } = useNetworkContext()
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
-  const labeledAddresses = userPreferences.addressBook
-  // const { isFeatureAvailable } = useFeatureFlagContext()
+  const addressBook = userPreferences.addressBook
+
+  const addresses = useMemo((): string[] => {
+    if (addressBook === undefined) {
+      return []
+    }
+
+    return Object.keys(addressBook)
+  }, [addressBook])
 
   const FooterComponent = useCallback(() => {
     return (
@@ -57,9 +60,11 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
             name: props.navigateToScreen.screenName,
             params: {
               type: 'create',
-              onCreateButtonPress: (localAddress: LocalAddress, address: string) => {
-                dispatch(setAddressBook(labeledAddresses.set(address, localAddress))).then(() => {
-                  const addresses = { ...labeledAddresses }
+              index: addresses.length + 1,
+              onSaveButtonPress: (labelAddress: LabeledAddress) => {
+                dispatch(setAddressBook(labelAddress)).then(() => {
+                  console.log(addressBook)
+                  const addresses = { ...addressBook, ...labelAddress }
                   dispatch(setUserPreferences({
                     network,
                     preferences: {
@@ -93,7 +98,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
               light={tailwind('text-primary-500')}
               style={tailwind('text-sm font-normal')}
             >
-              {translate('components/BottomSheetAddressDetail', 'ADD NEW ADDRESS')}
+              {translate('components/BottomSheetAddressBook', 'ADD NEW ADDRESS')}
             </ThemedText>
           </View>
         </View>
@@ -129,11 +134,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
           </TouchableOpacity>
         </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
-          <WalletCounterDisplay addressLength={addressLength} />
-          {/* {isFeatureAvailable('local_storage') &&
-            (
-              <EditButton isEditing={isEditing} onPress={() => setIsEditing(!isEditing)} />
-            )} */}
+          <WalletCounterDisplay addressLength={addresses.length} />
         </View>
       </ThemedView>
     )
@@ -156,10 +157,10 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
           <View style={tailwind('mx-2 flex-auto')}>
-            {labeledAddresses?.get(item)?.label != null && labeledAddresses?.get(item)?.label !== '' &&
+            {addressBook?.[item]?.label != null && addressBook?.[item]?.label !== '' &&
               (
                 <ThemedText style={tailwind('text-sm w-full font-medium')}>
-                  {labeledAddresses.get(item)?.label}
+                  {addressBook[item]?.label}
                 </ThemedText>
               )}
             <ThemedText
@@ -199,7 +200,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [isEditing, labeledAddresses])
+  }, [isEditing, addressBook])
 
   return (
     <FlatList
@@ -209,7 +210,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         'bg-gray-800': !isLight,
         'bg-white': isLight
       })}
-      data={labeledAddresses === undefined ? [] : [...labeledAddresses.keys()]}
+      data={addresses}
       renderItem={AddressListItem}
       ListHeaderComponent={HeaderComponent}
       ListFooterComponent={FooterComponent}
@@ -225,7 +226,7 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
       style={tailwind('text-xs mr-1.5')}
       testID='address_detail_address_count'
     >
-      {translate('components/BottomSheetAddressDetail', '{{length}} ADDRESS(ES)', { length: addressLength + 1 })}
+      {translate('components/BottomSheetAddressBook', '{{length}} ADDRESS(ES)', { length: addressLength })}
     </ThemedText>
   )
 }
