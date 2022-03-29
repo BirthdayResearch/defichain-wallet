@@ -185,7 +185,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
                 index: index + 1,
                 type: 'edit',
-                onSubmitButtonPress: (labelAddress: LabeledAddress) => {
+                onSaveButtonPress: (labelAddress: LabeledAddress) => {
                   dispatch(setAddresses(labelAddress)).then(() => {
                     const addresses = { ...labeledAddresses, ...labelAddress }
                     dispatch(setUserPreferences({
