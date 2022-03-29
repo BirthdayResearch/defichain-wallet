@@ -5,8 +5,9 @@ exports[`Wallet Address Row should match snapshot 1`] = `
   style={
     Array [
       Object {
-        "alignItems": "flex-start",
+        "alignItems": "center",
         "flexDirection": "row",
+        "justifyContent": "space-between",
         "paddingBottom": 16,
         "paddingLeft": 16,
         "paddingRight": 16,
@@ -15,32 +16,226 @@ exports[`Wallet Address Row should match snapshot 1`] = `
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderBottomColor": "rgba(212, 212, 212, 1)",
         "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "borderLeftColor": "rgba(212, 212, 212, 1)",
+        "borderRightColor": "rgba(212, 212, 212, 1)",
+        "borderTopColor": "rgba(212, 212, 212, 1)",
       },
     ]
   }
 >
-  <View
+  <Text
     style={
-      Object {
-        "width": "50%",
-      }
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontSize": 14,
+            "lineHeight": 20,
+          },
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
     }
+    testID="wallet_address_text"
   >
+    Wallet address
+  </Text>
+  <View>
     <View
+      accessible={true}
+      focusable={false}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
           "alignItems": "center",
+          "backgroundColor": "rgba(250, 250, 250, 1)",
+          "borderBottomLeftRadius": 16,
+          "borderBottomRightRadius": 16,
+          "borderTopLeftRadius": 16,
+          "borderTopRightRadius": 16,
+          "display": "flex",
           "flexDirection": "row",
-          "justifyContent": "flex-start",
+          "opacity": 1,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 8,
+          "paddingTop": 4,
         }
       }
+      testID="switch_account_button"
     >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={24}
+        bbWidth={24}
+        fill="none"
+        focusable={false}
+        height={24}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            Object {
+              "flex": 0,
+              "height": 24,
+              "width": 24,
+            },
+          ]
+        }
+        vbHeight={80}
+        vbWidth={80}
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+        >
+          <RNSVGMask
+            height={80}
+            maskContentUnits={1}
+            maskTransform={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            maskUnits={1}
+            name="mask__bauhaus"
+            width={80}
+            x={0}
+            y={0}
+          >
+            <RNSVGRect
+              fill={4294967295}
+              height={80}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              rx={160}
+              width={80}
+              x={0}
+              y={0}
+            />
+          </RNSVGMask>
+          <RNSVGGroup
+            mask="mask__bauhaus"
+          >
+            <RNSVGRect
+              fill={4281626061}
+              height={80}
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              width={80}
+              x={0}
+              y={0}
+            />
+            <RNSVGRect
+              fill={4294300999}
+              height={80}
+              matrix={
+                Array [
+                  -0.46947156278589075,
+                  -0.882947592858927,
+                  0.882947592858927,
+                  -0.46947156278589075,
+                  23.46095879707855,
+                  94.0967662257927,
+                ]
+              }
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              width={80}
+              x={10}
+              y={30}
+            />
+            <RNSVGCircle
+              cx={40}
+              cy={40}
+              fill={4278788109}
+              matrix={
+                Array [
+                  1,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                ]
+              }
+              propList={
+                Array [
+                  "fill",
+                ]
+              }
+              r={16}
+            />
+            <RNSVGLine
+              matrix={
+                Array [
+                  -0.5591929034707467,
+                  0.8290375725550417,
+                  -0.8290375725550417,
+                  -0.5591929034707467,
+                  91.52921904103154,
+                  33.2062132366282,
+                ]
+              }
+              propList={
+                Array [
+                  "stroke",
+                  "strokeWidth",
+                ]
+              }
+              stroke={4281312875}
+              strokeWidth={2}
+              x1={0}
+              x2={80}
+              y1={40}
+              y2={40}
+            />
+          </RNSVGGroup>
+        </RNSVGGroup>
+      </RNSVGSvgView>
       <Text
+        ellipsizeMode="middle"
+        numberOfLines={1}
         style={
           Array [
             Object {
@@ -52,14 +247,13 @@ exports[`Wallet Address Row should match snapshot 1`] = `
             Array [
               Array [
                 Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                  "marginLeft": 4,
                 },
                 Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
+                  "maxWidth": 56,
+                  "minWidth": 10,
                 },
               ],
               Object {
@@ -68,55 +262,11 @@ exports[`Wallet Address Row should match snapshot 1`] = `
             ],
           ]
         }
+        testID="wallet_address"
       >
-        Wallet address
+        bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
       </Text>
     </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      }
-    }
-  >
-    <Text
-      ellipsizeMode="middle"
-      numberOfLines={1}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Array [
-              Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-                "textAlign": "right",
-              },
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-            ],
-            Object {
-              "color": "rgba(115, 115, 115, 1)",
-            },
-          ],
-        ]
-      }
-      testID="wallet_address_text"
-    >
-      bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
-    </Text>
   </View>
 </View>
 `;
