@@ -21,11 +21,10 @@ exports[`Address Selection Button should match snapshot 1`] = `
       "borderTopRightRadius": 16,
       "display": "flex",
       "flexDirection": "row",
-      "marginRight": 8,
       "opacity": 1,
       "paddingBottom": 4,
       "paddingLeft": 4,
-      "paddingRight": 4,
+      "paddingRight": 8,
       "paddingTop": 4,
     }
   }
@@ -197,12 +196,17 @@ exports[`Address Selection Button should match snapshot 1`] = `
           "lineHeight": 24,
         },
         Array [
-          Object {
-            "fontSize": 12,
-            "lineHeight": 16,
-            "marginLeft": 4,
-            "width": 56,
-          },
+          Array [
+            Object {
+              "fontSize": 12,
+              "lineHeight": 16,
+              "marginLeft": 4,
+            },
+            Object {
+              "maxWidth": 56,
+              "minWidth": 10,
+            },
+          ],
           Object {
             "color": "rgba(0, 0, 0, 1)",
           },
@@ -222,7 +226,7 @@ exports[`Address Selection Button should match snapshot 1`] = `
           "borderTopLeftRadius": 9999,
           "borderTopRightRadius": 9999,
           "height": 16,
-          "marginRight": 4,
+          "marginLeft": 4,
           "width": 16,
         },
         Object {

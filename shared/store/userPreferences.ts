@@ -3,7 +3,12 @@ import { LocalStorageProvider } from '@api/local_storage/provider'
 import { EnvironmentNetwork } from '@environment'
 
 export interface LabeledAddress {
-  [address: string]: string
+  [address: string]: LocalAddress
+}
+
+export interface LocalAddress {
+  label: string
+  isMine: boolean
 }
 
 export interface UserPreferences {
@@ -48,7 +53,10 @@ export const userPreferences = createSlice({
       return state
     })
     builder.addCase(setAddresses.fulfilled, (state, action: PayloadAction<LabeledAddress>) => {
-      state.addresses = action.payload
+      state.addresses = {
+        ...state.addresses,
+        ...action.payload
+      }
       return state
     })
   }

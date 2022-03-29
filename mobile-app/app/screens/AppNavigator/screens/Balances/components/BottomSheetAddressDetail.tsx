@@ -16,17 +16,26 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { wallet as walletReducer } from '@store/wallet'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { loans } from '@store/loans'
-import { RootState } from '@store'
+import { RootState, useAppDispatch } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
+import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPreferences'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 interface BottomSheetAddressDetailProps {
   address: string
   addressLabel: string
   onReceiveButtonPress: () => void
   onCloseButtonPress: () => void
+  navigateToScreen: {
+    screenName: string
+  }
 }
 
 export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
@@ -36,17 +45,30 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const { addressLength, setIndex, wallet, activeAddressIndex, discoverWalletAddresses } = useWalletContext()
+  const {
+    addressLength,
+    setIndex,
+    wallet,
+    activeAddressIndex,
+    discoverWalletAddresses
+  } = useWalletContext()
   const toast = useToast()
   const [showToast, setShowToast] = useState(false)
   const TOAST_DURATION = 2000
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const logger = useLogger()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const [isEditing, setIsEditing] = useState(false)
+  const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
+  const { network } = useNetworkContext()
+  const userPreferences = useSelector((state: RootState) => state.userPreferences)
+  const labeledAddresses = userPreferences.addresses
+  const activeLabel = useAddressLabel(props.address)
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -97,7 +119,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   }, [blockCount])
 
   const CreateAddress = useCallback(() => {
-    if (!canCreateAddress) {
+    if (!canCreateAddress || isEditing) {
       return <></>
     }
 
@@ -133,7 +155,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [canCreateAddress, addressLength])
+  }, [canCreateAddress, addressLength, isEditing])
 
   const onChangeAddress = async (index: number): Promise<void> => {
     if (hasPendingJob || hasPendingBroadcastJob || index === activeAddressIndex) {
@@ -155,7 +177,34 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         key={item}
         style={tailwind('p-4 flex flex-row items-center justify-between')}
         onPress={async () => {
-          await onChangeAddress(index)
+          if (isEditing) {
+            navigation.navigate({
+              name: props.navigateToScreen.screenName,
+              params: {
+                address: item,
+                addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
+                index: index + 1,
+                type: 'edit',
+                onSubmitButtonPress: (labelAddress: LabeledAddress) => {
+                  dispatch(setAddresses(labelAddress)).then(() => {
+                    const addresses = { ...labeledAddresses, ...labelAddress }
+                    dispatch(setUserPreferences({
+                      network,
+                      preferences: {
+                        ...userPreferences,
+                        addresses
+                      }
+                    }))
+                  })
+                  navigation.goBack()
+                  setIsEditing(false)
+                }
+              },
+              merge: true
+            })
+          } else {
+            await onChangeAddress(index)
+          }
         }}
         testID={`address_row_${index}`}
         disabled={hasPendingJob || hasPendingBroadcastJob}
@@ -163,6 +212,12 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
           <View style={tailwind('mx-2 flex-auto')}>
+            {labeledAddresses?.[item]?.label != null && labeledAddresses?.[item]?.label !== '' &&
+              (
+                <ThemedText style={tailwind('text-sm w-full font-medium')} testID={`list_address_label_${item}`}>
+                  {labeledAddresses[item]?.label}
+                </ThemedText>
+              )}
             <ThemedText
               style={tailwind('text-sm w-full')}
               ellipsizeMode='middle'
@@ -172,24 +227,35 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
               {item}
             </ThemedText>
           </View>
-          {item === props.address
+          {isEditing
             ? (
               <ThemedIcon
                 size={24}
-                name='check'
+                name='edit'
                 iconType='MaterialIcons'
-                light={tailwind('text-success-600')}
-                dark={tailwind('text-darksuccess-600')}
-                testID={`address_active_indicator_${item}`}
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+                testID={`address_edit_indicator_${item}`}
               />
             )
-            : (
-              <View style={tailwind('h-6 w-6')} />
-            )}
+            : item === props.address
+              ? (
+                <ThemedIcon
+                  size={24}
+                  name='check'
+                  iconType='MaterialIcons'
+                  light={tailwind('text-success-600')}
+                  dark={tailwind('text-darksuccess-600')}
+                  testID={`address_active_indicator_${item}`}
+                />
+              )
+              : (
+                <View style={tailwind('h-6 w-6')} />
+              )}
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [])
+  }, [isEditing, labeledAddresses])
 
   const AddressDetail = useCallback(() => {
     return (
@@ -211,15 +277,34 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           </TouchableOpacity>
         </View>
         <RandomAvatar name={props.address} size={64} />
+        {
+          activeLabel != null && (
+            <View style={tailwind('mt-2')}>
+              <ThemedText
+                light={tailwind('text-black')}
+                dark={tailwind('text-white')}
+                style={tailwind('font-bold')}
+                testID='list_header_address_label'
+              >{activeLabel}
+              </ThemedText>
+            </View>
+          )
+        }
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
         <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
-        <View style={tailwind('mt-8 flex flex-row items-center justify-start w-full')}>
-          <WalletCounterDisplay addressLength={addressLength} />
-          <DiscoverWalletAddress onPress={discoverWalletAddresses} />
+        <View style={tailwind('mt-8 flex flex-row items-center justify-between w-full')}>
+          <View style={tailwind('flex flex-row items-center justify-start')}>
+            <WalletCounterDisplay addressLength={addressLength} />
+            <DiscoverWalletAddress onPress={discoverWalletAddresses} />
+          </View>
+          {isFeatureAvailable('local_storage') &&
+            (
+              <EditButton isEditing={isEditing} onPress={() => setIsEditing(!isEditing)} />
+            )}
         </View>
       </ThemedView>
     )
-  }, [props, addressLength])
+  }, [props, addressLength, isEditing, activeLabel])
 
   return (
     <FlatList
@@ -237,18 +322,23 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   )
 })
 
-function ActiveAddress ({ address, onPress }: { address: string, onPress: () => void }): JSX.Element {
+function ActiveAddress ({
+  address,
+  onPress
+}: { address: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
-      style={tailwind('my-4 rounded-2xl py-1 px-2')}
+      style={tailwind('mb-4 mt-2 rounded-2xl py-1 px-2 w-5/12')}
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
       onPress={onPress}
     >
       <ThemedText
+        ellipsizeMode='middle'
         style={tailwind('text-sm')}
         light={tailwind('text-black')}
         dark={tailwind('text-white')}
+        numberOfLines={1}
         testID='active_address'
       >
         {address}
@@ -257,7 +347,10 @@ function ActiveAddress ({ address, onPress }: { address: string, onPress: () => 
   )
 }
 
-function AddressDetailAction ({ address, onReceivePress }: { address: string, onReceivePress: () => void }): JSX.Element {
+function AddressDetailAction ({
+  address,
+  onReceivePress
+}: { address: string, onReceivePress: () => void }): JSX.Element {
   const { getAddressUrl } = useDeFiScanContext()
 
   return (
@@ -269,6 +362,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconType='MaterialIcons'
         style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
         onPress={onReceivePress}
+        textStyle={tailwind('pt-0.5')}
       />
       <IconButton
         iconLabel={translate('components/BottomSheetAddressDetail', 'VIEW ON SCAN')}
@@ -277,6 +371,7 @@ function AddressDetailAction ({ address, onReceivePress }: { address: string, on
         iconType='MaterialIcons'
         style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center')}
         onPress={async () => await openURL(getAddressUrl(address))}
+        textStyle={tailwind('pt-0.5')}
       />
     </View>
   )
@@ -302,12 +397,41 @@ function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Eleme
       testID='discover_wallet_addresses'
     >
       <ThemedIcon
+        light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
         iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
         name='sync'
         size={16}
       />
     </TouchableOpacity>
+  )
+}
+
+function EditButton ({
+  isEditing,
+  onPress
+}: { isEditing: boolean, onPress: () => void }): JSX.Element {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={tailwind('flex flex-row items-center')}
+      testID='edit_address_label_button'
+    >
+      <ThemedIcon
+        iconType='MaterialIcons'
+        light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+        name={isEditing ? 'close' : 'drive-file-rename-outline'}
+        size={16}
+      />
+      <ThemedText
+        light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+        style={tailwind('text-2xs ml-1.5')}
+      >
+        {translate('components/BottomSheetAddressDetail', `${isEditing ? 'CANCEL' : 'EDIT'}`)}
+      </ThemedText>
+    </TouchableOpacity>
+
   )
 }
