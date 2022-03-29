@@ -52,7 +52,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
   const FooterComponent = useCallback(() => {
     return (
       <ThemedTouchableOpacity
-        light={tailwind('bg-white border-gray-100')}
+        light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={() => {
@@ -63,7 +63,6 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
               index: addresses.length + 1,
               onSaveButtonPress: (labelAddress: LabeledAddress) => {
                 dispatch(setAddressBook(labelAddress)).then(() => {
-                  console.log(addressBook)
                   const addresses = { ...addressBook, ...labelAddress }
                   dispatch(setUserPreferences({
                     network,
@@ -104,13 +103,12 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [])
+  }, [addresses, addressBook])
 
   const onChangeAddress = (address: string): void => {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-
     props.onAddressSelect(address)
   }
 
@@ -121,7 +119,12 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
       >
-        <View style={tailwind('flex-row justify-end w-full mb-3 relative -right-0.5')}>
+        <View style={tailwind('flex-row justify-between w-full mb-3')}>
+          <ThemedText
+            style={tailwind('text-lg font-medium')}
+          >
+            {translate('components/BottomSheetAddressBook', 'Address book')}
+          </ThemedText>
           <TouchableOpacity onPress={props.onCloseButtonPress}>
             <ThemedIcon
               size={24}
@@ -138,7 +141,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
         </View>
       </ThemedView>
     )
-  }, [isEditing])
+  }, [isEditing, addresses])
 
   const AddressListItem = useCallback(({
     item,
@@ -172,31 +175,6 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
               {item}
             </ThemedText>
           </View>
-          {isEditing
-            ? (
-              <View>
-                <ThemedIcon
-                  size={24}
-                  name='edit'
-                  iconType='MaterialIcons'
-                  light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
-                  testID={`address_edit_indicator_${item}`}
-                  style={tailwind('mr-2')}
-                />
-                <ThemedIcon
-                  size={24}
-                  name='delete'
-                  iconType='MaterialIcons'
-                  light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
-                  testID={`address_delete_indicator_${item}`}
-                />
-              </View>
-            )
-            : (
-              <View style={tailwind('h-6 w-12')} />
-            )}
         </View>
       </ThemedTouchableOpacity>
     )
@@ -204,6 +182,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
 
   return (
     <FlatList
+      contentContainerStyle={tailwind('pb-4')}
       keyExtractor={(item) => item}
       stickyHeaderIndices={[0]}
       style={tailwind({
