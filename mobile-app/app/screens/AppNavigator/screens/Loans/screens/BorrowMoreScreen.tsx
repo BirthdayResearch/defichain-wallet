@@ -1,14 +1,13 @@
 import { View } from '@components'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
-import { LoanTokenInput, VaultInput } from './PaybackLoanScreen'
+import { VaultInput, TransactionDetailsSection } from './BorrowLoanTokenScreen'
 import BigNumber from 'bignumber.js'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { TransactionDetailsSection } from './BorrowLoanTokenScreen'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -24,6 +23,9 @@ import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { SymbolIcon } from '@components/SymbolIcon'
+import NumberFormat from 'react-number-format'
+import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
 
@@ -228,9 +230,53 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
         style={tailwind('text-center text-xs mb-12')}
       >
         {inputValidationMessage === ''
-            ? translate('screens/BorrowMoreScreen', 'Review and confirm transaction in the next screen')
-            : translate('screens/BorrowMoreScreen', 'Unable to proceed because of errors')}
+          ? translate('screens/BorrowMoreScreen', 'Review and confirm transaction in the next screen')
+          : translate('screens/BorrowMoreScreen', 'Unable to proceed because of errors')}
       </ThemedText>
     </ThemedScrollView>
+  )
+}
+
+interface LoanTokenInputProps {
+  loanTokenId: string
+  displaySymbol: string
+  price?: ActivePrice
+  outstandingBalance: BigNumber
+}
+
+export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
+  return (
+    <ThemedView
+      light={tailwind('bg-white border-gray-200')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      style={tailwind('border p-4 flex flex-col rounded-lg')}
+    >
+      <View style={tailwind('flex flex-row items-center mb-3')}>
+        <SymbolIcon
+          symbol={props.displaySymbol} styleProps={tailwind('w-6 h-6')}
+        />
+        <ThemedText testID='loan_symbol' style={tailwind('ml-2 font-medium')}>{props.displaySymbol}</ThemedText>
+      </View>
+      <View style={tailwind('flex flex-row items-center justify-between')}>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs')}
+        >
+          {translate('screens/PaybackLoanScreen', 'Outstanding balance')}
+        </ThemedText>
+        <NumberFormat
+          value={new BigNumber(props.outstandingBalance).toFixed(8)}
+          decimalScale={8}
+          thousandSeparator
+          suffix={` ${props.displaySymbol}`}
+          displayType='text'
+          renderText={(value) =>
+            <ThemedText testID='loan_outstanding_balance' style={tailwind('text-sm font-medium')}>
+              {value}
+            </ThemedText>}
+        />
+      </View>
+    </ThemedView>
   )
 }

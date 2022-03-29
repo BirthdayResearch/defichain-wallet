@@ -14,15 +14,19 @@ interface TextRowProps {
   rhs: RHSProps
   info?: BottomSheetAlertInfo
   textStyle?: StyleProp<TextStyle>
+  containerStyle?: ThemedProps & { style: { [key: string]: string } }
 }
 
 export function TextRow (props: TextRowProps): JSX.Element {
   const { themedProps, testID, value, ...otherProps } = props.rhs
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      {
+      ...((props.containerStyle != null) || {
+        dark: tailwind('bg-gray-800 border-b border-gray-700'),
+        light: tailwind('bg-white border-b border-gray-200'),
+        style: tailwind('p-4 flex-row items-start w-full')
+      })}
     >
       <View style={tailwind('w-6/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>

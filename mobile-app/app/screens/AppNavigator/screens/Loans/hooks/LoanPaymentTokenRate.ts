@@ -1,67 +1,110 @@
 import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
-import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import { RootState } from '@store'
-import { loanPaymentTokenActivePrice } from '@store/loans'
+import { loanPaymentTokenActivePrices } from '@store/loans'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
-import { PaymentTokenProps } from '../screens/PaybackLoanScreen'
+import { tokensSelector, WalletToken } from '@store/wallet'
+
+export interface PaymentTokenProps {
+  tokenId: string
+  tokenSymbol: string
+  tokenDisplaySymbol: string
+  tokenBalance: BigNumber
+}
+
 interface GetAmountProps {
   paymentTokenAmounts: Array<{
-    resultingBalance: BigNumber
-    amountToPayInPaymentToken: BigNumber
     amountToPayInLoanToken: BigNumber
+    amountToPayInPaymentToken: BigNumber
+    cappedAmount: BigNumber
+    outstandingBalanceInPaymentToken: BigNumber
     paymentToken: PaymentTokenProps
+    resultingBalance: BigNumber
   }>
 }
 
 export const useLoanPaymentTokenRate = (props: {
   loanTokenAmountActivePriceInUSD: BigNumber
-  paymentTokens: PaymentTokenProps[]
-  loanToken: LoanToken | undefined
+  loanToken: {
+    id: string
+    displaySymbol: string
+    symbol: string
+  }
   outstandingBalance: BigNumber
   amountToPay: BigNumber
   loanTokenBalance: BigNumber
 }): {
-  getAmounts: () => GetAmountProps
+  getPaymentTokens: () => GetAmountProps
+  // getPenaltyOfAmountToPay: (props: {
+  //   paymentTokenSymbol: string,
+  // }) => BigNumber
 } => {
-  const paymentTokenActivePrice = useSelector((state: RootState) => loanPaymentTokenActivePrice(state.loans)) // DFI
-  const getAmounts = (): GetAmountProps => {
-    const paymentTokenAmounts = props.paymentTokens.map(paymentToken => {
-      const paymentTokenActivePriceInUSD = getActivePrice(paymentToken.tokenSymbol ?? '', paymentTokenActivePrice) // DUSD, dTU10
-      const conversionRate = paymentToken.tokenSymbol === props.loanToken?.token.symbol
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const paymentTokenActivePrices = useSelector((state: RootState) => loanPaymentTokenActivePrices(state.loans)) // DFI
+  const paymentTokens = _getPaymentTokens({
+    ...props.loanToken
+  }, props.loanTokenBalance, tokens)
+
+  // const getPenaltyOfAmountToPay = ({
+  //   paymentTokenSymbol,
+  // }: {
+  //   paymentTokenSymbol: string
+  // }): BigNumber => {
+  //   const paymentTokenActivePriceInUSD = getActivePrice(paymentTokenSymbol ?? '', paymentTokenActivePrices[`${paymentTokenSymbol}-USD`] ?? undefined)
+
+  //   const hasPenalty = paymentTokenSymbol === 'DFI' || (paymentTokenSymbol === 'DUSD' && props.loanToken.symbol !== 'DUSD')
+  //   if (!hasPenalty) {
+  //     return new BigNumber(0)
+  //   }
+
+  //   const conversionRate = paymentTokenSymbol === props.loanToken.symbol || paymentTokenSymbol === 'DUSD'
+  //     ? new BigNumber(1)
+  //     : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
+  //   const penaltyOfOutstandingBalance = props.outstandingBalance.div(0.99).minus(props.outstandingBalance)
+  //   const penaltyOfAmountToPay = props.amountToPay.div(0.99).minus(props.amountToPay)
+
+  //   if (paymentTokenSymbol === props.loanToken.symbol) {
+  //     const cappedPenalty = BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
+  //     return cappedPenalty
+  //   }
+
+  //   const penaltyOfOutstandingBalanceInPaymentToken = penaltyOfOutstandingBalance.multipliedBy(conversionRate)
+  //   const penaltyOfAmountToPayInPaymentToken = penaltyOfAmountToPay.multipliedBy(conversionRate)
+  //   const cappedPenaltyInPaymentToken = BigNumber.max(BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken), 0)
+
+  //   return cappedPenaltyInPaymentToken
+  // }
+
+  const getPaymentTokens = (): GetAmountProps => {
+    const paymentTokenAmounts = paymentTokens.map(paymentToken => {
+      const paymentTokenActivePriceInUSD = getActivePrice(paymentToken.tokenSymbol ?? '', paymentTokenActivePrices[`${paymentToken.tokenSymbol}-USD`] ?? undefined)
+      const paymentTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol || paymentToken.tokenSymbol === 'DUSD'
         ? new BigNumber(1)
         : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
-      const hasPenalty = paymentToken.tokenSymbol === 'DFI'
-      // Loan token
-      const penaltyOfOutstandingBalance = hasPenalty
-        ? props.outstandingBalance.div(0.99).minus(props.outstandingBalance)
-        : new BigNumber(0)
-      const penaltyOfAmountToPay = hasPenalty
-        ? props.amountToPay.div(0.99).minus(props.amountToPay)
-        : new BigNumber(0)
-      const minimumPenalty = BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
-      const amountToPayInLoanToken = props.amountToPay.plus(minimumPenalty)
-      const outstandingBalanceInLoanToken = props.outstandingBalance.plus(minimumPenalty)
 
-      // Payment token
-      const penaltyOfOutstandingBalanceInPaymentToken = hasPenalty
-        ? penaltyOfOutstandingBalance.multipliedBy(conversionRate)
-        : new BigNumber(0)
-      const penaltyOfAmountToPayInPaymentToken = hasPenalty
-        ? penaltyOfAmountToPay.multipliedBy(conversionRate)
-        : new BigNumber(0)
-      const mininumPenaltyInPaymentToken = BigNumber.max(BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken), 0)
-      const amountToPayInPaymentToken = props.amountToPay.multipliedBy(conversionRate).plus(mininumPenaltyInPaymentToken)
-      const outstandingBalanceInPaymentToken = props.outstandingBalance.multipliedBy(conversionRate).plus(mininumPenaltyInPaymentToken)
+      const loanTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol
+        ? new BigNumber(1)
+        : new BigNumber(paymentTokenActivePriceInUSD).div(props.loanTokenAmountActivePriceInUSD)
+      const amountToPayInLoanToken = props.amountToPay.multipliedBy(loanTokenConversionRate)// .plus(cappedPenalty)
+      const outstandingBalanceInLoanToken = props.outstandingBalance.multipliedBy(loanTokenConversionRate) // .plus(cappedPenalty)
+      const cappedAmountToPayInLoanToken = BigNumber.min(amountToPayInLoanToken, props.loanTokenBalance, outstandingBalanceInLoanToken)
+      const cappedAmountInLoanToken = BigNumber.min(props.loanTokenBalance, outstandingBalanceInLoanToken)
+
+      // Payment Token
+      const amountToPayInPaymentToken = props.amountToPay// .plus(cappedPenaltyInPaymentToken)
+      const outstandingBalanceInPaymentToken = props.outstandingBalance.multipliedBy(paymentTokenConversionRate)// .plus(cappedPenaltyInPaymentToken)
+      const cappedAmountInPaymentToken = BigNumber.min(paymentToken.tokenBalance, outstandingBalanceInPaymentToken)
 
       // Resulting Balance
-      const resultingBalanceInLoanToken = props.loanTokenBalance.minus(BigNumber.min(amountToPayInLoanToken, outstandingBalanceInLoanToken))
+      const resultingBalanceInLoanToken = props.loanTokenBalance.minus(cappedAmountToPayInLoanToken)
       const resultingBalanceInPaymentToken = paymentToken.tokenBalance.minus(BigNumber.min(amountToPayInPaymentToken, outstandingBalanceInPaymentToken))
-      const resultingBalance = hasPenalty ? resultingBalanceInPaymentToken : resultingBalanceInLoanToken
+      const resultingBalance = props.loanToken.symbol !== paymentToken.tokenSymbol ? resultingBalanceInPaymentToken : resultingBalanceInLoanToken
 
       return {
         amountToPayInLoanToken,
         amountToPayInPaymentToken,
+        cappedAmount: props.loanToken.symbol !== paymentToken.tokenSymbol ? cappedAmountInPaymentToken : cappedAmountInLoanToken,
+        outstandingBalanceInPaymentToken,
         paymentToken,
         resultingBalance
       }
@@ -73,6 +116,41 @@ export const useLoanPaymentTokenRate = (props: {
   }
 
   return {
-    getAmounts
+    getPaymentTokens
+    // getPenaltyOfAmountToPay
   }
+}
+
+const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, tokens: any): PaymentTokenProps[] => {
+  const paymentTokens = [{
+    tokenId: loanToken.id,
+    tokenSymbol: loanToken.symbol,
+    tokenDisplaySymbol: loanToken.displaySymbol,
+    tokenBalance: tokenBalance
+  }]
+
+  /*
+    Feature: Allow DFI payments on DUSD loans
+  */
+  if (loanToken.displaySymbol === 'DUSD') {
+    return [...paymentTokens, {
+      tokenId: '0_unified',
+      tokenSymbol: 'DFI',
+      tokenDisplaySymbol: 'DFI',
+      tokenBalance: getTokenAmount('0_unified', tokens)
+    }]
+  }
+
+  // Allow DUSD payment on all loans (hardfork)
+  return [...paymentTokens, {
+    tokenId: '15',
+    tokenSymbol: 'DUSD',
+    tokenDisplaySymbol: 'DUSD',
+    tokenBalance: getTokenAmount('15', tokens)
+  }]
+}
+
+const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
+  const id = tokenId === '0' ? '0_unified' : tokenId
+  return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
 }

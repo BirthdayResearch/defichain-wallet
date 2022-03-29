@@ -28,7 +28,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionParam } from '../../Balances/BalancesNavigator'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
-import { PaymentTokenProps } from './PaybackLoanScreen'
+import { PaymentTokenProps } from '../hooks/LoanPaymentTokenRate'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmPaybackLoanScreen'>
 

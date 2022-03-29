@@ -14,15 +14,6 @@ interface CollateralizationRatioRowProps extends CollateralizationRatioProps {
 }
 
 export function CollateralizationRatioRow (props: CollateralizationRatioRowProps): JSX.Element {
-  const {
-    light,
-    dark
-  } = useCollateralizationRatioColor({
-    colRatio: props.colRatio,
-    minColRatio: props.minColRatio,
-    totalLoanAmount: props.totalLoanAmount
-  })
-
   const alertInfo = {
     title: 'Collateralization ratio',
     message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
@@ -35,7 +26,7 @@ export function CollateralizationRatioRow (props: CollateralizationRatioRowProps
     <ThemedView
       dark={tailwind('bg-gray-800 border-gray-700')}
       light={tailwind('bg-white border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full border-b')}
+      style={tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('flex-row items-center w-6/12')}>
         <ThemedText
@@ -53,26 +44,39 @@ export function CollateralizationRatioRow (props: CollateralizationRatioRowProps
       <View
         style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
       >
-        <NumberFormat
-          value={props.value}
-          decimalScale={2}
-          thousandSeparator
-          displayType='text'
-          suffix='%'
-          renderText={(val: string) => (
-            <View style={tailwind('flex flex-row items-center flex-1 flex-wrap justify-end')}>
-              <ThemedText
-                dark={dark}
-                light={light}
-                style={tailwind('text-sm text-right mr-1')}
-                testID={props.testId}
-              >
-                {props.type === 'next' && '~'}{val}
-              </ThemedText>
-            </View>
-          )}
-        />
+        <CollateralizationRatioValue {...props} />
       </View>
     </ThemedView>
+  )
+}
+
+export function CollateralizationRatioValue (props: CollateralizationRatioProps & { value: string, type: 'current' | 'next' }): JSX.Element {
+  const {
+    light,
+    dark
+  } = useCollateralizationRatioColor({
+    colRatio: props.colRatio,
+    minColRatio: props.minColRatio,
+    totalLoanAmount: props.totalLoanAmount
+  })
+  return (
+    <NumberFormat
+      value={props.value}
+      decimalScale={2}
+      thousandSeparator
+      displayType='text'
+      suffix='%'
+      renderText={(val: string) => (
+        <View style={tailwind('flex flex-row items-center flex-1 flex-wrap justify-end')}>
+          <ThemedText
+            dark={dark}
+            light={light}
+            style={tailwind('text-sm text-right mr-1')}
+          >
+            {props.type === 'next' && '~'}{val}
+          </ThemedText>
+        </View>
+      )}
+    />
   )
 }
