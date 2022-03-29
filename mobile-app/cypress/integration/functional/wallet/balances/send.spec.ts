@@ -411,3 +411,50 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('select_token_placeholder').should('exist')
   })
 })
+
+context.only('Wallet - Send - Address book', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(6000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+  const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
+
+  it('should be able to open address book', function () {
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').click()
+    cy.getByTestID('address_book_title').contains('Address book')
+    cy.getByTestID('address_detail_address_count').contains('0 ADDRESS')
+    cy.getByTestID('address_row_0').should('not.exist')
+  })
+
+  it('should be able to validate add new address form', function () {
+    cy.getByTestID('add_new_address').click()
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_label_input').type('foo')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input').type('fake address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('address_book_label_input_clear_button').click()
+    cy.getByTestID('address_book_label_input_error').contains('Please enter an address label')
+    cy.getByTestID('address_book_address_input').clear()
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+  })
+
+  it('should be able to add new address', function () {
+    const label = 'foo'
+    cy.getByTestID('address_book_label_input').type(label)
+    cy.getByTestID('address_book_label_input_error').should('not.exist')
+    cy.getByTestID('address_book_address_input').clear().type(addresses[0]).blur()
+    cy.getByTestID('address_book_address_input_error').should('not.exist')
+    cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+    cy.getByTestID('pin_authorize').click().type('000000').wait(1000)
+    cy.getByTestID('address_row_label_0').contains(label)
+    cy.getByTestID('address_row_text_0').contains(addresses[0])
+  })
+})
