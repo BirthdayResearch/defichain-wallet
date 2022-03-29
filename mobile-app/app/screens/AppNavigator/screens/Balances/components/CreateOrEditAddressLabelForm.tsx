@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { ThemedScrollView, ThemedText } from '@components/themed'
@@ -13,8 +13,12 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { authentication, Authentication } from '@store/authentication'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export interface CreateOrEditAddressLabelFormProps {
   address?: string
@@ -101,21 +105,37 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     })
   }
 
-  const handleCreateSubmit = (): void => {
-    if (addressInput === undefined ||
+  // Passcode prompt on create
+  const dispatch = useDispatch()
+  const { data: { type: encryptionType } } = useWalletNodeContext()
+  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
+  const logger = useLogger()
+  const handleCreateSubmit = useCallback(() => {
+    if (!isEncrypted ||
+      addressInput === undefined ||
       labelInput === undefined ||
       !validateLabelInput(labelInput) ||
       !validateAddressInput(addressInput) ||
       onSaveButtonPress === undefined) {
       return
     }
-    onSaveButtonPress({
-      [addressInput]: {
-        label: labelInput.trim(),
-        isMine: false
-      }
-    })
-  }
+
+    const auth: Authentication<string[]> = {
+      consume: async passphrase => await MnemonicStorage.get(passphrase),
+      onAuthenticated: async () => {
+        onSaveButtonPress({
+          [addressInput]: {
+            label: labelInput.trim(),
+            isMine: false
+          }
+        })
+      },
+      onError: e => logger.error(e),
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/Settings', 'Verifying access')
+    }
+    dispatch(authentication.actions.prompt(auth))
+  }, [dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
 
   const isSaveDisabled = (): boolean => {
     if (type === 'create' && (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '')) {
