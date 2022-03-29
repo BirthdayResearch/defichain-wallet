@@ -1119,9 +1119,16 @@
     "Vault ID": "金库编号",
     "Resulting {{displaySymbol}} Balance": "产生的 {{displaySymbol}} 余额",
     "Insufficient {{token}} to pay for the entered amount": "{{token}} 余额不足以支付输入的金额",
-    "Select payment token": "选择付款代币",
     "A 1% fee is applied when you pay with DFI.": "当您使用 DFI 付款时，将收取 1% 的费用",
-    "Read more": "阅读更多"
+    "Read more": "阅读更多",
+    "How do you want to pay?": "How do you want to pay?",
+    "You are paying": "You are paying",
+    "of total loan": "of total loan",
+    "Loan amount": "Loan amount",
+    "Min. Col. Ratio": "Min. Col. Ratio",
+    "Total loan (USD)": "Total loan (USD)",
+    "Total collateral (USD)": "Total collateral (USD)",
+    "Loan remaining": "Loan remaining"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",

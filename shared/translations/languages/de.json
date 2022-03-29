@@ -1115,9 +1115,16 @@
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
     "Insufficient {{token}} to pay for the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
-    "Select payment token": "Token für die Zahlung auswählen",
     "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
-    "Read more": "Mehr dazu"
+    "Read more": "Mehr dazu",
+    "How do you want to pay?": "Wie möchtest du tilgen?",
+    "You are paying": "Du tilgst",
+    "of total loan": "des Gesamtdarlehens",
+    "Loan amount": "Höhe des Darlehens",
+    "Min. Col. Ratio": "Mind. Besicherungsquote",
+    "Total loan (USD)": "Gesamtdarlehen (USD)",
+    "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
+    "Loan remaining": "Verbleibendes Darlehen"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
