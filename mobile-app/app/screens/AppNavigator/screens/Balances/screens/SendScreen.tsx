@@ -165,6 +165,7 @@ export function SendScreen ({
           address: getValues('address'),
           onAddressSelect: (address: string) => {
             setValue('address', address, { shouldDirty: true })
+            dismissModal()
           },
           onCloseButtonPress: () => dismissModal(),
           navigateToScreen: {
@@ -493,10 +494,10 @@ function AddressRow ({
               inputType='default'
             >
               <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800')}
-                light={tailwind('bg-white')}
+                dark={tailwind('bg-gray-800 border-gray-400')}
+                light={tailwind('bg-white border-gray-300')}
                 onPress={onQrButtonPress}
-                style={tailwind('w-9 p-1.5')}
+                style={tailwind('w-9 p-1.5 border rounded')}
                 testID='qr_code_button'
               >
                 <ThemedIcon
@@ -508,10 +509,10 @@ function AddressRow ({
                 />
               </ThemedTouchableOpacity>
               <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800')}
-                light={tailwind('bg-white')}
+                dark={tailwind('bg-gray-800 border-gray-400')}
+                light={tailwind('bg-white border-gray-300')}
                 onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 ml-2')}
+                style={tailwind('w-9 p-1.5 ml-1 border rounded')}
                 testID='address_book_button'
               >
                 <ThemedIcon
