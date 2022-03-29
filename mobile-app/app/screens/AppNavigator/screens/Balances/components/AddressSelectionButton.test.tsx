@@ -27,7 +27,7 @@ describe('Address Selection Button', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <AddressSelectionButton address='foo' addressLength={4} onPress={onPress} />
+        <AddressSelectionButton address='foo' addressLength={4} onPress={onPress} hasCount />
       </Provider>
     )
 

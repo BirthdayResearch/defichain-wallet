@@ -75,7 +75,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <HeaderSettingButton />
       ),
       headerRight: (): JSX.Element => (
-        <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} />
+        <View style={tailwind('mr-2')}>
+          <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} hasCount />
+        </View>
       )
     })
   }, [navigation, address, addressLength])
@@ -294,11 +296,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               screenList={bottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
               modalStyle={{
-                position: 'fixed',
+                position: 'absolute',
+                bottom: '0',
                 height: '505px',
                 width: '375px',
-                zIndex: 50,
-                top: '33%'
+                zIndex: 50
               }}
             />
           )
