@@ -5,7 +5,6 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 interface CollateralPrice {
   activePrice: BigNumber
@@ -68,31 +67,30 @@ export function getVaultShare (collateralAmount: BigNumber, factor: BigNumber, p
 
 export function useValidCollateralRatio (
   collateralAmounts: LoanVaultTokenAmount[],
-  collateralValue: BigNumber,
-  collateralTokenSymbol?: string,
+  totalCollateralVaultValue: BigNumber,
+  collateralTokenId?: string,
   updatedCollateralAmount?: BigNumber
-): {requiredVaultShareTokens: string[], isValidCollateralRatio: boolean} {
+): {requiredVaultShareTokens: string[], isValidCollateralRatio: boolean, requiredTokensShare: BigNumber} {
+  const requiredVaultShareTokens = ['DUSD', 'DFI']
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
-  const { isFeatureAvailable } = useFeatureFlagContext()
-  const requiredVaultShareTokens = ['DFI', 'DUSD']
-  if (!isFeatureAvailable('usdt_vault_share')) {
-    return {
-      requiredVaultShareTokens,
-      isValidCollateralRatio: true
-    }
-  }
-  const requiredTokensShareValue = collateralAmounts
-    .reduce((share, collateral) => {
-      if (requiredVaultShareTokens.includes(collateral.symbol)) {
-        const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
-        const amount = collateral.symbol === collateralTokenSymbol ? updatedCollateralAmount : collateral.amount
-        const price = (collateralItem !== undefined) ? getCollateralPrice(new BigNumber(amount ?? 0), collateralItem, new BigNumber(collateralValue)) : null
+  const requiredTokensShare = requiredVaultShareTokens.reduce((share, tokenSymbol) => {
+    const collateralItem = collateralTokens.find((col) => col.token.symbol === tokenSymbol)
+    if (collateralItem !== undefined) {
+      const collateralToken = collateralAmounts.find((t) => t.symbol === tokenSymbol) ?? {
+        ...collateralItem?.token,
+        amount: '0'
+      }
+      const amount = collateralToken.id === collateralTokenId ? updatedCollateralAmount ?? 0 : new BigNumber(collateralToken.amount)
+      const price = (collateralItem !== undefined) ? getCollateralPrice(new BigNumber(amount ?? 0), collateralItem, new BigNumber(totalCollateralVaultValue)) : { vaultShare: new BigNumber(0) }
+      if (!price?.vaultShare?.isNaN()) {
         return share.plus(price?.vaultShare ?? 0)
       }
-      return share
-    }, new BigNumber(0)) ?? new BigNumber(0)
+    }
+    return share
+  }, new BigNumber(0)) ?? new BigNumber(0)
   return {
+    requiredTokensShare,
     requiredVaultShareTokens,
-    isValidCollateralRatio: requiredTokensShareValue?.gte(50)
+    isValidCollateralRatio: requiredTokensShare?.gte(50)
   }
 }

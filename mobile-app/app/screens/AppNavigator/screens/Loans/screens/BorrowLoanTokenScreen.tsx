@@ -42,6 +42,7 @@ import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/A
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
 import { useIsFocused } from '@react-navigation/native'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -69,6 +70,7 @@ export function BorrowLoanTokenScreen ({
   const [totalAnnualInterest, setTotalAnnualInterest] = useState(new BigNumber(NaN))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [valid, setValid] = useState(false)
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken.interest))
   const resultingColRatio = useResultingCollateralRatio(
     new BigNumber(vault?.collateralValue ?? NaN),
@@ -247,8 +249,18 @@ export function BorrowLoanTokenScreen ({
 
         {vault !== undefined && (
           <>
-            {isValidCollateralRatio
+            {!isValidCollateralRatio && isFeatureAvailable('usdt_vault_share')
               ? (
+                <ThemedText
+                  dark={tailwind('text-red-500')}
+                  light={tailwind('text-red-500')}
+                  style={tailwind('text-sm text-center mt-2 px-4')}
+                  testID='vault_min_share_warning'
+                >
+                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens')}
+                </ThemedText>
+              )
+              : (
                 <View style={tailwind('mt-8')}>
                   <View style={tailwind('px-4 mb-12')}>
                     <WalletTextInput
@@ -315,16 +327,7 @@ export function BorrowLoanTokenScreen ({
                       : translate('screens/BorrowLoanTokenScreen', 'Unable to proceed because of errors')}
                   </ThemedText>
                 </View>
-              )
-              : (
-                <ThemedText
-                  dark={tailwind('text-red-500')}
-                  light={tailwind('text-red-500')}
-                  style={tailwind('text-sm text-center mt-2 px-4')}
-                  testID='vault_min_share_warning'
-                >
-                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens')}
-                </ThemedText>
+
               )}
           </>
         )}
