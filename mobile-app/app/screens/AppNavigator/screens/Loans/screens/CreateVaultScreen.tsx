@@ -34,6 +34,7 @@ export function CreateVaultScreen ({
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const loanSchemes = useSelector((state: RootState) => ascColRatioLoanScheme(state.loans))
+  const hasFetchedLoanSchemes = useSelector((state: RootState) => state.loans.hasFetchedLoanSchemes)
   const logger = useLogger()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>(route.params?.loanScheme)
@@ -123,6 +124,7 @@ export function CreateVaultScreen ({
       </View>
       <LoanSchemeOptions
         loanSchemes={loanSchemes}
+        isLoading={!hasFetchedLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
       />
