@@ -114,6 +114,8 @@ export function ConfirmPaybackLoanScreen ({
         vault={vault}
         outstandingBalance={BigNumber.max(new BigNumber(loanTokenAmount.amount).minus(amountToPay), 0)}
         excessAmount={excessAmount}
+        paymentPenalty={paymentPenalty}
+        paymentTokenDisplaySymbol={paymentToken.tokenDisplaySymbol}
       />
       <SummaryVaultDetails
         vault={vault}
@@ -142,7 +144,7 @@ export function ConfirmPaybackLoanScreen ({
   )
 }
 
-function SummaryHeader (props: { amount: BigNumber, paymentToken: PaymentTokenProps, amountToPayInSelectedToken: BigNumber, displaySymbol: string, conversion?: ConversionParam }): JSX.Element {
+function SummaryHeader (props: { amount: BigNumber, paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>, amountToPayInSelectedToken: BigNumber, displaySymbol: string, conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -192,6 +194,8 @@ interface SummaryTransactionDetailsProps {
   fee: BigNumber
   vault: LoanVaultActive
   excessAmount?: BigNumber
+  paymentPenalty: BigNumber
+  paymentTokenDisplaySymbol: string
 }
 
 function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.Element {
@@ -239,6 +243,16 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: props.displaySymbol
         }}
       />
+      {props.paymentPenalty.gt(0) &&
+        <NumberRow
+          lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} fee', { paymentToken: props.paymentTokenDisplaySymbol })}
+          rhs={{
+            value: BigNumber.max(props.paymentPenalty, 0).toFixed(8),
+            testID: 'text_resulting_payment_penalty',
+            suffixType: 'text',
+            suffix: props.paymentTokenDisplaySymbol
+          }}
+        />}
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
@@ -301,7 +315,7 @@ interface PaybackForm {
   vaultId: string
   amountToPay: BigNumber
   amountToPayInSelectedToken: BigNumber
-  paymentToken: PaymentTokenProps
+  paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
   loanToken: LoanVaultTokenAmount
   paymentPenalty: BigNumber
 }

@@ -19,7 +19,6 @@ interface GetAmountProps {
     cappedAmount: BigNumber
     outstandingBalanceInPaymentToken: BigNumber
     paymentToken: PaymentTokenProps
-    resultingBalance: BigNumber
   }>
 }
 
@@ -81,7 +80,6 @@ export const useLoanPaymentTokenRate = (props: {
         : new BigNumber(paymentTokenActivePriceInUSD).div(props.loanTokenAmountActivePriceInUSD)
       const amountToPayInLoanToken = props.amountToPay.multipliedBy(loanTokenConversionRate)// .plus(cappedPenalty)
       const outstandingBalanceInLoanToken = props.outstandingBalance.multipliedBy(loanTokenConversionRate) // .plus(cappedPenalty)
-      const cappedAmountToPayInLoanToken = BigNumber.min(amountToPayInLoanToken, props.loanTokenBalance, outstandingBalanceInLoanToken)
       const cappedAmountInLoanToken = BigNumber.min(props.loanTokenBalance, outstandingBalanceInLoanToken)
 
       // Payment Token
@@ -89,18 +87,12 @@ export const useLoanPaymentTokenRate = (props: {
       const outstandingBalanceInPaymentToken = props.outstandingBalance.multipliedBy(paymentTokenConversionRate)// .plus(cappedPenaltyInPaymentToken)
       const cappedAmountInPaymentToken = BigNumber.min(paymentToken.tokenBalance, outstandingBalanceInPaymentToken)
 
-      // Resulting Balance
-      const resultingBalanceInLoanToken = props.loanTokenBalance.minus(cappedAmountToPayInLoanToken)
-      const resultingBalanceInPaymentToken = paymentToken.tokenBalance.minus(BigNumber.min(amountToPayInPaymentToken, outstandingBalanceInPaymentToken))
-      const resultingBalance = props.loanToken.symbol !== paymentToken.tokenSymbol ? resultingBalanceInPaymentToken : resultingBalanceInLoanToken
-
       return {
         amountToPayInLoanToken,
         amountToPayInPaymentToken,
         cappedAmount: props.loanToken.symbol !== paymentToken.tokenSymbol ? cappedAmountInPaymentToken : cappedAmountInLoanToken,
         outstandingBalanceInPaymentToken,
-        paymentToken,
-        resultingBalance
+        paymentToken
       }
     })
 

@@ -66,6 +66,7 @@ export function PaybackLoanScreen ({
   const canUseOperations = useLoanOperations(vault?.state)
   const client = useWhaleApiClient()
 
+  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
   const token = tokens?.find((t) => t.id === loanTokenAmount.id)
   const tokenBalance = (token != null) ? getTokenAmount(token.id, tokens) : new BigNumber(0)
   const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount)
@@ -106,7 +107,6 @@ export function PaybackLoanScreen ({
     isExcess,
     amountToPayInLoanToken,
     amountToPayInPaymentToken,
-    resultingBalance,
     totalPaybackWithInterest,
     hasSufficientPaymentTokenBalance,
     selectedPaymentTokenBalance,
@@ -124,8 +124,7 @@ export function PaybackLoanScreen ({
         tokenDisplaySymbol: '',
         tokenId: '',
         tokenSymbol: ''
-      },
-      resultingBalance: new BigNumber(NaN)
+      }
     }
     const amountToPayInLoanToken = selectedPaymentTokenWithAmount.amountToPayInLoanToken
     const amountToPayInPaymentToken = selectedPaymentTokenWithAmount.amountToPayInPaymentToken
@@ -133,7 +132,6 @@ export function PaybackLoanScreen ({
     return {
       isExcess: new BigNumber(amountToPayInLoanToken).isGreaterThan(loanTokenAmount.amount),
       totalPaybackWithInterest: new BigNumber(amountToPayInLoanToken).plus(interestPerBlock),
-      resultingBalance: selectedPaymentTokenWithAmount.resultingBalance,
       cappedAmount: selectedPaymentTokenWithAmount.cappedAmount,
       amountToPayInPaymentToken,
       amountToPayInLoanToken,
@@ -155,11 +153,10 @@ export function PaybackLoanScreen ({
   const logger = useLogger()
 
   // Resulting col ratio
-  const interestPerBlock = useInterestPerBlock(new BigNumber(vault?.loanScheme.interestRate ?? NaN), new BigNumber(loanToken?.interest ?? NaN))
   const resultingColRatio = useResultingCollateralRatio(
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
-    BigNumber.min(amountToPay, loanTokenAmount.amount).multipliedBy(-1),
+    BigNumber.min(amountToPayInLoanToken, loanTokenAmount.amount).multipliedBy(-1),
     new BigNumber(getActivePrice(loanTokenAmount.symbol, loanTokenAmount?.activePrice)),
     interestPerBlock
   )
@@ -346,10 +343,9 @@ export function PaybackLoanScreen ({
               isExcess={isExcess}
               resultingColRatio={resultingColRatio}
               vault={vault}
-              loanTokenPrice={new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice))}
+              loanTokenPrice={new BigNumber(getActivePrice(loanTokenAmount.symbol, loanToken?.activePrice))}
               totalPaybackWithInterest={totalPaybackWithInterest}
               selectedPaymentToken={selectedPaymentToken}
-              resultingBalance={resultingBalance}
               amountToPayInLoanToken={amountToPayInLoanToken}
               paymentPenalty={paymentPenalty}
             />
@@ -439,7 +435,6 @@ interface TransactionDetailsProps {
   totalPaybackWithInterest: BigNumber
   loanTokenPrice: BigNumber
   selectedPaymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
-  resultingBalance: BigNumber
   amountToPayInLoanToken: BigNumber
   paymentPenalty: BigNumber
 }
@@ -454,7 +449,6 @@ function TransactionDetailsSection ({
   totalPaybackWithInterest,
   loanTokenPrice,
   selectedPaymentToken,
-  resultingBalance,
   amountToPayInLoanToken,
   paymentPenalty
 }: TransactionDetailsProps): JSX.Element {
@@ -596,15 +590,6 @@ function TransactionDetailsSection ({
             />
           )}
         <NumberRow
-          lhs={translate('screens/PaybackLoanScreen', 'Resulting {{displaySymbol}} Balance', { displaySymbol: selectedPaymentToken.tokenDisplaySymbol })}
-          rhs={{
-            value: BigNumber.max(resultingBalance, 0).toFixed(8),
-            testID: 'text_resulting_balance',
-            suffixType: 'text',
-            suffix: selectedPaymentToken.tokenDisplaySymbol
-          }}
-        />
-        <NumberRow
           lhs={translate('screens/PaybackLoanScreen', 'Loan remaining')}
           rhs={{
             value: BigNumber.max(outstandingBalance.minus(amountToPayInLoanToken), 0).toFixed(8),
@@ -620,7 +605,7 @@ function TransactionDetailsSection ({
               value: BigNumber.max(paymentPenalty, 0).toFixed(8),
               testID: 'text_resulting_payment_penalty',
               suffixType: 'text',
-              suffix: displaySymbol
+              suffix: selectedPaymentToken.tokenDisplaySymbol
             }}
           />}
         <FeeInfoRow
