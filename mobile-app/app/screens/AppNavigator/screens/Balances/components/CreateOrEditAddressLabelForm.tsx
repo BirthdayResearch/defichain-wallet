@@ -23,9 +23,9 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 export interface CreateOrEditAddressLabelFormProps {
   address?: string
   addressLabel?: LocalAddress
-  index?: number
+  index: number
   type: AddressLabelFormType
-  onSaveButtonPress?: (labelAddress: LabeledAddress) => void
+  onSaveButtonPress: (labelAddress: LabeledAddress) => void
 }
 
 type AddressLabelFormType = 'create' | 'edit'
@@ -89,8 +89,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   const handleEditSubmit = (): void => {
     if (labelInput === undefined ||
       address === undefined ||
-      !validateLabelInput(labelInput) ||
-      onSaveButtonPress === undefined) {
+      !validateLabelInput(labelInput)) {
       return
     }
     onSaveButtonPress({
@@ -111,8 +110,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       addressInput === undefined ||
       labelInput === undefined ||
       !validateLabelInput(labelInput) ||
-      !validateAddressInput(addressInput) ||
-      onSaveButtonPress === undefined) {
+      !validateAddressInput(addressInput)) {
       return
     }
 
