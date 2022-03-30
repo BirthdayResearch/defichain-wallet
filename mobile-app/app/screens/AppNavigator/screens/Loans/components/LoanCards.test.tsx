@@ -136,6 +136,7 @@ describe('loan cards', () => {
         collateralTokens: [],
         hasFetchedLoansData: false,
         hasFetchedVaultsData: false,
+        hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
       },
