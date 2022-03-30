@@ -459,3 +459,19 @@ context('Wallet - Send - Address book', function () {
   //   cy.getByTestID('address_row_text_0').contains(addresses[0])
   // })
 })
+
+context('Wallet - Send - Address book local storage feature', () => {
+  before(function () {
+    cy.intercept('**/settings/flags', {
+      statusCode: 200,
+      body: []
+    })
+    cy.createEmptyWallet().sendDFItoWallet().wait(6000)
+  })
+
+  it('should not display address book icon if feature is blocked', function () {
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').should('not.exist')
+  })
+})
