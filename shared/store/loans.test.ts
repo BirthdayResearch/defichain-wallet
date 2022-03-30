@@ -208,7 +208,8 @@ describe('loans reducer', () => {
       loanSchemes: [],
       collateralTokens: [],
       hasFetchedVaultsData: false,
-      hasFetchedLoansData: false
+      hasFetchedLoansData: false,
+      hasFetchedLoanSchemes: false
     })
   })
 
