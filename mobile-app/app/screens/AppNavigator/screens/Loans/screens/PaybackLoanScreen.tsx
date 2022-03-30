@@ -130,7 +130,7 @@ export function PaybackLoanScreen ({
     const amountToPayInPaymentToken = selectedPaymentTokenWithAmount.amountToPayInPaymentToken
 
     return {
-      isExcess: new BigNumber(amountToPayInLoanToken).isGreaterThan(loanTokenAmount.amount),
+      isExcess: new BigNumber(amountToPayInPaymentToken).isGreaterThan(selectedPaymentTokenWithAmount.outstandingBalanceInPaymentToken),
       totalPaybackWithInterest: new BigNumber(amountToPayInLoanToken).plus(interestPerBlock),
       cappedAmount: selectedPaymentTokenWithAmount.cappedAmount,
       amountToPayInPaymentToken,
@@ -220,7 +220,7 @@ export function PaybackLoanScreen ({
         paymentToken: selectedPaymentToken,
         fee,
         loanTokenAmount,
-        excessAmount: isExcess ? new BigNumber(amountToPay).minus(loanTokenAmount.amount) : undefined,
+        excessAmount: isExcess ? new BigNumber(amountToPayInPaymentToken).minus(outstandingBalanceInPaymentToken) : undefined,
         resultingColRatio,
         paymentPenalty,
         ...(isConversionRequired && {
@@ -339,6 +339,7 @@ export function PaybackLoanScreen ({
             <TransactionDetailsSection
               fee={fee}
               outstandingBalance={loanTokenOutstandingBal}
+              outstandingBalanceInPaymentToken={outstandingBalanceInPaymentToken}
               displaySymbol={loanTokenAmount.displaySymbol}
               isExcess={isExcess}
               resultingColRatio={resultingColRatio}
@@ -347,6 +348,7 @@ export function PaybackLoanScreen ({
               totalPaybackWithInterest={totalPaybackWithInterest}
               selectedPaymentToken={selectedPaymentToken}
               amountToPayInLoanToken={amountToPayInLoanToken}
+              amountToPayInPaymentToken={amountToPayInPaymentToken}
               paymentPenalty={paymentPenalty}
             />
             {isExcess && (
@@ -427,6 +429,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
 
 interface TransactionDetailsProps {
   outstandingBalance: BigNumber
+  outstandingBalanceInPaymentToken: BigNumber
   fee: BigNumber
   displaySymbol: string
   isExcess: boolean
@@ -436,11 +439,13 @@ interface TransactionDetailsProps {
   loanTokenPrice: BigNumber
   selectedPaymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
   amountToPayInLoanToken: BigNumber
+  amountToPayInPaymentToken: BigNumber
   paymentPenalty: BigNumber
 }
 
 function TransactionDetailsSection ({
   outstandingBalance,
+  outstandingBalanceInPaymentToken,
   fee,
   displaySymbol,
   isExcess,
@@ -450,6 +455,7 @@ function TransactionDetailsSection ({
   loanTokenPrice,
   selectedPaymentToken,
   amountToPayInLoanToken,
+  amountToPayInPaymentToken,
   paymentPenalty
 }: TransactionDetailsProps): JSX.Element {
   const [isExpanded, setisExpanded] = useState(false)
@@ -496,7 +502,7 @@ function TransactionDetailsSection ({
                   value={resultingColRatio.toFixed(2)}
                   minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
                   totalLoanAmount={new BigNumber(vault.loanValue).minus(
-                    totalPaybackWithInterest.multipliedBy(loanTokenPrice)
+                    BigNumber.min(totalPaybackWithInterest.multipliedBy(loanTokenPrice), 0)
                   )}
                   type='current'
                   colRatio={resultingColRatio}
@@ -544,7 +550,7 @@ function TransactionDetailsSection ({
             }}
             lhs={translate('screens/PaybackLoanScreen', 'Min. Col. Ratio')}
             rhs={{
-              value: `${vault.collateralRatio}%`,
+              value: `${vault.loanScheme.minColRatio}%`,
               testID: 'text_min_col_ratio',
               numberOfLines: 1,
               ellipsizeMode: 'middle'
@@ -582,10 +588,10 @@ function TransactionDetailsSection ({
             <NumberRow
               lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
               rhs={{
-                value: amountToPayInLoanToken.minus(outstandingBalance).toFixed(8),
+                value: amountToPayInPaymentToken.minus(outstandingBalanceInPaymentToken).toFixed(8),
                 testID: 'text_excess_amount',
                 suffixType: 'text',
-                suffix: displaySymbol
+                suffix: selectedPaymentToken.tokenDisplaySymbol
               }}
             />
           )}

@@ -230,7 +230,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
               value: props.excessAmount.toFixed(8),
               testID: 'text_excess_amount',
               suffixType: 'text',
-              suffix: props.displaySymbol
+              suffix: props.paymentTokenDisplaySymbol
             }}
           />
         )}

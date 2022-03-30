@@ -59,6 +59,7 @@ export function CollateralizationRatioValue (props: CollateralizationRatioProps 
     minColRatio: props.minColRatio,
     totalLoanAmount: props.totalLoanAmount
   })
+
   return (
     <NumberFormat
       value={props.value}
