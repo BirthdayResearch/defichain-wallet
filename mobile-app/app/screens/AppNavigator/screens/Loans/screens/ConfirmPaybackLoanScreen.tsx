@@ -337,7 +337,7 @@ async function paybackLoanToken ({
         from: script,
         tokenAmounts: [{
           token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
-          amount: amountToPayInSelectedToken.multipliedBy(paymentPenalty)
+          amount: amountToPayInSelectedToken.plus(paymentPenalty)
         }]
       }, script)
       return new CTransactionSegWit(signed)

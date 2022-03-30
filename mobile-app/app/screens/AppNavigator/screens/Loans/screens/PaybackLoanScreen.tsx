@@ -421,6 +421,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         />
         <ActiveUSDValue
           price={new BigNumber(props.outstandingBalanceInUSD)}
+          testId='loan_outstanding_balance_usd'
         />
       </View>
     </ThemedView>
