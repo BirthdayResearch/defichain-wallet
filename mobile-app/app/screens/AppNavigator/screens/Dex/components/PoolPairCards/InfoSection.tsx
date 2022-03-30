@@ -90,10 +90,14 @@ export function InfoSection ({
             <PoolPairInfoLine
               label={translate('screens/DexScreen', 'Total liquidity (USD)')}
               value={{
-                text: pair.totalLiquidity.usd,
-                decimalScale: 2,
+                text: pair.totalLiquidity.token,
+                decimalScale: decimalScale,
                 testID: `totalLiquidity_${pairSymbol}`,
-                prefix: '$'
+                suffix: ` ${pair.symbol}`
+              }}
+              usdValue={{
+                text: new BigNumber(pair.totalLiquidity.usd),
+                testID: `${testID}_totalLiquidity_${pairSymbol}_USD`
               }}
             />
           )}
