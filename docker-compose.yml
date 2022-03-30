@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:2.6.2
+    image: defi/defichain:2.7.0-beta
     command: >
       defid
       -printtoconsole
@@ -44,9 +44,10 @@ services:
       -fortcanningheight=8
       -fortcanningmuseumheight=9
       -fortcanninghillheight=10
+      -fortcanningroadheight=11
 
   defi-playground:
-    image: ghcr.io/defich/playground-api:2.32.1
+    image: ghcr.io/defich/playground-api:2.33.0
     depends_on:
       - defi-blockchain
     ports:
