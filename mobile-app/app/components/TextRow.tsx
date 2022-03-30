@@ -22,7 +22,9 @@ export function TextRow (props: TextRowProps): JSX.Element {
   return (
     <ThemedView
       {
-      ...((props.containerStyle != null) || {
+      ...((props.containerStyle != null)
+? props.containerStyle
+: {
         dark: tailwind('bg-gray-800 border-b border-gray-700'),
         light: tailwind('bg-white border-b border-gray-200'),
         style: tailwind('p-4 flex-row items-start w-full')

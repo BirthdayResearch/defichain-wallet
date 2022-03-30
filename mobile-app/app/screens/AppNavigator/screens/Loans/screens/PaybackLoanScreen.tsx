@@ -254,19 +254,17 @@ export function PaybackLoanScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pb-8 pt-2')}>
-      <View style={tailwind('px-4 pb-4')}>
-        <LoanTokenInput
-          loanTokenId={loanTokenAmount.id}
-          displaySymbol={loanTokenAmount.displaySymbol}
-          outstandingBalanceInUSD={loanTokenOutstandingBalInUSD}
-          outstandingBalance={loanTokenOutstandingBal}
-        />
-      </View>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-8')}>
+      <LoanTokenInput
+        loanTokenId={loanTokenAmount.id}
+        displaySymbol={loanTokenAmount.displaySymbol}
+        outstandingBalanceInUSD={loanTokenOutstandingBalInUSD}
+        outstandingBalance={loanTokenOutstandingBal}
+      />
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('py-4 flex flex-col')}
+        style={tailwind('pb-4 flex flex-col')}
       >
         {
           paymentTokensWithAmount?.length > 1 && isFeatureAvailable('dfi_loan_payment') &&
@@ -321,7 +319,7 @@ export function PaybackLoanScreen ({
             testID='available_token_balance'
           />
         </View>
-        {isConversionRequired && hasSufficientPaymentTokenBalance && <ConversionInfoText />}
+        {isConversionRequired && hasSufficientPaymentTokenBalance && <ConversionInfoText style={tailwind('mx-4')} />}
         <LoanPercentage
           amountToPayInPaymentToken={amountToPayInPaymentToken}
           loanTokenOutstandingBalance={loanTokenOutstandingBal}
@@ -395,32 +393,30 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-white')}
       dark={tailwind('bg-gray-800')}
-      style={tailwind('p-4 flex flex-col rounded-lg')}
+      style={tailwind('p-4 m-4 flex flex-col rounded-lg flex-row items-center justify-between')}
     >
-      <View style={tailwind('flex flex-row items-center justify-between')}>
-        <ThemedText
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-          style={tailwind('text-sm')}
-        >
-          {translate('screens/PaybackLoanScreen', 'Loan amount')}
-        </ThemedText>
-        <View style={tailwind('items-end')}>
-          <NumberFormat
-            value={new BigNumber(props.outstandingBalance).toFixed(8)}
-            decimalScale={8}
-            thousandSeparator
-            suffix={` ${props.displaySymbol}`}
-            displayType='text'
-            renderText={(value) =>
-              <ThemedText testID='loan_outstanding_balance' style={tailwind('text-sm font-medium')}>
-                {value}
-              </ThemedText>}
-          />
-          <ActiveUSDValue
-            price={new BigNumber(props.outstandingBalanceInUSD)}
-          />
-        </View>
+      <ThemedText
+        light={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-500')}
+        style={tailwind('text-sm')}
+      >
+        {translate('screens/PaybackLoanScreen', 'Loan amount')}
+      </ThemedText>
+      <View style={tailwind('items-end')}>
+        <NumberFormat
+          value={new BigNumber(props.outstandingBalance).toFixed(8)}
+          decimalScale={8}
+          thousandSeparator
+          suffix={` ${props.displaySymbol}`}
+          displayType='text'
+          renderText={(value) =>
+            <ThemedText testID='loan_outstanding_balance' style={tailwind('text-sm font-medium')}>
+              {value}
+            </ThemedText>}
+        />
+        <ActiveUSDValue
+          price={new BigNumber(props.outstandingBalanceInUSD)}
+        />
       </View>
     </ThemedView>
   )
@@ -527,7 +523,7 @@ function TransactionDetailsSection ({
           <TextRow
             containerStyle={{
               style: tailwind('flex flex-row pb-1'),
-              dark: tailwind('bg-gray-800border-gray-700'),
+              dark: tailwind('bg-gray-800 border-gray-700'),
               light: tailwind('bg-white border-gray-200')
             }}
             lhs={translate('screens/PaybackLoanScreen', 'Vault ID')}
@@ -542,7 +538,7 @@ function TransactionDetailsSection ({
           <TextRow
             containerStyle={{
               style: tailwind('flex flex-row pb-1'),
-              dark: tailwind('bg-gray-800border-gray-700'),
+              dark: tailwind('bg-gray-800 border-gray-700'),
               light: tailwind('bg-white border-gray-200')
             }}
             lhs={translate('screens/PaybackLoanScreen', 'Min. Col. Ratio')}
@@ -554,33 +550,27 @@ function TransactionDetailsSection ({
             }}
             textStyle={tailwind('text-xs font-normal')}
           />
-          <TextRow
-            containerStyle={{
-              style: tailwind('flex flex-row pb-1'),
-              dark: tailwind('bg-gray-800border-gray-700'),
-              light: tailwind('bg-white border-gray-200')
-            }}
+          <NumberRow
+            style={tailwind('flex flex-row pb-1')}
+            dark={tailwind('bg-gray-800 border-gray-700')}
+            light={tailwind('bg-white border-gray-200')}
             lhs={translate('screens/PaybackLoanScreen', 'Total collateral (USD)')}
             rhs={{
               value: vault.collateralValue,
               testID: 'text_total_collateral_usd',
-              numberOfLines: 1,
-              ellipsizeMode: 'middle'
+              prefix: '$'
             }}
             textStyle={tailwind('text-xs font-normal')}
           />
-          <TextRow
-            containerStyle={{
-              style: tailwind('flex flex-row pb-1'),
-              dark: tailwind('bg-gray-800border-gray-700'),
-              light: tailwind('bg-white border-gray-200')
-            }}
+          <NumberRow
+            style={tailwind('flex flex-row pb-1')}
+            dark={tailwind('bg-gray-800 border-gray-700')}
+            light={tailwind('bg-white border-gray-200')}
             lhs={translate('screens/PaybackLoanScreen', 'Total loan (USD)')}
             rhs={{
               value: vault.loanValue,
               testID: 'text_total_loan_usd',
-              numberOfLines: 1,
-              ellipsizeMode: 'middle'
+              prefix: '$'
             }}
             textStyle={tailwind('text-xs font-normal')}
           />
