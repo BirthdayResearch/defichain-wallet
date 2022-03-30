@@ -78,18 +78,18 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 <View style={tailwind('mt-1')}>
                   <TextSkeletonLoader
                     viewBoxWidth='260'
-                    viewBoxHeight='28'
+                    viewBoxHeight='34'
                     textWidth='180'
                     textHeight='23'
+                    textVerticalOffset='4'
                     iContentLoaderProps={{
-                      height: '28',
+                      height: '34',
                       testID: 'total_portfolio_skeleton_loader'
                     }}
                   />
                 </View>
               )
-          }
-
+            }
         </View>
         <ThemedTouchableOpacity
           testID='toggle_balance'

@@ -16,19 +16,19 @@ export function BalanceSkeletonLoader (props: JSX.IntrinsicAttributes & IContent
       <ContentLoader
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
         foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
-        height={40}
+        height={44}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
-        viewBox='0 0 328 40'
+        viewBox='0 0 328 44'
         width='100%'
         {...props}
       >
-        <Circle cx='30' cy='20' r='16' />
-        <Rect x='58' y='2' rx='5' ry='5' width='110' height='16' />
-        <Rect x='58' y='24' rx='5' ry='5' width='110' height='12' />
+        <Circle cx='30' cy='22' r='16' />
+        <Rect x='58' y='4' rx='5' ry='5' width='110' height='16' />
+        <Rect x='58' y='25' rx='5' ry='5' width='110' height='12' />
 
-        <Rect x='220' y='2' rx='5' ry='5' width='93' height='16' />
-        <Rect x='220' y='24' rx='5' ry='5' width='93' height='12' />
+        <Rect x='220' y='4' rx='5' ry='5' width='93' height='16' />
+        <Rect x='220' y='25' rx='5' ry='5' width='93' height='12' />
       </ContentLoader>
     </ThemedView>
   )
