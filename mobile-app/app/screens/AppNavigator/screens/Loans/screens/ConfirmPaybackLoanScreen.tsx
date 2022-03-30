@@ -45,7 +45,8 @@ export function ConfirmPaybackLoanScreen ({
     loanTokenAmount,
     excessAmount,
     resultingColRatio,
-    conversion
+    conversion,
+    paymentPenalty
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -72,7 +73,8 @@ export function ConfirmPaybackLoanScreen ({
       loanToken: loanTokenAmount,
       amountToPay,
       amountToPayInSelectedToken,
-      paymentToken
+      paymentToken,
+      paymentPenalty
     }, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
     }, () => {
@@ -301,6 +303,7 @@ interface PaybackForm {
   amountToPayInSelectedToken: BigNumber
   paymentToken: PaymentTokenProps
   loanToken: LoanVaultTokenAmount
+  paymentPenalty: BigNumber
 }
 
 async function paybackLoanToken ({
@@ -308,7 +311,8 @@ async function paybackLoanToken ({
   amountToPay,
   amountToPayInSelectedToken,
   paymentToken,
-  loanToken
+  loanToken,
+  paymentPenalty
 }: PaybackForm, dispatch: Dispatch<any>, onBroadcast: () => void, onConfirmation: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
@@ -319,7 +323,7 @@ async function paybackLoanToken ({
         from: script,
         tokenAmounts: [{
           token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
-          amount: amountToPayInSelectedToken
+          amount: amountToPayInSelectedToken.multipliedBy(paymentPenalty)
         }]
       }, script)
       return new CTransactionSegWit(signed)

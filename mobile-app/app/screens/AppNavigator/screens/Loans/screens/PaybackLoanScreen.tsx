@@ -79,7 +79,7 @@ export function PaybackLoanScreen ({
   })
 
   const [amountToPay, setAmountToPay] = useState(BigNumber.min(loanTokenAmount.amount, tokenBalance).toFixed(8))
-  const { getPaymentTokens } = useLoanPaymentTokenRate({
+  const { getPaymentTokens, getPaymentPenalty } = useLoanPaymentTokenRate({
     loanToken: {
       id: loanTokenAmount.id,
       displaySymbol: loanTokenAmount.displaySymbol,
@@ -91,9 +91,15 @@ export function PaybackLoanScreen ({
     amountToPay: new BigNumber(amountToPay)
   })
 
-  const paymentTokensWithAmount = useMemo(() => {
+  const {
+    paymentTokensWithAmount,
+    paymentPenalty
+  } = useMemo(() => {
     const { paymentTokenAmounts } = getPaymentTokens()
-    return paymentTokenAmounts
+    return {
+      paymentTokensWithAmount: paymentTokenAmounts,
+      paymentPenalty: getPaymentPenalty(selectedPaymentToken.tokenSymbol)
+    }
   }, [amountToPay, selectedPaymentToken, paymentTokenActivePrices])
 
   const {
@@ -219,6 +225,7 @@ export function PaybackLoanScreen ({
         loanTokenAmount,
         excessAmount: isExcess ? new BigNumber(amountToPay).minus(loanTokenAmount.amount) : undefined,
         resultingColRatio,
+        paymentPenalty,
         ...(isConversionRequired && {
           conversion: {
             isConversionRequired,
@@ -344,7 +351,7 @@ export function PaybackLoanScreen ({
               selectedPaymentToken={selectedPaymentToken}
               resultingBalance={resultingBalance}
               amountToPayInLoanToken={amountToPayInLoanToken}
-              amountToPayInPaymentToken={amountToPayInPaymentToken}
+              paymentPenalty={paymentPenalty}
             />
             {isExcess && (
               <ThemedText
@@ -434,7 +441,7 @@ interface TransactionDetailsProps {
   selectedPaymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
   resultingBalance: BigNumber
   amountToPayInLoanToken: BigNumber
-  amountToPayInPaymentToken: BigNumber
+  paymentPenalty: BigNumber
 }
 
 function TransactionDetailsSection ({
@@ -449,7 +456,7 @@ function TransactionDetailsSection ({
   selectedPaymentToken,
   resultingBalance,
   amountToPayInLoanToken,
-  amountToPayInPaymentToken
+  paymentPenalty
 }: TransactionDetailsProps): JSX.Element {
   const [isExpanded, setisExpanded] = useState(false)
   // TODO(PIERRE): Display collateral alter info
@@ -597,7 +604,6 @@ function TransactionDetailsSection ({
             suffix: selectedPaymentToken.tokenDisplaySymbol
           }}
         />
-
         <NumberRow
           lhs={translate('screens/PaybackLoanScreen', 'Loan remaining')}
           rhs={{
@@ -607,7 +613,16 @@ function TransactionDetailsSection ({
             suffix: displaySymbol
           }}
         />
-
+        {paymentPenalty.gt(0) &&
+          <NumberRow
+            lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} fee', { paymentToken: selectedPaymentToken.tokenDisplaySymbol })}
+            rhs={{
+              value: BigNumber.max(paymentPenalty, 0).toFixed(8),
+              testID: 'text_resulting_payment_penalty',
+              suffixType: 'text',
+              suffix: displaySymbol
+            }}
+          />}
         <FeeInfoRow
           type='ESTIMATED_FEE'
           value={fee.toFixed(8)}

@@ -82,6 +82,7 @@ export interface LoanParamList {
     excessAmount?: BigNumber
     resultingColRatio: BigNumber
     conversion?: ConversionParam
+    paymentPenalty: BigNumber
   }
   EditLoanSchemeScreen: {
     vaultId: string
