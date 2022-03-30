@@ -43,6 +43,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { BottomSheetAddressBook } from '../components/BottomSheetAddressBook'
 import { CreateOrEditAddressLabelForm } from '../components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -465,6 +466,7 @@ function AddressRow ({
   onAddressChange
 }: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
   const defaultValue = ''
+  const { isFeatureAvailable } = useFeatureFlagContext()
   return (
     <>
       <Controller
@@ -508,21 +510,25 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800 border-gray-400')}
-                light={tailwind('bg-white border-gray-300')}
-                onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 ml-1 border rounded')}
-                testID='address_book_button'
-              >
-                <ThemedIcon
-                  dark={tailwind('text-darkprimary-500')}
-                  iconType='MaterialIcons'
-                  light={tailwind('text-primary-500')}
-                  name='contacts'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialIcons'
+                      light={tailwind('text-primary-500')}
+                      name='contacts'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
             </WalletTextInput>
           </View>
         )}
