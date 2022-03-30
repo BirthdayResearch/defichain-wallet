@@ -196,27 +196,12 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       </ThemedText>
       {type === 'create' &&
         (
-          <WalletTextInput
-            value={addressInput}
-            inputType='default'
-            displayClearButton={addressInput !== '' && addressInput !== undefined}
-            onChangeText={(text: string) => {
-              setAddressInput(text)
-              validateAddressInput(text)
-            }}
-            onClearButtonPress={() => {
-              setAddressInput('')
-              validateAddressInput('')
-            }}
-            placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof addressInput === 'string' ? addressInput : 'Address {{index}}'}`, { index })}
-            style={tailwind('h-9 w-6/12 flex-grow')}
-            hasBottomSheet
-            valid={addressInputErrorMessage === ''}
-            inlineText={{
-              type: 'error',
-              text: translate('components/CreateOrEditAddressLabelForm', addressInputErrorMessage)
-            }}
-            testID='address_book_address_input'
+          <AddressInput
+            addressInput={addressInput}
+            index={index}
+            setAddressInput={setAddressInput}
+            validateAddressInput={validateAddressInput}
+            addressInputErrorMessage={addressInputErrorMessage}
           />
         )}
 
@@ -245,5 +230,40 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
         {address}
       </ThemedText>
     </View>
+  )
+}
+
+function AddressInput ({
+  addressInput,
+  index,
+  setAddressInput,
+  validateAddressInput,
+  addressInputErrorMessage
+}: { addressInput?: string, index: number, setAddressInput: (val?: string) => void, validateAddressInput: (val: string) => boolean, addressInputErrorMessage: string }): JSX.Element {
+  return (
+    <WalletTextInput
+      value={addressInput}
+      autoCapitalize='none'
+      multiline
+      inputType='default'
+      displayClearButton={addressInput !== '' && addressInput !== undefined}
+      onChangeText={(text: string) => {
+        setAddressInput(text)
+        validateAddressInput(text)
+      }}
+      onClearButtonPress={() => {
+        setAddressInput('')
+        validateAddressInput('')
+      }}
+      placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof addressInput === 'string' ? addressInput : 'Address {{index}}'}`, { index })}
+      style={tailwind('w-6/12 flex-grow')}
+      hasBottomSheet
+      valid={addressInputErrorMessage === ''}
+      inlineText={{
+        type: 'error',
+        text: translate('components/CreateOrEditAddressLabelForm', addressInputErrorMessage)
+      }}
+      testID='address_book_address_input'
+    />
   )
 }
