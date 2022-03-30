@@ -123,7 +123,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const totalCollateralVaultValue = new BigNumber(vault?.collateralValue) ?? new BigNumber(0)
   const inputValue = new BigNumber(collateralValue).isNaN() ? '0' : collateralValue
   const totalAmount = isAdd ? new BigNumber(currentBalance)?.plus(inputValue) : BigNumber.max(0, new BigNumber(currentBalance)?.minus(inputValue))
-  const initialPrices = getCollateralPrice(new BigNumber(collateralValue), collateralItem, new BigNumber(vault.collateralValue))
+  const initialPrices = getCollateralPrice(new BigNumber(inputValue), collateralItem, new BigNumber(vault.collateralValue))
   const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
   const prices = getCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
   const { requiredVaultShareTokens, isValidCollateralRatio, requiredTokensShare } = useValidCollateralRatio(
