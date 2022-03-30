@@ -93,7 +93,7 @@ export function InfoSection ({
                 text: pair.totalLiquidity.token,
                 decimalScale: decimalScale,
                 testID: `totalLiquidity_${pairSymbol}`,
-                suffix: ` ${pair.symbol}`
+                suffix: ` ${pair.displaySymbol}`
               }}
               usdValue={{
                 text: new BigNumber(pair.totalLiquidity.usd),
