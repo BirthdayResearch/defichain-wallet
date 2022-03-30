@@ -99,6 +99,7 @@ export function InfoSection ({
                 text: new BigNumber(pair.totalLiquidity.usd),
                 testID: `${testID}_totalLiquidity_${pairSymbol}_USD`
               }}
+              boldValue
             />
           )}
         </>
@@ -120,12 +121,14 @@ interface PoolPairInfoLineProps {
     text: BigNumber
     testID: string
   }
+  boldValue?: boolean
 }
 
 function PoolPairInfoLine ({
   label,
   value,
-  usdValue
+  usdValue,
+  boldValue
 }: PoolPairInfoLineProps): JSX.Element {
   return (
     <View
@@ -151,7 +154,7 @@ function PoolPairInfoLine ({
             <ThemedText
               style={tailwind([
                 {
-                  'text-base font-semibold': usdValue === undefined
+                  'text-base font-semibold': usdValue === undefined || boldValue
                 },
                 {
                   'text-sm leading-4 mb-1': usdValue !== undefined
