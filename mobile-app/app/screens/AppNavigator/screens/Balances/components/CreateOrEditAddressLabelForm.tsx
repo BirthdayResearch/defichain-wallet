@@ -24,7 +24,7 @@ export interface CreateOrEditAddressLabelFormProps {
   address?: string
   addressLabel?: LocalAddress
   index?: number
-  type: AddressLabelFormType // currently only `edit`
+  type: AddressLabelFormType
   onSaveButtonPress?: (labelAddress: LabeledAddress) => void
 }
 
@@ -155,7 +155,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     >
       <View style={tailwind('mb-2 flex-1')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
-          {translate('components/CreateOrEditAddressLabelForm', type === 'create' ? 'Add New Address' : 'Edit Address Label')}
+          {translate('components/CreateOrEditAddressLabelForm', type === 'create' ? 'Add new address' : 'Edit address label')}
         </ThemedText>
       </View>
       {address !== undefined && <AddressDisplay address={address} />}
