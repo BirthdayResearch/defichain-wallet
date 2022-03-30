@@ -214,7 +214,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           <View style={tailwind('mx-2 flex-auto')}>
             {labeledAddresses?.[item]?.label != null && labeledAddresses?.[item]?.label !== '' &&
               (
-                <ThemedText style={tailwind('text-sm w-full font-medium')}>
+                <ThemedText style={tailwind('text-sm w-full font-medium')} testID={`list_address_label_${item}`}>
                   {labeledAddresses[item]?.label}
                 </ThemedText>
               )}
@@ -282,7 +282,9 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             <View style={tailwind('mt-2')}>
               <ThemedText
                 light={tailwind('text-black')}
-                dark={tailwind('text-white')} style={tailwind('font-bold')}
+                dark={tailwind('text-white')}
+                style={tailwind('font-bold')}
+                testID='list_header_address_label'
               >{activeLabel}
               </ThemedText>
             </View>
@@ -413,6 +415,7 @@ function EditButton ({
     <TouchableOpacity
       onPress={onPress}
       style={tailwind('flex flex-row items-center')}
+      testID='edit_address_label_button'
     >
       <ThemedIcon
         iconType='MaterialIcons'
