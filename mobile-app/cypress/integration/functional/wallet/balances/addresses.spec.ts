@@ -323,7 +323,7 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
   })
 })
 
-context.only('Wallet - Address Label', () => {
+context('Wallet - Address Label', () => {
   function validateLabel (label: string, shouldAllow: boolean): void {
     cy.getByTestID('address_book_label_input').clear().type(label).blur()
     if (shouldAllow) {
