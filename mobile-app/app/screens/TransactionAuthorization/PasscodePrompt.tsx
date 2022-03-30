@@ -31,161 +31,132 @@ interface PasscodePromptProps {
 }
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
-  const containerRef = React.useRef(null)
   return (
-    <SafeAreaView
-      style={tailwind('w-full h-full flex-col absolute z-50 top-0 left-0')}
-      ref={containerRef}
-    >
-      <Modal
-        container={containerRef}
-        show
-        renderBackdrop={() => (
-          <View style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            backgroundColor: 'black',
-            opacity: 0.3
-          }}
-          />
-        )}
-        style={{
-          position: 'absolute',
-          height: '350px',
-          width: '375px',
-          zIndex: 50,
-          bottom: '0'
-        }} // array as value crashes Web Modal
+    <>
+      <ThemedTouchableOpacity
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        onPress={() => props.onCancel(USER_CANCELED)}
+        style={tailwind('items-end pt-2 pr-2')}
+        testID='cancel_authorization'
+        disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
-        <View style={tailwind('w-full h-full')}>
-          <ThemedTouchableOpacity
-            dark={tailwind('bg-gray-900')}
-            light={tailwind('bg-white')}
-            onPress={() => props.onCancel(USER_CANCELED)}
-            style={tailwind('items-end pt-2 pr-2')}
-            testID='cancel_authorization'
-            disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
-          >
-            <ThemedIcon
-              dark={tailwind('text-white')}
-              light={tailwind('text-black')}
-              iconType='MaterialIcons'
-              name='close'
-              size={26}
+        <ThemedIcon
+          dark={tailwind('text-white')}
+          light={tailwind('text-black')}
+          iconType='MaterialIcons'
+          name='close'
+          size={26}
+        />
+      </ThemedTouchableOpacity>
+
+      <ThemedView
+        dark={tailwind('bg-gray-900')}
+        light={tailwind('bg-white')}
+        style={tailwind('w-full flex-1 flex-col')}
+      >
+
+        {props.status === TransactionStatus.AUTHORIZED
+          ? (
+            <SuccessMessage
+              message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage}
             />
-          </ThemedTouchableOpacity>
+          )
+          : (
+            <ThemedView
+              light={tailwind('bg-white')}
+            >
+              <ThemedText
+                style={tailwind('text-center text-xl font-bold px-1')}
+              >
+                {props.transaction === undefined
+                  ? translate('screens/UnlockWallet', 'Sign to verify access')
+                  : translate('screens/TransactionAuthorization', 'Sign Transaction')}
+              </ThemedText>
 
-          <ThemedView
-            dark={tailwind('bg-gray-900')}
-            light={tailwind('bg-white')}
-            style={tailwind('w-full flex-1 flex-col')}
-          >
-
-            {props.status === TransactionStatus.AUTHORIZED
-              ? (
-                <SuccessMessage
-                  message={props.transaction === undefined ? props.grantedAccessMessage : props.authorizedTransactionMessage}
-                />
-              )
-              : (
-                <ThemedView
-                  light={tailwind('bg-white')}
+              <View style={tailwind('px-8 text-sm text-center mb-6')}>
+                <ThemedText
+                  testID='txn_authorization_message'
+                  dark={tailwind('text-gray-400')}
+                  light={tailwind('text-gray-500')}
+                  style={tailwind('p-2 px-8 text-sm text-center mb-2')}
                 >
-                  <ThemedText
-                    style={tailwind('text-center text-xl font-bold px-1')}
-                  >
-                    {props.transaction === undefined
-                      ? translate('screens/UnlockWallet', 'Sign to verify access')
-                      : translate('screens/TransactionAuthorization', 'Sign Transaction')}
-                  </ThemedText>
+                  {props.message}
+                </ThemedText>
 
-                  <View style={tailwind('px-8 text-sm text-center mb-6')}>
+                {
+                  props.transaction?.description !== undefined && (
                     <ThemedText
-                      testID='txn_authorization_message'
+                      testID='txn_authorization_description'
                       dark={tailwind('text-gray-400')}
                       light={tailwind('text-gray-500')}
-                      style={tailwind('p-2 px-8 text-sm text-center mb-2')}
+                      style={tailwind('text-sm text-center')}
                     >
-                      {props.message}
+                      {props.transaction.description}
                     </ThemedText>
+                  )
+                }
+              </View>
 
-                    {
-                      props.transaction?.description !== undefined && (
-                        <ThemedText
-                          testID='txn_authorization_description'
-                          dark={tailwind('text-gray-400')}
-                          light={tailwind('text-gray-500')}
-                          style={tailwind('text-sm text-center')}
-                        >
-                          {props.transaction.description}
-                        </ThemedText>
-                      )
-                    }
-                  </View>
-
-                  {
-                    props.status === TransactionStatus.PIN && (
-                      <PinTextInput
-                        cellCount={props.pinLength}
-                        onChange={(pin) => {
-                          props.onPinInput(pin)
-                        }}
-                        testID='pin_authorize'
-                        value={props.pin}
-                      />
-                    )
-                  }
-
-                  <Loading
-                    message={props.status === TransactionStatus.SIGNING ? props.loadingMessage : undefined}
+              {
+                props.status === TransactionStatus.PIN && (
+                  <PinTextInput
+                    cellCount={props.pinLength}
+                    onChange={(pin) => {
+                      props.onPinInput(pin)
+                    }}
+                    testID='pin_authorize'
+                    value={props.pin}
                   />
+                )
+              }
 
-                  {// upon retry: show remaining attempt allowed
-                    (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
-                      ? (
-                        <ThemedText
-                          dark={tailwind('text-darkerror-500')}
-                          light={tailwind('text-error-500')}
-                          style={tailwind('text-center text-sm font-bold mt-5')}
-                          testID='pin_attempt_error'
-                        >
-                          {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                            ? 'Last attempt or your wallet will be unlinked for your security'
-                            : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                        </ThemedText>
-                      )
-                      : null
-                  }
+              <Loading
+                message={props.status === TransactionStatus.SIGNING ? props.loadingMessage : undefined}
+              />
 
-                  {// on first time: warn user there were accumulated error attempt counter
-                    (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
-                      ? (
-                        <ThemedText
-                          dark={tailwind('text-darkerror-500')}
-                          light={tailwind('text-error-500')}
-                          style={tailwind('text-center text-sm font-bold mt-5')}
-                          testID='pin_attempt_warning'
-                        >
-                          {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                            ? 'Last attempt or your wallet will be unlinked for your security'
-                            : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                        </ThemedText>
-                      )
-                      : null
-                  }
-                </ThemedView>)}
-          </ThemedView>
-        </View>
-      </Modal>
-    </SafeAreaView>
+              {// upon retry: show remaining attempt allowed
+                (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
+                  ? (
+                    <ThemedText
+                      dark={tailwind('text-darkerror-500')}
+                      light={tailwind('text-error-500')}
+                      style={tailwind('text-center text-sm font-bold mt-5')}
+                      testID='pin_attempt_error'
+                    >
+                      {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                        ? 'Last attempt or your wallet will be unlinked for your security'
+                        : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                    </ThemedText>
+                  )
+                  : null
+              }
+
+              {// on first time: warn user there were accumulated error attempt counter
+                (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
+                  ? (
+                    <ThemedText
+                      dark={tailwind('text-darkerror-500')}
+                      light={tailwind('text-error-500')}
+                      style={tailwind('text-center text-sm font-bold mt-5')}
+                      testID='pin_attempt_warning'
+                    >
+                      {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                        ? 'Last attempt or your wallet will be unlinked for your security'
+                        : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                    </ThemedText>
+                  )
+                  : null
+              }
+            </ThemedView>)}
+      </ThemedView>
+    </>
   )
 })
 
 export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Element => {
   const { isLight } = useThemeContext()
+  const containerRef = React.useRef(null)
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
       return ['65%'] // ios measures space without keyboard
@@ -196,7 +167,41 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
   }
 
   if (Platform.OS === 'web') {
-    return (<PromptContent {...props} />)
+    return (
+      <SafeAreaView
+        style={tailwind('w-full h-full flex-col absolute z-50 top-0 left-0')}
+        ref={containerRef}
+      >
+        <Modal
+          container={containerRef}
+          show
+          renderBackdrop={() => (
+            <View style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundColor: 'black',
+              opacity: 0.3
+            }}
+            />
+          )}
+          style={{
+            position: 'absolute',
+            height: '350px',
+            width: '375px',
+            zIndex: 50,
+            bottom: '0'
+          }} // array as value crashes Web Modal
+        >
+          <View style={tailwind('w-full h-full')}>
+            <PromptContent {...props} />
+          </View>
+        </Modal>
+      </SafeAreaView>
+
+    )
   }
 
   return (
@@ -221,7 +226,11 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       }}
       enablePanDownToClose={false}
     >
-      <PromptContent {...props} />
+      <SafeAreaView
+        style={tailwind('w-full h-full flex-col absolute z-50 top-0 left-0')}
+      >
+        <PromptContent {...props} />
+      </SafeAreaView>
     </BottomSheetModal>
   )
 })
