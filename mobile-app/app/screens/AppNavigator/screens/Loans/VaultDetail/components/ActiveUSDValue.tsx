@@ -17,7 +17,6 @@ interface ActiveUSDValueProps {
 }
 
 export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
-  console.log('HERE', props.label)
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
