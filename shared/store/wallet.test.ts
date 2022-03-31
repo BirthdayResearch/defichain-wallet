@@ -26,8 +26,10 @@ describe('wallet reducer', () => {
       allTokens: {},
       utxoBalance: '0',
       poolpairs: [],
+      swappableTokens: {},
       hasFetchedPoolpairData: false,
-      hasFetchedToken: true
+      hasFetchedToken: true,
+      hasFetchedSwappableTokens: false
     }
     tokenDFI = {
       ...dfi,
@@ -71,7 +73,9 @@ describe('wallet reducer', () => {
       tokens: [],
       allTokens: {},
       poolpairs: [],
+      swappableTokens: {},
       hasFetchedPoolpairData: false,
+      hasFetchedSwappableTokens: false,
       hasFetchedToken: false
     })
   })
