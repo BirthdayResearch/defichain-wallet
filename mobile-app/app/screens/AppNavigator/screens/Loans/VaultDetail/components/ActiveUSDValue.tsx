@@ -12,7 +12,7 @@ interface ActiveUSDValueProps {
   containerStyle?: StyleProp<ViewStyle>
   testId?: string
   price: BigNumber
-  totalLiquidityText: boolean
+  totalLiquidityText?: boolean
   label?: string
 }
 
