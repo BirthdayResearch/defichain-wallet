@@ -73,7 +73,7 @@ export const useLoanPaymentTokenRate = (props: {
   const getPaymentTokens = (): GetAmountProps => {
     const paymentTokenAmounts = paymentTokens.map(paymentToken => {
       const paymentTokenActivePriceInUSD = getActivePrice(paymentToken.tokenSymbol ?? '', paymentTokenActivePrices[`${paymentToken.tokenSymbol}-USD`] ?? undefined)
-      const paymentTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol || paymentToken.tokenSymbol === 'DUSD'
+      const paymentTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol
         ? new BigNumber(1)
         : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
 
@@ -133,13 +133,13 @@ const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbo
     Feature: Allow DUSD payment on all loans (hardfork)
   */
   return DUSDToken !== undefined
-? [...paymentTokens, {
-    tokenId: DUSDToken.id,
-    tokenSymbol: 'DUSD',
-    tokenDisplaySymbol: 'DUSD',
-    tokenBalance: getTokenAmount(DUSDToken.id, tokens)
-  }]
-: paymentTokens
+    ? [...paymentTokens, {
+      tokenId: DUSDToken.id,
+      tokenSymbol: 'DUSD',
+      tokenDisplaySymbol: 'DUSD',
+      tokenBalance: getTokenAmount(DUSDToken.id, tokens)
+    }]
+    : paymentTokens
 }
 
 const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {

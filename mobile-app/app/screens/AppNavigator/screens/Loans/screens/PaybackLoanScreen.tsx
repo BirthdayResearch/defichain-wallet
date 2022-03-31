@@ -271,7 +271,7 @@ export function PaybackLoanScreen ({
         style={tailwind('pb-4 flex flex-col')}
       >
         {
-          paymentTokensWithAmount?.length > 1 && isFeatureAvailable('dfi_loan_payment') &&
+          isFeatureAvailable('dfi_loan_payment') &&
             <PaymentTokenCards
               onPaymentTokenSelect={onPaymentTokenSelect}
               paymentTokens={paymentTokensWithAmount.map(pTokenWithAmount => ({

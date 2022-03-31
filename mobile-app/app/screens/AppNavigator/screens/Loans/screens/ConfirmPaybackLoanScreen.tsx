@@ -332,12 +332,15 @@ async function paybackLoanToken ({
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const script = await account.getScript()
       const builder = account.withTransactionBuilder()
-      const signed = await builder.loans.paybackLoan({
+      const signed = await builder.loans.paybackLoanV2({
         vaultId: vaultId,
         from: script,
-        tokenAmounts: [{
-          token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
-          amount: amountToPayInSelectedToken.plus(paymentPenalty)
+        loans: [{
+          dToken: +loanToken.id,
+          amounts: [{
+            token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
+            amount: amountToPayInSelectedToken.plus(paymentPenalty)
+          }]
         }]
       }, script)
       return new CTransactionSegWit(signed)
