@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { loanPaymentTokenActivePrices } from '@store/loans'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
-import { tokensSelector, WalletToken } from '@store/wallet'
+import { tokenSelectorByDisplaySymbol, tokensSelector, WalletToken } from '@store/wallet'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 
 export interface PaymentTokenProps {
   tokenId: string
@@ -37,10 +38,11 @@ export const useLoanPaymentTokenRate = (props: {
   getPaymentPenalty: (paymentTokenSymbol: string) => BigNumber
 } => {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const DUSDToken = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, 'DUSD'))
   const paymentTokenActivePrices = useSelector((state: RootState) => loanPaymentTokenActivePrices(state.loans)) // DFI
   const paymentTokens = _getPaymentTokens({
     ...props.loanToken
-  }, props.loanTokenBalance, tokens)
+  }, props.loanTokenBalance, tokens, DUSDToken)
 
   const getPaymentPenalty = (paymentTokenSymbol: string): BigNumber => {
     const paymentTokenActivePriceInUSD = getActivePrice(paymentTokenSymbol ?? '', paymentTokenActivePrices[`${paymentTokenSymbol}-USD`] ?? undefined)
@@ -107,7 +109,7 @@ export const useLoanPaymentTokenRate = (props: {
   }
 }
 
-const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, tokens: WalletToken[]): PaymentTokenProps[] => {
+const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, tokens: WalletToken[], DUSDToken: TokenData | undefined): PaymentTokenProps[] => {
   const paymentTokens = [{
     tokenId: loanToken.id,
     tokenSymbol: loanToken.symbol,
@@ -130,12 +132,14 @@ const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbo
   /*
     Feature: Allow DUSD payment on all loans (hardfork)
   */
-  return [...paymentTokens, {
-    tokenId: '15',
+  return DUSDToken !== undefined
+? [...paymentTokens, {
+    tokenId: DUSDToken.id,
     tokenSymbol: 'DUSD',
     tokenDisplaySymbol: 'DUSD',
-    tokenBalance: getTokenAmount('15', tokens)
+    tokenBalance: getTokenAmount(DUSDToken.id, tokens)
   }]
+: paymentTokens
 }
 
 const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {

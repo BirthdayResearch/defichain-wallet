@@ -85,7 +85,9 @@ export const setTokenSymbol = (t: AddressToken): WalletToken => {
 }
 
 const associateTokens = (tokens: TokenData[]): AssociatedToken => {
-  return tokens.reduce((allToken, token) => ({ ...allToken, [token.displaySymbol]: token }), {})
+  return tokens.reduce((allToken, token) => {
+    return !token.isDAT ? allToken : ({ ...allToken, [token.displaySymbol]: token })
+  }, {})
 }
 
 export const fetchPoolPairs = createAsyncThunk(
@@ -143,17 +145,17 @@ const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (
 })
 
 export const tokensSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => {
-    const utxoAmount = new BigNumber(utxoBalance)
-    const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
-    return tokens.map((t) => {
-      if (t.id === '0_utxo') {
-        return { ...t, amount: utxoAmount.toFixed(8) }
-      } else if (t.id === '0_unified') {
-        return { ...t, amount: utxoAmount.plus(tokenAmount).toFixed(8) }
-      }
-      return t
-    })
-  }
+  const utxoAmount = new BigNumber(utxoBalance)
+  const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
+  return tokens.map((t) => {
+    if (t.id === '0_utxo') {
+      return { ...t, amount: utxoAmount.toFixed(8) }
+    } else if (t.id === '0_unified') {
+      return { ...t, amount: utxoAmount.plus(tokenAmount).toFixed(8) }
+    }
+    return t
+  })
+}
 )
 
 export const DFITokenSelector = createSelector(tokensSelector, tokens => {
@@ -186,6 +188,6 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
 /**
  * Get single token detail by `displaySymbol` from wallet store.
  */
- export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
+export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
   return allTokens[displaySymbol]
 })
