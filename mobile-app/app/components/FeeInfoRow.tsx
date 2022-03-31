@@ -1,5 +1,5 @@
 import { tailwind } from '@tailwind'
-import { ThemedText, ThemedView } from './themed'
+import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { translate } from '@translations'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
@@ -10,6 +10,8 @@ interface FeeInfoRowProps {
   type: FeeType
   suffix?: string
   testID: string
+  lhsThemedProps?: ThemedProps
+  rhsThemedProps?: ThemedProps
 }
 
 type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
@@ -32,7 +34,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
-          <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`}>
+          <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`} {...props.lhsThemedProps}>
             {translate('components/BottomSheetInfo', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
           </ThemedText>
           <BottomSheetInfo alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee} name={props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title} />
@@ -49,6 +51,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
               light={tailwind('text-gray-500')}
               style={tailwind('text-sm text-right')}
               testID={props.testID}
+              {...props.rhsThemedProps}
             >
               {val}
             </ThemedText>
@@ -61,6 +64,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
           dark={tailwind('text-gray-400')}
           style={tailwind('text-sm ml-1')}
           testID={`${props.testID}_suffix`}
+          {...props.rhsThemedProps}
         >
           {props.suffix}
         </ThemedText>

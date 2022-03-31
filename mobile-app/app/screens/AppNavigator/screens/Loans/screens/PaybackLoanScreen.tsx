@@ -466,6 +466,20 @@ function TransactionDetailsSection ({
   //   message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   // }
 
+  const rowStyle = {
+    style: tailwind('flex flex-row pb-1'),
+    dark: tailwind('bg-gray-800 border-gray-700'),
+    light: tailwind('bg-white border-gray-200'),
+    lhsThemedProps: {
+      light: tailwind('text-gray-500'),
+      dark: tailwind('text-gray-400')
+    },
+    rhsThemedProps: {
+      light: tailwind('text-gray-900'),
+      dark: tailwind('text-gray-50')
+    }
+  }
+
   return (
     <ThemedView>
       <ThemedView
@@ -478,7 +492,7 @@ function TransactionDetailsSection ({
         {resultingColRatio.isLessThan(0)
           ? (
             <View style={tailwind('flex-row items-center justify-start')}>
-              <ThemedText style={tailwind('text-sm font-normal')}>
+              <ThemedText style={tailwind('text-sm font-normal')} {...rowStyle.lhsThemedProps}>
                 {translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
               </ThemedText>
               <ThemedText
@@ -490,9 +504,9 @@ function TransactionDetailsSection ({
             </View>
           )
           : (
-            <View style={tailwind('flex flex-row w-11/12 pl-4')}>
+            <View style={tailwind('flex flex-row w-11/12 pl-4 items-center')}>
               <View style={tailwind('w-8/12')}>
-                <ThemedText style={tailwind('text-sm font-normal justify-between')}>
+                <ThemedText style={tailwind('text-sm font-normal justify-between')} {...rowStyle.lhsThemedProps}>
                   {translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
                 </ThemedText>
               </View>
@@ -534,12 +548,17 @@ function TransactionDetailsSection ({
               dark: tailwind('bg-gray-800 border-gray-700'),
               light: tailwind('bg-white border-gray-200')
             }}
-            lhs={translate('screens/PaybackLoanScreen', 'Vault ID')}
+            lhs={{
+              value: translate('screens/PaybackLoanScreen', 'Vault ID'),
+              themedProps: rowStyle.lhsThemedProps,
+              testID: 'lhs_vault_id'
+            }}
             rhs={{
               value: vault.vaultId,
               testID: 'text_vault_id',
               numberOfLines: 1,
-              ellipsizeMode: 'middle'
+              ellipsizeMode: 'middle',
+              themedProps: rowStyle.rhsThemedProps
             }}
             textStyle={tailwind('text-xs font-normal')}
           />
@@ -549,19 +568,22 @@ function TransactionDetailsSection ({
               dark: tailwind('bg-gray-800 border-gray-700'),
               light: tailwind('bg-white border-gray-200')
             }}
-            lhs={translate('screens/PaybackLoanScreen', 'Min. Col. Ratio')}
+            lhs={{
+              value: translate('screens/PaybackLoanScreen', 'Min. Col. Ratio'),
+              themedProps: rowStyle.lhsThemedProps,
+              testID: 'lhs_min_col_ratio'
+            }}
             rhs={{
               value: `${vault.loanScheme.minColRatio}%`,
               testID: 'text_min_col_ratio',
               numberOfLines: 1,
-              ellipsizeMode: 'middle'
+              ellipsizeMode: 'middle',
+              themedProps: rowStyle.rhsThemedProps
             }}
             textStyle={tailwind('text-xs font-normal')}
           />
           <NumberRow
-            style={tailwind('flex flex-row pb-1')}
-            dark={tailwind('bg-gray-800 border-gray-700')}
-            light={tailwind('bg-white border-gray-200')}
+            {...rowStyle}
             lhs={translate('screens/PaybackLoanScreen', 'Total collateral (USD)')}
             rhs={{
               value: vault.collateralValue,
@@ -571,9 +593,7 @@ function TransactionDetailsSection ({
             textStyle={tailwind('text-xs font-normal')}
           />
           <NumberRow
-            style={tailwind('flex flex-row pb-1')}
-            dark={tailwind('bg-gray-800 border-gray-700')}
-            light={tailwind('bg-white border-gray-200')}
+            {...rowStyle}
             lhs={translate('screens/PaybackLoanScreen', 'Total loan (USD)')}
             rhs={{
               value: vault.loanValue,
@@ -587,6 +607,7 @@ function TransactionDetailsSection ({
         {isExcess &&
           (
             <NumberRow
+              {...rowStyle}
               lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
               rhs={{
                 value: amountToPayInPaymentToken.minus(outstandingBalanceInPaymentToken).toFixed(8),
@@ -604,6 +625,8 @@ function TransactionDetailsSection ({
             suffixType: 'text',
             suffix: displaySymbol
           }}
+          lhsThemedProps={rowStyle.lhsThemedProps}
+          rhsThemedProps={rowStyle.rhsThemedProps}
         />
         {paymentPenalty.gt(0) &&
           <NumberRow
@@ -614,12 +637,16 @@ function TransactionDetailsSection ({
               suffixType: 'text',
               suffix: selectedPaymentToken.tokenDisplaySymbol
             }}
+            lhsThemedProps={rowStyle.lhsThemedProps}
+            rhsThemedProps={rowStyle.rhsThemedProps}
           />}
         <FeeInfoRow
           type='ESTIMATED_FEE'
           value={fee.toFixed(8)}
           testID='estimated_fee'
           suffix='DFI'
+          lhsThemedProps={rowStyle.lhsThemedProps}
+          rhsThemedProps={rowStyle.rhsThemedProps}
         />
       </View>
     </ThemedView>
