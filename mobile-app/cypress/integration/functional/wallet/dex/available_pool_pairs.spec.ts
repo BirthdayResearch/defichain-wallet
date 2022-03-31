@@ -228,7 +228,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
       // (10000000 / 1000) * 1,000 DFI
       cy.getByTestID('available_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000,000.00')
       cy.getByTestID('totalLiquidity_dETH-DFI_token').should('have.text', '10,000 dETH-DFI')
-      cy.getByTestID('available_totalLiquidity_dETH-DFI_USD').should('have.text', '$20,000,000.00')
+      cy.getByTestID('available_totalLiquidity_dETH-DFI_USD').should('have.text', '≈ $20,000,000.00')
 
       // 66.8826 * 100
       cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
