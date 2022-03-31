@@ -12,8 +12,6 @@ interface ActiveUSDValueProps {
   containerStyle?: StyleProp<ViewStyle>
   testId?: string
   price: BigNumber
-  totalLiquidityText?: boolean
-  label?: string
 }
 
 export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
@@ -27,7 +25,7 @@ export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Eleme
         renderText={(val: string) => (
           <ThemedText
             dark={tailwind('text-gray-400')}
-            light={tailwind(['text-gray-500', { 'text-black': props.label === 'Total liquidity' }])}
+            light={tailwind(['text-gray-500', { 'text-black': props.style }])}
             style={[tailwind('text-xs'), props.style]}
             testID={props.testId}
           >
