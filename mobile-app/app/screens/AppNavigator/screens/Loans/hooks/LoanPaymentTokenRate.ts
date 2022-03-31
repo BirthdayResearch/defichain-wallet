@@ -127,7 +127,9 @@ const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbo
     }]
   }
 
-  // Allow DUSD payment on all loans (hardfork)
+  /*
+    Feature: Allow DUSD payment on all loans (hardfork)
+  */
   return [...paymentTokens, {
     tokenId: '15',
     tokenSymbol: 'DUSD',

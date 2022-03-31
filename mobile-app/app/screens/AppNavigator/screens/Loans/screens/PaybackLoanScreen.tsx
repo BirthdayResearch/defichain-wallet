@@ -631,7 +631,7 @@ function TransactionDetailsSection ({
         />
         {paymentPenalty.gt(0) &&
           <NumberRow
-            lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} fee', { paymentToken: selectedPaymentToken.tokenDisplaySymbol })}
+            lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} payment fee', { paymentToken: selectedPaymentToken.tokenDisplaySymbol })}
             rhs={{
               value: BigNumber.max(paymentPenalty, 0).toFixed(8),
               testID: 'text_resulting_payment_penalty',

@@ -44,5 +44,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Native local storage',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
-    }])
+    }, {
+      id: 'dusd_loan_payment',
+      name: 'DUSD Loan Payment',
+      stage: 'beta',
+      version: '>1.8.0',
+      description: 'Allow DUSD payment on loans (+1% fee if paying a Non-DUSD loan)',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }
+  ])
 }
