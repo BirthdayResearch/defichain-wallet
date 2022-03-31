@@ -63,7 +63,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
 
     setAllTokens(_allTokens)
     setFromTokens(swappableFromTokens)
-  }, [poolpairs]))
+  }, [poolpairs, tokens]))
 
   const toTokens = useMemo(() => {
     const swappableToTokens = swappableTokens[fromTokenId === '0_unified' ? '0' : fromTokenId ?? '']
@@ -94,7 +94,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
       })
 
     return toTokens
-  }, [swappableTokens, fromTokenId])
+  }, [swappableTokens, fromTokenId, cachedData, allTokens])
 
   useFocusEffect(useCallback(() => {
     if (fromTokenId !== undefined && cachedData === undefined) {
