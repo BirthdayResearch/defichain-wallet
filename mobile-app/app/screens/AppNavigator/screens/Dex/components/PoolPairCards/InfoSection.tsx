@@ -92,7 +92,7 @@ export function InfoSection ({
               value={{
                 text: pair.totalLiquidity.token,
                 decimalScale: decimalScale,
-                testID: `totalLiquidity_${pairSymbol}`,
+                testID: `totalLiquidity_${pairSymbol}_token`,
                 suffix: ` ${pair.displaySymbol}`
               }}
               usdValue={{
