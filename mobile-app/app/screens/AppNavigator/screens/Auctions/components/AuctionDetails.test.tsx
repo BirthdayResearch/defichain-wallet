@@ -232,8 +232,10 @@ describe('AuctionDetails', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        swappableTokens: {},
         hasFetchedPoolpairData: false,
-        hasFetchedToken: true
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       },
       block: {
         count: 2000,
