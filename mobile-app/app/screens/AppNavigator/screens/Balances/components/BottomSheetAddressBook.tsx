@@ -49,7 +49,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
     return Object.keys(addressBook)
   }, [addressBook])
 
-  const FooterComponent = useCallback(() => {
+  const FooterComponent = useMemo(() => {
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
@@ -112,7 +112,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
     props.onAddressSelect(address)
   }
 
-  const HeaderComponent = useCallback(() => {
+  const HeaderComponent = useMemo(() => {
     return (
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
