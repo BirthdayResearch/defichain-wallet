@@ -607,7 +607,6 @@ function TransactionDetailsSection ({
         {isExcess &&
           (
             <NumberRow
-              {...rowStyle}
               lhs={translate('screens/PaybackLoanScreen', 'Excess amount')}
               rhs={{
                 value: amountToPayInPaymentToken.minus(outstandingBalanceInPaymentToken).toFixed(8),
@@ -615,6 +614,8 @@ function TransactionDetailsSection ({
                 suffixType: 'text',
                 suffix: selectedPaymentToken.tokenDisplaySymbol
               }}
+              lhsThemedProps={rowStyle.lhsThemedProps}
+              rhsThemedProps={rowStyle.rhsThemedProps}
             />
           )}
         <NumberRow
