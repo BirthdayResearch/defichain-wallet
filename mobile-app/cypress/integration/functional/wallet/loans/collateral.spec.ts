@@ -335,6 +335,4 @@ context('Wallet - Loans - 50% valid collateral token ratio', () => {
     addCollateral('DUSD', '20', '20', '$20.00', '99', '1.96%', vaultId, '50.48%')
     cy.go('back')
   })
-
-  // TODO add e2e for taking loans when combine vault share of dusd and dfi token is more than 50%
 })
