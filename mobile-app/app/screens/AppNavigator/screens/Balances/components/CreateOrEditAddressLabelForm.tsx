@@ -177,7 +177,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
           setLabelInput('')
           isAddressBook ? validateLabelInput('') : setLabelInputErrorMessage('')
         }}
-        placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof labelInput === 'string' ? labelInput : 'Address label {{index}}'}`, { index })}
+        placeholder={translate('components/CreateOrEditAddressLabelForm', 'Enter address label')}
         style={tailwind('h-9 w-6/12 flex-grow')}
         hasBottomSheet
         valid={labelInputErrorMessage === ''}
@@ -258,7 +258,7 @@ function AddressInput ({
         setAddressInput('')
         validateAddressInput('')
       }}
-      placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof addressInput === 'string' ? addressInput : 'Address {{index}}'}`, { index })}
+      placeholder={translate('components/CreateOrEditAddressLabelForm', 'Enter address')}
       style={tailwind('w-6/12 flex-grow')}
       hasBottomSheet
       valid={addressInputErrorMessage === ''}
