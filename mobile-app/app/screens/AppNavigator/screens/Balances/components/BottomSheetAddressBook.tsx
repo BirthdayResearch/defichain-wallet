@@ -59,7 +59,8 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
           navigation.navigate({
             name: props.navigateToScreen.screenName,
             params: {
-              type: 'create',
+              title: 'Add new address',
+              isAddressBook: true,
               index: addresses.length + 1,
               onSaveButtonPress: (labelAddress: LabeledAddress) => {
                 dispatch(setAddressBook(labelAddress)).then(() => {

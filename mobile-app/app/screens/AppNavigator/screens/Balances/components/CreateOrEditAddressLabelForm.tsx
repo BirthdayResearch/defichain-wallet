@@ -21,22 +21,23 @@ import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export interface CreateOrEditAddressLabelFormProps {
+  title: string
+  isAddressBook: boolean
   address?: string
   addressLabel?: LocalAddress
   index: number
-  type: AddressLabelFormType
   onSaveButtonPress: (labelAddress: LabeledAddress) => void
 }
 
-type AddressLabelFormType = 'create' | 'edit'
 type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'CreateOrEditAddressLabelFormProps'>
 
 export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props): JSX.Element => {
   const { isLight } = useThemeContext()
   const {
+    title,
+    isAddressBook,
     address,
     addressLabel,
-    type,
     index,
     onSaveButtonPress
   } = route.params
@@ -56,7 +57,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       setLabelInputErrorMessage('Address label is too long (max 30 characters)')
       return false
     }
-    if (type === 'create' && input.trim() === '') {
+    if (isAddressBook && input.trim() === '') {
       setLabelInputErrorMessage('Please enter an address label')
       return false
     }
@@ -71,7 +72,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       return false
     }
     if (addressBook?.[input.trim()] !== undefined) {
-      setAddressInputErrorMessage('Please enter a unique address')
+      setAddressInputErrorMessage('This address already exists in your address book, please enter a different address')
       return false
     }
     setAddressInputErrorMessage('')
@@ -79,7 +80,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   }
 
   const handleSubmit = async (): Promise<void> => {
-    if (type === 'edit') {
+    if (!isAddressBook) {
       handleEditSubmit()
     } else {
       handleCreateSubmit()
@@ -132,10 +133,10 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   }, [dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
 
   const isSaveDisabled = (): boolean => {
-    if (type === 'create' && (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '')) {
+    if (isAddressBook && (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '')) {
       return true
     }
-    if (type === 'edit' && (labelInput === undefined || labelInput === addressLabel?.label || labelInputErrorMessage !== '')) {
+    if (!isAddressBook && (labelInput === undefined || labelInput === addressLabel?.label || labelInputErrorMessage !== '')) {
       return true
     }
 
@@ -153,7 +154,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     >
       <View style={tailwind('mb-2 flex-1')}>
         <ThemedText testID='form_title' style={tailwind('flex-1 text-xl font-semibold')}>
-          {translate('components/CreateOrEditAddressLabelForm', type === 'create' ? 'Add new address' : 'Edit address label')}
+          {translate('components/CreateOrEditAddressLabelForm', title)}
         </ThemedText>
       </View>
       {address !== undefined && <AddressDisplay address={address} />}
@@ -174,7 +175,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         }}
         onClearButtonPress={() => {
           setLabelInput('')
-          type === 'create' ? validateLabelInput('') : setLabelInputErrorMessage('')
+          isAddressBook ? validateLabelInput('') : setLabelInputErrorMessage('')
         }}
         placeholder={translate('components/CreateOrEditAddressLabelForm', `${typeof labelInput === 'string' ? labelInput : 'Address label {{index}}'}`, { index })}
         style={tailwind('h-9 w-6/12 flex-grow')}
@@ -187,22 +188,24 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
         testID='address_book_label_input'
       />
 
-      <ThemedText
-        style={tailwind('text-xs font-medium mt-4')}
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
-      >
-        {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')}
-      </ThemedText>
-      {type === 'create' &&
+      {isAddressBook &&
         (
-          <AddressInput
-            addressInput={addressInput}
-            index={index}
-            setAddressInput={setAddressInput}
-            validateAddressInput={validateAddressInput}
-            addressInputErrorMessage={addressInputErrorMessage}
-          />
+          <>
+            <ThemedText
+              style={tailwind('text-xs font-medium mt-4')}
+              light={tailwind('text-gray-400')}
+              dark={tailwind('text-gray-500')}
+            >
+              {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')}
+            </ThemedText>
+            <AddressInput
+              addressInput={addressInput}
+              index={index}
+              setAddressInput={setAddressInput}
+              validateAddressInput={validateAddressInput}
+              addressInputErrorMessage={addressInputErrorMessage}
+            />
+          </>
         )}
 
       <View style={tailwind('mt-4')}>

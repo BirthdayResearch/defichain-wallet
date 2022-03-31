@@ -181,6 +181,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             navigation.navigate({
               name: props.navigateToScreen.screenName,
               params: {
+                title: 'Edit address label',
+                isAddressBook: false,
                 address: item,
                 addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
                 index: index + 1,
