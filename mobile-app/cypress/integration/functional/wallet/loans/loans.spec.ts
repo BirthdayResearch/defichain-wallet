@@ -438,9 +438,6 @@ context('Wallet - Loans Payback Non-DUSD Loans - 0 balance', () => {
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
     cy.getByTestID('vault_card_0_manage_loans_button').should('not.exist')
-    cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
-      vaultId = $txt[0].textContent
-    })
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.addCollateral('10', 'DFI')
     cy.addCollateral('10', 'dBTC')
