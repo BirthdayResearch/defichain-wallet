@@ -99,6 +99,7 @@ describe('DFI Balance Card', () => {
         collateralTokens: [],
         hasFetchedLoansData: false,
         hasFetchedVaultsData: true,
+        hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
       }
