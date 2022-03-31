@@ -47,7 +47,7 @@ services:
       -fortcanningroadheight=11
 
   defi-playground:
-    image: ghcr.io/defich/playground-api:2.33.0
+    image: ghcr.io/defich/playground-api:2.34.0
     depends_on:
       - defi-blockchain
     ports:
