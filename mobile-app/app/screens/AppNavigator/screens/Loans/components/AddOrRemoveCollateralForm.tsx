@@ -269,7 +269,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           }
         </ThemedText>
       </InputHelperText>
-      {isFeatureAvailable('usdt_vault_share')
+      {isFeatureAvailable('dusd_vault_share')
         ? (
           <View
             style={tailwind('flex justify-between items-center flex-row w-full')}
@@ -385,7 +385,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </View>
       )}
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio)}
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
         onPress={() => onButtonPress({
           token,
@@ -394,11 +394,11 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         margin='mt-6 mb-2'
         testID='add_collateral_button_submit'
       />
-      {(!isValidCollateralRatio && isFeatureAvailable('usdt_vault_share') && !isAdd && requiredVaultShareTokens.includes(token.symbol)) && (
+      {(isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && requiredVaultShareTokens.includes(token.symbol)) && (
         <ThemedText
           dark={tailwind('text-red-500')}
           light={tailwind('text-red-500')}
-          style={tailwind('text-sm')}
+          style={tailwind('text-sm text-center')}
           testID='vault_min_share_warning'
         >
           {translate('screens/BorrowLoanTokenScreen', 'Your vault needs at least 50% of DFI and/or DUSD as collateral')}

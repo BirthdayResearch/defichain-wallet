@@ -249,7 +249,7 @@ export function BorrowLoanTokenScreen ({
 
         {vault !== undefined && (
           <>
-            {!isValidCollateralRatio && isFeatureAvailable('usdt_vault_share')
+            {!isValidCollateralRatio && isFeatureAvailable('dusd_vault_share')
               ? (
                 <ThemedText
                   dark={tailwind('text-red-500')}

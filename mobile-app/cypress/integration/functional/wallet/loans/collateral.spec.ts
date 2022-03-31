@@ -267,7 +267,7 @@ context('Wallet - Loans - 50% valid collateral token ratio', () => {
   beforeEach(function () {
     cy.intercept('**/settings/flags', {
       body: [{
-        id: 'usdt_vault_share',
+        id: 'dusd_vault_share',
         name: 'USDT Vault share',
         stage: 'public',
         version: '>=0.0.0',
