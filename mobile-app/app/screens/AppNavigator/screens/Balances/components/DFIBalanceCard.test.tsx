@@ -97,6 +97,7 @@ describe('DFI Balance Card', () => {
           }
         ],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: false,
         hasFetchedVaultsData: true,
         hasFetchedLoanSchemes: true,
