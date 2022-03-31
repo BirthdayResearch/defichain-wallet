@@ -39,6 +39,7 @@ describe('DFI Total Portfolio Card', () => {
         collateralTokens: [],
         hasFetchedLoansData: true,
         hasFetchedVaultsData: true,
+        hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
       }
