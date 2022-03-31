@@ -3,8 +3,7 @@ import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { loanPaymentTokenActivePrices } from '@store/loans'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
-import { tokenSelectorByDisplaySymbol, tokensSelector, WalletToken } from '@store/wallet'
-import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { tokensSelector, WalletToken } from '@store/wallet'
 
 export interface PaymentTokenProps {
   tokenId: string
@@ -38,11 +37,10 @@ export const useLoanPaymentTokenRate = (props: {
   getPaymentPenalty: (paymentTokenSymbol: string) => BigNumber
 } => {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const DUSDToken = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, 'DUSD'))
   const paymentTokenActivePrices = useSelector((state: RootState) => loanPaymentTokenActivePrices(state.loans)) // DFI
   const paymentTokens = _getPaymentTokens({
     ...props.loanToken
-  }, props.loanTokenBalance, tokens, DUSDToken)
+  }, props.loanTokenBalance, tokens)
 
   const getPaymentPenalty = (paymentTokenSymbol: string): BigNumber => {
     const paymentTokenActivePriceInUSD = getActivePrice(paymentTokenSymbol ?? '', paymentTokenActivePrices[`${paymentTokenSymbol}-USD`] ?? undefined)
@@ -77,7 +75,7 @@ export const useLoanPaymentTokenRate = (props: {
         ? new BigNumber(1)
         : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
 
-      const loanTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol
+      const loanTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol || paymentToken.tokenSymbol === 'DUSD'
         ? new BigNumber(1)
         : new BigNumber(paymentTokenActivePriceInUSD).div(props.loanTokenAmountActivePriceInUSD)
       const amountToPayInLoanToken = props.amountToPay.multipliedBy(loanTokenConversionRate)// .plus(cappedPenalty)
@@ -109,7 +107,7 @@ export const useLoanPaymentTokenRate = (props: {
   }
 }
 
-const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, tokens: WalletToken[], DUSDToken: TokenData): PaymentTokenProps[] => {
+const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, tokens: WalletToken[]): PaymentTokenProps[] => {
   const paymentTokens = [{
     tokenId: loanToken.id,
     tokenSymbol: loanToken.symbol,
@@ -131,10 +129,10 @@ const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbo
 
   // Allow DUSD payment on all loans (hardfork)
   return [...paymentTokens, {
-    tokenId: DUSDToken.id,
+    tokenId: '15',
     tokenSymbol: 'DUSD',
     tokenDisplaySymbol: 'DUSD',
-    tokenBalance: getTokenAmount(DUSDToken.id, tokens)
+    tokenBalance: getTokenAmount('15', tokens)
   }]
 }
 
