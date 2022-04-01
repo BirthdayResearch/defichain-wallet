@@ -420,7 +420,7 @@ context('Wallet - Send - Address book', function () {
       .wait(6000)
     cy.getByTestID('bottom_tab_balances').click()
   })
-  // const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
+  const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
 
   it('should be able to open address book', function () {
     cy.getByTestID('details_dfi').click()
@@ -446,18 +446,44 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
   })
 
-  // TODO: modal does not navigate back after entering passcode, only in cypress
-  // it('should be able to add new address', function () {
-  //   const label = 'foo'
-  //   cy.getByTestID('address_book_label_input').type(label)
-  //   cy.getByTestID('address_book_label_input_error').should('not.exist')
-  //   cy.getByTestID('address_book_address_input').clear().type(addresses[0]).blur()
-  //   cy.getByTestID('address_book_address_input_error').should('not.exist')
-  //   cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
-  //   cy.getByTestID('pin_authorize').click().type('000000').wait(1000)
-  //   cy.getByTestID('address_row_label_0').contains(label)
-  //   cy.getByTestID('address_row_text_0').contains(addresses[0])
-  // })
+  it('should be able to add new address', function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(6000)
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').click()
+    const labels = ['Light', 'Wallet', '🪨']
+    cy.wrap(labels).each((_v, index: number) => {
+      cy.getByTestID('add_new_address').click()
+      cy.getByTestID('address_book_label_input').type(labels[index])
+      cy.getByTestID('address_book_label_input_error').should('not.exist')
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').should('not.exist')
+      cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+      cy.getByTestID('pin_authorize').type('000000').wait(1000)
+      cy.getByTestID(`address_row_label_${addresses[index]}`).contains(labels[index])
+      cy.getByTestID(`address_row_text_${index}`).contains(addresses[index])
+    })
+  })
+
+  it('should be able to select address in from address book', function () {
+    cy.wrap(addresses).each((_v, index: number) => {
+      cy.getByTestID(`address_row_${index}`).click()
+      cy.getByTestID('address_input').contains(addresses[index])
+      cy.getByTestID('address_book_button').click()
+    })
+  })
+
+  it('should be able to block duplicate address', function () {
+    cy.wrap(addresses).each((_v, index: number) => {
+      cy.getByTestID('add_new_address').click()
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').contains('This address already exists in your address book, please enter a different address')
+      cy.getByTestID('button_cancel_save_address_label').click()
+    })
+  })
 })
 
 context('Wallet - Send - Address book local storage feature', () => {
