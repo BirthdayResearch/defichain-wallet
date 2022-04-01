@@ -30,7 +30,7 @@ export function PaymentTokenCards ({
   loanTokenSymbol
 }: PaymentTokenCardsProps): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
-  const isDUSDPaymentEnabled = !isFeatureAvailable('dusd_loan_payment')
+  const isDUSDPaymentEnabled = isFeatureAvailable('dusd_loan_payment')
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   return (
     <>

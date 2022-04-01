@@ -58,7 +58,7 @@ export function ConfirmPaybackLoanScreen ({
   const { address } = useWalletContext()
   const { isFeatureAvailable } = useFeatureFlagContext()
   const client = useWhaleApiClient()
-  const isDUSDPaymentEnabled = !isFeatureAvailable('dusd_loan_payment')
+  const isDUSDPaymentEnabled = isFeatureAvailable('dusd_loan_payment')
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
   function onCancel (): void {

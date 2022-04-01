@@ -491,42 +491,30 @@ function TransactionDetailsSection ({
         dark={tailwind('bg-gray-800 border-gray-700')}
         light={tailwind('bg-white border-gray-200')}
       >
-        {resultingColRatio.isLessThan(0)
-          ? (
-            <View style={tailwind('flex-row items-center justify-start')}>
-              <ThemedText style={tailwind('text-sm font-normal')} {...rowStyle.lhsThemedProps}>
-                {translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
-              </ThemedText>
-              <ThemedText
-                testID='text_resulting_collateralization'
-                style={tailwind('text-sm font-normal')}
-              >
-                {resultingColRatio.toFixed(2)}
-              </ThemedText>
-            </View>
-          )
-          : (
-            <View style={tailwind('flex flex-row w-11/12 pl-4 items-center')}>
-              <View style={tailwind('w-8/12')}>
-                <ThemedText style={tailwind('text-sm font-normal justify-between')} {...rowStyle.lhsThemedProps}>
-                  {translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
-                </ThemedText>
-              </View>
-              <View
-                style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
-              >
-                <CollateralizationRatioValue
-                  value={resultingColRatio.toFixed(2)}
-                  minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
-                  totalLoanAmount={new BigNumber(vault.loanValue).minus(
+        <View style={tailwind('flex flex-row w-11/12 pl-4 items-center')}>
+          <View style={tailwind('w-8/12')}>
+            <ThemedText style={tailwind('text-sm font-normal justify-between')} {...rowStyle.lhsThemedProps}>
+              {translate('screens/PaybackLoanScreen', 'Resulting collateralization')}
+            </ThemedText>
+          </View>
+          <View
+            style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
+          >
+            {
+              resultingColRatio.isLessThan(0)
+                ? <ThemedText>{translate('screens/ConfirmBorrowLoanTokenScreen', 'N/A')}</ThemedText>
+                : <CollateralizationRatioValue
+                    value={resultingColRatio.toFixed(2)}
+                    minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
+                    totalLoanAmount={new BigNumber(vault.loanValue).minus(
                     BigNumber.min(totalPaybackWithInterest.multipliedBy(loanTokenPrice), 0)
                   )}
-                  type='current'
-                  colRatio={resultingColRatio}
-                />
-              </View>
-            </View>
-          )}
+                    type='current'
+                    colRatio={resultingColRatio}
+                  />
+            }
+          </View>
+        </View>
         <ThemedIcon
           onPress={() => {
             setisExpanded(!isExpanded)
