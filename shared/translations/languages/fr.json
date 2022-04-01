@@ -1149,8 +1149,8 @@
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Paying loan": "Rembourser le prêt",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} en remboursement du prêt.",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
     "Resulting collateralization": "Garantie correspondante"
   },

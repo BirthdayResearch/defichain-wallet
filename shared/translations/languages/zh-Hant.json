@@ -1147,8 +1147,8 @@
     "Collateral amount (USD)": "抵押金額 （美金)",
     "Collateralization ratio": "抵押率",
     "Paying loan": "償還貸款中",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} 作為支付貸款。",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) 作為支付貸款。",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} 作為支付貸款。",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) 作為支付貸款。",
     "Confirm Loan Payment": "確認償還貸款",
     "Resulting collateralization": "最終抵押率"
   },

@@ -77,7 +77,7 @@ export const useLoanPaymentTokenRate = (props: {
         ? new BigNumber(1)
         : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
 
-      const loanTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol || paymentToken.tokenSymbol === 'DUSD'
+      const loanTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol
         ? new BigNumber(1)
         : new BigNumber(paymentTokenActivePriceInUSD).div(props.loanTokenAmountActivePriceInUSD)
       const amountToPayInLoanToken = props.amountToPay.multipliedBy(loanTokenConversionRate)// .plus(cappedPenalty)

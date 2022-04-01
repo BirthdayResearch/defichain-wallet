@@ -75,8 +75,10 @@ export interface LoanParamList {
   }
   ConfirmPaybackLoanScreen: {
     fee: BigNumber
-    amountToPay: BigNumber
-    amountToPayInSelectedToken: BigNumber
+    amountToPayInLoanToken: BigNumber
+    amountToPayInPaymentToken: BigNumber
+    selectedPaymentTokenBalance: BigNumber
+    loanTokenBalance: BigNumber
     paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
     vault: LoanVaultActive
     loanTokenAmount: LoanVaultTokenAmount

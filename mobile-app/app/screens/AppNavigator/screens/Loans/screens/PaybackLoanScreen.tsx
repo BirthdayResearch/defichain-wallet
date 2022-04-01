@@ -215,8 +215,10 @@ export function PaybackLoanScreen ({
       name: 'ConfirmPaybackLoanScreen',
       params: {
         vault,
-        amountToPay: new BigNumber(amountToPayInLoanToken),
-        amountToPayInSelectedToken: amountToPayInPaymentToken,
+        amountToPayInLoanToken: new BigNumber(amountToPayInLoanToken),
+        amountToPayInPaymentToken: amountToPayInPaymentToken,
+        selectedPaymentTokenBalance: selectedPaymentTokenBalance,
+        loanTokenBalance: loanTokenOutstandingBal,
         paymentToken: selectedPaymentToken,
         fee,
         loanTokenAmount,
