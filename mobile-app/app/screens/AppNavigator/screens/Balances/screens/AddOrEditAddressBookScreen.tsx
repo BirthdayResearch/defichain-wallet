@@ -100,6 +100,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
             isMine: false
           }
         })
+        navigation.pop()
       },
       onError: e => logger.error(e),
       title: translate('screens/Settings', 'Sign to save address'),
@@ -107,7 +108,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
+  }, [navigation, dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
 
   useLayoutEffect(() => {
     navigation.setOptions({

@@ -7,7 +7,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -27,7 +27,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const addressBook = userPreferences.addressBook
-  const [isEditing, setIsEditing] = useState(false)
 
   const addresses = useMemo((): string[] => {
     if (addressBook === undefined) {
@@ -79,7 +78,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [isEditing, addressBook])
+  }, [addressBook])
 
   const HeaderComponent = useMemo(() => {
     return (
@@ -101,7 +100,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
       </ThemedView>
     )
-  }, [isEditing, addresses])
+  }, [addresses])
 
   const FooterComponent = useMemo(() => {
     return (
@@ -125,8 +124,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     }
                   }))
                 })
-                navigation.goBack()
-                setIsEditing(false)
               }
             },
             merge: true
