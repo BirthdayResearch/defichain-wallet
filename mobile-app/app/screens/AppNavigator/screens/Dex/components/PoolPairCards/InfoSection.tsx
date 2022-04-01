@@ -99,7 +99,7 @@ export function InfoSection ({
                 text: new BigNumber(pair.totalLiquidity.usd),
                 testID: `${testID}_totalLiquidity_${pairSymbol}_USD`
               }}
-              isLiquidityLabel
+              isDarkLabel
             />
           )}
         </>
@@ -121,14 +121,14 @@ interface PoolPairInfoLineProps {
     text: BigNumber
     testID: string
   }
-  isLiquidityLabel?: boolean
+  isDarkLabel?: boolean
 }
 
 function PoolPairInfoLine ({
   label,
   value,
   usdValue,
-  isLiquidityLabel
+  isDarkLabel
 }: PoolPairInfoLineProps): JSX.Element {
   return (
     <View
@@ -157,7 +157,7 @@ function PoolPairInfoLine ({
                   'text-base font-semibold': usdValue === undefined
                 },
                 {
-                  'font-medium': isLiquidityLabel
+                  'font-medium': isDarkLabel
                 },
                 {
                   'text-sm leading-4 mb-1': usdValue !== undefined
@@ -178,7 +178,7 @@ function PoolPairInfoLine ({
             price={usdValue.text}
             containerStyle={tailwind('justify-end -mt-0.5')}
             testId={usdValue.testID}
-            style={isLiquidityLabel !== undefined ? tailwind('text-black') : undefined}
+            lightTextStyle={isDarkLabel === true ? tailwind('text-black') : undefined}
           />
         )}
       </View>
