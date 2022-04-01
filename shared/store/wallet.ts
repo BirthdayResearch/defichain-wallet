@@ -85,9 +85,13 @@ export const setTokenSymbol = (t: AddressToken): WalletToken => {
 }
 
 const associateTokens = (tokens: TokenData[]): AssociatedToken => {
-  return tokens.reduce((allToken, token) => {
-    return !token.isDAT ? allToken : ({ ...allToken, [token.displaySymbol]: token })
-  }, {})
+  const result: AssociatedToken = {}
+  tokens.forEach(token => {
+    if (token.isDAT) {
+      result[token.displaySymbol] = token
+    }
+  })
+  return result
 }
 
 export const fetchPoolPairs = createAsyncThunk(

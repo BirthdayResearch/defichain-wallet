@@ -39,7 +39,7 @@ export const useLoanPaymentTokenRate = (props: {
 } => {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const DUSDToken = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, 'DUSD'))
-  const paymentTokenActivePrices = useSelector((state: RootState) => loanPaymentTokenActivePrices(state.loans)) // DFI
+  const paymentTokenActivePrices = useSelector((state: RootState) => loanPaymentTokenActivePrices(state.loans))
   const paymentTokens = _getPaymentTokens({
     ...props.loanToken
   }, props.loanTokenBalance, tokens, DUSDToken)

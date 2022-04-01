@@ -300,6 +300,7 @@ context('Wallet - Loans - Take Loans', () => {
 })
 
 context('Wallet - Loans - Payback DUSD Loans', () => {
+  let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
     enableDUSDPayment()
@@ -313,6 +314,9 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
     cy.getByTestID('vault_card_0_manage_loans_button').should('not.exist')
+    cy.getByTestID('vault_card_0_vault_id').then(($txt: any) => {
+      vaultId = $txt[0].textContent
+    })
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.addCollateral('10', 'DFI')
     cy.addCollateral('10', 'dBTC')
@@ -389,6 +393,18 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(3000)
   })
 
+  it('should display vault info', () => {
+    cy.getByTestID('toggle_resulting_col').click()
+    cy.getByTestID('resulting_col').should('have.text', 'N/A')
+    cy.getByTestID('text_vault_id').should('have.text', vaultId)
+    cy.getByTestID('text_min_col_ratio').should('have.text', '150%')
+    cy.getByTestID('text_total_collateral_usd').should('have.text', '$1,500')
+    cy.getByTestID('text_total_loan_usd').invoke('text').then(text => {
+      const totalLoanUSD = new BigNumber(text.replace('$', '').trim())
+      checkValueWithinRange(totalLoanUSD.toFixed(8), new BigNumber(10).toFixed(8), 0.05)
+    })
+  })
+
   it('should display 50% of loan amount if 50% button is pressed with sufficient DUSD', () => {
     cy.getByTestID('payment_token_card_DUSD').click()
     cy.getByTestID('50%_amount_button').click()
@@ -414,24 +430,23 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     })
   })
 
-  // TODO(Pierre): Fix payback issue happening on cypress
-  // it('should be able to payback DUSD loans by DUSD', function () {
+  // it('should be able to payback DUSD loans with DUSD', function () {
   //   cy.getByTestID('payback_input_text').clear().type('11').blur()
   //   cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
   //     const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
-  //     cy.getByTestID('button_confirm_payback_loan_continue').click().wait(3000)
-  //     cy.getByTestID('text_transaction_type').contains('Loan payment')
-  //     cy.getByTestID('text_payment_amount').contains('11.00000000')
-  //     cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
   //     cy.getByTestID('text_excess_amount').contains(new BigNumber(11).minus(outstandingBalance).toFixed(8))
-  //     cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
-  //     cy.getByTestID('text_resulting_loan_amount_suffix').contains('DUSD')
-  //     cy.getByTestID('tokens_to_pay').contains('11.00000000')
-  //     cy.getByTestID('tokens_to_pay_suffix').contains('DUSD')
   //   })
 
+  //   cy.getByTestID('button_confirm_payback_loan_continue').click().wait(3000)
+  //   cy.getByTestID('text_transaction_type').contains('Loan payment')
+  //   cy.getByTestID('text_payment_amount').contains('11.00000000')
+  //   cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
+  //   cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
+  //   cy.getByTestID('text_resulting_loan_amount_suffix').contains('DUSD')
+  //   cy.getByTestID('tokens_to_pay').contains('11.00000000')
+  //   cy.getByTestID('tokens_to_pay_suffix').contains('DUSD')
   //   cy.getByTestID('text_vault_id').contains(vaultId)
-  //   // cy.getByTestID('text_current_collateral_ratio').contains('N/A')
+  //   cy.getByTestID('text_current_collateral_ratio').contains('N/A')
   //   cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
   //   cy.getByTestID('txn_authorization_description')
   //     .contains('Paying 11.00000000 DUSD')

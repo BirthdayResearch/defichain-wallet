@@ -502,7 +502,7 @@ function TransactionDetailsSection ({
           >
             {
               resultingColRatio.isLessThan(0)
-                ? <ThemedText>{translate('screens/ConfirmBorrowLoanTokenScreen', 'N/A')}</ThemedText>
+                ? <ThemedText testID='resulting_col'>{translate('screens/ConfirmBorrowLoanTokenScreen', 'N/A')}</ThemedText>
                 : <CollateralizationRatioValue
                     value={resultingColRatio.toFixed(2)}
                     minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
@@ -524,6 +524,7 @@ function TransactionDetailsSection ({
           iconType='MaterialIcons'
           name={!isExpanded ? 'expand-more' : 'expand-less'}
           size={24}
+          testID='toggle_resulting_col'
         />
       </ThemedView>
       {isExpanded &&
