@@ -70,7 +70,8 @@ export function useValidCollateralRatio (
   totalCollateralVaultValue: BigNumber,
   collateralTokenId?: string,
   updatedCollateralAmount?: BigNumber
-): {requiredVaultShareTokens: string[], isValidCollateralRatio: boolean, requiredTokensShare: BigNumber} {
+): {requiredVaultShareTokens: string[], minRequiredTokensShare: number, requiredTokensShare: BigNumber} {
+  const minRequiredTokensShare = 50
   const requiredVaultShareTokens = ['DUSD', 'DFI']
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
   const requiredTokensShare = requiredVaultShareTokens.reduce((share, tokenSymbol) => {
@@ -80,17 +81,17 @@ export function useValidCollateralRatio (
         ...collateralItem?.token,
         amount: '0'
       }
-      const amount = collateralToken.id === collateralTokenId ? updatedCollateralAmount ?? 0 : new BigNumber(collateralToken.amount)
+      const amount = collateralToken.id === collateralTokenId ? updatedCollateralAmount ?? 0 : collateralToken.amount
       const price = (collateralItem !== undefined) ? getCollateralPrice(new BigNumber(amount ?? 0), collateralItem, new BigNumber(totalCollateralVaultValue)) : { vaultShare: new BigNumber(0) }
       if (!price?.vaultShare?.isNaN()) {
         return share.plus(price?.vaultShare ?? 0)
       }
     }
     return share
-  }, new BigNumber(0)) ?? new BigNumber(0)
+  }, new BigNumber(0))
   return {
     requiredTokensShare,
-    requiredVaultShareTokens,
-    isValidCollateralRatio: requiredTokensShare?.gte(50)
+    minRequiredTokensShare,
+    requiredVaultShareTokens
   }
 }

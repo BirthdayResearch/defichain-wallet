@@ -79,7 +79,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice)),
     interestPerBlock
   )
-  const { isValidCollateralRatio } = useValidCollateralRatio(vault?.collateralAmounts ?? [], new BigNumber(vault?.collateralValue ?? NaN))
+  const { requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(vault?.collateralAmounts ?? [], new BigNumber(vault?.collateralValue ?? NaN))
   const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -249,7 +249,7 @@ export function BorrowLoanTokenScreen ({
 
         {vault !== undefined && (
           <>
-            {!isValidCollateralRatio && isFeatureAvailable('dusd_vault_share')
+            {isFeatureAvailable('dusd_vault_share') && requiredTokensShare?.lt(minRequiredTokensShare)
               ? (
                 <ThemedText
                   dark={tailwind('text-red-500')}
