@@ -14,7 +14,7 @@ interface ActiveUSDValueProps {
   containerStyle?: StyleProp<ViewStyle>
   testId?: string
   price: BigNumber
-  isDarkLabel?: boolean
+  isTitle?: boolean
 }
 
 export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
