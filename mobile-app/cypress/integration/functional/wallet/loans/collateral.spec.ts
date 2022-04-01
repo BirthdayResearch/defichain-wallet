@@ -268,10 +268,10 @@ context('Wallet - Loans - 50% valid collateral token ratio', () => {
     cy.intercept('**/settings/flags', {
       body: [{
         id: 'dusd_vault_share',
-        name: 'USDT Vault share',
+        name: 'DUSD 50% contribution',
         stage: 'public',
         version: '>=0.0.0',
-        description: 'Allow DUSD to contribute as 50% share for taking loan',
+        description: 'DUSD 50% contribution in required collateral token',
         networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
         platforms: ['ios', 'android', 'web']
       }]
