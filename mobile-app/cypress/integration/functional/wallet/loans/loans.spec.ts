@@ -142,8 +142,7 @@ context('Wallet - Loans - Take Loans', () => {
   const walletTheme = { isDark: false }
   before(function () {
     cy.createEmptyWallet(true)
-    // Topping up DUSD-DFI to increase total liquidity of DUSD
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'DUSD-DFI', 'DUSD-DFI', 'DUSD-DFI']).wait(6000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC']).wait(6000)
     cy.setWalletTheme(walletTheme)
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
