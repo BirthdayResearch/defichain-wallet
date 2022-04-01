@@ -13,6 +13,7 @@ import Modal from 'react-overlays/Modal'
 
 interface PasscodePromptProps {
   onCancel: (err: string) => void
+  title: string
   message: string
   transaction: DfTxSigner
   status: TransactionStatus
@@ -69,9 +70,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               <ThemedText
                 style={tailwind('text-center text-xl font-bold px-1')}
               >
-                {props.transaction === undefined
-                  ? translate('screens/UnlockWallet', 'Sign to verify access')
-                  : translate('screens/TransactionAuthorization', 'Sign Transaction')}
+                {props.title}
               </ThemedText>
 
               <View style={tailwind('px-8 text-sm text-center mb-6')}>
