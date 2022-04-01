@@ -296,8 +296,8 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
                     style={tailwind('flex flex-row px-1 rounded')}
                   >
                     <ThemedText
-                      light={tailwind(['text-gray-900', { 'text-red-500': !isValidCollateralRatio }])}
-                      dark={tailwind(['text-gray-50', { 'text-red-500': !isValidCollateralRatio }])}
+                      light={tailwind(['text-gray-900', { 'text-error-500': !isValidCollateralRatio }])}
+                      dark={tailwind(['text-gray-50', { 'text-error-500': !isValidCollateralRatio }])}
                       style={tailwind('text-sm font-medium')}
                       testID='bottom-sheet-vault-requirement-text'
                     >
@@ -397,8 +397,8 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
       />
       {(isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && requiredVaultShareTokens.includes(token.symbol)) && (
         <ThemedText
-          dark={tailwind('text-red-500')}
-          light={tailwind('text-red-500')}
+          dark={tailwind('text-error-500')}
+          light={tailwind('text-error-500')}
           style={tailwind('text-sm text-center')}
           testID='vault_min_share_warning'
         >

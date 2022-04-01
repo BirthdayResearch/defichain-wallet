@@ -252,8 +252,8 @@ export function BorrowLoanTokenScreen ({
             {isFeatureAvailable('dusd_vault_share') && requiredTokensShare?.lt(minRequiredTokensShare)
               ? (
                 <ThemedText
-                  dark={tailwind('text-red-500')}
-                  light={tailwind('text-red-500')}
+                  dark={tailwind('text-error-500')}
+                  light={tailwind('text-error-500')}
                   style={tailwind('text-sm text-center mt-2 px-4')}
                   testID='vault_min_share_warning'
                 >
