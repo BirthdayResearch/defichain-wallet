@@ -94,7 +94,7 @@
     "EDIT": "MODIFIER",
     "CANCEL": "ANNULER"
   },
-  "components/BottomSheetAddressBook": {
+  "screens/AddressBookScreen": {
     "Address book": "Carnet d'adresses",
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
@@ -109,6 +109,19 @@
     "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
     "Address label is too long (max 30 characters)": "Le nom de l'adresse est trop long (30 caractères max)"
+  },
+  "screens/AddOrEditAddressBookScreen": {
+    "Edit address label": "Modifier l'étiquette d'adresse",
+    "Address label": "Étiquette d'adresse",
+    "Address {{index}}": "Adresse {{index}}",
+    "Add new address": "Ajouter une nouvelle adresse",
+    "Address": "Adresse",
+    "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "Address label is too long (max 30 characters)": "Le nom de l'adresse est trop long (30 caractères max)",
+    "Enter address label": "Entrer le nom d'adresse",
+    "Enter address": "Entrer l'adresse",
+    "This address already exists in your address book, please enter a different address": "Cette adresse existe déjà dans votre carnet d'adresses, veuillez entrer une adresse différente",
+    "Edit address": "Modifier l'adresse"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
