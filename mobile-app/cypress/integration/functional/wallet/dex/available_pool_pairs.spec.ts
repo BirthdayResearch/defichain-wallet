@@ -35,7 +35,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
         expect(text).to.contains('Pooled dBTC')
-        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
@@ -49,7 +49,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
         expect(text).to.contains('Pooled dBTC')
-        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
@@ -216,7 +216,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
 
           expect(text).to.contains('Pooled DFI')
           expect(text).to.contains('Pooled dETH')
-          expect(text).to.contains('Total liquidity (USD)')
+          expect(text).to.contains('Total liquidity')
         })
 
       cy.getByTestID('price_rate_DFI-dETH').should('have.text', '100.00000000 dETH')
@@ -253,7 +253,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
         expect(text).to.contains('Your shared dETH')
 
         expect(text).to.not.contains('Prices')
-        expect(text).to.not.contains('Total liquidity (USD)')
+        expect(text).to.not.contains('Total liquidity')
       })
 
     cy.getByTestID('share_in_pool_dETH-DFI').should('have.text', '10.00000000')
