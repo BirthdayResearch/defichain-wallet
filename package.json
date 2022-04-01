@@ -78,6 +78,7 @@
     "react-hook-form": "^7.27.0",
     "react-native": "0.64.3",
     "react-native-boring-avatars": "^1.0.1",
+    "react-native-coachmark": "^0.1.0",
     "react-native-collapsible": "^1.6.0",
     "react-native-confirmation-code-field": "^7.3.0",
     "react-native-gesture-handler": "~2.1.0",

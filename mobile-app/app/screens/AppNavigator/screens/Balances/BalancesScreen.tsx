@@ -33,6 +33,8 @@ import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 
+import { Coachmark } from 'react-native-coachmark'
+
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export interface BalanceRowToken extends WalletToken {
@@ -262,16 +264,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           />
         }
       >
-        <Announcements />
-        <TotalPortfolio
-          totalAvailableUSDValue={totalAvailableUSDValue}
-          totalLockedUSDValue={totalLockedUSDValue}
-          totalLoansUSDValue={totalLoansUSDValue}
-          onToggleDisplayBalances={onToggleDisplayBalances}
-          isBalancesDisplayed={isBalancesDisplayed}
-        />
-        <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        <DFIBalanceCard />
+        <Coachmark autoShow message='Announcement will be here'>
+          <Announcements />
+        </Coachmark>
+        <Coachmark autoShow message='Total portfolio'>
+          <TotalPortfolio
+            totalAvailableUSDValue={totalAvailableUSDValue}
+            totalLockedUSDValue={totalLockedUSDValue}
+            totalLoansUSDValue={totalLoansUSDValue}
+            onToggleDisplayBalances={onToggleDisplayBalances}
+            isBalancesDisplayed={isBalancesDisplayed}
+          />
+        </Coachmark>
+        <Coachmark autoShow message='Send and receive tokens'>
+          <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
+        </Coachmark>
+        <Coachmark autoShow message='DFI portfolio'>
+          <DFIBalanceCard />
+        </Coachmark>
         {!hasFetchedToken
           ? (
             <View style={tailwind('p-4')}>
