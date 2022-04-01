@@ -80,13 +80,13 @@ export const useLoanPaymentTokenRate = (props: {
       const loanTokenConversionRate = paymentToken.tokenSymbol === props.loanToken.symbol
         ? new BigNumber(1)
         : new BigNumber(paymentTokenActivePriceInUSD).div(props.loanTokenAmountActivePriceInUSD)
-      const amountToPayInLoanToken = props.amountToPay.multipliedBy(loanTokenConversionRate)// .plus(cappedPenalty)
-      const outstandingBalanceInLoanToken = props.outstandingBalance.multipliedBy(loanTokenConversionRate) // .plus(cappedPenalty)
+      const amountToPayInLoanToken = props.amountToPay.multipliedBy(loanTokenConversionRate)
+      const outstandingBalanceInLoanToken = props.outstandingBalance.multipliedBy(loanTokenConversionRate)
       const cappedAmountInLoanToken = BigNumber.min(props.loanTokenBalance, outstandingBalanceInLoanToken)
 
       // Payment Token
-      const amountToPayInPaymentToken = props.amountToPay// .plus(cappedPenaltyInPaymentToken)
-      const outstandingBalanceInPaymentToken = props.outstandingBalance.multipliedBy(paymentTokenConversionRate)// .plus(cappedPenaltyInPaymentToken)
+      const amountToPayInPaymentToken = props.amountToPay
+      const outstandingBalanceInPaymentToken = props.outstandingBalance.multipliedBy(paymentTokenConversionRate)
       const cappedAmountInPaymentToken = BigNumber.min(paymentToken.tokenBalance, outstandingBalanceInPaymentToken)
 
       return {
