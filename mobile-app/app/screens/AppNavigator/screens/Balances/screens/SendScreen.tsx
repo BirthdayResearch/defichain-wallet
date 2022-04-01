@@ -40,9 +40,6 @@ import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
-import { BottomSheetAddressBook } from '../components/BottomSheetAddressBook'
-import { CreateOrEditAddressLabelForm } from '../components/CreateOrEditAddressLabelForm'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
@@ -51,7 +48,6 @@ export function SendScreen ({
   route,
   navigation
 }: Props): JSX.Element {
-  const { isLight } = useThemeContext()
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
@@ -158,42 +154,6 @@ export function SendScreen ({
       }])
   }, [])
 
-  const setAddressBookBottomSheet = useCallback(() => {
-    setBottomSheetScreen([
-      {
-        stackScreenName: 'AddressBook',
-        component: BottomSheetAddressBook({
-          address: getValues('address'),
-          onAddressSelect: (address: string) => {
-            setValue('address', address, { shouldDirty: true })
-            dismissModal()
-          },
-          onCloseButtonPress: () => dismissModal(),
-          navigateToScreen: {
-            screenName: 'CreateOrEditAddressLabelForm'
-          }
-        }),
-        option: {
-          header: () => null
-        }
-      },
-      {
-        stackScreenName: 'CreateOrEditAddressLabelForm',
-        component: CreateOrEditAddressLabelForm,
-        option: {
-          headerStatusBarHeight: 1,
-          headerBackgroundContainerStyle: tailwind('border-b', {
-            'border-gray-200': isLight,
-            'border-gray-700': !isLight,
-            '-top-5': Platform.OS !== 'web'
-          }),
-          headerTitle: '',
-          headerBackTitleVisible: false
-        }
-      }
-    ])
-  }, [])
-
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
       return
@@ -261,10 +221,16 @@ export function SendScreen ({
                 <AddressRow
                   control={control}
                   networkName={networkName}
-                  onContactButtonPress={() => {
-                    setAddressBookBottomSheet()
-                    expandModal()
-                  }}
+                  onContactButtonPress={() => navigation.navigate({
+                    name: 'AddressBookScreen',
+                    params: {
+                      onAddressSelect: (savedAddres: string) => {
+                        setValue('address', savedAddres, { shouldDirty: true })
+                        navigation.goBack()
+                      }
+                    },
+                    merge: true
+                  })}
                   onQrButtonPress={() => navigation.navigate({
                     name: 'BarCodeScanner',
                     params: {
