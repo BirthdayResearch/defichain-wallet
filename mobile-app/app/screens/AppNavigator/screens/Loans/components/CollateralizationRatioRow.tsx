@@ -50,7 +50,7 @@ export function CollateralizationRatioRow (props: CollateralizationRatioRowProps
   )
 }
 
-export function CollateralizationRatioValue (props: CollateralizationRatioProps & { value: string, type: 'current' | 'next' }): JSX.Element {
+export function CollateralizationRatioValue (props: CollateralizationRatioProps & { value: string, type: 'current' | 'next', testId: string }): JSX.Element {
   const {
     light,
     dark
@@ -73,6 +73,7 @@ export function CollateralizationRatioValue (props: CollateralizationRatioProps 
             dark={dark}
             light={light}
             style={tailwind('text-sm text-right mr-1')}
+            testID={props.testId}
           >
             {props.type === 'next' && '~'}{val}
           </ThemedText>
