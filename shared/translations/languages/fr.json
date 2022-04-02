@@ -1186,7 +1186,9 @@
     "Unable to proceed because of errors": "Impossible de poursuivre en raison d'erreurs",
     "Max loan amount": "Montant max. du prêt",
     "USD": "USD",
-    "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?"
+    "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?",
+    "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Votre vault nécessite au moins 50 % de DFI et/ou de DUSD en tant que garantie",
+    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "Ce vault nécessite au moins 50 % de DFI et/ou de DUSD pour être disponible pour le minting de dTokens"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Vous empruntez",

@@ -35,8 +35,10 @@ describe('DFI Balance Card', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        swappableTokens: {},
         hasFetchedPoolpairData: false,
-        hasFetchedToken: true
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       },
       loans: {
         vaults: [

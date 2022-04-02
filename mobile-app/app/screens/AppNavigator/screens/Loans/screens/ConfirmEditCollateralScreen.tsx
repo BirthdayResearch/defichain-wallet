@@ -21,7 +21,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
-import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -186,9 +186,9 @@ interface CollateralSectionProps {
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
   const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
   const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
-  const initialPrices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const initialPrices = getCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
   const totalCollateralValue = props.isAdd ? props.totalCollateralValue.plus(initialPrices.collateralPrice) : props.totalCollateralValue.minus(initialPrices.collateralPrice)
-  const prices = useCollateralPrice(amount, props.collateralItem, totalCollateralValue)
+  const prices = getCollateralPrice(amount, props.collateralItem, totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle

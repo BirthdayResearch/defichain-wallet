@@ -1,7 +1,7 @@
 
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { AllSwappableTokensResult, PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
@@ -9,13 +9,19 @@ import BigNumber from 'bignumber.js'
 interface AssociatedToken {
   [key: string]: TokenData
 }
+export interface SwappableTokens {
+  [key: string]: AllSwappableTokensResult
+}
+
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
   allTokens: AssociatedToken
   poolpairs: DexItem[]
+  swappableTokens: SwappableTokens
   hasFetchedPoolpairData: boolean
   hasFetchedToken: boolean
+  hasFetchedSwappableTokens: boolean
 }
 
 export interface WalletToken extends AddressToken {
@@ -32,6 +38,8 @@ const initialState: WalletState = {
   tokens: [],
   allTokens: {},
   poolpairs: [],
+  swappableTokens: {},
+  hasFetchedSwappableTokens: false,
   hasFetchedPoolpairData: false,
   hasFetchedToken: false
 }
@@ -112,6 +120,16 @@ export const fetchTokens = createAsyncThunk(
   }
 )
 
+export const fetchSwappableTokens = createAsyncThunk(
+  'wallet/swappableTokens',
+  async ({ client, fromTokenId }: {
+    client: WhaleApiClient
+    fromTokenId: string
+  }): Promise<AllSwappableTokensResult> => {
+    return await client.poolpairs.getSwappableTokens(fromTokenId)
+  }
+)
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
@@ -130,6 +148,15 @@ export const wallet = createSlice({
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
       state.allTokens = associateTokens(action.payload.allTokens)
+    })
+    builder.addCase(fetchSwappableTokens.fulfilled, (state, action: PayloadAction<AllSwappableTokensResult>) => {
+      state.hasFetchedSwappableTokens = true
+      state.swappableTokens = {
+        ...state.swappableTokens,
+        ...{
+          [action.payload.fromToken.id]: action.payload
+        }
+      }
     })
   }
 })

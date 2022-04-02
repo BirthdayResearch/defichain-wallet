@@ -1184,7 +1184,9 @@
     "Max loan amount": "最高的貸款金額",
     "N/A": "不適用",
     "USD": "美元",
-    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代幣借貸？"
+    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代幣借貸？",
+    "Your vault needs at least 50% of DFI and/or DUSD as collateral": "您的金庫必須包含至少 50% 的 DFI 和/或 DUSD 作為抵押代幣",
+    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "這金庫必須包含至少 50% 的 DFI 和/或 DUSD 以用作鑄造去中心化資產代幣"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
