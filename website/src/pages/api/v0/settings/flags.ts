@@ -48,7 +48,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       id: 'dusd_vault_share',
       name: 'DUSD 50% contribution',
       stage: 'beta',
-      version: '>1.7.2',
+      version: '>1.7.1',
       description: 'DUSD 50% contribution in required collateral token',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
