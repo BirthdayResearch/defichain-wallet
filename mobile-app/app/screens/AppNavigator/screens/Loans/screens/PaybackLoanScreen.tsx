@@ -504,6 +504,7 @@ function TransactionDetailsSection ({
               resultingColRatio.isLessThan(0)
                 ? <ThemedText testID='resulting_col'>{translate('screens/ConfirmBorrowLoanTokenScreen', 'N/A')}</ThemedText>
                 : <CollateralizationRatioValue
+                    testId='text_resulting_col_ratio'
                     value={resultingColRatio.toFixed(2)}
                     minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
                     totalLoanAmount={new BigNumber(vault.loanValue).minus(
