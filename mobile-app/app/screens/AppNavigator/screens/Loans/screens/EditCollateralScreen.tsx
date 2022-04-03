@@ -28,7 +28,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
-import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
   VaultStatusTag
@@ -442,7 +442,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
     vault
   } = props
   const canUseOperations = useLoanOperations(vault.state)
-  const prices = useCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
+  const prices = getCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
