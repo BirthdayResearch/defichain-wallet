@@ -18,6 +18,12 @@ describe('Wallet Address Row', () => {
             label: 'foo',
             isMine: true
           }
+        },
+        addressBook: {
+          bar: {
+            label: 'bar',
+            isMine: false
+          }
         }
       }
     }

@@ -125,7 +125,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
 
     return (
       <ThemedTouchableOpacity
-        light={tailwind('bg-white border-gray-100')}
+        light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={async () => {
@@ -181,11 +181,13 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             navigation.navigate({
               name: props.navigateToScreen.screenName,
               params: {
+                title: 'Edit address label',
+                isAddressBook: false,
                 address: item,
                 addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
                 index: index + 1,
                 type: 'edit',
-                onSubmitButtonPress: (labelAddress: LabeledAddress) => {
+                onSaveButtonPress: (labelAddress: LabeledAddress) => {
                   dispatch(setAddresses(labelAddress)).then(() => {
                     const addresses = { ...labeledAddresses, ...labelAddress }
                     dispatch(setUserPreferences({
