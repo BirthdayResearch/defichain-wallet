@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint . --fix",
-    "start": "expo start",
+    "start": "expo start --dev-client",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
@@ -18,7 +18,9 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
     "react-devtools:open": "react-devtools",
-    "translation:missing": "ts-node shared/translations/reporter/index.ts"
+    "translation:missing": "ts-node shared/translations/reporter/index.ts",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@defichain/jellyfish-address": "^2.25.2",
@@ -52,7 +54,7 @@
     "expo": "^44.0.6",
     "expo-asset": "~8.4.6",
     "expo-barcode-scanner": "~11.2.0",
-    "expo-cli": "^5.2.0",
+    "expo-cli": "^5.3.0",
     "expo-clipboard": "~2.1.0",
     "expo-constants": "~13.0.1",
     "expo-crypto": "~10.1.1",
@@ -68,6 +70,7 @@
     "expo-web-browser": "~10.1.0",
     "i18n-js": "^3.8.0",
     "install": "^0.13.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "lru-cache": "^7.4.0",
     "react": "17.0.1",
@@ -169,5 +172,6 @@
       "**.test.tsx",
       "**.snap"
     ]
-  }
+  },
+  "version": "1.0.0"
 }

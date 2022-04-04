@@ -16,6 +16,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { MAX_ALLOWED_ADDRESSES } from '@shared-contexts/WalletContext'
+import { DFXPersistence } from '@api/persistence/dfx_storage'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
@@ -52,6 +53,8 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
           await MnemonicStorage.set(words, pin)
+          await DFXPersistence.setWalletPin(pin)
+
           if (type === 'restore') {
             await discoverWalletAddresses(encrypted)
           }
@@ -141,6 +144,7 @@ export function PinConfirmation ({ route }: Props): JSX.Element {
           )
         }
       </View>
+
     </ThemedScrollView>
   )
 }

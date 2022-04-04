@@ -1,24 +1,10 @@
 import * as React from 'react'
 import { tailwind } from '@tailwind'
-import { WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
-import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { StyleSheet, ImageSourcePropType, Linking, TouchableOpacity, TouchableOpacityProps, Image, View } from 'react-native'
-import { useDispatch } from 'react-redux'
-import { initJellyfishWallet, MnemonicEncrypted, MnemonicUnprotected } from '@api/wallet'
-import { getJellyfishNetwork } from '@shared-api/wallet/network'
-import { WalletType } from '@shared-contexts/WalletPersistenceContext'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { authentication, Authentication } from '@store/authentication'
-import { translate } from '@translations'
-import { signAsync } from 'bitcoinjs-message'
 import { getEnvironment } from '@environment'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import * as Updates from 'expo-updates'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 
 import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
 import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
@@ -44,61 +30,30 @@ import BtnGatewayEs from '@assets/images/dfx_buttons/btn_gateway_es.png'
 import BtnOverviewEs from '@assets/images/dfx_buttons/btn_overview_es.png'
 import BtnTaxEs from '@assets/images/dfx_buttons/btn_tax_es.png'
 import BtnDobbyEs from '@assets/images/dfx_buttons/btn_dobby_es.png'
+import { useCallback } from 'react'
+import { DFXPersistence } from '@api/persistence/dfx_storage'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
 export function DfxButtons (): JSX.Element {
-  const logger = useLogger()
-  const { network } = useNetworkContext()
   const { address } = useWalletContext()
-  const { data: providerData } = useWalletNodeContext()
-  const whaleApiClient = useWhaleApiClient()
-  const dispatch = useDispatch()
   const { language } = useLanguageContext()
+  const { dfxUpdateSession } = useDFXAPIContext()
 
-  // TODO(davidleomay): use useCallback?
-  async function onGatewayButtonPress (): Promise<void> {
-    if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
-      const provider = MnemonicUnprotected.initProvider(providerData, network)
-      const signature = await signMessage(provider)
-      await onMessageSigned(signature)
-    } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
-      const auth: Authentication<Buffer> = {
-        consume: async passphrase => {
-          const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
-          return await signMessage(provider)
-        },
-        onAuthenticated: onMessageSigned,
-        onError: e => logger.error(e),
-        message: translate('screens/UnlockWallet', 'To access DFX Services, we need you to enter your passcode.'),
-        loading: translate('screens/TransactionAuthorization', 'Verifying access')
+  const onGatewayButtonPress = useCallback(async () => {
+    await DFXPersistence.getPair(address).then(async activePair => {
+      if (activePair.signature.length === 0 || (activePair.token === undefined || activePair.token?.length === 0)) {
+        // active pair has no signature
+        await dfxUpdateSession()
+        return
       }
-      dispatch(authentication.actions.prompt(auth))
-    } else {
-      throw new Error('Missing wallet provider data handler')
-    }
-  }
 
-  async function onMessageSigned (signature: Buffer): Promise<void> {
-    const sig = signature.toString('base64')
-    const walletId = 1
-    const lang = language.split('-').find(() => true) ?? 'de'
-    const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
-
-    const url = `${baseUrl}/login?address=${encodeURIComponent(address)}&signature=${encodeURIComponent(sig)}&walletId=${walletId}&lang=${lang}`
-    await Linking.openURL(url)
-  }
-
-  async function signMessage (provider: WalletHdNodeProvider<MnemonicHdNode>): Promise<Buffer> {
-    const activeIndex = await WalletAddressIndexPersistence.getActive()
-    const account = initJellyfishWallet(provider, network, whaleApiClient).get(activeIndex)
-
-    const privKey = await account.privateKey()
-    const messagePrefix = getJellyfishNetwork(network).messagePrefix
-    const message = `By signing this message, you confirm that you are the sole owner of the provided DeFiChain address and are in possession of its private key. Your ID: ${address}`
-      .split(' ')
-      .join('_')
-
-    return await signAsync(message, privKey, true, messagePrefix)
-  }
+      const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
+      const url = `${baseUrl}/login?token=${activePair.token}`
+      await Linking.openURL(url)
+    }).catch(async reason => {
+      throw new Error(reason)
+    })
+  }, [address, dfxUpdateSession])
 
   async function onOverviewButtonPress (): Promise<void> {
     const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`

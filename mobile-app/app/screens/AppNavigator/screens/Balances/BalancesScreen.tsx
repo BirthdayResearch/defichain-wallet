@@ -30,6 +30,8 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { TotalPortfolio } from './components/TotalPortfolio'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+import { DFXPersistence } from '@api/persistence/dfx_storage'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -51,17 +53,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
+  const { dfxUpdateSession } = useDFXAPIContext()
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
-  }, [height, wallets])
+  }, [height, wallets, dispatch])
 
   useEffect(() => {
     dispatch(fetchTokens({
       client,
       address
     }))
-  }, [address, blockCount])
+    dispatch(async () => {
+      const hasPair = await DFXPersistence.hasPair(address)
+      if (!hasPair) {
+        await dfxUpdateSession()
+      }
+    })
+  }, [address, blockCount, dispatch, client, dfxUpdateSession])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
