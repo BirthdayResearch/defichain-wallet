@@ -23,10 +23,12 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const {
     title,
     onSaveButtonPress,
-    addressLabel
+    address,
+    addressLabel,
+    isAddNew
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
-  const [addressInput, setAddressInput] = useState<string | undefined>()
+  const [addressInput, setAddressInput] = useState<string | undefined>(address)
   const { networkName } = useNetworkContext()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState('')
@@ -63,7 +65,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       setAddressInputErrorMessage('Please enter a valid address')
       return false
     }
-    if (addressBook?.[input.trim()] !== undefined) {
+    if (isAddNew && addressBook?.[input.trim()] !== undefined) {
       setAddressInputErrorMessage('This address already exists in your address book, please enter a different address')
       return false
     }
