@@ -9,6 +9,8 @@ import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/help
 
 interface ActiveUSDValueProps {
   style?: StyleProp<ViewStyle>
+  lightTextStyle?: { [key: string]: string }
+  darkTextStyle?: { [key: string]: string }
   containerStyle?: StyleProp<ViewStyle>
   testId?: string
   price: BigNumber
@@ -24,8 +26,8 @@ export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Eleme
         prefix='≈ $'
         renderText={(val: string) => (
           <ThemedText
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
+            dark={props.darkTextStyle ?? tailwind('text-gray-400')}
+            light={props.lightTextStyle ?? tailwind('text-gray-500')}
             style={[tailwind('text-xs'), props.style]}
             testID={props.testId}
           >
