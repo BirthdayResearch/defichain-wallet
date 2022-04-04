@@ -1151,7 +1151,8 @@
     "Min. col. ratio": "Min. col. ratio",
     "Total loan (USD)": "Total loan (USD)",
     "Total collateral (USD)": "Total collateral (USD)",
-    "Loan remaining": "Loan remaining"
+    "Loan remaining": "Loan remaining",
+    "{{paymentToken}} payment fee": "{{paymentToken}} 手续费"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
