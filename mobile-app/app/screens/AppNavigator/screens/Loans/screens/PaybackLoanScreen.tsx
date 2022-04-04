@@ -261,7 +261,7 @@ export function PaybackLoanScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pb-8')}>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-8 flex-1')}>
       <LoanTokenInput
         loanTokenId={loanTokenAmount.id}
         displaySymbol={loanTokenAmount.displaySymbol}
