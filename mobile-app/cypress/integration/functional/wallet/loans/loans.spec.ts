@@ -398,7 +398,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.getByTestID('resulting_col').should('have.text', 'N/A')
     cy.getByTestID('text_vault_id').should('have.text', vaultId)
     cy.getByTestID('text_min_col_ratio').should('have.text', '150.00%')
-    cy.getByTestID('text_total_collateral_usd').should('have.text', '$1,500')
+    cy.getByTestID('text_total_collateral_usd').should('have.text', '$1,500.00')
     cy.getByTestID('text_total_loan_usd').invoke('text').then(text => {
       const totalLoanUSD = new BigNumber(text.replace('$', '').trim())
       checkValueWithinRange(totalLoanUSD.toFixed(8), new BigNumber(10).toFixed(8), 0.05)
