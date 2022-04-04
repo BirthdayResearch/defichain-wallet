@@ -121,6 +121,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 isLoading={!hasFetchedToken}
                 label={translate('screens/BalancesScreen', 'available')}
                 value={props.totalAvailableUSDValue}
+                isAddition
               />
             </View>
             <USDValueRow
@@ -128,15 +129,26 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               isLoading={!hasFetchedVaultsData}
               label={translate('screens/BalancesScreen', 'locked in vault(s)')}
               value={props.totalLockedUSDValue}
+              isAddition
             />
-            <ThemedText style={tailwind('italic text-xs mt-2')}>{translate('screens/BalancesScreen', '*Total Portfolio Value now excludes loan amount based on the oracle price.')}</ThemedText>
+            {
+              props.totalLoansUSDValue.gt(0) && (
+                <USDValueRow
+                  testId='outstanding_loans_amount'
+                  isLoading={!hasFetchedVaultsData}
+                  label={translate('screens/BalancesScreen', 'loans')}
+                  value={props.totalLoansUSDValue}
+                  isAddition={false}
+                />
+              )
+            }
           </ThemedView>
       }
     </ThemedView>
   )
 }
 
-function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string }): JSX.Element {
+function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string, isAddition: boolean }): JSX.Element {
   if (props.isLoading) {
     return (
       <View style={tailwind('mt-1')}>
@@ -153,6 +165,12 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
   }
   return (
     <View style={tailwind('flex flex-row justify-start items-center w-full')}>
+      <ThemedText
+        light={tailwind(props.isAddition ? 'text-gray-500' : 'text-error-500')}
+        dark={tailwind(props.isAddition ? 'text-gray-400' : 'text-error-300')} style={tailwind('mr-1 w-2')}
+      >
+        {props.isAddition ? '+' : '-'}
+      </ThemedText>
       <NumberFormat
         displayType='text'
         prefix='$'
