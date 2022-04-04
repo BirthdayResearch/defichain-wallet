@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
 import * as Progress from 'react-native-progress'
+import NumberFormat from 'react-number-format'
 import { Text, View } from '@components'
 import { ThemedText } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -33,16 +34,22 @@ export function LoanPercentage ({
     <View style={tailwind('mx-4 mt-2 pt-1')}>
       <Text style={tailwind('mb-4')}>
         <ThemedText {...textStyle}>{`${translate('screens/PaybackLoanScreen', 'You are paying')} `}</ThemedText>
-        <ThemedText
-          style={tailwind('text-sm font-bold')}
-          light={tailwind('text-gray-900')}
-          dark={tailwind('text-gray-50')}
-          testID='loan_payment_percentage'
-        >{`${amountToPayInPaymentToken.gt(0)
-          ? amountToPayInPaymentToken.dividedBy(outstandingBalanceInPaymentToken).multipliedBy(100).toFixed(2)
-          : '0'
-          }%`}
-        </ThemedText>
+        <NumberFormat
+          decimalScale={8}
+          prefix=' $'
+          displayType='text'
+          renderText={(value) =>
+            <ThemedText
+              style={tailwind('text-sm font-bold')}
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-50')}
+              testID='loan_payment_percentage'
+            >
+              {`${value}%`}
+            </ThemedText>}
+          thousandSeparator
+          value={amountToPayInPaymentToken.gt(0) ? amountToPayInPaymentToken.dividedBy(outstandingBalanceInPaymentToken).multipliedBy(100).toFixed(2) : '0'}
+        />
         <ThemedText {...textStyle}>{` ${translate('screens/PaybackLoanScreen', 'of total loan')}`}</ThemedText>
       </Text>
       <Progress.Bar
