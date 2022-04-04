@@ -11,7 +11,7 @@ import { CollateralToken, LoanVaultState } from '@defichain/whale-api-client/dis
 import { EmptyCollateral } from './EmptyCollateral'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useCollateralPrice } from '../../hooks/CollateralPrice'
+import { getCollateralPrice } from '../../hooks/CollateralPrice'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 interface CollateralCardProps {
@@ -91,7 +91,7 @@ function LiquidatedVaultCollateralCard ({ displaySymbol }: { displaySymbol: stri
 }
 
 function CollateralCard (props: CollateralCardProps): JSX.Element {
-  const prices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const prices = getCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
