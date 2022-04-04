@@ -84,7 +84,8 @@
     "dTokens": "去中心化资产代币",
     "(From highest value)": "(从最高值开始)",
     "(From lowest value)": "(从最低值开始)",
-    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额"
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额",
+    "loans": "贷款"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
