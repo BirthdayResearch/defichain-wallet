@@ -376,7 +376,7 @@ context('Wallet - Address Label', () => {
 
   it('should not allow edit if edit button is not toggled', function () {
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('edit_address_label_button').contains('EDIT')
+    cy.getByTestID('address_list_edit_button').contains('EDIT')
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       cy.getByTestID(`address_edit_indicator_${address}`).should('not.exist')
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
@@ -386,8 +386,8 @@ context('Wallet - Address Label', () => {
   })
 
   it('should validate label input', function () {
-    cy.getByTestID('edit_address_label_button').click()
-    cy.getByTestID('edit_address_label_button').contains('CANCEL')
+    cy.getByTestID('address_list_edit_button').click()
+    cy.getByTestID('address_list_edit_button').contains('CANCEL')
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       cy.getByTestID(`address_edit_indicator_${address}`).should('exist').click()
       // block
@@ -408,7 +408,7 @@ context('Wallet - Address Label', () => {
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('create_new_address').click().wait(1000)
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('edit_address_label_button').click()
+    cy.getByTestID('address_list_edit_button').click()
     validateAddressLabel('😀🙌👶👩🏻‍💻', 1)
     cy.sendDFItoWallet().wait(6000)
   })
@@ -417,7 +417,7 @@ context('Wallet - Address Label', () => {
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('create_new_address').click().wait(1000)
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('edit_address_label_button').click()
+    cy.getByTestID('address_list_edit_button').click()
     cy.getByTestID('address_row_text_2').invoke('text').then((address: string) => {
       const inputLabel = ' abc    '
       const trimmedLabel = inputLabel.trim()
@@ -445,6 +445,6 @@ context('Wallet - Local Storage feature', () => {
   it('should not allow edit if feature is blocked', function () {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('edit_address_label_button').should('not.exist')
+    cy.getByTestID('address_list_edit_button').should('not.exist')
   })
 })

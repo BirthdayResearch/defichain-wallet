@@ -11,7 +11,7 @@ export function AddressListEditButton ({
     <TouchableOpacity
       onPress={handleOnPress}
       style={tailwind('flex flex-row items-center')}
-      testID='edit_address_label_button'
+      testID='address_list_edit_button'
     >
       <ThemedIcon
         iconType='MaterialIcons'
