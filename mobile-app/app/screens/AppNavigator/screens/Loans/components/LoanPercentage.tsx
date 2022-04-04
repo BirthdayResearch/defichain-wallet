@@ -35,8 +35,7 @@ export function LoanPercentage ({
       <Text style={tailwind('mb-4')}>
         <ThemedText {...textStyle}>{`${translate('screens/PaybackLoanScreen', 'You are paying')} `}</ThemedText>
         <NumberFormat
-          decimalScale={8}
-          prefix=' $'
+          decimalScale={2}
           displayType='text'
           renderText={(value) =>
             <ThemedText
@@ -63,7 +62,7 @@ export function LoanPercentage ({
       />
       <View style={tailwind('flex flex-row justify-between items-center mt-2')}>
         <ThemedText
-          style={tailwind('text-xs')}
+          style={tailwind('text-2xs')}
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
         >{translate('screens/PaybackLoanScreen', '0%')}
@@ -71,9 +70,9 @@ export function LoanPercentage ({
         {
           amountToPayInPaymentToken.gt(0) &&
             <ThemedText
-              style={tailwind('text-sm')}
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              style={tailwind('text-xs')}
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-50')}
             >{
               paymentTokenDisplaySymbol !== loanTokenDisplaySymbol
                 ? `${amountToPayInPaymentToken.toFixed(8)} ${paymentTokenDisplaySymbol} ≈ ${amountToPayInLoanToken.toFixed(8)} ${loanTokenDisplaySymbol}`
@@ -82,7 +81,7 @@ export function LoanPercentage ({
             </ThemedText>
         }
         <ThemedText
-          style={tailwind('text-xs')}
+          style={tailwind('text-2xs')}
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
         >{translate('screens/PaybackLoanScreen', '100%')}

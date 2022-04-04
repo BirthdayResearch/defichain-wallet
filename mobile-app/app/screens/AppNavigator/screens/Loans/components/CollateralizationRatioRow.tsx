@@ -26,7 +26,7 @@ export function CollateralizationRatioRow (props: CollateralizationRatioRowProps
     <ThemedView
       dark={tailwind('bg-gray-800 border-gray-700')}
       light={tailwind('bg-white border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      style={tailwind('p-4 flex-row items-start w-full border-b')}
     >
       <View style={tailwind('flex-row items-center w-6/12')}>
         <ThemedText

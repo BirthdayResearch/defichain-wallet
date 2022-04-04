@@ -255,7 +255,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       />
       {props.paymentPenalty.gt(0) &&
         <NumberRow
-          lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} fee', { paymentToken: props.paymentTokenDisplaySymbol })}
+          lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} payment fee', { paymentToken: props.paymentTokenDisplaySymbol })}
           rhs={{
             value: BigNumber.max(props.paymentPenalty, 0).toFixed(8),
             testID: 'text_resulting_payment_penalty',

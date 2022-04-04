@@ -1,7 +1,7 @@
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { translate } from '@translations'
-import { View } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
@@ -12,6 +12,7 @@ interface FeeInfoRowProps {
   testID: string
   lhsThemedProps?: ThemedProps
   rhsThemedProps?: ThemedProps
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
@@ -30,7 +31,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
       light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      style={props.containerStyle ?? tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>

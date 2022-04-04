@@ -486,7 +486,7 @@ function TransactionDetailsSection ({
   return (
     <ThemedView>
       <ThemedView
-        style={tailwind(['flex flex-row py-4 mx-4', {
+        style={tailwind(['flex flex-row py-4 mx-4 rounded-t', {
           'border-b': !isExpanded
         }])}
         dark={tailwind('bg-gray-800 border-gray-700')}
@@ -641,6 +641,7 @@ function TransactionDetailsSection ({
           suffix='DFI'
           lhsThemedProps={rowStyle.lhsThemedProps}
           rhsThemedProps={rowStyle.rhsThemedProps}
+          containerStyle={tailwind('rounded-b p-4 flex-row items-start w-full')}
         />
       </View>
     </ThemedView>
