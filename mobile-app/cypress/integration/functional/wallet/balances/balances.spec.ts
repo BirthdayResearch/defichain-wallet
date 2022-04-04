@@ -344,7 +344,7 @@ context('Wallet - Balances', () => {
   ]
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().wait(3000)
+    cy.sendDFItoWallet().wait(6000)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
@@ -362,7 +362,7 @@ context('Wallet - Balances', () => {
 
   it('should display dfi utxo and dfi token with correct amount', function () {
     cy.sendDFITokentoWallet()
-      .sendTokenToWallet(['BTC', 'ETH']).wait(3000)
+      .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
     cy.getByTestID('dfi_balance_card').should('exist')
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
