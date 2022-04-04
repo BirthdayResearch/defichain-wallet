@@ -52,6 +52,13 @@ export const setAddressBook = createAsyncThunk(
   }
 )
 
+export const removeFromAddressBook = createAsyncThunk(
+  'userPreferences/removeFromAddressBook',
+  async (address: string) => {
+    return address
+  }
+)
+
 export const userPreferences = createSlice({
   name: 'userPreferences',
   initialState,
@@ -74,6 +81,10 @@ export const userPreferences = createSlice({
         ...action.payload
       }
       return state
+    })
+    builder.addCase(removeFromAddressBook.fulfilled, (state, action: PayloadAction<string>) => {
+      const { [action.payload]: _, ...newAddressBook } = state.addressBook
+      state.addressBook = newAddressBook
     })
   }
 })

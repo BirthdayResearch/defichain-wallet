@@ -4,11 +4,11 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootState, useAppDispatch } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
+import { LabeledAddress, removeFromAddressBook, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useMemo, useState } from 'react'
-import { Platform } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
@@ -17,6 +17,10 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NoTokensLight } from '../assets/NoTokensLight'
 import { NoTokensDark } from '../assets/NoTokensDark'
 import { AddressListEditButton } from '../components/AddressListEditButton'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { authentication, Authentication } from '@store/authentication'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -54,39 +58,12 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         key={item}
         style={tailwind('p-4 flex flex-row items-center justify-between')}
         onPress={async () => {
-          if (isEditing) {
-            navigation.navigate({
-              name: 'AddOrEditAddressBookScreen',
-              params: {
-                title: 'Edit address',
-                isAddNew: false,
-                address: item,
-                addressLabel: {
-                  label: addressBook[item]?.label,
-                  isMine: false
-                },
-                onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                  dispatch(setAddressBook(labelAddress)).then(() => {
-                    const addresses = { ...addressBook, ...labelAddress }
-                    dispatch(setUserPreferences({
-                      network,
-                      preferences: {
-                        ...userPreferences,
-                        addressBook: addresses
-                      }
-                    }))
-                  })
-                  setIsEditing(false)
-                }
-              },
-              merge: true
-            })
-          } else {
+          if (!isEditing) {
             onChangeAddress(item)
           }
         }}
         testID={`address_row_${index}`}
-        disabled={hasPendingJob || hasPendingBroadcastJob}
+        disabled={hasPendingJob || hasPendingBroadcastJob || isEditing}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
@@ -108,14 +85,56 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           </View>
           {isEditing
             ? (
-              <ThemedIcon
-                size={24}
-                name='edit'
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                dark={tailwind('text-darkprimary-500')}
-                testID={`address_edit_indicator_${item}`}
-              />
+              <>
+                <TouchableOpacity onPress={() => navigation.navigate({
+                  name: 'AddOrEditAddressBookScreen',
+                  params: {
+                    title: 'Edit address',
+                    isAddNew: false,
+                    address: item,
+                    addressLabel: {
+                      label: addressBook[item]?.label,
+                      isMine: false
+                    },
+                    onSaveButtonPress: (labelAddress: LabeledAddress) => {
+                      dispatch(setAddressBook(labelAddress)).then(() => {
+                        const addresses = { ...addressBook, ...labelAddress }
+                        dispatch(setUserPreferences({
+                          network,
+                          preferences: {
+                            ...userPreferences,
+                            addressBook: addresses
+                          }
+                        }))
+                      })
+                      setIsEditing(false)
+                    }
+                  },
+                  merge: true
+                })}
+                >
+                  <ThemedIcon
+                    size={24}
+                    name='edit'
+                    iconType='MaterialIcons'
+                    style={tailwind('mr-2')}
+                    light={tailwind('text-primary-500')}
+                    dark={tailwind('text-darkprimary-500')}
+                    testID={`address_edit_indicator_${item}`}
+
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={async () => await onDelete(item)}>
+                  <ThemedIcon
+                    size={24}
+                    name='delete'
+                    iconType='MaterialIcons'
+                    light={tailwind('text-primary-500')}
+                    dark={tailwind('text-darkprimary-500')}
+                    testID={`address_delete_indicator_${item}`}
+                  />
+                </TouchableOpacity>
+              </>
             )
             : item === selectedAddress
               ? (
@@ -164,7 +183,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('py-4 pl-4 pr-2 border-b border-t')}
+        style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={() => {
           navigation.navigate({
             name: 'AddOrEditAddressBookScreen',
@@ -213,6 +232,29 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     )
   }, [addresses, addressBook])
 
+  // Passcode prompt
+  const { data: { type: encryptionType } } = useWalletNodeContext()
+  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
+  const logger = useLogger()
+  const onDelete = useCallback(async (address: string): Promise<void> => {
+    if (!isEncrypted) {
+      return
+    }
+
+    const auth: Authentication<string[]> = {
+      consume: async passphrase => await MnemonicStorage.get(passphrase),
+      onAuthenticated: async () => {
+        dispatch(removeFromAddressBook(address))
+        setIsEditing(false)
+      },
+      onError: e => logger.error(e),
+      title: translate('screens/Settings', 'Sign to remove address'),
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/Settings', 'Verifying access')
+    }
+    dispatch(authentication.actions.prompt(auth))
+  }, [navigation, dispatch, isEncrypted])
+
   return (
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
@@ -231,9 +273,9 @@ function EmptyDisplay (): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('px-8 pt-8 pb-2 text-center')}
+      light={tailwind('bg-white border-gray-200')}
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      style={tailwind('px-8 pt-8 pb-2 text-center border-b')}
       testID='empty_address_book'
     >
       <View style={tailwind('items-center pb-4')}>
