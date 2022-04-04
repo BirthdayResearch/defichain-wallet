@@ -1149,7 +1149,16 @@
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
     "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
-    "Read more": "En savoir plus"
+    "Read more": "En savoir plus",
+    "How do you want to pay?": "Comment voulez-vous rembourser?",
+    "You are paying": "Vous remboursez",
+    "of total loan": "de l'emprunt total",
+    "Loan amount": "Montant du prêt",
+    "Min. col. ratio": "Ratio de garantie min.",
+    "Total loan (USD)": "Emprunt total (USD)",
+    "Total collateral (USD)": "Valeur totale de la garantie (USD)",
+    "Loan remaining": "Emprunt restant",
+    "{{paymentToken}} payment fee": "Frais de paiement {{paymentToken}}"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
@@ -1165,8 +1174,8 @@
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Paying loan": "Rembourser le prêt",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} en remboursement du prêt.",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
     "Resulting collateralization": "Garantie correspondante"
   },

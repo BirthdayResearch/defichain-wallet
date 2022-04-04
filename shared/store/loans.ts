@@ -15,12 +15,16 @@ import BigNumber from 'bignumber.js'
 
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
 
+export interface LoanPaymentTokenActivePrices {
+  [key: string]: ActivePrice
+}
+
 export interface LoansState {
   vaults: LoanVault[]
   loanTokens: LoanToken[]
   loanSchemes: LoanScheme[]
   collateralTokens: CollateralToken[]
-  loanPaymentTokenActivePrice?: ActivePrice
+  loanPaymentTokenActivePrices: LoanPaymentTokenActivePrices
   hasFetchedVaultsData: boolean
   hasFetchedLoansData: boolean
   hasFetchedLoanSchemes: boolean
@@ -31,7 +35,7 @@ const initialState: LoansState = {
   loanTokens: [],
   loanSchemes: [],
   collateralTokens: [],
-  loanPaymentTokenActivePrice: undefined,
+  loanPaymentTokenActivePrices: {},
   hasFetchedVaultsData: false,
   hasFetchedLoansData: false,
   hasFetchedLoanSchemes: false
@@ -115,8 +119,13 @@ export const loans = createSlice({
     builder.addCase(fetchCollateralTokens.fulfilled, (state, action: PayloadAction<CollateralToken[]>) => {
       state.collateralTokens = action.payload
     })
-    builder.addCase(fetchPrice.fulfilled, (state, action: PayloadAction<any>) => {
-      state.loanPaymentTokenActivePrice = action.payload
+    builder.addCase(fetchPrice.fulfilled, (state, action: PayloadAction<ActivePrice>) => {
+      state.loanPaymentTokenActivePrices = {
+        ...state.loanPaymentTokenActivePrices,
+        ...{
+          [action.payload.key]: action.payload
+        }
+      }
     })
   }
 })
@@ -134,8 +143,8 @@ export const loanTokenByTokenId = createSelector([selectTokenId, loanTokensSelec
   return loanTokens.find(loanToken => loanToken.token.id === tokenId)
 })
 
-export const loanPaymentTokenActivePrice = createSelector((state: LoansState) => state.loanPaymentTokenActivePrice, activePrice => {
-  return activePrice
+export const loanPaymentTokenActivePrices = createSelector((state: LoansState) => state.loanPaymentTokenActivePrices, activePrices => {
+  return activePrices
 })
 
 export const vaultsSelector = createSelector((state: LoansState) => state.vaults, vaults => {
@@ -172,4 +181,4 @@ export const vaultsSelector = createSelector((state: LoansState) => state.vaults
 
 //* Filter vaults that will be removed with Total Portfolio Amount
 export const activeVaultsSelector = createSelector(vaultsSelector, vaults => vaults.filter((value: LoanVault) => [LoanVaultState.ACTIVE,
-  LoanVaultState.MAY_LIQUIDATE, LoanVaultState.FROZEN].includes(value.state)) as LoanVaultActive[])
+LoanVaultState.MAY_LIQUIDATE, LoanVaultState.FROZEN].includes(value.state)) as LoanVaultActive[])

@@ -58,7 +58,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       stage: 'beta',
       version: '>1.7.1',
       description: 'Allow DUSD payment on loans (+1% fee if paying a Non-DUSD loan)',
-      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
-    }])
+    }
+  ])
 }

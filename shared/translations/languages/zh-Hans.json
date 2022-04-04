@@ -1142,9 +1142,17 @@
     "Vault ID": "金库编号",
     "Resulting {{displaySymbol}} Balance": "产生的 {{displaySymbol}} 余额",
     "Insufficient {{token}} to pay for the entered amount": "{{token}} 余额不足以支付输入的金额",
-    "Select payment token": "选择付款代币",
     "A 1% fee is applied when you pay with DFI.": "当您使用 DFI 付款时，将收取 1% 的费用",
-    "Read more": "阅读更多"
+    "Read more": "阅读更多",
+    "How do you want to pay?": "How do you want to pay?",
+    "You are paying": "You are paying",
+    "of total loan": "of total loan",
+    "Loan amount": "Loan amount",
+    "Min. col. ratio": "Min. col. ratio",
+    "Total loan (USD)": "Total loan (USD)",
+    "Total collateral (USD)": "Total collateral (USD)",
+    "Loan remaining": "Loan remaining",
+    "{{paymentToken}} payment fee": "{{paymentToken}} 手续费"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "确认付款",
@@ -1160,8 +1168,8 @@
     "Collateral amount (USD)": "抵押金额 (美金)",
     "Collateralization ratio": "抵押率",
     "Paying loan": "贷款还款",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} 作为支付贷款。",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) 作为支付贷款。",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} 作为支付贷款。",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) 作为支付贷款。",
     "Confirm Loan Payment": "确认贷款支付",
     "Resulting collateralization": "最终抵押率"
   },

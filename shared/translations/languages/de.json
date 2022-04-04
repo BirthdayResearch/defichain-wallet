@@ -1138,9 +1138,17 @@
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
     "Insufficient {{token}} to pay for the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
-    "Select payment token": "Token für die Zahlung auswählen",
     "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
-    "Read more": "Mehr dazu"
+    "Read more": "Mehr dazu",
+    "How do you want to pay?": "Wie möchtest du tilgen?",
+    "You are paying": "Du tilgst",
+    "of total loan": "des Gesamtdarlehens",
+    "Loan amount": "Höhe des Darlehens",
+    "Min. col. ratio": "Mind. Besicherungsquote",
+    "Total loan (USD)": "Gesamtdarlehen (USD)",
+    "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
+    "Loan remaining": "Verbleibendes Darlehen",
+    "{{paymentToken}} payment fee": "{{paymentToken}}-Zahlungsgebühr"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
@@ -1156,8 +1164,8 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}}",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}).",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}}",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
     "Resulting collateralization": "Resultierende Besicherungsquote"
   },
