@@ -261,7 +261,7 @@ export function PaybackLoanScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pb-8 flex-1')}>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-8')}>
       <LoanTokenInput
         loanTokenId={loanTokenAmount.id}
         displaySymbol={loanTokenAmount.displaySymbol}
@@ -271,7 +271,7 @@ export function PaybackLoanScreen ({
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('pb-4 flex flex-col')}
+        style={tailwind('pb-4 flex flex-col flex-1')}
       >
         {
           isFeatureAvailable('dfi_loan_payment') && paymentTokensWithAmount.length > 1 &&
