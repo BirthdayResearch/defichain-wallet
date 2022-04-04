@@ -430,6 +430,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     })
   })
 
+  /* This is a cypress issue. Tested that it works as expected when executing the steps out of cypress */
   // it('should be able to payback DUSD loans with DUSD', function () {
   //   cy.getByTestID('payback_input_text').clear().type('11').blur()
   //   cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {

@@ -42,6 +42,7 @@ import { InputHelperText } from '@components/InputHelperText'
 import { ActiveUSDValue } from '../VaultDetail/components/ActiveUSDValue'
 import { PaymentTokenProps, useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { LoanPercentage } from '../components/LoanPercentage'
+import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -561,12 +562,12 @@ function TransactionDetailsSection ({
               light: tailwind('bg-white border-gray-200')
             }}
             lhs={{
-              value: translate('screens/PaybackLoanScreen', 'Min. Col. Ratio'),
+              value: translate('screens/PaybackLoanScreen', 'Min. col. ratio'),
               themedProps: rowStyle.lhsThemedProps,
               testID: 'lhs_min_col_ratio'
             }}
             rhs={{
-              value: `${vault.loanScheme.minColRatio}%`,
+              value: `${getUSDPrecisedPrice(vault.loanScheme.minColRatio)}%`,
               testID: 'text_min_col_ratio',
               numberOfLines: 1,
               ellipsizeMode: 'middle',
@@ -578,7 +579,7 @@ function TransactionDetailsSection ({
             {...rowStyle}
             lhs={translate('screens/PaybackLoanScreen', 'Total collateral (USD)')}
             rhs={{
-              value: vault.collateralValue,
+              value: getUSDPrecisedPrice(vault.collateralValue),
               testID: 'text_total_collateral_usd',
               prefix: '$'
             }}
@@ -588,7 +589,7 @@ function TransactionDetailsSection ({
             {...rowStyle}
             lhs={translate('screens/PaybackLoanScreen', 'Total loan (USD)')}
             rhs={{
-              value: vault.loanValue,
+              value: getUSDPrecisedPrice(vault.loanValue),
               testID: 'text_total_loan_usd',
               prefix: '$'
             }}
