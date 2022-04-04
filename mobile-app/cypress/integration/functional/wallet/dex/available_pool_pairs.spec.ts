@@ -35,7 +35,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
         expect(text).to.contains('Pooled dBTC')
-        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
@@ -49,7 +49,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
         expect(text).to.contains('Pooled dBTC')
-        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
@@ -216,7 +216,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
 
           expect(text).to.contains('Pooled DFI')
           expect(text).to.contains('Pooled dETH')
-          expect(text).to.contains('Total liquidity (USD)')
+          expect(text).to.contains('Total liquidity')
         })
 
       cy.getByTestID('price_rate_DFI-dETH').should('have.text', '100.00000000 dETH')
@@ -227,7 +227,8 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
       cy.getByTestID('available_ETH-DFI_dETH_USD').should('have.text', '≈ $10,000,000.00')
       // (10000000 / 1000) * 1,000 DFI
       cy.getByTestID('available_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000,000.00')
-      cy.getByTestID('totalLiquidity_dETH-DFI').should('have.text', '$20,000,000')
+      cy.getByTestID('totalLiquidity_dETH-DFI_token').should('have.text', '10,000 dETH-DFI')
+      cy.getByTestID('available_totalLiquidity_dETH-DFI_USD').should('have.text', '≈ $20,000,000.00')
 
       // 66.8826 * 100
       cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
@@ -252,7 +253,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
         expect(text).to.contains('Your shared dETH')
 
         expect(text).to.not.contains('Prices')
-        expect(text).to.not.contains('Total liquidity (USD)')
+        expect(text).to.not.contains('Total liquidity')
       })
 
     cy.getByTestID('share_in_pool_dETH-DFI').should('have.text', '10.00000000')
