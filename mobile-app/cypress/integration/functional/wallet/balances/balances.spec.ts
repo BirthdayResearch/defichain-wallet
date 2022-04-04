@@ -1065,6 +1065,9 @@ context('Wallet - Balances - portfolio', () => {
       cy.getByTestID('total_locked_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '10', 1)
       })
+      cy.getByTestID('outstanding_loans_amount').invoke('text').then(text => {
+        checkValueWithinRange(text, '10', 1)
+      })
     })
   })
 
@@ -1075,6 +1078,7 @@ context('Wallet - Balances - portfolio', () => {
       cy.getByTestID('total_usd_amount').should('have.text', '*****')
       cy.getByTestID('total_available_usd_amount').should('have.text', '*****')
       cy.getByTestID('total_locked_usd_amount').should('have.text', '*****')
+      cy.getByTestID('outstanding_loans_amount').should('have.text', '*****')
     })
   })
 })
