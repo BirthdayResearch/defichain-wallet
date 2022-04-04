@@ -411,3 +411,93 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('select_token_placeholder').should('exist')
   })
 })
+
+context('Wallet - Send - Address book', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(6000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+  const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
+
+  it('should be able to open address book', function () {
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').click()
+    cy.getByTestID('address_book_title').contains('Address book')
+    cy.getByTestID('address_detail_address_count').contains('0 ADDRESS')
+    cy.getByTestID('address_row_0').should('not.exist')
+  })
+
+  it('should be able to validate add new address form', function () {
+    cy.getByTestID('add_new_address').click()
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_label_input').type('foo')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input').type('fake address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('address_book_label_input_clear_button').click()
+    cy.getByTestID('address_book_label_input_error').contains('Please enter an address label')
+    cy.getByTestID('address_book_address_input').clear()
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+  })
+
+  it('should be able to add new address', function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(6000)
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').click()
+    const labels = ['Light', 'Wallet', '🪨']
+    cy.wrap(labels).each((_v, index: number) => {
+      cy.getByTestID('add_new_address').click()
+      cy.getByTestID('address_book_label_input').type(labels[index])
+      cy.getByTestID('address_book_label_input_error').should('not.exist')
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').should('not.exist')
+      cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+      cy.getByTestID('pin_authorize').type('000000').wait(1000)
+      cy.getByTestID(`address_row_label_${addresses[index]}`).contains(labels[index])
+      cy.getByTestID(`address_row_text_${index}`).contains(addresses[index])
+    })
+  })
+
+  it('should be able to select address in from address book', function () {
+    cy.wrap(addresses).each((_v, index: number) => {
+      cy.getByTestID(`address_row_${index}`).click()
+      cy.getByTestID('address_input').contains(addresses[index])
+      cy.getByTestID('address_book_button').click()
+    })
+  })
+
+  it('should be able to block duplicate address', function () {
+    cy.wrap(addresses).each((_v, index: number) => {
+      cy.getByTestID('add_new_address').click()
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').contains('This address already exists in your address book, please enter a different address')
+      cy.getByTestID('button_cancel_save_address_label').click()
+    })
+  })
+})
+
+context('Wallet - Send - Address book local storage feature', () => {
+  before(function () {
+    cy.intercept('**/settings/flags', {
+      statusCode: 200,
+      body: []
+    })
+    cy.createEmptyWallet().sendDFItoWallet().wait(6000)
+  })
+
+  it('should not display address book icon if feature is blocked', function () {
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').should('not.exist')
+  })
+})

@@ -94,12 +94,35 @@
     "EDIT": "编辑",
     "CANCEL": "取消"
   },
+  "screens/AddressBookScreen": {
+    "Address book": "Address book",
+    "ADD NEW ADDRESS": "ADD NEW ADDRESS",
+    "Please enter an address label": "Please enter an address label",
+    "Please enter a valid address": "Please enter a valid address",
+    "Please enter a unique address": "Please enter a unique address"
+  },
   "components/CreateOrEditAddressLabelForm": {
-    "Edit Address Label": "更改地址标签",
+    "Edit address label": "更改地址标签",
     "ADDRESS LABEL": "地址标签",
     "Address {{index}}": "地址 {{index}}",
+    "Add new address": "Add new address",
+    "ADDRESS": "地址",
     "SAVE CHANGES": "储存修改",
     "Address label is too long (max 30 characters)": "地址标签太长（最多 30 个字符）"
+  },
+  "screens/AddOrEditAddressBookScreen": {
+    "Edit address label": "更改地址标签",
+    "Address label": "地址标签",
+    "Address {{index}}": "地址 {{index}}",
+    "Add new address": "Add new address",
+    "Add New Address": "Add New Address",
+    "Address": "地址",
+    "SAVE CHANGES": "储存修改",
+    "Address label is too long (max 30 characters)": "地址标签太长（最多 30 个字符）",
+    "Enter address label": "Enter address label",
+    "Enter address": "Enter address",
+    "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
+    "Edit address": "Edit address"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",

@@ -17,6 +17,12 @@ describe('Address Selection Button', () => {
             label: 'foo',
             isMine: true
           }
+        },
+        addressBook: {
+          bar: {
+            label: 'bar',
+            isMine: false
+          }
         }
       }
     }

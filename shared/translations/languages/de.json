@@ -94,12 +94,35 @@
     "EDIT": "EDITIEREN",
     "CANCEL": "ABBRECHEN"
   },
+  "screens/AddressBookScreen": {
+    "Address book": "Adressbuch",
+    "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
+    "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
+    "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein"
+  },
   "components/CreateOrEditAddressLabelForm": {
-    "Edit Address Label": "Adressbezeichnung bearbeiten",
+    "Edit address label": "Adressbezeichnung bearbeiten",
     "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
     "Address {{index}}": "Adresse {{index}}",
+    "Add new address": "Neue adresse hinzufügen",
+    "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)"
+  },
+  "screens/AddOrEditAddressBookScreen": {
+    "Edit address label": "Adressbezeichnung bearbeiten",
+    "Address label": "Adressbezeichnung",
+    "Address {{index}}": "Adresse {{index}}",
+    "Add new address": "Neue adresse hinzufügen",
+    "Add New Address": "Neue adresse hinzufügen",
+    "Address": "Adresse",
+    "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
+    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
+    "Enter address label": "Adressbezeichnung eingeben",
+    "Enter address": "Adresse eingeben",
+    "This address already exists in your address book, please enter a different address": "Diese Adresse existiert bereits in deinem Adressbuch, gib bitte eine andere Adresse ein",
+    "Edit address": "Adresse bearbeiten"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
