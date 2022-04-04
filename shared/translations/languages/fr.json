@@ -1147,7 +1147,7 @@
     "Vault ID": "Vault ID",
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
-    "": "Sélectionner le token de remboursement",
+    "Select payment token": "Sélectionner le token de remboursement",
     "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
     "Read more": "En savoir plus",
     "How do you want to pay?": "Comment voulez-vous rembourser?",
@@ -1157,7 +1157,8 @@
     "Min. col. ratio": "Ratio de garantie min.",
     "Total loan (USD)": "Emprunt total (USD)",
     "Total collateral (USD)": "Valeur totale de la garantie (USD)",
-    "Loan remaining": "Emprunt restant"
+    "Loan remaining": "Emprunt restant",
+    "{{paymentToken}} payment fee": "Frais de paiement {{paymentToken}}"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",

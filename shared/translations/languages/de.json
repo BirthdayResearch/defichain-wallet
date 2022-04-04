@@ -1147,7 +1147,8 @@
     "Min. col. ratio": "Mind. Besicherungsquote",
     "Total loan (USD)": "Gesamtdarlehen (USD)",
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
-    "Loan remaining": "Verbleibendes Darlehen"
+    "Loan remaining": "Verbleibendes Darlehen",
+    "{{paymentToken}} payment fee": "{{paymentToken}}-Zahlungsgebühr"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
