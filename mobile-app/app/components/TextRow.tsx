@@ -1,5 +1,5 @@
 
-import { StyleProp, TextStyle, View, TextProps } from 'react-native'
+import { StyleProp, TextStyle, View, TextProps, ViewStyle } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
@@ -14,7 +14,7 @@ interface TextRowProps {
   rhs: HSProps
   info?: BottomSheetAlertInfo
   textStyle?: StyleProp<TextStyle>
-  containerStyle?: ThemedProps & { style: { [key: string]: string } }
+  containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> }
 }
 
 export function TextRow (props: TextRowProps): JSX.Element {
