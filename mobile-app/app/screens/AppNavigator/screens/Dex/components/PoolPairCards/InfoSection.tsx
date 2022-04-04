@@ -179,6 +179,7 @@ function PoolPairInfoLine ({
             containerStyle={tailwind('justify-end -mt-0.5')}
             testId={usdValue.testID}
             lightTextStyle={isTitle === true ? tailwind('text-black') : undefined}
+            darkTextStyle={isTitle === true ? tailwind('text-white') : undefined}
           />
         )}
       </View>
