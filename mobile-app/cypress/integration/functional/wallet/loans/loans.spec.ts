@@ -344,6 +344,10 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
       cy.getByTestID('payment_token_card_DUSD').should('exist')
       cy.getByTestID('payment_token_card_DFI').should('exist')
     })
+
+    cy.getByTestID('payment_token_card_DFI').click()
+    cy.getByTestID('text_penalty_fee_warning').contains('A 1% fee is applied when you pay with DFI.')
+    cy.getByTestID('payment_token_card_DUSD').click()
   })
 
   it('should display loan amount and its USD value', function () {
@@ -513,6 +517,25 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
     cy.getByTestID('txn_authorization_description')
       .contains('Borrowing 10.00000000 dTU10')
     cy.closeOceanInterface()
+  })
+
+  it('should show payment tokens for DUSD loans regardless of wallet balance', function () {
+    cy.intercept('**/tokens?size=*', {
+      body: {
+        data: []
+      }
+    }).as('getTokens')
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.getByTestID('vault_card_0_manage_loans_button').click()
+    cy.getByTestID('loan_card_dTU10_payback_loan').click()
+    cy.wait('@getTokens').then(() => {
+      cy.getByTestID('payment_token_card_dTU10').should('exist')
+      cy.getByTestID('payment_token_card_DUSD').should('exist')
+    })
+
+    cy.getByTestID('payment_token_card_DUSD').click()
+    cy.getByTestID('text_penalty_fee_warning').contains('A 1% fee is applied when you pay with DUSD.')
+    cy.getByTestID('payment_token_card_dTU10').click()
   })
 
   /* Paying dTU10 with sufficient dTU10 balance */

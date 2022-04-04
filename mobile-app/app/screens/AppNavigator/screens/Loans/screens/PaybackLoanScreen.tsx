@@ -261,7 +261,7 @@ export function PaybackLoanScreen ({
   }
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('pb-8')}>
+    <ThemedScrollView contentContainerStyle={tailwind('pb-8 flex-1')}>
       <LoanTokenInput
         loanTokenId={loanTokenAmount.id}
         displaySymbol={loanTokenAmount.displaySymbol}
@@ -642,9 +642,9 @@ function TransactionDetailsSection ({
           lhsThemedProps={rowStyle.lhsThemedProps}
           rhsThemedProps={rowStyle.rhsThemedProps}
           containerStyle={{
-            style: tailwind('rounded-b border-none p-4 flex-row items-start w-full'),
-            dark: tailwind('bg-gray-800 border-b border-gray-700'),
-            light: tailwind('bg-white border-b border-gray-200')
+            style: tailwind('rounded-b p-4 flex-row items-start w-full'),
+            dark: tailwind('bg-gray-800'),
+            light: tailwind('bg-white')
           }}
         />
       </View>
