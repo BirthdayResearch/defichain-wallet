@@ -153,7 +153,6 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
           }}
           placeholder={translate('screens/AddOrEditAddressBookScreen', 'Enter address label')}
           style={tailwind('h-9 w-6/12 flex-grow')}
-          hasBottomSheet
           valid={labelInputErrorMessage === ''}
           inlineText={{
             type: 'error',
@@ -180,7 +179,6 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
         }}
         placeholder={translate('screens/AddOrEditAddressBookScreen', 'Enter address')}
         style={tailwind('w-6/12 flex-grow')}
-        hasBottomSheet
         valid={addressInputErrorMessage === ''}
         inlineText={{
           type: 'error',

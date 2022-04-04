@@ -295,7 +295,8 @@ export function BalancesNavigator (): JSX.Element {
               text={translate('screens/DexScreen', 'Swap tokens')}
               containerTestID={headerContainerTestId}
             />
-          )
+          ),
+          headerBackTitleVisible: false
         }}
       />
 
@@ -308,7 +309,8 @@ export function BalancesNavigator (): JSX.Element {
               text={translate('screens/DexScreen', 'Confirm swap')}
               containerTestID={headerContainerTestId}
             />
-          )
+          ),
+          headerBackTitleVisible: false
         }}
       />
 
@@ -321,7 +323,8 @@ export function BalancesNavigator (): JSX.Element {
               text={translate('screens/AddressBookScreen', 'Address Book')}
               containerTestID={headerContainerTestId}
             />
-          )
+          ),
+          headerBackTitleVisible: false
         }}
       />
 
@@ -334,7 +337,8 @@ export function BalancesNavigator (): JSX.Element {
               text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
               containerTestID={headerContainerTestId}
             />
-          )
+          ),
+          headerBackTitleVisible: false
         }}
       />
     </BalanceStack.Navigator>
