@@ -641,7 +641,11 @@ function TransactionDetailsSection ({
           suffix='DFI'
           lhsThemedProps={rowStyle.lhsThemedProps}
           rhsThemedProps={rowStyle.rhsThemedProps}
-          containerStyle={tailwind('rounded-b p-4 flex-row items-start w-full')}
+          containerStyle={{
+            style: tailwind('rounded-b border-none p-4 flex-row items-start w-full'),
+            dark: tailwind('bg-gray-800 border-b border-gray-700'),
+            light: tailwind('bg-white border-b border-gray-200')
+          }}
         />
       </View>
     </ThemedView>

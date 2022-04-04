@@ -12,7 +12,7 @@ interface FeeInfoRowProps {
   testID: string
   lhsThemedProps?: ThemedProps
   rhsThemedProps?: ThemedProps
-  containerStyle?: StyleProp<ViewStyle>
+  containerStyle?: ThemedProps & { style: StyleProp<ViewStyle> }
 }
 
 type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
@@ -29,9 +29,9 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={props.containerStyle ?? tailwind('p-4 flex-row items-start w-full')}
+      dark={props.containerStyle?.dark ?? tailwind('bg-gray-800 border-b border-gray-700')}
+      light={props.containerStyle?.light ?? tailwind('bg-white border-b border-gray-200')}
+      style={props.containerStyle?.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
