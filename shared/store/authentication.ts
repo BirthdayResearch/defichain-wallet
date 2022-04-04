@@ -8,7 +8,8 @@ export interface Authentication<T> {
   onError?: (e: Error) => void
 
   // messages in passcode UI
-  // mandatory, default message is for signing transaction
+  // message and loading are mandatory, default message is for signing transaction
+  title?: string
   message: string
   loading: string
 }

@@ -22,17 +22,11 @@ function setupWalletForConversion (): void {
 context('Wallet - DEX - Swap without balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
-  })
-
-  it('should be able to display a text if there are no tokens owned', function () {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
-    cy.getByTestID('empty_balances').should('exist')
   })
 
   it('should disable token selection on pool pair w/o balance', function () {
-    cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
     cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_select_button_TO').should('have.attr', 'aria-disabled')

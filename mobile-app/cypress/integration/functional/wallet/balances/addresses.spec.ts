@@ -325,22 +325,22 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
 
 context('Wallet - Address Label', () => {
   function validateLabel (label: string, shouldAllow: boolean): void {
-    cy.getByTestID('edit_label_input').clear().type(label).blur()
+    cy.getByTestID('address_book_label_input').clear().type(label).blur()
     if (shouldAllow) {
-      cy.getByTestID('button_confirm_edit_address_label').should('not.have.attr', 'aria-disabled')
-      cy.getByTestID('edit_label_input_error').should('not.exist')
+      cy.getByTestID('button_confirm_save_address_label').should('not.have.attr', 'aria-disabled')
+      cy.getByTestID('address_book_label_input_error').should('not.exist')
     } else {
-      cy.getByTestID('button_confirm_edit_address_label').should('have.attr', 'aria-disabled')
-      cy.getByTestID('edit_label_input_error').should('exist')
+      cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+      cy.getByTestID('address_book_label_input_error').should('exist')
     }
   }
 
   function validateAddressLabel (label: string, index: number): void {
     cy.getByTestID(`address_row_text_${index}`).invoke('text').then((address: string) => {
       cy.getByTestID(`address_edit_indicator_${address}`).should('exist').click()
-      cy.getByTestID('edit_label_input').clear().type(label)
-      cy.getByTestID('button_confirm_edit_address_label').should('not.have.attr', 'aria-disabled')
-      cy.getByTestID('button_confirm_edit_address_label').click()
+      cy.getByTestID('address_book_label_input').clear().type(label)
+      cy.getByTestID('button_confirm_save_address_label').should('not.have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_save_address_label').click()
       cy.getByTestID(`list_address_label_${address}`).contains(label)
       cy.getByTestID('list_header_address_label').contains(label)
       cy.getByTestID('close_address_detail_button').click()
@@ -398,7 +398,7 @@ context('Wallet - Address Label', () => {
       validateLabel('😀🙌👶👩🏻‍💻', true)
       validateLabel('a                              ', true)
 
-      cy.getByTestID('button_cancel_edit_address_label').click()
+      cy.getByTestID('button_cancel_save_address_label').click()
     })
   })
 
@@ -422,9 +422,9 @@ context('Wallet - Address Label', () => {
       const inputLabel = ' abc    '
       const trimmedLabel = inputLabel.trim()
       cy.getByTestID(`address_edit_indicator_${address}`).should('exist').click()
-      cy.getByTestID('edit_label_input').clear().type(inputLabel)
-      cy.getByTestID('button_confirm_edit_address_label').should('not.have.attr', 'aria-disabled')
-      cy.getByTestID('button_confirm_edit_address_label').click()
+      cy.getByTestID('address_book_label_input').clear().type(inputLabel)
+      cy.getByTestID('button_confirm_save_address_label').should('not.have.attr', 'aria-disabled')
+      cy.getByTestID('button_confirm_save_address_label').click()
       cy.getByTestID(`list_address_label_${address}`).contains(trimmedLabel)
       cy.getByTestID('list_header_address_label').contains(trimmedLabel)
       cy.getByTestID('close_address_detail_button')

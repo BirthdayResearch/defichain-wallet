@@ -79,6 +79,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [wallet, setWallet] = useState<JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>>()
 
   // messages
+  const [title, setTitle] = useState<string | undefined>()
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
 
@@ -157,6 +158,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
+    setTitle(undefined)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
     setTransactionStatus(TransactionStatus.IDLE) // very last step, open up for next task
   }
@@ -259,6 +261,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       // Non-wallet transactions
       setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
       setMessage(authentication.message)
+      setTitle(authentication.title)
       setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
@@ -327,6 +330,13 @@ export function TransactionAuthorization (): JSX.Element | null {
   return (
     <PasscodePrompt
       onCancel={onCancel}
+      title={
+        title !== undefined
+        ? translate('screens/UnlockWallet', title)
+        : transaction === undefined
+          ? translate('screens/UnlockWallet', 'Sign to verify access')
+          : translate('screens/TransactionAuthorization', 'Sign Transaction')
+      }
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
       status={transactionStatus}
