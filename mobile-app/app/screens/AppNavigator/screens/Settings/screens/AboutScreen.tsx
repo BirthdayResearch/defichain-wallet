@@ -83,7 +83,7 @@ const ABOUT_LINKS: AboutLinks[] = [
 
 const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
   { testID: 'email', iconName: 'email', url: 'mailto:app@dfx.swiss' },
-  { testID: 'youtube_social', iconName: 'youtube', url: 'https://www.youtube.com/channel/UCYvgdByyzqBeuSMSEdv9SMg' },
+  { testID: 'youtube_social', iconName: 'youtube', url: 'https://www.youtube.com/channel/UCJfq6RKJbs_dG8E3RyJymPw' },
   { testID: 'twitter_social', iconName: 'twitter', url: 'https://twitter.com/DFX_Swiss' },
   {
     testID: 'reddit_social',
