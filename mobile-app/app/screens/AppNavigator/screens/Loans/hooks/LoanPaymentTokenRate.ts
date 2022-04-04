@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { loanPaymentTokenActivePrices } from '@store/loans'
-import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 import { tokenSelectorByDisplaySymbol, tokensSelector, WalletToken } from '@store/wallet'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 export interface PaymentTokenProps {
   tokenId: string
@@ -40,9 +41,11 @@ export const useLoanPaymentTokenRate = (props: {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const DUSDToken = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, 'DUSD'))
   const paymentTokenActivePrices = useSelector((state: RootState) => loanPaymentTokenActivePrices(state.loans))
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  const isDUSDPaymentEnabled = isFeatureAvailable('dusd_loan_payment')
   const paymentTokens = _getPaymentTokens({
     ...props.loanToken
-  }, props.loanTokenBalance, tokens, DUSDToken)
+  }, props.loanTokenBalance, tokens, DUSDToken, isDUSDPaymentEnabled)
 
   const getPaymentPenalty = (paymentTokenSymbol: string): BigNumber => {
     const paymentTokenActivePriceInUSD = getActivePrice(paymentTokenSymbol ?? '', paymentTokenActivePrices[`${paymentTokenSymbol}-USD`] ?? undefined)
@@ -109,7 +112,12 @@ export const useLoanPaymentTokenRate = (props: {
   }
 }
 
-const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbol: string }, tokenBalance: BigNumber, tokens: WalletToken[], DUSDToken: TokenData | undefined): PaymentTokenProps[] => {
+const _getPaymentTokens = (
+  loanToken: { id: string, symbol: string, displaySymbol: string },
+  tokenBalance: BigNumber,
+  tokens: WalletToken[],
+  DUSDToken: TokenData | undefined,
+  isDUSDPaymentEnabled: boolean): PaymentTokenProps[] => {
   const paymentTokens = [{
     tokenId: loanToken.id,
     tokenSymbol: loanToken.symbol,
@@ -130,9 +138,9 @@ const _getPaymentTokens = (loanToken: { id: string, symbol: string, displaySymbo
   }
 
   /*
-    Feature: Allow DUSD payment on all loans (hardfork)
+    Feature: Allow DUSD payment on all loans
   */
-  return DUSDToken !== undefined
+  return DUSDToken !== undefined && isDUSDPaymentEnabled
     ? [...paymentTokens, {
       tokenId: DUSDToken.id,
       tokenSymbol: 'DUSD',
