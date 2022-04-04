@@ -169,7 +169,7 @@ export function PaybackLoanScreen ({
   } = useConversion({
     inputToken: {
       type: selectedPaymentToken.tokenId === '0_unified' ? 'token' : 'others',
-      amount: new BigNumber(selectedPaymentToken.tokenId === '0_unified' ? amountToPayInPaymentToken : 0)
+      amount: new BigNumber(selectedPaymentToken.tokenId === '0_unified' ? BigNumber.min(selectedPaymentTokenBalance, amountToPayInPaymentToken.plus(paymentPenalty)) : 0)
     },
     deps: [selectedPaymentToken, amountToPayInPaymentToken, JSON.stringify(tokens)]
   })
