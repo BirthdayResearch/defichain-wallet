@@ -255,7 +255,8 @@
     "device's lock": "鎖定手機或平板",
     "biometric": "生物辨識",
     "Enter passcode to continue": "輸入密碼後可繼續",
-    "Sign to save address": "簽名儲存地址"
+    "Sign to save address": "簽名儲存地址",
+    "Sign to delete address": "簽名移除地址"
   },
   "screens/AboutScreen": {
     "About": "關於",
