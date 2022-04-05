@@ -8,6 +8,11 @@ interface ButtonGroupProps {
   activeButtonGroupItem: string
   testID: string
   modalStyle?: StyleProp<TextStyle>
+  lightThemeStyle?: { [key: string]: string }
+  darkThemeStyle?: { [key: string]: string }
+  modalButtonGroupStyle?: { [key: string]: string }
+  modalLightActiveStyle?: { [key: string]: string }
+  modalDarkActiveStyle?: { [key: string]: string }
 }
 
 interface Buttons {
@@ -20,9 +25,9 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
   const buttonWidth = new BigNumber(100).dividedBy(props.buttons.length)
   return (
     <ThemedView
-      light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('rounded-2xl flex flex-row')}
+      light={props.lightThemeStyle ?? tailwind('bg-gray-100')}
+      dark={props.darkThemeStyle ?? tailwind('bg-gray-800')}
+      style={tailwind('rounded-2xl flex flex-row')} // TODO: custom border radius for portfolio tab
       testID={props.testID}
     >
       {
@@ -35,6 +40,9 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             key={button.id}
             testID={`${props.testID}_${button.id}`}
             modalStyle={props.modalStyle}
+            modalButtonGroupStyle={props.modalButtonGroupStyle}
+            modalLightActiveStyle={props.modalLightActiveStyle}
+            modalDarkActiveStyle={props.modalDarkActiveStyle}
           />
         ))
       }
@@ -49,15 +57,18 @@ interface ButtonGroupItemProps {
   width: BigNumber
   testID: string
   modalStyle?: StyleProp<TextStyle>
+  modalButtonGroupStyle?: { [key: string]: string }
+  modalLightActiveStyle?: { [key: string]: string }
+  modalDarkActiveStyle?: { [key: string]: string }
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
-      light={tailwind({ 'bg-primary-50': props.isActive })}
+      light={props.modalLightActiveStyle ?? tailwind({ 'bg-primary-50': props.isActive })}
       dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
-      style={[tailwind('rounded-2xl py-2 px-3 break-words justify-center'), { width: `${props.width.toFixed(2)}%` }]}
+      style={props.modalButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
       <ThemedText
