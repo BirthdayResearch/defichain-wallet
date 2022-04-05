@@ -11,6 +11,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
+import { removeFromAddressBook } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
@@ -65,7 +66,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       setAddressInputErrorMessage('Please enter a valid address')
       return false
     }
-    if (isAddNew && addressBook?.[input.trim()] !== undefined) {
+    if (addressBook?.[input.trim()] !== undefined && (isAddNew || (!isAddNew && input.trim() !== address))) {
+      // check for unique address when adding new, or only when new address is different from current during edit
       setAddressInputErrorMessage('This address already exists in your address book, please enter a different address')
       return false
     }
@@ -74,6 +76,9 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   }
 
   const isSaveDisabled = (): boolean => {
+    if (!isAddNew && address === addressInput && addressLabel?.label === labelInput) {
+      return true
+    }
     if (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '') {
       return true
     }
@@ -102,6 +107,13 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
             isMine: false
           }
         })
+        if (!isAddNew &&
+          address !== undefined &&
+          address !== addressInput.trim()
+        ) {
+          // delete current address if changing to a new address during edit
+          dispatch(removeFromAddressBook(address))
+        }
         navigation.pop()
       },
       onError: e => logger.error(e),
