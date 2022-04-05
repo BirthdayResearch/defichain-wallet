@@ -272,7 +272,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           isBalancesDisplayed={isBalancesDisplayed}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        <FutureSwapCta />
+        <FutureSwapCta navigation={navigation} />
         <DFIBalanceCard />
         {!hasFetchedToken
           ? (
@@ -330,9 +330,12 @@ function BalanceActionSection ({
   )
 }
 
-function FutureSwapCta (): JSX.Element {
+function FutureSwapCta ({
+  navigation
+}: { navigation: StackNavigationProp<BalanceParamList> }): JSX.Element {
   return (
     <ThemedTouchableOpacity
+      onPress={() => navigation.navigate('FutureSwapScreen')}
       style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-lg justify-between')}
       light={tailwind('bg-blue-100')}
       dark={tailwind('bg-darkblue-50')}
