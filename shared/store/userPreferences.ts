@@ -62,17 +62,11 @@ export const userPreferences = createSlice({
       return state
     })
     builder.addCase(setAddresses.fulfilled, (state, action: PayloadAction<LabeledAddress>) => {
-      state.addresses = {
-        ...state.addresses,
-        ...action.payload
-      }
+      state.addresses = action.payload
       return state
     })
     builder.addCase(setAddressBook.fulfilled, (state, action: PayloadAction<LabeledAddress>) => {
-      state.addressBook = {
-        ...state.addressBook,
-        ...action.payload
-      }
+      state.addressBook = action.payload
       return state
     })
   }

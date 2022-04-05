@@ -100,7 +100,9 @@
     "ADD NEW ADDRESS": "ADD NEW ADDRESS",
     "Please enter an address label": "Please enter an address label",
     "Please enter a valid address": "Please enter a valid address",
-    "Please enter a unique address": "Please enter a unique address"
+    "Please enter a unique address": "Please enter a unique address",
+    "Empty address book": "空地址簿",
+    "Add your preferred address": "添加您的首選地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址標籤",
@@ -252,7 +254,9 @@
     "Touch ID": "指紋辨識",
     "device's lock": "鎖定手機或平板",
     "biometric": "生物辨識",
-    "Enter passcode to continue": "輸入密碼後可繼續"
+    "Enter passcode to continue": "輸入密碼後可繼續",
+    "Sign to save address": "簽名儲存地址",
+    "Sign to delete address": "簽名移除地址"
   },
   "screens/AboutScreen": {
     "About": "關於",

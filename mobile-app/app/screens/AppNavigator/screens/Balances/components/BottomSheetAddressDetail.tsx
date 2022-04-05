@@ -27,6 +27,7 @@ import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPre
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { AddressListEditButton } from './AddressListEditButton'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -188,8 +189,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 index: index + 1,
                 type: 'edit',
                 onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                  dispatch(setAddresses(labelAddress)).then(() => {
-                    const addresses = { ...labeledAddresses, ...labelAddress }
+                  const addresses = { ...labeledAddresses, ...labelAddress }
+                  dispatch(setAddresses(addresses)).then(() => {
                     dispatch(setUserPreferences({
                       network,
                       preferences: {
@@ -301,7 +302,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           </View>
           {isFeatureAvailable('local_storage') &&
             (
-              <EditButton isEditing={isEditing} onPress={() => setIsEditing(!isEditing)} />
+              <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />
             )}
         </View>
       </ThemedView>
@@ -406,34 +407,5 @@ function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Eleme
         size={16}
       />
     </TouchableOpacity>
-  )
-}
-
-function EditButton ({
-  isEditing,
-  onPress
-}: { isEditing: boolean, onPress: () => void }): JSX.Element {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={tailwind('flex flex-row items-center')}
-      testID='edit_address_label_button'
-    >
-      <ThemedIcon
-        iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-        name={isEditing ? 'close' : 'drive-file-rename-outline'}
-        size={16}
-      />
-      <ThemedText
-        light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-        style={tailwind('text-2xs ml-1.5')}
-      >
-        {translate('components/BottomSheetAddressDetail', `${isEditing ? 'CANCEL' : 'EDIT'}`)}
-      </ThemedText>
-    </TouchableOpacity>
-
   )
 }
