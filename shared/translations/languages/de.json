@@ -100,7 +100,9 @@
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein"
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
+    "Empty address book": "Leeres Adressbuch",
+    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -251,7 +253,8 @@
     "Touch ID": "Touch ID",
     "device's lock": "Gerätesperre",
     "biometric": "biometrische",
-    "Enter passcode to continue": "Passwort eingeben, um fortzufahren"
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
+    "Sign to save address": "Freigeben, um Adresse zu speichern"
   },
   "screens/AboutScreen": {
     "About": "Über",
