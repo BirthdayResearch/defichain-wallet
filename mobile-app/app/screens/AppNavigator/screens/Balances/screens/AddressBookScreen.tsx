@@ -78,7 +78,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               style={tailwind('text-sm w-full')}
               ellipsizeMode='middle'
               numberOfLines={1}
-              testID={`address_row_text_${index}`}
+              testID={`address_row_text_${item}`}
             >
               {item}
             </ThemedText>
