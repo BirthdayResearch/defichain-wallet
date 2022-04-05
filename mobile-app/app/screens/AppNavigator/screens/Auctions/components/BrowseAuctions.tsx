@@ -52,7 +52,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getTokenPrice } = useTokenPrice()
+  const { getNewTokenPrice } = useTokenPrice()
 
   // Search
   const debouncedSearchTerm = useDebounce(searchString, 500)
@@ -68,7 +68,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     }
   }, [address, blockCount, isFocused])
 
-  const onQuickBid = (props: onQuickBidProps): void => {
+  const onQuickBid = async (props: onQuickBidProps): Promise<void> => {
     const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
     const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
 
@@ -88,7 +88,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         minNextBid: new BigNumber(props.minNextBidInToken),
         minNextBidInUSD: props.minNextBidInUSD,
         currentBalance: currentBalance,
-        currentBalanceInUSD: getTokenPrice(props.batch.loan.symbol, currentBalance),
+        currentBalanceInUSD: await getNewTokenPrice(props.batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])

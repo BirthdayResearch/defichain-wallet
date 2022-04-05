@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
@@ -7,6 +8,9 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { ThemedText } from '@components/themed'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useFocusEffect } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 interface InfoSectionProps {
   type: 'available' | 'your'
@@ -28,15 +32,25 @@ export function InfoSection ({
       pair?.tokenB.displaySymbol !== undefined
       ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
       : ''
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const decimalScale = type === 'available' ? 2 : 8
-  const { getTokenPrice } = useTokenPrice()
+  const { getNewTokenPrice } = useTokenPrice()
+  const [tokenAPrice, setTokenAPrice] = useState(new BigNumber(''))
+  const [tokenBPrice, setTokenBPrice] = useState(new BigNumber(''))
 
-  const getUSDValue = (
-    amount: BigNumber,
-    symbol: string,
-    isLPs: boolean = false
-  ): BigNumber => {
-    return getTokenPrice(symbol, amount, isLPs)
+  useFocusEffect(useCallback(() => {
+    void getTokenPriceDetails()
+  }, [pair, tokenATotal, tokenBTotal, blockCount]))
+
+  const getTokenPriceDetails = async (): Promise<void> => {
+    if (pair?.tokenA !== undefined) {
+      const priceA = await getNewTokenPrice(pair.tokenA.id, new BigNumber(tokenATotal))
+      setTokenAPrice(priceA)
+    }
+    if (pair?.tokenB !== undefined) {
+      const priceB = await getNewTokenPrice(pair.tokenB.id, new BigNumber(tokenATotal))
+      setTokenBPrice(priceB)
+    }
   }
 
   return (
@@ -59,10 +73,7 @@ export function InfoSection ({
               suffix: ` ${pair.tokenA.displaySymbol}`
             }}
             usdValue={{
-              text: getUSDValue(
-                new BigNumber(tokenATotal),
-                pair.tokenA.symbol
-              ),
+              text: tokenAPrice,
               testID: `${testID}_${pair.symbol}_${pair.tokenA.displaySymbol}_USD`
             }}
           />
@@ -79,10 +90,7 @@ export function InfoSection ({
               suffix: ` ${pair.tokenB.displaySymbol}`
             }}
             usdValue={{
-              text: getUSDValue(
-                new BigNumber(tokenBTotal),
-                pair.tokenB.symbol
-              ),
+              text: tokenBPrice,
               testID: `${testID}_${pair.symbol}_${pair.tokenB.displaySymbol}_USD`
             }}
           />

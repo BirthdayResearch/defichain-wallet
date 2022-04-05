@@ -1,5 +1,5 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
@@ -20,7 +20,7 @@ import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 
@@ -28,17 +28,28 @@ export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
-  const { getTokenPrice } = useTokenPrice()
+  const { getNewTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ symbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-  const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
-  const availableValue = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount))
+  const [unitTokenPrice, setUnitTokenPrice] = useState(new BigNumber(''))
+  const usdAmount = unitTokenPrice.times(lockedToken.amount.plus(DFIUnified.amount))
+  const availableValue = unitTokenPrice.times(DFIUnified.amount)
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
   const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
   const onBreakdownPress = (): void => {
     setIsBreakdownExpanded(!isBreakdownExpanded)
+  }
+
+  useFocusEffect(useCallback(() => {
+    void getTokenPriceDetails()
+  }, [blockCount]))
+
+  const getTokenPriceDetails = async (): Promise<void> => {
+    const unitTokenPrice = await getNewTokenPrice(DFIUnified.id, new BigNumber(1), DFIUnified.isLPS)
+    setUnitTokenPrice(unitTokenPrice)
   }
 
   return (

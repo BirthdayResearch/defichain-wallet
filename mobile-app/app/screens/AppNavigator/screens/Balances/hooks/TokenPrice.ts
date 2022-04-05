@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { tokenSelectorByDisplaySymbol } from '@store/wallet'
 
 interface CalculatePriceRatesI {
   aToBPrice: BigNumber
@@ -14,6 +16,7 @@ interface CalculatePriceRatesI {
 }
 
 interface TokenPrice {
+  getNewTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => Promise<BigNumber>
   getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => BigNumber
   calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber) => CalculatePriceRatesI
   getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
@@ -21,8 +24,11 @@ interface TokenPrice {
 
 export function useTokenPrice (): TokenPrice {
   const { network } = useNetworkContext()
+  const client = useWhaleApiClient()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
+  // TODO add logic here for setting to token id
+  const toTokenId = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, 'dUSDT'))?.id
   const graph: GraphProps[] = useMemo(() => pairs.map(pair => {
     return {
       pairId: pair.data.id,
@@ -30,6 +36,24 @@ export function useTokenPrice (): TokenPrice {
       b: pair.data.tokenB.symbol
     }
   }), [pairs])
+
+  const getNewTokenPrice = async (fromTokenId: string, amount: BigNumber, isLPS: boolean = false): Promise<BigNumber> => {
+    if (toTokenId !== undefined) {
+      if (fromTokenId === toTokenId || new BigNumber(amount).isZero()) {
+        return new BigNumber(amount)
+      }
+      const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${fromTokenId}`
+      const result = CacheApi.get(key)
+      if (result !== undefined) {
+        return new BigNumber(result).multipliedBy(amount)
+      }
+      const from = fromTokenId === '0_unified' ? '0' : fromTokenId
+      const { estimatedReturn } = await client.poolpairs.getBestPath(from, toTokenId)
+      CacheApi.set(key, estimatedReturn)
+      return new BigNumber(estimatedReturn).multipliedBy(amount)
+    }
+    return new BigNumber('')
+  }
 
   /**
    * @param symbol {string} token symbol
@@ -128,6 +152,7 @@ export function useTokenPrice (): TokenPrice {
   return {
     getTokenPrice,
     calculatePriceRates,
-    getArbitraryPoolPair
+    getArbitraryPoolPair,
+    getNewTokenPrice
   }
 }
