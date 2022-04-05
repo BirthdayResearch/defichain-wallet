@@ -1806,7 +1806,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you’re minting new dTokens and when you are withdrawing collateral from your vault.
+                      The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.
                     </Text>
                   </View>
                 </View>
