@@ -271,7 +271,7 @@ export function PaybackLoanScreen ({
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-gray-800')}
-        style={tailwind('pb-4 flex flex-col')}
+        style={tailwind('pb-4 flex flex-col flex-1')}
       >
         {
           isFeatureAvailable('dfi_loan_payment') && paymentTokensWithAmount.length > 1 &&
@@ -642,9 +642,9 @@ function TransactionDetailsSection ({
           lhsThemedProps={rowStyle.lhsThemedProps}
           rhsThemedProps={rowStyle.rhsThemedProps}
           containerStyle={{
-            style: tailwind('rounded-b border-none p-4 flex-row items-start w-full'),
-            dark: tailwind('bg-gray-800 border-b border-gray-700'),
-            light: tailwind('bg-white border-b border-gray-200')
+            style: tailwind('rounded-b p-4 flex-row items-start w-full'),
+            dark: tailwind('bg-gray-800'),
+            light: tailwind('bg-white')
           }}
         />
       </View>

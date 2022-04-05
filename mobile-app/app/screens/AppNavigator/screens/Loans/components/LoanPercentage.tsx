@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import BigNumber from 'bignumber.js'
 import * as Progress from 'react-native-progress'
 import NumberFormat from 'react-number-format'
@@ -31,7 +32,10 @@ export function LoanPercentage ({
     dark: tailwind('text-gray-400')
   }
   return (
-    <View style={tailwind('mx-4 mt-2 pt-1')}>
+    <View style={tailwind('mx-4 pt-1', {
+      'mt-4': Platform.OS !== 'web'
+    })}
+    >
       <Text style={tailwind('mb-4')}>
         <ThemedText {...textStyle}>{`${translate('screens/PaybackLoanScreen', 'You are paying')} `}</ThemedText>
         <NumberFormat
