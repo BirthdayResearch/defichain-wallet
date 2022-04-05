@@ -261,7 +261,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [navigation, dispatch, isEncrypted])
+  }, [navigation, dispatch, isEncrypted, addressBook])
 
   return (
     <ThemedFlatList
