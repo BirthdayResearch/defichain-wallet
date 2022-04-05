@@ -1,41 +1,57 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { StackScreenProps } from '@react-navigation/stack'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { useCallback } from 'react'
 import NumberFormat from 'react-number-format'
 import tailwind from 'tailwind-rn'
+import { BalanceParamList } from '../BalancesNavigator'
 
-interface FutureSwap {
+export interface FutureSwap {
   dueDate: Date
   tokenAmount: BigNumber
   tokenDisplaySymbol: string
   toLoanToken: boolean
+  executionBlock: number
 }
 
-export function FutureSwapScreen (): JSX.Element {
+type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
+
+export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const mockData: FutureSwap[] = [
     {
       dueDate: new Date(),
       tokenAmount: new BigNumber(123),
       tokenDisplaySymbol: 'DUSD',
-      toLoanToken: true
+      toLoanToken: true,
+      executionBlock: 20160
     },
     {
       dueDate: new Date(),
       tokenAmount: new BigNumber(456),
       tokenDisplaySymbol: 'dTSLA',
-      toLoanToken: false
+      toLoanToken: false,
+      executionBlock: 20160
     }
   ]
 
+  const onPress = (item: FutureSwap): void => {
+    navigation.navigate({
+      name: 'FutureSwapDetailScreen',
+      params: {
+        futureSwap: item
+      }
+    })
+  }
+
   const FutureSwapListItem = useCallback(({
-    item,
-    index
-  }: { item: FutureSwap, index: number }): JSX.Element => {
+    item
+  }: { item: FutureSwap }): JSX.Element => {
     return (
       <ThemedTouchableOpacity
         style={tailwind('py-3 pl-4 pr-2 items-center justify-between flex flex-row')}
+        onPress={() => onPress(item)}
       >
         <View style={tailwind('flex flex-row items-center')}>
           <ThemedIcon
