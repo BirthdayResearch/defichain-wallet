@@ -171,7 +171,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
           <WalletCounterDisplay addressLength={addresses.length} />
-          <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />
+          {addresses.length > 0 &&
+            <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />}
         </View>
       </ThemedView>
     )
