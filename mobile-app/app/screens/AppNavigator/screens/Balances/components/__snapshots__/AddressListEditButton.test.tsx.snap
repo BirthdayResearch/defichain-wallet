@@ -19,7 +19,7 @@ exports[`Address List Edit Button should match snapshot 1`] = `
       "opacity": 1,
     }
   }
-  testID="edit_address_label_button"
+  testID="address_list_edit_button"
 >
   <Text />
   <Text
