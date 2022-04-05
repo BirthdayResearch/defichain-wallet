@@ -88,7 +88,7 @@ export function LoansFaq ({ route }: Props): JSX.Element {
     {
       title: translate('components/LoansFaq', 'What is vault share?'),
       content: [{
-        text: translate('components/LoansFaq', 'The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you’re minting new dTokens and when you are withdrawing collateral from your vault.'),
+        text: translate('components/LoansFaq', 'The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you\'re minting new dTokens and when you are withdrawing collateral from your vault.'),
         type: 'paragraph'
       }]
     },
