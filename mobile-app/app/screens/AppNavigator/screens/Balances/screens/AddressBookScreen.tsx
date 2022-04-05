@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootState, useAppDispatch } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { LabeledAddress, removeFromAddressBook, setAddressBook, setUserPreferences } from '@store/userPreferences'
+import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useMemo, useState } from 'react'
@@ -98,12 +98,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     },
                     onSaveButtonPress: (labelAddress: LabeledAddress) => {
                       dispatch(setAddressBook(labelAddress)).then(() => {
-                        const addresses = { ...addressBook, ...labelAddress }
                         dispatch(setUserPreferences({
                           network,
                           preferences: {
                             ...userPreferences,
-                            addressBook: addresses
+                            addressBook: labelAddress
                           }
                         }))
                       })
@@ -191,13 +190,13 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               title: 'Add new address',
               isAddNew: true,
               onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                dispatch(setAddressBook(labelAddress)).then(() => {
-                  const addresses = { ...addressBook, ...labelAddress }
+                const _addressBook = { ...addressBook, ...labelAddress }
+                dispatch(setAddressBook(_addressBook)).then(() => {
                   dispatch(setUserPreferences({
                     network,
                     preferences: {
                       ...userPreferences,
-                      addressBook: addresses
+                      addressBook: _addressBook
                     }
                   }))
                 })
@@ -244,7 +243,16 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        dispatch(removeFromAddressBook(address))
+        const { [address]: _, ..._addressBook } = addressBook
+        dispatch(setAddressBook(_addressBook)).then(() => {
+          dispatch(setUserPreferences({
+            network,
+            preferences: {
+              ...userPreferences,
+              addressBook: _addressBook
+            }
+          }))
+        })
         setIsEditing(false)
       },
       onError: e => logger.error(e),

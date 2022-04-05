@@ -189,8 +189,8 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
                 index: index + 1,
                 type: 'edit',
                 onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                  dispatch(setAddresses(labelAddress)).then(() => {
-                    const addresses = { ...labeledAddresses, ...labelAddress }
+                  const addresses = { ...labeledAddresses, ...labelAddress }
+                  dispatch(setAddresses(addresses)).then(() => {
                     dispatch(setUserPreferences({
                       network,
                       preferences: {

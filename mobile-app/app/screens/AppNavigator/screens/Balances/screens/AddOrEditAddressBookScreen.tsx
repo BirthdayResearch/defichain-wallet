@@ -11,7 +11,6 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
-import { removeFromAddressBook } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
@@ -85,6 +84,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
     return false
   }
 
+  // Passcode prompt
   const dispatch = useDispatch()
   const { data: { type: encryptionType } } = useWalletNodeContext()
   const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
@@ -101,18 +101,23 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        onSaveButtonPress({
+        const _addressBook = {
+          ...addressBook,
           [addressInput]: {
-            label: labelInput.trim(),
+            label: labelInput,
             isMine: false
           }
-        })
+        }
+
         if (!isAddNew &&
           address !== undefined &&
           address !== addressInput.trim()
         ) {
           // delete current address if changing to a new address during edit
-          dispatch(removeFromAddressBook(address))
+          const { [address]: _, ...newAddressBook } = _addressBook
+          onSaveButtonPress(newAddressBook)
+        } else {
+          onSaveButtonPress(_addressBook)
         }
         navigation.pop()
       },
@@ -122,7 +127,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [navigation, dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
+  }, [navigation, dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress, addressBook])
 
   useLayoutEffect(() => {
     navigation.setOptions({
