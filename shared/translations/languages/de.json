@@ -254,7 +254,8 @@
     "device's lock": "Gerätesperre",
     "biometric": "biometrische",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
-    "Sign to save address": "Freigeben, um Adresse zu speichern"
+    "Sign to save address": "Freigeben, um Adresse zu speichern",
+    "Sign to delete address": "Freigeben, um Adresse zu löschen"
   },
   "screens/AboutScreen": {
     "About": "Über",
