@@ -11,6 +11,13 @@ import { TouchableOpacity } from 'react-native'
 import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
 import { BalanceText } from './BalanceText'
 import { useState } from 'react'
+import { ButtonGroup } from '../../Dex/components/ButtonGroup'
+
+export enum PortfolioButtonGroupTabKey {
+  USD = 'USD',
+  DFI = 'DFI',
+  BTC = 'BTC'
+}
 
 interface TotalPortfolioProps {
   totalAvailableUSDValue: BigNumber
@@ -18,6 +25,16 @@ interface TotalPortfolioProps {
   totalLoansUSDValue: BigNumber
   onToggleDisplayBalances: () => Promise<void>
   isBalancesDisplayed: boolean
+  portfolioButtonGroupOptions?: {
+    onPortfolioButtonGroupPress: (key: PortfolioButtonGroupTabKey) => void
+    activePortfolioButtonGroup: string
+    setActivePortfolioButtonGroup: (key: PortfolioButtonGroupTabKey) => void
+  }
+  portfolioButtonGroup: Array<{
+    id: PortfolioButtonGroupTabKey
+    label: string
+    handleOnPress: () => void
+  }>
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
@@ -29,11 +46,11 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-white')}
       dark={tailwind('bg-gray-800')}
-      style={tailwind('m-4 mb-2 p-4 rounded-lg')}
+      style={tailwind('m-4 mb-2 px-4 pb-4 pt-2 rounded-lg')}
       testID='total_portfolio_card'
     >
-      <View style={tailwind('flex flex-row justify-between items-center w-full')}>
-        <View style={tailwind('w-10/12 flex-grow')}>
+      <View style={tailwind('justify-evenly')}>
+        <View style={tailwind('flex flex-row items-center py-1')}>
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
@@ -41,73 +58,91 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           >
             {translate('screens/BalancesScreen', 'Total Portfolio Value')}
           </ThemedText>
+          <View style={tailwind('px-2')}>
+            <ThemedTouchableOpacity
+              testID='toggle_balance'
+              light={tailwind('bg-transparent border-gray-200')}
+              dark={tailwind('bg-transparent border-gray-700')}
+              onPress={props.onToggleDisplayBalances}
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500')}
+                name={`${props.isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
+                size={18}
+                testID='toggle_usd_breakdown_icon'
+              />
+            </ThemedTouchableOpacity>
+          </View>
           {
-            (hasFetchedToken && hasFetchedVaultsData)
-              ? (
-                <View style={tailwind('flex flex-row justify-start items-center flex-wrap mr-2 w-full')}>
-                  <NumberFormat
-                    displayType='text'
-                    prefix='$'
-                    renderText={(value) =>
-                      <BalanceText
-                        dark={tailwind('text-gray-200')}
-                        light={tailwind('text-black')}
-                        style={tailwind('flex-wrap text-2xl font-bold max-w-3/4')}
-                        testID='total_usd_amount'
-                        value={value}
-                      />}
-                    thousandSeparator
-                    value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
-                  />
-                  <TouchableOpacity
-                    onPress={() => setIsExpanded(!isExpanded)}
-                    style={tailwind('flex flex-row')}
-                    testID='toggle_portfolio'
-                  >
-                    <ThemedIcon
-                      light={tailwind('text-primary-500')}
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      name={!isExpanded ? 'expand-more' : 'expand-less'}
-                      size={30}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )
-              : (
-                <View style={tailwind('mt-1')}>
-                  <TextSkeletonLoader
-                    viewBoxWidth='260'
-                    viewBoxHeight='34'
-                    textWidth='180'
-                    textHeight='23'
-                    textVerticalOffset='4'
-                    iContentLoaderProps={{
-                      height: '34',
-                      testID: 'total_portfolio_skeleton_loader'
-                    }}
-                  />
-                </View>
-              )
-            }
+            props.portfolioButtonGroupOptions !== undefined &&
+            (
+              <View style={{ marginLeft: 'auto' }}>
+                <ButtonGroup
+                  buttons={props.portfolioButtonGroup}
+                  activeButtonGroupItem={props.portfolioButtonGroupOptions.activePortfolioButtonGroup}
+                  modalStyle={tailwind('text-xs text-center')}
+                  testID='portfolio_button_group'
+                  lightThemeStyle={tailwind('bg-white')}
+                  modalButtonGroupStyle={tailwind('px-2.5 py-1 rounded  break-words justify-center')}
+                  modalLightActiveStyle={tailwind('bg-white')}
+                  modalDarkActiveStyle={tailwind('bg-gray-800')}
+                />
+              </View>
+            )
+          }
         </View>
-        <ThemedTouchableOpacity
-          testID='toggle_balance'
-          light={tailwind('bg-transparent border-gray-200')}
-          dark={tailwind('bg-transparent border-gray-700')}
-          style={tailwind('p-1.5 border rounded text-center')}
-          onPress={props.onToggleDisplayBalances}
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            name={`${props.isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
-            size={20}
-            testID='toggle_usd_breakdown_icon'
-          />
-        </ThemedTouchableOpacity>
       </View>
+      {
+        (hasFetchedToken && hasFetchedVaultsData)
+          ? (
+            <View style={tailwind('flex flex-row')}>
+              <NumberFormat
+                displayType='text'
+                prefix='$'
+                renderText={(value) =>
+                  <BalanceText
+                    dark={tailwind('text-gray-200')}
+                    light={tailwind('text-black')}
+                    style={tailwind('flex-wrap text-2xl font-bold max-w-3/4')}
+                    testID='total_usd_amount'
+                    value={value}
+                  />}
+                thousandSeparator
+                value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
+              />
+              <TouchableOpacity
+                onPress={() => setIsExpanded(!isExpanded)}
+                style={tailwind('flex flex-row')}
+                testID='toggle_portfolio'
+              >
+                <ThemedIcon
+                  light={tailwind('text-primary-500')}
+                  dark={tailwind('text-darkprimary-500')}
+                  iconType='MaterialIcons'
+                  name={!isExpanded ? 'expand-more' : 'expand-less'}
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
+          )
+          : (
+            <View style={tailwind('mt-1')}>
+              <TextSkeletonLoader
+                viewBoxWidth='260'
+                viewBoxHeight='34'
+                textWidth='180'
+                textHeight='23'
+                textVerticalOffset='4'
+                iContentLoaderProps={{
+                  height: '34',
+                  testID: 'total_portfolio_skeleton_loader'
+                }}
+              />
+            </View>
+          )
+      }
       {
         isExpanded &&
           <ThemedView

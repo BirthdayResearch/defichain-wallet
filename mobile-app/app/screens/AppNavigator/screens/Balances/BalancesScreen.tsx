@@ -18,7 +18,7 @@ import { translate } from '@translations'
 import { Platform, RefreshControl, View } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
-import { TotalPortfolio } from './components/TotalPortfolio'
+import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
@@ -142,9 +142,37 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       })
   }, [getTokenPrice, tokens])
 
-  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
+  // portfolio tab items
+  const [activePortfolioButtonGroup, setActivePortfolioButtonGroup] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USD)
+  const handlePortfolioButtonFilter = useCallback((portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey) => {
+    // TODO: logic to call respective currency from whale API
+    // setPortfolioCurrencyTab(currencySelected) // TODO: set currency from logic
+  }, [])
 
-  // tab items
+  const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
+    setActivePortfolioButtonGroup(portfolioButtonGroupTabKey)
+    handlePortfolioButtonFilter(portfolioButtonGroupTabKey)
+  }
+  const portfolioButtonGroup = [
+    {
+      id: PortfolioButtonGroupTabKey.USD,
+      label: translate('screens/TotalPortfolio', 'USD'),
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USD)
+    },
+    {
+      id: PortfolioButtonGroupTabKey.DFI,
+      label: translate('screens/BalancesScreen', 'DFI'),
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.DFI)
+    },
+    {
+      id: PortfolioButtonGroupTabKey.BTC,
+      label: translate('screens/BalancesScreen', 'BTC'),
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.BTC)
+    }
+  ]
+
+  // token tab items
+  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filterTokens = dstTokens.filter((dstToken) => {
@@ -183,7 +211,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         new BigNumber(0))
   }, [vaults])
 
-  // to update filter list from selected tab
+  // to update filter list from selected currency tab
+  useEffect(() => {
+    handlePortfolioButtonFilter(activePortfolioButtonGroup)
+  }, [activePortfolioButtonGroup])
+
+  // to update filter list from selected token tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
   }, [activeButtonGroup, dstTokens])
@@ -270,8 +303,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           totalLoansUSDValue={totalLoansUSDValue}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
+          portfolioButtonGroupOptions={{
+            activePortfolioButtonGroup: activePortfolioButtonGroup,
+            setActivePortfolioButtonGroup: setActivePortfolioButtonGroup,
+            onPortfolioButtonGroupPress: handlePortfolioButtonFilter
+          }}
+          portfolioButtonGroup={portfolioButtonGroup}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
+        {/*  pass selected currency tab props to DFI  */}
         <DFIBalanceCard />
         {!hasFetchedToken
           ? (
