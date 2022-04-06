@@ -123,7 +123,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedFlatList
-      keyExtractor={(item) => item}
+      keyExtractor={(item) => item.txId}
       data={mockData}
       renderItem={FutureSwapListItem}
       ListHeaderComponent={
