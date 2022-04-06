@@ -35,7 +35,7 @@
     "ADD MORE": "HINZUFÜGEN",
     "No active pool pairs": "Keine aktiven Pool-Paare",
     "Supply liquidity pool tokens to earn high yields": "Liquiditätspool-Token bereitstellen, um hohe Renditen zu erzielen",
-    "Total liquidity (USD)":"Gesamtliquidität (USD)",
+    "Total liquidity (USD)": "Gesamtliquidität (USD)",
     "Browse pool pairs": "Alle Pool-Paare",
     "Your pool pairs": "Deine Pool-Paare",
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
@@ -125,7 +125,7 @@
     "Sending {{amount}} {{symbol}}": "Sende {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
     "Convert & send": "Umrechnen & senden",
-    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-Walletadressen. Das Senden an eine Börse oder eine zentrale Einrichtung führt zu einem unwiederbringlichen Verlust der Einlagen.",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange (except DFX) or a central entity will result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-Walletadressen. Das Senden an eine Börse (bis auf DFX) oder eine zentrale Einrichtung führt zu einem unwiederbringlichen Verlust der Einlagen.",
     "Transaction type": "Transaktionsart",
     "Amount to send": "Zu sendender Betrag"
   },
@@ -706,7 +706,7 @@
     "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Nachdem du dich entschieden hast, welches Pool-Paar du mit Liquidität versorgen möchtest, klickst du auf LIQUIDITÄT HINZUFÜGEN und gibst den Betrag für einen der Token in dem Paar ein.\n\nSobald ein Betrag auf einer Seite des Paares eingegeben wurde, gleicht die App den Betrag der anderen Seite automatisch entsprechend dem Verhältnis der aktuellen Liquidität im Pool aus.",
     "How do I send tokens from my DFI wallet?": "Wie versende ich Token von meiner DFI-Wallet?",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt.\n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse oder DFX gesendet werden.",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt.\n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse oder DFX gesendet werden.",
     "What are some exchanges and platforms I can send to?": "Welche Börsen und Plattformen gibt es, an die ich senden kann?",
     "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nMehr ansehen auf DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
@@ -735,7 +735,7 @@
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "Eine Konvertierung ist erforderlich. Zur Freigabe der beiden Transaktionen bitte jeweils das Passwort eingeben.",
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar.",
-    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen zu einem irreversiblen Verlust von Einlagen führen."
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen (bis auf DFX) zu einem irreversiblen Verlust von Einlagen führen."
   },
   "components/ConversionTag": {
     "Conversion required": "Konvertierung erforderlich"

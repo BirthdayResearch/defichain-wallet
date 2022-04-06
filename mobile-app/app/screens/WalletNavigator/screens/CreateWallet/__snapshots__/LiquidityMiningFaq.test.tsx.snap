@@ -436,8 +436,8 @@ Once an amount is entered on one side of the pair, the app automatically balance
                       }
                     >
                       Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.
-
-Similarly, liquidity tokens can only be sent to another DFI wallet address or DFX.
+                      
+                      Similarly, liquidity tokens can only be sent to another DFI wallet address or DFX.
                     </Text>
                   </View>
                 </View>
