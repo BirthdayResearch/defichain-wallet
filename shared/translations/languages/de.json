@@ -84,7 +84,8 @@
     "dTokens": "dToken",
     "(From highest value)": "(vom höchsten Wert an)",
     "(From lowest value)": "(vom niedrigsten Wert aus)",
-    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet."
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
+    "loans": "darlehen"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -99,7 +100,9 @@
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein"
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
+    "Empty address book": "Leeres Adressbuch",
+    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -250,7 +253,9 @@
     "Touch ID": "Touch ID",
     "device's lock": "Gerätesperre",
     "biometric": "biometrische",
-    "Enter passcode to continue": "Passwort eingeben, um fortzufahren"
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
+    "Sign to save address": "Freigeben, um Adresse zu speichern",
+    "Sign to delete address": "Freigeben, um Adresse zu löschen"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -1138,9 +1143,17 @@
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
     "Insufficient {{token}} to pay for the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
-    "Select payment token": "Token für die Zahlung auswählen",
-    "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
-    "Read more": "Mehr dazu"
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Wenn du mit {{tokenSymbol}} bezahlst, wird eine Gebühr von 1% erhoben",
+    "Read more": "Mehr dazu",
+    "How do you want to pay?": "Wie möchtest du tilgen?",
+    "You are paying": "Du tilgst",
+    "of total loan": "des Gesamtdarlehens",
+    "Loan amount": "Höhe des Darlehens",
+    "Min. col. ratio": "Mind. Besicherungsquote",
+    "Total loan (USD)": "Gesamtdarlehen (USD)",
+    "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
+    "Loan remaining": "Verbleibendes Darlehen",
+    "{{paymentToken}} payment fee": "{{paymentToken}}-Zahlungsgebühr"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "RÜCKZAHLUNG BESTÄTIGEN",
@@ -1156,8 +1169,8 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}}",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}).",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}}",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
     "Resulting collateralization": "Resultierende Besicherungsquote"
   },

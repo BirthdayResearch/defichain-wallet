@@ -28,7 +28,8 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionParam } from '../../Balances/BalancesNavigator'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
-import { PaymentTokenProps } from './PaybackLoanScreen'
+import { PaymentTokenProps } from '../hooks/LoanPaymentTokenRate'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmPaybackLoanScreen'>
 
@@ -38,21 +39,26 @@ export function ConfirmPaybackLoanScreen ({
 }: Props): JSX.Element {
   const {
     vault,
-    amountToPay,
-    amountToPayInSelectedToken,
+    amountToPayInLoanToken,
+    amountToPayInPaymentToken,
+    selectedPaymentTokenBalance,
+    loanTokenBalance,
     paymentToken,
     fee,
     loanTokenAmount,
     excessAmount,
     resultingColRatio,
-    conversion
+    conversion,
+    paymentPenalty
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useDispatch()
   const logger = useLogger()
   const { address } = useWalletContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const client = useWhaleApiClient()
+  const isDUSDPaymentEnabled = isFeatureAvailable('dusd_loan_payment')
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
   function onCancel (): void {
@@ -70,9 +76,13 @@ export function ConfirmPaybackLoanScreen ({
     await paybackLoanToken({
       vaultId: vault.vaultId,
       loanToken: loanTokenAmount,
-      amountToPay,
-      amountToPayInSelectedToken,
-      paymentToken
+      amountToPayInLoanToken,
+      amountToPayInPaymentToken,
+      selectedPaymentTokenBalance,
+      loanTokenBalance,
+      paymentToken,
+      paymentPenalty,
+      isDUSDPaymentEnabled
     }, dispatch, () => {
       onTransactionBroadcast(isOnPage, navigation.dispatch)
     }, () => {
@@ -100,18 +110,21 @@ export function ConfirmPaybackLoanScreen ({
   return (
     <ThemedScrollView>
       <SummaryHeader
-        amount={new BigNumber(amountToPay)}
+        amount={new BigNumber(amountToPayInLoanToken)}
         displaySymbol={loanTokenAmount.displaySymbol}
-        amountToPayInSelectedToken={amountToPayInSelectedToken}
+        amountToPayInPaymentToken={amountToPayInPaymentToken}
         paymentToken={paymentToken}
       />
       <SummaryTransactionDetails
-        amountToPay={amountToPay}
+        amountToPayInLoanToken={amountToPayInLoanToken}
+        amountToPayInPaymentToken={amountToPayInPaymentToken}
         displaySymbol={loanTokenAmount.displaySymbol}
         fee={fee}
         vault={vault}
-        outstandingBalance={BigNumber.max(new BigNumber(loanTokenAmount.amount).minus(amountToPay), 0)}
+        outstandingBalance={BigNumber.max(new BigNumber(loanTokenAmount.amount).minus(amountToPayInLoanToken), 0)}
         excessAmount={excessAmount}
+        paymentPenalty={paymentPenalty}
+        paymentTokenDisplaySymbol={paymentToken.tokenDisplaySymbol}
       />
       <SummaryVaultDetails
         vault={vault}
@@ -140,7 +153,7 @@ export function ConfirmPaybackLoanScreen ({
   )
 }
 
-function SummaryHeader (props: { amount: BigNumber, paymentToken: PaymentTokenProps, amountToPayInSelectedToken: BigNumber, displaySymbol: string, conversion?: ConversionParam }): JSX.Element {
+function SummaryHeader (props: { amount: BigNumber, paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>, amountToPayInPaymentToken: BigNumber, displaySymbol: string, conversion?: ConversionParam }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -148,7 +161,7 @@ function SummaryHeader (props: { amount: BigNumber, paymentToken: PaymentTokenPr
       style={tailwind('flex-col px-4 py-8')}
     >
       <SummaryTitle
-        amount={props.amountToPayInSelectedToken}
+        amount={props.amountToPayInPaymentToken}
         suffix={props.paymentToken.tokenDisplaySymbol}
         suffixType='text'
         testID='text_payment_amount'
@@ -184,12 +197,15 @@ function SummaryHeader (props: { amount: BigNumber, paymentToken: PaymentTokenPr
 }
 
 interface SummaryTransactionDetailsProps {
-  amountToPay: BigNumber
+  amountToPayInLoanToken: BigNumber
+  amountToPayInPaymentToken: BigNumber
   outstandingBalance: BigNumber
   displaySymbol: string
   fee: BigNumber
   vault: LoanVaultActive
   excessAmount?: BigNumber
+  paymentPenalty: BigNumber
+  paymentTokenDisplaySymbol: string
 }
 
 function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.Element {
@@ -210,10 +226,10 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
       <NumberRow
         lhs={translate('screens/ConfirmPaybackLoanScreen', 'Amount to pay')}
         rhs={{
-          value: props.amountToPay.toFixed(8),
+          value: props.amountToPayInPaymentToken.toFixed(8),
           testID: 'tokens_to_pay',
           suffixType: 'text',
-          suffix: props.displaySymbol
+          suffix: props.paymentTokenDisplaySymbol
         }}
       />
       {props.excessAmount !== undefined &&
@@ -224,7 +240,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
               value: props.excessAmount.toFixed(8),
               testID: 'text_excess_amount',
               suffixType: 'text',
-              suffix: props.displaySymbol
+              suffix: props.paymentTokenDisplaySymbol
             }}
           />
         )}
@@ -237,6 +253,16 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: props.displaySymbol
         }}
       />
+      {props.paymentPenalty.gt(0) &&
+        <NumberRow
+          lhs={translate('screens/PaybackLoanScreen', '{{paymentToken}} payment fee', { paymentToken: props.paymentTokenDisplaySymbol })}
+          rhs={{
+            value: BigNumber.max(props.paymentPenalty, 0).toFixed(8),
+            testID: 'text_resulting_payment_penalty',
+            suffixType: 'text',
+            suffix: props.paymentTokenDisplaySymbol
+          }}
+        />}
       <FeeInfoRow
         type='ESTIMATED_FEE'
         value={props.fee.toFixed(8)}
@@ -297,45 +323,65 @@ function SummaryVaultDetails (props: { vault: LoanVaultActive, resultingColRatio
 
 interface PaybackForm {
   vaultId: string
-  amountToPay: BigNumber
-  amountToPayInSelectedToken: BigNumber
-  paymentToken: PaymentTokenProps
+  amountToPayInLoanToken: BigNumber
+  amountToPayInPaymentToken: BigNumber
+  selectedPaymentTokenBalance: BigNumber
+  loanTokenBalance: BigNumber
+  paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
   loanToken: LoanVaultTokenAmount
+  paymentPenalty: BigNumber
+  isDUSDPaymentEnabled: boolean
 }
 
 async function paybackLoanToken ({
   vaultId,
-  amountToPay,
-  amountToPayInSelectedToken,
+  amountToPayInLoanToken,
+  amountToPayInPaymentToken,
+  selectedPaymentTokenBalance,
+  loanTokenBalance,
   paymentToken,
-  loanToken
+  loanToken,
+  paymentPenalty,
+  isDUSDPaymentEnabled
 }: PaybackForm, dispatch: Dispatch<any>, onBroadcast: () => void, onConfirmation: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const script = await account.getScript()
       const builder = account.withTransactionBuilder()
-      const signed = await builder.loans.paybackLoan({
-        vaultId: vaultId,
-        from: script,
-        tokenAmounts: [{
-          token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
-          amount: amountToPayInSelectedToken
-        }]
-      }, script)
+      const signed = isDUSDPaymentEnabled
+        ? await builder.loans.paybackLoanV2({
+          vaultId: vaultId,
+          from: script,
+          loans: [{
+            dToken: +loanToken.id,
+            amounts: [{
+              token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
+              amount: BigNumber.min(selectedPaymentTokenBalance, amountToPayInPaymentToken.plus(paymentPenalty))
+            }]
+          }]
+        }, script)
+        : await builder.loans.paybackLoan({
+          vaultId: vaultId,
+          from: script,
+          tokenAmounts: [{
+            token: paymentToken.tokenId === '0_unified' ? 0 : +paymentToken.tokenId,
+            amount: BigNumber.min(selectedPaymentTokenBalance, amountToPayInPaymentToken.plus(paymentPenalty))
+          }]
+        }, script)
       return new CTransactionSegWit(signed)
     }
 
     const textToTranslate =
       paymentToken.tokenDisplaySymbol === loanToken.displaySymbol
-        ? 'Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.'
-        : 'Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.'
+        ? 'Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.'
+        : 'Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.'
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmPaybackLoanScreen', 'Paying loan'),
       description: translate('screens/ConfirmPaybackLoanScreen', textToTranslate, {
-        amountToPay: amountToPay.toFixed(8),
-        amountToPayInSelectedToken: amountToPayInSelectedToken.toFixed(8),
+        amountToPayInLoanToken: BigNumber.min(loanTokenBalance, amountToPayInLoanToken).toFixed(8),
+        amountToPayInPaymentToken: BigNumber.min(selectedPaymentTokenBalance, amountToPayInPaymentToken).toFixed(8),
         symbol: loanToken.displaySymbol,
         paymentSymbol: paymentToken.tokenDisplaySymbol
       }),

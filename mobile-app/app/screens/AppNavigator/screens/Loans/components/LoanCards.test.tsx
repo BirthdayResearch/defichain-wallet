@@ -134,6 +134,7 @@ describe('loan cards', () => {
           interestValue: '1'
         }],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: false,
         hasFetchedVaultsData: false,
         hasFetchedLoanSchemes: true,

@@ -84,7 +84,8 @@
     "dTokens": "dTokens",
     "(From highest value)": "(valeurs décroissantes)",
     "(From lowest value)": "(valeurs croissantes)",
-    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle."
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle.",
+    "loans": "prêts"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -99,7 +100,9 @@
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Please enter a unique address": "Veuillez donner une adresse unique"
+    "Please enter a unique address": "Veuillez donner une adresse unique",
+    "Empty address book": "Carnet d'adresses vide",
+    "Add your preferred address": "Ajoutez votre adresse préférée"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier l'étiquette d'adresse",
@@ -258,7 +261,9 @@
     "Touch ID": "Touch ID",
     "device's lock": "Verrouillage de l'appareil",
     "biometric": "biométrique",
-    "Enter passcode to continue": "Entrez le code d'accès pour continuer"
+    "Enter passcode to continue": "Entrez le code d'accès pour continuer",
+    "Sign to save address": "Signer pour sauvegarder l'adresse",
+    "Sign to delete address": "Signer pour supprimer l'adresse"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -1148,8 +1153,17 @@
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
-    "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
-    "Read more": "En savoir plus"
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 1% sont appliqués quand vous payez en {{tokenSymbol}}",
+    "Read more": "En savoir plus",
+    "How do you want to pay?": "Comment voulez-vous rembourser?",
+    "You are paying": "Vous remboursez",
+    "of total loan": "de l'emprunt total",
+    "Loan amount": "Montant du prêt",
+    "Min. col. ratio": "Ratio de garantie min.",
+    "Total loan (USD)": "Emprunt total (USD)",
+    "Total collateral (USD)": "Valeur totale de la garantie (USD)",
+    "Loan remaining": "Emprunt restant",
+    "{{paymentToken}} payment fee": "Frais de paiement {{paymentToken}}"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
@@ -1165,8 +1179,8 @@
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Paying loan": "Rembourser le prêt",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} en remboursement du prêt.",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
     "Resulting collateralization": "Garantie correspondante"
   },

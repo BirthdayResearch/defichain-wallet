@@ -161,6 +161,7 @@ describe('balances page', () => {
           }
         ],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: false,
         hasFetchedVaultsData: true,
         hasFetchedLoanSchemes: true,
@@ -272,6 +273,7 @@ describe('balances page', () => {
           }
         ],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: false,
         hasFetchedVaultsData: true,
         hasFetchedLoanSchemes: true,
