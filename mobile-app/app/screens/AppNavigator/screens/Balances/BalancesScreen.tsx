@@ -272,7 +272,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           isBalancesDisplayed={isBalancesDisplayed}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        <FutureSwapCta navigation={navigation} />
+        {/* TODO: replace false flag with condition to check for future swap length */}
+        {false && <FutureSwapCta navigation={navigation} />}
         <DFIBalanceCard />
         {!hasFetchedToken
           ? (
