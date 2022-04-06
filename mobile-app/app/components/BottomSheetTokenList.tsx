@@ -35,6 +35,7 @@ export interface BottomSheetToken {
   available: BigNumber
   token: {
     name: string
+    id: string
     displaySymbol: string
     symbol: string
     isLPS?: boolean

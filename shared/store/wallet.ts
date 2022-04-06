@@ -1,7 +1,7 @@
 
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { AllSwappableTokensResult, PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { AllSwappableTokensResult, PoolPairData, DexPrice } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
@@ -13,11 +13,16 @@ export interface SwappableTokens {
   [key: string]: AllSwappableTokensResult
 }
 
+interface DexPricesProps {
+  [symbol: string]: DexPrice
+}
+
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
   allTokens: AssociatedToken
   poolpairs: DexItem[]
+  dexPrices: {[symbol: string]: DexPricesProps }
   swappableTokens: SwappableTokens
   hasFetchedPoolpairData: boolean
   hasFetchedToken: boolean
@@ -38,6 +43,7 @@ const initialState: WalletState = {
   tokens: [],
   allTokens: {},
   poolpairs: [],
+  dexPrices: {},
   swappableTokens: {},
   hasFetchedSwappableTokens: false,
   hasFetchedPoolpairData: false,
@@ -110,6 +116,14 @@ export const fetchPoolPairs = createAsyncThunk(
   }
 )
 
+export const fetchDexPrice = createAsyncThunk(
+  'wallet/fetchDexPrice',
+  async ({ client, denomination }: { size?: number, client: WhaleApiClient, denomination: string }): Promise<{dexPrices: DexPricesProps, denomination: string}> => {
+    const { dexPrices } = await client.poolpairs.listDexPrices(denomination)
+    return { dexPrices, denomination }
+  }
+)
+
 export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
   async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
@@ -142,6 +156,9 @@ export const wallet = createSlice({
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
+    })
+    builder.addCase(fetchDexPrice.fulfilled, (state, action: PayloadAction<{dexPrices: DexPricesProps, denomination: string}>) => {
+      state.dexPrices = { ...state.dexPrices, [action.payload.denomination]: action.payload.dexPrices }
     })
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
       state.hasFetchedToken = true

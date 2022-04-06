@@ -58,6 +58,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
           available: new BigNumber(ownedToken === undefined ? 0 : ownedToken.amount),
           token: {
             displaySymbol: token.displaySymbol,
+            id: token.id,
             name: '', // not available in API,
             symbol: token.symbol
           },
@@ -90,6 +91,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
           available: new BigNumber(tokenData?.reserve ?? NaN),
           token: {
             displaySymbol: token.displaySymbol,
+            id: token.id,
             name: '', // not available in API,
             symbol: token.symbol
           },
