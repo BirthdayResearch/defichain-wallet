@@ -1,5 +1,5 @@
 import { View } from '@components'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
@@ -9,11 +9,14 @@ import tailwind from 'tailwind-rn'
 import { BalanceParamList } from '../BalancesNavigator'
 
 export interface FutureSwap {
+  transactionDate: Date
   dueDate: Date
   tokenAmount: BigNumber
-  tokenDisplaySymbol: string
+  fromTokenDisplaySymbol: string
+  toTokenDisplaySymbol: string
   toLoanToken: boolean
   executionBlock: number
+  txId: string
 }
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
@@ -21,18 +24,24 @@ type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const mockData: FutureSwap[] = [
     {
+      transactionDate: new Date(),
       dueDate: new Date(),
       tokenAmount: new BigNumber(123),
-      tokenDisplaySymbol: 'DUSD',
+      fromTokenDisplaySymbol: 'DUSD',
+      toTokenDisplaySymbol: 'dTU10',
       toLoanToken: true,
-      executionBlock: 20160
+      executionBlock: 20160,
+      txId: '441088a44388cc050f70c81d93185c078fbe95b071a23dee91f23b121cbd3b29'
     },
     {
+      transactionDate: new Date(),
       dueDate: new Date(),
       tokenAmount: new BigNumber(456),
-      tokenDisplaySymbol: 'dTSLA',
+      fromTokenDisplaySymbol: 'dTU10',
+      toTokenDisplaySymbol: 'DUSD',
       toLoanToken: false,
-      executionBlock: 20160
+      executionBlock: 20160,
+      txId: '045928316b751e236a3a338c1073a2c7272b47ecc279f27884fd66583991eb02'
     }
   ]
 
@@ -83,7 +92,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
               value={item.tokenAmount.toFixed(8)}
               thousandSeparator
               displayType='text'
-              suffix={` ${item.tokenDisplaySymbol}`}
+              suffix={` ${item.fromTokenDisplaySymbol}`}
               renderText={value =>
                 <ThemedText
                   light={tailwind('text-gray-900')}
@@ -118,13 +127,10 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
       data={mockData}
       renderItem={FutureSwapListItem}
       ListHeaderComponent={
-        <ThemedText
-          style={tailwind('pt-4 pb-2 px-4 text-xs font-medium')}
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-        >
-          {translate('screens/FutureSwapScreen', 'PENDING TRANSACTIONS')}
-        </ThemedText>
+        <ThemedSectionTitle
+          testID='title_future_swap'
+          text={translate('screens/FutureSwapScreen', 'PENDING TRANSACTIONS')}
+        />
       }
       ListFooterComponent={
         <ThemedText
