@@ -213,7 +213,6 @@ exports[`balances page should match snapshot 1`] = `
           Object {
             "display": "flex",
             "flexDirection": "row",
-            "marginBottom": 16,
             "marginLeft": 16,
             "marginRight": 16,
           }
@@ -382,6 +381,7 @@ exports[`balances page should match snapshot 1`] = `
               "marginBottom": 6,
               "marginLeft": 16,
               "marginRight": 16,
+              "marginTop": 16,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
