@@ -142,8 +142,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       })
   }, [getTokenPrice, tokens])
 
+  // storing selected currency in wallet context/asyncstorage or redux
+
   // portfolio tab items
-  const [activePortfolioButtonGroup, setActivePortfolioButtonGroup] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USD)
+  const [activePortfolioButtonGroup, setActivePortfolioButtonGroup] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USD) // get stored tab key from storage
   const handlePortfolioButtonFilter = useCallback((portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey) => {
     // TODO: logic to call respective currency from whale API
     // setPortfolioCurrencyTab(currencySelected) // TODO: set currency from logic
@@ -152,6 +154,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setActivePortfolioButtonGroup(portfolioButtonGroupTabKey)
     handlePortfolioButtonFilter(portfolioButtonGroupTabKey)
+    // store to persistence storage
   }
   const portfolioButtonGroup = [
     {

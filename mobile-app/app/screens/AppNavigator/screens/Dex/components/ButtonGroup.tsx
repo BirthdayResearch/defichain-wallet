@@ -10,9 +10,9 @@ interface ButtonGroupProps {
   modalStyle?: StyleProp<TextStyle>
   lightThemeStyle?: { [key: string]: string }
   darkThemeStyle?: { [key: string]: string }
-  modalButtonGroupStyle?: { [key: string]: string }
-  modalLightActiveStyle?: { [key: string]: string }
-  modalDarkActiveStyle?: { [key: string]: string }
+  portfolioButtonGroupStyle?: { [key: string]: string }
+  portfolioLightActiveStyle?: { [key: string]: string }
+  portfoliolDarkActiveStyle?: { [key: string]: string }
 }
 
 interface Buttons {
@@ -40,9 +40,9 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             key={button.id}
             testID={`${props.testID}_${button.id}`}
             modalStyle={props.modalStyle}
-            modalButtonGroupStyle={props.modalButtonGroupStyle}
-            modalLightActiveStyle={props.modalLightActiveStyle}
-            modalDarkActiveStyle={props.modalDarkActiveStyle}
+            portfolioButtonGroupStyle={props.portfolioButtonGroupStyle}
+            portfolioLightActiveStyle={props.portfolioLightActiveStyle}
+            portfoliolDarkActiveStyle={props.portfoliolDarkActiveStyle}
           />
         ))
       }
@@ -57,25 +57,25 @@ interface ButtonGroupItemProps {
   width: BigNumber
   testID: string
   modalStyle?: StyleProp<TextStyle>
-  modalButtonGroupStyle?: { [key: string]: string }
-  modalLightActiveStyle?: { [key: string]: string }
-  modalDarkActiveStyle?: { [key: string]: string }
+  portfolioButtonGroupStyle?: { [key: string]: string }
+  portfolioLightActiveStyle?: { [key: string]: string }
+  portfoliolDarkActiveStyle?: { [key: string]: string }
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
-      light={tailwind([
+      light={tailwind(
         {
-          'bg-primary-50': props.isActive && (props.modalLightActiveStyle == null)
+          'bg-primary-50': props.isActive && (props.portfolioLightActiveStyle == null)
         },
         {
-          'bg-gray-100': props.isActive && props.modalLightActiveStyle
+          'bg-gray-100': props.isActive && props.portfolioLightActiveStyle
         }
-        ])}
-      dark={props.modalDarkActiveStyle ?? tailwind({ 'bg-darkprimary-50': props.isActive })}
-      style={props.modalButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
+        )}
+      dark={props.portfoliolDarkActiveStyle ?? tailwind({ 'bg-darkprimary-50': props.isActive })}
+      style={props.portfolioButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
       <ThemedText
