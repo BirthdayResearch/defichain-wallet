@@ -41,6 +41,13 @@ import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
+import { ButtonGroup } from '../components/ButtonGroup'
+import { useFutureSwap } from '../hook/FutureSwap'
+
+export enum ButtonGroupTabKey {
+  InstantSwap = 'INSTANT_SWAP',
+  FutureSwap = 'FUTURE_SWAP'
+}
 
 export interface TokenState {
   id: string
@@ -90,8 +97,24 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] = useState(false)
   const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false)
+  const buttonGroup = [
+    {
+      id: ButtonGroupTabKey.InstantSwap,
+      label: translate('screens/CompositeSwapScreen', 'Instant Swap'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.InstantSwap)
+    },
+    {
+      id: ButtonGroupTabKey.FutureSwap,
+      label: translate('screens/CompositeSwapScreen', 'Future Swap'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.FutureSwap)
+    }
+  ]
 
   const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
+  const { isFutureSwapOptionEnabled } = useFutureSwap({
+    fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
+    toTokenDisplaySymbol: selectedTokenB?.displaySymbol
+  })
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
@@ -110,6 +133,9 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       bottomSheetRef.current?.close()
     }
   }, [])
+
+  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+  }
 
   // component UI state
   const {
@@ -402,7 +428,15 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
           />
         </View>
-
+        {isFutureSwapOptionEnabled &&
+          <View style={tailwind('m-4')}>
+            <ButtonGroup
+              buttons={buttonGroup}
+              activeButtonGroupItem={buttonGroup[0].id} // TODO(pierregee): update to dynamic
+              modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
+              testID='swap_button_group'
+            />
+          </View>}
         {(selectedTokenA === undefined || selectedTokenB === undefined) && fromTokens?.length !== 0 &&
           <ThemedText
             dark={tailwind('text-gray-400')}
