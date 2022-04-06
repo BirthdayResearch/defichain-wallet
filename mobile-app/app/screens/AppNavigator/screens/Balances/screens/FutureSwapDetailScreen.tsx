@@ -109,6 +109,7 @@ function TokenIconRow ({ label, displaySymbol }: { label: string, displaySymbol:
     </ThemedView>
   )
 }
+
 function TransactionIdRow ({ transactionId }: { transactionId: string }): JSX.Element {
   const { getTransactionUrl } = useDeFiScanContext()
 
