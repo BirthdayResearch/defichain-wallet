@@ -236,17 +236,17 @@ describe('Token Price - Get Token Price (DEX)', () => {
       })
   })
 
-  // it('should be able to get the token price', async () => {
-  //   const { result } = renderHook(() => useTokenPrice(), { wrapper })
+  it('should be able to get the token price', async () => {
+    const { result } = renderHook(() => useTokenPrice(), { wrapper })
 
-  //   // DFI / BTC * USDT / DFI (reserve)
-  //   // (1000 / 5) * (8300 / 100)
-  //   const btcPrice = await result.current.getTokenPrice('BTC', new BigNumber('1'))
-  //   expect(btcPrice).toStrictEqual(new BigNumber('16600'))
+    // DFI / BTC * USDT / DFI (reserve)
+    // (1000 / 5) * (8300 / 100)
+    const btcPrice = await result.current.getTokenPrice('BTC', new BigNumber('1'))
+    expect(btcPrice).toStrictEqual(new BigNumber('16600'))
 
-  //   // DFI / ETH * USDT / DFI (reserve)
-  //   // (1000 / 100000) * (8300 / 100)
-  //   const ethPrice = await result.current.getTokenPrice('ETH', new BigNumber('1'))
-  //   expect(ethPrice).toStrictEqual(new BigNumber('0.83'))
-  // })
+    // DFI / ETH * USDT / DFI (reserve)
+    // (1000 / 100000) * (8300 / 100)
+    const ethPrice = await result.current.getTokenPrice('ETH', new BigNumber('1'))
+    expect(ethPrice).toStrictEqual(new BigNumber('0.83'))
+  })
 })

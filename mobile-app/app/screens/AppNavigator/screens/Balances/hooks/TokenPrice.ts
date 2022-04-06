@@ -1,9 +1,8 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PoolPairData, BestSwapPathResult } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { useSelector } from 'react-redux'
-import { checkIfPair, findPath, GraphProps } from '@screens/AppNavigator/screens/Dex/helpers/path-finding'
 import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -18,7 +17,7 @@ interface CalculatePriceRatesI {
 interface TokenPrice {
   getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => Promise<BigNumber>
   calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber) => CalculatePriceRatesI
-  getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
+  getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => Promise<PoolPairData[]>
 }
 
 export function useTokenPrice (): TokenPrice {
@@ -28,46 +27,43 @@ export function useTokenPrice (): TokenPrice {
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   // TODO add logic here for setting to token id
   const toTokenId = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, 'dUSDT'))?.id
-  const graph: GraphProps[] = useMemo(() => pairs.map(pair => {
-    return {
-      pairId: pair.data.id,
-      a: pair.data.tokenA.symbol,
-      b: pair.data.tokenB.symbol
-    }
-  }), [pairs])
+
+  const getTokenId = (id: string): string => {
+    return id === '0_unified' || id === '0_utxo' ? '0' : id
+  }
 
   const getTokenPrice = useCallback(async (fromTokenId: string, amount: BigNumber): Promise<BigNumber> => {
     if (toTokenId !== undefined) {
-      const from = fromTokenId === '0_unified' || fromTokenId === '0_utxo' ? '0' : fromTokenId
-      if (from === toTokenId || new BigNumber(amount).isZero()) {
+      if (fromTokenId === toTokenId || new BigNumber(amount).isZero()) {
         return new BigNumber(amount)
       }
-      const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${from}`
-      const result = CacheApi.get(key)
-      if (result !== undefined) {
-        return new BigNumber(result).multipliedBy(amount)
-      }
-      const { estimatedReturn } = await client.poolpairs.getBestPath(from, toTokenId)
-      CacheApi.set(key, estimatedReturn)
+      const { estimatedReturn } = await getBestPath(getTokenId(fromTokenId), getTokenId(toTokenId))
       return new BigNumber(estimatedReturn).multipliedBy(amount)
     }
     return new BigNumber('')
   }, [blockCount])
 
-  const getArbitraryPoolPair = useCallback((tokenASymbol: string, tokenBSymbol: string): PoolPairData[] => {
-    // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
-    const { path } = findPath(graph, tokenASymbol, tokenBSymbol)
-    return path.reduce((poolPairs: PoolPairData[], token, index): PoolPairData[] => {
-      const pair = pairs.find(pair => checkIfPair({
-        a: pair.data.tokenA.symbol,
-        b: pair.data.tokenB.symbol
-      }, token, path[index + 1]))
-      if ((pair == null) || index === path.length) {
+  const getArbitraryPoolPair = useCallback(async (tokenAId: string, tokenBId: string): Promise<PoolPairData[]> => {
+    const { bestPath } = await getBestPath(getTokenId(tokenAId), getTokenId(tokenBId))
+    return bestPath.reduce((poolPairs: PoolPairData[], path, index) => {
+      const pair = pairs.find((eachPair) => eachPair.data.id === path.poolPairId)
+      if (pair === undefined) {
         return poolPairs
       }
       return [...poolPairs, pair.data]
     }, [])
   }, [pairs, blockCount])
+
+  const getBestPath = async (fromTokenId: string, toTokenId: string): Promise<BestSwapPathResult> => {
+    const key = `WALLET.${network}.${blockCount ?? 0}.BEST_PATH_${fromTokenId}_${toTokenId}`
+    const result = CacheApi.get(key)
+    if (result !== undefined) {
+      return result
+    }
+    const bestPathData = await client.poolpairs.getBestPath(fromTokenId, toTokenId)
+    CacheApi.set(key, bestPathData)
+    return bestPathData
+  }
 
   const calculatePriceRates = useCallback((fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber): CalculatePriceRatesI => {
     let lastTokenBySymbol = fromTokenSymbol

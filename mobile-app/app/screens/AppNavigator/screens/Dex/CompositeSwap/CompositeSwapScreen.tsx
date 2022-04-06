@@ -268,11 +268,15 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [route.params.pair, route.params.tokenSelectOption])
 
   useEffect(() => {
+   void getSelectedPoolPairs()
+  }, [selectedTokenA, selectedTokenB])
+
+  const getSelectedPoolPairs = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const poolPairs = getArbitraryPoolPair(selectedTokenA.symbol, selectedTokenB.symbol)
+      const poolPairs = await getArbitraryPoolPair(selectedTokenA.id, selectedTokenB.id)
       setSelectedPoolPairs(poolPairs)
     }
-  }, [selectedTokenA, selectedTokenB])
+  }
 
   useEffect(() => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenAFormAmount !== undefined) {
