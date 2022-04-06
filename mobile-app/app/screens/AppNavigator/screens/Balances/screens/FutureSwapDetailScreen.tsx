@@ -1,12 +1,14 @@
 import { View } from '@components'
 import { NumberRow } from '@components/NumberRow'
+import { SymbolIcon } from '@components/SymbolIcon'
 import { TextRow } from '@components/TextRow'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { Linking, TouchableOpacity } from 'react-native'
+import dayjs from 'dayjs'
+import { Linking, Platform, TouchableOpacity } from 'react-native'
 import { BalanceParamList } from '../BalancesNavigator'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapDetailScreen'>
@@ -29,18 +31,14 @@ export function FutureSwapDetailScreen ({ route }: Props): JSX.Element {
       <TextRow
         lhs={translate('screens/FutureSwapDetailScreen', 'Transaction date')}
         rhs={{
-          value: 'Aug 23, 2022 08:25pm',
+          value: dayjs(futureSwap.transactionDate).format('lll'),
           testID: 'text_transaction_date'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      <TextRow
-        lhs={translate('screens/FutureSwapDetailScreen', 'Token to swap from')}
-        rhs={{
-          value: 'Aug 23, 2022 08:25pm',
-          testID: 'text_transaction_date'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
+      <TokenIconRow
+        label={translate('screens/FutureSwapDetailScreen', 'Token to swap from')}
+        displaySymbol={futureSwap.fromTokenDisplaySymbol}
       />
       <NumberRow
         lhs={translate('screens/FutureSwapDetailScreen', 'Amount to swap')}
@@ -48,30 +46,68 @@ export function FutureSwapDetailScreen ({ route }: Props): JSX.Element {
           value: futureSwap.tokenAmount.toFixed(8),
           testID: 'text_amount',
           suffixType: 'text',
-          suffix: futureSwap.tokenDisplaySymbol
+          suffix: futureSwap.fromTokenDisplaySymbol
         }}
+      />
+      <TokenIconRow
+        label={translate('screens/FutureSwapDetailScreen', 'Token to swap to')}
+        displaySymbol={futureSwap.toTokenDisplaySymbol}
+      />
+      <TextRow
+        lhs={translate('screens/FutureSwapDetailScreen', 'Future price')}
+        rhs={{
+          value: translate('screens/FutureSwapDetailScreen', `Oracle price ${futureSwap.toLoanToken ? '+5%' : '-5%'}`),
+          testID: 'text_future_price'
+        }}
+        textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
         lhs={translate('screens/FutureSwapDetailScreen', 'Execution block')}
         rhs={{
           value: futureSwap.executionBlock,
-          testID: 'text_amount'
+          testID: 'text_execution_block'
         }}
       />
-      <NumberRow
+      <TextRow
         lhs={translate('screens/FutureSwapDetailScreen', 'Execution date')}
         rhs={{
-          value: futureSwap.dueDate.toString(),
-          testID: 'text_amount'
+          value: dayjs(futureSwap.dueDate).format('lll'),
+          testID: 'text_execution_date'
         }}
+        textStyle={tailwind('text-sm font-normal')}
       />
-      <View style={tailwind('mt-4')}>
-        <TransactionIdRow transactionId='441088a44388cc050f70c81d93185c078fbe95b071a23dee91f23b121cbd3b29' />
-      </View>
+      <TransactionIdRow transactionId={futureSwap.txId} />
+      <ClearFutureSwapButton onPress={() => { }} />
     </ThemedScrollView>
   )
 }
 
+function TokenIconRow ({ label, displaySymbol }: { label: string, displaySymbol: string }): JSX.Element {
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-gray-700')}
+      light={tailwind('bg-white border-gray-200')}
+      style={tailwind('flex flex-row p-4 border-b items-center justify-between w-full')}
+    >
+      <View style={tailwind('w-6/12')}>
+        <ThemedText style={tailwind('text-sm')}>
+          {label}
+        </ThemedText>
+      </View>
+
+      <View style={tailwind('flex flex-row justify-end items-center flex-1')}>
+        <SymbolIcon symbol={displaySymbol} styleProps={tailwind('w-4 h-4')} />
+        <ThemedText
+          style={tailwind('text-sm ml-1')}
+          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-500')}
+        >
+          {displaySymbol}
+        </ThemedText>
+      </View>
+    </ThemedView>
+  )
+}
 function TransactionIdRow ({ transactionId }: { transactionId: string }): JSX.Element {
   const { getTransactionUrl } = useDeFiScanContext()
 
@@ -84,7 +120,7 @@ function TransactionIdRow ({ transactionId }: { transactionId: string }): JSX.El
     <ThemedView
       dark={tailwind('bg-gray-800 border-gray-700')}
       light={tailwind('bg-white border-gray-200')}
-      style={tailwind('flex flex-row p-4 border-b items-center justify-between w-full')}
+      style={tailwind('flex flex-row p-4 border-b items-center justify-between w-full mt-6 mb-8')}
     >
       <View style={tailwind('w-6/12')}>
         <ThemedText style={tailwind('text-sm')}>
@@ -115,5 +151,33 @@ function TransactionIdRow ({ transactionId }: { transactionId: string }): JSX.El
         />
       </TouchableOpacity>
     </ThemedView>
+  )
+}
+
+function ClearFutureSwapButton ({ onPress }: { onPress: () => void }): JSX.Element {
+  return (
+    <View style={tailwind('flex flex-row justify-center mb-4')}>
+      <ThemedTouchableOpacity
+        style={tailwind('flex-row items-center py-2 px-7 rounded-lg')}
+        light={tailwind('border-0 bg-white')}
+        dark={tailwind('border-0 bg-gray-800')}
+        onPress={onPress}
+      >
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='close'
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          size={18}
+        />
+        <ThemedText
+          style={tailwind('ml-1.5 font-medium', { 'pb-1': Platform.OS === 'android' })}
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+        >
+          {translate('screens/FutureSwapDetailScreen', 'CANCEL ORDER')}
+        </ThemedText>
+      </ThemedTouchableOpacity>
+    </View>
   )
 }
