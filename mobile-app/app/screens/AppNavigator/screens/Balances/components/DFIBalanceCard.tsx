@@ -24,6 +24,14 @@ import { useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 
+// interface DFIBalanceCardProps {
+  // portfolioButtonGroupOptions?: {
+  //   onPortfolioButtonGroupPress: (key: PortfolioGroupTabKey) => void
+  //   activePortfolioButtonGroup: string
+  //   setActivePortfolioButtonGroup: (key: PortfolioGroupTabKey) => void
+  // }
+// }
+
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -64,8 +72,11 @@ export function DFIBalanceCard (): JSX.Element {
             {
               hasFetchedToken
                 ? (
+                  // TODO: currency match for usdAmount
                   <TokenAmountText
-                    tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
+                    tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)}
+                    usdAmount={usdAmount}
+                    testID='dfi_total_balance'
                     isBalancesDisplayed={isBalancesDisplayed}
                   />
                 )
@@ -98,6 +109,7 @@ export function DFIBalanceCard (): JSX.Element {
             }
           </View>
           <View style={tailwind('mx-4')}>
+            {/* TODO: cater to currency: DFIUnified.amount */}
             <TokenBreakdownPercentage
               symbol='DFI'
               availableAmount={new BigNumber(DFIUnified.amount)}
@@ -115,6 +127,7 @@ export function DFIBalanceCard (): JSX.Element {
             dark={tailwind('border-t border-gray-700')}
             style={tailwind('mx-4 mb-4 pt-2')}
           >
+            {/* TODO: cater to currency: availableValue and lockedValue  */}
             <TokenBreakdownDetails
               hasFetchedToken={hasFetchedToken}
               lockedAmount={lockedToken.amount}
