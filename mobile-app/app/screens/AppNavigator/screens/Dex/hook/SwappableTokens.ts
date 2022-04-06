@@ -15,12 +15,16 @@ interface TokenPrice {
   toTokens: BottomSheetToken[]
   fromTokens: BottomSheetToken[]
 }
+
 export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice {
   const client = useWhaleApiClient()
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const { swappableTokens, poolpairs } = useSelector((state: RootState) => state.wallet)
+  const {
+    swappableTokens,
+    poolpairs
+  } = useSelector((state: RootState) => state.wallet)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   const [fromTokens, setFromTokens] = useState<BottomSheetToken[]>([])
@@ -76,7 +80,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
       return []
     }
 
-    const toTokens: BottomSheetToken[] = cachedSwappableToTokens.swappableTokens
+    const toTokens: BottomSheetToken[] = cachedSwappableToTokens.swappableTokens.filter((t) => t.displaySymbol !== 'dBURN')
       .map((token) => {
         const tokenId = token.id === '0' ? '0_unified' : token.id
         const tokenData = allTokens.find(t => t.id === token.id)
@@ -91,7 +95,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
           },
           reserve: tokenData?.reserve ?? '' // TODO(PIERRE): Ask whale to add reserve on response
         }
-      })
+      }).sort((a, b) => new BigNumber(a.tokenId).minus(b.tokenId).toNumber())
 
     return toTokens
   }, [swappableTokens, fromTokenId, cachedData, allTokens])
@@ -99,7 +103,8 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
   useFocusEffect(useCallback(() => {
     if (fromTokenId !== undefined && cachedData === undefined) {
       dispatch(fetchSwappableTokens({
-        client, fromTokenId: fromTokenId === '0_unified' ? '0' : fromTokenId
+        client,
+        fromTokenId: fromTokenId === '0_unified' ? '0' : fromTokenId
       }))
     }
   }, [fromTokenId]))

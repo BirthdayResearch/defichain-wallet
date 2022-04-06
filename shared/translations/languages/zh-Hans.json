@@ -1212,7 +1212,7 @@
     "USD": "美元",
     "How many {{token}} tokens to borrow?": "要多少 {{token}} 代币借贷？",
     "Your vault needs at least 50% of DFI and/or DUSD as collateral": "您的金库必须包含至少 50% 的 DFI 和/或 DUSD 作为抵押代币",
-    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "这金库必须包含至少 50% 的 DFI 和/或 DUSD 以用作铸造去中心化资产代币"
+    "This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens": "这金库必须包含至少 50% 的 DFI 和/或 DUSD 以用作铸造去中心化资产代币"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",
