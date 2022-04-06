@@ -78,7 +78,7 @@ export function FutureSwapDetailScreen ({ route }: Props): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <TransactionIdRow transactionId={futureSwap.txId} />
-      <ClearFutureSwapButton onPress={() => { }} />
+      <ClearFutureSwapButton />
     </ThemedScrollView>
   )
 }
