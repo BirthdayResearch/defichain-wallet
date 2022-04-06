@@ -11,7 +11,7 @@ jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn()
 }))
-describe('Token Price - Get Token Price (DEX)', () => {
+describe('Token Best Path - Get Best Path (DEX)', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
     pair1ReserveB, // DFI (BTC-DFI)
