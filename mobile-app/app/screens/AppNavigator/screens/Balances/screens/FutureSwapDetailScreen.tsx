@@ -3,6 +3,7 @@ import { NumberRow } from '@components/NumberRow'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { TextRow } from '@components/TextRow'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { WalletAlert } from '@components/WalletAlert'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { tailwind } from '@tailwind'
@@ -154,7 +155,25 @@ function TransactionIdRow ({ transactionId }: { transactionId: string }): JSX.El
   )
 }
 
-function ClearFutureSwapButton ({ onPress }: { onPress: () => void }): JSX.Element {
+function ClearFutureSwapButton (): JSX.Element {
+  const onPress = (): void => WalletAlert({
+    title: translate('screens/FutureSwapDetailScreen', 'Cancel Future Swap'),
+    message: translate(
+      'screens/FutureSwapDetailScreen', 'By cancelling, you are withdrawing your order. Once confirmed, the tokens locked for this transaction will be returned to your wallet.'),
+    buttons: [
+      {
+        text: translate('screens/FutureSwapDetailScreen', 'Go back'),
+        style: 'cancel'
+      },
+      {
+        text: translate('screens/FutureSwapDetailScreen', 'Cancel Order'),
+        style: 'destructive',
+        onPress: async () => {
+          // TODO: add passcode prompt
+        }
+      }
+    ]
+  })
   return (
     <View style={tailwind('flex flex-row justify-center mb-4')}>
       <ThemedTouchableOpacity
