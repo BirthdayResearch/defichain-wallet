@@ -80,7 +80,7 @@ export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice
       return []
     }
 
-    const toTokens: BottomSheetToken[] = cachedSwappableToTokens.swappableTokens
+    const toTokens: BottomSheetToken[] = cachedSwappableToTokens.swappableTokens.filter((t) => t.displaySymbol !== 'dBURN')
       .map((token) => {
         const tokenId = token.id === '0' ? '0_unified' : token.id
         const tokenData = allTokens.find(t => t.id === token.id)
