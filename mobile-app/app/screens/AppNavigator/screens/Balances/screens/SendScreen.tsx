@@ -607,6 +607,7 @@ function getBottomSheetToken (tokens: WalletToken[]): BottomSheetToken[] {
       available: new BigNumber(t.amount),
       token: {
         name: t.name,
+        id: t.id,
         displaySymbol: t.displaySymbol,
         symbol: t.symbol,
         isLPS: t.isLPS

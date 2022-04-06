@@ -23,28 +23,27 @@ export function useTokenLockedBalance ({ symbol }: { symbol?: string }): Map<str
   const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
-    setLockedBalance(computeLockedAmount())
+   void computeLockedAmount()
   }, [vaults])
 
-  const computeLockedAmount = useCallback(() => {
+  const computeLockedAmount = useCallback(async () => {
     const lockedBalance = new Map<string, LockedBalance>()
 
-    vaults.forEach(vault => {
+    await Promise.all(vaults.map(async vault => {
       if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-        return
+        return setLockedBalance(undefined)
       }
 
-      vault.collateralAmounts.forEach(collateral => {
+      await Promise.all(vault.collateralAmounts.map(async (collateral): Promise<void> => {
         const token = clone(lockedBalance.get(collateral.symbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-        const tokenValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
+        const tokenValue = await getTokenPrice(collateral.id, new BigNumber(collateral.amount))
         lockedBalance.set(collateral.symbol, {
           amount: token.amount.plus(collateral.amount),
           tokenValue: token.tokenValue.plus(tokenValue)
         })
-      })
-    })
-
-    return lockedBalance
+      }))
+    }))
+    setLockedBalance(lockedBalance)
   }, [vaults])
 
   return symbol === undefined ? lockedBalance : lockedBalance?.get(symbol)

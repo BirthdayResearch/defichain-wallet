@@ -52,7 +52,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getNewTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice()
 
   // Search
   const debouncedSearchTerm = useDebounce(searchString, 500)
@@ -88,7 +88,7 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         minNextBid: new BigNumber(props.minNextBidInToken),
         minNextBidInUSD: props.minNextBidInUSD,
         currentBalance: currentBalance,
-        currentBalanceInUSD: await getNewTokenPrice(props.batch.loan.symbol, currentBalance),
+        currentBalanceInUSD: await getTokenPrice(props.batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])

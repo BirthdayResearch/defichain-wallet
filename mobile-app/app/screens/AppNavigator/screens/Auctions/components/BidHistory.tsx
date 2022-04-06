@@ -8,7 +8,7 @@ import { auctions, fetchBidHistory } from '@store/auctions'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,7 +30,6 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
   const dispatch = useDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const bidHistory = useSelector((state: RootState) => state.auctions.bidHistory)
-  const { getTokenPrice } = useTokenPrice()
   const isFocused = useIsFocused()
 
   useEffect(() => {
@@ -55,9 +54,9 @@ export function BidHistory (props: BidHistoryProps): JSX.Element {
           <BidHistoryItem
             bidIndex={bidHistory.length - index}
             bidAmount={item.amount}
+            loanId={props.loanSymbol}
             loanDisplaySymbol={props.loanDisplaySymbol}
             bidderAddress={item.from}
-            bidAmountInUSD={getTokenPrice(props.loanSymbol, new BigNumber(item.amount))}
             isLatestBid={index === 0}
             bidBlockTime={item.block.time}
           />
@@ -83,14 +82,27 @@ interface BidHistoryItemProps {
   bidIndex: number
   bidAmount: string
   loanDisplaySymbol: string
+  loanId: string
   bidderAddress: string
-  bidAmountInUSD: BigNumber
   isLatestBid: boolean
   bidBlockTime: number
 }
 
 function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
   const bidTime = useBidTimeAgo(props.bidBlockTime)
+  const [bidValue, setBidValue] = useState(new BigNumber(''))
+  const { getTokenPrice } = useTokenPrice()
+  const blockCount = useSelector((state: RootState) => state.block.count)
+
+  useEffect(() => {
+    void getTokenPriceDetails()
+  }, [blockCount])
+
+  const getTokenPriceDetails = async (): Promise<void> => {
+    const bidValue = await getTokenPrice(props.loanId, new BigNumber(props.bidAmount))
+    setBidValue(bidValue)
+  }
+
   return (
     <ThemedView
       light={tailwind(['border-gray-200', { 'bg-white': props.isLatestBid, 'bg-gray-50': !props.isLatestBid }])}
@@ -151,7 +163,7 @@ function BidHistoryItem (props: BidHistoryItemProps): JSX.Element {
         </ThemedText>
       </View>
       <View style={tailwind('flex flex-row justify-between')}>
-        <ActiveUSDValue price={props.bidAmountInUSD} />
+        <ActiveUSDValue price={bidValue} />
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}

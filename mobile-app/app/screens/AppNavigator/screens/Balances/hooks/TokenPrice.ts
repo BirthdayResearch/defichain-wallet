@@ -16,8 +16,7 @@ interface CalculatePriceRatesI {
 }
 
 interface TokenPrice {
-  getNewTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => Promise<BigNumber>
-  getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => BigNumber
+  getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => Promise<BigNumber>
   calculatePriceRates: (fromTokenSymbol: string, pairs: PoolPairData[], amount: BigNumber) => CalculatePriceRatesI
   getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => PoolPairData[]
 }
@@ -37,68 +36,23 @@ export function useTokenPrice (): TokenPrice {
     }
   }), [pairs])
 
-  const getNewTokenPrice = async (fromTokenId: string, amount: BigNumber, isLPS: boolean = false): Promise<BigNumber> => {
+  const getTokenPrice = useCallback(async (fromTokenId: string, amount: BigNumber): Promise<BigNumber> => {
     if (toTokenId !== undefined) {
-      if (fromTokenId === toTokenId || new BigNumber(amount).isZero()) {
+      const from = fromTokenId === '0_unified' || fromTokenId === '0_utxo' ? '0' : fromTokenId
+      if (from === toTokenId || new BigNumber(amount).isZero()) {
         return new BigNumber(amount)
       }
-      const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${fromTokenId}`
+      const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${from}`
       const result = CacheApi.get(key)
       if (result !== undefined) {
         return new BigNumber(result).multipliedBy(amount)
       }
-      const from = fromTokenId === '0_unified' ? '0' : fromTokenId
       const { estimatedReturn } = await client.poolpairs.getBestPath(from, toTokenId)
       CacheApi.set(key, estimatedReturn)
       return new BigNumber(estimatedReturn).multipliedBy(amount)
     }
     return new BigNumber('')
-  }
-
-  /**
-   * @param symbol {string} token symbol
-   * @param amount {string} token amount
-   * @param isLPS {boolean} is liquidity pool token
-   * @return BigNumber
-   */
-  const getTokenPrice = useCallback((symbol: string, amount: BigNumber, isLPS: boolean = false): BigNumber => {
-    if (new BigNumber(amount).isZero()) {
-      return new BigNumber(0)
-    }
-    if (symbol === 'USDT') {
-      return new BigNumber(amount)
-    }
-    if (isLPS) {
-      const pair = pairs.find(pair => pair.data.symbol === symbol)
-      if (pair === undefined) {
-        return new BigNumber('')
-      }
-      const ratioToTotal = new BigNumber(amount).div(pair.data.totalLiquidity.token)
-      const tokenAAmount = ratioToTotal.times(pair.data.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const tokenBAmount = ratioToTotal.times(pair.data.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const usdTokenA = getTokenPrice(pair.data.tokenA.symbol, tokenAAmount)
-      const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount)
-      return usdTokenA.plus(usdTokenB)
-    }
-    const key = `WALLET.${network}.${blockCount ?? 0}.TOKEN_PRICE_${symbol}`
-    const result = CacheApi.get(key)
-    if (result !== undefined) {
-      return new BigNumber(result).multipliedBy(amount)
-    }
-    // active price for walletTokens based on USDT
-    const arbitraryPoolPair = getArbitraryPoolPair(symbol, 'USDT')
-
-    if (arbitraryPoolPair.length > 0) {
-      const {
-        aToBPrice,
-        estimated
-      } = calculatePriceRates(symbol, arbitraryPoolPair, amount)
-      // store price for each unit in cache
-      CacheApi.set(key, aToBPrice.toFixed(8))
-      return estimated
-    }
-    return new BigNumber('')
-  }, [pairs, blockCount])
+  }, [blockCount])
 
   const getArbitraryPoolPair = useCallback((tokenASymbol: string, tokenBSymbol: string): PoolPairData[] => {
     // TODO - Handle cheapest path with N hops, currently this logic finds the shortest path
@@ -150,9 +104,8 @@ export function useTokenPrice (): TokenPrice {
   }, [pairs, blockCount])
 
   return {
-    getTokenPrice,
     calculatePriceRates,
     getArbitraryPoolPair,
-    getNewTokenPrice
+    getTokenPrice
   }
 }

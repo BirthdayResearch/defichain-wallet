@@ -245,6 +245,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         available: new BigNumber(pair.data.tokenA.reserve),
         token: {
           displaySymbol: pair.data.tokenA.displaySymbol,
+          id: pair.data.tokenA.id,
           symbol: pair.data.tokenA.symbol,
           name: '' // not available in API
         },
@@ -257,6 +258,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         available: new BigNumber(pair.data.tokenB.reserve),
         token: {
           displaySymbol: pair.data.tokenB.displaySymbol,
+          id: pair.data.tokenB.id,
           symbol: pair.data.tokenB.symbol,
           name: '' // not available in API
         },

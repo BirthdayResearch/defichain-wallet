@@ -32,9 +32,9 @@ export function InfoSection ({
       pair?.tokenB.displaySymbol !== undefined
       ? `${pair?.tokenA?.displaySymbol}-${pair?.tokenB?.displaySymbol}`
       : ''
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
+  const blockCount = useSelector((state: RootState) => state.block.count)
   const decimalScale = type === 'available' ? 2 : 8
-  const { getNewTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice()
   const [tokenAPrice, setTokenAPrice] = useState(new BigNumber(''))
   const [tokenBPrice, setTokenBPrice] = useState(new BigNumber(''))
 
@@ -44,11 +44,11 @@ export function InfoSection ({
 
   const getTokenPriceDetails = async (): Promise<void> => {
     if (pair?.tokenA !== undefined) {
-      const priceA = await getNewTokenPrice(pair.tokenA.id, new BigNumber(tokenATotal))
+      const priceA = await getTokenPrice(pair.tokenA.id, new BigNumber(tokenATotal))
       setTokenAPrice(priceA)
     }
     if (pair?.tokenB !== undefined) {
-      const priceB = await getNewTokenPrice(pair.tokenB.id, new BigNumber(tokenATotal))
+      const priceB = await getTokenPrice(pair.tokenB.id, new BigNumber(tokenATotal))
       setTokenBPrice(priceB)
     }
   }

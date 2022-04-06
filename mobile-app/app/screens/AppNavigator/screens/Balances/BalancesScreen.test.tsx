@@ -22,6 +22,7 @@ jest.mock('@contexts/DisplayBalancesContext')
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
+  useFocusEffect: jest.fn(),
   useNavigation: () => {
     return { navigate: jest.fn() }
   }

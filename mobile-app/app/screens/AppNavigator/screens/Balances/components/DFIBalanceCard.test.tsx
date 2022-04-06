@@ -12,7 +12,6 @@ jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/NetworkContext')
 jest.mock('../../../../../contexts/DisplayBalancesContext')
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn(),
   useIsFocused: jest.fn()
 }))
 jest.mock('@shared-contexts/WalletContext')

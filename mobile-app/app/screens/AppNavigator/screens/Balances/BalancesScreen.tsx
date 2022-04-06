@@ -32,6 +32,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { useFocusEffect } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -40,6 +41,8 @@ export interface BalanceRowToken extends WalletToken {
 }
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const [totalAvailableUSDValue, setTotalAvailableUSDValue] = useState(new BigNumber('0'))
+  const [dstTokens, setDstTokens] = useState<BalanceRowToken[]>([])
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const {
@@ -56,6 +59,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
 
   const dispatch = useDispatch()
+  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
@@ -81,10 +86,46 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )
     })
   }, [navigation, address, addressLength])
+
   useEffect(() => {
     // fetch only once to decide flag to display locked balance breakdown
     dispatch(fetchCollateralTokens({ client }))
   }, [])
+
+  useFocusEffect(useCallback(() => {
+    void getPortfolioDetails()
+  }, [tokens, blockCount]))
+
+  const getPortfolioDetails = async (): Promise<void> => {
+    const {
+      totalAvailableUSDValue,
+      dstTokens
+    } = await tokens.reduce(async (memo: Promise<{ totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] }>, token): Promise<{ totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] }> => {
+      const usdAmount = await getTokenPrice(token.id, new BigNumber(token.amount))
+      const { totalAvailableUSDValue, dstTokens } = await memo
+      if (token.symbol === 'DFI') {
+        return {
+          // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
+          totalAvailableUSDValue: token.id === '0_unified'
+            ? totalAvailableUSDValue
+            : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          dstTokens
+        }
+      }
+      return {
+        totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+        dstTokens: [...dstTokens, {
+          ...token,
+          usdAmount
+        }]
+      }
+    }, Promise.resolve({
+      totalAvailableUSDValue: new BigNumber(0),
+      dstTokens: []
+    }))
+    setTotalAvailableUSDValue(totalAvailableUSDValue)
+    setDstTokens(dstTokens)
+  }
 
   const fetchPortfolioData = (): void => {
     batch(() => {
@@ -105,44 +146,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     fetchPortfolioData()
     setRefreshing(false)
   }, [address, client, dispatch])
-
-  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const {
-    totalAvailableUSDValue,
-    dstTokens
-  } = useMemo(() => {
-    return tokens.reduce(
-      ({
-          totalAvailableUSDValue,
-          dstTokens
-        }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
-        token
-      ) => {
-        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
-
-        if (token.symbol === 'DFI') {
-          return {
-            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
-            totalAvailableUSDValue: token.id === '0_unified'
-              ? totalAvailableUSDValue
-              : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-            dstTokens
-          }
-        }
-        return {
-          totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
-          dstTokens: [...dstTokens, {
-            ...token,
-            usdAmount
-          }]
-        }
-      }, {
-        totalAvailableUSDValue: new BigNumber(0),
-        dstTokens: []
-      })
-  }, [getTokenPrice, tokens])
-
-  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
 
   // tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)

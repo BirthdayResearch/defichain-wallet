@@ -30,7 +30,7 @@ export function DFIBalanceCard (): JSX.Element {
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
-  const { getNewTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice()
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ symbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const [unitTokenPrice, setUnitTokenPrice] = useState(new BigNumber(''))
@@ -48,7 +48,7 @@ export function DFIBalanceCard (): JSX.Element {
   }, [blockCount]))
 
   const getTokenPriceDetails = async (): Promise<void> => {
-    const unitTokenPrice = await getNewTokenPrice(DFIUnified.id, new BigNumber(1), DFIUnified.isLPS)
+    const unitTokenPrice = await getTokenPrice(DFIUnified.id, new BigNumber(1))
     setUnitTokenPrice(unitTokenPrice)
   }
 

@@ -69,7 +69,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getNewTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice()
   const { auctions } = useSelector((state: RootState) => state.auctions)
 
   useEffect(() => {
@@ -113,7 +113,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         minNextBid: new BigNumber(minNextBidInToken),
         minNextBidInUSD: minNextBidInUSD,
         currentBalance,
-        currentBalanceInUSD: await getNewTokenPrice(batch.loan.symbol, currentBalance),
+        currentBalanceInUSD: await getTokenPrice(batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: vault.liquidationHeight
       })
     }])
