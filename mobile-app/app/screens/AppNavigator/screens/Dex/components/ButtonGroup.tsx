@@ -66,8 +66,15 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
-      light={props.modalLightActiveStyle ?? tailwind({ 'bg-primary-50': props.isActive })}
-      dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
+      light={tailwind([
+        {
+          'bg-primary-50': props.isActive && (props.modalLightActiveStyle == null)
+        },
+        {
+          'bg-gray-100': props.isActive && props.modalLightActiveStyle
+        }
+        ])}
+      dark={props.modalDarkActiveStyle ?? tailwind({ 'bg-darkprimary-50': props.isActive })}
       style={props.modalButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
