@@ -37,7 +37,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
@@ -62,10 +62,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const {
-    calculatePriceRates,
-    getArbitraryPoolPair
-  } = useTokenPrice()
+  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath()
   const {
     slippage,
     setSlippage
@@ -279,12 +276,16 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }
 
   useEffect(() => {
+    void getPriceRates()
+  }, [selectedPoolPairs, tokenAFormAmount])
+
+  const getPriceRates = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenAFormAmount !== undefined) {
       const {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenAFormAmount))
+      } = await calculatePriceRates(selectedTokenA.id, selectedTokenB.id, new BigNumber(tokenAFormAmount))
       const slippage = new BigNumber(1).minus(new BigNumber(tokenAFormAmount).div(selectedTokenA.reserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
@@ -309,7 +310,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
       setValue('tokenB', estimatedAmountAfterSlippage)
     }
-  }, [selectedPoolPairs, tokenAFormAmount])
+  }
 
   const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenAFormAmount === undefined || tokenBFormAmount === undefined) {
