@@ -16,7 +16,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { PricesSection } from './components/PricesSection'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -142,8 +142,8 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           suffix: swap.tokenTo.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'

@@ -12,7 +12,7 @@ import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@c
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
@@ -398,8 +398,8 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
           suffix: pair?.tokenB?.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
