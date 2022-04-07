@@ -9,7 +9,7 @@ interface SwapType {
 
 export function useFutureSwap (props: SwapType): {
   isFutureSwapOptionEnabled: boolean
-  oraclePriceText: string
+  oraclePriceText?: '+5%' | '-5%'
 } {
   const fromTokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, props.fromTokenDisplaySymbol ?? ''))
   const toTokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, props.toTokenDisplaySymbol ?? ''))
@@ -29,6 +29,6 @@ export function useFutureSwap (props: SwapType): {
 
   return {
     isFutureSwapOptionEnabled: false,
-    oraclePriceText: ''
+    oraclePriceText: undefined
   }
 }
