@@ -29,35 +29,31 @@ export function SlippageTolerance ({ slippage, setSlippage, slippageError, setSl
   }, [])
 
   return (
-    <ThemedView
-      style={tailwind('flex-row items-center w-full')}
-    >
-      <View style={tailwind('px-4 mt-5 w-full')}>
-        <View
-          testID='slippage_tolerance_heading'
-          style={tailwind(['flex-row items-center justify-between'])}
-        >
-          <View style={tailwind('flex-row items-center')}>
-            <ThemedText
-              dark={tailwind('text-gray-50')}
-              light={tailwind('text-gray-900')}
-              style={tailwind('mr-1')}
-            >
-              {translate('screens/SlippageTolerance', 'Slippage tolerance')}
-            </ThemedText>
-            <BottomSheetInfo alertInfo={slippageTolerance} name={slippageTolerance.title} />
-          </View>
+    <View style={tailwind('px-4 mt-5 w-full')}>
+      <View
+        testID='slippage_tolerance_heading'
+        style={tailwind(['flex-row items-center justify-between'])}
+      >
+        <View style={tailwind('flex-row items-center')}>
+          <ThemedText
+            dark={tailwind('text-gray-50')}
+            light={tailwind('text-gray-900')}
+            style={tailwind('mr-1')}
+          >
+            {translate('screens/SlippageTolerance', 'Slippage tolerance')}
+          </ThemedText>
+          <BottomSheetInfo alertInfo={slippageTolerance} name={slippageTolerance.title} />
         </View>
-        <SlippageSelector
-          slippage={slippage}
-          slippageError={slippageError}
-          setSlippageError={setSlippageError}
-          isCustomSlippage={isCustomSlippage}
-          setIsCustomSlippage={setIsCustomSlippage}
-          onSubmitSlippage={setSlippage}
-        />
       </View>
-    </ThemedView>
+      <SlippageSelector
+        slippage={slippage}
+        slippageError={slippageError}
+        setSlippageError={setSlippageError}
+        isCustomSlippage={isCustomSlippage}
+        setIsCustomSlippage={setIsCustomSlippage}
+        onSubmitSlippage={setSlippage}
+      />
+    </View>
   )
 }
 
@@ -114,7 +110,7 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
 
   return (
     <>
-      <View style={tailwind('flex-row mb-3 flex-wrap')}>
+      <View style={tailwind('flex-row mb-4 flex-wrap')}>
         {percentageList.map((value) => (
           <SlippageButton
             key={value}
