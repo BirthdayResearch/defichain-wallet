@@ -3,7 +3,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: [
-          {}
         ]
       },
       delay: 3000
@@ -202,6 +201,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
       }
     }).as('getPoolPairs')
     cy.wait('@getPoolPairs').then(() => {
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
       cy.getByTestID('details_dETH-DFI').click()
       cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
         .invoke('text').should(text => {

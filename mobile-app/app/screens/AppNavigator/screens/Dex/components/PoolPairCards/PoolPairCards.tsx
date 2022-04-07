@@ -69,7 +69,7 @@ export function PoolPairCards ({
   buttonGroupOptions,
   showSearchInput
 }: PoolPairCardProps): JSX.Element {
-  const { isFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
@@ -143,6 +143,8 @@ export function PoolPairCards ({
       item={item}
       expandedCardIds={expandedCardIds}
       type={type}
+      isFavouritePoolpair={isFavouritePoolpair}
+      setFavouritePoolpair={setFavouritePoolpair}
       onAdd={onAdd}
       onRemove={onRemove}
       onSwap={onSwap}
@@ -187,6 +189,8 @@ interface PoolCardProps {
   item: DexItem<WalletToken | PoolPairData>
   expandedCardIds: string[]
   setExpandedCardIds: (ids: string[]) => void
+  isFavouritePoolpair: (id: string) => boolean
+  setFavouritePoolpair: (id: string) => void
   onAdd: (data: PoolPairData) => void
   onRemove: (data: PoolPairData) => void
   onSwap: (data: PoolPairData) => void
@@ -198,6 +202,8 @@ const PoolCard = ({
   index,
   item,
   expandedCardIds,
+  isFavouritePoolpair,
+  setFavouritePoolpair,
   type,
   onAdd,
   onRemove,
@@ -206,8 +212,6 @@ const PoolCard = ({
 }: PoolCardProps): JSX.Element => {
   const { getTokenPrice } = useTokenPrice()
   const { calculatePriceRates } = useTokenBestPath()
-
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { data: yourPair } = item

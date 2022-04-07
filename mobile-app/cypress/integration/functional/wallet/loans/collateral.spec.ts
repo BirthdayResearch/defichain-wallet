@@ -84,6 +84,10 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   let vaultId = ''
 
   before(function () {
+    // TODO remove intercept wile removing vault share functionality
+    cy.intercept('**/settings/flags', {
+      body: []
+    })
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'DUSD']).wait(6000)
   })
@@ -194,6 +198,10 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
   })
   const walletTheme = { isDark: false }
   beforeEach(function () {
+    // TODO remove intercept wile removing vault share functionality
+    cy.intercept('**/settings/flags', {
+      body: []
+    })
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(4000)
     cy.setWalletTheme(walletTheme)
