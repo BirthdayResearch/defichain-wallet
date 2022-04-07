@@ -20,10 +20,7 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): TokenPrice {
    * @return BigNumber
    */
   const getTokenPrice = useCallback((symbol: string, amount: BigNumber, isLPS: boolean = false): BigNumber => {
-    if (new BigNumber(amount).isZero()) {
-      return new BigNumber(0)
-    }
-    if (symbol === denominationTokenSymbol) {
+    if (symbol === denominationTokenSymbol || new BigNumber(amount).isZero()) {
       return new BigNumber(amount)
     }
     if (isLPS) {
