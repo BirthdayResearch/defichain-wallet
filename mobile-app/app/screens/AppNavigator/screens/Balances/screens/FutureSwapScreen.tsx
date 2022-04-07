@@ -5,7 +5,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { useCallback } from 'react'
 import NumberFormat from 'react-number-format'
-import tailwind from 'tailwind-rn'
+import { tailwind } from '@tailwind'
 import { BalanceParamList } from '../BalancesNavigator'
 
 export interface FutureSwap {
