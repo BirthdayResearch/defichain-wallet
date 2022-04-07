@@ -196,12 +196,14 @@ describe('Token Price - Get Token Price (DEX)', () => {
         pair2ReserveA: '8300',
         pair2ReserveB: '100'
       }),
+      swappableTokens: {},
       hasFetchedPoolpairData: false,
-      hasFetchedToken: true
+      hasFetchedToken: true,
+      hasFetchedSwappableTokens: false
     }
   }
 
-  const wrapper = ({ children }: {children: ReactElement}): JSX.Element => {
+  const wrapper = ({ children }: { children: ReactElement }): JSX.Element => {
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer, block: block.reducer }

@@ -84,7 +84,7 @@ export const QuickBid = ({
         contentContainerStyle={tailwind('pb-8')}
       >
         <View style={tailwind('px-4')}>
-          <HeaderSection symbol={loanTokenSymbol} />
+          <HeaderSection symbol={loanTokenDisplaySymbol} />
           <BiddingInfo
             minNextBid={minNextBid}
             minNextBidInUSD={minNextBidInUSD}

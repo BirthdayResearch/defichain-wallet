@@ -45,7 +45,6 @@ export function BottomTabNavigator (): JSX.Element {
             name={translate('BottomTabNavigator', 'Balances')}
             options={{
               tabBarTestID: 'bottom_tab_balances',
-              tabBarInactiveTintColor: inactiveColor,
               tabBarIcon: ({ color }) => (
                 <MaterialIcons
                   color={color}

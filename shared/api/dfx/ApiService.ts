@@ -194,9 +194,6 @@ const postFiles = async (url: string, files: File[]): Promise<void> => {
   files.forEach((value, index) => {
     formData.append('files', value)
   })
-  // for (const key in files) {
-  //   formData.append("files", files[key]);
-  // }
   return await fetchFrom(url, 'POST', formData, true)
 }
 
@@ -217,7 +214,6 @@ const fetchFrom = async <T>(
           throw body
         })
       })
-      // TODO: this throws state update error (on HomeScreen)
       .catch((error: ApiError) => {
         if (error.statusCode === 401) {
           AuthService.deleteSession().catch(() => 'You shall not pass!')

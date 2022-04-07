@@ -20,7 +20,7 @@ import { TransactionsParamList } from './TransactionsNavigator'
 type LoadingState = 'idle' | 'loading' | 'loadingMore' | 'success' | 'background' | 'error'
 
 export function formatBlockTime (date: number): string {
-  return dayjs(date * 1000).format('MMM D, h:mm a')
+  return dayjs(date * 1000).format('lll')
 }
 
 export function TransactionsScreen (): JSX.Element {

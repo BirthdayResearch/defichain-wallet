@@ -41,8 +41,8 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const [isTermsEnabled, setIsTermsEnabled] = useState(false)
 
-  const toggleSwitch = (): void => setIsEnabled(!isEnabled)
-  const toggleSwitchTerms = (): void => setIsTermsEnabled(!isTermsEnabled)
+  const toggleSwitch = (): void => setIsEnabled(prevState => !prevState)
+  const toggleSwitchTerms = (): void => setIsTermsEnabled(prevState => !prevState)
 
   return (
     <ThemedScrollView

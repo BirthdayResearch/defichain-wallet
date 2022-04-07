@@ -143,7 +143,7 @@ exports[`DFI address control should match snapshot for Address Control Screen 1`
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
   }
@@ -171,16 +171,16 @@ exports[`DFI address control should match snapshot for Address Control Screen 1`
               "paddingTop": 24,
             },
             Object {
-              "backgroundColor": "rgba(245, 245, 245, 1)",
+              "backgroundColor": "rgba(250, 250, 250, 1)",
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
         ]
       }
       testID="switch_address_screen_title"
-      text="Switch to another wallet"
+      text="Switch to another address"
     >
-      Switch to another wallet
+      Switch to another address
     </Text>
   </View>
 </RCTScrollView>

@@ -88,13 +88,18 @@ export function InfoSection ({
           />
           {pair.totalLiquidity.usd !== undefined && type === 'available' && (
             <PoolPairInfoLine
-              label={translate('screens/DexScreen', 'Total liquidity (USD)')}
+              label={translate('screens/DexScreen', 'Total liquidity')}
               value={{
-                text: pair.totalLiquidity.usd,
-                decimalScale: 2,
-                testID: `totalLiquidity_${pairSymbol}`,
-                prefix: '$'
+                text: pair.totalLiquidity.token,
+                decimalScale: decimalScale,
+                testID: `totalLiquidity_${pairSymbol}_token`,
+                suffix: ` ${pair.displaySymbol}`
               }}
+              usdValue={{
+                text: new BigNumber(pair.totalLiquidity.usd),
+                testID: `${testID}_totalLiquidity_${pairSymbol}_USD`
+              }}
+              isTitle
             />
           )}
         </>
@@ -116,12 +121,14 @@ interface PoolPairInfoLineProps {
     text: BigNumber
     testID: string
   }
+  isTitle?: boolean
 }
 
 function PoolPairInfoLine ({
   label,
   value,
-  usdValue
+  usdValue,
+  isTitle
 }: PoolPairInfoLineProps): JSX.Element {
   return (
     <View
@@ -150,6 +157,9 @@ function PoolPairInfoLine ({
                   'text-base font-semibold': usdValue === undefined
                 },
                 {
+                  'font-medium': isTitle
+                },
+                {
                   'text-sm leading-4 mb-1': usdValue !== undefined
                 }
               ])}
@@ -168,6 +178,8 @@ function PoolPairInfoLine ({
             price={usdValue.text}
             containerStyle={tailwind('justify-end -mt-0.5')}
             testId={usdValue.testID}
+            lightTextStyle={isTitle === true ? tailwind('text-black') : undefined}
+            darkTextStyle={isTitle === true ? tailwind('text-white') : undefined}
           />
         )}
       </View>

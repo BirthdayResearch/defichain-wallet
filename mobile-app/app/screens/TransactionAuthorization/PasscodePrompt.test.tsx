@@ -23,6 +23,7 @@ describe('transaction authorization screen', () => {
       const rendered = render(
         <PasscodePrompt
           onCancel={onCancel}
+          title='title'
           message='foo'
           transaction={mockTransaction}
           status={type}

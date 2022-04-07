@@ -163,7 +163,7 @@ export function BalanceControlCard (): JSX.Element {
           >
             <AddressControlModal onClose={closeModal} />
           </BottomSheetModal>
-       )}
+        )}
       </View>
       <DfxButtons />
     </ThemedView>

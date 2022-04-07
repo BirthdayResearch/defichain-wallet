@@ -1,11 +1,5 @@
 context('Wallet - DEX - Available Pool Pairs', () => {
-  beforeEach(function () {
-    cy.createEmptyWallet()
-    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
-    cy.getByTestID('bottom_tab_dex').click()
-  })
-
-  it('should display skeleton loader when API has yet to return', () => {
+  before(function () {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: [
@@ -14,6 +8,12 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       },
       delay: 3000
     })
+    cy.createEmptyWallet()
+    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
+    cy.getByTestID('bottom_tab_dex').click()
+  })
+
+  it('should display skeleton loader when API has yet to return', () => {
     cy.getByTestID('dex_skeleton_loader').should('exist')
   })
 
@@ -35,19 +35,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
         expect(text).to.contains('Pooled dBTC')
-        expect(text).to.contains('Total liquidity (USD)')
-        expect(text).to.contains('APR')
-      })
-  })
-
-  it('should have DFI-USDT PoolPair as 4th', () => {
-    cy.getByTestID('details_dUSDT-DFI').click()
-    cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(3)
-      .invoke('text').should(text => {
-        expect(text).to.contains('dUSDT-DFI')
-        expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled dUSDT')
-        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
@@ -61,14 +49,13 @@ context('Wallet - DEX - Available Pool Pairs', () => {
         expect(text).to.contains('dBTC-DFI')
         expect(text).to.contains('Pooled DFI')
         expect(text).to.contains('Pooled dBTC')
-        expect(text).to.contains('Total liquidity (USD)')
+        expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
 
   it('should not display any pool pair with non-exist query', () => {
-    cy.getByTestID('dex_search_icon').click()
-    cy.getByTestID('dex_search_input').type('foo')
+    cy.getByTestID('dex_search_input').clear().type('foo')
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('not.exist')
   })
 })
@@ -229,7 +216,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
 
           expect(text).to.contains('Pooled DFI')
           expect(text).to.contains('Pooled dETH')
-          expect(text).to.contains('Total liquidity (USD)')
+          expect(text).to.contains('Total liquidity')
         })
 
       cy.getByTestID('price_rate_DFI-dETH').should('have.text', '100.00000000 dETH')
@@ -240,7 +227,8 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
       cy.getByTestID('available_ETH-DFI_dETH_USD').should('have.text', '≈ $10,000,000.00')
       // (10000000 / 1000) * 1,000 DFI
       cy.getByTestID('available_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000,000.00')
-      cy.getByTestID('totalLiquidity_dETH-DFI').should('have.text', '$20,000,000')
+      cy.getByTestID('totalLiquidity_dETH-DFI_token').should('have.text', '10,000 dETH-DFI')
+      cy.getByTestID('available_totalLiquidity_dETH-DFI_USD').should('have.text', '≈ $20,000,000.00')
 
       // 66.8826 * 100
       cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
@@ -265,7 +253,7 @@ context('Wallet - DEX - Pool Pair Card - Values', () => {
         expect(text).to.contains('Your shared dETH')
 
         expect(text).to.not.contains('Prices')
-        expect(text).to.not.contains('Total liquidity (USD)')
+        expect(text).to.not.contains('Total liquidity')
       })
 
     cy.getByTestID('share_in_pool_dETH-DFI').should('have.text', '10.00000000')

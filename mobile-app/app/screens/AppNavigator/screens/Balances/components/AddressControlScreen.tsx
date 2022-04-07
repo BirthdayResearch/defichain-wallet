@@ -10,10 +10,12 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { wallet as walletReducer } from '@store/wallet'
+import { loans } from '@store/loans'
 
 export function AddressControlScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -29,7 +31,7 @@ export function AddressControlScreen (): JSX.Element {
     <ThemedScrollView>
       <ThemedSectionTitle
         testID='switch_address_screen_title'
-        text={translate('screens/OnboardingNetworkSelectScreen', 'Switch to another wallet')}
+        text={translate('screens/AddressControlScreen', 'Switch to another address')}
       />
       <AddressControlCard onClose={() => navigation.goBack()} />
     </ThemedScrollView>
@@ -82,7 +84,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const blockCount = useSelector((state: RootState) => state.block.count)
-
+  const dispatch = useDispatch()
   const logger = useLogger()
 
   const fetchAddresses = async (): Promise<void> => {
@@ -104,6 +106,8 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   }
 
   const onRowPress = async (index: number): Promise<void> => {
+    dispatch(walletReducer.actions.setHasFetchedToken(false))
+    dispatch(loans.actions.setHasFetchedVaultsData(false))
     await setIndex(index)
     onClose()
   }

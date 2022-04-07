@@ -80,8 +80,8 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
       >
         <ThemedView
           light={tailwind(`${editable ? 'bg-transparent' : 'bg-gray-200'}`)}
-          dark={tailwind(`${'bg-transparent'}`)}
-          style={tailwind('flex-row items-center p-2 justify-between')}
+          dark={tailwind(`${editable ? 'bg-transparent' : 'bg-dfxgray-500'}`)}
+          style={[tailwind('flex-row items-center p-2 justify-between'), props.multiline === true && { minHeight: 54 }]}
         >
           <TextInput
             onFocus={() => setIsFocus(true)}

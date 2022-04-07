@@ -110,10 +110,7 @@ export function VaultDetailScreen ({
   }
 
   return (
-    <ThemedScrollView
-      light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-dfxblue-900')}
-    >
+    <ThemedScrollView>
       <ThemedView
         light={tailwind('bg-white')}
         dark={tailwind('bg-dfxblue-800')}

@@ -30,7 +30,11 @@ context('Wallet - Token Detail', () => {
   it('should be able to redirect with Pool Swap', function () {
     cy.getByTestID('swap_button').should('exist')
     cy.getByTestID('swap_button').click()
-    cy.url().should('include', 'DEX/CompositeSwap')
+    cy.url().should('include', 'app/CompositeSwap')
+    cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_TO').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_FROM').should('contain', 'dBTC')
+    cy.getByTestID('token_select_button_TO').should('contain', 'Select token')
   })
 })
 

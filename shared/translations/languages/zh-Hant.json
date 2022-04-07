@@ -35,7 +35,7 @@
     "ADD MORE": "加入更多貨幣",
     "No active pool pairs": "您尚未進入流動池",
     "Supply liquidity pool tokens to earn high yields": "您可以向流動池提供資金已賺取區塊獎勵和兌換佣金",
-    "Total liquidity (USD)": "總資金值 (美元)",
+    "Total liquidity": "總資金值",
     "Browse pool pairs": "瀏覽流動池配對",
     "Your pool pairs": "您的流動池股份",
     "Total Value Locked (USD)": "總體價值鎖定 (美元)",
@@ -67,18 +67,63 @@
   },
   "screens/BalancesScreen": {
     "Balances": "我的資產",
+    "Portfolio": "資產組合",
     "SEND": "發出",
     "RECEIVE": "接收",
-    "Total Portfolio Value (USD)": "總組合價值(美金)",
+    "Total Portfolio Value": "總組合價值",
     "You do not have any other tokens.": "您現在沒有其他代幣",
     "SWITCH": "切換錢包",
-    "YOUR ASSETS": "YOUR ASSETS"
+    "YOUR ASSETS": "YOUR ASSETS",
+    "Available: ": "現有可使用: ",
+    "Locked: ": "已鎖定: ",
+    "locked in vault(s)": "鎖定在金庫",
+    "available": "可使用資金",
+    "All tokens": "所有代幣",
+    "LP tokens": "資金池代幣",
+    "Crypto": "加密貨幣",
+    "dTokens": "去中心化資產代幣",
+    "(From highest value)": "（從最高值開始）",
+    "(From lowest value)": "(從最低值開始)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*總資產組合價值已撇除以預言機價格計算的貸款金額",
+    "loans": "貸款"
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
-    "Switch to another address": "切換到另一個地址",
-    "Wallet Address": "錢包地址",
-    "ACTIVE": "激活"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "RECEIVE": "接收",
+    "VIEW ON SCAN": "往 DeFi Scan 查看",
+    "EDIT": "編輯",
+    "CANCEL": "取消"
+  },
+  "screens/AddressBookScreen": {
+    "Address book": "Address book",
+    "ADD NEW ADDRESS": "ADD NEW ADDRESS",
+    "Please enter an address label": "Please enter an address label",
+    "Please enter a valid address": "Please enter a valid address",
+    "Please enter a unique address": "Please enter a unique address"
+  },
+  "components/CreateOrEditAddressLabelForm": {
+    "Edit address label": "更改地址標籤",
+    "ADDRESS LABEL": "地址標籤",
+    "Address {{index}}": "地址 {{index}}",
+    "Add new address": "Add new address",
+    "ADDRESS": "地址",
+    "SAVE CHANGES": "儲存修改",
+    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）"
+  },
+  "screens/AddOrEditAddressBookScreen": {
+    "Edit address label": "更改地址標籤",
+    "Address label": "地址標籤",
+    "Address {{index}}": "地址 {{index}}",
+    "Add new address": "Add new address",
+    "Add New Address": "Add New Address",
+    "Address": "地址",
+    "SAVE CHANGES": "儲存修改",
+    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
+    "Enter address label": "Enter address label",
+    "Enter address": "Enter address",
+    "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
+    "Edit address": "Edit address"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -264,7 +309,9 @@
     "What is collateral factor?": "抵押因素是什麼？",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素決定每個抵押代幣的貢獻程度。例如，如果一個代幣以70%的抵押因素被接受，價值100美元的代幣將貢獻該金庫中70美元的抵押品價值。",
     "Why is there a 1% fee when paying DUSD loans with DFI?": "為什麼用 DFI 支付 DUSD 貸款要收取 1% 的費用？",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "根據 遞飛鏈改進提議 DFIP 2112-A，每筆 DUSD 貸款都將由 DFI 支付，以克服目前在 DEX 上 DUSD 溢價的情況。\n\n在計算用多少等值 DFI 作為支付 DUSD 貸款時，將會按照 預言機 上 DFI/USD 的價值收取 1% 的罰款。 以舉例來說，如果今天 DFI/USD 預言機價格是 10 美元，那麼用作支付 DUSD  期間， DFI 的相對價格計算方法 是 10 美元 * (1 - 0.01) 。在這情況下，DFI 的價值實際上減少了 1% 等於 9.90 美元。"
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "根據 遞飛鏈改進提議 DFIP 2112-A，每筆 DUSD 貸款都將由 DFI 支付，以克服目前在 DEX 上 DUSD 溢價的情況。\n\n在計算用多少等值 DFI 作為支付 DUSD 貸款時，將會按照 預言機 上 DFI/USD 的價值收取 1% 的罰款。 以舉例來說，如果今天 DFI/USD 預言機價格是 10 美元，那麼用作支付 DUSD  期間， DFI 的相對價格計算方法 是 10 美元 * (1 - 0.01) 。在這情況下，DFI 的價值實際上減少了 1% 等於 9.90 美元。",
+    "What is vault share?": "金庫份額是什麼？",
+    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "金庫庫份額代表存放在金庫中的抵押代幣的比例。 所有金庫都必須包含至少 50% 的 DFI 和/或 DUSD 作為抵押代幣。 當您鑄造新的 dToken 時，和當您從您的金庫中提取抵押品時，均會被要求達到這項要求。"
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "拍賣常見問題",
@@ -290,10 +337,13 @@
     "Sent": "已發送"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "交易紀錄",
     "Type": "交易類型",
     "Amount": "資金數量",
     "Block": "區塊",
-    "Date": "時間"
+    "Date": "時間",
+    "Received": "收到",
+    "Sent": "已發送"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "交易"
@@ -307,7 +357,7 @@
     "Convert to {{symbol}}": "轉換至 {{symbol}}",
     "Add to liquidity pool": "加入流動性池",
     "Remove liquidity": "撒出 流動性池",
-    "Swap with {{token}}": "用 {{token}} 兌換"
+    "Swap token": "兌換代幣"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "了解UTXO和代幣區別",
@@ -431,6 +481,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
+    "Portfolio": "資產組合",
     "Liquidity": "流動",
     "Transactions": "交易",
     "Settings": "設定",
@@ -687,16 +738,16 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的連續顯示24個英文字組是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
-  "components/DexFaq" : {
+  "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能讓使用者運用點對點的方式兌換加密貨幣。去中心化交易所能讓使用者在不透過第三方中心化交易所之下，直接兌換貨幣。",
     "Transaction fees": "交易費用",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每筆交易需要少量的交易費用。交易費用會根據網絡的流量情況產生變化。",
     "What is slippage tolerance?": "什麼是交易滑價?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet." : "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
-  "components/LiquidityMiningFaq" : {
+  "components/LiquidityMiningFaq": {
     "Liquidity Mining": "流動性挖礦",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流動性挖礦是DeFi機制技術，可讓使用者透過提供流動資金而賺取比例化的區塊獎勵和交易費用回報，此比例以「流動性池股份」代表。\n\n流動性池中的資金主要是為去中心化交易所提供資金，當池中有資金時其他使用者可隨時兌換池中的兩個貨幣。",
     "How do I supply liquidity?": "如何能開始提供流動資金?",
@@ -723,7 +774,11 @@
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "了解更多關於 DFI"
+    "Learn more about DFI": "了解更多關於 DFI",
+    "Locked in vault(s)": "已鎖定在金庫",
+    "Available": "現有可使用",
+    "as UTXO": "as UTXO",
+    "as Token": "as Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"
@@ -808,7 +863,7 @@
     "Confirm Place Bid": "確認出價",
     "Auction details": "拍賣細節"
   },
-  "components/AuctionDetailScreen":{
+  "components/AuctionDetailScreen": {
     "Collateral": "抵押品",
     "Min. next bid": "最低標價",
     "VAULT DETAILS": "金庫資料",
@@ -983,8 +1038,13 @@
     "Wallet Address": "錢包地址"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "尚未添加其他貨幣",
-    "Get started by adding your tokens here in your wallet": "在您的錢包中添加代幣便可以開始操作"
+    "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
+    "No Crypto in portfolio": "資產組合中沒有加密貨幣",
+    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "沒有資產",
+    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",
@@ -1040,7 +1100,8 @@
     "Current": "目前餘額",
     "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素決定了每款抵押代幣的貢獻程度比例。",
     "Resulting collateralization": "最終抵押率",
-    "N/A": "不適用"
+    "N/A": "不適用",
+    "Vault %": "金庫 %"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "您正在加入抵押到",
@@ -1062,7 +1123,8 @@
     "Convert & remove collateral": "轉換和移除抵押",
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押",
-    "CONFIRM REMOVE COLLATERAL": "確認移除抵押品"
+    "CONFIRM REMOVE COLLATERAL": "確認移除抵押品",
+    "N/A": "不適用"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
@@ -1084,9 +1146,17 @@
     "Vault ID": "金庫編號",
     "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
     "Insufficient {{token}} to pay for the entered amount": "{{token}} 餘額不足以支付輸入的金額",
-    "Select payment token": "選擇付款代幣",
-    "A 1% fee is applied when you pay with DFI.": "當您使用 DFI 付款時，將收取 1% 的費用",
-    "Read more": "閱讀更多"
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "當您使用 {{tokenSymbol}} 付款時，將收取 1% 的費用",
+    "Read more": "閱讀更多",
+    "How do you want to pay?": "How do you want to pay?",
+    "You are paying": "You are paying",
+    "of total loan": "of total loan",
+    "Loan amount": "Loan amount",
+    "Min. col. ratio": "Min. col. ratio",
+    "Total loan (USD)": "Total loan (USD)",
+    "Total collateral (USD)": "Total collateral (USD)",
+    "Loan remaining": "Loan remaining",
+    "{{paymentToken}} payment fee": "{{paymentToken}} 手續費"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "確認付款",
@@ -1102,8 +1172,8 @@
     "Collateral amount (USD)": "抵押金額 （美金)",
     "Collateralization ratio": "抵押率",
     "Paying loan": "償還貸款中",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} 作為支付貸款。",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) 作為支付貸款。",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} 作為支付貸款。",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) 作為支付貸款。",
     "Confirm Loan Payment": "確認償還貸款",
     "Resulting collateralization": "最終抵押率"
   },
@@ -1139,7 +1209,9 @@
     "Max loan amount": "最高的貸款金額",
     "N/A": "不適用",
     "USD": "美元",
-    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代幣借貸？"
+    "How many {{token}} tokens to borrow?": "要多少 {{token}} 代幣借貸？",
+    "Your vault needs at least 50% of DFI and/or DUSD as collateral": "您的金庫必須包含至少 50% 的 DFI 和/或 DUSD 作為抵押代幣",
+    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "這金庫必須包含至少 50% 的 DFI 和/或 DUSD 以用作鑄造去中心化資產代幣"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "您正要借用",

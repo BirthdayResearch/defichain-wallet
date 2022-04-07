@@ -519,7 +519,7 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
         "paddingTop": 4,
       },
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
   }
@@ -1074,7 +1074,151 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
 </View>
 `;
 
-exports[`Skeleton Loader should match snapshot of vault keleton loader 1`] = `
+exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderBottomWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "borderTopLeftRadius": 8,
+        "borderTopRightRadius": 8,
+        "borderTopWidth": 1,
+        "justifyContent": "center",
+        "marginBottom": 4,
+        "paddingBottom": 8,
+        "paddingTop": 8,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomColor": "rgba(212, 212, 212, 1)",
+        "borderLeftColor": "rgba(212, 212, 212, 1)",
+        "borderRightColor": "rgba(212, 212, 212, 1)",
+        "borderTopColor": "rgba(212, 212, 212, 1)",
+      },
+    ]
+  }
+  testID="balance_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={50}
+    bbWidth="100%"
+    focusable={false}
+    height={50}
+    interval={0.25}
+    meetOrSlice={1}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 50,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={50}
+    vbWidth={400}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="vault_scheme-animated-diff"
+        fill={
+          Array [
+            1,
+            "vault_scheme-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="vault_scheme-animated-diff"
+        >
+          <RNSVGCircle
+            cx="50"
+            cy="29"
+            r="8"
+          />
+          <RNSVGRect
+            height="20"
+            rx="4"
+            ry="4"
+            width="120"
+            x="81"
+            y="6"
+          />
+          <RNSVGRect
+            height="10"
+            rx="4"
+            ry="4"
+            width="80"
+            x="81"
+            y="34"
+          />
+          <RNSVGRect
+            height="20"
+            rx="4"
+            ry="4"
+            width="100"
+            x="220"
+            y="6"
+          />
+          <RNSVGRect
+            height="10"
+            rx="4"
+            ry="4"
+            width="80"
+            x="220"
+            y="34"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -1250325,
+              0.5,
+              -1,
+              1,
+              -1250325,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="vault_scheme-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
+
+exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
 <View
   style={
     Array [

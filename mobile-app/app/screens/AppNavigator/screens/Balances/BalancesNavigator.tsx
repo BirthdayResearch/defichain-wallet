@@ -20,6 +20,12 @@ import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
+import { AboutScreen } from '../Settings/screens/AboutScreen'
+import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
+import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
+import { AddressBookScreen } from './screens/AddressBookScreen'
+import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
+import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -45,6 +51,14 @@ export interface BalanceParamList {
   }
   BarCodeScanner: { onQrScanned: (value: string) => void }
   TokenVsUtxoScreen: undefined
+  AddressBookScreen: {
+    onAddressSelect: (address: string) => void
+  }
+  AddOrEditAddressBookScreen: {
+    title: string
+    onSaveButtonPress: (labelAddress: LabeledAddress) => void
+    addressLabel?: LocalAddress
+  }
 
   [key: string]: undefined | object
 }
@@ -112,7 +126,7 @@ export function BalancesNavigator (): JSX.Element {
           ),
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/BalancesScreen', 'Balances')}
+              text={translate('screens/BalancesScreen', 'Portfolio')}
               containerTestID={headerContainerTestId}
             />
           ),
@@ -267,6 +281,76 @@ export function BalancesNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AboutScreen}
+        name='AboutScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AboutScreen', 'About')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={CompositeSwapScreen}
+        name='CompositeSwap'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Swap tokens')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={ConfirmCompositeSwapScreen}
+        name='ConfirmCompositeSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AddressBookScreen}
+        name='AddressBookScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddressBookScreen', 'Address Book')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AddOrEditAddressBookScreen}
+        name='AddOrEditAddressBookScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
     </BalanceStack.Navigator>

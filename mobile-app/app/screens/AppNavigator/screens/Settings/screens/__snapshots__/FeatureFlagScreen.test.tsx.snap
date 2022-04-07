@@ -123,7 +123,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
   }
@@ -306,120 +306,6 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
         }
       >
         Browse loan tokens provided by DeFiChain
-      </Text>
-    </View>
-    <View
-      testID="feature_auction_row"
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 8,
-              "paddingTop": 16,
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Auction
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <RCTSwitch
-            accessibilityRole="switch"
-            onChange={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            onTintColor="#02B31B"
-            style={
-              Array [
-                Object {
-                  "height": 31,
-                  "width": 51,
-                },
-                Object {
-                  "backgroundColor": "#E5E5E5",
-                  "borderRadius": 16,
-                },
-              ]
-            }
-            testID="feature_auction_switch"
-            thumbTintColor="#FFFFFF"
-            tintColor="#E5E5E5"
-            value={false}
-          />
-        </View>
-      </View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-                "marginBottom": 8,
-                "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 8,
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Browse auctions provided by DeFiChain
       </Text>
     </View>
   </View>

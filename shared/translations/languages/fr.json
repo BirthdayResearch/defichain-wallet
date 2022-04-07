@@ -35,7 +35,7 @@
     "ADD MORE": "AJOUTER",
     "No active pool pairs": "Aucune paire de pool active",
     "Supply liquidity pool tokens to earn high yields": "Fournir des tokens de pool de liquidité pour obtenir des revenus élevés",
-    "Total liquidity (USD)": "Liquidité totale (USD)",
+    "Total liquidity": "Liquidité totale",
     "Browse pool pairs": "Parcourir les paires de pool",
     "Your pool pairs": "Mes paires de pool",
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
@@ -67,6 +67,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "SEND": "ENVOYER",
     "RECEIVE": "RECEVOIR",
     "BUY WITH FIAT": "ACHETEZ AVEC FIAT",
@@ -74,15 +75,68 @@
     "PORTFOLIO": "WALLET",
     "Show balances": "Montrer les soldes",
     "Hide balances": "Cacher les soldes",
+    "Total Portfolio Value": "Valeur totale du portfolio",
     "You do not have any other tokens.": "Vous n'avez pas d'autres tokens.",
     "SWITCH": "CHANGER",
-    "YOUR ASSETS": "MES ACTIFS"
+    "YOUR ASSETS": "MES ACTIFS",
+    "Available: ": "Disponibles: ",
+    "Locked: ": "Verrouillés: ",
+    "locked in vault(s)": "verrouillés",
+    "available": "disponibles",
+    "All tokens": "Tous",
+    "LP tokens": "Tokens PL",
+    "Crypto": "Crypto",
+    "dTokens": "dTokens",
+    "(From highest value)": "(valeurs décroissantes)",
+    "(From lowest value)": "(valeurs croissantes)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle.",
+    "loans": "prêts"
+  },
+  "components/BottomSheetAddressDetail": {
+    "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
+    "RECEIVE": "RECEVOIR",
+    "VIEW ON SCAN": "VOIR SUR DeFi SCAN",
+    "EDIT": "MODIFIER",
+    "CANCEL": "ANNULER"
+  },
+  "screens/AddressBookScreen": {
+    "Address book": "Carnet d'adresses",
+    "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
+    "Please enter an address label": "Veuillez entrer un nom d'adresse",
+    "Please enter a valid address": "Veuillez donner une adresse valide",
+    "Please enter a unique address": "Veuillez donner une adresse unique"
+  },
+  "components/CreateOrEditAddressLabelForm": {
+    "Edit address label": "Modifier l'étiquette d'adresse",
+    "ADDRESS LABEL": "ÉTIQUETTE D'ADRESSE",
+    "Address {{index}}": "Adresse {{index}}",
+    "Add new address": "Ajouter une nouvelle adresse",
+    "Add New Address": "Ajouter une nouvelle adresse",
+    "ADDRESS": "ADRESSE",
+    "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "Address label is too long (max 30 characters)": "Le nom de l'adresse est trop long (30 caractères max)"
+  },
+  "screens/AddOrEditAddressBookScreen": {
+    "Edit address label": "Modifier l'étiquette d'adresse",
+    "Address label": "Étiquette d'adresse",
+    "Address {{index}}": "Adresse {{index}}",
+    "Add new address": "Ajouter une nouvelle adresse",
+    "Add New Address": "Ajouter une nouvelle adresse",
+    "Address": "Adresse",
+    "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "Address label is too long (max 30 characters)": "Le nom de l'adresse est trop long (30 caractères max)",
+    "Enter address label": "Entrer le nom d'adresse",
+    "Enter address": "Entrer l'adresse",
+    "This address already exists in your address book, please enter a different address": "Cette adresse existe déjà dans votre carnet d'adresses, veuillez entrer une adresse différente",
+    "Edit address": "Modifier l'adresse"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
     "Switch to another address": "Passer à une autre adresse",
     "Wallet Address": "Adresse du portefeuille",
-    "ACTIVE": "ACTIF"
+    "ACTIVE": "ACTIF",
+    "Switch to another wallet": "Changer de portefeuille"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recevoir",
@@ -103,7 +157,7 @@
     "Where do you want to send?": "Où voulez-vous envoyer ?",
     "How much do you want to send?": "Combien voulez-vous envoyer ?",
     "Enter an amount": "Donnez un montant",
-    "Available": "Disponible",
+    "Available": "Disponibles",
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autorisez la transaction à l'étape suivante pour convertir",
     "Send to other wallet": "Envoyer à un autre portefeuille",
@@ -270,7 +324,9 @@
     "What is collateral factor?": "Qu'est-ce que le facteur de garantie ?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault.",
     "Why is there a 1% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 1% lors du paiement des prêts DUSD avec DFI?",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Conformément au DFIP 2112-A, chaque prêt DUSD sera payable avec DFI afin de surmonter la prime DUSD actuellement observée sur le DEX.\n\nLors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais de fourniture de 1 % sont appliqués à la valeur oracle DFI/USD. Pour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur d'un DFI lors d'un paiement DUSD est calculée en prenant 10 $ * (1 - 0,01), ce qui réduit effectivement la valeur du DFI de 1 % à 9,90 $ dans un tel scénario."
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Conformément au DFIP 2112-A, chaque prêt DUSD sera payable avec DFI afin de surmonter la prime DUSD actuellement observée sur le DEX.\n\nLors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais de fourniture de 1 % sont appliqués à la valeur oracle DFI/USD. Pour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur d'un DFI lors d'un paiement DUSD est calculée en prenant 10 $ * (1 - 0,01), ce qui réduit effectivement la valeur du DFI de 1 % à 9,90 $ dans un tel scénario.",
+    "What is vault share?": "Qu'est-ce qu'une part de vault?",
+    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "La part de vault représente la proportion de tokens de garantie déposés dans un vault. Tous les vaults doivent contenir au moins 50 % de DFI et/ou de DUSD comme tokens de garantie. Cette exigence est vérifiée à deux occasions — lorsque vous mintez de nouveaux dTokens et lorsque vous retirez des garanties de votre vault."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ - Enchères",
@@ -296,10 +352,13 @@
     "Sent": "Envoyé"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "Transaktion",
     "Type": "Type",
     "Amount": "Montant",
     "Block": "Block",
-    "Date": "Date"
+    "Date": "Date",
+    "Received": "Reçues",
+    "Sent": "Envoyés"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transactions"
@@ -312,7 +371,7 @@
     "Convert to {{symbol}}": "Convertir en {{symbol}}",
     "Add to liquidity pool": "Ajouter au pool de liquidité",
     "Remove liquidity": "Retirer la liquidité",
-    "Swap with {{token}}": "Échanger avec {{token}}"
+    "Swap token": "Échanger le token"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les tokens",
@@ -439,6 +498,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
+    "Portfolio": "Portfolio",
     "Liquidity": "Liquidité",
     "Transactions": "Transactions",
     "Settings": "Paramètres",
@@ -730,7 +790,11 @@
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/DFIBalanceCard": {
-    "Learn more about DFI": "En savoir plus sur DFI"
+    "Learn more about DFI": "En savoir plus sur DFI",
+    "Locked in vault(s)": "Verrouillés",
+    "Available": "Disponibles",
+    "as UTXO": "comme UTXO",
+    "as Token": "comme Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI) est réservée aux frais."
@@ -878,7 +942,7 @@
   "components/VaultCard": {
     "Collateral:": "Garanties:",
     "None": "Aucune",
-    "Locked": "Verrouillé",
+    "Locked": "Verrouillés",
     "At risk": "Critique",
     "Safe": "Hors de danger",
     "Active loans": "Prêts actifs",
@@ -988,8 +1052,13 @@
     "Wallet Address": "Adresse du portefeuille"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "Pas encore d'autres tokens.",
-    "Get started by adding your tokens here in your wallet": "Commencez par ajouter vos tokens ici dans votre portefeuille."
+    "No LP tokens in portfolio": "Aucun token de pool de liquidité (PL) dans le portfolio",
+    "No Crypto in portfolio": "Aucune crypto dans le portfolio",
+    "No dTokens in portfolio": "Aucun dToken dans le portfolio"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "Portfolio vide",
+    "Add your DFI and other tokens to get started": "Ajoutez vos DFI et autres tokens pour démarrer"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHÉMA DE PRÊT",
@@ -1045,7 +1114,8 @@
     "Current": "Actuel",
     "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque token à la garantie.",
     "Resulting collateralization": "Garantie correspondante",
-    "N/A": "S/O"
+    "N/A": "S/O",
+    "Vault %": "Vault %"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",
@@ -1067,7 +1137,8 @@
     "Convert & remove collateral": "Convertir et retirer des garanties",
     "Add Collateral": "Ajouter des garanties",
     "Remove Collateral": "Retirer des garanties",
-    "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE"
+    "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE",
+    "N/A": "S/O"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
@@ -1090,8 +1161,17 @@
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
-    "A 1% fee is applied when you pay with DFI.": "Des frais de 1% sont appliqués quand vous payez en DFI",
-    "Read more": "En savoir plus"
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 1% sont appliqués quand vous payez en {{tokenSymbol}}",
+    "Read more": "En savoir plus",
+    "How do you want to pay?": "Comment voulez-vous rembourser?",
+    "You are paying": "Vous remboursez",
+    "of total loan": "de l'emprunt total",
+    "Loan amount": "Montant du prêt",
+    "Min. col. ratio": "Ratio de garantie min.",
+    "Total loan (USD)": "Emprunt total (USD)",
+    "Total collateral (USD)": "Valeur totale de la garantie (USD)",
+    "Loan remaining": "Emprunt restant",
+    "{{paymentToken}} payment fee": "Frais de paiement {{paymentToken}}"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
@@ -1107,8 +1187,8 @@
     "Collateral amount (USD)": "Montant de la garantie (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Paying loan": "Rembourser le prêt",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} en remboursement du prêt.",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} en remboursement du prêt.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
     "Resulting collateralization": "Garantie correspondante"
   },
@@ -1144,7 +1224,9 @@
     "Unable to proceed because of errors": "Impossible de poursuivre en raison d'erreurs",
     "Max loan amount": "Montant max. du prêt",
     "USD": "USD",
-    "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?"
+    "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?",
+    "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Votre vault nécessite au moins 50 % de DFI et/ou de DUSD en tant que garantie",
+    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "Ce vault nécessite au moins 50 % de DFI et/ou de DUSD pour être disponible pour le minting de dTokens"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Vous empruntez",
