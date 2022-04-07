@@ -15,7 +15,7 @@ interface CalculatePriceRatesI {
 
 interface TokenBestPath {
   calculatePriceRates: (fromTokenId: string, toTokenId: string, amount: BigNumber) => Promise<CalculatePriceRatesI>
-  getArbitraryPoolPair: (tokenASymbol: string, tokenBSymbol: string) => Promise<PoolPairData[]>
+  getArbitraryPoolPair: (tokenAId: string, tokenBId: string) => Promise<PoolPairData[]>
 }
 
 export function useTokenBestPath (): TokenBestPath {
@@ -53,19 +53,19 @@ export function useTokenBestPath (): TokenBestPath {
   const calculatePriceRates = useCallback(async (fromTokenId: string, toTokenId: string, amount: BigNumber): Promise<CalculatePriceRatesI> => {
     const bestPathData = await getBestPath(getTokenId(fromTokenId), getTokenId(toTokenId))
 
-    let lastTokenBySymbol = fromTokenId
+    let lastTokenById = fromTokenId
     let lastAmount = new BigNumber(amount)
     if (bestPathData?.bestPath.length > 0) {
       const priceRates = bestPathData.bestPath.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
-        const tokenBSymbol = pair.tokenB.symbol === lastTokenBySymbol ? pair.tokenA.symbol : pair.tokenB.symbol
-
+        const tokenBId = pair.tokenB.id === lastTokenById ? pair.tokenA.id : pair.tokenB.id
         // To sequentially convert the token from its last token
-        const aToBPrice = pair.priceRatio.ab
-        const bToAPrice = pair.priceRatio.ba
+        const aToBPrice = pair.tokenB.id === lastTokenById ? pair.priceRatio.ab : pair.priceRatio.ba
+        const bToAPrice = pair.tokenB.id === lastTokenById ? pair.priceRatio.ba : pair.priceRatio.ab
+
         const estimated = new BigNumber(lastAmount).times(aToBPrice)
 
         lastAmount = estimated
-        lastTokenBySymbol = tokenBSymbol
+        lastTokenById = tokenBId
         return {
           aToBPrice: priceRates.aToBPrice.times(aToBPrice),
           bToAPrice: priceRates.bToAPrice.times(bToAPrice),
@@ -79,7 +79,7 @@ export function useTokenBestPath (): TokenBestPath {
       return {
         aToBPrice: priceRates.aToBPrice,
         bToAPrice: priceRates.bToAPrice,
-        estimated: new BigNumber(bestPathData.estimatedReturn).times(amount)
+        estimated: priceRates.estimated
       }
     }
     return {
