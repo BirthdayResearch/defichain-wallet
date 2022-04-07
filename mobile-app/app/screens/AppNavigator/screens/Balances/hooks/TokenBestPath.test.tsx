@@ -11,6 +11,64 @@ jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn()
 }))
+jest.mock('@shared-contexts/WhaleContext', () => ({
+  useWhaleApiClient: () => ({
+    poolpairs: {
+      getBestPath: (from: string, to: string) => ({
+        fromToken: {
+          id: '1',
+          symbol: 'BTC',
+          displaySymbol: 'dBTC'
+        },
+        toToken: {
+          id: '3',
+          symbol: 'USDT',
+          displaySymbol: 'dUSDT'
+        },
+        bestPath: [
+          {
+            poolPairId: '17',
+            symbol: 'BTC-DFI',
+            tokenA: {
+              id: '1',
+              symbol: 'BTC',
+              displaySymbol: 'dBTC'
+            },
+            tokenB: {
+              id: '0',
+              symbol: 'DFI',
+              displaySymbol: 'DFI'
+            },
+            priceRatio: {
+              ab: '1.00000000',
+              ba: '1.00000000'
+            }
+          },
+          {
+            poolPairId: '19',
+            symbol: 'USDT-DFI',
+            tokenA: {
+              id: '3',
+              symbol: 'USDT',
+              displaySymbol: 'dUSDT'
+            },
+            tokenB: {
+              id: '0',
+              symbol: 'DFI',
+              displaySymbol: 'DFI'
+            },
+            priceRatio: {
+              ab: '10000.00000000',
+              ba: '0.00010000'
+            }
+          }
+        ],
+        estimatedReturn: '10000.00000000'
+      })
+    }
+  })
+}))
+
 describe('Token Best Path - Get Best Path (DEX)', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
@@ -219,20 +277,21 @@ describe('Token Best Path - Get Best Path (DEX)', () => {
     const { result } = renderHook(() => useTokenBestPath(), { wrapper })
     // BTC = 1 USDT =3
     const priceA = await result.current.calculatePriceRates('1', '3', new BigNumber('2'))
+    // BTC-DFI 1BTC = 1DFI => 1DFI = 1 DFI => 10000 USDT
     expect(priceA)
       .toStrictEqual({
-        aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
-        bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
-        estimated: new BigNumber('33200') // 2 * (1000 / 5) * (8300 / 100)
+        aToBPrice: new BigNumber('10000'),
+        bToAPrice: new BigNumber('0.0001'),
+        estimated: new BigNumber('20000')
       })
 
     // BTC = 1 USDT =3
     const priceB = await result.current.calculatePriceRates('1', '3', new BigNumber('1'))
     expect(priceB)
       .toStrictEqual({
-        aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
-        bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
-        estimated: new BigNumber('16600') // 1 * (1000 / 5) * (8300 / 100)
+        aToBPrice: new BigNumber('10000'),
+        bToAPrice: new BigNumber('0.0001'),
+        estimated: new BigNumber('10000')
       })
   })
 })
