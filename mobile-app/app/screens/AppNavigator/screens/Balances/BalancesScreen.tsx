@@ -359,7 +359,7 @@ function FutureSwapCta ({
             style={tailwind('text-sm font-medium')}
           >
             {/* TODO: pass future swaps length into the component */}
-            {translate('screens/BalancesScreen', '{{number}} pending future swaps', { number: 2 })}
+            {translate('screens/BalancesScreen', '{{number}} pending future swap(s)', { number: 2 })}
           </ThemedText>
         </ThemedText>
       </View>
