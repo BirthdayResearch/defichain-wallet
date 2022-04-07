@@ -32,6 +32,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { usePortfolioCurrency } from './hooks/PortfolioCurrency'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -142,19 +143,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       })
   }, [getTokenPrice, tokens])
 
-  // storing selected currency in wallet context/asyncstorage or redux
+  const {
+    portfolioCurrency,
+    setPortfolioCurrency
+  } = usePortfolioCurrency()
 
   // portfolio tab items
-  const [activePortfolioButtonGroup, setActivePortfolioButtonGroup] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USD) // get stored tab key from storage
-  const handlePortfolioButtonFilter = useCallback((portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey) => {
-    // TODO: logic to call respective currency from whale API
-    // setPortfolioCurrencyTab(currencySelected) // TODO: set currency from logic
-  }, [])
-
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
-    setActivePortfolioButtonGroup(portfolioButtonGroupTabKey)
-    handlePortfolioButtonFilter(portfolioButtonGroupTabKey)
-    // store to persistence storage
+    setPortfolioCurrency(portfolioButtonGroupTabKey)
   }
   const portfolioButtonGroup = [
     {
@@ -213,11 +209,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           totalLoansUSDValue.plus(new BigNumber(vault.loanValue).isNaN() ? 0 : new BigNumber(vault.loanValue)),
         new BigNumber(0))
   }, [vaults])
-
-  // to update filter list from selected currency tab
-  useEffect(() => {
-    handlePortfolioButtonFilter(activePortfolioButtonGroup)
-  }, [activePortfolioButtonGroup])
 
   // to update filter list from selected token tab
   useEffect(() => {
@@ -307,14 +298,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
           portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: activePortfolioButtonGroup,
-            setActivePortfolioButtonGroup: setActivePortfolioButtonGroup,
-            onPortfolioButtonGroupPress: handlePortfolioButtonFilter
+            activePortfolioButtonGroup: portfolioCurrency,
+            setActivePortfolioButtonGroup: setPortfolioCurrency
           }}
           portfolioButtonGroup={portfolioButtonGroup}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        {/*  pass selected currency tab props to DFI  */}
         <DFIBalanceCard />
         {!hasFetchedToken
           ? (
