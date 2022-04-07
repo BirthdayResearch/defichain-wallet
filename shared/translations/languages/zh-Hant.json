@@ -169,7 +169,7 @@
     "Sending {{amount}} {{symbol}}": "正轉出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "確認交易",
     "Convert & send": "轉換並發送",
-    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "請注意，流動性挖礦的代幣只能發送到其他遞飛鏈錢包地址。若您發送到其他交易所或不支持遞飛鏈流動性池代幣的平台會導致無法還原的資金損失。",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange (except DFX) or a central entity will result in irreversible loss of funds.": "請注意，流動性挖礦的代幣只能發送到其他遞飛鏈錢包地址。若您發送到其他交易所或不支持遞飛鏈流動性池代幣的平台會導致無法還原的資金損失。",
     "Transaction type": "交易類型",
     "Amount to send": "發送金額"
   },
@@ -786,7 +786,7 @@
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "將需要轉換。您需要以App密碼授權轉換和兌換交易。",
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在為您的交易轉換代幣，請稍候。轉換過程是不可逆轉的。",
-    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "請注意，您只能將流動池的d代幣發送至已引入遞飛鏈技術棧的錢包。若您發到不確認可接受d代幣的錢包或其他交易所，有可能造成無無法逆轉的資金損失."
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "請注意，您只能將流動池的d代幣發送至已引入遞飛鏈技術棧的錢包。若您發到不確認可接受d代幣的錢包或其他交易所，有可能造成無無法逆轉的資金損失."
   },
   "components/ConversionTag": {
     "Conversion required": "需要轉換"

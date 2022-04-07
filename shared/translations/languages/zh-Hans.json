@@ -169,7 +169,7 @@
     "Sending {{amount}} {{symbol}}": "正转出 {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "确认发出",
     "Convert & send": "转换并发送",
-    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange (except DFX) or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
     "Transaction type": "交易类型",
     "Amount to send": "发送金额"
   },
@@ -752,7 +752,7 @@
     "How do I supply liquidity?": "如何能开始提供流动资金?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "当您想好您想参与的流动池配对后，请点入「新增流动资金」，并输入您想在池中增加的资金额度。\n\n当您对配对池的某一个货币输入金额，程序会自动化平衡另一边货币所需的资金。参与流动池配对必须要在两边以同等的金额比例同时输入。",
     "How do I send tokens from my DFI wallet?": "如何从我的DFI钱包发送代币？",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "递飞链上的代币只能发送至DFI地址。这表示您不能直接发送至没有引入递飞链技术的交易所或第三方平台。同样地，递飞链流动性池代币只能发送到另一个DFI钱包地址。",
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "递飞链上的代币只能发送至DFI地址。这表示您不能直接发送至没有引入递飞链技术的交易所或第三方平台。同样地，递飞链流动性池代币只能发送到另一个DFI钱包地址。",
     "What are some exchanges and platforms I can send to?": "目前有哪些平台可支持递飞链和生态代币？",
     "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\nView more at DeFiChain.com": "1. DFX\n2. Kucoin\n3. Bittrex\n4. Transak\n5. Cake DeFi\n\n请参考更多关于 zhs.DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "是否可以把流动性池中的代币直接发送到其他交易所或其他地址？",
@@ -785,7 +785,7 @@
   "components/ConversionInfoText": {
     "Conversion will be required. Your passcode will be asked to authorize both transactions.": "将需要转换。您需要以App密码授权转换和兑换交易",
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "正在为您的交易转换代币，请稍候。转换过程是不可逆转的。",
-    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "请注意，您只能将流动池的d代币发送至已引入递飞链技术栈的钱包。若您发到不确认可接受d代币的钱包或其他交易所，有可能造成无无法逆转的资金损失."
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "请注意，您只能将流动池的d代币发送至已引入递飞链技术栈的钱包。若您发到不确认可接受d代币的钱包或其他交易所，有可能造成无无法逆转的资金损失."
   },
   "components/ConversionTag": {
     "Conversion required": "需要转换"
