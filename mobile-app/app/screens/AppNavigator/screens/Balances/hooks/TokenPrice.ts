@@ -10,6 +10,7 @@ interface TokenPrice {
 export function useTokenPrice (denominationTokenSymbol = 'USDT'): TokenPrice {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const dexPrices = useSelector((state: RootState) => state.wallet.dexPrices)
+  const prices = dexPrices[denominationTokenSymbol] ?? {}
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
 
   /**
@@ -37,9 +38,8 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): TokenPrice {
       const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount)
       return usdTokenA.plus(usdTokenB)
     }
-    const prices = dexPrices[denominationTokenSymbol] ?? {}
     return new BigNumber(prices[symbol]?.denominationPrice).multipliedBy(amount)
-  }, [pairs, blockCount])
+  }, [prices, pairs, blockCount])
 
   return {
     getTokenPrice

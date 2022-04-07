@@ -196,7 +196,12 @@ describe('Token Price - Get Token Price (DEX)', () => {
         pair2ReserveA: '8300',
         pair2ReserveB: '100'
       }),
-      dexPrices: {},
+      dexPrices: {
+        USDT: {
+          BTC: { denominationPrice: '10000.00000000', token: { id: '1', symbol: 'BTC', displaySymbol: 'dBTC' } },
+          ETH: { denominationPrice: '100.00000000', token: { id: '2', symbol: 'ETH', displaySymbol: 'dETH' } }
+        }
+      },
       swappableTokens: {},
       hasFetchedPoolpairData: false,
       hasFetchedToken: true,
@@ -217,13 +222,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
 
   it('should be able to get the token price', () => {
     const { result } = renderHook(() => useTokenPrice(), { wrapper })
-
-    // DFI / BTC * USDT / DFI (reserve)
-    // (1000 / 5) * (8300 / 100)
-    expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('16600'))
-
-    // DFI / ETH * USDT / DFI (reserve)
-    // (1000 / 100000) * (8300 / 100)
-    expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('0.83'))
+    expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('10000'))
+    expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('100'))
+    expect(result.current.getTokenPrice('USDT', new BigNumber('12'), false)).toStrictEqual(new BigNumber('12'))
   })
 })

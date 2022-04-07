@@ -60,8 +60,8 @@ export function useTokenBestPath (): TokenBestPath {
         const tokenBSymbol = pair.tokenB.symbol === lastTokenBySymbol ? pair.tokenA.symbol : pair.tokenB.symbol
 
         // To sequentially convert the token from its last token
-        const aToBPrice = pair.priceRatio.ba
-        const bToAPrice = pair.priceRatio.ab
+        const aToBPrice = pair.priceRatio.ab
+        const bToAPrice = pair.priceRatio.ba
         const estimated = new BigNumber(lastAmount).times(aToBPrice)
 
         lastAmount = estimated
