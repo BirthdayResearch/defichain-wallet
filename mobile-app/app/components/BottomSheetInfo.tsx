@@ -9,8 +9,8 @@ export interface BottomSheetAlertInfo {
   message: string
 }
 interface BottomSheetInfoProps {
-  name: string
-  alertInfo: BottomSheetAlertInfo
+  name?: string
+  alertInfo?: BottomSheetAlertInfo
   infoIconStyle?: StyleProp<TextStyle>
 }
 

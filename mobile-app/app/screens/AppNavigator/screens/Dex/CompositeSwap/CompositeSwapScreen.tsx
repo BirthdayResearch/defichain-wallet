@@ -19,7 +19,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import {
   ThemedIcon,
   ThemedScrollView,
-  ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity, ThemedView
 } from '@components/themed'
@@ -27,10 +26,10 @@ import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { ConversionInfoText } from '@components/ConversionInfoText'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
-import { PriceRateProps, PricesSection } from './components/PricesSection'
+import { PriceRateProps } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
@@ -43,6 +42,8 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
 import { ButtonGroup } from '../components/ButtonGroup'
 import { useFutureSwap } from '../hook/FutureSwap'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { openURL } from '@api/linking'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -97,6 +98,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] = useState(false)
   const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false)
+  const [activeTab, setActiveTab] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.FutureSwap)
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.InstantSwap,
@@ -135,6 +137,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [])
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    setActiveTab(buttonGroupTabKey)
   }
 
   // component UI state
@@ -504,15 +507,16 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               setSlippageError={setSlippageError}
               slippage={slippage}
             />
-            <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
             <TransactionDetailsSection
-              amountToSwap={tokenAFormAmount}
+              activeTab={activeTab}
               conversionAmount={conversionAmount}
               estimatedAmount={tokenBFormAmount}
               fee={fee}
               isConversionRequired={isConversionRequired}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
+              priceRate={priceRates[1]}
+              executionBlock={123456789}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -634,29 +638,29 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
 }
 
 function TransactionDetailsSection ({
-  amountToSwap,
+  activeTab,
   conversionAmount,
   estimatedAmount,
   fee,
   isConversionRequired,
   tokenA,
-  tokenB
+  tokenB,
+  priceRate,
+  executionBlock
 }: {
-  amountToSwap: string
+  activeTab: ButtonGroupTabKey
   conversionAmount: BigNumber
   estimatedAmount: string
   fee: BigNumber
   isConversionRequired: boolean
   tokenA: OwnedTokenState
   tokenB: TokenState
+  priceRate: PriceRateProps
+  executionBlock: number
 }): JSX.Element {
+  const { getBlocksCountdownUrl } = useDeFiScanContext()
   return (
-    <>
-      <ThemedSectionTitle
-        testID='title_add_detail'
-        text={translate('screens/CompositeSwapScreen', 'TRANSACTION DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
-      />
+    <View style={tailwind('rounded-lg mx-4 overflow-hidden')}>
       {isConversionRequired &&
         <NumberRow
           lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
@@ -667,16 +671,45 @@ function TransactionDetailsSection ({
             suffix: tokenA.displaySymbol
           }}
         />}
-      <NumberRow
-        lhs={translate('screens/CompositeSwapScreen', 'Total to be swapped')}
-        rhs={{
-          value: new BigNumber(amountToSwap).toFixed(8),
-          suffixType: 'text',
-          suffix: tokenA.displaySymbol,
-          testID: 'total_to_be_swapped'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
+
+      {activeTab === ButtonGroupTabKey.InstantSwap
+        ? (
+          <NumberRow
+            lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
+            rhs={{
+              value: new BigNumber(priceRate.value).toFixed(8),
+              suffixType: 'text',
+              suffix: tokenB.displaySymbol,
+              testID: 'price_rate_B_per_A'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+          />
+        )
+: (
+  <>
+    <TimeRemainingTextRow timeRemaining='6d 12h 36m' />
+    <InfoRow
+      type={InfoType.ExecutionBlock}
+      value={executionBlock}
+      testID='text_fee'
+      suffix={
+        <TouchableOpacity
+          onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}
+        >
+          <ThemedIcon
+            name='open-in-new'
+            size={16}
+            iconType='MaterialIcons'
+            style={tailwind('ml-1')}
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+          />
+        </TouchableOpacity>
+              }
+    />
+  </>
+        )}
+
       <NumberRow
         lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
         rhs={{
@@ -687,13 +720,50 @@ function TransactionDetailsSection ({
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
       />
-    </>
+    </View>
+  )
+}
+
+function TimeRemainingTextRow ({ timeRemaining }: { timeRemaining: string }): JSX.Element {
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('p-4 flex-row items-start w-full')}
+    >
+      <View style={tailwind('w-6/12')}>
+        <View style={tailwind('flex-row items-end justify-start')}>
+          <ThemedText
+            style={tailwind('text-sm')}
+            testID='time_remaining_label'
+          >
+            {translate('screens/CompositeSwapScreen', 'Est. time remaining')}
+          </ThemedText>
+        </View>
+      </View>
+      <View style={tailwind('flex flex-col justify-end flex-1')}>
+        <ThemedText
+          style={tailwind('text-sm text-right')}
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+        >
+          {`≈ ${timeRemaining}`}
+        </ThemedText>
+        <ThemedText
+          style={tailwind('text-xs text-right')}
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+        >
+          (04/13/2022)
+        </ThemedText>
+      </View>
+    </ThemedView>
   )
 }
 
