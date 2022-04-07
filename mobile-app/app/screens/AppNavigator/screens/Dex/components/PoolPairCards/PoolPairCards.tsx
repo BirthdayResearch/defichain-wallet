@@ -228,12 +228,14 @@ const PoolCard = ({
   }, [mappedPair, blockCount])
 
   const getPriceRates = async (): Promise<void> => {
-    const priceRates = await calculatePriceRates(
-      mappedPair?.tokenA.id ?? '',
-      mappedPair?.tokenB.id ?? '',
-      new BigNumber('1')
-    )
-    setPriceRates(priceRates)
+    if (mappedPair !== undefined) {
+      const priceRates = await calculatePriceRates(
+        mappedPair?.tokenA.id,
+        mappedPair?.tokenB.id,
+        new BigNumber('1')
+      )
+      setPriceRates(priceRates)
+    }
   }
 
   const [symbolA, symbolB] =
@@ -253,11 +255,6 @@ const PoolCard = ({
   const tokenBTotal = ratioToTotal
     .times(mappedPair?.tokenB.reserve ?? 0)
     .decimalPlaces(8, BigNumber.ROUND_DOWN)
-  // const priceRates = calculatePriceRates(
-  //   mappedPair?.tokenA.symbol ?? '',
-  //   poolPairData?.data != null ? [poolPairData?.data] : [],
-  //   new BigNumber('1')
-  // )
   const isExpanded = expandedCardIds.some((id) => id === yourPair.id)
 
   const onCollapseToggle = (): void => {
