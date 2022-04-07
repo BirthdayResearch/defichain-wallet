@@ -26,7 +26,6 @@ interface TotalPortfolioProps {
   onToggleDisplayBalances: () => Promise<void>
   isBalancesDisplayed: boolean
   portfolioButtonGroupOptions?: {
-    onPortfolioButtonGroupPress: (key: PortfolioButtonGroupTabKey) => void
     activePortfolioButtonGroup: string
     setActivePortfolioButtonGroup: (key: PortfolioButtonGroupTabKey) => void
   }
