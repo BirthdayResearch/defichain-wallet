@@ -69,6 +69,7 @@ jobs:
         run: rm ANDROID_SERVICE_ACCOUNT.json
         if: always()
 
+  # TODO(thedoublejay): remove once migration process
   eas-release-ios-legacy:
     name: EAS Release iOS Legacy
     environment: EAS Release
