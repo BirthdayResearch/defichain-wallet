@@ -140,8 +140,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setActiveButtonGroup(buttonGroupTabKey)
   }
 
-  console.log({ activeButtonGroup })
-
   // component UI state
   const {
     control,
@@ -434,7 +432,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           />
         </View>
         <ThemedView
-          style={tailwind('m-4 pt-4')}
+          style={tailwind('m-4 pt-4 rounded-lg')}
           light={tailwind('bg-white')}
           dark={tailwind('bg-gray-800')}
         >
@@ -442,7 +440,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             <View style={tailwind('mb-4 mx-4')}>
               <ButtonGroup
                 buttons={buttonGroup}
-                activeButtonGroupItem={activeButtonGroup} // TODO(pierregee): update to dynamic
+                activeButtonGroupItem={activeButtonGroup}
                 modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
                 testID='swap_button_group'
               />
@@ -474,7 +472,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               />
               <InputHelperText
                 testID='text_balance_amount'
-                label={`${translate('screens/CompositeSwapScreen', 'You have')} `}
+                label={`${translate('screens/CompositeSwapScreen', 'Available:')} `}
                 content={getMaxAmount(selectedTokenA)}
                 suffix={` ${selectedTokenA.displaySymbol}`}
               />
@@ -494,20 +492,22 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   />
                 </TouchableOpacity>
                 <View style={tailwind('flex-1')}>
-                  <TokenRow
-                    control={control}
-                    controlName='tokenB'
-                    isDisabled
-                    token={selectedTokenB}
-                    enableMaxButton={false}
-                  />
+                  {activeButtonGroup === ButtonGroupTabKey.FutureSwap
+                    ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={`Oracle price ${oraclePriceText}`} />
+                    : <TokenRow
+                        control={control}
+                        controlName='tokenB'
+                        isDisabled
+                        token={selectedTokenB}
+                        enableMaxButton={false}
+                      />}
                 </View>
               </View>
               {isConversionRequired && <ConversionInfoText />}
             </View>}
           {isFutureSwapOptionEnabled && activeButtonGroup === ButtonGroupTabKey.FutureSwap && selectedTokenB !== undefined &&
             <ThemedView
-              style={tailwind('flex flex-row p-2 mt-6 items-center rounded-t justify-between')}
+              style={tailwind('flex flex-row p-2 mt-6 items-center rounded-t rounded-b-lg justify-between')}
               light={tailwind('bg-blue-100')}
               dark={tailwind('bg-darkblue-50')}
             >
@@ -902,5 +902,34 @@ function TokenRow (form: TokenForm): JSX.Element {
       )}
       rules={rules}
     />
+  )
+}
+
+interface OraclePriceRowProps {
+  oraclePriceText: string
+  tokenDisplaySymbol: string
+}
+
+function OraclePriceRow ({
+  oraclePriceText,
+  tokenDisplaySymbol
+}: OraclePriceRowProps): JSX.Element {
+  const Icon = getNativeIcon(tokenDisplaySymbol)
+
+  return (
+    <ThemedView
+      light={tailwind('bg-gray-50')}
+      style={tailwind('flex-row flex-grow justify-between p-2 rounded-lg')}
+    >
+      <ThemedText
+        style={tailwind('self-center')}
+        light={tailwind('text-gray-400')}
+      >{translate('screens/CompositeSwapScreen', oraclePriceText)}
+      </ThemedText>
+      <View style={tailwind('flex flex-row')}>
+        <Icon height={20} width={20} />
+        <ThemedText style={tailwind('pl-2')}>{tokenDisplaySymbol}</ThemedText>
+      </View>
+    </ThemedView>
   )
 }
