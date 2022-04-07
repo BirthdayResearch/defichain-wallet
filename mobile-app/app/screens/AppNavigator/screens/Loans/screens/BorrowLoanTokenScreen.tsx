@@ -257,7 +257,7 @@ export function BorrowLoanTokenScreen ({
                   style={tailwind('text-sm text-center mt-2 px-4')}
                   testID='vault_min_share_warning'
                 >
-                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens')}
+                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens')}
                 </ThemedText>
               )
               : (
