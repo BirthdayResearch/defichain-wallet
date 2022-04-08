@@ -12,6 +12,7 @@ import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
 import { BalanceText } from './BalanceText'
 import { useState } from 'react'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
+import { SymbolIcon } from '@components/SymbolIcon'
 
 export enum PortfolioButtonGroupTabKey {
   USD = 'USD',
@@ -40,6 +41,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
+  const displayCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup
 
   return (
     <ThemedView
@@ -96,7 +98,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
       {
         (hasFetchedToken && hasFetchedVaultsData)
           ? (
-            <View style={tailwind('flex flex-row')}>
+            <View style={tailwind('flex flex-row items-center')}>
               <NumberFormat
                 displayType='text'
                 prefix='$'
@@ -111,6 +113,13 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 thousandSeparator
                 value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
               />
+              {
+                displayCurrency !== 'USD' && displayCurrency && (
+                  <View style={tailwind('pl-1.5')}>
+                    <SymbolIcon symbol={`${displayCurrency}`} styleProps={tailwind('w-3 h-3')} />
+                  </View>
+                )
+              }
               <TouchableOpacity
                 onPress={() => setIsExpanded(!isExpanded)}
                 style={tailwind('flex flex-row')}
