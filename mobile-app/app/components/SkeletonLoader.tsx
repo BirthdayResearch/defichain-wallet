@@ -7,6 +7,7 @@ import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 import { BalanceSkeletonLoader } from './skeletonLoaders/BalanceSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './skeletonLoaders/VaultSchemeSkeletonLoader'
+import { DexPricesSkeletonLoader } from './skeletonLoaders/DexPricesSkeletonLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -15,6 +16,7 @@ interface SkeletonLoaderProp {
 
 export enum SkeletonLoaderScreen {
   'Dex' = 'Dex',
+  'DexPrices' = 'DexPrices',
   'Transaction' = 'Transaction',
   'MnemonicWord' = 'MnemonicWord',
   'Loan' = 'Loan',
@@ -33,6 +35,15 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <DexSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+
+      case SkeletonLoaderScreen.DexPrices:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <DexPricesSkeletonLoader key={i} />
           ))}
         </>
       )

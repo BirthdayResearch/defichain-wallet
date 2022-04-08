@@ -29,6 +29,7 @@ describe('DFI Total Portfolio Card', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        dexPrices: {},
         swappableTokens: {},
         hasFetchedPoolpairData: false,
         hasFetchedToken: true,
