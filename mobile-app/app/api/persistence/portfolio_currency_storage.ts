@@ -8,7 +8,7 @@ async function set (portfolioCurrency: PortfolioButtonGroupTabKey): Promise<void
 }
 
 async function get (): Promise<PortfolioButtonGroupTabKey> {
-    const val = await AsyncStorage.getItem(KEY) ?? PortfolioButtonGroupTabKey.USD
+    const val = await AsyncStorage.getItem(KEY) ?? JSON.parse(PortfolioButtonGroupTabKey.USD)
     return JSON.parse(val)
 }
 
