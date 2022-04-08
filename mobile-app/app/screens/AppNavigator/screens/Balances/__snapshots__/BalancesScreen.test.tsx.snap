@@ -137,9 +137,15 @@ exports[`balances page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
-                  "marginLeft": "auto",
-                }
+                Array [
+                  Object {
+                    "paddingBottom": 6,
+                    "paddingTop": 6,
+                  },
+                  Object {
+                    "marginLeft": "auto",
+                  },
+                ]
               }
             >
               <View

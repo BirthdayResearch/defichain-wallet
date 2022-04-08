@@ -4,7 +4,7 @@ import { setTokenSymbol, wallet } from '@store/wallet'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { block } from '@store/block'
-import { TotalPortfolio } from './TotalPortfolio'
+import { PortfolioButtonGroupTabKey, TotalPortfolio } from './TotalPortfolio'
 import BigNumber from 'bignumber.js'
 import { loans } from '@store/loans'
 
@@ -61,6 +61,16 @@ describe('DFI Total Portfolio Card', () => {
           totalLockedUSDValue={new BigNumber(300)}
           onToggleDisplayBalances={jest.fn()}
           isBalancesDisplayed
+          portfolioButtonGroupOptions={{
+            activePortfolioButtonGroup: PortfolioButtonGroupTabKey.USD,
+            setActivePortfolioButtonGroup: jest.fn()
+          }}
+          portfolioButtonGroup={[{
+            id: PortfolioButtonGroupTabKey.USD,
+            label: 'USD',
+            handleOnPress: jest.fn()
+          }
+          ]}
         />
       </Provider>
     )

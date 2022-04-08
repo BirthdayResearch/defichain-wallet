@@ -100,6 +100,92 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
           <Text />
         </View>
       </View>
+      <View
+        style={
+          Array [
+            Object {
+              "paddingBottom": 6,
+              "paddingTop": 6,
+            },
+            Object {
+              "marginLeft": "auto",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "borderBottomLeftRadius": 16,
+                "borderBottomRightRadius": 16,
+                "borderTopLeftRadius": 16,
+                "borderTopRightRadius": 16,
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              Object {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+              },
+            ]
+          }
+          testID="portfolio_button_group"
+        >
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "rgba(245, 245, 245, 1)",
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "overflowWrap": "break-word",
+                "paddingBottom": 4,
+                "paddingLeft": 10,
+                "paddingRight": 10,
+                "paddingTop": 4,
+              }
+            }
+            testID="portfolio_button_group_USD_active"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "rgba(255, 0, 175, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              USD
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   </View>
   <View
