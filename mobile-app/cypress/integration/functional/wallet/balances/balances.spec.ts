@@ -1115,19 +1115,19 @@ context('Wallet - Balances - portfolio', () => {
         }]
       }
     }).as('getVaults')
-    cy.intercept('**/poolpairs/dexprices?denomination=*', {
-      body: getDexPrice({
-        dusd: '990.49720000',
-        usdc: '1.00000000',
-        eth: '10.00000000',
-        btc: '10.00000000',
-        dfi: '10.00000000'
-      })
-    }).as('getDexPrices')
   })
 
   it('should show portfolio breakdown', () => {
     cy.wait('@getVaults').then(() => {
+      cy.intercept('**/poolpairs/dexprices?denomination=*', {
+        body: getDexPrice({
+          dusd: '990.49720000',
+          usdc: '1.00000000',
+          eth: '10.00000000',
+          btc: '10.00000000',
+          dfi: '10.00000000'
+        })
+      }).as('getDexPrices')
       cy.wait('@getDexPrices').then(() => {
         cy.wait(1000)
         cy.getByTestID('toggle_portfolio').click()

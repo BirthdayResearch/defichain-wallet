@@ -80,6 +80,22 @@ function removeMaxCollateralNA (token: string, balance: string, amount: string, 
   cy.getByTestID('add_collateral_button').click()
 }
 
+function borrowLoan (symbol: string, amount: string): void {
+  cy.getByTestID('vault_card_0_manage_loans_button').click()
+  const amountToBorrow = new BigNumber(amount).toFixed(8)
+  cy.getByTestID('button_browse_loans').click()
+  cy.getByTestID(`loan_card_${symbol}`).click()
+  cy.getByTestID('form_input_borrow').clear().type(amountToBorrow)
+  cy.wait(3000)
+  cy.getByTestID('borrow_loan_submit_button').click()
+  cy.getByTestID('text_borrow_amount').contains(amountToBorrow)
+  cy.getByTestID('text_borrow_amount_suffix').contains(symbol)
+  cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
+  cy.getByTestID('txn_authorization_description')
+    .contains(`Borrowing ${amountToBorrow} ${symbol}`)
+  cy.closeOceanInterface()
+}
+
 context('Wallet - Loans - Add/Remove Collateral', () => {
   let vaultId = ''
 
@@ -323,6 +339,7 @@ context('Wallet - Loans - 50% valid collateral token ratio', () => {
     cy.getByTestID('add_collateral_button').click()
     addCollateral('DFI', '18', '10', '$1,000.00', '100', '66.67%', vaultId, '66.67%')
     cy.go('back')
+    borrowLoan('DUSD', '1')
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.getByTestID('collateral_card_remove_DFI').click()
     checkCollateralFormValues('How much DFI to remove?', 'DFI', '10')
