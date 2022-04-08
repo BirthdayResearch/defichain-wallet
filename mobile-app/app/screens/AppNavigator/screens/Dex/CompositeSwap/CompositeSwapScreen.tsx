@@ -441,8 +441,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               <ButtonGroup
                 buttons={buttonGroup}
                 activeButtonGroupItem={activeButtonGroup}
-                modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
+                labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
                 testID='swap_button_group'
+                containerThemedProps={{
+                  light: tailwind('bg-gray-100'),
+                  dark: tailwind('bg-gray-900')
+                }}
               />
             </View>}
           {(selectedTokenA === undefined || selectedTokenB === undefined) && fromTokens?.length !== 0 &&
@@ -475,6 +479,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 label={`${translate('screens/CompositeSwapScreen', 'Available:')} `}
                 content={getMaxAmount(selectedTokenA)}
                 suffix={` ${selectedTokenA.displaySymbol}`}
+                labelStyleProps={tailwind('text-xs')}
+                styleProps={tailwind('text-xs')}
               />
               {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
               <View style={tailwind(['flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
@@ -507,7 +513,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             </View>}
           {isFutureSwapOptionEnabled && activeButtonGroup === ButtonGroupTabKey.FutureSwap && selectedTokenB !== undefined &&
             <ThemedView
-              style={tailwind('flex flex-row p-2 mt-6 items-center rounded-t rounded-b-lg justify-between')}
+              style={tailwind('flex flex-row py-2 px-4 mt-6 items-center rounded-t rounded-b-lg justify-between')}
               light={tailwind('bg-blue-100')}
               dark={tailwind('bg-darkblue-50')}
             >
@@ -529,17 +535,18 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 {` ${translate('screens/CompositeSwapScreen', 'than the oracle price')}`}
               </ThemedText>
             </ThemedView>}
+
+          {activeButtonGroup === ButtonGroupTabKey.InstantSwap && selectedTokenB !== undefined && selectedTokenA !== undefined &&
+            <SlippageTolerance
+              setSlippage={setSlippage}
+              slippageError={slippageError}
+              setSlippageError={setSlippageError}
+              slippage={slippage}
+            />}
         </ThemedView>
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
           <>
-            {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
-              <SlippageTolerance
-                setSlippage={setSlippage}
-                slippageError={slippageError}
-                setSlippageError={setSlippageError}
-                slippage={slippage}
-              />}
             <TransactionDetailsSection
               activeTab={activeButtonGroup}
               conversionAmount={conversionAmount}
@@ -847,7 +854,7 @@ function TokenRow (form: TokenForm): JSX.Element {
         <ThemedView
           dark={tailwind('bg-transparent')}
           light={tailwind('bg-transparent')}
-          style={tailwind('flex-row flex-grow')}
+          style={tailwind('flex-row')}
         >
           <WalletTextInput
             autoCapitalize='none'
@@ -919,14 +926,14 @@ function OraclePriceRow ({
   return (
     <ThemedView
       light={tailwind('bg-gray-50')}
-      style={tailwind('flex-row flex-grow justify-between p-2 rounded-lg')}
+      style={tailwind('flex-row flex-grow justify-between items-center p-2 rounded')}
     >
       <ThemedText
         style={tailwind('self-center')}
         light={tailwind('text-gray-400')}
       >{translate('screens/CompositeSwapScreen', oraclePriceText)}
       </ThemedText>
-      <View style={tailwind('flex flex-row')}>
+      <View style={tailwind('flex flex-row items-center')}>
         <Icon height={20} width={20} />
         <ThemedText style={tailwind('pl-2')}>{tokenDisplaySymbol}</ThemedText>
       </View>
