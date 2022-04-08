@@ -77,14 +77,14 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           {
             props.portfolioButtonGroupOptions !== undefined &&
             (
-              <View style={{ marginLeft: 'auto' }}>
+              <View style={[tailwind('py-1.5'), { marginLeft: 'auto' }]}>
                 <ButtonGroup
                   buttons={props.portfolioButtonGroup}
                   activeButtonGroupItem={props.portfolioButtonGroupOptions.activePortfolioButtonGroup}
                   modalStyle={tailwind('text-xs text-center')}
                   testID='portfolio_button_group'
                   lightThemeStyle={tailwind('bg-white')}
-                  portfolioButtonGroupStyle={tailwind('px-2.5 py-1 rounded  break-words justify-center')}
+                  portfolioButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
                   portfolioLightActiveStyle
                   portfoliolDarkActiveStyle
                 />
