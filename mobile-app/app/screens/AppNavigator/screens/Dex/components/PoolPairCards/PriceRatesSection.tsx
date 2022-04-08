@@ -7,6 +7,7 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ThemedText } from '@components/themed'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
+import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 
 interface PriceRatesSectionProps {
   tokenA: {
@@ -31,8 +32,41 @@ export const PriceRatesSection = memo(({
     new BigNumber(tokenA.priceRate).isNaN() ||
     new BigNumber(tokenB.priceRate).isNaN()
   ) {
-    return <></>
-  }
+  return (
+    <View style={tailwind('flex flex-col justify-center items-start')}>
+      <View style={tailwind('mt-2')}>
+        <TextSkeletonLoader
+          iContentLoaderProps={{
+          width: '60',
+          height: '14',
+          testID: 'available_percentage_skeleton_loader'
+        }}
+          textWidth='60'
+        />
+      </View>
+      <View style={tailwind('mt-2')}>
+        <TextSkeletonLoader
+          iContentLoaderProps={{
+          width: '200',
+          height: '16',
+          testID: 'available_percentage_skeleton_loader'
+        }}
+          textWidth='180'
+        />
+      </View>
+      <View style={tailwind('mt-1')}>
+        <TextSkeletonLoader
+          iContentLoaderProps={{
+          width: '180',
+          height: '16',
+          testID: 'available_percentage_skeleton_loader'
+        }}
+          textWidth='180'
+        />
+      </View>
+    </View>
+  )
+}
 
   return (
     <View style={tailwind('flex')}>

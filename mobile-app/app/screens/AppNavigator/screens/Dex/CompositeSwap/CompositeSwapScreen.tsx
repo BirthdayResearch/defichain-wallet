@@ -307,6 +307,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       ])
 
       setValue('tokenB', estimatedAmountAfterSlippage)
+      // trigger validation for tokenB
+      await trigger('tokenB')
     }
   }
 
