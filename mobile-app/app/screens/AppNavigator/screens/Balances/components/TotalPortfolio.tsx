@@ -85,8 +85,8 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   testID='portfolio_button_group'
                   lightThemeStyle={tailwind('bg-white')}
                   portfolioButtonGroupStyle={tailwind('px-2.5 py-1 rounded  break-words justify-center')}
-                  portfolioLightActiveStyle={tailwind('bg-white')}
-                  portfoliolDarkActiveStyle={tailwind('bg-gray-800')}
+                  portfolioLightActiveStyle
+                  portfoliolDarkActiveStyle
                 />
               </View>
             )

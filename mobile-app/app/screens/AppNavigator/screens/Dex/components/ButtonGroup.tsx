@@ -11,8 +11,8 @@ interface ButtonGroupProps {
   lightThemeStyle?: { [key: string]: string }
   darkThemeStyle?: { [key: string]: string }
   portfolioButtonGroupStyle?: { [key: string]: string }
-  portfolioLightActiveStyle?: { [key: string]: string }
-  portfoliolDarkActiveStyle?: { [key: string]: string }
+  portfolioLightActiveStyle?: boolean
+  portfoliolDarkActiveStyle?: boolean
 }
 
 interface Buttons {
@@ -27,7 +27,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
     <ThemedView
       light={props.lightThemeStyle ?? tailwind('bg-gray-100')}
       dark={props.darkThemeStyle ?? tailwind('bg-gray-800')}
-      style={tailwind('rounded-2xl flex flex-row')} // TODO: custom border radius for portfolio tab
+      style={tailwind('rounded-2xl flex flex-row')}
       testID={props.testID}
     >
       {
@@ -58,8 +58,8 @@ interface ButtonGroupItemProps {
   testID: string
   modalStyle?: StyleProp<TextStyle>
   portfolioButtonGroupStyle?: { [key: string]: string }
-  portfolioLightActiveStyle?: { [key: string]: string }
-  portfoliolDarkActiveStyle?: { [key: string]: string }
+  portfolioLightActiveStyle?: boolean
+  portfoliolDarkActiveStyle?: boolean
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
@@ -68,13 +68,17 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       onPress={props.onPress}
       light={tailwind(
         {
-          'bg-primary-50': props.isActive && (props.portfolioLightActiveStyle == null)
+          'bg-primary-50': props.isActive
         },
         {
-          'bg-gray-100': props.isActive && props.portfolioLightActiveStyle
+          'bg-gray-100': props.isActive && props.portfolioLightActiveStyle !== undefined
         }
         )}
-      dark={props.portfoliolDarkActiveStyle ?? tailwind({ 'bg-darkprimary-50': props.isActive })}
+      dark={tailwind(
+        { 'bg-darkprimary-50': props.isActive },
+        {
+          'bg-black': props.isActive && props.portfoliolDarkActiveStyle !== undefined
+        })}
       style={props.portfolioButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
