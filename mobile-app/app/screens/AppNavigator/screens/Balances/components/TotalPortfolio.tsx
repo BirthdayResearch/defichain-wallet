@@ -115,7 +115,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               />
               {
                 displayCurrency !== 'USD' && displayCurrency && (
-                  <View style={tailwind('pl-1.5')}>
+                  <View style={tailwind('pl-1.5')} testID={`portfolio_display_${displayCurrency}_currency`}>
                     <SymbolIcon symbol={`${displayCurrency}`} styleProps={tailwind('w-3 h-3')} />
                   </View>
                 )

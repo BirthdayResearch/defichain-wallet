@@ -388,6 +388,22 @@ context('Wallet - Balances', () => {
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1,000.00' })
   })
 
+  // TODO: add respective object to display respective currency texts
+  it('should display portfolio values in DFI currency', function () {
+    cy.getByTestID('portfolio_button_group').should('exist')
+    cy.getByTestID('portfolio_button_group_DFI').click()
+    cy.getByTestID('portfolio_button_group_DFI_ACTIVE').should('exist')
+    cy.getByTestID('portfolio_display_DFI_currency').should('exist')
+    // check respective checks for texts
+  })
+  it('should display portfolio values in BTC currency', function () {
+    cy.getByTestID('portfolio_button_group').should('exist')
+    cy.getByTestID('portfolio_button_group_BTC').click()
+    cy.getByTestID('portfolio_button_group_BTC_ACTIVE').should('exist')
+    cy.getByTestID('portfolio_display_BTC_currency').should('exist')
+    // check respective checks for texts
+  })
+
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
     cy.getByTestID('toggle_balance').click()
     cy.getByTestID('dfi_total_balance_amount').should('have.text', '*****')
