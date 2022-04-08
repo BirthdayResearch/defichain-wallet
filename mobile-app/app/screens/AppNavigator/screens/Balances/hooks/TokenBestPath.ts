@@ -7,14 +7,14 @@ import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
-interface CalculatePriceRatesI {
+interface CalculatePriceRatesProps {
   aToBPrice: BigNumber
   bToAPrice: BigNumber
   estimated: BigNumber
 }
 
 interface TokenBestPath {
-  calculatePriceRates: (fromTokenId: string, toTokenId: string, amount: BigNumber) => Promise<CalculatePriceRatesI>
+  calculatePriceRates: (fromTokenId: string, toTokenId: string, amount: BigNumber) => Promise<CalculatePriceRatesProps>
   getArbitraryPoolPair: (tokenAId: string, tokenBId: string) => Promise<PoolPairData[]>
 }
 
@@ -50,7 +50,7 @@ export function useTokenBestPath (): TokenBestPath {
     return bestPathData
   }
 
-  const calculatePriceRates = useCallback(async (fromTokenId: string, toTokenId: string, amount: BigNumber): Promise<CalculatePriceRatesI> => {
+  const calculatePriceRates = useCallback(async (fromTokenId: string, toTokenId: string, amount: BigNumber): Promise<CalculatePriceRatesProps> => {
     const bestPathData = await getBestPath(getTokenId(fromTokenId), getTokenId(toTokenId))
 
     let lastTokenById = fromTokenId

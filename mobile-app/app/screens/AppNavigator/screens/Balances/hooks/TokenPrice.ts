@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
+import { dexPricesSelectorByDenomination } from '@store/wallet'
 
 interface TokenPrice {
   getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean) => BigNumber
@@ -9,8 +10,7 @@ interface TokenPrice {
 
 export function useTokenPrice (denominationTokenSymbol = 'USDT'): TokenPrice {
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const dexPrices = useSelector((state: RootState) => state.wallet.dexPrices)
-  const prices = dexPrices[denominationTokenSymbol] ?? {}
+  const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationTokenSymbol))
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
 
   /**

@@ -239,3 +239,10 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
 export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
   return allTokens[displaySymbol]
 })
+
+/**
+ * Get dexprices by currency denomination
+ */
+ export const dexPricesSelectorByDenomination = createSelector([(state: WalletState) => state.dexPrices, selectTokenId], (dexPrices, denomination) => {
+  return dexPrices[denomination] ?? {}
+})
