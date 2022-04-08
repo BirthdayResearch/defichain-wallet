@@ -85,7 +85,7 @@
     "(From highest value)": "(vom höchsten Wert an)",
     "(From lowest value)": "(vom niedrigsten Wert aus)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
-    "loans": "darlehen"
+    "loans": "Darlehen"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -108,7 +108,7 @@
     "Edit address label": "Adressbezeichnung bearbeiten",
     "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
     "Address {{index}}": "Adresse {{index}}",
-    "Add new address": "Neue adresse hinzufügen",
+    "Add new address": "Neue Adresse hinzufügen",
     "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)"
@@ -117,8 +117,8 @@
     "Edit address label": "Adressbezeichnung bearbeiten",
     "Address label": "Adressbezeichnung",
     "Address {{index}}": "Adresse {{index}}",
-    "Add new address": "Neue adresse hinzufügen",
-    "Add New Address": "Neue adresse hinzufügen",
+    "Add new address": "Neue Adresse hinzufügen",
+    "Add New Address": "Neue Adresse hinzufügen",
     "Address": "Adresse",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
