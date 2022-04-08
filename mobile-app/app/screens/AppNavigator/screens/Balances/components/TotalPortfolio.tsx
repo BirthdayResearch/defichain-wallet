@@ -41,7 +41,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
-  const displayCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup
+  const displayCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // 'BTC' or 'DFI'
 
   return (
     <ThemedView
