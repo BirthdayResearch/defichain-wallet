@@ -47,16 +47,16 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'dusd_vault_share',
       name: 'DUSD 50% contribution',
-      stage: 'alpha',
-      version: '>1.8.2',
+      stage: 'beta',
+      version: '>1.8.1',
       description: 'DUSD 50% contribution in required collateral token',
-      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }, {
       id: 'dusd_loan_payment',
       name: 'DUSD Loan Payment',
       stage: 'alpha',
-      version: '>1.8.2',
+      version: '>1.8.1',
       description: 'Allow DUSD payment on loans (+1% fee if paying a Non-DUSD loan)',
       networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
