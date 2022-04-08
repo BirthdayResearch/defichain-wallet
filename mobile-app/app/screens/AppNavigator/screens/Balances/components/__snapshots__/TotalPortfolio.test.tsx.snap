@@ -191,6 +191,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
   <View
     style={
       Object {
+        "alignItems": "center",
         "display": "flex",
         "flexDirection": "row",
       }
