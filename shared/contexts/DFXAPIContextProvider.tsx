@@ -60,6 +60,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
       signature: sig
     })
 
+    // Reset pin
+    await DFXPersistence.resetPin()
+
     await updateSession()
   }
 
@@ -119,10 +122,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         } else if (resp.statusCode === 400) {
           // invalid signature
           DFXPersistence.getPair(addr).then(async (pair) => {
-            const copy = pair
-            copy.signature = ''
-            copy.token = ''
-            await DFXPersistence.setPair(copy)
+            pair.signature = ''
+            pair.token = ''
+            await DFXPersistence.setPair(pair)
           }).catch(() => 'nothing to show here')
           return false
         }
@@ -179,6 +181,15 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
       console.error(reason)
     })
   })
+
+  useEffect(() => {
+    dispatch(async () => {
+      const hasPair = await DFXPersistence.hasPair(address)
+      if (!hasPair) {
+        await updateSession()
+      }
+    })
+  }, [dispatch, address])
 
   return (
     <DFXAPIContext.Provider value={context}>

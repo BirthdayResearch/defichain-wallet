@@ -9,7 +9,7 @@ export interface DFXAddrSignature {
   token?: string
 }
 
-// Store wallet pin (possible security risk)
+// Store wallet pin
 async function setWalletPin (pin: string): Promise<void> {
   await AsyncStorage.setItem(DFXWALLET_PIN, pin)
 }
@@ -28,17 +28,14 @@ async function getPairList (): Promise<DFXAddrSignature[]> {
 // Check if pair exists
 async function hasPair (addr: string): Promise<boolean> {
   const list: DFXAddrSignature[] = await getPairList()
-  if (list.some(e => e.addr === addr)) {
-    return true
-  }
-  return false
+  return list.some(e => e.addr === addr)
 }
 
 // Add pair to the list if it does not exist already
 async function addPair (pair: DFXAddrSignature): Promise<void> {
   const list: DFXAddrSignature[] = await getPairList()
   if (list.some(e => e.addr === pair.addr)) {
-    return await Promise.reject(new Error('Pair already exists.'))
+    throw new Error('Pair already exists.')
   }
   list.push(pair)
   await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify(list))
@@ -47,11 +44,11 @@ async function addPair (pair: DFXAddrSignature): Promise<void> {
 // Get a single pair from list
 async function getPair (addr: string): Promise<DFXAddrSignature> {
   const list: DFXAddrSignature[] = await getPairList()
-  const resultList: DFXAddrSignature[] = list.filter(pair => pair.addr === addr)
-  if (resultList.length === 0) {
-    return await Promise.reject(new Error('Address not found.'))
+  const result = list.find(pair => pair.addr === addr)
+  if (result === undefined) {
+    throw new Error('Address not found.')
   }
-  return await Promise.resolve(resultList[0])
+  return result
 }
 
 // Add or Update pair in list
@@ -85,12 +82,16 @@ async function setToken (addr: string, token: string): Promise<void> {
 // Get token for address pair
 async function getToken (addr: string): Promise<string> {
   const pair = await getPair(addr)
-  return await Promise.resolve(pair.token ?? '')
+  return pair.token ?? ''
 }
 
 // Reset pair list
 async function reset (): Promise<void> {
   await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify([]))
+  await AsyncStorage.setItem(DFXWALLET_PIN, '')
+}
+
+async function resetPin (): Promise<void> {
   await AsyncStorage.setItem(DFXWALLET_PIN, '')
 }
 
@@ -105,5 +106,6 @@ export const DFXPersistence = {
   setWalletPin,
   getWalletPin,
   getPairList,
-  reset
+  reset,
+  resetPin
 }

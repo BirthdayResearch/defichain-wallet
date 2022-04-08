@@ -31,8 +31,6 @@ import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLa
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
-import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { DfxButtons } from '@screens/AppNavigator/screens/Balances/components/DfxButtons'
 
@@ -61,7 +59,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
-  const { dfxUpdateSession } = useDFXAPIContext()
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
 
@@ -72,15 +69,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     fetchPortfolioData()
   }, [address, blockCount])
-
-  useEffect(() => {
-    dispatch(async () => {
-      const hasPair = await DFXPersistence.hasPair(address)
-      if (!hasPair) {
-        await dfxUpdateSession()
-      }
-    })
-  }, [dfxUpdateSession, dispatch, address])
 
   useLayoutEffect(() => {
     navigation.setOptions({
