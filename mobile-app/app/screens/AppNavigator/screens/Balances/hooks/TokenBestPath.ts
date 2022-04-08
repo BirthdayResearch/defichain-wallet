@@ -52,40 +52,10 @@ export function useTokenBestPath (): TokenBestPath {
 
   const calculatePriceRates = useCallback(async (fromTokenId: string, toTokenId: string, amount: BigNumber): Promise<CalculatePriceRatesProps> => {
     const bestPathData = await getBestPath(getTokenId(fromTokenId), getTokenId(toTokenId))
-
-    let lastTokenById = fromTokenId
-    let lastAmount = new BigNumber(amount)
-    if (bestPathData?.bestPath.length > 0) {
-      const priceRates = bestPathData.bestPath.reduce((priceRates, pair): { aToBPrice: BigNumber, bToAPrice: BigNumber, estimated: BigNumber } => {
-        const tokenBId = pair.tokenB.id === lastTokenById ? pair.tokenA.id : pair.tokenB.id
-        // To sequentially convert the token from its last token
-        const aToBPrice = pair.tokenB.id === lastTokenById ? pair.priceRatio.ab : pair.priceRatio.ba
-        const bToAPrice = pair.tokenB.id === lastTokenById ? pair.priceRatio.ba : pair.priceRatio.ab
-
-        const estimated = new BigNumber(lastAmount).times(aToBPrice)
-
-        lastAmount = estimated
-        lastTokenById = tokenBId
-        return {
-          aToBPrice: priceRates.aToBPrice.times(aToBPrice),
-          bToAPrice: priceRates.bToAPrice.times(bToAPrice),
-          estimated
-        }
-      }, {
-        aToBPrice: new BigNumber(1),
-        bToAPrice: new BigNumber(1),
-        estimated: new BigNumber(0)
-      })
-      return {
-        aToBPrice: priceRates.aToBPrice,
-        bToAPrice: priceRates.bToAPrice,
-        estimated: priceRates.estimated
-      }
-    }
     return {
-      aToBPrice: new BigNumber(''),
-      bToAPrice: new BigNumber(''),
-      estimated: new BigNumber('')
+      aToBPrice: new BigNumber(bestPathData.estimatedReturn),
+      bToAPrice: new BigNumber(1).div(bestPathData.estimatedReturn),
+      estimated: new BigNumber(bestPathData.estimatedReturn).times(amount)
     }
   }, [pairs, blockCount])
 
