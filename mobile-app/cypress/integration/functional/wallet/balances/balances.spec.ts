@@ -557,7 +557,7 @@ context('Wallet - Balances - USD Value', () => {
       })
     }).as('getDexPrices')
     cy.wait('@getDexPrices').then(() => {
-      cy.wait(1000)
+      cy.wait(2000)
       cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '100')
       })
@@ -613,7 +613,7 @@ context('Wallet - Balances - USD Value', () => {
       })
     }).as('getDexPrices')
     cy.wait('@getDexPrices').then(() => {
-      cy.wait(1000)
+      cy.wait(2000)
       // DFI USD
       cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '100')
@@ -666,7 +666,7 @@ context('Wallet - Balances - USD Value', () => {
       })
     }).as('getDexPrices')
     cy.wait('@getDexPrices').then(() => {
-      cy.wait(1000)
+      cy.wait(2000)
       cy.sendDFItoWallet().wait(5000)
       cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '20')
@@ -1129,17 +1129,17 @@ context('Wallet - Balances - portfolio', () => {
         })
       }).as('getDexPrices')
       cy.wait('@getDexPrices').then(() => {
-        cy.wait(1000)
+        cy.wait(2000)
         cy.getByTestID('toggle_portfolio').click()
         // subtract loan amount
         cy.getByTestID('total_usd_amount').invoke('text').then(text => {
-          checkValueWithinRange(text, '10090', 1)
+          checkValueWithinRange(text, '100', 1)
         })
         cy.getByTestID('total_available_usd_amount').invoke('text').then(text => {
           checkValueWithinRange(text, '100', 1)
         })
         cy.getByTestID('total_locked_usd_amount').invoke('text').then(text => {
-          checkValueWithinRange(text, '10000', 1)
+          checkValueWithinRange(text, '10', 1)
         })
         cy.getByTestID('outstanding_loans_amount').invoke('text').then(text => {
           checkValueWithinRange(text, '10', 1)
