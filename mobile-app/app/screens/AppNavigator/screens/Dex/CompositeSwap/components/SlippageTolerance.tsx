@@ -29,21 +29,19 @@ export function SlippageTolerance ({ slippage, setSlippage, slippageError, setSl
   }, [])
 
   return (
-    <View style={tailwind('px-4 mt-5 w-full')}>
+    <View style={tailwind('px-4 pt-4 w-full')}>
       <View
+        style={tailwind('flex-row items-center')}
         testID='slippage_tolerance_heading'
-        style={tailwind(['flex-row items-center justify-between'])}
       >
-        <View style={tailwind('flex-row items-center')}>
-          <ThemedText
-            dark={tailwind('text-gray-50')}
-            light={tailwind('text-gray-900')}
-            style={tailwind('mr-1')}
-          >
-            {translate('screens/SlippageTolerance', 'Slippage tolerance')}
-          </ThemedText>
-          <BottomSheetInfo alertInfo={slippageTolerance} name={slippageTolerance.title} />
-        </View>
+        <ThemedText
+          dark={tailwind('text-gray-50')}
+          light={tailwind('text-gray-900')}
+          style={tailwind('mr-1')}
+        >
+          {translate('screens/SlippageTolerance', 'Slippage tolerance')}
+        </ThemedText>
+        <BottomSheetInfo alertInfo={slippageTolerance} name={slippageTolerance.title} />
       </View>
       <SlippageSelector
         slippage={slippage}
@@ -145,7 +143,7 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
         <ThemedView
           dark={tailwind('bg-transparent')}
           light={tailwind('bg-transparent')}
-          style={tailwind('flex-row w-full')}
+          style={tailwind('flex-row w-full mb-4')}
         >
           <WalletTextInput
             onChangeText={onSlippageChange}

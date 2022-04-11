@@ -44,6 +44,7 @@ import { ButtonGroup } from '../components/ButtonGroup'
 import { useFutureSwap } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
+import NumberFormat from 'react-number-format'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -155,8 +156,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     tokenA,
     tokenB
   } = watch()
-  const tokenAFormAmount = tokenA === '' ? undefined : tokenA
-  const tokenBFormAmount = tokenB === '' ? undefined : tokenB
+
   const {
     isConversionRequired,
     conversionAmount
@@ -302,13 +302,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [selectedTokenA, selectedTokenB])
 
   useEffect(() => {
-    if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenAFormAmount !== undefined) {
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenA !== undefined) {
       const {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenAFormAmount))
-      const slippage = new BigNumber(1).minus(new BigNumber(tokenAFormAmount).div(selectedTokenA.reserve))
+      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenA))
+      const slippage = new BigNumber(1).minus(new BigNumber(tokenA).div(selectedTokenA.reserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
@@ -332,10 +332,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
       setValue('tokenB', estimatedAmountAfterSlippage)
     }
-  }, [selectedPoolPairs, tokenAFormAmount])
+  }, [selectedPoolPairs, tokenA])
 
   const navigateToConfirmScreen = (): void => {
-    if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenAFormAmount === undefined || tokenBFormAmount === undefined) {
+    if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenA === undefined || tokenB === undefined) {
       return
     }
 
@@ -349,8 +349,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
-        amountFrom: new BigNumber(tokenAFormAmount),
-        amountTo: new BigNumber(tokenBFormAmount)
+        amountFrom: new BigNumber(tokenA),
+        amountTo: new BigNumber(tokenB)
       },
       tokenA: selectedTokenA,
       tokenB: ownedTokenB !== undefined
@@ -453,26 +453,22 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             <ThemedText
               dark={tailwind('text-gray-400')}
               light={tailwind('text-gray-500')}
-              style={tailwind('mt-10 text-center px-4')}
+              style={tailwind('text-center px-4 pb-4')}
               testID='swap_instructions'
             > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
             </ThemedText>}
 
           {selectedTokenA !== undefined && selectedTokenB !== undefined &&
-            <View style={tailwind('mx-4')}>
+            <View style={tailwind('mx-4 flex-1')}>
               <TokenRow
                 control={control}
-                controlName='tokenA'
-                isDisabled={false}
                 title={translate('screens/CompositeSwapScreen', 'Enter amount to swap')}
                 maxAmount={getMaxAmount(selectedTokenA)}
-                enableMaxButton
                 onChangeFromAmount={async (amount) => {
                   amount = isNaN(+amount) ? '0' : amount
                   setValue('tokenA', amount)
                   await trigger('tokenA')
                 }}
-                token={selectedTokenA}
               />
               <InputHelperText
                 testID='text_balance_amount'
@@ -482,7 +478,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 labelStyleProps={tailwind('text-xs')}
                 styleProps={tailwind('text-xs')}
               />
-              {selectedTokenA.id === '0_unified' && <ReservedDFIInfoText />}
+              {selectedTokenA.id === '0_unified' && (
+                <View style={tailwind('mb-4')}>
+                  <ReservedDFIInfoText />
+                </View>
+              )}
               <View style={tailwind(['flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
                 <TouchableOpacity
                   onPress={onTokenSwitch}
@@ -492,7 +492,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                     name='swap-vert'
                     size={24}
                     iconType='MaterialIcons'
-                    style={tailwind('w-8 mx-2 mt-2.5')}
+                    style={tailwind('w-8 mx-2')}
                     dark={tailwind('text-darkprimary-500')}
                     light={tailwind('text-primary-500')}
                   />
@@ -500,13 +500,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 <View style={tailwind('flex-1')}>
                   {activeButtonGroup === ButtonGroupTabKey.FutureSwap
                     ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={`Oracle price ${oraclePriceText}`} />
-                    : <TokenRow
-                        control={control}
-                        controlName='tokenB'
-                        isDisabled
-                        token={selectedTokenB}
-                        enableMaxButton={false}
-                      />}
+                    : <TargetTokenRow control={control} token={selectedTokenB} />}
                 </View>
               </View>
               {isConversionRequired && <ConversionInfoText />}
@@ -545,12 +539,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             />}
         </ThemedView>
 
-        {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenAFormAmount !== undefined && tokenBFormAmount !== undefined) &&
+        {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
           <>
             <TransactionDetailsSection
               activeTab={activeButtonGroup}
               conversionAmount={conversionAmount}
-              estimatedAmount={tokenBFormAmount}
+              estimatedAmount={tokenB}
               fee={fee}
               isConversionRequired={isConversionRequired}
               tokenA={selectedTokenA}
@@ -809,27 +803,18 @@ function TimeRemainingTextRow ({ timeRemaining }: { timeRemaining: string }): JS
 
 interface TokenForm {
   control: Control<{ tokenA: string, tokenB: string }>
-  controlName: 'tokenA' | 'tokenB'
-  token: TokenState | OwnedTokenState
-  enableMaxButton: boolean
   maxAmount?: string
-  onChangeFromAmount?: (amount: string) => void
-  title?: string
-  isDisabled: boolean
+  onChangeFromAmount: (amount: string) => void
+  title: string
 }
 
 function TokenRow (form: TokenForm): JSX.Element {
   const {
-    token,
     control,
     onChangeFromAmount,
     title,
-    controlName,
-    enableMaxButton,
-    isDisabled,
     maxAmount
   } = form
-  const Icon = getNativeIcon(token.displaySymbol)
   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
     required: true,
     max: maxAmount,
@@ -844,10 +829,9 @@ function TokenRow (form: TokenForm): JSX.Element {
     <Controller
       control={control}
       defaultValue={defaultValue}
-      name={controlName}
+      name='tokenA'
       render={({
         field: {
-          onChange,
           value
         }
       }) => (
@@ -858,52 +842,31 @@ function TokenRow (form: TokenForm): JSX.Element {
         >
           <WalletTextInput
             autoCapitalize='none'
-            editable={!isDisabled}
             onChange={(e) => {
-              if (!isDisabled) {
-                if (onChangeFromAmount !== undefined) {
-                  onChangeFromAmount(e.nativeEvent.text)
-                } else {
-                  onChange(e)
-                }
-              }
+              onChangeFromAmount(e.nativeEvent.text)
             }}
-            placeholder={isDisabled ? undefined : translate('screens/CompositeSwapScreen', 'Enter an amount')}
+            placeholder={translate('screens/CompositeSwapScreen', 'Enter an amount')}
             style={tailwind('flex-grow w-2/5')}
-            testID={`text_input_${controlName}`}
+            testID='text_input_tokenA'
             value={value}
-            displayClearButton={(value !== defaultValue) && !isDisabled}
-            onClearButtonPress={() => onChangeFromAmount?.(defaultValue)}
+            displayClearButton={(value !== defaultValue)}
+            onClearButtonPress={() => onChangeFromAmount(defaultValue)}
             title={title}
             inputType='numeric'
           >
-            {
-              (enableMaxButton && onChangeFromAmount !== undefined) && (
-                <>
-                  <SetAmountButton
-                    amount={new BigNumber(maxAmount ?? '0')}
-                    onPress={onChangeFromAmount}
-                    type={AmountButtonTypes.half}
-                  />
+            <>
+              <SetAmountButton
+                amount={new BigNumber(maxAmount ?? '0')}
+                onPress={onChangeFromAmount}
+                type={AmountButtonTypes.half}
+              />
 
-                  <SetAmountButton
-                    amount={new BigNumber(maxAmount ?? '0')}
-                    onPress={onChangeFromAmount}
-                    type={AmountButtonTypes.max}
-                  />
-                </>
-              )
-            }
-            {
-              !enableMaxButton && (
-                <>
-                  <Icon height={20} width={20} />
-                  <ThemedText style={tailwind('pl-2')}>
-                    {token.displaySymbol}
-                  </ThemedText>
-                </>
-              )
-            }
+              <SetAmountButton
+                amount={new BigNumber(maxAmount ?? '0')}
+                onPress={onChangeFromAmount}
+                type={AmountButtonTypes.max}
+              />
+            </>
           </WalletTextInput>
         </ThemedView>
       )}
@@ -929,8 +892,9 @@ function OraclePriceRow ({
       style={tailwind('flex-row flex-grow justify-between items-center p-2 rounded')}
     >
       <ThemedText
-        style={tailwind('self-center')}
+        style={tailwind('self-center text-sm')}
         light={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-500')}
       >{translate('screens/CompositeSwapScreen', oraclePriceText)}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center')}>
@@ -938,5 +902,64 @@ function OraclePriceRow ({
         <ThemedText style={tailwind('pl-2')}>{tokenDisplaySymbol}</ThemedText>
       </View>
     </ThemedView>
+  )
+}
+
+// Separated from TokenRow due to custom UI styling difficulties
+interface TargetTokenForm {
+  token: TokenState | OwnedTokenState
+  control: Control<{ tokenA: string, tokenB: string }>
+}
+
+function TargetTokenRow (form: TargetTokenForm): JSX.Element {
+  const {
+    token,
+    control
+  } = form
+  const Icon = getNativeIcon(token.displaySymbol)
+  const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
+    required: true,
+    pattern: /^\d*\.?\d*$/,
+    validate: {
+      greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+    }
+  }
+  const defaultValue = ''
+
+  return (
+    <Controller
+      control={control}
+      defaultValue={defaultValue}
+      name='tokenB'
+      render={({
+        field: {
+          value
+        }
+      }) => (
+        <ThemedView
+          light={tailwind('bg-gray-50')}
+          style={tailwind('flex-row flex-grow justify-between items-center p-2 rounded')}
+        >
+          <NumberFormat
+            value={value}
+            thousandSeparator
+            displayType='text'
+            renderText={value =>
+              <ThemedText
+                style={tailwind('self-center text-sm')}
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-400')}
+              >
+                {value}
+              </ThemedText>}
+          />
+          <View style={tailwind('flex flex-row items-center')}>
+            <Icon height={20} width={20} />
+            <ThemedText style={tailwind('pl-2')}>{token.displaySymbol}</ThemedText>
+          </View>
+        </ThemedView>
+      )}
+      rules={rules}
+    />
   )
 }
