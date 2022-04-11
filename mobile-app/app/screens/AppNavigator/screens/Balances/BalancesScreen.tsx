@@ -57,7 +57,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
 
   const dispatch = useDispatch()
-  const { getTokenPrice } = useTokenPrice()
+  // const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
@@ -101,6 +101,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     })
   }
 
+  const {
+    portfolioCurrency,
+    setPortfolioCurrency
+  } = usePortfolioCurrency()
+
+  const { getTokenPrice } = useTokenPrice(portfolioCurrency)
+
+  useEffect(() => {
+  }, [portfolioCurrency])
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     fetchPortfolioData()
@@ -143,20 +153,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       })
   }, [getTokenPrice, tokens])
 
-  const {
-    portfolioCurrency,
-    setPortfolioCurrency
-  } = usePortfolioCurrency()
-
   // portfolio tab items
-  const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
+  const onPortfolioButtonGroupChange = useCallback((portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setPortfolioCurrency(portfolioButtonGroupTabKey)
-  }
+  }, [])
+
   const portfolioButtonGroup = [
     {
-      id: PortfolioButtonGroupTabKey.USD,
+      id: PortfolioButtonGroupTabKey.USDT,
       label: translate('screens/TotalPortfolio', 'USD'),
-      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USD)
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT)
     },
     {
       id: PortfolioButtonGroupTabKey.DFI,
