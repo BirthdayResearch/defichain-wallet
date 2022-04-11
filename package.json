@@ -20,7 +20,9 @@
     "react-devtools:open": "react-devtools",
     "translation:missing": "ts-node shared/translations/reporter/index.ts",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "build:ios": "expo build:ios",
+    "build:android": "expo build:android"
   },
   "dependencies": {
     "@defichain/jellyfish-address": "^2.34.0",
@@ -100,6 +102,7 @@
     "react-overlays": "^5.1.1",
     "react-redux": "^7.2.6",
     "semver": "^7.3.5",
+    "sharp-cli": "^1.15.0",
     "smart-buffer": "^4.2.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
