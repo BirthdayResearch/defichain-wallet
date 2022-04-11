@@ -107,7 +107,7 @@
     "@expo/metro-config": "0.3.9",
     "@expo/webpack-config": "~0.16.2",
     "@testing-library/cypress": "^8.0.2",
-    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/react-native": "^8.0.0",
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.2",
