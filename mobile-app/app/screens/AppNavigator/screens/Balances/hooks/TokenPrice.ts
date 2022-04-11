@@ -35,7 +35,7 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): TokenPrice {
       const usdTokenB = getTokenPrice(pair.data.tokenB.symbol, tokenBAmount)
       return usdTokenA.plus(usdTokenB)
     }
-    return new BigNumber(prices[symbol]?.denominationPrice).multipliedBy(amount)
+    return new BigNumber(prices[symbol]?.denominationPrice ?? 0).multipliedBy(amount)
   }, [prices, pairs, blockCount])
 
   return {
