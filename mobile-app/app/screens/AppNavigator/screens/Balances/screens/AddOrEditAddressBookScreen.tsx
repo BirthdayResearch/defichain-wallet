@@ -23,10 +23,12 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const {
     title,
     onSaveButtonPress,
-    addressLabel
+    address,
+    addressLabel,
+    isAddNew
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
-  const [addressInput, setAddressInput] = useState<string | undefined>()
+  const [addressInput, setAddressInput] = useState<string | undefined>(address)
   const { networkName } = useNetworkContext()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState('')
@@ -63,7 +65,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       setAddressInputErrorMessage('Please enter a valid address')
       return false
     }
-    if (addressBook?.[input.trim()] !== undefined) {
+    if (addressBook?.[input.trim()] !== undefined && (isAddNew || (!isAddNew && input.trim() !== address))) {
+      // check for unique address when adding new, or only when new address is different from current during edit
       setAddressInputErrorMessage('This address already exists in your address book, please enter a different address')
       return false
     }
@@ -72,12 +75,16 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   }
 
   const isSaveDisabled = (): boolean => {
+    if (!isAddNew && address === addressInput && addressLabel?.label === labelInput) {
+      return true
+    }
     if (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '') {
       return true
     }
     return false
   }
 
+  // Passcode prompt
   const dispatch = useDispatch()
   const { data: { type: encryptionType } } = useWalletNodeContext()
   const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
@@ -94,12 +101,24 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        onSaveButtonPress({
+        const _addressBook = {
+          ...addressBook,
           [addressInput]: {
-            label: labelInput.trim(),
+            label: labelInput,
             isMine: false
           }
-        })
+        }
+
+        if (!isAddNew &&
+          address !== undefined &&
+          address !== addressInput.trim()
+        ) {
+          // delete current address if changing to a new address during edit
+          const { [address]: _, ...newAddressBook } = _addressBook
+          onSaveButtonPress(newAddressBook)
+        } else {
+          onSaveButtonPress(_addressBook)
+        }
         navigation.pop()
       },
       onError: e => logger.error(e),
@@ -108,7 +127,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [navigation, dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
+  }, [navigation, dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress, addressBook])
 
   useLayoutEffect(() => {
     navigation.setOptions({

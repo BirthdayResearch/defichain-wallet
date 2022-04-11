@@ -224,6 +224,7 @@ export function SendScreen ({
                   onContactButtonPress={() => navigation.navigate({
                     name: 'AddressBookScreen',
                     params: {
+                      selectedAddress: getValues('address'),
                       onAddressSelect: (savedAddres: string) => {
                         setValue('address', savedAddres, { shouldDirty: true })
                         navigation.goBack()

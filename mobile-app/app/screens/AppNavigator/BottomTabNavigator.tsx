@@ -5,10 +5,7 @@ import { translate } from '@translations'
 import { OceanInterface } from '@components/OceanInterface/OceanInterface'
 import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
-import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { theme } from '../../tailwind.config'
 import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
 import { DFXAPIContextProvider } from '@shared-contexts/DFXAPIContextProvider'
 
@@ -24,8 +21,6 @@ export interface BottomTabParamList {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
-  const { isFeatureAvailable } = useFeatureFlagContext()
-  const inactiveColor = theme.extend.colors.dfxgray[300]
   return (
     <>
       <OceanInterface />
@@ -60,7 +55,6 @@ export function BottomTabNavigator (): JSX.Element {
             name={translate('BottomTabNavigator', 'DEX')}
             options={{
               tabBarTestID: 'bottom_tab_dex',
-              tabBarInactiveTintColor: inactiveColor,
               tabBarIcon: ({ color }) => (
                 <MaterialIcons
                   color={color}
@@ -72,43 +66,25 @@ export function BottomTabNavigator (): JSX.Element {
           />
 
           <BottomTab.Screen
-            component={LoansNavigator}
-            name={translate('BottomTabNavigator', 'Loans')}
+            component={AuctionsNavigator}
+            name={translate('BottomTabNavigator', 'Auctions')}
             options={{
-              tabBarTestID: 'bottom_tab_loans',
-              tabBarIcon: ({ color }) => (
-                <MaterialIcons
-                  color={color}
-                  name='credit-card'
-                  size={24}
-                />
-              )
-            }}
+            tabBarTestID: 'bottom_tab_auctions',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='gavel'
+                size={24}
+              />
+            )
+          }}
           />
-
-          {isFeatureAvailable('auction') && (
-            <BottomTab.Screen
-              component={AuctionsNavigator}
-              name={translate('BottomTabNavigator', 'Auctions')}
-              options={{
-                tabBarTestID: 'bottom_tab_auctions',
-                tabBarIcon: ({ color }) => (
-                  <MaterialIcons
-                    color={color}
-                    name='gavel'
-                    size={24}
-                  />
-                )
-              }}
-            />
-          )}
 
           <BottomTab.Screen
             component={TransactionsNavigator}
             name={translate('BottomTabNavigator', 'Transactions')}
             options={{
               tabBarTestID: 'bottom_tab_transactions',
-              tabBarInactiveTintColor: inactiveColor,
               tabBarIcon: ({ color }) => (
                 <MaterialIcons
                   color={color}

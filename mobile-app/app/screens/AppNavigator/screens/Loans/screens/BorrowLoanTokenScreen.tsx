@@ -79,7 +79,11 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice)),
     interestPerBlock
   )
-  const { requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(vault?.collateralAmounts ?? [], new BigNumber(vault?.collateralValue ?? NaN))
+  const { requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(
+    vault?.collateralAmounts ?? [],
+    new BigNumber(vault?.collateralValue ?? NaN),
+    new BigNumber(vault?.loanValue ?? NaN)
+  )
   const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -257,8 +261,7 @@ export function BorrowLoanTokenScreen ({
                   style={tailwind('text-sm text-center mt-2 px-4')}
                   testID='vault_min_share_warning'
                 >
-
-                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens')}
+                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens')}
                 </ThemedText>
               )
               : (
@@ -270,19 +273,19 @@ export function BorrowLoanTokenScreen ({
                       title={translate('screens/BorrowLoanTokenScreen', 'How many {{token}} tokens to borrow?', { token: loanToken.token.displaySymbol })}
                       placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
                       onChangeText={(text: string) => setAmountToBorrow({
-                                ...amountToBorrow,
-                                amountInput: text
-                              })}
+                        ...amountToBorrow,
+                        amountInput: text
+                      })}
                       displayClearButton={amountToBorrow.amountInput !== ''}
                       onClearButtonPress={() => setAmountToBorrow({
-                                ...amountToBorrow,
-                                amountInput: ''
-                              })}
+                        ...amountToBorrow,
+                        amountInput: ''
+                      })}
                       valid={inputValidationMessage === ''}
                       inlineText={{
-                                type: 'error',
-                                text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
-                              }}
+                        type: 'error',
+                        text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
+                      }}
                       style={tailwind('h-9 w-3/5 flex-grow')}
                       testID='form_input_borrow'
                     />

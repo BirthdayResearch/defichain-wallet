@@ -219,7 +219,7 @@ function BalanceItemRow ({
             {isBreakdownExpanded && (
               <ThemedView
                 light={tailwind('border-t border-gray-100')}
-                dark={tailwind('border-t border-dfxgray-700')}
+                dark={tailwind('border-t border-dfxgray-500')}
                 style={tailwind('pt-2 pb-4')}
               >
                 <TokenBreakdownDetails

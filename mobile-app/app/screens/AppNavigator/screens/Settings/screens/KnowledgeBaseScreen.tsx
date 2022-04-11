@@ -9,16 +9,15 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { openURL } from '@api/linking'
 
 type Props = StackScreenProps<SettingsParamList, 'KnowledgeBaseScreen'>
 
 export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
-  const { isFeatureAvailable } = useFeatureFlagContext()
   const knowledgeBaseItems = [
     {
       label: 'DFX FAQ',
+      testID: 'dfx_faq',
       onPress: async () => await openURL('https://defichain-wiki.com/wiki/DFX_FAQ')
     },
     {
@@ -53,16 +52,13 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
           activeSessions: [0]
         }
       })
-    }
-  ]
-
-  if (isFeatureAvailable('auction')) {
-    knowledgeBaseItems.push({
+    },
+    {
       label: 'Auctions',
       testID: 'auctions_faq',
       onPress: () => navigation.navigate('AuctionsFaq')
-    })
-  }
+    }
+  ]
 
   return (
     <ThemedScrollView
