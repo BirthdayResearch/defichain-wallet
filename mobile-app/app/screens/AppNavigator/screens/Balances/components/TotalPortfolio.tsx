@@ -41,7 +41,9 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
-  const displayCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // 'BTC' or 'DFI'
+  const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // 'BTC' or 'DFI'
+  console.log('displayCurrency', denominationCurrency)
+  console.log('TotalPortfolio totalAvailableUSDValue', props.totalAvailableUSDValue.toFixed(8))
 
   return (
     <ThemedView
@@ -101,7 +103,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             <View style={tailwind('flex flex-row items-center')}>
               <NumberFormat
                 displayType='text'
-                prefix={displayCurrency === 'USDT' ? '$' : undefined}
+                prefix={denominationCurrency === 'USDT' ? '$' : undefined}
                 renderText={(value) =>
                   <BalanceText
                     dark={tailwind('text-gray-200')}
@@ -114,9 +116,9 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
               />
               {
-                displayCurrency !== 'USDT' && displayCurrency && (
-                  <View style={tailwind('pl-1.5')} testID={`portfolio_display_${displayCurrency}_currency`}>
-                    <SymbolIcon symbol={`${displayCurrency}`} styleProps={tailwind('w-3 h-3')} />
+                denominationCurrency !== 'USDT' && denominationCurrency && (
+                  <View style={tailwind('pl-1.5')} testID={`portfolio_display_${denominationCurrency}_currency`}>
+                    <SymbolIcon symbol={`${denominationCurrency}`} styleProps={tailwind('w-3 h-3')} />
                   </View>
                 )
               }
