@@ -57,7 +57,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
 
   const dispatch = useDispatch()
-  // const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
