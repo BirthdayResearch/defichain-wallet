@@ -53,7 +53,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-dfxblue-800 border-dfxgray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxgray-500')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={() => {
           navigation.navigate({
@@ -117,7 +117,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
     return (
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-dfxblue-800 border-dfxgray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxgray-500')}
         style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
       >
         <View style={tailwind('flex-row justify-between w-full mb-3')}>

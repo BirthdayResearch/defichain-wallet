@@ -90,7 +90,7 @@
     "(From highest value)": "(valeurs décroissantes)",
     "(From lowest value)": "(valeurs croissantes)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle.",
-    "loans": "prêts"
+    "loans": "empruntés"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -105,29 +105,31 @@
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Please enter a unique address": "Veuillez donner une adresse unique"
+    "Please enter a unique address": "Veuillez donner une adresse unique",
+    "Empty address book": "Carnet d'adresses vide",
+    "Add your preferred address": "Ajoutez votre adresse préférée"
   },
   "components/CreateOrEditAddressLabelForm": {
-    "Edit address label": "Modifier l'étiquette d'adresse",
-    "ADDRESS LABEL": "ÉTIQUETTE D'ADRESSE",
+    "Edit address label": "Modifier le nom d'adresse",
+    "ADDRESS LABEL": "NOM D'ADRESSE",
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
     "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
-    "Address label is too long (max 30 characters)": "Le nom de l'adresse est trop long (30 caractères max)"
+    "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)"
   },
   "screens/AddOrEditAddressBookScreen": {
-    "Edit address label": "Modifier l'étiquette d'adresse",
-    "Address label": "Étiquette d'adresse",
+    "Edit address label": "Modifier le nom d'adresse",
+    "Address label": "Nom d'adresse",
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
     "Address": "Adresse",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
-    "Address label is too long (max 30 characters)": "Le nom de l'adresse est trop long (30 caractères max)",
-    "Enter address label": "Entrer le nom d'adresse",
-    "Enter address": "Entrer l'adresse",
+    "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)",
+    "Enter address label": "Donner le nom d'adresse",
+    "Enter address": "Donner l'adresse",
     "This address already exists in your address book, please enter a different address": "Cette adresse existe déjà dans votre carnet d'adresses, veuillez entrer une adresse différente",
     "Edit address": "Modifier l'adresse"
   },
@@ -267,7 +269,9 @@
     "Touch ID": "Touch ID",
     "device's lock": "Verrouillage de l'appareil",
     "biometric": "biométrique",
-    "Enter passcode to continue": "Entrez le code d'accès pour continuer"
+    "Enter passcode to continue": "Entrez le code d'accès pour continuer",
+    "Sign to save address": "Signer pour sauvegarder l'adresse",
+    "Sign to delete address": "Signer pour supprimer l'adresse"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -1226,7 +1230,7 @@
     "USD": "USD",
     "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?",
     "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Votre vault nécessite au moins 50 % de DFI et/ou de DUSD en tant que garantie",
-    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "Ce vault nécessite au moins 50 % de DFI et/ou de DUSD pour être disponible pour le minting de dTokens"
+    "This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens": "Ce vault nécessite au moins 50 % de DFI et/ou de DUSD pour être disponible pour le minting de dTokens"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Vous empruntez",

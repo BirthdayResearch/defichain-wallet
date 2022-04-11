@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Address List Edit Button should match snapshot 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+      "opacity": 1,
+    }
+  }
+  testID="address_list_edit_button"
+>
+  <Text />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontSize": 10,
+            "marginLeft": 6,
+          },
+          Object {
+            "color": "rgba(255, 0, 175, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    CANCEL
+  </Text>
+</View>
+`;

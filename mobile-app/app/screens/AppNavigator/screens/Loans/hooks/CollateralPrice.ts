@@ -68,9 +68,10 @@ export function getVaultShare (collateralAmount: BigNumber, factor: BigNumber, p
 export function useValidCollateralRatio (
   collateralAmounts: LoanVaultTokenAmount[],
   totalCollateralVaultValue: BigNumber,
+  loanValue: BigNumber,
   collateralTokenId?: string,
   updatedCollateralAmount?: BigNumber
-): {requiredVaultShareTokens: string[], minRequiredTokensShare: number, requiredTokensShare: BigNumber} {
+): {requiredVaultShareTokens: string[], minRequiredTokensShare: number, requiredTokensShare: BigNumber, hasLoan: boolean} {
   const minRequiredTokensShare = 50
   const requiredVaultShareTokens = ['DUSD', 'DFI']
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
@@ -92,6 +93,7 @@ export function useValidCollateralRatio (
   return {
     requiredTokensShare,
     minRequiredTokensShare,
-    requiredVaultShareTokens
+    requiredVaultShareTokens,
+    hasLoan: new BigNumber(loanValue).gt(0)
   }
 }

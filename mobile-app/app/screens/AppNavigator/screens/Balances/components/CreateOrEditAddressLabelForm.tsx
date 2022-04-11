@@ -147,7 +147,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     <ScrollView
       style={tailwind(['p-4 flex-1 pb-0', {
         'bg-white': isLight,
-        'bg-gray-800': !isLight
+        'bg-dfxblue-800': !isLight
       }])}
       contentContainerStyle={tailwind('pb-6')}
       testID='create_or_edit_label_address_form'

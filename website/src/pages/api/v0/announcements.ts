@@ -9,5 +9,16 @@ export const cors = Cors({
 
 export default async function handle (req: NextApiRequest, res: NextApiResponse<AnnouncementData[]>): Promise<void> {
   await runMiddleware(req, res, cors)
-  res.json([])
+  res.json([{
+    lang: {
+      en: 'Fort Canning Road upgrade is live!',
+      de: 'Fort Canning Road ist offiziell live!',
+      'zh-Hans': 'Fort Canning Road升级现已上线',
+      'zh-Hant': 'Fort Canning Road 升級現已上線',
+      fr: 'Fort Canning Road est officiellement en ligne !'
+    },
+    version: '>=1.2.0',
+    id: '4',
+    type: 'OTHER_ANNOUNCEMENT'
+  }])
 }

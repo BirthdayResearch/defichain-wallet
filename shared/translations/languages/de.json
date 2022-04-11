@@ -87,7 +87,7 @@
     "(From highest value)": "(vom höchsten Wert an)",
     "(From lowest value)": "(vom niedrigsten Wert aus)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
-    "loans": "darlehen"
+    "loans": "Darlehen"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -102,13 +102,15 @@
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein"
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
+    "Empty address book": "Leeres Adressbuch",
+    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
     "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
     "Address {{index}}": "Adresse {{index}}",
-    "Add new address": "Neue adresse hinzufügen",
+    "Add new address": "Neue Adresse hinzufügen",
     "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)"
@@ -117,8 +119,8 @@
     "Edit address label": "Adressbezeichnung bearbeiten",
     "Address label": "Adressbezeichnung",
     "Address {{index}}": "Adresse {{index}}",
-    "Add new address": "Neue adresse hinzufügen",
-    "Add New Address": "Neue adresse hinzufügen",
+    "Add new address": "Neue Adresse hinzufügen",
+    "Add New Address": "Neue Adresse hinzufügen",
     "Address": "Adresse",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
@@ -256,7 +258,9 @@
     "Touch ID": "Touch ID",
     "device's lock": "Gerätesperre",
     "biometric": "biometrische",
-    "Enter passcode to continue": "Passwort eingeben, um fortzufahren"
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
+    "Sign to save address": "Freigeben, um Adresse zu speichern",
+    "Sign to delete address": "Freigeben, um Adresse zu löschen"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -1213,7 +1217,7 @@
     "USD": "USD",
     "How many {{token}} tokens to borrow?": "Wie viele {{token}} Token möchtest du ausleihen?",
     "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Dein Vault braucht mindestens 50 % DFI und/oder DUSD als Besicherung",
-    "This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens": "Dieser Vault braucht mindestens 50% DFI und/oder DUSD, um für das Minting von dToken zur Verfügung zu stehen"
+    "This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens": "Dieser Vault braucht mindestens 50% DFI und/oder DUSD, um für das Minting von dToken zur Verfügung zu stehen"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Du leihst dir",
