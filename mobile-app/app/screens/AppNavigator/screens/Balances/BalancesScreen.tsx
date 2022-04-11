@@ -6,7 +6,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -108,6 +108,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const { getTokenPrice } = useTokenPrice(denominationCurrency)
 
+  useEffect(() => {
+    if (denominationCurrency !== undefined && denominationCurrency !== 'USDT') {
+      dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
+    }
+  }, [blockCount, denominationCurrency])
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     fetchPortfolioData()
@@ -127,7 +133,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
-
         if (token.symbol === 'DFI') {
           return {
             // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue

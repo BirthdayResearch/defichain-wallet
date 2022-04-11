@@ -369,7 +369,6 @@ context('Wallet - Auctions', () => {
           const minNextBid = text.replace(' dTU10', '')
           cy.getByTestID(usdTestID).invoke('text').then((actualUSD: string) => {
             const estimatedUSD = new BigNumber(minNextBid).times(200000)
-            console.log(actualUSD)
             checkValueWithinRange(actualUSD, estimatedUSD.toFixed(2))
           })
         })
