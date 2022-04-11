@@ -151,12 +151,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalAvailableUSDValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [getTokenPrice, tokens])
+  }, [portfolioCurrency, tokens]) // remove getTokenPrice from dep arr as it will give max depth exceed error
 
   // portfolio tab items
-  const onPortfolioButtonGroupChange = useCallback((portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
+  const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setPortfolioCurrency(portfolioButtonGroupTabKey)
-  }, [])
+  }
 
   const portfolioButtonGroup = [
     {
