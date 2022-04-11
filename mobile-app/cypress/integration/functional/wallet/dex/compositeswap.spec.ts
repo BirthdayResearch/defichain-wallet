@@ -21,6 +21,58 @@ function setupWalletForConversion (): void {
 
 context('Wallet - DEX - Swap without balance', () => {
   before(function () {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: [
+          {
+            id: '20',
+            symbol: 'LTC-DFI',
+            displaySymbol: 'dLTC-DFI',
+            name: 'Playground LTC-Default Defi token',
+            status: true,
+            tokenA: {
+              symbol: 'LTC',
+              displaySymbol: 'dLTC',
+              id: '4',
+              reserve: '10000',
+              blockCommission: '0'
+            },
+            tokenB: {
+              symbol: 'DFI',
+              displaySymbol: 'DFI',
+              id: '0',
+              reserve: '100',
+              blockCommission: '0'
+            },
+            priceRatio: {
+              ab: '100',
+              ba: '0.01'
+            },
+            commission: '0',
+            totalLiquidity: {
+              token: '1000',
+              usd: '1999866.67333288956663352'
+            },
+            tradeEnabled: true,
+            ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+            rewardPct: '0.08333333',
+            creation: {
+              tx: '27b4f5bba4ee4525fa27d1c33d20780b0bd0164ce706a12c58e8c3a98665e340',
+              height: 148
+            },
+            apr: {
+              reward: 557.3549777058,
+              commission: 0,
+              total: 557.3549777058
+            },
+            volume: {
+              h24: 0,
+              d30: 0
+            }
+          }
+        ]
+      }
+    })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
@@ -137,6 +189,58 @@ context('Wallet - DEX - Composite Swap with disabled pool pairs', () => {
 
 context('Wallet - DEX - Composite Swap without balance', () => {
   before(function () {
+    cy.intercept('**/poolpairs?size=*', {
+      body: {
+        data: [
+          {
+            id: '20',
+            symbol: 'LTC-DFI',
+            displaySymbol: 'dLTC-DFI',
+            name: 'Playground LTC-Default Defi token',
+            status: true,
+            tokenA: {
+              symbol: 'LTC',
+              displaySymbol: 'dLTC',
+              id: '4',
+              reserve: '10000',
+              blockCommission: '0'
+            },
+            tokenB: {
+              symbol: 'DFI',
+              displaySymbol: 'DFI',
+              id: '0',
+              reserve: '100',
+              blockCommission: '0'
+            },
+            priceRatio: {
+              ab: '100',
+              ba: '0.01'
+            },
+            commission: '0',
+            totalLiquidity: {
+              token: '1000',
+              usd: '1999866.67333288956663352'
+            },
+            tradeEnabled: true,
+            ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+            rewardPct: '0.08333333',
+            creation: {
+              tx: '27b4f5bba4ee4525fa27d1c33d20780b0bd0164ce706a12c58e8c3a98665e340',
+              height: 148
+            },
+            apr: {
+              reward: 557.3549777058,
+              commission: 0,
+              total: 557.3549777058
+            },
+            volume: {
+              h24: 0,
+              d30: 0
+            }
+          }
+        ]
+      }
+    })
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
