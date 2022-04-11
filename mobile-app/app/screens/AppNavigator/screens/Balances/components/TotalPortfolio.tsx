@@ -15,7 +15,7 @@ import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { SymbolIcon } from '@components/SymbolIcon'
 
 export enum PortfolioButtonGroupTabKey {
-  USD = 'USD',
+  USDT = 'USDT',
   DFI = 'DFI',
   BTC = 'BTC'
 }
@@ -114,7 +114,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
               />
               {
-                displayCurrency !== 'USD' && displayCurrency && (
+                displayCurrency !== 'USDT' && displayCurrency && (
                   <View style={tailwind('pl-1.5')} testID={`portfolio_display_${displayCurrency}_currency`}>
                     <SymbolIcon symbol={`${displayCurrency}`} styleProps={tailwind('w-3 h-3')} />
                   </View>
