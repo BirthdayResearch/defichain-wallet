@@ -161,6 +161,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const portfolioButtonGroup = [
     {
       id: PortfolioButtonGroupTabKey.USDT,
+      // api is saved as USDT, but will display in USD on app
       label: translate('screens/TotalPortfolio', 'USD'),
       handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT)
     },

@@ -101,7 +101,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             <View style={tailwind('flex flex-row items-center')}>
               <NumberFormat
                 displayType='text'
-                prefix='$'
+                prefix={displayCurrency === 'USDT' ? '$' : undefined}
                 renderText={(value) =>
                   <BalanceText
                     dark={tailwind('text-gray-200')}
