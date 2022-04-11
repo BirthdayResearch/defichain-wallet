@@ -50,7 +50,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       stage: 'public',
       version: '>1.8.1',
       description: 'DUSD 50% contribution in required collateral token',
-      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }, {
       id: 'dusd_loan_payment',
