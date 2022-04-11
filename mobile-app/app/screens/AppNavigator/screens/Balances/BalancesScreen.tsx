@@ -151,12 +151,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalAvailableUSDValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [getTokenPrice, tokens])
+  }, [tokens])
 
   // portfolio tab items
-  const onPortfolioButtonGroupChange = useCallback((portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
+  const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setPortfolioCurrency(portfolioButtonGroupTabKey)
-  }, [])
+  }
 
   const portfolioButtonGroup = [
     {
