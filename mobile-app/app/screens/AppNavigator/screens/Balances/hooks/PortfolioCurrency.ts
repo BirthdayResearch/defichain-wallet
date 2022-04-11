@@ -4,27 +4,27 @@ import { useEffect, useState } from 'react'
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
 
 interface PortfolioCurrency {
-    portfolioCurrency: PortfolioButtonGroupTabKey
-    setPortfolioCurrency: (val: PortfolioButtonGroupTabKey) => void
+    denominationCurrency: PortfolioButtonGroupTabKey
+    setDenominationCurrency: (val: PortfolioButtonGroupTabKey) => void
 }
 
-export function usePortfolioCurrency (): PortfolioCurrency {
+export function useDenominationCurrency (): PortfolioCurrency {
     const logger = useLogger()
-    const [portfolioCurrency, setPortfolioCurrency] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USD)
+    const [denominationCurrency, setDenominationCurrency] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USD)
 
     useEffect(() => {
         PortfolioCurrencyPersistence.get().then((currencyVal) => {
-            setPortfolioCurrency(currencyVal)
+            setDenominationCurrency(currencyVal)
         }).catch(logger.error)
     }, [])
 
     const updatePortfolioCurrency = async (currencyVal: PortfolioButtonGroupTabKey): Promise<void> => {
-        setPortfolioCurrency(currencyVal)
+        setDenominationCurrency(currencyVal)
         await PortfolioCurrencyPersistence.set(currencyVal)
     }
 
     return {
-        portfolioCurrency,
-        setPortfolioCurrency: updatePortfolioCurrency
+        denominationCurrency,
+        setDenominationCurrency: updatePortfolioCurrency
     }
 }

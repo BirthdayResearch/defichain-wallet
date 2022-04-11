@@ -32,7 +32,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { usePortfolioCurrency } from './hooks/PortfolioCurrency'
+import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -102,14 +102,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }
 
   const {
-    portfolioCurrency,
-    setPortfolioCurrency
-  } = usePortfolioCurrency()
+    denominationCurrency,
+    setDenominationCurrency
+  } = useDenominationCurrency()
 
-  const { getTokenPrice } = useTokenPrice(portfolioCurrency)
-
-  useEffect(() => {
-  }, [portfolioCurrency])
+  const { getTokenPrice } = useTokenPrice(denominationCurrency)
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
@@ -151,11 +148,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalAvailableUSDValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [portfolioCurrency, tokens]) // remove getTokenPrice from dep arr as it will give max depth exceed error
+  }, [denominationCurrency, tokens]) // remove getTokenPrice from dep arr as it will give max depth exceed error
 
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
-    setPortfolioCurrency(portfolioButtonGroupTabKey)
+    setDenominationCurrency(portfolioButtonGroupTabKey)
   }
 
   const portfolioButtonGroup = [
@@ -305,8 +302,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
           portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: portfolioCurrency,
-            setActivePortfolioButtonGroup: setPortfolioCurrency
+            activePortfolioButtonGroup: denominationCurrency,
+            setActivePortfolioButtonGroup: setDenominationCurrency
           }}
           portfolioButtonGroup={portfolioButtonGroup}
         />
