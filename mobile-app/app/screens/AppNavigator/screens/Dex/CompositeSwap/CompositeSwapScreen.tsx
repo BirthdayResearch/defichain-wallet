@@ -41,7 +41,7 @@ import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
 import { ButtonGroup } from '../components/ButtonGroup'
-import { useFutureSwap } from '../hook/FutureSwap'
+import { useFutureSwap, useFutureSwapDate } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
@@ -80,7 +80,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     setSlippage
   } = useSlippageTolerance()
 
-  const blockCount = useSelector((state: RootState) => state.block.count)
+  const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -112,7 +112,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
-
+  const executionBlock = 5000 // TODO: get from store, which will get from API
+  const { timeRemaining, transactionDate } = useFutureSwapDate(executionBlock, blockCount)
   const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
   const { isFutureSwapOptionEnabled, oraclePriceText } = useFutureSwap({
     fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
@@ -346,6 +347,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       pairs: selectedPoolPairs,
       priceRates,
       slippage: slippageInDecimal,
+      futureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap
+? {
+        executionBlock,
+        transactionDate
+      }
+: undefined,
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
@@ -550,7 +557,9 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
               priceRate={priceRates[1]}
-              executionBlock={123456789}
+              executionBlock={executionBlock}
+              timeRemaining={timeRemaining}
+              transactionDate={transactionDate}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -680,7 +689,9 @@ function TransactionDetailsSection ({
   tokenA,
   tokenB,
   priceRate,
-  executionBlock
+  executionBlock,
+  timeRemaining,
+  transactionDate
 }: {
   activeTab: ButtonGroupTabKey
   conversionAmount: BigNumber
@@ -691,6 +702,8 @@ function TransactionDetailsSection ({
   tokenB: TokenState
   priceRate: PriceRateProps
   executionBlock: number
+  timeRemaining: string
+  transactionDate: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   return (
@@ -721,7 +734,7 @@ function TransactionDetailsSection ({
         )
         : (
           <>
-            <TimeRemainingTextRow timeRemaining='6d 12h 36m' />
+            <TimeRemainingTextRow timeRemaining={timeRemaining} transactionDate={transactionDate} />
             <InfoRow
               type={InfoType.ExecutionBlock}
               value={executionBlock}
@@ -764,7 +777,7 @@ function TransactionDetailsSection ({
   )
 }
 
-function TimeRemainingTextRow ({ timeRemaining }: { timeRemaining: string }): JSX.Element {
+function TimeRemainingTextRow ({ timeRemaining, transactionDate }: { timeRemaining: string, transactionDate: string }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -794,7 +807,7 @@ function TimeRemainingTextRow ({ timeRemaining }: { timeRemaining: string }): JS
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
         >
-          (04/13/2022)
+          {`(${transactionDate})`}
         </ThemedText>
       </View>
     </ThemedView>
