@@ -20,6 +20,7 @@ import * as React from 'react'
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 
 interface DFXAPIContextI {
+  dfxToken: () => Promise<string>
   dfxFetchSignature: (passphrase?: string) => Promise<void>
   dfxUpdateSession: () => Promise<void>
 }
@@ -162,7 +163,12 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     })
   }
 
+  const fetchActiveToken = async (): Promise<string> => {
+    return await DFXPersistence.getToken(address)
+  }
+
   const context: DFXAPIContextI = {
+    dfxToken: fetchActiveToken,
     dfxFetchSignature: fetchSignature,
     dfxUpdateSession: updateSession
   }
@@ -180,16 +186,13 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     }).catch((reason: any) => {
       console.error(reason)
     })
-  })
+  }, [address, updateSession])
 
   useEffect(() => {
     dispatch(async () => {
-      const hasPair = await DFXPersistence.hasPair(address)
-      if (!hasPair) {
-        await updateSession()
-      }
+      await updateSession()
     })
-  }, [dispatch, address])
+  }, [dispatch, address, updateSession])
 
   return (
     <DFXAPIContext.Provider value={context}>

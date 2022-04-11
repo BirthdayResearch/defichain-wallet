@@ -31,29 +31,23 @@ import BtnOverviewEs from '@assets/images/dfx_buttons/btn_overview_es.png'
 import BtnTaxEs from '@assets/images/dfx_buttons/btn_tax_es.png'
 import BtnDobbyEs from '@assets/images/dfx_buttons/btn_dobby_es.png'
 import { useCallback } from 'react'
-import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
 export function DfxButtons (): JSX.Element {
   const { address } = useWalletContext()
   const { language } = useLanguageContext()
-  const { dfxUpdateSession } = useDFXAPIContext()
+  const { dfxToken } = useDFXAPIContext()
 
   const onGatewayButtonPress = useCallback(async () => {
-    await DFXPersistence.getPair(address).then(async activePair => {
-      if (activePair.signature.length === 0 || (activePair.token === undefined || activePair.token?.length === 0)) {
-        // active pair has no signature
-        await dfxUpdateSession()
-        return
-      }
-
+    await dfxToken().then(async (token) => {
       const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
-      const url = `${baseUrl}/login?token=${activePair.token}`
+      const url = `${baseUrl}/login?token=${token}`
       await Linking.openURL(url)
-    }).catch(async reason => {
-      throw new Error(reason)
     })
-  }, [address, dfxUpdateSession])
+      .catch(reason => {
+ throw new Error(reason)
+})
+  }, [dfxToken])
 
   async function onOverviewButtonPress (): Promise<void> {
     const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`
