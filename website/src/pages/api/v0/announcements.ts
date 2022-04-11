@@ -13,8 +13,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     lang: {
       en: 'Fort Canning Road upgrade is live!',
       de: 'Fort Canning Road ist offiziell live!',
-      'zh-Hans': 'Fort Canning Road 更新正式上线！',
-      'zh-Hant': 'Fort Canning Road 更新正式上線！',
+      'zh-Hans': 'Fort Canning Road升级现已上线',
+      'zh-Hant': 'Fort Canning Road 升級現已上線',
       fr: 'Fort Canning Road est officiellement en ligne !'
     },
     version: '>=1.2.0',
