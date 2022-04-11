@@ -459,7 +459,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             </ThemedText>}
 
           {selectedTokenA !== undefined && selectedTokenB !== undefined &&
-            <View style={tailwind('mx-4')}>
+            <View style={tailwind('mx-4 flex-1')}>
               <TokenRow
                 control={control}
                 title={translate('screens/CompositeSwapScreen', 'Enter amount to swap')}
