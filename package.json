@@ -124,7 +124,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "colors": "1.4.0",
     "cypress": "^9.5.0",
-    "cypress-image-diff-js": "1.18.0",
+    "cypress-image-diff-js": "1.18.1",
     "eas-cli": "^0.50.0",
     "eslint": "7.32.0",
     "eslint-config-standard-jsx": "^10.0.0",
