@@ -529,11 +529,28 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID(`address_edit_indicator_${newAddress}`).should('not.exist')
   })
 
-  it('should remove address book from storage after exiting wallet', function () {
+  it('should remove address book from storage after exiting wallet through setting', function () {
     populateAddressBook()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_exit_wallet').click()
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist').then(() => {
+      const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
+      expect(walletUserPreference).to.have.deep.property('addressBook', {})
+    })
+  })
+
+  it('should remove address book from storage after forced exit from invalid passcode', function () {
+    const MAX_PASSCODE_ATTEMPT = 3
+    populateAddressBook()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('view_recovery_words').click()
+    cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
+      cy.getByTestID('pin_authorize').type('696969').wait(1000)
+    })
     cy.on('window:confirm', () => {})
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist').then(() => {
