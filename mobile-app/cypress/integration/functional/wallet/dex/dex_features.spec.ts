@@ -306,6 +306,7 @@ context('Wallet - DEX - Button filtering', () => {
     })
 
     it('should not be affected by filters in Available pool pairs tab', function () {
+      cy.wait(3000)
       validateYourPoolpairs('ALL')
       // DFI pairs
       cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
@@ -316,12 +317,14 @@ context('Wallet - DEX - Button filtering', () => {
     })
 
     it('should not display any poolpair when search input is active and empty regardless of filter', function () {
+      cy.wait(3000)
       validateEmptyPoolpairsInSearch('ALL')
       validateEmptyPoolpairsInSearch('DFI')
       validateEmptyPoolpairsInSearch('DUSD')
     })
 
     it('should display matching poolpair when search input is not empty regardless of filter', function () {
+      cy.wait(3000)
       validateMatchingPairsInSearch('ALL')
       validateMatchingPairsInSearch('DFI')
       validateMatchingPairsInSearch('DUSD')
