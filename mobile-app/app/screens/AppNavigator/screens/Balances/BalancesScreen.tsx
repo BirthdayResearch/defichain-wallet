@@ -6,7 +6,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -108,10 +108,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice(denominationCurrency)
 
   useEffect(() => {
-    if (denominationCurrency !== undefined && denominationCurrency !== 'USDT') {
-      dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
-    }
-  }, [blockCount, denominationCurrency])
+    dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
+  }, [denominationCurrency])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
@@ -120,6 +118,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
     totalAvailableUSDValue,
     dstTokens
@@ -152,7 +151,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalAvailableUSDValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [denominationCurrency, tokens]) // remove getTokenPrice from dep arr as it will give max depth exceed error
+  }, [denominationCurrency, tokens, prices])
 
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
@@ -312,7 +311,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           portfolioButtonGroup={portfolioButtonGroup}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        <DFIBalanceCard />
+        <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (
             <View style={tailwind('p-4')}>
@@ -325,10 +324,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={filteredTokens}
               navigation={navigation}
               buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
+                activeButtonGroup: activeButtonGroup,
+                setActiveButtonGroup: setActiveButtonGroup,
+                onButtonGroupPress: handleButtonFilter
+              }}
+              denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'
           ? (
