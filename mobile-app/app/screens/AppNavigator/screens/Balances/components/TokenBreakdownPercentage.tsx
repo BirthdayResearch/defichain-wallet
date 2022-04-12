@@ -6,7 +6,6 @@ import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { useTokenBreakdownPercentage } from '../hooks/TokenLockedBalance'
@@ -75,19 +74,7 @@ export function TokenBreakdownPercentage (props: TokenBreakdownPercentageProps):
             </View>
           )}
       </View>
-      <TouchableOpacity
-        onPress={props.onBreakdownPress}
-        style={tailwind('flex flex-row w-1/12')}
-        testID={`details_${props.testID}`}
-      >
-        <ThemedIcon
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-dfxred-500')}
-          iconType='MaterialIcons'
-          name={!props.isBreakdownExpanded ? 'expand-more' : 'expand-less'}
-          size={28}
-        />
-      </TouchableOpacity>
+
     </View>
   )
 }

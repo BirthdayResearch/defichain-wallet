@@ -3,7 +3,7 @@ import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/Balance
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { IconButton } from '@components/IconButton'
-import { ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedView } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector } from 'react-redux'
@@ -19,6 +19,7 @@ import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
+import { TouchableOpacity } from 'react-native'
 
 export function DFIBalanceCard (): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
@@ -85,16 +86,21 @@ export function DFIBalanceCard (): JSX.Element {
                   </View>
                 )
             }
-        </View>
-        <View style={tailwind('mx-4')}>
-          <TokenBreakdownPercentage
-            symbol='DFI'
-            availableAmount={new BigNumber(DFIUnified.amount)}
-            onBreakdownPress={onBreakdownPress}
-            isBreakdownExpanded={isBreakdownExpanded}
-            lockedAmount={lockedToken.amount}
-            testID='dfi'
-          />
+
+          <TouchableOpacity
+            onPress={onBreakdownPress}
+            style={tailwind('flex flex-row w-1/12')}
+            testID='details_dfi'
+          >
+            <ThemedIcon
+              light={tailwind('text-primary-500')}
+              dark={tailwind('text-dfxred-500 border-dfxblue-900 border rounded')}
+              iconType='MaterialIcons'
+              name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
+              size={28}
+            />
+          </TouchableOpacity>
+
         </View>
 
         {isBreakdownExpanded && (
@@ -103,6 +109,14 @@ export function DFIBalanceCard (): JSX.Element {
             dark={tailwind('border-t border-dfxblue-700')}
             style={tailwind('mx-4 mb-4 pt-2')}
           >
+            <TokenBreakdownPercentage
+              symbol='DFI'
+              availableAmount={new BigNumber(DFIUnified.amount)}
+              onBreakdownPress={onBreakdownPress}
+              isBreakdownExpanded={isBreakdownExpanded}
+              lockedAmount={lockedToken.amount}
+              testID='dfi'
+            />
             <TokenBreakdownDetails
               hasFetchedToken={hasFetchedToken}
               lockedAmount={lockedToken.amount}
