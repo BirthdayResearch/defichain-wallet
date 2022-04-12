@@ -483,14 +483,14 @@ function AddressRow ({
               {
                 isFeatureAvailable('local_storage') && (
                   <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    dark={tailwind('bg-dfxblue-900 border-gray-400')}
                     light={tailwind('bg-white border-gray-300')}
                     onPress={onContactButtonPress}
                     style={tailwind('w-9 p-1.5 ml-1 border rounded')}
                     testID='address_book_button'
                   >
                     <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
+                      dark={tailwind('text-dfxred-500')}
                       iconType='MaterialIcons'
                       light={tailwind('text-primary-500')}
                       name='contacts'
