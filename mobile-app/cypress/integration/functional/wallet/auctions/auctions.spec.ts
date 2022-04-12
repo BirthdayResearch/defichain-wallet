@@ -376,7 +376,8 @@ context('Wallet - Auctions', () => {
     }
 
     it('should display USD values in batch card', function () {
-      cy.go('back')
+      cy.getByTestID('bottom_tab_auctions').click()
+      cy.getByTestID('bottom_tab_auctions').click()
       validateLoanTokenUSDValue('batch_0_min_next_bid', 'batch_0_min_next_bid_usd')
     })
 
