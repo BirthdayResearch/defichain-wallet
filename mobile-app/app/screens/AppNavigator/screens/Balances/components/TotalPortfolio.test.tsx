@@ -63,11 +63,11 @@ describe('DFI Total Portfolio Card', () => {
           onToggleDisplayBalances={jest.fn()}
           isBalancesDisplayed
           portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: PortfolioButtonGroupTabKey.USD,
+            activePortfolioButtonGroup: PortfolioButtonGroupTabKey.USDT,
             setActivePortfolioButtonGroup: jest.fn()
           }}
           portfolioButtonGroup={[{
-            id: PortfolioButtonGroupTabKey.USD,
+            id: PortfolioButtonGroupTabKey.USDT,
             label: 'USD',
             handleOnPress: jest.fn()
           }

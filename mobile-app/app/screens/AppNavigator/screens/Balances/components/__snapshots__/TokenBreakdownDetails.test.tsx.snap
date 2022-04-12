@@ -334,7 +334,7 @@ Array [
         }
         testID="foo_available_value_amount"
       >
-        ≈ $999,999.12345678
+        999,999.12345678 undefined
       </Text>
     </View>
   </View>,

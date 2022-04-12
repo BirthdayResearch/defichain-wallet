@@ -157,7 +157,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
                 "paddingTop": 4,
               }
             }
-            testID="portfolio_button_group_USD_active"
+            testID="portfolio_button_group_USDT_active"
           >
             <Text
               style={
