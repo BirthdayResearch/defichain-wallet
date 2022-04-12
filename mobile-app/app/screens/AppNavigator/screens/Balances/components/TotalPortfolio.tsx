@@ -29,7 +29,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-white')}
       dark={tailwind('bg-dfxblue-800')}
-      style={tailwind('m-4 mb-2 p-4 rounded-lg')}
+      style={tailwind('m-4 mb-0.5 p-4 rounded-t-lg')}
       testID='total_portfolio_card'
     >
       <View style={tailwind('flex flex-row justify-between items-center w-full')}>
