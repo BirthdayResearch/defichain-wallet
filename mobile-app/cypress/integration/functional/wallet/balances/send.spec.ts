@@ -528,6 +528,19 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID(`address_row_text_${newAddress}`).contains(newAddress)
     cy.getByTestID(`address_edit_indicator_${newAddress}`).should('not.exist')
   })
+
+  it('should remove address book from storage after exiting wallet', function () {
+    populateAddressBook()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('setting_exit_wallet').click()
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist').then(() => {
+      const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
+      expect(walletUserPreference).to.have.deep.property('addressBook', {})
+    })
+  })
 })
 
 context('Wallet - Send - Address book local storage feature', () => {

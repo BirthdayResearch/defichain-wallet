@@ -19,11 +19,13 @@ import { ocean } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { setAddressBook, setUserPreferences } from '@store/userPreferences'
+import { RootState, useAppDispatch } from '@store'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
@@ -178,6 +180,21 @@ function SelectedNetworkItem ({
 
 function RowExitWalletItem (): JSX.Element {
   const { clearWallets } = useWalletPersistenceContext()
+  const { network } = useNetworkContext()
+  const userPreferences = useSelector((state: RootState) => state.userPreferences)
+  const dispatch = useAppDispatch()
+  const clearAddressBook = (): void => {
+    const emptyAddressBook = {}
+    dispatch(setAddressBook(emptyAddressBook)).then(() => {
+      dispatch(setUserPreferences({
+        network,
+        preferences: {
+          ...userPreferences,
+          addressBook: emptyAddressBook
+        }
+      }))
+    })
+  }
 
   async function onExitWallet (): Promise<void> {
     WalletAlert({
@@ -190,7 +207,10 @@ function RowExitWalletItem (): JSX.Element {
         },
         {
           text: translate('screens/Settings', 'Unlink Wallet'),
-          onPress: async () => await clearWallets(),
+          onPress: async () => {
+            clearAddressBook()
+            await clearWallets()
+          },
           style: 'destructive'
         }
       ]
