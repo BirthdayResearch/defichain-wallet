@@ -97,6 +97,8 @@ jobs:
 
       - name: EAS Build - iOS - Legacy
         run: eas build --platform ios --non-interactive --wait
+        env:
+          EXPO_BUNDLE_IDENTIFIER: ${{ secrets.EXPO_BUNDLE_IDENTIFIER }}
 
       - run: sleep 10s
 
@@ -108,6 +110,7 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
+          EXPO_BUNDLE_IDENTIFIER: ${{ secrets.EXPO_BUNDLE_IDENTIFIER }}
 
       - name: EAS Submit - iOS - Legacy - Submit
         run: eas submit --platform ios --latest
@@ -145,6 +148,8 @@ jobs:
 
       - name: EAS Build - iOS - New
         run: eas build --platform ios --non-interactive --wait
+        env:
+          EXPO_BUNDLE_IDENTIFIER: ${{ secrets.EXPO_BUNDLE_IDENTIFIER }}
 
       - run: sleep 10s
 
@@ -156,6 +161,7 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
+          EXPO_BUNDLE_IDENTIFIER: ${{ secrets.EXPO_BUNDLE_IDENTIFIER }}
 
       - name: EAS Submit - iOS - New - Submit
         run: eas submit --platform ios --latest
