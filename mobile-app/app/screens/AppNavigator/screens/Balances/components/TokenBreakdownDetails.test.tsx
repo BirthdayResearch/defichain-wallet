@@ -15,6 +15,7 @@ describe('Token Breakdown Details', () => {
         availableAmount={new BigNumber('99')}
         availableValue={new BigNumber('999999.12345678')}
         testID='foo'
+        denominationCurrency='USDT'
       />
     )
     const rendered = render(component)
