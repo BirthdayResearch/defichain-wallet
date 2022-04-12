@@ -52,7 +52,7 @@
     "expo": "^44.0.6",
     "expo-asset": "~8.4.6",
     "expo-barcode-scanner": "~11.2.0",
-    "expo-cli": "^5.2.0",
+    "expo-cli": "^5.3.1",
     "expo-clipboard": "~2.1.0",
     "expo-constants": "~13.0.1",
     "expo-crypto": "~10.1.1",
