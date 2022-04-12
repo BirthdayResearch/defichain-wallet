@@ -9,6 +9,9 @@ context('Wallet - DEX - Features', () => {
 
   it('should be able to select favorite pairs', function () {
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('exist')
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').type('dETH').blur()
+    cy.wait(3000)
     cy.getByTestID('favorite_dETH-DFI').click()
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('not.exist')
     cy.getByTestID('pool_pair_row_0_dETH-DFI').should('exist')
@@ -303,6 +306,7 @@ context('Wallet - DEX - Button filtering', () => {
     })
 
     it('should not be affected by filters in Available pool pairs tab', function () {
+      cy.wait(3000)
       validateYourPoolpairs('ALL')
       // DFI pairs
       cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
@@ -313,12 +317,14 @@ context('Wallet - DEX - Button filtering', () => {
     })
 
     it('should not display any poolpair when search input is active and empty regardless of filter', function () {
+      cy.wait(3000)
       validateEmptyPoolpairsInSearch('ALL')
       validateEmptyPoolpairsInSearch('DFI')
       validateEmptyPoolpairsInSearch('DUSD')
     })
 
     it('should display matching poolpair when search input is not empty regardless of filter', function () {
+      cy.wait(3000)
       validateMatchingPairsInSearch('ALL')
       validateMatchingPairsInSearch('DFI')
       validateMatchingPairsInSearch('DUSD')

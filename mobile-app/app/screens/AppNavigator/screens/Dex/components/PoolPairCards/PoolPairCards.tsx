@@ -234,8 +234,8 @@ const PoolCard = ({
   const getPriceRates = async (): Promise<void> => {
     if (mappedPair !== undefined) {
       const priceRates = await calculatePriceRates(
-        mappedPair?.tokenA.id,
-        mappedPair?.tokenB.id,
+        mappedPair.tokenA.id,
+        mappedPair.tokenB.id,
         new BigNumber('1')
       )
       setPriceRates(priceRates)
