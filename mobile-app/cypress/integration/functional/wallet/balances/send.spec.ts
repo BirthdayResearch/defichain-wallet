@@ -90,7 +90,9 @@ context('Wallet - Send', function () {
           expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('50%_amount_button').click()
-          cy.getByTestID('amount_input').invoke('text').then(text => {
+          cy.getByTestID('amount_input').invoke('val').then(text => {
+            console.log('HALF')
+            console.log(text)
             checkValueWithinRange(text, halfValue.toFixed(8), 0.1)
           })
           cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
