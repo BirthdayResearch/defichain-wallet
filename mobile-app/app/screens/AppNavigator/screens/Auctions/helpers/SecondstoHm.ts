@@ -31,7 +31,7 @@ function secondsToDhm (s: number): {d: number, h: number, m: number} {
   return {
     d: Math.floor(s / (3600 * 24)),
     h: Math.floor(s % (3600 * 24) / 3600),
-    m: Math.floor(s % 3600 / 60)
+    m: Math.floor(s % (3600 * 24) % 3600 / 60)
   }
 }
 
