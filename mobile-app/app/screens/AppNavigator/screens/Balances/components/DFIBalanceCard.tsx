@@ -24,20 +24,12 @@ import { useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 
-// interface DFIBalanceCardProps {
-  // portfolioButtonGroupOptions?: {
-  //   onPortfolioButtonGroupPress: (key: PortfolioGroupTabKey) => void
-  //   activePortfolioButtonGroup: string
-  //   setActivePortfolioButtonGroup: (key: PortfolioGroupTabKey) => void
-  // }
-// }
-
-export function DFIBalanceCard (): JSX.Element {
+export function DFIBalanceCard (props: {denominationCurrency: string}): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
-  const { getTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice(props.denominationCurrency) // input based on selected denomination from portfolio tab
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ symbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
@@ -72,12 +64,12 @@ export function DFIBalanceCard (): JSX.Element {
             {
               hasFetchedToken
                 ? (
-                  // TODO: currency match for usdAmount
                   <TokenAmountText
                     tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)}
                     usdAmount={usdAmount}
                     testID='dfi_total_balance'
                     isBalancesDisplayed={isBalancesDisplayed}
+                    denominationCurrency={props.denominationCurrency}
                   />
                 )
                 : (
@@ -109,7 +101,6 @@ export function DFIBalanceCard (): JSX.Element {
             }
           </View>
           <View style={tailwind('mx-4')}>
-            {/* TODO: cater to currency: DFIUnified.amount */}
             <TokenBreakdownPercentage
               symbol='DFI'
               availableAmount={new BigNumber(DFIUnified.amount)}
@@ -127,7 +118,6 @@ export function DFIBalanceCard (): JSX.Element {
             dark={tailwind('border-t border-gray-700')}
             style={tailwind('mx-4 mb-4 pt-2')}
           >
-            {/* TODO: cater to currency: availableValue and lockedValue  */}
             <TokenBreakdownDetails
               hasFetchedToken={hasFetchedToken}
               lockedAmount={lockedToken.amount}
@@ -137,6 +127,7 @@ export function DFIBalanceCard (): JSX.Element {
               testID='dfi'
               dfiUtxo={DFIUtxo}
               dfiToken={DFIToken}
+              denominationCurrency={props.denominationCurrency}
             />
             <DFIBreakdownAction dfiUnified={DFIUnified} />
           </ThemedView>
