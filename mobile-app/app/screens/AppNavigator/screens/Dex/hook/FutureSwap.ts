@@ -41,6 +41,7 @@ export function useFutureSwap (props: SwapType): {
 export function useFutureSwapDate (executionBlock: number, blockCount: number): {
   timeRemaining: string
   transactionDate: string
+  isEnded: boolean
 } {
   const { network } = useNetworkContext()
   const secondsPerBlock = network === EnvironmentNetwork.MainNet || network === EnvironmentNetwork.TestNet ? 30 : 3
@@ -48,6 +49,7 @@ export function useFutureSwapDate (executionBlock: number, blockCount: number): 
   const blocksSeconds = blocksRemaining * secondsPerBlock
   return {
     timeRemaining: (blocksRemaining > 0) ? secondsToDhmDisplay(blocksSeconds) : '',
-    transactionDate: dayjs().add(blocksSeconds, 'second').format('D MMM YYYY')
+    transactionDate: dayjs().add(blocksSeconds, 'second').format('MMM D, YYYY'),
+    isEnded: blocksRemaining === 0
   }
 }

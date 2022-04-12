@@ -45,6 +45,7 @@ import { useFutureSwap, useFutureSwapDate } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
+import { TextRow } from '@components/TextRow'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -112,8 +113,9 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
-  const executionBlock = 5000 // TODO: get from store, which will get from API
-  const { timeRemaining, transactionDate } = useFutureSwapDate(executionBlock, blockCount)
+  const [isFutureSwap, setIsFutureSwap] = useState(false)
+  const executionBlock = blockCount + 188820 // TODO: get from store, which will get from API
+  const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
   const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
   const { isFutureSwapOptionEnabled, oraclePriceText } = useFutureSwap({
     fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
@@ -335,6 +337,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   }, [selectedPoolPairs, tokenA])
 
+  useEffect(() => {
+    setIsFutureSwap(activeButtonGroup === ButtonGroupTabKey.FutureSwap)
+  }, [activeButtonGroup])
+
   const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenA === undefined || tokenB === undefined) {
       return
@@ -549,7 +555,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
           <>
             <TransactionDetailsSection
-              activeTab={activeButtonGroup}
+              isFutureSwap={isFutureSwap}
               conversionAmount={conversionAmount}
               estimatedAmount={tokenB}
               fee={fee}
@@ -565,7 +571,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
           <View style={tailwind('mb-2')}>
             <SubmitButtonGroup
-              isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined)}
+              isDisabled={!formState.isValid ||
+                hasPendingJob ||
+                hasPendingBroadcastJob ||
+                (slippageError?.type === 'error' && slippageError !== undefined) ||
+                (isFutureSwap && isEnded)}
               label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               onSubmit={onSubmit}
@@ -681,7 +691,7 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
 }
 
 function TransactionDetailsSection ({
-  activeTab,
+  isFutureSwap,
   conversionAmount,
   estimatedAmount,
   fee,
@@ -693,7 +703,7 @@ function TransactionDetailsSection ({
   timeRemaining,
   transactionDate
 }: {
-  activeTab: ButtonGroupTabKey
+  isFutureSwap: boolean
   conversionAmount: BigNumber
   estimatedAmount: string
   fee: BigNumber
@@ -719,18 +729,30 @@ function TransactionDetailsSection ({
           }}
         />}
 
-      {activeTab === ButtonGroupTabKey.InstantSwap
+      {!isFutureSwap
         ? (
-          <NumberRow
-            lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
-            rhs={{
-              value: new BigNumber(priceRate.value).toFixed(8),
-              suffixType: 'text',
-              suffix: tokenB.displaySymbol,
-              testID: 'price_rate_B_per_A'
-            }}
-            textStyle={tailwind('text-sm font-normal')}
-          />
+          <>
+            <NumberRow
+              lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
+              rhs={{
+                value: new BigNumber(priceRate.value).toFixed(8),
+                suffixType: 'text',
+                suffix: tokenB.displaySymbol,
+                testID: 'price_rate_B_per_A'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+            />
+            <NumberRow
+              lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+              rhs={{
+                value: estimatedAmount,
+                suffixType: 'text',
+                suffix: tokenB.displaySymbol,
+                testID: 'estimated_to_receive'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+            />
+          </>
         )
         : (
           <>
@@ -754,19 +776,16 @@ function TransactionDetailsSection ({
                 </TouchableOpacity>
               }
             />
+            <TextRow
+              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
+              rhs={{
+                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                testID: 'estimated_to_receive'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+            />
           </>
         )}
-
-      <NumberRow
-        lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-        rhs={{
-          value: estimatedAmount,
-          suffixType: 'text',
-          suffix: tokenB.displaySymbol,
-          testID: 'estimated_to_receive'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
       <InfoRow
         type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
