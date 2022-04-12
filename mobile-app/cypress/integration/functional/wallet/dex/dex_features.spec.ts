@@ -9,6 +9,9 @@ context('Wallet - DEX - Features', () => {
 
   it('should be able to select favorite pairs', function () {
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('exist')
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').type('dETH').blur()
+    cy.wait(3000)
     cy.getByTestID('favorite_dETH-DFI').click()
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('not.exist')
     cy.getByTestID('pool_pair_row_0_dETH-DFI').should('exist')
