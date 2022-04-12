@@ -39,6 +39,6 @@ jobs:
       - run: npm ci
       - run: npm run test:ci
 
-      - uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
+      - uses: codecov/codecov-action@e3c560433a6cc60aec8812599b7844a7b4fa0d71
         with:
           fail_ci_if_error: true
