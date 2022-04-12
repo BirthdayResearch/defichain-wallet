@@ -45,8 +45,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
           dark: tailwind('text-gray-400')
         }}
         containerStyle={tailwind('mb-2')}
-        prefix={props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
-        suffix={props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
+        prefix={props.denominationCurrency === undefined ? '≈ $' : props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
+        suffix={props.denominationCurrency === undefined ? undefined : props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_available`}
