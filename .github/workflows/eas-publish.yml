@@ -95,6 +95,12 @@ jobs:
           git config --global user.name "defichain-bot"
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
+      - name: EAS Submit - iOS - Legacy - Setup - Bundle Identifier
+        run: |
+          sed -i "s/EXPO_BUNDLE_IDENTIFIER/$EXPO_BUNDLE_IDENTIFIER/" app.json
+        env:
+          EXPO_BUNDLE_IDENTIFIER: ${{ secrets.EXPO_BUNDLE_IDENTIFIER }}
+
       - name: EAS Build - iOS - Legacy
         run: eas build --platform ios --non-interactive --wait
         env:
@@ -145,6 +151,12 @@ jobs:
           git config --global user.email "github-bot@defichain.com"
           git config --global user.name "defichain-bot"
           npx standard-version --release-as ${{needs.version.outputs.version}}
+
+      - name: EAS Submit - iOS - New - Setup - Bundle Identifier
+        run: |
+          sed -i "s/EXPO_BUNDLE_IDENTIFIER/$EXPO_BUNDLE_IDENTIFIER/" app.json
+        env:
+          EXPO_BUNDLE_IDENTIFIER: ${{ secrets.EXPO_BUNDLE_IDENTIFIER }}
 
       - name: EAS Build - iOS - New
         run: eas build --platform ios --non-interactive --wait
