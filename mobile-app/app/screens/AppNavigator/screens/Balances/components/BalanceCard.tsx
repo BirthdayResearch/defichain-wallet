@@ -43,6 +43,7 @@ interface BalanceCardProps {
     activeButtonGroup: string
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void
   }
+  denominationCurrency: string
 }
 
 export function BalanceCard ({
@@ -50,7 +51,8 @@ export function BalanceCard ({
   filteredTokens,
   dstTokens,
   navigation,
-  buttonGroupOptions
+  buttonGroupOptions,
+  denominationCurrency
 }: BalanceCardProps): JSX.Element {
   const buttonGroup = [
     {
@@ -149,6 +151,7 @@ export function BalanceCard ({
                 merge: true
               })}
               token={item}
+              denominationCurrency={denominationCurrency}
             />
           </View>
         ))}
@@ -164,8 +167,9 @@ export function BalanceCard ({
 
 function BalanceItemRow ({
   token,
-  onPress
-}: { token: BalanceRowToken, onPress: () => void }): JSX.Element {
+  onPress,
+  denominationCurrency
+}: { token: BalanceRowToken, onPress: () => void, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
@@ -201,6 +205,7 @@ function BalanceItemRow ({
             usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
             testID={testID}
             isBalancesDisplayed={isBalancesDisplayed}
+            denominationCurrency={denominationCurrency}
           />
         </View>
       </ThemedTouchableOpacity>
@@ -229,6 +234,7 @@ function BalanceItemRow ({
                   availableAmount={new BigNumber(token.amount)}
                   availableValue={token.usdAmount}
                   testID={token.displaySymbol}
+                  denominationCurrency={denominationCurrency}
                 />
               </ThemedView>
             )}

@@ -309,6 +309,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             setActivePortfolioButtonGroup: setDenominationCurrency
           }}
           portfolioButtonGroup={portfolioButtonGroup}
+          denominationCurrency={denominationCurrency}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />

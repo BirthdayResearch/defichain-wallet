@@ -9,8 +9,9 @@ export function TokenAmountText ({
   testID,
   isBalancesDisplayed,
   usdAmount,
-  tokenAmount
-}: { testID: string, isBalancesDisplayed: boolean, usdAmount: BigNumber, tokenAmount: string }): JSX.Element {
+  tokenAmount,
+  denominationCurrency
+}: { testID: string, isBalancesDisplayed: boolean, usdAmount: BigNumber, tokenAmount: string, denominationCurrency: string }): JSX.Element {
   return (
     <View style={tailwind('flex-row items-center')}>
       <NumberFormat
@@ -31,6 +32,7 @@ export function TokenAmountText ({
                   testId={`${testID}_usd_amount`}
                   price={usdAmount}
                   containerStyle={tailwind('justify-end')}
+                  denominationCurrency={denominationCurrency}
                 />
               )}
             </View>

@@ -18,6 +18,7 @@ interface TokenBreakdownDetailProps {
   dfiUtxo?: WalletToken
   dfiToken?: WalletToken
   testID: string
+  denominationCurrency: string
 }
 
 export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.Element {
@@ -44,7 +45,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
           dark: tailwind('text-gray-400')
         }}
         containerStyle={tailwind('mb-2')}
-        prefix='≈ $'
+        prefix={props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
+        suffix={props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_available`}
@@ -66,7 +68,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
           light: tailwind('text-gray-500'),
           dark: tailwind('text-gray-400')
         }}
-        prefix='≈ $'
+        prefix={props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
+        suffix={props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
       />
       {props.dfiUtxo !== undefined && props.dfiToken !== undefined &&
         (
@@ -89,6 +92,7 @@ interface TokenBreakdownDetailsRowProps {
   valueThemeProps?: ThemedProps
   containerStyle?: StyleProp<ViewProps>
   prefix?: string
+  suffix?: string
 }
 function TokenBreakdownDetailsRow ({
   amount,
@@ -102,7 +106,8 @@ function TokenBreakdownDetailsRow ({
     dark: tailwind('text-gray-400')
   },
   containerStyle,
-  prefix
+  prefix,
+  suffix
 }: TokenBreakdownDetailsRowProps): JSX.Element {
   return (
     <View style={[tailwind('flex-row flex-1 items-center'), containerStyle]}>
@@ -125,6 +130,7 @@ function TokenBreakdownDetailsRow ({
                 fixedDecimalScale
                 displayType='text'
                 prefix={prefix}
+                suffix={suffix}
                 renderText={value =>
                   <BalanceText
                     light={valueThemeProps.light}
