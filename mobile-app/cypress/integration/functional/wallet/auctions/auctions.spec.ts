@@ -338,7 +338,8 @@ context('Wallet - Auctions', () => {
   // })
 
   describe('Min. Next Bid', function () {
-    beforeEach(() => {
+    // Price rate ($ per TU10) = 200000
+    function validateLoanTokenUSDValue (tokenTestID: string, usdTestID: string): void {
       cy.intercept('**/poolpairs/dexprices?denomination=*', {
         body: {
           data: {
@@ -355,16 +356,30 @@ context('Wallet - Auctions', () => {
                   displaySymbol: 'dTU10'
                 },
                 denominationPrice: '200000'
+              },
+              DFI: {
+                token: {
+                  id: '0',
+                  symbol: 'DFI',
+                  displaySymbol: 'DFI'
+                },
+                denominationPrice: '1000'
+              },
+              CD10: {
+                token: {
+                  id: '13',
+                  symbol: 'CD10',
+                  displaySymbol: 'dCD10'
+                },
+                denominationPrice: '0'
               }
             }
           }
         }
       }).as('getDexPrices')
-    })
-
-    // Price rate ($ per TU10) = 200000
-    function validateLoanTokenUSDValue (tokenTestID: string, usdTestID: string): void {
       cy.wait('@getDexPrices').then(() => {
+        cy.wait(2000)
+        cy.getByTestID(tokenTestID, { timeout: 10000 }).should('be.visible')
         cy.getByTestID(tokenTestID).invoke('text').then((text: string) => {
           const minNextBid = text.replace(' dTU10', '')
           cy.getByTestID(usdTestID).invoke('text').then((actualUSD: string) => {
