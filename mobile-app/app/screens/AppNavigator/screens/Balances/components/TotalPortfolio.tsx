@@ -35,15 +35,14 @@ interface TotalPortfolioProps {
     label: string
     handleOnPress: () => void
   }>
+  denominationCurrency?: string
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
-  const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // 'BTC' or 'DFI'
-  console.log('displayCurrency', denominationCurrency)
-  console.log('TotalPortfolio totalAvailableUSDValue', props.totalAvailableUSDValue.toFixed(8))
+  const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // for 'BTC' or 'DFI' denomination
 
   return (
     <ThemedView
@@ -167,6 +166,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 label={translate('screens/BalancesScreen', 'available')}
                 value={props.totalAvailableUSDValue}
                 isAddition
+                denominationCurrency={denominationCurrency}
               />
             </View>
             <USDValueRow
@@ -175,6 +175,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               label={translate('screens/BalancesScreen', 'locked in vault(s)')}
               value={props.totalLockedUSDValue}
               isAddition
+              denominationCurrency={denominationCurrency}
             />
             {
               props.totalLoansUSDValue.gt(0) && (
@@ -184,6 +185,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   label={translate('screens/BalancesScreen', 'loans')}
                   value={props.totalLoansUSDValue}
                   isAddition={false}
+                  denominationCurrency={undefined}
                 />
               )
             }
@@ -193,7 +195,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   )
 }
 
-function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string, isAddition: boolean }): JSX.Element {
+function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string, isAddition: boolean, denominationCurrency?: string}): JSX.Element {
   if (props.isLoading) {
     return (
       <View style={tailwind('mt-1')}>
@@ -218,7 +220,8 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
       </ThemedText>
       <NumberFormat
         displayType='text'
-        prefix='$'
+        prefix={props.denominationCurrency === undefined ? '$' : props.denominationCurrency === 'USDT' ? '$' : undefined}
+        suffix={props.denominationCurrency === undefined ? undefined : props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
         renderText={(value) =>
           <BalanceText
             dark={tailwind('text-gray-200')}
