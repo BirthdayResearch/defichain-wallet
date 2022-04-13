@@ -104,18 +104,12 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
   }
 
   function getTransactionType (): string {
-    if (conversion?.isConversionRequired === true) {
-      if (!isFutureSwap) {
-        return translate('screens/ConfirmCompositeSwapScreen', 'Convert & swap')
-      } else {
-        return translate('screens/ConfirmCompositeSwapScreen', 'Convert & future swap')
-      }
+    if (isFutureSwap) {
+      return translate('screens/ConfirmCompositeSwapScreen', 'Future swap')
+    } else if (conversion?.isConversionRequired === true) {
+      return translate('screens/ConfirmCompositeSwapScreen', 'Convert & swap')
     } else {
-      if (!isFutureSwap) {
-        return translate('screens/ConfirmCompositeSwapScreen', 'Swap')
-      } else {
-        return translate('screens/ConfirmCompositeSwapScreen', 'Future swap')
-      }
+      return translate('screens/ConfirmCompositeSwapScreen', 'Swap')
     }
   }
 
