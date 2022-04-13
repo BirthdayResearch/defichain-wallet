@@ -109,7 +109,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
-  }, [denominationCurrency])
+  }, [blockCount, denominationCurrency])
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
