@@ -36,18 +36,27 @@ function validate50PercentButton (loanTokenSymbol: string, paymentTokenSymbol: s
   if (hasSufficientBalance) {
     cy.getByTestID('payback_input_text_error').should('not.exist')
     cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
+      const outstandingBalance = new BigNumber(text.replace(loanTokenSymbol, '').trim())
+      if (loanTokenSymbol === paymentTokenSymbol) {
+        cy.getByTestID('payback_input_text').should('have.value', outstandingBalance.div(2).toFixed(8))
+      }
+      cy.getByTestID('loan_payment_percentage').should('have.text', '50.00%')
+    })
   } else {
-    cy.getByTestID('payback_input_text_error').should('have.text', `Insufficient ${paymentTokenSymbol} to pay for the entered amount`)
     cy.getByTestID('button_confirm_payback_loan_continue').should('have.attr', 'aria-disabled')
-  }
+    cy.getByTestID('available_token_balance').invoke('text').then(text => {
+      const availableBalance = new BigNumber(text.replace(paymentTokenSymbol, '').trim())
 
-  cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
-    const outstandingBalance = new BigNumber(text.replace(loanTokenSymbol, '').trim())
-    if (loanTokenSymbol === paymentTokenSymbol) {
-      cy.getByTestID('payback_input_text').should('have.value', outstandingBalance.div(2).toFixed(8))
-    }
-    cy.getByTestID('loan_payment_percentage').should('have.text', '50.00%')
-  })
+      if (!availableBalance.isZero()) {
+        cy.getByTestID('payback_input_text_error').should('have.text', `Insufficient ${paymentTokenSymbol} to pay for the entered amount`)
+      }
+
+      if (loanTokenSymbol === paymentTokenSymbol) {
+        cy.getByTestID('payback_input_text').should('have.value', availableBalance.div(2).toFixed(8))
+      }
+    })
+  }
 }
 
 function validateMaxButtonWith0Balance (): void {
@@ -394,7 +403,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
 
   /* Paying DUSD sufficient DUSD */
   it('should update available balance on top up', () => {
-    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(3000)
+    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(6000)
   })
 
   it('should display vault info', () => {
