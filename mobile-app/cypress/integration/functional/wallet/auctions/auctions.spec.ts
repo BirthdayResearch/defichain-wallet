@@ -390,8 +390,8 @@ context('Wallet - Auctions', () => {
     }
 
     it('should display USD values in batch card', function () {
+      cy.go('back')
       runIfAuctionsIsAvailable(() => {
-        cy.go('back')
         validateLoanTokenUSDValue('batch_0_min_next_bid', 'batch_0_min_next_bid_usd')
       })
     })
@@ -409,8 +409,8 @@ context('Wallet - Auctions', () => {
       runIfAuctionsIsAvailable(() => {
         cy.getByTestID('batch_card_0_place_bid_button').click()
         validateLoanTokenUSDValue('text_min_next_bid', 'place_bid_min_next_bid_usd')
-        cy.go('back')
       })
+      cy.go('back')
     })
 
     it('should display USD values in auction details screen', function () {

@@ -277,9 +277,9 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   it('should be able to swap tokens with 2 hops', function () {
     cy.getByTestID('composite_swap').click().wait(5000)
     cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dLTC').click().wait(100)
+    cy.getByTestID('select_dLTC').click().wait(1000)
     cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dUSDC').click().wait(100)
+    cy.getByTestID('select_dUSDC').click().wait(1000)
   })
 
   it('should be able to swap direct pair', function () {
