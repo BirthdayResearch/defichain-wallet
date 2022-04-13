@@ -7,6 +7,7 @@ import { AddressSkeletonLoader } from './AddressSkeletonLoader'
 import { BrowseAuctionsLoader } from './BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './VaultSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './VaultSchemeSkeletonLoader'
+import { DexPricesSkeletonLoader } from './DexPricesSkeletonLoader'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -14,6 +15,14 @@ describe('Skeleton Loader', () => {
   it('should match snapshot of dex skeleton loader', async () => {
     const component = (
       <DexSkeletonLoader uniqueKey='dex' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of dex price skeleton loader', async () => {
+    const component = (
+      <DexPricesSkeletonLoader uniqueKey='dexPrice' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
