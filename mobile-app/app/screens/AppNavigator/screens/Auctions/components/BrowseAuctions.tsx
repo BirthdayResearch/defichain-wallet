@@ -19,7 +19,6 @@ import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useIsFocused } from '@react-navigation/native'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 interface Props {
   searchString: string
@@ -52,7 +51,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getTokenPrice } = useTokenPrice()
 
   // Search
   const debouncedSearchTerm = useDebounce(searchString, 500)
@@ -71,7 +69,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const onQuickBid = (props: onQuickBidProps): void => {
     const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
     const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
-
     setBottomSheetScreen([{
       stackScreenName: 'Quick Bid',
       option: {
@@ -88,7 +85,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         minNextBid: new BigNumber(props.minNextBidInToken),
         minNextBidInUSD: props.minNextBidInUSD,
         currentBalance: currentBalance,
-        currentBalanceInUSD: getTokenPrice(props.batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])
