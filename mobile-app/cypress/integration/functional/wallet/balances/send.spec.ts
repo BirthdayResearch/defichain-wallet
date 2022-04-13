@@ -93,7 +93,6 @@ context('Wallet - Send', function () {
           cy.getByTestID('amount_input').invoke('val').then(text => {
             checkValueWithinRange(text, halfValue.toFixed(8), 0.1)
           })
-          cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
           cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
         })
       })
