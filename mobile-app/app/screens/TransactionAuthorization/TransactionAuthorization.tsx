@@ -40,6 +40,7 @@ import {
 } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { useAddressBook } from '@hooks/useAddressBook'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -68,6 +69,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { dismiss } = useBottomSheetModal()
   const modalName = 'PasscodePromptModal'
+  const { clearAddressBook } = useAddressBook()
 
   /**
    * This is one of the most important state of this component.
@@ -197,6 +199,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       if (e.message === INVALID_HASH) {
         // case 2: invalid passcode
         await resetPasscodeCounter()
+        clearAddressBook()
         await clearWallets()
         alertUnlinkWallet()
       } else if (e.message === UNEXPECTED_FAILURE) {
@@ -274,6 +277,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           if (e.message === INVALID_HASH) {
             // case 2: invalid passcode
             await resetPasscodeCounter()
+            clearAddressBook()
             await clearWallets()
             alertUnlinkWallet()
           } else if (e.message !== USER_CANCELED && authentication.onError !== undefined) {

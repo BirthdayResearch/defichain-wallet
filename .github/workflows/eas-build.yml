@@ -26,11 +26,11 @@ jobs:
 
           result-encoding: string
 
-      - uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236
+      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@1bde34e5c788ddc62e8d0fa9fc2dea222cdcaae1
+      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350
         with:
           eas-version: latest
           expo-version: 4.x
