@@ -45,8 +45,8 @@ export function DfxButtons (): JSX.Element {
       await Linking.openURL(url)
     })
       .catch(reason => {
- throw new Error(reason)
-})
+        throw new Error(reason)
+        })
   }, [dfxToken])
 
   async function onOverviewButtonPress (): Promise<void> {
@@ -109,7 +109,7 @@ export function DfxButtons (): JSX.Element {
   ]
 
   return (
-    <View style={tailwind('flex flex-row justify-evenly mt-3')}>
+    <View style={tailwind('flex justify-center flex-row mt-3')}>
       {buttons.filter((b) => !(b.hide ?? false)).map((b, i) => <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />)}
     </View>
   )
@@ -122,7 +122,7 @@ interface ImageButtonProps extends TouchableOpacityProps {
 export function ImageButton (props: ImageButtonProps): JSX.Element {
   const styles = StyleSheet.create({
     button: {
-      aspectRatio: 1.5, // 1.235, // TODO(davidleomay)
+      aspectRatio: 1.235, // TODO(davidleomay)
       flex: 1
     },
     image: {
