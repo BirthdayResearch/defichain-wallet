@@ -45,47 +45,47 @@ export function DFIBalanceCard (): JSX.Element {
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col flex-1')}>
-        <View style={tailwind('flex-row m-4 mb-2 justify-between')}>
+        <View style={tailwind('flex-row m-4 mb-4 justify-between')}>
           <View style={tailwind('flex-row items-center')}>
             <DFIIcon width={32} height={32} />
             <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
           </View>
 
           {
-              hasFetchedToken
-                ? (
-                  <TokenAmountText
-                    tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
-                    isBalancesDisplayed={isBalancesDisplayed}
-                  />
-                )
-                : (
-                  <View style={tailwind('pt-1')}>
-                    <View style={tailwind('mb-1.5')}>
-                      <TextSkeletonLoader
-                        iContentLoaderProps={{
-                          width: '150',
-                          height: '16',
-                          testID: 'dfi_balance_skeleton_loader'
-                        }}
-                        textHorizontalOffset='30'
-                        textWidth='120'
-                      />
-                    </View>
-                    <View>
-                      <TextSkeletonLoader
-                        iContentLoaderProps={{
-                          width: '150',
-                          height: '12',
-                          testID: 'dfi_USD_balance_skeleton_loader'
-                        }}
-                        textHorizontalOffset='30'
-                        textWidth='120'
-                      />
-                    </View>
+            hasFetchedToken
+              ? (
+                <TokenAmountText
+                  tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
+                  isBalancesDisplayed={isBalancesDisplayed}
+                />
+              )
+              : (
+                <View style={tailwind('pt-1')}>
+                  <View style={tailwind('mb-1.5')}>
+                    <TextSkeletonLoader
+                      iContentLoaderProps={{
+                        width: '150',
+                        height: '16',
+                        testID: 'dfi_balance_skeleton_loader'
+                      }}
+                      textHorizontalOffset='30'
+                      textWidth='120'
+                    />
                   </View>
-                )
-            }
+                  <View>
+                    <TextSkeletonLoader
+                      iContentLoaderProps={{
+                        width: '150',
+                        height: '12',
+                        testID: 'dfi_USD_balance_skeleton_loader'
+                      }}
+                      textHorizontalOffset='30'
+                      textWidth='120'
+                    />
+                  </View>
+                </View>
+              )
+          }
 
           <TouchableOpacity
             onPress={onBreakdownPress}
@@ -94,13 +94,12 @@ export function DFIBalanceCard (): JSX.Element {
           >
             <ThemedIcon
               light={tailwind('text-primary-500')}
-              dark={tailwind('text-dfxred-500 border-dfxblue-900 border rounded')}
+              dark={tailwind('text-dfxred-500')}
               iconType='MaterialIcons'
               name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
               size={28}
             />
           </TouchableOpacity>
-
         </View>
 
         {isBreakdownExpanded && (
