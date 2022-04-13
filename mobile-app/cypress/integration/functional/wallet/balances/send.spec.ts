@@ -91,11 +91,8 @@ context('Wallet - Send', function () {
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('50%_amount_button').click()
           cy.getByTestID('amount_input').invoke('val').then(text => {
-            console.log('HALF')
-            console.log(text)
             checkValueWithinRange(text, halfValue.toFixed(8), 0.1)
           })
-          cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
           cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
         })
       })
@@ -533,6 +530,36 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID(`address_row_label_${newAddress}`).contains(newLabel)
     cy.getByTestID(`address_row_text_${newAddress}`).contains(newAddress)
     cy.getByTestID(`address_edit_indicator_${newAddress}`).should('not.exist')
+  })
+
+  it('should remove address book from storage after exiting wallet through setting', function () {
+    populateAddressBook()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('setting_exit_wallet').click()
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist').then(() => {
+      const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
+      expect(walletUserPreference).to.have.deep.property('addressBook', {})
+    })
+  })
+
+  it('should remove address book from storage after forced exit from invalid passcode', function () {
+    const MAX_PASSCODE_ATTEMPT = 3
+    populateAddressBook()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('view_recovery_words').click()
+    cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
+      cy.getByTestID('pin_authorize').type('696969').wait(1000)
+    })
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist').then(() => {
+      const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
+      expect(walletUserPreference).to.have.deep.property('addressBook', {})
+    })
   })
 })
 
