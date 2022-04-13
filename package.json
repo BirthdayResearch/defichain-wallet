@@ -46,6 +46,7 @@
     "bignumber.js": "^9.0.2",
     "buffer": "^6.0.3",
     "classnames": "^2.3.1",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "defichain": "^2.38.0",
     "eslint-import-resolver-typescript": "^2.7.0",
