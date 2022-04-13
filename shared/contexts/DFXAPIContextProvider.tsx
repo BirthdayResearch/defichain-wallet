@@ -18,11 +18,15 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useDispatch } from 'react-redux'
 import * as React from 'react'
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
+import { getEnvironment } from '@environment'
+import { Linking } from 'react-native'
+import * as Updates from 'expo-updates'
 
 interface DFXAPIContextI {
   dfxToken: () => Promise<string>
   dfxFetchSignature: (passphrase?: string) => Promise<void>
   dfxUpdateSession: () => Promise<void>
+  dfxGatewayButtonPress: () => Promise<void>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
@@ -167,10 +171,22 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     return await DFXPersistence.getToken(address)
   }
 
+  const onGatewayButtonPress = async (): Promise<void> => {
+    await fetchActiveToken().then(async (token) => {
+      const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
+      const url = `${baseUrl}/login?token=${token}`
+      await Linking.openURL(url)
+      })
+      .catch(reason => {
+          throw new Error(reason)
+      })
+  }
+
   const context: DFXAPIContextI = {
     dfxToken: fetchActiveToken,
     dfxFetchSignature: fetchSignature,
-    dfxUpdateSession: updateSession
+    dfxUpdateSession: updateSession,
+    dfxGatewayButtonPress: onGatewayButtonPress
   }
 
   useEffect(() => {

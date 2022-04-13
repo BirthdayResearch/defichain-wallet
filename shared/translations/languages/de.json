@@ -1049,8 +1049,11 @@
     "No dTokens in portfolio": "Keine dToken im Portfolio"
   },
   "components/EmptyPortfolio": {
-    "Empty portfolio": "Portfolio leer",
-    "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
+    "Empty portfolio": "Portfolio leer"
+  },
+  "components/DfxEmptyWallet": {
+    "Add your DFI and other dTokens to get started or": "Füge deine DFI und andere dToken hinzu, oder",
+    "buy them with a bank transfer": "kaufe sie mit einer Überweisung"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",

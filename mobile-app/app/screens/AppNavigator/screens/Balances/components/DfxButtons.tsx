@@ -2,9 +2,7 @@ import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { StyleSheet, ImageSourcePropType, Linking, TouchableOpacity, TouchableOpacityProps, Image, View } from 'react-native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { getEnvironment } from '@environment'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
-import * as Updates from 'expo-updates'
 
 import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
 import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
@@ -30,24 +28,12 @@ import BtnGatewayEs from '@assets/images/dfx_buttons/btn_gateway_es.png'
 import BtnOverviewEs from '@assets/images/dfx_buttons/btn_overview_es.png'
 import BtnTaxEs from '@assets/images/dfx_buttons/btn_tax_es.png'
 import BtnDobbyEs from '@assets/images/dfx_buttons/btn_dobby_es.png'
-import { useCallback } from 'react'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
 export function DfxButtons (): JSX.Element {
   const { address } = useWalletContext()
   const { language } = useLanguageContext()
-  const { dfxToken } = useDFXAPIContext()
-
-  const onGatewayButtonPress = useCallback(async () => {
-    await dfxToken().then(async (token) => {
-      const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
-      const url = `${baseUrl}/login?token=${token}`
-      await Linking.openURL(url)
-    })
-      .catch(reason => {
-        throw new Error(reason)
-        })
-  }, [dfxToken])
+  const { dfxGatewayButtonPress } = useDFXAPIContext()
 
   async function onOverviewButtonPress (): Promise<void> {
     const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`
@@ -73,7 +59,7 @@ export function DfxButtons (): JSX.Element {
         it: BtnGatewayIt,
         es: BtnGatewayEs
       },
-      onPress: onGatewayButtonPress
+      onPress: dfxGatewayButtonPress
     },
     {
       img: {
