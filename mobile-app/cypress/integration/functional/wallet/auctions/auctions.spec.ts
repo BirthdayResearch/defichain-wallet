@@ -338,17 +338,54 @@ context('Wallet - Auctions', () => {
   // })
 
   describe('Min. Next Bid', function () {
-    // TU10 - DUSD: 4.87 - 974
-    // DUSD - DFI: 770 - 77
-    // DFI - dUSDT: 1000 - 10000000
-    // Price rate ($ per TU10) = 1 * (974 / 4.87) * (77 / 770) * (10000000 / 1000) = 200000
+    // Price rate ($ per TU10) = 200000
     function validateLoanTokenUSDValue (tokenTestID: string, usdTestID: string): void {
-      cy.getByTestID(tokenTestID).invoke('text').then((text: string) => {
-        const minNextBid = text.replace(' dTU10', '')
-
-        cy.getByTestID(usdTestID).invoke('text').then((actualUSD: string) => {
-          const estimatedUSD = new BigNumber(minNextBid).times(200000)
-          checkValueWithinRange(actualUSD, estimatedUSD.toFixed(2))
+      cy.intercept('**/poolpairs/dexprices?denomination=*', {
+        body: {
+          data: {
+            denomination: {
+              id: '3',
+              symbol: 'USDT',
+              displaySymbol: 'dUSDT'
+            },
+            dexPrices: {
+              TU10: {
+                token: {
+                  id: '13',
+                  symbol: 'TU10',
+                  displaySymbol: 'dTU10'
+                },
+                denominationPrice: '200000'
+              },
+              DFI: {
+                token: {
+                  id: '0',
+                  symbol: 'DFI',
+                  displaySymbol: 'DFI'
+                },
+                denominationPrice: '1000'
+              },
+              CD10: {
+                token: {
+                  id: '13',
+                  symbol: 'CD10',
+                  displaySymbol: 'dCD10'
+                },
+                denominationPrice: '0'
+              }
+            }
+          }
+        }
+      }).as('getDexPrices')
+      cy.wait('@getDexPrices').then(() => {
+        cy.wait(2000)
+        cy.getByTestID(tokenTestID, { timeout: 10000 }).should('be.visible')
+        cy.getByTestID(tokenTestID).invoke('text').then((text: string) => {
+          const minNextBid = text.replace(' dTU10', '')
+          cy.getByTestID(usdTestID).invoke('text').then((actualUSD: string) => {
+            const estimatedUSD = new BigNumber(minNextBid).times(200000)
+            checkValueWithinRange(actualUSD, estimatedUSD.toFixed(2))
+          })
         })
       })
     }

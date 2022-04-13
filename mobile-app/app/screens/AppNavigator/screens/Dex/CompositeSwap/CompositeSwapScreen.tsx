@@ -36,7 +36,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
@@ -72,10 +72,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const {
-    calculatePriceRates,
-    getArbitraryPoolPair
-  } = useTokenPrice()
+  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath()
   const {
     slippage,
     setSlippage
@@ -298,19 +295,27 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [route.params.pair, route.params.tokenSelectOption])
 
   useEffect(() => {
-    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const poolPairs = getArbitraryPoolPair(selectedTokenA.symbol, selectedTokenB.symbol)
-      setSelectedPoolPairs(poolPairs)
-    }
+    void getSelectedPoolPairs()
   }, [selectedTokenA, selectedTokenB])
 
+  const getSelectedPoolPairs = async (): Promise<void> => {
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
+      const poolPairs = await getArbitraryPoolPair(selectedTokenA.id, selectedTokenB.id)
+      setSelectedPoolPairs(poolPairs)
+    }
+  }
+
   useEffect(() => {
+    void getPriceRates()
+  }, [selectedPoolPairs, tokenA])
+
+  const getPriceRates = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenA !== undefined) {
       const {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenA))
+      } = await calculatePriceRates(selectedTokenA.id, selectedTokenB.id, new BigNumber(tokenA))
       const slippage = new BigNumber(1).minus(new BigNumber(tokenA).div(selectedTokenA.reserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
@@ -334,8 +339,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       ])
 
       setValue('tokenB', estimatedAmountAfterSlippage)
+      // trigger validation for tokenB
+      await trigger('tokenB')
     }
-  }, [selectedPoolPairs, tokenA])
+  }
 
   useEffect(() => {
     setIsFutureSwap(activeButtonGroup === ButtonGroupTabKey.FutureSwap)
