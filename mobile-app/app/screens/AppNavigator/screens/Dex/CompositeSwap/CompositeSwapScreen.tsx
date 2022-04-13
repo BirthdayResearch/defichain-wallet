@@ -36,15 +36,16 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
 import { ButtonGroup } from '../components/ButtonGroup'
-import { useFutureSwap } from '../hook/FutureSwap'
+import { useFutureSwap, useFutureSwapDate } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
+import { TextRow } from '@components/TextRow'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -71,16 +72,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const {
-    calculatePriceRates,
-    getArbitraryPoolPair
-  } = useTokenPrice()
+  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath()
   const {
     slippage,
     setSlippage
   } = useSlippageTolerance()
 
-  const blockCount = useSelector((state: RootState) => state.block.count)
+  const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -112,7 +110,9 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     }
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
-
+  const [isFutureSwap, setIsFutureSwap] = useState(false)
+  const executionBlock = blockCount + 188820 // TODO: get from store, which will get from API
+  const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
   const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
   const { isFutureSwapOptionEnabled, oraclePriceText } = useFutureSwap({
     fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
@@ -295,19 +295,27 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [route.params.pair, route.params.tokenSelectOption])
 
   useEffect(() => {
-    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const poolPairs = getArbitraryPoolPair(selectedTokenA.symbol, selectedTokenB.symbol)
-      setSelectedPoolPairs(poolPairs)
-    }
+    void getSelectedPoolPairs()
   }, [selectedTokenA, selectedTokenB])
 
+  const getSelectedPoolPairs = async (): Promise<void> => {
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
+      const poolPairs = await getArbitraryPoolPair(selectedTokenA.id, selectedTokenB.id)
+      setSelectedPoolPairs(poolPairs)
+    }
+  }
+
   useEffect(() => {
+    void getPriceRates()
+  }, [selectedPoolPairs, tokenA])
+
+  const getPriceRates = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenA !== undefined) {
       const {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenA))
+      } = await calculatePriceRates(selectedTokenA.id, selectedTokenB.id, new BigNumber(tokenA))
       const slippage = new BigNumber(1).minus(new BigNumber(tokenA).div(selectedTokenA.reserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
@@ -331,8 +339,14 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       ])
 
       setValue('tokenB', estimatedAmountAfterSlippage)
+      // trigger validation for tokenB
+      await trigger('tokenB')
     }
-  }, [selectedPoolPairs, tokenA])
+  }
+
+  useEffect(() => {
+    setIsFutureSwap(activeButtonGroup === ButtonGroupTabKey.FutureSwap)
+  }, [activeButtonGroup])
 
   const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenA === undefined || tokenB === undefined) {
@@ -346,6 +360,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       pairs: selectedPoolPairs,
       priceRates,
       slippage: slippageInDecimal,
+      futureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap
+? {
+        executionBlock,
+        transactionDate
+      }
+: undefined,
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
@@ -542,7 +562,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
           <>
             <TransactionDetailsSection
-              activeTab={activeButtonGroup}
+              isFutureSwap={isFutureSwap}
               conversionAmount={conversionAmount}
               estimatedAmount={tokenB}
               fee={fee}
@@ -550,13 +570,19 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
               priceRate={priceRates[1]}
-              executionBlock={123456789}
+              executionBlock={executionBlock}
+              timeRemaining={timeRemaining}
+              transactionDate={transactionDate}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
           <View style={tailwind('mb-2')}>
             <SubmitButtonGroup
-              isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined)}
+              isDisabled={!formState.isValid ||
+                hasPendingJob ||
+                hasPendingBroadcastJob ||
+                (slippageError?.type === 'error' && slippageError !== undefined) ||
+                (isFutureSwap && isEnded)}
               label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               onSubmit={onSubmit}
@@ -672,7 +698,7 @@ function TokenSelection (props: { symbol?: string, label: string, onPress: () =>
 }
 
 function TransactionDetailsSection ({
-  activeTab,
+  isFutureSwap,
   conversionAmount,
   estimatedAmount,
   fee,
@@ -680,9 +706,11 @@ function TransactionDetailsSection ({
   tokenA,
   tokenB,
   priceRate,
-  executionBlock
+  executionBlock,
+  timeRemaining,
+  transactionDate
 }: {
-  activeTab: ButtonGroupTabKey
+  isFutureSwap: boolean
   conversionAmount: BigNumber
   estimatedAmount: string
   fee: BigNumber
@@ -691,6 +719,8 @@ function TransactionDetailsSection ({
   tokenB: TokenState
   priceRate: PriceRateProps
   executionBlock: number
+  timeRemaining: string
+  transactionDate: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   return (
@@ -706,22 +736,34 @@ function TransactionDetailsSection ({
           }}
         />}
 
-      {activeTab === ButtonGroupTabKey.InstantSwap
+      {!isFutureSwap
         ? (
-          <NumberRow
-            lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
-            rhs={{
-              value: new BigNumber(priceRate.value).toFixed(8),
-              suffixType: 'text',
-              suffix: tokenB.displaySymbol,
-              testID: 'price_rate_B_per_A'
-            }}
-            textStyle={tailwind('text-sm font-normal')}
-          />
+          <>
+            <NumberRow
+              lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
+              rhs={{
+                value: new BigNumber(priceRate.value).toFixed(8),
+                suffixType: 'text',
+                suffix: tokenB.displaySymbol,
+                testID: 'price_rate_B_per_A'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+            />
+            <NumberRow
+              lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+              rhs={{
+                value: estimatedAmount,
+                suffixType: 'text',
+                suffix: tokenB.displaySymbol,
+                testID: 'estimated_to_receive'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+            />
+          </>
         )
         : (
           <>
-            <TimeRemainingTextRow timeRemaining='6d 12h 36m' />
+            <TimeRemainingTextRow timeRemaining={timeRemaining} transactionDate={transactionDate} />
             <InfoRow
               type={InfoType.ExecutionBlock}
               value={executionBlock}
@@ -741,19 +783,16 @@ function TransactionDetailsSection ({
                 </TouchableOpacity>
               }
             />
+            <TextRow
+              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
+              rhs={{
+                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                testID: 'estimated_to_receive'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+            />
           </>
         )}
-
-      <NumberRow
-        lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-        rhs={{
-          value: estimatedAmount,
-          suffixType: 'text',
-          suffix: tokenB.displaySymbol,
-          testID: 'estimated_to_receive'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
       <InfoRow
         type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
@@ -764,7 +803,7 @@ function TransactionDetailsSection ({
   )
 }
 
-function TimeRemainingTextRow ({ timeRemaining }: { timeRemaining: string }): JSX.Element {
+function TimeRemainingTextRow ({ timeRemaining, transactionDate }: { timeRemaining: string, transactionDate: string }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
@@ -794,7 +833,7 @@ function TimeRemainingTextRow ({ timeRemaining }: { timeRemaining: string }): JS
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
         >
-          (04/13/2022)
+          {`(${transactionDate})`}
         </ThemedText>
       </View>
     </ThemedView>

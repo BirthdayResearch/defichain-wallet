@@ -1,5 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 context('Wallet - Send', function () {
   let whale: WhaleApiClient
@@ -89,7 +90,9 @@ context('Wallet - Send', function () {
           expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('50%_amount_button').click()
-          cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
+          cy.getByTestID('amount_input').invoke('val').then(text => {
+            checkValueWithinRange(text, halfValue.toFixed(8), 0.1)
+          })
           cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
         })
       })
