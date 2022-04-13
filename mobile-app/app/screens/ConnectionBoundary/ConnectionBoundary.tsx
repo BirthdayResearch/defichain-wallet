@@ -1,25 +1,43 @@
-import { useNetInfo, fetch } from '@react-native-community/netinfo'
-
+import NetInfo from '@react-native-community/netinfo'
 import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { Button } from '@components/Button'
+import { useState, useEffect } from 'react'
 
 export default function ConnectionBoundary (props: React.PropsWithChildren<any>): JSX.Element | null {
-  const netInfo = useNetInfo()
-  const noConnection = (): boolean => {
-    return netInfo.isConnected === false
+  const [isConnected, setIsConnected] = useState(true)
+
+  const fetchNetInfo = async (): Promise<void> => {
+    await NetInfo.fetch().then(state => {
+      if (state.isConnected === true && state.isInternetReachable === true) {
+        setIsConnected(true)
+      } else {
+        setIsConnected(false)
+      }
+    })
   }
 
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      if (state.isConnected === true && state.isInternetReachable === true) {
+        setIsConnected(true)
+      } else {
+        setIsConnected(false)
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
   return (
-    noConnection() ? <ConnectionErrorComponent /> : props.children
+    !isConnected ? <ConnectionErrorComponent onPress={fetchNetInfo} /> : props.children
   )
 }
 
-function ConnectionErrorComponent (): JSX.Element {
-  const checkConnectivity = async (): Promise<void> => {
-    await fetch()
-  }
+function ConnectionErrorComponent ({ onPress }: { onPress: () => Promise<void> }): JSX.Element {
   return (
     <ThemedView
       style={tailwind('flex-1 items-center justify-center px-8')}
@@ -42,7 +60,7 @@ function ConnectionErrorComponent (): JSX.Element {
 
       <Button
         label={translate('screens/ConnectionBoundary', 'TRY AGAIN')}
-        onPress={checkConnectivity}
+        onPress={onPress}
         testID='button_check_connectivity'
         title='Try Again'
         margin='m-0 mb-4 w-48'
