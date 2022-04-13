@@ -13,7 +13,7 @@ export function useDenominationCurrency (): PortfolioCurrency {
     const [denominationCurrency, setDenominationCurrency] = useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USDT)
 
     useEffect(() => {
-        PortfolioCurrencyPersistence.get().then((denomination) => {
+        PortfolioCurrencyPersistence.get().then((denomination: PortfolioButtonGroupTabKey) => {
             setDenominationCurrency(denomination)
         }).catch(logger.error)
     }, [])

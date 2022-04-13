@@ -3,12 +3,11 @@ import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Balanc
 
 const KEY = 'WALLET.PORTFOLIO_CURRENCY'
 
-async function set (denominationCurrency: PortfolioButtonGroupTabKey): Promise<void> {
+async function set (denominationCurrency: NonNullable<PortfolioButtonGroupTabKey>): Promise<void> {
     await AsyncStorage.setItem(KEY, JSON.stringify(denominationCurrency))
 }
 
 async function get (): Promise<PortfolioButtonGroupTabKey> {
-    // PortfolioButtonGroupTabKey.USDT = 'USDT'
     const val = await AsyncStorage.getItem(KEY) ?? 'USDT'
     return JSON.parse(val)
 }
