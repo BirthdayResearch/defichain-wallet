@@ -4,9 +4,9 @@ import ImageEmptyWallet from '@assets/images/EmptyWallet.png'
 export function DfxEmptyWalletImage (): JSX.Element {
     const styles = StyleSheet.create({
         image: {
-          height: '120px',
+          height: 120,
           resizeMode: 'contain',
-          width: '120px'
+          width: 120
         }
       })
 
