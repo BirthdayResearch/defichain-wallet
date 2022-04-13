@@ -8,7 +8,7 @@ import { RootState } from '@store'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { translate } from '@translations'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { CompositeSwap, CTransactionSegWit } from '@defichain/jellyfish-transaction'
+import { CompositeSwap, CTransactionSegWit, SetFutureSwap } from '@defichain/jellyfish-transaction'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
@@ -32,7 +32,7 @@ import { WalletAddressRow } from '@components/WalletAddressRow'
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
   tokenFrom: OwnedTokenState
-  tokenTo: TokenState & { amount?: string}
+  tokenTo: TokenState & { amount?: string }
   amountFrom: BigNumber
   amountTo: BigNumber
 }
@@ -77,9 +77,20 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     setIsSubmitting(true)
-    await constructSignedSwapAndSend(swap, pairs, slippage, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation.dispatch)
-    }, logger)
+    if (isFutureSwap) {
+      const futureSwap = {
+        fromTokenId: Number(tokenA.id),
+        toTokenId: Number(tokenB.id),
+        amount: new BigNumber(tokenA.amount)
+      }
+      await constructSignedFutureSwapAndSend(futureSwap, dispatch, () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch)
+      }, logger)
+    } else {
+      await constructSignedSwapAndSend(swap, pairs, slippage, dispatch, () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch)
+      }, logger)
+    }
     setIsSubmitting(false)
   }
 
@@ -175,16 +186,16 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>
         )
-: (
-  <NumberRow
-    lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
-    rhs={{
+        : (
+          <NumberRow
+            lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
+            rhs={{
               testID: 'estimated_to_receive',
               value: swap.amountTo.toFixed(8),
               suffixType: 'text',
               suffix: swap.tokenTo.displaySymbol
             }}
-  />
+          />
         )}
       <InfoRow
         type={InfoType.EstimatedFee}
@@ -229,9 +240,9 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>
         )
-: (
-  <TransactionResultsRow
-    tokens={[
+        : (
+          <TransactionResultsRow
+            tokens={[
               {
                 symbol: tokenA.displaySymbol,
                 value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.amountFrom), 0).toFixed(8),
@@ -243,7 +254,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
                 suffix: tokenB.displaySymbol
               }
             ]}
-  />
+          />
         )}
       {conversion?.isConversionRequired === true && (
         <View style={tailwind('px-4 pt-2 pb-1 mt-2')}>
@@ -311,4 +322,47 @@ async function constructSignedSwapAndSend (
   } catch (e) {
     logger.error(e)
   }
+}
+
+interface FutureSwapForm {
+  fromTokenId: number
+  amount: BigNumber
+  toTokenId: number
+}
+
+async function constructSignedFutureSwapAndSend (
+  futureSwap: FutureSwapForm,
+  dispatch: Dispatch<any>,
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
+): Promise<void> {
+  try {
+    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
+      const builder = account.withTransactionBuilder()
+      const script = await account.getScript()
+      const swap: SetFutureSwap = {
+        owner: script,
+        source: {
+          token: futureSwap.fromTokenId,
+          amount: futureSwap.amount
+        },
+        destination: futureSwap.toTokenId,
+        withdraw: false
+      }
+      const dfTx = await builder.account.futureSwap(swap, script)
+
+      return new CTransactionSegWit(dfTx)
+    }
+
+    dispatch(transactionQueue.actions.push({
+      sign: signer,
+      title: translate('screens/ConfirmCompositeSwapScreen', 'Future swapping Token'),
+      description: translate('screens/ConfirmCompositeSwapScreen', 'Swapping {{amountA}} ', { // TODO: Update based on design
+        amountA: futureSwap.amount.toFixed(8)
+      }),
+      onBroadcast
+    }))
+} catch (e) {
+  logger.error(e)
+}
 }
