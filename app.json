@@ -22,7 +22,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "EXPO_BUNDLE_IDENTIFIER",
+      "bundleIdentifier": "com.defichain.app",
       "buildNumber": "0.0.0",
       "infoPlist": {
         "NSFaceIDUsageDescription": "This app uses FaceID to enable privacy lock on device."
