@@ -24,6 +24,7 @@ import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useAddressBook } from '@hooks/useAddressBook'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
@@ -178,6 +179,7 @@ function SelectedNetworkItem ({
 
 function RowExitWalletItem (): JSX.Element {
   const { clearWallets } = useWalletPersistenceContext()
+  const { clearAddressBook } = useAddressBook()
 
   async function onExitWallet (): Promise<void> {
     WalletAlert({
@@ -190,7 +192,10 @@ function RowExitWalletItem (): JSX.Element {
         },
         {
           text: translate('screens/Settings', 'Unlink Wallet'),
-          onPress: async () => await clearWallets(),
+          onPress: async () => {
+            clearAddressBook()
+            await clearWallets()
+          },
           style: 'destructive'
         }
       ]
