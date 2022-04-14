@@ -31,10 +31,10 @@ function sendTokenToRandomAddress (tokenId: string, isMax = false): void {
   cy.closeOceanInterface()
 }
 
-function validate50PercentButton (loanTokenSymbol: string, paymentTokenSymbol: string, loanToPaymentTokenRate: number, hasSufficientBalance: boolean = false): void {
+function validate50PercentButton (loanTokenSymbol: string, paymentTokenSymbol: string, loanToPaymentTokenRate: number, canPayWholeLoanAmount: boolean): void {
   const penaltyFee = new BigNumber(1.01)
   cy.getByTestID('50%_amount_button').click()
-  if (hasSufficientBalance) {
+  if (canPayWholeLoanAmount) {
     cy.getByTestID('payback_input_text_error').should('not.exist')
     cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
     cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
@@ -66,9 +66,9 @@ function validate50PercentButton (loanTokenSymbol: string, paymentTokenSymbol: s
   })
 }
 
-function validateMaxButton (loanTokenSymbol: string, paymentTokenSymbol: string, loanToPaymentTokenRate: number = 1, hasSufficientBalance: boolean = false): void {
+function validateMaxButton (loanTokenSymbol: string, paymentTokenSymbol: string, loanToPaymentTokenRate: number, canPayWholeLoanAmount: boolean): void {
   cy.getByTestID('MAX_amount_button').click()
-  if (hasSufficientBalance) {
+  if (canPayWholeLoanAmount) {
     const penaltyFee = new BigNumber(1.01)
     cy.getByTestID('payback_input_text_error').should('not.exist')
     cy.getByTestID('button_confirm_payback_loan_continue').should('not.have.attr', 'aria-disabled')
@@ -401,7 +401,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
   })
 
   it('should display 0 if MAX/50% button is pressed with 0 DUSD', () => {
-    validate50PercentButton('DUSD', 'DUSD', 1)
+    validate50PercentButton('DUSD', 'DUSD', 1, false)
     validateMaxButton('DUSD', 'DUSD', 1, false)
   })
 
@@ -454,7 +454,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
   })
 
   it('should display 100% of loan amount if MAX button is pressed with sufficient DUSD', () => {
-    // validateMaxButtonWithSufficientBalance('dTU10', 'DUSD')
+    validateMaxButton('dTU10', 'DUSD', 10, true)
   })
 
   it('should display excess amount details when paying with DUSD', () => {
@@ -554,7 +554,6 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
 
   /* Paying dTU10 with dTU10 balance */
   it('should topup dTU10 to pay for previous dTU10 loan', () => {
-    // getLoanTokenToPayback()
     cy.sendTokenToWallet(['TU10']).wait(6000)
   })
 
@@ -620,11 +619,11 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
   it('should display 0 if MAX/50% button is pressed with 0 DUSD', () => {
     cy.getByTestID('payment_token_card_DUSD').click()
     validateMaxButton('dTU10', 'DUSD', 10, false)
-    validate50PercentButton('dTU10', 'DUSD', 1)
+    validate50PercentButton('dTU10', 'DUSD', 1, false)
   })
 
   it('should display 50% of available balance if 50% button is pressed with insufficient DUSD', () => {
-    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(6000)
+    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(10000)
     validate50PercentButton('dTU10', 'DUSD', 10, false)
   })
 
