@@ -1,4 +1,4 @@
-import { BestSwapPathResult } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { DexPricesResult } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 export interface BalanceTokenDetail {
@@ -145,7 +145,7 @@ const getChangingPoolPairReserve = ({
   }
 ]
 
-const getDexPrice = (price: {[token: string]: string }): {data: BestSwapPathResult} => ({
+const getDexPrice = (price: {[token: string]: string }): {data: DexPricesResult} => ({
   data: {
     denomination: {
       id: '3',
