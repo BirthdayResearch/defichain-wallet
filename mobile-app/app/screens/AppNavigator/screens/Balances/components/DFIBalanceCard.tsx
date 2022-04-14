@@ -23,13 +23,16 @@ import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
+interface DFIBalaceCardProps {
+  denominationCurrency: string
+}
 
-export function DFIBalanceCard (props: {denominationCurrency: string}): JSX.Element {
+export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): JSX.Element {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet)
-  const { getTokenPrice } = useTokenPrice(props.denominationCurrency) // input based on selected denomination from portfolio tab
+  const { getTokenPrice } = useTokenPrice(denominationCurrency) // input based on selected denomination from portfolio tab
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ symbol: 'DFI' }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
@@ -69,7 +72,7 @@ export function DFIBalanceCard (props: {denominationCurrency: string}): JSX.Elem
                     usdAmount={usdAmount}
                     testID='dfi_total_balance'
                     isBalancesDisplayed={isBalancesDisplayed}
-                    denominationCurrency={props.denominationCurrency}
+                    denominationCurrency={denominationCurrency}
                   />
                 )
                 : (
@@ -127,7 +130,7 @@ export function DFIBalanceCard (props: {denominationCurrency: string}): JSX.Elem
               testID='dfi'
               dfiUtxo={DFIUtxo}
               dfiToken={DFIToken}
-              denominationCurrency={props.denominationCurrency}
+              denominationCurrency={denominationCurrency}
             />
             <DFIBreakdownAction dfiUnified={DFIUnified} />
           </ThemedView>
