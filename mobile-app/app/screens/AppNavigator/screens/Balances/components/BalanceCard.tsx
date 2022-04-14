@@ -177,7 +177,7 @@ function BalanceItemRow ({
   const onBreakdownPress = (): void => {
     setIsBreakdownExpanded(!isBreakdownExpanded)
   }
-  const lockedToken = useTokenLockedBalance({ symbol: token.symbol }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const lockedToken = useTokenLockedBalance({ symbol: token.symbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
   const hasLockedBalance = useMemo((): boolean => {
