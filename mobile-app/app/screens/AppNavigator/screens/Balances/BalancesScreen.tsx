@@ -6,7 +6,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -118,7 +118,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
+  // const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
     totalAvailableUSDValue,
     dstTokens
@@ -151,7 +151,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalAvailableUSDValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [denominationCurrency, tokens, prices])
+  }, [denominationCurrency, tokens])
 
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
