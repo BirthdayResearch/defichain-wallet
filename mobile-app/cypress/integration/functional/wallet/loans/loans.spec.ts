@@ -426,7 +426,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
 
   /* Paying DUSD sufficient DUSD */
   it('should update available balance on top up', () => {
-    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(6000)
+    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(10000)
   })
 
   it('should display vault info', () => {
@@ -661,7 +661,7 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
       .contains('Paying 20.00000000 DUSD')
     cy.closeOceanInterface()
     cy.wait(3000)
-    cy.checkVaultTag('ACTIVE', VaultStatus.Healthy, 'vault_card_1_status', walletTheme.isDark)
+    cy.checkVaultTag('ACTIVE', VaultStatus.Healthy, 'vault_card_0_status', walletTheme.isDark)
   })
 })
 
