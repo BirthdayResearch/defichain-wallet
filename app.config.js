@@ -2,7 +2,7 @@
 export default ({ config }) => {
   config.ios = {
     ...config.ios,
-    bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER
+    bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER ?? config.ios.bundleIdentifier
   }
   return {
     ...config,
