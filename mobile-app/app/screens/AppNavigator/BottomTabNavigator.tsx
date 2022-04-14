@@ -8,6 +8,7 @@ import { DexNavigator } from './screens/Dex/DexNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
 import { DFXAPIContextProvider } from '@shared-contexts/DFXAPIContextProvider'
+import { LoansNavigator } from './screens/Loans/LoansNavigator'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -63,6 +64,21 @@ export function BottomTabNavigator (): JSX.Element {
                 />
               )
             }}
+          />
+
+          <BottomTab.Screen
+            component={LoansNavigator}
+            name={translate('BottomTabNavigator', 'Loans')}
+            options={{
+            tabBarTestID: 'bottom_tab_loans',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                color={color}
+                name='credit-card'
+                size={24}
+              />
+            )
+          }}
           />
 
           <BottomTab.Screen
