@@ -28,7 +28,7 @@ jobs:
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236
+      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
         with:
           node-version: 16
           cache: 'npm'
@@ -55,4 +55,4 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
+      - uses: codecov/codecov-action@e3c560433a6cc60aec8812599b7844a7b4fa0d71
