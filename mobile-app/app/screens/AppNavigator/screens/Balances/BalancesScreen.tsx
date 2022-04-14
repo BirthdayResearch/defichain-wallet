@@ -1,4 +1,4 @@
-import { ThemedScrollView } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -272,6 +272,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           isBalancesDisplayed={isBalancesDisplayed}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
+        {/* TODO: replace false flag with condition to check for future swap length */}
+        {false && <FutureSwapCta navigation={navigation} />}
         <DFIBalanceCard />
         {!hasFetchedToken
           ? (
@@ -322,10 +324,54 @@ function BalanceActionSection ({
   isZeroBalance
 }: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
   return (
-    <View style={tailwind('flex flex-row mb-4 mx-4')}>
+    <View style={tailwind('flex flex-row mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
       <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
     </View>
+  )
+}
+
+function FutureSwapCta ({
+  navigation
+}: { navigation: StackNavigationProp<BalanceParamList> }): JSX.Element {
+  return (
+    <ThemedTouchableOpacity
+      onPress={() => navigation.navigate('FutureSwapScreen')}
+      style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-lg justify-between')}
+      light={tailwind('bg-blue-100')}
+      dark={tailwind('bg-darkblue-50')}
+    >
+      <View style={tailwind('flex flex-row items-center')}>
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='info'
+          size={16}
+          light={tailwind('text-blue-500')}
+          dark={tailwind('text-darkblue-500')}
+        />
+        <ThemedText
+          style={tailwind('ml-2 text-sm')}
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+        >
+          {translate('screens/BalancesScreen', 'You have ')}
+          <ThemedText
+            style={tailwind('text-sm font-medium')}
+          >
+            {/* TODO: pass future swaps length into the component */}
+            {translate('screens/BalancesScreen', '{{number}} pending future swap(s)', { number: 2 })}
+          </ThemedText>
+        </ThemedText>
+      </View>
+      <ThemedIcon
+        iconType='MaterialIcons'
+        name='arrow-forward'
+        size={16}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      />
+
+    </ThemedTouchableOpacity>
   )
 }
 

@@ -26,6 +26,8 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { FutureSwap, FutureSwapScreen } from './screens/FutureSwapScreen'
+import { FutureSwapDetailScreen } from './screens/FutureSwapDetailScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -61,6 +63,10 @@ export interface BalanceParamList {
     addressLabel?: LocalAddress
     address?: string
     isAddNew: boolean
+  }
+  FutureSwapScreen: undefined
+  FutureSwapDetailScreen: {
+    futureSwap: FutureSwap
   }
 
   [key: string]: undefined | object
@@ -335,6 +341,34 @@ export function BalancesNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={FutureSwapScreen}
+        name='FutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/FutureSwapScreen', 'Future Swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={FutureSwapDetailScreen}
+        name='FutureSwapDetailScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/FutureSwapScreen', 'Transaction Detail')}
               containerTestID={headerContainerTestId}
             />
           ),
