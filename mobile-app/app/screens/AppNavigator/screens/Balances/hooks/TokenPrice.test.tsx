@@ -199,7 +199,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
       dexPrices: {
         USDT: {
           BTC: { denominationPrice: '10000.00000000', token: { id: '1', symbol: 'BTC', displaySymbol: 'dBTC' } },
-          ETH: { denominationPrice: '100.00000000', token: { id: '2', symbol: 'ETH', displaySymbol: 'dETH' } }
+          ETH: { denominationPrice: '100.00000000', token: { id: '2', symbol: 'ETH', displaySymbol: 'dETH' } },
+          DFI: { denominationPrice: '10000.00000000', token: { id: '0', symbol: 'DFI', displaySymbol: 'DFI' } }
         }
       },
       swappableTokens: {},
@@ -225,5 +226,15 @@ describe('Token Price - Get Token Price (DEX)', () => {
     expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('10000'))
     expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('100'))
     expect(result.current.getTokenPrice('USDT', new BigNumber('12'), false)).toStrictEqual(new BigNumber('12'))
+  })
+
+  it('should be able to get the LP token price', () => {
+    const { result } = renderHook(() => useTokenPrice(), { wrapper })
+    const ratioToTotal = new BigNumber(1).div(2500) // total liquidity token ratio
+    const tokenAAmount = ratioToTotal.times(5).decimalPlaces(8, BigNumber.ROUND_DOWN) // pair1ReserveA
+    const tokenBAmount = ratioToTotal.times(1000).decimalPlaces(8, BigNumber.ROUND_DOWN) // pair1ReserveB
+    const usdTokenA = tokenAAmount.times(10000) // USDT price for tokenA
+    const usdTokenB = tokenBAmount.times(10000) // USDT price for tokenB
+    expect(result.current.getTokenPrice('BTC-DFI', new BigNumber('1'), true)).toStrictEqual(usdTokenA.plus(usdTokenB))
   })
 })
