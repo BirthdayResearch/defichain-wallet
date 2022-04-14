@@ -17,10 +17,10 @@ export interface LockedBalance {
  * @param symbol optional token symbol
  * @returns Map of all token's locked balance or single object of symbol passed
  */
-export function useTokenLockedBalance ({ symbol }: { symbol?: string }): Map<string, LockedBalance> | LockedBalance | undefined {
+export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbol?: string, denominationCurrency: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [lockedBalance, setLockedBalance] = useState<Map<string, LockedBalance>>()
-  const { getTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice(denominationCurrency)
 
   useEffect(() => {
     setLockedBalance(computeLockedAmount())

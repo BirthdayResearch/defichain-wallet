@@ -47,8 +47,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     address,
     addressLength
   } = useWalletContext()
+  const {
+    denominationCurrency,
+    setDenominationCurrency
+  } = useDenominationCurrency()
+
+  const { getTokenPrice } = useTokenPrice(denominationCurrency)
   const { wallets } = useWalletPersistenceContext()
-  const lockedTokens = useTokenLockedBalance({}) as Map<string, LockedBalance>
+  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const {
     isBalancesDisplayed,
     toggleDisplayBalances: onToggleDisplayBalances
@@ -99,13 +105,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       }))
     })
   }
-
-  const {
-    denominationCurrency,
-    setDenominationCurrency
-  } = useDenominationCurrency()
-
-  const { getTokenPrice } = useTokenPrice(denominationCurrency)
 
   useEffect(() => {
     dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
