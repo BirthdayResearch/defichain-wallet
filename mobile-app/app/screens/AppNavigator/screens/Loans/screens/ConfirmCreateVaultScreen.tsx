@@ -14,7 +14,7 @@ import { View } from '@components'
 import { TextRow } from '@components/TextRow'
 import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -170,14 +170,14 @@ function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: Conver
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='VAULT_FEE'
+      <InfoRow
+        type={InfoType.VaultFee}
         value={vaultFee.toFixed(8)}
         testID='vault_fee'
         suffix='DFI'
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

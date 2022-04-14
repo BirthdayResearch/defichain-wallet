@@ -1,4 +1,4 @@
-import { ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { StyleProp, TextStyle } from 'react-native'
@@ -7,7 +7,8 @@ interface ButtonGroupProps {
   buttons: Buttons[]
   activeButtonGroupItem: string
   testID: string
-  modalStyle?: StyleProp<TextStyle>
+  labelStyle?: StyleProp<TextStyle>
+  containerThemedProps?: ThemedProps
 }
 
 interface Buttons {
@@ -24,6 +25,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
       dark={tailwind('bg-gray-800')}
       style={tailwind('rounded-2xl flex flex-row')}
       testID={props.testID}
+      {...props.containerThemedProps}
     >
       {
         props.buttons.map((button) => (
@@ -34,7 +36,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             width={buttonWidth}
             key={button.id}
             testID={`${props.testID}_${button.id}`}
-            modalStyle={props.modalStyle}
+            labelStyle={props.labelStyle}
           />
         ))
       }
@@ -48,7 +50,7 @@ interface ButtonGroupItemProps {
   isActive: boolean
   width: BigNumber
   testID: string
-  modalStyle?: StyleProp<TextStyle>
+  labelStyle?: StyleProp<TextStyle>
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
@@ -63,7 +65,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       <ThemedText
         light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
         dark={tailwind({ 'text-darkprimary-500': props.isActive, 'text-gray-50': !props.isActive })}
-        style={props.modalStyle ?? tailwind('font-medium text-sm text-center')}
+        style={props.labelStyle ?? tailwind('font-medium text-sm text-center')}
       >
         {props.label}
       </ThemedText>
