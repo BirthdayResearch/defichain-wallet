@@ -118,6 +118,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  // TODO: Check if this is needed for recalculation with change of denominationCurrency
   // const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
     totalAvailableUSDValue,
