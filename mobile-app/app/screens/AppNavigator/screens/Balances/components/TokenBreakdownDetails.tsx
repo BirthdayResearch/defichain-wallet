@@ -69,8 +69,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
           light: tailwind('text-gray-500'),
           dark: tailwind('text-gray-400')
         }}
-        prefix={props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
-        suffix={props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
+        prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '≈ $' : undefined}
+        suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
       />
       {props.dfiUtxo !== undefined && props.dfiToken !== undefined &&
         (
