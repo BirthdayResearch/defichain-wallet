@@ -12,6 +12,12 @@
       "ios": {
         "simulator": true
       }
+    },
+    "ios_production": {
+      "extends": "production",
+      "env": {
+        "EXPO_BUNDLE_IDENTIFIER": "com.defichain.light.wallet"
+      }
     }
   },
   "submit": {

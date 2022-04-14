@@ -147,7 +147,7 @@ jobs:
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
       - name: EAS Build - iOS - New
-        run: npx cross-env EXPO_BUNDLE_IDENTIFIER=com.defichain.light.wallet eas build --platform ios --non-interactive --wait
+        run: eas build --platform ios --non-interactive --wait --profile=ios_production
 
       - run: sleep 10s
 
@@ -161,7 +161,7 @@ jobs:
           ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
 
       - name: EAS Submit - iOS - New - Submit
-        run: npx cross-env EXPO_BUNDLE_IDENTIFIER=com.defichain.light.wallet eas submit --platform ios --latest
+        run: eas submit --platform ios --latest
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
 
