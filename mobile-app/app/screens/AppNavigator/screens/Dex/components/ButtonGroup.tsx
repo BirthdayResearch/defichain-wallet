@@ -1,7 +1,7 @@
-import { ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { StyleProp, TextStyle } from 'react-native'
+import { StyleProp, TextStyle, TouchableOpacityProps } from 'react-native'
 
 interface ButtonGroupProps {
   buttons: Buttons[]
@@ -10,9 +10,8 @@ interface ButtonGroupProps {
   modalStyle?: StyleProp<TextStyle>
   lightThemeStyle?: { [key: string]: string }
   darkThemeStyle?: { [key: string]: string }
-  portfolioButtonGroupStyle?: { [key: string]: string }
-  portfolioLightActiveStyle?: boolean
-  portfoliolDarkActiveStyle?: boolean
+  portfolioButtonGroupStyle?: StyleProp<TouchableOpacityProps>
+  customActiveStyle?: ThemedProps
 }
 
 interface Buttons {
@@ -41,8 +40,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             testID={`${props.testID}_${button.id}`}
             modalStyle={props.modalStyle}
             portfolioButtonGroupStyle={props.portfolioButtonGroupStyle}
-            portfolioLightActiveStyle={props.portfolioLightActiveStyle}
-            portfoliolDarkActiveStyle={props.portfoliolDarkActiveStyle}
+            customActiveStyle={props.customActiveStyle}
           />
         ))
       }
@@ -57,28 +55,17 @@ interface ButtonGroupItemProps {
   width: BigNumber
   testID: string
   modalStyle?: StyleProp<TextStyle>
-  portfolioButtonGroupStyle?: { [key: string]: string }
-  portfolioLightActiveStyle?: boolean
-  portfoliolDarkActiveStyle?: boolean
+  portfolioButtonGroupStyle?: StyleProp<TouchableOpacityProps>
+  customActiveStyle?: ThemedProps
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
-      light={tailwind(
-        {
-          'bg-primary-50': props.isActive
-        },
-        {
-          'bg-gray-100': props.isActive && props.portfolioLightActiveStyle !== undefined
-        }
-        )}
-      dark={tailwind(
-        { 'bg-darkprimary-50': props.isActive },
-        {
-          'bg-black': props.isActive && props.portfoliolDarkActiveStyle !== undefined
-        })}
+      light={tailwind({ 'bg-primary-50': props.isActive })}
+      dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
+      {...props.isActive ? props.customActiveStyle : ''}
       style={props.portfolioButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >

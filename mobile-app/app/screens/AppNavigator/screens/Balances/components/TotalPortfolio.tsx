@@ -88,8 +88,10 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   testID='portfolio_button_group'
                   lightThemeStyle={tailwind('bg-white')}
                   portfolioButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
-                  portfolioLightActiveStyle
-                  portfoliolDarkActiveStyle
+                  customActiveStyle={{
+                    light: tailwind('bg-gray-100'),
+                    dark: tailwind('bg-black')
+                  }}
                 />
               </View>
             )
@@ -102,7 +104,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             <View style={tailwind('flex flex-row items-center')}>
               <NumberFormat
                 displayType='text'
-                prefix={denominationCurrency === 'USDT' ? '$' : undefined}
+                prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
                 renderText={(value) =>
                   <BalanceText
                     dark={tailwind('text-gray-200')}
@@ -115,7 +117,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
               />
               {
-                denominationCurrency !== 'USDT' && denominationCurrency && (
+                denominationCurrency !== PortfolioButtonGroupTabKey.USDT && denominationCurrency && (
                   <View style={tailwind('pl-1.5')} testID={`portfolio_display_${denominationCurrency}_currency`}>
                     <SymbolIcon symbol={`${denominationCurrency}`} styleProps={tailwind('w-4 h-4')} />
                   </View>

@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js'
 import { StyleProp, TextProps, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { BalanceText } from './BalanceText'
+import { PortfolioButtonGroupTabKey } from './TotalPortfolio'
 
 interface TokenBreakdownDetailProps {
   hasFetchedToken: boolean
@@ -45,8 +46,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
           dark: tailwind('text-gray-400')
         }}
         containerStyle={tailwind('mb-2')}
-        prefix={props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
-        suffix={props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
+        prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '≈ $' : undefined}
+        suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_available`}
