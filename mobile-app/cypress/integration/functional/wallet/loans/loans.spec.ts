@@ -394,11 +394,11 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
 
   /* Paying DUSD sufficient DUSD */
   it('should update available balance on top up', () => {
-    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(3000)
+    cy.sendTokenToWallet(['DUSD', 'DUSD']).wait(5000)
   })
 
   it('should display vault info', () => {
-    cy.getByTestID('toggle_resulting_col').click()
+    cy.getByTestID('toggle_resulting_col').click().wait(1000)
     cy.getByTestID('resulting_col').should('have.text', 'N/A')
     cy.getByTestID('text_vault_id').should('have.text', vaultId)
     cy.getByTestID('text_min_col_ratio').should('have.text', '150.00%')
