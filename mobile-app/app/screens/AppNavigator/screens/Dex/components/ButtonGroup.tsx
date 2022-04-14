@@ -10,7 +10,7 @@ interface ButtonGroupProps {
   modalStyle?: StyleProp<TextStyle>
   lightThemeStyle?: { [key: string]: string }
   darkThemeStyle?: { [key: string]: string }
-  portfolioButtonGroupStyle?: StyleProp<TouchableOpacityProps>
+  customButtonGroupStyle?: StyleProp<TouchableOpacityProps>
   customActiveStyle?: ThemedProps
 }
 
@@ -39,7 +39,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             key={button.id}
             testID={`${props.testID}_${button.id}`}
             modalStyle={props.modalStyle}
-            portfolioButtonGroupStyle={props.portfolioButtonGroupStyle}
+            customButtonGroupStyle={props.customButtonGroupStyle}
             customActiveStyle={props.customActiveStyle}
           />
         ))
@@ -55,7 +55,7 @@ interface ButtonGroupItemProps {
   width: BigNumber
   testID: string
   modalStyle?: StyleProp<TextStyle>
-  portfolioButtonGroupStyle?: StyleProp<TouchableOpacityProps>
+  customButtonGroupStyle?: StyleProp<TouchableOpacityProps>
   customActiveStyle?: ThemedProps
 }
 
@@ -66,7 +66,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       light={tailwind({ 'bg-primary-50': props.isActive })}
       dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
       {...props.isActive ? props.customActiveStyle : ''}
-      style={props.portfolioButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
+      style={props.customButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
       <ThemedText

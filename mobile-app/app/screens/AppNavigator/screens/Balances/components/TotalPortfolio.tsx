@@ -87,7 +87,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   modalStyle={tailwind('text-xs text-center')}
                   testID='portfolio_button_group'
                   lightThemeStyle={tailwind('bg-white')}
-                  portfolioButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
+                  customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
                   customActiveStyle={{
                     light: tailwind('bg-gray-100'),
                     dark: tailwind('bg-black')
