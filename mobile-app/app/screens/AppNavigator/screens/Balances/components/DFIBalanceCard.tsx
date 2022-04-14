@@ -45,8 +45,8 @@ export function DFIBalanceCard (): JSX.Element {
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col flex-1')}>
-        <View style={tailwind('flex-row m-4 mb-4 justify-between')}>
-          <View style={tailwind('flex-row items-center')}>
+        <View style={tailwind('flex-row m-4 mb-4')}>
+          <View style={tailwind('flex-row items-center flex-grow')}>
             <DFIIcon width={32} height={32} />
             <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
           </View>
@@ -89,7 +89,7 @@ export function DFIBalanceCard (): JSX.Element {
 
           <TouchableOpacity
             onPress={onBreakdownPress}
-            style={tailwind('flex flex-row w-1/12')}
+            style={tailwind('ml-4')}
             testID='details_dfi'
           >
             <ThemedIcon
@@ -105,7 +105,7 @@ export function DFIBalanceCard (): JSX.Element {
         {isBreakdownExpanded && (
           <ThemedView
             light={tailwind('border-t border-gray-100')}
-            dark={tailwind('border-t border-dfxblue-700')}
+            dark={tailwind('border-t border-dfxblue-600')}
             style={tailwind('mx-4 mb-4 pt-2')}
           >
             <TokenBreakdownPercentage
