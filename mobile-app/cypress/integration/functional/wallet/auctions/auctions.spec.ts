@@ -25,7 +25,7 @@ function getLoanTokenToPlaceBid (): void {
   cy.getByTestID('button_browse_loans').click()
   cy.getByTestID('loan_card_dTU10').click()
   cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
-    const maxLoanAmount = new BigNumber(text).minus(1).toFixed(1, 1) // use 1dp and round down
+    const maxLoanAmount = new BigNumber(text).minus(1).toFixed(2, 1) // use 2dp and round down
     cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
   })
   cy.getByTestID('borrow_loan_submit_button').click()
@@ -258,7 +258,7 @@ context('Wallet - Auctions', () => {
     cy.getByTestID('button_browse_loans').click()
     cy.getByTestID('loan_card_dTU10').click()
     cy.getByTestID('max_loan_amount_text').invoke('text').then((text: string) => {
-      const maxLoanAmount = new BigNumber(text).toFixed(1, 1) // use 1dp and round down
+      const maxLoanAmount = new BigNumber(text).toFixed(2, 1) // use 2dp and round down
       cy.getByTestID('form_input_borrow').clear().type(maxLoanAmount).blur()
     })
     cy.getByTestID('borrow_loan_submit_button').click()
