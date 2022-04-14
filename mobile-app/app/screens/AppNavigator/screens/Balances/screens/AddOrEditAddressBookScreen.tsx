@@ -205,14 +205,14 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
         testID='address_book_address_input'
       >
         <ThemedTouchableOpacity
-          dark={tailwind('bg-gray-800 border-gray-400')}
+          dark={tailwind('bg-dfxblue-800 border-gray-400')}
           light={tailwind('bg-white border-gray-300')}
           onPress={onQrButtonPress}
           style={tailwind('w-9 p-1.5 border rounded')}
           testID='qr_code_button'
         >
           <ThemedIcon
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             iconType='MaterialIcons'
             light={tailwind('text-primary-500')}
             name='qr-code-scanner'
