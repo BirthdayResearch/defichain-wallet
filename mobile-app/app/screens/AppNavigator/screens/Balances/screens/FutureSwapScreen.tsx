@@ -2,65 +2,67 @@ import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { translate } from '@translations'
-import BigNumber from 'bignumber.js'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { BalanceParamList } from '../BalancesNavigator'
-
-export interface FutureSwap {
-  transactionDate: Date
-  dueDate: Date
-  tokenAmount: BigNumber
-  fromTokenDisplaySymbol: string
-  toTokenDisplaySymbol: string
-  toLoanToken: boolean
-  executionBlock: number
-  txId: string
-}
+import { batch, useSelector } from 'react-redux'
+import { RootState, useAppDispatch } from '@store'
+import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, FutureSwapSelector } from '@store/futureSwap'
+import { useIsFocused } from '@react-navigation/native'
+import { WhaleRpcClient } from '@defichain/whale-api-client'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
+import { fetchLoanTokens } from '@store/loans'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 
 export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
-  const mockData: FutureSwap[] = [
-    {
-      transactionDate: new Date(),
-      dueDate: new Date(),
-      tokenAmount: new BigNumber(123),
-      fromTokenDisplaySymbol: 'DUSD',
-      toTokenDisplaySymbol: 'dTU10',
-      toLoanToken: true,
-      executionBlock: 20160,
-      txId: '441088a44388cc050f70c81d93185c078fbe95b071a23dee91f23b121cbd3b29'
-    },
-    {
-      transactionDate: new Date(),
-      dueDate: new Date(),
-      tokenAmount: new BigNumber(456),
-      fromTokenDisplaySymbol: 'dTU10',
-      toTokenDisplaySymbol: 'DUSD',
-      toLoanToken: false,
-      executionBlock: 20160,
-      txId: '045928316b751e236a3a338c1073a2c7272b47ecc279f27884fd66583991eb02'
-    }
-  ]
+  const isFocused = useIsFocused()
+  const dispatch = useAppDispatch()
+  const whaleRpcClient = new WhaleRpcClient()
+  const whaleApiClient = useWhaleApiClient()
+  const { address } = useWalletContext()
+  const futureSwaps = useSelector((state: RootState) => FutureSwapSelector(state))
+  const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
+  const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
+  const { transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
 
-  const onPress = (item: FutureSwap): void => {
+  useEffect(() => {
+    dispatch(fetchLoanTokens({ client: whaleApiClient }))
+  }, [])
+
+  useEffect(() => {
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchFutureSwaps({
+          client: whaleRpcClient,
+          address
+        }))
+        dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
+      })
+    }
+  }, [address, blockCount, isFocused])
+
+  const onPress = (item: FutureSwapData): void => {
     navigation.navigate({
       name: 'FutureSwapDetailScreen',
       params: {
-        futureSwap: item
+        futureSwap: item,
+        executionBlock
       }
     })
   }
 
   const FutureSwapListItem = useCallback(({
     item
-  }: { item: FutureSwap }): JSX.Element => {
+  }: { item: FutureSwapData }): JSX.Element => {
     return (
       <ThemedTouchableOpacity
         style={tailwind('py-3 pl-4 pr-2 items-center justify-between flex flex-row')}
         onPress={() => onPress(item)}
+        disabled={isEnded}
       >
         <View style={tailwind('flex flex-row items-center')}>
           <ThemedIcon
@@ -82,17 +84,17 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
             >
-              {translate('screens/FutureSwapScreen', 'Due on Aug 30, 2022')}
+              {translate('screens/FutureSwapScreen', 'Due on {{date}}', { date: transactionDate })}
             </ThemedText>
           </View>
         </View>
         <View style={tailwind('flex flex-row items-center')}>
           <View>
             <NumberFormat
-              value={item.tokenAmount.toFixed(8)}
+              value={item.source.amount}
               thousandSeparator
               displayType='text'
-              suffix={` ${item.fromTokenDisplaySymbol}`}
+              suffix={` ${item.source.displaySymbol}`}
               renderText={value =>
                 <ThemedText
                   light={tailwind('text-gray-900')}
@@ -106,7 +108,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
             >
-              {translate('screens/FutureSwapScreen', `Oracle price ${item.toLoanToken ? '+5%' : '-5%'}`)}
+              {translate('screens/FutureSwapScreen', `Oracle price ${!item.source.isLoanToken ? '+5%' : '-5%'}`)}
             </ThemedText>
           </View>
           <ThemedIcon
@@ -119,12 +121,12 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [])
+  }, [isEnded, transactionDate])
 
   return (
     <ThemedFlatList
-      keyExtractor={(item) => item.txId}
-      data={mockData}
+      keyExtractor={(_item, index) => index.toString()}
+      data={futureSwaps}
       renderItem={FutureSwapListItem}
       ListHeaderComponent={
         <ThemedSectionTitle
