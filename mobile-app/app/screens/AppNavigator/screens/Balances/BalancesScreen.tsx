@@ -32,6 +32,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { hasFutureSwap } from '@store/futureSwap'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -60,6 +61,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -272,8 +274,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           isBalancesDisplayed={isBalancesDisplayed}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        {/* TODO: replace false flag with condition to check for future swap length */}
-        {false && <FutureSwapCta navigation={navigation} />}
+        {/* TODO: remove hardcoded flag to test future swap */}
+        {(hasPendingFutureSwap || true) && <FutureSwapCta navigation={navigation} />}
+        {/* {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />} */}
         <DFIBalanceCard />
         {!hasFetchedToken
           ? (
