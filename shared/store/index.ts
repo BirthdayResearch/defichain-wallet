@@ -10,6 +10,7 @@ import { auctions } from './auctions'
 import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
 import { userPreferences } from '@store/userPreferences'
 import { useDispatch } from 'react-redux'
+import { futureSwaps } from './futureSwap'
 
 /**
  * RootState for DeFiChain Wallet App
@@ -32,7 +33,8 @@ export function initializeStore () {
       authentication: authentication.reducer,
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
-      userPreferences: userPreferences.reducer
+      userPreferences: userPreferences.reducer,
+      futureSwaps: futureSwaps.reducer
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false })
