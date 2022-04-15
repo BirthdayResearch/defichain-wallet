@@ -7,6 +7,7 @@ import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
 import { loans } from '@store/loans'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { futureSwaps } from '@store/futureSwap'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
@@ -168,6 +169,10 @@ describe('balances page', () => {
         hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
+      },
+      futureSwaps: {
+        futureSwaps: [],
+        executionBlock: 0
       }
     }
     const store = configureStore({
@@ -175,7 +180,8 @@ describe('balances page', () => {
       reducer: {
         wallet: wallet.reducer,
         block: block.reducer,
-        loans: loans.reducer
+        loans: loans.reducer,
+        futureSwaps: futureSwaps.reducer
       }
     })
     const navigation: any = {
@@ -281,6 +287,10 @@ describe('balances page', () => {
         hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
+      },
+      futureSwaps: {
+        futureSwaps: [],
+        executionBlock: 0
       }
     }
     const store = configureStore({
@@ -288,7 +298,8 @@ describe('balances page', () => {
       reducer: {
         wallet: wallet.reducer,
         block: block.reducer,
-        loans: loans.reducer
+        loans: loans.reducer,
+        futureSwaps: futureSwaps.reducer
       }
     })
     const navigation: any = {
