@@ -204,13 +204,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     // observe address state change
     useEffect(() => {
         DFXPersistence.getPair(address).then(async pair => {
-            await activePairHandler(pair).catch(error => {
- throw new Error(error)
-})
+            await activePairHandler(pair).catch(() => {})
         }).catch(async () => {
-            await activePairHandler({ addr: address, signature: undefined, token: undefined }).catch(error => {
- throw new Error(error)
-})
+            await activePairHandler({ addr: address, signature: undefined, token: undefined }).catch(() => {})
         })
     }, [address])
 
