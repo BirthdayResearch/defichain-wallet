@@ -30,6 +30,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const { transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
 
   useEffect(() => {
+    // fetch once to retrieve display symbol in store
     dispatch(fetchLoanTokens({ client: whaleApiClient }))
   }, [])
 

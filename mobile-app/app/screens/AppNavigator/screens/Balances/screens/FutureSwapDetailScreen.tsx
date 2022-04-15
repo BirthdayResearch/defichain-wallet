@@ -32,14 +32,6 @@ export function FutureSwapDetailScreen ({ route }: Props): JSX.Element {
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
-      {/* <TextRow
-        lhs={translate('screens/FutureSwapDetailScreen', 'Transaction date')}
-        rhs={{
-          value: transactionDate,
-          testID: 'text_transaction_date'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      /> */}
       <TokenIconRow
         label={translate('screens/FutureSwapDetailScreen', 'Token to swap from')}
         displaySymbol={futureSwap.source.displaySymbol}
@@ -113,6 +105,7 @@ function TokenIconRow ({ label, displaySymbol }: { label: string, displaySymbol:
   )
 }
 
+// Commented temporarily in case product team wants it back
 // function TransactionIdRow ({ transactionId }: { transactionId: string }): JSX.Element {
 //   const { getTransactionUrl } = useDeFiScanContext()
 
@@ -159,7 +152,7 @@ function TokenIconRow ({ label, displaySymbol }: { label: string, displaySymbol:
 //   )
 // }
 
-function ClearFutureSwapButton ({ disabled = false }: {disabled: boolean}): JSX.Element {
+function ClearFutureSwapButton ({ disabled = false }: { disabled: boolean }): JSX.Element {
   const onPress = (): void => WalletAlert({
     title: translate('screens/FutureSwapDetailScreen', 'Cancel Future Swap'),
     message: translate(
