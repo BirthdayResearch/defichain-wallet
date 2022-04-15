@@ -5,7 +5,7 @@ const DFXWALLET_PIN = 'DFXWALLET.pin'
 
 export interface DFXAddrSignature {
   addr: string
-  signature: string
+  signature?: string
   token?: string
 }
 
@@ -95,6 +95,12 @@ async function resetPin (): Promise<void> {
   await AsyncStorage.setItem(DFXWALLET_PIN, '')
 }
 
+async function resetToken (address: string): Promise<void> {
+  const pair = await getPair(address)
+  pair.token = undefined
+  return await setPair(pair)
+}
+
 export const DFXPersistence = {
   addPair,
   remPair,
@@ -107,5 +113,6 @@ export const DFXPersistence = {
   getWalletPin,
   getPairList,
   reset,
-  resetPin
+  resetPin,
+  resetToken
 }

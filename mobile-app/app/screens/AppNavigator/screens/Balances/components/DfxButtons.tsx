@@ -36,16 +36,20 @@ import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 export function DfxButtons (): JSX.Element {
   const { address } = useWalletContext()
   const { language } = useLanguageContext()
-  const { dfxToken } = useDFXAPIContext()
+  const { dfxWebToken: dfxToken } = useDFXAPIContext()
 
   const onGatewayButtonPress = useCallback(async () => {
     await dfxToken().then(async (token) => {
+      if (token === undefined || token.length === 0) {
+throw new Error('webToken is undefined')
+}
+
       const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
       const url = `${baseUrl}/login?token=${token}`
       await Linking.openURL(url)
     })
-      .catch(reason => {
- throw new Error(reason)
+    .catch(reason => {
+ console.error(reason)
 })
   }, [dfxToken])
 
