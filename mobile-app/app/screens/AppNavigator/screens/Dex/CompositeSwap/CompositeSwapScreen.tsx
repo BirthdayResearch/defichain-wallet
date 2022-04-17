@@ -198,6 +198,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         ...derivedToken,
         amount: ownedToken === undefined ? '0' : ownedToken.amount
       })
+      setActiveButtonGroup(ButtonGroupTabKey.InstantSwap)
 
       if (selectedTokenB !== undefined) {
         setSelectedTokenB(undefined)
@@ -361,11 +362,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       priceRates,
       slippage: slippageInDecimal,
       futureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap
-? {
-        executionBlock,
-        transactionDate
-      }
-: undefined,
+        ? {
+          executionBlock,
+          transactionDate
+        }
+        : undefined,
       swap: {
         tokenTo: selectedTokenB,
         tokenFrom: selectedTokenA,
@@ -535,15 +536,16 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 style={tailwind('text-xs')}
                 light={tailwind('text-gray-500')}
                 dark={tailwind('text-gray-400')}
+                testID='future_swap_warning_text'
               >
                 {`${translate('screens/CompositeSwapScreen', 'By using future swap, you are ')} `}
                 <ThemedText style={tailwind('text-xs font-medium')}>
                   {
                     translate('screens/CompositeSwapScreen',
                       oraclePriceText === '+5%'
-                        ? 'buying {{toTokenSymbol}} at 5% more'
-                        : 'selling {{toTokenSymbol}} at 5% lower',
-                      { toTokenSymbol: selectedTokenB.displaySymbol })
+                        ? 'buying {{tokenSymbol}} at 5% more'
+                        : 'selling {{tokenSymbol}} at 5% lower',
+                      { tokenSymbol: oraclePriceText === '+5%' ? selectedTokenB.displaySymbol : selectedTokenA?.displaySymbol })
                   }
                 </ThemedText>
                 {` ${translate('screens/CompositeSwapScreen', 'than the oracle price')}`}
@@ -934,6 +936,7 @@ function OraclePriceRow ({
         style={tailwind('self-center text-sm')}
         light={tailwind('text-gray-400')}
         dark={tailwind('text-gray-500')}
+        testID='oracle_price_percentage'
       >{translate('screens/CompositeSwapScreen', oraclePriceText)}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center')}>

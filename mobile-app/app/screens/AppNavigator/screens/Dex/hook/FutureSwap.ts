@@ -20,12 +20,12 @@ export function useFutureSwap (props: SwapType): {
   const toTokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, props.toTokenDisplaySymbol ?? ''))
 
   const hasTokenDetails = fromTokenDetail !== undefined && toTokenDetail !== undefined
-  if (hasTokenDetails && fromTokenDetail.isLoanToken && toTokenDetail.displaySymbol === 'DUSD') {
+  if (hasTokenDetails && fromTokenDetail.isLoanToken && fromTokenDetail.displaySymbol === 'DUSD') {
     return {
       isFutureSwapOptionEnabled: true,
       oraclePriceText: '+5%'
     }
-  } else if (hasTokenDetails && toTokenDetail.isLoanToken && fromTokenDetail.displaySymbol === 'DUSD') {
+  } else if (hasTokenDetails && toTokenDetail.isLoanToken && toTokenDetail.displaySymbol === 'DUSD') {
     return {
       isFutureSwapOptionEnabled: true,
       oraclePriceText: '-5%'
