@@ -454,7 +454,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
   })
 
   it('should display 100% of loan amount if MAX button is pressed with sufficient DUSD', () => {
-    validateMaxButton('dTU10', 'DUSD', 10, true)
+    validateMaxButton('DUSD', 'DUSD', 10, true)
   })
 
   it('should display excess amount details when paying with DUSD', () => {
