@@ -223,8 +223,8 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
       <NumberFormat
         displayType='text'
         // TODO: modify condition when API is ready for denomination currency change for other pages other than BalanceScreen page
-        prefix={props.denominationCurrency === undefined ? '$' : props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-        suffix={props.denominationCurrency === undefined ? undefined : props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+        prefix={(props.denominationCurrency === undefined || props.denominationCurrency === PortfolioButtonGroupTabKey.USDT) ? '$' : undefined}
+        suffix={(props.denominationCurrency !== undefined && props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT) ? ` ${props.denominationCurrency}` : undefined}
         renderText={(value) =>
           <BalanceText
             dark={tailwind('text-gray-200')}
