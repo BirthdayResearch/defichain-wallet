@@ -26,7 +26,7 @@ import {
 import { useNextCollateralizationRatio } from '@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
-import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 type Props = StackScreenProps<LoanParamList, 'VaultDetailScreen'>
 
@@ -250,13 +250,13 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
         : (
           <>
             <VaultSectionTextRow
-              value={getTokenPrecisedValue(props.vault.collateralValue)}
+              value={getPrecisedTokenValue(props.vault.collateralValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total collateral (USD)')}
               testID='text_total_collateral_value'
               prefix='$'
             />
             <VaultSectionTextRow
-              value={getTokenPrecisedValue(props.vault.loanValue)}
+              value={getPrecisedTokenValue(props.vault.loanValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total loans (USD)')}
               testID='text_total_loan_value'
               prefix='$'

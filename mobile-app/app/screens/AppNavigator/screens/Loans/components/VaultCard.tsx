@@ -26,7 +26,7 @@ import {
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
-import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -159,13 +159,13 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           <VaultSectionTextRow
             testID={`${props.testID}_total_loan`}
             prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
-            value={VaultStatus.Liquidated === vaultState.status ? '-' : getTokenPrecisedValue(vault.loanValue) ?? '-'}
+            value={VaultStatus.Liquidated === vaultState.status ? '-' : getPrecisedTokenValue(vault.loanValue) ?? '-'}
             lhs={translate('components/VaultCard', 'Total loans (USD)')}
           />
           <VaultSectionTextRow
             testID={`${props.testID}_total_collateral`}
             prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
-            value={VaultStatus.Liquidated === vaultState.status ? '-' : getTokenPrecisedValue(vault.collateralValue)}
+            value={VaultStatus.Liquidated === vaultState.status ? '-' : getPrecisedTokenValue(vault.collateralValue)}
             lhs={translate('components/VaultCard', 'Total collateral (USD)')}
           />
         </View>

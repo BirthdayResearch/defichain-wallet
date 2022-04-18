@@ -19,7 +19,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useVaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
-import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 type Props = StackScreenProps<LoanParamList, 'EditLoanSchemeScreen'>
 
@@ -161,13 +161,13 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={getTokenPrecisedValue(vault.collateralValue ?? 0)}
+        value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={getTokenPrecisedValue(vault.loanValue ?? 0)}
+        value={getPrecisedTokenValue(vault.loanValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
       />
