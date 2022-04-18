@@ -238,7 +238,6 @@ export function PaybackLoanScreen ({
       merge: true
     })
   }
-
   const onChangeFromAmount = (amount: string): void => {
     setAmountToPay(amount)
   }
@@ -306,7 +305,7 @@ export function PaybackLoanScreen ({
           >
             <>
               <SetAmountButton
-                amount={new BigNumber(outstandingBalanceInPaymentToken)}
+                amount={selectedPaymentTokenBalance.gte(outstandingBalanceInPaymentToken) ? new BigNumber(outstandingBalanceInPaymentToken) : new BigNumber(selectedPaymentTokenBalance)}
                 onPress={onChangeFromAmount}
                 type={AmountButtonTypes.half}
               />
