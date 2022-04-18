@@ -1,6 +1,7 @@
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
+import { dexPricesSelectorByDenomination } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { clone } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
@@ -21,10 +22,11 @@ export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbo
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [lockedBalance, setLockedBalance] = useState<Map<string, LockedBalance>>()
   const { getTokenPrice } = useTokenPrice(denominationCurrency)
+  const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
 
   useEffect(() => {
     setLockedBalance(computeLockedAmount())
-  }, [vaults, denominationCurrency])
+  }, [vaults, prices])
 
   const computeLockedAmount = useCallback(() => {
     const lockedBalance = new Map<string, LockedBalance>()
@@ -45,7 +47,7 @@ export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbo
     })
 
     return lockedBalance
-  }, [vaults, denominationCurrency])
+  }, [vaults, prices])
 
   return symbol === undefined ? lockedBalance : lockedBalance?.get(symbol)
 }
