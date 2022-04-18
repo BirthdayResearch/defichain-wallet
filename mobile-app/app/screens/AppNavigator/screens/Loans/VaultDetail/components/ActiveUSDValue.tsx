@@ -19,10 +19,11 @@ interface ActiveUSDValueProps {
 }
 
 export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
+  const denominatedValue = props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getUSDPrecisedPrice(props.price) : props.price.toFixed(8)
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
-        value={getUSDPrecisedPrice(props.price)}
+        value={denominatedValue}
         thousandSeparator
         displayType='text'
         prefix={(props.denominationCurrency === undefined || props.denominationCurrency === PortfolioButtonGroupTabKey.USDT) ? '≈ $' : undefined}
