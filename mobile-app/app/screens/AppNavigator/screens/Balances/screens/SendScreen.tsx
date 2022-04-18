@@ -41,6 +41,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import * as Clipboard from 'expo-clipboard'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -250,6 +251,12 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
+                  onPasteButtonPress={async () => {
+                    void Clipboard.getStringAsync().then(async (address) => {
+                      setValue('address', address, { shouldDirty: true })
+                      await trigger('address')
+                    })
+                  }}
                 />
 
                 <AmountRow
@@ -430,8 +437,9 @@ function AddressRow ({
   onContactButtonPress,
   onQrButtonPress,
   onClearButtonPress,
-  onAddressChange
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
+  onAddressChange,
+  onPasteButtonPress
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -461,6 +469,10 @@ function AddressRow ({
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
+              pasteButton={{
+                isPasteDisabled: false,
+                onPasteButtonPress: onPasteButtonPress
+              }}
             >
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}
