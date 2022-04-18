@@ -45,7 +45,7 @@ export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbo
     })
 
     return lockedBalance
-  }, [vaults])
+  }, [vaults, denominationCurrency])
 
   return symbol === undefined ? lockedBalance : lockedBalance?.get(symbol)
 }
