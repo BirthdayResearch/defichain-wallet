@@ -6,6 +6,7 @@ import { View } from '@components'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewStyle } from 'react-native'
 import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Balances/components/TotalPortfolio'
 
 interface ActiveUSDValueProps {
   style?: StyleProp<ViewStyle>
@@ -24,8 +25,8 @@ export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Eleme
         value={getUSDPrecisedPrice(props.price)}
         thousandSeparator
         displayType='text'
-        prefix={(props.denominationCurrency === undefined || props.denominationCurrency === 'USDT') ? '≈ $' : undefined}
-        suffix={(props.denominationCurrency !== undefined && props.denominationCurrency !== 'USDT') ? ` ${props.denominationCurrency}` : undefined}
+        prefix={(props.denominationCurrency === undefined || props.denominationCurrency === PortfolioButtonGroupTabKey.USDT) ? '≈ $' : undefined}
+        suffix={(props.denominationCurrency !== undefined && props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT) ? ` ${props.denominationCurrency}` : undefined}
         renderText={(val: string) => (
           <ThemedText
             dark={props.darkTextStyle ?? tailwind('text-gray-400')}
