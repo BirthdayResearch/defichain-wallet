@@ -150,7 +150,10 @@ const _getPaymentTokens = (
     : paymentTokens
 }
 
-const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
+export const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
+  const reservedDFI = 0.1
   const id = tokenId === '0' ? '0_unified' : tokenId
-  return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
+  const tokenAmount = new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
+
+  return id === '0_unified' ? BigNumber.max(tokenAmount.minus(reservedDFI), 0) : tokenAmount
 }

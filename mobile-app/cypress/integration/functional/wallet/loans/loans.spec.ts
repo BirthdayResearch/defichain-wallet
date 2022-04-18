@@ -357,16 +357,16 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.addCollateral('10', 'dBTC')
   })
 
-  it('should add collateral', function () {
+  it('should add collateral', () => {
     addCollateral()
   })
 
-  it('should add DUSD loan', function () {
+  it('should add DUSD loan', () => {
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     borrowFirstLoan('DUSD')
   })
 
-  it('should show payment tokens for DUSD loans regardless of wallet balance', function () {
+  it('should show payment tokens for DUSD loans regardless of wallet balance', () => {
     cy.intercept('**/tokens?size=*', {
       body: {
         data: []
@@ -385,7 +385,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.getByTestID('payment_token_card_DUSD').click()
   })
 
-  it('should display loan amount and its USD value', function () {
+  it('should display loan amount and its USD value', () => {
     cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
       const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
       checkValueWithinRange(outstandingBalance.toFixed(8), '10', 0.05)
@@ -463,6 +463,40 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
       const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
       const excessAmount = new BigNumber(20).minus(outstandingBalance)
       cy.getByTestID('text_excess_amount').should('have.text', excessAmount.toFixed(8))
+    })
+  })
+
+  it('should display conversion if DFI UTXO to pay whole loan amount', () => {
+    cy.intercept('**/balance', {
+      data: 10.00000000
+    }).as('getUTXO')
+    cy.intercept('**/tokens?size=*', {
+      body: {
+        data: []
+      }
+    }).as('getTokens')
+    cy.getByTestID('payment_token_card_DFI').click()
+    cy.wait('@getUTXO').wait('@getTokens').then(() => {
+      cy.wait(2000)
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('conversion_info_text').should('exist')
+    })
+  })
+
+  it('should not display conversion if DFI UTXO is < 0.1', () => {
+    cy.intercept('**/balance', {
+      data: 0.050000000
+    }).as('getUTXO')
+    cy.intercept('**/tokens?size=*', {
+      body: {
+        data: []
+      }
+    }).as('getTokens')
+    cy.wait('@getUTXO').wait('@getTokens').then(() => {
+      cy.wait(2000)
+      cy.getByTestID('payment_token_card_DFI').click()
+      cy.getByTestID('MAX_amount_button').click()
+      cy.getByTestID('conversion_info_text').should('not.exist')
     })
   })
 
