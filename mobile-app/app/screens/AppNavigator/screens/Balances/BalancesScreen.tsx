@@ -120,35 +120,35 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // TODO: Check if this is needed for recalculation with change of denominationCurrency
   // const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
-    totalAvailableUSDValue,
+    totalAvailableValue,
     dstTokens
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableUSDValue,
+          totalAvailableValue,
           dstTokens
-        }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
         if (token.symbol === 'DFI') {
           return {
-            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
-            totalAvailableUSDValue: token.id === '0_unified'
-              ? totalAvailableUSDValue
-              : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableValue
+            totalAvailableValue: token.id === '0_unified'
+              ? totalAvailableValue
+              : totalAvailableValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
             dstTokens
           }
         }
         return {
-          totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          totalAvailableValue: totalAvailableValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
           dstTokens: [...dstTokens, {
             ...token,
             usdAmount
           }]
         }
       }, {
-        totalAvailableUSDValue: new BigNumber(0),
+        totalAvailableValue: new BigNumber(0),
         dstTokens: []
       })
   }, [denominationCurrency, tokens])
@@ -197,25 +197,29 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     setFilteredTokens(filterTokens)
   }, [dstTokens])
 
-  const totalLockedUSDValue = useMemo(() => {
+  const totalLockedValue = useMemo(() => {
     if (lockedTokens === undefined) {
       return new BigNumber(0)
     }
     return [...lockedTokens.values()]
-      .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
-          totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+      .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
+          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
-  }, [lockedTokens])
+  }, [denominationCurrency, lockedTokens])
 
-  const totalLoansUSDValue = useMemo(() => {
+  const totalLoansValue = useMemo(() => {
     if (vaults === undefined) {
       return new BigNumber(0)
     }
     return vaults
-      .reduce((totalLoansUSDValue: BigNumber, vault: LoanVaultActive) =>
-          totalLoansUSDValue.plus(new BigNumber(vault.loanValue).isNaN() ? 0 : new BigNumber(vault.loanValue)),
-        new BigNumber(0))
-  }, [vaults])
+      .reduce((totalLoansValue: BigNumber, vault: LoanVaultActive) => {
+        const totalVaultLoansValue = vault.loanAmounts.reduce((totalVaultLoansValue, loanToken) => {
+          const tokenValue = getTokenPrice(loanToken.symbol, new BigNumber(loanToken.amount))
+          return totalVaultLoansValue.plus(new BigNumber(tokenValue).isNaN() ? 0 : tokenValue)
+        }, new BigNumber(0))
+        return totalLoansValue.plus(new BigNumber(totalVaultLoansValue).isNaN() ? 0 : totalVaultLoansValue)
+      }, new BigNumber(0))
+  }, [denominationCurrency, vaults])
 
   // to update filter list from selected token tab
   useEffect(() => {
@@ -299,9 +303,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       >
         <Announcements />
         <TotalPortfolio
-          totalAvailableUSDValue={totalAvailableUSDValue}
-          totalLockedUSDValue={totalLockedUSDValue}
-          totalLoansUSDValue={totalLoansUSDValue}
+          totalAvailableValue={totalAvailableValue}
+          totalLockedValue={totalLockedValue}
+          totalLoansValue={totalLoansValue}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
           portfolioButtonGroupOptions={{

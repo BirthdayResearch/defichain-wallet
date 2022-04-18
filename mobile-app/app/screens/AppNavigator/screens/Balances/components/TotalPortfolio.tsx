@@ -21,9 +21,9 @@ export enum PortfolioButtonGroupTabKey {
 }
 
 interface TotalPortfolioProps {
-  totalAvailableUSDValue: BigNumber
-  totalLockedUSDValue: BigNumber
-  totalLoansUSDValue: BigNumber
+  totalAvailableValue: BigNumber
+  totalLockedValue: BigNumber
+  totalLoansValue: BigNumber
   onToggleDisplayBalances: () => Promise<void>
   isBalancesDisplayed: boolean
   portfolioButtonGroupOptions?: {
@@ -114,7 +114,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                     value={value}
                   />}
                 thousandSeparator
-                value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableUSDValue).plus(props.totalLockedUSDValue).minus(props.totalLoansUSDValue)))}
+                value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue)))}
               />
               {
                 denominationCurrency !== PortfolioButtonGroupTabKey.USDT && denominationCurrency && (
@@ -166,7 +166,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 testId='total_available_usd_amount'
                 isLoading={!hasFetchedToken}
                 label={translate('screens/BalancesScreen', 'available')}
-                value={props.totalAvailableUSDValue}
+                value={props.totalAvailableValue}
                 isAddition
                 denominationCurrency={denominationCurrency}
               />
@@ -175,17 +175,17 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               testId='total_locked_usd_amount'
               isLoading={!hasFetchedVaultsData}
               label={translate('screens/BalancesScreen', 'locked in vault(s)')}
-              value={props.totalLockedUSDValue}
+              value={props.totalLockedValue}
               isAddition
               denominationCurrency={denominationCurrency}
             />
             {
-              props.totalLoansUSDValue.gt(0) && (
+              props.totalLoansValue.gt(0) && (
                 <USDValueRow
                   testId='outstanding_loans_amount'
                   isLoading={!hasFetchedVaultsData}
                   label={translate('screens/BalancesScreen', 'loans')}
-                  value={props.totalLoansUSDValue}
+                  value={props.totalLoansValue}
                   isAddition={false}
                   denominationCurrency={undefined}
                 />
