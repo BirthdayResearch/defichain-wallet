@@ -65,7 +65,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       onPress={props.onPress}
       light={tailwind({ 'bg-primary-50': props.isActive })}
       dark={tailwind({ 'bg-darkprimary-50': props.isActive })}
-      {...props.isActive ? props.customActiveStyle : ''}
+      {...props.isActive && props.customActiveStyle}
       style={props.customButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >

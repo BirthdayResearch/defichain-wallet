@@ -24,8 +24,8 @@ export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Eleme
         value={getUSDPrecisedPrice(props.price)}
         thousandSeparator
         displayType='text'
-        prefix={props.denominationCurrency === undefined ? '≈ $' : props.denominationCurrency === 'USDT' ? '≈ $' : undefined}
-        suffix={props.denominationCurrency === undefined ? undefined : props.denominationCurrency !== 'USDT' ? ` ${props.denominationCurrency}` : undefined}
+        prefix={(props.denominationCurrency === undefined || props.denominationCurrency === 'USDT') ? '≈ $' : undefined}
+        suffix={(props.denominationCurrency !== undefined && props.denominationCurrency !== 'USDT') ? ` ${props.denominationCurrency}` : undefined}
         renderText={(val: string) => (
           <ThemedText
             dark={props.darkTextStyle ?? tailwind('text-gray-400')}
