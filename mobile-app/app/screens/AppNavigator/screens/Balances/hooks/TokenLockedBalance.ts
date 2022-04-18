@@ -24,7 +24,7 @@ export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbo
 
   useEffect(() => {
     setLockedBalance(computeLockedAmount())
-  }, [vaults])
+  }, [vaults, denominationCurrency])
 
   const computeLockedAmount = useCallback(() => {
     const lockedBalance = new Map<string, LockedBalance>()
