@@ -22,7 +22,7 @@ import { useLoanOperations } from '../hooks/LoanOperations'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
 import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
@@ -202,7 +202,7 @@ export function BorrowMoreScreen ({ route, navigation }: Props): JSX.Element {
           placeholder='0.00'
           style={tailwind('flex-grow w-2/5')}
           testID='text_input_usd_value'
-          value={getUSDPrecisedPrice(amountToAdd.amountInUSD)}
+          value={getTokenPrecisedValue(amountToAdd.amountInUSD)}
           displayClearButton={false}
           inputType='numeric'
         >

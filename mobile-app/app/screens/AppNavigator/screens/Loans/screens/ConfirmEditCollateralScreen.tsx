@@ -30,7 +30,7 @@ import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { WalletAddressRow } from '@components/WalletAddressRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -241,7 +241,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral value (USD)')}
         rhs={{
-          value: getUSDPrecisedPrice(prices.collateralPrice),
+          value: getTokenPrecisedValue(prices.collateralPrice),
           testID: 'collateral_value',
           prefix: '$'
         }}

@@ -28,7 +28,7 @@ import {
 } from '../hooks/CollateralizationRatio'
 import { getCollateralPrice, useTotalCollateralValue, useValidCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 
@@ -252,7 +252,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           {
             !new BigNumber(activePrice).isZero() && (
               <NumberFormat
-                value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
+                value={getTokenPrecisedValue(activePrice.multipliedBy(available))}
                 thousandSeparator
                 decimalScale={2}
                 displayType='text'

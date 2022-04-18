@@ -24,7 +24,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
@@ -258,7 +258,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateral amount (USD)')}
         rhs={{
-          value: getUSDPrecisedPrice(props.collateralAmount),
+          value: getTokenPrecisedValue(props.collateralAmount),
           testID: 'text_collateral_amount',
           prefix: '$'
         }}

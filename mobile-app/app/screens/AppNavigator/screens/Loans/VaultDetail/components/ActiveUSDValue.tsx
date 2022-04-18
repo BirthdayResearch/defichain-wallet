@@ -5,7 +5,7 @@ import { tailwind } from '@tailwind'
 import { View } from '@components'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewStyle } from 'react-native'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getTokenPrecisedValue } from '@screens/AppNavigator/screens/Auctions/helpers/token-value-precision'
 import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Balances/components/TotalPortfolio'
 
 interface ActiveUSDValueProps {
@@ -22,7 +22,7 @@ export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Eleme
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
-        value={getUSDPrecisedPrice(props.price, props.denominationCurrency)}
+        value={getTokenPrecisedValue(props.price)}
         thousandSeparator
         displayType='text'
         prefix={(props.denominationCurrency === undefined || props.denominationCurrency === PortfolioButtonGroupTabKey.USDT) ? '≈ $' : undefined}
