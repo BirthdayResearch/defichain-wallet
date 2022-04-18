@@ -26,8 +26,9 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
-import { FutureSwap, FutureSwapScreen } from './screens/FutureSwapScreen'
+import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { FutureSwapDetailScreen } from './screens/FutureSwapDetailScreen'
+import { FutureSwapData } from '@store/futureSwap'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -66,7 +67,8 @@ export interface BalanceParamList {
   }
   FutureSwapScreen: undefined
   FutureSwapDetailScreen: {
-    futureSwap: FutureSwap
+    futureSwap: FutureSwapData
+    executionBlock: number
   }
 
   [key: string]: undefined | object
