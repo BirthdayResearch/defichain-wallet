@@ -79,6 +79,7 @@ export function BalanceCard ({
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isSorted, setIsSorted] = useState<boolean>(false)
+  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -98,13 +99,19 @@ export function BalanceCard ({
     }
   }
 
-  if (isSorted) {
-    // display value in increasing order
-    filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
-  } else {
-    // display value in decreasing order
-    filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
-  }
+  filteredTokens.sort((a, b) => {
+    const lockedPriceA = new BigNumber(lockedTokens?.get(a.symbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.symbol)?.tokenValue
+    const lockedPriceB = new BigNumber(lockedTokens?.get(b.symbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.symbol)?.tokenValue
+    const aPrice = new BigNumber(a.usdAmount).plus(lockedPriceA ?? 0)
+    const bPrice = new BigNumber(b.usdAmount).plus(lockedPriceB ?? 0)
+    if (isSorted) {
+      // display value in increasing order
+      return aPrice.minus(bPrice).toNumber()
+    } else {
+      // display value in decreasing order
+      return bPrice.minus(aPrice).toNumber()
+      }
+    })
 
   // return empty component if there are DFI but no other tokens
   if (!isZeroBalance && dstTokens.length === 0) {
