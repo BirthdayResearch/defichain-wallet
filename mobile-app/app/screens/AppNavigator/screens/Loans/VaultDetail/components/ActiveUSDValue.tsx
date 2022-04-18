@@ -19,6 +19,7 @@ interface ActiveUSDValueProps {
 }
 
 export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
+  // TODO: refactor logic into getUSDPrecisedPrice once denominationCurrency is applied consistently across the app
   const denominatedValue = props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getUSDPrecisedPrice(props.price) : props.price.toFixed(8)
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
