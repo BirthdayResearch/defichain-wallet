@@ -9,7 +9,7 @@ async function set (denominationCurrency: NonNullable<PortfolioButtonGroupTabKey
 
 async function get (): Promise<PortfolioButtonGroupTabKey> {
     const val = await AsyncStorage.getItem(KEY)
-    return val !== null ? JSON.parse(val) : 'USDT'
+    return val != null ? JSON.parse(val) : 'USDT'
 }
 
 export const PortfolioCurrencyPersistence = {
