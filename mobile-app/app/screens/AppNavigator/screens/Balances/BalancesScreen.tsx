@@ -6,7 +6,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -53,6 +53,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useDenominationCurrency()
 
   const { getTokenPrice } = useTokenPrice(denominationCurrency)
+  const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const { wallets } = useWalletPersistenceContext()
   const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const {
@@ -151,7 +152,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         totalAvailableValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [denominationCurrency, tokens])
+  }, [prices, tokens])
 
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
@@ -205,7 +206,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
           totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
-  }, [denominationCurrency, lockedTokens])
+  }, [lockedTokens, prices])
 
   const totalLoansValue = useMemo(() => {
     if (vaults === undefined) {
@@ -219,7 +220,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         }, new BigNumber(0))
         return totalLoansValue.plus(new BigNumber(totalVaultLoansValue).isNaN() ? 0 : totalVaultLoansValue)
       }, new BigNumber(0))
-  }, [denominationCurrency, vaults])
+  }, [prices, vaults])
 
   // to update filter list from selected token tab
   useEffect(() => {
