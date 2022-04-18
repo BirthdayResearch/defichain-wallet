@@ -43,6 +43,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // for 'BTC' or 'DFI' denomination
+  const totalPortfolioValue = BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue))
 
   return (
     <ThemedView
@@ -114,7 +115,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                     value={value}
                   />}
                 thousandSeparator
-                value={getUSDPrecisedPrice(BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue)))}
+                value={getUSDPrecisedPrice(totalPortfolioValue, props.denominationCurrency)}
               />
               {
                 denominationCurrency !== PortfolioButtonGroupTabKey.USDT && denominationCurrency && (
@@ -234,7 +235,7 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
             value={value}
           />}
         thousandSeparator
-        value={getUSDPrecisedPrice(props.value)}
+        value={getUSDPrecisedPrice(props.value, props.denominationCurrency)}
       />
       <ThemedText
         light={tailwind('text-gray-500')}
