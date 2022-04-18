@@ -44,7 +44,6 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // for 'BTC' or 'DFI' denomination
   const totalPortfolioValue = BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue))
-  console.log(denominationCurrency, props.totalLoansValue.toFixed(8))
 
   return (
     <ThemedView
