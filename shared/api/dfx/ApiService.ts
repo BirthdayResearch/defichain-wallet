@@ -48,11 +48,15 @@ const SettingUrl = 'setting/frontend'
 
 // --- AUTH --- //
 export const signIn = async (credentials?: Credentials): Promise<string> => {
-  return await fetchFrom<AuthResponse>(`${AuthUrl}/signIn`, 'POST', credentials).then((resp) => resp.accessToken)
+  return await fetchFrom<AuthResponse>(`${AuthUrl}/signIn`, 'POST', credentials).then((resp) =>  {
+    return resp.accessToken
+  })
 }
 
 export const signUp = async (user: NewUser): Promise<string> => {
-  return await fetchFrom<AuthResponse>(`${AuthUrl}/signUp`, 'POST', user).then((resp) => resp.accessToken)
+  return await fetchFrom<AuthResponse>(`${AuthUrl}/signUp`, 'POST', user).then((resp) => {
+    return resp.accessToken
+  })
 }
 
 // --- USER --- //
@@ -219,7 +223,8 @@ const fetchFrom = async <T>(
           AuthService.deleteSession().catch(() => 'You shall not pass!')
         }
 
-        throw Error(error.message)
+        throw JSON.stringify(error) 
+        // throw Error(error.message)
       })
   )
 }

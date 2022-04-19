@@ -159,6 +159,13 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         })
         .catch(async resp => {
             await DFXPersistence.resetToken(pair.addr)
+            const jsonObj = JSON.parse(resp)
+            if ( jsonObj.statusCode !== undefined && jsonObj.statusCode === 401 ) {
+                // Invalid credentials
+                // -> fetch signature
+                createSignature(pair.addr)
+                return
+            }
 
             // try sign up
             await signUp({ address: pair.addr, signature: signa, walletId: 1, usedRef: null })
@@ -166,6 +173,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
                     await DFXPersistence.setToken(pair.addr, respWithToken)
                 })
                 .catch(async resp => {
+                    const jsonObj = JSON.parse(resp)
+                    if ( jsonObj.message !== undefined ) {
+                        throw new Error(jsonObj.message)
+                    }
                     throw new Error(resp)
                 })
         })
@@ -190,7 +201,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     // Set web session token
     const webToken = await DFXPersistence.getToken(pair.addr)
     if (webToken !== undefined && webToken.length > 0) {
-        await AuthService.updateSession({ accessToken: webToken }).catch(e => console.error(e))
+        await AuthService.updateSession({ accessToken: webToken }).catch(() => {})
     }
   }
 
