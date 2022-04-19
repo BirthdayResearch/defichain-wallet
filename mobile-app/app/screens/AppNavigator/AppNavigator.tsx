@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -6,12 +7,14 @@ import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
 import { AppLinking, BottomTabNavigator } from './BottomTabNavigator'
+import { LegacyNavigator } from './screens/Legacy/LegacyNavigator'
 
 const App = createStackNavigator<AppParamList>()
 
 export interface AppParamList {
   App: undefined
   Playground: undefined
+  Legacy: undefined
   NotFound: undefined
 
   [key: string]: undefined | object
@@ -20,16 +23,24 @@ export interface AppParamList {
 export function AppNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  const [isLegacy] = useState(true)
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={DeFiChainTheme}
     >
       <App.Navigator screenOptions={{ headerShown: false }}>
-        <App.Screen
-          component={BottomTabNavigator}
-          name='App'
-        />
+
+        {isLegacy && <App.Screen
+          component={LegacyNavigator}
+          name='Legacy'
+                     />}
+
+        {!isLegacy &&
+          <App.Screen
+            component={BottomTabNavigator}
+            name='App'
+          />}
 
         <App.Screen
           component={PlaygroundNavigator}
