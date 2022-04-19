@@ -41,7 +41,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
         hasFetchedToken={props.hasFetchedToken}
         valueThemeProps={{
           light: tailwind('text-gray-500'),
-          dark: tailwind('text-gray-400')
+          dark: tailwind('text-dfxgray-400')
         }}
         containerStyle={tailwind('mb-2')}
         prefix='≈ $'
@@ -64,7 +64,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
         hasFetchedToken={props.hasFetchedToken}
         valueThemeProps={{
           light: tailwind('text-gray-500'),
-          dark: tailwind('text-gray-400')
+          dark: tailwind('text-dfxgray-400')
         }}
         prefix='≈ $'
       />
@@ -99,7 +99,7 @@ function TokenBreakdownDetailsRow ({
   valueTextStyle,
   valueThemeProps = {
     light: tailwind('text-gray-500'),
-    dark: tailwind('text-gray-400')
+    dark: tailwind('text-dfxgray-400')
   },
   containerStyle,
   prefix
@@ -108,7 +108,7 @@ function TokenBreakdownDetailsRow ({
     <View style={[tailwind('flex-row flex-1 items-center'), containerStyle]}>
       <ThemedText
         light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
         style={[tailwind('pr-14 text-xs'), labelTextStyle]}
         testID={`${testID}_label`}
       >

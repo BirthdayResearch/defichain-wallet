@@ -346,10 +346,8 @@ function BalanceActionButton ({
       onPress={onPress}
       testID={type === 'SEND' ? 'send_balance_button' : 'receive_balance_button'}
       style={tailwind('flex-1 flex-row justify-center items-center py-2 border-0 rounded-none', {
-        'mr-px': type === 'SEND',
-        'ml-px': type === 'RECEIVE',
-        'rounded-bl-lg': type === 'SEND',
-        'rounded-br-lg': type === 'RECEIVE'
+        'mr-px rounded-bl-lg': type === 'SEND',
+        'ml-px rounded-br-lg': type === 'RECEIVE'
       })}
       textStyle={tailwind('text-base')}
       themedProps={{

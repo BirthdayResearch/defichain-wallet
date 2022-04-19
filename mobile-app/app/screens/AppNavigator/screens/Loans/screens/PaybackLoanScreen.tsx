@@ -270,7 +270,7 @@ export function PaybackLoanScreen ({
       />
       <ThemedView
         light={tailwind('bg-white')}
-        dark={tailwind('bg-gray-800')}
+        dark={tailwind('bg-dfxblue-800')}
         style={tailwind('pb-4 flex flex-col flex-1')}
       >
         {
@@ -471,11 +471,11 @@ function TransactionDetailsSection ({
 
   const rowStyle = {
     style: tailwind('flex flex-row pb-1'),
-    dark: tailwind('bg-gray-800 border-gray-700'),
+    dark: tailwind('bg-dfxblue-800 border-dfxblue-900'),
     light: tailwind('bg-white border-gray-200'),
     lhsThemedProps: {
       light: tailwind('text-gray-500'),
-      dark: tailwind('text-gray-400')
+      dark: tailwind('text-dfxgray-400')
     },
     rhsThemedProps: {
       light: tailwind('text-gray-900'),
@@ -489,7 +489,7 @@ function TransactionDetailsSection ({
         style={tailwind(['flex flex-row py-4 mx-4 rounded-t', {
           'border-b': !isExpanded
         }])}
-        dark={tailwind('bg-gray-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         light={tailwind('bg-white border-gray-200')}
       >
         <View style={tailwind('flex flex-row w-11/12 pl-4 items-center')}>
@@ -521,7 +521,7 @@ function TransactionDetailsSection ({
           onPress={() => {
             setisExpanded(!isExpanded)
           }}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           light={tailwind('text-gray-500')}
           iconType='MaterialIcons'
           name={!isExpanded ? 'expand-more' : 'expand-less'}
@@ -532,13 +532,13 @@ function TransactionDetailsSection ({
       {isExpanded &&
         <ThemedView
           style={tailwind('px-4 mx-4 py-1 border-b')}
-          dark={tailwind('bg-gray-800 border-gray-700')}
+          dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
           light={tailwind('bg-white border-gray-200')}
         >
           <TextRow
             containerStyle={{
               style: tailwind('flex flex-row pb-1'),
-              dark: tailwind('bg-gray-800 border-gray-700'),
+              dark: tailwind('bg-dfxblue-800 border-dfxblue-900'),
               light: tailwind('bg-white border-gray-200')
             }}
             lhs={{
@@ -558,7 +558,7 @@ function TransactionDetailsSection ({
           <TextRow
             containerStyle={{
               style: tailwind('flex flex-row pb-1'),
-              dark: tailwind('bg-gray-800 border-gray-700'),
+              dark: tailwind('bg-dfxblue-800 border-dfxblue-900'),
               light: tailwind('bg-white border-gray-200')
             }}
             lhs={{
@@ -643,7 +643,7 @@ function TransactionDetailsSection ({
           rhsThemedProps={rowStyle.rhsThemedProps}
           containerStyle={{
             style: tailwind('rounded-b p-4 flex-row items-start w-full'),
-            dark: tailwind('bg-gray-800'),
+            dark: tailwind('bg-dfxblue-800'),
             light: tailwind('bg-white')
           }}
         />

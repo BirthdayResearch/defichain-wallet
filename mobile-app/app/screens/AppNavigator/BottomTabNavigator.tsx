@@ -9,6 +9,7 @@ import { TransactionsNavigator } from './screens/Transactions/TransactionsNaviga
 import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
 import { DFXAPIContextProvider } from '@shared-contexts/DFXAPIContextProvider'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface BottomTabParamList {
   Balances: undefined
@@ -22,6 +23,8 @@ export interface BottomTabParamList {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
+  const { isFeatureAvailable } = useFeatureFlagContext()
+
   return (
     <>
       <OceanInterface />
@@ -81,20 +84,22 @@ export function BottomTabNavigator (): JSX.Element {
           }}
           />
 
-          <BottomTab.Screen
-            component={AuctionsNavigator}
-            name={translate('BottomTabNavigator', 'Auctions')}
-            options={{
-            tabBarTestID: 'bottom_tab_auctions',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons
-                color={color}
-                name='gavel'
-                size={24}
-              />
-            )
-          }}
-          />
+          {isFeatureAvailable('auction') && (
+            <BottomTab.Screen
+              component={AuctionsNavigator}
+              name={translate('BottomTabNavigator', 'Auctions')}
+              options={{
+              tabBarTestID: 'bottom_tab_auctions',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons
+                  color={color}
+                  name='gavel'
+                  size={24}
+                />
+              )
+            }}
+            />
+          )}
 
           <BottomTab.Screen
             component={TransactionsNavigator}

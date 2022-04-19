@@ -186,67 +186,69 @@ function BalanceItemRow ({
       light={tailwind('bg-white')}
       style={tailwind('mb-1.5 rounded-lg')}
     >
-      <View style={tailwind('flex-row m-4 mb-2')}>
-        <ThemedTouchableOpacity
-          onPress={onPress}
-          dark={tailwind('border-0')}
-          light={tailwind('border-0')}
-          style={tailwind('flex-row items-center mb-2 flex-grow')}
-          testID={testID}
-        >
-          <Icon testID={`${testID}_icon`} />
-          <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
-          <TokenAmountText
-            tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
-            usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+      <View style={tailwind('m-4 mb-1')}>
+        <View>
+          <ThemedTouchableOpacity
+            onPress={onPress}
+            dark={tailwind('border-0')}
+            light={tailwind('border-0')}
+            style={tailwind('flex-row items-center mb-2 flex-grow')}
             testID={testID}
-            isBalancesDisplayed={isBalancesDisplayed}
-          />
-        </ThemedTouchableOpacity>
-        <TouchableOpacity
-          onPress={onBreakdownPress}
-          style={tailwind('ml-4')}
-          testID={`details_${testID}`}
-        >
-          <ThemedIcon
-            light={tailwind('text-primary-500')}
-            dark={tailwind('text-dfxred-500')}
-            iconType='MaterialIcons'
-            name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
-            size={28}
-          />
-        </TouchableOpacity>
+          >
+            <Icon testID={`${testID}_icon`} />
+            <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
+            <TokenAmountText
+              tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
+              usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+              testID={testID}
+              isBalancesDisplayed={isBalancesDisplayed}
+            />
+          </ThemedTouchableOpacity>
+        </View>
+        {hasLockedBalance &&
+          (
+            <>
+              <View style={tailwind('flex flex-row justify-end')}>
+                <TouchableOpacity
+                  onPress={onBreakdownPress}
+                  testID={`details_${testID}`}
+                >
+                  <ThemedIcon
+                    light={tailwind('text-primary-500')}
+                    dark={tailwind('text-dfxred-500')}
+                    iconType='MaterialIcons'
+                    name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
+                    size={28}
+                  />
+                </TouchableOpacity>
+              </View>
+              {isBreakdownExpanded && (
+                <ThemedView
+                  light={tailwind('border-t border-gray-100')}
+                  dark={tailwind('border-t border-dfxblue-600')}
+                  style={tailwind('mt-1 pt-2 mb-2')}
+                >
+                  <TokenBreakdownPercentage
+                    symbol={token.symbol}
+                    availableAmount={new BigNumber(token.amount)}
+                    onBreakdownPress={onBreakdownPress}
+                    isBreakdownExpanded={isBreakdownExpanded}
+                    lockedAmount={lockedToken.amount}
+                    testID={token.displaySymbol}
+                  />
+                  <TokenBreakdownDetails
+                    hasFetchedToken={hasFetchedToken}
+                    lockedAmount={lockedToken.amount}
+                    lockedValue={lockedToken.tokenValue}
+                    availableAmount={new BigNumber(token.amount)}
+                    availableValue={token.usdAmount}
+                    testID={token.displaySymbol}
+                  />
+                </ThemedView>
+              )}
+            </>
+          )}
       </View>
-
-      {hasLockedBalance &&
-        (
-          <>
-            {isBreakdownExpanded && (
-              <ThemedView
-                light={tailwind('border-t border-gray-100')}
-                dark={tailwind('border-t border-dfxblue-600')}
-                style={tailwind('mx-4 mb-4 pt-2')}
-              >
-                <TokenBreakdownPercentage
-                  symbol={token.symbol}
-                  availableAmount={new BigNumber(token.amount)}
-                  onBreakdownPress={onBreakdownPress}
-                  isBreakdownExpanded={isBreakdownExpanded}
-                  lockedAmount={lockedToken.amount}
-                  testID={token.displaySymbol}
-                />
-                <TokenBreakdownDetails
-                  hasFetchedToken={hasFetchedToken}
-                  lockedAmount={lockedToken.amount}
-                  lockedValue={lockedToken.tokenValue}
-                  availableAmount={new BigNumber(token.amount)}
-                  availableValue={token.usdAmount}
-                  testID={token.displaySymbol}
-                />
-              </ThemedView>
-            )}
-          </>
-        )}
     </ThemedView>
   )
 }
@@ -263,7 +265,7 @@ function SortTokens ({
         testID='toggle_sorting_assets'
       >
         <ThemedText
-          style={tailwind('text-xs text-gray-400 pr-1')}
+          style={tailwind('text-xs text-dfxgray-400 pr-1')}
         >
           {translate('screens/BalancesScreen', 'YOUR ASSETS')}
         </ThemedText>

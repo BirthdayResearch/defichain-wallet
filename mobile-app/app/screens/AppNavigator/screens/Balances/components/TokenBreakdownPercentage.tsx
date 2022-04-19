@@ -98,7 +98,7 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
         ? (
           <ThemedIcon
             light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-500')}
+            dark={tailwind('text-dfxgray-500')}
             iconType='MaterialIcons'
             name='lock'
             size={16}
@@ -109,7 +109,7 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
         ))}
       <ThemedText
         light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
         style={tailwind('text-xs', { 'ml-1': props.type === 'available' && props.isDfi === true })}
       >
         {translate('screens/BalancesScreen', `${props.type === 'available' ? 'Available: ' : 'Locked: '}`)}
@@ -127,7 +127,7 @@ function BreakdownPercentageItem (props: BreakdownPercentageItemProps): JSX.Elem
           >
             <BalanceText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs')}
               testID={`${props.testID}_${props.type}_percentage_text`}
               value={value}

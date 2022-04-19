@@ -86,7 +86,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
           <ThemedIcon
             size={20}
             name='add'
-            dark={tailwind('text-darkprimary-500')}
+            dark={tailwind('text-dfxred-500')}
             light={tailwind('text-primary-500')}
             style={tailwind('font-normal')}
             iconType='MaterialIcons'
@@ -94,7 +94,7 @@ export const BottomSheetAddressBook = (props: BottomSheetAddressBookProps): Reac
 
           <View style={tailwind('mx-3 flex-auto')}>
             <ThemedText
-              dark={tailwind('text-darkprimary-500')}
+              dark={tailwind('text-dfxred-500')}
               light={tailwind('text-primary-500')}
               style={tailwind('text-sm font-normal')}
             >

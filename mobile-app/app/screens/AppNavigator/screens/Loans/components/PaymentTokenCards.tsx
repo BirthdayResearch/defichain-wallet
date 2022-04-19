@@ -118,9 +118,9 @@ function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
 
       })}
       dark={tailwind({
-        'bg-dfxblue-800 border-dfxblue-800': !props.isSelected,
-        'bg-dfxblue-800 border-dfxred-500': props.isSelected,
-        'bg-gray-900 text-gray-500 border-0': props.disabled
+        'bg-dfxblue-900 border-dfxblue-800': !props.isSelected,
+        'bg-dfxblue-900 border-dfxred-500': props.isSelected,
+        'bg-dfxgray-400 text-dfxgray-500 border-0': props.disabled
       })}
       style={tailwind('p-3 mx-2 rounded border flex-1 flex-row items-center')}
       onPress={() => props.onPress(props.paymentToken)}
@@ -135,7 +135,7 @@ function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
             'text-gray-300': props.disabled
           })}
           dark={tailwind({
-            'text-gray-400': !props.disabled,
+            'text-dfxgray-400': !props.disabled,
             'text-gray-600': props.disabled
           })}
           style={tailwind('font-medium')}

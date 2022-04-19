@@ -15,12 +15,12 @@ import { RandomAvatar } from '../components/RandomAvatar'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NoTokensLight } from '../assets/NoTokensLight'
-import { NoTokensDark } from '../assets/NoTokensDark'
 import { AddressListEditButton } from '../components/AddressListEditButton'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { authentication, Authentication } from '@store/authentication'
+import { DfxNoTokensImage } from '../assets/DfxNoTokensImage'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -158,7 +158,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     return (
       <ThemedView
         light={tailwind('bg-gray-50 border-gray-200')}
-        dark={tailwind('bg-dfxblue-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('flex flex-col items-center px-4 pt-6 pb-2 border-b')}
       >
         <View style={tailwind('flex-row justify-between w-full mb-3')}>
@@ -182,7 +182,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-dfxblue-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={() => {
           navigation.navigate({
@@ -283,13 +283,13 @@ function EmptyDisplay (): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-dfxblue-900 border-gray-700')}
+      dark={tailwind('bg-dfxblue-900 border-dfxblue-900')}
       style={tailwind('px-8 pt-8 pb-2 text-center border-b')}
       testID='empty_address_book'
     >
       <View style={tailwind('items-center pb-4')}>
         {
-          isLight ? <NoTokensLight /> : <NoTokensDark />
+          isLight ? <NoTokensLight /> : <DfxNoTokensImage />
         }
       </View>
       <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>

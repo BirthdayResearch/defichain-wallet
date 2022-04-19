@@ -3,19 +3,20 @@ import ContentLoader, { Circle, IContentLoaderProps, Rect } from 'react-content-
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { ThemedView } from '../themed'
+import { theme } from '../../tailwind.config'
 
 export function VaultSchemesSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode }): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-300')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('mb-1 py-2 border rounded-lg items-center justify-center')}
       testID='balance_skeleton_loader'
     >
       <ContentLoader
-        backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
-        foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
+        backgroundColor={isLight ? '#ecebeb' : theme.extend.colors.dfxblue[900]}
+        foregroundColor={isLight ? '#ffffff' : theme.extend.colors.dfxblue[800]}
         height={50}
         preserveAspectRatio='xMidYMid slice'
         speed={2}

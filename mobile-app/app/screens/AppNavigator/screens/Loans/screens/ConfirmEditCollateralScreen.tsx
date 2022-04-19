@@ -294,7 +294,7 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
               renderText={value =>
                 <ThemedText
                   light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
+                  dark={tailwind('text-dfxgray-300')}
                   style={tailwind('text-xs font-medium ml-1')}
                   testID='edit_collateral_confirm_vault_share'
                 >

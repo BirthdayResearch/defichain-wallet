@@ -1,6 +1,6 @@
 import { History } from './models/History'
 import { getEnvironment } from '@environment'
-import { ApiError, AuthResponse } from './models/ApiDto'
+import { AuthResponse } from './models/ApiDto'
 import { Asset } from './models/Asset'
 import { BuyRoute, BuyRouteDto, fromBuyRouteDto, toBuyRouteDto } from './models/BuyRoute'
 import { CfpResult } from './models/CfpResult'
@@ -48,7 +48,7 @@ const SettingUrl = 'setting/frontend'
 
 // --- AUTH --- //
 export const signIn = async (credentials?: Credentials): Promise<string> => {
-  return await fetchFrom<AuthResponse>(`${AuthUrl}/signIn`, 'POST', credentials).then((resp) =>  {
+  return await fetchFrom<AuthResponse>(`${AuthUrl}/signIn`, 'POST', credentials).then((resp) => {
     return resp.accessToken
   })
 }
@@ -71,10 +71,6 @@ export const getUserDetail = async (): Promise<UserDetail> => {
 export const putUser = async (user: User): Promise<UserDetail> => {
   return await fetchFrom<UserDetailDto>(UserUrl, 'PUT', toUserDto(user)).then(fromUserDetailDto)
 }
-
-// export const putUserLanguage = (language: Language): Promise<void> => {
-//   return AuthService.Session.then((session) => fetchFrom<void>(UserUrl, "PUT", { address: session.address, language }));
-// };
 
 export const updateRefFee = async (fee: number): Promise<void> => {
   return await fetchFrom(UserUrl, 'PUT', { refFeePercent: fee })
@@ -218,13 +214,12 @@ const fetchFrom = async <T>(
           throw body
         })
       })
-      .catch((error: ApiError) => {
+      .catch((error) => {
         if (error.statusCode === 401) {
           AuthService.deleteSession().catch(() => 'You shall not pass!')
         }
 
-        throw JSON.stringify(error) 
-        // throw Error(error.message)
+        throw error
       })
   )
 }

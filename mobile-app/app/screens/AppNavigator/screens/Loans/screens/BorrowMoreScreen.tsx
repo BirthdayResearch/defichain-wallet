@@ -283,7 +283,7 @@ export function VaultInput ({
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border p-4 flex flex-col rounded-lg mb-4')}
     >
       <View style={tailwind('flex flex-row justify-between items-center mb-2')}>
@@ -303,7 +303,7 @@ export function VaultInput ({
         <View style={tailwind('items-center flex-row')}>
           <ThemedText
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-xs mr-1')}
           >
             {translate('screens/PaybackLoanScreen', 'Collateralization ratio')}
@@ -333,7 +333,7 @@ export function VaultInput ({
         <View style={tailwind('items-center flex-row')}>
           <ThemedText
             light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            dark={tailwind('text-dfxgray-400')}
             style={tailwind('text-xs mr-1')}
           >
             {translate('screens/PaybackLoanScreen', 'Min. collateralization ratio')}
@@ -361,7 +361,7 @@ export function VaultInput ({
           <View style={tailwind('flex flex-row items-center justify-between mb-1')}>
             <ThemedText
               light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
+              dark={tailwind('text-dfxgray-400')}
               style={tailwind('text-xs')}
             >
               {translate('screens/PaybackLoanScreen', 'Max loan amount')}
@@ -394,7 +394,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
       style={tailwind('border p-4 flex flex-col rounded-lg')}
     >
       <View style={tailwind('flex flex-row items-center mb-3')}>
@@ -406,7 +406,7 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
       <View style={tailwind('flex flex-row items-center justify-between')}>
         <ThemedText
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
           style={tailwind('text-xs')}
         >
           {translate('screens/PaybackLoanScreen', 'Outstanding balance')}

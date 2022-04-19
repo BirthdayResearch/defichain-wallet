@@ -127,7 +127,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-dfxblue-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={async () => {
           await onChangeAddress(addressLength + 1)
@@ -264,7 +264,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
     return (
       <ThemedView
         light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-dfxblue-800 border-gray-700')}
+        dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
         style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
       >
         <View style={tailwind('flex-row justify-end w-full mb-3 relative -right-0.5')}>

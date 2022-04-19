@@ -12,7 +12,7 @@ export function WalletToast (props: WalletToastProps): JSX.Element {
     <ThemedView
       style={tailwind('pb-1.5 pt-1 px-4 mt-8 rounded-lg')}
       light={tailwind('bg-gray-600')}
-      dark={tailwind('bg-gray-800')}
+      dark={tailwind('bg-dfxblue-800')}
       testID='wallet_toast'
     >
       <ThemedText

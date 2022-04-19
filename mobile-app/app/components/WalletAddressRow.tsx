@@ -10,7 +10,7 @@ export function WalletAddressRow (): JSX.Element {
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('bg-white border-b border-gray-300')}
       style={tailwind('p-4 flex-row w-full items-center justify-between')}
     >

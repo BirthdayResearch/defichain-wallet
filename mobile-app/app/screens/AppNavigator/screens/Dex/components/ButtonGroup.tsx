@@ -62,7 +62,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
     >
       <ThemedText
         light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
-        dark={tailwind({ 'text-gray-300': props.isActive, 'text-dfxgray-300': !props.isActive })}
+        dark={tailwind({ 'text-white': props.isActive, 'text-dfxgray-300': !props.isActive })}
         style={props.modalStyle ?? tailwind('font-medium text-sm text-center')}
       >
 

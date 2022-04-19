@@ -45,90 +45,93 @@ export function DFIBalanceCard (): JSX.Element {
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col flex-1')}>
-        <View style={tailwind('flex-row m-4 mb-4')}>
-          <View style={tailwind('flex-row items-center flex-grow')}>
-            <DFIIcon width={32} height={32} />
-            <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
+        <View style={tailwind('m-4 mb-1')}>
+          <View style={tailwind('flex-row')}>
+            <View style={tailwind('flex-row items-center flex-grow')}>
+              <DFIIcon width={32} height={32} />
+              <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
+            </View>
+            {
+              hasFetchedToken
+                ? (
+                  <TokenAmountText
+                    tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
+                    isBalancesDisplayed={isBalancesDisplayed}
+                  />
+                )
+                : (
+                  <View style={tailwind('pt-1')}>
+                    <View style={tailwind('mb-1.5')}>
+                      <TextSkeletonLoader
+                        iContentLoaderProps={{
+                          width: '150',
+                          height: '16',
+                          testID: 'dfi_balance_skeleton_loader'
+                        }}
+                        textHorizontalOffset='30'
+                        textWidth='120'
+                      />
+                    </View>
+                    <View>
+                      <TextSkeletonLoader
+                        iContentLoaderProps={{
+                          width: '150',
+                          height: '12',
+                          testID: 'dfi_USD_balance_skeleton_loader'
+                        }}
+                        textHorizontalOffset='30'
+                        textWidth='120'
+                      />
+                    </View>
+                  </View>
+                )
+            }
           </View>
 
-          {
-            hasFetchedToken
-              ? (
-                <TokenAmountText
-                  tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)} usdAmount={usdAmount} testID='dfi_total_balance'
-                  isBalancesDisplayed={isBalancesDisplayed}
-                />
-              )
-              : (
-                <View style={tailwind('pt-1')}>
-                  <View style={tailwind('mb-1.5')}>
-                    <TextSkeletonLoader
-                      iContentLoaderProps={{
-                        width: '150',
-                        height: '16',
-                        testID: 'dfi_balance_skeleton_loader'
-                      }}
-                      textHorizontalOffset='30'
-                      textWidth='120'
-                    />
-                  </View>
-                  <View>
-                    <TextSkeletonLoader
-                      iContentLoaderProps={{
-                        width: '150',
-                        height: '12',
-                        testID: 'dfi_USD_balance_skeleton_loader'
-                      }}
-                      textHorizontalOffset='30'
-                      textWidth='120'
-                    />
-                  </View>
-                </View>
-              )
-          }
+          <View style={tailwind('flex flex-row justify-end')}>
+            <TouchableOpacity
+              onPress={onBreakdownPress}
+              style={tailwind('ml-4')}
+              testID='details_dfi'
+            >
+              <ThemedIcon
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-dfxred-500')}
+                iconType='MaterialIcons'
+                name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
+                size={28}
+              />
+            </TouchableOpacity>
+          </View>
 
-          <TouchableOpacity
-            onPress={onBreakdownPress}
-            style={tailwind('ml-4')}
-            testID='details_dfi'
-          >
-            <ThemedIcon
-              light={tailwind('text-primary-500')}
-              dark={tailwind('text-dfxred-500')}
-              iconType='MaterialIcons'
-              name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
-              size={28}
-            />
-          </TouchableOpacity>
+          {isBreakdownExpanded && (
+            <ThemedView
+              light={tailwind('border-t border-gray-100')}
+              dark={tailwind('border-t border-dfxblue-600')}
+              style={tailwind('mt-1 pt-2 mb-2')}
+            >
+              <TokenBreakdownPercentage
+                symbol='DFI'
+                availableAmount={new BigNumber(DFIUnified.amount)}
+                onBreakdownPress={onBreakdownPress}
+                isBreakdownExpanded={isBreakdownExpanded}
+                lockedAmount={lockedToken.amount}
+                testID='dfi'
+              />
+              <TokenBreakdownDetails
+                hasFetchedToken={hasFetchedToken}
+                lockedAmount={lockedToken.amount}
+                lockedValue={lockedToken.tokenValue}
+                availableAmount={new BigNumber(DFIUnified.amount)}
+                availableValue={availableValue}
+                testID='dfi'
+                dfiUtxo={DFIUtxo}
+                dfiToken={DFIToken}
+              />
+              <DFIBreakdownAction dfiUnified={DFIUnified} />
+            </ThemedView>
+          )}
         </View>
-
-        {isBreakdownExpanded && (
-          <ThemedView
-            light={tailwind('border-t border-gray-100')}
-            dark={tailwind('border-t border-dfxblue-600')}
-            style={tailwind('mx-4 mb-4 pt-2')}
-          >
-            <TokenBreakdownPercentage
-              symbol='DFI'
-              availableAmount={new BigNumber(DFIUnified.amount)}
-              onBreakdownPress={onBreakdownPress}
-              isBreakdownExpanded={isBreakdownExpanded}
-              lockedAmount={lockedToken.amount}
-              testID='dfi'
-            />
-            <TokenBreakdownDetails
-              hasFetchedToken={hasFetchedToken}
-              lockedAmount={lockedToken.amount}
-              lockedValue={lockedToken.tokenValue}
-              availableAmount={new BigNumber(DFIUnified.amount)}
-              availableValue={availableValue}
-              testID='dfi'
-              dfiUtxo={DFIUtxo}
-              dfiToken={DFIToken}
-            />
-            <DFIBreakdownAction dfiUnified={DFIUnified} />
-          </ThemedView>
-        )}
       </View>
     </ThemedView>
   )

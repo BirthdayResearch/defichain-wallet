@@ -29,7 +29,7 @@ export function LoanPercentage ({
   const textStyle = {
     style: tailwind('text-sm'),
     light: tailwind('text-gray-500'),
-    dark: tailwind('text-gray-400')
+    dark: tailwind('text-dfxgray-400')
   }
   return (
     <View style={tailwind('mx-4 pt-1', {
@@ -68,7 +68,7 @@ export function LoanPercentage ({
         <ThemedText
           style={tailwind('text-2xs')}
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
         >{translate('screens/PaybackLoanScreen', '0%')}
         </ThemedText>
         {
@@ -87,7 +87,7 @@ export function LoanPercentage ({
         <ThemedText
           style={tailwind('text-2xs')}
           light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          dark={tailwind('text-dfxgray-400')}
         >{translate('screens/PaybackLoanScreen', '100%')}
         </ThemedText>
       </View>
