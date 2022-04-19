@@ -31,7 +31,7 @@ import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/A
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
@@ -266,7 +266,7 @@ function BidSummaryCard (props: {
       </View>
 
       <VaultSectionTextRow
-        value={getUSDPrecisedPrice(props.totalAuctionValue)}
+        value={getPrecisedTokenValue(props.totalAuctionValue)}
         lhs={translate('screens/PlaceBidScreen', 'Total auction value (USD)')}
         testID='text_total_auction_value'
         suffixType='component'
