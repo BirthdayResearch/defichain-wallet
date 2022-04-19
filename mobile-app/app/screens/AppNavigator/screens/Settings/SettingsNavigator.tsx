@@ -20,6 +20,7 @@ import { LiquidityMiningFaq } from '@screens/WalletNavigator/screens/CreateWalle
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
+// import { AddressBookScreen } from '../Balances/screens/AddressBookScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -199,6 +200,21 @@ export function SettingsNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       />
+
+      {/* WIP:  NOT NEEDED FOR SOME REASON */}
+      {/* <SettingsStack.Screen
+        component={AddressBookScreen}
+        name="AddressBookScreen"
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddressBookScreen', 'Address BookAHAHA')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      /> */}
 
       <SettingsStack.Screen
         component={FeatureFlagScreen}
