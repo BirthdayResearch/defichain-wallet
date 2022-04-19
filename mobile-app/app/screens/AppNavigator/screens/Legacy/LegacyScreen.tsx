@@ -55,7 +55,7 @@ export function LegacyScreen ({ navigation }: Props): JSX.Element {
           style={tailwind('mt-12')}
           onPress={handlePress}
         >
-          <LegacyAppIcon />˛
+          <LegacyAppIcon />
         </TouchableOpacity>
       </View>
     </ThemedView>

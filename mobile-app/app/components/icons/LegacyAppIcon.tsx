@@ -1,8 +1,7 @@
-import Svg, { G, Path, SvgProps } from 'react-native-svg'
+import Svg, { G, Path } from 'react-native-svg'
 
-export function LegacyAppIcon (props: SvgProps): JSX.Element {
+export function LegacyAppIcon (): JSX.Element {
   return (
-
     <Svg id='livetype' xmlns='http://www.w3.org/2000/svg' width='119.66407' height='40' viewBox='0 0 119.66407 40'>
       <G>
         <G>
