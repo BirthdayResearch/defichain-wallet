@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { StackScreenProps } from '@react-navigation/stack'
-import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
@@ -29,7 +29,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { InfoText } from '@components/InfoText'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { fetchTokens, tokensSelector } from '@store/wallet'
+import { tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
@@ -42,7 +42,6 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     vault
   } = props.route.params
   const dispatch = useDispatch()
-  const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
@@ -68,15 +67,8 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const logger = useLogger()
   const client = useWhaleApiClient()
-  const isFocused = useIsFocused()
 
   const [bidAmount, setBidAmount] = useState<string>('')
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

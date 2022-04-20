@@ -3,7 +3,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -51,11 +51,8 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const isFocused = useIsFocused()
   const {
     control,
     setValue,
@@ -100,15 +97,6 @@ export function SendScreen ({
       bottomSheetRef.current?.close()
     }
   }, [])
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

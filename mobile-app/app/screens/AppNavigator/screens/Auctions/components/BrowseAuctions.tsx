@@ -17,7 +17,7 @@ import { QuickBid } from './QuickBid'
 import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { fetchTokens, tokensSelector } from '@store/wallet'
+import { tokensSelector } from '@store/wallet'
 import { useIsFocused } from '@react-navigation/native'
 
 interface Props {
@@ -59,7 +59,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   useEffect(() => {
     if (isFocused) {
       batch(() => {
-        dispatch(fetchTokens({ client, address }))
         dispatch(fetchAuctions({ client }))
         dispatch(fetchVaults({ client, address }))
       })
