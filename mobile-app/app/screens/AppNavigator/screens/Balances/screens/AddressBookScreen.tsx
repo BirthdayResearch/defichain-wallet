@@ -46,7 +46,10 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    onAddressSelect(address)
+    // condition to make address component unclickable from settings page
+    if (address !== undefined && onAddressSelect !== undefined) {
+      onAddressSelect(address)
+    }
   }
 
   const AddressListItem = useCallback(({

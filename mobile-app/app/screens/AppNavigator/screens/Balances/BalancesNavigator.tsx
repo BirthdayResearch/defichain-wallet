@@ -52,8 +52,8 @@ export interface BalanceParamList {
   BarCodeScanner: { onQrScanned: (value: string) => void }
   TokenVsUtxoScreen: undefined
   AddressBookScreen: {
-    selectedAddress: string
-    onAddressSelect: (address: string) => void
+    selectedAddress?: string
+    onAddressSelect?: (address: string) => void
   }
   AddOrEditAddressBookScreen: {
     title: string

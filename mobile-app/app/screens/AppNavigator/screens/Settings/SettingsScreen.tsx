@@ -103,7 +103,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       />
       <NavigateItemRow
         testID='address_book_title'
-        label='Address BookZZ'
+        label='Address Book'
         onPress={() => navigation.navigate('AddressBookScreen', {})}
       />
 
