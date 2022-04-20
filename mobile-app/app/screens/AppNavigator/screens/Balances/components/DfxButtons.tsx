@@ -2,9 +2,8 @@ import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { StyleSheet, ImageSourcePropType, Linking, TouchableOpacity, TouchableOpacityProps, Image, View } from 'react-native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { getEnvironment } from '@environment'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
-import * as Updates from 'expo-updates'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
 import BtnDfxEn from '@assets/images/dfx_buttons/btn_dfx_en.png'
 import BtnDfxDe from '@assets/images/dfx_buttons/btn_dfx_de.png'
@@ -16,26 +15,10 @@ import BtnOverview from '@assets/images/dfx_buttons/btn_income.png'
 import BtnTax from '@assets/images/dfx_buttons/btn_tax.png'
 import BtnDobby from '@assets/images/dfx_buttons/btn_dobby.png'
 
-import { useCallback } from 'react'
-import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
-
 export function DfxButtons (): JSX.Element {
   const { address } = useWalletContext()
   const { language } = useLanguageContext()
-  const { dfxWebToken: dfxToken } = useDFXAPIContext()
-
-  const onDfxButtonPress = useCallback(async () => {
-    await dfxToken().then(async (token) => {
-      if (token === undefined || token.length === 0) {
-        throw new Error('webToken is undefined')
-      }
-
-      const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
-      const url = `${baseUrl}/login?token=${token}`
-      await Linking.openURL(url)
-    })
-    .catch(console.error)
-  }, [dfxToken])
+  const { openDfxServices } = useDFXAPIContext()
 
   async function onOverviewButtonPress (): Promise<void> {
     const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`
@@ -61,7 +44,7 @@ export function DfxButtons (): JSX.Element {
         it: BtnDfxIt,
         es: BtnDfxEs
       },
-      onPress: onDfxButtonPress
+      onPress: openDfxServices
     },
     {
       img: {

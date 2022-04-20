@@ -18,9 +18,12 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useDispatch } from 'react-redux'
 import * as React from 'react'
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
+import { Linking } from 'react-native'
+import { getEnvironment } from '@environment'
+import * as Updates from 'expo-updates'
 
 interface DFXAPIContextI {
-  dfxWebToken: () => Promise<string>
+  openDfxServices: () => Promise<void>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
@@ -36,6 +39,19 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
+
+  const openDfxServices = async (): Promise<void> => {
+    await getActiveWebToken().then(async (token) => {
+      if (token === undefined || token.length === 0) {
+        throw new Error('webToken is undefined')
+      }
+
+      const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
+      const url = `${baseUrl}/login?token=${token}`
+      await Linking.openURL(url)
+    })
+    .catch(logger.error)
+  }
 
   /**
    * Returns webtoken string of current active Wallet address
@@ -90,13 +106,17 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
      * @param signature Buffer
      * @returns Promise<void>
      */
-    const onMessageSigned = async (sigBuffer: Buffer): Promise<void> => {
+    const onMessageSigned = async (sigBuffer: Buffer, resolve?: () => void): Promise<void> => {
         const sig = sigBuffer.toString('base64')
         await DFXPersistence.setPair({
             addr: address,
             signature: sig
         })
         await DFXPersistence.resetPin()
+
+        if (resolve != null) {
+          resolve()
+        }
     }
 
     /**
@@ -109,18 +129,20 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
       } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
         const pin = await DFXPersistence.getWalletPin()
         if (pin.length === 0) {
-          const auth: Authentication<Buffer> = {
-            consume: async passphrase => {
-              const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
-              return await signMessage(provider)
-            },
-            onAuthenticated: onMessageSigned,
-            onError: e => logger.error(e),
-            message: translate('screens/UnlockWallet', 'To access DFX Services, we need you to enter your passcode.'),
-            loading: translate('screens/TransactionAuthorization', 'Verifying access')
-          }
+          await new Promise<void>((resolve, reject) => {
+            const auth: Authentication<Buffer> = {
+              consume: async passphrase => {
+                const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
+                return await signMessage(provider)
+              },
+              onAuthenticated: async (buffer) => await onMessageSigned(buffer, resolve),
+              onError: e => reject(e),
+              message: translate('screens/UnlockWallet', 'To access DFX Services, we need you to enter your passcode.'),
+              loading: translate('screens/TransactionAuthorization', 'Verifying access')
+            }
 
-          dispatch(authentication.actions.prompt(auth))
+            dispatch(authentication.actions.prompt(auth))
+          })
         } else {
           const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => pin })
           const sigBuffer = await signMessage(provider)
@@ -160,10 +182,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         .catch(async resp => {
             await DFXPersistence.resetToken(pair.addr)
             const jsonObj = JSON.parse(resp)
-            if ( jsonObj.statusCode !== undefined && jsonObj.statusCode === 401 ) {
+            if (jsonObj.statusCode !== undefined && jsonObj.statusCode === 401) {
                 // Invalid credentials
                 // -> fetch signature
-                createSignature(pair.addr)
+                await createSignature(pair.addr)
                 return
             }
 
@@ -174,7 +196,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
                 })
                 .catch(async resp => {
                     const jsonObj = JSON.parse(resp)
-                    if ( jsonObj.message !== undefined ) {
+                    if (jsonObj.message !== undefined) {
                         throw new Error(jsonObj.message)
                     }
                     throw new Error(resp)
@@ -189,13 +211,13 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const activePairHandler = async (pair: DFXAddrSignature): Promise<void> => {
     // - do we have a signature?
     if (pair.signature === undefined || pair.signature.length === 0) {
-        await createSignature(pair.addr).catch(error => console.log('activePairHandler -> createSignatureError', error))
+      await createSignature(pair.addr).catch(logger.error)
     }
 
     // - do we have a web token?
     // - do we have an active web session?
     if (pair.token === undefined || pair.token.length === 0 || await isSessionExpired()) {
-        await createWebToken(pair.addr).catch(error => console.log('activePairHandler -> createWebTokenError', error))
+        await createWebToken(pair.addr).catch(logger.error)
     }
 
     // Set web session token
@@ -209,17 +231,17 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
    * Public Context API
    */
   const context: DFXAPIContextI = {
-    dfxWebToken: getActiveWebToken
+    openDfxServices: openDfxServices
   }
 
     // observe address state change
-    useEffect(() => {
-        DFXPersistence.getPair(address).then(async pair => {
-            await activePairHandler(pair).catch(() => {})
-        }).catch(async () => {
-            await activePairHandler({ addr: address, signature: undefined, token: undefined }).catch(() => {})
-        })
-    }, [address])
+  useEffect(() => {
+      DFXPersistence.getPair(address).then(async pair => {
+        await activePairHandler(pair).catch(() => {})
+      }).catch(async () => {
+        await activePairHandler({ addr: address, signature: undefined, token: undefined }).catch(() => {})
+      })
+  }, [address])
 
   return (
     <DFXAPIContext.Provider value={context}>

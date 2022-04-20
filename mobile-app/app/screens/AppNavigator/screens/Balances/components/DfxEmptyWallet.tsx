@@ -5,7 +5,7 @@ import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { TouchableOpacity } from 'react-native'
 
 export function DfxEmptyWallet (): JSX.Element {
-    const { dfxGatewayButtonPress } = useDFXAPIContext()
+    const { openDfxServices } = useDFXAPIContext()
 
     return (
       <ThemedView
@@ -16,7 +16,7 @@ export function DfxEmptyWallet (): JSX.Element {
         <ThemedText testID='empty_tokens_note' style={tailwind('font-normal text-sm text-center')}>
           {translate('components/DfxEmptyWallet', 'Add your DFI and other dTokens to get started or')}
         </ThemedText>
-        <TouchableOpacity onPress={async () => await dfxGatewayButtonPress()}>
+        <TouchableOpacity onPress={openDfxServices}>
           <ThemedText
             light={tailwind('text-primary-500')}
             dark={tailwind('text-dfxred-500')}
