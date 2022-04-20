@@ -4,7 +4,7 @@ import Svg, { G, Path } from 'react-native-svg'
 export function DownloadAppleIcon (): JSX.Element {
   const { isLight } = useThemeContext()
   return (
-    <Svg id='livetype' xmlns='http://www.w3.org/2000/svg' width='119.66407' height='40' viewBox='0 0 119.66407 40'>
+    <Svg id='livetype' width='119.66407' height='40' viewBox='0 0 119.66407 40'>
       <G>
         <G>
           <G>

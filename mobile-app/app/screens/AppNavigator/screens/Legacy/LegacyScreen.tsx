@@ -84,23 +84,23 @@ export function LegacyScreen ({ navigation }: Props): JSX.Element {
             light={tailwind('text-gray-900')}
             dark={tailwind('text-gray-50')}
             style={tailwind('text-sm font-medium')}
-          >{translate('LegacyScreen', 'LEGACY')}
+          >
+            {translate('LegacyScreen', 'LEGACY')}
           </ThemedText>
         </ThemedView>
         <ThemedText
           style={tailwind('text-center mb-4')}
-        >{translate('LegacyScreen', 'A new, identical DeFiChain Wallet app has been created to replace this app.')}
+        >
+          {translate('LegacyScreen', 'A new, identical DeFiChain Wallet app has been created to replace this app.')}
         </ThemedText>
         <ThemedText
           style={tailwind('text-center')}
-        >{translate('LegacyScreen', 'To continue, download the new Wallet on the App Store.')}
+        >
+          {translate('LegacyScreen', 'To continue, download the new Wallet on the App Store.')}
         </ThemedText>
         <View style={tailwind('flex flex-row justify-between items-center mt-6 text-center')}>
           <ThemedTouchableOpacity
             onPress={handlePress}
-            light={tailwind('border-gray-300 bg-white')}
-            dark={tailwind('border-gray-400 bg-gray-900')}
-            style={tailwind('border rounded-lg')}
           >
             <DownloadAppleIcon />
           </ThemedTouchableOpacity>
