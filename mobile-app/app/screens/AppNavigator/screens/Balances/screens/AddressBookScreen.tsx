@@ -34,6 +34,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const addressBook = userPreferences.addressBook
   const [isEditing, setIsEditing] = useState(false)
 
+  // disable address selection touchableopacity from settings page
+  const disableAddressSelect = selectedAddress === undefined && onAddressSelect === undefined
+
   const addresses = useMemo((): string[] => {
     if (addressBook === undefined) {
       return []
@@ -46,7 +49,10 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    onAddressSelect(address)
+    // condition to make address component unclickable from settings page
+    if (address !== undefined && onAddressSelect !== undefined) {
+      onAddressSelect(address)
+    }
   }
 
   const AddressListItem = useCallback(({
@@ -63,7 +69,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           }
         }}
         testID={`address_row_${index}`}
-        disabled={hasPendingJob || hasPendingBroadcastJob || isEditing}
+        disabled={hasPendingJob || hasPendingBroadcastJob || isEditing || disableAddressSelect}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <RandomAvatar name={item} size={32} />
