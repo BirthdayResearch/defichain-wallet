@@ -9,6 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
+import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
 import { tailwind } from '@tailwind'
@@ -87,7 +88,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   // Passcode prompt
   const dispatch = useDispatch()
   const { data: { type: encryptionType } } = useWalletNodeContext()
-  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
+  const isEncrypted = encryptionType === WalletType.MNEMONIC_ENCRYPTED
   const logger = useLogger()
   const handleSubmit = useCallback(async (): Promise<void> => {
     if (!isEncrypted ||

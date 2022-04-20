@@ -19,6 +19,7 @@ import { authentication, Authentication } from '@store/authentication'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 
 export interface CreateOrEditAddressLabelFormProps {
   title: string
@@ -104,7 +105,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   // Passcode prompt on create
   const dispatch = useDispatch()
   const { data: { type: encryptionType } } = useWalletNodeContext()
-  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
+  const isEncrypted = encryptionType === WalletType.MNEMONIC_ENCRYPTED
   const logger = useLogger()
   const handleCreateSubmit = useCallback(() => {
     if (!isEncrypted ||

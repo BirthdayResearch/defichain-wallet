@@ -21,6 +21,7 @@ import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { authentication, Authentication } from '@store/authentication'
+import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -234,7 +235,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
 
   // Passcode prompt
   const { data: { type: encryptionType } } = useWalletNodeContext()
-  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
+  const isEncrypted = encryptionType === WalletType.MNEMONIC_ENCRYPTED
   const logger = useLogger()
   const onDelete = useCallback(async (address: string): Promise<void> => {
     if (!isEncrypted) {

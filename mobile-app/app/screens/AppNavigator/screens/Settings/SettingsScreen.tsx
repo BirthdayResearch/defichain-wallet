@@ -11,7 +11,7 @@ import { WalletAlert } from '@components/WalletAlert'
 import { usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
-import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { EnvironmentNetwork } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
 import { authentication, Authentication } from '@store/authentication'
@@ -35,7 +35,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const walletContext = useWalletPersistenceContext()
   const localAuth = usePrivacyLockContext()
   const { data: { type } } = useWalletNodeContext()
-  const isEncrypted = type === 'MNEMONIC_ENCRYPTED'
+  const isEncrypted = type === WalletType.MNEMONIC_ENCRYPTED
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
