@@ -40,7 +40,7 @@ import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
@@ -375,7 +375,7 @@ interface LoanTokenInputProps {
 }
 
 function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
-  const currentPrice = getUSDPrecisedPrice(getActivePrice(props.displaySymbol, props.price))
+  const currentPrice = getPrecisedTokenValue(getActivePrice(props.displaySymbol, props.price))
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
@@ -537,7 +537,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
       </View>
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
-        value={getUSDPrecisedPrice(props.vault.collateralValue)}
+        value={getPrecisedTokenValue(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
       />

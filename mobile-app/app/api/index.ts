@@ -6,3 +6,4 @@ export { DisplayDexGuidelinesPersistence } from './persistence/display_dexguidel
 export { DisplayBalancesPersistence } from './persistence/display_balances_storage'
 export { FeatureFlagPersistence } from './persistence/feature_flag_storage'
 export { SlippageTolerancePersistence } from './persistence/slippage-tolerance_storage'
+export { PortfolioCurrencyPersistence } from './persistence/portfolio_currency_storage'

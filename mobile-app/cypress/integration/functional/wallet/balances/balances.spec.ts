@@ -683,6 +683,55 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
   })
 })
 
+context.only('Wallet - Balances - Portfolio group tab', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
+    cy.getByTestID('toggle_portfolio').click()
+    cy.getByTestID('details_dfi').click()
+  })
+
+  it('should display portfolio values in USD currency', function () {
+    cy.getByTestID('portfolio_button_group_USDT_active').should('exist')
+    cy.getByTestID('portfolio_display_BTC_currency').should('not.exist')
+    cy.getByTestID('portfolio_display_DFI_currency').should('not.exist')
+    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00000000', '≈ $100,000.00', '≈ $1,000.00')
+  })
+
+  it('should display portfolio values in DFI currency', function () {
+    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00000000 DFI', '10.00 DFI', '0.10000000 DFI')
+  })
+
+  it('should display portfolio values in BTC currency', function () {
+    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00000000 BTC', '10.00 BTC', '0.10000000 BTC')
+  })
+})
+
+function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt: string, totalAvailableUsdAmt: string, totalLockedUsdAmt: string, DfiTotalBalUsdAmt: string, DfiLockedAmt: string, DfiAvailableAmt: string, BtcUsdAmt: string, EthUsdAmt: string): void {
+  cy.getByTestID('portfolio_button_group').should('exist')
+
+  if (denomination !== 'USDT') {
+    cy.getByTestID(`portfolio_button_group_${denomination}`).click()
+    cy.getByTestID(`portfolio_button_group_${denomination}_active`).should('exist')
+    cy.getByTestID(`portfolio_display_${denomination}_currency`).should('exist') // symbol beside portfolio value text
+  }
+
+  // TotalPortfolio
+  cy.getByTestID('total_usd_amount').contains(totalUsdAmt)
+  cy.getByTestID('total_available_usd_amount').contains(totalAvailableUsdAmt)
+  cy.getByTestID('total_locked_usd_amount').contains(totalLockedUsdAmt)
+
+  // DFIBalanceCard
+  cy.getByTestID('dfi_total_balance_usd_amount').contains(DfiTotalBalUsdAmt)
+  cy.getByTestID('dfi_locked_value_amount').contains(DfiLockedAmt)
+  cy.getByTestID('dfi_available_value_amount').contains(DfiAvailableAmt)
+
+  // BalanceCard
+  cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: BtcUsdAmt })
+  cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: EthUsdAmt })
+}
+
 context('Wallet - Balances - Your Assets - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
