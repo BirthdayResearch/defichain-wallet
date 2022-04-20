@@ -30,18 +30,19 @@ export function AppNavigator (): JSX.Element {
       theme={DeFiChainTheme}
     >
       <App.Navigator screenOptions={{ headerShown: false }}>
-
-        {isLegacy && <App.Screen
-          component={LegacyNavigator}
-          name='Legacy'
-                     />}
-
-        {!isLegacy &&
+        {isLegacy
+        ? (
+          <App.Screen
+            component={LegacyNavigator}
+            name='Legacy'
+          />
+        )
+        : (
           <App.Screen
             component={BottomTabNavigator}
             name='App'
-          />}
-
+          />
+        )}
         <App.Screen
           component={PlaygroundNavigator}
           name='Playground'
