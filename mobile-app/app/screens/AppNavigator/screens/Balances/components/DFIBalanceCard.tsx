@@ -88,7 +88,7 @@ export function DFIBalanceCard (): JSX.Element {
             }
           </View>
 
-          <View style={tailwind('flex flex-row justify-end')}>
+          <View style={tailwind('flex flex-row justify-center')}>
             <TouchableOpacity
               onPress={onBreakdownPress}
               style={tailwind('ml-4')}

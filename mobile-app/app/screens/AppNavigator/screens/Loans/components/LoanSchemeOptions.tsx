@@ -39,11 +39,11 @@ export function LoanSchemeOptions (props: LoanSchemeOptionsP): JSX.Element {
                       'border-primary-500': props.selectedLoanScheme?.id === scheme.id,
                       'border-gray-50': scheme.disabled === true
                     })}
-                dark={tailwind('border-dfxgray-400', {
-                  'border-dfxred-500 bg-dfxred-500': props.selectedLoanScheme?.id === scheme.id,
-                  'border-dfxgray-500 bg-dfxgray-500': scheme.disabled === true
+                dark={tailwind('border-dfxblue-800', {
+                  'border-dfxred-500': props.selectedLoanScheme?.id === scheme.id,
+                  'border-dfxgray-500': scheme.disabled === true
                 })}
-                style={tailwind('py-2 px-5 rounded-lg border flex flex-row items-center mb-1')}
+                style={tailwind('py-2 px-5 rounded-lg border flex flex-row items-center mb-1 bg-dfxblue-800')}
                 onPress={() => props.onLoanSchemePress(scheme)}
                 disabled={scheme.disabled}
                 testID={`loan_scheme_option_${index}`}

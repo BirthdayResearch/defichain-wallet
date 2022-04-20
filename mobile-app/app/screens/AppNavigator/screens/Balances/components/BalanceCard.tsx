@@ -186,13 +186,16 @@ function BalanceItemRow ({
       light={tailwind('bg-white')}
       style={tailwind('mb-1.5 rounded-lg')}
     >
-      <View style={tailwind('m-4 mb-1')}>
+      <View style={tailwind('m-4', {
+        'mb-1': hasLockedBalance
+      })}
+      >
         <View>
           <ThemedTouchableOpacity
             onPress={onPress}
             dark={tailwind('border-0')}
             light={tailwind('border-0')}
-            style={tailwind('flex-row items-center mb-2 flex-grow')}
+            style={tailwind('flex-row items-center flex-grow')}
             testID={testID}
           >
             <Icon testID={`${testID}_icon`} />
@@ -208,7 +211,7 @@ function BalanceItemRow ({
         {hasLockedBalance &&
           (
             <>
-              <View style={tailwind('flex flex-row justify-end')}>
+              <View style={tailwind('flex flex-row justify-center')}>
                 <TouchableOpacity
                   onPress={onBreakdownPress}
                   testID={`details_${testID}`}
