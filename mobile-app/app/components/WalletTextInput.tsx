@@ -33,8 +33,8 @@ interface IWalletTextInputProps {
   onBlur?: () => void
   hasBottomSheet?: boolean
   pasteButton?: {
-    isPasteDisabled?: boolean
-    onPasteButtonPress?: () => void
+    isPasteDisabled: boolean
+    onPasteButtonPress: () => void
   }
   inputFooter?: React.ReactElement
 }
@@ -92,8 +92,8 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
             >
               <ThemedText
                 style={tailwind('text-sm font-medium')}
-                light={tailwind('text-primary-500')}
-                dark={tailwind('text-darkprimary-500')}
+                light={tailwind('text-primary-500', { 'text-gray-300': pasteButton.isPasteDisabled })}
+                dark={tailwind('text-darkprimary-500', { 'text-gray-700': pasteButton.isPasteDisabled })}
               >
                 {translate('components/WalletTextInput', 'Paste')}
               </ThemedText>

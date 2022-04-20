@@ -70,6 +70,7 @@ export function SendScreen ({
   const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
+  const [disablePaste, setDisablePaste] = useState(false)
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -142,6 +143,15 @@ export function SendScreen ({
   useEffect(() => {
     debounceMatchAddress()
   }, [address])
+
+  useEffect(() => {
+    const clipboardContent = setInterval(() => {
+      void Clipboard.getStringAsync().then((content) => {
+        setDisablePaste(content.trim() === '' || content === undefined || content === null)
+      })
+    }, 1000)
+    return () => clearInterval(clipboardContent)
+  }, [])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -270,6 +280,7 @@ export function SendScreen ({
                       await trigger('address')
                     })
                   }}
+                  isPasteDisabled={disablePaste}
                   inputFooter={
                     <>
                       {matchedAddress !== undefined && (
@@ -478,8 +489,9 @@ function AddressRow ({
   onClearButtonPress,
   onAddressChange,
   onPasteButtonPress,
+  isPasteDisabled,
   inputFooter
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void, inputFooter?: React.ReactElement }): JSX.Element {
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void, isPasteDisabled: boolean, inputFooter: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -510,11 +522,30 @@ function AddressRow ({
               titleTestID='title_to_address'
               inputType='default'
               pasteButton={{
-                isPasteDisabled: false,
+                isPasteDisabled: isPasteDisabled,
                 onPasteButtonPress: onPasteButtonPress
               }}
               inputFooter={inputFooter}
             >
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}
                 light={tailwind('bg-white border-gray-300')}
@@ -530,25 +561,6 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
-              {
-                isFeatureAvailable('local_storage') && (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800 border-gray-400')}
-                    light={tailwind('bg-white border-gray-300')}
-                    onPress={onContactButtonPress}
-                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
-                    testID='address_book_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='contacts'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )
-              }
             </WalletTextInput>
           </View>
         )}
