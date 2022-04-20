@@ -281,7 +281,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           headerStatusBarHeight: 1,
           headerBackgroundContainerStyle: tailwind('border-b', {
             'border-gray-200': isLight,
-            'border-gray-700': !isLight,
+            'border-dfxblue-900': !isLight,
             '-top-5': Platform.OS !== 'web'
           }),
           headerTitle: '',

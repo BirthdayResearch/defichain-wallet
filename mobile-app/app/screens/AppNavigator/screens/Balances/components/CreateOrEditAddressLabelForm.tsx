@@ -161,7 +161,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       <ThemedText
         style={tailwind('text-xs font-medium')}
         light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-500')}
       >
         {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS LABEL')}
       </ThemedText>
@@ -194,7 +194,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
             <ThemedText
               style={tailwind('text-xs font-medium mt-4')}
               light={tailwind('text-gray-400')}
-              dark={tailwind('text-gray-500')}
+              dark={tailwind('text-dfxgray-500')}
             >
               {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')}
             </ThemedText>

@@ -49,15 +49,15 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
     <ThemedView
       light={tailwind('bg-white')}
       dark={tailwind('bg-dfxblue-800')}
-      style={tailwind('m-4 mb-2 px-4 pb-4 pt-2 rounded-lg')}
+      style={tailwind('m-4 mb-0.5 p-4 rounded-t-lg')}
       testID='total_portfolio_card'
     >
-      <View style={tailwind('justify-evenly')}>
-        <View style={tailwind('flex flex-row items-center py-1')}>
+      <View style={tailwind('flex-row flex-wrap')}>
+        <View style={tailwind('flex-grow flex flex-row items-center')}>
           <ThemedText
             light={tailwind('text-gray-500')}
             dark={tailwind('text-dfxgray-400')}
-            style={tailwind('text-sm text-gray-500')}
+            style={tailwind('text-sm')}
           >
             {translate('screens/BalancesScreen', 'Total Portfolio Value')}
           </ThemedText>
@@ -65,12 +65,12 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             <ThemedTouchableOpacity
               testID='toggle_balance'
               light={tailwind('bg-transparent border-gray-200')}
-              dark={tailwind('bg-transparent border-gray-700')}
+              dark={tailwind('bg-transparent border-dfxblue-900')}
               onPress={props.onToggleDisplayBalances}
             >
               <ThemedIcon
                 iconType='MaterialIcons'
-                dark={tailwind('text-darkprimary-500')}
+                dark={tailwind('text-dfxred-500')}
                 light={tailwind('text-primary-500')}
                 name={`${props.isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
                 size={18}
@@ -78,10 +78,12 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               />
             </ThemedTouchableOpacity>
           </View>
+        </View>
+        <View style={tailwind('flex flex-row items-center')}>
           {
             props.portfolioButtonGroupOptions !== undefined &&
             (
-              <View style={[tailwind('py-1.5'), { marginLeft: 'auto' }]}>
+              <View style={tailwind('py-1.5')}>
                 <ButtonGroup
                   buttons={props.portfolioButtonGroup}
                   activeButtonGroupItem={props.portfolioButtonGroupOptions.activePortfolioButtonGroup}
@@ -91,7 +93,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
                   customActiveStyle={{
                     light: tailwind('bg-gray-100'),
-                    dark: tailwind('bg-black')
+                    dark: tailwind('bg-dfxblue-900')
                   }}
                 />
               </View>
@@ -131,7 +133,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               >
                 <ThemedIcon
                   light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
+                  dark={tailwind('text-dfxred-500')}
                   iconType='MaterialIcons'
                   name={!isExpanded ? 'expand-more' : 'expand-less'}
                   size={30}
@@ -217,7 +219,7 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
     <View style={tailwind('flex flex-row justify-start items-center w-full')}>
       <ThemedText
         light={tailwind(props.isAddition ? 'text-gray-500' : 'text-error-500')}
-        dark={tailwind(props.isAddition ? 'text-dfxgray-400' : 'text-error-300')} style={tailwind('mr-1 w-2')}
+        dark={tailwind('text-dfxgray-400')} style={tailwind('mr-1 w-2')}
       >
         {props.isAddition ? '+' : '-'}
       </ThemedText>
@@ -240,7 +242,7 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
       <ThemedText
         light={tailwind('text-gray-500')}
         dark={tailwind('text-dfxgray-400')}
-        style={tailwind('text-xs text-gray-500 ml-1')}
+        style={tailwind('text-xs ml-1')}
       >
         {props.label}
       </ThemedText>

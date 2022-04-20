@@ -183,7 +183,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </ThemedText>
         <ThemedView
           light={tailwind('text-gray-700 border-gray-700')}
-          dark={tailwind('text-gray-300 border-gray-300')}
+          dark={tailwind('text-dfxgray-300 border-dfxgray-300')}
           style={tailwind('border rounded')}
         >
           <NumberFormat
@@ -194,7 +194,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
             renderText={value =>
               <ThemedText
                 light={tailwind('text-gray-700')}
-                dark={tailwind('text-gray-300')}
+                dark={tailwind('text-dfxgray-300')}
                 style={tailwind('text-xs font-medium px-1')}
               >
                 {value}
@@ -217,7 +217,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         testID='form_input_text'
       >
         <ThemedView
-          dark={tailwind('bg-gray-800')}
+          dark={tailwind('bg-dfxblue-800')}
           light={tailwind('bg-white')}
           style={tailwind('flex-row items-center')}
         >
@@ -259,7 +259,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
                 prefix='$'
                 renderText={(val: string) => (
                   <ThemedText
-                    dark={tailwind('text-gray-400')}
+                    dark={tailwind('text-dfxgray-400')}
                     light={tailwind('text-gray-500')}
                     style={tailwind('text-xs leading-5')}
                   >
@@ -306,7 +306,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
                     </ThemedText>
                     <Text>{' '}</Text>
                     <ThemedText
-                      dark={tailwind('text-gray-400')}
+                      dark={tailwind('text-dfxgray-400')}
                       light={tailwind('text-gray-500')}
                       style={tailwind('text-sm font-medium')}
                     >
@@ -375,7 +375,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         <ThemedText
           style={tailwind('font-semibold pr-2')}
           light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
-          dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
+          dark={hasInvalidColRatio ? tailwind('text-dfxgray-300') : colors.dark}
           testID='resulting_collateralization'
         >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
         </ThemedText>
@@ -409,7 +409,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
       <ThemedText
         style={tailwind('text-xs text-center p-2 px-6 pb-12')}
         light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        dark={tailwind('text-dfxgray-400')}
       >
         {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
       </ThemedText>

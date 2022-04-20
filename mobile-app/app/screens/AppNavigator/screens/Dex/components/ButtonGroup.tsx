@@ -26,7 +26,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
     <ThemedView
       light={props.lightThemeStyle ?? tailwind('bg-gray-100')}
       dark={props.darkThemeStyle ?? tailwind('bg-dfxblue-800')}
-      style={tailwind('rounded-2xl flex flex-row')}
+      style={tailwind('rounded-xl flex flex-row justify-between')}
       testID={props.testID}
     >
       {
@@ -66,7 +66,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       light={tailwind({ 'bg-primary-50': props.isActive })}
       dark={tailwind({ 'bg-dfxblue-900': props.isActive })}
       {...props.isActive && props.customActiveStyle}
-      style={props.customButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
+      style={props.customButtonGroupStyle ?? [tailwind(['rounded-xl m-1 py-2 px-3 break-words justify-center'])]}
       testID={`${props.testID}${props.isActive ? '_active' : ''}`}
     >
       <ThemedText
