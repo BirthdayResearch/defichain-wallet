@@ -1,4 +1,5 @@
-import { Image } from 'react-native'
+import { useCallback } from 'react'
+import { TouchableOpacity, Image } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -10,7 +11,6 @@ import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useDispatch } from 'react-redux'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
-import { useCallback } from 'react'
 import { authentication, Authentication } from '@store/authentication'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { DownloadAppleIcon } from '@components/icons/DownloadAppleIcon'
@@ -99,17 +99,17 @@ export function LegacyScreen ({ navigation }: Props): JSX.Element {
           {translate('LegacyScreen', 'To continue, download the new Wallet on the App Store.')}
         </ThemedText>
         <View style={tailwind('flex flex-row justify-between items-center mt-6 text-center')}>
-          <ThemedTouchableOpacity
+          <TouchableOpacity
             onPress={handlePress}
           >
             <DownloadAppleIcon />
-          </ThemedTouchableOpacity>
+          </TouchableOpacity>
           {(isEncrypted && wallets.length > 0) && (
             <ThemedTouchableOpacity
               onPress={revealRecoveryWords}
-              light={tailwind('border-gray-300 bg-white')}
-              dark={tailwind('border-gray-400 bg-gray-900')}
-              style={tailwind('p-3 ml-2 w-6/12 border rounded-lg')}
+              light={tailwind('border-gray-200 bg-white')}
+              dark={tailwind('border-gray-700 bg-gray-900')}
+              style={tailwind('p-3 ml-2 border rounded-lg')}
             >
               <ThemedText
                 light={tailwind('text-primary-500')}
