@@ -4,6 +4,7 @@ const DFXWALLET_ADDRESS_LIST = 'DFXWALLET.address_list'
 const DFXWALLET_PIN = 'DFXWALLET.pin'
 
 export interface DFXAddrSignature {
+  network: string
   addr: string
   signature?: string
   token?: string
@@ -19,10 +20,14 @@ async function getWalletPin (): Promise<string> {
   return await AsyncStorage.getItem(DFXWALLET_PIN) ?? ''
 }
 
-// Get the pair list
+// Get/set the pair list
 async function getPairList (): Promise<DFXAddrSignature[]> {
   const listStr: string = await AsyncStorage.getItem(DFXWALLET_ADDRESS_LIST) ?? '[]'
   return JSON.parse(listStr)
+}
+
+async function setPairList (list: DFXAddrSignature[]): Promise<void> {
+  return await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify(list))
 }
 
 // Check if pair exists
@@ -38,7 +43,7 @@ async function addPair (pair: DFXAddrSignature): Promise<void> {
     throw new Error('Pair already exists.')
   }
   list.push(pair)
-  await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify(list))
+  await setPairList(list)
 }
 
 // Get a single pair from list
@@ -58,7 +63,7 @@ async function setPair (pair: DFXAddrSignature): Promise<void> {
   if (index > -1) {
     // update
     list[index] = pair
-    return await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify(list))
+    return await setPairList(list)
   }
 
   // insert
@@ -69,7 +74,7 @@ async function setPair (pair: DFXAddrSignature): Promise<void> {
 async function remPair (addr: string): Promise<void> {
   const list: DFXAddrSignature[] = await getPairList()
   const resultList: DFXAddrSignature[] = list.filter(pair => pair.addr !== addr)
-  await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify(resultList))
+  await setPairList(resultList)
 }
 
 // Set token of address pair
@@ -86,8 +91,9 @@ async function getToken (addr: string): Promise<string> {
 }
 
 // Reset pair list
-async function reset (): Promise<void> {
-  await AsyncStorage.setItem(DFXWALLET_ADDRESS_LIST, JSON.stringify([]))
+async function reset (network: string): Promise<void> {
+  const list = await getPairList()
+  await setPairList(list.filter((i) => i.network != null && i.network !== network))
   await AsyncStorage.setItem(DFXWALLET_PIN, '')
 }
 

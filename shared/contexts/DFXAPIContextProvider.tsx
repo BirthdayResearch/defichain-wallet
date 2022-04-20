@@ -25,6 +25,7 @@ import { useDebounce } from '@hooks/useDebounce'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
+  clearDfxTokens: () => Promise<void>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
@@ -34,7 +35,7 @@ export function useDFXAPIContext (): DFXAPIContextI {
 }
 
 export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Element | null {
-  const { network } = useNetworkContext()
+  const { network, networkName } = useNetworkContext()
   const { data: providerData } = useWalletNodeContext()
   const logger = useLogger()
   const whaleApiClient = useWhaleApiClient()
@@ -46,7 +47,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     await getActiveWebToken()
       .catch(async () => {
         // try login first
-        await activePairHandler({ addr: address })
+        await activePairHandler({ network: networkName, addr: address })
         return await getActiveWebToken()
       })
       .then(async (token) => {
@@ -103,8 +104,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     const onMessageSigned = async (sigBuffer: Buffer): Promise<void> => {
       const sig = sigBuffer.toString('base64')
       await DFXPersistence.setPair({
-          addr: address,
-          signature: sig
+        network: networkName,
+        addr: address,
+        signature: sig
       })
       await DFXPersistence.resetPin()
     }
@@ -166,10 +168,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         .catch(async resp => {
           await DFXPersistence.resetToken(pair.addr)
           if (resp.statusCode !== undefined && resp.statusCode === 401) {
-              // Invalid credentials
-              // -> fetch signature
-              await createSignature(pair.addr)
-              return
+            // Invalid credentials
+            // -> fetch signature
+            await createSignature(pair.addr)
+            return
           }
 
           // try sign up
@@ -206,9 +208,14 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     }
   }
 
+  const clearDfxTokens = async (): Promise<void> => {
+    await DFXPersistence.reset(networkName)
+  }
+
   // public context API
   const context: DFXAPIContextI = {
-    openDfxServices: openDfxServices
+    openDfxServices: openDfxServices,
+    clearDfxTokens: clearDfxTokens
   }
 
   // observe address state change
@@ -216,7 +223,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
       DFXPersistence.getPair(debouncedAddress).then(async pair => {
         await activePairHandler(pair).catch(() => {})
       }).catch(async () => {
-        await activePairHandler({ addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => {})
+        await activePairHandler({ network: networkName, addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => {})
       })
   }, [debouncedAddress])
 

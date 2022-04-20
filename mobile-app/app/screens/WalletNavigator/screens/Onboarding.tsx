@@ -6,19 +6,9 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../WalletNavigator'
 import { OnboardingCarousel } from './components/OnboardingCarousel'
-import { DFXPersistence } from '@api/persistence/dfx_storage'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 export function Onboarding (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(async () => {
-      await DFXPersistence.reset()
-    })
-  }, [dispatch])
 
   return (
     <ThemedScrollView
