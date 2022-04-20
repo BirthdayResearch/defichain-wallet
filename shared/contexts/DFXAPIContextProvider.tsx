@@ -21,6 +21,7 @@ import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 import { Linking } from 'react-native'
 import { getEnvironment } from '@environment'
 import * as Updates from 'expo-updates'
+import { useDebounce } from '@hooks/useDebounce'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
@@ -39,24 +40,28 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const whaleApiClient = useWhaleApiClient()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
+  const debouncedAddress = useDebounce(address, 500)
 
   const openDfxServices = async (): Promise<void> => {
-    await getActiveWebToken().then(async (token) => {
-      if (token === undefined || token.length === 0) {
-        throw new Error('webToken is undefined')
-      }
+    await getActiveWebToken()
+      .catch(async () => {
+        // try login first
+        await activePairHandler({ addr: address })
+        return await getActiveWebToken()
+      })
+      .then(async (token) => {
+        if (token === undefined || token.length === 0) {
+          throw new Error('webToken is undefined')
+        }
 
-      const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
-      const url = `${baseUrl}/login?token=${token}`
-      await Linking.openURL(url)
-    })
-    .catch(logger.error)
+        const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
+        const url = `${baseUrl}/login?token=${token}`
+        await Linking.openURL(url)
+      })
+      .catch(logger.error)
   }
 
-  /**
-   * Returns webtoken string of current active Wallet address
-   * @returns string
-   */
+  // returns webtoken string of current active Wallet address
   const getActiveWebToken = async (): Promise<string> => {
     let webToken = await DFXPersistence.getToken(address)
     if (webToken === undefined || webToken.length === 0) {
@@ -70,20 +75,13 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     return webToken
   }
 
-  /**
-   * Check if Web session is expired
-   * @returns Promise<boolean>
-   */
+  // check if Web session is expired
   const isSessionExpired = async (): Promise<boolean> => {
     const session = await AuthService.Session
     return session.isExpired
   }
 
-  /**
-   * Start signing process and return signature
-   * @param address string
-   * @return Promise<void>
-   */
+  // start signing process and return signature
   const createSignature = async (address: string): Promise<void> => {
     /**
      * Signing message callback
@@ -101,27 +99,17 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         return await signAsync(message, privKey, true, messagePrefix)
     }
 
-    /**
-     * Message signed Callback
-     * @param signature Buffer
-     * @returns Promise<void>
-     */
-    const onMessageSigned = async (sigBuffer: Buffer, resolve?: () => void): Promise<void> => {
-        const sig = sigBuffer.toString('base64')
-        await DFXPersistence.setPair({
-            addr: address,
-            signature: sig
-        })
-        await DFXPersistence.resetPin()
-
-        if (resolve != null) {
-          resolve()
-        }
+    // message signed callback
+    const onMessageSigned = async (sigBuffer: Buffer): Promise<void> => {
+      const sig = sigBuffer.toString('base64')
+      await DFXPersistence.setPair({
+          addr: address,
+          signature: sig
+      })
+      await DFXPersistence.resetPin()
     }
 
-    /**
-     * Show Authentication Prompt
-     */
+    // show authentication Prompt
     if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
         const provider = MnemonicUnprotected.initProvider(providerData, network)
         const sigBuffer = await signMessage(provider)
@@ -135,7 +123,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
                 const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
                 return await signMessage(provider)
               },
-              onAuthenticated: async (buffer) => await onMessageSigned(buffer, resolve),
+              onAuthenticated: async (buffer) => {
+                await onMessageSigned(buffer)
+                resolve()
+              },
               onError: e => reject(e),
               message: translate('screens/UnlockWallet', 'To access DFX Services, we need you to enter your passcode.'),
               loading: translate('screens/TransactionAuthorization', 'Verifying access')
@@ -153,21 +144,14 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
       }
   }
 
-  /**
-   * Start sign in/up process and set web token to pair
-   * @param address string
-   * @return Promise<void>
-   */
+  // start sign in/up process and set web token to pair
   const createWebToken = async (address: string): Promise<void> => {
     const pair = await DFXPersistence.getPair(address)
     if (pair.signature === undefined || pair.signature.length === 0) {
         await createSignature(address)
     }
 
-    /**
-     * First try, sign up
-     */
-    // reset session web token
+    // first try, sign up
     await AuthService.deleteSession()
     // try sign in
     const signa = pair.signature ?? undefined
@@ -180,34 +164,29 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
             await DFXPersistence.setToken(pair.addr, respWithToken)
         })
         .catch(async resp => {
-            await DFXPersistence.resetToken(pair.addr)
-            const jsonObj = JSON.parse(resp)
-            if (jsonObj.statusCode !== undefined && jsonObj.statusCode === 401) {
-                // Invalid credentials
-                // -> fetch signature
-                await createSignature(pair.addr)
-                return
-            }
+          await DFXPersistence.resetToken(pair.addr)
+          if (resp.statusCode !== undefined && resp.statusCode === 401) {
+              // Invalid credentials
+              // -> fetch signature
+              await createSignature(pair.addr)
+              return
+          }
 
-            // try sign up
-            await signUp({ address: pair.addr, signature: signa, walletId: 1, usedRef: null })
-                .then(async respWithToken => {
-                    await DFXPersistence.setToken(pair.addr, respWithToken)
-                })
-                .catch(async resp => {
-                    const jsonObj = JSON.parse(resp)
-                    if (jsonObj.message !== undefined) {
-                        throw new Error(jsonObj.message)
-                    }
-                    throw new Error(resp)
-                })
+          // try sign up
+          await signUp({ address: pair.addr, signature: signa, walletId: 1, usedRef: null })
+              .then(async respWithToken => {
+                  await DFXPersistence.setToken(pair.addr, respWithToken)
+              })
+              .catch(async resp => {
+                  if (resp.message !== undefined) {
+                      throw new Error(resp.message)
+                  }
+                  throw new Error(resp)
+              })
         })
   }
 
-  /**
-   * Create/Update DFX Addr Signature Pair
-   * @param pair DFXAddrSignature
-   */
+  // create/update DFX addr signature pair
   const activePairHandler = async (pair: DFXAddrSignature): Promise<void> => {
     // - do we have a signature?
     if (pair.signature === undefined || pair.signature.length === 0) {
@@ -227,21 +206,19 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     }
   }
 
-  /**
-   * Public Context API
-   */
+  // public context API
   const context: DFXAPIContextI = {
     openDfxServices: openDfxServices
   }
 
-    // observe address state change
+  // observe address state change
   useEffect(() => {
-      DFXPersistence.getPair(address).then(async pair => {
+      DFXPersistence.getPair(debouncedAddress).then(async pair => {
         await activePairHandler(pair).catch(() => {})
       }).catch(async () => {
-        await activePairHandler({ addr: address, signature: undefined, token: undefined }).catch(() => {})
+        await activePairHandler({ addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => {})
       })
-  }, [address])
+  }, [debouncedAddress])
 
   return (
     <DFXAPIContext.Provider value={context}>
