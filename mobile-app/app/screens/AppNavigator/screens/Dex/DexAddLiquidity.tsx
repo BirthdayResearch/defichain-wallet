@@ -25,6 +25,7 @@ import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { PricesSection } from '@components/PricesSection'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -237,9 +238,26 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
             <ConversionInfoText />
           </View>}
       </View>
-
-      <PriceDetailsSection
-        pair={pair}
+      <PricesSection
+        priceRates={[{
+        label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
+          tokenA: pair.tokenA.displaySymbol,
+          tokenB: pair.tokenB.displaySymbol
+        }),
+        value: pair.bToARate.toFixed(8),
+        aSymbol: pair.tokenA.displaySymbol,
+        bSymbol: pair.tokenB.displaySymbol
+      },
+      {
+        label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+          tokenA: pair.tokenA.displaySymbol,
+          tokenB: pair.tokenB.displaySymbol
+        }),
+        value: pair.aToBRate.toFixed(8),
+        aSymbol: pair.tokenB.displaySymbol,
+        bSymbol: pair.tokenA.displaySymbol
+      }
+      ]} sectionTitle='PRICES'
       />
       <TransactionDetailsSection
         pair={pair}
@@ -309,43 +327,6 @@ function TokenInput (props: { symbol: string, balance: BigNumber, current: strin
   )
 }
 
-function PriceDetailsSection (props: { pair: ExtPoolPairData }): JSX.Element {
-  const { pair } = props
-  return (
-    <>
-      <ThemedSectionTitle
-        testID='title_price_detail'
-        text={translate('screens/AddLiquidity', 'PRICE DETAILS')}
-        style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
-      />
-      <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', {
-          tokenA: pair.tokenA.displaySymbol,
-          tokenB: pair.tokenB.displaySymbol
-        })}
-        rhs={{
-          value: pair.bToARate.toFixed(8),
-          testID: 'a_per_b_price',
-          suffixType: 'text',
-          suffix: pair.tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/AddLiquidity', '{{tokenA}} price per {{tokenB}}', {
-          tokenA: pair.tokenB.displaySymbol,
-          tokenB: pair.tokenA.displaySymbol
-        })}
-        rhs={{
-          value: pair.aToBRate.toFixed(8),
-          testID: 'b_per_a_price',
-          suffixType: 'text',
-          suffix: pair.tokenB.displaySymbol
-        }}
-      />
-    </>
-  )
-}
-
 function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fee: BigNumber, isConversionRequired: boolean, amountToConvert: BigNumber }): JSX.Element {
   const {
     pair,
@@ -363,11 +344,11 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
         <NumberRow
           lhs={translate('screens/AddLiquidity', 'UTXO to be converted')}
           rhs={{
-          value: props.amountToConvert.toFixed(8),
-          testID: 'text_amount_to_convert',
-          suffixType: 'text',
-          suffix: 'DFI'
-        }}
+            value: props.amountToConvert.toFixed(8),
+            testID: 'text_amount_to_convert',
+            suffixType: 'text',
+            suffix: 'DFI'
+          }}
         />}
       <NumberRow
         lhs={translate('screens/AddLiquidity', 'Share of pool')}

@@ -30,7 +30,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
-import { PriceRateProps, PricesSection } from './components/PricesSection'
+import { PriceRateProps, PricesSection } from '../../../../../components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
@@ -288,7 +288,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
-        label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', {
+        label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
           tokenA: selectedTokenA.displaySymbol,
           tokenB: selectedTokenB.displaySymbol
         }),
@@ -296,7 +296,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         aSymbol: selectedTokenA.displaySymbol,
         bSymbol: selectedTokenB.displaySymbol
       }, {
-        label: translate('screens/CompositeSwapScreen', '{{tokenB}} price in {{tokenA}}', {
+        label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
           tokenA: selectedTokenA.displaySymbol,
           tokenB: selectedTokenB.displaySymbol
         }),

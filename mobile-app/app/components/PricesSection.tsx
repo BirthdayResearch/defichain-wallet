@@ -11,7 +11,7 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
     <>
       <ThemedSectionTitle
         testID='pricerate_title'
-        text={translate('screens/CompositeSwapScreen', sectionTitle)}
+        text={translate('components/PricesSection', sectionTitle)}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       {priceRates.map((priceRate, index) => {

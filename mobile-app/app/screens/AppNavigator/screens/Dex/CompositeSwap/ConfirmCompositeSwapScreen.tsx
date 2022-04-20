@@ -17,7 +17,7 @@ import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@c
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
 import { FeeInfoRow } from '@components/FeeInfoRow'
-import { PricesSection } from './components/PricesSection'
+import { PricesSection } from '../../../../../components/PricesSection'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -157,7 +157,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           suffixType: 'text'
         }}
       />
-      <PricesSection priceRates={priceRates} sectionTitle='PRICE DETAILS' />
+      <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
       <TransactionResultsRow
         tokens={[
           {
