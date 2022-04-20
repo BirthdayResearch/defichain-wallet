@@ -19,7 +19,7 @@ exports[`Whale Context test Whale Context test for MainNet should match snapshot
 exports[`Whale Context test Whale Context test for Playground should match snapshot 1`] = `
 <View>
   <Text>
-    {"url":"https://playground.defichain.com","timeout":60000,"version":"v0","network":"regtest"}
+    {"url":"https://playground.jellyfishsdk.com","timeout":60000,"version":"v0","network":"regtest"}
   </Text>
 </View>
 `;
