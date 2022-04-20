@@ -35,6 +35,7 @@ describe('DFI Balance Card', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        dexPrices: {},
         swappableTokens: {},
         hasFetchedPoolpairData: false,
         hasFetchedToken: true,
@@ -117,7 +118,7 @@ describe('DFI Balance Card', () => {
     })
     const component = (
       <Provider store={store}>
-        <DFIBalanceCard />
+        <DFIBalanceCard denominationCurrency='USDT' />
       </Provider>
     )
     const rendered = render(component)

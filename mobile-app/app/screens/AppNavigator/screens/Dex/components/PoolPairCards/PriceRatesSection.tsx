@@ -7,6 +7,7 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ThemedText } from '@components/themed'
 import { translate } from '@translations'
 import NumberFormat from 'react-number-format'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 
 interface PriceRatesSectionProps {
   tokenA: {
@@ -31,9 +32,12 @@ export const PriceRatesSection = memo(({
     new BigNumber(tokenA.priceRate).isNaN() ||
     new BigNumber(tokenB.priceRate).isNaN()
   ) {
-    return <></>
+    return (
+      <View style={tailwind('mt-2')}>
+        <SkeletonLoader row={1} screen={SkeletonLoaderScreen.DexPrices} />
+      </View>
+    )
   }
-
   return (
     <View style={tailwind('flex')}>
       <ThemedText

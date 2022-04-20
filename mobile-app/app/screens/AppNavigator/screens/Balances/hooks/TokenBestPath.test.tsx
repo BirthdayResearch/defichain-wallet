@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { renderHook } from '@testing-library/react-hooks'
 import BigNumber from 'bignumber.js'
-import { useTokenPrice } from './TokenPrice'
+import { useTokenBestPath } from './TokenBestPath'
 import { DexItem, wallet } from '@store/wallet'
 import { block } from '@store/block'
 
@@ -11,7 +11,65 @@ jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn()
 }))
-describe('Token Price - Get Token Price (DEX)', () => {
+jest.mock('@shared-contexts/WhaleContext', () => ({
+  useWhaleApiClient: () => ({
+    poolpairs: {
+      getBestPath: (from: string, to: string) => ({
+        fromToken: {
+          id: '1',
+          symbol: 'BTC',
+          displaySymbol: 'dBTC'
+        },
+        toToken: {
+          id: '3',
+          symbol: 'USDT',
+          displaySymbol: 'dUSDT'
+        },
+        bestPath: [
+          {
+            poolPairId: '17',
+            symbol: 'BTC-DFI',
+            tokenA: {
+              id: '1',
+              symbol: 'BTC',
+              displaySymbol: 'dBTC'
+            },
+            tokenB: {
+              id: '0',
+              symbol: 'DFI',
+              displaySymbol: 'DFI'
+            },
+            priceRatio: {
+              ab: '1.00000000',
+              ba: '1.00000000'
+            }
+          },
+          {
+            poolPairId: '19',
+            symbol: 'USDT-DFI',
+            tokenA: {
+              id: '3',
+              symbol: 'USDT',
+              displaySymbol: 'dUSDT'
+            },
+            tokenB: {
+              id: '0',
+              symbol: 'DFI',
+              displaySymbol: 'DFI'
+            },
+            priceRatio: {
+              ab: '10000.00000000',
+              ba: '0.00010000'
+            }
+          }
+        ],
+        estimatedReturn: '10000.00000000'
+      })
+    }
+  })
+}))
+
+describe('Token Best Path - Get Best Path (DEX)', () => {
   const getChangingPoolPairReserve = ({
     pair1ReserveA, // BTC (BTC-DFI)
     pair1ReserveB, // DFI (BTC-DFI)
@@ -196,13 +254,7 @@ describe('Token Price - Get Token Price (DEX)', () => {
         pair2ReserveA: '8300',
         pair2ReserveB: '100'
       }),
-      dexPrices: {
-        USDT: {
-          BTC: { denominationPrice: '10000.00000000', token: { id: '1', symbol: 'BTC', displaySymbol: 'dBTC' } },
-          ETH: { denominationPrice: '100.00000000', token: { id: '2', symbol: 'ETH', displaySymbol: 'dETH' } },
-          DFI: { denominationPrice: '10000.00000000', token: { id: '0', symbol: 'DFI', displaySymbol: 'DFI' } }
-        }
-      },
+      dexPrices: {},
       swappableTokens: {},
       hasFetchedPoolpairData: false,
       hasFetchedToken: true,
@@ -221,20 +273,25 @@ describe('Token Price - Get Token Price (DEX)', () => {
     )
   }
 
-  it('should be able to get the token price', () => {
-    const { result } = renderHook(() => useTokenPrice(), { wrapper })
-    expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('10000'))
-    expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('100'))
-    expect(result.current.getTokenPrice('USDT', new BigNumber('12'), false)).toStrictEqual(new BigNumber('12'))
-  })
+  it('should be able to calculate price rates', async () => {
+    const { result } = renderHook(() => useTokenBestPath(), { wrapper })
+    // BTC = 1 USDT =3
+    const priceA = await result.current.calculatePriceRates('1', '3', new BigNumber('2'))
+    // BTC-DFI 1BTC = 1DFI => 1DFI = 1 DFI => 10000 USDT
+    expect(priceA)
+      .toStrictEqual({
+        aToBPrice: new BigNumber('10000'),
+        bToAPrice: new BigNumber('0.0001'),
+        estimated: new BigNumber('20000')
+      })
 
-  it('should be able to get the LP token price', () => {
-    const { result } = renderHook(() => useTokenPrice(), { wrapper })
-    const ratioToTotal = new BigNumber(1).div(2500) // total liquidity token ratio
-    const tokenAAmount = ratioToTotal.times(5).decimalPlaces(8, BigNumber.ROUND_DOWN) // pair1ReserveA
-    const tokenBAmount = ratioToTotal.times(1000).decimalPlaces(8, BigNumber.ROUND_DOWN) // pair1ReserveB
-    const usdTokenA = tokenAAmount.times(10000) // USDT price for tokenA
-    const usdTokenB = tokenBAmount.times(10000) // USDT price for tokenB
-    expect(result.current.getTokenPrice('BTC-DFI', new BigNumber('1'), true)).toStrictEqual(usdTokenA.plus(usdTokenB))
+    // BTC = 1 USDT =3
+    const priceB = await result.current.calculatePriceRates('1', '3', new BigNumber('1'))
+    expect(priceB)
+      .toStrictEqual({
+        aToBPrice: new BigNumber('10000'),
+        bToAPrice: new BigNumber('0.0001'),
+        estimated: new BigNumber('10000')
+      })
   })
 })

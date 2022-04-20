@@ -24,7 +24,7 @@ import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
@@ -40,9 +40,10 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { InputHelperText } from '@components/InputHelperText'
 import { ActiveUSDValue } from '../VaultDetail/components/ActiveUSDValue'
-import { PaymentTokenProps, useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
+import { getTokenAmount, PaymentTokenProps, useLoanPaymentTokenRate } from '../hooks/LoanPaymentTokenRate'
 import { LoanPercentage } from '../components/LoanPercentage'
-import { getUSDPrecisedPrice } from '../../Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
+import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -137,7 +138,7 @@ export function PaybackLoanScreen ({
       amountToPayInPaymentToken,
       amountToPayInLoanToken,
       hasSufficientPaymentTokenBalance: selectedPaymentTokenWithAmount.paymentToken.tokenBalance.gte(amountToPayInPaymentToken),
-      selectedPaymentTokenBalance: getTokenAmount(selectedPaymentToken.tokenId, tokens),
+      selectedPaymentTokenBalance: selectedPaymentTokenWithAmount.paymentToken.tokenBalance,
       outstandingBalanceInPaymentToken: selectedPaymentTokenWithAmount.outstandingBalanceInPaymentToken
     }
   }, [paymentTokensWithAmount, selectedPaymentToken])
@@ -238,7 +239,6 @@ export function PaybackLoanScreen ({
       merge: true
     })
   }
-
   const onChangeFromAmount = (amount: string): void => {
     setAmountToPay(amount)
   }
@@ -306,7 +306,7 @@ export function PaybackLoanScreen ({
           >
             <>
               <SetAmountButton
-                amount={new BigNumber(outstandingBalanceInPaymentToken)}
+                amount={selectedPaymentTokenBalance.gte(outstandingBalanceInPaymentToken) ? new BigNumber(outstandingBalanceInPaymentToken) : new BigNumber(selectedPaymentTokenBalance)}
                 onPress={onChangeFromAmount}
                 type={AmountButtonTypes.half}
               />
@@ -326,6 +326,7 @@ export function PaybackLoanScreen ({
             testID='available_token_balance'
           />
         </View>
+        {selectedPaymentToken.tokenSymbol === 'DFI' && <ReservedDFIInfoText style={tailwind('mb-4 mx-4')} />}
         {isConversionRequired && hasSufficientPaymentTokenBalance && <ConversionInfoText style={tailwind('mx-4')} />}
         <LoanPercentage
           amountToPayInPaymentToken={amountToPayInPaymentToken}
@@ -567,7 +568,7 @@ function TransactionDetailsSection ({
               testID: 'lhs_min_col_ratio'
             }}
             rhs={{
-              value: `${getUSDPrecisedPrice(vault.loanScheme.minColRatio)}%`,
+              value: `${getPrecisedTokenValue(vault.loanScheme.minColRatio)}%`,
               testID: 'text_min_col_ratio',
               numberOfLines: 1,
               ellipsizeMode: 'middle',
@@ -579,7 +580,7 @@ function TransactionDetailsSection ({
             {...rowStyle}
             lhs={translate('screens/PaybackLoanScreen', 'Total collateral (USD)')}
             rhs={{
-              value: getUSDPrecisedPrice(vault.collateralValue),
+              value: getPrecisedTokenValue(vault.collateralValue),
               testID: 'text_total_collateral_usd',
               prefix: '$'
             }}
@@ -589,7 +590,7 @@ function TransactionDetailsSection ({
             {...rowStyle}
             lhs={translate('screens/PaybackLoanScreen', 'Total loan (USD)')}
             rhs={{
-              value: getUSDPrecisedPrice(vault.loanValue),
+              value: getPrecisedTokenValue(vault.loanValue),
               testID: 'text_total_loan_usd',
               prefix: '$'
             }}
@@ -650,9 +651,4 @@ function TransactionDetailsSection ({
       </View>
     </ThemedView>
   )
-}
-
-const getTokenAmount = (tokenId: string, tokens: WalletToken[]): BigNumber => {
-  const id = tokenId === '0' ? '0_unified' : tokenId
-  return new BigNumber(tokens.find((t) => t.id === id)?.amount ?? 0)
 }

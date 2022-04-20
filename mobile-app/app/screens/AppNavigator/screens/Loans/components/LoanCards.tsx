@@ -12,7 +12,7 @@ import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 interface LoanCardsProps {
@@ -84,7 +84,7 @@ function LoanCard ({
   testID
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol)
-  const currentPrice = getUSDPrecisedPrice(getActivePrice(symbol, price))
+  const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price))
   return (
     <ThemedTouchableOpacity
       testID={`loan_card_${displaySymbol}`}

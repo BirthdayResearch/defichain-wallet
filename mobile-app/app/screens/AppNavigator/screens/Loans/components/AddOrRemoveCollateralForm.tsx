@@ -12,6 +12,7 @@ import { memo, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity, View, Text } from 'react-native'
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -27,7 +28,7 @@ import {
 } from '../hooks/CollateralizationRatio'
 import { getCollateralPrice, useTotalCollateralValue, useValidCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 
@@ -53,6 +54,7 @@ export interface AddOrRemoveCollateralResponse {
 }
 
 export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element => {
+  const { isLight } = useThemeContext()
   const {
     token,
     activePrice,
@@ -151,265 +153,267 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const hasInvalidColRatio = resultingColRatio.isLessThanOrEqualTo(0) || resultingColRatio.isNaN() || !resultingColRatio.isFinite()
 
   return (
-    <ThemedView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-dfxblue-800')}
-      style={tailwind('p-4 flex-1')}
+    <ScrollView
+      style={tailwind(['p-4 flex-1', {
+        'bg-white': isLight,
+        'bg-dfxblue-800': !isLight
+      }])}
     >
-      <ScrollView>
-        <View style={tailwind('flex flex-row items-center mb-2')}>
-          <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
-            {translate('components/AddOrRemoveCollateralForm', `How much {{symbol}} to ${isAdd ? 'add' : 'remove'}?`, {
-              symbol: token.displaySymbol
-            })}
-          </ThemedText>
-          {onCloseButtonPress !== undefined && (
-            <TouchableOpacity onPress={onCloseButtonPress}>
-              <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
-            </TouchableOpacity>
-          )}
-        </View>
-        <View style={tailwind('flex flex-row items-center mb-2')}>
-          <SymbolIcon
-            symbol={token.displaySymbol} styleProps={tailwind('w-6 h-6')}
-          />
-          <ThemedText
-            testID={`token_symbol_${token.displaySymbol}`}
-            style={tailwind('mx-2')}
-          >
-            {token.displaySymbol}
-          </ThemedText>
-          <ThemedView
-            light={tailwind('text-gray-700 border-gray-700')}
-            dark={tailwind('text-dfxgray-300 border-dfxgray-300')}
-            style={tailwind('border rounded')}
-          >
-            <NumberFormat
-              value={collateralFactor.toFixed(2)}
-              decimalScale={2}
-              displayType='text'
-              suffix={`% ${translate('components/AddOrRemoveCollateralForm', 'collateral factor')}`}
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-700')}
-                  dark={tailwind('text-dfxgray-300')}
-                  style={tailwind('text-xs font-medium px-1')}
-                >
-                  {value}
-                </ThemedText>}
-            />
-          </ThemedView>
-        </View>
-        <WalletTextInput
-          value={collateralValue}
-          inputType='numeric'
-          displayClearButton={collateralValue !== ''}
-          onChangeText={onAmountChange}
-          onClearButtonPress={() => {
-            setCollateralValue('')
-            setVaultValue('')
-          }}
-          placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
-          style={tailwind('h-9 w-6/12 flex-grow')}
-          hasBottomSheet
-          testID='form_input_text'
+      <View style={tailwind('flex flex-row items-center mb-2')}>
+        <ThemedText testID='form_title' style={tailwind('flex-1 mb-2 text-lg font-medium')}>
+          {translate('components/AddOrRemoveCollateralForm', `How much {{symbol}} to ${isAdd ? 'add' : 'remove'}?`, {
+            symbol: token.displaySymbol
+          })}
+        </ThemedText>
+        {onCloseButtonPress !== undefined && (
+          <TouchableOpacity onPress={onCloseButtonPress}>
+            <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
+          </TouchableOpacity>
+        )}
+      </View>
+      <View style={tailwind('flex flex-row items-center mb-2')}>
+        <SymbolIcon
+          symbol={token.displaySymbol} styleProps={tailwind('w-6 h-6')}
+        />
+        <ThemedText
+          testID={`token_symbol_${token.displaySymbol}`}
+          style={tailwind('mx-2')}
         >
-          <ThemedView
-            dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
-            light={tailwind('bg-white')}
-            style={tailwind('flex-row items-center')}
-          >
-            <SetAmountButton
-              amount={new BigNumber(available)}
-              onPress={onAmountChange}
-              type={AmountButtonTypes.half}
-            />
-            <SetAmountButton
-              amount={new BigNumber(available)}
-              onPress={onAmountChange}
-              type={AmountButtonTypes.max}
-            />
-          </ThemedView>
-        </WalletTextInput>
-        <InputHelperText
-          label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
-          content={available}
-          testID='form_balance_text'
-          suffixType='component'
-          styleProps={tailwind('font-medium')}
+          {token.displaySymbol}
+        </ThemedText>
+        <ThemedView
+          light={tailwind('text-gray-700 border-gray-700')}
+          dark={tailwind('text-gray-300 border-gray-300')}
+          style={tailwind('border rounded')}
         >
-          <ThemedText
-            light={tailwind('text-gray-700')}
-            dark={tailwind('text-gray-200')}
-            style={tailwind('text-sm font-medium')}
-          >
-            <Text>{' '}</Text>
-            {token.displaySymbol}
-            {
-              !new BigNumber(activePrice).isZero() && (
-                <NumberFormat
-                  value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
-                  thousandSeparator
-                  decimalScale={2}
-                  displayType='text'
-                  prefix='$'
-                  renderText={(val: string) => (
-                    <ThemedText
-                      dark={tailwind('text-dfxgray-400')}
-                      light={tailwind('text-gray-500')}
-                      style={tailwind('text-xs leading-5')}
-                    >
-                      {` /${val}`}
-                    </ThemedText>
-                  )}
-                />
-              )
-            }
-          </ThemedText>
-        </InputHelperText>
-        {isFeatureAvailable('dusd_vault_share')
-          ? (
-            <View
-              style={tailwind('flex justify-between items-center flex-row w-full')}
-            >
-              <ThemedText style={tailwind('mr-2 w-6/12')}>{translate('components/AddOrRemoveCollateralForm', 'Vault requirement')}</ThemedText>
-              <ThemedView
-                style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+          <NumberFormat
+            value={collateralFactor.toFixed(2)}
+            decimalScale={2}
+            displayType='text'
+            suffix={`% ${translate('components/AddOrRemoveCollateralForm', 'collateral factor')}`}
+            renderText={value =>
+              <ThemedText
+                light={tailwind('text-gray-700')}
+                dark={tailwind('text-gray-300')}
+                style={tailwind('text-xs font-medium px-1')}
               >
-                <TokenIconGroup
-                  testID='required_collateral_token_group'
-                  symbols={requiredVaultShareTokens}
-                  maxIconToDisplay={2}
-                />
+                {value}
+              </ThemedText>}
+          />
+        </ThemedView>
+      </View>
+      <WalletTextInput
+        value={collateralValue}
+        inputType='numeric'
+        displayClearButton={collateralValue !== ''}
+        onChangeText={onAmountChange}
+        onClearButtonPress={() => {
+          setCollateralValue('')
+          setVaultValue('')
+        }}
+        placeholder={translate('components/AddOrRemoveCollateralForm', 'Enter an amount')}
+        style={tailwind('h-9 w-6/12 flex-grow')}
+        hasBottomSheet
+        testID='form_input_text'
+      >
+        <ThemedView
+          dark={tailwind('bg-gray-800')}
+          light={tailwind('bg-white')}
+          style={tailwind('flex-row items-center')}
+        >
+          <SetAmountButton
+            amount={new BigNumber(available)}
+            onPress={onAmountChange}
+            type={AmountButtonTypes.half}
+          />
+
+          <SetAmountButton
+            amount={new BigNumber(available)}
+            onPress={onAmountChange}
+            type={AmountButtonTypes.max}
+          />
+        </ThemedView>
+      </WalletTextInput>
+
+      <InputHelperText
+        label={`${translate('components/AddOrRemoveCollateralForm', isAdd ? 'Available' : 'Current')}: `}
+        content={available}
+        testID='form_balance_text'
+        suffixType='component'
+        styleProps={tailwind('font-medium')}
+      >
+        <ThemedText
+          light={tailwind('text-gray-700')}
+          dark={tailwind('text-gray-200')}
+          style={tailwind('text-sm font-medium')}
+        >
+          <Text>{' '}</Text>
+          {token.displaySymbol}
+          {
+            !new BigNumber(activePrice).isZero() && (
+              <NumberFormat
+                value={getPrecisedTokenValue(activePrice.multipliedBy(available))}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                prefix='$'
+                renderText={(val: string) => (
+                  <ThemedText
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('text-xs leading-5')}
+                  >
+                    {` /${val}`}
+                  </ThemedText>
+                )}
+              />
+            )
+          }
+        </ThemedText>
+      </InputHelperText>
+      {isFeatureAvailable('dusd_vault_share')
+        ? (
+          <View
+            style={tailwind('flex justify-between items-center flex-row w-full')}
+          >
+            <ThemedText style={tailwind('mr-2 w-6/12')}>{translate('components/AddOrRemoveCollateralForm', 'Vault requirement')}</ThemedText>
+
+            <ThemedView
+              style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+            >
+              <TokenIconGroup
+                testID='required_collateral_token_group'
+                symbols={requiredVaultShareTokens}
+                maxIconToDisplay={2}
+              />
+              <NumberFormat
+                value={requiredTokensShare.toFixed(2)}
+                thousandSeparator
+                decimalScale={2}
+                displayType='text'
+                suffix='%'
+                renderText={(val: string) => (
+                  <ThemedView
+                    style={tailwind('flex flex-row px-1 rounded')}
+                  >
+                    <ThemedText
+                      light={tailwind(['text-gray-900', { 'text-error-500': !isValidCollateralRatio }])}
+                      dark={tailwind(['text-gray-50', { 'text-error-500': !isValidCollateralRatio }])}
+                      style={tailwind('text-sm font-medium')}
+                      testID='bottom-sheet-vault-requirement-text'
+                    >
+                      {val}
+                    </ThemedText>
+                    <Text>{' '}</Text>
+                    <ThemedText
+                      dark={tailwind('text-gray-400')}
+                      light={tailwind('text-gray-500')}
+                      style={tailwind('text-sm font-medium')}
+                    >
+                      {`/${minRequiredTokensShare}%`}
+                    </ThemedText>
+                  </ThemedView>
+                )}
+              />
+            </ThemedView>
+          </View>
+        )
+        : (
+          <ScrollView
+            horizontal contentContainerStyle={tailwind(['flex justify-between items-center flex-row', {
+            'flex-grow h-7': Platform.OS !== 'web',
+            'w-full': Platform.OS === 'web'
+          }])}
+          >
+            <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
+            <ThemedView
+              style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+            >
+              <SymbolIcon
+                symbol={token.displaySymbol}
+              />
+              {displayNA
+              ? (
+                <ThemedText
+                  light={tailwind('text-gray-900')}
+                  dark={tailwind('text-gray-50')}
+                  style={tailwind('px-1 text-sm font-medium')}
+                  testID='bottom-sheet-vault-percentage-text'
+                >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
+                </ThemedText>
+              )
+              : (
                 <NumberFormat
-                  value={requiredTokensShare.toFixed(2)}
+                  value={vaultValue}
                   thousandSeparator
                   decimalScale={2}
                   displayType='text'
                   suffix='%'
                   renderText={(val: string) => (
                     <ThemedView
-                      style={tailwind('flex flex-row px-1 rounded')}
+                      style={tailwind('px-1 rounded')}
                     >
                       <ThemedText
-                        light={tailwind(['text-gray-900', { 'text-error-500': !isValidCollateralRatio }])}
-                        dark={tailwind(['text-dfxgray-500', { 'text-error-500': !isValidCollateralRatio }])}
+                        light={tailwind('text-gray-900')}
+                        dark={tailwind('text-gray-50')}
                         style={tailwind('text-sm font-medium')}
-                        testID='bottom-sheet-vault-requirement-text'
+                        testID='bottom-sheet-vault-percentage-text'
                       >
                         {val}
                       </ThemedText>
-                      <Text>{' '}</Text>
-                      <ThemedText
-                        dark={tailwind('text-dfxgray-400')}
-                        light={tailwind('text-gray-500')}
-                        style={tailwind('text-sm font-medium')}
-                      >
-                        {`/${minRequiredTokensShare}%`}
-                      </ThemedText>
                     </ThemedView>
                   )}
-                />
-              </ThemedView>
-            </View>
-          )
-          : (
-            <ScrollView
-              horizontal contentContainerStyle={tailwind(['flex justify-between items-center flex-row', {
-              'flex-grow h-7': Platform.OS !== 'web',
-              'w-full': Platform.OS === 'web'
-            }])}
-            >
-              <ThemedText style={tailwind('mr-2')}>{translate('components/AddOrRemoveCollateralForm', 'Vault %')}</ThemedText>
-              <ThemedView
-                style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
-              >
-                <SymbolIcon
-                  symbol={token.displaySymbol}
-                />
-                {displayNA
-                ? (
-                  <ThemedText
-                    light={tailwind('text-gray-900')}
-                    dark={tailwind('text-dfxgray-500')}
-                    style={tailwind('px-1 text-sm font-medium')}
-                    testID='bottom-sheet-vault-percentage-text'
-                  >{translate('components/AddOrRemoveCollateralForm', 'N/A')}
-                  </ThemedText>
-                )
-                : (
-                  <NumberFormat
-                    value={vaultValue}
-                    thousandSeparator
-                    decimalScale={2}
-                    displayType='text'
-                    suffix='%'
-                    renderText={(val: string) => (
-                      <ThemedView
-                        style={tailwind('px-1 rounded')}
-                      >
-                        <ThemedText
-                          light={tailwind('text-gray-900')}
-                          dark={tailwind('text-dfxgray-500')}
-                          style={tailwind('text-sm font-medium')}
-                          testID='bottom-sheet-vault-percentage-text'
-                        >
-                          {val}
-                        </ThemedText>
-                      </ThemedView>
-                    )}
-                  />)}
-              </ThemedView>
-            </ScrollView>
-          )}
-        <View style={tailwind('pt-2 flex justify-between flex-row')}>
-          <ThemedText
-            style={tailwind('mr-2')}
-          >{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}
-          </ThemedText>
-          <ThemedText
-            style={tailwind('font-semibold pr-2')}
-            light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
-            dark={hasInvalidColRatio ? tailwind('text-dfxgray-300') : colors.dark}
-            testID='resulting_collateralization'
-          >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
-          </ThemedText>
-        </View>
-        <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
-        {isConversionRequired && (
-          <View style={tailwind('mt-4 mb-6')}>
-            <ConversionInfoText />
-          </View>
+                />)}
+            </ThemedView>
+          </ScrollView>
         )}
-        <Button
-          disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && hasLoan)}
-          label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
-          onPress={() => onButtonPress({
-            token,
-            amount: new BigNumber(collateralValue)
-          })}
-          margin='mt-6 mb-2'
-          testID='add_collateral_button_submit'
-        />
-        {(isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && requiredVaultShareTokens.includes(token.symbol)) && hasLoan && (
-          <ThemedText
-            dark={tailwind('text-error-500')}
-            light={tailwind('text-error-500')}
-            style={tailwind('text-sm text-center')}
-            testID='vault_min_share_warning'
-          >
-            {translate('screens/BorrowLoanTokenScreen', 'Your vault needs at least 50% of DFI and/or DUSD as collateral')}
-          </ThemedText>
-        )}
+      <View style={tailwind('pt-2 flex justify-between flex-row')}>
         <ThemedText
-          style={tailwind('text-xs text-center p-2 px-6 pb-6')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-dfxgray-400')}
-        >
-          {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
+          style={tailwind('mr-2')}
+        >{translate('components/AddOrRemoveCollateralForm', 'Resulting collateralization')}
         </ThemedText>
-      </ScrollView>
-    </ThemedView>
+        <ThemedText
+          style={tailwind('font-semibold pr-2')}
+          light={hasInvalidColRatio ? tailwind('text-gray-300') : colors.light}
+          dark={hasInvalidColRatio ? tailwind('text-gray-300') : colors.dark}
+          testID='resulting_collateralization'
+        >{hasInvalidColRatio ? translate('components/AddOrRemoveCollateralForm', 'N/A') : `${resultingColRatio.toFixed(2)}%`}
+        </ThemedText>
+      </View>
+      <ColorBar displayedBarsLen={displayedColorBars} colorBarsLen={COLOR_BARS_COUNT} />
+      {isConversionRequired && (
+        <View style={tailwind('mt-4 mb-6')}>
+          <ConversionInfoText />
+        </View>
+      )}
+      <Button
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && hasLoan)}
+        label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
+        onPress={() => onButtonPress({
+          token,
+          amount: new BigNumber(collateralValue)
+        })}
+        margin='mt-6 mb-2'
+        testID='add_collateral_button_submit'
+      />
+      {(isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && requiredVaultShareTokens.includes(token.symbol)) && hasLoan && (
+        <ThemedText
+          dark={tailwind('text-error-500')}
+          light={tailwind('text-error-500')}
+          style={tailwind('text-sm text-center')}
+          testID='vault_min_share_warning'
+        >
+          {translate('screens/BorrowLoanTokenScreen', 'Your vault needs at least 50% of DFI and/or DUSD as collateral')}
+        </ThemedText>
+      )}
+      <ThemedText
+        style={tailwind('text-xs text-center p-2 px-6 pb-12')}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      >
+        {translate('components/AddOrRemoveCollateralForm', 'The collateral factor determines the degree of contribution of each collateral token.')}
+      </ThemedText>
+    </ScrollView>
   )
 })
 
