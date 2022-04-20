@@ -239,25 +239,26 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           </View>}
       </View>
       <PricesSection
+        testID='pricerate_value'
         priceRates={[{
-        label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
-          tokenA: pair.tokenA.displaySymbol,
-          tokenB: pair.tokenB.displaySymbol
-        }),
-        value: pair.bToARate.toFixed(8),
-        aSymbol: pair.tokenA.displaySymbol,
-        bSymbol: pair.tokenB.displaySymbol
-      },
-      {
-        label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
-          tokenA: pair.tokenA.displaySymbol,
-          tokenB: pair.tokenB.displaySymbol
-        }),
-        value: pair.aToBRate.toFixed(8),
-        aSymbol: pair.tokenB.displaySymbol,
-        bSymbol: pair.tokenA.displaySymbol
-      }
-      ]} sectionTitle='PRICES'
+          label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
+            tokenA: pair.tokenA.displaySymbol,
+            tokenB: pair.tokenB.displaySymbol
+          }),
+          value: pair.bToARate.toFixed(8),
+          aSymbol: pair.tokenA.displaySymbol,
+          bSymbol: pair.tokenB.displaySymbol
+        },
+        {
+          label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+            tokenA: pair.tokenA.displaySymbol,
+            tokenB: pair.tokenB.displaySymbol
+          }),
+          value: pair.aToBRate.toFixed(8),
+          aSymbol: pair.tokenB.displaySymbol,
+          bSymbol: pair.tokenA.displaySymbol
+        }
+        ]} sectionTitle='PRICES'
       />
       <TransactionDetailsSection
         pair={pair}

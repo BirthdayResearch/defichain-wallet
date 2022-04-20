@@ -477,7 +477,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               setSlippageError={setSlippageError}
               slippage={slippage}
             />
-            <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
+            <PricesSection testID='pricerate_value' priceRates={priceRates} sectionTitle='PRICES' />
             <TransactionDetailsSection
               amountToSwap={tokenAFormAmount}
               conversionAmount={conversionAmount}

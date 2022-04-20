@@ -6,7 +6,7 @@ import { NumberRow } from '@components/NumberRow'
 
 export interface PriceRateProps { label: string, value: string, aSymbol: string, bSymbol: string }
 
-export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceRateProps[], sectionTitle: string}): JSX.Element {
+export function PricesSection ({ priceRates, sectionTitle, testID }: {priceRates: PriceRateProps[], sectionTitle: string, testID: string}): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
@@ -21,7 +21,7 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
             lhs={priceRate.label}
             rhs={{
               value: priceRate.value,
-              testID: `pricerate_value_${index}`,
+              testID: `${testID}_${index}`,
               prefix: `1 ${priceRate.aSymbol} = `,
               suffix: priceRate.bSymbol,
               suffixType: 'text'

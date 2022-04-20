@@ -26,6 +26,7 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { PricesSection } from '@components/PricesSection'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -209,33 +210,27 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
 
-      <ThemedSectionTitle
-        testID='title_price_detail'
-        text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
-          tokenA: pair.tokenA.displaySymbol,
-          tokenB: pair.tokenB.displaySymbol
-        })}
-        rhs={{
+      <PricesSection
+        testID='confirm_pricerate_value'
+        priceRates={[{
+          label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
+            tokenA: pair.tokenA.displaySymbol,
+            tokenB: pair.tokenB.displaySymbol
+          }),
           value: bToARate.toFixed(8),
-          testID: 'price_a',
-          suffixType: 'text',
-          suffix: pair.tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
-          tokenA: pair.tokenB.displaySymbol,
-          tokenB: pair.tokenA.displaySymbol
-        })}
-        rhs={{
+          aSymbol: pair.tokenA.displaySymbol,
+          bSymbol: pair.tokenB.displaySymbol
+        },
+        {
+          label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+            tokenA: pair.tokenA.displaySymbol,
+            tokenB: pair.tokenB.displaySymbol
+          }),
           value: aToBRate.toFixed(8),
-          testID: 'price_b',
-          suffixType: 'text',
-          suffix: pair.tokenB.displaySymbol
-        }}
+          aSymbol: pair.tokenB.displaySymbol,
+          bSymbol: pair.tokenA.displaySymbol
+        }
+        ]} sectionTitle='PRICES'
       />
 
       <TransactionResultsRow

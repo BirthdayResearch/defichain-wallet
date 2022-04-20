@@ -157,7 +157,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           suffixType: 'text'
         }}
       />
-      <PricesSection priceRates={priceRates} sectionTitle='PRICES' />
+      <PricesSection testID='confirm_pricerate_value' priceRates={priceRates} sectionTitle='PRICES' />
       <TransactionResultsRow
         tokens={[
           {
