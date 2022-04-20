@@ -274,7 +274,7 @@ export function SendScreen ({
                     <>
                       {matchedAddress !== undefined && (
                         <ThemedView
-                          style={tailwind('mx-2 mb-2 pl-1 pr-2 py-1 rounded-2xl flex flex-row self-start')}
+                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
                           light={tailwind('bg-gray-50')}
                           dark={tailwind('bg-gray-900')}
                         >
@@ -286,7 +286,7 @@ export function SendScreen ({
                             dark={tailwind('text-gray-500')}
                           />
                           <ThemedText
-                            style={tailwind('text-xs ml-1')}
+                            style={tailwind('text-xs ml-1 pt-px')}
                             light={tailwind('text-gray-500')}
                             dark={tailwind('text-gray-400')}
                           >
