@@ -42,6 +42,8 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import * as Clipboard from 'expo-clipboard'
+import { LocalAddress } from '@store/userPreferences'
+import { debounce } from 'lodash'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -52,7 +54,7 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
+  const { address: walletAddress } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
@@ -62,8 +64,12 @@ export function SendScreen ({
     setValue,
     formState,
     getValues,
-    trigger
+    trigger,
+    watch
   } = useForm({ mode: 'onChange' })
+  const { address } = watch()
+  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -101,15 +107,18 @@ export function SendScreen ({
       bottomSheetRef.current?.close()
     }
   }, [])
+  const debounceMatchAddress = debounce(() => {
+    setMatchedAddress(addressBook[address])
+  }, 500)
 
   useEffect(() => {
     if (isFocused) {
       dispatch(fetchTokens({
         client,
-        address
+        address: walletAddress
       }))
     }
-  }, [address, blockCount, isFocused])
+  }, [walletAddress, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
@@ -129,6 +138,10 @@ export function SendScreen ({
 
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
+
+  useEffect(() => {
+    debounceMatchAddress()
+  }, [address])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -257,6 +270,32 @@ export function SendScreen ({
                       await trigger('address')
                     })
                   }}
+                  inputFooter={
+                    <>
+                      {matchedAddress !== undefined && (
+                        <ThemedView
+                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                          light={tailwind('bg-gray-50')}
+                          dark={tailwind('bg-gray-900')}
+                        >
+                          <ThemedIcon
+                            name='account-check'
+                            iconType='MaterialCommunityIcons'
+                            size={18}
+                            light={tailwind('text-gray-400')}
+                            dark={tailwind('text-gray-500')}
+                          />
+                          <ThemedText
+                            style={tailwind('text-xs ml-1 pt-px')}
+                            light={tailwind('text-gray-500')}
+                            dark={tailwind('text-gray-400')}
+                          >
+                            {matchedAddress.label}
+                          </ThemedText>
+                        </ThemedView>
+                      )}
+                    </>
+                  }
                 />
 
                 <AmountRow
@@ -438,8 +477,9 @@ function AddressRow ({
   onQrButtonPress,
   onClearButtonPress,
   onAddressChange,
-  onPasteButtonPress
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void }): JSX.Element {
+  onPasteButtonPress,
+  inputFooter
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -473,6 +513,7 @@ function AddressRow ({
                 isPasteDisabled: false,
                 onPasteButtonPress: onPasteButtonPress
               }}
+              inputFooter={inputFooter}
             >
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}

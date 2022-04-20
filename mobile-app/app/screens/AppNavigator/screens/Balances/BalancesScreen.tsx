@@ -6,7 +6,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -18,7 +18,7 @@ import { translate } from '@translations'
 import { Platform, RefreshControl, View } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
-import { TotalPortfolio } from './components/TotalPortfolio'
+import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
@@ -32,6 +32,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -46,8 +47,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     address,
     addressLength
   } = useWalletContext()
+  const {
+    denominationCurrency,
+    setDenominationCurrency
+  } = useDenominationCurrency()
+
+  const { getTokenPrice } = useTokenPrice(denominationCurrency)
+  const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const { wallets } = useWalletPersistenceContext()
-  const lockedTokens = useTokenLockedBalance({}) as Map<string, LockedBalance>
+  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const {
     isBalancesDisplayed,
     toggleDisplayBalances: onToggleDisplayBalances
@@ -56,7 +64,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
 
   const dispatch = useDispatch()
-  const { getTokenPrice } = useTokenPrice()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
@@ -100,6 +107,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     })
   }
 
+  useEffect(() => {
+    dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
+  }, [blockCount, denominationCurrency])
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     fetchPortfolioData()
@@ -107,44 +118,68 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  // TODO: Check if this is needed for recalculation with change of denominationCurrency
+  // const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
-    totalAvailableUSDValue,
+    totalAvailableValue,
     dstTokens
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableUSDValue,
+          totalAvailableValue,
           dstTokens
-        }: { totalAvailableUSDValue: BigNumber, dstTokens: BalanceRowToken[] },
+        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
-
         if (token.symbol === 'DFI') {
           return {
-            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableUSDValue
-            totalAvailableUSDValue: token.id === '0_unified'
-              ? totalAvailableUSDValue
-              : totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+            // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableValue
+            totalAvailableValue: token.id === '0_unified'
+              ? totalAvailableValue
+              : totalAvailableValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
             dstTokens
           }
         }
         return {
-          totalAvailableUSDValue: totalAvailableUSDValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+          totalAvailableValue: totalAvailableValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
           dstTokens: [...dstTokens, {
             ...token,
             usdAmount
           }]
         }
       }, {
-        totalAvailableUSDValue: new BigNumber(0),
+        totalAvailableValue: new BigNumber(0),
         dstTokens: []
       })
-  }, [getTokenPrice, tokens])
+  }, [prices, tokens])
 
+  // portfolio tab items
+  const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
+    setDenominationCurrency(portfolioButtonGroupTabKey)
+  }
+
+  const portfolioButtonGroup = [
+    {
+      id: PortfolioButtonGroupTabKey.USDT,
+      // api is saved as USDT, but will display in USD on app
+      label: translate('screens/TotalPortfolio', 'USD'),
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT)
+    },
+    {
+      id: PortfolioButtonGroupTabKey.DFI,
+      label: translate('screens/BalancesScreen', 'DFI'),
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.DFI)
+    },
+    {
+      id: PortfolioButtonGroupTabKey.BTC,
+      label: translate('screens/BalancesScreen', 'BTC'),
+      handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.BTC)
+    }
+  ]
+
+  // token tab items
   const [filteredTokens, setFilteredTokens] = useState(dstTokens)
-
-  // tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filterTokens = dstTokens.filter((dstToken) => {
@@ -163,27 +198,31 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     setFilteredTokens(filterTokens)
   }, [dstTokens])
 
-  const totalLockedUSDValue = useMemo(() => {
+  const totalLockedValue = useMemo(() => {
     if (lockedTokens === undefined) {
       return new BigNumber(0)
     }
     return [...lockedTokens.values()]
-      .reduce((totalLockedUSDValue: BigNumber, value: LockedBalance) =>
-          totalLockedUSDValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+      .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
+          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
-  }, [lockedTokens])
+  }, [lockedTokens, prices])
 
-  const totalLoansUSDValue = useMemo(() => {
+  const totalLoansValue = useMemo(() => {
     if (vaults === undefined) {
       return new BigNumber(0)
     }
     return vaults
-      .reduce((totalLoansUSDValue: BigNumber, vault: LoanVaultActive) =>
-          totalLoansUSDValue.plus(new BigNumber(vault.loanValue).isNaN() ? 0 : new BigNumber(vault.loanValue)),
-        new BigNumber(0))
-  }, [vaults])
+      .reduce((totalLoansValue: BigNumber, vault: LoanVaultActive) => {
+        const totalVaultLoansValue = vault.loanAmounts.reduce((totalVaultLoansValue, loanToken) => {
+          const tokenValue = getTokenPrice(loanToken.symbol, new BigNumber(loanToken.amount))
+          return totalVaultLoansValue.plus(new BigNumber(tokenValue).isNaN() ? 0 : tokenValue)
+        }, new BigNumber(0))
+        return totalLoansValue.plus(new BigNumber(totalVaultLoansValue).isNaN() ? 0 : totalVaultLoansValue)
+      }, new BigNumber(0))
+  }, [prices, vaults])
 
-  // to update filter list from selected tab
+  // to update filter list from selected token tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
   }, [activeButtonGroup, dstTokens])
@@ -265,14 +304,20 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       >
         <Announcements />
         <TotalPortfolio
-          totalAvailableUSDValue={totalAvailableUSDValue}
-          totalLockedUSDValue={totalLockedUSDValue}
-          totalLoansUSDValue={totalLoansUSDValue}
+          totalAvailableValue={totalAvailableValue}
+          totalLockedValue={totalLockedValue}
+          totalLoansValue={totalLoansValue}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
+          portfolioButtonGroupOptions={{
+            activePortfolioButtonGroup: denominationCurrency,
+            setActivePortfolioButtonGroup: setDenominationCurrency
+          }}
+          portfolioButtonGroup={portfolioButtonGroup}
+          denominationCurrency={denominationCurrency}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        <DFIBalanceCard />
+        <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (
             <View style={tailwind('p-4')}>
@@ -285,10 +330,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={filteredTokens}
               navigation={navigation}
               buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
+                activeButtonGroup: activeButtonGroup,
+                setActiveButtonGroup: setActiveButtonGroup,
+                onButtonGroupPress: handleButtonFilter
+              }}
+              denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'
           ? (
