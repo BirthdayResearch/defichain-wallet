@@ -6,30 +6,16 @@ import { getEnvironment } from '@environment'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import * as Updates from 'expo-updates'
 
-import BtnGatewayEn from '@assets/images/dfx_buttons/btn_gateway_en.png'
-import BtnOverviewEn from '@assets/images/dfx_buttons/btn_overview_en.png'
-import BtnTaxEn from '@assets/images/dfx_buttons/btn_tax_en.png'
-import BtnDobbyEn from '@assets/images/dfx_buttons/btn_dobby_en.png'
+import BtnDfxEn from '@assets/images/dfx_buttons/btn_dfx_en.png'
+import BtnDfxDe from '@assets/images/dfx_buttons/btn_dfx_de.png'
+import BtnDfxFr from '@assets/images/dfx_buttons/btn_dfx_fr.png'
+import BtnDfxIt from '@assets/images/dfx_buttons/btn_dfx_it.png'
+import BtnDfxEs from '@assets/images/dfx_buttons/btn_dfx_es.png'
 
-import BtnGatewayDe from '@assets/images/dfx_buttons/btn_gateway_de.png'
-import BtnOverviewDe from '@assets/images/dfx_buttons/btn_overview_de.png'
-import BtnTaxDe from '@assets/images/dfx_buttons/btn_tax_de.png'
-import BtnDobbyDe from '@assets/images/dfx_buttons/btn_dobby_de.png'
+import BtnOverview from '@assets/images/dfx_buttons/btn_income.png'
+import BtnTax from '@assets/images/dfx_buttons/btn_tax.png'
+import BtnDobby from '@assets/images/dfx_buttons/btn_dobby.png'
 
-import BtnGatewayFr from '@assets/images/dfx_buttons/btn_gateway_fr.png'
-import BtnOverviewFr from '@assets/images/dfx_buttons/btn_overview_fr.png'
-import BtnTaxFr from '@assets/images/dfx_buttons/btn_tax_fr.png'
-import BtnDobbyFr from '@assets/images/dfx_buttons/btn_dobby_fr.png'
-
-import BtnGatewayIt from '@assets/images/dfx_buttons/btn_gateway_it.png'
-import BtnOverviewIt from '@assets/images/dfx_buttons/btn_overview_it.png'
-import BtnTaxIt from '@assets/images/dfx_buttons/btn_tax_it.png'
-import BtnDobbyIt from '@assets/images/dfx_buttons/btn_dobby_it.png'
-
-import BtnGatewayEs from '@assets/images/dfx_buttons/btn_gateway_es.png'
-import BtnOverviewEs from '@assets/images/dfx_buttons/btn_overview_es.png'
-import BtnTaxEs from '@assets/images/dfx_buttons/btn_tax_es.png'
-import BtnDobbyEs from '@assets/images/dfx_buttons/btn_dobby_es.png'
 import { useCallback } from 'react'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
@@ -38,7 +24,7 @@ export function DfxButtons (): JSX.Element {
   const { language } = useLanguageContext()
   const { dfxWebToken: dfxToken } = useDFXAPIContext()
 
-  const onGatewayButtonPress = useCallback(async () => {
+  const onDfxButtonPress = useCallback(async () => {
     await dfxToken().then(async (token) => {
       if (token === undefined || token.length === 0) {
         throw new Error('webToken is undefined')
@@ -69,42 +55,30 @@ export function DfxButtons (): JSX.Element {
   const buttons: Array<{hide?: boolean, img: {[key: string]: ImageSourcePropType}, onPress: () => Promise<void>}> = [
     {
       img: {
-        de: BtnGatewayDe,
-        en: BtnGatewayEn,
-        fr: BtnGatewayFr,
-        it: BtnGatewayIt,
-        es: BtnGatewayEs
+        de: BtnDfxDe,
+        en: BtnDfxEn,
+        fr: BtnDfxFr,
+        it: BtnDfxIt,
+        es: BtnDfxEs
       },
-      onPress: onGatewayButtonPress
+      onPress: onDfxButtonPress
     },
     {
       img: {
-        de: BtnOverviewDe,
-        en: BtnOverviewEn,
-        fr: BtnOverviewFr,
-        it: BtnOverviewIt,
-        es: BtnOverviewEs
+        en: BtnOverview
       },
       onPress: onOverviewButtonPress
     },
     {
       img: {
-        de: BtnTaxDe,
-        en: BtnTaxEn,
-        fr: BtnTaxFr,
-        it: BtnTaxIt,
-        es: BtnTaxEs
+        en: BtnTax
       },
       onPress: onTaxButtonPress
     },
     {
       hide: true, // TODO(davidleomay)
       img: {
-        de: BtnDobbyDe,
-        en: BtnDobbyEn,
-        fr: BtnDobbyFr,
-        it: BtnDobbyIt,
-        es: BtnDobbyEs
+        en: BtnDobby
       },
       onPress: onDobbyButtonPress
     }
