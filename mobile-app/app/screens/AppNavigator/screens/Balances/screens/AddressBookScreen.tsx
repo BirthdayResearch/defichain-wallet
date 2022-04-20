@@ -35,7 +35,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const [isEditing, setIsEditing] = useState(false)
 
   // disable address selection touchableopacity from settings page
-  const disableAddressSelect = !!(selectedAddress === undefined && onAddressSelect === undefined)
+  const disableAddressSelect = selectedAddress === undefined && onAddressSelect === undefined
 
   const addresses = useMemo((): string[] => {
     if (addressBook === undefined) {
