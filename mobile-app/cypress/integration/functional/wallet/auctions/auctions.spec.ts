@@ -40,7 +40,7 @@ context('Wallet - Auctions', () => {
   const network = localStorage.getItem('Development.NETWORK')
   before(function () {
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })
@@ -338,49 +338,59 @@ context('Wallet - Auctions', () => {
   // })
 
   describe('Min. Next Bid', function () {
-    // TU10 - DUSD: 4.87 - 974
-    // DUSD - DFI: 770 - 77
-    // DFI - dUSDT: 1000 - 10000000
-    // Price rate ($ per TU10) = 1 * (974 / 4.87) * (77 / 770) * (10000000 / 1000) = 200000
+    // Price rate ($ per TU10) = 200000
     function validateLoanTokenUSDValue (tokenTestID: string, usdTestID: string): void {
-      cy.getByTestID(tokenTestID).invoke('text').then((text: string) => {
-        const minNextBid = text.replace(' dTU10', '')
-
-        cy.getByTestID(usdTestID).invoke('text').then((actualUSD: string) => {
-          const estimatedUSD = new BigNumber(minNextBid).times(200000)
-          checkValueWithinRange(actualUSD, estimatedUSD.toFixed(2))
+      cy.wrap<LoanVaultLiquidated[]>(whale.poolpairs.listDexPrices('USDT'), { timeout: 20000 })
+        .then((response): void => {
+          cy.getByTestID(tokenTestID).invoke('text').then((text: string) => {
+            const minNextBid = text.replace(' dTU10', '')
+            cy.getByTestID(usdTestID).invoke('text').then((actualUSD: string) => {
+              const price = response.dexPrices.TU10
+              const estimatedUSD = new BigNumber(minNextBid).times(price.denominationPrice)
+              checkValueWithinRange(actualUSD, estimatedUSD.toFixed(2))
+            })
+          })
         })
-      })
     }
 
     it('should display USD values in batch card', function () {
       cy.go('back')
-      validateLoanTokenUSDValue('batch_0_min_next_bid', 'batch_0_min_next_bid_usd')
+      runIfAuctionsIsAvailable(() => {
+        validateLoanTokenUSDValue('batch_0_min_next_bid', 'batch_0_min_next_bid_usd')
+      })
     })
 
     it('should display USD values in quick bid bottom sheet in auction home screen', function () {
-      cy.getByTestID('batch_card_0_quick_bid_button').click()
-      validateLoanTokenUSDValue('quick_bid_min_next_bid', 'quick_bid_min_next_bid_usd')
-      validateLoanTokenUSDValue('text_current_balance', 'quick_bid_current_balance_usd')
-      cy.getByTestID('quick_bid_close_button').click()
+      runIfAuctionsIsAvailable(() => {
+        cy.getByTestID('batch_card_0_quick_bid_button').click()
+        validateLoanTokenUSDValue('quick_bid_min_next_bid', 'quick_bid_min_next_bid_usd')
+        validateLoanTokenUSDValue('text_current_balance', 'quick_bid_current_balance_usd')
+        cy.getByTestID('quick_bid_close_button').click()
+      })
     })
 
     it('should display USD values in place bid screen', function () {
-      cy.getByTestID('batch_card_0_place_bid_button').click()
-      validateLoanTokenUSDValue('text_min_next_bid', 'place_bid_min_next_bid_usd')
-      cy.go('back')
+      runIfAuctionsIsAvailable(() => {
+        cy.getByTestID('batch_card_0_place_bid_button').click()
+        validateLoanTokenUSDValue('text_min_next_bid', 'place_bid_min_next_bid_usd')
+        cy.go('back')
+      })
     })
 
     it('should display USD values in auction details screen', function () {
-      cy.getByTestID('batch_card_0').click()
-      validateLoanTokenUSDValue('auction_detail_min_next_bid', 'auction_detail_min_next_bid_usd')
+      runIfAuctionsIsAvailable(() => {
+        cy.getByTestID('batch_card_0').click()
+        validateLoanTokenUSDValue('auction_detail_min_next_bid', 'auction_detail_min_next_bid_usd')
+      })
     })
 
     it('should display USD values in quick bid bottom sheet in auction details screen', function () {
-      cy.getByTestID('auction_details_quick_bid_button').click()
-      validateLoanTokenUSDValue('quick_bid_min_next_bid', 'quick_bid_min_next_bid_usd')
-      validateLoanTokenUSDValue('text_current_balance', 'quick_bid_current_balance_usd')
-      cy.getByTestID('quick_bid_close_button').click()
+      runIfAuctionsIsAvailable(() => {
+        cy.getByTestID('auction_details_quick_bid_button').click()
+        validateLoanTokenUSDValue('quick_bid_min_next_bid', 'quick_bid_min_next_bid_usd')
+        validateLoanTokenUSDValue('text_current_balance', 'quick_bid_current_balance_usd')
+        cy.getByTestID('quick_bid_close_button').click()
+      })
     })
   })
 })
@@ -442,7 +452,7 @@ context('Wallet - Auctions Feature Gated', () => {
     cy.getByTestID('bottom_tab_auctions').should('not.exist')
   })
 
-  it('should have auctions tab if auction feature is beta is activated by user', function () {
+  it('should have auctions tab if auction feature is beta is activated', function () {
     cy.intercept('**/settings/flags', {
       body: [
         {
@@ -456,19 +466,9 @@ context('Wallet - Auctions Feature Gated', () => {
         }
       ]
     })
+    localStorage.setItem('WALLET.ENABLED_FEATURES', '["auction"]')
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('setting_navigate_About').click()
-    cy.getByTestID('try_beta_features').click()
-    cy.getByTestID('feature_auction_row').should('exist')
-    cy.getByTestID('feature_auction_switch').click().should(() => {
-      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('["auction"]')
-    })
     cy.getByTestID('bottom_tab_auctions').should('exist')
-    cy.getByTestID('feature_auction_switch').click().should(() => {
-      expect(localStorage.getItem('WALLET.ENABLED_FEATURES')).to.eq('[]')
-    })
   })
 
   it('should have auctions tab if auction feature is public', function () {

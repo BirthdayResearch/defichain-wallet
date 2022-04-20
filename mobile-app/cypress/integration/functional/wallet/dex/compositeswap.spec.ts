@@ -22,17 +22,13 @@ function setupWalletForConversion (): void {
 context('Wallet - DEX - Swap without balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
-  })
-
-  it('should be able to display a text if there are no tokens owned', function () {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
-    cy.getByTestID('empty_balances').should('exist')
   })
 
   it('should disable token selection on pool pair w/o balance', function () {
-    cy.getByTestID('bottom_tab_dex').click()
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').type('LTC')
     cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
     cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_select_button_TO').should('have.attr', 'aria-disabled')
@@ -153,6 +149,8 @@ context('Wallet - DEX - Composite Swap without balance', () => {
   })
 
   it('should disable token selection on pool pair w/o balance', function () {
+    cy.getByTestID('dex_search_icon').click()
+    cy.getByTestID('dex_search_input').type('LTC')
     cy.getByTestID('pool_pair_swap-horiz_dLTC-DFI').click()
     cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_select_button_TO').should('have.attr', 'aria-disabled')
@@ -279,9 +277,9 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   it('should be able to swap tokens with 2 hops', function () {
     cy.getByTestID('composite_swap').click().wait(5000)
     cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dLTC').click().wait(100)
+    cy.getByTestID('select_dLTC').click().wait(1000)
     cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dUSDC').click().wait(100)
+    cy.getByTestID('select_dUSDC').click().wait(1000)
   })
 
   it('should be able to swap direct pair', function () {

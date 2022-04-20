@@ -21,7 +21,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
-import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -30,7 +30,7 @@ import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { WalletAddressRow } from '@components/WalletAddressRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -186,9 +186,9 @@ interface CollateralSectionProps {
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
   const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
   const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
-  const initialPrices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const initialPrices = getCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
   const totalCollateralValue = props.isAdd ? props.totalCollateralValue.plus(initialPrices.collateralPrice) : props.totalCollateralValue.minus(initialPrices.collateralPrice)
-  const prices = useCollateralPrice(amount, props.collateralItem, totalCollateralValue)
+  const prices = getCollateralPrice(amount, props.collateralItem, totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle
@@ -241,7 +241,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral value (USD)')}
         rhs={{
-          value: getUSDPrecisedPrice(prices.collateralPrice),
+          value: getPrecisedTokenValue(prices.collateralPrice),
           testID: 'collateral_value',
           prefix: '$'
         }}

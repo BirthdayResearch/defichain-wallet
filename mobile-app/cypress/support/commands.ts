@@ -142,11 +142,12 @@ Cypress.Commands.add('sendDFITokentoWallet', () => {
 })
 
 Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
-  cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
-  tokens.forEach((t: string) => {
+  cy.wrap(tokens).each((t: string) => {
+    const alias = `send${t}ToAddress`
+    cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as(alias)
     cy.getByTestID(`playground_token_${t}`).click()
+    cy.wait([`@${alias}`])
   })
-  cy.wait(['@sendTokensToAddress'])
 })
 
 Cypress.Commands.add('closeOceanInterface', (pin?: string) => {

@@ -35,8 +35,11 @@ describe('Bid History', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        dexPrices: {},
+        swappableTokens: {},
         hasFetchedPoolpairData: false,
-        hasFetchedToken: true
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       },
       block: {
         count: 2000,

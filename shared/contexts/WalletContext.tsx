@@ -25,6 +25,10 @@ interface WalletContextI {
    */
   addressLength: number
   /**
+   * Index of active address
+   */
+  activeAddressIndex: number | undefined
+  /**
    * Switch account addresses of the above wallet
    */
   setIndex: (index: number) => Promise<void>
@@ -89,6 +93,10 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
   }
 
   const setIndex = async (index: number): Promise<void> => {
+    if (index === addressIndex) {
+      return
+    }
+
     if (index > addressLength) {
       await setWalletAddressLength(index)
     }
@@ -117,6 +125,7 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     wallet: wallet,
     account: account,
     address: address,
+    activeAddressIndex: addressIndex,
     setIndex: setIndex,
     addressLength: addressLength,
     discoverWalletAddresses: discoverWalletAddresses

@@ -196,12 +196,21 @@ describe('Token Price - Get Token Price (DEX)', () => {
         pair2ReserveA: '8300',
         pair2ReserveB: '100'
       }),
+      dexPrices: {
+        USDT: {
+          BTC: { denominationPrice: '10000.00000000', token: { id: '1', symbol: 'BTC', displaySymbol: 'dBTC' } },
+          ETH: { denominationPrice: '100.00000000', token: { id: '2', symbol: 'ETH', displaySymbol: 'dETH' } },
+          DFI: { denominationPrice: '10000.00000000', token: { id: '0', symbol: 'DFI', displaySymbol: 'DFI' } }
+        }
+      },
+      swappableTokens: {},
       hasFetchedPoolpairData: false,
-      hasFetchedToken: true
+      hasFetchedToken: true,
+      hasFetchedSwappableTokens: false
     }
   }
 
-  const wrapper = ({ children }: {children: ReactElement}): JSX.Element => {
+  const wrapper = ({ children }: { children: ReactElement }): JSX.Element => {
     const store = configureStore({
       preloadedState: initialState,
       reducer: { wallet: wallet.reducer, block: block.reducer }
@@ -212,37 +221,20 @@ describe('Token Price - Get Token Price (DEX)', () => {
     )
   }
 
-  it('should be able to calculate price rates', () => {
-    const { result } = renderHook(() => useTokenPrice(), { wrapper })
-
-    expect(result.current.calculatePriceRates(
-      'BTC',
-      result.current.getArbitraryPoolPair('BTC', 'USDT'), new BigNumber('2')))
-      .toStrictEqual({
-        aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
-        bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
-        estimated: new BigNumber('33200') // 2 * (1000 / 5) * (8300 / 100)
-      })
-
-    expect(result.current.calculatePriceRates(
-      'BTC',
-      result.current.getArbitraryPoolPair('BTC', 'USDT'), new BigNumber('1')))
-      .toStrictEqual({
-        aToBPrice: new BigNumber('16600'), // (1000 / 5) * (8300 / 100)
-        bToAPrice: new BigNumber('0.00006024096385542168675'), // (5 / 1000) * (100 / 8300)
-        estimated: new BigNumber('16600') // 1 * (1000 / 5) * (8300 / 100)
-      })
-  })
-
   it('should be able to get the token price', () => {
     const { result } = renderHook(() => useTokenPrice(), { wrapper })
+    expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('10000'))
+    expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('100'))
+    expect(result.current.getTokenPrice('USDT', new BigNumber('12'), false)).toStrictEqual(new BigNumber('12'))
+  })
 
-    // DFI / BTC * USDT / DFI (reserve)
-    // (1000 / 5) * (8300 / 100)
-    expect(result.current.getTokenPrice('BTC', new BigNumber('1'), false)).toStrictEqual(new BigNumber('16600'))
-
-    // DFI / ETH * USDT / DFI (reserve)
-    // (1000 / 100000) * (8300 / 100)
-    expect(result.current.getTokenPrice('ETH', new BigNumber('1'), false)).toStrictEqual(new BigNumber('0.83'))
+  it('should be able to get the LP token price', () => {
+    const { result } = renderHook(() => useTokenPrice(), { wrapper })
+    const ratioToTotal = new BigNumber(1).div(2500) // total liquidity token ratio
+    const tokenAAmount = ratioToTotal.times(5).decimalPlaces(8, BigNumber.ROUND_DOWN) // pair1ReserveA
+    const tokenBAmount = ratioToTotal.times(1000).decimalPlaces(8, BigNumber.ROUND_DOWN) // pair1ReserveB
+    const usdTokenA = tokenAAmount.times(10000) // USDT price for tokenA
+    const usdTokenB = tokenBAmount.times(10000) // USDT price for tokenB
+    expect(result.current.getTokenPrice('BTC-DFI', new BigNumber('1'), true)).toStrictEqual(usdTokenA.plus(usdTokenB))
   })
 })

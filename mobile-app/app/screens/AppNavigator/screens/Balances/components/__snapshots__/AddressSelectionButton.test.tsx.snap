@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Address Selection Button should match snapshot 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(250, 250, 250, 1)",
+      "borderBottomLeftRadius": 16,
+      "borderBottomRightRadius": 16,
+      "borderTopLeftRadius": 16,
+      "borderTopRightRadius": 16,
+      "display": "flex",
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 4,
+      "paddingRight": 8,
+      "paddingTop": 4,
+    }
+  }
+  testID="switch_account_button"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={24}
+    bbWidth={24}
+    fill="none"
+    focusable={false}
+    height={24}
+    meetOrSlice={0}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {
+          "flex": 0,
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+    vbHeight={80}
+    vbWidth={80}
+    width={24}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <RNSVGGroup
+      fill={null}
+      propList={
+        Array [
+          "fill",
+        ]
+      }
+    >
+      <RNSVGMask
+        height={80}
+        maskContentUnits={1}
+        maskTransform={
+          Array [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+          ]
+        }
+        maskUnits={1}
+        name="mask__bauhaus"
+        width={80}
+        x={0}
+        y={0}
+      >
+        <RNSVGRect
+          fill={4294967295}
+          height={80}
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          rx={160}
+          width={80}
+          x={0}
+          y={0}
+        />
+      </RNSVGMask>
+      <RNSVGGroup
+        mask="mask__bauhaus"
+      >
+        <RNSVGRect
+          fill={4281312875}
+          height={80}
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width={80}
+          x={0}
+          y={0}
+        />
+        <RNSVGRect
+          fill={4293813177}
+          height={10}
+          matrix={
+            Array [
+              0.30901699437494723,
+              -0.9510565162951536,
+              0.9510565162951536,
+              0.30901699437494723,
+              -20.402940426804037,
+              55.681580876808255,
+            ]
+          }
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          width={80}
+          x={10}
+          y={30}
+        />
+        <RNSVGCircle
+          cx={40}
+          cy={40}
+          fill={4281626061}
+          matrix={
+            Array [
+              1,
+              0,
+              0,
+              1,
+              6,
+              6,
+            ]
+          }
+          propList={
+            Array [
+              "fill",
+            ]
+          }
+          r={16}
+        />
+        <RNSVGLine
+          matrix={
+            Array [
+              -0.8090169943749475,
+              -0.587785252292473,
+              0.587785252292473,
+              -0.8090169943749475,
+              64.84926968329899,
+              79.87208986669683,
+            ]
+          }
+          propList={
+            Array [
+              "stroke",
+              "strokeWidth",
+            ]
+          }
+          stroke={4294300999}
+          strokeWidth={2}
+          x1={0}
+          x2={80}
+          y1={40}
+          y2={40}
+        />
+      </RNSVGGroup>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+  <Text
+    ellipsizeMode="middle"
+    numberOfLines={1}
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Array [
+            Object {
+              "fontSize": 12,
+              "lineHeight": 16,
+              "marginLeft": 4,
+            },
+            Object {
+              "maxWidth": 56,
+              "minWidth": 10,
+            },
+          ],
+          Object {
+            "color": "rgba(0, 0, 0, 1)",
+          },
+        ],
+      ]
+    }
+    testID="wallet_address"
+  >
+    foo
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
+          "height": 16,
+          "marginLeft": 4,
+          "width": 16,
+        },
+        Object {
+          "backgroundColor": "rgba(230, 135, 37, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 10,
+              "fontWeight": "500",
+              "height": 16,
+              "lineHeight": 16,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(255, 255, 255, 1)",
+            },
+          ],
+        ]
+      }
+      testID="address_count_badge"
+    >
+      5
+    </Text>
+  </View>
+</View>
+`;

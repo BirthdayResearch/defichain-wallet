@@ -29,7 +29,6 @@ import { tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { BidHistory } from '../components/BidHistory'
 import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchAuctions } from '@store/auctions'
 
@@ -69,7 +68,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getTokenPrice } = useTokenPrice()
   const { auctions } = useSelector((state: RootState) => state.auctions)
 
   useEffect(() => {
@@ -95,7 +93,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const onQuickBid = (): void => {
     const ownedToken = tokens.find(token => token.id === batch.loan.id)
     const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
-
     setBottomSheetScreen([{
       stackScreenName: 'Quick Bid',
       option: {
@@ -112,7 +109,6 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         minNextBid: new BigNumber(minNextBidInToken),
         minNextBidInUSD: minNextBidInUSD,
         currentBalance,
-        currentBalanceInUSD: getTokenPrice(batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: vault.liquidationHeight
       })
     }])

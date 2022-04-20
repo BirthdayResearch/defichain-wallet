@@ -60,53 +60,53 @@ export interface DefiChainStatus {
     updated_at: string
   }>
   incidents?: Array<{
+    created_at: string
+    id: string
+    impact: string
+    incident_updates: Array<{
+      body: string
       created_at: string
+      display_at: string
       id: string
-      impact: string
-      incident_updates: Array<{
-          body: string
-          created_at: string
-          display_at: string
-          id: string
-          incident_id: string
-          status: string
-          updated_at: string
-      }>
-      monitoring_at?: string
-      name: string
-      page_id?: string
-      resolved_at?: string
-      shortlink: string
+      incident_id: string
       status: string
       updated_at: string
     }>
+    monitoring_at?: string
+    name: string
+    page_id?: string
+    resolved_at?: string
+    shortlink: string
+    status: string
+    updated_at: string
+  }>
   scheduled_maintenances: Array<{
+    created_at: string
+    id: string
+    impact: string
+    incident_updates: Array<{
+      body: string
       created_at: string
+      display_at: string
       id: string
-      impact: string
-      incident_updates: Array<{
-          body: string
-          created_at: string
-          display_at: string
-          id: string
-          incident_id: string
-          status: string
-          updated_at: string
-        }>
-      monitoring_at?: string
-      name: string
-      page_id: string
-      resolved_at?: string
-      scheduled_for: string
-      scheduled_until: string
-      shortlink: string
-      status: 'Scheduled' | 'In Progress' | 'Verifying' | 'Completed'
+      incident_id: string
+      status: string
       updated_at: string
     }>
+    monitoring_at?: string
+    name: string
+    page_id: string
+    resolved_at?: string
+    scheduled_for: string
+    scheduled_until: string
+    shortlink: string
+    status: 'Scheduled' | 'In Progress' | 'Verifying' | 'Completed'
+    updated_at: string
+  }>
 }
 
 export type Platform = 'ios' | 'android' | 'windows' | 'macos' | 'web'
 
-export type FEATURE_FLAG_ID = 'loan' | 'auction' | 'dfi_loan_payment'
+export type FEATURE_FLAG_ID = 'loan' | 'auction' | 'dfi_loan_payment' | 'local_storage' | 'dusd_vault_share' | 'dusd_loan_payment'
 
 export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'

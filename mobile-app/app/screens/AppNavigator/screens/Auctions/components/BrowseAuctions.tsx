@@ -2,10 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { Platform, View } from 'react-native'
-import { InfoText } from '@components/InfoText'
-import { translate } from '@translations'
 import { useDispatch, useSelector, batch } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -22,7 +19,6 @@ import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { tokensSelector } from '@store/wallet'
 import { useIsFocused } from '@react-navigation/native'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 interface Props {
   searchString: string
@@ -55,7 +51,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     bottomSheetScreen,
     setBottomSheetScreen
   } = useBottomSheet()
-  const { getTokenPrice } = useTokenPrice()
 
   // Search
   const debouncedSearchTerm = useDebounce(searchString, 500)
@@ -73,7 +68,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   const onQuickBid = (props: onQuickBidProps): void => {
     const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
     const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
-
     setBottomSheetScreen([{
       stackScreenName: 'Quick Bid',
       option: {
@@ -90,7 +84,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
         minNextBid: new BigNumber(props.minNextBidInToken),
         minNextBidInUSD: props.minNextBidInUSD,
         currentBalance: currentBalance,
-        currentBalanceInUSD: getTokenPrice(props.batch.loan.symbol, currentBalance),
         vaultLiquidationHeight: props.vaultLiquidationHeight
       })
     }])
@@ -163,8 +156,6 @@ function BatchCards ({
   vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
 }): JSX.Element {
-  const { isBetaFeature } = useFeatureFlagContext()
-
   const RenderItems = useCallback(({
     item,
     index
@@ -184,20 +175,6 @@ function BatchCards ({
     )
   }, [])
 
-  const ListHeaderComponent = useCallback(() => {
-    if (isBetaFeature('auction')) {
-      return (
-        <View style={tailwind('pb-4')}>
-          <InfoText
-            testID='beta_warning_info_text'
-            text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
-          />
-        </View>
-      )
-    }
-  return <></>
-  }, [])
-
   return (
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
@@ -208,7 +185,6 @@ function BatchCards ({
       keyExtractor={(_item, index) => index.toString()}
       testID='available_liquidity_tab'
       renderItem={RenderItems}
-      ListHeaderComponent={ListHeaderComponent}
     />
   )
 }

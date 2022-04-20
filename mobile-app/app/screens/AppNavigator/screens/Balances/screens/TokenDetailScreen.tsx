@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { tokensSelector, WalletToken } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { View } from '@components/index'
+import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import {
   ThemedIcon,
@@ -92,7 +92,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   const onNavigateSwap = ({ pair }: { pair: PoolPairData }): void => {
-    navigation.navigate('DEX', {
+    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: 'CompositeSwap',
       initial: false,
       params: {

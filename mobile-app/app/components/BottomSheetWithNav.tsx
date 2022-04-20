@@ -14,6 +14,7 @@ import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
 import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
+import { CreateOrEditAddressLabelFormProps } from '@screens/AppNavigator/screens/Balances/components/CreateOrEditAddressLabelForm'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -33,6 +34,7 @@ export interface BottomSheetNavScreen {
 
 export interface BottomSheetWithNavRouteParam {
   AddOrRemoveCollateralFormProps: AddOrRemoveCollateralFormProps
+  CreateOrEditAddressLabelFormProps: CreateOrEditAddressLabelFormProps
 
   [key: string]: undefined | object
 }
@@ -61,7 +63,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <View
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} border-t rounded`)]}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white' : 'bg-gray-800'} rounded`)]}
         />
       )}
     >

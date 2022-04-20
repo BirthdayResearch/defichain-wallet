@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { fetchPoolPairs } from '@store/wallet'
-import { fetchTokens } from '@store/wallet'
+import { useWhaleApiClient } from './WhaleContext'
+import { fetchDexPrice, fetchPoolPairs, fetchTokens } from '@store/wallet'
+import { fetchUserPreferences } from '@store/userPreferences'
+import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const blockCount = useSelector((state: RootState) => state.block.count)
@@ -13,16 +15,26 @@ export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element 
   const { network } = useNetworkContext()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const { wallets } = useWalletPersistenceContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   // Global polling based on blockCount and network, so no need to fetch per page
   useEffect(() => {
     dispatch(fetchPoolPairs({ client }))
+    dispatch(fetchDexPrice({ client, denomination: 'USDT' }))
   }, [blockCount, network])
-
-  // Global polling based on blockCount, network and address, so no need to fetch per page
+  
   useEffect(() => {
     dispatch(fetchTokens({ client, address }))
   }, [blockCount, network, address])
+
+  // Fetch user data on start up
+  // Will only refetch on network or wallet change
+  useEffect(() => {
+    if (isFeatureAvailable('local_storage')) {
+      dispatch(fetchUserPreferences(network))
+    }
+  }, [network, wallets])
 
   return (
     <>

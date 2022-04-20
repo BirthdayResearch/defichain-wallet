@@ -1,28 +1,27 @@
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedText, ThemedView } from '@components/themed'
+import { View } from '@components'
 import { translate } from '@translations'
+import { NoTokensLight } from '../assets/NoTokensLight'
+import { NoTokensDark } from '../assets/NoTokensDark'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+interface EmptyBalancesProps {
+  type: string
+}
 
-export function EmptyBalances (): JSX.Element {
+export function EmptyBalances (props: EmptyBalancesProps): JSX.Element {
+  const { isLight } = useThemeContext()
   return (
     <ThemedView
-      style={tailwind('px-8 mt-8 pb-2 text-center')}
+      light={tailwind('bg-gray-50')}
+      style={tailwind('px-4 mt-8 text-center')}
       testID='empty_balances'
     >
-      <ThemedIcon
-        light={tailwind('text-black')}
-        dark={tailwind('text-white')}
-        iconType='MaterialCommunityIcons'
-        name='circle-off-outline'
-        size={32}
-        style={tailwind('pb-2 text-center')}
-      />
-
+      <View style={tailwind('items-center pb-4 pr-2')}>
+        {isLight ? <NoTokensLight /> : <NoTokensDark />}
+      </View>
       <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
-        {translate('components/EmptyBalances', 'No other tokens yet')}
-      </ThemedText>
-
-      <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
-        {translate('components/EmptyBalances', 'Get started by adding your tokens here in your wallet')}
+        {translate('components/EmptyBalances', `No ${props.type} in portfolio`)}
       </ThemedText>
     </ThemedView>
   )

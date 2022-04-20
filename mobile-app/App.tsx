@@ -24,6 +24,10 @@ import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { tailwind } from '@tailwind'
+import { WalletDataProvider } from '@shared-contexts/WalletDataProvider'
+import { ToastProvider } from 'react-native-toast-notifications'
+import { ToastProps } from 'react-native-toast-notifications/lib/typescript/toast'
+import { WalletToast } from '@components/WalletToast'
 
 /**
  * Loads
@@ -55,6 +59,12 @@ export default function App (): JSX.Element | null {
   SplashScreen.hideAsync()
     .catch(logger.error)
 
+  const customToast = {
+    wallet_toast: (toast: ToastProps) => (
+      <WalletToast toast={toast} />
+    )
+  }
+
   return (
     <NativeLoggingProvider>
       <ErrorBoundary>
@@ -66,19 +76,23 @@ export default function App (): JSX.Element | null {
                   <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
                     <StoreProvider>
                       <StatsProvider>
-                        <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
-                          <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
-                            <DisplayBalancesProvider>
-                              <ConnectionBoundary>
-                                <FeatureFlagProvider>
-                                  <GestureHandlerRootView style={tailwind('flex-1')}>
-                                    <Main />
-                                  </GestureHandlerRootView>
-                                </FeatureFlagProvider>
-                              </ConnectionBoundary>
-                            </DisplayBalancesProvider>
-                          </LanguageProvider>
-                        </ThemeProvider>
+                        <FeatureFlagProvider>
+                          <WalletDataProvider>
+                            <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
+                              <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
+                                <DisplayBalancesProvider>
+                                  <ConnectionBoundary>
+                                    <GestureHandlerRootView style={tailwind('flex-1')}>
+                                      <ToastProvider renderType={customToast}>
+                                        <Main />
+                                      </ToastProvider>
+                                    </GestureHandlerRootView>
+                                  </ConnectionBoundary>
+                                </DisplayBalancesProvider>
+                              </LanguageProvider>
+                            </ThemeProvider>
+                          </WalletDataProvider>
+                        </FeatureFlagProvider>
                       </StatsProvider>
                     </StoreProvider>
                   </WalletPersistenceProvider>
