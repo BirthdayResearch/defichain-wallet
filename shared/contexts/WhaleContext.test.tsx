@@ -19,7 +19,7 @@ describe('Whale Context test', () => {
       name: EnvironmentNetwork.TestNet
     },
     {
-      url: 'https://playground.defichain.com',
+      url: 'https://playground.jellyfishsdk.com',
       network: 'regtest',
       name: EnvironmentNetwork.RemotePlayground
     },
