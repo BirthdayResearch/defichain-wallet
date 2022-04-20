@@ -648,9 +648,6 @@
     "How much {{token}} do you want to swap?": "您要兌換多少 {{token}}？",
     "You have": "您現有",
     "Estimated to receive": "您大約會收到",
-    "PRICES": "價格",
-    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
-    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值",
     "CONTINUE": "繼續",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
     "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
@@ -1349,5 +1346,10 @@
   },
   "components/Announcements": {
     "DETAILS": "了解詳情"
+  },
+  "components/PricesSection": {
+    "PRICES": "價格",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值"
   }
 }
