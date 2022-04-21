@@ -205,7 +205,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
         testID='address_book_address_input'
       >
         <ThemedTouchableOpacity
-          dark={tailwind('bg-dfxblue-800 border-dfxgray-400')}
+          dark={tailwind('border border-dfxblue-900')}
           light={tailwind('bg-white border-gray-300')}
           onPress={onQrButtonPress}
           style={tailwind('w-9 p-1.5 border rounded')}

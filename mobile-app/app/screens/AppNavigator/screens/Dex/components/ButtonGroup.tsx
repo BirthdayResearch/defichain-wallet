@@ -1,7 +1,7 @@
 import { ThemedProps, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { StyleProp, TextStyle, TouchableOpacityProps } from 'react-native'
+import { StyleProp, TextStyle, TouchableOpacityProps, View } from 'react-native'
 
 interface ButtonGroupProps {
   buttons: Buttons[]
@@ -26,7 +26,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
     <ThemedView
       light={props.lightThemeStyle ?? tailwind('bg-gray-100')}
       dark={props.darkThemeStyle ?? tailwind('bg-dfxblue-800')}
-      style={tailwind('rounded-xl flex flex-row justify-between')}
+      style={tailwind('rounded-2xl flex flex-row justify-between')}
       testID={props.testID}
     >
       {
@@ -61,22 +61,23 @@ interface ButtonGroupItemProps {
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
   return (
-    <ThemedTouchableOpacity
-      onPress={props.onPress}
-      light={tailwind({ 'bg-primary-50': props.isActive })}
-      dark={tailwind({ 'bg-dfxblue-900': props.isActive })}
-      {...props.isActive && props.customActiveStyle}
-      style={props.customButtonGroupStyle ?? [tailwind(['rounded-xl m-1 py-2 px-3 break-words justify-center'])]}
-      testID={`${props.testID}${props.isActive ? '_active' : ''}`}
-    >
-      <ThemedText
-        light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
-        dark={tailwind({ 'text-white': props.isActive, 'text-dfxgray-300': !props.isActive })}
-        style={props.modalStyle ?? tailwind('font-medium text-sm text-center')}
+    <View style={tailwind('flex-shrink')}>
+      <ThemedTouchableOpacity
+        onPress={props.onPress}
+        light={tailwind({ 'bg-primary-50': props.isActive })}
+        dark={tailwind({ 'bg-dfxblue-900': props.isActive })}
+        {...props.isActive && props.customActiveStyle}
+        style={props.customButtonGroupStyle ?? [[tailwind('m-0.5 py-2 px-3'), { borderRadius: 14 }]]}
+        testID={`${props.testID}${props.isActive ? '_active' : ''}`}
       >
-
-        {props.label}
-      </ThemedText>
-    </ThemedTouchableOpacity>
+        <ThemedText
+          light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
+          dark={tailwind({ 'text-white': props.isActive, 'text-dfxgray-300': !props.isActive })}
+          style={props.modalStyle ?? tailwind('text-center')}
+        >
+          {props.label}
+        </ThemedText>
+      </ThemedTouchableOpacity>
+    </View>
   )
 }

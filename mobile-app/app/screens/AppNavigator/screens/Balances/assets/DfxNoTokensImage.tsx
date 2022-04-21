@@ -4,9 +4,9 @@ import ImageEmptyWallet from '@assets/images/address_book.png'
 export function DfxNoTokensImage (): JSX.Element {
     const styles = StyleSheet.create({
         image: {
-          height: 120,
+          height: 100,
           resizeMode: 'contain',
-          width: 120
+          width: 100
         }
       })
 

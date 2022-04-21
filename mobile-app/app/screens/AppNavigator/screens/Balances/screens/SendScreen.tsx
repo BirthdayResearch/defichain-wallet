@@ -466,7 +466,7 @@ function AddressRow ({
               inputType='default'
             >
               <ThemedTouchableOpacity
-                dark={tailwind('bg-dfxblue-900 border-dfxgray-400')}
+                dark={tailwind('border border-dfxblue-900')}
                 light={tailwind('bg-white border-gray-300')}
                 onPress={onQrButtonPress}
                 style={tailwind('w-9 p-1.5 border rounded')}
@@ -483,7 +483,7 @@ function AddressRow ({
               {
                 isFeatureAvailable('local_storage') && (
                   <ThemedTouchableOpacity
-                    dark={tailwind('bg-dfxblue-900 border-dfxgray-400')}
+                    dark={tailwind('border border-dfxblue-900')}
                     light={tailwind('bg-white border-gray-300')}
                     onPress={onContactButtonPress}
                     style={tailwind('w-9 p-1.5 ml-1 border rounded')}
