@@ -41,7 +41,6 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import * as Clipboard from 'expo-clipboard'
 import { LocalAddress } from '@store/userPreferences'
 import { debounce } from 'lodash'
 
@@ -264,12 +263,6 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
-                  onPasteButtonPress={async () => {
-                    void Clipboard.getStringAsync().then(async (address) => {
-                      setValue('address', address, { shouldDirty: true })
-                      await trigger('address')
-                    })
-                  }}
                   inputFooter={
                     <>
                       {matchedAddress !== undefined && (
@@ -477,9 +470,8 @@ function AddressRow ({
   onQrButtonPress,
   onClearButtonPress,
   onAddressChange,
-  onPasteButtonPress,
   inputFooter
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void, inputFooter?: React.ReactElement }): JSX.Element {
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -509,12 +501,27 @@ function AddressRow ({
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
-              pasteButton={{
-                isPasteDisabled: false,
-                onPasteButtonPress: onPasteButtonPress
-              }}
               inputFooter={inputFooter}
             >
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}
                 light={tailwind('bg-white border-gray-300')}
@@ -530,25 +537,6 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
-              {
-                isFeatureAvailable('local_storage') && (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800 border-gray-400')}
-                    light={tailwind('bg-white border-gray-300')}
-                    onPress={onContactButtonPress}
-                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
-                    testID='address_book_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='contacts'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )
-              }
             </WalletTextInput>
           </View>
         )}
