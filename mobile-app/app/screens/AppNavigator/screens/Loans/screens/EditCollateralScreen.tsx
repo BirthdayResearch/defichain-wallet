@@ -99,7 +99,8 @@ export function EditCollateralScreen ({
       ...c,
       available: getTokenAmount(c.token.id)
     }
-  }).sort((a, b) => b.available.minus(a.available).toNumber()))
+  }).filter((collateralItem) => new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice)) > 0)
+    .sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
@@ -225,7 +226,7 @@ export function EditCollateralScreen ({
                   onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
-                    onButtonPress: onAddCollateral
+                    onButtonPress: onAddCollateral as any
                   }
                 }),
                 option: {
