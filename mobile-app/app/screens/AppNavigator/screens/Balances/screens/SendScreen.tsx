@@ -41,7 +41,6 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import * as Clipboard from 'expo-clipboard'
 import { LocalAddress } from '@store/userPreferences'
 import { debounce } from 'lodash'
 
@@ -70,7 +69,6 @@ export function SendScreen ({
   const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
-  const [disablePaste, setDisablePaste] = useState(false)
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -143,16 +141,6 @@ export function SendScreen ({
   useEffect(() => {
     debounceMatchAddress()
   }, [address])
-
-  useEffect(() => {
-    setDisablePaste(false)
-    // const clipboardContent = setInterval(() => {
-    //   void Clipboard.getStringAsync().then((content) => {
-    //     setDisablePaste(content.trim() === '' || content === undefined || content === null)
-    //   })
-    // }, 1000)
-    // return () => clearInterval(clipboardContent)
-  }, [])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -275,13 +263,6 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
-                  onPasteButtonPress={async () => {
-                    void Clipboard.getStringAsync().then(async (address) => {
-                      setValue('address', address, { shouldDirty: true })
-                      await trigger('address')
-                    })
-                  }}
-                  isPasteDisabled={disablePaste}
                   inputFooter={
                     <>
                       {matchedAddress !== undefined && (
@@ -489,10 +470,8 @@ function AddressRow ({
   onQrButtonPress,
   onClearButtonPress,
   onAddressChange,
-  onPasteButtonPress,
-  isPasteDisabled,
   inputFooter
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, onPasteButtonPress: () => void, isPasteDisabled: boolean, inputFooter: React.ReactElement }): JSX.Element {
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -522,10 +501,6 @@ function AddressRow ({
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
-              pasteButton={{
-                isPasteDisabled: isPasteDisabled,
-                onPasteButtonPress: onPasteButtonPress
-              }}
               inputFooter={inputFooter}
             >
               {
