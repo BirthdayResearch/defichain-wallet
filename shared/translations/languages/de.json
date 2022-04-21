@@ -96,7 +96,7 @@
     "CANCEL": "ABBRECHEN"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Adressbuch",
+    "Address Book": "Adressbuch",
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
@@ -120,7 +120,9 @@
     "Add new address": "Neue Adresse hinzufügen",
     "Add New Address": "Neue Adresse hinzufügen",
     "Address": "Adresse",
+    "Wallet address": "Walletadresse",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
+    "CONTINUE": "WEITER",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
     "Enter address label": "Adressbezeichnung eingeben",
     "Enter address": "Adresse eingeben",

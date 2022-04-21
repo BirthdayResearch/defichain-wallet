@@ -96,7 +96,7 @@
     "CANCEL": "ANNULER"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Carnet d'adresses",
+    "Address Book": "Carnet d'adresses",
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
@@ -111,7 +111,9 @@
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
     "ADDRESS": "ADRESSE",
+    "Wallet address": "Adresse du portefeuille",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "CONTINUE": "SUIVANT",
     "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)"
   },
   "screens/AddOrEditAddressBookScreen": {
