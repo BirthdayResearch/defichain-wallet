@@ -145,12 +145,13 @@ export function SendScreen ({
   }, [address])
 
   useEffect(() => {
-    const clipboardContent = setInterval(() => {
-      void Clipboard.getStringAsync().then((content) => {
-        setDisablePaste(content.trim() === '' || content === undefined || content === null)
-      })
-    }, 1000)
-    return () => clearInterval(clipboardContent)
+    setDisablePaste(false)
+    // const clipboardContent = setInterval(() => {
+    //   void Clipboard.getStringAsync().then((content) => {
+    //     setDisablePaste(content.trim() === '' || content === undefined || content === null)
+    //   })
+    // }, 1000)
+    // return () => clearInterval(clipboardContent)
   }, [])
 
   const setTokenListBottomSheet = useCallback(() => {
