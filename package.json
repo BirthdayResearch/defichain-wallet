@@ -125,7 +125,7 @@
     "colors": "1.4.0",
     "cypress": "^9.5.4",
     "cypress-image-diff-js": "1.18.1",
-    "eas-cli": "^0.50.0",
+    "eas-cli": "^0.51.0",
     "eslint": "7.32.0",
     "eslint-config-standard-jsx": "^10.0.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
