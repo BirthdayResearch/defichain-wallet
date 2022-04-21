@@ -200,14 +200,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         dark={tailwind('bg-gray-900 border-gray-700')}
         style={tailwind('flex flex-col items-center px-4 pt-6 pb-2 border-b')}
       >
-        <View style={tailwind('flex-row justify-between w-full mb-3')}>
-          <ThemedText
-            style={tailwind('text-xl font-semibold')}
-            testID='address_book_title'
-          >
-            {translate('screens/AddressBookScreen', 'Address book')}
-          </ThemedText>
-        </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
           <WalletCounterDisplay addressLength={addresses.length} />
           {addresses.length > 0 &&
