@@ -763,7 +763,6 @@ exports[`balances page should match snapshot 1`] = `
               <View
                 style={
                   Object {
-                    "alignItems": "center",
                     "flexDirection": "row",
                   }
                 }
@@ -771,6 +770,7 @@ exports[`balances page should match snapshot 1`] = `
                 <View
                   style={
                     Object {
+                      "alignItems": "flex-end",
                       "display": "flex",
                       "lineHeight": 24,
                     }
@@ -1694,7 +1694,6 @@ exports[`balances page should match snapshot 1`] = `
                   <View
                     style={
                       Object {
-                        "alignItems": "center",
                         "flexDirection": "row",
                       }
                     }
@@ -1702,6 +1701,7 @@ exports[`balances page should match snapshot 1`] = `
                     <View
                       style={
                         Object {
+                          "alignItems": "flex-end",
                           "display": "flex",
                           "lineHeight": 24,
                         }
@@ -1999,7 +1999,6 @@ exports[`balances page should match snapshot 1`] = `
                   <View
                     style={
                       Object {
-                        "alignItems": "center",
                         "flexDirection": "row",
                       }
                     }
@@ -2007,6 +2006,7 @@ exports[`balances page should match snapshot 1`] = `
                     <View
                       style={
                         Object {
+                          "alignItems": "flex-end",
                           "display": "flex",
                           "lineHeight": 24,
                         }
