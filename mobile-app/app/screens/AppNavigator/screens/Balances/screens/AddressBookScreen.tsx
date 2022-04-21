@@ -21,6 +21,7 @@ import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { authentication, Authentication } from '@store/authentication'
+import { Button } from '@components/Button'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -160,7 +161,39 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     )
   }, [addressBook, isEditing])
 
+  const goToAddAddressForm = (): void => {
+    if (onAddressSelect === undefined) {
+      return
+    }
+
+    navigation.navigate({
+      name: 'AddOrEditAddressBookScreen',
+      params: {
+        title: 'Add new address',
+        isAddNew: true,
+        onSaveButtonPress: (labelAddress: LabeledAddress) => {
+          const _addressBook = { ...addressBook, ...labelAddress }
+          dispatch(setAddressBook(_addressBook)).then(() => {
+            dispatch(setUserPreferences({
+              network,
+              preferences: {
+                ...userPreferences,
+                addressBook: _addressBook
+              }
+            }))
+          })
+          onAddressSelect(Object.keys(labelAddress)[0])
+        }
+      },
+      merge: true
+    })
+  }
+
   const HeaderComponent = useMemo(() => {
+    if (addresses.length === 0) {
+      return <></>
+    }
+
     return (
       <ThemedView
         light={tailwind('bg-gray-50 border-gray-200')}
@@ -185,33 +218,16 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   }, [addresses, isEditing])
 
   const FooterComponent = useMemo(() => {
+    if (addresses.length === 0) {
+      return <></>
+    }
+
     return (
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
-        onPress={() => {
-          navigation.navigate({
-            name: 'AddOrEditAddressBookScreen',
-            params: {
-              title: 'Add new address',
-              isAddNew: true,
-              onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                const _addressBook = { ...addressBook, ...labelAddress }
-                dispatch(setAddressBook(_addressBook)).then(() => {
-                  dispatch(setUserPreferences({
-                    network,
-                    preferences: {
-                      ...userPreferences,
-                      addressBook: _addressBook
-                    }
-                  }))
-                })
-              }
-            },
-            merge: true
-          })
-        }}
+        onPress={goToAddAddressForm}
         testID='add_new_address'
       >
         <View style={tailwind('flex-row items-center flex-grow')}>
@@ -279,18 +295,16 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       renderItem={AddressListItem}
       ListHeaderComponent={HeaderComponent}
       ListFooterComponent={FooterComponent}
-      ListEmptyComponent={EmptyDisplay}
+      ListEmptyComponent={<EmptyDisplay onPress={goToAddAddressForm} />}
     />
   )
 }
 
-function EmptyDisplay (): JSX.Element {
+function EmptyDisplay ({ onPress }: { onPress: () => void }): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-800 border-gray-700')}
-      style={tailwind('px-8 pt-8 pb-2 text-center border-b')}
+      style={tailwind('px-8 pt-32 pb-2 text-center')}
       testID='empty_address_book'
     >
       <View style={tailwind('items-center pb-4')}>
@@ -298,12 +312,19 @@ function EmptyDisplay (): JSX.Element {
           isLight ? <NoTokensLight /> : <NoTokensDark />
         }
       </View>
-      <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
-        {translate('screens/AddressBookScreen', 'Empty address book')}
+      <ThemedText testID='empty_tokens_title' style={tailwind('text-2xl font-semibold text-center')}>
+        {translate('screens/AddressBookScreen', 'No saved addresses')}
       </ThemedText>
-      <ThemedText testID='empty_tokens_subtitle' style={tailwind('text-sm px-8 pb-4 text-center opacity-60')}>
+      <ThemedText testID='empty_tokens_subtitle' style={tailwind('px-8 pb-4 text-center opacity-60')}>
         {translate('screens/AddressBookScreen', 'Add your preferred address')}
       </ThemedText>
+      <Button
+        label={translate('screens/AddressBookScreen', 'ADD ADDRESS')}
+        onPress={onPress}
+        testID='button_add-address'
+        title='Add address'
+        margin='m-0 mb-4'
+      />
     </ThemedView>
   )
 }

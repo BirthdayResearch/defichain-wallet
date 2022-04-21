@@ -140,7 +140,7 @@ export function SendScreen ({
 
   useEffect(() => {
     debounceMatchAddress()
-  }, [address])
+  }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
