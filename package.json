@@ -94,7 +94,7 @@
     "react-native-web": "0.17.1",
     "react-number-format": "^4.9.1",
     "react-overlays": "^5.1.1",
-    "react-redux": "^7.2.6",
+    "react-redux": "^8.0.1",
     "semver": "^7.3.5",
     "smart-buffer": "^4.2.0",
     "stream-browserify": "^3.0.0",
