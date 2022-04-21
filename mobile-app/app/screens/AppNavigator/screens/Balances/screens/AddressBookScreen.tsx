@@ -313,7 +313,7 @@ function EmptyDisplay ({ onPress }: { onPress: () => void }): JSX.Element {
       <Button
         label={translate('screens/AddressBookScreen', 'ADD ADDRESS')}
         onPress={onPress}
-        testID='button_add-address'
+        testID='button_add_address'
         title='Add address'
         margin='m-0 mb-4'
       />
