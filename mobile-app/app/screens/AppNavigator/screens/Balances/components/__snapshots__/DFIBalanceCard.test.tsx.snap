@@ -284,7 +284,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 }
                 testID="dfi_total_balance_usd_amount"
               >
-                
+                ≈ $0.00000000
               </Text>
             </View>
           </View>
@@ -442,7 +442,30 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 }
                 testID="dfi_available_percentage"
               >
-                97.92%
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        Object {
+                          "color": "rgba(115, 115, 115, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="dfi_available_percentage_text"
+                >
+                  97.92%
+                </Text>
               </Text>
             </View>
             <View
@@ -515,7 +538,30 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 }
                 testID="dfi_locked_percentage"
               >
-                2.08%
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        Object {
+                          "color": "rgba(115, 115, 115, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="dfi_locked_percentage_text"
+                >
+                  2.08%
+                </Text>
               </Text>
             </View>
           </View>

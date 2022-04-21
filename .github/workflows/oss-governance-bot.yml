@@ -13,7 +13,7 @@ jobs:
     name: OSS
     runs-on: ubuntu-latest
     steps:
-      - uses: DeFiCh/oss-governance-bot@99f1d488fe91acc397cdac556f3c6bd309f28460
+      - uses: BirthdayResearch/oss-governance-bot@23a023a59e633947923a299f0497371576e12e78
         with:
           github-token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
 

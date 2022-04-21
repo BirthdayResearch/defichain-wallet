@@ -6,8 +6,8 @@ import BigNumber from 'bignumber.js'
 export function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
   const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
   const expectedValue = new BigNumber(expectedVal)
-  expect(value.gte(expectedValue.minus(range))).to.be.eq(true)
-  expect(value.lte(expectedValue.plus(range))).to.be.eq(true)
+  expect(value.gte(expectedValue.minus(range)), `${value.toFixed(8)} should be gte ${expectedValue.minus(range).toFixed(8)}`).to.be.eq(true)
+  expect(value.lte(expectedValue.plus(range)), `${value.toFixed(8)} should be lte ${expectedValue.plus(range).toFixed(8)}`).to.be.eq(true)
 }
 
 declare global {
@@ -90,6 +90,7 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
   cy.getByTestID(`${testID}_name`).should('have.text', details.name)
   if (dynamicAmount === true) {
     cy.getByTestID(`${testID}_amount`).contains(details.amount)
+    cy.getByTestID(`${testID}_available_percentage_text`).should('have.text', details.amount)
   } else {
     cy.getByTestID(`${testID}_amount`).should('have.text', details.amount)
   }

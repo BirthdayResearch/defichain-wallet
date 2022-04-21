@@ -6,6 +6,8 @@ import { LoanSkeletonLoader } from './LoanSkeletonLoader'
 import { AddressSkeletonLoader } from './AddressSkeletonLoader'
 import { BrowseAuctionsLoader } from './BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './VaultSkeletonLoader'
+import { VaultSchemesSkeletonLoader } from './VaultSchemeSkeletonLoader'
+import { DexPricesSkeletonLoader } from './DexPricesSkeletonLoader'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -13,6 +15,14 @@ describe('Skeleton Loader', () => {
   it('should match snapshot of dex skeleton loader', async () => {
     const component = (
       <DexSkeletonLoader uniqueKey='dex' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of dex price skeleton loader', async () => {
+    const component = (
+      <DexPricesSkeletonLoader uniqueKey='dexPrice' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
@@ -58,9 +68,17 @@ describe('Skeleton Loader', () => {
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 
-  it('should match snapshot of vault keleton loader', async () => {
+  it('should match snapshot of vault skeleton loader', async () => {
     const component = (
       <VaultSkeletonLoader uniqueKey='vault' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of vault scheme skeleton loader', async () => {
+    const component = (
+      <VaultSchemesSkeletonLoader uniqueKey='vault_scheme' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()

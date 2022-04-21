@@ -106,7 +106,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 "paddingTop": 24,
               },
               Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
+                "backgroundColor": "rgba(250, 250, 250, 1)",
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],

@@ -196,6 +196,8 @@ describe('loans reducer', () => {
       loanTokens: [],
       loanSchemes: [],
       collateralTokens: [],
+      loanPaymentTokenActivePrices: {},
+      hasFetchedLoanSchemes: false,
       hasFetchedVaultsData: false,
       hasFetchedLoansData: false
     }
@@ -207,8 +209,10 @@ describe('loans reducer', () => {
       loanTokens: [],
       loanSchemes: [],
       collateralTokens: [],
+      loanPaymentTokenActivePrices: {},
       hasFetchedVaultsData: false,
-      hasFetchedLoansData: false
+      hasFetchedLoansData: false,
+      hasFetchedLoanSchemes: false
     })
   })
 

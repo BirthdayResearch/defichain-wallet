@@ -1,7 +1,7 @@
 import { tailwind } from '@tailwind'
-import { ThemedText, ThemedView } from './themed'
+import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { translate } from '@translations'
-import { View } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 
@@ -10,6 +10,9 @@ interface FeeInfoRowProps {
   type: FeeType
   suffix?: string
   testID: string
+  lhsThemedProps?: ThemedProps
+  rhsThemedProps?: ThemedProps
+  containerStyle?: ThemedProps & { style: StyleProp<ViewStyle> }
 }
 
 type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
@@ -26,13 +29,13 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
 
   return (
     <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
+      dark={props.containerStyle?.dark ?? tailwind('bg-gray-800 border-b border-gray-700')}
+      light={props.containerStyle?.light ?? tailwind('bg-white border-b border-gray-200')}
+      style={props.containerStyle?.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
-          <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`}>
+          <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`} {...props.lhsThemedProps}>
             {translate('components/BottomSheetInfo', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
           </ThemedText>
           <BottomSheetInfo alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee} name={props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title} />
@@ -49,6 +52,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
               light={tailwind('text-gray-500')}
               style={tailwind('text-sm text-right')}
               testID={props.testID}
+              {...props.rhsThemedProps}
             >
               {val}
             </ThemedText>
@@ -61,6 +65,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
           dark={tailwind('text-gray-400')}
           style={tailwind('text-sm ml-1')}
           testID={`${props.testID}_suffix`}
+          {...props.rhsThemedProps}
         >
           {props.suffix}
         </ThemedText>

@@ -86,6 +86,13 @@ export function LoansFaq ({ route }: Props): JSX.Element {
       }]
     },
     {
+      title: translate('components/LoansFaq', 'What is vault share?'),
+      content: [{
+        text: translate('components/LoansFaq', 'The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you\'re minting new dTokens and when you are withdrawing collateral from your vault.'),
+        type: 'paragraph'
+      }]
+    },
+    {
       title: translate('components/LoansFaq', 'Why is there a 1% fee when paying DUSD loans with DFI?'),
       content: [{
         text: translate('components/LoansFaq', 'Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.'),

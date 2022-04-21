@@ -40,6 +40,7 @@ import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -128,7 +129,7 @@ export function SendScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  useEffect(() => {
+  const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
       {
         stackScreenName: 'TokenList',
@@ -151,7 +152,7 @@ export function SendScreen ({
           header: () => null
         }
       }])
-  }, [tokens])
+  }, [])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
@@ -199,7 +200,14 @@ export function SendScreen ({
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
-        <TokenInput token={token} onPress={expandModal} isDisabled={!hasBalance} />
+        <TokenInput
+          token={token}
+          onPress={() => {
+            setTokenListBottomSheet()
+            expandModal()
+          }}
+          isDisabled={!hasBalance}
+        />
 
         {token === undefined
           ? (
@@ -213,6 +221,17 @@ export function SendScreen ({
                 <AddressRow
                   control={control}
                   networkName={networkName}
+                  onContactButtonPress={() => navigation.navigate({
+                    name: 'AddressBookScreen',
+                    params: {
+                      selectedAddress: getValues('address'),
+                      onAddressSelect: (savedAddres: string) => {
+                        setValue('address', savedAddres, { shouldDirty: true })
+                        navigation.goBack()
+                      }
+                    },
+                    merge: true
+                  })}
                   onQrButtonPress={() => navigation.navigate({
                     name: 'BarCodeScanner',
                     params: {
@@ -308,6 +327,13 @@ export function SendScreen ({
             modalRef={containerRef}
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
+            modalStyle={{
+              position: 'absolute',
+              height: '350px',
+              width: '375px',
+              zIndex: 50,
+              bottom: '0'
+            }}
           />
         )}
 
@@ -401,11 +427,13 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
 function AddressRow ({
   control,
   networkName,
+  onContactButtonPress,
   onQrButtonPress,
   onClearButtonPress,
   onAddressChange
-}: { control: Control, networkName: NetworkName, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
   const defaultValue = ''
+  const { isFeatureAvailable } = useFeatureFlagContext()
   return (
     <>
       <Controller
@@ -435,10 +463,10 @@ function AddressRow ({
               inputType='default'
             >
               <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800')}
-                light={tailwind('bg-white')}
+                dark={tailwind('bg-gray-800 border-gray-400')}
+                light={tailwind('bg-white border-gray-300')}
                 onPress={onQrButtonPress}
-                style={tailwind('w-9 p-1.5')}
+                style={tailwind('w-9 p-1.5 border rounded')}
                 testID='qr_code_button'
               >
                 <ThemedIcon
@@ -449,6 +477,25 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialIcons'
+                      light={tailwind('text-primary-500')}
+                      name='contacts'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
             </WalletTextInput>
           </View>
         )}

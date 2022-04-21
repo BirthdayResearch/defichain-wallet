@@ -28,7 +28,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
-import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
   VaultStatusTag
@@ -39,7 +39,7 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
@@ -381,7 +381,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         prefix='$'
-        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
+        value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
@@ -442,7 +442,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
     vault
   } = props
   const canUseOperations = useLoanOperations(vault.state)
-  const prices = useCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
+  const prices = getCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}

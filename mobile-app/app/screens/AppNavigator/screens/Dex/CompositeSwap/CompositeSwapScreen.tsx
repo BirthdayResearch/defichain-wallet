@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DexItem, DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -34,13 +34,13 @@ import { PriceRateProps, PricesSection } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { getAdjacentNodes, GraphProps } from '../helpers/path-finding'
 import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { useSwappableTokens } from '../hook/SwappableTokens'
 
 export interface TokenState {
   id: string
@@ -62,10 +62,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const { address } = useWalletContext()
-  const {
-    calculatePriceRates,
-    getArbitraryPoolPair
-  } = useTokenPrice()
+  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath()
   const {
     slippage,
     setSlippage
@@ -87,12 +84,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>()
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>()
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>()
-  const [allowedSwapFromTokens, setAllowedSwapFromTokens] = useState<BottomSheetToken[]>()
-  const [allowedSwapToTokens, setAllowedSwapToTokens] = useState<BottomSheetToken[]>()
-  const [allTokens, setAllTokens] = useState<TokenState[]>()
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] = useState(false)
   const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false)
+
+  const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
@@ -186,7 +182,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       {
         stackScreenName: 'TokenList',
         component: BottomSheetTokenList({
-          tokens: direction === 'FROM' ? allowedSwapFromTokens ?? [] : allowedSwapToTokens ?? [],
+          tokens: direction === 'FROM' ? fromTokens ?? [] : toTokens ?? [],
           tokenType: TokenType.BottomSheetToken,
           headerLabel: translate('screens/CompositeSwapScreen', direction === 'FROM' ? 'Choose token for swap' : 'Choose token to swap'),
           onCloseButtonPress: () => dismissModal(),
@@ -267,69 +263,27 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [route.params.pair, route.params.tokenSelectOption])
 
   useEffect(() => {
-    if (pairs === undefined) {
-      return
-    }
-
-    const tokens = pairs.reduce((tokensInPair: TokenState[], pair: DexItem): TokenState[] => {
-      const hasTokenA = tokensInPair.some(token => pair.data.tokenA.id === token.id)
-      const hasTokenB = tokensInPair.some(token => pair.data.tokenB.id === token.id)
-      const tokensToAdd: TokenState[] = []
-      if (!hasTokenA) {
-        tokensToAdd.push(pair.data.tokenA)
-      }
-      if (!hasTokenB) {
-        tokensToAdd.push(pair.data.tokenB)
-      }
-
-      return [...tokensInPair, ...tokensToAdd]
-    }, [])
-
-    setAllTokens(tokens)
-  }, [pairs])
-
-  useEffect(() => {
-    if (allTokens === undefined) {
-      return
-    }
-
-    const swappableFromTokens: BottomSheetToken[] = allTokens
-      .map((token) => {
-        const tokenId = token.id === '0' ? '0_unified' : token.id
-        const ownedToken = tokens.find(t => t.id === tokenId)
-        return {
-          tokenId: tokenId,
-          available: new BigNumber(ownedToken === undefined ? 0 : ownedToken.amount),
-          token: {
-            displaySymbol: token.displaySymbol,
-            name: '', // not available in API,
-            symbol: token.symbol
-          },
-          reserve: token.reserve
-        }
-      }).sort((a, b) => b.available.minus(a.available).toNumber())
-
-    setAllowedSwapFromTokens(swappableFromTokens)
-
-    if (selectedTokenA !== undefined && allTokens !== undefined) {
-      setAllowedSwapToTokens(getAllPossibleSwapToTokens(allTokens, pairs, selectedTokenA.id === '0_unified' ? '0' : selectedTokenA.id))
-    }
-  }, [tokens, selectedTokenA, selectedTokenB])
-
-  useEffect(() => {
-    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
-      const poolPairs = getArbitraryPoolPair(selectedTokenA.symbol, selectedTokenB.symbol)
-      setSelectedPoolPairs(poolPairs)
-    }
+    void getSelectedPoolPairs()
   }, [selectedTokenA, selectedTokenB])
 
+  const getSelectedPoolPairs = async (): Promise<void> => {
+    if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
+      const poolPairs = await getArbitraryPoolPair(selectedTokenA.id, selectedTokenB.id)
+      setSelectedPoolPairs(poolPairs)
+    }
+  }
+
   useEffect(() => {
+    void getPriceRates()
+  }, [selectedPoolPairs, tokenAFormAmount])
+
+  const getPriceRates = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined && selectedPoolPairs !== undefined && tokenAFormAmount !== undefined) {
       const {
         aToBPrice,
         bToAPrice,
         estimated
-      } = calculatePriceRates(selectedTokenA.symbol, selectedPoolPairs, new BigNumber(tokenAFormAmount))
+      } = await calculatePriceRates(selectedTokenA.id, selectedTokenB.id, new BigNumber(tokenAFormAmount))
       const slippage = new BigNumber(1).minus(new BigNumber(tokenAFormAmount).div(selectedTokenA.reserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
@@ -353,8 +307,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       ])
 
       setValue('tokenB', estimatedAmountAfterSlippage)
+      // trigger validation for tokenB
+      await trigger('tokenB')
     }
-  }, [selectedPoolPairs, tokenAFormAmount])
+  }
 
   const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenAFormAmount === undefined || tokenBFormAmount === undefined) {
@@ -429,7 +385,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
         {
-          (allowedSwapFromTokens !== undefined && allowedSwapFromTokens?.length > 0) && (
+          (fromTokens !== undefined && fromTokens?.length > 0) && (
             <ThemedText
               dark={tailwind('text-gray-50')}
               light={tailwind('text-gray-900')}
@@ -440,21 +396,21 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           )
         }
 
-        <View style={tailwind(['flex flex-row mt-3 mx-2', { hidden: allowedSwapFromTokens?.length === 0 }])}>
+        <View style={tailwind(['flex flex-row mt-3 mx-2', { hidden: fromTokens?.length === 0 }])}>
           <TokenSelection
             label={translate('screens/CompositeSwapScreen', 'FROM')}
             symbol={selectedTokenA?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
-            disabled={isFromTokenSelectDisabled || allowedSwapFromTokens === undefined || allowedSwapFromTokens?.length === 0}
+            disabled={isFromTokenSelectDisabled || fromTokens === undefined || fromTokens?.length === 0}
           />
           <TokenSelection
             label={translate('screens/CompositeSwapScreen', 'TO')} symbol={selectedTokenB?.displaySymbol}
             onPress={() => onBottomSheetSelect({ direction: 'TO' })}
-            disabled={isToTokenSelectDisabled || allowedSwapToTokens === undefined || allowedSwapToTokens?.length === 0}
+            disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
           />
         </View>
 
-        {(selectedTokenA === undefined || selectedTokenB === undefined) && allowedSwapFromTokens?.length !== 0 &&
+        {(selectedTokenA === undefined || selectedTokenB === undefined) && fromTokens?.length !== 0 &&
           <ThemedText
             dark={tailwind('text-gray-400')}
             light={tailwind('text-gray-500')}
@@ -817,67 +773,4 @@ function TokenRow (form: TokenForm): JSX.Element {
       rules={rules}
     />
   )
-}
-
-/**
- * This function finds all the possible adjacent vertices of an undirected graph in the context of tokens and pairs
- * @param tokens
- * @param pairs
- * @param tokenFrom
- */
-function getAllPossibleSwapToTokens (allTokens: TokenState[], pairs: DexItem[], tokenFrom: string): BottomSheetToken[] {
-  const graph: GraphProps[] = pairs.map(pair => {
-    const graphItem: GraphProps = {
-      pairId: pair.data.id,
-      a: pair.data.tokenA.id,
-      b: pair.data.tokenB.id
-    }
-    return graphItem
-  })
-
-  const reachableNodes: string[] = []
-  const reachableNodeIds = new Set<string>([])
-  // Use Sets to reduce checks if item is unique
-  const visitedNodes = new Set<string>([])
-  const nodesToVisit = new Set<string>([tokenFrom])
-
-  while (nodesToVisit.size !== 0) {
-    const [token] = nodesToVisit // first item in a set
-    const adjacentNodes = getAdjacentNodes(token, graph)
-    if (adjacentNodes.length !== 0) {
-      adjacentNodes.forEach(node => {
-        if (!reachableNodeIds.has(node)) {
-          reachableNodes.push(node)
-        }
-
-        // If the token hasn't been visited, flag for visit.
-        if (!visitedNodes.has(node)) {
-          nodesToVisit.add(node)
-        }
-        reachableNodeIds.add(node)
-      })
-    }
-
-    visitedNodes.add(token)
-    nodesToVisit.delete(token)
-  }
-
-  return reachableNodes.reduce((tokens: BottomSheetToken[], node: string): BottomSheetToken[] => {
-    const token = allTokens.find(token => token.id === node)
-    if (token !== undefined && node !== tokenFrom) {
-      return [
-        ...tokens, {
-          tokenId: token.id,
-          available: new BigNumber(token.reserve),
-          token: {
-            name: '', // Not available in API
-            displaySymbol: token.displaySymbol,
-            symbol: token.symbol
-          },
-          reserve: token.reserve
-        }
-      ]
-    }
-    return tokens
-  }, [])
 }
