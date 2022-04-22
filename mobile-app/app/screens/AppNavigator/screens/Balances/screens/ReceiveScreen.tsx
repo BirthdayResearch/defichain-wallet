@@ -39,7 +39,6 @@ export function ReceiveScreen (): JSX.Element {
 
   useEffect(() => {
     if (showToast) {
-      Clipboard.setString(address)
       toast.show('Copied', {
         type: 'wallet_toast',
         placement: 'top',
@@ -107,6 +106,7 @@ export function ReceiveScreen (): JSX.Element {
         <TouchableOpacity
           onPress={() => {
             copyToClipboard()
+            Clipboard.setString(address)
           }}
           style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
           testID='copy_button'
