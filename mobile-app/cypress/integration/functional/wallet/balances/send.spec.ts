@@ -415,7 +415,7 @@ context('Wallet - Send - Switch token', function () {
   })
 })
 
-context.only('Wallet - Send - Address book', function () {
+context('Wallet - Send - Address book', function () {
   function populateAddressBook (): void {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
@@ -436,10 +436,17 @@ context.only('Wallet - Send - Address book', function () {
       cy.getByTestID('address_book_address_input_error').should('not.exist')
       cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(2000)
+      validateMatchAddress(addresses[index], labels[index])
       cy.getByTestID('address_book_button').click()
       cy.getByTestID(`address_row_label_${addresses[index]}`).contains(labels[index])
       cy.getByTestID(`address_row_text_${addresses[index]}`).contains(addresses[index])
     })
+  }
+
+  function validateMatchAddress (address: string, label: string): void {
+    cy.getByTestID('address_input').contains(address)
+    cy.getByTestID('address_input_footer').contains(label)
+    cy.getByTestID('register_address_indicator').should('exist')
   }
 
   before(function () {
@@ -479,10 +486,10 @@ context.only('Wallet - Send - Address book', function () {
     populateAddressBook()
   })
 
-  it('should be able to select address in from address book', function () {
+  it('should be able to select address from address book and display in address input', function () {
     cy.wrap(addresses).each((_v, index: number) => {
       cy.getByTestID(`address_row_${index}`).click()
-      cy.getByTestID('address_input').contains(addresses[index])
+      validateMatchAddress(addresses[index], labels[index])
       cy.getByTestID('address_book_button').click()
     })
   })
@@ -524,7 +531,7 @@ context.only('Wallet - Send - Address book', function () {
     const newLabel = 'DeFi'
     const newAddress = addresses[0]
     cy.getByTestID('address_list_edit_button').click()
-    cy.getByTestID(`address_edit_indicator_${addresses[1]}`).click()
+    cy.getByTestID(`address_edit_indicator_${addresses[2]}`).click()
     cy.getByTestID('address_book_label_input').clear().type(newLabel)
     cy.getByTestID('address_book_label_input_error').should('not.exist')
     cy.getByTestID('address_book_address_input').clear().type(newAddress)
@@ -534,6 +541,12 @@ context.only('Wallet - Send - Address book', function () {
     cy.getByTestID(`address_row_label_${newAddress}`).contains(newLabel)
     cy.getByTestID(`address_row_text_${newAddress}`).contains(newAddress)
     cy.getByTestID(`address_edit_indicator_${newAddress}`).should('not.exist')
+  })
+
+  it('should remove matched address label and indicator after editing', function () {
+    cy.go('back')
+    cy.getByTestID('address_input_footer').should('not.exist')
+    cy.getByTestID('register_address_indicator').should('not.exist')
   })
 
   it('should remove address book from storage after exiting wallet through setting', function () {

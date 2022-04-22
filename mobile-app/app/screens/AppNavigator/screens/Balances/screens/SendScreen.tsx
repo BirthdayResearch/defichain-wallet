@@ -282,6 +282,7 @@ export function SendScreen ({
                             style={tailwind('text-xs ml-1 pt-px')}
                             light={tailwind('text-gray-500')}
                             dark={tailwind('text-gray-400')}
+                            testID='address_input_footer'
                           >
                             {matchedAddress.label}
                           </ThemedText>
@@ -295,6 +296,7 @@ export function SendScreen ({
                     style={tailwind('text-xs mt-1')}
                     light={tailwind('text-gray-500')}
                     dark={tailwind('text-gray-400')}
+                    testID='register_address_indicator'
                   >
                     {translate('screens/SendScreen', '*Registered address')}
                   </ThemedText>
