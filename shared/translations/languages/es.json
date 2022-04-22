@@ -50,7 +50,8 @@
     "Your share in pool": "Su participación en el pool",
     "ADD": "AÑADIR",
     "Prices": "Precios",
-    "Available pool pairs": "Pares del pool disponibles"
+    "Available pool pairs": "Pares del pool disponibles",
+    "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instrucciones",
@@ -66,21 +67,67 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Saldos",
+    "Portfolio": "Portfalio",
     "SEND": "ENVIAR",
     "RECEIVE": "RECIBIR",
     "BUY WITH FIAT": "COMPRAR CON FIAT",
-    "PORTFOLIO": "PORTAFOLIO",
-    "Show balances": "Mostrar saldos",
-    "Hide balances": "Esconder saldos",
+    "Total Portfolio Value (USD)": "El Valor total del portafolio (USD)",
+    "Total Portfolio Value": "El Valor total del portafolio",
     "You do not have any other tokens.": "No posees otros tokens",
     "SWITCH": "CAMBIAR",
-    "YOUR ASSETS": "TUS ACTIVOS"
+    "YOUR ASSETS": "TUS ACTIVOS",
+    "Available: ": "Disponible: ",
+    "Locked: ": "Bloqueados: ",
+    "locked in vault(s)": "Bloqueados en la bóveda(s)",
+    "available": "disponible",
+    "All tokens": "Todos los Token",
+    "LP tokens": "Tokens de Piscinas de Liquidez",
+    "Crypto": "Crypto",
+    "dTokens": "dTokens",
+    "(From highest value)": "(Desde el valor más alto)",
+    "(From lowest value)": "(Desde el valor más bajo)",
+    "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*El Valor total del portafolio ahora excluye la cantidad del préstamo basada en el precio del oráculo",
+    "loans": "Préstamos"
   },
-  "screens/AddressControlScreen": {
+  "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
-    "Switch to another address": "Cambiar a otra dirección",
-    "Wallet Address": "Dirección de la billetera",
-    "ACTIVE": "ACTIVO"
+    "{{length}} ADDRESS(ES)": "{{tamaño}} DIRECCION(ES)",
+    "RECEIVE": "RECIBIDO",
+    "VIEW ON SCAN": "VERLO EN EL ESCANER",
+    "EDIT": "EDITA",
+    "CANCEL": "CANCELA"
+  },
+  "screens/AddressBookScreen": {
+    "Address book": "Libro de direcciones",
+    "ADD NEW ADDRESS": "AÑADE NUEVA DIRECCION",
+    "Please enter an address label": "Por favor nombra esta dirección",
+    "Please enter a valid address": "Por favor añade una dirección válida",
+    "Please enter a unique address": "Por favor añade una dirección única",
+    "Empty address book": "Vacía el libro de direcciones",
+    "Add your preferred address": "Añade tus direcciones preferidas"
+  },
+  "components/CreateOrEditAddressLabelForm": {
+    "Edit address label": "Edita el nombre de la dirección",
+    "ADDRESS LABEL": "NOMBRE DE LA DIRECCION",
+    "Address {{index}}": "Dirección {{index}}",
+    "Add new address": "Añade nueva dirección",
+    "ADDRESS": "Dirección",
+    "SAVE CHANGES": "GUARDA LOS CAMBIOS",
+    "Address label is too long (max 30 characters)": "El nombre de la dirección es muy largo (máx. 30 caracteres)"
+  },
+  "screens/AddOrEditAddressBookScreen": {
+    "Edit address label": "Edita el nombre de la dirección",
+    "Address label": "Nombre de la dirección",
+    "Address {{index}}": "Dirección {{index}}",
+    "Add new address": "Añade nueva dirección",
+    "Add New Address": "Añade Nueva dirección",
+    "Address": "Dirección",
+    "SAVE CHANGES": "GUARDA LOS CAMBIOS",
+    "Address label is too long (max 30 characters)": "El nombre de la dirección es muy largo (máx. 30 caracteres)",
+    "Enter address label": "Añade un nombre a la dirección",
+    "Enter address": "Añade la dirección",
+    "This address already exists in your address book, please enter a different address": "Esta dirección ya existe en tu libro de direcciones, por favor añade una dirección diferente",
+    "Edit address": "Edita la dirección"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",
@@ -212,7 +259,9 @@
     "Touch ID": "Identificador táctil",
     "device's lock": "Dispositivo bloqueado",
     "biometric": "biométrico",
-    "Enter passcode to continue": "Introducir contraseña para continuar"
+    "Enter passcode to continue": "Introducir contraseña para continuar",
+    "Sign to save address": "Acepta para guardar tu dirección",
+    "Sign to delete address": "Acepta para borrar la dirección"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -237,7 +286,8 @@
     "Passcode": "Contraseña",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Préstamos",
-    "Auctions": "Subastas"
+    "Auctions": "Subastas",
+    "Liquidity Mining": "Minería de Liquidez (piscinas de liquidez)"
   },
   "components/LoansFaq": {
     "Loans FAQ": "Preguntas frecuentes sobre Préstamos",
@@ -268,7 +318,9 @@
     "What is collateral factor?": "¿Qué es el factor colateral?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "El factor colateral determina el grado de contribución de cada token usado en el colateral. Por ejemplo, si un token es aceptado con una factor colateral del 70%, $100 en el valor del token podrían contribuir a $70 del valor del colateral en una bóveda.",
     "Why is there a 1% fee when paying DUSD loans with DFI?": "Porqué hay una comisión de un 1% cuando pago los prestamos de DUSD en DFI?",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Para el DFIP 2112-A, cada prestamo de DUSD será pagable con DFI como modo para resolver el sobreprecio acutal de DUSD en el DEX.\n\n Una vez calculado el equivalente en DFI restante para pagar el préstamo de DUSD, una comisión del 1% es aplicada al valor del DFI/DUSD del oráculo. Por ejemplo, si el precio DFI/DUSD del oráculo hoy es de 10$, el valor de una DFI para pagar en DUSD es calculado de siguiente modo $10 * (1 - 0,01), reduciendo en tal escenario efectivamente el valor del DFI en 1% y equivaliendo a $9,90."
+    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Para el DFIP 2112-A, cada prestamo de DUSD será pagable con DFI como modo para resolver el sobreprecio acutal de DUSD en el DEX.\n\n Una vez calculado el equivalente en DFI restante para pagar el préstamo de DUSD, una comisión del 1% es aplicada al valor del DFI/DUSD del oráculo. Por ejemplo, si el precio DFI/DUSD del oráculo hoy es de 10$, el valor de una DFI para pagar en DUSD es calculado de siguiente modo $10 * (1 - 0,01), reduciendo en tal escenario efectivamente el valor del DFI en 1% y equivaliendo a $9,90.",
+    "What is vault share?": "¿Cúal es tu proporción de la bóveda?",
+    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "La proporción de la bóveda representa la proporción del valor de los activos colaterales depositados en una bóveda. Se requiere que todas las bóvedas tengan un 50% de DFI o/y dUSD como tokens usados como colaterales. Este requerimiento se comprueba en 2 ocasiones. Primero, cuando estás acuñando nuevos dTokens y segundo, cuando extraes parte del colateral de tu bóveda"
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "Preguntas frecuentes sobre Subastas",
@@ -294,10 +346,13 @@
     "Sent": "Enviado"
   },
   "screens/TransactionDetailScreen": {
+    "Transaction": "Transacción",
     "Type": "Tipo",
     "Amount": "Cantidad",
     "Block": "Bloque",
-    "Date": "Fecha"
+    "Date": "Fecha",
+    "Received": "Recibido",
+    "Sent": "Enviado"
   },
   "screens/TransactionsDetailScreen": {
     "Transactions": "Transacciones"
@@ -310,7 +365,7 @@
     "Convert to {{symbol}}": "Convertir a {{symbol}}",
     "Add to liquidity pool": "Añadir a la piscina de liquidez",
     "Remove liquidity": "Eliminar liquidez",
-    "Swap with {{token}}": "Intercambia con {{token}}"
+    "Swap token": "Intercambia de token"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Aprende sobre UTXOs y Tokens",
@@ -437,6 +492,7 @@
   },
   "BottomTabNavigator": {
     "Balances": "Saldos",
+    "Portfolio": "Portfalio",
     "Liquidity": "Liquidez",
     "Transactions": "Transacciones",
     "Settings": "Ajustes",
@@ -464,7 +520,8 @@
     "MAX": "MAX"
   },
   "screens/common": {
-    "CANCEL": "CANCELA"
+    "CANCEL": "CANCELA",
+    "TRY AGAIN": "VUELVELO A INTENTAR"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
@@ -680,13 +737,17 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "Estás a punto de cambiar a {{network}}. ¿Quieres continuar?"
   },
   "components/RecoveryWordFaq": {
-    "Decentralized Exchange": "Exchange descentralizado",
-    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Las funciones del exchange descentralizado permite a los usuarios de DeFiChain intercambia cryptomonedas de persona a persona. Esta función permite la relación directa entre comprador y vendedor, sin la necesidad de comprar y vender a través de un exchange.",
-    "Transaction fees": "Comisión de la transacción",
-    "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Cada transacción estará sujeta a unas pequeñas comisiones. La cantidad variará dependiendo de la congestión de la red.",
-    "What is slippage tolerance?": "¿Qué es la tolerancia a la fluctuación?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Debido a la naturaleza dinámica de la blockchain, los precios en el Exchange descentralizado cambian en cada bloque.\n\nEsto implica una fluctuación, la cúal es la diferencia entre el precio final de la transacción, y el precio mostrado en la app antes de la confirmación de la transacción.\n\nLa herramienta que mide la tolerancia a la fluctuación te indica la fluctuación máxima que estás dispuesto a aceptar en la transacción.\n\nSi la fluctuación de tu transacción es mayor a la tolerancia que habías seleccionado, la transacción no se completará y la cantidad original será devuelta a tu billetera.",
-    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
+    "What happens if I lose my recovery words?": "¿Qué pasa si pierdo mis palabras de recuperación?",
+    "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Cuando pierdes tus palabras de recuperación, no puedes recuperar tu billetera ni los fondos que estaban en ella. Te invitamos a que prestes atención a guardar tus palabras de recuperación escritas en papel en un lugar seguro.",
+    "Can I use the 24-words from xxx that I created from xxx?": "¿Puedo usar las 24 palabras de xxx que creé desde xxx?",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Sólo puedes reusar tus 24 palabras si las creaste a través del ecosistema Jellyfish.\n\nLos clientes compatibles son DeFiChain-Wallet (Android/iOS) y DFX.SWISS (Android/iOS).\n\nDe todas formas se desaconseja que las vuelvas a utilizar. Tus 24 palabras son tan seguras como el dispositivo que las genera, ya sea móvil o ordenador. Esencialmente se recomienda un juego de 24 palabras por dispositivo.",
+    "Can someone help me if I lose my recovery words?": "¿Puede alguien ayudarme si pierdo mis palabras de recuperación?",
+    "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "No. Tú tienes el único acceso a tus palabras de recuperación. Tu eres la única persona responsable de tus palabras.",
+    "Why is it recommended to keep my recovery words offline and on paper?": "¿Porqué se recomienda guardar mis palabras de recuperación fuera de internet y en papel?",
+    "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Guardar las palabras en un entorno digital las hace accesible a hackers. Lo mejor es escribirlas en papel y guardarlas en un lugar seguro y privado.",
+    "Recovery words": "Palabras de recuperación",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Tus 24 palabras legibles por humanos son la representación de la clave privada de tu billetera. Son generadas de una lista de 2048 palabras usando el estandar BIP-39. Su función es prevenir cualquier intento de hackeo en tu billetera",
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FREQUENTES"
   },
   "components/DexFaq": {
     "Decentralized Exchange": "Exchange descentralizado",
@@ -724,7 +785,11 @@
     "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
   },
   "components/DFIBalanceCard": {
-    "Learn more about UTXO and Token": "Aprende más sobre UTXO y los Tokens"
+    "Learn more about UTXO and Token": "Aprende más sobre UTXO y los Tokens",
+    "Available": "Disponible",
+    "Locked in vault(s)": "Bloqueado en la bóveda(s)",
+    "as UTXO": "como UTXO",
+    "as Token": "como Token"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Una pequeña cantidad de UTXO (0.1 DFI) se reserva para las comisiones."
@@ -777,7 +842,9 @@
     "Browse auctions": "Busca subastas",
     "Manage bids": "Gestiona ofertas",
     "Collateral for auction": "Colateral para la subasta",
-    "Auction details": "Detalles de la subasta"
+    "Vault details": "Detalles de la bóveda",
+    "Bid history": "Historial de ofertas",
+    "Rewards": "Recompensas"
   },
   "components/LoanCard": {
     "Active Price": "Precio Activo",
@@ -837,6 +904,11 @@
     "From your vault": "De tu bóveda",
     "Waiting for first bid": "Esperando a tu primera oferta"
   },
+  "components/BatchHistory": {
+    "{{h}}h {{m}}m ago": "hace {{h}}h {{m}}min",
+    "{{h}}h ago": "hace {{h}}h",
+    "{{m}}m ago": "hace {{m}}min"
+  },
   "components/BidCard": {
     "BID HIGHER": "OFERTA MAS",
     "VIEW REWARDS": "COMPRUEBA LAS RECOMPENSAS",
@@ -846,6 +918,13 @@
     "Lost": "Perdida",
     "Highest bid": "Oferta más alta",
     "Auction ended": "Se acabo la subasta"
+  },
+  "components/BidHistory": {
+    "Bidder ID": "Identificador del ofertante",
+    "BID #{{bidIndex}}": "OFERTA #{{bidIndex}}",
+    "Waiting for first bid": "Esperando a la primera oferta",
+    "{{h}}{{m}} ago": "hace {{h}}{{m}}",
+    "Minimum amount to bid is": "Cantidad mínima para presentar oferta"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "La subasta acaba en",
@@ -967,8 +1046,16 @@
     "Wallet Address": "Dirección de la billetera"
   },
   "components/EmptyBalances": {
-    "No other tokens yet": "No hay otros tokens aún",
-    "Get started by adding your tokens here in your wallet": "Empieza añadiendo tus tokens aquí en tu billetera"
+    "No LP tokens in portfolio": "No tienes LP en el portafolio",
+    "No Crypto in portfolio": "No tienes cripto en el portafolio",
+    "No dTokens in portfolio": "No tienes dTokens en el portafolio"
+  },
+  "components/EmptyPortfolio": {
+    "Empty portfolio": "Portafolio vacío"
+  },
+  "components/DfxEmptyWallet": {
+    "Add your DFI and other tokens to get started": "Añade tus DFI y otros tokens para empezar",
+    "buy them with a bank transfer": "comprarlos con una transferencia bancaria"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "TIPO DE PRESTAMO",
@@ -1024,7 +1111,8 @@
     "Current": "Actual",
     "The collateral factor determines the degree of contribution of each collateral token.": "El factor del colateral determina el grado de contribución de cada token colateral.",
     "Resulting collateralization": "Collateralización resultante",
-    "N/A": "N/A"
+    "N/A": "N/A",
+    "Vault %": "% en la bóveda"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Tu estás añadiendo colateral a",
@@ -1046,7 +1134,8 @@
     "Convert & remove collateral": "Convierte y quita colateral",
     "Add Collateral": "Añade colateral",
     "Remove Collateral": "Quita colateral",
-    "CONFIRM REMOVE COLLATERAL": "CONFIRMAR LA ELIMINACIÓN DE LA GARANTÍA"
+    "CONFIRM REMOVE COLLATERAL": "CONFIRMAR LA ELIMINACIÓN DE LA GARANTÍA",
+    "N/A": "No se aplica"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "TU ESTAS PAGANDO EL PRESTAMO",
@@ -1062,15 +1151,23 @@
     "Outstanding balance": "Saldo pendiente",
     "Collateralization ratio": "Ratio de colateralización",
     "Min. collateralization ratio": "Ratio mínimo de colateralización",
-    "Resulting collateralization": "Colateralización resultante",
     "Excess amount": "Cantidad excedente",
     "Any excess amount will be returned to your wallet.": "Cualquier cantidad excedente será retornada a tu billetera.",
+    "Resulting collateralization": "Colateralización resultante",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} resultante",
     "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
-    "Select payment token": "Selecciona un token para pagar",
-    "A 1% fee is applied when you pay with DFI.": "Una comisión del 1% es aplicada cuando pagas con DFI",
-    "Read more": "Sigue leyendo"
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Un 1% de tasas se aplicarán cuando pagues con {{tokenSymbol}}.",
+    "Read more": "Lee más",
+    "How do you want to pay?": "¿Cómo te gustaría pagar?",
+    "You are paying": "Tu estás pagando",
+    "of total loan": "del total del préstamo",
+    "Loan amount": "Cantidad del préstamos",
+    "Min. col. ratio": "Mínimo ratio de colateralización",
+    "Total loan (USD)": "Préstamo total (USD)",
+    "Total collateral (USD)": "Valor total del colateral (USD)",
+    "Loan remaining": "Préstamo restante",
+    "{{paymentToken}} payment fee": "{{paymentToken}} tasa de pago"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMA EL PAGO",
@@ -1123,7 +1220,9 @@
     "Unable to proceed because of errors": "No se puede proceder por un error",
     "Max loan amount": "Máxima cantidad para el préstamo",
     "USD": "USD",
-    "How many {{token}} tokens to borrow?": "¿Cúantos {{token}} Tokens quieres pedir prestados?"
+    "How many {{token}} tokens to borrow?": "¿Cúantos {{token}} Tokens quieres pedir prestados?",
+    "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Tu bóveda necestia al menos un 50% de DFI y/o DUSD como colateral",
+    "This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens": "Esta bóveda necesita al menos un 50% de DFI y/o DUSD para estar disponible para acuñar dTokens"
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Tu estás pidiendo prestado",
@@ -1238,8 +1337,8 @@
     "CONFIRM PLACE BID": "CONFIRMA LA OFERTA",
     "Sign Transaction": "Confirma la transacción",
     "Placing {{amount}} {{token}} as bid for auction.": "Aportando {{amount}} {{token}} como oferta para la subasta.",
-    "Insufficient funds": "Fondos insuficientes",
-    "Collateral for auction": "Collateral para la subasta"
+    "Collateral for auction": "Collateral para la subasta",
+    "Insufficient funds": "Fondos insuficientes"
   },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",
@@ -1253,6 +1352,6 @@
     "Wallet address": "Dirección de la billetera"
   },
   "components/Announcements": {
-    "DETALLES": "Ver"
+    "DETAILS": "Ver"
   }
 }
