@@ -162,10 +162,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   }, [addressBook, isEditing])
 
   const goToAddAddressForm = (): void => {
-    if (onAddressSelect === undefined) {
-      return
-    }
-
     navigation.navigate({
       name: 'AddOrEditAddressBookScreen',
       params: {
@@ -182,7 +178,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               }
             }))
           })
-          onAddressSelect(Object.keys(labelAddress)[0])
+          if (onAddressSelect !== undefined) {
+            onAddressSelect(Object.keys(labelAddress)[0])
+          }
         }
       },
       merge: true
