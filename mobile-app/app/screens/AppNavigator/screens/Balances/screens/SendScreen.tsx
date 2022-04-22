@@ -290,6 +290,15 @@ export function SendScreen ({
                     </>
                   }
                 />
+                {matchedAddress !== undefined && (
+                  <ThemedText
+                    style={tailwind('text-xs mt-1')}
+                    light={tailwind('text-gray-500')}
+                    dark={tailwind('text-gray-400')}
+                  >
+                    {translate('screens/SendScreen', '*Registered address')}
+                  </ThemedText>
+                )}
 
                 <AmountRow
                   control={control}
@@ -486,7 +495,7 @@ function AddressRow ({
             onChange
           }
         }) => (
-          <View style={tailwind('flex-row w-full mb-6')}>
+          <View style={tailwind('flex-row w-full')}>
             <WalletTextInput
               autoCapitalize='none'
               multiline
@@ -583,7 +592,7 @@ function AmountRow ({
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
-            style={tailwind('flex-row w-full')}
+            style={tailwind('flex-row w-full mt-6')}
           >
             <WalletTextInput
               autoCapitalize='none'
