@@ -992,7 +992,7 @@
     "CONFIRM CREATE VAULT": "CONFERMA LA CREAZIONE DEL VAULT",
     "Creating vault": "Creazione del vault",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Crea un vault con un rapporto di collateralizzazione minimo del {{amount}}% e un tasso di interesse del {{ir}}% APR",
-    "Convert & create vault": "Converti e crea un vault"
+    "Convert & create vault": "Converti e crea un vault",
     "CREATING": "CREAZIONE"
   },
   "components/BottomSheetInfo": {
@@ -1337,8 +1337,8 @@
     "CONFIRM PLACE BID": "CONFERMA L'OFFERTA",
     "Sign Transaction": "Firma la transazione",
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
-    "Collateral for auction": "Collaterali messi all'asta"
-    "Insufficient funds": "Fondi insufficienti",
+    "Collateral for auction": "Collaterali messi all'asta",
+    "Insufficient funds": "Fondi insufficienti"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
