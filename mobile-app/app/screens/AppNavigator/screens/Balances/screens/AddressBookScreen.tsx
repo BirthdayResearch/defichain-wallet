@@ -167,7 +167,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       params: {
         title: 'Add new address',
         isAddNew: true,
-        onSaveButtonPress: (labelAddress: LabeledAddress) => {
+        onSaveButtonPress: (labelAddress: LabeledAddress, address?: string) => {
           const _addressBook = { ...addressBook, ...labelAddress }
           dispatch(setAddressBook(_addressBook)).then(() => {
             dispatch(setUserPreferences({
@@ -178,8 +178,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               }
             }))
           })
-          if (onAddressSelect !== undefined) {
-            onAddressSelect(Object.keys(labelAddress)[0])
+          if (onAddressSelect !== undefined && address !== undefined) {
+            onAddressSelect(address)
           }
         }
       },

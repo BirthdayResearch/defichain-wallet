@@ -117,7 +117,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
           const { [address]: _, ...newAddressBook } = _addressBook
           onSaveButtonPress(newAddressBook)
         } else {
-          onSaveButtonPress(_addressBook)
+          onSaveButtonPress(_addressBook, addressInput)
         }
         navigation.pop()
       },
