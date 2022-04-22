@@ -78,8 +78,8 @@
     "You do not have any other tokens.": "Non hai altri token.",
     "SWITCH": "PASSA A",
     "YOUR ASSETS": "I MIEI ASSET",
-    "Available": "Disponibile",
-    "Locked": "Bloccato",
+    "Available:": "Disponibile",
+    "Locked:": "Bloccato",
     "locked in vault(s)": "bloccato nel vault",
     "available": "disponibile",
     "All tokens": "Tutti i Token",
@@ -93,7 +93,7 @@
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREA INDIRIZZO DEL WALLET",
-    "{{length}} ADDRESS(ES)": "{{lunghezza}} INDIRIZZO(I)",
+    "{{length}} ADDRESS(ES)": "{{length}} INDIRIZZO(I)",
     "RECEIVE": "RICEVI",
     "VIEW ON SCAN": "VISUALIZZA SU SCAN",
     "EDIT": "MODIFICA",
@@ -347,7 +347,7 @@
     "Sent": "Invia"
   },
   "screens/TransactionDetailScreen": {
-    "Transactions": "Transazioni",
+    "Transaction": "Transazioni",
     "Type": "Tipo",
     "Amount": "Importo",
     "Block": "Blocco",
@@ -419,8 +419,8 @@
     "Store them offline and in a safe place.": "Conservale offline e in un luogo sicuro.",
     "Keep them private": "Mantienile private",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Non condividerle con nessuno.  Tieni le parole di recupero solo per te.",
-    "I have read and agree to the terms and conditions.": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere diese.",
-    "View terms and conditions.": "Allgemeine Geschäftsbedingungen anzeigen.",
+    "I have read and agree to the terms and conditions.": "Ho letto e accetto i termini e le condizioni.",
+    "View terms and conditions.": "Mostra i termini e le condizioni generali.",
     "https://dfx.swiss/en/terms/": "https://dfx.swiss/it/termini/"
   },
   "screens/GuidelinesRecoveryWords": {
@@ -806,12 +806,12 @@
     "CONVERSION DETAILS": "DETTAGLI DELLA CONVERSIONE",
     "Conversion type": "Tipo di conversione",
     "Amount to convert": "Importo da convertire",
-    "Resulting {{token}}": "{{token}} Risultanti}",
+    "Resulting {{token}}": "{{token}} Risultanti",
     "Amount above are prior to transaction": "L'importo di cui sopra è prima della transazione"
   },
   "components/TransactionResultsRow": {
     "TRANSACTION RESULTS": "RISULTATI DELLA TRANSAZIONE",
-    "Resulting {{symbol}}": "Risultato {{symbol}}}"
+    "Resulting {{symbol}}": "Risultato {{symbol}}"
   },
   "screens/LoansScreen": {
     "Loans": "Prestiti",
@@ -934,7 +934,7 @@
     "Auction time remaining": "Tempo rimanente dell'asta"
   },
   "components/VaultCard": {
-    "Collaterals:": "Collaterali:",
+    "Collateral:": "Collaterali:",
     "None": "Nessuno",
     "Locked": "Bloccato",
     "At risk": "A rischio",
@@ -963,7 +963,7 @@
   },
   "components/EmptyVault": {
     "No vault created": "Nessun vault creato",
-    "To get started, create a vault and add DFI and other tokens as collaterals": "Per iniziare, crea un vault e aggiungi DFI e altri token come collaterale",
+    "To get started, create a vault and add DFI and other tokens as collateral": "Per iniziare, crea un vault e aggiungi DFI e altri token come collaterale",
     "CREATE VAULT": "CREA UN VAULT"
   },
   "screens/CreateVaultScreen": {
@@ -993,6 +993,7 @@
     "Creating vault": "Creazione del vault",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Crea un vault con un rapporto di collateralizzazione minimo del {{amount}}% e un tasso di interesse del {{ir}}% APR",
     "Convert & create vault": "Converti e crea un vault"
+    "CREATING": "CREAZIONE"
   },
   "components/BottomSheetInfo": {
     "Estimated fee": "Commissione stimata",
@@ -1026,7 +1027,7 @@
     "ADD COLLATERAL": "AGGIUNGI COLLATERALE",
     "TAKE COLLATERAL": "PRENDI UN COLLATERALE",
     "EDIT SCHEME": "MODIFICA SCHEMA",
-    "EDIT COLLATERALS": "MODIFICA I COLLATERALI",
+    "EDIT COLLATERAL": "MODIFICA I COLLATERALI",
     "EDIT LOAN SCHEME": "MODIFICA LO SCHEMA DI PRESTITO",
     "CLOSE VAULT": "CHIUDI IL VAULT"
   },
@@ -1089,9 +1090,9 @@
     "Cancel": "Cancella",
     "Remove": "Rimuovi",
     "VAULT DETAILS": "DETTAGLI DEL VAULT",
-    "COLLATERALS": "COLLATERALI",
+    "COLLATERAL": "COLLATERALI",
     "Adding collateral": "Aggiungi collaterale",
-    "Adding {{amount}} {{symbol}} as collateral": "Aggiungi {{amount}} {{symbol}}} come collaterale",
+    "Adding {{amount}} {{symbol}} as collateral": "Aggiungi {{amount}} {{symbol}} come collaterale",
     "Removing collateral": "Rimozione del collaterale",
     "Removing {{amount}} {{symbol}} collateral from vault": "Rimuovi {{amount}} {{symbol}}} dal vault come collaterale",
     "Total loans (USD)": "Totale prestiti (USD)",
@@ -1182,8 +1183,8 @@
     "Collateral amount (USD)": "Importo del collaterale (USD)",
     "Collateralization ratio": "Rapporto di collateralizzazione",
     "Paying loan": "Pagamento del prestito",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} as loan payment.": "Sto pagando {{amountToPayInSelectedToken}} {{paymentSymbol}} come pagamento del prestito.",
-    "Paying {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Sto pagando {{amountToPayInSelectedToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) come pagamento del prestito.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Sto pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} come pagamento del prestito.",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Sto pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) come pagamento del prestito.",
     "Confirm Loan Payment": "Conferma il pagamento del prestito",
     "Resulting collateralization": "Garanzia corrispondente"
   },
@@ -1296,10 +1297,10 @@
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "Stai chiudendo l'ID del Vault",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
-    "Fees to return": "Commissioni da restituire",
+    "Fees to return": "Commissioni da restituire",    
     "Fees to burn": "Commissioni da bruciare",
-    "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Alla chiusura, questo Vault ID non sarà più utilizzabile. Assicurati di non aver bisogno di nulla da questo vault prima di chiudere.",
-    "CONFIRM CLOSE VAULT": "CONFERMA LA CHIUSURA DEL VAULT",
+       "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Alla chiusura, questo Vault ID non sarà più utilizzabile. Assicurati di non aver bisogno di nulla da questo vault prima di chiudere.",
+	    "CONFIRM CLOSE VAULT": "CONFERMA LA CHIUSURA DEL VAULT",
     "You are about to close vault {{vaultId}}": "Stai per chiudere il vault {{vaultId}}",
     "CLOSING": "CHIUDI"
   },
@@ -1336,8 +1337,8 @@
     "CONFIRM PLACE BID": "CONFERMA L'OFFERTA",
     "Sign Transaction": "Firma la transazione",
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
-    "Insufficient funds": "Fondi insufficienti",
     "Collateral for auction": "Collaterali messi all'asta"
+    "Insufficient funds": "Fondi insufficienti",
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",

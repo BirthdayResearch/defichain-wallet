@@ -81,7 +81,7 @@
     "locked in vault(s)": "Bloqueados en la bóveda(s)",
     "available": "disponible",
     "All tokens": "Todos los Token",
-    "LP tokens": "Tokens de Piscinas de Liquidez",
+    "LP tokens": "Tokens de LP",
     "Crypto": "Crypto",
     "dTokens": "dTokens",
     "(From highest value)": "(Desde el valor más alto)",
@@ -91,7 +91,7 @@
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
-    "{{length}} ADDRESS(ES)": "{{tamaño}} DIRECCION(ES)",
+    "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",
     "RECEIVE": "RECIBIDO",
     "VIEW ON SCAN": "VERLO EN EL ESCANER",
     "EDIT": "EDITA",
@@ -418,8 +418,8 @@
     "Store them offline and in a safe place.": "Guárdalas sin conexión a la red y en un lugar seguro.",
     "Keep them private": "Mantenlas en secreto",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "No las compartas con nadie. Guárdalas sólo para ti",
-    "I have read and agree to the terms and conditions.": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere diese.",
-    "View terms and conditions.": "Allgemeine Geschäftsbedingungen anzeigen.",
+    "I have read and agree to the terms and conditions.": "He leído y acepto las condiciones.",
+    "View terms and conditions.": "Mostrar las condiciones generales.",
     "https://dfx.swiss/en/terms/": "https://dfx.swiss/es/terminos/"
   },
   "screens/GuidelinesRecoveryWords": {
@@ -630,7 +630,7 @@
     "Proceed at your own risk": "Continúa a tu propio riesgo"
   },
   "screens/PoolSwapScreen": {
-    "Swap": "Intercambio",
+    "Swap": "Swap",
     "How much {{token}} do you want to swap?": "¿Cúantos {{token}} quieres intercambiar?",
     "Available": "Disponible",
     "After": "Despúes",
@@ -836,7 +836,7 @@
     "Your vaults": "Tus bóvedas",
     "Active loan": "Préstamo activo",
     "Details": "Detalles",
-    "Collaterals": "Colaterales",
+    "Collateral": "Colaterales",
     "Auctions": "Subastas",
     "Loans": "Préstamos",
     "Browse auctions": "Busca subastas",
@@ -875,7 +875,7 @@
     "Auction details": "Detalles de la subasta"
   },
   "components/AuctionDetailScreen": {
-    "Collaterals": "Colaterales",
+    "Collateral": "Colaterales",
     "Min. next bid": "Mínimo para la siguiente oferta",
     "VAULT DETAILS": "DETALLES DE LA BOVEDA",
     "Vault ID": "Identificador de la bóveda",
@@ -963,7 +963,7 @@
   },
   "components/EmptyVault": {
     "No vault created": "Ninguna bóveda ha sido creada",
-    "To get started, create a vault and add DFI and other tokens as collaterals": "Para empezar, crea una bóveda y añade DFI y otros tokens como colaterales",
+    "To get started, create a vault and add DFI and other tokens as collateral": "Para empezar, crea una bóveda y añade DFI y otros tokens como colaterales",
     "CREATE VAULT": "CREA BOVEDA"
   },
   "screens/CreateVaultScreen": {
@@ -1017,7 +1017,7 @@
     "Vault ID": "Identificador de la bóveda",
     "Your vault is locked for liquidation.": "Tu bóveda está bloqueada para ser liquidada.",
     "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Tu bóveda está en riesgo de liquidación. Impide la liquidación añadiendo más colaterales o pagando el préstamo.",
-    "Collaterals required to use this vault.": "Se requiere un colateral para usar esta bóveda.",
+    "Collateral required to use this vault.": "Se requiere un colateral para usar esta bóveda.",
     "Total collateral (USD)": "Colateral total (USD)",
     "Total loans (USD)": "Préstamos total (USD)",
     "Vault interest (APR)": "Interés anual de la bóveda",
@@ -1027,7 +1027,7 @@
     "ADD COLLATERAL": "AÑADIR COLATERAL",
     "TAKE COLLATERAL": "TOMAR COLATERAL",
     "EDIT SCHEME": "EDITA EL TIPO",
-    "EDIT COLLATERALS": "EDITA LOS COLATERALES",
+    "EDIT COLLATERAL": "EDITA LOS COLATERALES",
     "EDIT LOAN SCHEME": "EDITA EL TIPO DE PRESTAMO",
     "CLOSE VAULT": "CIERRA LA BOVEDA"
   },
@@ -1054,7 +1054,7 @@
     "Empty portfolio": "Portafolio vacío"
   },
   "components/DfxEmptyWallet": {
-    "Add your DFI and other tokens to get started": "Añade tus DFI y otros tokens para empezar",
+    "Add your DFI and other dTokens to get started": "Añade tus DFI y otros tokens para empezar",
     "buy them with a bank transfer": "comprarlos con una transferencia bancaria"
   },
   "components/VaultDetailDetailsTab": {
@@ -1073,7 +1073,7 @@
     "Collateral amount": "Cantidad de colateral"
   },
   "screens/EditCollateralScreen": {
-    "COLLATERALS WILL BE ADDED TO VAULT": "COLATERALES SE AÑADIRAN A TU BOVEDA",
+    "COLLATERAL WILL BE ADDED TO VAULT": "COLATERALES SE AÑADIRAN A TU BOVEDA",
     "ADD DFI AND TOKENS FOR COLLATERAL": "AÑADE DFI Y TOKENS PARA TU COLATERAL",
     "Collateral amount (USD)": "Cantidad de colateral (USD)",
     "Vault %": "Bóveda %",
@@ -1090,7 +1090,7 @@
     "Cancel": "Cancela",
     "Remove": "Elimina",
     "VAULT DETAILS": "DETALLES DE LA BOVEDA",
-    "COLLATERALS": "COLATERALES",
+    "COLLATERAL": "COLATERALES",
     "Adding collateral": "Añadiendo colaterales",
     "Adding {{amount}} {{symbol}} as collateral": "Añadiendo {{amount}} {{symbol}} como colaterales",
     "Removing collateral": "Quitando colateral",
@@ -1290,8 +1290,8 @@
     "Search for pool pairs": "Búsqueda de pares del pool"
   },
   "components/EmptyCollateral": {
-    "No collaterals": "No hay colaterales",
-    "ADD COLLATERALS": "AÑADE COLATERALES",
+    "No collateral": "No hay colaterales",
+    "ADD COLLATERAL": "AÑADE COLATERALES",
     "Add DFI and tokens as collateral to get started with loans.": "Añade DFI y tokens como colateral para empezar con los préstamos."
   },
   "screens/CloseVaultScreen": {
@@ -1319,7 +1319,7 @@
     "(Full details)": "(Detalles completos)",
     "Min. next bid": "Mínimo para la siguiente oferta",
     "Insufficient funds": "Fondos insuficientes",
-    "Collaterals": "Colaterales",
+    "Collateral": "Colaterales",
     "How much do you want to bid?": "¿Cúanto quieres ofertar?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "El valor de los tokens que estás proponiendo son considerablemente más altos que el valor total de la subasta.",
     "Collateral for auction": "Colateral para la subasta"
