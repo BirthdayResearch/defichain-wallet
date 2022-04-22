@@ -1064,6 +1064,10 @@
     "Empty portfolio": "Portfolio vide",
     "Add your DFI and other tokens to get started": "Ajoutez vos DFI et autres tokens pour démarrer"
   },
+  "components/DfxEmptyWallet": {
+    "Add your DFI and other dTokens to get started or": "Ajoutez vos DFI et autres tokens ou",
+    "buy them with a bank transfer": "achetez-les avec par virement bancaire"
+  },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHÉMA DE PRÊT",
     "Min. collateralization ratio": "Ratio de garantie min.",
