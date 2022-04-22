@@ -98,9 +98,6 @@
   "screens/AddressBookScreen": {
     "Address Book": "Carnet d'adresses",
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
-    "Please enter an address label": "Veuillez entrer un nom d'adresse",
-    "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Please enter a unique address": "Veuillez donner une adresse unique",
     "Empty address book": "Carnet d'adresses vide",
     "Add your preferred address": "Ajoutez votre adresse préférée"
   },
@@ -128,7 +125,10 @@
     "Enter address label": "Donner le nom d'adresse",
     "Enter address": "Donner l'adresse",
     "This address already exists in your address book, please enter a different address": "Cette adresse existe déjà dans votre carnet d'adresses, veuillez entrer une adresse différente",
-    "Edit address": "Modifier l'adresse"
+    "Edit address": "Modifier l'adresse",
+    "Please enter an address label": "Veuillez entrer un nom d'adresse",
+    "Please enter a valid address": "Veuillez donner une adresse valide",
+    "Please enter a unique address": "Veuillez donner une adresse unique"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",

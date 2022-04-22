@@ -98,9 +98,6 @@
   "screens/AddressBookScreen": {
     "Address Book": "Adressbuch",
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
-    "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
-    "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
     "Empty address book": "Leeres Adressbuch",
     "Add your preferred address": "Füge deine bevorzugte Adresse hinzu"
   },
@@ -127,7 +124,10 @@
     "Enter address label": "Adressbezeichnung eingeben",
     "Enter address": "Adresse eingeben",
     "This address already exists in your address book, please enter a different address": "Diese Adresse existiert bereits in deinem Adressbuch, gib bitte eine andere Adresse ein",
-    "Edit address": "Adresse bearbeiten"
+    "Edit address": "Adresse bearbeiten",
+    "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
+    "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
