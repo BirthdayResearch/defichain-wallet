@@ -7,7 +7,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -22,6 +22,8 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { authentication, Authentication } from '@store/authentication'
 import { Button } from '@components/Button'
+import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
+import { HeaderSearchInput } from '@components/HeaderSearchInput'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -34,6 +36,19 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const addressBook = userPreferences.addressBook
   const [isEditing, setIsEditing] = useState(false)
+
+  // Search
+  const [showSearchInput, setShowSearchInput] = useState(false)
+  const [searchString, setSearchString] = useState('')
+  const filterAddress = (searchString: string): void => {
+    // TODO: search based on wallet label
+    setFilteredAddresses(
+      addresses.filter((address) =>
+        address
+          .toLowerCase()
+          .includes(searchString.trim().toLowerCase())
+    ))
+  }
 
   // disable address selection touchableopacity from settings page
   const disableAddressSelect = selectedAddress === undefined && onAddressSelect === undefined
@@ -55,6 +70,64 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       onAddressSelect(address)
     }
   }
+  const [filteredAddresses, setFilteredAddresses] = useState<string[]>(addresses)
+
+  // to update edit/delete/add addresses
+  useEffect(() => {
+    setFilteredAddresses(addresses)
+  }, [addresses])
+
+  useEffect(() => {
+    filterAddress(searchString) // filter while searching
+  }, [searchString])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (): JSX.Element => {
+        // don't display search icon if there are no addresses
+        if (addresses.length > 0) {
+          return (
+            <HeaderSearchIcon
+              onPress={() => {
+                setShowSearchInput(true)
+                setFilteredAddresses([])
+              }}
+              testID='address_search_icon'
+            />
+          )
+        } else {
+          return <></>
+        }
+      }
+    })
+  }, [navigation, showSearchInput])
+
+  useEffect(() => {
+    if (showSearchInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString('')}
+            onChangeInput={(text: string) => {
+              setSearchString(text)
+            }}
+            onCancelPress={() => {
+              setSearchString('')
+              setShowSearchInput(false)
+              setFilteredAddresses(addresses)
+            }}
+            placeholder='Search for address'
+            testID='address_search_input'
+          />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+  }, [showSearchInput, searchString, addressBook])
 
   const AddressListItem = useCallback(({
     item,
@@ -281,11 +354,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       light={tailwind('bg-gray-50')}
       keyExtractor={(item) => item}
       stickyHeaderIndices={[0]}
-      data={addresses}
-      renderItem={AddressListItem}
-      ListHeaderComponent={HeaderComponent}
-      ListFooterComponent={FooterComponent}
-      ListEmptyComponent={<EmptyDisplay onPress={goToAddAddressForm} />}
+      data={filteredAddresses}
+      renderItem={AddressListItem} // Address list
+      ListHeaderComponent={showSearchInput ? <></> : HeaderComponent} // Address counter
+      ListFooterComponent={showSearchInput ? <></> : FooterComponent} // + Add new address
+      ListEmptyComponent={addresses.length > 0 ? <></> : <EmptyDisplay onPress={goToAddAddressForm} />}
     />
   )
 }
