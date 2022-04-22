@@ -42,12 +42,16 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const [searchString, setSearchString] = useState('')
   const filterAddress = (searchString: string): void => {
     // TODO: search based on wallet label
-    setFilteredAddresses(
-      addresses.filter((address) =>
-        address
-          .toLowerCase()
-          .includes(searchString.trim().toLowerCase())
-    ))
+    if (searchString !== undefined && searchString.trim().length > 0) {
+      setFilteredAddresses(
+        addresses.filter((address) =>
+          address
+            .toLowerCase()
+            .includes(searchString.trim().toLowerCase())
+      ))
+    } else {
+      setFilteredAddresses([])
+    }
   }
 
   // disable address selection touchableopacity from settings page
@@ -78,7 +82,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   }, [addresses])
 
   useEffect(() => {
-    filterAddress(searchString) // filter while searching
+    if (showSearchInput) {
+      filterAddress(searchString) // filter while searching
+    }
   }, [searchString])
 
   useLayoutEffect(() => {
