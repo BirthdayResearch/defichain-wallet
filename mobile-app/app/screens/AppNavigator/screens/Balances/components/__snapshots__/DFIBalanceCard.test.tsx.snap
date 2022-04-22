@@ -209,7 +209,6 @@ exports[`DFI Balance Card should match snapshot 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
             }
           }
@@ -217,6 +216,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           <View
             style={
               Object {
+                "alignItems": "flex-end",
                 "display": "flex",
                 "lineHeight": 24,
               }
@@ -284,7 +284,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 }
                 testID="dfi_total_balance_usd_amount"
               >
-                
+                ≈ $0.00000000
               </Text>
             </View>
           </View>

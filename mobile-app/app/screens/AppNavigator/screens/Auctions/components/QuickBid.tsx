@@ -17,6 +17,7 @@ import { RootState } from '@store'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { MinNextBidTextRow } from './MinNextBidTextRow'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
+import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
 
 interface QuickBidProps {
   loanTokenId: string // TODO: remove if no use case
@@ -26,7 +27,6 @@ interface QuickBidProps {
   minNextBid: BigNumber
   minNextBidInUSD: string
   currentBalance: BigNumber
-  currentBalanceInUSD: BigNumber
   vaultId: PlaceAuctionBid['vaultId']
   index: PlaceAuctionBid['index']
   vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
@@ -41,7 +41,6 @@ export const QuickBid = ({
   minNextBid,
   minNextBidInUSD,
   currentBalance,
-  currentBalanceInUSD,
   onCloseButtonPress,
   vaultLiquidationHeight
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
@@ -53,6 +52,8 @@ export const QuickBid = ({
     hasPendingBroadcastJob,
     constructSignedBidAndSend
   } = useSignBidAndSend()
+  const { getTokenPrice } = useTokenPrice()
+  const currentBalanceInUSD = getTokenPrice(loanTokenSymbol, currentBalance)
 
   const onQuickBid = async (): Promise<void> => {
     await constructSignedBidAndSend({

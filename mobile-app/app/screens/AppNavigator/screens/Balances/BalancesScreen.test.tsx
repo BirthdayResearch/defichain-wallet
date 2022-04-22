@@ -89,6 +89,7 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        dexPrices: {},
         swappableTokens: {},
         hasFetchedPoolpairData: false,
         hasFetchedToken: true,
@@ -161,6 +162,7 @@ describe('balances page', () => {
           }
         ],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: false,
         hasFetchedVaultsData: true,
         hasFetchedLoanSchemes: true,
@@ -200,6 +202,7 @@ describe('balances page', () => {
         tokens: tokens.map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        dexPrices: {},
         swappableTokens: {},
         hasFetchedPoolpairData: false,
         hasFetchedToken: true,
@@ -272,6 +275,7 @@ describe('balances page', () => {
           }
         ],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: false,
         hasFetchedVaultsData: true,
         hasFetchedLoanSchemes: true,

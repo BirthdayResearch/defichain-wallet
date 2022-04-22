@@ -9,9 +9,11 @@ import { TransactionStatus, USER_CANCELED } from '@screens/TransactionAuthorizat
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
+import Modal from 'react-overlays/Modal'
 
 interface PasscodePromptProps {
   onCancel: (err: string) => void
+  title: string
   message: string
   transaction: DfTxSigner
   status: TransactionStatus
@@ -31,9 +33,7 @@ interface PasscodePromptProps {
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
   return (
-    <SafeAreaView
-      style={tailwind('w-full h-full flex-col')}
-    >
+    <>
       <ThemedTouchableOpacity
         dark={tailwind('bg-gray-900')}
         light={tailwind('bg-white')}
@@ -70,9 +70,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               <ThemedText
                 style={tailwind('text-center text-xl font-bold px-1')}
               >
-                {props.transaction === undefined
-                  ? translate('screens/UnlockWallet', 'Sign to verify access')
-                  : translate('screens/TransactionAuthorization', 'Sign Transaction')}
+                {props.title}
               </ThemedText>
 
               <View style={tailwind('px-8 text-sm text-center mb-6')}>
@@ -151,12 +149,13 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               }
             </ThemedView>)}
       </ThemedView>
-    </SafeAreaView>
+    </>
   )
 })
 
 export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Element => {
   const { isLight } = useThemeContext()
+  const containerRef = React.useRef(null)
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
       return ['65%'] // ios measures space without keyboard
@@ -167,7 +166,41 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
   }
 
   if (Platform.OS === 'web') {
-    return (<PromptContent {...props} />)
+    return (
+      <SafeAreaView
+        style={tailwind('w-full h-full flex-col absolute z-50 top-0 left-0')}
+        ref={containerRef}
+      >
+        <Modal
+          container={containerRef}
+          show
+          renderBackdrop={() => (
+            <View style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundColor: 'black',
+              opacity: 0.3
+            }}
+            />
+          )}
+          style={{
+            position: 'absolute',
+            height: '350px',
+            width: '375px',
+            zIndex: 50,
+            bottom: '0'
+          }} // array as value crashes Web Modal
+        >
+          <View style={tailwind('w-full h-full')}>
+            <PromptContent {...props} />
+          </View>
+        </Modal>
+      </SafeAreaView>
+
+    )
   }
 
   return (
@@ -192,7 +225,11 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       }}
       enablePanDownToClose={false}
     >
-      <PromptContent {...props} />
+      <SafeAreaView
+        style={tailwind('w-full h-full flex-col absolute z-50 top-0 left-0')}
+      >
+        <PromptContent {...props} />
+      </SafeAreaView>
     </BottomSheetModal>
   )
 })

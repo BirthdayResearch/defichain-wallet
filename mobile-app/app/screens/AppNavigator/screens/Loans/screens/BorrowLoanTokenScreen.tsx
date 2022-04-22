@@ -40,7 +40,7 @@ import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
@@ -79,7 +79,11 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice)),
     interestPerBlock
   )
-  const { requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(vault?.collateralAmounts ?? [], new BigNumber(vault?.collateralValue ?? NaN))
+  const { requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(
+    vault?.collateralAmounts ?? [],
+    new BigNumber(vault?.collateralValue ?? NaN),
+    new BigNumber(vault?.loanValue ?? NaN)
+  )
   const blocksPerDay = useBlocksPerDay()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -257,7 +261,7 @@ export function BorrowLoanTokenScreen ({
                   style={tailwind('text-sm text-center mt-2 px-4')}
                   testID='vault_min_share_warning'
                 >
-                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to to be available for use in minting dTokens')}
+                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens')}
                 </ThemedText>
               )
               : (
@@ -269,19 +273,19 @@ export function BorrowLoanTokenScreen ({
                       title={translate('screens/BorrowLoanTokenScreen', 'How many {{token}} tokens to borrow?', { token: loanToken.token.displaySymbol })}
                       placeholder={translate('screens/BorrowLoanTokenScreen', 'Enter an amount')}
                       onChangeText={(text: string) => setAmountToBorrow({
-                                ...amountToBorrow,
-                                amountInput: text
-                              })}
+                        ...amountToBorrow,
+                        amountInput: text
+                      })}
                       displayClearButton={amountToBorrow.amountInput !== ''}
                       onClearButtonPress={() => setAmountToBorrow({
-                                ...amountToBorrow,
-                                amountInput: ''
-                              })}
+                        ...amountToBorrow,
+                        amountInput: ''
+                      })}
                       valid={inputValidationMessage === ''}
                       inlineText={{
-                                type: 'error',
-                                text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
-                              }}
+                        type: 'error',
+                        text: translate('screens/BorrowLoanTokenScreen', inputValidationMessage)
+                      }}
                       style={tailwind('h-9 w-3/5 flex-grow')}
                       testID='form_input_borrow'
                     />
@@ -371,7 +375,7 @@ interface LoanTokenInputProps {
 }
 
 function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
-  const currentPrice = getUSDPrecisedPrice(getActivePrice(props.displaySymbol, props.price))
+  const currentPrice = getPrecisedTokenValue(getActivePrice(props.displaySymbol, props.price))
   return (
     <ThemedTouchableOpacity
       light={tailwind('bg-white border-gray-200')}
@@ -533,7 +537,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
       </View>
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Total collateral (USD)')}
-        value={getUSDPrecisedPrice(props.vault.collateralValue)}
+        value={getPrecisedTokenValue(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
       />

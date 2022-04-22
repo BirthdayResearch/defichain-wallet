@@ -4,7 +4,7 @@ import { setTokenSymbol, wallet } from '@store/wallet'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { block } from '@store/block'
-import { TotalPortfolio } from './TotalPortfolio'
+import { PortfolioButtonGroupTabKey, TotalPortfolio } from './TotalPortfolio'
 import BigNumber from 'bignumber.js'
 import { loans } from '@store/loans'
 
@@ -29,6 +29,7 @@ describe('DFI Total Portfolio Card', () => {
         }].map(setTokenSymbol),
         allTokens: {},
         poolpairs: [],
+        dexPrices: {},
         swappableTokens: {},
         hasFetchedPoolpairData: false,
         hasFetchedToken: true,
@@ -37,6 +38,7 @@ describe('DFI Total Portfolio Card', () => {
       loans: {
         vaults: [],
         collateralTokens: [],
+        loanPaymentTokenActivePrices: {},
         hasFetchedLoansData: true,
         hasFetchedVaultsData: true,
         hasFetchedLoanSchemes: true,
@@ -55,11 +57,21 @@ describe('DFI Total Portfolio Card', () => {
     const component = (
       <Provider store={store}>
         <TotalPortfolio
-          totalLoansUSDValue={new BigNumber(100)}
-          totalAvailableUSDValue={new BigNumber(1000)}
-          totalLockedUSDValue={new BigNumber(300)}
+          totalLoansValue={new BigNumber(100)}
+          totalAvailableValue={new BigNumber(1000)}
+          totalLockedValue={new BigNumber(300)}
           onToggleDisplayBalances={jest.fn()}
           isBalancesDisplayed
+          portfolioButtonGroupOptions={{
+            activePortfolioButtonGroup: PortfolioButtonGroupTabKey.USDT,
+            setActivePortfolioButtonGroup: jest.fn()
+          }}
+          portfolioButtonGroup={[{
+            id: PortfolioButtonGroupTabKey.USDT,
+            label: 'USD',
+            handleOnPress: jest.fn()
+          }
+          ]}
         />
       </Provider>
     )

@@ -28,7 +28,7 @@ import {
 } from '../hooks/CollateralizationRatio'
 import { getCollateralPrice, useTotalCollateralValue, useValidCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 
@@ -126,9 +126,10 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
   const initialPrices = getCollateralPrice(new BigNumber(inputValue), collateralItem, new BigNumber(vault.collateralValue))
   const totalCalculatedCollateralValue = isAdd ? new BigNumber(totalCollateralVaultValue).plus(initialPrices?.collateralPrice) : new BigNumber(totalCollateralVaultValue).minus(initialPrices.collateralPrice)
   const prices = getCollateralPrice(totalAmount, collateralItem, totalCalculatedCollateralValue)
-  const { requiredVaultShareTokens, requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(
+  const { requiredVaultShareTokens, requiredTokensShare, minRequiredTokensShare, hasLoan } = useValidCollateralRatio(
     vault?.collateralAmounts ?? [],
     totalCalculatedCollateralValue,
+    new BigNumber(vault.loanValue),
     token.id,
     totalAmount
   )
@@ -251,7 +252,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           {
             !new BigNumber(activePrice).isZero() && (
               <NumberFormat
-                value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
+                value={getPrecisedTokenValue(activePrice.multipliedBy(available))}
                 thousandSeparator
                 decimalScale={2}
                 displayType='text'
@@ -386,7 +387,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </View>
       )}
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio)}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && hasLoan)}
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
         onPress={() => onButtonPress({
           token,
@@ -395,7 +396,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         margin='mt-6 mb-2'
         testID='add_collateral_button_submit'
       />
-      {(isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && requiredVaultShareTokens.includes(token.symbol)) && (
+      {(isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && requiredVaultShareTokens.includes(token.symbol)) && hasLoan && (
         <ThemedText
           dark={tailwind('text-error-500')}
           light={tailwind('text-error-500')}

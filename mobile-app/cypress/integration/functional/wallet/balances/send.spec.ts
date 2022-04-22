@@ -1,5 +1,6 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 context('Wallet - Send', function () {
   let whale: WhaleApiClient
@@ -7,7 +8,7 @@ context('Wallet - Send', function () {
     cy.restoreLocalStorage()
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })
@@ -89,7 +90,9 @@ context('Wallet - Send', function () {
           expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
           cy.getByTestID('amount_input').clear()
           cy.getByTestID('50%_amount_button').click()
-          cy.getByTestID('amount_input').should('have.value', halfValue.toFixed(8))
+          cy.getByTestID('amount_input').invoke('val').then(text => {
+            checkValueWithinRange(text, halfValue.toFixed(8), 0.1)
+          })
           cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
         })
       })
@@ -248,7 +251,7 @@ context('Wallet - Send - Max Values', function () {
   beforeEach(function () {
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })
@@ -292,7 +295,7 @@ context('Wallet - Send - with Conversion', function () {
   beforeEach(function () {
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })
@@ -409,5 +412,169 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('send_dfi_button').click()
     cy.getByTestID('select_token_input').should('not.have.attr', 'aria-disabled')
     cy.getByTestID('select_token_placeholder').should('exist')
+  })
+})
+
+context('Wallet - Send - Address book', function () {
+  function populateAddressBook (): void {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(6000)
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').click()
+    cy.wrap(labels).each((_v, index: number) => {
+      cy.getByTestID('add_new_address').click()
+      cy.getByTestID('address_book_label_input').type(labels[index])
+      cy.getByTestID('address_book_label_input_error').should('not.exist')
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').should('not.exist')
+      cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+      cy.getByTestID('pin_authorize').type('000000').wait(1000)
+      cy.getByTestID(`address_row_label_${addresses[index]}`).contains(labels[index])
+      cy.getByTestID(`address_row_text_${addresses[index]}`).contains(addresses[index])
+    })
+  }
+
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(6000)
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+  const labels = ['Light', 'Wallet', '🪨']
+  const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
+
+  it('should be able to open address book', function () {
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').click()
+    cy.getByTestID('address_book_title').contains('Address book')
+    cy.getByTestID('address_detail_address_count').contains('0 ADDRESS')
+    cy.getByTestID('address_row_0').should('not.exist')
+  })
+
+  it('should be able to validate add new address form', function () {
+    cy.getByTestID('add_new_address').click()
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_label_input').type('foo')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input').type('fake address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('address_book_label_input_clear_button').click()
+    cy.getByTestID('address_book_label_input_error').contains('Please enter an address label')
+    cy.getByTestID('address_book_address_input').clear()
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+  })
+
+  it('should be able to add new address', function () {
+    populateAddressBook()
+  })
+
+  it('should be able to select address in from address book', function () {
+    cy.wrap(addresses).each((_v, index: number) => {
+      cy.getByTestID(`address_row_${index}`).click()
+      cy.getByTestID('address_input').contains(addresses[index])
+      cy.getByTestID('address_book_button').click()
+    })
+  })
+
+  it('should be able to block duplicate address', function () {
+    cy.wrap(addresses).each((_v, index: number) => {
+      cy.getByTestID('add_new_address').click()
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').contains('This address already exists in your address book, please enter a different address')
+      cy.getByTestID('button_cancel_save_address_label').click()
+    })
+  })
+
+  it('should be able to validate edit address form', function () {
+    cy.getByTestID('address_list_edit_button').click()
+    cy.getByTestID(`address_edit_indicator_${addresses[0]}`).click()
+    cy.getByTestID('address_book_label_input').should('have.value', labels[0])
+    cy.getByTestID('address_book_address_input').should('have.value', addresses[0])
+    cy.getByTestID('address_book_label_input_clear_button').click()
+    cy.getByTestID('address_book_label_input_error').contains('Please enter an address label')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_book_address_input').clear()
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('address_book_address_input').type('fake address')
+    cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
+    cy.getByTestID('address_book_address_input').clear().type(addresses[1])
+    cy.getByTestID('address_book_address_input_error').contains('This address already exists in your address book, please enter a different address')
+    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+  })
+
+  it('should be able to edit and delete address', function () {
+    populateAddressBook()
+    // delete
+    cy.getByTestID('address_list_edit_button').click()
+    cy.getByTestID(`address_delete_indicator_${addresses[0]}`).click().wait(1000)
+    cy.getByTestID('pin_authorize').type('000000').wait(1000)
+    cy.getByTestID(`address_row_text_${addresses[0]}`).should('not.exist')
+    // edit
+    const newLabel = 'DeFi'
+    const newAddress = addresses[0]
+    cy.getByTestID('address_list_edit_button').click()
+    cy.getByTestID(`address_edit_indicator_${addresses[1]}`).click()
+    cy.getByTestID('address_book_label_input').clear().type(newLabel)
+    cy.getByTestID('address_book_label_input_error').should('not.exist')
+    cy.getByTestID('address_book_address_input').clear().type(newAddress)
+    cy.getByTestID('address_book_address_input_error').should('not.exist')
+    cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+    cy.getByTestID('pin_authorize').type('000000').wait(1000)
+    cy.getByTestID(`address_row_label_${newAddress}`).contains(newLabel)
+    cy.getByTestID(`address_row_text_${newAddress}`).contains(newAddress)
+    cy.getByTestID(`address_edit_indicator_${newAddress}`).should('not.exist')
+  })
+
+  it('should remove address book from storage after exiting wallet through setting', function () {
+    populateAddressBook()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('setting_exit_wallet').click()
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist').then(() => {
+      const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
+      expect(walletUserPreference).to.have.deep.property('addressBook', {})
+    })
+  })
+
+  it('should remove address book from storage after forced exit from invalid passcode', function () {
+    const MAX_PASSCODE_ATTEMPT = 3
+    populateAddressBook()
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('view_recovery_words').click()
+    cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
+      cy.getByTestID('pin_authorize').type('696969').wait(1000)
+    })
+    cy.on('window:confirm', () => {})
+    cy.getByTestID('create_wallet_button').should('exist')
+    cy.getByTestID('restore_wallet_button').should('exist').then(() => {
+      const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
+      expect(walletUserPreference).to.have.deep.property('addressBook', {})
+    })
+  })
+})
+
+context('Wallet - Send - Address book local storage feature', () => {
+  before(function () {
+    cy.intercept('**/settings/flags', {
+      statusCode: 200,
+      body: []
+    })
+    cy.createEmptyWallet().sendDFItoWallet().wait(6000)
+  })
+
+  it('should not display address book icon if feature is blocked', function () {
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('address_book_button').should('not.exist')
   })
 })

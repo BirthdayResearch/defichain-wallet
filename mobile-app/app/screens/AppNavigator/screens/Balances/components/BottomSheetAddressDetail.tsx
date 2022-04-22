@@ -27,6 +27,7 @@ import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPre
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { AddressListEditButton } from './AddressListEditButton'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -125,7 +126,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
 
     return (
       <ThemedTouchableOpacity
-        light={tailwind('bg-white border-gray-100')}
+        light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
         style={tailwind('py-4 pl-4 pr-2 border-b')}
         onPress={async () => {
@@ -181,13 +182,15 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             navigation.navigate({
               name: props.navigateToScreen.screenName,
               params: {
+                title: 'Edit address label',
+                isAddressBook: false,
                 address: item,
                 addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
                 index: index + 1,
                 type: 'edit',
-                onSubmitButtonPress: (labelAddress: LabeledAddress) => {
-                  dispatch(setAddresses(labelAddress)).then(() => {
-                    const addresses = { ...labeledAddresses, ...labelAddress }
+                onSaveButtonPress: (labelAddress: LabeledAddress) => {
+                  const addresses = { ...labeledAddresses, ...labelAddress }
+                  dispatch(setAddresses(addresses)).then(() => {
                     dispatch(setUserPreferences({
                       network,
                       preferences: {
@@ -299,7 +302,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           </View>
           {isFeatureAvailable('local_storage') &&
             (
-              <EditButton isEditing={isEditing} onPress={() => setIsEditing(!isEditing)} />
+              <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />
             )}
         </View>
       </ThemedView>
@@ -404,34 +407,5 @@ function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Eleme
         size={16}
       />
     </TouchableOpacity>
-  )
-}
-
-function EditButton ({
-  isEditing,
-  onPress
-}: { isEditing: boolean, onPress: () => void }): JSX.Element {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={tailwind('flex flex-row items-center')}
-      testID='edit_address_label_button'
-    >
-      <ThemedIcon
-        iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-        name={isEditing ? 'close' : 'drive-file-rename-outline'}
-        size={16}
-      />
-      <ThemedText
-        light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-        style={tailwind('text-2xs ml-1.5')}
-      >
-        {translate('components/BottomSheetAddressDetail', `${isEditing ? 'CANCEL' : 'EDIT'}`)}
-      </ThemedText>
-    </TouchableOpacity>
-
   )
 }

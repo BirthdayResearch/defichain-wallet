@@ -40,6 +40,7 @@ import {
 } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { useAddressBook } from '@hooks/useAddressBook'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -68,6 +69,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { dismiss } = useBottomSheetModal()
   const modalName = 'PasscodePromptModal'
+  const { clearAddressBook } = useAddressBook()
 
   /**
    * This is one of the most important state of this component.
@@ -79,6 +81,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [wallet, setWallet] = useState<JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>>()
 
   // messages
+  const [title, setTitle] = useState<string | undefined>()
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
 
@@ -157,6 +160,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
+    setTitle(undefined)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
     setTransactionStatus(TransactionStatus.IDLE) // very last step, open up for next task
   }
@@ -195,6 +199,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       if (e.message === INVALID_HASH) {
         // case 2: invalid passcode
         await resetPasscodeCounter()
+        clearAddressBook()
         await clearWallets()
         alertUnlinkWallet()
       } else if (e.message === UNEXPECTED_FAILURE) {
@@ -259,6 +264,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       // Non-wallet transactions
       setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
       setMessage(authentication.message)
+      setTitle(authentication.title)
       setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
@@ -271,6 +277,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           if (e.message === INVALID_HASH) {
             // case 2: invalid passcode
             await resetPasscodeCounter()
+            clearAddressBook()
             await clearWallets()
             alertUnlinkWallet()
           } else if (e.message !== USER_CANCELED && authentication.onError !== undefined) {
@@ -327,6 +334,13 @@ export function TransactionAuthorization (): JSX.Element | null {
   return (
     <PasscodePrompt
       onCancel={onCancel}
+      title={
+        title !== undefined
+        ? translate('screens/UnlockWallet', title)
+        : transaction === undefined
+          ? translate('screens/UnlockWallet', 'Sign to verify access')
+          : translate('screens/TransactionAuthorization', 'Sign Transaction')
+      }
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
       status={transactionStatus}
