@@ -236,7 +236,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               light={tailwind('text-primary-500')}
               style={tailwind('text-sm font-normal')}
             >
-              {translate('screens/AddressBookScreen', 'ADD NEW ADDRESS')}
+              {translate('screens/AddressBookScreen', 'Add address')}
             </ThemedText>
           </View>
         </View>

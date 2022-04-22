@@ -99,7 +99,11 @@
     "Address Book": "Adressbuch",
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
     "Empty address book": "Leeres Adressbuch",
-    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu"
+    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu",
+    "No saved addresses": "Keine gespeicherte Adresse",
+    "ADD ADDRESS": "ADRESSE HINZUFÜGEN",
+    "Add address": "Adresse hinzufügen",
+    "SAVED ADDRESS(ES)": "GESPEICHERTE ADRESSE(N)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -127,7 +131,8 @@
     "Edit address": "Adresse bearbeiten",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein"
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
+    "Required field, max. 40 characters": "Erforderliches Feld, max. 40 Zeichen"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -155,7 +160,8 @@
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
     "Choose token to send": "Token zum Senden auswählen",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "*Registered address": "*Registrierte Adresse"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",

@@ -218,7 +218,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
       >
-        {translate('screens/AddOrEditAddressBookScreen', 'Max. characters of 40 characters. Required Field.')}
+        {translate('screens/AddOrEditAddressBookScreen', 'Required field, max. 40 characters')}
       </ThemedText>
 
       <View style={tailwind('mt-4 -mx-4')}>

@@ -99,7 +99,11 @@
     "Address Book": "Carnet d'adresses",
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
     "Empty address book": "Carnet d'adresses vide",
-    "Add your preferred address": "Ajoutez votre adresse préférée"
+    "Add your preferred address": "Ajoutez votre adresse préférée",
+    "No saved addresses": "Aucune adresse enregistrée",
+    "ADD ADDRESS": "AJOUTER UNE ADRESSE",
+    "Add address": "Ajouter une adresse",
+    "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
@@ -128,7 +132,8 @@
     "Edit address": "Modifier l'adresse",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Please enter a unique address": "Veuillez donner une adresse unique"
+    "Please enter a unique address": "Veuillez donner une adresse unique",
+    "Required field, max. 40 characters": "Champ obligatoire, max. 40 caractères"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -163,7 +168,8 @@
     "Select token": "Sélectionner le token",
     "Select a token you want to send to get started": "Sélectionnez un token que vous voulez envoyer pour commencer.",
     "Choose token to send": "Choisissez le token à envoyer",
-    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION"
+    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
+    "*Registered address": "*Adresse enregistrée"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirmer l'envoi",
