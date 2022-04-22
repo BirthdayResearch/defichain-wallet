@@ -384,7 +384,6 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
   return (
     <ThemedText
       light={tailwind('text-gray-400')}
-      dark={tailwind('text-dfxred-500')}
       style={tailwind('text-xs mr-1.5')}
       testID='address_detail_address_count'
     >
