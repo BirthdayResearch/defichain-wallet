@@ -42,7 +42,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { LocalAddress } from '@store/userPreferences'
-import { debounce } from 'lodash'
+// import { debounce } from 'lodash'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -105,13 +105,13 @@ export function SendScreen ({
     }
   }, [])
 
-  const debounceMatchAddress = useCallback(debounce(() => {
-    const address = getValues('address')
-    if (address === undefined) {
-      return
-    }
-    setMatchedAddress(addressBook[address])
-  }, 200), [getValues('address'), addressBook])
+  // const debounceMatchAddress = useCallback(debounce(() => {
+  //   const address = getValues('address')
+  //   if (address === undefined) {
+  //     return
+  //   }
+  //   setMatchedAddress(addressBook[address])
+  // }, 200), [getValues('address'), addressBook])
 
   useEffect(() => {
     if (isFocused) {
@@ -142,7 +142,8 @@ export function SendScreen ({
   }, [JSON.stringify(tokens)])
 
   useEffect(() => {
-    debounceMatchAddress()
+    // debounceMatchAddress()
+    console.log(setMatchedAddress)
   }, [getValues('address'), addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
