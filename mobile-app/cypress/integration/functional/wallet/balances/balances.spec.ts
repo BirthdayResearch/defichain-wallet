@@ -145,7 +145,7 @@ const getChangingPoolPairReserve = ({
   }
 ]
 
-const getDexPrice = (price: {[token: string]: string }): {data: DexPricesResult} => ({
+const getDexPrice = (price: { [token: string]: string }): { data: DexPricesResult } => ({
   data: {
     denomination: {
       id: '3',
@@ -253,8 +253,43 @@ function interceptTokenWithSampleData (): void {
 }
 
 context('Wallet - Balances page', () => {
-  before(function () {
+  beforeEach(() => {
     cy.createEmptyWallet(true)
+  })
+
+  it('should load balances page when flags API is delayed', () => {
+    cy.intercept({ url: '**/settings/flags', middleware: true }, (req) => {
+      req.on('response', (res) => {
+        res.setDelay(5000)
+      })
+    }).as('flags')
+    cy.wait('@flags').then(() => {
+      cy.getByTestID('balances_list').should('exist')
+    })
+  })
+
+  it('should not load balances page when flags API failed', () => {
+    cy.intercept('**/settings/flags', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    }).as('flags')
+    cy.wait('@flags').then(() => {
+      cy.getByTestID('balances_list').should('not.exist')
+    })
+  })
+
+  it('should load balances page when flags API succeed after failed API attempt', () => {
+    cy.intercept({ url: '**/settings/flags', middleware: true }, (req) => {
+      req.on('response', (res) => {
+        res.setDelay(5000)
+      })
+    }).as('flags')
+    cy.wait('@flags').then(() => {
+      cy.getByTestID('balances_list').should('exist')
+    })
   })
 
   it('should display EmptyPortfolio component when there are no DFI and other tokens', function () {
