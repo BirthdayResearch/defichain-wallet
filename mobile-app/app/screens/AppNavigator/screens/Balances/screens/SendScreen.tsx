@@ -144,7 +144,7 @@ export function SendScreen ({
   useEffect(() => {
     // debounceMatchAddress()
     const address = getValues('address')
-    if (address !== undefined && typeof address === 'string') {
+    if (address !== undefined && addressBook[address] !== undefined) {
       setMatchedAddress(addressBook[address])
     }
   }, [getValues('address'), addressBook])
