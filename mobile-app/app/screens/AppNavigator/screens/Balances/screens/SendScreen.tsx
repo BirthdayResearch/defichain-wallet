@@ -106,9 +106,9 @@ export function SendScreen ({
       bottomSheetRef.current?.close()
     }
   }, [])
-  // const debounceMatchAddress = debounce(() => {
-  //   setMatchedAddress(addressBook[address])
-  // }, 200)
+  const debounceMatchAddress = (): void => {
+    setMatchedAddress(addressBook[address])
+  }
 
   useEffect(() => {
     if (isFocused) {
@@ -138,9 +138,9 @@ export function SendScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  // useEffect(() => {
-  //   debounceMatchAddress()
-  // }, [address, addressBook])
+  useEffect(() => {
+    debounceMatchAddress()
+  }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
