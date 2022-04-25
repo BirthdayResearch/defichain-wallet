@@ -41,14 +41,18 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
   const filterAddress = (searchString: string): void => {
-    // TODO: search based on wallet label
     if (searchString !== undefined && searchString.trim().length > 0) {
-      setFilteredAddresses(
-        addresses.filter((address) =>
-          address
-            .toLowerCase()
-            .includes(searchString.trim().toLowerCase())
-      ))
+      const addressBookList: string[] = []
+
+      for (const address in addressBook) {
+        if (address.includes(searchString.trim().toLowerCase())) {
+          addressBookList.push(address)
+        }
+        if (addressBook[address].label.toLowerCase().includes(searchString.trim().toLowerCase())) {
+          addressBookList.push(address)
+        }
+      }
+      setFilteredAddresses(addressBookList)
     } else {
       setFilteredAddresses([])
     }
