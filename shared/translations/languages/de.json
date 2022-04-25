@@ -644,9 +644,6 @@
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
     "You have": "Du hast aktuell",
     "Estimated to receive": "Geschätzter Betrag",
-    "PRICES": "PREISE",
-    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
-    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}",
     "CONTINUE": "WEITER",
     "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
@@ -863,7 +860,7 @@
     "Confirm Place Bid": "Gebot bestätigen",
     "Auction details": "Auktionsdetails"
   },
-  "components/AuctionDetailScreen":{
+  "components/AuctionDetailScreen": {
     "Collateral": "Sicherheiten",
     "Min. next bid": "Nächstes Mind. Gebot",
     "VAULT DETAILS": "VAULT-DETAILS",
@@ -1339,5 +1336,10 @@
   },
   "components/Announcements": {
     "DETAILS": "DETAILS"
+  },
+  "components/PricesSection": {
+    "PRICES": "PREISE",
+    "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}"
   }
 }
