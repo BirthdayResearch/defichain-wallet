@@ -103,7 +103,8 @@
     "No saved addresses": "Aucune adresse enregistrée",
     "ADD ADDRESS": "AJOUTER UNE ADRESSE",
     "Add address": "Ajouter une adresse",
-    "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)"
+    "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)",
+    "Search for address": "Rechercher une adresse"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
