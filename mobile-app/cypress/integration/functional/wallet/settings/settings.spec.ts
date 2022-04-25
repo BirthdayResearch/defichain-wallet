@@ -131,7 +131,5 @@ context('Wallet - Settings - Address Book', () => {
     })
   })
 
-  it('should be able to edit address', () => {
-
-  })
+  // TODO: add edit address test
 })
