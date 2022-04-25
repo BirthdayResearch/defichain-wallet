@@ -209,6 +209,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                         }))
                       })
                       setIsEditing(false)
+                      setShowSearchInput(false)
+                      setSearchString('')
                     }
                   },
                   merge: true
