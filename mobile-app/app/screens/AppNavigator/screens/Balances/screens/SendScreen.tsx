@@ -144,7 +144,8 @@ export function SendScreen ({
   useEffect(() => {
     console.log(setMatchedAddress)
     // debounceMatchAddress()
-    // const address = getValues('address')
+    const address = getValues('address')
+    console.log(address)
     // if (address !== undefined && addressBook[address] !== undefined) {
     //   setMatchedAddress(addressBook[address])
     // }
