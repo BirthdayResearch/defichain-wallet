@@ -143,7 +143,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     item,
     index
   }: { item: string, index: number }): JSX.Element => {
-    console.log('item', item)
     return (
       <ThemedTouchableOpacity
         key={item}
