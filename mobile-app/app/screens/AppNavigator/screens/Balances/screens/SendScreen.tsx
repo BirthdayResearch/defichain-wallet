@@ -145,7 +145,8 @@ export function SendScreen ({
     // debounceMatchAddress()
     const address = getValues('address')
     if (address !== undefined && addressBook[address] !== undefined) {
-      setMatchedAddress(addressBook[address])
+      // setMatchedAddress(addressBook[address])
+      console.log(setMatchedAddress)
     }
   }, [getValues('address'), addressBook])
 
