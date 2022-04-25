@@ -263,33 +263,33 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
-                  inputFooter={
-                    <>
-                      {matchedAddress !== undefined && (
-                        <ThemedView
-                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
-                          light={tailwind('bg-gray-50')}
-                          dark={tailwind('bg-gray-900')}
-                        >
-                          <ThemedIcon
-                            name='account-check'
-                            iconType='MaterialCommunityIcons'
-                            size={18}
-                            light={tailwind('text-gray-400')}
-                            dark={tailwind('text-gray-500')}
-                          />
-                          <ThemedText
-                            style={tailwind('text-xs ml-1 pt-px')}
-                            light={tailwind('text-gray-500')}
-                            dark={tailwind('text-gray-400')}
-                            testID='address_input_footer'
-                          >
-                            {matchedAddress.label}
-                          </ThemedText>
-                        </ThemedView>
-                      )}
-                    </>
-                  }
+                  // inputFooter={
+                  //   <>
+                  //     {matchedAddress !== undefined && (
+                  //       <ThemedView
+                  //         style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                  //         light={tailwind('bg-gray-50')}
+                  //         dark={tailwind('bg-gray-900')}
+                  //       >
+                  //         <ThemedIcon
+                  //           name='account-check'
+                  //           iconType='MaterialCommunityIcons'
+                  //           size={18}
+                  //           light={tailwind('text-gray-400')}
+                  //           dark={tailwind('text-gray-500')}
+                  //         />
+                  //         <ThemedText
+                  //           style={tailwind('text-xs ml-1 pt-px')}
+                  //           light={tailwind('text-gray-500')}
+                  //           dark={tailwind('text-gray-400')}
+                  //           testID='address_input_footer'
+                  //         >
+                  //           {matchedAddress.label}
+                  //         </ThemedText>
+                  //       </ThemedView>
+                  //     )}
+                  //   </>
+                  // }
                 />
                 {matchedAddress !== undefined && (
                   <ThemedText
