@@ -108,7 +108,7 @@ export function SendScreen ({
   }, [])
   const debounceMatchAddress = debounce(() => {
     setMatchedAddress(addressBook[address])
-  }, 500)
+  }, 200)
 
   useEffect(() => {
     if (isFocused) {

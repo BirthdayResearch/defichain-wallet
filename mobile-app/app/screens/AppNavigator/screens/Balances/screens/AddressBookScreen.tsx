@@ -25,6 +25,7 @@ import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { openURL } from 'expo-linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { debounce } from 'lodash'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -42,7 +43,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
-  const filterAddress = (searchString: string): void => {
+  const filterAddress = debounce((searchString: string): void => {
     if (searchString !== undefined && searchString.trim().length > 0) {
       const addressBookList: string[] = []
 
@@ -55,7 +56,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     } else {
       setFilteredAddresses([])
     }
-  }
+  }, 200)
 
   // disable address selection touchableopacity from settings page
   const disableAddressSelect = selectedAddress === undefined && onAddressSelect === undefined
