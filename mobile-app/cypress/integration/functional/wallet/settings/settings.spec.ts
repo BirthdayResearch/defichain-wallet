@@ -87,3 +87,51 @@ context('Wallet - Settings', () => {
     cy.getByTestID(lightModeIconTestId).should('have.css', 'color', deactivatedIconColor)
   })
 })
+
+context('Wallet - Settings - Address Book', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('address_book_title').click()
+  })
+
+  const labels = ['Light', 'Wallet', '🪨']
+  const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
+
+  function populateAddressBook (): void {
+    cy.wrap(labels).each((_v, index: number) => {
+      if (index === 0) {
+        cy.getByTestID('button_add_address').click()
+      } else {
+        cy.getByTestID('add_new_address').click()
+      }
+      cy.getByTestID('address_book_label_input').type(labels[index])
+      cy.getByTestID('address_book_label_input_error').should('not.exist')
+      cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+      cy.getByTestID('address_book_address_input_error').should('not.exist')
+      cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+      cy.getByTestID('pin_authorize').type('000000').wait(2000)
+      cy.getByTestID(`address_row_label_${addresses[index]}`).contains(labels[index])
+      cy.getByTestID(`address_row_text_${addresses[index]}`).contains(addresses[index])
+    })
+  }
+
+  it('should be able to access address book from setting screen', () => {
+    cy.url().should('include', 'app/AddressBookScreen')
+    cy.getByTestID('empty_address_book').should('exist')
+  })
+
+  it('should be able to create address', () => {
+    populateAddressBook()
+  })
+
+  it('should have no effect when click on any saved address', () => {
+    cy.wrap(labels).each((_v, index: number) => {
+      cy.getByTestID(`address_row_${index}`).should('have.attr', 'aria-disabled')
+    })
+  })
+
+  it('should be able to edit address', () => {
+
+  })
+})
