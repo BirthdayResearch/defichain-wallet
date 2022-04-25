@@ -63,10 +63,8 @@ export function SendScreen ({
     setValue,
     formState,
     getValues,
-    trigger,
-    watch
+    trigger
   } = useForm({ mode: 'onChange' })
-  const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
@@ -86,7 +84,7 @@ export function SendScreen ({
     deps: [getValues('amount'), JSON.stringify(token)]
   })
   const [hasBalance, setHasBalance] = useState(false)
-  console.log(addressBook, setMatchedAddress, address)
+
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
@@ -107,6 +105,7 @@ export function SendScreen ({
     }
   }, [])
   const debounceMatchAddress = debounce(() => {
+    const address = getValues('address')
     if (address === undefined) {
       return
     }
@@ -143,7 +142,7 @@ export function SendScreen ({
 
   useEffect(() => {
     debounceMatchAddress()
-  }, [address, addressBook])
+  }, [getValues('address'), addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
