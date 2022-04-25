@@ -25,6 +25,7 @@ import { Button } from '@components/Button'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { openURL } from 'expo-linking'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -37,6 +38,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const addressBook = userPreferences.addressBook
   const [isEditing, setIsEditing] = useState(false)
+  const { getAddressUrl } = useDeFiScanContext()
 
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
@@ -46,10 +48,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       const addressBookList: string[] = []
 
       for (const address in addressBook) {
-        if (address.includes(searchString.trim().toLowerCase())) {
-          addressBookList.push(address)
-        }
-        if (addressBook[address].label.toLowerCase().includes(searchString.trim().toLowerCase())) {
+        if (address.includes(searchString.trim().toLowerCase()) || addressBook[address].label.toLowerCase().includes(searchString.trim().toLowerCase())) {
           addressBookList.push(address)
         }
       }
@@ -111,7 +110,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         }
       }
     })
-  }, [navigation, showSearchInput])
+  }, [navigation, showSearchInput, addresses])
 
   useEffect(() => {
     if (showSearchInput) {
@@ -138,7 +137,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         header: undefined
       })
     }
-  }, [showSearchInput, searchString, addressBook])
+  }, [showSearchInput, searchString, addresses])
 
   const AddressListItem = useCallback(({
     item,
@@ -172,7 +171,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     light={tailwind('text-primary-500')}
                     dark={tailwind('text-darkprimary-500')}
                     style={tailwind('pl-0.5')}
-                    onPress={async () => await openURL('https://defiscan.live/')}
+                    onPress={async () => await openURL(getAddressUrl('https://defiscan.live/'))}
                   />
                 </View>
 
