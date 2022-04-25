@@ -128,7 +128,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               setShowSearchInput(false)
               setFilteredAddresses(addresses)
             }}
-            placeholder='Search for address'
+            placeholder={translate('screens/AddressBookScreen', 'Search for address')}
             testID='address_search_input'
           />
         )
