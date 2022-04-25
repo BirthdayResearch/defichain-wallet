@@ -83,5 +83,5 @@ export function VaultSkeletonLoader (props: VaultSkeletonLoaderProps): JSX.Eleme
 
       </ContentLoader>
     </ThemedView>
-    )
+  )
 }

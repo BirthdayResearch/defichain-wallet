@@ -65,13 +65,17 @@ export const BottomSheetTokenList = ({
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
   const { getTokenPrice } = useTokenPrice()
+
+  function isCollateralItem (item: CollateralItem | BottomSheetToken): item is CollateralItem {
+    return (item as CollateralItem).activateAfterBlock !== undefined
+  }
   return (
     <FlatList
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
         const activePrice = tokenType === TokenType.CollateralItem
         ? new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
-        : getTokenPrice(item.token.symbol, '1', item.token.isLPS)
+        : getTokenPrice(item.token.symbol, new BigNumber('1'), item.token.isLPS)
         return (
           <ThemedTouchableOpacity
             disabled={new BigNumber(item.available).lte(0)}
@@ -89,7 +93,8 @@ export const BottomSheetTokenList = ({
                     onButtonPress: navigateToScreen.onButtonPress,
                     collateralFactor: new BigNumber(item.factor ?? 0).times(100),
                     isAdd: true,
-                    vault
+                    vault,
+                    ...(isCollateralItem(item) && { collateralItem: item })
                   },
                   merge: true
                 })

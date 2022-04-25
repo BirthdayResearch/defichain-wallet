@@ -32,7 +32,7 @@ module.exports = {
           200: '#6FFD83',
           300: '#9AE1A4',
           500: '#02B31B',
-          600: '#02A118'
+          600: '#12BB41'
         },
         error: {
           50: '#FFE5E5',
@@ -48,7 +48,7 @@ module.exports = {
           200: '#FFD2A3',
           300: '#FFD5A9',
           500: '#FF9629',
-          600: '#FA7F00'
+          600: '#E68725'
         },
         gray: {
           50: '#FAFAFA',
@@ -63,7 +63,7 @@ module.exports = {
           900: '#171717'
         },
         darkprimary: {
-          50: '#fcf4fa',
+          50: '#460632',
           100: '#faeaf5',
           200: '#f2cae6',
           300: '#eba9d6',
@@ -110,7 +110,7 @@ module.exports = {
           200: '#FFE7C2',
           300: '#BF7708',
           500: '#FF9F0A',
-          600: '#FFBC54',
+          600: '#FFB94C',
           700: '#FFD99D'
         },
         blue: {

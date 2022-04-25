@@ -24,7 +24,8 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -109,7 +110,11 @@ export function ConfirmBorrowLoanTokenScreen ({
       <SummaryTransactionResults
         resultCollateralRatio={resultingColRatio}
         minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
-        totalLoanValue={new BigNumber(vault.loanValue).plus(totalLoanWithInterest.multipliedBy(loanToken.activePrice?.active?.amount ?? 0))}
+        totalLoanValue={new BigNumber(vault.loanValue).plus(
+          totalLoanWithInterest.multipliedBy(
+            getActivePrice(loanToken.token.symbol, loanToken.activePrice)
+          )
+        )}
       />
       <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
@@ -118,6 +123,7 @@ export function ConfirmBorrowLoanTokenScreen ({
         processingLabel={translate('screens/ConfirmBorrowLoanTokenScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='borrow_loan'
       />
     </ThemedScrollView>
@@ -231,7 +237,7 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
 function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNumber, collateralRatio: BigNumber }): JSX.Element {
   const collateralAlertInfo = {
     title: 'Collateralization ratio',
-    message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+    message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
   }
 
   return (
@@ -252,7 +258,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
       <NumberRow
         lhs={translate('screens/ConfirmBorrowLoanTokenScreen', 'Collateral amount (USD)')}
         rhs={{
-          value: getUSDPrecisedPrice(props.collateralAmount),
+          value: getPrecisedTokenValue(props.collateralAmount),
           testID: 'text_collateral_amount',
           prefix: '$'
         }}

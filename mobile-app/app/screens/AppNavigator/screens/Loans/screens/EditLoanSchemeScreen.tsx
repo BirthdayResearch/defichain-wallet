@@ -19,7 +19,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useVaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 type Props = StackScreenProps<LoanParamList, 'EditLoanSchemeScreen'>
 
@@ -27,6 +27,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
   const { vaultId } = route.params
   const { vaults } = useSelector((state: RootState) => state.loans)
   const loanSchemes = useSelector((state: RootState) => ascColRatioLoanScheme(state.loans))
+  const hasFetchedLoanSchemes = useSelector((state: RootState) => state.loans.hasFetchedLoanSchemes)
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
   const [filteredLoanSchemes, setFilteredLoanSchemes] = useState<WalletLoanScheme[]>()
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme>()
@@ -104,6 +105,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
         {translate('screens/EditLoanSchemeScreen', 'Make sure your collateralization ratio is still above your min. collateralization ratio')}
       </ThemedText>
       <LoanSchemeOptions
+        isLoading={!hasFetchedLoanSchemes}
         loanSchemes={filteredLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
@@ -159,13 +161,13 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
       </View>
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
+        value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={getUSDPrecisedPrice(vault.loanValue ?? 0)}
+        value={getPrecisedTokenValue(vault.loanValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
       />
@@ -178,7 +180,7 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
         rhsThemedProps={colors}
         info={{
           title: 'Collateralization ratio',
-          message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+          message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
         }}
       />
       <VaultSectionTextRow

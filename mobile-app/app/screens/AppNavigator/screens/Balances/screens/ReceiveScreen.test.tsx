@@ -22,7 +22,11 @@ describe('receive page', () => {
         tokens: [],
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        dexPrices: {},
+        swappableTokens: {},
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       }
     }
     const store = configureStore({
@@ -45,7 +49,11 @@ describe('receive page', () => {
         tokens: [],
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        dexPrices: {},
+        swappableTokens: {},
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       }
     }
     const store = configureStore({
@@ -71,7 +79,11 @@ describe('receive page', () => {
         tokens: [],
         allTokens: {},
         poolpairs: [],
-        hasFetchedPoolpairData: false
+        dexPrices: {},
+        swappableTokens: {},
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false
       }
     }
     const store = configureStore({

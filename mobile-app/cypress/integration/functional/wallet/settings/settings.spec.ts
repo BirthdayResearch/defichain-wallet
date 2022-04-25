@@ -41,7 +41,7 @@ context('Wallet - Settings', () => {
     cy.on('window:confirm', (message: string) => {
       expect(message).to.include('German')
     })
-    cy.getByTestID('bottom_tab_balances').contains('Guthaben').should('exist')
+    cy.getByTestID('bottom_tab_transactions').contains('Transaktionen').should('exist')
   })
 
   it('should exit wallet when clicked on positive action', function () {

@@ -28,7 +28,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
-import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
   VaultStatusTag
@@ -39,7 +39,8 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -64,6 +65,7 @@ export function EditCollateralScreen ({
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const logger = useLogger()
+  const isFocused = useIsFocused()
   const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
@@ -76,6 +78,9 @@ export function EditCollateralScreen ({
 
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+
+  const modalSnapPoints = { ios: ['60%'], android: ['60%'] }
+  const modalHeight = { height: '60%' }
 
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === '0' ? '0_unified' : tokenId
@@ -99,8 +104,10 @@ export function EditCollateralScreen ({
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
   useEffect(() => {
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))
@@ -246,7 +253,7 @@ export function EditCollateralScreen ({
         />
         {
           activeVault.collateralAmounts?.length > 0 && (
-            <SectionTitle title='COLLATERALS' />
+            <SectionTitle title='COLLATERAL' />
           )
         }
         {activeVault.collateralAmounts.map((collateral, index) => {
@@ -265,7 +272,8 @@ export function EditCollateralScreen ({
                 collateralFactor: new BigNumber(collateralItem.factor ?? 0).times(100),
                 isAdd: true,
                 current: new BigNumber(collateral.amount),
-                vault: activeVault
+                vault: activeVault,
+                collateralItem
               },
               option: {
                 header: () => null
@@ -313,12 +321,14 @@ export function EditCollateralScreen ({
           modalRef={containerRef}
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
+          modalStyle={modalHeight}
         />
       )}
       {Platform.OS !== 'web' && (
         <BottomSheetWithNav
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
+          snapPoints={modalSnapPoints}
         />
       )}
     </View>
@@ -371,7 +381,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         prefix='$'
-        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
+        value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow
@@ -388,7 +398,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         rhsThemedProps={colors}
         info={{
           title: 'Collateralization ratio',
-          message: 'The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.'
+          message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
         }}
       />
       <VaultSectionTextRow
@@ -432,7 +442,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
     vault
   } = props
   const canUseOperations = useLoanOperations(vault.state)
-  const prices = useCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
+  const prices = getCollateralPrice(new BigNumber(collateral.amount), collateralItem, totalCollateralValue)
   return (
     <ThemedView
       light={tailwind('bg-white border-gray-200')}

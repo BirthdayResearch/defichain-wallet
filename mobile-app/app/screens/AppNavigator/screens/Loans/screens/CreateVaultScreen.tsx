@@ -34,6 +34,7 @@ export function CreateVaultScreen ({
   const dispatch = useDispatch()
   const client = useWhaleApiClient()
   const loanSchemes = useSelector((state: RootState) => ascColRatioLoanScheme(state.loans))
+  const hasFetchedLoanSchemes = useSelector((state: RootState) => state.loans.hasFetchedLoanSchemes)
   const logger = useLogger()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<LoanScheme | undefined>(route.params?.loanScheme)
@@ -43,7 +44,12 @@ export function CreateVaultScreen ({
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const isConversionRequired = new BigNumber(2.1).gt(DFIUtxo.amount)
   const goToVaultsFaq = (): void => {
-    navigation.navigate('LoansFaq')
+    navigation.navigate({
+      name: 'LoansFaq',
+      params: {
+        activeSessions: [2]
+      }
+    })
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -118,6 +124,7 @@ export function CreateVaultScreen ({
       </View>
       <LoanSchemeOptions
         loanSchemes={loanSchemes}
+        isLoading={!hasFetchedLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) => setSelectedLoanScheme(scheme)}
       />

@@ -142,17 +142,18 @@ Cypress.Commands.add('sendDFITokentoWallet', () => {
 })
 
 Cypress.Commands.add('sendTokenToWallet', (tokens: string[]) => {
-  cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as('sendTokensToAddress')
-  tokens.forEach((t: string) => {
+  cy.wrap(tokens).each((t: string) => {
+    const alias = `send${t}ToAddress`
+    cy.intercept('/v0/playground/rpc/sendtokenstoaddress').as(alias)
     cy.getByTestID(`playground_token_${t}`).click()
+    cy.wait([`@${alias}`])
   })
-  cy.wait(['@sendTokensToAddress'])
 })
 
 Cypress.Commands.add('closeOceanInterface', (pin?: string) => {
   const inputPin = pin !== undefined ? pin : '000000'
   cy.getByTestID('pin_authorize').type(inputPin)
-  cy.wait(5000).getByTestID('oceanInterface_close').click().wait(2000)
+  cy.wait(7000).getByTestID('oceanInterface_close').should('exist').click().wait(2000)
 })
 
 Cypress.Commands.add('exitWallet', () => {

@@ -13,12 +13,12 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@d0148023e1293a74904e7af0f9a9cdc60a1ce550
+      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350
         with:
           expo-version: 4.x
           expo-cache: true

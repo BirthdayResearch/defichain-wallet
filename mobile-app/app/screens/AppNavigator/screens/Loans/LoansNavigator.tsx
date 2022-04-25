@@ -24,6 +24,7 @@ import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
 import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
 import { BorrowMoreScreen } from './screens/BorrowMoreScreen'
 import { CloseVaultScreen } from './screens/CloseVaultScreen'
+import { PaymentTokenProps } from './hooks/LoanPaymentTokenRate'
 
 export interface LoanParamList {
   LoansScreen: {
@@ -74,11 +75,17 @@ export interface LoanParamList {
   }
   ConfirmPaybackLoanScreen: {
     fee: BigNumber
-    amountToPay: BigNumber
+    amountToPayInLoanToken: BigNumber
+    amountToPayInPaymentToken: BigNumber
+    selectedPaymentTokenBalance: BigNumber
+    loanTokenBalance: BigNumber
+    paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
     vault: LoanVaultActive
     loanTokenAmount: LoanVaultTokenAmount
     excessAmount?: BigNumber
     resultingColRatio: BigNumber
+    conversion?: ConversionParam
+    paymentPenalty: BigNumber
   }
   EditLoanSchemeScreen: {
     vaultId: string
@@ -94,6 +101,9 @@ export interface LoanParamList {
   }
   CloseVaultScreen: {
     vaultId: string
+  }
+  LoansFaq: {
+    activeSessions?: number[]
   }
   [key: string]: undefined | object
 }
@@ -176,7 +186,7 @@ export function LoansNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Edit Collaterals')}
+              text={translate('screens/LoansScreen', 'Edit Collateral')}
             />
           )
         }}

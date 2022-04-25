@@ -205,6 +205,11 @@ describe('Batch Card', () => {
               }
             }
           ],
+          froms: [
+            '0014b5561e1cefa71f30efb6951c3d6d12ebd0baba02',
+            '001477e853f11c5881465978b731e8bdfd4abc079bc8',
+            '001480a0db34bbcc146d81458662b9d5432b5a4aaefc'
+          ],
           loan: {
             id: '15',
             amount: '5015.07942533',
@@ -254,6 +259,11 @@ describe('Batch Card', () => {
               }
             }
           ],
+          froms: [
+            '0014b5561e1cefa71f30efb6951c3d6d12ebd0baba02',
+            '001477e853f11c5881465978b731e8bdfd4abc079bc8',
+            '001480a0db34bbcc146d81458662b9d5432b5a4aaefc'
+          ],
           loan: {
             id: '15',
             amount: '3493.62201408',
@@ -268,7 +278,7 @@ describe('Batch Card', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} isVaultOwner={false} />
+        <BatchCard vault={vault} batch={vault.batches[0]} onQuickBid={() => {}} isVaultOwner={false} testID='batch_card' />
       </Provider>
     )
     expect(rendered.toJSON()).toMatchSnapshot()

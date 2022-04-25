@@ -50,7 +50,11 @@ describe('token icons', () => {
             }
           },
           poolpairs: [],
-          hasFetchedPoolpairData: false
+          dexPrices: {},
+          swappableTokens: {},
+          hasFetchedPoolpairData: false,
+          hasFetchedToken: true,
+          hasFetchedSwappableTokens: false
         }
       }
 

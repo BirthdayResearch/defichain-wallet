@@ -1,12 +1,11 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 import { View } from '@components'
-import { Button } from '@components/Button'
 import { NumberRow } from '@components/NumberRow'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -15,7 +14,7 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { DFITokenSelector, DFIUtxoSelector, fetchPoolPairs, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -25,6 +24,7 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -42,6 +42,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -153,9 +154,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchTokens({ client, address }))
-  }, [address, blockCount])
+    if (isFocused) {
+      dispatch(fetchTokens({ client, address }))
+    }
+  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
@@ -258,12 +260,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           : translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
       </ThemedText>
 
-      <View style={tailwind('px-4')}>
-        <ContinueButton
-          enabled={canContinue}
-          onPress={onSubmit}
-        />
-      </View>
+      <ContinueButton
+        isProcessing={hasPendingJob || hasPendingBroadcastJob}
+        enabled={canContinue}
+        onPress={onSubmit}
+      />
     </ThemedScrollView>
   )
 }
@@ -407,15 +408,16 @@ function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercent
   )
 }
 
-function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.Element {
+function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
   return (
-    <Button
-      disabled={!props.enabled}
+    <SubmitButtonGroup
+      isDisabled={!props.enabled}
       label={translate('components/Button', 'CONTINUE')}
-      onPress={props.onPress}
-      testID='button_continue_add_liq'
-      title='Continue'
-      margin='mt-8 mx-0'
+      processingLabel={translate('components/Button', 'CONTINUE')}
+      onSubmit={props.onPress}
+      title='continue_add_liq'
+      isProcessing={props.isProcessing}
+      displayCancelBtn={false}
     />
   )
 }

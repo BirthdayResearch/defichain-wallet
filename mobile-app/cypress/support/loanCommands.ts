@@ -64,7 +64,7 @@ declare global {
        * @description Create a vault
        * @param {string} loanScheme - loanScheme of the vault
        */
-      createVault: (loanScheme: number) => Chainable<Element>
+      createVault: (loanScheme: number, hasExistingVault?: boolean) => Chainable<Element>
 
       /**
        * @description Add Collateral
@@ -99,11 +99,11 @@ declare global {
   }
 }
 
-Cypress.Commands.add('createVault', (loanScheme: number = 0) => {
+Cypress.Commands.add('createVault', (loanScheme: number = 0, hasExistingVault: boolean = false) => {
   cy.getByTestID('bottom_tab_loans').click()
-  cy.getByTestID('button_create_vault').click()
+  cy.getByTestID(hasExistingVault ? 'create_vault_header_button' : 'button_create_vault').click()
   cy.getByTestID(`loan_scheme_option_${loanScheme}`).click()
-  cy.getByTestID('create_vault_submit_button').click()
+  cy.getByTestID('create_vault_submit_button').click().wait(1000)
   cy.getByTestID('button_confirm_create_vault').click().wait(3000)
   cy.closeOceanInterface()
 })
@@ -114,6 +114,7 @@ Cypress.Commands.add('addCollateral', (amount: string, symbol: string) => {
   cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
   cy.getByTestID('form_input_text').type(amount).blur()
   cy.getByTestID('add_collateral_button_submit').click()
+  cy.wait(3000)
   cy.getByTestID('button_confirm_confirm_edit_collateral').click().wait(3000)
   cy.closeOceanInterface()
 })

@@ -18,7 +18,19 @@ import { PriceRateProps } from '@screens/AppNavigator/screens/Dex/CompositeSwap/
 
 export interface DexParamList {
   DexScreen: undefined
-  CompositeSwapScreen: { pair?: PoolPairData }
+  CompositeSwapScreen: {
+    pair?: PoolPairData
+    tokenSelectOption?: {
+      from: {
+        isDisabled: boolean
+        isPreselected: boolean
+      }
+      to: {
+        isDisabled: boolean
+        isPreselected: boolean
+      }
+    }
+  }
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam
     fee: BigNumber
@@ -27,7 +39,7 @@ export interface DexParamList {
     slippage: BigNumber
     swap: CompositeSwapForm
     tokenA: OwnedTokenState
-    tokenB: TokenState & {amount?: string}
+    tokenB: TokenState & { amount?: string }
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {

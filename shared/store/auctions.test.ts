@@ -1,5 +1,5 @@
-import { LoanVaultLiquidated, LoanVaultLiquidationBatch, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { auctions, auctionsSearchByTermSelector, AuctionsState, fetchAuctions } from './auctions'
+import { LoanVaultLiquidated, LoanVaultLiquidationBatch, LoanVaultState, VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
+import { auctions, auctionsSearchByTermSelector, AuctionsState, fetchAuctions, fetchBidHistory } from './auctions'
 
 describe('auctions reducer', () => {
   let initialState: AuctionsState
@@ -160,9 +160,29 @@ describe('auctions reducer', () => {
     }
   ]
 
+  const bidHistory: VaultAuctionBatchHistory[] = [
+    {
+      id: 'a40dca4568cb17bbcf93cffe25e25a65b028a843ae43c26c33472eb5f5cdd404-0-61913320d0bfd8e10ddeab6d19a68c79394d46aa3f8748d1152687ecee687b43',
+      key: 'a40dca4568cb17bbcf93cffe25e25a65b028a843ae43c26c33472eb5f5cdd404-0',
+      sort: '0000132a-61913320d0bfd8e10ddeab6d19a68c79394d46aa3f8748d1152687ecee687b43',
+      vaultId: 'a40dca4568cb17bbcf93cffe25e25a65b028a843ae43c26c33472eb5f5cdd404',
+      index: 0,
+      from: '001489467aaf77a983e76d1152e62e9e54ad7e49da6c',
+      amount: '28.37210284',
+      tokenId: 11,
+      block: {
+        hash: '187b623cc714429ba0719262e70b794a6165bcf5a833e25eaf71154c8462b522',
+        height: 4906,
+        medianTime: 1641919036,
+        time: 1641919041
+      }
+    }
+  ]
+
   beforeEach(() => {
     initialState = {
       auctions: [],
+      bidHistory: [],
       hasFetchAuctionsData: false
     }
   })
@@ -170,6 +190,7 @@ describe('auctions reducer', () => {
   it('should handle initial state', () => {
     expect(auctions.reducer(undefined, { type: 'unknown' })).toEqual({
       auctions: [],
+      bidHistory: [],
       hasFetchAuctionsData: false
     })
   })
@@ -179,6 +200,12 @@ describe('auctions reducer', () => {
     const actual = auctions.reducer(initialState, action)
     expect(actual.auctions).toStrictEqual(liquidatedVaults)
     expect(actual.hasFetchAuctionsData).toStrictEqual(true)
+  })
+
+  it('should handle fetch auctions history', () => {
+    const action = { type: fetchBidHistory.fulfilled, payload: bidHistory }
+    const actual = auctions.reducer(initialState, action)
+    expect(actual.bidHistory).toStrictEqual(bidHistory)
   })
 
   it('should be able to search auction by loan display symbol', () => {

@@ -1,16 +1,19 @@
-name: Labels
+name: OSS Governance
 
 on:
   push:
     branches: [ main ]
     paths: [ .github/labels.yml ]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
-  main:
-    name: Syncer
+  Labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
 
       - uses: micnncim/action-label-syncer@0e9c5104859d0e78219af63791636eba42382b5d
         with:

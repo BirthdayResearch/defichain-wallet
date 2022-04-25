@@ -221,7 +221,7 @@ exports[`Tabs component should match snapshot with 5 tabs 1`] = `
             "opacity": 1,
           }
         }
-        testID="collateral_tab_BROWSE_LOANS"
+        testID="loans_tabs_BROWSE_LOANS"
       >
         <Text
           style={
@@ -274,7 +274,7 @@ exports[`Tabs component should match snapshot with 5 tabs 1`] = `
             "opacity": 1,
           }
         }
-        testID="collateral_tab_YOUR_VAULTS"
+        testID="loans_tabs_YOUR_VAULTS"
       >
         <Text
           style={
@@ -325,7 +325,7 @@ exports[`Tabs component should match snapshot with 5 tabs 1`] = `
             "opacity": 1,
           }
         }
-        testID="collateral_tab_COLLATERAL"
+        testID="loans_tabs_COLLATERAL"
       >
         <Text
           style={
@@ -376,7 +376,7 @@ exports[`Tabs component should match snapshot with 5 tabs 1`] = `
             "opacity": 1,
           }
         }
-        testID="collateral_tab_AUCTION"
+        testID="loans_tabs_AUCTION"
       >
         <Text
           style={
@@ -427,7 +427,7 @@ exports[`Tabs component should match snapshot with 5 tabs 1`] = `
             "opacity": 1,
           }
         }
-        testID="collateral_tab_AUCTION2"
+        testID="loans_tabs_AUCTION2"
       >
         <Text
           style={

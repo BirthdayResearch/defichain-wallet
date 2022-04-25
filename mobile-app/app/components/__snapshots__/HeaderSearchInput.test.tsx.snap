@@ -100,6 +100,7 @@ exports[`Header search input should match snapshot 1`] = `
           "opacity": 1,
         }
       }
+      testID="search_dex_bar_close"
     >
       <Text />
     </View>

@@ -2,14 +2,14 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   initJellyfishWallet,
   MnemonicEncrypted,
   MnemonicUnprotected,
   PasscodeAttemptCounter
-} from '../../api/wallet'
+} from '@api/wallet'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useWalletPersistenceContext, WalletType } from '@shared-contexts/WalletPersistenceContext'
@@ -28,6 +28,7 @@ import {
 } from '@screens/TransactionAuthorization/api/transaction_signer'
 import {
   CANCELED_ERROR,
+  UNEXPECTED_FAILURE,
   DEFAULT_MESSAGES,
   INVALID_HASH,
   MAX_PASSCODE_ATTEMPT,
@@ -39,6 +40,7 @@ import {
 } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { useAddressBook } from '@hooks/useAddressBook'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -67,6 +69,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { dismiss } = useBottomSheetModal()
   const modalName = 'PasscodePromptModal'
+  const { clearAddressBook } = useAddressBook()
 
   /**
    * This is one of the most important state of this component.
@@ -78,16 +81,17 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [wallet, setWallet] = useState<JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>>()
 
   // messages
+  const [title, setTitle] = useState<string | undefined>()
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
 
-  const closeModal = useCallback(() => {
+  const closeModal = (): void => {
     dismiss(modalName)
-  }, [])
+  }
 
-  const openModal = useCallback(() => {
+  const openModal = (): void => {
     bottomSheetModalRef.current?.present()
-  }, [])
+  }
 
   // generic callbacks
   const onPinInput = (inputPin: string): void => {
@@ -103,9 +107,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     setPin(inputPin)
   }
 
-  const onCancel = (): void => {
+  const onCancel = (err: string): void => {
     if (PROMPT_PIN_PROMISE !== undefined) {
-      PROMPT_PIN_PROMISE.reject(new Error(USER_CANCELED))
+      PROMPT_PIN_PROMISE.reject(new Error(err))
       // remove proxied promised, allow next prompt() call
       PROMPT_PIN_PROMISE = undefined
     } else if (transactionStatus === TransactionStatus.AUTHORIZED) {
@@ -156,6 +160,7 @@ export function TransactionAuthorization (): JSX.Element | null {
     setPin('')
     setIsRetry(false)
     setMessage(DEFAULT_MESSAGES.message)
+    setTitle(undefined)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
     setTransactionStatus(TransactionStatus.IDLE) // very last step, open up for next task
   }
@@ -194,8 +199,12 @@ export function TransactionAuthorization (): JSX.Element | null {
       if (e.message === INVALID_HASH) {
         // case 2: invalid passcode
         await resetPasscodeCounter()
+        clearAddressBook()
         await clearWallets()
         alertUnlinkWallet()
+      } else if (e.message === UNEXPECTED_FAILURE) {
+        // case 5: Unexpected error
+        dispatch(transactionQueue.actions.setError(e))
       } else if (e.message !== USER_CANCELED) {
         // case 4: unknown error type
         dispatch(ocean.actions.setError(e))
@@ -255,6 +264,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       // Non-wallet transactions
       setTransactionStatus(TransactionStatus.BLOCK) // prevent any re-render trigger (between IDLE and PIN)
       setMessage(authentication.message)
+      setTitle(authentication.title)
       setLoadingMessage(authentication.loading)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
@@ -267,6 +277,7 @@ export function TransactionAuthorization (): JSX.Element | null {
           if (e.message === INVALID_HASH) {
             // case 2: invalid passcode
             await resetPasscodeCounter()
+            clearAddressBook()
             await clearWallets()
             alertUnlinkWallet()
           } else if (e.message !== USER_CANCELED && authentication.onError !== undefined) {
@@ -323,6 +334,13 @@ export function TransactionAuthorization (): JSX.Element | null {
   return (
     <PasscodePrompt
       onCancel={onCancel}
+      title={
+        title !== undefined
+        ? translate('screens/UnlockWallet', title)
+        : transaction === undefined
+          ? translate('screens/UnlockWallet', 'Sign to verify access')
+          : translate('screens/TransactionAuthorization', 'Sign Transaction')
+      }
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
       status={transactionStatus}
@@ -347,7 +365,13 @@ export function TransactionAuthorization (): JSX.Element | null {
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
       modalRef={bottomSheetModalRef}
       promptModalName={modalName}
-      onModalCancel={closeModal}
+      onModalCancel={() => {
+        if (![TransactionStatus.INIT, TransactionStatus.IDLE, TransactionStatus.BLOCK].includes(transactionStatus)) {
+          onCancel(UNEXPECTED_FAILURE)
+        } else {
+          closeModal()
+        }
+      }}
     />
   )
 }

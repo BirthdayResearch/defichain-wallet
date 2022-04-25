@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Total Value Locked should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderBottomWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderTopWidth": 1,
+        "paddingBottom": 4,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 4,
+      },
+      Object {
+        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "borderBottomColor": "rgba(229, 229, 229, 1)",
+        "borderLeftColor": "rgba(229, 229, 229, 1)",
+        "borderRightColor": "rgba(229, 229, 229, 1)",
+        "borderTopColor": "rgba(229, 229, 229, 1)",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Array [
+          Object {
+            "fontSize": 12,
+            "lineHeight": 16,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "rgba(115, 115, 115, 1)",
+          },
+        ],
+      ]
+    }
+  >
+    Total Value Locked in pool pairs (USD): 
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "MediumFont",
+              "fontSize": 12,
+              "fontWeight": "500",
+              "lineHeight": 16,
+              "textAlign": "left",
+            },
+            Object {
+              "color": "rgba(23, 23, 23, 1)",
+            },
+          ],
+        ]
+      }
+      testID="DEX_TVL"
+    >
+      $123
+    </Text>
+  </Text>
+</View>
+`;

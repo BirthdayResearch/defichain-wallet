@@ -1,7 +1,7 @@
 
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { AllSwappableTokensResult, PoolPairData, DexPrice } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
@@ -9,12 +9,24 @@ import BigNumber from 'bignumber.js'
 interface AssociatedToken {
   [key: string]: TokenData
 }
+export interface SwappableTokens {
+  [key: string]: AllSwappableTokensResult
+}
+
+interface DexPricesProps {
+  [symbol: string]: DexPrice
+}
+
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
   allTokens: AssociatedToken
   poolpairs: DexItem[]
+  dexPrices: {[symbol: string]: DexPricesProps }
+  swappableTokens: SwappableTokens
   hasFetchedPoolpairData: boolean
+  hasFetchedToken: boolean
+  hasFetchedSwappableTokens: boolean
 }
 
 export interface WalletToken extends AddressToken {
@@ -31,7 +43,11 @@ const initialState: WalletState = {
   tokens: [],
   allTokens: {},
   poolpairs: [],
-  hasFetchedPoolpairData: false
+  dexPrices: {},
+  swappableTokens: {},
+  hasFetchedSwappableTokens: false,
+  hasFetchedPoolpairData: false,
+  hasFetchedToken: false
 }
 
 const tokenDFI: WalletToken = {
@@ -83,7 +99,13 @@ export const setTokenSymbol = (t: AddressToken): WalletToken => {
 }
 
 const associateTokens = (tokens: TokenData[]): AssociatedToken => {
-  return tokens.reduce((allToken, token) => ({ ...allToken, [token.displaySymbol]: token }), {})
+  const result: AssociatedToken = {}
+  tokens.forEach(token => {
+    if (token.isDAT) {
+      result[token.displaySymbol] = token
+    }
+  })
+  return result
 }
 
 export const fetchPoolPairs = createAsyncThunk(
@@ -91,6 +113,14 @@ export const fetchPoolPairs = createAsyncThunk(
   async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
     return pairs.map(data => ({ type: 'available', data }))
+  }
+)
+
+export const fetchDexPrice = createAsyncThunk(
+  'wallet/fetchDexPrice',
+  async ({ client, denomination }: { size?: number, client: WhaleApiClient, denomination: string }): Promise<{dexPrices: DexPricesProps, denomination: string}> => {
+    const { dexPrices } = await client.poolpairs.listDexPrices(denomination)
+    return { dexPrices, denomination }
   }
 )
 
@@ -104,19 +134,46 @@ export const fetchTokens = createAsyncThunk(
   }
 )
 
+export const fetchSwappableTokens = createAsyncThunk(
+  'wallet/swappableTokens',
+  async ({ client, fromTokenId }: {
+    client: WhaleApiClient
+    fromTokenId: string
+  }): Promise<AllSwappableTokensResult> => {
+    return await client.poolpairs.getSwappableTokens(fromTokenId)
+  }
+)
+
 export const wallet = createSlice({
   name: 'wallet',
   initialState,
-  reducers: {},
+  reducers: {
+    setHasFetchedToken: (state, action: PayloadAction<boolean>) => {
+      state.hasFetchedToken = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
     })
+    builder.addCase(fetchDexPrice.fulfilled, (state, action: PayloadAction<{dexPrices: DexPricesProps, denomination: string}>) => {
+      state.dexPrices = { ...state.dexPrices, [action.payload.denomination]: action.payload.dexPrices }
+    })
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
+      state.hasFetchedToken = true
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
       state.allTokens = associateTokens(action.payload.allTokens)
+    })
+    builder.addCase(fetchSwappableTokens.fulfilled, (state, action: PayloadAction<AllSwappableTokensResult>) => {
+      state.hasFetchedSwappableTokens = true
+      state.swappableTokens = {
+        ...state.swappableTokens,
+        ...{
+          [action.payload.fromToken.id]: action.payload
+        }
+      }
     })
   }
 })
@@ -136,17 +193,17 @@ const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (
 })
 
 export const tokensSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => {
-    const utxoAmount = new BigNumber(utxoBalance)
-    const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
-    return tokens.map((t) => {
-      if (t.id === '0_utxo') {
-        return { ...t, amount: utxoAmount.toFixed(8) }
-      } else if (t.id === '0_unified') {
-        return { ...t, amount: utxoAmount.plus(tokenAmount).toFixed(8) }
-      }
-      return t
-    })
-  }
+  const utxoAmount = new BigNumber(utxoBalance)
+  const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
+  return tokens.map((t) => {
+    if (t.id === '0_utxo') {
+      return { ...t, amount: utxoAmount.toFixed(8) }
+    } else if (t.id === '0_unified') {
+      return { ...t, amount: utxoAmount.plus(tokenAmount).toFixed(8) }
+    }
+    return t
+  })
+}
 )
 
 export const DFITokenSelector = createSelector(tokensSelector, tokens => {
@@ -179,6 +236,13 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
 /**
  * Get single token detail by `displaySymbol` from wallet store.
  */
- export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
+export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
   return allTokens[displaySymbol]
+})
+
+/**
+ * Get dexprices by currency denomination
+ */
+ export const dexPricesSelectorByDenomination = createSelector([(state: WalletState) => state.dexPrices, selectTokenId], (dexPrices, denomination) => {
+  return dexPrices[denomination] ?? {}
 })

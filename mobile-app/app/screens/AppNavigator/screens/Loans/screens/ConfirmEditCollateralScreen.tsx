@@ -21,7 +21,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
-import { useCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
+import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -30,7 +30,7 @@ import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { WalletAddressRow } from '@components/WalletAddressRow'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -122,6 +122,7 @@ export function ConfirmEditCollateralScreen ({
         processingLabel={translate('screens/ConfirmEditCollateralScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
+        displayCancelBtn
         title='confirm_edit_collateral'
       />
     </ThemedScrollView>
@@ -185,9 +186,9 @@ interface CollateralSectionProps {
 function CollateralSection (props: CollateralSectionProps): JSX.Element {
   const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
   const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
-  const initialPrices = useCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
+  const initialPrices = getCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
   const totalCollateralValue = props.isAdd ? props.totalCollateralValue.plus(initialPrices.collateralPrice) : props.totalCollateralValue.minus(initialPrices.collateralPrice)
-  const prices = useCollateralPrice(amount, props.collateralItem, totalCollateralValue)
+  const prices = getCollateralPrice(amount, props.collateralItem, totalCollateralValue)
   return (
     <>
       <ThemedSectionTitle
@@ -240,7 +241,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
       <NumberRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral value (USD)')}
         rhs={{
-          value: getUSDPrecisedPrice(prices.collateralPrice),
+          value: getPrecisedTokenValue(prices.collateralPrice),
           testID: 'collateral_value',
           prefix: '$'
         }}
@@ -273,22 +274,33 @@ function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: 
         style={tailwind('flex flex-row py-1 px-1.5 rounded-2xl')}
       >
         <SymbolIcon symbol={props.tokenId} />
-        <NumberFormat
-          value={props.proportion.toFixed(2)}
-          decimalScale={2}
-          displayType='text'
-          thousandSeparator
-          suffix='%'
-          renderText={value =>
+        {props.proportion.isNaN()
+          ? (
             <ThemedText
-              light={tailwind('text-gray-700')}
-              dark={tailwind('text-gray-300')}
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-50')}
               style={tailwind('text-xs font-medium ml-1')}
               testID='edit_collateral_confirm_vault_share'
-            >
-              {value}
-            </ThemedText>}
-        />
+            >{translate('screens/ConfirmEditCollateralScreen', 'N/A')}
+            </ThemedText>
+          )
+          : (
+            <NumberFormat
+              value={props.proportion.toFixed(2)}
+              decimalScale={2}
+              displayType='text'
+              thousandSeparator
+              suffix='%'
+              renderText={value =>
+                <ThemedText
+                  light={tailwind('text-gray-700')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('text-xs font-medium ml-1')}
+                  testID='edit_collateral_confirm_vault_share'
+                >
+                  {value}
+                </ThemedText>}
+            />)}
       </ThemedView>
     </ThemedView>
   )

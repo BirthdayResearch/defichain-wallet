@@ -26,7 +26,11 @@ describe('wallet reducer', () => {
       allTokens: {},
       utxoBalance: '0',
       poolpairs: [],
-      hasFetchedPoolpairData: false
+      dexPrices: {},
+      swappableTokens: {},
+      hasFetchedPoolpairData: false,
+      hasFetchedToken: true,
+      hasFetchedSwappableTokens: false
     }
     tokenDFI = {
       ...dfi,
@@ -70,7 +74,11 @@ describe('wallet reducer', () => {
       tokens: [],
       allTokens: {},
       poolpairs: [],
-      hasFetchedPoolpairData: false
+      dexPrices: {},
+      swappableTokens: {},
+      hasFetchedPoolpairData: false,
+      hasFetchedSwappableTokens: false,
+      hasFetchedToken: false
     })
   })
 
@@ -129,7 +137,8 @@ describe('wallet reducer', () => {
         },
         apr: {
           reward: 133.7652,
-          total: 133.7652
+          total: 133.7652,
+          commission: 0
         }
       }
     }]

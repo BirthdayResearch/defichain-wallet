@@ -26,7 +26,7 @@ import {
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -112,7 +112,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
                   dark={tailwind('text-gray-300')}
                   style={tailwind('text-xs mr-1')}
                 >
-                  {translate('components/VaultCard', 'Collaterals:')}
+                  {translate('components/VaultCard', 'Collateral:')}
                 </ThemedText>
                 {
                   (vault.collateralAmounts?.length === 0 || vault.collateralAmounts === undefined) &&
@@ -159,13 +159,13 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           <VaultSectionTextRow
             testID={`${props.testID}_total_loan`}
             prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
-            value={VaultStatus.Liquidated === vaultState.status ? '-' : getUSDPrecisedPrice(vault.loanValue) ?? '-'}
+            value={VaultStatus.Liquidated === vaultState.status ? '-' : getPrecisedTokenValue(vault.loanValue) ?? '-'}
             lhs={translate('components/VaultCard', 'Total loans (USD)')}
           />
           <VaultSectionTextRow
             testID={`${props.testID}_total_collateral`}
             prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
-            value={VaultStatus.Liquidated === vaultState.status ? '-' : getUSDPrecisedPrice(vault.collateralValue)}
+            value={VaultStatus.Liquidated === vaultState.status ? '-' : getPrecisedTokenValue(vault.collateralValue)}
             lhs={translate('components/VaultCard', 'Total collateral (USD)')}
           />
         </View>
@@ -206,7 +206,7 @@ function VaultActionButton ({
       <IconButton
         testID={`${testID}_edit_collaterals_button`}
         disabled={!canUseOperation}
-        iconLabel={translate('components/VaultCard', 'EDIT COLLATERALS')}
+        iconLabel={translate('components/VaultCard', 'EDIT COLLATERAL')}
         style={tailwind('mr-2 mb-2 items-center')}
         onPress={() => {
           navigation.navigate({

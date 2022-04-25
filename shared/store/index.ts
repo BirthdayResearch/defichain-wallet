@@ -7,7 +7,9 @@ import { transactionQueue } from './transaction_queue'
 import { wallet } from './wallet'
 import { loans } from './loans'
 import { auctions } from './auctions'
-import { websiteSlice } from '@store/website'
+import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
+import { userPreferences } from '@store/userPreferences'
+import { useDispatch } from 'react-redux'
 
 /**
  * RootState for DeFiChain Wallet App
@@ -28,12 +30,17 @@ export function initializeStore () {
       ocean: ocean.reducer,
       transactionQueue: transactionQueue.reducer,
       authentication: authentication.reducer,
-      [websiteSlice.reducerPath]: websiteSlice.reducer
+      [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
+      [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
+      userPreferences: userPreferences.reducer
     },
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({ serializableCheck: false }).concat(websiteSlice.middleware)
+      getDefaultMiddleware({ serializableCheck: false })
+        .concat(announcementWebsiteSlice.middleware)
+        .concat(statusWebsiteSlice.middleware)
   })
 }
 
 export type RootStore = ReturnType<typeof initializeStore>
 export type RootState = ReturnType<RootStore['getState']>
+export const useAppDispatch = () => useDispatch<any>()

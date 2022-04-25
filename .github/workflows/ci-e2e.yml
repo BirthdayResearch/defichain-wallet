@@ -21,14 +21,14 @@ jobs:
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
 
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
         with:
           node-version: 16
           cache: 'npm'
@@ -39,7 +39,7 @@ jobs:
       - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
       - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
 
-      - uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+      - uses: cypress-io/github-action@16aacf8ea6a67e5e5d907d34bc3be8ad0e6e979f
         with:
           install: false
           record: true
@@ -55,4 +55,4 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
+      - uses: codecov/codecov-action@e3c560433a6cc60aec8812599b7844a7b4fa0d71
