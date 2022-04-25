@@ -43,9 +43,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     setTimeout(() => {
       prefetchPage({})
     }, 10000)
-  }
-
-  if (!isError) {
+  } else {
     prefetchPage({})
   }
 
@@ -106,9 +104,13 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
       flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS) && flag.stage === 'beta')
   }
 
+  if (isError && !isLoading) {
+    return <></>
+  }
+
   return (
     <FeatureFlagContext.Provider value={context}>
-      {!isError && !isLoading && props.children}
+      {props.children}
     </FeatureFlagContext.Provider>
   )
 }
