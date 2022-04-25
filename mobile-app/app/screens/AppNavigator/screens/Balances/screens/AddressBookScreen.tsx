@@ -170,7 +170,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     iconType='MaterialIcons'
                     light={tailwind('text-primary-500')}
                     dark={tailwind('text-darkprimary-500')}
-                    style={tailwind('pl-0.5')}
+                    style={tailwind('pl-1 pt-0.5')}
                     onPress={async () => await openURL(getAddressUrl(item))}
                   />
                 </View>
