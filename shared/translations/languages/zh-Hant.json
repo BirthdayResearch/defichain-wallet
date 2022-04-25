@@ -96,7 +96,7 @@
     "CANCEL": "取消"
   },
   "screens/AddressBookScreen": {
-    "Address Book": "Address Book",
+    "Address Book": "地址簿",
     "ADD NEW ADDRESS": "ADD NEW ADDRESS",
     "Empty address book": "空地址簿",
     "Add your preferred address": "添加您的首選地址",
