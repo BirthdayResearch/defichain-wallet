@@ -104,7 +104,8 @@
     "ADD ADDRESS": "AJOUTER UNE ADRESSE",
     "Add address": "Ajouter une adresse",
     "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)",
-    "Search for address": "Rechercher une adresse"
+    "Search for address": "Rechercher une adresse",
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",

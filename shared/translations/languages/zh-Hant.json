@@ -104,7 +104,8 @@
     "ADD ADDRESS": "添加地址",
     "Add address": "添加地址",
     "SAVED ADDRESS(ES)": "已儲存地址",
-    "Search for address": "Search for address"
+    "Search for address": "Search for address",
+    "{{length}} ADDRESS(ES)": "{{length}} 地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址標籤",
