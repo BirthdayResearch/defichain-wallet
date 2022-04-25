@@ -57,7 +57,7 @@ export interface BalanceParamList {
   }
   AddOrEditAddressBookScreen: {
     title: string
-    onSaveButtonPress: (labelAddress: LabeledAddress) => void
+    onSaveButtonPress: (labelAddress: LabeledAddress, address?: string) => void
     addressLabel?: LocalAddress
     address?: string
     isAddNew: boolean
