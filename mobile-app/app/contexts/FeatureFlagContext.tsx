@@ -39,6 +39,12 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
   const { network } = useNetworkContext()
 
+  if (isError) {
+    setTimeout(() => {
+      prefetchPage({})
+    }, 10000)
+  }
+
   if (!isError) {
     prefetchPage({})
   }
@@ -102,7 +108,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
 
   return (
     <FeatureFlagContext.Provider value={context}>
-      {props.children}
+      {!isError && !isLoading && props.children}
     </FeatureFlagContext.Provider>
   )
 }
