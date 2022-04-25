@@ -126,7 +126,7 @@
     "Wallet address": "Walletadresse",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
     "CONTINUE": "WEITER",
-    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
+    "Address label is too long (max 40 characters)": "Adressbezeichnung zu lang (max. 40 Zeichen)",
     "Enter address label": "Adressbezeichnung eingeben",
     "Enter address": "Adresse eingeben",
     "This address already exists in your address book, please enter a different address": "Diese Adresse existiert bereits in deinem Adressbuch, gib bitte eine andere Adresse ein",

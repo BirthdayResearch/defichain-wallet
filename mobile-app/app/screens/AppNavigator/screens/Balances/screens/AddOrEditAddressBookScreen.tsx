@@ -35,8 +35,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const [addressInputErrorMessage, setAddressInputErrorMessage] = useState('')
 
   const validateLabelInput = (input: string): boolean => {
-    if (input !== undefined && input.trim().length > 30) {
-      setLabelInputErrorMessage('Address label is too long (max 30 characters)')
+    if (input !== undefined && input.trim().length > 40) {
+      setLabelInputErrorMessage('Address label is too long (max 40 characters)')
       return false
     }
     if (input.trim() === '') {

@@ -126,7 +126,7 @@
     "Wallet address": "錢包地址",
     "SAVE CHANGES": "儲存修改",
     "CONTINUE": "繼續",
-    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
+    "Address label is too long (max 40 characters)": "地址標籤太長（最多 40 個字符）",
     "Enter address label": "Enter address label",
     "Enter address": "Enter address",
     "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
