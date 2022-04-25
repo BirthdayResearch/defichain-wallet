@@ -23,7 +23,7 @@ jobs:
       matrix:
         containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
