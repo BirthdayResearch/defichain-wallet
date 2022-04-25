@@ -662,9 +662,6 @@
     "How much {{token}} do you want to swap?": "Combien de {{token}} voulez-vous échanger ?",
     "You have": "Vous avez actuellement",
     "Estimated to receive": "Estimé à recevoir",
-    "PRICES": "PRIX",
-    "{{tokenA}} price in {{tokenB}}": "Prix d'un {{tokenA}} en {{tokenB}}",
-    "{{tokenB}} price in {{tokenA}}": "Prix d'un {{tokenB}} en {{tokenA}}",
     "CONTINUE": "SUIVANT",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante",
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
@@ -1359,5 +1356,10 @@
   },
   "components/Announcements": {
     "DETAILS": "DÉTAILS"
+  },
+  "components/PricesSection": {
+    "PRICES": "PRIX",
+    "{{tokenA}} price in {{tokenB}}": "Prix d'un {{tokenA}} en {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "Prix d'un {{tokenB}} en {{tokenA}}"
   }
 }
