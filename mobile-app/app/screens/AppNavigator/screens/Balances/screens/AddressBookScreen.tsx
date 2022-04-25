@@ -363,6 +363,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           }))
         })
         setIsEditing(false)
+        setShowSearchInput(false)
+        setSearchString('')
       },
       onError: e => logger.error(e),
       title: translate('screens/Settings', 'Sign to delete address'),
