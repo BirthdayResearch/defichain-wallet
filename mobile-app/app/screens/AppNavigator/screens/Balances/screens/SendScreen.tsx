@@ -143,7 +143,10 @@ export function SendScreen ({
 
   useEffect(() => {
     // debounceMatchAddress()
-    console.log(setMatchedAddress)
+    const address = getValues('address')
+    if (address !== undefined && typeof address === 'string') {
+      setMatchedAddress(addressBook[address])
+    }
   }, [getValues('address'), addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
