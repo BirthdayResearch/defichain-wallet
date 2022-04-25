@@ -125,6 +125,7 @@
     "Add New Address": "Ajouter une nouvelle adresse",
     "Address": "Adresse",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "CONTINUE": "SUIVANT",
     "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)",
     "Enter address label": "Donner le nom d'adresse",
     "Enter address": "Donner l'adresse",
@@ -271,7 +272,8 @@
     "biometric": "biométrique",
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Sign to save address": "Signer pour sauvegarder l'adresse",
-    "Sign to delete address": "Signer pour supprimer l'adresse"
+    "Sign to delete address": "Signer pour supprimer l'adresse",
+    "Address Book": "Carnet d'adresses"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
