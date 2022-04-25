@@ -11,7 +11,6 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'reac
 import { Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
-import { RandomAvatar } from '../components/RandomAvatar'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NoTokensLight } from '../assets/NoTokensLight'
@@ -156,12 +155,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         disabled={hasPendingJob || hasPendingBroadcastJob || isEditing || disableAddressSelect}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
-          <RandomAvatar name={item} size={32} />
           <View style={tailwind('mx-2 flex-auto')}>
             {addressBook?.[item]?.label != null && addressBook?.[item]?.label !== '' &&
               (
                 <View style={tailwind('flex flex-row')}>
-                  <ThemedText style={tailwind('text-sm font-medium')} testID={`address_row_label_${item}`}>
+                  <ThemedText style={tailwind('text-sm font-normal')} testID={`address_row_label_${item}`}>
                     {addressBook[item]?.label}
                   </ThemedText>
                   <ThemedIcon
@@ -178,6 +176,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               )}
             <ThemedText
               style={tailwind('text-sm w-full')}
+              light={tailwind('text-gray-500')}
               ellipsizeMode='middle'
               numberOfLines={1}
               testID={`address_row_text_${item}`}
@@ -220,7 +219,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     size={24}
                     name='edit'
                     iconType='MaterialIcons'
-                    style={tailwind('mr-2')}
+                    style={tailwind('mr-2 font-bold')}
                     light={tailwind('text-primary-500')}
                     dark={tailwind('text-darkprimary-500')}
                     testID={`address_edit_indicator_${item}`}
@@ -331,7 +330,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
             <ThemedText
               dark={tailwind('text-darkprimary-500')}
               light={tailwind('text-primary-500')}
-              style={tailwind('text-sm font-normal')}
+              style={tailwind('text-sm font-medium')}
             >
               {translate('screens/AddressBookScreen', 'Add address')}
             </ThemedText>
