@@ -99,7 +99,7 @@ export function EditCollateralScreen ({
       ...c,
       available: getTokenAmount(c.token.id)
     }
-  }).filter((collateralItem) => new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice)) > 0)
+  }).filter((collateralItem) => new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice)).gt(0))
     .sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
