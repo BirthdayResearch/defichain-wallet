@@ -143,6 +143,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     item,
     index
   }: { item: string, index: number }): JSX.Element => {
+    console.log('item', item)
     return (
       <ThemedTouchableOpacity
         key={item}
@@ -171,7 +172,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     light={tailwind('text-primary-500')}
                     dark={tailwind('text-darkprimary-500')}
                     style={tailwind('pl-0.5')}
-                    onPress={async () => await openURL(getAddressUrl('https://defiscan.live/'))}
+                    onPress={async () => await openURL(getAddressUrl(item))}
                   />
                 </View>
 
