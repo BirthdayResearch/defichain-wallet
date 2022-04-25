@@ -245,7 +245,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
             tokenA: pair.tokenA.displaySymbol,
             tokenB: pair.tokenB.displaySymbol
           }),
-          value: pair.bToARate.toFixed(8),
+          value: pair.aToBRate.toFixed(8),
           aSymbol: pair.tokenA.displaySymbol,
           bSymbol: pair.tokenB.displaySymbol
         },
@@ -254,7 +254,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
             tokenA: pair.tokenA.displaySymbol,
             tokenB: pair.tokenB.displaySymbol
           }),
-          value: pair.aToBRate.toFixed(8),
+          value: pair.bToARate.toFixed(8),
           aSymbol: pair.tokenB.displaySymbol,
           bSymbol: pair.tokenA.displaySymbol
         }
