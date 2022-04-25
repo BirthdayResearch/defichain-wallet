@@ -265,7 +265,8 @@
     "biometric": "生物辨識",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Sign to save address": "簽名儲存地址",
-    "Sign to delete address": "簽名移除地址"
+    "Sign to delete address": "簽名移除地址",
+    "Address Book": "地址簿"
   },
   "screens/AboutScreen": {
     "About": "關於",

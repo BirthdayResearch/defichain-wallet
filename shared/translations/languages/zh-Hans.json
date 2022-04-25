@@ -96,7 +96,7 @@
     "CANCEL": "取消"
   },
   "screens/AddressBookScreen": {
-    "Address Book": "Address Book",
+    "Address Book": "地址簿",
     "ADD NEW ADDRESS": "ADD NEW ADDRESS",
     "Empty address book": "空地址簿",
     "Add your preferred address": "添加您的首选地址",
@@ -265,7 +265,8 @@
     "biometric": "生物辨识",
     "Enter passcode to continue": "输入密码后可继续",
     "Sign to save address": "签名储存地址",
-    "Sign to delete address": "签名移除地址"
+    "Sign to delete address": "签名移除地址",
+    "Address Book": "地址簿"
   },
   "screens/AboutScreen": {
     "About": "关于",

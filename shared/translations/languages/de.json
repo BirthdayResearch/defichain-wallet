@@ -264,7 +264,8 @@
     "biometric": "biometrische",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Sign to save address": "Freigeben, um Adresse zu speichern",
-    "Sign to delete address": "Freigeben, um Adresse zu löschen"
+    "Sign to delete address": "Freigeben, um Adresse zu löschen",
+    "Address Book": "Adressbuch"
   },
   "screens/AboutScreen": {
     "About": "Über",
