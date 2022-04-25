@@ -145,7 +145,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     return (
       <ThemedTouchableOpacity
         key={item}
-        style={tailwind('p-4 flex flex-row items-center justify-between')}
+        style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
         onPress={async () => {
           if (!isEditing) {
             onChangeAddress(item)
@@ -155,28 +155,31 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         disabled={hasPendingJob || hasPendingBroadcastJob || isEditing || disableAddressSelect}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
-          <View style={tailwind('mx-2 flex-auto')}>
+          <View style={tailwind('mr-2 flex-auto')}>
             {addressBook?.[item]?.label != null && addressBook?.[item]?.label !== '' &&
               (
                 <View style={tailwind('flex flex-row')}>
-                  <ThemedText style={tailwind('text-sm font-normal')} testID={`address_row_label_${item}`}>
+                  <ThemedText style={tailwind('text-sm')} testID={`address_row_label_${item}`}>
                     {addressBook[item]?.label}
                   </ThemedText>
-                  <ThemedIcon
-                    size={16}
-                    name='open-in-new'
-                    iconType='MaterialIcons'
-                    light={tailwind('text-primary-500')}
-                    dark={tailwind('text-darkprimary-500')}
-                    style={tailwind('pl-1 pt-0.5')}
-                    onPress={async () => await openURL(getAddressUrl(item))}
-                  />
+                  {!isEditing && (
+                    <ThemedIcon
+                      size={16}
+                      name='open-in-new'
+                      iconType='MaterialIcons'
+                      light={tailwind('text-primary-500')}
+                      dark={tailwind('text-darkprimary-500')}
+                      style={tailwind('pl-1 pt-0.5')}
+                      onPress={async () => await openURL(getAddressUrl(item))}
+                    />
+                  )}
                 </View>
 
               )}
             <ThemedText
               style={tailwind('text-sm w-full')}
               light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
               ellipsizeMode='middle'
               numberOfLines={1}
               testID={`address_row_text_${item}`}
@@ -220,8 +223,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     name='edit'
                     iconType='MaterialIcons'
                     style={tailwind('mr-2 font-bold')}
-                    light={tailwind('text-primary-500')}
-                    dark={tailwind('text-darkprimary-500')}
+                    light={tailwind('text-gray-600')}
+                    dark={tailwind('text-gray-300')}
                     testID={`address_edit_indicator_${item}`}
 
                   />
@@ -231,8 +234,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     size={24}
                     name='delete'
                     iconType='MaterialIcons'
-                    light={tailwind('text-primary-500')}
-                    dark={tailwind('text-darkprimary-500')}
+                    light={tailwind('text-gray-600')}
+                    dark={tailwind('text-gray-300')}
                     testID={`address_delete_indicator_${item}`}
                   />
                 </TouchableOpacity>
@@ -312,7 +315,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       <ThemedTouchableOpacity
         light={tailwind('bg-white border-gray-200')}
         dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('py-4 pl-4 pr-2 border-b')}
+        style={tailwind('py-3 pl-4 pr-2 border-b')}
         onPress={goToAddAddressForm}
         testID='add_new_address'
       >
@@ -326,11 +329,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
             iconType='MaterialIcons'
           />
 
-          <View style={tailwind('mx-3 flex-auto')}>
+          <View style={tailwind('mx-2 flex-auto')}>
             <ThemedText
               dark={tailwind('text-darkprimary-500')}
               light={tailwind('text-primary-500')}
-              style={tailwind('text-sm font-medium')}
+              style={tailwind('font-medium')}
             >
               {translate('screens/AddressBookScreen', 'Add address')}
             </ThemedText>
@@ -422,7 +425,7 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
     <ThemedText
       light={tailwind('text-gray-400')}
       dark={tailwind('text-gray-500')}
-      style={tailwind('text-xs mr-1.5')}
+      style={tailwind('text-xs font-medium mr-1.5')}
       testID='address_detail_address_count'
     >
       {translate('screens/AddressBookScreen', '{{length}} ADDRESS(ES)', { length: addressLength })}

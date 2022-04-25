@@ -23,7 +23,7 @@ export function AddressListEditButton ({
       <ThemedText
         light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
-        style={tailwind('text-2xs ml-1.5 font-medium')}
+        style={tailwind('text-sm ml-1.5 font-medium')}
       >
         {translate('components/BottomSheetAddressDetail', `${isEditing ? 'CANCEL' : 'EDIT'}`)}
       </ThemedText>
