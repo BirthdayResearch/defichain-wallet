@@ -24,6 +24,7 @@ import { authentication, Authentication } from '@store/authentication'
 import { Button } from '@components/Button'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
+import { openURL } from 'expo-linking'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -160,9 +161,21 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           <View style={tailwind('mx-2 flex-auto')}>
             {addressBook?.[item]?.label != null && addressBook?.[item]?.label !== '' &&
               (
-                <ThemedText style={tailwind('text-sm w-full font-medium')} testID={`address_row_label_${item}`}>
-                  {addressBook[item]?.label}
-                </ThemedText>
+                <View style={tailwind('flex flex-row')}>
+                  <ThemedText style={tailwind('text-sm font-medium')} testID={`address_row_label_${item}`}>
+                    {addressBook[item]?.label}
+                  </ThemedText>
+                  <ThemedIcon
+                    size={16}
+                    name='open-in-new'
+                    iconType='MaterialIcons'
+                    light={tailwind('text-primary-500')}
+                    dark={tailwind('text-darkprimary-500')}
+                    style={tailwind('pl-0.5')}
+                    onPress={async () => await openURL('https://defiscan.live/')}
+                  />
+                </View>
+
               )}
             <ThemedText
               style={tailwind('text-sm w-full')}
