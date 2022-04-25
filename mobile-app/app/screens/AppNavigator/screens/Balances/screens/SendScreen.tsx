@@ -142,12 +142,12 @@ export function SendScreen ({
   }, [JSON.stringify(tokens)])
 
   useEffect(() => {
+    console.log(setMatchedAddress)
     // debounceMatchAddress()
-    const address = getValues('address')
-    if (address !== undefined && addressBook[address] !== undefined) {
-      // setMatchedAddress(addressBook[address])
-      console.log(setMatchedAddress)
-    }
+    // const address = getValues('address')
+    // if (address !== undefined && addressBook[address] !== undefined) {
+    //   setMatchedAddress(addressBook[address])
+    // }
   }, [getValues('address'), addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
