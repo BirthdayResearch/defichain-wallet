@@ -45,7 +45,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     setTimeout(() => {
       prefetchPage({})
       setRetries(retries + 1)
-    }, 5000)
+    }, 10000)
   } else if (!isError) {
     prefetchPage({})
   }
