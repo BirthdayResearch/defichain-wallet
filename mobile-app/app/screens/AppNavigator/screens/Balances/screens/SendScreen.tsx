@@ -104,13 +104,14 @@ export function SendScreen ({
       bottomSheetRef.current?.close()
     }
   }, [])
-  const debounceMatchAddress = debounce(() => {
+
+  const debounceMatchAddress = useCallback(debounce(() => {
     const address = getValues('address')
     if (address === undefined) {
       return
     }
     setMatchedAddress(addressBook[address])
-  }, 200)
+  }, 200), [getValues('address'), addressBook])
 
   useEffect(() => {
     if (isFocused) {
