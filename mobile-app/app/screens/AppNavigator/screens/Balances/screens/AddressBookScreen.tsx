@@ -23,9 +23,9 @@ import { authentication, Authentication } from '@store/authentication'
 import { Button } from '@components/Button'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
-import { openURL } from 'expo-linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { debounce } from 'lodash'
+import { openURL } from '@api/linking'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -44,11 +44,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
   const filterAddress = debounce((searchString: string): void => {
-    if (searchString !== undefined && searchString.trim().length > 0) {
+    if (searchString?.trim().length > 0) {
       const addressBookList: string[] = []
 
       for (const address in addressBook) {
-        if (address.includes(searchString.trim().toLowerCase()) || addressBook[address].label.toLowerCase().includes(searchString.trim().toLowerCase())) {
+        if (address.includes(searchString.trim().toLowerCase()) || addressBook[address]?.label.toLowerCase().includes(searchString.trim().toLowerCase())) {
           addressBookList.push(address)
         }
       }
