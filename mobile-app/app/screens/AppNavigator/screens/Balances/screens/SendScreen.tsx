@@ -63,8 +63,10 @@ export function SendScreen ({
     setValue,
     formState,
     getValues,
-    trigger
+    trigger,
+    watch
   } = useForm({ mode: 'onChange' })
+  const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
@@ -106,9 +108,10 @@ export function SendScreen ({
   }, [])
 
   const debounceMatchAddress = debounce(() => {
-    const address = getValues('address')
     if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
       setMatchedAddress(addressBook[address])
+    } else {
+      setMatchedAddress(undefined)
     }
   }, 200)
 
@@ -142,7 +145,7 @@ export function SendScreen ({
 
   useEffect(() => {
     debounceMatchAddress()
-  }, [getValues('address'), addressBook])
+  }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
