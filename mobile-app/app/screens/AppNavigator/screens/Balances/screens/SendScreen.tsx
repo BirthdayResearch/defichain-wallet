@@ -42,7 +42,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { LocalAddress } from '@store/userPreferences'
-import { debounce } from 'lodash'
+// import { debounce } from 'lodash'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -63,10 +63,10 @@ export function SendScreen ({
     setValue,
     formState,
     getValues,
-    trigger,
-    watch
+    trigger
+    // watch
   } = useForm({ mode: 'onChange' })
-  const { address } = watch()
+  // const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
@@ -86,7 +86,7 @@ export function SendScreen ({
     deps: [getValues('amount'), JSON.stringify(token)]
   })
   const [hasBalance, setHasBalance] = useState(false)
-
+  console.log(addressBook, setMatchedAddress)
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
@@ -106,9 +106,9 @@ export function SendScreen ({
       bottomSheetRef.current?.close()
     }
   }, [])
-  const debounceMatchAddress = debounce(() => {
-    setMatchedAddress(addressBook[address])
-  }, 200)
+  // const debounceMatchAddress = debounce(() => {
+  //   setMatchedAddress(addressBook[address])
+  // }, 200)
 
   useEffect(() => {
     if (isFocused) {
@@ -138,9 +138,9 @@ export function SendScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  useEffect(() => {
-    debounceMatchAddress()
-  }, [address, addressBook])
+  // useEffect(() => {
+  //   debounceMatchAddress()
+  // }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -482,7 +482,7 @@ function AddressRow ({
   onClearButtonPress,
   onAddressChange,
   inputFooter
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter: React.ReactElement }): JSX.Element {
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
