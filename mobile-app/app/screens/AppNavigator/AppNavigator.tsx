@@ -33,6 +33,7 @@ export function AppNavigator (): JSX.Element {
   const { network } = useNetworkContext()
   const dispatch = useDispatch()
 
+  /* Global polling based on blockCount, network and address */
   useEffect(() => {
     dispatch(fetchTokens({ client, address }))
   }, [blockCount, network, address])
