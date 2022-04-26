@@ -133,6 +133,7 @@ context('Wallet - Settings - Address Book', () => {
   })
 
   it('should have no effect when click on any saved address', () => {
+    populateAddressBook()
     cy.wrap(labels).each((_v, index: number) => {
       cy.getByTestID(`address_row_${index}`).should('have.attr', 'aria-disabled')
     })
@@ -152,5 +153,14 @@ context('Wallet - Settings - Address Book', () => {
       cy.getByTestID(`address_row_label_${addresses[index]}`).contains(modifiedLabels[index])
       cy.getByTestID(`address_row_text_${addresses[index]}`).contains(addresses[index])
     })
+  })
+
+  it('should delete an address', () => {
+    const deletedAddress = addresses[0]
+    populateAddressBook()
+    cy.getByTestID('address_list_edit_button').click()
+    cy.getByTestID(`address_delete_indicator_${deletedAddress}`).click()
+    cy.getByTestID('pin_authorize').type('000000').wait(2000)
+    cy.getByTestID(`address_row_text_${deletedAddress}`).should('not.exist')
   })
 })
