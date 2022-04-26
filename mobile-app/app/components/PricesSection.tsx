@@ -6,12 +6,12 @@ import { NumberRow } from '@components/NumberRow'
 
 export interface PriceRateProps { label: string, value: string, aSymbol: string, bSymbol: string }
 
-export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceRateProps[], sectionTitle: string}): JSX.Element {
+export function PricesSection ({ priceRates, sectionTitle, testID }: {priceRates: PriceRateProps[], sectionTitle: string, testID: string}): JSX.Element {
   return (
     <>
       <ThemedSectionTitle
         testID='pricerate_title'
-        text={translate('screens/CompositeSwapScreen', sectionTitle)}
+        text={translate('components/PricesSection', sectionTitle)}
         style={tailwind('px-4 pt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
       {priceRates.map((priceRate, index) => {
@@ -21,7 +21,7 @@ export function PricesSection ({ priceRates, sectionTitle }: {priceRates: PriceR
             lhs={priceRate.label}
             rhs={{
               value: priceRate.value,
-              testID: `pricerate_value_${index}`,
+              testID: `${testID}_${index}`,
               prefix: `1 ${priceRate.aSymbol} = `,
               suffix: priceRate.bSymbol,
               suffixType: 'text'

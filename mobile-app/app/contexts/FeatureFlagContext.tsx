@@ -11,6 +11,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { getReleaseChannel } from '@api/releaseChannel'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
+const MAX_RETRY = 3
 export interface FeatureFlagContextI {
   featureFlags: FeatureFlag[]
   enabledFeatures: FEATURE_FLAG_ID[]
@@ -38,8 +39,14 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
   const { network } = useNetworkContext()
+  const [retries, setRetries] = useState(0)
 
-  if (!isError) {
+  if (isError && retries < MAX_RETRY) {
+    setTimeout(() => {
+      prefetchPage({})
+      setRetries(retries + 1)
+    }, 10000)
+  } else if (!isError) {
     prefetchPage({})
   }
 
@@ -98,6 +105,10 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     isBetaFeature,
     hasBetaFeatures: featureFlags.some((flag) => satisfies(appVersion, flag.version) &&
       flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS) && flag.stage === 'beta')
+  }
+
+  if (isError && !isLoading && retries < MAX_RETRY) {
+    return <></>
   }
 
   return (
