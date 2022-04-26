@@ -446,7 +446,6 @@ context('Wallet - Send - Address book', function () {
   function validateMatchAddress (address: string, label: string): void {
     cy.getByTestID('address_input').contains(address)
     cy.getByTestID('address_input_footer').contains(label)
-    cy.getByTestID('register_address_indicator').should('exist')
   }
 
   before(function () {
@@ -546,7 +545,6 @@ context('Wallet - Send - Address book', function () {
   it('should remove matched address label and indicator after editing', function () {
     cy.go('back')
     cy.getByTestID('address_input_footer').should('not.exist')
-    cy.getByTestID('register_address_indicator').should('not.exist')
   })
 
   it('should remove address book from storage after exiting wallet through setting', function () {
