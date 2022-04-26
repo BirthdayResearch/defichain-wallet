@@ -104,7 +104,7 @@
     "ADD ADDRESS": "添加地址",
     "Add address": "添加地址",
     "SAVED ADDRESS(ES)": "已儲存地址",
-    "Search for address": "Search for address",
+    "Search for address": "搜索地址",
     "{{length}} ADDRESS(ES)": "{{length}} 地址"
   },
   "components/CreateOrEditAddressLabelForm": {
@@ -127,12 +127,12 @@
     "SAVE CHANGES": "儲存修改",
     "CONTINUE": "繼續",
     "Address label is too long (max 40 characters)": "地址標籤太長（最多 40 個字符）",
-    "Enter address label": "Enter address label",
-    "Enter address": "Enter address",
-    "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
-    "Edit address": "Edit address",
-    "Please enter an address label": "Please enter an address label",
-    "Please enter a valid address": "Please enter a valid address",
+    "Enter address label": "輸入地址標籤",
+    "Enter address": "輸入地址",
+    "This address already exists in your address book, please enter a different address": "此地址已儲存在通訊錄中，請輸入其他地址",
+    "Edit address": "編輯地址",
+    "Please enter an address label": "請輸入地址標籤",
+    "Please enter a valid address": "請輸入有效地址",
     "Required field, max. 40 characters": "必須填寫欄，最多40個字符"
   },
   "screens/ReceiveScreen": {
