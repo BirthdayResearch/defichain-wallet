@@ -58,7 +58,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       return false
     }
     if (isAddressBook && input.trim() === '') {
-      setLabelInputErrorMessage(translate('screens/AddOrEditAddressBookScreen', 'Please enter an address label'))
+      setLabelInputErrorMessage('Please enter an address label')
       return false
     }
     setLabelInputErrorMessage('')
