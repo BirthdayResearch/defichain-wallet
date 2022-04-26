@@ -5,6 +5,9 @@
       "releaseChannel": "production",
       "env": {
         "EXPO_BUNDLE_IDENTIFIER": "com.defichain.app"
+      },
+      "ios": {
+        "image": "macos-big-sur-11.4-xcode-13.0"
       }
     },
     "preview": {
