@@ -40,7 +40,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       return false
     }
     if (input.trim() === '') {
-      setLabelInputErrorMessage('Please enter an address label')
+      setLabelInputErrorMessage(translate('screens/AddOrEditAddressBookScreen', 'Please enter an address label'))
       return false
     }
     setLabelInputErrorMessage('')
