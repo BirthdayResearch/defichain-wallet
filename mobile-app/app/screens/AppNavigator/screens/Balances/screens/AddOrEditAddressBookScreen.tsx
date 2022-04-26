@@ -13,7 +13,7 @@ import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
 
@@ -89,7 +89,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const { data: { type: encryptionType } } = useWalletNodeContext()
   const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
   const logger = useLogger()
-  const handleSubmit = useCallback(async (): Promise<void> => {
+  const handleSubmit = async (): Promise<void> => {
     if (!isEncrypted ||
       addressInput === undefined ||
       labelInput === undefined ||
@@ -127,7 +127,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [navigation, dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress, addressBook])
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({

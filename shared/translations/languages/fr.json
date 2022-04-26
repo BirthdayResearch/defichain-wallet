@@ -136,7 +136,6 @@
     "Edit address": "Modifier l'adresse",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Please enter a unique address": "Veuillez donner une adresse unique",
     "Required field, max. 40 characters": "Champ obligatoire, max. 40 caractères"
   },
   "screens/AddressControlScreen": {
