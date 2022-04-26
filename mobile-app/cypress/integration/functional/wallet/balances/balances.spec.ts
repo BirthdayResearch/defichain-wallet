@@ -718,7 +718,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
   })
 })
 
-context.only('Wallet - Balances - Portfolio group tab', function () {
+context('Wallet - Balances - Portfolio group tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFITokentoWallet()
