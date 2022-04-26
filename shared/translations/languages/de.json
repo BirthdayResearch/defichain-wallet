@@ -96,13 +96,16 @@
     "CANCEL": "ABBRECHEN"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Adressbuch",
+    "Address Book": "Adressbuch",
     "ADD NEW ADDRESS": "NEUE ADRESSE HINZUFÜGEN",
-    "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
-    "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
     "Empty address book": "Leeres Adressbuch",
-    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu"
+    "Add your preferred address": "Füge deine bevorzugte Adresse hinzu",
+    "No saved addresses": "Keine gespeicherte Adresse",
+    "ADD ADDRESS": "ADRESSE HINZUFÜGEN",
+    "Add address": "Adresse hinzufügen",
+    "SAVED ADDRESS(ES)": "GESPEICHERTE ADRESSE(N)",
+    "Search for address": "Adresse suchen",
+    "{{length}} ADDRESS(ES)":"{{length}} ADRESSE(N)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -120,12 +123,18 @@
     "Add new address": "Neue Adresse hinzufügen",
     "Add New Address": "Neue Adresse hinzufügen",
     "Address": "Adresse",
+    "Wallet address": "Walletadresse",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
-    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
+    "CONTINUE": "WEITER",
+    "Address label is too long (max 40 characters)": "Adressbezeichnung zu lang (max. 40 Zeichen)",
     "Enter address label": "Adressbezeichnung eingeben",
     "Enter address": "Adresse eingeben",
     "This address already exists in your address book, please enter a different address": "Diese Adresse existiert bereits in deinem Adressbuch, gib bitte eine andere Adresse ein",
-    "Edit address": "Adresse bearbeiten"
+    "Edit address": "Adresse bearbeiten",
+    "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
+    "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
+    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
+    "Required field, max. 40 characters": "Erforderliches Feld, max. 40 Zeichen"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -153,7 +162,8 @@
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
     "Choose token to send": "Token zum Senden auswählen",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "*Registered address": "*Registrierte Adresse"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -255,7 +265,8 @@
     "biometric": "biometrische",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Sign to save address": "Freigeben, um Adresse zu speichern",
-    "Sign to delete address": "Freigeben, um Adresse zu löschen"
+    "Sign to delete address": "Freigeben, um Adresse zu löschen",
+    "Address Book": "Adressbuch"
   },
   "screens/AboutScreen": {
     "About": "Über",

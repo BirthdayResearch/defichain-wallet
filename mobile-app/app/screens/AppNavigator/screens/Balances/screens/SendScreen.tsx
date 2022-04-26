@@ -41,6 +41,8 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { LocalAddress } from '@store/userPreferences'
+import { debounce } from 'lodash'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -51,7 +53,7 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
+  const { address: walletAddress } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
@@ -61,8 +63,12 @@ export function SendScreen ({
     setValue,
     formState,
     getValues,
-    trigger
+    trigger,
+    watch
   } = useForm({ mode: 'onChange' })
+  const { address } = watch()
+  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -101,14 +107,22 @@ export function SendScreen ({
     }
   }, [])
 
+  const debounceMatchAddress = debounce(() => {
+    if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
+      setMatchedAddress(addressBook[address])
+    } else {
+      setMatchedAddress(undefined)
+    }
+  }, 200)
+
   useEffect(() => {
     if (isFocused) {
       dispatch(fetchTokens({
         client,
-        address
+        address: walletAddress
       }))
     }
-  }, [address, blockCount, isFocused])
+  }, [walletAddress, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
@@ -128,6 +142,10 @@ export function SendScreen ({
 
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
+
+  useEffect(() => {
+    debounceMatchAddress()
+  }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -250,7 +268,44 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
+                  inputFooter={
+                    <>
+                      {matchedAddress !== undefined && (
+                        <ThemedView
+                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                          light={tailwind('bg-gray-50')}
+                          dark={tailwind('bg-gray-900')}
+                        >
+                          <ThemedIcon
+                            name='account-check'
+                            iconType='MaterialCommunityIcons'
+                            size={18}
+                            light={tailwind('text-gray-400')}
+                            dark={tailwind('text-gray-500')}
+                          />
+                          <ThemedText
+                            style={tailwind('text-xs ml-1 pt-px')}
+                            light={tailwind('text-gray-500')}
+                            dark={tailwind('text-gray-400')}
+                            testID='address_input_footer'
+                          >
+                            {matchedAddress.label}
+                          </ThemedText>
+                        </ThemedView>
+                      )}
+                    </>
+                  }
                 />
+                {matchedAddress !== undefined && (
+                  <ThemedText
+                    style={tailwind('text-xs mt-1')}
+                    light={tailwind('text-gray-500')}
+                    dark={tailwind('text-gray-400')}
+                    testID='register_address_indicator'
+                  >
+                    {translate('screens/SendScreen', '*Registered address')}
+                  </ThemedText>
+                )}
 
                 <AmountRow
                   control={control}
@@ -430,8 +485,9 @@ function AddressRow ({
   onContactButtonPress,
   onQrButtonPress,
   onClearButtonPress,
-  onAddressChange
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
+  onAddressChange,
+  inputFooter
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -446,7 +502,7 @@ function AddressRow ({
             onChange
           }
         }) => (
-          <View style={tailwind('flex-row w-full mb-6')}>
+          <View style={tailwind('flex-row w-full')}>
             <WalletTextInput
               autoCapitalize='none'
               multiline
@@ -461,7 +517,27 @@ function AddressRow ({
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
+              inputFooter={inputFooter}
             >
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}
                 light={tailwind('bg-white border-gray-300')}
@@ -477,25 +553,6 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
-              {
-                isFeatureAvailable('local_storage') && (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800 border-gray-400')}
-                    light={tailwind('bg-white border-gray-300')}
-                    onPress={onContactButtonPress}
-                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
-                    testID='address_book_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='contacts'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )
-              }
             </WalletTextInput>
           </View>
         )}
@@ -542,7 +599,7 @@ function AmountRow ({
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
-            style={tailwind('flex-row w-full')}
+            style={tailwind('flex-row w-full mt-6')}
           >
             <WalletTextInput
               autoCapitalize='none'
