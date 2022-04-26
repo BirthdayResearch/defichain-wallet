@@ -133,7 +133,6 @@
     "Edit address": "Adresse bearbeiten",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Please enter a unique address": "Gib bitte eine eindeutige Adresse ein",
     "Required field, max. 40 characters": "Erforderliches Feld, max. 40 Zeichen"
   },
   "screens/ReceiveScreen": {

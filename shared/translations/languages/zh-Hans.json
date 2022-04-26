@@ -133,7 +133,6 @@
     "Edit address": "Edit address",
     "Please enter an address label": "Please enter an address label",
     "Please enter a valid address": "Please enter a valid address",
-    "Please enter a unique address": "Please enter a unique address",
     "Required field, max. 40 characters": "必须填写栏，最多40个字符"
   },
   "screens/ReceiveScreen": {
