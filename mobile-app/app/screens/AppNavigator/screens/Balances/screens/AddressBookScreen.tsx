@@ -194,7 +194,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                 <TouchableOpacity onPress={() => navigation.navigate({
                   name: 'AddOrEditAddressBookScreen',
                   params: {
-                    title: 'Edit address',
+                    title: 'Edit Address',
                     isAddNew: false,
                     address: item,
                     addressLabel: {
@@ -265,7 +265,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     navigation.navigate({
       name: 'AddOrEditAddressBookScreen',
       params: {
-        title: 'Add new address',
+        title: 'Add New Address',
         isAddNew: true,
         onSaveButtonPress: (labelAddress: LabeledAddress, address?: string) => {
           const _addressBook = { ...addressBook, ...labelAddress }

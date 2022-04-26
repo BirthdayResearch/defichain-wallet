@@ -133,7 +133,7 @@
     "Enter address label": "Donner le nom d'adresse",
     "Enter address": "Donner l'adresse",
     "This address already exists in your address book, please enter a different address": "Cette adresse existe déjà dans votre carnet d'adresses, veuillez entrer une adresse différente",
-    "Edit address": "Modifier l'adresse",
+    "Edit Address": "Modifier l'adresse",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
     "Required field, max. 40 characters": "Champ obligatoire, max. 40 caractères"
@@ -275,7 +275,8 @@
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Sign to save address": "Signer pour sauvegarder l'adresse",
     "Sign to delete address": "Signer pour supprimer l'adresse",
-    "Address Book": "Carnet d'adresses"
+    "Address Book": "Carnet d'adresses",
+    "GENERAL": "GÉNÉRAL"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",

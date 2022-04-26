@@ -130,7 +130,7 @@
     "Enter address label": "Adressbezeichnung eingeben",
     "Enter address": "Adresse eingeben",
     "This address already exists in your address book, please enter a different address": "Diese Adresse existiert bereits in deinem Adressbuch, gib bitte eine andere Adresse ein",
-    "Edit address": "Adresse bearbeiten",
+    "Edit Address": "Adresse bearbeiten",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
     "Required field, max. 40 characters": "Erforderliches Feld, max. 40 Zeichen"
@@ -265,7 +265,8 @@
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Sign to save address": "Freigeben, um Adresse zu speichern",
     "Sign to delete address": "Freigeben, um Adresse zu löschen",
-    "Address Book": "Adressbuch"
+    "Address Book": "Adressbuch",
+    "GENERAL": "ALLGEMEIN"
   },
   "screens/AboutScreen": {
     "About": "Über",
