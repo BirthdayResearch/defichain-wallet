@@ -296,17 +296,6 @@ export function SendScreen ({
                     </>
                   }
                 />
-                {matchedAddress !== undefined && (
-                  <ThemedText
-                    style={tailwind('text-xs mt-1')}
-                    light={tailwind('text-gray-500')}
-                    dark={tailwind('text-gray-400')}
-                    testID='register_address_indicator'
-                  >
-                    {translate('screens/SendScreen', '*Registered address')}
-                  </ThemedText>
-                )}
-
                 <AmountRow
                   control={control}
                   onAmountChange={async (amount) => {
