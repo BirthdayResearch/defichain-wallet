@@ -120,8 +120,8 @@
     "Edit address label": "更改地址标签",
     "Address label": "地址标签",
     "Address {{index}}": "地址 {{index}}",
-    "Add new address": "Add new address",
-    "Add New Address": "Add New Address",
+    "Add new address": "添加地址",
+    "Add New Address": "添加地址",
     "Address": "地址",
     "Wallet address": "钱包地址",
     "SAVE CHANGES": "储存修改",
@@ -130,7 +130,7 @@
     "Enter address label": "输入地址标签",
     "Enter address": "输入地址",
     "This address already exists in your address book, please enter a different address": "此地址已储存在通讯录中，请输入其他地址",
-    "Edit address": "编辑地址",
+    "Edit Address": "编辑地址",
     "Please enter an address label": "请输入地址标签",
     "Please enter a valid address": "请输入有效地址",
     "Required field, max. 40 characters": "必须填写栏，最多40个字符"
@@ -266,7 +266,8 @@
     "Enter passcode to continue": "输入密码后可继续",
     "Sign to save address": "签名储存地址",
     "Sign to delete address": "签名移除地址",
-    "Address Book": "地址簿"
+    "Address Book": "地址簿",
+    "GENERAL": "一般"
   },
   "screens/AboutScreen": {
     "About": "关于",
