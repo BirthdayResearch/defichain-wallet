@@ -3,6 +3,7 @@ import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
+import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 export type SuffixType = 'text' | 'component'
@@ -10,6 +11,7 @@ export type SuffixType = 'text' | 'component'
 interface NumberRowProps extends ThemedProps {
   lhs: string
   rhs: NumberRowElement
+  rhsUsdAmount?: BigNumber
   info?: BottomSheetAlertInfo
   textStyle?: StyleProp<TextStyle>
   lhsThemedProps?: ThemedProps // TODO: change lhs to type NumberRowElement, move themedprops into NumberRowElement
@@ -51,7 +53,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       </View>
 
       <View
-        style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
+        style={tailwind('flex-1 flex-col justify-end flex-wrap items-end')}
       >
         <NumberFormat
           decimalScale={8}
@@ -93,6 +95,12 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
           props.rhs.suffixType === 'component' &&
           (props.children)
         }
+
+        {props.rhsUsdAmount !== undefined &&
+        <ActiveUSDValue
+          price={props.rhsUsdAmount}
+          containerStyle={tailwind('justify-end')}
+        />}
       </View>
     </ThemedView>
   )
