@@ -22,8 +22,8 @@ describe('token icons', () => {
         wallet: {
           utxoBalance: '77',
           tokens: [],
-          allTokens: {
-            dTSLA: {
+          allTokens: [
+            {
               id: '17',
               symbol: 'TSLA',
               symbolKey: 'TSLA',
@@ -48,7 +48,7 @@ describe('token icons', () => {
               collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
               displaySymbol: 'dTSLA'
             }
-          },
+          ],
           poolpairs: [],
           dexPrices: {},
           swappableTokens: {},

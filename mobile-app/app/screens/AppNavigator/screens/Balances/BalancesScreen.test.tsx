@@ -87,7 +87,7 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenSymbol),
-        allTokens: {},
+        allTokens: [],
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},
@@ -200,7 +200,7 @@ describe('balances page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenSymbol),
-        allTokens: {},
+        allTokens: [],
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},

@@ -23,7 +23,7 @@ describe('wallet reducer', () => {
   beforeEach(() => {
     initialState = {
       tokens: [],
-      allTokens: {},
+      allTokens: [],
       utxoBalance: '0',
       poolpairs: [],
       dexPrices: {},
@@ -72,7 +72,7 @@ describe('wallet reducer', () => {
     expect(wallet.reducer(undefined, { type: 'unknown' })).toEqual({
       utxoBalance: '0',
       tokens: [],
-      allTokens: {},
+      allTokens: [],
       poolpairs: [],
       dexPrices: {},
       swappableTokens: {},
@@ -84,10 +84,7 @@ describe('wallet reducer', () => {
 
   it('should handle setTokens and setUtxoBalance', () => {
     const tokens: WalletToken[] = [tokenDFI, utxoDFI]
-    const allTokens = {
-      'DFI (Token)': detailedDFI
-    }
-
+    const allTokens = [detailedDFI]
     const utxoBalance = '77'
     const action = { type: fetchTokens.fulfilled.type, payload: { tokens, utxoBalance, allTokens: [detailedDFI] } }
     const actual = wallet.reducer(initialState, action)

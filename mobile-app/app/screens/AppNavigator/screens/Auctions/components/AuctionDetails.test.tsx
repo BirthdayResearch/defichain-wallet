@@ -230,7 +230,7 @@ describe('AuctionDetails', () => {
       wallet: {
         utxoBalance: '77',
         tokens: tokens.map(setTokenSymbol),
-        allTokens: {},
+        allTokens: [],
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},

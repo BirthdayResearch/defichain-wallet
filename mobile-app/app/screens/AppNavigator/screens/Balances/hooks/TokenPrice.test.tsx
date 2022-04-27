@@ -163,8 +163,8 @@ describe('Token Price - Get Token Price (DEX)', () => {
     wallet: {
       utxoBalance: '77',
       tokens: [],
-      allTokens: {
-        dTSLA: {
+      allTokens: [
+        {
           id: '17',
           symbol: 'TSLA',
           symbolKey: 'TSLA',
@@ -189,7 +189,7 @@ describe('Token Price - Get Token Price (DEX)', () => {
           collateralAddress: 'bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny',
           displaySymbol: 'dTSLA'
         }
-      },
+      ],
       poolpairs: getChangingPoolPairReserve({
         pair1ReserveA: '5',
         pair1ReserveB: '1000',
