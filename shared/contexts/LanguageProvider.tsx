@@ -85,6 +85,12 @@ export function LanguageProvider (props: LanguageContextI & PropsWithChildren<an
       case 'zh-Hant':
         dayjs.locale('zh')
         break
+      case 'es':
+        dayjs.locale('es')
+        break
+      case 'it':
+        dayjs.locale('it')
+        break
       default:
         dayjs.locale('en')
     }
