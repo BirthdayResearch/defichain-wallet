@@ -110,8 +110,8 @@ export function BalanceCard ({
     } else {
       // display value in decreasing order
       return bPrice.minus(aPrice).toNumber()
-      }
-    })
+    }
+  })
 
   // return empty component if there are DFI but no other tokens
   if (!isZeroBalance && dstTokens.length === 0) {
