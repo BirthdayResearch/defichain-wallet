@@ -42,13 +42,13 @@
         "SWAP": "SCAMBIA",
         "Swap tokens": "Token-Scambiati",
         "DETAILS": "DETTAGLI",
-        "HIDE": "NASCONDI",
+        "HIDE": "NASCONDERE",
         "Total Value Locked in pool pairs (USD): ": "Valore totale bloccato in Pool-Pairs (USD): ",
         "All pairs": "Tutte le Pool-Pair",
         "DFI pairs": "Pool-Pair DFI",
         "DUSD pairs": "Pool-Pair DUSD",
         "Your share in pool": "La tua quota in pool",
-        "ADD": "AGGIUNGI",
+        "ADD": "AGGIUNGERE",
         "Prices": "Prezzi",
         "Available pool pairs": "Pool-Pairs disponibili",
         "Your shared {{symbol}}": "I tuoi shared {{symbol}}"
@@ -101,7 +101,7 @@
     },
     "screens/AddressBookScreen": {
         "Address book": "Rubrica",
-        "ADD NEW ADDRESS": "AGGIUNGI UN NUOVO INDIRIZZO",
+        "ADD NEW ADDRESS": "AGGIUNGERE UN NUOVO INDIRIZZO",
         "Please enter an address label": "Inserisci un'etichetta per l'indirizzo",
         "Please enter a valid address": "Inserisci un indirizzo valido",
         "Please enter a unique address": "Inserisci un indirizzo unico",
@@ -145,7 +145,7 @@
         "CONTINUE": "CONTINUA",
         "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una piccola quantità di UTXO (0,1 DFI (UTXO)) è riservata per le commissioni.",
         "SEND": "INVIA",
-        "Review full transaction details in the next screen": "Rivedi tutti i dettagli della transazione nella prossima schermata",
+        "Review full transaction details in the next screen": "Controlla tutti i dettagli della transazione nella prossima schermata",
         "Paste wallet address here": "Incolla qui l'indirizzo del wallet",
         "Where do you want to send?": "Dove vuoi inviare?",
         "How much do you want to send?": "Quanto vuoi inviare?",
@@ -156,7 +156,7 @@
         "Send to other wallet": "Invia ad altri wallet",
         "Select token": "Seleziona il token",
         "Select a token you want to send to get started": "Seleziona un token che vuoi inviare, per iniziare",
-        "Choose token to send": "Scegli il token da inviare",
+        "Choose token to send": "Scegliere il token da inviare",
         "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE"
     },
     "screens/SendConfirmationScreen": {
@@ -190,7 +190,7 @@
         "Enter an amount": "Inserisci un importo",
         "Available": "Disponibile",
         "After conversion, you will receive": "Dopo la conversione, riceverai",
-        "Review full transaction details in the next screen": "Rivedi tutti i dettagli della transazione nella prossima schermata",
+        "Review full transaction details in the next screen": "Controlla tutti i dettagli della transazione nella prossima schermata",
         "Estimated fee": "Commissione stimata",
         "You will have": "Riceverai",
         "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE"
@@ -228,9 +228,9 @@
         "Are you sure you want to unlink your wallet?": "Sei sicuro di voler scollegare il tuo wallet?",
         "You will need to use your recovery words the next time you want to get back to your wallet.": "Dovrai usare le tue parole di recupero la prossima volta che vorrai accedere al tuo wallet.",
         "Cancel": "Cancella",
-        "Unlink Wallet": "Scollega il wallet",
-        "UNLINK WALLET": "SCOLLEGA IL WALLET",
-        "Change Passcode": "Cambia il codice di accesso",
+        "Unlink Wallet": "Scollegare il wallet",
+        "UNLINK WALLET": "SCOLLEGARE IL WALLET",
+        "Change Passcode": "Cambiare il codice di accesso",
         "About": "Informazioni",
         "NETWORK": "RETE",
         "To update your passcode, we need you to enter your current passcode.": "Per aggiornare il tuo codice di accesso, abbiamo bisogno che tu inserisca il tuo attuale codice di accesso.",
@@ -363,10 +363,10 @@
         "AVAILABLE OPTIONS": "OPZIONI DISPONIBILI",
         "Send to other wallet": "Invia ad altri wallet",
         "Receive {{token}}": "Ricevi {{token}}",
-        "Convert to {{symbol}}": "Converti in {{symbol}}",
-        "Add to liquidity pool": "Aggiungi al pool di liquidità",
-        "Remove liquidity": "Rimuovi la liquidità",
-        "Swap token": "Scambia token"
+        "Convert to {{symbol}}": "Convertire in {{symbol}}",
+        "Add to liquidity pool": "Aggiungere al pool di liquidità",
+        "Remove liquidity": "Rimuovere la liquidità",
+        "Swap token": "Scambiare token"
     },
     "screens/TokensVsUtxoScreen": {
         "Learn about UTXOs and Tokens": "Per saperne di più su UTXO e Token",
@@ -395,7 +395,7 @@
         "Unlock the highest": "Sblocca il più alto",
         "potential of your finances": "potenziale delle tue finanze",
         "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Fare transazioni, liquidity mininig, swap e molte altre caratteristiche come un wallet completamente decentralizzato",
-        "Earn high yields": "Ottieni alti rendimenti",
+        "Earn high yields": "Ottenere alti rendimenti",
         "of up to 90% with DEX": "fino al 90% con il DEX",
         "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Fornisci liquidità per BTC, ETH, e molte altre coppie di pool. Puoi anche prelevare in qualsiasi momento!"
     },
@@ -420,7 +420,7 @@
         "Keep them private": "Mantienile private",
         "Don’t share to anyone. Keep the recovery words only to yourself.": "Non condividerle con nessuno.  Tieni le parole di recupero solo per te.",
         "I have read and agree to the terms and conditions.": "Ho letto e accetto i termini e le condizioni.",
-        "View terms and conditions.": "Visualizza i termini e le condizioni."
+        "View terms and conditions.": "Mostra i termini e le condizioni generali."
     },
     "screens/GuidelinesRecoveryWords": {
         "What are recovery words?": "Cosa sono le parole di recupero (Seed Phrase)?",
@@ -461,8 +461,8 @@
         "You have unsaved changes. Are you sure to discard them and leave the screen?": "Hai delle modifiche non salvate. Sei sicuro di annullarle e abbandonare la schermata?",
         "Error": "Errore",
         "The recovery words you have entered are invalid. Please double check and try again.": "Le parole di recupero che hai inserito non sono valide. Per cortesia ricontrolla e riprova.",
-        "Please provide your 24 recovery words to regain access to your wallet.": "Fornisci le tue 24 parole di recupero per riottenere l’accesso al tuo wallet.",
-        "RESTORE WALLET": "RIPRISTINA IL WALLET",
+        "Please provide your 24 recovery words to regain access to your wallet.": "Per favore, fornisci le tue 24 parole di recupero per riottenere l'accesso al tuo wallet.",
+        "RESTORE WALLET": "RIPRISTINARE IL WALLET",
         "Enter word #{{order}}": "Inserisci la parola #{{order}}",
         "Cancel": "Cancella",
         "Discard": "Abbandona",
@@ -535,7 +535,7 @@
         "Share of pool": "Quota del pool",
         "Pooled": "Messo nel pool",
         "Price": "Prezzo",
-        "Review full transaction details in the next screen": "Rivedi tutti i dettagli della transazione nella prossima schermata",
+        "Review full transaction details in the next screen": "Rivedere tutti i dettagli della transazione nella prossima schermata",
         "How much {{symbol}} to supply?": "Quanto {{symbol}} da fornire?",
         "Enter an amount": "Inserisci un importo",
         "Available": "Disponibile",
@@ -648,7 +648,7 @@
         "Authorize transaction in the next screen to convert": "Per convertire autorizza la transazione nella prossima schermata"
     },
     "screens/CompositeSwapScreen": {
-        "Swap tokens": "Scambia token",
+        "Swap tokens": "Scambia i token",
         "Select tokens you want to swap to get started": "Per iniziare seleziona i token che vuoi scambiare",
         "How much {{token}} do you want to swap?": "Quanti {{token}} vuoi scambiare?",
         "You have": "Hai",
@@ -946,7 +946,7 @@
         "ADD COLLATERAL": "AGGIUNGI COLLATERALE",
         "VIEW LOANS": "VISUALIZZA PRESTITI",
         "Borrowed tokens": "Token presi in prestito",
-        "Interest amount (1.5%)": "Importo dell’interesse (1,5%)",
+        "Interest amount (1.5%)": "Importo dell'interesse (1,5%)",
         "Amount payable": "Importo pagabile",
         "Price per token (USD)": "Prezzo per token (USD)",
         "EDIT COLLATERALS": "MODIFICARE I COLLATERALI",
@@ -1003,7 +1003,7 @@
         "Annual vault interest rate based on the loan scheme selected.": "Tasso d'interesse annuale del vault in base al regime di prestito selezionato.",
         "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Rapporto di collateralizzazione minimo richiesto in base allo schema di prestito selezionato. Un vault va in liquidazione quando il rapporto di collateralizzazione scende al di sotto del requisito minimo.",
         "Collateralization ratio": "Rapporto di collateralizzazione",
-        "Interest amount": "Importo dell’interesse",
+        "Interest amount": "ZImporto dell'interesse",
         "Next collateralization": "Prossima collateralizzazione",
         "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
         "This amount is the total interest amount from both vault and token interest rate.": "Questo importo è l'importo totale dell'interesse da entrambi i vault e il tasso di interesse del token.",
@@ -1036,7 +1036,7 @@
     },
     "components/VaultDetailsLoansTab": {
         "Outstanding balance": "Saldo residuo",
-        "Interest amount": "Importo dell’interesse",
+        "Interest amount": "Ammontare degli interessi",
         "PAYBACK LOAN": "RIPAGA IL PRESTITO",
         "BORROW MORE": "PRENDI IN PRESTITO DI PIÙ"
     },
@@ -1122,14 +1122,14 @@
         "Collateralization factor": "Fattore di collateralizzazione",
         "Collateral amount (USD)": "Ammontare del collaterale (USD)",
         "Collateral value (USD)": "Valore del collaterale (USD)",
-        "CONFIRM ADD COLLATERAL": "CONFERMA AGGIUNGI COLLATERALE",
+        "CONFIRM ADD COLLATERAL": "CONFERMA AGGIUNTA COLLATERALE",
         "ADDING": "AGGIUNGI",
         "You are removing collateral from": "Stai rimuovendo il collaterale da",
         "Convert & add collateral": "Converti e aggiungi collaterale",
         "Convert & remove collateral": "Converti e rimuovi collaterale",
         "Add Collateral": "Aggiungi collaterale",
         "Remove Collateral": "Rimuovi collaterale",
-        "CONFIRM REMOVE COLLATERAL": "CONFERMA RIMOZIONE DELLA GARANZIA",
+        "CONFIRM REMOVE COLLATERAL": "CONFERMARE RIMUOVERE LA GARANZIA",
         "N/A": "N/D"
     },
     "screens/PaybackLoanScreen": {
