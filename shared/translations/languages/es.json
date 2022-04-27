@@ -1,7 +1,7 @@
 {
     "screens/WalletNavigator": {
         "Guidelines": "Instrucciones",
-        "Recovery Words FAQ": "Preguntas frecuentes sobre aalabras de recuperación",
+        "Recovery Words FAQ": "Preguntas frecuentes sobre palabras de recuperación",
         "Display recovery words": "Mostrar palabras de recuperación",
         "Verify words": "Verificar código",
         "Restore Wallet": "Restaurar billetera",
@@ -26,14 +26,14 @@
         "Confirm Removal": "Confirmar eliminación de liquidez",
         "Confirm swap": "Confirmar intercambio",
         "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Selecciona una de los pares del pool, aporta liquidez en el Exchange descentralizado (DEX) y empieza a ganar comisiones con una rentabilidad de hasta el 140%. Puedes eliminar liquidez en cualquier momento.",
-        "Pooled {{symbol}}": "{{symbol}} en piscina de liquidez",
-        "Total pooled {{symbol}}": "Total {{symbol}} en piscina de liquidez",
-        "Your pooled {{symbol}}": "Tus {{symbol}} en piscina de liquidez",
+        "Pooled {{symbol}}": "{{symbol}} en pool de liquidez",
+        "Total pooled {{symbol}}": "Total {{symbol}} en la pool de liquidez",
+        "Your pooled {{symbol}}": "Tus {{symbol}} en la pool de liquidez",
         "SWAP TOKENS": "INTERCAMBIA TOKENS",
         "REMOVE": "ELIMINAR",
         "APR": "APR",
         "ADD MORE": "AÑADIR MÁS",
-        "No active pool pairs": "Ningúna piscina de liquidez activa",
+        "No active pool pairs": "Ningúna pool de liquidez activa",
         "Supply liquidity pool tokens to earn high yields": "Aporte Tokens en los pares del pool para obtener una mayor rentabilidad",
         "Total liquidity (USD)": "Liquidez total (USD)",
         "Browse pool pairs": "Todos los pares del pool",
@@ -161,7 +161,7 @@
         "Confirm Send": "Confirmar envío",
         "CONFIRM SEND": "CONFIRMAR ENVÍO",
         "You are sending": "Estas enviando",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Recipient address": "Dirección del receptor",
         "Network": "Red",
         "Amount": "Cantidad",
@@ -203,7 +203,7 @@
         "CONVERTING": "CONVIRTIENDO",
         "Converting DFI": "Convirtiendo DFIs",
         "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Convirtiendo {{amount}} {{symbolA}} en {{symbolB}} ",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Convert": "Convertir",
         "{{token}} to receive": "{{token}} a recibir",
@@ -512,7 +512,7 @@
     },
     "components/BarCodeScanner": {
         "Requesting for camera permission": "Pidiendo acceso a la cámara",
-        "You have denied the permission request to use your camera": "Tu has denegado el acceso de uso a tu cámara"
+        "You have denied the permission request to use your camera": "Has denegado el acceso de uso a tu cámara"
     },
     "components/max": {
         "HALF": "MITAD",
@@ -520,7 +520,7 @@
     },
     "screens/common": {
         "CANCEL": "CANCELA",
-        "TRY AGAIN": "VUELVELO A INTENTAR"
+        "TRY AGAIN": "VOLVER A INTENTAR"
     },
     "screens/ChangePinScreen": {
         "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
@@ -531,7 +531,7 @@
     "screens/AddLiquidity": {
         "Balance": "Saldos",
         "per": "por",
-        "Share of pool": "Porcentaje de la piscina",
+        "Share of pool": "Participaciones en la pool",
         "Pooled": "Cantidad en la piscina",
         "Price": "Precio",
         "Review full transaction details in the next screen": "Revisa todos los detalles de la transferencia en la siguiente pantalla",
@@ -540,7 +540,7 @@
         "Available": "Disponible",
         "PRICE DETAILS": "DETALLE DEL PRECIO",
         "{{tokenA}} price per {{tokenB}}": "{{tokenA}} precio por {{tokenB}}",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Your pooled {{token}}": "Tus {{token}} en la piscina",
         "UTXO to be converted": "UTXO que se van a convertir",
         "Authorize transaction in the next screen to convert": "Autoriza la transacción en la siguiente pantalla para la conversión",
@@ -550,9 +550,9 @@
     "screens/ConfirmAddLiq": {
         "You are adding": "Estás añadiendo",
         "AMOUNT TO SUPPLY": "CANTIDAD A AÑADIR",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Price": "Precio",
-        "Share of pool": "Porcentaje de la piscina",
+        "Share of pool": "Participaciones en la pool",
         "Estimated fee": "Comisión estimada",
         "ADD": "AÑADIR",
         "Adding Liquidity": "Añadiendo liquidez",
@@ -570,7 +570,7 @@
     "screens/ConfirmRemoveLiquidity": {
         "You are removing": "Tu estás eliminando",
         "ESTIMATED AMOUNT TO RECEIVE": "CANTIDAD ESTIMADA A RECIBIR",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Price": "Precio",
         "Estimated fee": "Comisión estimada",
         "REMOVE": "ELIMINAR",
@@ -640,7 +640,7 @@
         "Estimated to receive": "Estimación a recibir",
         "Balance: ": "Saldos: ",
         "Review full transaction details in the next screen": "Revisa los detalles completos de la transacción en la siguiente pantalla",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Estimated fee": "Commisión estimada",
         "{{tokenA}} price per {{tokenB}}": "{{tokenA}} precio por {{tokenB}}",
         "UTXO to be converted": "UTXO a convertir",
@@ -666,7 +666,7 @@
         "Select token": "Selecciona tokens",
         "UTXO to be converted": "UTXO a convertir",
         "Slippage Tolerance": "Tolerancia a la fluctuación",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "PRICE DETAILS": "DETALLES DEL PRECIO",
         "FROM": "DE",
         "TO": "A",
@@ -677,7 +677,7 @@
         "CONFIRM SWAP": "CONFIRMACION DEL INTERCAMBIO",
         "SWAPPING": "INTERCAMBIANDO",
         "You are swapping": "Tú estás intercambiando",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Convert & swap": "Convierte e intercambia",
         "Swap": "Intercambia",
@@ -689,7 +689,7 @@
     "screens/PoolSwapConfirmScreen": {
         "You are swapping": "Tu estás intercambiando",
         "ESTIMATED BALANCE AFTER SWAP": "SALDO ESTIMADO DESPÚES DEL INTERCAMBIO",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Slippage Tolerance": "Tolerancia a la fluctuación",
         "Estimated fee": "Comisión estimada",
         "SWAP": "INTERCAMBIA",
@@ -979,7 +979,7 @@
     "screens/ConfirmCreateVaultScreen": {
         "You are creating vault": "Tu estás creando una bóveda",
         "ID will generate once vault has been created": "El identificador se generará una vez la bóveda haya sido creada",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Create vault": "Crea una bóveda",
         "Total transaction cost": "Coste total de la transacción",
@@ -1111,7 +1111,7 @@
     },
     "screens/ConfirmEditCollateralScreen": {
         "You are adding collateral to": "Tu estás añadiendo colateral a",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Add collateral": "Añade colateral",
         "Collateral tokens to add": "Tokens colaterales a añadir",
@@ -1140,7 +1140,7 @@
         "Available": "Disponible",
         "CONTINUE": "CONTINUA",
         "Review and confirm transaction in the next screen": "Revisa y confirma la transacción en la siguiente pantalla",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Amount to pay": "Cantidad a pagar",
         "Remaining loan amount": "Cantidad de préstamo pendiente",
         "Outstanding balance": "Saldo pendiente",
@@ -1168,7 +1168,7 @@
         "CONFIRM PAYMENT": "CONFIRMA EL PAGO",
         "PAYING": "PAGANDO",
         "You are paying": "Tu estás pagando",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de la transacción",
         "Loan payment": "Pago del préstamo",
         "Amount to pay": "Cantidad a pagar",
@@ -1199,7 +1199,7 @@
         "Vault interest": "Interés de la bóveda",
         "How much do you want to borrow?": "¿Cúanto quieres pedir prestado?",
         "Enter an amount": "Introduce la cantidad",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Collateralization ratio": "Ratio de colateralización",
         "Resulting collateralization": "Colateralización resultante",
         "Min. collateralization ratio": "Ratio mínimo de colateralización",
@@ -1221,7 +1221,7 @@
     },
     "screens/ConfirmBorrowLoanTokenScreen": {
         "You are borrowing": "Tu estás pidiendo prestado",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Borrow loan token": "Pide prestado tokens",
         "Convert & borrow loan token": "Convierte y pide prestado tokens",
@@ -1252,7 +1252,7 @@
     },
     "screens/ConfirmEditLoanSchemeScreen": {
         "You are editing scheme of vault": "Tu estás editando el tipo de bóveda",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de la transacción",
         "Edit loan scheme": "Edita el tipo de préstamo",
         "Prev. minimum collateralization ratio": "Ratio mínimo de colateralización anterior",
@@ -1291,7 +1291,7 @@
     },
     "screens/CloseVaultScreen": {
         "You are closing Vault ID": "Tu estás cerrando el identificador de tu bóveda",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Fees to return": "Comisiones a devolver",
         "Fees to burn": "Comisiones a quemar",
         "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Al cerrar, el identificador de esta bóveda no estará disponible nunca más. Asegúrate de que no necesitas nada de esta bóveda antes de cerrarla.",
@@ -1307,7 +1307,7 @@
         "MIN. BID": "MINIMA OFERTA",
         "Bid amount is lower than required": "La cantidad ofertada es inferior a la requerida",
         "Available": "Disponible",
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "CONTINUE": "CONTINUA",
         "Review and confirm transaction in the next screen": "Revisa y confirma la transacción en la siguiente pantalla",
         "Total auction value (USD)": "Valor total de la subasta (USD)",
@@ -1320,7 +1320,7 @@
         "Collateral for auction": "Colateral para la subasta"
     },
     "screens/ConfirmPlaceBidScreen": {
-        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+        "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Place bid": "Haz oferta",
         "Bid amount to place": "Cantidad ofertada",
