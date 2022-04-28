@@ -9,11 +9,11 @@ import { DefaultToken } from './DefaultToken'
 export function _Default (symbol: string): (props: SvgProps) => JSX.Element {
   const tokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, symbol))
 
-  if (tokenDetail?.isLoanToken) {
+  if (tokenDetail?.isLoanToken === true) {
     return DefaultLoanToken(symbol)
   }
 
-  if (tokenDetail?.isLPS) {
+  if (tokenDetail?.isLPS === true) {
     return DefaultLPS(tokenDetail.symbol)
   }
 
