@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { memo } from 'react'
 import { TouchableOpacity } from 'react-native'
+import { isEqual } from 'lodash'
 import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
@@ -37,7 +38,7 @@ export interface BatchCardProps {
   isVaultOwner: boolean
 }
 
-export function BatchCard (props: BatchCardProps): JSX.Element {
+export const BatchCard = memo((props: BatchCardProps): JSX.Element => {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
   const { address } = useWalletContext()
   const { getVaultsUrl } = useDeFiScanContext()
@@ -223,7 +224,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
 
     </ThemedView>
   )
-}
+}, isEqual)
 
 const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element => {
   return (
