@@ -33,7 +33,7 @@ describe('Bid History', () => {
           amount: '23',
           name: 'DeFiChain'
         }].map(setTokenSymbol),
-        allTokens: [],
+        allTokens: {},
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},

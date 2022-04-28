@@ -20,7 +20,7 @@ describe('receive page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        allTokens: [],
+        allTokens: {},
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},
@@ -47,7 +47,7 @@ describe('receive page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        allTokens: [],
+        allTokens: {},
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},
@@ -77,7 +77,7 @@ describe('receive page', () => {
       wallet: {
         utxoBalance: '77',
         tokens: [],
-        allTokens: [],
+        allTokens: {},
         poolpairs: [],
         dexPrices: {},
         swappableTokens: {},
