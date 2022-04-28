@@ -92,7 +92,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     >
       <ThemedSectionTitle
         testID='network_title'
-        text={translate('screens/Settings', 'NETWORK')}
+        text={translate('screens/Settings', 'GENERAL')}
       />
 
       <SelectedNetworkItem
@@ -100,6 +100,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         onPress={() => {
           navigation.navigate('NetworkSelectionScreen')
         }}
+      />
+      <NavigateItemRow
+        testID='address_book_title'
+        label='Address Book'
+        onPress={() => navigation.navigate('AddressBookScreen', {})}
       />
 
       <ThemedSectionTitle

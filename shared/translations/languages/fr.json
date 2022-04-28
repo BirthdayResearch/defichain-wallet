@@ -96,13 +96,16 @@
     "CANCEL": "ANNULER"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Carnet d'adresses",
+    "Address Book": "Carnet d'adresses",
     "ADD NEW ADDRESS": "AJOUTER UNE NOUVELLE ADRESSE",
-    "Please enter an address label": "Veuillez entrer un nom d'adresse",
-    "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Please enter a unique address": "Veuillez donner une adresse unique",
     "Empty address book": "Carnet d'adresses vide",
-    "Add your preferred address": "Ajoutez votre adresse préférée"
+    "Add your preferred address": "Ajoutez votre adresse préférée",
+    "No saved addresses": "Aucune adresse enregistrée",
+    "ADD ADDRESS": "AJOUTER UNE ADRESSE",
+    "Add address": "Ajouter une adresse",
+    "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)",
+    "Search for address": "Rechercher une adresse",
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
@@ -111,7 +114,9 @@
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
     "ADDRESS": "ADRESSE",
+    "Wallet address": "Adresse du portefeuille",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "CONTINUE": "SUIVANT",
     "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)"
   },
   "screens/AddOrEditAddressBookScreen": {
@@ -121,12 +126,17 @@
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
     "Address": "Adresse",
+    "Wallet address": "Adresse du portefeuille",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
-    "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)",
+    "CONTINUE": "SUIVANT",
+    "Address label is too long (max 40 characters)": "Le nom d'adresse est trop long (40 caractères max)",
     "Enter address label": "Donner le nom d'adresse",
     "Enter address": "Donner l'adresse",
     "This address already exists in your address book, please enter a different address": "Cette adresse existe déjà dans votre carnet d'adresses, veuillez entrer une adresse différente",
-    "Edit address": "Modifier l'adresse"
+    "Edit Address": "Modifier l'adresse",
+    "Please enter an address label": "Veuillez entrer un nom d'adresse",
+    "Please enter a valid address": "Veuillez donner une adresse valide",
+    "Required field, max. 40 characters": "Champ obligatoire, max. 40 caractères"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -161,7 +171,8 @@
     "Select token": "Sélectionner le token",
     "Select a token you want to send to get started": "Sélectionnez un token que vous voulez envoyer pour commencer.",
     "Choose token to send": "Choisissez le token à envoyer",
-    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION"
+    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
+    "*Registered address": "*Adresse enregistrée"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirmer l'envoi",
@@ -263,7 +274,9 @@
     "biometric": "biométrique",
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Sign to save address": "Signer pour sauvegarder l'adresse",
-    "Sign to delete address": "Signer pour supprimer l'adresse"
+    "Sign to delete address": "Signer pour supprimer l'adresse",
+    "Address Book": "Carnet d'adresses",
+    "GENERAL": "GÉNÉRAL"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -652,9 +665,6 @@
     "How much {{token}} do you want to swap?": "Combien de {{token}} voulez-vous échanger ?",
     "You have": "Vous avez actuellement",
     "Estimated to receive": "Estimé à recevoir",
-    "PRICES": "PRIX",
-    "{{tokenA}} price in {{tokenB}}": "Prix d'un {{tokenA}} en {{tokenB}}",
-    "{{tokenB}} price in {{tokenA}}": "Prix d'un {{tokenB}} en {{tokenA}}",
     "CONTINUE": "SUIVANT",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante",
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
@@ -1361,5 +1371,10 @@
     "No available auctions": "Aucune enchère disponible",
     "No available auctions from your vault": "Aucune enchère disponible correspondant à votre vault",
     "No available auctions with placed bids": "Pas de ventes aux enchères disponibles avec des offres placées"
+  },
+  "components/PricesSection": {
+    "PRICES": "PRIX",
+    "{{tokenA}} price in {{tokenB}}": "Prix d'un {{tokenA}} en {{tokenB}}",
+    "{{tokenB}} price in {{tokenA}}": "Prix d'un {{tokenB}} en {{tokenA}}"
   }
 }

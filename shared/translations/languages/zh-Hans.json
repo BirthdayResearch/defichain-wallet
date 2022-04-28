@@ -96,13 +96,16 @@
     "CANCEL": "取消"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Address book",
+    "Address Book": "地址簿",
     "ADD NEW ADDRESS": "ADD NEW ADDRESS",
-    "Please enter an address label": "Please enter an address label",
-    "Please enter a valid address": "Please enter a valid address",
-    "Please enter a unique address": "Please enter a unique address",
     "Empty address book": "空地址簿",
-    "Add your preferred address": "添加您的首选地址"
+    "Add your preferred address": "添加您的首选地址",
+    "No saved addresses": "沒有儲存地址",
+    "ADD ADDRESS": "添加地址",
+    "Add address": "添加地址",
+    "SAVED ADDRESS(ES)": "已储存地址",
+    "Search for address": "搜索地址",
+    "{{length}} ADDRESS(ES)": "{{length}} 地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址标签",
@@ -117,15 +120,20 @@
     "Edit address label": "更改地址标签",
     "Address label": "地址标签",
     "Address {{index}}": "地址 {{index}}",
-    "Add new address": "Add new address",
-    "Add New Address": "Add New Address",
+    "Add new address": "添加地址",
+    "Add New Address": "添加地址",
     "Address": "地址",
+    "Wallet address": "钱包地址",
     "SAVE CHANGES": "储存修改",
-    "Address label is too long (max 30 characters)": "地址标签太长（最多 30 个字符）",
-    "Enter address label": "Enter address label",
-    "Enter address": "Enter address",
-    "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
-    "Edit address": "Edit address"
+    "CONTINUE": "继续",
+    "Address label is too long (max 40 characters)": "地址标签太长（最多 40 个字符）",
+    "Enter address label": "输入地址标签",
+    "Enter address": "输入地址",
+    "This address already exists in your address book, please enter a different address": "此地址已储存在通讯录中，请输入其他地址",
+    "Edit Address": "编辑地址",
+    "Please enter an address label": "请输入地址标签",
+    "Please enter a valid address": "请输入有效地址",
+    "Required field, max. 40 characters": "必须填写栏，最多40个字符"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -153,7 +161,8 @@
     "Select token": "选择代币",
     "Select a token you want to send to get started": "若要开始，请先选您想发出的代币",
     "Choose token to send": "选择发出此代币",
-    "TRANSACTION DETAILS": "交易明细"
+    "TRANSACTION DETAILS": "交易明细",
+    "*Registered address": "*已注册地址"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
@@ -256,7 +265,9 @@
     "biometric": "生物辨识",
     "Enter passcode to continue": "输入密码后可继续",
     "Sign to save address": "签名储存地址",
-    "Sign to delete address": "签名移除地址"
+    "Sign to delete address": "签名移除地址",
+    "Address Book": "地址簿",
+    "GENERAL": "一般"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -647,9 +658,6 @@
     "How much {{token}} do you want to swap?": "您要兑换多少 {{token}}？",
     "You have": "您现有",
     "Estimated to receive": "您大约会收到",
-    "PRICES": "价格",
-    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
-    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值",
     "CONTINUE": "继续",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
@@ -1359,5 +1367,10 @@
     "No available auctions": "No available auctions",
     "No available auctions from your vault": "No available auctions from your vault",
     "No available auctions with placed bids": "No available auctions with placed bids"
+  },
+  "components/PricesSection": {
+    "PRICES": "价格",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值"
   }
 }
