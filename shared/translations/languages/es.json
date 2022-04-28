@@ -496,7 +496,7 @@
     "screens/ConnectionBoundary": {
         "Connection problem": "Problema de conexión",
         "There seems to be a problem with the connection. Check your network and try again.": "Parece que hay un problema con la conexión. Comprueba tu red e inténtalo de nuevo.",
-        "TRY AGAIN": "INTENTAR DE NUEVO"
+        "TRY AGAIN": "VOLVER A INTENTAR"
     },
     "screens/FeatureFlagScreen": {
         "Loans": "Préstamos",
