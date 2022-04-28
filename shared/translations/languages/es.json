@@ -650,7 +650,7 @@
         "Proceed at your own risk": "Continúa a tu propio riesgo"
     },
     "screens/PoolSwapScreen": {
-        "Swap": "Swap",
+        "Swap": "Intercambio",
         "How much {{token}} do you want to swap?": "¿Cúantos {{token}} quieres intercambiar?",
         "Available": "Disponible",
         "After": "Despúes",
@@ -702,7 +702,7 @@
         "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
         "Transaction type": "Tipo de transacción",
         "Convert & swap": "Convierte e intercambia",
-        "Swap": "Intercambia",
+        "Swap": "Intercambio",
         "Swapping Token": "Intercambiando tokens",
         "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{amountB}} {{symbolB}}",
         "Slippage Tolerance": "Tolerancia a la fluctuación",
