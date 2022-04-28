@@ -224,7 +224,7 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
  * Get single token detail by `displaySymbol` from wallet store.
  */
 export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
-  return allTokens.find(token => token.displaySymbol === displaySymbol)
+  return allTokens.find(token => token.isDAT && token.displaySymbol === displaySymbol)
 })
 
 /**
