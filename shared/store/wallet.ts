@@ -6,6 +6,9 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 
+interface AssociatedToken {
+  [key: string]: TokenData
+}
 export interface SwappableTokens {
   [key: string]: AllSwappableTokensResult
 }
@@ -17,7 +20,7 @@ interface DexPricesProps {
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
-  allTokens: TokenData[]
+  allTokens: AssociatedToken
   poolpairs: DexItem[]
   dexPrices: {[symbol: string]: DexPricesProps }
   swappableTokens: SwappableTokens
@@ -38,7 +41,7 @@ export interface DexItem {
 const initialState: WalletState = {
   utxoBalance: '0',
   tokens: [],
-  allTokens: [],
+  allTokens: {},
   poolpairs: [],
   dexPrices: {},
   swappableTokens: {},
@@ -93,6 +96,16 @@ export const setTokenSymbol = (t: AddressToken): WalletToken => {
     displaySymbol,
     avatarSymbol
   }
+}
+
+const associateTokens = (tokens: TokenData[]): AssociatedToken => {
+  const result: AssociatedToken = {}
+  tokens.forEach(token => {
+    if (token.isDAT) {
+      result[token.displaySymbol] = token
+    }
+  })
+  return result
 }
 
 export const fetchPoolPairs = createAsyncThunk(
@@ -151,7 +164,7 @@ export const wallet = createSlice({
       state.hasFetchedToken = true
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
-      state.allTokens = action.payload.allTokens
+      state.allTokens = associateTokens(action.payload.allTokens)
     })
     builder.addCase(fetchSwappableTokens.fulfilled, (state, action: PayloadAction<AllSwappableTokensResult>) => {
       state.hasFetchedSwappableTokens = true
@@ -224,7 +237,7 @@ export const tokenSelector = createSelector([tokensSelector, selectTokenId], (to
  * Get single token detail by `displaySymbol` from wallet store.
  */
 export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState) => state.allTokens, selectTokenId], (allTokens, displaySymbol) => {
-  return allTokens.find(token => token.isDAT && token.displaySymbol === displaySymbol)
+  return allTokens[displaySymbol]
 })
 
 /**
