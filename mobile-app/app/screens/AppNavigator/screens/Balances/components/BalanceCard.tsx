@@ -100,8 +100,8 @@ export function BalanceCard ({
   }
 
   filteredTokens.sort((a, b) => {
-    const lockedPriceA = new BigNumber(lockedTokens?.get(a.symbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.symbol)?.tokenValue
-    const lockedPriceB = new BigNumber(lockedTokens?.get(b.symbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.symbol)?.tokenValue
+    const lockedPriceA = new BigNumber(lockedTokens?.get(a.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.displaySymbol)?.tokenValue
+    const lockedPriceB = new BigNumber(lockedTokens?.get(b.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.displaySymbol)?.tokenValue
     const aPrice = new BigNumber(a.usdAmount).plus(lockedPriceA ?? 0)
     const bPrice = new BigNumber(b.usdAmount).plus(lockedPriceB ?? 0)
     if (isSorted) {
@@ -184,7 +184,7 @@ function BalanceItemRow ({
   const onBreakdownPress = (): void => {
     setIsBreakdownExpanded(!isBreakdownExpanded)
   }
-  const lockedToken = useTokenLockedBalance({ symbol: token.symbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
   const hasLockedBalance = useMemo((): boolean => {

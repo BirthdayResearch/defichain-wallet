@@ -161,10 +161,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
 
     const dstTokenSymbols = dstTokens.map(token => token.symbol)
-    lockedTokens.forEach((_lockedBalance, symbol) => {
-      const tokenExist = dstTokenSymbols.includes(symbol)
+    lockedTokens.forEach((_lockedBalance, displaySymbol) => {
+      const tokenExist = dstTokenSymbols.includes(displaySymbol)
       if (!tokenExist) {
-        const tokenData = allTokens.find(token => token.symbol === symbol)
+        const tokenData = allTokens[displaySymbol]
         if (tokenData !== undefined) {
           dstTokens.push({
             id: tokenData.id,
