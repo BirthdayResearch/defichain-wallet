@@ -51,7 +51,8 @@
         "ADD": "AGGIUNGERE",
         "Prices": "Prezzi",
         "Available pool pairs": "Pool-Pairs disponibili",
-        "Your shared {{symbol}}": "I tuoi shared {{symbol}}"
+        "Your shared {{symbol}}": "I tuoi shared {{symbol}}",
+        "Total liquidity": "Liquidita' Totale"
     },
     "screens/DexGuidelines": {
         "Guidelines": "Linee Guida",
@@ -106,7 +107,14 @@
         "Please enter a valid address": "Inserisci un indirizzo valido",
         "Please enter a unique address": "Inserisci un indirizzo unico",
         "Empty address book": "Rubrica vuota",
-        "Add your preferred address": "Aggiungi il tuo indirizzo preferito"
+        "Add your preferred address": "Aggiungi il tuo indirizzo preferito",
+        "Address Book": "Rubrica",
+        "No saved addresses": "Nessun indirizzo salvato",
+        "ADD ADDRESS": "AGGIUNGI INDIRIZZO",
+        "Add address": "Aggiungi indirizzo",
+        "SAVED ADDRESS(ES)": "INDIRIZZI SALVAT",
+        "Search for address": "Cerca un indirizzo",
+        "{{length}} ADDRESS(ES)": "{{length}} INDIRIZZI"
     },
     "components/CreateOrEditAddressLabelForm": {
         "Edit address label": "Modifica l'etichetta dell'indirizzo",
@@ -129,7 +137,14 @@
         "Enter address label": "Inserisci l'etichetta dell'indirizzo",
         "Enter address": "Inserisci l'indirizzo",
         "This address already exists in your address book, please enter a different address": "Questo indirizzo esiste già nella tua rubrica, inserisci un altro indirizzo",
-        "Edit address": "Modifica l'indirizzo"
+        "Edit address": "Modifica l'indirizzo",
+        "Wallet address": "Indirizzo del wallet",
+        "CONTINUE": "CONTINUA",
+        "Address label is too long (max 40 characters)": "L'etichetta dell'indirizzo è troppo lunga (max 40 caratteri)",
+        "Edit Address": "Modifica indirizzo",
+        "Please enter an address label": "Inserisci un'etichetta di indirizzo",
+        "Please enter a valid address": "Inserisci un indirizzo valido",
+        "Required field, max. 40 characters": "Campo obbligatorio, max. 40 caratteri"
     },
     "screens/ReceiveScreen": {
         "Receive": "Ricevi",
@@ -157,7 +172,8 @@
         "Select token": "Seleziona il token",
         "Select a token you want to send to get started": "Seleziona un token che vuoi inviare, per iniziare",
         "Choose token to send": "Scegliere il token da inviare",
-        "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE"
+        "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
+        "*Registered address": "*Indirizzo registrato"
     },
     "screens/SendConfirmationScreen": {
         "Confirm Send": "Conferma Invio",
@@ -175,7 +191,7 @@
         "Sending {{amount}} {{symbol}}": "Invio {{amount}} {{symbol}}",
         "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE",
         "Convert & send": "Converti e invia",
-        "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange (except DFX) or a central entity will result in irreversible loss of funds.": "Inviare i token del Liquidity Pool solo agli indirizzi del DeFiChain Wallet. L'invio ad uno scambio (eccetto DFX) o ad un'entità centrale comporterà la perdita irreversibile dei fondi.",
+        "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Invia i token del Liquidity Pool solo agli indirizzi del DeFiChain Wallet. L'invio ad uno scambio o ad un ente centrale comporterà la perdita irreversibile dei fondi.",
         "Transaction type": "Tipo di transazione",
         "Amount to send": "Importo da inviare"
     },
@@ -262,7 +278,9 @@
         "biometric": "biometria",
         "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
         "Sign to save address": "Firma per salvare l'indirizzo",
-        "Sign to delete address": "Firma per cancellare l'indirizzo"
+        "Sign to delete address": "Firma per cancellare l'indirizzo",
+        "Address Book": "Rubrica",
+        "GENERAL": "GENERALE"
     },
     "screens/AboutScreen": {
         "About": "Informazioni su",
@@ -279,7 +297,8 @@
         "Track transactions, tokens and DEX pairs": "Traccia le transazioni, i token e le coppie DEX",
         "View official website": "Vedi il sito ufficiale",
         "Learn more about DFX": "Scopri di più su DFX",
-        "Try Beta features": "Prova le funzioni Beta"
+        "Try Beta features": "Prova le funzioni Beta",
+        "Learn more about the blockchain": "Per saperne di più sulla blockchain"
     },
     "screens/KnowledgeBase": {
         "LEARN ABOUT": "ULTERIORI INFORMAZIONI",
@@ -670,7 +689,8 @@
         "PRICE DETAILS": "DETTAGLI DEL PREZZO",
         "FROM": "DA",
         "TO": "A",
-        "Total to be swapped": "Totale da scambiare"
+        "Total to be swapped": "Totale da scambiare",
+        "Slippage tolerance": "Tolleranza di slippage"
     },
     "screens/ConfirmCompositeSwapScreen": {
         "CONVERTING": "CONVERSIONE",
@@ -684,7 +704,8 @@
         "Swapping Token": "Scambio di token",
         "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Scambia {{amountA}} {{symbolA}} in {{amountB}} {{symbolB}}",
         "Slippage Tolerance": "Tolleranza dello slippage",
-        "Estimated to receive": "Stimato da ricevere"
+        "Estimated to receive": "Stimato da ricevere",
+        "Slippage tolerance": "Tolleranza di slippage"
     },
     "screens/PoolSwapConfirmScreen": {
         "You are swapping": "Stai scambiando",
@@ -703,7 +724,8 @@
         "Swap": "Scambia",
         "Convert & swap": "Converti e scambia",
         "Max Price per {{fromToken}}": "Prezzo massimo per {{fromToken}}",
-        "PRICE DETAILS": "DETTAGLI DEL PREZZO"
+        "PRICE DETAILS": "DETTAGLI DEL PREZZO",
+        "Slippage tolerance": "Tolleranza di slippage"
     },
     "screens/UnlockWallet": {
         "Enter Passcode": "Inserisci il codice di accesso",
@@ -762,11 +784,11 @@
         "How do I supply liquidity?": "Come posso fornire denaro?",
         "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Una volta che hai deciso a quale coppia del pool vuoi fornire liquidità, clicca su AGGIUNGI LIQUIDITA' e inserisci l'importo di ingresso per uno dei token della coppia. \nUna volta che l'importo è stato inserito su un lato della coppia, l'applicazione bilancia automaticamente l'importo sull'altro lato, in base al rapporto di liquidità corrente del pool.",
         "How do I send tokens from my DFI wallet?": "Come posso inviare token dal mio portafoglio DFI?",
-        "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "I token sulla DeFiChain possono essere inviati solo a indirizzi DFI. Questo significa che non si deve inviare direttamente ad uno exchange (eccetto dfx) o ad una piattaforma di terze parti che non supporta la DeFiChain. \nAllo stesso modo, i token di liquidità possono essere inviati solo ad un altro indirizzo wallet DFI.",
+        "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "I token sulla DeFiChain possono essere inviati solo a indirizzi DFI. Questo significa che non si deve inviare direttamente ad uno exchange o ad una piattaforma di terze parti che non supporta la DeFiChain. \nAllo stesso modo, i token di liquidità possono essere inviati solo ad un altro indirizzo wallet DFI.",
         "What are some exchanges and platforms I can send to?": "Su quali borse e piattaforme posso inviare i token DeFiChain?",
         "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nVoir plus sur DeFiChain.com",
         "Can I send liquidity pool tokens to an exchange or another entity?": "Posso inviare token dal liquidity pool ad un exchange o ad un'altra entità?",
-        "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.":"Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.",
+        "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.",
         "How do I receive tokens on my DFI wallet?": "Come posso ricevere token sul mio wallet DFI?",
         "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Puoi ricevere token DFI nel tuo wallet condividendo il tuo indirizzo che si trova nella schermata di ricezione, o chiedendo al mittente di scansionare il codice QR. \nNota che non sarai in grado di ricevere token nativi (ad esempio BTC, ETH) direttamente nel tuo portafoglio.",
         "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
@@ -787,7 +809,8 @@
         "Available": "Disponibile",
         "Locked in vault(s)": "bloccato in un vault",
         "as UTXO": "come UTXO",
-        "as Token": "come Token"
+        "as Token": "come Token",
+        "Learn more about DFI": "Per saperne di più su DFI"
     },
     "components/ReservedDFIInfoText": {
         "A small UTXO amount (0.1 DFI) is reserved for fees.": "Una piccola quantità UTXO (0,1 DFI) è riservata alle commissioni."
@@ -795,7 +818,7 @@
     "components/ConversionInfoText": {
         "Conversion will be required. Your passcode will be asked to authorize both transactions.": "La conversione è necessaria. Ti verrà chiesto il codice di accesso per autorizzare entrambe le transazioni.",
         "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Si prega di attendere mentre convertiamo i token per la tua transazione. Le conversioni sono irreversibili.",
-        "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "Invia i token del Liquidity Pool solo ai wallet compatibili con DeFiChain. In caso contrario, l'invio ad altri exchange (eccetto DFX) potrebbe comportare la perdita irreversibile dei fondi."
+        "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges may result in irreversible loss of funds.": "Invia i token del Liquidity Pool solo ai wallet compatibili con DeFiChain. In caso contrario, l'invio ad altri exchange potrebbe comportare la perdita irreversibile dei fondi."
     },
     "components/ConversionTag": {
         "Conversion required": "Conversione richiesta"
@@ -957,7 +980,8 @@
         "HALTED": "FERMATO",
         "IN LIQUIDATION": "IN LIQUIDAZIONE",
         "EMPTY": "VUOTO",
-        "READY": "PRONTO"
+        "READY": "PRONTO",
+        "EDIT COLLATERAL": "MODIFICA I COLLATERALI"
     },
     "components/EmptyVault": {
         "No vault created": "Nessun vault creato",
@@ -998,7 +1022,7 @@
         "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Ogni transazione sarà soggetta a una piccola quantità di commissioni. L'importo può variare a seconda della congestione della rete.",
         "Vault fee": "Commissione per il Vault",
         "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Questa commissione serve come deposito iniziale per il tuo vault. Riceverai 1 DFI indietro quando sceglierai di chiudere questo vault.",
-        "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "Il rapporto di collateralizzazione rappresenta la quantità di garanzie depositate in un vault in relazione all'importo del prestito, espresso in percentuale.",
+        "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "Il rapporto di collateralizzazione rappresenta la quantità di garanzie depositate in un vault in relazione all'importo del prestito, espresso in percentuale.",
         "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "Il prossimo rapporto di collateralizzazione rappresenta il rapporto di collateralizzazione del vault basato sui prezzi dei token di collaterale/prestito nella prossima ora.",
         "Annual vault interest rate based on the loan scheme selected.": "Tasso d'interesse annuale del vault in base al regime di prestito selezionato.",
         "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Rapporto di collateralizzazione minimo richiesto in base allo schema di prestito selezionato. Un vault va in liquidazione quando il rapporto di collateralizzazione scende al di sotto del requisito minimo.",
@@ -1014,12 +1038,12 @@
     "screens/VaultDetailScreen": {
         "Vault ID": "Vault ID",
         "Your vault is locked for liquidation.": "Il tuo vault è bloccato per la liquidazione.",
-        "Your vault is at risk of liquidation. Prevent liquidity by adding more collaterals or paying back loans.": "Il tuo vault è a rischio di liquidazione. Proteggi la liquidità aggiungendo altri collaterali o pagando i prestiti.",
         "Collateral required to use this vault.": "Collaterali necessari per utilizzare questo vault.",
         "Total collateral (USD)": "Collaterale totale (USD)",
         "Total loans (USD)": "Totale prestiti (USD)",
         "Vault interest (APR)": "Interesse del vault (APR)",
-        "Min. collateralization ratio": "Minimo rapporto di collateralizzazione"
+        "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
+        "Your vault is at risk of liquidation. Prevent liquidity by adding more collateral or paying back loans.": "Il tuo caveau è a rischio di liquidazione. Previeni la liquidità aggiungendo altre garanzie o ripagando i prestiti."
     },
     "components/ScrollableButton": {
         "ADD COLLATERAL": "AGGIUNGI COLLATERALE",
@@ -1135,7 +1159,6 @@
     "screens/PaybackLoanScreen": {
         "YOU ARE PAYING FOR LOAN": "STAI PAGANDO PER IL PRESTITO",
         "VAULT IN USE": "VAULT IN USO",
-        "How much do you want to pay?": "Quanto vuoi pagare?",
         "Enter an amount": "Inserisci un importo",
         "Available": "Disponibile",
         "CONTINUE": "CONTINUA",
@@ -1151,8 +1174,8 @@
         "Resulting collateralization": "Collateralizzazione risultante",
         "Vault ID": "Vault-ID",
         "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} Risultante",
-        "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} Insufficiente per pagare l’ammontare inserito",
-        "A 1% fee is applied when you pay with DFI.": "Una penale dell’1% è applicata quando paghi con DFI",
+        "Insufficient {{token}} to pay for the entered amount": "Insufficiente {{token}} per pagare l'importo inserito",
+        "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Viene applicata una tassa dell'1% quando si paga con {{tokenSymbol}}.",
         "Read more": "Leggi di più",
         "How do you want to pay?": "Come vuoi pagare?",
         "You are paying": "Stai pagando",
@@ -1162,7 +1185,8 @@
         "Total loan (USD)": "Prestito totale (USD)",
         "Total collateral (USD)": "Totale garanzia (USD)",
         "Loan remaining": "Prestito rimanente",
-        "{{paymentToken}} payment fee": "Fee di pagamento {{paymentToken}}"
+        "{{paymentToken}} payment fee": "Fee di pagamento {{paymentToken}}",
+        "How much of the loan do you want to pay?": "Quanto del prestito vuoi pagare?"
     },
     "screens/ConfirmPaybackLoanScreen": {
         "CONFIRM PAYMENT": "CONFERMA IL PAGAMENTO",
@@ -1179,7 +1203,7 @@
         "Collateralization ratio": "Rapporto di collateralizzazione",
         "Paying loan": "Pagamento del prestito",
         "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Sto pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} come pagamento del prestito.",
-        "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) as loan payment.": "Sto pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPay}} {{symbol}}) come pagamento del prestito.",
+        "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) come pagamento del prestito.",
         "Confirm Loan Payment": "Conferma il pagamento del prestito",
         "Resulting collateralization": "Garanzia corrispondente"
     },
@@ -1205,7 +1229,6 @@
         "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
         "Interest (Vault + Token)": "Interesse (Vault + Token)",
         "Estimated annual interest": "Interesse annuo stimato",
-        "Total loan + interest": "Prestito totale + interessi",
         "Review and confirm transaction in the next screen": "Rivedi e conferma la transazione nella prossima schermata",
         "SELECT LOAN TOKEN": "SELEZIONA IL TOKEN DA PRENDERE IN PRESTITO",
         "CONTINUE": "CONTINUA",
@@ -1217,7 +1240,8 @@
         "USD": "USD",
         "How many {{token}} tokens to borrow?": "Quanti {{token}} token vuoi prendere in prestito?",
         "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Il tuo vault ha bisogno di almeno il 50% di DFI e/o DUSD come garanzia",
-        "This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens": "Questo vault ha bisogno di almeno il 50% di DFI e/o DUSD per essere disponibile per il conio di dToken"
+        "This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens": "Questo vault ha bisogno di almeno il 50% di DFI e/o DUSD per essere disponibile per il conio di dToken",
+        "Total loan + annual interest": "Totale del prestito + interesse annuale"
     },
     "screens/ConfirmBorrowLoanTokenScreen": {
         "You are borrowing": "Stai prendendo in prestito",
@@ -1229,7 +1253,6 @@
         "Token interest": "Interesse dei token",
         "Vault interest": "Interesse del vault",
         "Estimated annual interest": "Interesse annuo stimato",
-        "Total loan + interest": "Prestito totale + interessi",
         "VAULT DETAILS": "VAULT-DETAILS",
         "Vault ID": "Vault-ID",
         "Collateral amount (USD)": "Ammontare del collaterale (USD)",
@@ -1239,7 +1262,8 @@
         "Borrowing loan token": "Prendi in prestito token prestati",
         "Borrowing {{amount}} {{symbol}}": "Prendi in prestito {{amount}} {{symbol}}",
         "CONFIRM BORROW": "CONFERMA IL PRESTITO",
-        "BORROWING": "PRENDI IN PRESTITO"
+        "BORROWING": "PRENDI IN PRESTITO",
+        "Total loan + annual interest": "Totale del prestito + interesse annuale"
     },
     "components/BottomSheetVaultList": {
         "Collateralization ratio": "Rapporto di collateralizzazione"
@@ -1339,14 +1363,19 @@
         "QUICK BID": "OFFERTA RAPIDA",
         "Insufficient amount to place a bid": "Importo insufficiente per fare un'offerta",
         "Quick bid": "Offerta rapida",
-        "Place a bid on the auctions with the min. next bid": "Piazza un'offerta alle aste con l'offerta minima successiva",
         "Min. next bid": "Min. prossima offerta",
-        "Current balance": "Saldo corrente"
+        "Current balance": "Saldo corrente",
+        "Place a bid on the auction with the min. next bid": "Fai un'offerta all'asta con l'offerta minima successiva"
     },
     "components/WalletAddressRow": {
         "Wallet address": "Indirizzo del wallet"
     },
     "components/Announcements": {
         "DETAILS": "DETTAGLI"
+    },
+    "components/PricesSection": {
+        "PRICES": "PREZZI",
+        "{{tokenA}} price in {{tokenB}}": "Prezzo {{tokenA}} in {{tokenB}}",
+        "{{tokenB}} price in {{tokenA}}": "Prezzo {{tokenB}} in {{tokenA}}"
     }
 }
