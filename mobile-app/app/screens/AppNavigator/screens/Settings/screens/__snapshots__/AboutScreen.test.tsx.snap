@@ -139,20 +139,37 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             },
             Array [
               Object {
-                "color": "rgba(0, 0, 0, 1)",
-                "fontFamily": "LightFont",
-                "fontSize": 16,
-                "fontWeight": "300",
-                "lineHeight": 24,
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftWidth": 1,
+                "borderRightWidth": 1,
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "fontFamily": "MediumFont",
+                "fontSize": 14,
+                "fontWeight": "500",
+                "lineHeight": 20,
+                "marginTop": 4,
+                "paddingBottom": 2,
+                "paddingLeft": 6,
+                "paddingRight": 6,
+                "paddingTop": 2,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "color": "rgba(115, 115, 115, 1)",
               },
             ],
           ]
         }
+        testID="version_tag"
       >
-        vmock
+        Version mock
       </Text>
       <View
         style={

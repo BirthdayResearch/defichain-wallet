@@ -9,7 +9,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { openURL } from '@api/linking'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { VersionText } from '@components/VersionText'
+import { VersionTag } from '@components/VersionTag'
 
 interface AboutScreenLinks {
   testID: string
@@ -121,7 +121,7 @@ export function AboutScreen (): JSX.Element {
           {translate('screens/AboutScreen', 'DeFiChain Wallet')}
         </ThemedText>
 
-        <VersionText />
+        <VersionTag />
 
         {hasBetaFeatures && (
           <TouchableOpacity

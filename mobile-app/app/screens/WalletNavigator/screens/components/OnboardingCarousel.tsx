@@ -9,7 +9,7 @@ import { ThemedText } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { VersionText } from '@components/VersionText'
+import { VersionTag } from '@components/VersionTag'
 
 interface CarouselImage {
   image: ImageSourcePropType
@@ -64,7 +64,7 @@ export function InitialSlide (): JSX.Element {
         {translate('screens/OnboardingCarousel', 'Native DeFi for Bitcoin')}
       </ThemedText>
 
-      <VersionText />
+      <VersionTag />
     </View>
   )
 }
