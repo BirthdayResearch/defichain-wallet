@@ -7,6 +7,8 @@ import 'dayjs/locale/de'
 import 'dayjs/locale/en'
 import 'dayjs/locale/fr'
 import 'dayjs/locale/zh'
+import 'dayjs/locale/es'
+import 'dayjs/locale/it'
 dayjs.extend(localizedFormat)
 
 interface LanguageLoader {
