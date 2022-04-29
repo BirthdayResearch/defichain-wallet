@@ -65,6 +65,10 @@ context('Wallet - Settings', () => {
     cy.getByTestID('app_logo').should('exist')
   })
 
+  it('should display have app version tag', function () {
+    cy.getByTestID('version_tag').should('exist')
+  })
+
   it('should activate light mode by default (localstorage and activated sun icon)', () => {
     cy.url().should('include', 'app/Settings/SettingsScreen', () => {
       expect(localStorage.getItem('WALLET.THEME')).to.eq('light')
