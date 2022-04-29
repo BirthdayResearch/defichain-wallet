@@ -65,7 +65,8 @@ context('Wallet - Settings', () => {
     cy.getByTestID('app_logo').should('exist')
   })
 
-  it('should display have app version tag', function () {
+  it('should display app version tag', function () {
+    cy.getByTestID('setting_navigate_About').click()
     cy.getByTestID('version_tag').should('exist')
   })
 
