@@ -21,10 +21,15 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('remove_liquidity_button').should('not.exist')
   })
 
-  it('should be able to redirect with Add Liquidity', function () {
+  it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').should('exist')
     cy.getByTestID('add_liquidity_button').click()
     cy.url().should('include', 'DEX/AddLiquidity')
+  })
+
+  it('should be able to redirect back from Add Liquidity screen', function () {
+    cy.go('back')
+    cy.url().should('include', 'balances')
   })
 
   it('should be able to redirect with Pool Swap', function () {

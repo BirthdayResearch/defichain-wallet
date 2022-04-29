@@ -1,5 +1,6 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, StackScreenProps } from '@react-navigation/stack'
+import { HeaderBackButton } from '@react-navigation/elements'
 import BigNumber from 'bignumber.js'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
@@ -15,6 +16,7 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
+import { BalanceRowToken } from '../Balances/BalancesScreen'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -41,7 +43,11 @@ export interface DexParamList {
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }
   }
-  AddLiquidity: { pair: PoolPairData }
+  AddLiquidity: {
+    pair: PoolPairData
+    origin?: string
+    token?: BalanceRowToken
+  }
   ConfirmAddLiquidity: {
     pair: PoolPairData
     summary: AddLiquiditySummary
@@ -100,14 +106,25 @@ export function DexNavigator (): JSX.Element {
       <DexStack.Screen
         component={AddLiquidityScreen}
         name='AddLiquidity'
-        options={{
+        options={({ navigation, route }: StackScreenProps<DexParamList, 'AddLiquidity'>) => ({
+          headerLeft: () => <HeaderBackButton onPress={() => {
+            /* Custom handling of back button */
+            route.params.origin !== undefined
+              ? navigation.navigate({
+                name: route.params.origin,
+                params: { token: route.params.token },
+                merge: true
+              })
+              : navigation.goBack()
+          }}
+                            />,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Add Liquidity')}
               containerTestID={headerContainerTestId}
             />
           )
-        }}
+        })}
       />
 
       <DexStack.Screen

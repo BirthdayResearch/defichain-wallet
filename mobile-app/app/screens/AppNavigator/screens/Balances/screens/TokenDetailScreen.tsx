@@ -99,7 +99,9 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       screen: destination,
       initial: false,
       params: {
-        pair
+        pair,
+        token: route.params.token,
+        origin: 'TokenDetail'
       },
       merge: true
     })
