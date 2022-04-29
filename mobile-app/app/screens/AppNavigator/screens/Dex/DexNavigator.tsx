@@ -1,6 +1,5 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { createStackNavigator, StackScreenProps } from '@react-navigation/stack'
-import { HeaderBackButton } from '@react-navigation/elements'
+import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
@@ -16,7 +15,6 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
-import { BalanceRowToken } from '../Balances/BalancesScreen'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -45,8 +43,6 @@ export interface DexParamList {
   }
   AddLiquidity: {
     pair: PoolPairData
-    origin?: string
-    token?: BalanceRowToken
   }
   ConfirmAddLiquidity: {
     pair: PoolPairData
@@ -106,25 +102,14 @@ export function DexNavigator (): JSX.Element {
       <DexStack.Screen
         component={AddLiquidityScreen}
         name='AddLiquidity'
-        options={({ navigation, route }: StackScreenProps<DexParamList, 'AddLiquidity'>) => ({
-          headerLeft: () => <HeaderBackButton onPress={() => {
-            /* Custom handling of back button */
-            route.params.origin !== undefined
-              ? navigation.navigate({
-                name: route.params.origin,
-                params: { token: route.params.token },
-                merge: true
-              })
-              : navigation.goBack()
-          }}
-                            />,
+        options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Add Liquidity')}
               containerTestID={headerContainerTestId}
             />
           )
-        })}
+        }}
       />
 
       <DexStack.Screen

@@ -95,13 +95,11 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
   const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
   const onNavigateLiquidity = ({ destination, pair }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
-    navigation.navigate('DEX', {
+    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: destination,
       initial: false,
       params: {
-        pair,
-        token: route.params.token,
-        origin: 'TokenDetail'
+        pair
       },
       merge: true
     })

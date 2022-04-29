@@ -26,6 +26,7 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -335,6 +336,20 @@ export function BalancesNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AddLiquidityScreen}
+        name='AddLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Add Liquidity')}
               containerTestID={headerContainerTestId}
             />
           ),
