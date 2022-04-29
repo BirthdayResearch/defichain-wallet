@@ -22,17 +22,18 @@ context('Wallet - Token Detail', () => {
   })
 
   it('should be able to redirect to Add Liquidity screen', function () {
-    cy.getByTestID('add_liquidity_button').should('exist')
     cy.getByTestID('add_liquidity_button').click()
-    cy.url().should('include', 'DEX/AddLiquidity')
-  })
+    cy.getByTestID('token_input_primary').clear().type('5')
+    cy.getByTestID('button_confirm_continue_add_liq').click()
 
-  it('should be able to redirect back from Add Liquidity screen', function () {
+    /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
-    cy.url().should('include', 'balances')
+    /* Redirect back from Add Liquidity screen */
+    cy.go('back')
+    cy.url().should('include', 'app/TokenDetail')
   })
 
-  it('should be able to redirect with Pool Swap', function () {
+  it('should be able to redirect to Pool Swap screen', function () {
     cy.getByTestID('swap_button').should('exist')
     cy.getByTestID('swap_button').click()
     cy.url().should('include', 'app/CompositeSwap')
@@ -49,7 +50,7 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['ETH-DFI'])
+      .sendTokenToWallet(['ETH-DFI', 'ETH'])
       .wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
@@ -66,16 +67,30 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('swap_button').should('not.exist')
   })
 
-  it('should be able to redirect with Add Liquidity', function () {
+  it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').should('exist')
     cy.getByTestID('add_liquidity_button').click()
-    cy.url().should('include', 'DEX/AddLiquidity')
+    cy.getByTestID('token_input_primary').clear().type('5')
+    cy.getByTestID('button_confirm_continue_add_liq').click()
+
+    /* Redirect back from Confirm Add Liquidity screen */
+    cy.go('back')
+    /* Redirect back from Add Liquidity screen */
+    cy.go('back')
+    cy.url().should('include', 'app/TokenDetail')
   })
 
-  it('should be able to redirect with Remove Liquidity', function () {
+  it('should be able to redirect to Remove Liquidity screen', function () {
     cy.getByTestID('remove_liquidity_button').should('exist')
     cy.getByTestID('remove_liquidity_button').click()
-    cy.url().should('include', 'DEX/RemoveLiquidity')
+    cy.getByTestID('text_input_percentage').clear().type('10')
+    cy.getByTestID('button_continue_remove_liq').click()
+
+    /* Redirect back from ConfirmRemove Liquidity screen */
+    cy.go('back')
+    /* Redirect back from Remove Liquidity screen */
+    cy.go('back')
+    cy.url().should('include', 'app/TokenDetail')
   })
 })
 

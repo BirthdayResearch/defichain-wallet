@@ -27,6 +27,9 @@ import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
+import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
+import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -354,6 +357,45 @@ export function BalancesNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={ConfirmAddLiquidityScreen}
+        name='ConfirmAddLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={RemoveLiquidityScreen}
+        name='RemoveLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Remove Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={RemoveLiquidityConfirmScreen}
+        name='RemoveLiquidityConfirmScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Removal')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
     </BalanceStack.Navigator>
