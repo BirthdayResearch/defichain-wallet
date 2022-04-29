@@ -64,7 +64,9 @@ export function InitialSlide (): JSX.Element {
         {translate('screens/OnboardingCarousel', 'Native DeFi for Bitcoin')}
       </ThemedText>
 
-      <VersionTag />
+      <View style={tailwind('mt-2')}>
+        <VersionTag />
+      </View>
     </View>
   )
 }

@@ -121,7 +121,9 @@ export function AboutScreen (): JSX.Element {
           {translate('screens/AboutScreen', 'DeFiChain Wallet')}
         </ThemedText>
 
-        <VersionTag />
+        <View style={tailwind('mt-1')}>
+          <VersionTag />
+        </View>
 
         {hasBetaFeatures && (
           <TouchableOpacity
