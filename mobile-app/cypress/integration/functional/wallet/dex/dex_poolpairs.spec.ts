@@ -238,7 +238,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 })
 
-context.only('Wallet - DEX - Your Pool Pairs', () => {
+context('Wallet - DEX - Your Pool Pairs', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
