@@ -24,10 +24,9 @@ exports[`version tag should render 1`] = `
           "fontSize": 14,
           "fontWeight": "500",
           "lineHeight": 20,
-          "marginTop": 4,
           "paddingBottom": 2,
-          "paddingLeft": 6,
-          "paddingRight": 6,
+          "paddingLeft": 8,
+          "paddingRight": 8,
           "paddingTop": 2,
         },
         Object {
