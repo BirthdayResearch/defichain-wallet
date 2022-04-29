@@ -1362,5 +1362,8 @@
     "PRICES": "價格",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值"
+  },
+  "components/VersionTag": {
+    "Version {{number}}": "版本 {{number}}"
   }
 }

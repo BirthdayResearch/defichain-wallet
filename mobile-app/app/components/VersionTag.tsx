@@ -8,10 +8,10 @@ export function VersionTag (): JSX.Element {
     <ThemedText
       dark={tailwind('text-gray-400 border-gray-700')}
       light={tailwind('text-gray-500 border-gray-200')}
-      style={tailwind('text-sm font-medium border rounded py-0.5 px-1.5')}
+      style={tailwind('text-sm font-medium border rounded py-0.5 px-2')}
       testID='version_tag'
     >
-      {translate('components/VersionText', 'Version {{number}}', { number: nativeApplicationVersion ?? '0.0.0' })}
+      {translate('components/VersionTag', 'Version {{number}}', { number: nativeApplicationVersion ?? '0.0.0' })}
     </ThemedText>
   )
 }
