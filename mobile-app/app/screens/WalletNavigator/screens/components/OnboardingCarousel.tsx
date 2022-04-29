@@ -9,7 +9,7 @@ import { ThemedText } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { nativeApplicationVersion } from 'expo-application'
+import { VersionText } from '@components/VersionText'
 
 interface CarouselImage {
   image: ImageSourcePropType
@@ -64,13 +64,7 @@ export function InitialSlide (): JSX.Element {
         {translate('screens/OnboardingCarousel', 'Native DeFi for Bitcoin')}
       </ThemedText>
 
-      <ThemedText
-        dark={tailwind('text-gray-400 border-gray-400')}
-        light={tailwind('text-gray-500 border-gray-500')}
-        style={tailwind('text-sm font-medium mt-1 border rounded py-0.5 px-1.5')}
-      >
-        {`Version ${nativeApplicationVersion ?? '0.0.0'}`}
-      </ThemedText>
+      <VersionText />
     </View>
   )
 }
