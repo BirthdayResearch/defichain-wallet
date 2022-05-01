@@ -10,12 +10,19 @@ interface TokenIconGroupProps {
   symbols: string[]
   maxIconToDisplay: number
   testID?: string
+  /**
+   * Flag to "push" token container rightwards, used when no spacing is allowed at the right of TokenIconGroup
+   *
+   * In which the spacing is created by the relative position of each icon to display overlap effect
+   */
+  offsetContainer?: boolean
 }
 
 export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
   const additionalIcon = BigNumber.max(props.symbols?.length - props.maxIconToDisplay, 0)
+  const offsetRight = props.offsetContainer === true ? ((props.symbols.length - 1) * -5) - 1 : 0 // offset spacing created by relative position of each symbol
   return (
-    <View style={tailwind('flex flex-row')}>
+    <View style={[tailwind('flex flex-row relative'), { right: offsetRight }]}>
       {
         props.symbols?.map((symbol, index): JSX.Element | null => {
           if (index < props.maxIconToDisplay) {

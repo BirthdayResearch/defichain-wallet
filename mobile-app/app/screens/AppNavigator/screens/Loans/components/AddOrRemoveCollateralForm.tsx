@@ -285,6 +285,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
                 testID='required_collateral_token_group'
                 symbols={requiredVaultShareTokens}
                 maxIconToDisplay={2}
+                offsetContainer
               />
               <NumberFormat
                 value={requiredTokensShare.toFixed(2)}
