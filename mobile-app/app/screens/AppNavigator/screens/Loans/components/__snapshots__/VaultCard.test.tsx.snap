@@ -366,10 +366,16 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -1398,10 +1404,16 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -2458,10 +2470,16 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -3440,10 +3458,16 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
