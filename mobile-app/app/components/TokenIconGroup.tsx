@@ -20,9 +20,9 @@ interface TokenIconGroupProps {
 
 export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
   const additionalIcon = BigNumber.max(props.symbols?.length - props.maxIconToDisplay, 0)
-  const offsetRight = props.offsetContainer === true ? ((props.symbols.length - 1) * -5) - 1 : 0 // offset spacing created by relative position of each symbol
+  const rightOffset = props.offsetContainer === true ? ((props.symbols.length - 1) * -5) - 1 : 0
   return (
-    <View style={[tailwind('flex flex-row relative'), { right: offsetRight }]}>
+    <View style={[tailwind('flex flex-row relative'), { right: rightOffset }]}>
       {
         props.symbols?.map((symbol, index): JSX.Element | null => {
           if (index < props.maxIconToDisplay) {
