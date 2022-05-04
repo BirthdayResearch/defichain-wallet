@@ -253,7 +253,7 @@
     "ADDITIONAL OPTIONS": "OTRAS OPCIONES",
     "SECURITY": "SEGURIDAD",
     "Privacy Lock": "Bloqueo de privacidad",
-    "Auto-locks wallet if there is no activity for 1 min.": "Se bloqueo automáticamente la billetera si no hay actividad por más de 1 min.",
+    "Auto-locks wallet if there is no activity for 1 min.": "Bloquear automáticamente la billetera si no hay actividad después de 1 min.",
     "Secure with {{option}}": "Asegurar con {{option}}",
     "Face ID": "Identificador facial",
     "Touch ID": "Identificador táctil",
