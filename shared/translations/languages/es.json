@@ -94,7 +94,7 @@
     "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",
     "RECEIVE": "RECIBIDO",
     "VIEW ON SCAN": "VERLO EN EL ESCANER",
-    "EDIT": "EDITA",
+    "EDIT": "EDITAR",
     "CANCEL": "CANCELA"
   },
   "screens/AddressBookScreen": {
