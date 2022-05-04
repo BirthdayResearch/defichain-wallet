@@ -182,7 +182,7 @@
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Escanear código QR del receptor",
     "Balance": "Saldo",
-    "CONVERT {{symbol}}": "{{symbol}} CONVERTIR",
+    "CONVERT {{symbol}}": "CONVERTIR {{symbol}}",
     "TO {{symbol}}": "EN {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una pequeña cantidad (0.1 DFI (UTXO)) se reserva para comisiones.",
     "How much {{symbol}} to convert?": "¿Cúantos {{symbol}} deseas convertir?",
