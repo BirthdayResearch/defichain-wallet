@@ -256,7 +256,7 @@
     "Auto-locks wallet if there is no activity for 1 min.": "Bloquear automáticamente la billetera si no hay actividad después de 1 min.",
     "Secure with {{option}}": "Proteger con {{option}}",
     "Face ID": "Identificador facial",
-    "Touch ID": "Identificador táctil",
+    "Touch ID": "Huella",
     "device's lock": "Dispositivo bloqueado",
     "biometric": "biométrico",
     "Enter passcode to continue": "Introducir contraseña para continuar",
