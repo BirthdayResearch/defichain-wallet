@@ -1179,7 +1179,7 @@
     "Resulting collateralization": "Colateralización resultante",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} resultante",
-    "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
+    "Insufficient {{token}} to pay for the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
     "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Un 1% de tasas se aplicarán cuando pagues con {{tokenSymbol}}.",
     "Read more": "Lee más",
     "How do you want to pay?": "¿Cómo te gustaría pagar?",
