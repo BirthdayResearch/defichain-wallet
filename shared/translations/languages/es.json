@@ -202,7 +202,7 @@
     "CONVERT": "CONVERTIR",
     "CONVERTING": "CONVIRTIENDO",
     "Converting DFI": "Convirtiendo DFIs",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Convirtiendo {{amount}} {{symbolA}} en {{symbolB}} ",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Convirtiendo {{amount}} {{symbolA}} a {{symbolB}} ",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Transaction type": "Tipo de transacción",
     "Convert": "Convertir",
