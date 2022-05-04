@@ -1377,5 +1377,8 @@
     "PRICES": "PREZZI",
     "{{tokenA}} price in {{tokenB}}": "Prezzo {{tokenA}} in {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "Prezzo {{tokenB}} in {{tokenA}}"
+  },
+  "components/VersionTag": {
+    "Version {{number}}": "Versione {{number}}"
   }
 }
