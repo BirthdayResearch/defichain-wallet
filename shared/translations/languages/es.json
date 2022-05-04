@@ -112,7 +112,7 @@
     "Address {{index}}": "Dirección {{index}}",
     "Add new address": "Añade nueva dirección",
     "ADDRESS": "DIRECCIÓN",
-    "SAVE CHANGES": "GUARDA LOS CAMBIOS",
+    "SAVE CHANGES": "GUARDAR CAMBIOS",
     "Address label is too long (max 30 characters)": "El nombre de la dirección es muy largo (máx. 30 caracteres)"
   },
   "screens/AddOrEditAddressBookScreen": {
