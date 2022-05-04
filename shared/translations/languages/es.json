@@ -28,7 +28,7 @@
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Selecciona una de los pares del pool, aporta liquidez en el Exchange descentralizado (DEX) y empieza a ganar comisiones con una rentabilidad de hasta el 140%. Puedes eliminar liquidez en cualquier momento.",
     "Pooled {{symbol}}": "{{symbol}} en piscina de liquidez",
     "Total pooled {{symbol}}": "Total {{symbol}} en piscina de liquidez",
-    "Your pooled {{symbol}}": "Tus {{symbol}} en piscina de liquidez",
+    "Your pooled {{symbol}}": "Tus {{symbol}} en la pool de liquidez",
     "SWAP TOKENS": "INTERCAMBIA TOKENS",
     "REMOVE": "ELIMINAR",
     "APR": "APR",
