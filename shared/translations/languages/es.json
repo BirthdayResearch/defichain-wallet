@@ -56,7 +56,7 @@
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instrucciones",
-    "CONTINUE": "Siguiente",
+    "CONTINUE": "CONTINUAR",
     "Decentralized Exchange": "Exchange descentralizado",
     "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Participa añadiendo liquidez para apoyar al Exchange descentralizado (DEX). Utiliza tus tokens para ganar comisiones (hasta un 140%)",
     "Add liquidity": "Añadir liquidez",
@@ -119,9 +119,9 @@
     "ADDRESS LABEL": "NOMBRE DE LA DIRECCION",
     "Address {{index}}": "Dirección {{index}}",
     "Add new address": "Añade nueva dirección",
-    "ADDRESS": "Dirección",
-    "SAVE CHANGES": "GUARDA LOS CAMBIOS",
-    "Address label is too long (max 30 characters)": "El nombre de la dirección es muy largo (máx. 30 caracteres)"
+    "ADDRESS": "DIRECCIÓN",
+    "SAVE CHANGES": "GUARDAR CAMBIOS",
+    "Address label is too long (max 30 characters)": "El nombre de la dirección es demasiado largo (máx. 30 caracteres)"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Edita el nombre de la dirección",
@@ -131,7 +131,7 @@
     "Add New Address": "Añade Nueva dirección",
     "Address": "Dirección",
     "SAVE CHANGES": "GUARDA LOS CAMBIOS",
-    "Address label is too long (max 30 characters)": "El nombre de la dirección es muy largo (máx. 30 caracteres)",
+    "Address label is too long (max 30 characters)": "El nombre de la dirección es demasiado largo (máx. 30 caracteres)",
     "Enter address label": "Añade un nombre a la dirección",
     "Enter address": "Añade la dirección",
     "This address already exists in your address book, please enter a different address": "Esta dirección ya existe en tu libro de direcciones, por favor añade una dirección diferente",
@@ -198,8 +198,8 @@
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Escanear código QR del receptor",
     "Balance": "Saldo",
-    "CONVERT {{symbol}}": "{{symbol}} CONVERTIR",
-    "TO {{symbol}}": "EN {{symbol}}",
+    "CONVERT {{symbol}}": "CONVERTIR {{symbol}}",
+    "TO {{symbol}}": "A {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una pequeña cantidad (0.1 DFI (UTXO)) se reserva para comisiones.",
     "How much {{symbol}} to convert?": "¿Cúantos {{symbol}} deseas convertir?",
     "Enter an amount": "Introduce una cantidad",
@@ -212,13 +212,13 @@
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Confirme la conversión de DFIs",
-    "You are converting": "Estas convirtiendo",
-    "AFTER CONVERSION, YOU WILL HAVE": "TRAS LA CONVERSIÓN, RECIBIRAS",
+    "You are converting": "Estás convirtiendo",
+    "AFTER CONVERSION, YOU WILL HAVE": "TRAS LA CONVERSIÓN, RECIBIRÁS",
     "Estimated fee": "Conmisión estimada",
     "CONVERT": "CONVERTIR",
     "CONVERTING": "CONVIRTIENDO",
     "Converting DFI": "Convirtiendo DFIs",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Convirtiendo {{amount}} {{symbolA}} en {{symbolB}} ",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Convirtiendo {{amount}} {{symbolA}} a {{symbolB}} ",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
     "Transaction type": "Tipo de transacción",
     "Convert": "Convertir",
@@ -306,22 +306,22 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Préstamos",
     "Auctions": "Subastas",
-    "Liquidity Mining": "Minería de Liquidez (piscinas de liquidez)"
+    "Liquidity Mining": "Minería de Liquidez (pool de liquidez)"
   },
   "components/LoansFaq": {
     "Loans FAQ": "Preguntas frecuentes sobre Préstamos",
     "Decentralized Loans": "Préstamos descentralizados",
     "FREQUENTLY ASKED QUESTIONS": "Preguntas frecuentes",
-    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "El préstamo descentralizado te permite pedir prestado tokens descentralizados usando tus activos crypto como colateral. Para empezar, primero debes crear una bóveda y depositar tus tokens como collateral para poder pedir el préstamo.",
+    "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "El préstamo descentralizado te permite pedir prestados tokens descentralizados usando tus activos crypto como colateral. Para empezar, primero debes crear una bóveda y depositar tus tokens como colateral para poder pedir el préstamo.",
     "How is the collateralization ratio calculated?": "¿Cómo se calcula el ratio de colateralización?",
-    "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "El ratio de colateralización se calcula considerando el valor total del activo colateral en una bóveda, dividido por la cantidad del valor del préstamo considerado, más el interés total, espresado en porcentaje.",
+    "The collateralization ratio is calculated by taking the total collateral value deposited in a vault; divided by the amount of loan taken plus total interest, expressed in percentage.": "El ratio de colateralización se calcula considerando el valor total del colateral en una bóveda, dividido por la cantidad del valor del préstamo, más el interés total, expresado en porcentaje.",
     "What is the collateralization ratio used for?": "¿Para qué se usa el ratio de colateralización?",
-    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "El ratio de colateralización determina el estado de la bóveda. Un ratio por debajo del mínimo de colateralización implica la liquidación, a través de la cual, los colaterales de la bóveda se pondrán a disposición a través de una subasta.",
+    "The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collaterals will be sent for auction.": "El ratio de colateralización determina el estado de la bóveda. Un ratio por debajo del mínimo de colateralización implica la liquidación, a través de la cual, los colaterales de la bóveda se pondrán a subasta.",
     "Indicators have been included to help visualise the health of your vault, where:": "Los indicadores has sido incluidos para ayudar a visualizar la salud de tu bóveda, dónde:",
     "Red: 1x – 1.25x above the minimum collateralization ratio": "Rojo: 1x - 1,25x por encima del ratio mínimo de colateralización",
     "Yellow: 1.25x – 1.5x the minimum collateralization ratio": "Amarillo: 1,25x - 1,5x por encima del ratio mínimo de colateralización",
     "Green: More than 1.5x the minimum collateralization ratio": "por encima del ratio mínimo de colateralización",
-    "What do the different statuses of a vault mean?": "¿Qué significas los distintos estados de la bóveda?",
+    "What do the different statuses of a vault mean?": "¿Qué significan los distintos estados de la bóveda?",
     "Empty: When a vault has been created but no collateral has been deposited yet.": "Vacío: Cuando una bóveda se ha creado, pero aún no se ha depositado ningún colateral.",
     "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "Preparada: Cuando el colateral se ha depositado en tu bóveda, pero el préstamo aún no ha sido ejecutado.",
     "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "Activo (Rojo): Cuando el ratio de colateralización de una bóveda está entre 1x - 1.25x del ratio mínimo de colateralización.",
@@ -384,7 +384,7 @@
     "Send to other wallet": "Enviar a otra billetera",
     "Receive {{token}}": "Recibir {{token}}",
     "Convert to {{symbol}}": "Convertir a {{symbol}}",
-    "Add to liquidity pool": "Añadir a la piscina de liquidez",
+    "Add to liquidity pool": "Añadir a la pool de liquidez",
     "Remove liquidity": "Eliminar liquidez",
     "Swap token": "Intercambia de token"
   },
@@ -398,9 +398,9 @@
     "Receiving DFI from other wallets": "Recibir DFI de otras billeteras",
     "Transaction fees": "Tasas de transacción",
     "DFI in token form": "DFI en forma de token.",
-    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI en forma de token se utilizan para fondos de liquidez, préstamos, subastas e intercambios.",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI en forma de token se utilizan para pools de liquidez, préstamos, subastas e intercambios.",
     "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Intercambiar DFI con otros tokens (ex. dBTC, dETH, dUSDT)",
-    "Liquidity pools": "Fondos de liquidez",
+    "Liquidity pools": "Pools de liquidez",
     "Auctions and Loans": "Subastas y préstamos"
   },
   "screens/Onboarding": {
@@ -478,7 +478,7 @@
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Descarta los cambios",
-    "You have unsaved changes. Are you sure to discard them and leave the screen?": "Tu has hecho cambios que no se han guardado. ¿Estás seguro de que quieres descartarlos y dejar la pantalla actual?",
+    "You have unsaved changes. Are you sure to discard them and leave the screen?": "Hay cambios que no se han guardado. ¿Estás seguro de que quieres descartarlos y dejar la pantalla actual?",
     "Error": "Se ha producido un error",
     "The recovery words you have entered are invalid. Please double check and try again.": "Las palabras de recuperación que has escrito son inválidas. Por favor, vuelve a comprobarlas e inténtalo de nuevo.",
     "Please provide your 24 recovery words to regain access to your wallet.": "Por favor, provee tus 24 palabras para recuperar el acceso a tu billetera.",
@@ -496,7 +496,7 @@
   "screens/ConnectionBoundary": {
     "Connection problem": "Problema de conexión",
     "There seems to be a problem with the connection. Check your network and try again.": "Parece que hay un problema con la conexión. Comprueba tu red e inténtalo de nuevo.",
-    "TRY AGAIN": "VOLVER A INTENTAR"
+    "TRY AGAIN": "INTENTAR DE NUEVO"
   },
   "screens/FeatureFlagScreen": {
     "Loans": "Préstamos",
@@ -508,11 +508,11 @@
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Esta función está aún en pruebas, por lo que su uso te expone a ciertos riesgos. ¿Quieres continuar?",
     "Beta Features": "Herramienta en desarrollo",
     "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Los servicios en prueba de la billetera precisan de desarrollo antes de su salida oficial.",
-    "Feature is still in Beta. Use at your own risk.": "Estas características están aún en prueba. Usalas a tu propio riesgo."
+    "Feature is still in Beta. Use at your own risk.": "Estas características están aún en prueba. Úsalas a tu propio riesgo."
   },
   "BottomTabNavigator": {
     "Balances": "Saldos",
-    "Portfolio": "Portfalio",
+    "Portfolio": "Portafolio",
     "Liquidity": "Liquidez",
     "Transactions": "Transacciones",
     "Settings": "Ajustes",
@@ -552,7 +552,7 @@
   "screens/AddLiquidity": {
     "Balance": "Saldos",
     "per": "por",
-    "Share of pool": "Participaciones en la pool",
+    "Share of pool": "Porcentaje de la piscina",
     "Pooled": "Cantidad en la piscina",
     "Price": "Precio",
     "Review full transaction details in the next screen": "Revisa todos los detalles de la transferencia en la siguiente pantalla",
@@ -582,7 +582,7 @@
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Añadiendo {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}",
     "PRICE DETAILS": "DETALLES DEL PRECIO",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} precio por {{tokenB}}",
-    "Your pooled {{symbol}}": "Tus {{symbol}} en la piscina",
+    "Your pooled {{symbol}}": "Tus {{symbol}} en la pool",
     "Transaction type": "Tipo de transacción",
     "Add liquidity": "Añadir liquidez",
     "Convert & add liquidity": "Convertir y Añadir Liquidez",
@@ -630,7 +630,7 @@
     "Last synced": "Sincronizado por última vez",
     "Block height": "Tamaño del bloque",
     "Total Masternodes": "Número total de Masternodos",
-    "YOU ARE CURRENTLY CONNECTED TO": "TU ESTAS CONECTADO ACTUALMENTE A",
+    "YOU ARE CURRENTLY CONNECTED TO": "ESTÁS CONECTADO ACTUALMENTE A",
     "NETWORK DETAILS": "DETALLES DE LA RED"
   },
   "components/slider": {
@@ -661,18 +661,18 @@
     "Estimated to receive": "Estimación a recibir",
     "Balance: ": "Saldos: ",
     "Review full transaction details in the next screen": "Revisa los detalles completos de la transacción en la siguiente pantalla",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Estimated fee": "Commisión estimada",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} precio por {{tokenB}}",
     "UTXO to be converted": "UTXO a convertir",
     "Authorize transaction in the next screen to convert": "Autoriza la transacción en la siguiente pantalla",
-    "You will receive": "Tu recibirás"
+    "You will receive": "Recibirás"
   },
   "screens/CompositeSwapScreen": {
     "Swap tokens": "Intercambia tokens",
     "Select tokens you want to swap to get started": "Selecciona los tokens que quieres intercambiar para empezar",
     "How much {{token}} do you want to swap?": "¿Cúantos {{token}} quieres intercambiar?",
-    "You have": "Tu tienes",
+    "You have": "Tienes",
     "Estimated to receive": "Estimación a recibir",
     "PRICES": "PRECIOS",
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}} precio en {{tokenB}}",
@@ -712,7 +712,7 @@
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Tu estás intercambiando",
     "ESTIMATED BALANCE AFTER SWAP": "SALDO ESTIMADO DESPÚES DEL INTERCAMBIO",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Estimated fee": "Comisión estimada",
     "SWAP": "CAMBIAR",
@@ -726,8 +726,7 @@
     "Swap": "Cambiar",
     "Convert & swap": "Convierte e Intercambia",
     "Max Price per {{fromToken}}": "Precio máximo por {{fromToken}}",
-    "PRICE DETAILS": "DETALLES DEL PRECIO",
-    "Slippage tolerance": "Tolerancia a la fluctuación"
+    "PRICE DETAILS": "DETALLES DEL PRECIO"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Introduce contraseña",
@@ -827,14 +826,14 @@
     "Conversion required": "Conversión requerida"
   },
   "components/ConversionBreakdown": {
-    "CONVERSION DETAILS": "DETALLES DE LA CONVERSION",
+    "CONVERSION DETAILS": "DETALLES DE LA CONVERSIÓN",
     "Conversion type": "Tipo de conversión",
     "Amount to convert": "Cantidad a convertir",
     "Resulting {{token}}": "Resultando {{token}}",
     "Amount above are prior to transaction": "La cantidad mostrada con prioridad a la transacción"
   },
   "components/TransactionResultsRow": {
-    "TRANSACTION RESULTS": "RESULTADOS DE LA TRANSACCION",
+    "TRANSACTION RESULTS": "RESULTADOS DE LA TRANSACCIÓN",
     "Resulting {{symbol}}": "Resultando {{symbol}}"
   },
   "screens/LoansScreen": {
@@ -864,7 +863,7 @@
     "Auctions": "Subastas",
     "Loans": "Préstamos",
     "Browse auctions": "Busca subastas",
-    "Manage bids": "Gestiona ofertas",
+    "Manage bids": "Gestionar ofertas",
     "Collateral for auction": "Colateral para la subasta",
     "Vault details": "Detalles de la bóveda",
     "Bid history": "Historial de ofertas",
@@ -902,7 +901,7 @@
   "components/AuctionDetailScreen": {
     "Collateral": "Colaterales",
     "Min. next bid": "Mínimo para la siguiente oferta",
-    "VAULT DETAILS": "DETALLES DE LA BOVEDA",
+    "VAULT DETAILS": "DETALLES DE LA BÓVEDA",
     "Vault ID": "Identificador de la bóveda",
     "Owner ID": "Identificador del propietario",
     "Liquidation height": "Límite para la liquidación",
@@ -942,7 +941,7 @@
     "Lost to another bid": "Perdida contra otra oferta",
     "Lost": "Perdida",
     "Highest bid": "Oferta más alta",
-    "Auction ended": "Se acabo la subasta"
+    "Auction ended": "Subasta finalizada"
   },
   "components/BidHistory": {
     "Bidder ID": "Identificador del ofertante",
@@ -991,7 +990,7 @@
   "components/EmptyVault": {
     "No vault created": "Ninguna bóveda ha sido creada",
     "To get started, create a vault and add DFI and other tokens as collateral": "Para empezar, crea una bóveda y añade DFI y otros tokens como colaterales",
-    "CREATE VAULT": "CREA BOVEDA"
+    "CREATE VAULT": "CREA BÓVEDA"
   },
   "screens/CreateVaultScreen": {
     "Choose loan scheme for your vault": "Elige un tipo de préstamo para tu bóveda",
@@ -1001,22 +1000,22 @@
     "Interest rate": "Tasa de interés",
     "APR": "Tasa de interés anual",
     "CONTINUE": "CONTINUA",
-    "Confirm your vault details in next screen": "Confirmalos detalles de tu bóveda en la siguiente pantalla",
+    "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "El tipo de préstamo de tu bóveda determina el ratio de colateralización para pedir un préstamo.",
     "Min. collateralization ratio": "Mínimo ratio de colateralización"
   },
   "screens/ConfirmCreateVaultScreen": {
-    "You are creating vault": "Tu estás creando una bóveda",
+    "You are creating vault": "Estás creando una bóveda",
     "ID will generate once vault has been created": "El identificador se generará una vez la bóveda haya sido creada",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
     "Transaction type": "Tipo de transacción",
     "Create vault": "Crea una bóveda",
     "Total transaction cost": "Coste total de la transacción",
-    "VAULT DETAILS": "DETALLES DE LA BOVEDA",
+    "VAULT DETAILS": "DETALLES DE LA BÓVEDA",
     "Min. collateralization ratio": "Mínimo ratio de colateralización",
     "Interest rate (APR)": "Tasa de interés anual",
     "APR": "Tasa de interés anual",
-    "CONFIRM CREATE VAULT": "CONFIRMA LA CREACION DE UNA BOVEDA",
+    "CONFIRM CREATE VAULT": "CONFIRMA LA CREACIÓN DE UNA BOVEDA",
     "Creating vault": "Creando bóveda",
     "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Creando bóveda con el ratio mínimo de colateralización de {{amount}}% y la tasa de interés de {{ir}}% de tasa de interés anual",
     "Convert & create vault": "Convierte y crea tu bóveda",
@@ -1044,7 +1043,7 @@
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
     "Your vault is locked for liquidation.": "Tu bóveda está bloqueada para ser liquidada.",
-    "Your vault is at risk of liquidation. Prevent liquidity by adding more collateral or paying back loans.": "Tu bóveda está en peligro de ser liquidada. Evita la liquidación añadiendo mas colateral o pagando los préstamos.",
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collateral or paying back loans.": "Tu bóveda está en riesgo de liquidación. Impide la liquidación añadiendo más colaterales o pagando el préstamo.",
     "Collateral required to use this vault.": "Se requiere un colateral para usar esta bóveda.",
     "Total collateral (USD)": "Colateral total (USD)",
     "Total loans (USD)": "Préstamos total (USD)",
@@ -1056,13 +1055,13 @@
     "TAKE COLLATERAL": "TOMAR COLATERAL",
     "EDIT SCHEME": "EDITA EL TIPO",
     "EDIT COLLATERAL": "EDITA LOS COLATERALES",
-    "EDIT LOAN SCHEME": "EDITA EL TIPO DE PRESTAMO",
+    "EDIT LOAN SCHEME": "EDITA EL TIPO DE PRÉSTAMO",
     "CLOSE VAULT": "CIERRA LA BOVEDA"
   },
   "components/EmptyActiveLoans": {
     "No active loans": "No hay préstamos activos",
     "Browse for available loan tokens and start using this vault as collateral.": "Busca tokens disponibles para el préstamo y empieza a usar esta bóveda como colateral.",
-    "BROWSE LOAN TOKENS": "BUSCA TOKENS PARA EL PRESTAMO"
+    "BROWSE LOAN TOKENS": "BUSCA TOKENS PARA EL PRÉSTAMO"
   },
   "components/VaultDetailsLoansTab": {
     "Outstanding balance": "Saldo pendiente",
@@ -1140,8 +1139,8 @@
     "Vault %": "% en la bóveda"
   },
   "screens/ConfirmEditCollateralScreen": {
-    "You are adding collateral to": "Tu estás añadiendo colateral a",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "You are adding collateral to": "Estás añadiendo colateral a",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Transaction type": "Tipo de transacción",
     "Add collateral": "Añade colateral",
     "Collateral tokens to add": "Tokens colaterales a añadir",
@@ -1152,7 +1151,7 @@
     "Collateralization factor": "Factor de colateralización",
     "Collateral amount (USD)": "Cantidad del colateral (USD)",
     "Collateral value (USD)": "Valor del colateral (USD)",
-    "CONFIRM ADD COLLATERAL": "CONFIRMA LA ADICION DEL COLATERAL",
+    "CONFIRM ADD COLLATERAL": "CONFIRMA LA ADICIÓN DEL COLATERAL",
     "ADDING": "AÑADIENDO",
     "You are removing collateral from": "Estás quitando el colateral de",
     "Convert & add collateral": "Convierte y añade colateral",
@@ -1169,7 +1168,7 @@
     "Available": "Disponible",
     "CONTINUE": "CONTINUA",
     "Review and confirm transaction in the next screen": "Revisa y confirma la transacción en la siguiente pantalla",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Amount to pay": "Cantidad a pagar",
     "Remaining loan amount": "Cantidad de préstamo pendiente",
     "Outstanding balance": "Saldo pendiente",
@@ -1180,11 +1179,11 @@
     "Resulting collateralization": "Colateralización resultante",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} resultante",
-    "Insufficient {{token}} to pay for the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
+    "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
     "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Un 1% de tasas se aplicarán cuando pagues con {{tokenSymbol}}.",
     "Read more": "Lee más",
     "How do you want to pay?": "¿Cómo te gustaría pagar?",
-    "You are paying": "Tu estás pagando",
+    "You are paying": "Estás pagando",
     "of total loan": "del total del préstamo",
     "Loan amount": "Cantidad del préstamos",
     "Min. col. ratio": "Mínimo ratio de colateralización",
@@ -1197,8 +1196,8 @@
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMA EL PAGO",
     "PAYING": "PAGANDO",
-    "You are paying": "Tu estás pagando",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "You are paying": "Estás pagando",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Transaction type": "Tipo de la transacción",
     "Loan payment": "Pago del préstamo",
     "Amount to pay": "Cantidad a pagar",
@@ -1276,13 +1275,13 @@
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "EDITA EL TIPO DE PRESTAMO DE LA BOVEDA",
-    "Make sure your collateralization ratio is still above your min. collateralization ratio": "Asegúarate de que el ratio de colateralización está todavía por arriba del ratio mínimo de colateralización",
+    "Make sure your collateralization ratio is still above your min. collateralization ratio": "Asegúarate de que el ratio de colateralización está todavía por encima del ratio mínimo de colateralización",
     "CONTINUE": "CONTINUA",
     "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla"
   },
   "screens/ConfirmEditLoanSchemeScreen": {
-    "You are editing scheme of vault": "Tu estás editando el tipo de bóveda",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "You are editing scheme of vault": "Estás editando el tipo de bóveda",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Transaction type": "Tipo de la transacción",
     "Edit loan scheme": "Edita el tipo de préstamo",
     "Prev. minimum collateralization ratio": "Ratio mínimo de colateralización anterior",
@@ -1291,7 +1290,7 @@
     "New vault interest (APR)": "Nuevo interés de la bóveda (APR)",
     "CONFIRM EDIT": "CONFIRMA EL CAMBIO",
     "EDITING": "CAMBIANDO",
-    "CONVERTING": "CONVERTIENDO",
+    "CONVERTING": "CONVIRTIENDO",
     "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Actualizando la bóveda al mínimo ratio de colateralización de {{mincolRatio}}% y el ratio de interés de {{ir}}"
   },
   "components/LoanSchemeOptions": {
@@ -1321,12 +1320,12 @@
   },
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "Tu estás cerrando el identificador de tu bóveda",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Fees to return": "Comisiones a devolver",
     "Fees to burn": "Comisiones a quemar",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Al cerrar, el identificador de esta bóveda no estará disponible nunca más. Asegúrate de que no necesitas nada de esta bóveda antes de cerrarla.",
     "CONFIRM CLOSE VAULT": "CONFIRMA EL CIERRE DE LA BOVEDA",
-    "You are about to close vault {{vaultId}}": "Tu estás a punto de cerrar la bóveda {{vaultId}}",
+    "You are about to close vault {{vaultId}}": "Estás a punto de cerrar la bóveda {{vaultId}}",
     "CLOSING": "CERRANDO"
   },
   "components/TokenIconGroup": {
@@ -1334,7 +1333,7 @@
   },
   "screens/PlaceBidScreen": {
     "Enter an amount": "Introduce una cantidad",
-    "MIN. BID": "MINIMA OFERTA",
+    "MIN. BID": "OFERTA MÍNIMA",
     "Bid amount is lower than required": "La cantidad ofertada es inferior a la requerida",
     "Available": "Disponible",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
@@ -1350,7 +1349,7 @@
     "Collateral for auction": "Colateral para la subasta"
   },
   "screens/ConfirmPlaceBidScreen": {
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Transaction type": "Tipo de transacción",
     "Place bid": "Haz oferta",
     "Bid amount to place": "Cantidad ofertada",
