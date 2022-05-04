@@ -541,7 +541,7 @@
     "Available": "Disponible",
     "PRICE DETAILS": "DETALLE DEL PRECIO",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} precio por {{tokenB}}",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
     "Your pooled {{token}}": "Tus {{token}} en la piscina",
     "UTXO to be converted": "UTXO que se van a convertir",
     "Authorize transaction in the next screen to convert": "Autoriza la transacción en la siguiente pantalla para la conversión",
