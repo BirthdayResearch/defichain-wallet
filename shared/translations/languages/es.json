@@ -99,7 +99,7 @@
   },
   "screens/AddressBookScreen": {
     "Address book": "Libro de direcciones",
-    "ADD NEW ADDRESS": "AÑADE NUEVA DIRECCION",
+    "ADD NEW ADDRESS": "AÑADIR NUEVA DIRECCIÓN",
     "Please enter an address label": "Por favor nombra esta dirección",
     "Please enter a valid address": "Por favor añade una dirección válida",
     "Please enter a unique address": "Por favor añade una dirección única",
