@@ -24,7 +24,8 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => {
     return { navigate: jest.fn() }
-  }
+  },
+  useScrollToTop: jest.fn()
 }))
 
 jest.mock('@gorhom/bottom-sheet', () => ({
