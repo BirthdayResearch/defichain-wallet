@@ -95,7 +95,7 @@
     "RECEIVE": "RECIBIDO",
     "VIEW ON SCAN": "VERLO EN EL ESCANER",
     "EDIT": "EDITAR",
-    "CANCEL": "CANCELA"
+    "CANCEL": "CANCELAR"
   },
   "screens/AddressBookScreen": {
     "Address book": "Libro de direcciones",
