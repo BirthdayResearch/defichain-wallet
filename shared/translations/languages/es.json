@@ -513,7 +513,7 @@
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
-    "You have denied the permission request to use your camera": "Tu has denegado el acceso de uso a tu cámara"
+    "You have denied the permission request to use your camera": "Has denegado el acceso de uso a tu cámara"
   },
   "components/max": {
     "HALF": "MITAD",
