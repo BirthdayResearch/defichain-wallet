@@ -254,7 +254,7 @@
     "SECURITY": "SEGURIDAD",
     "Privacy Lock": "Bloqueo de privacidad",
     "Auto-locks wallet if there is no activity for 1 min.": "Bloquear automáticamente la billetera si no hay actividad después de 1 min.",
-    "Secure with {{option}}": "Asegurar con {{option}}",
+    "Secure with {{option}}": "Proteger con {{option}}",
     "Face ID": "Identificador facial",
     "Touch ID": "Identificador táctil",
     "device's lock": "Dispositivo bloqueado",
