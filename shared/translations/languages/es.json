@@ -173,7 +173,7 @@
     "Sending {{amount}} {{symbol}}": "Enviando {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
     "Convert & send": "Convertir y enviar",
-    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "Envía tokens de la piscina de liquidez únicamente a billeteras compatibles con DeFiChain. De lo contrario, el envío puede ocasionar la pérdida irreversible de los fondos. (excepto DFX)",
+    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "Envía tokens de la pool de liquidez únicamente a billeteras compatibles con DeFiChain. De lo contrario, el envío a otros exchanges (excepto DFX) puede ocasionar la pérdida irreversible de los fondos.",
     "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Yo reconozco que enviando tokens de liquidez que no son compatibles con billeteras DeFiChain puede resultar en una pérdida irreversible de los fondos.",
     "Transaction type": "Tipo de transacción",
     "Amount to send": "Cantidad a enviar"
