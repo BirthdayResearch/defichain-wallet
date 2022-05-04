@@ -521,7 +521,7 @@
   },
   "screens/common": {
     "CANCEL": "CANCELA",
-    "TRY AGAIN": "VUELVELO A INTENTAR"
+    "TRY AGAIN": "VOLVER A INTENTAR"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
