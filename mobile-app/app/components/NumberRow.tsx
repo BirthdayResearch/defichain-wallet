@@ -97,10 +97,11 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
         }
 
         {props.rhsUsdAmount !== undefined &&
-        <ActiveUSDValue
-          price={props.rhsUsdAmount}
-          containerStyle={tailwind('justify-end')}
-        />}
+          <ActiveUSDValue
+            price={props.rhsUsdAmount}
+            containerStyle={tailwind('justify-end')}
+            testId={`${props.rhs.testID}_rhsUsdAmount`}
+          />}
       </View>
     </ThemedView>
   )
