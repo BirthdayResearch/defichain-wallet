@@ -127,7 +127,7 @@
     "Enter address label": "Añade un nombre a la dirección",
     "Enter address": "Añadir dirección",
     "This address already exists in your address book, please enter a different address": "Esta dirección ya existe en tu libro de direcciones, por favor añade una dirección diferente",
-    "Edit address": "Edita la dirección"
+    "Edit address": "Editar dirección"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",
