@@ -161,6 +161,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
 
     const dstTokenSymbols = dstTokens.map(token => token.displaySymbol)
+    const lockedTokensArray: BalanceRowToken[] = []
     lockedTokens.forEach((_lockedBalance, displaySymbol) => {
       if (displaySymbol === 'DFI') {
         return
@@ -170,7 +171,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       if (!tokenExist) {
         const tokenData = allTokens[displaySymbol]
         if (tokenData !== undefined) {
-          dstTokens.push({
+          lockedTokensArray.push({
             id: tokenData.id,
             amount: '0',
             symbol: tokenData.symbol,
@@ -186,7 +187,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         }
       }
     })
-    return dstTokens
+    return [...dstTokens, ...lockedTokensArray]
   }, [dstTokens, allTokens, lockedTokens])
 
   // portfolio tab items
