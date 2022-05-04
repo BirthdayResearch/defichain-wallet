@@ -726,7 +726,8 @@
     "Swap": "Cambiar",
     "Convert & swap": "Convierte e Intercambia",
     "Max Price per {{fromToken}}": "Precio máximo por {{fromToken}}",
-    "PRICE DETAILS": "DETALLES DEL PRECIO"
+    "PRICE DETAILS": "DETALLES DEL PRECIO",
+    "Slippage tolerance": "Tolerancia a la fluctuación"
   },
   "screens/UnlockWallet": {
     "Enter Passcode": "Introduce contraseña",
