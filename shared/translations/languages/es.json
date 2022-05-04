@@ -551,7 +551,7 @@
   "screens/ConfirmAddLiq": {
     "You are adding": "Estás añadiendo",
     "AMOUNT TO SUPPLY": "CANTIDAD A AÑADIR",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
     "Price": "Precio",
     "Share of pool": "Participaciones en la pool",
     "Estimated fee": "Comisión estimada",
