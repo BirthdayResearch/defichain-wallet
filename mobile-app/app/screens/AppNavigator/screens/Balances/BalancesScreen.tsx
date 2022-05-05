@@ -1,3 +1,5 @@
+
+import { useScrollToTop } from '@react-navigation/native'
 import { ThemedScrollView } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -67,6 +69,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const { hasFetchedToken, allTokens } = useSelector((state: RootState) => (state.wallet))
+  const ref = useRef(null)
+  useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -126,9 +130,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableValue,
-          dstTokens
-        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
+        totalAvailableValue,
+        dstTokens
+      }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -149,9 +153,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-        totalAvailableValue: new BigNumber(0),
-        dstTokens: []
-      })
+      totalAvailableValue: new BigNumber(0),
+      dstTokens: []
+    })
   }, [prices, tokens])
 
   // add token that are 100% locked as collateral into dstTokens
@@ -240,7 +244,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -329,6 +333,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollView
+        ref={ref}
         light={tailwind('bg-gray-50')}
         contentContainerStyle={tailwind('pb-8')} testID='balances_list'
         refreshControl={
@@ -366,10 +371,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={filteredTokens}
               navigation={navigation}
               buttonGroupOptions={{
-                activeButtonGroup: activeButtonGroup,
-                setActiveButtonGroup: setActiveButtonGroup,
-                onButtonGroupPress: handleButtonFilter
-              }}
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
               denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'

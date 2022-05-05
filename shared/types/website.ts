@@ -6,6 +6,8 @@ export interface AnnouncementText {
   'zh-Hans': string
   'zh-Hant': string
   'fr'?: string
+  es: string
+  it: string
 }
 
 export interface AnnouncementData {

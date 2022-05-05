@@ -279,12 +279,13 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
             <ThemedText style={tailwind('mr-2 w-6/12')}>{translate('components/AddOrRemoveCollateralForm', 'Vault requirement')}</ThemedText>
 
             <ThemedView
-              style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+              style={tailwind('flex flex-row items-center mb-0 p-1 rounded-2xl')}
             >
               <TokenIconGroup
                 testID='required_collateral_token_group'
                 symbols={requiredVaultShareTokens}
                 maxIconToDisplay={2}
+                offsetContainer
               />
               <NumberFormat
                 value={requiredTokensShare.toFixed(2)}
