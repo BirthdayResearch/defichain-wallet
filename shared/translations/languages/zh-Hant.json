@@ -96,13 +96,16 @@
     "CANCEL": "取消"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Address book",
+    "Address Book": "地址簿",
     "ADD NEW ADDRESS": "ADD NEW ADDRESS",
-    "Please enter an address label": "Please enter an address label",
-    "Please enter a valid address": "Please enter a valid address",
-    "Please enter a unique address": "Please enter a unique address",
     "Empty address book": "空地址簿",
-    "Add your preferred address": "添加您的首選地址"
+    "Add your preferred address": "添加您的首選地址",
+    "No saved addresses": "沒有儲存地址",
+    "ADD ADDRESS": "添加地址",
+    "Add address": "添加地址",
+    "SAVED ADDRESS(ES)": "已儲存地址",
+    "Search for address": "搜索地址",
+    "{{length}} ADDRESS(ES)": "{{length}} 地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址標籤",
@@ -117,15 +120,20 @@
     "Edit address label": "更改地址標籤",
     "Address label": "地址標籤",
     "Address {{index}}": "地址 {{index}}",
-    "Add new address": "Add new address",
-    "Add New Address": "Add New Address",
+    "Add new address": "添加地址",
+    "Add New Address": "添加地址",
     "Address": "地址",
+    "Wallet address": "錢包地址",
     "SAVE CHANGES": "儲存修改",
-    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
-    "Enter address label": "Enter address label",
-    "Enter address": "Enter address",
-    "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
-    "Edit address": "Edit address"
+    "CONTINUE": "繼續",
+    "Address label is too long (max 40 characters)": "地址標籤太長（最多 40 個字符）",
+    "Enter address label": "輸入地址標籤",
+    "Enter address": "輸入地址",
+    "This address already exists in your address book, please enter a different address": "此地址已儲存在通訊錄中，請輸入其他地址",
+    "Edit Address": "編輯地址",
+    "Please enter an address label": "請輸入地址標籤",
+    "Please enter a valid address": "請輸入有效地址",
+    "Required field, max. 40 characters": "必須填寫欄，最多40個字符"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -153,7 +161,8 @@
     "Select token": "選擇代幣",
     "Select a token you want to send to get started": "若要開始，請先選您想發出的代幣",
     "Choose token to send": "選擇發出此代幣",
-    "TRANSACTION DETAILS": "交易明細"
+    "TRANSACTION DETAILS": "交易明細",
+    "*Registered address": "*已註冊地址"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
@@ -256,7 +265,9 @@
     "biometric": "生物辨識",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Sign to save address": "簽名儲存地址",
-    "Sign to delete address": "簽名移除地址"
+    "Sign to delete address": "簽名移除地址",
+    "Address Book": "地址簿",
+    "GENERAL": "一般"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -648,9 +659,6 @@
     "How much {{token}} do you want to swap?": "您要兌換多少 {{token}}？",
     "You have": "您現有",
     "Estimated to receive": "您大約會收到",
-    "PRICES": "價格",
-    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
-    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值",
     "CONTINUE": "繼續",
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換",
     "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
@@ -1349,5 +1357,13 @@
   },
   "components/Announcements": {
     "DETAILS": "了解詳情"
+  },
+  "components/PricesSection": {
+    "PRICES": "價格",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值"
+  },
+  "components/VersionTag": {
+    "Version {{number}}": "版本 {{number}}"
   }
 }

@@ -10,7 +10,9 @@ const majorOutageContent: AnnouncementData[] = [{
     de: 'Wir untersuchen derzeit eine unerwartete Unterbrechung des Dienstes.',
     'zh-Hans': '我们目前正在调查服务意外中断',
     'zh-Hant': '我們目前正在調查服務意外中斷',
-    fr: 'Nous enquêtons actuellement sur une interruption de service inattendue.'
+    fr: 'Nous enquêtons actuellement sur une interruption de service inattendue.',
+    es: 'Estamos investigando una interrupción inseperada del servicio.',
+    it: 'Stiamo indagando su un\'inaspettata interruzione del servizio.'
   },
   version: '0.0.0',
   url: {
@@ -32,7 +34,9 @@ const getUpcomingMaintenanceContent = (scheduledUntil: string, scheduledFor: str
       de: `Am ${scheduledForDate} wird es eine planmäßige Wartung geben. Die Dienste werden am ${scheduledUntilDate} wieder zur Verfügung stehen.`,
       'zh-Hans': `将在 ${scheduledForDate} 进行定期维护. 服务将在 ${scheduledUntilDate} 恢复`,
       'zh-Hant': `將在 ${scheduledForDate} 進行定期維護. 服務將在 ${scheduledUntilDate} 恢復`,
-      fr: `Il y aura une maintenance programmée le ${scheduledForDate}. Les services seront de nouveau disponibles le ${scheduledUntilDate}.`
+      fr: `Il y aura une maintenance programmée le ${scheduledForDate}. Les services seront de nouveau disponibles le ${scheduledUntilDate}.`,
+      es: `Habrá un corte por mantenimiento programado el ${scheduledForDate}. Los servicios volverán a estar activos el ${scheduledUntilDate}.`,
+      it: `Ci sarà una manutenzione programmata il ${scheduledForDate}. I servizi torneranno online il ${scheduledUntilDate}.`
     },
     version: '0.0.0',
     url: {
@@ -54,7 +58,9 @@ const getOngoingMaintenanceContent = (scheduledUntilDate: string, id: string): A
       de: `Eine planmäßige Wartung ist derzeit im Gange. Die Dienste werden am ${formattedDate} wieder zur Verfügung stehen.`,
       'zh-Hans': `目前正在进行已计画的维护。服务将在 ${formattedDate} 恢复`,
       'zh-Hant': `目前正在進行已計畫的維護。服務將在 ${formattedDate} 恢復`,
-      fr: `Une maintenance planifiée est actuellement en cours. Les services seront de retour le ${formattedDate}.`
+      fr: `Une maintenance planifiée est actuellement en cours. Les services seront de retour le ${formattedDate}.`,
+      es: `Hay un mantenimiento programado en curso. Los servicios volverán a activarse el ${formattedDate}.`,
+      it: `La manutenzione programmata è attualmente in corso. I servizi torneranno il ${formattedDate}`
     },
     version: '0.0.0',
     url: {
