@@ -15,8 +15,9 @@ export interface LockedBalance {
 
 /**
  *
- * @param symbol optional token displaySymbol
- * @returns Map of all token's locked balance or single object of displaySymbol passed
+ * @param denominationCurrency currency for the value of locked balance
+ * @param displaySymbol optional token displaySymbol
+ * @returns `Map` of all tokens' locked balance or single object if displaySymbol is passed
  */
 export function useTokenLockedBalance ({ displaySymbol, denominationCurrency }: { displaySymbol?: string, denominationCurrency: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
