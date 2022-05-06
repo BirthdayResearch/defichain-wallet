@@ -1026,7 +1026,7 @@ context('Wallet - Balances - portfolio', () => {
   beforeEach(function () {
     cy.intercept('**/poolpairs/dexprices?denomination=*', {
       body: getDexPrice({
-        dusd: '990.49720000',
+        dusd: '1.00000000',
         usdc: '1.00000000',
         eth: '10.00000000',
         btc: '10.00000000',
@@ -1099,8 +1099,26 @@ context('Wallet - Balances - portfolio', () => {
             }
           }
           ],
-          loanAmounts: [],
-          interestAmounts: []
+          loanAmounts: [
+            {
+              id: '12',
+              amount: '10.00001903',
+              symbol: 'DUSD',
+              symbolKey: 'DUSD',
+              name: 'Decentralized USD',
+              displaySymbol: 'DUSD'
+            }
+          ],
+          interestAmounts: [
+            {
+              id: '12',
+              amount: '0.00001903',
+              symbol: 'DUSD',
+              symbolKey: 'DUSD',
+              name: 'Decentralized USD',
+              displaySymbol: 'DUSD'
+            }
+          ]
         }]
       }
     }).as('getVaults')
