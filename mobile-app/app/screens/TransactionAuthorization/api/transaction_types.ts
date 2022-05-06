@@ -9,8 +9,8 @@ export const DEFAULT_MESSAGES = {
   message: 'Enter passcode to continue',
   loadingMessage: 'Signing your transaction...',
   authorizedTransactionMessage: {
-    title: 'Transaction authorized',
-    description: 'Please wait while your transaction is being prepared'
+    title: 'Transaction signed',
+    description: "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys."
   },
   grantedAccessMessage: {
     title: 'Access granted',
