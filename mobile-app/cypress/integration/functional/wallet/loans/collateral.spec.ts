@@ -99,13 +99,24 @@ function borrowLoan (symbol: string, amount: string): void {
 context('Wallet - Loans - Add/Remove Collateral', () => {
   let vaultId = ''
 
+  function validateCollateralInPortfolio (token: string, tokenId: string, totalAmount: string, lockedAmount: string, availableAmount: string, lockedPercentage: string, availablePercentage: string): void {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID(`balances_row_${tokenId}_symbol`).contains(token)
+    cy.getByTestID(`balances_row_${tokenId}_amount`).contains(totalAmount)
+    cy.getByTestID(`${token}_locked_percentage_text`).contains(lockedPercentage)
+    cy.getByTestID(`${token}_available_percentage_text`).contains(availablePercentage)
+    cy.getByTestID(`details_${token}`).click()
+    cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount)
+    cy.getByTestID(`${token}_available_amount`).contains(availableAmount)
+  }
+
   before(function () {
     // TODO remove intercept wile removing vault share functionality
     cy.intercept('**/settings/flags', {
       body: []
     })
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'DUSD']).wait(6000)
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH', 'DUSD']).wait(6000)
   })
 
   it('should create vault', function () {
@@ -128,6 +139,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
       const amounts: any = {
         DFI: 18,
         dBTC: 10,
+        dETH: 10,
         DUSD: 10
       }
       const data: any[] = intercept.response.body.data
@@ -160,27 +172,39 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     addCollateral('dBTC', '10', '10', '$500.00', '100', '33.33%', vaultId)
   })
 
+  it('should add dETH as collateral', function () {
+    cy.getByTestID('add_collateral_button').click()
+    addCollateral('dETH', '10', '10', '$100.00', '70', '4.38%', vaultId)
+  })
+
+  it('should display locked collateral token in portfolio even though it has no balance', function () {
+    validateCollateralInPortfolio('dBTC', '1', '10.00000000', '10.00000000', '0.00000000', '100.00%', '0.00%')
+    validateCollateralInPortfolio('dETH', '2', '10.00000000', '10.00000000', '0.00000000', '100.00%', '0.00%')
+  })
+
   it('should update vault details', function () {
-    checkCollateralDetailValues('READY', '$1,500.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
+    cy.getByTestID('bottom_tab_loans').click()
+    checkCollateralDetailValues('READY', '$1,570.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
   })
 
   it('should add DUSD as collateral', function () {
     cy.getByTestID('add_collateral_button').click()
-    addCollateral('DUSD', '10', '5.1357', '$5.14', '99', '0.34%', vaultId)
+    addCollateral('DUSD', '10', '5.1357', '$5.14', '99', '0.32%', vaultId)
   })
 
   it('should update collateral list', function () {
-    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '66.44%')
-    checkCollateralCardValues('dBTC', '10.00000000 dBTC', '$500.00', '33.22%')
-    checkCollateralCardValues('DUSD', '5.13570000 DUSD', '$5.14', '0.34%')
+    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '63.49%')
+    checkCollateralCardValues('dBTC', '10.00000000 dBTC', '$500.00', '31.74%')
+    checkCollateralCardValues('dETH', '10.00000000 dETH', '$100.00', '4.44%')
+    checkCollateralCardValues('DUSD', '5.13570000 DUSD', '$5.14', '0.32%')
   })
 
   it('should remove dBTC collateral', function () {
-    removeCollateral('dBTC', '10', '1', '$450.00', '100', '30.93%', vaultId)
+    removeCollateral('dBTC', '10', '1', '$450.00', '100', '29.51%', vaultId)
   })
 
   it('should remove DUSD collateral', function () {
-    removeCollateral('DUSD', '5.1357', '1.8642', '$3.27', '99', '0.22%', vaultId)
+    removeCollateral('DUSD', '5.1357', '1.8642', '$3.27', '99', '0.21%', vaultId)
   })
 
   it('vault % should be 0.00% when MAX amount of DUSD collateral is removed', function () {
@@ -188,8 +212,9 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should update collateral list', function () {
-    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '68.97%')
-    checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '31.03%')
+    checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '65.79%')
+    checkCollateralCardValues('dBTC', '9.00000000 dBTC', '$450.00', '29.61%')
+    checkCollateralCardValues('dETH', '10.00000000 dETH', '$100.00', '4.61%')
   })
 })
 
