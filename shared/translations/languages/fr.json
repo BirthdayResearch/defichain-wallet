@@ -725,9 +725,9 @@
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
     "Signing your transaction...": "Autorisation de votre transaction...",
-    "Transaction authorized": "Transaction autorisée",
-    "Please wait while your transaction is being prepared": "Merci de patienter pendant la préparation de votre transaction",
-    "Verifying access": "Vérification de l'accès"
+    "Verifying access": "Vérification de l'accès",
+    "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys.": "N'oubliez pas de conserver vos 24 mots de récupération de manière responsable. Votre portefeuille, vos clés privées.",
+    "Transaction signed": "Transaction signée"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "Restauration",

@@ -719,9 +719,9 @@
   "screens/TransactionAuthorization": {
     "Sign Transaction": "簽下交易",
     "Signing your transaction...": "正在簽下交易...",
-    "Transaction authorized": "已授權交易",
-    "Please wait while your transaction is being prepared": "請稍候，您的交易正在準備中",
-    "Verifying access": "驗證可使用的權限"
+    "Verifying access": "驗證可使用的權限",
+    "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys.": "請好好儲存您的 24 恢復字詞。 錢包和私鑰。",
+    "Transaction signed": "已簽名的交易"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢復",
