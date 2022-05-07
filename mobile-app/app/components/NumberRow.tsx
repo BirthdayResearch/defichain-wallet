@@ -4,6 +4,7 @@ import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
+import BigNumber from 'bignumber.js'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 export type SuffixType = 'text' | 'component'
