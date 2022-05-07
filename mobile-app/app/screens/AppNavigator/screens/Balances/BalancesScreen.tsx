@@ -68,7 +68,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const { hasFetchedToken, allTokens } = useSelector((state: RootState) => (state.wallet))
   const ref = useRef(null)
   useScrollToTop(ref)
 
@@ -158,6 +158,42 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     })
   }, [prices, tokens])
 
+  // add token that are 100% locked as collateral into dstTokens
+  const combinedTokens = useMemo(() => {
+    if (lockedTokens === undefined || lockedTokens.size === 0) {
+      return dstTokens
+    }
+
+    const dstTokenSymbols = dstTokens.map(token => token.displaySymbol)
+    const lockedTokensArray: BalanceRowToken[] = []
+    lockedTokens.forEach((_lockedBalance, displaySymbol) => {
+      if (displaySymbol === 'DFI') {
+        return
+      }
+
+      const tokenExist = dstTokenSymbols.includes(displaySymbol)
+      if (!tokenExist) {
+        const tokenData = allTokens[displaySymbol]
+        if (tokenData !== undefined) {
+          lockedTokensArray.push({
+            id: tokenData.id,
+            amount: '0',
+            symbol: tokenData.symbol,
+            displaySymbol: tokenData.displaySymbol,
+            symbolKey: tokenData.symbolKey,
+            name: tokenData.name,
+            isDAT: tokenData.isDAT,
+            isLPS: tokenData.isLPS,
+            isLoanToken: tokenData.isLoanToken,
+            avatarSymbol: tokenData.displaySymbol,
+            usdAmount: new BigNumber(0)
+          })
+        }
+      }
+    })
+    return [...dstTokens, ...lockedTokensArray]
+  }, [dstTokens, allTokens, lockedTokens])
+
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setDenominationCurrency(portfolioButtonGroupTabKey)
@@ -183,24 +219,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   ]
 
   // token tab items
-  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
+  const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
-    const filterTokens = dstTokens.filter((dstToken) => {
+    const filterTokens = combinedTokens.filter((token) => {
       switch (buttonGroupTabKey) {
         case ButtonGroupTabKey.LPTokens:
-          return dstToken.isLPS
+          return token.isLPS
         case ButtonGroupTabKey.Crypto:
-          return dstToken.isDAT && !dstToken.isLoanToken && !dstToken.isLPS
+          return token.isDAT && !token.isLoanToken && !token.isLPS
         case ButtonGroupTabKey.dTokens:
-          return dstToken.isLoanToken
+          return token.isLoanToken
         // for All token tab will return true for list of dstToken
         default:
           return true
       }
     })
     setFilteredTokens(filterTokens)
-  }, [dstTokens])
+  }, [combinedTokens])
 
   const totalLockedValue = useMemo(() => {
     if (lockedTokens === undefined) {
@@ -229,7 +265,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // to update filter list from selected token tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
-  }, [activeButtonGroup, dstTokens])
+  }, [activeButtonGroup, combinedTokens])
 
   useEffect(() => {
     setIsZeroBalance(
@@ -331,7 +367,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           )
           : (<BalanceCard
               isZeroBalance={isZeroBalance}
-              dstTokens={dstTokens}
+              dstTokens={combinedTokens}
               filteredTokens={filteredTokens}
               navigation={navigation}
               buttonGroupOptions={{
