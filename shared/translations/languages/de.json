@@ -315,7 +315,7 @@
     "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "Aktiv (Grün): Wenn die Besicherungsquote eines Vaults mehr als das 1,5-Fache der Mindestbesicherungsquote beträgt.",
     "In liquidation: When a vault's collateralization ratio falls below the minimum requirement.": "In Liquidation: Wenn die Besicherungsquote eines Vaults unter die Mindestanforderung fällt.",
     "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "Gestoppt: Wenn ein Token im Vault (Sicherheit oder Kredit) in der letzten Stunde um mehr als 30% geschwankt hat.",
-    "How are interests calculated for loan?": "Wie werden die Zinsen für das Darlehen berechnet?",
+    "How are interests calculated for loan?": "Wie werden die Zinsen für  Darlehen berechnet?",
     "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Es gibt zwei Arten von Zinssätzen, die für Darlehen gelten, nämlich den Vault-Zinssatz und den Token-Zinssatz.",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Der Vault-Zinssatz wird festgelegt, wenn der Vaultbesitzer das Darlehensmodell auswählt, wobei der Vault-Zinssatz umso niedriger ist, je höher die Mindestbesicherungsquote ist.",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
@@ -374,7 +374,7 @@
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Erfahre mehr über UTXOs und Token",
-    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen ineinander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Light Wallet zu erfüllen.",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen ineinander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Lightwallet zu erfüllen.",
     "DFI in UTXO form": "DFI in UTXO-Form",
     "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO-Form ist die primäre Form von DFI. Sie wird für die wichtigsten Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet.",
     "Use cases include:": "Zu den Anwendungsfällen gehören:",
@@ -988,7 +988,7 @@
     "APR": "Jahreszins",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Erstellen eines Vaults",
-    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einer Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einer Mindestbesicherungsquote von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
     "Convert & create vault": "Umwandeln und Vault erstellen",
     "CREATING": "ERSTELLEN"
   },
