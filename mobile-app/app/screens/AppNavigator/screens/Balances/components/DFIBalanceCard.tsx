@@ -100,7 +100,6 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
           <View style={tailwind('flex flex-row justify-center')}>
             <TouchableOpacity
               onPress={onBreakdownPress}
-              style={tailwind('ml-4')}
               testID='details_dfi'
             >
               <ThemedIcon
