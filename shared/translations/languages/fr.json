@@ -539,7 +539,7 @@
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Gardez vos mots de récupération sûrs et privés."
+    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés."
   },
   "screens/AddLiquidity": {
     "Balance": "Solde",

@@ -547,7 +547,7 @@
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Mantén las palabras de recuperación en un lugar seguro"
+    "Keep your recovery words safe and private.": "Mantén las palabras de recuperación en un lugar seguro."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldos",
