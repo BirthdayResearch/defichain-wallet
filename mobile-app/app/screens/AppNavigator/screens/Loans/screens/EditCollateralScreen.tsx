@@ -39,7 +39,7 @@ import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/Loa
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
@@ -99,7 +99,8 @@ export function EditCollateralScreen ({
       ...c,
       available: getTokenAmount(c.token.id)
     }
-  }).sort((a, b) => b.available.minus(a.available).toNumber()))
+  }).filter((collateralItem) => new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice)).gt(0))
+    .sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
@@ -225,7 +226,7 @@ export function EditCollateralScreen ({
                   onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
-                    onButtonPress: onAddCollateral
+                    onButtonPress: onAddCollateral as any
                   }
                 }),
                 option: {
@@ -381,7 +382,7 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         prefix='$'
-        value={getUSDPrecisedPrice(vault.collateralValue ?? 0)}
+        value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
       />
       <VaultSectionTextRow

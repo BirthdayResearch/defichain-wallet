@@ -210,7 +210,6 @@ exports[`DFI Balance Card should match snapshot 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexDirection": "row",
             }
           }
@@ -218,6 +217,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           <View
             style={
               Object {
+                "alignItems": "flex-end",
                 "display": "flex",
                 "lineHeight": 24,
               }

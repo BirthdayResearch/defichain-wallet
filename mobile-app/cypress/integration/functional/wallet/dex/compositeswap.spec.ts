@@ -214,6 +214,13 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     })
   })
 
+  it('should be able to see USD amount', function () {
+    cy.getByTestID('total_to_be_swapped').should('exist')
+    cy.getByTestID('total_to_be_swapped_rhsUsdAmount').should('exist')
+    cy.getByTestID('estimated_to_receive').should('exist')
+    cy.getByTestID('estimated_to_receive_rhsUsdAmount').should('exist')
+  })
+
   it('should be able to click half', function () {
     cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('text_input_tokenA').should('have.value', '9.95000000').wait(3000)
@@ -277,9 +284,9 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   it('should be able to swap tokens with 2 hops', function () {
     cy.getByTestID('composite_swap').click().wait(5000)
     cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dLTC').click().wait(100)
+    cy.getByTestID('select_dLTC').click().wait(1000)
     cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dUSDC').click().wait(100)
+    cy.getByTestID('select_dUSDC').click().wait(1000)
   })
 
   it('should be able to swap direct pair', function () {
