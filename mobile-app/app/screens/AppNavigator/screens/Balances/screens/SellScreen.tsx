@@ -36,7 +36,6 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
-import { InfoText } from '@components/InfoText'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
@@ -415,14 +414,6 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
           style={tailwind('-mr-1.5 flex-shrink-0')}
         />
       </ThemedTouchableOpacity>
-      {props.token?.isLPS === true &&
-        (
-          <InfoText
-            testID='lp_info_text'
-            text={translate('components/ConversionInfoText', 'Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, selling to other exchanges (except DFX) may result in irreversible loss of funds.')}
-            style={tailwind('mb-10')}
-          />
-        )}
     </View>
   )
 }

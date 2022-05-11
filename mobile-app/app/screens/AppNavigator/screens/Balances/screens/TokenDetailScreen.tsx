@@ -13,6 +13,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import {
+  CustomIcon,
   ThemedIcon,
   ThemedScrollView,
   ThemedSectionTitle,
@@ -30,7 +31,7 @@ import { useIsFocused } from '@react-navigation/native'
 
 interface TokenActionItems {
   title: string
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
+  icon: React.ComponentProps<typeof MaterialIcons>['name'] | typeof CustomIcon
   onPress: () => void
   testID: string
 }
@@ -137,6 +138,17 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       {
         token.id !== '0' && (
           <>
+            <TokenActionRow
+              icon='money' // {BtnSell}
+              onPress={() => navigation.navigate({
+                name: 'Sell',
+                params: { token },
+                merge: true
+              })}
+              testID='sell_button'
+              title={translate('screens/TokenDetailScreen', 'Sell')}
+            />
+
             <TokenActionRow
               icon='arrow-upward'
               onPress={() => navigation.navigate({
@@ -293,7 +305,7 @@ function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JS
     >
       <ThemedIcon
         dark={tailwind('text-dfxred-500')}
-        iconType='MaterialIcons'
+        iconType={(icon === CustomIcon) ? 'DfxIcon' : 'MaterialIcons'}
         light={tailwind('text-primary-500')}
         name={icon}
         size={24}

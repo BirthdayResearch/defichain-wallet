@@ -5,11 +5,15 @@ import { tailwind } from '@tailwind'
 
 import { ThemedProps } from './index'
 
-export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
+export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons' | 'DfxIcon'
 
 interface IThemedIcon {
   iconType: IconType
 }
+
+export class CustomIcon extends MaterialIcons {
+  icon: string | undefined
+} // TODO: rework for custom Icon set
 
 type ThemedIconProps = ThemedProps & IThemedIcon & IconProps<any>
 
@@ -32,6 +36,13 @@ export function ThemedIcon (props: ThemedIconProps): JSX.Element {
   } else if (iconType === 'MaterialCommunityIcons') {
     return (
       <MaterialCommunityIcons
+        style={[style, isLight ? light : dark]}
+        {...otherProps}
+      />
+    )
+  } else if (iconType === 'DfxIcon') {
+    return (
+      <CustomIcon
         style={[style, isLight ? light : dark]}
         {...otherProps}
       />
