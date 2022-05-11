@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-closing-tag-location */
 import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { StyleSheet, ImageSourcePropType, Linking, TouchableOpacity, TouchableOpacityProps, Image, View } from 'react-native'
@@ -85,14 +84,16 @@ export function DfxButtons (): JSX.Element {
       {buttons
         .filter((b) => !(b.hide ?? false))
         .map((b, i) => (i === 2)
-          ? <>
-            <ThemedView
-              light={tailwind('border-gray-100')}
-              dark={tailwind('border-dfxblue-800')}
-              style={tailwind('h-5/6 border-r')}
-            />
-            <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
-          </>
+          ? (
+            <>
+              <ThemedView
+                light={tailwind('border-gray-100')}
+                dark={tailwind('border-dfxblue-800')}
+                style={tailwind('h-5/6 border-r')}
+              />
+              <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
+            </>
+            )
           : <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
       )}
       <View style={tailwind('flex-1')} />

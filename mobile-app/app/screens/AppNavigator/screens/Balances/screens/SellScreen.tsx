@@ -37,6 +37,8 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+// import { BottomSheetAlertInfo, BottomSheetInfo } from '@components/BottomSheetInfo'
+// import { isValidIBAN } from 'ibantools'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
 
@@ -124,6 +126,31 @@ export function SellScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
+  // const setFiatAccountListTokenListBottomSheet = useCallback(() => {
+  //   setBottomSheetScreen([
+  //     {
+  //       stackScreenName: 'FiatAccountList',
+  //       component: BottomSheetInfo({
+  //         tokens: getBottomSheetToken(tokens),
+  //         tokenType: TokenType.BottomSheetToken,
+  //         headerLabel: translate('screens/SellScreen', 'Choose account for payout'),
+  //         onCloseButtonPress: () => dismissModal(),
+  //         onTokenPress: async (item): Promise<void> => {
+  //           const _token = tokens.find(t => t.id === item.tokenId)
+  //           if (_token !== undefined) {
+  //             setToken(_token)
+  //             setValue('amount', '')
+  //             await trigger('amount')
+  //           }
+  //           dismissModal()
+  //         }
+  //       }),
+  //       option: {
+  //         header: () => null
+  //       }
+  //     }])
+  // }, [])
+
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
       {
@@ -131,7 +158,7 @@ export function SellScreen ({
         component: BottomSheetTokenList({
           tokens: getBottomSheetToken(tokens),
           tokenType: TokenType.BottomSheetToken,
-          headerLabel: translate('screens/SellScreen', 'Choose payout account'),
+          headerLabel: translate('screens/SendScreen', 'Choose token to send'),
           onCloseButtonPress: () => dismissModal(),
           onTokenPress: async (item): Promise<void> => {
             const _token = tokens.find(t => t.id === item.tokenId)
@@ -213,8 +240,12 @@ export function SellScreen ({
           : (
             <>
               <View style={tailwind('px-4')}>
-                <FiatAccountRow
-                  control={control}
+                <FiatAccountInput
+                  onPress={() => {
+                    setTokenListBottomSheet()
+                    expandModal()
+                  }}
+                  isDisabled={false} // TODO: only show if payment route exists
                 />
 
                 <AmountRow
@@ -427,6 +458,7 @@ function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isD
           : (
             <View style={tailwind('flex flex-row')}>
               {/* <SymbolIcon symbol={props.fiat.displaySymbol} styleProps={tailwind('w-6 h-6')} /> */}
+              {/* isValidAddress: (iban) => isValidIBAN('NL91ABNA0517164300') // TODO: implement */}
               <ThemedText
                 style={tailwind('ml-2 font-medium')}
                 testID='selected_fiatAccount'
@@ -450,55 +482,6 @@ function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isD
           style={tailwind('-mr-1.5 flex-shrink-0')}
         />
       </ThemedTouchableOpacity>
-    </>
-  )
-}
-
-function FiatAccountRow ({ control }: { control: Control}): JSX.Element {
-  const defaultValue = ''
-  return (
-    <>
-      <Controller
-        control={control}
-        defaultValue={defaultValue}
-        name='address'
-        render={({
-          field: {
-            value,
-            onChange
-          }
-        }) => (
-          <FiatAccountInput
-            onPress={() => {
-              // setTokenListBottomSheet()
-              // expandModal()
-            }}
-            isDisabled={!true/* hasBalance */}
-          />
-          // <View style={tailwind('flex-row w-full mb-6')}>
-          //   <WalletTextInput
-          //     autoCapitalize='none'
-          //     multiline
-          //     onChange={onChange}
-          //     onChangeText={onAddressChange}
-          //     style={tailwind('w-3/5 flex-grow pb-1')}
-          //     testID='address_input'
-          //     value={value}
-          //     displayClearButton={value !== defaultValue}
-          //     onClearButtonPress={onClearButtonPress}
-          //     title={translate('screens/SellScreen', 'Pick your withdrawl account')}
-          //     titleTestID='title_to_address'
-          //     inputType='default'
-          //   />
-          // </View>
-        )}
-        rules={{
-          required: true,
-          validate: {
-            // isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
-          }
-        }}
-      />
     </>
   )
 }
