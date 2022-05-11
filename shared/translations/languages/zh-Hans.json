@@ -532,7 +532,7 @@
     "Create new passcode for your wallet": "为您的钱包创建新的密码"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "请保管好您的恢复字组。"
+    "Keep your recovery words safe and private.": "保持您的恢复字词安全和保密。"
   },
   "screens/AddLiquidity": {
     "Balance": "总资金",
