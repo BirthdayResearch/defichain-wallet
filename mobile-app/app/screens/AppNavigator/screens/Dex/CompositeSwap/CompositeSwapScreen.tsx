@@ -41,6 +41,7 @@ import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 
 export interface TokenState {
   id: string
@@ -416,7 +417,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             light={tailwind('text-gray-500')}
             style={tailwind('mt-10 text-center px-4')}
             testID='swap_instructions'
-          > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
+          >{translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
           </ThemedText>}
 
         {selectedTokenA !== undefined && selectedTokenB !== undefined &&
@@ -623,6 +624,7 @@ function TransactionDetailsSection ({
   tokenA: OwnedTokenState
   tokenB: TokenState
 }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
   return (
     <>
       <ThemedSectionTitle
@@ -648,6 +650,7 @@ function TransactionDetailsSection ({
           suffix: tokenA.displaySymbol,
           testID: 'total_to_be_swapped'
         }}
+        rhsUsdAmount={getTokenPrice(tokenA.symbol, new BigNumber(amountToSwap), false)}
         textStyle={tailwind('text-sm font-normal')}
       />
       <NumberRow
@@ -658,6 +661,7 @@ function TransactionDetailsSection ({
           suffix: tokenB.displaySymbol,
           testID: 'estimated_to_receive'
         }}
+        rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
         textStyle={tailwind('text-sm font-normal')}
       />
       <FeeInfoRow

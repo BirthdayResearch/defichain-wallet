@@ -202,7 +202,7 @@
     "CONVERT {{symbol}}": "{{symbol}} CONVERTI",
     "TO {{symbol}}": "A {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una piccola quantità di UTXO (0,1 DFI (UTXO)) è riservata per la tariffa.",
-    "How much {{symbol}} to convert?": "Quanto {{simbolo}} da convertire?",
+    "How much {{symbol}} to convert?": "Quanto {{symbol}} da convertire?",
     "Enter an amount": "Inserisci un importo",
     "Available": "Disponibile",
     "After conversion, you will receive": "Dopo la conversione, riceverai",
