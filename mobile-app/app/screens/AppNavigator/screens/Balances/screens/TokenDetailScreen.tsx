@@ -139,7 +139,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.id !== '0' && (
           <>
             <TokenActionRow
-              icon='money' // {BtnSell}
+              icon='money' // {BtnSell} // TODO: add + implement custom icon
               onPress={() => navigation.navigate({
                 name: 'Sell',
                 params: { token },

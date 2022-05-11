@@ -1,7 +1,5 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
-// import { DeFiAddress } from '@defichain/jellyfish-address'
-import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
@@ -18,7 +16,6 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -48,7 +45,6 @@ export function SellScreen ({
   navigation
 }: Props): JSX.Element {
   const logger = useLogger()
-  const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)
@@ -219,36 +215,6 @@ export function SellScreen ({
               <View style={tailwind('px-4')}>
                 <FiatAccountRow
                   control={control}
-                  networkName={networkName}
-                  onContactButtonPress={() => navigation.navigate({
-                    name: 'AddressBookScreen',
-                    params: {
-                      selectedAddress: getValues('address'),
-                      onAddressSelect: (savedAddres: string) => {
-                        setValue('address', savedAddres, { shouldDirty: true })
-                        navigation.goBack()
-                      }
-                    },
-                    merge: true
-                  })}
-                  onQrButtonPress={() => navigation.navigate({
-                    name: 'BarCodeScanner',
-                    params: {
-                      onQrScanned: async (value) => {
-                        setValue('address', value, { shouldDirty: true })
-                        await trigger('address')
-                      }
-                    },
-                    merge: true
-                  })}
-                  onClearButtonPress={async () => {
-                    setValue('address', '')
-                    await trigger('address')
-                  }}
-                  onAddressChange={async (address) => {
-                    setValue('address', address, { shouldDirty: true })
-                    await trigger('address')
-                  }}
                 />
 
                 <AmountRow
@@ -488,12 +454,7 @@ function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isD
   )
 }
 
-function FiatAccountRow ({
-  control,
-  onQrButtonPress,
-  onClearButtonPress,
-  onAddressChange
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
+function FiatAccountRow ({ control }: { control: Control}): JSX.Element {
   const defaultValue = ''
   return (
     <>
