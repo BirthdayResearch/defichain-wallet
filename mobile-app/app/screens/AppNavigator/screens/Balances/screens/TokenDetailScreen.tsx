@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { MaterialIcons } from '@expo/vector-icons'
 import { translate } from '@translations'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken, unifiedDFISelector } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components'
@@ -93,6 +93,7 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
 }
 
 export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
+  const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
   const onNavigateLiquidity = ({ destination, pair }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
     navigation.navigate('DEX', {
@@ -121,6 +122,17 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             isPreselected: false
           }
         }
+      },
+      merge: true
+    })
+  }
+
+  const onNavigateSwapDfi = (): void => {
+    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
+      screen: 'CompositeSwap',
+      initial: false,
+      params: {
+        fromToken: DFIUnified
       },
       merge: true
     })
@@ -172,6 +184,17 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             }}
             testID='convert_button'
             title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
+          />
+        )
+      }
+
+      {
+        token.symbol === 'DFI' && (
+          <TokenActionRow
+            icon='swap-horiz'
+            onPress={() => onNavigateSwapDfi()}
+            testID='swap_button_dfi'
+            title={translate('screens/TokenDetailScreen', 'Swap token')}
           />
         )
       }
