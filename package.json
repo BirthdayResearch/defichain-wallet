@@ -141,7 +141,7 @@
     "lint-staged": "^12.4.0",
     "randomcolor": "^0.6.2",
     "react-test-renderer": "17.0.1",
-    "sharp": "^0.30.3",
+    "sharp": "^0.30.4",
     "standard-version": "^9.3.2",
     "standard-version-expo": "^1.0.3",
     "ts-node": "^10.5.0",
