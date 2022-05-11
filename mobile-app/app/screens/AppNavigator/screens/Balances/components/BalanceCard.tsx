@@ -22,7 +22,6 @@ import { TouchableOpacity } from 'react-native'
 import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
-import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { EmptyPortfolio } from './EmptyPortfolio'
 
@@ -185,10 +184,11 @@ function BalanceItemRow ({
     setIsBreakdownExpanded(!isBreakdownExpanded)
   }
   const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+  const loanTokens = useSelector((state: RootState) => state.loans.loanTokens)
   const hasLockedBalance = useMemo((): boolean => {
-    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
+    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol) ||
+      loanTokens.some(loanToken => loanToken.token.displaySymbol === token.displaySymbol)
   }, [token])
 
   return (
@@ -208,8 +208,8 @@ function BalanceItemRow ({
           <Icon testID={`${testID}_icon`} />
           <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
           <TokenAmountText
-            tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
-            usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+            tokenAmount={token.amount}
+            usdAmount={token.usdAmount}
             testID={testID}
             isBalancesDisplayed={isBalancesDisplayed}
             denominationCurrency={denominationCurrency}
@@ -228,23 +228,6 @@ function BalanceItemRow ({
               lockedAmount={lockedToken.amount}
               testID={token.displaySymbol}
             />
-            {isBreakdownExpanded && (
-              <ThemedView
-                light={tailwind('border-t border-gray-100')}
-                dark={tailwind('border-t border-gray-700')}
-                style={tailwind('pt-2 pb-4')}
-              >
-                <TokenBreakdownDetails
-                  hasFetchedToken={hasFetchedToken}
-                  lockedAmount={lockedToken.amount}
-                  lockedValue={lockedToken.tokenValue}
-                  availableAmount={new BigNumber(token.amount)}
-                  availableValue={token.usdAmount}
-                  testID={token.displaySymbol}
-                  denominationCurrency={denominationCurrency}
-                />
-              </ThemedView>
-            )}
           </>
         )}
     </ThemedView>
