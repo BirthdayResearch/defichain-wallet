@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
@@ -26,10 +27,20 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { SellScreen } from './screens/SellScreen'
+// import { SellConfirmationScreen } from './screens/SellConfirmationScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
+  SellScreen: { token?: WalletToken }
+  // SellConfirmationScreen: {
+  //   token: WalletToken
+  //   destination: string
+  //   amount: BigNumber
+  //   fee: BigNumber
+  //   conversion?: ConversionParam
+  // }
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
@@ -165,6 +176,34 @@ export function BalancesNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       />
+
+      <BalanceStack.Screen
+        component={SellScreen}
+        name='Sell'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SellScreen', 'Sell')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      {/* <BalanceStack.Screen
+        component={SellConfirmationScreen}
+        name='SendConfirmationScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SellConfirmationScreen', 'Confirm Sell')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      /> */}
 
       <BalanceStack.Screen
         component={SendScreen}
