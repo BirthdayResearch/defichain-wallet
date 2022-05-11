@@ -58,6 +58,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
           params: { token: DFIUnified },
           merge: true
         })}
+        testID='dfi_balance_card_touchable'
       >
         <View style={tailwind('flex-col flex-1')}>
           <ImageBackground
