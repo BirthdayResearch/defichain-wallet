@@ -191,11 +191,11 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       {
         token.symbol === 'DFI' && (
           <TokenActionRow
-             icon='swap-horiz'
-             onPress={() => onNavigateSwapDfi()}
-             testID='swap_button_dfi'
-             title={translate('screens/TokenDetailScreen', 'Swap token')}
-           />
+            icon='swap-horiz'
+            onPress={() => onNavigateSwapDfi()}
+            testID='swap_button_dfi'
+            title={translate('screens/TokenDetailScreen', 'Swap token')}
+          />
         )
       }
 
