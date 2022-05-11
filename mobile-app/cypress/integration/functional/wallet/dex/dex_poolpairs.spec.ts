@@ -236,6 +236,19 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
     })
   })
+
+  it('should be able to prepare direct swap', () => {
+    cy.getByTestID('pool_pair_swap-horiz_dBTC-DFI').click().wait(5000)
+    cy.getByTestID('MAX_amount_button').click().wait(3000)
+
+    cy.getByTestID('button_confirm_submit').should('not.have.attr', 'disabled')
+    cy.getByTestID('total_to_be_swapped').should('exist')
+    cy.getByTestID('total_to_be_swapped_rhsUsdAmount').should('exist')
+    cy.getByTestID('estimated_to_receive').should('exist')
+    cy.getByTestID('estimated_to_receive_rhsUsdAmount').should('exist')
+
+    cy.getByTestID('bottom_tab_dex').click()
+  })
 })
 
 context('Wallet - DEX - Your Pool Pairs', () => {
