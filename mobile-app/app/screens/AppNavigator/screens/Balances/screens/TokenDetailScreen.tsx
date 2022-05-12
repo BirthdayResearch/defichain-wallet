@@ -128,6 +128,17 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
+  const onNavigateSwapDfi = (): void => {
+    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
+      screen: 'CompositeSwap',
+      initial: false,
+      params: {
+        fromToken: DFIUnified
+      },
+      merge: true
+    })
+  }
+
   return (
     <ThemedScrollView>
       <TokenSummary token={token} />
