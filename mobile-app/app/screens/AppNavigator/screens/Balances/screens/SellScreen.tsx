@@ -33,11 +33,11 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
+import { BottomSheetFiatAccountList, FiatAccount } from '@components/BottomSheetFiatAccountList'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-// import { BottomSheetAlertInfo, BottomSheetInfo } from '@components/BottomSheetInfo'
 // import { isValidIBAN } from 'ibantools'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
@@ -52,6 +52,7 @@ export function SellScreen ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
+  const [fiatAccount, setFiatAccount] = useState<string>(/* TODO: route.params?.token */)
   const isFocused = useIsFocused()
   const {
     control,
@@ -126,30 +127,29 @@ export function SellScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  // const setFiatAccountListTokenListBottomSheet = useCallback(() => {
-  //   setBottomSheetScreen([
-  //     {
-  //       stackScreenName: 'FiatAccountList',
-  //       component: BottomSheetInfo({
-  //         tokens: getBottomSheetToken(tokens),
-  //         tokenType: TokenType.BottomSheetToken,
-  //         headerLabel: translate('screens/SellScreen', 'Choose account for payout'),
-  //         onCloseButtonPress: () => dismissModal(),
-  //         onTokenPress: async (item): Promise<void> => {
-  //           const _token = tokens.find(t => t.id === item.tokenId)
-  //           if (_token !== undefined) {
-  //             setToken(_token)
-  //             setValue('amount', '')
-  //             await trigger('amount')
-  //           }
-  //           dismissModal()
-  //         }
-  //       }),
-  //       option: {
-  //         header: () => null
-  //       }
-  //     }])
-  // }, [])
+  const setFiatAccountListBottomSheet = useCallback(() => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'FiatAccountList',
+        component: BottomSheetFiatAccountList({
+          fiatAccounts: [new FiatAccount(), { iban: 'DE89 3704 0044 0532 0130 00' }, { iban: 'DE89 3I04 0044 0532 0130 00' }], // getBottomSheetToken(tokens),
+          // tokenType: TokenType.BottomSheetToken,
+          headerLabel: translate('screens/SellScreen', 'Choose account for payout'),
+          onCloseButtonPress: () => dismissModal(),
+          onFiatAccountPress: async (item): Promise<void> => {
+            if (item.iban !== undefined) {
+              setFiatAccount(item.iban)
+              // setValue('amount', '')
+              // await trigger('amount')
+            }
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -242,7 +242,7 @@ export function SellScreen ({
               <View style={tailwind('px-4')}>
                 <FiatAccountInput
                   onPress={() => {
-                    setTokenListBottomSheet()
+                    setFiatAccountListBottomSheet()
                     expandModal()
                   }}
                   isDisabled={false} // TODO: only show if payment route exists
@@ -286,7 +286,7 @@ export function SellScreen ({
 
                     <FeeInfoRow
                       type='ESTIMATED_FEE'
-                      value={fee.toString()}
+                      value={`${fee.toString()} --> ${String(fiatAccount)}!`}
                       testID='transaction_fee'
                       suffix='DFI'
                     />
@@ -413,10 +413,6 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
       </ThemedTouchableOpacity>
     </View>
   )
-}
-
-export class FiatAccount /* extends IbanTool */ {
-  iban: string = 'DE89 3704 0044 0532 0130 00'
 }
 
 function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isDisabled: boolean }): JSX.Element {
