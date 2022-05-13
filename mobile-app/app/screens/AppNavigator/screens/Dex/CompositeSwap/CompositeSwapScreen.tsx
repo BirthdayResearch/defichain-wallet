@@ -215,24 +215,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (route.params.fromToken !== undefined) {
-      setIsFromTokenSelectDisabled(true)
-      setIsToTokenSelectDisabled(false)
-      onTokenSelect({
-        tokenId: route.params.fromToken.id,
-        available: new BigNumber(route.params.fromToken.amount),
-        token: {
-          displaySymbol: route.params.fromToken.displaySymbol,
-          symbol: route.params.fromToken.symbol,
-          name: route.params.fromToken.name
-        },
-        reserve: route.params.fromToken.amount
-      }, 'FROM')
-
-      return
-    }
-
-    if (route.params.pair?.id === undefined) {
+    if (route.params.pair?.id === undefined && route.params.fromToken === undefined) {
       return
     }
 
@@ -249,6 +232,21 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
     setIsFromTokenSelectDisabled(tokenSelectOption.from.isDisabled)
     setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled)
+
+    if (route.params.fromToken !== undefined) {
+      onTokenSelect({
+        tokenId: route.params.fromToken.id,
+        available: new BigNumber(route.params.fromToken.amount),
+        token: {
+          displaySymbol: route.params.fromToken.displaySymbol,
+          symbol: route.params.fromToken.symbol,
+          name: route.params.fromToken.name
+        },
+        reserve: route.params.fromToken.amount
+      }, 'FROM')
+
+      return
+    }
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
     if (pair === undefined) {

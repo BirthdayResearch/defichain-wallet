@@ -106,12 +106,13 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
-  const onNavigateSwap = ({ pair }: { pair: PoolPairData }): void => {
+  const onNavigateSwap = ({ pair, fromToken }: { pair: PoolPairData, fromToken: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: 'CompositeSwap',
       initial: false,
       params: {
         pair,
+        fromToken,
         tokenSelectOption: {
           from: {
             isDisabled: true,
@@ -192,7 +193,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
         token.symbol === 'DFI' && (
           <TokenActionRow
             icon='swap-horiz'
-            onPress={() => onNavigateSwapDfi()}
+            onPress={() => onNavigateSwap({ fromToken: DFIUnified })}
             testID='swap_button_dfi'
             title={translate('screens/TokenDetailScreen', 'Swap token')}
           />
