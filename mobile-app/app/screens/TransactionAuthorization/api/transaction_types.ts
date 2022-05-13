@@ -10,11 +10,11 @@ export const DEFAULT_MESSAGES = {
   loadingMessage: 'Signing your transaction...',
   authorizedTransactionMessage: {
     title: 'Transaction signed',
-    description: "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys."
+    description: 'Your wallet is your responsibility, do not forget to store your 24 recovery words.'
   },
   grantedAccessMessage: {
-    title: 'Access granted',
-    description: 'You may now proceed'
+    title: 'Success!',
+    description: ''
   }
 }
 
