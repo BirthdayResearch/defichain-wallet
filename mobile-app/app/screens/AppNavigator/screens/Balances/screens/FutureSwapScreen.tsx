@@ -174,7 +174,7 @@ function ExecutionBlock ({ executionBlock, transactionDate }: { executionBlock: 
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   return (
     <ThemedView
-      style={tailwind('py-2 rounded border m-4 flex flex-row items-center justify-center')}
+      style={tailwind('py-2 rounded border m-4 flex flex-row items-center justify-center flex-wrap')}
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
     >
