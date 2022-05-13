@@ -66,22 +66,23 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
         onPress={() => onPress(item)}
         disabled={isEnded}
       >
-        <View style={tailwind('')}>
+        <View>
           <View style={tailwind('flex flex-row items-center mb-1')}>
             <SymbolIcon
               symbol={item.source.displaySymbol}
-              styleProps={tailwind('w-4 h-4 mr-1')}
+              styleProps={tailwind('w-4 h-4')}
             />
             <ThemedIcon
               size={18}
               name='arrow-right'
               iconType='MaterialIcons'
+              style={tailwind('mx-1')}
               light={tailwind('text-gray-600')}
               dark={tailwind('text-gray-300')}
             />
             <SymbolIcon
               symbol={item.destination.displaySymbol}
-              styleProps={tailwind('w-4 h-4 ml-1')}
+              styleProps={tailwind('w-4 h-4')}
             />
           </View>
           <View style={tailwind('flex flex-row items-center mb-1')}>
@@ -201,7 +202,6 @@ function ExecutionBlock ({ executionBlock, transactionDate }: { executionBlock: 
             </ThemedText>}
         />
       </ThemedText>
-
     </ThemedView>
   )
 }
