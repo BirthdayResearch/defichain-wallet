@@ -731,15 +731,14 @@
     "Enter Passcode": "Inserisci il codice di accesso",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Please enter passcode to securely sign your transaction": "Inserisci il codice di accesso per firmare in modo sicuro la tua transazione",
-    "Access granted": "Accesso concesso",
-    "You may now proceed": "Ora puoi procedere",
-    "Sign to verify access": "Firma per verificare l'accesso"
+    "Sign to verify access": "Firma per verificare l'accesso",
+    "Success!": "Fatto!"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Firma la transazione",
     "Signing your transaction...": "Firma in corso...",
     "Verifying access": "Verifica accesso",
-    "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys.": "Non dimenticare di conservare responsabilmente le tue 24 parole di recupero. Il tuo wallet, le tue chiavi private.",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "Il tuo portafoglio è una tua responsabilità, non dimenticate di conservare le 24 parole di recupero.",
     "Transaction signed": "Transazione firmata."
   },
   "components/CreateWalletIndicator": {

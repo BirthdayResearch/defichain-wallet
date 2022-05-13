@@ -708,15 +708,14 @@
     "Enter Passcode": "Passwort eingeben",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
-    "Access granted": "Zugriff gewährt",
-    "You may now proceed": "Du kannst nun fortfahren",
-    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen"
+    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen",
+    "Success!": "Erfolgreich!"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",
     "Signing your transaction...": "Transaktionsfreigabe...",
     "Verifying access": "Zugriff wird verifiziert",
-    "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys.": "Sorge dafür, dass du deinen 24 Worte - Wiederherstellungsschlüssel gewissenhaft aufbewahrst. Deine Wallet, deine Private-Keys.",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "Deine Wallet liegt in deiner Verantwortung, vergiss nicht, deine 24 Wiederherstellungswörter zu speichern.",
     "Transaction signed": "Transaktion freigegeben"
   },
   "components/CreateWalletIndicator": {

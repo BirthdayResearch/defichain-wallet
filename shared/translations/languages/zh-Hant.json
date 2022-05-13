@@ -712,15 +712,14 @@
     "Enter Passcode": "請輸入密碼",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易",
-    "Access granted": "現在可使用",
-    "You may now proceed": "您現在可以繼續",
-    "Sign to verify access": "簽下以確認使用"
+    "Sign to verify access": "簽下以確認使用",
+    "Success!": "成功！"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "簽下交易",
     "Signing your transaction...": "正在簽下交易...",
     "Verifying access": "驗證可使用的權限",
-    "Don't forget to store your 24 recovery words responsibly. Your wallet, your private keys.": "請好好儲存您的 24 恢復字詞。 錢包和私鑰。",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "補管錢包是您的個人責任，不要忘記儲存您的 24 個恢復字詞。",
     "Transaction signed": "已簽名的交易"
   },
   "components/CreateWalletIndicator": {
