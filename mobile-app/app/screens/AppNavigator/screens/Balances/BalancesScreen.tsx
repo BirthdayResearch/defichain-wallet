@@ -340,7 +340,7 @@ function FutureSwapCta ({
   return (
     <ThemedTouchableOpacity
       onPress={() => navigation.navigate('FutureSwapScreen')}
-      style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-lg justify-between')}
+      style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-3xl justify-between')}
       light={tailwind('bg-blue-100')}
       dark={tailwind('bg-darkblue-50')}
     >
@@ -354,21 +354,15 @@ function FutureSwapCta ({
         />
         <ThemedText
           style={tailwind('ml-2 text-sm')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-500')}
         >
-          {translate('screens/BalancesScreen', 'You have ')}
-          <ThemedText
-            style={tailwind('text-sm font-medium')}
-          >
-            {/* TODO: pass future swaps length into the component */}
-            {translate('screens/BalancesScreen', '{{number}} pending future swap(s)', { number: 2 })}
-          </ThemedText>
+          {translate('screens/BalancesScreen', 'You have pending future swap(s)')}
         </ThemedText>
       </View>
       <ThemedIcon
-        iconType='MaterialIcons'
-        name='arrow-forward'
+        iconType='MaterialCommunityIcons'
+        name='chevron-right'
         size={16}
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
