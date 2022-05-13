@@ -16,6 +16,9 @@ import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 import { fetchLoanTokens } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SymbolIcon } from '@components/SymbolIcon'
+import { TouchableOpacity } from 'react-native'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { openURL } from '@api/linking'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 
@@ -168,40 +171,52 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
 }
 
 function ExecutionBlock ({ executionBlock, transactionDate }: { executionBlock: number, transactionDate: string }): JSX.Element {
+  const { getBlocksCountdownUrl } = useDeFiScanContext()
   return (
     <ThemedView
-      style={tailwind('py-2 rounded border m-4 text-center')}
+      style={tailwind('py-2 rounded border m-4 flex flex-row items-center justify-center')}
       light={tailwind('border-gray-200')}
       dark={tailwind('border-gray-700')}
     >
       <ThemedText
-        style={tailwind('text-xs')}
+        style={tailwind('text-xs text-center')}
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
       >
         {translate('screens/FutureSwapScreen', 'Execution block:')}
-        <NumberFormat
-          value={executionBlock}
-          thousandSeparator
-          displayType='text'
-          renderText={value =>
+      </ThemedText>
+      <NumberFormat
+        value={executionBlock}
+        thousandSeparator
+        displayType='text'
+        renderText={value =>
+          <ThemedText
+            style={tailwind('text-xs ml-1')}
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-50')}
+            testID='execution_block'
+          >
+            {` ${value}`}
             <ThemedText
-              style={tailwind('text-xs ml-1')}
+              style={tailwind('ml-1 text-xs')}
               light={tailwind('text-gray-900')}
               dark={tailwind('text-gray-50')}
-              testID='execution_block'
             >
-              {value}
-              <ThemedText
-                style={tailwind('ml-1 text-xs')}
-                light={tailwind('text-gray-900')}
-                dark={tailwind('text-gray-50')}
-              >
-                ({transactionDate})
-              </ThemedText>
-            </ThemedText>}
+              {` (${transactionDate}) `}
+
+            </ThemedText>
+          </ThemedText>}
+      />
+      <TouchableOpacity onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}>
+        <ThemedIcon
+          size={16}
+          name='open-in-new'
+          iconType='MaterialIcons'
+          style={tailwind('flex items-center')}
+          dark={tailwind('text-darkprimary-500')}
+          light={tailwind('text-primary-500')}
         />
-      </ThemedText>
+      </TouchableOpacity>
     </ThemedView>
   )
 }
