@@ -1,5 +1,5 @@
 import { View } from '@components'
-import { ThemedFlatList, ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { translate } from '@translations'
 import { useCallback, useEffect } from 'react'
@@ -15,6 +15,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 import { fetchLoanTokens } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { SymbolIcon } from '@components/SymbolIcon'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 
@@ -61,36 +62,29 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   }: { item: FutureSwapData }): JSX.Element => {
     return (
       <ThemedTouchableOpacity
-        style={tailwind('py-3 pl-4 pr-2 items-center justify-between flex flex-row')}
+        style={tailwind('p-4 items-center justify-between flex flex-row')}
         onPress={() => onPress(item)}
         disabled={isEnded}
       >
-        <View style={tailwind('flex flex-row items-center')}>
-          <ThemedIcon
-            size={24}
-            name='swap-horiz'
-            iconType='MaterialIcons'
-            light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
-          />
-          <View style={tailwind('ml-2')}>
-            <ThemedText
-              light={tailwind('text-gray-900')}
-              dark={tailwind('text-gray-50')}
-            >
-              {translate('screens/FutureSwapScreen', 'Future swap')}
-            </ThemedText>
-            <ThemedText
-              style={tailwind('text-xs')}
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-            >
-              {translate('screens/FutureSwapScreen', 'Due on {{date}}', { date: transactionDate })}
-            </ThemedText>
+        <View style={tailwind('')}>
+          <View style={tailwind('flex flex-row items-center mb-1')}>
+            <SymbolIcon
+              symbol={item.source.displaySymbol}
+              styleProps={tailwind('w-4 h-4 mr-1')}
+            />
+            <ThemedIcon
+              size={18}
+              name='arrow-right'
+              iconType='MaterialIcons'
+              light={tailwind('text-gray-600')}
+              dark={tailwind('text-gray-300')}
+            />
+            <SymbolIcon
+              symbol={item.destination.displaySymbol}
+              styleProps={tailwind('w-4 h-4 ml-1')}
+            />
           </View>
-        </View>
-        <View style={tailwind('flex flex-row items-center')}>
-          <View>
+          <View style={tailwind('flex flex-row items-center mb-1')}>
             <NumberFormat
               value={item.source.amount}
               thousandSeparator
@@ -104,22 +98,49 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
                   {value}
                 </ThemedText>}
             />
+            <ThemedIcon
+              size={22}
+              name='arrow-right-alt'
+              iconType='MaterialIcons'
+              style={tailwind('mx-0.5')}
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+            />
             <ThemedText
-              style={tailwind('text-xs text-right')}
+              style={tailwind('text-sm')}
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
             >
-              {translate('screens/FutureSwapScreen', `Oracle price ${!item.source.isLoanToken ? '+5%' : '-5%'}`)}
+              {item.destination.displaySymbol}
             </ThemedText>
           </View>
+          <ThemedView
+            style={[tailwind('px-1 rounded-sm'), { alignSelf: 'flex-start' }]}
+            light={tailwind('bg-gray-50')}
+            dark={tailwind('bg-gray-900')}
+          >
+            <ThemedText
+              style={tailwind('text-xs')}
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+            >
+              {translate('screens/FutureSwapScreen', '{{percentage_change}} on oracle price', { percentage_change: !item.source.isLoanToken ? '+5%' : '-5%' })}
+            </ThemedText>
+          </ThemedView>
+        </View>
+        <ThemedView
+          style={tailwind('flex flex-row items-center border rounded-sm p-1')}
+          light={tailwind('border-gray-200')}
+          dark={tailwind('border-gray-700')}
+        >
           <ThemedIcon
             size={24}
-            name='chevron-right'
+            name='call-received'
             iconType='MaterialIcons'
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
           />
-        </View>
+        </ThemedView>
       </ThemedTouchableOpacity>
     )
   }, [isEnded, transactionDate])
@@ -130,10 +151,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
       data={futureSwaps}
       renderItem={FutureSwapListItem}
       ListHeaderComponent={
-        <ThemedSectionTitle
-          testID='title_future_swap'
-          text={translate('screens/FutureSwapScreen', 'PENDING TRANSACTIONS')}
-        />
+        <ExecutionBlock executionBlock={executionBlock} transactionDate={transactionDate} />
       }
       ListFooterComponent={
         <ThemedText
@@ -145,5 +163,45 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
         </ThemedText>
       }
     />
+  )
+}
+
+function ExecutionBlock ({ executionBlock, transactionDate }: { executionBlock: number, transactionDate: string }): JSX.Element {
+  return (
+    <ThemedView
+      style={tailwind('py-2 rounded border m-4 text-center')}
+      light={tailwind('border-gray-200')}
+      dark={tailwind('border-gray-700')}
+    >
+      <ThemedText
+        style={tailwind('text-xs')}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      >
+        {translate('screens/FutureSwapScreen', 'Execution block:')}
+        <NumberFormat
+          value={executionBlock}
+          thousandSeparator
+          displayType='text'
+          renderText={value =>
+            <ThemedText
+              style={tailwind('text-xs ml-1')}
+              light={tailwind('text-gray-900')}
+              dark={tailwind('text-gray-50')}
+              testID='execution_block'
+            >
+              {value}
+              <ThemedText
+                style={tailwind('ml-1 text-xs')}
+                light={tailwind('text-gray-900')}
+                dark={tailwind('text-gray-50')}
+              >
+                ({transactionDate})
+              </ThemedText>
+            </ThemedText>}
+        />
+      </ThemedText>
+
+    </ThemedView>
   )
 }
