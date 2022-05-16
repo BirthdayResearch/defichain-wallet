@@ -8,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { signIn, signUp } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, signIn, signUp } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -22,10 +22,12 @@ import { Linking } from 'react-native'
 import { getEnvironment } from '@environment'
 import * as Updates from 'expo-updates'
 import { useDebounce } from '@hooks/useDebounce'
+import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
   clearDfxTokens: () => Promise<void>
+  getFiatAccounts: () => Promise<SellRoute[]>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
@@ -60,6 +62,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         await Linking.openURL(url)
       })
       .catch(logger.error)
+  }
+
+  const getFiatAccounts = async (): Promise<SellRoute[]> => {
+    return await getSellRoutes()
   }
 
   // returns webtoken string of current active Wallet address
@@ -215,7 +221,8 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   // public context API
   const context: DFXAPIContextI = {
     openDfxServices: openDfxServices,
-    clearDfxTokens: clearDfxTokens
+    clearDfxTokens: clearDfxTokens,
+    getFiatAccounts: getFiatAccounts
   }
 
   // observe address state change

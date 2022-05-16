@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -33,10 +34,12 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
-import { BottomSheetFiatAccountList, FiatAccount } from '@components/BottomSheetFiatAccountList'
+import { BottomSheetFiatAccountList/* , FiatAccount */ } from '@components/BottomSheetFiatAccountList'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 // import { isValidIBAN } from 'ibantools'
 
@@ -52,7 +55,9 @@ export function SellScreen ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const [fiatAccount, setFiatAccount] = useState<string>(/* TODO: route.params?.token */)
+  const { getFiatAccounts } = useDFXAPIContext()
+  const [selectedFiatAccount, setSelectedFiatAccount] = useState<SellRoute>({} as SellRoute)
+  const [fiatAccounts, setFiatAccounts] = useState<SellRoute[]>([])
   const isFocused = useIsFocused()
   const {
     control,
@@ -114,6 +119,15 @@ export function SellScreen ({
       .catch(logger.error)
   }, [])
 
+  // load sell routes
+  useEffect(() => {
+    getFiatAccounts()
+      .then((sellRoute) => {
+        setFiatAccounts(sellRoute)
+      })
+      .catch(logger.error)
+  }, [])
+
   useEffect(() => {
     const t = tokens.find((t) => t.id === token?.id)
     if (t !== undefined) {
@@ -127,18 +141,17 @@ export function SellScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
-  const setFiatAccountListBottomSheet = useCallback(() => {
+  const setFiatAccountListBottomSheet = useCallback((accounts: SellRoute[]) => {
     setBottomSheetScreen([
       {
         stackScreenName: 'FiatAccountList',
         component: BottomSheetFiatAccountList({
-          fiatAccounts: [new FiatAccount(), { iban: 'DE89 3704 0044 0532 0130 00' }, { iban: 'DE89 3I04 0044 0532 0130 00' }], // getBottomSheetToken(tokens),
-          // tokenType: TokenType.BottomSheetToken,
+          fiatAccounts: accounts,
           headerLabel: translate('screens/SellScreen', 'Choose account for payout'),
           onCloseButtonPress: () => dismissModal(),
           onFiatAccountPress: async (item): Promise<void> => {
             if (item.iban !== undefined) {
-              setFiatAccount(item.iban)
+              setSelectedFiatAccount(item)
               // setValue('amount', '')
               // await trigger('amount')
             }
@@ -242,9 +255,10 @@ export function SellScreen ({
               <View style={tailwind('px-4')}>
                 <FiatAccountInput
                   onPress={() => {
-                    setFiatAccountListBottomSheet()
+                    setFiatAccountListBottomSheet(fiatAccounts)
                     expandModal()
                   }}
+                  fiat={selectedFiatAccount}
                   isDisabled={false} // TODO: only show if payment route exists
                 />
 
@@ -286,7 +300,7 @@ export function SellScreen ({
 
                     <FeeInfoRow
                       type='ESTIMATED_FEE'
-                      value={`${fee.toString()} --> ${String(fiatAccount)}!`}
+                      value={`${fee.toString()} --> ${String(selectedFiatAccount)}!`}
                       testID='transaction_fee'
                       suffix='DFI'
                     />
@@ -415,7 +429,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
   )
 }
 
-function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isDisabled: boolean }): JSX.Element {
+function FiatAccountInput (props: { fiat?: SellRoute, onPress: () => void, isDisabled: boolean }): JSX.Element {
   return (
     <>
       <ThemedText
