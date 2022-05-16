@@ -40,6 +40,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
+import { DfxInfoTex } from '@components/DfxFeeInfo'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 // import { isValidIBAN } from 'ibantools'
 
@@ -259,8 +260,10 @@ export function SellScreen ({
                     expandModal()
                   }}
                   fiat={selectedFiatAccount}
-                  isDisabled={false} // TODO: only show if payment route exists
+                  isDisabled={(fiatAccounts.length < 1)}
                 />
+
+                <DfxInfoTex />
 
                 <AmountRow
                   control={control}
