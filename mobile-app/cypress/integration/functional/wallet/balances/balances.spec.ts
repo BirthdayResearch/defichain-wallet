@@ -989,6 +989,17 @@ context('Wallet - Balances - Token Breakdown', () => {
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
   })
 
+  it('should display available amount of BTC and ETH', () => {
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: sampleVault
+      }
+    })
+    cy.getByTestID('balances_row_1_amount').contains('10.00000000')
+    cy.getByTestID('balances_row_2_amount').contains('10.00000000')
+  })
+
   it('should display locked amount of BTC and ETH', () => {
     cy.intercept('**/address/**/vaults?size=*', {
       statusCode: 200,
