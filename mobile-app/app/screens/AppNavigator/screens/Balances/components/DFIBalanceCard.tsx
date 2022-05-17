@@ -22,6 +22,7 @@ import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalanc
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import NumberFormat from 'react-number-format'
 import { BalanceText } from './BalanceText'
+import { translate } from '@translations'
 interface DFIBalaceCardProps {
   denominationCurrency: string
 }
@@ -103,10 +104,41 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             }
           </View>
           <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
-            <DFIBreakdownPercentage
-              dfiUtxoPercent={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)}
-              dfiTokenPercent={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)}
-            />
+            {
+              hasFetchedToken
+               ? (
+                 <View style={tailwind('flex-row items-center')}>
+                   <View style={tailwind('mr-1')}>
+                     <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} />
+                   </View>
+                   <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} />
+                 </View>
+               )
+               : (
+                 <>
+                   <TextSkeletonLoader
+                     iContentLoaderProps={{
+                        width: '97',
+                        height: '24',
+                        testID: 'dfi_utxo_percentage_skeleton_loader'
+                      }}
+                     textXRadius='12'
+                     textYRadius='12'
+                   />
+                   <TextSkeletonLoader
+                     iContentLoaderProps={{
+                        width: '101',
+                        height: '24',
+                        testID: 'dfi_token_percentage_skeleton_loader'
+                      }}
+                     textHorizontalOffset='4'
+                     textWidth='97'
+                     textXRadius='12'
+                     textYRadius='12'
+                   />
+                 </>
+               )
+            }
             <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
           </View>
         </ImageBackground>
@@ -136,66 +168,36 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   )
 }
 
-function DFIBreakdownPercentage ({ dfiUtxoPercent, dfiTokenPercent }: { dfiUtxoPercent: BigNumber, dfiTokenPercent: BigNumber }): JSX.Element {
+function DFIBreakdownPercentageItem ({ label, value }: { label: string, value: BigNumber }): JSX.Element {
   return (
-    <View style={tailwind('flex flex-row')}>
-      <ThemedView
-        style={tailwind('flex flex-row py-1 px-2 rounded-xl mr-1')}
-        light={tailwind('bg-gray-50')}
-        dark={tailwind('bg-gray-900')}
+    <ThemedView
+      style={tailwind('flex flex-row py-1 px-2 rounded-xl')}
+      light={tailwind('bg-gray-50')}
+      dark={tailwind('bg-gray-900')}
+    >
+      <ThemedText
+        style={tailwind('text-xs')}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
       >
-        <ThemedText
-          style={tailwind('text-xs')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-        >
-          {'UTXO: '}
-        </ThemedText>
-        <NumberFormat
-          value={dfiUtxoPercent.isNaN() ? 0 : dfiUtxoPercent.toFixed(2)}
-          thousandSeparator
-          decimalScale={2}
-          displayType='text'
-          suffix='%'
-          renderText={value =>
-            <BalanceText
-              light={tailwind('text-black')}
-              dark={tailwind('text-white')}
-              style={tailwind('text-xs font-medium')}
-              value={value}
-              testID='dfi_utxo_percentage'
-            />}
-        />
-      </ThemedView>
-      <ThemedView
-        style={tailwind('flex flex-row py-1 px-2 rounded-xl')}
-        light={tailwind('bg-gray-50')}
-        dark={tailwind('bg-gray-900')}
-      >
-        <ThemedText
-          style={tailwind('text-xs')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-        >
-          {'Token: '}
-        </ThemedText>
-        <NumberFormat
-          value={dfiTokenPercent.isNaN() ? 0 : dfiTokenPercent.toFixed(2)}
-          thousandSeparator
-          decimalScale={2}
-          displayType='text'
-          suffix='%'
-          renderText={value =>
-            <BalanceText
-              light={tailwind('text-black')}
-              dark={tailwind('text-white')}
-              style={tailwind('text-xs font-medium')}
-              value={value}
-              testID='dfi_token_percentage'
-            />}
-        />
-      </ThemedView>
-    </View>
+        {translate('screens/BalancesScreen', label)}
+      </ThemedText>
+      <NumberFormat
+        value={value.isNaN() ? 0 : value.toFixed(2)}
+        thousandSeparator
+        decimalScale={2}
+        displayType='text'
+        suffix='%'
+        renderText={value =>
+          <BalanceText
+            light={tailwind('text-black')}
+            dark={tailwind('text-white')}
+            style={tailwind('text-xs font-medium')}
+            value={value}
+            testID='dfi_token_percentage'
+          />}
+      />
+    </ThemedView>
   )
 }
 
