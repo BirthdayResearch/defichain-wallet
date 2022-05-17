@@ -163,6 +163,7 @@ function DFIBreakdownPercentage ({ dfiUtxoPercent, dfiTokenPercent }: { dfiUtxoP
               dark={tailwind('text-white')}
               style={tailwind('text-xs font-medium')}
               value={value}
+              testID='dfi_utxo_percentage'
             />}
         />
       </ThemedView>
@@ -190,6 +191,7 @@ function DFIBreakdownPercentage ({ dfiUtxoPercent, dfiTokenPercent }: { dfiUtxoP
               dark={tailwind('text-white')}
               style={tailwind('text-xs font-medium')}
               value={value}
+              testID='dfi_token_percentage'
             />}
         />
       </ThemedView>
@@ -220,8 +222,7 @@ function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBrea
       </TouchableOpacity>
       <TouchableOpacity
         onPress={onBreakdownPress}
-        style={tailwind('')}
-      // testID={`details_${props.testID}`}
+        testID='details_dfi'
       >
         <ThemedIcon
           light={tailwind('text-gray-600')}

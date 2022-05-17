@@ -99,15 +99,11 @@ function borrowLoan (symbol: string, amount: string): void {
 context('Wallet - Loans - Add/Remove Collateral', () => {
   let vaultId = ''
 
-  function validateCollateralInPortfolio (token: string, tokenId: string, totalAmount: string, lockedAmount: string, availableAmount: string, lockedPercentage: string, availablePercentage: string): void {
+  function validateCollateralInPortfolio (token: string, tokenId: string, availableAmount: string, lockedAmount: string): void {
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID(`balances_row_${tokenId}_symbol`).contains(token)
-    cy.getByTestID(`balances_row_${tokenId}_amount`).contains(totalAmount)
-    cy.getByTestID(`${token}_locked_percentage_text`).contains(lockedPercentage)
-    cy.getByTestID(`${token}_available_percentage_text`).contains(availablePercentage)
-    cy.getByTestID(`details_${token}`).click()
-    cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount)
-    cy.getByTestID(`${token}_available_amount`).contains(availableAmount)
+    cy.getByTestID(`balances_row_${tokenId}_amount`).contains(availableAmount)
+    cy.getByTestID(`${token}_locked_amount_text`).contains(lockedAmount)
   }
 
   before(function () {
@@ -178,8 +174,8 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should display locked collateral token in portfolio even though it has no balance', function () {
-    validateCollateralInPortfolio('dBTC', '1', '10.00000000', '10.00000000', '0.00000000', '100.00%', '0.00%')
-    validateCollateralInPortfolio('dETH', '2', '10.00000000', '10.00000000', '0.00000000', '100.00%', '0.00%')
+    validateCollateralInPortfolio('dBTC', '1', '0.00000000', '10.00000000')
+    validateCollateralInPortfolio('dETH', '2', '0.00000000', '10.00000000')
   })
 
   it('should update vault details', function () {

@@ -76,13 +76,13 @@ function LockedPercentageItem (props: LockedPercentageItemProps): JSX.Element {
         renderText={value =>
           <ThemedText
             style={tailwind('text-xs ml-0.5')}
-            testID={`${props.testID}_locked_percentage`}
+            testID={`${props.testID}_locked_amount`}
           >
             <BalanceText
               light={tailwind('text-gray-900')}
               dark={tailwind('text-gray-50')}
               style={tailwind('text-xs')}
-              testID={`${props.testID}_locked_percentage_text`}
+              testID={`${props.testID}_locked_amount_text`}
               value={value}
             />
           </ThemedText>}

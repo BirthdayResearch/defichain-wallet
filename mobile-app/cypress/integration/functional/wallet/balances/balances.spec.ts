@@ -369,8 +369,6 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
-    cy.getByTestID('dfi_available_percentage_text').should('have.text', '*****')
-    cy.getByTestID('dfi_locked_percentage_text').should('have.text', '*****')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', displaySymbol: 'dBTC', symbol: 'BTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', displaySymbol: 'dETH', symbol: 'ETH' })
   })
@@ -391,18 +389,6 @@ context('Wallet - Balances', () => {
     cy.go('back')
     cy.getByTestID('convert_dfi_button').click()
     cy.getByTestID('convert_screen').should('exist')
-  })
-
-  it('should be able to navigate to send dfi page', function () {
-    cy.go('back')
-    cy.getByTestID('send_dfi_button').click()
-    cy.getByTestID('send_screen').should('exist')
-  })
-
-  it('should be able to navigate to utxo vs token page', function () {
-    cy.go('back')
-    cy.getByTestID('token_vs_utxo_info').click()
-    cy.getByTestID('token_vs_utxo_screen').should('exist')
   })
 })
 
@@ -969,18 +955,8 @@ context('Wallet - Balances - Token Breakdown', () => {
     }
   ]
 
-  function validateTokenBreakdown (token: string, availablePercentage: string, availableAmount: string, availableValue: string, lockedPercentage: string, lockedAmount: string, lockedValue: string): void {
-    cy.getByTestID(`details_${token}`).click()
-    cy.getByTestID(`${token}_available_percentage`).contains(availablePercentage)
-    cy.getByTestID(`${token}_available_amount`).contains(availableAmount)
-    cy.getByTestID(`${token}_available_value_amount`).invoke('text').then(text => {
-      checkValueWithinRange(text, availableValue)
-    })
-    cy.getByTestID(`${token}_locked_percentage`).contains(lockedPercentage)
+  function validateLockedToken (token: string, lockedAmount: string): void {
     cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount)
-    cy.getByTestID(`${token}_locked_value_amount`).invoke('text').then(text => {
-      checkValueWithinRange(text, lockedValue)
-    })
   }
 
   before(function () {
@@ -998,27 +974,52 @@ context('Wallet - Balances - Token Breakdown', () => {
     cy.getByTestID('bottom_tab_balances').click()
   })
 
-  it('should display DFI percentage breakdown', () => {
+  it('should display percentage of DFI UTXO and DFI Token', () => {
     cy.intercept('**/address/**/vaults?size=*', {
       statusCode: 200,
       body: {
         data: sampleVault
       }
     })
-    validateTokenBreakdown('dfi', '90.40%', '20.00000000', '200', '9.60%', '2.12300000', '21.23')
+    cy.getByTestID('details_dfi').click()
+    validateLockedToken('dfi', '2.12300000')
+    cy.getByTestID('dfi_utxo_percentage').contains('50.00%')
+    cy.getByTestID('dfi_token_percentage').contains('50.00%')
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
   })
 
-  it('should display BTC and ETH breakdown percentage and values', () => {
+  it('should display locked amount of BTC and ETH', () => {
     cy.intercept('**/address/**/vaults?size=*', {
       statusCode: 200,
       body: {
         data: sampleVault
       }
     })
-    validateTokenBreakdown('dBTC', '83.33%', '10', '100', '16.67%', '2', '20')
-    validateTokenBreakdown('dETH', '66.67%', '10', '100', '33.33%', '5', '50')
+    validateLockedToken('dBTC', '2.00000000')
+    validateLockedToken('dETH', '5.00000000')
+  })
+
+  it('should hide DFI Utxo and Token breakdown percentage', () => {
+    cy.getByTestID('toggle_balance').click()
+    cy.getByTestID('dfi_utxo_percentage').should('have.text', '*****')
+    cy.getByTestID('dfi_token_percentage').should('have.text', '*****')
+  })
+
+  it('should hide all locked amount of BTC and ETH', () => {
+    cy.getByTestID('dBTC_locked_amount_text').should('have.text', '*****')
+    cy.getByTestID('dETH_locked_amount_text').should('have.text', '*****')
+  })
+
+  it('should not display locked amount if BTC and ETH have no locked token', () => {
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: []
+      }
+    })
+    cy.getByTestID('dBTC_locked_amount').should('not.exist')
+    cy.getByTestID('dETH_locked_amount').should('not.exist')
   })
 })
 
