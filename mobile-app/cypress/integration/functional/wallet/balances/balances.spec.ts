@@ -245,7 +245,7 @@ const addTokensWithFourCategories = [
 ]
 
 function interceptTokenWithSampleData (): void {
-  cy.intercept('**/tokens?size=*', {
+  cy.intercept('**/address/**/tokens?size=*', {
     body: {
       data: addTokensWithFourCategories
     }
@@ -644,7 +644,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
   })
 
   it('should exist in All tokens and Crypto tabs, should not exist in LP tokens and dTokens tabs', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: [{
           amount: '5.00000000',
@@ -673,7 +673,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
     cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
   })
   it('should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: [{
           amount: '11.00000000',
@@ -761,7 +761,7 @@ context('Wallet - Balances - Your Assets - All tokens tab', function () {
   })
 
   it('should not display sorting icon if there are no other tokens', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }
