@@ -106,7 +106,7 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
-  const onNavigateSwap = ({ pair, fromToken }: { pair: PoolPairData, fromToken: WalletToken }): void => {
+  const onNavigateSwap = ({ pair, fromToken }: { pair?: PoolPairData, fromToken?: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: 'CompositeSwap',
       initial: false,
