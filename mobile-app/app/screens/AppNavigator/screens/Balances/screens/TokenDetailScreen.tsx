@@ -34,6 +34,7 @@ interface TokenActionItems {
   onPress: () => void
   testID: string
 }
+
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token: WalletToken, swapTokenDisplaySymbol?: string } => {
@@ -53,7 +54,10 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
     }
   }, [address, blockCount, isFocused])
 
@@ -92,10 +96,20 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   }
 }
 
-export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
+export function TokenDetailScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
-  const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
-  const onNavigateLiquidity = ({ destination, pair }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
+  const {
+    pair,
+    token,
+    swapTokenDisplaySymbol
+  } = usePoolPairToken(route.params.token)
+  const onNavigateLiquidity = ({
+    destination,
+    pair
+  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
     navigation.navigate('DEX', {
       screen: destination,
       initial: false,
@@ -106,7 +120,10 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
-  const onNavigateSwap = ({ pair, fromToken }: { pair?: PoolPairData, fromToken?: WalletToken }): void => {
+  const onNavigateSwap = ({
+    pair,
+    fromToken
+  }: { pair?: PoolPairData, fromToken?: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: 'CompositeSwap',
       initial: false,
@@ -123,17 +140,6 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
             isPreselected: false
           }
         }
-      },
-      merge: true
-    })
-  }
-
-  const onNavigateSwapDfi = (): void => {
-    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
-      screen: 'CompositeSwap',
-      initial: false,
-      params: {
-        fromToken: DFIUnified
       },
       merge: true
     })
@@ -308,7 +314,12 @@ function TokenSummary (props: { token: WalletToken }): JSX.Element {
   )
 }
 
-function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
+function TokenActionRow ({
+  title,
+  icon,
+  onPress,
+  testID
+}: TokenActionItems): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
