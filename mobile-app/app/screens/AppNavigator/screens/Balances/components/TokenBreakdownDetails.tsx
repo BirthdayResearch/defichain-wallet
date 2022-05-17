@@ -28,7 +28,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_locked`}
         amount={props.lockedAmount.toFixed(8)}
-        label='Locked in vault(s)'
+        label='Locked'
         hasFetchedToken={props.hasFetchedToken}
         labelTextStyle={tailwind('font-medium')}
         valueThemeProps={{
@@ -103,8 +103,8 @@ function TokenBreakdownDetailsRow ({
   labelTextStyle,
   valueTextStyle,
   valueThemeProps = {
-    light: tailwind('text-gray-500'),
-    dark: tailwind('text-gray-400')
+    light: tailwind('text-gray-900'),
+    dark: tailwind('text-gray-50')
   },
   containerStyle,
   prefix,

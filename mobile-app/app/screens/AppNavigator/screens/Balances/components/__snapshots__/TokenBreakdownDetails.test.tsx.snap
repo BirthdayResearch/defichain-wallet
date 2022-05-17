@@ -45,7 +45,7 @@ Array [
       }
       testID="foo_locked_label"
     >
-      Locked in vault(s)
+      Locked
     </Text>
     <View
       style={
