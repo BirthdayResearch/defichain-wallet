@@ -930,6 +930,7 @@ exports[`balances page should match snapshot 1`] = `
                         ],
                       ]
                     }
+                    testID="dfi_utxo_percentage"
                   >
                     77.00%
                   </Text>
@@ -1000,6 +1001,7 @@ exports[`balances page should match snapshot 1`] = `
                         ],
                       ]
                     }
+                    testID="dfi_token_percentage"
                   >
                     23.00%
                   </Text>
@@ -1054,6 +1056,7 @@ exports[`balances page should match snapshot 1`] = `
                       "opacity": 1,
                     }
                   }
+                  testID="details_dfi"
                 >
                   <Text />
                 </View>
@@ -1447,7 +1450,7 @@ exports[`balances page should match snapshot 1`] = `
                     "borderBottomRightRadius": 8,
                     "borderTopLeftRadius": 8,
                     "borderTopRightRadius": 8,
-                    "paddingBottom": 0,
+                    "paddingBottom": 16,
                     "paddingLeft": 16,
                     "paddingRight": 16,
                     "paddingTop": 16,
@@ -1472,14 +1475,10 @@ exports[`balances page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "alignItems": "center",
                     "borderBottomWidth": 0,
                     "borderLeftWidth": 0,
                     "borderRightWidth": 0,
                     "borderTopWidth": 0,
-                    "flexDirection": "row",
-                    "justifyContent": "space-between",
-                    "marginBottom": 16,
                     "opacity": 1,
                   }
                 }
@@ -1710,7 +1709,7 @@ exports[`balances page should match snapshot 1`] = `
                     "borderBottomRightRadius": 8,
                     "borderTopLeftRadius": 8,
                     "borderTopRightRadius": 8,
-                    "paddingBottom": 0,
+                    "paddingBottom": 16,
                     "paddingLeft": 16,
                     "paddingRight": 16,
                     "paddingTop": 16,
@@ -1735,14 +1734,10 @@ exports[`balances page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "alignItems": "center",
                     "borderBottomWidth": 0,
                     "borderLeftWidth": 0,
                     "borderRightWidth": 0,
                     "borderTopWidth": 0,
-                    "flexDirection": "row",
-                    "justifyContent": "space-between",
-                    "marginBottom": 16,
                     "opacity": 1,
                   }
                 }

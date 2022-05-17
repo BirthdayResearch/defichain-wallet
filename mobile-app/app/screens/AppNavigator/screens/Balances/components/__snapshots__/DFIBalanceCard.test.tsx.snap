@@ -376,6 +376,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="dfi_utxo_percentage"
             >
               77.00%
             </Text>
@@ -446,6 +447,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="dfi_token_percentage"
             >
               23.00%
             </Text>
@@ -496,6 +498,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 "opacity": 1,
               }
             }
+            testID="details_dfi"
           >
             <Text />
           </View>
