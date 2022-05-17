@@ -23,6 +23,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@bd72e1b7922d417764d27d30768117ad7da78a0e
         with:
+          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
@@ -52,6 +53,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@bd72e1b7922d417764d27d30768117ad7da78a0e
         with:
+          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
