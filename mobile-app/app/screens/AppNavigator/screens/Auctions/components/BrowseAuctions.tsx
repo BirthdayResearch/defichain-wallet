@@ -1,4 +1,5 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
@@ -18,7 +19,6 @@ import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchTokens, tokensSelector } from '@store/wallet'
-import { useIsFocused } from '@react-navigation/native'
 
 interface Props {
   searchString: string
@@ -157,6 +157,9 @@ function BatchCards ({
   vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
 }): JSX.Element {
+  const ref = useRef(null)
+  useScrollToTop(ref)
+
   const RenderItems = useCallback(({
     item,
     index
@@ -180,6 +183,7 @@ function BatchCards ({
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={auctionBatches}
+      ref={ref}
       numColumns={1}
       initialNumToRender={5}
       windowSize={2}

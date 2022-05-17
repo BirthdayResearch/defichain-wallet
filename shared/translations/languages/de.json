@@ -137,7 +137,7 @@
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
-    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR Code oder Walletadresse nutzen",
+    "Use QR or Wallet Address to receive any DST or DFI": "Zum Empfang von DST oder DFI QR-Code oder Walletadresse nutzen",
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
@@ -156,7 +156,7 @@
     "Enter an amount": "Gib einen Betrag ein",
     "Available": "Verfügbar",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwendige Konvertierungs-Transaktion frei",
     "Send to other wallet": "An andere Wallet senden",
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
@@ -201,7 +201,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
   },
   "screens/ConvertConfirmScreen": {
-    "Confirm DFI Conversion": "Bestätige DFI Konvertierung",
+    "Confirm DFI Conversion": "Bestätige DFI-Konvertierung",
     "You are converting": "Du wandelst um",
     "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG IST DEIN NEUER KONTOSTAND",
     "Estimated fee": "Voraussichtliche Gebühr",
@@ -223,15 +223,15 @@
     "CONNECT WITH THE COMMUNITY": "VERBINDE DICH MIT DER COMMUNITY",
     "DeFiChain is a community-driven and open project.": "DeFiChain ist ein offenes Gemeinschaftsprojekt.",
     "The DeFiChain Foundation does not provide direct support.": "Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
-    "Report an issue on Github": "Erstelle ein Thema auf Github",
+    "Report an issue on Github": "Erstelle ein Issue auf Github",
     "Frequently Asked Questions": "Häufig gestellte Fragen",
-    "Announcements": "Bekanntgaben",
+    "Announcements": "Mitteilungen",
     "Official Website": "Offizielle Webseite"
   },
   "screens/Settings": {
     "Recovery Words": "Wiederherstellungssatz",
     "Are you sure you want to unlink your wallet?": "Möchtest du wirklich deine Wallet abmelden?",
-    "You will need to use your recovery words the next time you want to get back to your wallet.": "Möchtest du dann das nächste Mal deine Wallet aufrufen, wird es notwendig sein, deinen Wiederherstellungssatz einzugeben.",
+    "You will need to use your recovery words the next time you want to get back to your wallet.": "Wenn du das nächste Mal deine Wallet aufrufen möchtest, musst du deinen Wiederherstellungssatz eingeben.",
     "Cancel": "Abbrechen",
     "Unlink Wallet": "Wallet abmelden",
     "UNLINK WALLET": "WALLET ABMELDEN",
@@ -279,10 +279,10 @@
     "Knowledge base": "Wissensdatenbank",
     "Common questions and support documents": "Häufige Fragen und Support-Dokumente",
     "Participate with active community": "An aktiver Community teilnehmen",
-    "Report in Github, discuss in Reddit and Telegram": "Auf Github melden, in Reddit und Telegram thematisch diskutieren",
+    "Report in Github, discuss in Reddit and Telegram": "Auf Github melden, in Reddit und Telegram diskutieren",
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
-    "Learn more about the blockchain": "Lerne mehr über Blockchain",
+    "Learn more about the blockchain": "Lerne mehr über die Blockchain",
     "Try Beta features": "Beta-Funktionen ausprobieren"
   },
   "screens/KnowledgeBase": {
@@ -310,13 +310,13 @@
     "What do the different statuses of a vault mean?": "Was bedeuten die verschiedenen Statusanzeigen eines Vaults?",
     "Empty: When a vault has been created but no collateral has been deposited yet.": "Leer: Wenn ein Vault erstellt wurde, aber noch keine Sicherheiten hinterlegt wurden.",
     "Ready: When collateral has been deposited into the vault, but no loan has been taken yet.": "Bereit: Wenn Sicherheiten im Vault hinterlegt wurden, aber noch kein Darlehen aufgenommen wurde.",
-    "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "Aktiv (Rot): Wenn die Besicherungsquote eines Vaults zwischen dem 1- bis 1,25-Fachen des Mindestbesicherungsquote liegt.",
-    "Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.": "Aktiv (Orange): Wenn die Besicherungsquote eines Vaults zwischen dem 1,25-Fachen und dem 1,5-Fachen der Mindestbesicherungsquote liegt.",
-    "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "Aktiv (Grün): Wenn die Besicherungsquote  eines Vaults mehr als das 1,5-Fache der Mindestbesicherungsquote beträgt.",
-    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement.": "In Liquidation: Wenn die Besicherungsquote  eines Vaults unter die Mindestanforderung fällt.",
-    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "Gestoppt: Wenn ein Token im Vault (Sicherheit oder Kredit) in der letzten Stunde um mehr als 30% geschwankt hat.",
+    "Active (Red): When the collateralization ratio of a vault is between 1x – 1.25x the minimum collateralization ratio.": "Aktiv (Rot): Wenn die Besicherungsquote eines Vaults zwischen dem 1- und dem 1,25-Fachen der Mindestbesicherungsquote liegt.",
+    "Active (Orange): When the collateralization ratio of a vault is between 1.25x – 1.5x the minimum collateralization ratio.": "Aktiv (Orange): Wenn die Besicherungsquote eines Vaults zwischen dem 1,25- und dem 1,5-Fachen der Mindestbesicherungsquote liegt.",
+    "Active (Green):  When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio.": "Aktiv (Grün): Wenn die Besicherungsquote eines Vaults mehr als das 1,5-Fache der Mindestbesicherungsquote beträgt.",
+    "In liquidation: When a vault's collateralization ratio falls below the minimum requirement.": "In Liquidation: Wenn die Besicherungsquote eines Vaults unter die Mindestanforderung fällt.",
+    "Halted: When any token in the vault (collateral or loan) has fluctuated more than 30% in the past hour.": "Gestoppt: Wenn ein Token im Vault (Sicherheit oder Darlehen) in der letzten Stunde um mehr als 30% geschwankt hat.",
     "How are interests calculated for loan?": "Wie werden die Zinsen für Darlehen berechnet?",
-    "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Es gibt 2 Arten von Zinssätzen, die für Darlehen gelten, nämlich den Vault-Zinssatz und den Token-Zinssatz.",
+    "There are 2 types of interests that applies for loans, namely vault interest rate and token interest rate.": "Es gibt zwei Arten von Zinssätzen, die für Darlehen gelten, nämlich den Vault-Zinssatz und den Token-Zinssatz.",
     "The vault interest rate is determined when the vault owner selects the vault scheme, where the higher the minimum collateralization ratio, the lower the vault interest rate.": "Der Vault-Zinssatz wird festgelegt, wenn der Vaultbesitzer das Darlehensmodell auswählt, wobei der Vault-Zinssatz umso niedriger ist, je höher die Mindestbesicherungsquote ist.",
     "The token interest rate is applied on specific loan tokens, and can differ from token to token.": "Der Token-Zinssatz wird auf bestimmte Darlehenstoken angewandt und kann sich von Token zu Token unterscheiden.",
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet.",
@@ -325,13 +325,13 @@
     "Why is there a 1% fee when paying DUSD loans with DFI?": "Warum wird bei der Auszahlung von DUSD-Darlehen mit DFI eine Gebühr von 1 % erhoben?",
     "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Gemäß DFIP 2112-A kann jedes DUSD-Darlehen auch mit DFI beglichen werden, um die gegenwärtigen Preisaufschläge für DUSD auf der DEX zu beseitigen.\n\nBei der Berechnung, wie viel DFI-Gegenwert für ein DUSD-Darlehen zu zahlen ist, wird eine Strafgebühr von 1 % auf den DFI/USD-Preisorakelwert erhoben. Zur Veranschaulichung: Wenn der Preisorakelwert von DFI/USD heute $10 beträgt, wird der Wert eines DFI bei einer DUSD-Zahlung berechnet, indem $10 * (1 - 0,01) multipliziert wird, wodurch der Wert des DFI in einem solchen Szenario um 1% auf $9,90 reduziert wird.",
     "What is vault share?": "Was ist ein Vaultanteil?",
-    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "Der Vaultanteil gibt den Anteil der in einem Vault hinterlegten Sicherheiten-Token an. Alle Vaults müssen mindestens 50 % DFI und/oder DUSD als Sicherheiten-Token enthalten. Diese Anforderung wird 2 Mal überprüft — wenn du neue dToken mintest und wenn du Sicherheiten aus deinem Vault entnimmst."
+    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "Der Vaultanteil gibt den Anteil der in einem Vault hinterlegten Sicherheiten-Token an. Alle Vaults müssen mindestens 50 % DFI und/oder DUSD als Sicherheiten-Token enthalten. Diese Anforderung wird zweimal überprüft — wenn du neue dToken mintest und wenn du Sicherheiten aus deinem Vault entnimmst."
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ Auktionen",
     "Auctions": "Auktionen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
-    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen beizutreiben. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Tranchen von 10.000 USD aufgeteilt.",
+    "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen zu begleichen. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Tranchen von 10.000 USD aufgeteilt.",
     "How is the minimum starting bid determined?": "Wie wird das Mindeststartgebot festgelegt?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "Das Startgebot liegt bei 105% des ausstehenden Darlehenswerts der Charge. Die zusätzlichen 5% dienen zur Deckung der Liquidationsstrafe, die bei der Liquidation des Vaults anfällt.",
     "How is the minimum next bid determined?": "Wie wird das nächste Mindestgebot bestimmt?",
@@ -344,7 +344,7 @@
   "screens/TransactionsScreen": {
     "Transactions": "Transaktionen",
     "No transactions yet": "Noch keine Transaktionen",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UTXO Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
+    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Beginne, mit deiner Wallet Transaktionen auszuführen. Alle ausgeführten UTXO-Transaktionen werden hier angezeigt. Weitere Transaktionstypen werden noch nicht unterstützt.",
     "RECEIVE TOKENS": "TOKEN EMPFANGEN",
     "LOAD MORE": "WEITERE LADEN",
     "Received": "Empfangen",
@@ -374,7 +374,7 @@
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Erfahre mehr über UTXOs und Token",
-    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen in einander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Lightwallet zu erfüllen.",
+    "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen ineinander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Lightwallet zu erfüllen.",
     "DFI in UTXO form": "DFI in UTXO-Form",
     "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO-Form ist die primäre Form von DFI. Sie wird für die wichtigsten Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet.",
     "Use cases include:": "Zu den Anwendungsfällen gehören:",
@@ -382,8 +382,8 @@
     "Receiving DFI from other wallets": "Empfangen von DFI von anderen Wallets",
     "Transaction fees": "Transaktionsgebühren",
     "DFI in token form": "DFI in Token-Form",
-    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI in Tokenform werden für verschiedene DeFiChain-Funktionen wie Liquiditätspools, Darlehen, Auktionen und DEX-Tauschgeschäfte verwendet.",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Tausch von DFI gegen andere Token (z.B. dBTC, dETH, dUSDT)",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI in Token-Form werden für verschiedene DeFiChain-Funktionen wie Liquiditätspools, Darlehen, Auktionen und DEX-Tauschgeschäfte verwendet.",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Tausch von DFI gegen andere Token (z. B. dBTC, dETH, dUSDT)",
     "Liquidity pools": "Liquiditätspools",
     "Auctions and Loans": "Auktionen und Darlehen"
   },
@@ -393,7 +393,7 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
-    "Take full control": "Übernimm volle Kontrolle",
+    "Take full control": "Übernimm die volle Kontrolle",
     "of your digital assets": "über deine digitalen Vermögenswerte",
     "Nobody owns your keys and wallet except you.": "Niemand außer dir besitzt deine Schlüssel und deine Wallet.",
     "Unlock the highest": "Erschließe das höchste",
@@ -401,11 +401,11 @@
     "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transferieren, Liquiditätsmining, Tauschgeschäfte und viele weitere Funktionen als vollständig dezentralisierte Wallet",
     "Earn high yields": "Erwirtschafte hohe Rendite",
     "of up to 90% with DEX": "von bis zu 90% mit der DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Liefere Liquidität für BTC, ETH und viele andere Pool-Paare. Du kannst sie auch jederzeit wieder abheben!"
+    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Stelle Liquidität für BTC, ETH und viele andere Pool-Paare zur Verfügung. Du kannst sie auch jederzeit wieder abheben!"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Ansicht verlassen",
-    "If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?": "Wenn du diese Ansicht verlässt, wird ein neuer 24 Worte - Wiederherstellungsschlüssel generiert. Möchtest du fortfahren?",
+    "If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?": "Wenn du diese Ansicht verlässt, wird ein neuer 24 Worte Wiederherstellungsschlüssel generiert. Möchtest du fortfahren?",
     "Cancel": "Abbrechen",
     "Yes": "Ja",
     "Take note of the words in their correct order": "Notiere die Worte in der korrekten Reihenfolge",
@@ -413,7 +413,7 @@
   },
   "screens/Guidelines": {
     "Creating a wallet": "Erstellen einer Wallet",
-    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Bevor du eine Wallet erstellt hast, sieht du zunächst 24 Worte. Behalte sie für dich und bewahre sie sicher auf.",
+    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Beim Erstellen einer Wallet siehst du zunächst 24 Worte. Behalte sie für dich und bewahre sie sicher auf.",
     "Learn more about recovery words": "Erfahre mehr über den Wiederherstellungssatz",
     "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "Ich verstehe, dass die Verantwortung, meinen Wiederherstellungssatz sicher aufzubewahren, bei mir liegt. Der Verlust dieses Schlüssels hat den unwiederbringlichen Verlust der Guthaben auf dieser Wallet zur Folge.",
     "SHOW MY 24 RECOVERY WORDS": "ZEIGE 24 WIEDERHERSTELLUNGSWORTE AN",
@@ -422,17 +422,17 @@
     "Secure them in a safe space": "Verstaue sie an einem sicheren Platz",
     "Store them offline and in a safe place.": "Bewahre sie offline und an einem geschützten Ort auf.",
     "Keep them private": "Behalte sie für dich",
-    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungsatz kennen."
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungssatz kennen."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard.": "Deine einmaligen 24 Worte des Wiederherstellungsschlüssels sind eine visuell lesbare Darstellung des privaten Schlüssels deiner Wallet. Diese wurden aus einer Sammlung von 2048 Worten im BIP-39 Standard erstellt.",
-    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "Den Wiederherstellungssatz brauchst du, um z.B. deine Wallet auf einem neuen Mobilgerät wiederherzustellen. Betrachte sie als den Schlüssel zu deiner Wallet und deinen Guthaben darauf.",
+    "You will need your recovery words to restore your wallet on, for example, a new mobile device. Think of them as keys to your wallet and funds.": "Den Wiederherstellungssatz brauchst du, um z. B. deine Wallet auf einem neuen Mobilgerät wiederherzustellen. Betrachte sie als den Schlüssel zu deiner Wallet und deinem Guthaben darauf.",
     "If you lose your recovery words, you will not be able to restore your wallet, and you will lose access to your wallet and funds.": "Falls du den Wiederherstellungssatz verlierst, wird es nicht möglich sein, deine Wallet wiederherzustellen und der Zugang zu deiner Wallet und den Guthaben ist nicht mehr möglich.",
-    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "Es ist wichtig, dass du die Wörter zur Wiederherstellung deutlich lesbar in der exakten Reihenfolge notierst.  Bewahre den Wiederherstellungssatz sicher auf, vor fremden Blicken geschützt. Ein feuerfester Wandtresor kann hierbei durchaus Sinn machen."
+    "It is important that you write down your recovery words legibly and in the correct order. Store your recovery words safely and securely, away from prying eyes. You may want to think about keeping it safe from fire as well.": "Es ist wichtig, dass du die Wörter zur Wiederherstellung deutlich lesbar in der exakten Reihenfolge notierst.  Bewahre den Wiederherstellungssatz sicher auf, vor fremden Blicken geschützt. Ein feuerfester Wandtresor kann hierbei durchaus Sinn ergeben."
   },
   "screens/PinConfirmation": {
-    "It may take a few seconds to securely encrypt your wallet...": "Es kann ein paar Sekunden dauern bis deine Wallet sicher verschlüsselt ist...",
+    "It may take a few seconds to securely encrypt your wallet...": "Es kann ein paar Sekunden dauern, bis deine Wallet sicher verschlüsselt ist...",
     "Enter your passcode again to verify": " Erneute Passworteingabe zur Bestätigung",
     "Wrong passcode entered": "Passwort fehlerhaft",
     "Wallet Unlinked": "Wallet nicht verknüpft",
@@ -459,11 +459,11 @@
     "What is word ": "Wie lautet das Wort "
   },
   "screens/RestoreWallet": {
-    "Discard changes?": "Veränderungen verwerfen?",
+    "Discard changes?": "Änderungen verwerfen?",
     "You have unsaved changes. Are you sure to discard them and leave the screen?": "Du hast ungesicherte Eingaben. Möchtest du sie wirklich verwerfen und die Ansicht verlassen?",
     "Error": "Fehler",
-    "The recovery words you have entered are invalid. Please double check and try again.": "Der Wiederherstellungssatz, den du eingegeben hast, ist ungültig. Bitte überprüfe und versuche es erneut.",
-    "Please provide your 24 recovery words to regain access to your wallet.": "Bitte füge die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
+    "The recovery words you have entered are invalid. Please double check and try again.": "Der Wiederherstellungssatz, den du eingegeben hast, ist ungültig. Bitte überprüfe ihn und versuche es erneut.",
+    "Please provide your 24 recovery words to regain access to your wallet.": "Bitte gib die 24 Worte deines Wiederherstellungssatzes ein, um wieder Zugang zu deiner Wallet zu erlangen.",
     "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
     "Enter word #{{order}}": "Wort #{{order}} eingeben",
     "Cancel": "Abbrechen",
@@ -489,7 +489,7 @@
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit realen Aktiva ist Vorsicht geboten.",
+    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit echten Guthaben ist Vorsicht geboten.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
@@ -507,7 +507,7 @@
     "Sent but not confirmed": "Gesendet aber nicht bestätigt",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
-    "Insufficient UTXO DFI": "Nicht ausreichend UTXO DFI",
+    "Insufficient UTXO DFI": "Nicht ausreichend UTXO-DFI",
     "Not enough balance": "Guthaben zu niedrig",
     "Price is higher than indicated": "Preis höher als angezeigt",
     "Preparing broadcast": "Übertragung wird vorbereitet",
@@ -546,13 +546,13 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Your pooled {{token}}": "Deine {{token}} im Pool",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwendige Konvertierungs-Transaktion frei",
     "Estimated fee": "Voraussichtliche Gebühr",
     "Pooled {{symbol}}": "{{symbol}} im Pool"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
-    "AMOUNT TO SUPPLY": "FÜGE SUMME HINZU",
+    "AMOUNT TO SUPPLY": "HINZUZUFÜGENDER BETRAG",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Price": "Preis",
     "Share of pool": "Anteil am Gesamtpool",
@@ -604,7 +604,7 @@
     "from liquidity pool": "aus dem Liquiditätspool"
   },
   "screens/NetworkDetails": {
-    "Wallet Network": "Wallet Netzwerk",
+    "Wallet Network": "Wallet-Netzwerk",
     "Network": "Netzwerk",
     "Status": "Status",
     "Connected": "Verbunden",
@@ -613,7 +613,7 @@
     "Block height": "Blockhöhe",
     "Total Masternodes": "Anzahl an Masternodes",
     "YOU ARE CURRENTLY CONNECTED TO": "DU BIST GERADE VERBUNDEN MIT",
-    "NETWORK DETAILS": "NETZWERK DETAILS"
+    "NETWORK DETAILS": "NETZWERK-DETAILS"
   },
   "components/slider": {
     "None": "Keine",
@@ -647,7 +647,7 @@
     "Estimated fee": "Voraussichtliche Gebühr",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "UTXO to be converted": "Umzuwandelnde UTXO",
-    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei"
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwendige Konvertierungs-Transaktion frei"
   },
   "screens/CompositeSwapScreen": {
     "Swap tokens": "Token-Tausch",
@@ -656,7 +656,7 @@
     "You have": "Du hast aktuell",
     "Estimated to receive": "Geschätzter Betrag",
     "CONTINUE": "WEITER",
-    "Authorize transaction in the next screen to convert": "Gib die zunächst notwenige Konvertierungs-Transaktion frei",
+    "Authorize transaction in the next screen to convert": "Gib die zunächst notwendige Konvertierungs-Transaktion frei",
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
     "Choose token to swap": "Token zum Tauschen wählen",
@@ -743,12 +743,12 @@
     "Why is it recommended to keep my recovery words offline and on paper?": "Warum ist es ratsam, meinen Wiederherstellungssatz offline und auf Papier festzuhalten?",
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Die Speicherung in digitalen Netzen könnte sie für Hacker zugänglich machen. Am besten ist es, sie auf Papier zu schreiben und sie sicher und vor Einblicken geschützt aufzubewahren.",
     "Recovery words": "Wiederherstellungssatz",
-    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
+    "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z. B. durch Brute-Force-Attacken.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/DexFaq": {
     "Decentralized Exchange": "Dezentrale Börse",
-    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z.B. Währungen.",
+    "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z. B. Währungen.",
     "Transaction fees": "Transaktionsgebühren",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Für jede Transaktion wird ein kleiner Betrag an Gebühren erhoben. Der Betrag kann je nach Auslastung des Netzes variieren.",
     "What is slippage tolerance?": "Was ist die Slippage-Toleranz?",
@@ -988,7 +988,7 @@
     "APR": "Jahreszins",
     "CONFIRM CREATE VAULT": "VAULT ERSTELLEN BESTÄTIGEN",
     "Creating vault": "Erstellen eines Vaults",
-    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einem Mindestbesicherungsgrad von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
+    "Creating vault with min. collateralization ratio of {{amount}}% and interest rate of {{ir}}% APR": "Erstellen eines Vaults mit einer Mindestbesicherungsquote von {{amount}}% und einem effektiven Jahreszinssatz von {{ir}}%",
     "Convert & create vault": "Umwandeln und Vault erstellen",
     "CREATING": "ERSTELLEN"
   },
@@ -1177,8 +1177,8 @@
     "Collateral amount (USD)": "Höhe der Sicherheiten (USD)",
     "Collateralization ratio": "Besicherungsquote",
     "Paying loan": "Darlehen abbezahlen",
-    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}}",
-    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehenbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}).",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehensbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}}",
+    "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehensbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
     "Resulting collateralization": "Resultierende Besicherungsquote"
   },
@@ -1352,5 +1352,8 @@
     "PRICES": "PREISE",
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}"
+  },
+  "components/VersionTag": {
+    "Version {{number}}": "Version {{number}}"
   }
 }
