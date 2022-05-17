@@ -78,7 +78,6 @@ export function BalanceCard ({
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isSorted, setIsSorted] = useState<boolean>(false)
-  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -99,16 +98,12 @@ export function BalanceCard ({
   }
 
   filteredTokens.sort((a, b) => {
-    const lockedPriceA = new BigNumber(lockedTokens?.get(a.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.displaySymbol)?.tokenValue
-    const lockedPriceB = new BigNumber(lockedTokens?.get(b.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.displaySymbol)?.tokenValue
-    const aPrice = new BigNumber(a.usdAmount).plus(lockedPriceA ?? 0)
-    const bPrice = new BigNumber(b.usdAmount).plus(lockedPriceB ?? 0)
     if (isSorted) {
       // display value in increasing order
-      return aPrice.minus(bPrice).toNumber()
+      return a.usdAmount.minus(b.usdAmount).toNumber()
     } else {
       // display value in decreasing order
-      return bPrice.minus(aPrice).toNumber()
+      return b.usdAmount.minus(a.usdAmount).toNumber()
     }
   })
 
@@ -179,10 +174,6 @@ function BalanceItemRow ({
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
-  const onBreakdownPress = (): void => {
-    setIsBreakdownExpanded(!isBreakdownExpanded)
-  }
   const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
   const loanTokens = useSelector((state: RootState) => state.loans.loanTokens)
@@ -195,13 +186,12 @@ function BalanceItemRow ({
     <ThemedView
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
-      style={tailwind('p-4 pb-0 rounded-lg')}
+      style={tailwind('p-4 rounded-lg')}
     >
       <ThemedTouchableOpacity
         onPress={onPress}
         dark={tailwind('border-0')}
         light={tailwind('border-0')}
-        style={tailwind('flex-row justify-between items-center mb-4')}
         testID={testID}
       >
         <View style={tailwind('flex-row items-center flex-grow')}>
@@ -215,21 +205,16 @@ function BalanceItemRow ({
             denominationCurrency={denominationCurrency}
           />
         </View>
-      </ThemedTouchableOpacity>
-
-      {hasLockedBalance &&
-        (
-          <>
+        {hasLockedBalance && !lockedToken.amount.isZero() &&
+          (
             <TokenBreakdownPercentage
+              displaySymbol={token.displaySymbol}
               symbol={token.symbol}
-              availableAmount={new BigNumber(token.amount)}
-              onBreakdownPress={onBreakdownPress}
-              isBreakdownExpanded={isBreakdownExpanded}
               lockedAmount={lockedToken.amount}
               testID={token.displaySymbol}
             />
-          </>
-        )}
+          )}
+      </ThemedTouchableOpacity>
     </ThemedView>
   )
 }
