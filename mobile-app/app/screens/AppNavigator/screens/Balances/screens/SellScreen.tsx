@@ -26,9 +26,6 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { ConversionInfoText } from '@components/ConversionInfoText'
-import { NumberRow } from '@components/NumberRow'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
@@ -40,7 +37,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
-import { DfxInfoTex } from '@components/DfxFeeInfo'
+import { DfxKycInfo } from '@components/DfxKycInfo'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 // import { isValidIBAN } from 'ibantools'
 
@@ -68,7 +65,7 @@ export function SellScreen ({
     trigger
   } = useForm({ mode: 'onChange' })
   const dispatch = useDispatch()
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const [fee, setFee] = useState<number>(2.9)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -114,12 +111,6 @@ export function SellScreen ({
     }
   }, [address, blockCount, isFocused])
 
-  useEffect(() => {
-    client.fee.estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error)
-  }, [])
-
   // load sell routes
   useEffect(() => {
     getFiatAccounts()
@@ -153,7 +144,8 @@ export function SellScreen ({
           onFiatAccountPress: async (item): Promise<void> => {
             if (item.iban !== undefined) {
               setSelectedFiatAccount(item)
-              // setValue('amount', '')
+              setFee(item.fee)
+              // setValue('amount', '') // TODO: remove
               // await trigger('amount')
             }
             dismissModal()
@@ -202,7 +194,7 @@ export function SellScreen ({
         amount: conversionAmount
       }, dispatch, () => {
         navigation.navigate({
-          name: 'SendConfirmationScreen',
+          name: 'SellConfirmationScreen',
           params: {
             destination: values.address,
             token,
@@ -221,7 +213,7 @@ export function SellScreen ({
     } else if (formState.isValid) {
       const values = getValues()
       navigation.navigate({
-        name: 'SendConfirmationScreen',
+        name: 'SellConfirmationScreen',
         params: {
           destination: values.address,
           token,
@@ -254,16 +246,17 @@ export function SellScreen ({
           : (
             <>
               <View style={tailwind('px-4')}>
-                <FiatAccountInput
-                  onPress={() => {
-                    setFiatAccountListBottomSheet(fiatAccounts)
-                    expandModal()
-                  }}
-                  fiat={selectedFiatAccount}
-                  isDisabled={(fiatAccounts.length < 1)}
-                />
+                {(fiatAccounts.length > 0) &&
+                  <FiatAccountInput
+                    onPress={() => {
+                      setFiatAccountListBottomSheet(fiatAccounts)
+                      expandModal()
+                    }}
+                    fiat={selectedFiatAccount}
+                    isDisabled={!(fiatAccounts.length > 0)}
+                  />}
 
-                <DfxInfoTex />
+                <DfxKycInfo />
 
                 <AmountRow
                   control={control}
@@ -277,48 +270,28 @@ export function SellScreen ({
                   }}
                   token={token}
                 />
-
-                <ReservedDFIInfoText />
-                {isConversionRequired &&
-                  <View style={tailwind('mt-2')}>
-                    <ConversionInfoText />
-                  </View>}
               </View>
-              {
-                fee !== undefined && (
-                  <View style={tailwind()}>
-                    <ThemedSectionTitle
-                      text={translate('screens/SellScreen', 'TRANSACTION DETAILS')}
-                    />
-                    {isConversionRequired &&
-                      <NumberRow
-                        lhs={translate('screens/SellScreen', 'UTXO to be converted')}
-                        rhs={{
-                          value: conversionAmount.toFixed(8),
-                          testID: 'text_amount_to_convert',
-                          suffixType: 'text',
-                          suffix: token.displaySymbol
-                        }}
-                      />}
 
-                    <FeeInfoRow
-                      type='ESTIMATED_FEE'
-                      value={`${fee.toString()} --> ${String(selectedFiatAccount)}!`}
-                      testID='transaction_fee'
-                      suffix='DFI'
-                    />
-                  </View>
-                )
-              }
+              <View style={tailwind()}>
+                <ThemedSectionTitle
+                  text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                />
+
+                <FeeInfoRow
+                  type='FIAT_FEE'
+                  value={fee}
+                  testID='transaction_fee'
+                  suffix='%'
+                />
+              </View>
+
               <ThemedText
                 testID='transaction_details_info_text'
                 light={tailwind('text-gray-600')}
                 dark={tailwind('text-dfxgray-300')}
                 style={tailwind('mt-2 mx-4 text-sm')}
               >
-                {isConversionRequired
-                  ? translate('screens/SellScreen', 'Authorize transaction in the next screen to convert')
-                  : translate('screens/SellScreen', 'Review full transaction details in the next screen')}
+                {translate('screens/SendScreen', 'Review full transaction details in the next screen')}
               </ThemedText>
             </>
           )}
@@ -451,7 +424,7 @@ function FiatAccountInput (props: { fiat?: SellRoute, onPress: () => void, isDis
           'bg-gray-200 border-0': props.isDisabled,
           'border-gray-300 bg-white': !props.isDisabled
         })}
-        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-10')}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-4')}
         testID='select_fiatAccount_input'
         disabled={props.isDisabled}
       >
@@ -531,7 +504,7 @@ function AmountRow ({
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
-            style={tailwind('flex-row w-full')}
+            style={tailwind('flex-row w-full mt-8')}
           >
             <WalletTextInput
               autoCapitalize='none'

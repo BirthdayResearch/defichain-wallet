@@ -15,7 +15,7 @@ interface FeeInfoRowProps {
   containerStyle?: ThemedProps & { style: StyleProp<ViewStyle> }
 }
 
-type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE'
+type FeeType = 'ESTIMATED_FEE' | 'VAULT_FEE' | 'FIAT_FEE'
 
 export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
   const estimatedFee = {
@@ -27,6 +27,27 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
     message: 'This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.'
   }
 
+  const fiatFee = {
+    title: 'Fee',
+    message: 'Each transaction will be subject to a small amount of fees.'
+  }
+
+  // TODO: @ThaBrad remove or refactor
+  // const feeProps = { estimatedFee, vaultFee, fiatFee }
+  // type PropType = 'object' | 'title' | 'message'
+  // function switchProp (propt: PropType): string {
+  //   switch (props.type) {
+  //     case 'ESTIMATED_FEE':
+  //       return estimatedFee.title
+  //     case 'VAULT_FEE':
+  //       return vaultFee.title
+  //     case 'FIAT_FEE':
+  //       return fiatFee.title
+  //     default:
+  //       return vaultFee.title
+  //   }
+  // }
+
   return (
     <ThemedView
       dark={props.containerStyle?.dark ?? tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
@@ -36,9 +57,49 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
           <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`} {...props.lhsThemedProps}>
-            {translate('components/BottomSheetInfo', props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title)}
+            {translate('components/BottomSheetInfo', (() => {
+              switch (props.type) {
+                case 'ESTIMATED_FEE':
+                  return estimatedFee.title
+                case 'VAULT_FEE':
+                  return vaultFee.title
+                case 'FIAT_FEE':
+                  return fiatFee.title
+                default:
+                  return vaultFee.title
+              }
+            })())}
+            {/* props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title */}
+
           </ThemedText>
-          <BottomSheetInfo alertInfo={props.type === 'ESTIMATED_FEE' ? estimatedFee : vaultFee} name={props.type === 'ESTIMATED_FEE' ? estimatedFee.title : vaultFee.title} />
+          <BottomSheetInfo
+            alertInfo={(() => {
+                switch (props.type) {
+                  case 'ESTIMATED_FEE':
+                    return estimatedFee
+                  case 'VAULT_FEE':
+                    return vaultFee
+                  case 'FIAT_FEE':
+                    return fiatFee
+                  default:
+                    return vaultFee
+                }
+              })()}
+            name={
+              (() => {
+                switch (props.type) {
+                  case 'ESTIMATED_FEE':
+                    return estimatedFee.title
+                  case 'VAULT_FEE':
+                    return vaultFee.title
+                  case 'FIAT_FEE':
+                    return fiatFee.title
+                  default:
+                    return vaultFee.title
+                }
+              })()
+            }
+          />
         </View>
       </View>
 

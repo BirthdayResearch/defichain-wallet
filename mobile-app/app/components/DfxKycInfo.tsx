@@ -5,18 +5,17 @@ import { StyleProp, ViewStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { InfoText } from './InfoText'
 
-interface DfxInfoTextProps {
+interface DfxKycInfoProps {
   style?: StyleProp<ViewStyle>
 }
 
-export function DfxInfoTex (props: DfxInfoTextProps): JSX.Element {
+export function DfxKycInfo (props: DfxKycInfoProps): JSX.Element {
 const { openDfxServices } = useDFXAPIContext()
   return (
     <TouchableOpacity>
       <InfoText
-        testID='reserved_info_text'
-        // text={translate('components/DfxInfoTex', `No ${props.type} in portfolio`)}
-        text={translate('components/DfxInfoTex', 'For transfers over 900€ per day must complete the KYC (know your customer) process. If you like to lift that limit complete the KYC process here.')}
+        testID='dfx_kyc_info'
+        text={translate('components/DfxKYCInfo', 'For transfers over 900€ per day must complete the KYC (know your customer) process. If you like to lift that limit complete the KYC process here.')}
         style={props.style}
         onPress={async () => await openDfxServices()}
       />
