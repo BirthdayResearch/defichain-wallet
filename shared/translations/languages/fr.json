@@ -794,6 +794,7 @@
   "components/DFIBalanceCard": {
     "Learn more about DFI": "En savoir plus sur DFI",
     "Locked in vault(s)": "Verrouillés",
+    "Locked": "Verrouillés",
     "Available": "Disponibles",
     "as UTXO": "comme UTXO",
     "as Token": "comme Token"

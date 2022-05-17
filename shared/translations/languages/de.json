@@ -783,6 +783,7 @@
   },
   "components/DFIBalanceCard": {
     "Learn more about DFI": "Erfahre mehr über DFI",
+    "Locked": "Hinterlegt",
     "Available": "Verfügbar",
     "Locked in vault(s)": "In Vault(s) hinterlegt",
     "as UTXO": "als UTXO",
