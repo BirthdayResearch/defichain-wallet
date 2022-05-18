@@ -76,8 +76,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       {props.dfiUtxo !== undefined && props.dfiToken !== undefined &&
         (
           <View style={tailwind('mt-4')}>
-            <TokenBreakdownDetailsRow testID='dfi_utxo' amount={props.dfiUtxo.amount} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
-            <TokenBreakdownDetailsRow testID='dfi_token' amount={props.dfiToken.amount} label='as Token' hasFetchedToken={props.hasFetchedToken} />
+            <TokenBreakdownDetailsRow testID='dfi_utxo' amount={new BigNumber(props.dfiUtxo.amount).toFixed(8)} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
+            <TokenBreakdownDetailsRow testID='dfi_token' amount={new BigNumber(props.dfiToken.amount).toFixed(8)} label='as Token' hasFetchedToken={props.hasFetchedToken} />
           </View>
         )}
     </>
