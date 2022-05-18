@@ -532,7 +532,7 @@
     "Create new passcode for your wallet": "為您的錢包創建新的密碼"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "請保管好您的恢復字組"
+    "Keep your recovery words safe and private.": "保持您的恢復字詞安全和保密。"
   },
   "screens/AddLiquidity": {
     "Balance": "總資金",
@@ -712,16 +712,15 @@
     "Enter Passcode": "請輸入密碼",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易",
-    "Access granted": "現在可使用",
-    "You may now proceed": "您現在可以繼續",
-    "Sign to verify access": "簽下以確認使用"
+    "Sign to verify access": "簽下以確認使用",
+    "Success!": "成功！"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "簽下交易",
     "Signing your transaction...": "正在簽下交易...",
-    "Transaction authorized": "已授權交易",
-    "Please wait while your transaction is being prepared": "請稍候，您的交易正在準備中",
-    "Verifying access": "驗證可使用的權限"
+    "Verifying access": "驗證可使用的權限",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "補管錢包是您的個人責任，不要忘記儲存您的 24 個恢復字詞。",
+    "Transaction signed": "已簽名的交易"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢復",
