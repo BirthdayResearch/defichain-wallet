@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { MaterialIcons } from '@expo/vector-icons'
 import { translate } from '@translations'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken, unifiedDFISelector } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components'
@@ -34,6 +34,7 @@ interface TokenActionItems {
   onPress: () => void
   testID: string
 }
+
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token: WalletToken, swapTokenDisplaySymbol?: string } => {
@@ -53,7 +54,10 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
     }
   }, [address, blockCount, isFocused])
 
@@ -92,9 +96,20 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   }
 }
 
-export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
-  const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
-  const onNavigateLiquidity = ({ destination, pair }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
+export function TokenDetailScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
+  const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
+  const {
+    pair,
+    token,
+    swapTokenDisplaySymbol
+  } = usePoolPairToken(route.params.token)
+  const onNavigateLiquidity = ({
+    destination,
+    pair
+  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
     navigation.navigate('DEX', {
       screen: destination,
       initial: false,
@@ -105,12 +120,16 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
-  const onNavigateSwap = ({ pair }: { pair: PoolPairData }): void => {
+  const onNavigateSwap = ({
+    pair,
+    fromToken
+  }: { pair?: PoolPairData, fromToken?: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: 'CompositeSwap',
       initial: false,
       params: {
         pair,
+        fromToken,
         tokenSelectOption: {
           from: {
             isDisabled: true,
@@ -177,6 +196,17 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       }
 
       {
+        token.symbol === 'DFI' && (
+          <TokenActionRow
+            icon='swap-horiz'
+            onPress={() => onNavigateSwap({ fromToken: DFIUnified })}
+            testID='swap_button_dfi'
+            title={translate('screens/TokenDetailScreen', 'Swap token')}
+          />
+        )
+      }
+
+      {
         (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
           <TokenActionRow
             icon='swap-horiz'
@@ -220,7 +250,7 @@ function TokenSummary (props: { token: WalletToken }): JSX.Element {
   const { getTokenUrl } = useDeFiScanContext()
 
   const onTokenUrlPressed = async (): Promise<void> => {
-    const id = props.token.id === '0_utxo' ? 0 : props.token.id
+    const id = (props.token.id === '0_utxo' || props.token.id === '0_unified') ? 0 : props.token.id
     const url = getTokenUrl(id)
     await Linking.openURL(url)
   }
@@ -284,7 +314,12 @@ function TokenSummary (props: { token: WalletToken }): JSX.Element {
   )
 }
 
-function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
+function TokenActionRow ({
+  title,
+  icon,
+  onPress,
+  testID
+}: TokenActionItems): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}

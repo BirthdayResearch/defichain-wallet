@@ -1,4 +1,4 @@
-
+import { useRef } from 'react'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -6,13 +6,13 @@ import NumberFormat from 'react-number-format'
 import { View } from 'react-native'
 import { getNativeIcon } from '@components/icons/assets'
 import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useScrollToTop } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
 
 interface LoanCardsProps {
@@ -32,6 +32,8 @@ export interface LoanCardOptions {
 }
 
 export function LoanCards (props: LoanCardsProps): JSX.Element {
+  const ref = useRef(null)
+  useScrollToTop(ref)
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const activeVault = vaults.find((v) => v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION) as LoanVaultActive
@@ -40,6 +42,7 @@ export function LoanCards (props: LoanCardsProps): JSX.Element {
       <ThemedFlatList
         contentContainerStyle={tailwind('px-2 pt-4 pb-2')}
         data={props.loans}
+        ref={ref}
         numColumns={2}
         renderItem={({
           item,
@@ -84,7 +87,7 @@ function LoanCard ({
   testID
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol)
-  const currentPrice = getUSDPrecisedPrice(getActivePrice(symbol, price))
+  const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price))
   return (
     <ThemedTouchableOpacity
       testID={`loan_card_${displaySymbol}`}

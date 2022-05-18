@@ -28,7 +28,7 @@ import {
 } from '../hooks/CollateralizationRatio'
 import { getCollateralPrice, useTotalCollateralValue, useValidCollateralRatio } from '../hooks/CollateralPrice'
 import { CollateralItem } from '../screens/EditCollateralScreen'
-import { getUSDPrecisedPrice } from '@screens/AppNavigator/screens/Auctions/helpers/usd-precision'
+import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 
@@ -252,7 +252,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           {
             !new BigNumber(activePrice).isZero() && (
               <NumberFormat
-                value={getUSDPrecisedPrice(activePrice.multipliedBy(available))}
+                value={getPrecisedTokenValue(activePrice.multipliedBy(available))}
                 thousandSeparator
                 decimalScale={2}
                 displayType='text'
@@ -279,12 +279,13 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
             <ThemedText style={tailwind('mr-2 w-6/12')}>{translate('components/AddOrRemoveCollateralForm', 'Vault requirement')}</ThemedText>
 
             <ThemedView
-              style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+              style={tailwind('flex flex-row items-center mb-0 p-1 rounded-2xl')}
             >
               <TokenIconGroup
                 testID='required_collateral_token_group'
                 symbols={requiredVaultShareTokens}
                 maxIconToDisplay={2}
+                offsetContainer
               />
               <NumberFormat
                 value={requiredTokensShare.toFixed(2)}

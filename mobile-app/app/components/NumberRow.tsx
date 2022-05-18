@@ -56,69 +56,69 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
         </View>
       </View>
 
-      <View
-        style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}
-      >
-        <NumberFormat
-          decimalScale={8}
-          displayType='text'
-          prefix={props.rhs.prefix}
-          renderText={(val: string) => (
-            <Text style={rhsStyle}>
-              <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
-                style={rhsStyle}
-                testID={props.rhs.testID}
-                {...props.rhsThemedProps}
-              >
-                {val}
-              </ThemedText>
-              {
-                props.rhs.suffixType === 'text' &&
-                  <>
-                    <Text>{' '}</Text>
-                    <ThemedText
-                      light={tailwind('text-gray-500')}
-                      dark={tailwind('text-gray-400')}
-                      style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
-                      testID={`${props.rhs.testID}_suffix`}
-                      {...props.rhsThemedProps}
-                    >
-                      {props.rhs.suffix}
-                    </ThemedText>
-                  </>
-              }
-            </Text>
-          )}
-          thousandSeparator
-          value={props.rhs.value}
-        />
+      <View style={tailwind('flex-1')}>
+        <View style={tailwind('flex flex-row justify-end flex-wrap')}>
+          <NumberFormat
+            decimalScale={8}
+            displayType='text'
+            prefix={props.rhs.prefix}
+            renderText={(val: string) => (
+              <Text style={rhsStyle}>
+                <ThemedText
+                  dark={tailwind('text-gray-400')}
+                  light={tailwind('text-gray-500')}
+                  style={rhsStyle}
+                  testID={props.rhs.testID}
+                  {...props.rhsThemedProps}
+                >
+                  {val}
+                </ThemedText>
+                {
+                  props.rhs.suffixType === 'text' &&
+                    <>
+                      <Text>{' '}</Text>
+                      <ThemedText
+                        light={tailwind('text-gray-500')}
+                        dark={tailwind('text-gray-400')}
+                        style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
+                        testID={`${props.rhs.testID}_suffix`}
+                        {...props.rhsThemedProps}
+                      >
+                        {props.rhs.suffix}
+                      </ThemedText>
+                    </>
+                }
+              </Text>
+            )}
+            thousandSeparator
+            value={props.rhs.value}
+          />
 
-        {
-          props.rhs.suffixType === 'component' &&
-          (props.children)
-        }
-        <View style={tailwind('flex flex-row items-center')}>
           {
-            props.rhsUsd?.amount !== undefined &&
-              <ActiveUSDValue
-                price={props.rhsUsd.amount}
-                containerStyle={tailwind('justify-end')}
-                testId={`${props.rhs.testID}_rhsUsdAmount`}
-              />
+            props.rhs.suffixType === 'component' &&
+            (props.children)
           }
-          {
-            props.rhsUsd?.isOraclePrice === true &&
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name='language'
-                light={tailwind('text-gray-600')}
-                dark={tailwind('text-gray-300')}
-                style={tailwind('ml-0.5')}
-                size={12}
-              />
-          }
+          <View style={tailwind('flex flex-row items-center')}>
+            {
+              props.rhsUsd?.amount !== undefined &&
+                <ActiveUSDValue
+                  price={props.rhsUsd.amount}
+                  containerStyle={tailwind('justify-end')}
+                  testId={`${props.rhs.testID}_rhsUsdAmount`}
+                />
+            }
+            {
+              props.rhsUsd?.isOraclePrice === true &&
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  name='language'
+                  light={tailwind('text-gray-600')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('ml-0.5')}
+                  size={12}
+                />
+            }
+          </View>
         </View>
       </View>
     </ThemedView>

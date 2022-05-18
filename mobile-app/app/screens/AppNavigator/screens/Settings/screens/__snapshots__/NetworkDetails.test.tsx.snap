@@ -598,69 +598,76 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "alignItems": "center",
             "flexBasis": "0%",
-            "flexDirection": "row",
             "flexGrow": 1,
             "flexShrink": 1,
-            "flexWrap": "wrap",
-            "justifyContent": "flex-end",
           }
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "textAlign": "right",
-              },
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 16,
-                "fontWeight": "500",
-                "lineHeight": 24,
-              },
-              undefined,
-            ]
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
           }
         >
           <Text
             style={
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                Object {
+                  "fontFamily": "MediumFont",
                   "fontSize": 16,
-                  "fontWeight": "400",
+                  "fontWeight": "500",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 16,
-                      "fontWeight": "500",
-                      "lineHeight": 24,
-                    },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
+                undefined,
               ]
             }
-            testID="network_details_total_masternodes"
           >
-            10
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      Object {
+                        "fontFamily": "MediumFont",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "lineHeight": 24,
+                      },
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="network_details_total_masternodes"
+            >
+              10
+            </Text>
           </Text>
-        </Text>
+        </View>
       </View>
     </View>
   </View>

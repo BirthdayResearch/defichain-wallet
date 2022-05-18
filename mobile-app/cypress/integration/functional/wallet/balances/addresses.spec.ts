@@ -12,7 +12,7 @@ context('Wallet - Addresses', () => {
     cy.restoreLocalStorage()
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })

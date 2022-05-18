@@ -118,7 +118,7 @@ describe('DFI Balance Card', () => {
     })
     const component = (
       <Provider store={store}>
-        <DFIBalanceCard />
+        <DFIBalanceCard denominationCurrency='USDT' />
       </Provider>
     )
     const rendered = render(component)
