@@ -7,6 +7,7 @@ import {
   checkCollateralFormValues,
   checkConfirmEditCollateralValues
 } from '../../../../support/loanCommands'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 function addCollateral (token: string, balance: string, amount: string, usdValue: string, colFactor: string, vaultShare: string, vaultId: string, vaultRequirementPercentage?: string): void {
   const precisedAmount = new BigNumber(amount).toFixed(8)
@@ -155,7 +156,18 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     addCollateral('DFI', '18', '10', '$1,000.00', '100', '100.00%', vaultId)
   })
 
+  it('should update locked DFI in portfolio screen', function () {
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('dfi_locked_amount').contains('10.00000000')
+    cy.getByTestID('dfi_locked_value_amount').contains('≈ $100,000.00')
+    cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
+      checkValueWithinRange(text, '8.9', 0.1)
+    })
+  })
+
   it('should update vault details', function () {
+    cy.getByTestID('bottom_tab_loans').click()
     checkCollateralDetailValues('READY', '$1,000.00', '$0.00', undefined, 'N/A', '150.00', '5.00')
   })
 

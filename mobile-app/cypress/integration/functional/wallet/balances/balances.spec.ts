@@ -717,7 +717,7 @@ context('Wallet - Balances - Portfolio group tab', function () {
     cy.getByTestID('portfolio_button_group_USDT_active').should('exist')
     cy.getByTestID('portfolio_display_BTC_currency').should('not.exist')
     cy.getByTestID('portfolio_display_DFI_currency').should('not.exist')
-    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00000000', '≈ $100,000.00', '≈ $1,000.00')
+    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00', '≈ $100,000.00', '≈ $1,000.00')
   })
 
   it('should display portfolio values in DFI currency', function () {
