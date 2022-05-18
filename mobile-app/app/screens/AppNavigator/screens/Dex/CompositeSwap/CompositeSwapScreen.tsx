@@ -215,7 +215,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (route.params.pair?.id === undefined) {
+    if (route.params.pair?.id === undefined && route.params.fromToken === undefined) {
       return
     }
 
@@ -232,6 +232,21 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
     setIsFromTokenSelectDisabled(tokenSelectOption.from.isDisabled)
     setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled)
+
+    if (route.params.fromToken !== undefined) {
+      onTokenSelect({
+        tokenId: route.params.fromToken.id,
+        available: new BigNumber(route.params.fromToken.amount),
+        token: {
+          displaySymbol: route.params.fromToken.displaySymbol,
+          symbol: route.params.fromToken.symbol,
+          name: route.params.fromToken.name
+        },
+        reserve: route.params.fromToken.amount
+      }, 'FROM')
+
+      return
+    }
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
     if (pair === undefined) {
@@ -261,7 +276,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         reserve: pair.data.tokenB.reserve
       }, 'TO')
     }
-  }, [route.params.pair, route.params.tokenSelectOption])
+  }, [route.params.pair, route.params.tokenSelectOption, route.params.fromToken])
 
   useEffect(() => {
     void getSelectedPoolPairs()
