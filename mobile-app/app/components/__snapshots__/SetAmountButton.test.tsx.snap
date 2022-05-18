@@ -3,6 +3,7 @@
 exports[`set amount button should match styling of set amount button type 50% 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -66,6 +67,7 @@ exports[`set amount button should match styling of set amount button type 50% 1`
 exports[`set amount button should match styling of set amount button type MAX 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}

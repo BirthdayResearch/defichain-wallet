@@ -237,6 +237,7 @@ exports[`receive page should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -289,6 +290,7 @@ exports[`receive page should match snapshot 1`] = `
       </View>
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}

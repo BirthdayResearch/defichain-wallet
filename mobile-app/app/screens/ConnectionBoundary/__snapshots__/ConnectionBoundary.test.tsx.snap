@@ -76,6 +76,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
   </Text>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}

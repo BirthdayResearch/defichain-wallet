@@ -39,6 +39,7 @@ exports[`network selection screen should render 1`] = `
   </Text>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -94,6 +95,7 @@ exports[`network selection screen should render 1`] = `
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -150,6 +152,7 @@ exports[`network selection screen should render 1`] = `
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -205,6 +208,7 @@ exports[`network selection screen should render 1`] = `
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}

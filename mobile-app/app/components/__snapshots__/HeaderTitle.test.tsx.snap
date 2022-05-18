@@ -2,7 +2,13 @@
 
 exports[`Header title should match snapshot for NetworkSelect 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -93,7 +99,13 @@ exports[`Header title should match snapshot for NetworkSelect 1`] = `
 
 exports[`Header title should match snapshot for Status 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
