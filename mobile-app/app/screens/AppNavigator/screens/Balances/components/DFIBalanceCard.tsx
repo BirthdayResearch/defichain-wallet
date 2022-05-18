@@ -121,9 +121,9 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                 ? (
                   <View style={tailwind('flex-row items-center')}>
                     <View style={tailwind('mr-1')}>
-                      <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} />
+                      <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} type='utxo' />
                     </View>
-                    <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} />
+                    <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} type='token' />
                   </View>
                 )
                 : (
@@ -180,7 +180,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   )
 }
 
-function DFIBreakdownPercentageItem ({ label, value }: { label: string, value: BigNumber }): JSX.Element {
+function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, value: BigNumber, type: 'utxo' | 'token' }): JSX.Element {
   return (
     <ThemedView
       style={tailwind('flex flex-row py-1 px-2 rounded-xl')}
@@ -206,7 +206,7 @@ function DFIBreakdownPercentageItem ({ label, value }: { label: string, value: B
             dark={tailwind('text-white')}
             style={tailwind('text-xs font-medium')}
             value={value}
-            testID='dfi_token_percentage'
+            testID={`dfi_${type}_percentage`}
           />}
       />
     </ThemedView>
