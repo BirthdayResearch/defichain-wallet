@@ -721,11 +721,11 @@ context('Wallet - Balances - Portfolio group tab', function () {
   })
 
   it('should display portfolio values in DFI currency', function () {
-    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00000000 DFI', '10.00 DFI', '0.10000000 DFI')
+    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00 DFI', '10.00 DFI', '0.10000000 DFI')
   })
 
   it('should display portfolio values in BTC currency', function () {
-    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00000000 BTC', '10.00 BTC', '0.10000000 BTC')
+    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00 BTC', '10.00 BTC', '0.10000000 BTC')
   })
 })
 
