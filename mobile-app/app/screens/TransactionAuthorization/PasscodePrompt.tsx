@@ -10,6 +10,8 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal 
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
 import Modal from 'react-overlays/Modal'
+import { TransactionSignedLight } from './assets/TransactionSignedLight'
+import { TransactionSignedDark } from './assets/TransactionSignedDark'
 
 interface PasscodePromptProps {
   onCancel: (err: string) => void
@@ -158,9 +160,9 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
   const containerRef = React.useRef(null)
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
-      return ['65%'] // ios measures space without keyboard
+      return ['70%'] // ios measures space without keyboard
     } else if (Platform.OS === 'android') {
-      return ['50%'] // android measure space by including keyboard
+      return ['55%'] // android measure space by including keyboard
     }
     return []
   }
@@ -188,7 +190,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
           )}
           style={{
             position: 'absolute',
-            height: '350px',
+            height: '450px',
             width: '375px',
             zIndex: 50,
             bottom: '0'
@@ -235,19 +237,14 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 })
 
 function SuccessMessage ({ message }: { message?: { title: string, description: string } }): JSX.Element | null {
+  const { isLight } = useThemeContext()
   if (message === undefined) {
     return null
   }
 
   return (
     <View style={tailwind('flex-col items-center p-6')}>
-      <ThemedIcon
-        dark={tailwind('text-darksuccess-500')}
-        iconType='MaterialIcons'
-        light={tailwind('text-success-500')}
-        name='check-circle-outline'
-        size={26}
-      />
+      {isLight ? <TransactionSignedLight /> : <TransactionSignedDark />}
       <ThemedText style={tailwind('text-center text-xl font-bold mt-5')}>
         {message.title}
       </ThemedText>

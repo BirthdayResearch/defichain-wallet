@@ -17,7 +17,6 @@ import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedView } from '@c
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
 import { InfoRow, InfoType } from '@components/InfoRow'
-import { PricesSection } from './components/PricesSection'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -28,11 +27,12 @@ import { InfoText } from '@components/InfoText'
 import { DexParamList } from '../DexNavigator'
 import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { PricesSection } from '@components/PricesSection'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
   tokenFrom: OwnedTokenState
-  tokenTo: TokenState & { amount?: string}
+  tokenTo: TokenState & { amount?: string }
   amountFrom: BigNumber
   amountTo: BigNumber
 }
@@ -175,16 +175,16 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>
         )
-: (
-  <NumberRow
-    lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
-    rhs={{
+        : (
+          <NumberRow
+            lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
+            rhs={{
               testID: 'estimated_to_receive',
               value: swap.amountTo.toFixed(8),
               suffixType: 'text',
               suffix: swap.tokenTo.displaySymbol
             }}
-  />
+          />
         )}
       <InfoRow
         type={InfoType.EstimatedFee}
@@ -204,7 +204,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
                 suffixType: 'text'
               }}
             />
-            <PricesSection priceRates={priceRates} sectionTitle='PRICE DETAILS' />
+            <PricesSection testID='pricerate_value' priceRates={priceRates} sectionTitle='PRICE DETAILS' />
           </>
         )}
       {isFutureSwap
@@ -229,9 +229,9 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>
         )
-: (
-  <TransactionResultsRow
-    tokens={[
+        : (
+          <TransactionResultsRow
+            tokens={[
               {
                 symbol: tokenA.displaySymbol,
                 value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.amountFrom), 0).toFixed(8),
@@ -243,7 +243,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
                 suffix: tokenB.displaySymbol
               }
             ]}
-  />
+          />
         )}
       {conversion?.isConversionRequired === true && (
         <View style={tailwind('px-4 pt-2 pb-1 mt-2')}>

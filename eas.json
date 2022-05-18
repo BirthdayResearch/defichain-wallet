@@ -2,7 +2,13 @@
   "build": {
     "production": {
       "node": "16.13.2",
-      "releaseChannel": "production"
+      "releaseChannel": "production",
+      "env": {
+        "EXPO_BUNDLE_IDENTIFIER": "com.defichain.app"
+      },
+      "ios": {
+        "image": "macos-big-sur-11.4-xcode-13.0"
+      }
     },
     "preview": {
       "node": "16.13.2",
@@ -11,6 +17,12 @@
       },
       "ios": {
         "simulator": true
+      }
+    },
+    "ios_production": {
+      "extends": "production",
+      "env": {
+        "EXPO_BUNDLE_IDENTIFIER": "com.defichain.light.wallet"
       }
     }
   },
