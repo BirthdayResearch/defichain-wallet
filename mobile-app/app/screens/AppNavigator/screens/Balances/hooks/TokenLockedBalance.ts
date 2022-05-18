@@ -37,6 +37,7 @@ export function useTokenLockedBalance ({ displaySymbol, denominationCurrency }: 
         return
       }
 
+      // TODO: include future swap token value as locked balance
       vault.collateralAmounts.forEach(collateral => {
         const token = clone(lockedBalance.get(collateral.displaySymbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
         const tokenValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))

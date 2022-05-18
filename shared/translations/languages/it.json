@@ -805,6 +805,7 @@
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "Scopri di più su UTXO e Token",
+    "Locked": "Bloccato",
     "Available": "Disponibile",
     "Locked in vault(s)": "bloccato in un vault",
     "as UTXO": "come UTXO",
