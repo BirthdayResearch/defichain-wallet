@@ -546,7 +546,7 @@
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Mantieni le tue parole di recupero sicure e private"
+    "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldo",
@@ -731,16 +731,15 @@
     "Enter Passcode": "Inserisci il codice di accesso",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Please enter passcode to securely sign your transaction": "Inserisci il codice di accesso per firmare in modo sicuro la tua transazione",
-    "Access granted": "Accesso concesso",
-    "You may now proceed": "Ora puoi procedere",
-    "Sign to verify access": "Firma per verificare l'accesso"
+    "Sign to verify access": "Firma per verificare l'accesso",
+    "Success!": "Fatto!"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Firma la transazione",
     "Signing your transaction...": "Firma in corso...",
-    "Transaction authorized": "Transazione autorizzata",
-    "Please wait while your transaction is being prepared": "Si prega di attendere mentre la transazione viene preparata",
-    "Verifying access": "Verifica accesso"
+    "Verifying access": "Verifica accesso",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "Il tuo portafoglio è una tua responsabilità, non dimenticate di conservare le 24 parole di recupero.",
+    "Transaction signed": "Transazione firmata."
   },
   "components/CreateWalletIndicator": {
     "Recovery": "Recupera",
@@ -806,6 +805,7 @@
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "Scopri di più su UTXO e Token",
+    "Locked": "Bloccato",
     "Available": "Disponibile",
     "Locked in vault(s)": "bloccato in un vault",
     "as UTXO": "come UTXO",
