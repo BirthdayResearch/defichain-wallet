@@ -110,6 +110,7 @@ exports[`balances page should match snapshot 1`] = `
             >
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={false}
                 onClick={[Function]}
                 onMouseEnter={[Function]}
@@ -168,6 +169,7 @@ exports[`balances page should match snapshot 1`] = `
               >
                 <View
                   accessible={true}
+                  collapsable={false}
                   focusable={true}
                   onClick={[Function]}
                   onMouseEnter={[Function]}
@@ -223,6 +225,7 @@ exports[`balances page should match snapshot 1`] = `
                 </View>
                 <View
                   accessible={true}
+                  collapsable={false}
                   focusable={true}
                   onClick={[Function]}
                   onMouseEnter={[Function]}
@@ -277,6 +280,7 @@ exports[`balances page should match snapshot 1`] = `
                 </View>
                 <View
                   accessible={true}
+                  collapsable={false}
                   focusable={true}
                   onClick={[Function]}
                   onMouseEnter={[Function]}
@@ -372,6 +376,7 @@ exports[`balances page should match snapshot 1`] = `
           </Text>
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onMouseEnter={[Function]}
@@ -407,7 +412,13 @@ exports[`balances page should match snapshot 1`] = `
         }
       >
         <View
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -482,6 +493,7 @@ exports[`balances page should match snapshot 1`] = `
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -583,6 +595,7 @@ exports[`balances page should match snapshot 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -1151,6 +1164,7 @@ exports[`balances page should match snapshot 1`] = `
             </View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1216,6 +1230,7 @@ exports[`balances page should match snapshot 1`] = `
           >
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1276,6 +1291,7 @@ exports[`balances page should match snapshot 1`] = `
             </View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1335,6 +1351,7 @@ exports[`balances page should match snapshot 1`] = `
             </View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1394,6 +1411,7 @@ exports[`balances page should match snapshot 1`] = `
             </View>
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1469,6 +1487,7 @@ exports[`balances page should match snapshot 1`] = `
           >
             <View
               accessible={true}
+              collapsable={false}
               focusable={true}
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1574,6 +1593,7 @@ exports[`balances page should match snapshot 1`] = `
             >
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onMouseEnter={[Function]}
@@ -1837,6 +1857,7 @@ exports[`balances page should match snapshot 1`] = `
             >
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onMouseEnter={[Function]}
