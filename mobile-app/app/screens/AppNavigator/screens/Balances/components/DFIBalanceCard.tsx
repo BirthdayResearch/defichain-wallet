@@ -1,28 +1,28 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, TouchableOpacity } from 'react-native'
 import DFIBackground from '@assets/images/DFI_balance_bg_gradient.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_bg_gradient_dark.png'
-import { IconButton } from '@components/IconButton'
-import { ThemedView, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { InfoTextLink } from '@components/InfoTextLink'
 import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import BigNumber from 'bignumber.js'
-import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
+import NumberFormat from 'react-number-format'
+import { BalanceText } from './BalanceText'
+import { translate } from '@translations'
 interface DFIBalaceCardProps {
   denominationCurrency: string
 }
@@ -36,7 +36,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   const { getTokenPrice } = useTokenPrice(denominationCurrency) // input based on selected denomination from portfolio tab
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ displaySymbol: 'DFI', denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-  const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
+  const usdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
   const availableValue = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount))
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
@@ -52,35 +52,33 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
       style={tailwind('mx-4 mb-1.5 mt-4 rounded-lg flex-1')}
       testID='dfi_balance_card'
     >
-      <ThemedTouchableOpacity
-        onPress={() => navigation.navigate({
-          name: 'TokenDetail',
-          params: { token: DFIUnified },
-          merge: true
-        })}
-        dark={tailwind('border-0')}
-        light={tailwind('border-0')}
-        style={tailwind('flex-row justify-between items-center mb-2')}
-        testID='dfi_balance_card_touchable'
-      >
-        <View style={tailwind('flex-col flex-1')}>
-          <ImageBackground
-            source={isLight ? DFIBackground : DFIBackgroundDark}
-            style={tailwind('flex-1 rounded-lg overflow-hidden')}
-            resizeMode='cover'
-            resizeMethod='scale'
+      <View style={tailwind('flex-col flex-1')}>
+        <ImageBackground
+          source={isLight ? DFIBackground : DFIBackgroundDark}
+          style={tailwind('flex-1 rounded-lg overflow-hidden')}
+          resizeMode='cover'
+          resizeMethod='scale'
+        >
+          <ThemedTouchableOpacity
+            onPress={() => navigation.navigate({
+              name: 'TokenDetail',
+              params: { token: DFIUnified },
+              merge: true
+            })}
+            dark={tailwind('border-0')}
+            light={tailwind('border-0')}
+            testID='dfi_balance_card_touchable'
           >
-            <View style={tailwind('flex-row m-4 mb-2 justify-between')}>
+            <View style={tailwind('flex-row m-4 mb-2 flex-1 justify-between')}>
               <View style={tailwind('flex-row items-center')}>
                 <DFIIcon width={32} height={32} />
                 <TokenNameText displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
               </View>
-
               {
                 hasFetchedToken
                   ? (
                     <TokenAmountText
-                      tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)}
+                      tokenAmount={DFIUnified.amount}
                       usdAmount={usdAmount}
                       testID='dfi_total_balance'
                       isBalancesDisplayed={isBalancesDisplayed}
@@ -115,26 +113,53 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                   )
               }
             </View>
-          </ImageBackground>
-        </View>
-      </ThemedTouchableOpacity>
-
-      <View style={tailwind('mx-4')}>
-        <TokenBreakdownPercentage
-          symbol='DFI'
-          availableAmount={new BigNumber(DFIUnified.amount)}
-          onBreakdownPress={onBreakdownPress}
-          isBreakdownExpanded={isBreakdownExpanded}
-          lockedAmount={lockedToken.amount}
-          testID='dfi'
-        />
+          </ThemedTouchableOpacity>
+          <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
+            {
+              hasFetchedToken
+                ? (
+                  <View style={tailwind('flex-row items-center')}>
+                    <View style={tailwind('mr-1')}>
+                      <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} type='utxo' />
+                    </View>
+                    <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} type='token' />
+                  </View>
+                )
+                : (
+                  <>
+                    <TextSkeletonLoader
+                      iContentLoaderProps={{
+                        width: '97',
+                        height: '24',
+                        testID: 'dfi_utxo_percentage_skeleton_loader'
+                      }}
+                      textXRadius='12'
+                      textYRadius='12'
+                    />
+                    <TextSkeletonLoader
+                      iContentLoaderProps={{
+                        width: '101',
+                        height: '24',
+                        testID: 'dfi_token_percentage_skeleton_loader'
+                      }}
+                      textHorizontalOffset='4'
+                      textWidth='97'
+                      textXRadius='12'
+                      textYRadius='12'
+                    />
+                  </>
+                )
+            }
+            <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
+          </View>
+        </ImageBackground>
       </View>
 
       {isBreakdownExpanded && (
         <ThemedView
           light={tailwind('border-t border-gray-100')}
           dark={tailwind('border-t border-gray-700')}
-          style={tailwind('mx-4 mb-4 pt-2')}
+          style={tailwind('mx-4 mb-4 pt-4')}
         >
           <TokenBreakdownDetails
             hasFetchedToken={hasFetchedToken}
@@ -147,49 +172,78 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             dfiToken={DFIToken}
             denominationCurrency={denominationCurrency}
           />
-          <DFIBreakdownAction dfiUnified={DFIUnified} />
         </ThemedView>
       )}
     </ThemedView>
   )
 }
 
-function DFIBreakdownAction ({ dfiUnified }: { dfiUnified: WalletToken }): JSX.Element {
+function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, value: BigNumber, type: 'utxo' | 'token' }): JSX.Element {
+  return (
+    <ThemedView
+      style={tailwind('flex flex-row py-1 px-2 rounded-xl')}
+      light={tailwind('bg-gray-50')}
+      dark={tailwind('bg-gray-900')}
+    >
+      <ThemedText
+        style={tailwind('text-xs')}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      >
+        {translate('screens/BalancesScreen', label)}
+      </ThemedText>
+      <NumberFormat
+        value={value.isNaN() ? 0 : value.toFixed(2)}
+        thousandSeparator
+        decimalScale={2}
+        displayType='text'
+        suffix='%'
+        renderText={value =>
+          <BalanceText
+            light={tailwind('text-black')}
+            dark={tailwind('text-white')}
+            style={tailwind('text-xs font-medium')}
+            value={value}
+            testID={`dfi_${type}_percentage`}
+          />}
+      />
+    </ThemedView>
+  )
+}
+
+function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBreakdownPress: () => void, isBreakdownExpanded: boolean }): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   return (
-    <View style={tailwind('flex-row mt-4')}>
-      <InfoTextLink
-        onPress={() => navigation.navigate('TokensVsUtxo')}
-        text='Learn more about DFI'
-        containerStyle={tailwind('w-9/12')}
-        testId='token_vs_utxo_info'
-      />
-      <View style={tailwind('flex-row flex-grow justify-end')}>
-        <IconButton
-          iconName='swap-vert'
-          iconSize={24}
+    <View style={tailwind('flex-row justify-between flex-1 items-center')}>
+      <TouchableOpacity>
+        <ThemedIcon
           iconType='MaterialIcons'
+          name='swap-vert'
+          size={24}
           onPress={() => navigation.navigate({
             name: 'Convert',
             params: { mode: 'utxosToAccount' },
             merge: true
           })}
           testID='convert_dfi_button'
-          style={tailwind('mr-2')}
+          style={tailwind('ml-1')}
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
         />
-        <IconButton
-          iconName='arrow-upward'
-          iconSize={24}
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onBreakdownPress}
+        testID='details_dfi'
+      >
+        <ThemedIcon
+          light={tailwind('text-gray-600')}
+          dark={tailwind('text-gray-300')}
           iconType='MaterialIcons'
-          onPress={() => navigation.navigate({
-            name: 'Send',
-            params: { token: dfiUnified },
-            merge: true
-          })}
-          testID='send_dfi_button'
+          name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
+          size={24}
         />
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }

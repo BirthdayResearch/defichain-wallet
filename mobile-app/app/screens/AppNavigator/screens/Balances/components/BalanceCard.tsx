@@ -22,7 +22,6 @@ import { TouchableOpacity } from 'react-native'
 import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
-import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { EmptyPortfolio } from './EmptyPortfolio'
 
@@ -79,7 +78,6 @@ export function BalanceCard ({
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isSorted, setIsSorted] = useState<boolean>(false)
-  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -100,16 +98,12 @@ export function BalanceCard ({
   }
 
   filteredTokens.sort((a, b) => {
-    const lockedPriceA = new BigNumber(lockedTokens?.get(a.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.displaySymbol)?.tokenValue
-    const lockedPriceB = new BigNumber(lockedTokens?.get(b.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.displaySymbol)?.tokenValue
-    const aPrice = new BigNumber(a.usdAmount).plus(lockedPriceA ?? 0)
-    const bPrice = new BigNumber(b.usdAmount).plus(lockedPriceB ?? 0)
     if (isSorted) {
       // display value in increasing order
-      return aPrice.minus(bPrice).toNumber()
+      return a.usdAmount.minus(b.usdAmount).toNumber()
     } else {
       // display value in decreasing order
-      return bPrice.minus(aPrice).toNumber()
+      return b.usdAmount.minus(a.usdAmount).toNumber()
     }
   })
 
@@ -180,73 +174,47 @@ function BalanceItemRow ({
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
-  const onBreakdownPress = (): void => {
-    setIsBreakdownExpanded(!isBreakdownExpanded)
-  }
   const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+  const loanTokens = useSelector((state: RootState) => state.loans.loanTokens)
   const hasLockedBalance = useMemo((): boolean => {
-    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
+    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol) ||
+      loanTokens.some(loanToken => loanToken.token.displaySymbol === token.displaySymbol)
   }, [token])
 
   return (
     <ThemedView
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
-      style={tailwind('p-4 pb-0 rounded-lg')}
+      style={tailwind('p-4 rounded-lg')}
     >
       <ThemedTouchableOpacity
         onPress={onPress}
         dark={tailwind('border-0')}
         light={tailwind('border-0')}
-        style={tailwind('flex-row justify-between items-center mb-4')}
         testID={testID}
       >
         <View style={tailwind('flex-row items-center flex-grow')}>
           <Icon testID={`${testID}_icon`} />
           <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
           <TokenAmountText
-            tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
-            usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
+            tokenAmount={token.amount}
+            usdAmount={token.usdAmount}
             testID={testID}
             isBalancesDisplayed={isBalancesDisplayed}
             denominationCurrency={denominationCurrency}
           />
         </View>
-      </ThemedTouchableOpacity>
-
-      {hasLockedBalance &&
-        (
-          <>
+        {hasLockedBalance && !lockedToken.amount.isZero() &&
+          (
             <TokenBreakdownPercentage
+              displaySymbol={token.displaySymbol}
               symbol={token.symbol}
-              availableAmount={new BigNumber(token.amount)}
-              onBreakdownPress={onBreakdownPress}
-              isBreakdownExpanded={isBreakdownExpanded}
               lockedAmount={lockedToken.amount}
               testID={token.displaySymbol}
             />
-            {isBreakdownExpanded && (
-              <ThemedView
-                light={tailwind('border-t border-gray-100')}
-                dark={tailwind('border-t border-gray-700')}
-                style={tailwind('pt-2 pb-4')}
-              >
-                <TokenBreakdownDetails
-                  hasFetchedToken={hasFetchedToken}
-                  lockedAmount={lockedToken.amount}
-                  lockedValue={lockedToken.tokenValue}
-                  availableAmount={new BigNumber(token.amount)}
-                  availableValue={token.usdAmount}
-                  testID={token.displaySymbol}
-                  denominationCurrency={denominationCurrency}
-                />
-              </ThemedView>
-            )}
-          </>
-        )}
+          )}
+      </ThemedTouchableOpacity>
     </ThemedView>
   )
 }

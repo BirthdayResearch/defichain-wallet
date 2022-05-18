@@ -27,9 +27,7 @@ exports[`Search Input should match snapshot 1`] = `
 >
   <Text />
   <TextInput
-    allowFontScaling={true}
     placeholderTextColor="rgba(0, 0, 0, 0.4)"
-    rejectResponderTermination={true}
     showClearButton={true}
     style={
       Array [
@@ -43,10 +41,10 @@ exports[`Search Input should match snapshot 1`] = `
         },
       ]
     }
-    underlineColorAndroid="transparent"
   />
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}

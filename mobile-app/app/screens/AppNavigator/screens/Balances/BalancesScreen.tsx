@@ -1,5 +1,6 @@
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+
 import { useScrollToTop } from '@react-navigation/native'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -27,7 +28,7 @@ import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { activeVaultsSelector, fetchCollateralTokens, fetchVaults } from '@store/loans'
+import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
@@ -93,9 +94,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )
     })
   }, [navigation, address, addressLength])
+
   useEffect(() => {
-    // fetch only once to decide flag to display locked balance breakdown
-    dispatch(fetchCollateralTokens({ client }))
+    batch(() => {
+      // fetch only once to decide flag to display locked balance breakdown
+      dispatch(fetchCollateralTokens({ client }))
+      dispatch(fetchLoanTokens({ client }))
+    })
   }, [])
 
   const fetchPortfolioData = (): void => {
@@ -361,7 +366,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {/* TODO: remove hardcoded flag to test future swap */}
         {(hasPendingFutureSwap || true) && <FutureSwapCta navigation={navigation} />}
-        {/* {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />} */}
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (

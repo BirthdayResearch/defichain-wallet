@@ -178,6 +178,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 
   it('should be able to search available poolpair by querying in search input', () => {
+    cy.getByTestID('dex_search_icon').click()
     cy.getByTestID('dex_search_input').type('btc-dfi')
     cy.getByTestID('details_dBTC-DFI').click()
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 1)
@@ -278,7 +279,7 @@ context('Wallet - DEX - Your Pool Pairs', () => {
   })
 
   it('should display empty results', () => {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }

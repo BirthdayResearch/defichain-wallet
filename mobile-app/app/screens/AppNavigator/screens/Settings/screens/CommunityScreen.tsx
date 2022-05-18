@@ -67,19 +67,19 @@ const Communities: CommunityItem[] = [
     id: 'tg_en',
     title: 'Telegram (EN)',
     url: 'https://t.me/defiblockchain',
-    icon: 'telegram'
+    icon: 'message'
   },
   {
     id: 'tg_de',
     title: 'Telegram (DE)',
     url: 'https://t.me/defiblockchain_DE',
-    icon: 'telegram'
+    icon: 'message'
   },
   {
     id: 'announcements',
     title: 'Announcements',
     url: 'https://t.me/defichain_announcements',
-    icon: 'telegram'
+    icon: 'message'
   },
   {
     id: 'wechat',
