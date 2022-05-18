@@ -12,7 +12,7 @@ import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { isValidIBAN } from 'ibantools'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 
-interface BottomSheetTokenListProps {
+interface BottomSheetFiatAccountListProps {
   headerLabel: string
   onCloseButtonPress: () => void
   onFiatAccountPress?: (token: SellRoute) => void
@@ -53,7 +53,7 @@ export const BottomSheetFiatAccountList = ({
   fiatAccounts,
   vault
   // tokenType
-}: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+}: BottomSheetFiatAccountListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const flatListComponents = {
