@@ -46,14 +46,6 @@ export const fetchFutureSwaps = createAsyncThunk(
         {
           source: '1.123@DUSD',
           destination: '321231.987654@TS25'
-        },
-        {
-          source: '1.123@DUSD',
-          destination: '0.00000001@TU10'
-        },
-        {
-          source: '1.123@DUSD',
-          destination: '111@TU10'
         }
       ]
     }
