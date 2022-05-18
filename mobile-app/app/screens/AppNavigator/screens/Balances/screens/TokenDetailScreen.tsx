@@ -250,7 +250,7 @@ function TokenSummary (props: { token: WalletToken }): JSX.Element {
   const { getTokenUrl } = useDeFiScanContext()
 
   const onTokenUrlPressed = async (): Promise<void> => {
-    const id = props.token.id === '0_utxo' ? 0 : props.token.id
+    const id = (props.token.id === '0_utxo' || props.token.id === '0_unified') ? 0 : props.token.id
     const url = getTokenUrl(id)
     await Linking.openURL(url)
   }
