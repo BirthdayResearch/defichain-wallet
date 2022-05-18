@@ -47,7 +47,7 @@ services:
       -fortcanningroadheight=11
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:2.44.0
+    image: ghcr.io/jellyfishsdk/playground-api:2.45.0
     depends_on:
       - defi-blockchain
     ports:
