@@ -974,7 +974,7 @@ context('Wallet - Balances - Token Breakdown', () => {
       })
     })
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(6000)
+    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(6000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
@@ -987,9 +987,9 @@ context('Wallet - Balances - Token Breakdown', () => {
     })
     cy.getByTestID('details_dfi').click()
     validateLockedToken('dfi', '2.12300000')
-    cy.getByTestID('dfi_utxo_percentage').contains('50.00%')
-    cy.getByTestID('dfi_token_percentage').contains('50.00%')
-    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+    cy.getByTestID('dfi_utxo_percentage').contains('66.67%')
+    cy.getByTestID('dfi_token_percentage').contains('33.33%')
+    cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
   })
 
