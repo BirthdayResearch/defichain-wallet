@@ -20,6 +20,7 @@ export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
     pair?: PoolPairData
+    fromToken?: WalletToken
     tokenSelectOption?: {
       from: {
         isDisabled: boolean
