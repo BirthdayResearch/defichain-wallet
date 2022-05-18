@@ -40,6 +40,7 @@ import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { ButtonGroup } from '../components/ButtonGroup'
 import { useFutureSwap, useFutureSwapDate } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -725,6 +726,7 @@ function TransactionDetailsSection ({
   transactionDate: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
+  const { getTokenPrice } = useTokenPrice()
   return (
     <View style={tailwind('rounded-lg mx-4 overflow-hidden')}>
       {isConversionRequired &&
@@ -760,6 +762,11 @@ function TransactionDetailsSection ({
                 testID: 'estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
+              rhsUsd={{
+                amount: getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false),
+                isOraclePrice: true
+              }}
+
             />
           </>
         )

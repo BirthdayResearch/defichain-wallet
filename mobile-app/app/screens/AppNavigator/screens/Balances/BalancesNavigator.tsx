@@ -29,6 +29,8 @@ import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { FutureSwapDetailScreen } from './screens/FutureSwapDetailScreen'
 import { FutureSwapData } from '@store/futureSwap'
+import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
+import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -70,7 +72,22 @@ export interface BalanceParamList {
     futureSwap: FutureSwapData
     executionBlock: number
   }
-
+  WithdrawFutureSwapScreen: {
+    futureSwap: FutureSwapData
+  }
+  ConfirmWithdrawFutureSwapScreen: {
+    source: {
+      amountToWithdraw: BigNumber
+      remainingAmount: BigNumber
+      remainingAmountInUSD: BigNumber
+      tokenId: string
+      displaySymbol: string
+    }
+    destination: {
+      tokenId: string
+    }
+    fee: BigNumber
+  }
   [key: string]: undefined | object
 }
 
@@ -371,6 +388,34 @@ export function BalancesNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/FutureSwapScreen', 'Transaction Detail')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={WithdrawFutureSwapScreen}
+        name='WithdrawFutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/WithdrawFutureSwapScreen', 'Withdraw from future swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={ConfirmWithdrawFutureSwapScreen}
+        name='ConfirmWithdrawFutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm withdrawal')}
               containerTestID={headerContainerTestId}
             />
           ),

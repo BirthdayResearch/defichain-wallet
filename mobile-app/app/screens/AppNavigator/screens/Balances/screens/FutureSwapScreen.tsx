@@ -52,10 +52,9 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
 
   const onPress = (item: FutureSwapData): void => {
     navigation.navigate({
-      name: 'FutureSwapDetailScreen',
+      name: 'WithdrawFutureSwapScreen',
       params: {
-        futureSwap: item,
-        executionBlock
+        futureSwap: item
       }
     })
   }
@@ -67,7 +66,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
       <ThemedTouchableOpacity
         style={tailwind('p-4 items-center justify-between flex flex-row')}
         onPress={() => onPress(item)}
-        disabled={isEnded}
+        // disabled={isEnded}
       >
         <View>
           <View style={tailwind('flex flex-row items-center mb-1')}>

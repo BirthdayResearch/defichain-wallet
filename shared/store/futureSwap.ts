@@ -10,11 +10,15 @@ export interface FutureSwapData {
     amount: string
     displaySymbol: string
     isLoanToken: boolean
+    symbol: string
+    tokenId: string
   }
   destination: {
     amount: string
     displaySymbol: string
     isLoanToken: boolean
+    symbol: string
+    tokenId: string
   }
 }
 
@@ -84,20 +88,23 @@ export const FutureSwapSelector = createSelector([selectFutureSwapState, selectL
   return futureSwaps.futureSwaps.map(swap => {
     const [sourceAmount, sourceSymbol] = swap.source.split('@') // ['123', 'DUSD']
     const [destinationAmount, destinationSymbol] = swap.destination.split('@') // ['321', 'TSLA']
-    const refToken = 'DUSD'
-    const loanTokenDisplaySymbol = loans.loanTokens.find(
-      token => token.token.symbol === (sourceSymbol !== refToken ? sourceSymbol : destinationSymbol)
-    )?.token.displaySymbol ?? ''
+    const sourceLoanToken = loans.loanTokens.find(token => token.token.symbol === sourceSymbol)
+    const destinationLoanToken = loans.loanTokens.find(token => token.token.symbol === destinationSymbol)
+
     return {
       source: {
         amount: new BigNumber(sourceAmount).toFixed(8),
-        displaySymbol: sourceSymbol !== refToken ? loanTokenDisplaySymbol : refToken,
-        isLoanToken: sourceSymbol !== refToken
+        displaySymbol: sourceLoanToken?.token.displaySymbol ?? '',
+        isLoanToken: sourceLoanToken?.token.displaySymbol !== 'DUSD',
+        symbol: sourceLoanToken?.token.symbol ?? '',
+        tokenId: sourceLoanToken?.token.id ?? ''
       },
       destination: {
         amount: new BigNumber(destinationAmount).toFixed(8),
-        displaySymbol: destinationSymbol !== refToken ? loanTokenDisplaySymbol : refToken,
-        isLoanToken: destinationSymbol !== refToken
+        displaySymbol: destinationLoanToken?.token.displaySymbol ?? '',
+        isLoanToken: destinationLoanToken?.token.displaySymbol !== 'DUSD',
+        symbol: destinationLoanToken?.token.symbol ?? '',
+        tokenId: sourceLoanToken?.token.id ?? ''
       }
     }
   })
