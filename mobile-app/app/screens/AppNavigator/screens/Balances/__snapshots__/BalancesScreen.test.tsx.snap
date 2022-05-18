@@ -641,13 +641,10 @@ exports[`balances page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "alignItems": "center",
                   "borderBottomWidth": 0,
                   "borderLeftWidth": 0,
                   "borderRightWidth": 0,
                   "borderTopWidth": 0,
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
                   "opacity": 1,
                 }
               }
@@ -826,7 +823,7 @@ exports[`balances page should match snapshot 1`] = `
                       }
                       testID="dfi_total_balance_amount"
                     >
-                      102.12300000
+                      100.00000000
                     </Text>
                     <View
                       style={

@@ -67,7 +67,6 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             })}
             dark={tailwind('border-0')}
             light={tailwind('border-0')}
-            style={tailwind('flex-row justify-between items-center')}
             testID='dfi_balance_card_touchable'
           >
             <View style={tailwind('flex-row m-4 mb-2 flex-1 justify-between')}>
@@ -79,7 +78,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                 hasFetchedToken
                   ? (
                     <TokenAmountText
-                      tokenAmount={lockedToken.amount.plus(DFIUnified.amount).toFixed(8)}
+                      tokenAmount={DFIUnified.amount}
                       usdAmount={usdAmount}
                       testID='dfi_total_balance'
                       isBalancesDisplayed={isBalancesDisplayed}
