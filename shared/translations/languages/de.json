@@ -529,7 +529,7 @@
     "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Sichere deinen Wiederherstellungssatz und bewahre ihn sicher auf"
+    "Keep your recovery words safe and private.": "Verwahre deinen Wiederherstellungssatz sicher und diskret."
   },
   "screens/AddLiquidity": {
     "Balance": "Guthaben",
@@ -708,16 +708,15 @@
     "Enter Passcode": "Passwort eingeben",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
-    "Access granted": "Zugriff gewährt",
-    "You may now proceed": "Du kannst nun fortfahren",
-    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen"
+    "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen",
+    "Success!": "Erfolgreich!"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",
     "Signing your transaction...": "Transaktionsfreigabe...",
-    "Transaction authorized": "Transaktion genehmigt",
-    "Please wait while your transaction is being prepared": "Bitte warten, während deine Transaktion vorbereitet wird",
-    "Verifying access": "Zugriff wird verifiziert"
+    "Verifying access": "Zugriff wird verifiziert",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "Deine Wallet liegt in deiner Verantwortung, vergiss nicht, deine 24 Wiederherstellungswörter zu speichern.",
+    "Transaction signed": "Transaktion freigegeben"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "Stelle wieder her",
