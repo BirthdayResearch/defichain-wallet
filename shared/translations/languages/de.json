@@ -529,7 +529,7 @@
     "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Sichere deinen Wiederherstellungssatz und bewahre ihn sicher auf"
+    "Keep your recovery words safe and private.": "Verwahre deinen Wiederherstellungssatz sicher und diskret."
   },
   "screens/AddLiquidity": {
     "Balance": "Guthaben",
