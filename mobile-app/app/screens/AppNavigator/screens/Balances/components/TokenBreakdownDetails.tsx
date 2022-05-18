@@ -7,6 +7,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { StyleProp, TextProps, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { BalanceText } from './BalanceText'
 import { PortfolioButtonGroupTabKey } from './TotalPortfolio'
 
@@ -38,7 +39,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_locked_value`}
-        amount={props.lockedValue.toFixed(8)}
+        amount={getPrecisedTokenValue(props.lockedValue)}
         label=''
         hasFetchedToken={props.hasFetchedToken}
         valueThemeProps={{
@@ -62,7 +63,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_available_value`}
-        amount={props.availableValue.toFixed(8)}
+        amount={getPrecisedTokenValue(props.availableValue)}
         label=''
         hasFetchedToken={props.hasFetchedToken}
         valueThemeProps={{
@@ -127,8 +128,6 @@ function TokenBreakdownDetailsRow ({
               <NumberFormat
                 value={amount}
                 thousandSeparator
-                decimalScale={8}
-                fixedDecimalScale
                 displayType='text'
                 prefix={prefix}
                 suffix={suffix}

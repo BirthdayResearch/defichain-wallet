@@ -36,7 +36,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   const { getTokenPrice } = useTokenPrice(denominationCurrency) // input based on selected denomination from portfolio tab
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ displaySymbol: 'DFI', denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-  const usdAmount = getTokenPrice(DFIUnified.symbol, lockedToken.amount.plus(DFIUnified.amount), DFIUnified.isLPS)
+  const usdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
   const availableValue = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount))
   const DFIIcon = getNativeIcon('_UTXO')
   const { isLight } = useThemeContext()
