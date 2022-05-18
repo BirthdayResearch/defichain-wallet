@@ -1,4 +1,3 @@
 [build]
-base = "/"
 publish = "web-build/"
 command = "expo build:web"
