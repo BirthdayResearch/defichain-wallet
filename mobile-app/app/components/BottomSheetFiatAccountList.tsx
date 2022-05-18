@@ -22,26 +22,11 @@ interface BottomSheetFiatAccountListProps {
   }
   fiatAccounts: SellRoute[]
   vault?: LoanVaultActive
-  // tokenType: TokenType
 }
 
-// export class FiatAccount {
-//   currency?: string = '€'
-//   iban: string
-//   constructor (iban?: string) {
-//     this.iban = iban ?? 'DE89 3704 0044 0532 0130 00'
-//   }
-// }
-
-// export enum TokenType {
-//   BottomSheetToken = 'BottomSheetToken',
-//   CollateralItem = 'CollateralItem'
-// }
-
 function checkIban (iban: string): boolean {
+  // remove whitespaces
   iban = iban.replace(/\s/g, '')
-  // console.log(iban)
-  // console.log(isValidIBAN(iban))
   return isValidIBAN(iban)
 }
 
@@ -50,9 +35,7 @@ export const BottomSheetFiatAccountList = ({
   onCloseButtonPress,
   onFiatAccountPress,
   navigateToScreen,
-  fiatAccounts,
-  vault
-  // tokenType
+  fiatAccounts
 }: BottomSheetFiatAccountListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
@@ -61,7 +44,6 @@ export const BottomSheetFiatAccountList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  // const { getTokenPrice } = useTokenPrice()
 
   return (
     <FlatList
@@ -93,7 +75,7 @@ export const BottomSheetFiatAccountList = ({
                 <ThemedText
                   testID={`token_symbol_${item.iban}`}
                 >
-                  {checkIban(item.iban) ? item.iban : 'Invalid IBAN'}{/* // TODO */}
+                  {checkIban(item.iban) ? item.iban : '- Invalid IBAN -'}{/* // TODO @ThaBrad */}
                 </ThemedText>
                 <ThemedText
                   light={tailwind('text-dfxgray-500')}
