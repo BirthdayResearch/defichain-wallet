@@ -24,19 +24,19 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         "url": "https://defichain.com/learn/#faq",
       },
       Object {
-        "icon": "telegram",
+        "icon": "message",
         "id": "tg_en",
         "title": "Telegram (EN)",
         "url": "https://t.me/defiblockchain",
       },
       Object {
-        "icon": "telegram",
+        "icon": "message",
         "id": "tg_de",
         "title": "Telegram (DE)",
         "url": "https://t.me/defiblockchain_DE",
       },
       Object {
-        "icon": "telegram",
+        "icon": "message",
         "id": "announcements",
         "title": "Announcements",
         "url": "https://t.me/defichain_announcements",
