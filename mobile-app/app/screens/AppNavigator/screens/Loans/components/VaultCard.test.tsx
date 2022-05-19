@@ -15,6 +15,7 @@ jest.mock('@gorhom/bottom-sheet', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('react-native-popover-view')
 
 describe('Vault card', () => {
   it('should match snapshot of liquidated vault', async () => {

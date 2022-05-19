@@ -403,37 +403,46 @@ exports[`loan cards should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "display": "flex",
                   "flexDirection": "row",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
                     Array [
                       Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginRight": 4,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
                       },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="loan_card_0_loan_amount"
-              >
-                $
-                0.00
-              </Text>
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "marginRight": 4,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_0_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -700,37 +709,46 @@ exports[`loan cards should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "display": "flex",
                   "flexDirection": "row",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
                     Array [
                       Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginRight": 4,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
                       },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="loan_card_1_loan_amount"
-              >
-                $
-                0.00
-              </Text>
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "marginRight": 4,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_1_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -1010,37 +1028,46 @@ exports[`loan cards should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "display": "flex",
                   "flexDirection": "row",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
                     Array [
                       Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginRight": 4,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
                       },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="loan_card_2_loan_amount"
-              >
-                $
-                0.00
-              </Text>
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "marginRight": 4,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_2_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
             </View>
           </View>
         </View>
