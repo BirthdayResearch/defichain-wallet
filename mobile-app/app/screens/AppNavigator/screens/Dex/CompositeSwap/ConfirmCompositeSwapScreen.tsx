@@ -80,12 +80,13 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
 
     setIsSubmitting(true)
     if (isFutureSwap) {
-      const futureSwap = {
+      const futureSwapForm = {
         fromTokenId: Number(swap.tokenFrom.id),
         toTokenId: Number(swap.tokenTo.id),
-        amount: new BigNumber(swap.amountFrom)
+        amount: new BigNumber(swap.amountFrom),
+        isSourceLoanToken: futureSwap.isSourceLoanToken
       }
-      await constructSignedFutureSwapAndSend(futureSwap, dispatch, () => {
+      await constructSignedFutureSwapAndSend(futureSwapForm, dispatch, () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
       }, logger)
     } else {
@@ -344,6 +345,7 @@ interface FutureSwapForm {
   fromTokenId: number
   amount: BigNumber
   toTokenId: number
+  isSourceLoanToken: boolean
 }
 
 async function constructSignedFutureSwapAndSend (
@@ -362,7 +364,7 @@ async function constructSignedFutureSwapAndSend (
           token: futureSwap.fromTokenId,
           amount: futureSwap.amount
         },
-        destination: futureSwap.toTokenId,
+        destination: futureSwap.isSourceLoanToken ? 0 : futureSwap.toTokenId,
         withdraw: false
       }
       const dfTx = await builder.account.futureSwap(swap, script)

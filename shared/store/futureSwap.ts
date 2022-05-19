@@ -14,7 +14,6 @@ export interface FutureSwapData {
     tokenId: string
   }
   destination: {
-    amount: string
     displaySymbol: string
     isLoanToken: boolean
     symbol: string
@@ -69,7 +68,7 @@ export const hasFutureSwap = createSelector((state: FutureSwapState) => state.fu
 export const FutureSwapSelector = createSelector([selectFutureSwapState, selectLoansState], (futureSwaps, loans): FutureSwapData[] => {
   return futureSwaps.futureSwaps.map(swap => {
     const [sourceAmount, sourceSymbol] = swap.source.split('@') // ['123', 'DUSD']
-    const [destinationAmount, destinationSymbol] = swap.destination.split('@') // ['321', 'TSLA']
+    const destinationSymbol = swap.destination
     const sourceLoanToken = loans.loanTokens.find(token => token.token.symbol === sourceSymbol)
     const destinationLoanToken = loans.loanTokens.find(token => token.token.symbol === destinationSymbol)
 
@@ -82,7 +81,6 @@ export const FutureSwapSelector = createSelector([selectFutureSwapState, selectL
         tokenId: sourceLoanToken?.token.id ?? ''
       },
       destination: {
-        amount: new BigNumber(destinationAmount).toFixed(8),
         displaySymbol: destinationLoanToken?.token.displaySymbol ?? '',
         isLoanToken: destinationLoanToken?.token.displaySymbol !== 'DUSD',
         symbol: destinationLoanToken?.token.symbol ?? '',

@@ -118,7 +118,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
   const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
-  const { isFutureSwapOptionEnabled, oraclePriceText } = useFutureSwap({
+  const { isFutureSwapOptionEnabled, oraclePriceText, isSourceLoanToken } = useFutureSwap({
     fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
     toTokenDisplaySymbol: selectedTokenB?.displaySymbol
   })
@@ -384,7 +384,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       futureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap
         ? {
           executionBlock,
-          transactionDate
+          transactionDate,
+          isSourceLoanToken: isSourceLoanToken
         }
         : undefined,
       swap: {

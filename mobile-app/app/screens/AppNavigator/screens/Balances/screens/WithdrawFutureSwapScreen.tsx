@@ -61,7 +61,8 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
           remainingAmount: new BigNumber(remainingAmount),
           remainingAmountInUSD: new BigNumber(remainingAmountInUSD),
           displaySymbol: source.displaySymbol,
-          tokenId: source.tokenId
+          tokenId: source.tokenId,
+          isLoanToken: source.isLoanToken
         },
         destination: {
           tokenId: destination.tokenId

@@ -82,6 +82,7 @@ export interface BalanceParamList {
       remainingAmountInUSD: BigNumber
       tokenId: string
       displaySymbol: string
+      isLoanToken: boolean
     }
     destination: {
       tokenId: string

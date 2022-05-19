@@ -42,6 +42,7 @@ export interface DexParamList {
     futureSwap?: {
       executionBlock: number
       transactionDate: string
+      isSourceLoanToken: boolean
     }
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }

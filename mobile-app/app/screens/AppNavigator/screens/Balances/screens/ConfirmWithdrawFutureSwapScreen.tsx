@@ -139,6 +139,7 @@ interface FutureSwapForm {
     remainingAmountInUSD: BigNumber
     tokenId: string
     displaySymbol: string
+    isLoanToken: boolean
   }
   destination: {
     tokenId: string
@@ -160,7 +161,7 @@ async function withdrawFutureSwap ({
           token: Number(source.tokenId),
           amount: source.amountToWithdraw
         },
-        destination: Number(destination.tokenId),
+        destination: source.isLoanToken ? 0 : Number(destination.tokenId),
         withdraw: true
       }, script)
       return new CTransactionSegWit(signed)
