@@ -47,6 +47,8 @@ import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
 import { PriceRateProps } from '@components/PricesSection'
+import { useWhaleRpcClient } from '@shared-contexts/WhaleRpcContext'
+import { fetchExecutionBlock } from '@store/futureSwap'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -69,6 +71,7 @@ type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
 export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
+  const whaleRpcClient = useWhaleRpcClient()
   const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
@@ -112,7 +115,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
   const [isFutureSwap, setIsFutureSwap] = useState(false)
-  const executionBlock = blockCount + 188820 // TODO: get from store, which will get from API
+  const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
   const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
   const { isFutureSwapOptionEnabled, oraclePriceText } = useFutureSwap({
@@ -238,6 +241,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         client,
         address
       }))
+      dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
     }
   }, [address, blockCount, isFocused])
 
