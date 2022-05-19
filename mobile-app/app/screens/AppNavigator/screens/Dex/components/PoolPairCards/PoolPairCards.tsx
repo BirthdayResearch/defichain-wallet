@@ -461,16 +461,6 @@ function getSortedPriceRates ({
     priceRate: bToAPrice
   }
 
-  if (
-    mappedPair.tokenB.symbol === 'DFI' ||
-    (mappedPair.tokenB.symbol === 'DUSD' && mappedPair.tokenA.symbol !== 'DFI')
-  ) {
-    return {
-      tokenA: tokenB,
-      tokenB: tokenA
-    }
-  }
-
   return {
     tokenA,
     tokenB
