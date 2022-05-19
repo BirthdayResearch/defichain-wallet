@@ -11,7 +11,7 @@ export function IconTooltip (): JSX.Element {
 
   // to fix memory leak error
   useEffect(() => {
-    // May work on Web, but not officially supported, as per documentation, add condition to disable popover/tooltip
+    // May work on Web, but not officially supported, as per documentation, add condition to hide popover/tooltip
     if (Platform.OS === 'web') {
       setTimeout(() => setShowPopover(false), 2000)
     }
