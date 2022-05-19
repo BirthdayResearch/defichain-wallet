@@ -66,15 +66,17 @@ export const hasFutureSwap = createSelector((state: FutureSwapState) => state.fu
 })
 
 export const FutureSwapSelector = createSelector([selectFutureSwapState, selectLoansState], (futureSwaps, loans): FutureSwapData[] => {
-  return futureSwaps.futureSwaps.map(swap => {
+  return Object.values(futureSwaps.futureSwaps.reduce((swaps: { [key: string]: FutureSwapData }, swap) => {
     const [sourceAmount, sourceSymbol] = swap.source.split('@') // ['123', 'DUSD']
     const destinationSymbol = swap.destination
     const sourceLoanToken = loans.loanTokens.find(token => token.token.symbol === sourceSymbol)
     const destinationLoanToken = loans.loanTokens.find(token => token.token.symbol === destinationSymbol)
-
-    return {
+    const key = `${sourceSymbol}-${destinationSymbol}`
+    swaps[key] = {
       source: {
-        amount: new BigNumber(sourceAmount).toFixed(8),
+        amount: swaps[key] === undefined
+          ? new BigNumber(sourceAmount).toFixed(8)
+          : BigNumber.max(new BigNumber(swaps[key].source.amount), 0).plus(sourceAmount).toFixed(8),
         displaySymbol: sourceLoanToken?.token.displaySymbol ?? '',
         isLoanToken: sourceLoanToken?.token.displaySymbol !== 'DUSD',
         symbol: sourceLoanToken?.token.symbol ?? '',
@@ -87,5 +89,7 @@ export const FutureSwapSelector = createSelector([selectFutureSwapState, selectL
         tokenId: destinationLoanToken?.token.id ?? ''
       }
     }
-  })
+
+    return swaps
+  }, {}))
 })

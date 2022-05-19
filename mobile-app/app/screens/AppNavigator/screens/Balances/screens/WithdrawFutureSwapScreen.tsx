@@ -21,6 +21,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 
 type Props = StackScreenProps<BalanceParamList, 'WithdrawFutureSwapScreen'>
 
@@ -34,6 +35,9 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [amountToWithdraw, setAmountToWithdraw] = useState('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
+  const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
+  const { isEnded } = useFutureSwapDate(executionBlock, blockCount)
 
   useEffect(() => {
     client.fee.estimate()
@@ -182,7 +186,7 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
 
       <View style={tailwind('mb-2')}>
         <SubmitButtonGroup
-          isDisabled={hasPendingJob || hasPendingBroadcastJob || new BigNumber(amountToWithdraw).isNaN()}
+          isDisabled={hasPendingJob || hasPendingBroadcastJob || new BigNumber(amountToWithdraw).isNaN() || new BigNumber(amountToWithdraw).isZero() || isEnded}
           label={translate('screens/WithdrawFutureSwapScreen', 'CONTINUE')}
           processingLabel={translate('screens/WithdrawFutureSwapScreen', 'CONTINUE')}
           onSubmit={onSubmit}

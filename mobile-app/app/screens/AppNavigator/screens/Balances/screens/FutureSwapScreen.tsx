@@ -32,7 +32,6 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const { transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
-
   useEffect(() => {
     // fetch once to retrieve display symbol in store
     dispatch(fetchLoanTokens({ client: whaleApiClient }))
@@ -62,11 +61,13 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const FutureSwapListItem = useCallback(({
     item
   }: { item: FutureSwapData }): JSX.Element => {
+    console.log({ item })
+
     return (
       <ThemedTouchableOpacity
         style={tailwind('p-4 items-center justify-between flex flex-row')}
         onPress={() => onPress(item)}
-      // disabled={isEnded}
+        disabled={isEnded}
       >
         <View>
           <View style={tailwind('flex flex-row items-center mb-1')}>
@@ -97,6 +98,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
                 <ThemedText
                   light={tailwind('text-gray-900')}
                   dark={tailwind('text-gray-50')}
+                  testID={`${item.source.displaySymbol}-${item.destination.displaySymbol}_amount`}
                 >
                   {value}
                 </ThemedText>}
@@ -113,6 +115,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
               style={tailwind('text-sm')}
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
+              testID={`${item.source.displaySymbol}-${item.destination.displaySymbol}_destination_symbol`}
             >
               {item.destination.displaySymbol}
             </ThemedText>
@@ -126,6 +129,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
               style={tailwind('text-xs')}
               light={tailwind('text-gray-500')}
               dark={tailwind('text-gray-400')}
+              testID={`${item.source.displaySymbol}-${item.destination.displaySymbol}_oracle_price`}
             >
               {translate('screens/FutureSwapScreen', '{{percentage_change}} on oracle price', { percentage_change: !item.source.isLoanToken ? '+5%' : '-5%' })}
             </ThemedText>

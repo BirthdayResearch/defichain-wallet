@@ -19,6 +19,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 
 type Props = StackScreenProps<BalanceParamList, 'ConfirmWithdrawFutureSwapScreen'>
 
@@ -33,6 +34,9 @@ export function ConfirmWithdrawFutureSwapScreen ({
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
+  const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
+  const { isEnded } = useFutureSwapDate(executionBlock, blockCount)
   const dispatch = useDispatch()
   const logger = useLogger()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
@@ -101,7 +105,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
         suffix='DFI'
       />
       <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
+        isDisabled={hasPendingJob || hasPendingBroadcastJob || isEnded}
         label={translate('screens/ConfirmWithdrawFutureSwapScreen', 'CONFIRM WITHDRAWAL')}
         isProcessing={hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmWithdrawFutureSwapScreen', getSubmitLabel())}

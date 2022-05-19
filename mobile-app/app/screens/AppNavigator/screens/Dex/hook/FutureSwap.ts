@@ -24,13 +24,13 @@ export function useFutureSwap (props: SwapType): {
   if (hasTokenDetails && fromTokenDetail.isLoanToken && toTokenDetail.displaySymbol === 'DUSD') {
     return {
       isFutureSwapOptionEnabled: true,
-      oraclePriceText: '+5%',
+      oraclePriceText: '-5%',
       isSourceLoanToken: true
     }
   } else if (hasTokenDetails && toTokenDetail.isLoanToken && fromTokenDetail.displaySymbol === 'DUSD') {
     return {
       isFutureSwapOptionEnabled: true,
-      oraclePriceText: '-5%',
+      oraclePriceText: '+5%',
       isSourceLoanToken: false
     }
   }
