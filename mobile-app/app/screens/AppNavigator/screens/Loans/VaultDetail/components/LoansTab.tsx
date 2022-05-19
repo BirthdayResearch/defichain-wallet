@@ -120,6 +120,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
         <ActiveUSDValue
           price={new BigNumber(props.amount).multipliedBy(activePrice)}
           containerStyle={tailwind('justify-end')}
+          isOraclePrice
         />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION &&
         (
@@ -138,6 +139,7 @@ function LoanCard (props: LoanCardProps): JSX.Element {
             <ActiveUSDValue
               price={new BigNumber(props.interestAmount ?? 0).multipliedBy(activePrice)}
               containerStyle={tailwind('justify-end')}
+              isOraclePrice
             />
           </>
         )}

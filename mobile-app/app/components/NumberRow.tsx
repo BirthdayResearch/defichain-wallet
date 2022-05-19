@@ -5,6 +5,7 @@ import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import BigNumber from 'bignumber.js'
+import { IconTooltip } from './tooltip/IconTooltip'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 export type SuffixType = 'text' | 'component'
@@ -17,6 +18,7 @@ interface NumberRowProps extends ThemedProps {
   textStyle?: StyleProp<TextStyle>
   lhsThemedProps?: ThemedProps // TODO: change lhs to type NumberRowElement, move themedprops into NumberRowElement
   rhsThemedProps?: ThemedProps
+  isOraclePrice?: boolean
 }
 
 export interface NumberRowElement {
@@ -94,6 +96,11 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
           {
             props.rhs.suffixType === 'component' &&
             (props.children)
+          }
+          {
+            props.isOraclePrice === true && (
+              <IconTooltip />
+            )
           }
         </View>
 

@@ -164,12 +164,14 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
         value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
         value={getPrecisedTokenValue(vault.loanValue ?? 0)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
