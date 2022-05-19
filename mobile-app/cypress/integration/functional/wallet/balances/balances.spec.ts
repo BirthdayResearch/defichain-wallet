@@ -1,4 +1,4 @@
-import { BestSwapPathResult } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { DexPricesResult } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 export interface BalanceTokenDetail {
@@ -145,7 +145,7 @@ const getChangingPoolPairReserve = ({
   }
 ]
 
-const getDexPrice = (price: {[token: string]: string }): {data: BestSwapPathResult} => ({
+const getDexPrice = (price: { [token: string]: string }): { data: DexPricesResult } => ({
   data: {
     denomination: {
       id: '3',
@@ -253,8 +253,43 @@ function interceptTokenWithSampleData (): void {
 }
 
 context('Wallet - Balances page', () => {
-  before(function () {
+  beforeEach(() => {
     cy.createEmptyWallet(true)
+  })
+
+  it('should load balances page when flags API is delayed', () => {
+    cy.intercept({ url: '**/settings/flags', middleware: true }, (req) => {
+      req.on('response', (res) => {
+        res.setDelay(5000)
+      })
+    }).as('flags')
+    cy.wait('@flags').then(() => {
+      cy.getByTestID('balances_list').should('exist')
+    })
+  })
+
+  it('should not load balances page when flags API failed', () => {
+    cy.intercept('**/settings/flags', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    }).as('flags')
+    cy.wait('@flags').then(() => {
+      cy.getByTestID('balances_list').should('not.exist')
+    })
+  })
+
+  it('should load balances page when flags API succeed after failed API attempt', () => {
+    cy.intercept({ url: '**/settings/flags', middleware: true }, (req) => {
+      req.on('response', (res) => {
+        res.setDelay(5000)
+      })
+    }).as('flags')
+    cy.wait('@flags').then(() => {
+      cy.getByTestID('balances_list').should('exist')
+    })
   })
 
   it('should display EmptyPortfolio component when there are no DFI and other tokens', function () {
@@ -683,6 +718,55 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
   })
 })
 
+context('Wallet - Balances - Portfolio group tab', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
+    cy.getByTestID('toggle_portfolio').click()
+    cy.getByTestID('details_dfi').click()
+  })
+
+  it('should display portfolio values in USD currency', function () {
+    cy.getByTestID('portfolio_button_group_USDT_active').should('exist')
+    cy.getByTestID('portfolio_display_BTC_currency').should('not.exist')
+    cy.getByTestID('portfolio_display_DFI_currency').should('not.exist')
+    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00000000', '≈ $100,000.00', '≈ $1,000.00')
+  })
+
+  it('should display portfolio values in DFI currency', function () {
+    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00000000 DFI', '10.00 DFI', '0.10000000 DFI')
+  })
+
+  it('should display portfolio values in BTC currency', function () {
+    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00000000 BTC', '10.00 BTC', '0.10000000 BTC')
+  })
+})
+
+function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt: string, totalAvailableUsdAmt: string, totalLockedUsdAmt: string, DfiTotalBalUsdAmt: string, DfiLockedAmt: string, DfiAvailableAmt: string, BtcUsdAmt: string, EthUsdAmt: string): void {
+  cy.getByTestID('portfolio_button_group').should('exist')
+
+  if (denomination !== 'USDT') {
+    cy.getByTestID(`portfolio_button_group_${denomination}`).click()
+    cy.getByTestID(`portfolio_button_group_${denomination}_active`).should('exist')
+    cy.getByTestID(`portfolio_display_${denomination}_currency`).should('exist') // symbol beside portfolio value text
+  }
+
+  // TotalPortfolio
+  cy.getByTestID('total_usd_amount').contains(totalUsdAmt)
+  cy.getByTestID('total_available_usd_amount').contains(totalAvailableUsdAmt)
+  cy.getByTestID('total_locked_usd_amount').contains(totalLockedUsdAmt)
+
+  // DFIBalanceCard
+  cy.getByTestID('dfi_total_balance_usd_amount').contains(DfiTotalBalUsdAmt)
+  cy.getByTestID('dfi_locked_value_amount').contains(DfiLockedAmt)
+  cy.getByTestID('dfi_available_value_amount').contains(DfiAvailableAmt)
+
+  // BalanceCard
+  cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: BtcUsdAmt })
+  cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: EthUsdAmt })
+}
+
 context('Wallet - Balances - Your Assets - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
@@ -942,7 +1026,7 @@ context('Wallet - Balances - portfolio', () => {
   beforeEach(function () {
     cy.intercept('**/poolpairs/dexprices?denomination=*', {
       body: getDexPrice({
-        dusd: '990.49720000',
+        dusd: '1.00000000',
         usdc: '1.00000000',
         eth: '10.00000000',
         btc: '10.00000000',
@@ -1015,8 +1099,26 @@ context('Wallet - Balances - portfolio', () => {
             }
           }
           ],
-          loanAmounts: [],
-          interestAmounts: []
+          loanAmounts: [
+            {
+              id: '12',
+              amount: '10.00001903',
+              symbol: 'DUSD',
+              symbolKey: 'DUSD',
+              name: 'Decentralized USD',
+              displaySymbol: 'DUSD'
+            }
+          ],
+          interestAmounts: [
+            {
+              id: '12',
+              amount: '0.00001903',
+              symbol: 'DUSD',
+              symbolKey: 'DUSD',
+              name: 'Decentralized USD',
+              displaySymbol: 'DUSD'
+            }
+          ]
         }]
       }
     }).as('getVaults')

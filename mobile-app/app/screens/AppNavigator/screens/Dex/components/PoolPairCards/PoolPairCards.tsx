@@ -16,7 +16,8 @@ import { APRSection } from './APRSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { useTokenBestPath } from '@screens/AppNavigator/screens/Balances/hooks/TokenBestPath'
 import { PriceRatesSection } from './PriceRatesSection'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useScrollToTop } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
@@ -97,6 +98,10 @@ export function PoolPairCards ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
     }
   ]
+
+  const ref = useRef(null)
+  useScrollToTop(ref)
+
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       setExpandedCardIds([])
@@ -155,6 +160,7 @@ export function PoolPairCards ({
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
       contentContainerStyle={tailwind('p-4 pb-2')}
+      ref={ref}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
       windowSize={2}

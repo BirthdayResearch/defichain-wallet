@@ -29,7 +29,6 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
-import { PriceRateProps } from './components/PricesSection'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
@@ -46,6 +45,8 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
+import { PriceRateProps } from '@components/PricesSection'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -247,7 +248,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (route.params.pair?.id === undefined) {
+    if (route.params.pair?.id === undefined && route.params.fromToken === undefined) {
       return
     }
 
@@ -264,6 +265,21 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
     setIsFromTokenSelectDisabled(tokenSelectOption.from.isDisabled)
     setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled)
+
+    if (route.params.fromToken !== undefined) {
+      onTokenSelect({
+        tokenId: route.params.fromToken.id,
+        available: new BigNumber(route.params.fromToken.amount),
+        token: {
+          displaySymbol: route.params.fromToken.displaySymbol,
+          symbol: route.params.fromToken.symbol,
+          name: route.params.fromToken.name
+        },
+        reserve: route.params.fromToken.amount
+      }, 'FROM')
+
+      return
+    }
 
     const pair = pairs.find((pair) => pair.data.id === route.params.pair?.id)
     if (pair === undefined) {
@@ -293,7 +309,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         reserve: pair.data.tokenB.reserve
       }, 'TO')
     }
-  }, [route.params.pair, route.params.tokenSelectOption])
+  }, [route.params.pair, route.params.tokenSelectOption, route.params.fromToken])
 
   useEffect(() => {
     void getSelectedPoolPairs()
@@ -321,7 +337,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
-        label: translate('screens/CompositeSwapScreen', '{{tokenA}} price in {{tokenB}}', {
+        label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
           tokenA: selectedTokenA.displaySymbol,
           tokenB: selectedTokenB.displaySymbol
         }),
@@ -329,7 +345,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         aSymbol: selectedTokenA.displaySymbol,
         bSymbol: selectedTokenB.displaySymbol
       }, {
-        label: translate('screens/CompositeSwapScreen', '{{tokenB}} price in {{tokenA}}', {
+        label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
           tokenA: selectedTokenA.displaySymbol,
           tokenB: selectedTokenB.displaySymbol
         }),
@@ -725,6 +741,7 @@ function TransactionDetailsSection ({
   transactionDate: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
+  const { getTokenPrice } = useTokenPrice()
   return (
     <View style={tailwind('rounded-lg mx-4 overflow-hidden')}>
       {isConversionRequired &&
@@ -759,6 +776,7 @@ function TransactionDetailsSection ({
                 suffix: tokenB.displaySymbol,
                 testID: 'estimated_to_receive'
               }}
+              rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
               textStyle={tailwind('text-sm font-normal')}
             />
           </>

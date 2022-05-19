@@ -5,20 +5,29 @@ import { BalanceText } from '@screens/AppNavigator/screens/Balances/components/B
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import BigNumber from 'bignumber.js'
 
+interface TokenAmountTextProps {
+  testID: string
+  isBalancesDisplayed: boolean
+  usdAmount: BigNumber
+  tokenAmount: string
+  denominationCurrency: string
+}
+
 export function TokenAmountText ({
   testID,
   isBalancesDisplayed,
   usdAmount,
-  tokenAmount
-}: { testID: string, isBalancesDisplayed: boolean, usdAmount: BigNumber, tokenAmount: string }): JSX.Element {
+  tokenAmount,
+  denominationCurrency
+}: TokenAmountTextProps): JSX.Element {
   return (
-    <View style={tailwind('flex-row items-center')}>
+    <View style={tailwind('flex-row')}>
       <NumberFormat
         decimalScale={8}
         displayType='text'
         renderText={(value) =>
           <>
-            <View style={tailwind('flex leading-6')}>
+            <View style={tailwind('flex leading-6 items-end')}>
               <BalanceText
                 dark={tailwind('text-gray-200')}
                 light={tailwind('text-black')}
@@ -31,6 +40,7 @@ export function TokenAmountText ({
                   testId={`${testID}_usd_amount`}
                   price={usdAmount}
                   containerStyle={tailwind('justify-end')}
+                  denominationCurrency={denominationCurrency}
                 />
               )}
             </View>

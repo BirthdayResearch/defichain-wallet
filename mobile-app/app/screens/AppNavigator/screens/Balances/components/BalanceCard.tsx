@@ -43,6 +43,7 @@ interface BalanceCardProps {
     activeButtonGroup: string
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void
   }
+  denominationCurrency: string
 }
 
 export function BalanceCard ({
@@ -50,7 +51,8 @@ export function BalanceCard ({
   filteredTokens,
   dstTokens,
   navigation,
-  buttonGroupOptions
+  buttonGroupOptions,
+  denominationCurrency
 }: BalanceCardProps): JSX.Element {
   const buttonGroup = [
     {
@@ -77,6 +79,7 @@ export function BalanceCard ({
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [isSorted, setIsSorted] = useState<boolean>(false)
+  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -96,13 +99,19 @@ export function BalanceCard ({
     }
   }
 
-  if (isSorted) {
-    // display value in increasing order
-    filteredTokens.sort((a, b) => new BigNumber(a.usdAmount).minus(new BigNumber(b.usdAmount)).toNumber())
-  } else {
-    // display value in decreasing order
-    filteredTokens.sort((a, b) => new BigNumber(b.usdAmount).minus(new BigNumber(a.usdAmount)).toNumber())
-  }
+  filteredTokens.sort((a, b) => {
+    const lockedPriceA = new BigNumber(lockedTokens?.get(a.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.displaySymbol)?.tokenValue
+    const lockedPriceB = new BigNumber(lockedTokens?.get(b.displaySymbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.displaySymbol)?.tokenValue
+    const aPrice = new BigNumber(a.usdAmount).plus(lockedPriceA ?? 0)
+    const bPrice = new BigNumber(b.usdAmount).plus(lockedPriceB ?? 0)
+    if (isSorted) {
+      // display value in increasing order
+      return aPrice.minus(bPrice).toNumber()
+    } else {
+      // display value in decreasing order
+      return bPrice.minus(aPrice).toNumber()
+    }
+  })
 
   // return empty component if there are DFI but no other tokens
   if (!isZeroBalance && dstTokens.length === 0) {
@@ -149,6 +158,7 @@ export function BalanceCard ({
                 merge: true
               })}
               token={item}
+              denominationCurrency={denominationCurrency}
             />
           </View>
         ))}
@@ -164,8 +174,9 @@ export function BalanceCard ({
 
 function BalanceItemRow ({
   token,
-  onPress
-}: { token: BalanceRowToken, onPress: () => void }): JSX.Element {
+  onPress,
+  denominationCurrency
+}: { token: BalanceRowToken, onPress: () => void, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
@@ -173,7 +184,7 @@ function BalanceItemRow ({
   const onBreakdownPress = (): void => {
     setIsBreakdownExpanded(!isBreakdownExpanded)
   }
-  const lockedToken = useTokenLockedBalance({ symbol: token.symbol }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
   const hasLockedBalance = useMemo((): boolean => {
@@ -201,6 +212,7 @@ function BalanceItemRow ({
             usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
             testID={testID}
             isBalancesDisplayed={isBalancesDisplayed}
+            denominationCurrency={denominationCurrency}
           />
         </View>
       </ThemedTouchableOpacity>
@@ -229,6 +241,7 @@ function BalanceItemRow ({
                   availableAmount={new BigNumber(token.amount)}
                   availableValue={token.usdAmount}
                   testID={token.displaySymbol}
+                  denominationCurrency={denominationCurrency}
                 />
               </ThemedView>
             )}
