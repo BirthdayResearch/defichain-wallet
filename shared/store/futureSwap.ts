@@ -84,7 +84,7 @@ export const FutureSwapSelector = createSelector([selectFutureSwapState, selectL
         displaySymbol: destinationLoanToken?.token.displaySymbol ?? '',
         isLoanToken: destinationLoanToken?.token.displaySymbol !== 'DUSD',
         symbol: destinationLoanToken?.token.symbol ?? '',
-        tokenId: sourceLoanToken?.token.id ?? ''
+        tokenId: destinationLoanToken?.token.id ?? ''
       }
     }
   })
