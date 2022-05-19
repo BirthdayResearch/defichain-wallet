@@ -182,18 +182,18 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               denominationCurrency={denominationCurrency}
             />
             {
-            props.totalLoansValue.gt(0) && (
-              <USDValueRow
-                testId='outstanding_loans_amount'
-                isLoading={!hasFetchedVaultsData}
-                label={translate('screens/BalancesScreen', 'loans')}
-                value={props.totalLoansValue}
-                isAddition={false}
-                denominationCurrency={denominationCurrency}
-                isOraclePrice
-              />
-            )
-          }
+              props.totalLoansValue.gt(0) && (
+                <USDValueRow
+                  testId='outstanding_loans_amount'
+                  isLoading={!hasFetchedVaultsData}
+                  label={translate('screens/BalancesScreen', 'loans')}
+                  value={props.totalLoansValue}
+                  isAddition={false}
+                  denominationCurrency={denominationCurrency}
+                  isOraclePrice
+                />
+              )
+            }
           </ThemedView>
       }
     </ThemedView>
