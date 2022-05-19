@@ -282,7 +282,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         </View>
       )}
       <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (isFutureSwap && blockCount === futureSwap.executionBlock)}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (isFutureSwap && blockCount >= futureSwap.executionBlock)}
         label={translate('screens/ConfirmCompositeSwapScreen', 'CONFIRM SWAP')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmCompositeSwapScreen', getSubmitLabel())}

@@ -5,7 +5,7 @@ import { tokenSelectorByDisplaySymbol } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
-import { secondsToDhmDisplay } from '../../Auctions/helpers/SecondstoHm'
+import { secondsToDhmsDisplay } from '../../Auctions/helpers/SecondstoHm'
 
 interface SwapType {
   fromTokenDisplaySymbol?: string
@@ -48,7 +48,7 @@ export function useFutureSwapDate (executionBlock: number, blockCount: number): 
   const blocksRemaining = BigNumber.max(executionBlock - blockCount, 0).toNumber()
   const blocksSeconds = blocksRemaining * secondsPerBlock
   return {
-    timeRemaining: (blocksRemaining > 0) ? secondsToDhmDisplay(blocksSeconds) : '',
+    timeRemaining: (blocksRemaining > 0) ? secondsToDhmsDisplay(blocksSeconds) : '',
     transactionDate: dayjs().add(blocksSeconds, 'second').format('MMM D, YYYY'),
     isEnded: blocksRemaining === 0
   }

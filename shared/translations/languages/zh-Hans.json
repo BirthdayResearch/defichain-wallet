@@ -910,6 +910,7 @@
     "ACTIVE BID": "主动出价",
     "{{h}}h": "{{h}}时",
     "{{m}}m": "{{m}}分",
+    "{{s}}s": "{{s}}秒",
     "Total auction value (USD)": "拍卖总价值（美元值）",
     "Min. next bid": "最低标价",
     "You are the highest bidder": "您目前是出价最高的人",

@@ -918,6 +918,7 @@
     "ACTIVE BID": "ENCHÈRE ACTIVE",
     "{{h}}h": "{{h}}h",
     "{{m}}m": "{{m}}min",
+    "{{s}}s": "{{s}}s",
     "Total auction value (USD)": "Valeur totale de l'enchère (USD)",
     "Min. next bid": "Surenchère min.",
     "You are the highest bidder": "Vous êtes le plus offrant",

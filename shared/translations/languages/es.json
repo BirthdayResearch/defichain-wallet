@@ -935,6 +935,7 @@
     "ACTIVE BID": "OFERTA ACTIVA",
     "{{h}}h": "{{h}}h",
     "{{m}}m": "{{m}}min",
+    "{{s}}s": "{{s}}s",
     "Total auction value (USD)": "Valor total de la subasta (USD)",
     "Min. next bid": "Mínimo para la siguiente oferta",
     "You are the highest bidder": "Tu has hecho la oferta más alta",
