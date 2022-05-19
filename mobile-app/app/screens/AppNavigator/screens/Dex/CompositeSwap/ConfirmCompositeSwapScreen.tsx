@@ -27,6 +27,7 @@ import { InfoText } from '@components/InfoText'
 import { DexParamList } from '../DexNavigator'
 import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
@@ -46,11 +47,13 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     tokenA,
     tokenB,
     swap,
-    futureSwap
+    futureSwap,
+    estimatedAmount
   } = route.params
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useDispatch()
   const logger = useLogger()
+  const { getTokenPrice } = useTokenPrice()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
@@ -78,9 +81,9 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     setIsSubmitting(true)
     if (isFutureSwap) {
       const futureSwap = {
-        fromTokenId: Number(tokenA.id),
-        toTokenId: Number(tokenB.id),
-        amount: new BigNumber(tokenA.amount)
+        fromTokenId: Number(swap.tokenFrom.id),
+        toTokenId: Number(swap.tokenTo.id),
+        amount: new BigNumber(swap.amountFrom)
       }
       await constructSignedFutureSwapAndSend(futureSwap, dispatch, () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
@@ -194,6 +197,10 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               suffixType: 'text',
               suffix: swap.tokenTo.displaySymbol
             }}
+            rhsUsd={{
+              amount: getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false),
+              isOraclePrice: true
+            }}
           />
         )}
       <InfoRow
@@ -242,7 +249,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Resulting {{token}}', { token: tokenB.displaySymbol })}
               rhs={{
-                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/ConfirmCompositeSwapScreen', 'To be confirmed'),
                 testID: `resulting_${tokenB.displaySymbol}`
               }}
               textStyle={tailwind('text-sm font-normal')}
@@ -371,7 +378,7 @@ async function constructSignedFutureSwapAndSend (
       }),
       onBroadcast
     }))
-} catch (e) {
-  logger.error(e)
-}
+  } catch (e) {
+    logger.error(e)
+  }
 }

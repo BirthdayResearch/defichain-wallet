@@ -1,5 +1,5 @@
 
-import { useScrollToTop } from '@react-navigation/native'
+import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -34,8 +34,9 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { hasFutureSwap } from '@store/futureSwap'
+import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
+import { useWhaleRpcClient } from '@shared-contexts/WhaleRpcContext'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -44,8 +45,10 @@ export interface BalanceRowToken extends WalletToken {
 }
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const isFocused = useIsFocused()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
+  const whaleRpcClient = useWhaleRpcClient()
   const {
     address,
     addressLength
@@ -81,6 +84,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     fetchPortfolioData()
   }, [address, blockCount])
+
+  useEffect(() => {
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchFutureSwaps({
+          client: whaleRpcClient,
+          address
+        }))
+        dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -364,8 +379,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           denominationCurrency={denominationCurrency}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        {/* TODO: remove hardcoded flag to test future swap */}
-        {(hasPendingFutureSwap || true) && <FutureSwapCta navigation={navigation} />}
+        {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (

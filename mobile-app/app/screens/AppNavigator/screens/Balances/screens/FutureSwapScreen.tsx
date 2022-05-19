@@ -10,7 +10,6 @@ import { batch, useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@store'
 import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, FutureSwapSelector } from '@store/futureSwap'
 import { useIsFocused } from '@react-navigation/native'
-import { WhaleRpcClient } from '@defichain/whale-api-client'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 import { fetchLoanTokens } from '@store/loans'
@@ -19,13 +18,14 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { TouchableOpacity } from 'react-native'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
+import { useWhaleRpcClient } from '@shared-contexts/WhaleRpcContext'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 
 export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const isFocused = useIsFocused()
   const dispatch = useAppDispatch()
-  const whaleRpcClient = new WhaleRpcClient()
+  const whaleRpcClient = useWhaleRpcClient()
   const whaleApiClient = useWhaleApiClient()
   const { address } = useWalletContext()
   const futureSwaps = useSelector((state: RootState) => FutureSwapSelector(state))
@@ -66,7 +66,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
       <ThemedTouchableOpacity
         style={tailwind('p-4 items-center justify-between flex flex-row')}
         onPress={() => onPress(item)}
-        // disabled={isEnded}
+      // disabled={isEnded}
       >
         <View>
           <View style={tailwind('flex flex-row items-center mb-1')}>

@@ -403,7 +403,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           DFIUtxo,
           conversionAmount
         }
-      })
+      }),
+      estimatedAmount: new BigNumber(tokenB)
     })
   }
 
@@ -554,7 +555,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 dark={tailwind('text-gray-400')}
                 testID='future_swap_warning_text'
               >
-                {`${translate('screens/CompositeSwapScreen', 'By using future swap, you are ')} `}
+                {`${translate('screens/CompositeSwapScreen', 'By using future swap, you are')} `}
                 <ThemedText style={tailwind('text-xs font-medium')}>
                   {
                     translate('screens/CompositeSwapScreen',
@@ -781,7 +782,6 @@ function TransactionDetailsSection ({
                 amount: getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false),
                 isOraclePrice: true
               }}
-
             />
           </>
         )

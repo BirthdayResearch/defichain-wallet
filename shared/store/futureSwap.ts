@@ -35,32 +35,14 @@ const initialState: FutureSwapState = {
 export const fetchFutureSwaps = createAsyncThunk(
   'wallet/fetchFutureSwaps',
   async ({ client, address }: { client: WhaleRpcClient, address: string }) => {
-    // return client.account.getPendingFutureSwaps(address) //TODO: change to WhaleApiClient when whale whitelisted API
-    return {
-      owner: '',
-      values: [
-        {
-          source: '1.123@DUSD',
-          destination: '321.987654@TU10'
-        },
-        {
-          source: '321.987654@TU10',
-          destination: '1.123@DUSD'
-        },
-        {
-          source: '1.123@DUSD',
-          destination: '321231.987654@TS25'
-        }
-      ]
-    }
+    return await client.account.getPendingFutureSwaps(address)
   }
 )
 
 export const fetchExecutionBlock = createAsyncThunk(
   'wallet/fetchNextFutureSwapBlock',
   async ({ client }: { client: WhaleRpcClient }) => {
-    // return client.oracle.getFutureSwapBlock() //TODO: change to WhaleApiClient when whale whitelisted API
-    return 188820
+    return await client.oracle.getFutureSwapBlock()
   }
 )
 

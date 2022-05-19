@@ -2,7 +2,7 @@ import { StyleProp, TextStyle, View, ViewProps, Text } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
-import { ThemedProps, ThemedText, ThemedView } from './themed'
+import { ThemedIcon, ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 
@@ -12,7 +12,10 @@ export type SuffixType = 'text' | 'component'
 interface NumberRowProps extends ThemedProps {
   lhs: string
   rhs: NumberRowElement
-  rhsUsdAmount?: BigNumber
+  rhsUsd?: {
+    amount: BigNumber
+    isOraclePrice: boolean
+  }
   info?: BottomSheetAlertInfo
   textStyle?: StyleProp<TextStyle>
   lhsThemedProps?: ThemedProps // TODO: change lhs to type NumberRowElement, move themedprops into NumberRowElement
@@ -95,14 +98,28 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
             props.rhs.suffixType === 'component' &&
             (props.children)
           }
+          <View style={tailwind('flex flex-row items-center')}>
+            {
+              props.rhsUsd?.amount !== undefined &&
+                <ActiveUSDValue
+                  price={props.rhsUsd.amount}
+                  containerStyle={tailwind('justify-end')}
+                  testId={`${props.rhs.testID}_rhsUsdAmount`}
+                />
+            }
+            {
+              props.rhsUsd?.isOraclePrice === true &&
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  name='language'
+                  light={tailwind('text-gray-600')}
+                  dark={tailwind('text-gray-300')}
+                  style={tailwind('ml-0.5')}
+                  size={12}
+                />
+            }
+          </View>
         </View>
-
-        {props.rhsUsdAmount !== undefined &&
-          <ActiveUSDValue
-            price={props.rhsUsdAmount}
-            containerStyle={tailwind('justify-end')}
-            testId={`${props.rhs.testID}_rhsUsdAmount`}
-          />}
       </View>
     </ThemedView>
   )

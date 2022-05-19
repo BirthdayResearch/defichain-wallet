@@ -45,6 +45,7 @@ export interface DexParamList {
     }
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }
+    estimatedAmount: BigNumber
   }
   AddLiquidity: { pair: PoolPairData }
   ConfirmAddLiquidity: {
