@@ -429,7 +429,6 @@ exports[`loan cards should match snapshot 1`] = `
                         Object {
                           "fontSize": 14,
                           "lineHeight": 20,
-                          "marginRight": 4,
                         },
                         Object {
                           "color": "rgba(0, 0, 0, 1)",
@@ -735,7 +734,6 @@ exports[`loan cards should match snapshot 1`] = `
                         Object {
                           "fontSize": 14,
                           "lineHeight": 20,
-                          "marginRight": 4,
                         },
                         Object {
                           "color": "rgba(0, 0, 0, 1)",
@@ -1054,7 +1052,6 @@ exports[`loan cards should match snapshot 1`] = `
                         Object {
                           "fontSize": 14,
                           "lineHeight": 20,
-                          "marginRight": 4,
                         },
                         Object {
                           "color": "rgba(0, 0, 0, 1)",
