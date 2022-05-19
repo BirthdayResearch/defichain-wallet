@@ -690,7 +690,17 @@
     "FROM": "DA",
     "TO": "A",
     "Total to be swapped": "Totale da scambiare",
-    "Slippage tolerance": "Tolleranza di slippage"
+    "Slippage tolerance": "Tolleranza di slippage",
+    "Instant Swap": "Instant Swap",
+    "Future Swap": "Future Swap",
+    "By using future swap, you are": "By using future swap, you are",
+    "buying {{tokenSymbol}} at 5% more": "buying {{tokenSymbol}} at 5% more",
+    "selling {{tokenSymbol}} at 5% lower": "selling {{tokenSymbol}} at 5% lower",
+    "than the oracle price": "than the oracle price",
+    "Oracle price -5%": "Oracle price -5%",
+    "Oracle price +5%": "Oracle price +5%",
+    "Est. time remaining": "Est. time remaining",
+    "Execution block": "Execution block"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSIONE",
@@ -705,7 +715,9 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Scambia {{amountA}} {{symbolA}} in {{amountB}} {{symbolB}}",
     "Slippage Tolerance": "Tolleranza dello slippage",
     "Estimated to receive": "Stimato da ricevere",
-    "Slippage tolerance": "Tolleranza di slippage"
+    "Slippage tolerance": "Tolleranza di slippage",
+    "Swap on future block": "Swap on future block",
+    "on future oracle price {{percentage_change}}": "on future oracle price {{percentage_change}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Stai scambiando",
@@ -1358,6 +1370,34 @@
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
     "Collateral for auction": "Collaterali messi all'asta",
     "Insufficient funds": "Fondi insufficienti"
+  },
+  "screens/WithdrawFutureSwapScreen": {
+    "FROM": "FROM",
+    "TO": "TO",
+    "Enter an amount": "Enter an amount",
+    "Amount to withdraw": "Amount to withdraw",
+    "Remaining amount": "Remaining amount",
+    "CONTINUE": "CONTINUE",
+    "Select token": "Select token",
+    "You are withdrawing": "You are withdrawing",
+    "Withdraw from future swap": "Withdraw from future swap"
+  },
+  "screens/ConfirmWithdrawFutureSwapScreen": {
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Transaction type": "Transaction type",
+    "Remaining amount": "Remaining amount",
+    "CONFIRM WITHDRAWAL": "CONFIRM WITHDRAWAL",
+    "WITHDRAWING": "WITHDRAWING",
+    "You are withdrawing": "You are withdrawing",
+    "Withdraw": "Withdraw",
+    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Withdraw locked amount {{amountToWithdraw}} from future swap",
+    "To be confirmed": "To be confirmed"
+  },
+  "screens/FutureSwapScreen": {
+    "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
+    "Execution block": "Execution block",
+    "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
+    "Future Swap": "Future Swap"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
