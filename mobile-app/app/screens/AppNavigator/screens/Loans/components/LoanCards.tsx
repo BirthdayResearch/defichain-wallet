@@ -136,7 +136,7 @@ function LoanCard ({
           displayType='text'
           renderText={(value) =>
             <View style={tailwind('flex flex-row items-center')}>
-              <ThemedText testID={`${testID}_loan_amount`} style={tailwind('text-sm mr-1')}>
+              <ThemedText testID={`${testID}_loan_amount`} style={tailwind('text-sm')}>
                 ${value}
               </ThemedText>
             </View>}
