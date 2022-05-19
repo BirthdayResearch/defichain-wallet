@@ -88,7 +88,8 @@
     "(From highest value)": "(Desde el valor más alto)",
     "(From lowest value)": "(Desde el valor más bajo)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*El Valor total del portafolio ahora excluye la cantidad del préstamo basada en el precio del oráculo",
-    "loans": "Préstamos"
+    "loans": "Préstamos",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Este icono indica que el precio ha sido proporcionado por los oráculos y no por el DEX"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
