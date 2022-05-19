@@ -851,6 +851,15 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 $100.00
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -988,6 +997,15 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -1914,6 +1932,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 $100.00
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -2051,6 +2078,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -3006,6 +3042,15 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 $100.00
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -3143,6 +3188,15 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -3697,6 +3751,15 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                 -
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>
@@ -3834,6 +3897,15 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                 -
               </Text>
             </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
           </View>
         </View>
       </View>

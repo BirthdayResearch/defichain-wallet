@@ -26,7 +26,8 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: () => {
     return { navigate: jest.fn() }
   },
-  useScrollToTop: jest.fn()
+  useScrollToTop: jest.fn(),
+  useIsFocused: jest.fn()
 }))
 
 jest.mock('@gorhom/bottom-sheet', () => ({
@@ -309,6 +310,7 @@ describe('balances page', () => {
     }
     const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')
+
     const component = (
       <Provider store={store}>
         <BalancesScreen
