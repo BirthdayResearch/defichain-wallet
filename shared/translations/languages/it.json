@@ -680,7 +680,7 @@
     "Review and confirm transaction in the next screen": "Rivedi e conferma la transazione nella prossima schermata",
     "Choose token for swap": "Scegli il token per lo scambio",
     "Choose token to swap": "Scegli il token da scambiare",
-    "Enter an amount": "Inserisci un importo",
+    "Enter amount to swap": "Enter amount to swap",
     "{{token}} tokens converted": "{{token}} token convertiti",
     "Select token": "Seleziona il token",
     "UTXO to be converted": "UTXO da convertire",

@@ -664,7 +664,7 @@
     "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
     "Choose token for swap": "選擇要兌換的代幣",
     "Choose token to swap": "選擇要兌換的代幣",
-    "Enter an amount": "請輸入數量",
+    "Enter amount to swap": "Enter amount to swap",
     "{{token}} tokens converted": "{{token}} 代幣轉換",
     "Select token": "選擇代幣",
     "UTXO to be converted": "要轉換的 UTXO",

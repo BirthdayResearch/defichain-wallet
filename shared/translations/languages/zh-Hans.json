@@ -663,7 +663,7 @@
     "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
     "Choose token for swap": "选择要兑换的代币",
     "Choose token to swap": "选择要兑换的代币",
-    "Enter an amount": "请输入数量",
+    "Enter amount to swap": "Enter amount to swap",
     "{{token}} tokens converted": "{{token}} 代币转换",
     "Select token": "选择代币",
     "UTXO to be converted": "要轉換的 UTXO",
