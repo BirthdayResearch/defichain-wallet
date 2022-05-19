@@ -39,7 +39,7 @@ export function IconTooltip (): JSX.Element {
       )}
     >
       <ThemedText
-        style={tailwind('p-3 text-sm')}
+        style={tailwind('py-2 px-3 text-sm')}
         light={tailwind('text-white')}
         dark={tailwind('text-white')}
         testID='icon-tooltip-text'
