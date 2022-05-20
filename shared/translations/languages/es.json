@@ -703,6 +703,7 @@
     "Oracle price -5%": "Prezzo Oracolo -5%",
     "Oracle price +5%": "Prezzo Oracolo +5%",
     "Est. time remaining": "Tempo rimanente stimato",
+    "Execution block": "Blocco di esecuzione",
     "To be confirmed": "Da confermare",
     "Enter an amount": "Gib einen Betrag ein"
   },
@@ -712,6 +713,7 @@
     "SWAPPING": "INTERCAMBIANDO",
     "You are swapping": "Tú estás intercambiando",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "Transaction date": "Transaction date",
     "Transaction type": "Tipo de transacción",
     "Convert & swap": "Convierte e intercambia",
     "Swap": "Cambiar",

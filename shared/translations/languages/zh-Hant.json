@@ -685,6 +685,7 @@
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
     "Execution block": "Execution block",
+    "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -693,6 +694,7 @@
     "SWAPPING": "兌換",
     "You are swapping": "您正要兌換",
     "TRANSACTION DETAILS": "交易明細",
+    "Transaction date": "Transaction date",
     "Transaction type": "交易類型",
     "Convert & swap": "轉換並兌換",
     "Swap": "兌換",
@@ -700,7 +702,10 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Slippage tolerance": "交易滑價",
     "Estimated to receive": "您大約會收到",
-    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}"
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
+    "To be confirmed": "To be confirmed",
+    "Execution block": "Execution block",
+    "Resulting {{token}}": "Resulting {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
@@ -1029,7 +1034,8 @@
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
-    "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。"
+    "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
+    "Execution block": "Execution block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
