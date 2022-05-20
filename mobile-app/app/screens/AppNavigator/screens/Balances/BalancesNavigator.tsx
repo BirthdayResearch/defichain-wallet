@@ -27,10 +27,9 @@ import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
-import { FutureSwapDetailScreen } from './screens/FutureSwapDetailScreen'
 import { FutureSwapData } from '@store/futureSwap'
-import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
+import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -377,20 +376,6 @@ export function BalancesNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/FutureSwapScreen', 'Future Swap')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <BalanceStack.Screen
-        component={FutureSwapDetailScreen}
-        name='FutureSwapDetailScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/FutureSwapScreen', 'Transaction Detail')}
               containerTestID={headerContainerTestId}
             />
           ),
