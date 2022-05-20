@@ -381,11 +381,11 @@ async function constructSignedFutureSwapAndSend (
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmCompositeSwapScreen', 'Future swapping Token'),
-      description: translate('screens/ConfirmCompositeSwapScreen', 'Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}', { // TODO: Update based on design
+      description: translate('screens/ConfirmCompositeSwapScreen', 'Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}', { // TODO: Update based on design
         amountA: futureSwap.amount.toFixed(8),
         fromTokenDisplaySymbol: futureSwap.fromTokenDisplaySymbol,
         toTokenDisplaySymbol: futureSwap.toTokenDisplaySymbol,
-        percentage: futureSwap.oraclePriceText
+        percentageChange: futureSwap.oraclePriceText
       }),
       onBroadcast
     }))

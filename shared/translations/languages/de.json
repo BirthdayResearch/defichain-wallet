@@ -85,7 +85,8 @@
     "(From highest value)": "(vom höchsten Wert an)",
     "(From lowest value)": "(vom niedrigsten Wert aus)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
-    "loans": "Darlehen"
+    "loans": "Darlehen",
+    "You have pending future swap(s)": "Du hast anstehende(n) Tausch-Terminkontrakt(e)"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
@@ -660,6 +661,7 @@
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
     "Choose token to swap": "Token zum Tauschen wählen",
+    "Enter an amount": "Gib einen Betrag ein",
     "Enter amount to swap": "Enter amount to swap",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
@@ -670,16 +672,16 @@
     "FROM": "VON",
     "TO": "IN",
     "Total to be swapped": "Zu tauschende Summe",
-    "Instant Swap": "Instant Swap",
-    "Future Swap": "Future Swap",
-    "By using future swap, you are": "By using future swap, you are",
-    "buying {{tokenSymbol}} at 5% more": "buying {{tokenSymbol}} at 5% more",
-    "selling {{tokenSymbol}} at 5% lower": "selling {{tokenSymbol}} at 5% lower",
-    "than the oracle price": "than the oracle price",
-    "Oracle price -5%": "Oracle price -5%",
-    "Oracle price +5%": "Oracle price +5%",
-    "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block"
+    "Instant Swap": "Sofortiger Tausch",
+    "Future Swap": "Tausch-Terminkontrakt",
+    "By using future swap, you are": "Wenn du den Tausch-Terminkontrakt benutzt,",
+    "buying {{tokenSymbol}} at 5% more": "erwirbst du {{tokenSymbol}} zu 5% teurer",
+    "selling {{tokenSymbol}} at 5% lower": "verkaufst du {{tokenSymbol}} um 5% günstiger",
+    "than the oracle price": "als der Preisorakelwert",
+    "Oracle price -5%": "Preisorakelwert -5%",
+    "Oracle price +5%": "Preisorakelwert +5%",
+    "Est. time remaining": "Verbleibende geschätzte Zeit",
+    "Execution block": "Ausführungsblock"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -694,7 +696,8 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Slippage-Toleranz",
     "Estimated to receive": "Geschätzter Betrag",
-    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}"
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tauschen auf zukünftigem Block {{amountA}} {{fromTokenDisplaySymbol}} => {{toTokenDisplaySymbol}} zum zukünftigem Preisorakelwert {{percentageChange}}",
+    "To be confirmed": "Noch zu bestätigen"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
@@ -1020,7 +1023,8 @@
     "This amount is the total interest amount from both vault and token interest rate.": "Dieser Betrag ist der Gesamtzinsbetrag zusammen gesetzt aus Vault- und Token-Zinssatz",
     "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können."
+    "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
+    "Execution block": "Ausführungsblock"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1347,32 +1351,31 @@
     "Insufficient funds": "Unzureichende Deckung"
   },
   "screens/WithdrawFutureSwapScreen": {
-    "FROM": "FROM",
-    "TO": "TO",
-    "Enter an amount": "Enter an amount",
-    "Amount to withdraw": "Amount to withdraw",
-    "Remaining amount": "Remaining amount",
-    "CONTINUE": "CONTINUE",
-    "Select token": "Select token",
-    "You are withdrawing": "You are withdrawing",
+    "FROM": "VON",
+    "TO": "IN",
+    "Enter an amount": "Gib einen Betrag ein",
+    "Amount to withdraw": "Abzuhebender Betrag",
+    "Remaining amount": "Verbleibender Betrag",
+    "CONTINUE": "WEITER",
+    "Select token": "Token auswählen",
+    "You are withdrawing": "Die Abhebung beträgt",
     "Withdraw from future swap": "Withdraw from future swap"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
-    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
-    "Transaction type": "Transaction type",
-    "Remaining amount": "Remaining amount",
-    "CONFIRM WITHDRAWAL": "CONFIRM WITHDRAWAL",
-    "WITHDRAWING": "WITHDRAWING",
-    "You are withdrawing": "You are withdrawing",
-    "Withdraw": "Withdraw",
-    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Withdraw locked amount {{amountToWithdraw}} from future swap",
-    "To be confirmed": "To be confirmed"
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "Transaction type": "Transaktionsart",
+    "Remaining amount": "Verbleibender Betrag",
+    "CONFIRM WITHDRAWAL": "ABHEBUNG BESTÄTIGEN",
+    "WITHDRAWING": "ABHEBUNG",
+    "You are withdrawing": "Die Abhebung beträgt",
+    "Withdraw": "Abheben",
+    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Gesperrten Betrag {{amountToWithdraw}} vom Tausch-Terminkontrakt abheben"
   },
   "screens/FutureSwapScreen": {
-    "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
-    "Execution block": "Execution block",
-    "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
-    "Future Swap": "Future Swap"
+    "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",
+    "Execution block": "Ausführungsblock",
+    "The amount will be refunded automatically if the transaction does not go through.": "Der Betrag wird automatisch zurückerstattet, wenn die Transaktion nicht zustande kommt.",
+    "Future Swap": "Tausch-Terminkontrakt"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
