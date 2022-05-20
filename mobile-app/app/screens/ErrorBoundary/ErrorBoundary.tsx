@@ -38,6 +38,12 @@ class ErrorBoundary extends Component<Props, State> {
     return { hasError: true }
   }
 
+  componentDidCatch (error: any, errorInfo: any): any {
+    // You can also log the error to an error reporting service
+    console.log(error)
+    console.log(errorInfo)
+  }
+
   render (): JSX.Element {
     return this.state.hasError
       ? <ErrorDisplayComponent />
