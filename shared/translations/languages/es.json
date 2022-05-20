@@ -1137,7 +1137,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "El factor del colateral determina el grado de contribución de cada token colateral.",
     "Resulting collateralization": "Collateralización resultante",
     "N/A": "N/A",
-    "Vault %": "% en la bóveda"
+    "Vault %": "% en la bóveda",
+    "Vault requirement": "Vault requirement"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Estás añadiendo colateral a",

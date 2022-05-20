@@ -26,9 +26,9 @@
     "Confirm Removal": "Conferma Rimozione",
     "Confirm swap": "Conferma swap",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Scegli un Pool-Pair sotto, fornisci liquidita' per alimentare l'Exchange Decentralizzato (DEX), inizia a guadagnare le commissioni e un rendimento annuale fino al 100%. Preleva in ogni momento.",
-    "Pooled {{symbol}}": "{{symbol}} in Pool",
-    "Total pooled {{symbol}}": "Totale {{symbol}} in Pool",
-    "Your pooled {{symbol}}": "I tuoi {{symbol}} in Pool",
+    "Pooled {{symbol}}": "{{symbol}} nella Pool",
+    "Total pooled {{symbol}}": "Totale {{symbol}} nella Pool",
+    "Your pooled {{symbol}}": "I tuoi {{symbol}} nella Pool",
     "SWAP TOKENS": "SCAMBIA-TOKEN",
     "REMOVE": "RIMUOVI",
     "APR": "APR",
@@ -1131,7 +1131,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "Il fattore collaterale determina il grado di contributo di ogni token collaterale.",
     "Resulting collateralization": "Garanzia corrispondente",
     "N/A": "N/A",
-    "Vault %": "Vault %"
+    "Vault %": "Vault %",
+    "Vault requirement": "Vault requirement"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Stai aggiungendo collaterali a",
