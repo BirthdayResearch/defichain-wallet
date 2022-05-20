@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-context.only('Wallet - DEX - Future Swap', () => {
+context('Wallet - DEX - Future Swap', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFITokentoWallet().sendDFItoWallet().sendTokenToWallet(['TU10', 'DUSD', 'BTC']).wait(3000)
