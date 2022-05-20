@@ -80,11 +80,14 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
 
     setIsSubmitting(true)
     if (isFutureSwap) {
-      const futureSwapForm = {
+      const futureSwapForm: FutureSwapForm = {
         fromTokenId: Number(swap.tokenFrom.id),
         toTokenId: Number(swap.tokenTo.id),
         amount: new BigNumber(swap.amountFrom),
-        isSourceLoanToken: futureSwap.isSourceLoanToken
+        isSourceLoanToken: futureSwap.isSourceLoanToken,
+        fromTokenDisplaySymbol: swap.tokenFrom.displaySymbol,
+        toTokenDisplaySymbol: swap.tokenTo.displaySymbol,
+        oraclePriceText: futureSwap.oraclePriceText
       }
       await constructSignedFutureSwapAndSend(futureSwapForm, dispatch, () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
@@ -155,7 +158,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         lhs={translate('screens/ConfirmCompositeSwapScreen', 'Transaction type')}
         rhs={{
           value: getTransactionType(),
-          testID: 'text_transaction_type'
+          testID: 'confirm_text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
@@ -168,14 +171,14 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Transaction date')}
               rhs={{
                 value: futureSwap.transactionDate,
-                testID: 'text_transaction_date'
+                testID: 'confirm_text_transaction_date'
               }}
               textStyle={tailwind('text-sm font-normal')}
             />
             <NumberRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Execution block')}
               rhs={{
-                testID: 'execution_block',
+                testID: 'confirm_execution_block',
                 value: futureSwap.executionBlock
               }}
             />
@@ -183,7 +186,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
               rhs={{
                 value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
-                testID: 'estimated_to_receive'
+                testID: 'confirm_estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
             />
@@ -193,7 +196,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
           <NumberRow
             lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
             rhs={{
-              testID: 'estimated_to_receive',
+              testID: 'confirm_estimated_to_receive',
               value: swap.amountTo.toFixed(8),
               suffixType: 'text',
               suffix: swap.tokenTo.displaySymbol
@@ -207,7 +210,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
       <InfoRow
         type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
-        testID='text_fee'
+        testID='confirm_text_fee'
         suffix='DFI'
       />
       {!isFutureSwap &&
@@ -346,6 +349,9 @@ interface FutureSwapForm {
   amount: BigNumber
   toTokenId: number
   isSourceLoanToken: boolean
+  fromTokenDisplaySymbol: string
+  toTokenDisplaySymbol: string
+  oraclePriceText: string
 }
 
 async function constructSignedFutureSwapAndSend (
@@ -375,8 +381,11 @@ async function constructSignedFutureSwapAndSend (
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmCompositeSwapScreen', 'Future swapping Token'),
-      description: translate('screens/ConfirmCompositeSwapScreen', 'Swapping {{amountA}} ', { // TODO: Update based on design
-        amountA: futureSwap.amount.toFixed(8)
+      description: translate('screens/ConfirmCompositeSwapScreen', 'Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}', { // TODO: Update based on design
+        amountA: futureSwap.amount.toFixed(8),
+        fromTokenDisplaySymbol: futureSwap.fromTokenDisplaySymbol,
+        toTokenDisplaySymbol: futureSwap.toTokenDisplaySymbol,
+        percentage: futureSwap.oraclePriceText
       }),
       onBroadcast
     }))

@@ -704,8 +704,7 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir",
-    "Swap on future block": "Swap on future block",
-    "on future oracle price {{percentage_change}}": "on future oracle price {{percentage_change}}"
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",

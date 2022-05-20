@@ -61,8 +61,6 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const FutureSwapListItem = useCallback(({
     item
   }: { item: FutureSwapData }): JSX.Element => {
-    console.log({ item })
-
     return (
       <ThemedTouchableOpacity
         style={tailwind('p-4 items-center justify-between flex flex-row')}

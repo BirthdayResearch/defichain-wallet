@@ -43,6 +43,7 @@ export interface DexParamList {
       executionBlock: number
       transactionDate: string
       isSourceLoanToken: boolean
+      oraclePriceText: string
     }
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }

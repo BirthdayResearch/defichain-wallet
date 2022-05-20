@@ -385,7 +385,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         ? {
           executionBlock,
           transactionDate,
-          isSourceLoanToken: isSourceLoanToken
+          isSourceLoanToken: isSourceLoanToken,
+          oraclePriceText
         }
         : undefined,
       swap: {
@@ -796,7 +797,7 @@ function TransactionDetailsSection ({
             <InfoRow
               type={InfoType.ExecutionBlock}
               value={executionBlock}
-              testID='text_fee'
+              testID='execution_block'
               suffix={
                 <TouchableOpacity
                   onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}
@@ -854,6 +855,7 @@ function TimeRemainingTextRow ({ timeRemaining, transactionDate }: { timeRemaini
           style={tailwind('text-sm text-right')}
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
+          testID='time_remaining'
         >
           {`≈ ${timeRemaining}`}
         </ThemedText>

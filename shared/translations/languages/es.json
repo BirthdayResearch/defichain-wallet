@@ -718,8 +718,7 @@
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Estimated to receive": "Estimación a recibir",
     "Slippage tolerance": "Tolerancia a la fluctuación",
-    "Swap on future block": "Swap on future block",
-    "on future oracle price {{percentage_change}}": "on future oracle price {{percentage_change}}"
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentage}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Tu estás intercambiando",
