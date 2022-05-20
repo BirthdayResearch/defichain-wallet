@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
 import BigNumber from 'bignumber.js'
 import Slider from '@react-native-community/slider'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -105,7 +105,7 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
         current={Number(amountToWithdraw)}
         maxValue={Number(source.amount)}
         onChange={onAmountChange}
-        viewStyle={tailwind('p-4 mx-4 mt-4 rounded-t')}
+        viewStyle={tailwind('p-4 mx-4 mt-4 rounded-t flex flex-col')}
       />
       <ThemedView
         dark={tailwind('bg-gray-800')}
@@ -255,17 +255,18 @@ function AmountSlider (props: { current: number, maxValue: number, onChange: (pe
       light={tailwind('bg-white')}
       style={props.viewStyle}
     >
-      <View style={tailwind('flex-1')}>
-        <Slider
-          maximumValue={props.maxValue}
-          minimumTrackTintColor='#ff00af'
-          minimumValue={0}
-          onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(8))}
-          testID='slider_future_swap_screen'
-          thumbTintColor='#ff00af'
-          value={isNaN(props.current) ? 0 : props.current}
-        />
-      </View>
+      <Slider
+        maximumValue={props.maxValue}
+        minimumTrackTintColor='#ff00af'
+        minimumValue={0}
+        onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(8))}
+        testID='slider_future_swap_screen'
+        thumbTintColor='#ff00af'
+        value={isNaN(props.current) ? 0 : props.current}
+        style={tailwind({
+          '-mb-2': Platform.OS !== 'web'
+        })}
+      />
       <View
         style={tailwind('flex flex-row justify-between mt-1')}
       >
