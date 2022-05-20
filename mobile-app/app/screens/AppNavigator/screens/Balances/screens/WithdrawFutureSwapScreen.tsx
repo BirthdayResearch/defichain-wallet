@@ -21,12 +21,11 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 
 type Props = StackScreenProps<BalanceParamList, 'WithdrawFutureSwapScreen'>
 
 export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
-  const { futureSwap: { source, destination } } = props.route.params
+  const { futureSwap: { source, destination }, isEnded } = props.route.params
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const client = useWhaleApiClient()
   const logger = useLogger()
@@ -35,9 +34,6 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [amountToWithdraw, setAmountToWithdraw] = useState('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-  const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
-  const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
-  const { isEnded } = useFutureSwapDate(executionBlock, blockCount)
 
   useEffect(() => {
     client.fee.estimate()
@@ -71,7 +67,8 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
         destination: {
           tokenId: destination.tokenId
         },
-        fee
+        fee,
+        isEnded
       },
       merge: true
     })

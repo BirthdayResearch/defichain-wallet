@@ -53,7 +53,8 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
     navigation.navigate({
       name: 'WithdrawFutureSwapScreen',
       params: {
-        futureSwap: item
+        futureSwap: item,
+        isEnded
       }
     })
   }
