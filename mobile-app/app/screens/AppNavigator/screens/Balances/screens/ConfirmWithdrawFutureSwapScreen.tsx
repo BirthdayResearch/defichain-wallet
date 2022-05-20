@@ -76,7 +76,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
       <TextRow
         lhs={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Transaction type')}
         rhs={{
-          value: 'Withdraw future swap',
+          value: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdraw future swap'),
           testID: 'text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}

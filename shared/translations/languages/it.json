@@ -90,7 +90,8 @@
     "(From highest value)": "(Dal valore più alto)",
     "(From lowest value)": "(Dal valore più basso)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Il valore totale del portafoglio non include l'importo del prestito basato sul prezzo dell'oracolo.",
-    "loans": "prestiti"
+    "loans": "prestiti",
+    "You have pending future swap(s)": "You have pending future swap(s)"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREA INDIRIZZO DEL WALLET",
@@ -700,7 +701,8 @@
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block"
+    "Execution block": "Execution block",
+    "Enter an amount": "Inserisci un importo"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSIONE",
@@ -1391,7 +1393,8 @@
     "You are withdrawing": "You are withdrawing",
     "Withdraw": "Withdraw",
     "Withdraw locked amount {{amountToWithdraw}} from future swap": "Withdraw locked amount {{amountToWithdraw}} from future swap",
-    "To be confirmed": "To be confirmed"
+    "To be confirmed": "To be confirmed",
+    "Withdraw future swap": "Withdraw future swap"
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",

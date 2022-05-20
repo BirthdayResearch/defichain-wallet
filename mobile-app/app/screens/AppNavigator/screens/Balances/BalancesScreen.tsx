@@ -449,7 +449,7 @@ function FutureSwapCta ({
       dark={tailwind('bg-darkblue-50')}
       testID='pending_future_swaps'
     >
-      <View style={tailwind('flex flex-row items-center')}>
+      <View style={tailwind('flex flex-row items-center flex-1')}>
         <ThemedIcon
           iconType='MaterialIcons'
           name='info'

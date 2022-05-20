@@ -85,7 +85,8 @@
     "(From highest value)": "(从最高值开始)",
     "(From lowest value)": "(从最低值开始)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额",
-    "loans": "贷款"
+    "loans": "贷款",
+    "You have pending future swap(s)": "You have pending future swap(s)"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -682,7 +683,8 @@
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block"
+    "Execution block": "Execution block",
+    "Enter an amount": "请输入数量"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -1357,7 +1359,7 @@
   "screens/WithdrawFutureSwapScreen": {
     "FROM": "FROM",
     "TO": "TO",
-    "Enter an amount": "Enter an amount",
+    "Enter an amount": "请输入数量",
     "Amount to withdraw": "Amount to withdraw",
     "Remaining amount": "Remaining amount",
     "CONTINUE": "CONTINUE",
@@ -1374,7 +1376,8 @@
     "You are withdrawing": "You are withdrawing",
     "Withdraw": "Withdraw",
     "Withdraw locked amount {{amountToWithdraw}} from future swap": "Withdraw locked amount {{amountToWithdraw}} from future swap",
-    "To be confirmed": "To be confirmed"
+    "To be confirmed": "To be confirmed",
+    "Withdraw future swap": "Withdraw future swap"
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
