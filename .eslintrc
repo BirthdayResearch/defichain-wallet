@@ -16,7 +16,8 @@
   ],
   "ignorePatterns": [
     "/*.config.js",
-    "*.json"
+    "*.json",
+    "jest.setup.js"
   ],
   "overrides": [
     // Js and Typescript files

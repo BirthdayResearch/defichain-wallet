@@ -4,6 +4,7 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -106,6 +107,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -174,6 +176,7 @@ exports[`info text should match snapshot for error Cannot payback loan while any
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -276,6 +279,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -344,6 +348,7 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -446,6 +451,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -514,6 +520,7 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -616,6 +623,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -684,6 +692,7 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -786,6 +795,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -854,6 +864,7 @@ exports[`info text should match snapshot for error Price is higher than indicate
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -956,6 +967,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1102,6 +1114,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1170,6 +1183,7 @@ exports[`info text should match snapshot for error Vault does not have enough co
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1272,6 +1286,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1340,6 +1355,7 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1442,6 +1458,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1510,6 +1527,7 @@ exports[`info text should match snapshot for error no prevouts available to crea
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1612,6 +1630,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1680,6 +1699,7 @@ exports[`info text should match snapshot for error not enough balance after comb
 Array [
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1782,6 +1802,7 @@ Array [
   </RCTScrollView>,
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}

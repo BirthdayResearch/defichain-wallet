@@ -1106,7 +1106,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Sicherheiten-Tokens.",
     "Resulting collateralization": "Resultierende Besicherungsquote",
     "N/A": "K/A",
-    "Vault %": "Vault %"
+    "Vault %": "Vault %",
+    "Vault requirement": "Vault-Anforderung"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Du fügst Sicherheiten hinzu zu",
