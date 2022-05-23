@@ -1,4 +1,4 @@
-import Svg, { G, Path, Mask, Defs, Rect } from 'react-native-svg'
+import Svg, { G, Path, Mask, Defs, Rect, ClipPath } from 'react-native-svg'
 
 export function TransactionSignedLight (): JSX.Element {
   return (
@@ -29,9 +29,9 @@ export function TransactionSignedLight (): JSX.Element {
         <Path fillRule='evenodd' clipRule='evenodd' d='M180.525 110.533L161.243 92.7109L167.566 85.8693L179.634 97.0224L204.082 67.5718L211.251 73.5228L180.525 110.533Z' fill='#0DBC9C' />
       </G>
       <Defs>
-        <clipPath id='clip0_2720_83438'>
+        <ClipPath id='clip0_2720_83438'>
           <Rect width='375' height='184' fill='white' />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   )
