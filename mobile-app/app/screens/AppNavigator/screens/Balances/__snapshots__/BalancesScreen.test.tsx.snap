@@ -658,6 +658,9 @@ exports[`balances page should match snapshot 1`] = `
                   "borderLeftWidth": 0,
                   "borderRightWidth": 0,
                   "borderTopWidth": 0,
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
                   "opacity": 1,
                 }
               }
