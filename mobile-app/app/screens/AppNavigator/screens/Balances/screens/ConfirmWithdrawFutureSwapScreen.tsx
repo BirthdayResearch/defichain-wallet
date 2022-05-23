@@ -77,7 +77,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
         lhs={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Transaction type')}
         rhs={{
           value: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdraw future swap'),
-          testID: 'text_transaction_type'
+          testID: 'confirm_text_transaction_type'
         }}
         textStyle={tailwind('text-sm font-normal')}
       />
@@ -86,7 +86,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
         lhs={translate('screens/WithdrawFutureSwapScreen', 'Remaining amount')}
         rhs={{
           value: source.remainingAmount.toFixed(8),
-          testID: 'text_remaining_amount',
+          testID: 'confirm_text_remaining_amount',
           suffixType: 'text',
           suffix: source.displaySymbol
         }}
@@ -98,7 +98,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
       <InfoRow
         type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
-        testID='text_fee'
+        testID='confirm_text_fee'
         suffix='DFI'
       />
       <SubmitButtonGroup
@@ -109,7 +109,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
         onCancel={onCancel}
         onSubmit={onSubmit}
         displayCancelBtn
-        title='payback_loan'
+        title='withdraw_future_swap'
       />
     </ThemedScrollView>
   )
@@ -126,7 +126,7 @@ function SummaryHeader (props: { amount: BigNumber, displaySymbol: string }): JS
         amount={props.amount}
         suffix={props.displaySymbol}
         suffixType='text'
-        testID='text_payment_amount'
+        testID='confirm_text_payment_amount'
         title={translate('screens/ConfirmWithdrawFutureSwapScreen', 'You are withdrawing')}
       />
     </ThemedView>

@@ -139,7 +139,7 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
           <NumberRow
             lhs={translate('screens/WithdrawFutureSwapScreen', 'Amount to withdraw')}
             rhs={{
-              value: amountToWithdraw,
+              value: new BigNumber(amountToWithdraw).toFixed(8),
               testID: 'text_amount_to_withdraw',
               suffixType: 'text',
               suffix: source.displaySymbol
@@ -301,6 +301,7 @@ function HelperText (props: { displayedValue: string }): JSX.Element {
         style={tailwind('text-sm font-semibold')}
         dark={tailwind('text-white')}
         light={tailwind('text-black')}
+        testID='displayed_withdraw_amount'
       >{new BigNumber(props.displayedValue).toFixed(8)}
       </ThemedText>
     </ThemedView>
