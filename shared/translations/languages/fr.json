@@ -1137,7 +1137,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque token à la garantie.",
     "Resulting collateralization": "Garantie correspondante",
     "N/A": "S/O",
-    "Vault %": "Vault %"
+    "Vault %": "Vault %",
+    "Vault requirement": "Exigence du vault"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",
