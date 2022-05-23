@@ -116,6 +116,7 @@ Array [
     useNativeDriver={false}
   >
     <View
+      collapsable={false}
       style={
         Object {
           "backgroundColor": "rgba(90, 169, 230, 1)",

@@ -31,6 +31,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -176,6 +177,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   </Text>
                   <Text
                     allowFontScaling={false}
+                    selectable={false}
                     style={
                       Array [
                         Object {
@@ -207,6 +209,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -256,6 +259,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 </Text>
                 <Text
                   allowFontScaling={false}
+                  selectable={false}
                   style={
                     Array [
                       Object {
@@ -283,6 +287,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             </View>
             <Text
               allowFontScaling={false}
+              selectable={false}
               style={
                 Array [
                   Object {
@@ -621,6 +626,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           useNativeDriver={false}
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1008,7 +1014,13 @@ exports[`Vault card should match snapshot of active vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -1111,6 +1123,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1259,6 +1272,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -1308,6 +1322,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 </Text>
                 <Text
                   allowFontScaling={false}
+                  selectable={false}
                   style={
                     Array [
                       Object {
@@ -1335,6 +1350,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             </View>
             <Text
               allowFontScaling={false}
+              selectable={false}
               style={
                 Array [
                   Object {
@@ -1673,6 +1689,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           useNativeDriver={false}
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -2060,7 +2077,13 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -2163,6 +2186,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -2308,6 +2332,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   </Text>
                   <Text
                     allowFontScaling={false}
+                    selectable={false}
                     style={
                       Array [
                         Object {
@@ -2339,6 +2364,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -2388,6 +2414,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 </Text>
                 <Text
                   allowFontScaling={false}
+                  selectable={false}
                   style={
                     Array [
                       Object {
@@ -2415,6 +2442,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             </View>
             <Text
               allowFontScaling={false}
+              selectable={false}
               style={
                 Array [
                   Object {
@@ -2753,6 +2781,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           useNativeDriver={false}
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -3140,7 +3169,13 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -3243,6 +3278,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -3390,6 +3426,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -3823,7 +3860,13 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}

@@ -18,7 +18,8 @@ context('Wallet - Receive', () => {
       const address = $txt[0].textContent
       cy.go('back')
       cy.getByTestID('details_dfi').click()
-      cy.getByTestID('send_dfi_button').click()
+      cy.getByTestID('dfi_balance_card_touchable').click()
+      cy.getByTestID('send_button').click()
       cy.getByTestID('amount_input').clear().type('1')
       cy.getByTestID('address_input').type(address)
       cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')

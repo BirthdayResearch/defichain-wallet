@@ -21,5 +21,6 @@ module.exports = {
     '!**/jest-coverage/**',
     '!**/website/**'
   ],
-  coverageDirectory: 'jest-coverage'
+  coverageDirectory: 'jest-coverage',
+  setupFiles: ['./jest.setup.js']
 }

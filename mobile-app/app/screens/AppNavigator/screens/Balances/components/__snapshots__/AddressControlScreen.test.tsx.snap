@@ -79,6 +79,7 @@ exports[`DFI address control should match snapshot for Address Control Modal 1`]
         </Text>
         <View
           accessible={true}
+          collapsable={false}
           focusable={false}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -99,6 +100,7 @@ exports[`DFI address control should match snapshot for Address Control Modal 1`]
       </View>
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -188,7 +190,13 @@ exports[`DFI address control should match snapshot for Address Control Screen 1`
 
 exports[`DFI address control should match snapshot for Address Item Row 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -469,6 +477,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
     >
       <Text
         allowFontScaling={false}
+        selectable={false}
         style={
           Array [
             Object {

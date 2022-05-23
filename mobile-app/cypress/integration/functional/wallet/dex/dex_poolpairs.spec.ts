@@ -278,7 +278,7 @@ context('Wallet - DEX - Your Pool Pairs', () => {
   })
 
   it('should display empty results', () => {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }

@@ -28,7 +28,7 @@ jobs:
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
+      - uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048
         with:
           node-version: 16
           cache: 'npm'
@@ -39,7 +39,7 @@ jobs:
       - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
       - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
 
-      - uses: cypress-io/github-action@dddd6c2a23e82a301d9480fad175c21c29745d47
+      - uses: cypress-io/github-action@a45da79a2ea5457403a080c4fcc0ea3daf6924a0
         with:
           install: false
           record: true

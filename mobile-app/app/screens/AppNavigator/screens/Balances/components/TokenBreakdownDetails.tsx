@@ -7,6 +7,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { StyleProp, TextProps, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
+import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { BalanceText } from './BalanceText'
 import { PortfolioButtonGroupTabKey } from './TotalPortfolio'
 
@@ -28,7 +29,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_locked`}
         amount={props.lockedAmount.toFixed(8)}
-        label='Locked in vault(s)'
+        label='Locked'
         hasFetchedToken={props.hasFetchedToken}
         labelTextStyle={tailwind('font-medium')}
         valueThemeProps={{
@@ -38,7 +39,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_locked_value`}
-        amount={props.lockedValue.toFixed(8)}
+        amount={getPrecisedTokenValue(props.lockedValue)}
         label=''
         hasFetchedToken={props.hasFetchedToken}
         valueThemeProps={{
@@ -62,7 +63,7 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       />
       <TokenBreakdownDetailsRow
         testID={`${props.testID}_available_value`}
-        amount={props.availableValue.toFixed(8)}
+        amount={getPrecisedTokenValue(props.availableValue)}
         label=''
         hasFetchedToken={props.hasFetchedToken}
         valueThemeProps={{
@@ -75,8 +76,8 @@ export function TokenBreakdownDetails (props: TokenBreakdownDetailProps): JSX.El
       {props.dfiUtxo !== undefined && props.dfiToken !== undefined &&
         (
           <View style={tailwind('mt-4')}>
-            <TokenBreakdownDetailsRow testID='dfi_utxo' amount={props.dfiUtxo.amount} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
-            <TokenBreakdownDetailsRow testID='dfi_token' amount={props.dfiToken.amount} label='as Token' hasFetchedToken={props.hasFetchedToken} />
+            <TokenBreakdownDetailsRow testID='dfi_utxo' amount={new BigNumber(props.dfiUtxo.amount).toFixed(8)} label='as UTXO' hasFetchedToken={props.hasFetchedToken} containerStyle={tailwind('mb-1')} />
+            <TokenBreakdownDetailsRow testID='dfi_token' amount={new BigNumber(props.dfiToken.amount).toFixed(8)} label='as Token' hasFetchedToken={props.hasFetchedToken} />
           </View>
         )}
     </>
@@ -103,8 +104,8 @@ function TokenBreakdownDetailsRow ({
   labelTextStyle,
   valueTextStyle,
   valueThemeProps = {
-    light: tailwind('text-gray-500'),
-    dark: tailwind('text-gray-400')
+    light: tailwind('text-gray-900'),
+    dark: tailwind('text-gray-50')
   },
   containerStyle,
   prefix,
@@ -127,8 +128,6 @@ function TokenBreakdownDetailsRow ({
               <NumberFormat
                 value={amount}
                 thousandSeparator
-                decimalScale={8}
-                fixedDecimalScale
                 displayType='text'
                 prefix={prefix}
                 suffix={suffix}

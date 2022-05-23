@@ -104,16 +104,12 @@ exports[`loan cards should match snapshot 1`] = `
       },
     ]
   }
-  disableVirtualization={false}
   getItem={[Function]}
   getItemCount={[Function]}
-  horizontal={false}
-  initialNumToRender={10}
   keyExtractor={[Function]}
-  maxToRenderPerBatch={10}
   onContentSizeChange={[Function]}
-  onEndReachedThreshold={2}
   onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
   onMomentumScrollEnd={[Function]}
   onScroll={[Function]}
   onScrollBeginDrag={[Function]}
@@ -130,9 +126,7 @@ exports[`loan cards should match snapshot 1`] = `
       },
     ]
   }
-  updateCellsBatchingPeriod={50}
   viewabilityConfigCallbackPairs={Array []}
-  windowSize={21}
 >
   <View>
     <View
@@ -155,6 +149,7 @@ exports[`loan cards should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -451,6 +446,7 @@ exports[`loan cards should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -760,6 +756,7 @@ exports[`loan cards should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}

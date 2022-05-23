@@ -457,6 +457,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}

@@ -77,6 +77,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -133,6 +134,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -227,6 +229,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
     </Text>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
