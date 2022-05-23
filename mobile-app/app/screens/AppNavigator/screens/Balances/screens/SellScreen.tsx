@@ -31,13 +31,15 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
-import { BottomSheetFiatAccountList } from '@components/BottomSheetFiatAccountList'
+import { BottomSheetFiatAccountList } from '@components/SellComponents/BottomSheetFiatAccountList'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useIsFocused } from '@react-navigation/native'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 import { DfxKycInfo } from '@components/DfxKycInfo'
+import { ActionButton } from '../../Dex/components/PoolPairCards/ActionSection'
+import { BottomSheetFiatAccountCreate } from '@components/SellComponents/BottomSheetFiatAccountCreate'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 // import { isValidIBAN } from 'ibantools'
 
@@ -145,6 +147,30 @@ export function SellScreen ({
             if (item.iban !== undefined) {
               setSelectedFiatAccount(item)
               setFee(item.fee)
+              // setValue('amount', '') // TODO: remove or use
+              // await trigger('amount')
+            }
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [])
+
+  const setFiatAccountCreateBottomSheet = useCallback((accounts: SellRoute[]) => { // TODO: remove accounts?
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'FiatAccountCreate',
+        component: BottomSheetFiatAccountCreate({
+          fiatAccounts: accounts,
+          headerLabel: translate('screens/SellScreen', 'Add account for payout'),
+          onCloseButtonPress: () => dismissModal(),
+          onElementCreatePress: async (item): Promise<void> => {
+            if (item.iban !== undefined) {
+              // setSelectedFiatAccount(item)
+              // setFee(item.fee)
               // setValue('amount', '') // TODO: remove
               // await trigger('amount')
             }
@@ -246,6 +272,20 @@ export function SellScreen ({
           : (
             <>
               <View style={tailwind('px-4')}>
+
+                <ActionButton
+                  name='add'
+                  onPress={() => {
+                    setFiatAccountCreateBottomSheet(fiatAccounts)
+                    expandModal()
+                  }}
+                  pair={' '}
+                  label={translate('screens/SellScreen', 'ADD payout account')}
+                  style={tailwind('p-2 mb-2 h-10 mx-8 justify-center')}
+                  testID={'/* `pool_pair_add_{symbol}` */'}
+                  standalone
+                />
+
                 {(fiatAccounts.length > 0) &&
                   <FiatAccountInput
                     onPress={() => {

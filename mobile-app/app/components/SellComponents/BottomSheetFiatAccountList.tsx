@@ -2,26 +2,17 @@ import { memo } from 'react'
 import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from './themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { BottomSheetWithNavRouteParam } from './BottomSheetWithNav'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '../themed'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
-import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { isValidIBAN } from 'ibantools'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 
 interface BottomSheetFiatAccountListProps {
   headerLabel: string
   onCloseButtonPress: () => void
-  onFiatAccountPress?: (token: SellRoute) => void
-  navigateToScreen?: {
-    screenName: string
-    onButtonPress: (item: AddOrRemoveCollateralResponse) => void
-  }
+  onFiatAccountPress?: (sellRoute: SellRoute) => void
   fiatAccounts: SellRoute[]
-  vault?: LoanVaultActive
 }
 
 function checkIban (iban: string): boolean {
@@ -34,11 +25,9 @@ export const BottomSheetFiatAccountList = ({
   headerLabel,
   onCloseButtonPress,
   onFiatAccountPress,
-  navigateToScreen,
   fiatAccounts
 }: BottomSheetFiatAccountListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
-  const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const flatListComponents = {
     mobile: BottomSheetFlatList,
     web: ThemedFlatList
@@ -55,16 +44,6 @@ export const BottomSheetFiatAccountList = ({
             onPress={() => {
               if (onFiatAccountPress !== undefined) {
                 onFiatAccountPress(item)
-              }
-              if (navigateToScreen !== undefined) {
-                navigation.navigate({
-                  name: navigateToScreen.screenName,
-                  params: {
-                    sellRoute: item,
-                    onButtonPress: navigateToScreen.onButtonPress
-                  },
-                  merge: true
-                })
               }
             }}
             style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
