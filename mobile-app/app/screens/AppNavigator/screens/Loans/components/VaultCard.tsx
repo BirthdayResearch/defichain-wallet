@@ -9,7 +9,7 @@ import { IconButton } from '@components/IconButton'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '@screens/AppNavigator/screens/Loans/LoansNavigator'
 import { LoanVault } from '@store/loans'
-import { LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultInfo } from '@screens/AppNavigator/screens/Loans/components/VaultInfo'
 import { TouchableOpacity } from 'react-native'
 import { openURL } from '@api/linking'
@@ -193,7 +193,7 @@ function VaultActionButton ({
         new BigNumber(vault.collateralValue).gt(0) && (
           <IconButton
             testID={`${testID}_manage_loans_button`}
-            disabled={!canUseOperation || vault.state === LoanVaultState.FROZEN}
+            disabled={!canUseOperation}
             iconLabel={translate('components/VaultCard', 'MANAGE LOANS')}
             style={tailwind('mr-2 mb-2 items-center')}
             onPress={() => {
