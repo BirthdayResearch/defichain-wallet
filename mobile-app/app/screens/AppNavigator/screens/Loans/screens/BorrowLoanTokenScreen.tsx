@@ -43,6 +43,7 @@ import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { IconTooltip } from '@components/tooltip/IconTooltip'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -397,17 +398,20 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         >
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
         </ThemedText>
-        <NumberFormat
-          value={currentPrice}
-          decimalScale={2}
-          thousandSeparator
-          displayType='text'
-          renderText={(value) =>
-            <ThemedText style={tailwind('text-sm font-semibold text-right')}>
-              {value}
-            </ThemedText>}
-          prefix='$'
-        />
+        <View style={tailwind('flex-row items-center')}>
+          <NumberFormat
+            value={currentPrice}
+            decimalScale={2}
+            thousandSeparator
+            displayType='text'
+            renderText={(value) =>
+              <ThemedText style={tailwind('text-sm font-semibold text-right')}>
+                {value}
+              </ThemedText>}
+            prefix='$'
+          />
+          <IconTooltip />
+        </View>
       </View>
       <View style={tailwind('mr-4 w-3/12 items-end')}>
         <ThemedText
@@ -540,6 +544,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
         value={getPrecisedTokenValue(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
+        isOraclePrice
       />
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Vault interest')}
