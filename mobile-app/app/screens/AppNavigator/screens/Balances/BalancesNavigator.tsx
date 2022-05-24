@@ -77,7 +77,7 @@ export interface BalanceParamList {
   }
   WithdrawFutureSwapScreen: {
     futureSwap: FutureSwapData
-    isEnded: boolean
+    executionBlock: number
   }
   ConfirmWithdrawFutureSwapScreen: {
     source: {
@@ -92,7 +92,7 @@ export interface BalanceParamList {
       tokenId: string
     }
     fee: BigNumber
-    isEnded: boolean
+    executionBlock: number
   }
   [key: string]: undefined | object
 }
