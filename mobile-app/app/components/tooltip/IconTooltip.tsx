@@ -27,8 +27,8 @@ export function IconTooltip (): JSX.Element {
       from={(
         <TouchableOpacity onPress={() => setShowPopover(true)}>
           <ThemedIcon
-            style={tailwind('pl-1')}
-            size={14}
+            style={tailwind('pl-0.5')}
+            size={12}
             name='language'
             iconType='MaterialIcons'
             dark={tailwind('text-gray-200')}

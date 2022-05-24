@@ -22,7 +22,7 @@ interface ActiveUSDValueProps {
 
 export const ActiveUSDValue = React.memo((props: ActiveUSDValueProps): JSX.Element => {
   return (
-    <View style={[tailwind('flex flex-row items-start'), props.containerStyle]}>
+    <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
         value={getPrecisedTokenValue(props.price)}
         thousandSeparator
