@@ -476,7 +476,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           />
         </View>
         <ThemedView
-          style={tailwind('m-4 pt-4 rounded-lg')}
+          style={tailwind('m-4 pt-4 rounded-lg flex-1')}
           light={tailwind('bg-white')}
           dark={tailwind('bg-gray-800')}
         >
