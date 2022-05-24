@@ -241,7 +241,7 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
     cy.getByTestID('confirm_text_remaining_amount').should('have.text', '4.00000000')
     cy.getByTestID('confirm_text_fee').should('exist')
     cy.getByTestID('button_confirm_withdraw_future_swap').click().wait(3000)
-    cy.getByTestID('txn_authorization_description').should('have.text', 'Withdraw locked amount 6.00000000 from future swap')
+    cy.getByTestID('txn_authorization_description').should('have.text', 'Withdraw locked amount 6.00000000 DUSD from future swap')
     cy.closeOceanInterface()
   })
 
