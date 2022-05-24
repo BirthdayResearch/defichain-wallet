@@ -771,9 +771,6 @@ exports[`AuctionDetails should match snapshot 1`] = `
             >
               5,265.83339660
             </Text>
-            <Text>
-               
-            </Text>
             <Text
               style={
                 Array [

@@ -280,9 +280,6 @@ exports[`Number row should match snapshot for text suffix 1`] = `
         >
           100
         </Text>
-        <Text>
-           
-        </Text>
         <Text
           style={
             Array [
