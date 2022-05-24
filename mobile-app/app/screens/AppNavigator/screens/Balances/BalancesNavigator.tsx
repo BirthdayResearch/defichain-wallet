@@ -26,10 +26,14 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
-import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { FutureSwapData } from '@store/futureSwap'
+import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
+import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
+import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
+import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -370,16 +374,29 @@ export function BalancesNavigator (): JSX.Element {
       />
 
       <BalanceStack.Screen
-        component={FutureSwapScreen}
-        name='FutureSwapScreen'
+        component={AddLiquidityScreen}
+        name='AddLiquidity'
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/FutureSwapScreen', 'Future Swap')}
+              text={translate('screens/DexScreen', 'Add Liquidity')}
               containerTestID={headerContainerTestId}
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={ConfirmAddLiquidityScreen}
+        name='ConfirmAddLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
 
@@ -398,6 +415,33 @@ export function BalancesNavigator (): JSX.Element {
       />
 
       <BalanceStack.Screen
+        component={RemoveLiquidityScreen}
+        name='RemoveLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Remove Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={FutureSwapScreen}
+        name='FutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/FutureSwapScreen', 'Future Swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
         component={ConfirmWithdrawFutureSwapScreen}
         name='ConfirmWithdrawFutureSwapScreen'
         options={{
@@ -408,6 +452,19 @@ export function BalancesNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={RemoveLiquidityConfirmScreen}
+        name='RemoveLiquidityConfirmScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Removal')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
     </BalanceStack.Navigator>
