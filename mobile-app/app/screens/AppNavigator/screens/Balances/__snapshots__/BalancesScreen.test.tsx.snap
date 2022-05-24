@@ -845,7 +845,7 @@ exports[`balances page should match snapshot 1`] = `
                       style={
                         Array [
                           Object {
-                            "alignItems": "center",
+                            "alignItems": "flex-start",
                             "display": "flex",
                             "flexDirection": "row",
                           },
@@ -1705,7 +1705,7 @@ exports[`balances page should match snapshot 1`] = `
                         style={
                           Array [
                             Object {
-                              "alignItems": "center",
+                              "alignItems": "flex-start",
                               "display": "flex",
                               "flexDirection": "row",
                             },
@@ -2007,7 +2007,7 @@ exports[`balances page should match snapshot 1`] = `
                         style={
                           Array [
                             Object {
-                              "alignItems": "center",
+                              "alignItems": "flex-start",
                               "display": "flex",
                               "flexDirection": "row",
                             },

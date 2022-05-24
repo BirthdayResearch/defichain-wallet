@@ -688,7 +688,7 @@ exports[`Batch Card should match snapshot 1`] = `
           style={
             Array [
               Object {
-                "alignItems": "center",
+                "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
               },
