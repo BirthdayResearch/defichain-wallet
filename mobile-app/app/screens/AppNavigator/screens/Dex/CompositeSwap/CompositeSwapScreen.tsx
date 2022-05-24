@@ -856,7 +856,7 @@ function TimeRemainingTextRow ({ timeRemaining, transactionDate }: { timeRemaini
           dark={tailwind('text-gray-400')}
           testID='time_remaining'
         >
-          {`≈ ${timeRemaining}`}
+          {`≈${timeRemaining}`}
         </ThemedText>
         <ThemedText
           style={tailwind('text-xs text-right')}

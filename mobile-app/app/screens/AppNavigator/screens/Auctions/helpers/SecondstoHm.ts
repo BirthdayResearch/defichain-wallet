@@ -37,9 +37,9 @@ function secondsToDhm (s: number): {d: number, h: number, m: number} {
 
 export function secondsToDhmsDisplay (s: number): string {
   const { d, h, m } = secondsToDhm(s)
-  const dDisplay = d > 0 ? translate('components/BatchCard', '{{d}}d', { d }) : ''
-  const hDisplay = h > 0 ? translate('components/BatchCard', '{{h}}h', { h: d > 0 ? padStart(h.toString(), 2, '0') : h }) : ''
-  const mDisplay = m > 0 ? translate('components/BatchCard', '{{m}}m', { m: h > 0 ? padStart(m.toString(), 2, '0') : m }) : ''
-  const sDisplay = s > 0 ? translate('components/BatchCard', '{{s}}s', { s: m > 0 ? padStart(m.toString(), 2, '0') : s }) : ''
+  const dDisplay = d > 0 ? translate('components/BatchCard', ' {{d}}d', { d }) : ''
+  const hDisplay = h > 0 ? translate('components/BatchCard', ' {{h}}h', { h: d > 0 ? padStart(h.toString(), 2, '0') : h }) : ''
+  const mDisplay = m > 0 ? translate('components/BatchCard', ' {{m}}m', { m: h > 0 ? padStart(m.toString(), 2, '0') : m }) : ''
+  const sDisplay = s > 0 ? translate('components/BatchCard', ' {{s}}s', { s: m > 0 ? padStart(m.toString(), 2, '0') : s }) : ''
   return `${dDisplay}${hDisplay}${mDisplay}${sDisplay}`
 }
