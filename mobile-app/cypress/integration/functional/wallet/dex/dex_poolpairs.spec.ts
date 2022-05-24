@@ -178,7 +178,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 
   it('should be able to search available poolpair by querying in search input', () => {
-    cy.getByTestID('dex_search_icon').click()
     cy.getByTestID('dex_search_input').type('btc-dfi')
     cy.getByTestID('details_dBTC-DFI').click()
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').should('have.length', 1)
@@ -243,8 +242,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
 
     cy.getByTestID('button_confirm_submit').should('not.have.attr', 'disabled')
-    cy.getByTestID('total_to_be_swapped').should('exist')
-    cy.getByTestID('total_to_be_swapped_rhsUsdAmount').should('exist')
     cy.getByTestID('estimated_to_receive').should('exist')
     cy.getByTestID('estimated_to_receive_rhsUsdAmount').should('exist')
 

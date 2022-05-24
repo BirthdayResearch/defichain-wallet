@@ -1019,6 +1019,7 @@ function TargetTokenRow (form: TargetTokenForm): JSX.Element {
                 style={tailwind('self-center text-sm')}
                 light={tailwind('text-gray-500')}
                 dark={tailwind('text-gray-400')}
+                testID='text_input_tokenB'
               >
                 {value}
               </ThemedText>}

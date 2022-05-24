@@ -185,15 +185,15 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     // Valid form
     cy.getByTestID('text_input_tokenA').type('1')
     cy.getByTestID('estimated_to_receive').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '')
+      cy.getByTestID('text_input_tokenB').contains(tokenValue)
       cy.getByTestID('button_confirm_submit').should('not.have.attr', 'disabled')
 
       // Invalid tokenA - NaN, more than Max, zero
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('a').blur().wait(100)
       cy.getByTestID('text_input_tokenA').should('have.value', '0')
-      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(0).toFixed(8))
+      cy.getByTestID('text_input_tokenB').contains(new BigNumber(0).toFixed(8))
       cy.getByTestID('button_confirm_submit').should('have.attr', 'aria-disabled')
       cy.getByTestID('text_input_tokenA_clear_button').click()
       cy.getByTestID('text_input_tokenA').type('15').blur().wait(500)
@@ -209,14 +209,12 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
     cy.getByTestID('text_input_tokenA').should('have.value', '19.90000000')
     cy.getByTestID('estimated_to_receive').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '')
+      cy.getByTestID('text_input_tokenB').contains(tokenValue)
     })
   })
 
   it('should be able to see USD amount', function () {
-    cy.getByTestID('total_to_be_swapped').should('exist')
-    cy.getByTestID('total_to_be_swapped_rhsUsdAmount').should('exist')
     cy.getByTestID('estimated_to_receive').should('exist')
     cy.getByTestID('estimated_to_receive_rhsUsdAmount').should('exist')
   })
@@ -225,8 +223,8 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('text_input_tokenA').should('have.value', '9.95000000').wait(3000)
     cy.getByTestID('estimated_to_receive').then(($txt: any) => {
-      const tokenValue = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', new BigNumber(tokenValue).toFixed(8))
+      const tokenValue = $txt[0].textContent.replace(' dLTC', '')
+      cy.getByTestID('text_input_tokenB').contains(tokenValue)
     })
   })
 
@@ -303,7 +301,7 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
       cy.getByTestID('MAX_amount_button').click()
       cy.getByTestID('switch_button').click()
       cy.getByTestID('text_input_tokenA').should('have.value', '')
-      cy.getByTestID('text_input_tokenB').should('have.value', '')
+      cy.getByTestID('text_input_tokenB').contains('')
     })
 
     it('should be able to swap', function () {
