@@ -135,6 +135,7 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
           suffixType: 'text',
           prefix: '$'
         }}
+        isOraclePrice
       />
       <TextRow
         lhs={translate('screens/ConfirmPlaceBidScreen', 'Vault ID')}
