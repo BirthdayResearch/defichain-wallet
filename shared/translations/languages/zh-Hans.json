@@ -75,7 +75,7 @@
     "SWITCH": "切换钱包",
     "YOUR ASSETS": "YOUR ASSETS",
     "Available: ": "现有可使用: ",
-    "Locked: ": "已鎖定: ",
+    "Locked: ": "已锁定: ",
     "locked in vault(s)": "锁定在金库",
     "available": "可使用资金",
     "All tokens": "所有代币",
@@ -532,7 +532,7 @@
     "Create new passcode for your wallet": "为您的钱包创建新的密码"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "请保管好您的恢复字组"
+    "Keep your recovery words safe and private.": "保持您的恢复字词安全和保密。"
   },
   "screens/AddLiquidity": {
     "Balance": "总资金",
@@ -711,16 +711,15 @@
     "Enter Passcode": "请输入密码",
     "Enter passcode to continue": "输入密码后可继续",
     "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易",
-    "Access granted": "现在可使用",
-    "You may now proceed": "您现在可以继续",
-    "Sign to verify access": "签下以确认使用"
+    "Sign to verify access": "签下以确认使用",
+    "Success!": "成功！"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "签下交易",
     "Signing your transaction...": "正在签下交易",
     "Verifying access": "验证可使用的权限",
-    "Transaction authorized": "已授權交易",
-    "Please wait while your transaction is being prepared": "请稍候，您的交易正在准备中"
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "补管钱包是您的个人责任，不要忘记储存您的 24 个恢复字词。",
+    "Transaction signed": "已签名的交易"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢复",
@@ -787,6 +786,7 @@
   "components/DFIBalanceCard": {
     "Learn more about DFI": "了解更多关于 DFI",
     "Locked in vault(s)": "已锁定在金库",
+    "Locked": "已锁定",
     "Available": "现有可使用",
     "as UTXO": "as UTXO",
     "as Token": "as Token"
@@ -1110,7 +1110,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素决定了每款抵押代币的贡献程度比例。",
     "Resulting collateralization": "最终抵押率",
     "N/A": "不适用",
-    "Vault %": "金库 %"
+    "Vault %": "金库 %",
+    "Vault requirement": "Vault requirement"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "向金库增加抵押品",

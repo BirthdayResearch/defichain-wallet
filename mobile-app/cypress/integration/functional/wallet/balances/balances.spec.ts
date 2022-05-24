@@ -245,7 +245,7 @@ const addTokensWithFourCategories = [
 ]
 
 function interceptTokenWithSampleData (): void {
-  cy.intercept('**/tokens?size=*', {
+  cy.intercept('**/address/**/tokens?size=*', {
     body: {
       data: addTokensWithFourCategories
     }
@@ -369,8 +369,6 @@ context('Wallet - Balances', () => {
     cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
     cy.getByTestID('dfi_token_amount').should('have.text', '*****')
     cy.getByTestID('total_usd_amount').should('have.text', '*****')
-    cy.getByTestID('dfi_available_percentage_text').should('have.text', '*****')
-    cy.getByTestID('dfi_locked_percentage_text').should('have.text', '*****')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', displaySymbol: 'dBTC', symbol: 'BTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', displaySymbol: 'dETH', symbol: 'ETH' })
   })
@@ -391,18 +389,6 @@ context('Wallet - Balances', () => {
     cy.go('back')
     cy.getByTestID('convert_dfi_button').click()
     cy.getByTestID('convert_screen').should('exist')
-  })
-
-  it('should be able to navigate to send dfi page', function () {
-    cy.go('back')
-    cy.getByTestID('send_dfi_button').click()
-    cy.getByTestID('send_screen').should('exist')
-  })
-
-  it('should be able to navigate to utxo vs token page', function () {
-    cy.go('back')
-    cy.getByTestID('token_vs_utxo_info').click()
-    cy.getByTestID('token_vs_utxo_screen').should('exist')
   })
 })
 
@@ -658,7 +644,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
   })
 
   it('should exist in All tokens and Crypto tabs, should not exist in LP tokens and dTokens tabs', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: [{
           amount: '5.00000000',
@@ -687,7 +673,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
     cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
   })
   it('should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: [{
           amount: '11.00000000',
@@ -731,15 +717,15 @@ context('Wallet - Balances - Portfolio group tab', function () {
     cy.getByTestID('portfolio_button_group_USDT_active').should('exist')
     cy.getByTestID('portfolio_display_BTC_currency').should('not.exist')
     cy.getByTestID('portfolio_display_DFI_currency').should('not.exist')
-    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00000000', '≈ $100,000.00', '≈ $1,000.00')
+    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00', '≈ $100,000.00', '≈ $1,000.00')
   })
 
   it('should display portfolio values in DFI currency', function () {
-    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00000000 DFI', '10.00 DFI', '0.10000000 DFI')
+    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00 DFI', '10.00 DFI', '0.10000000 DFI')
   })
 
   it('should display portfolio values in BTC currency', function () {
-    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00000000 BTC', '10.00 BTC', '0.10000000 BTC')
+    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00 BTC', '10.00 BTC', '0.10000000 BTC')
   })
 })
 
@@ -775,7 +761,7 @@ context('Wallet - Balances - Your Assets - All tokens tab', function () {
   })
 
   it('should not display sorting icon if there are no other tokens', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }
@@ -821,6 +807,8 @@ context('Wallet - Balances - Skeleton Loader', () => {
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_utxo_percentage_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_token_percentage_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
     cy.getByTestID('balance_skeleton_loader').should('exist')
@@ -831,6 +819,8 @@ context('Wallet - Balances - Skeleton Loader', () => {
     cy.wait('@getTokens').then(() => {
       cy.getByTestID('total_portfolio_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_balance_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_utxo_percentage_skeleton_loader').should('not.exist')
+      cy.getByTestID('dfi_token_percentage_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
       cy.getByTestID('balance_skeleton_loader').should('not.exist')
@@ -969,18 +959,8 @@ context('Wallet - Balances - Token Breakdown', () => {
     }
   ]
 
-  function validateTokenBreakdown (token: string, availablePercentage: string, availableAmount: string, availableValue: string, lockedPercentage: string, lockedAmount: string, lockedValue: string): void {
-    cy.getByTestID(`details_${token}`).click()
-    cy.getByTestID(`${token}_available_percentage`).contains(availablePercentage)
-    cy.getByTestID(`${token}_available_amount`).contains(availableAmount)
-    cy.getByTestID(`${token}_available_value_amount`).invoke('text').then(text => {
-      checkValueWithinRange(text, availableValue)
-    })
-    cy.getByTestID(`${token}_locked_percentage`).contains(lockedPercentage)
+  function validateLockedToken (token: string, lockedAmount: string): void {
     cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount)
-    cy.getByTestID(`${token}_locked_value_amount`).invoke('text').then(text => {
-      checkValueWithinRange(text, lockedValue)
-    })
   }
 
   before(function () {
@@ -994,31 +974,67 @@ context('Wallet - Balances - Token Breakdown', () => {
       })
     })
     cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(6000)
+    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(6000)
     cy.getByTestID('bottom_tab_balances').click()
   })
 
-  it('should display DFI percentage breakdown', () => {
+  it('should display percentage of DFI UTXO and DFI Token', () => {
     cy.intercept('**/address/**/vaults?size=*', {
       statusCode: 200,
       body: {
         data: sampleVault
       }
     })
-    validateTokenBreakdown('dfi', '90.40%', '20.00000000', '200', '9.60%', '2.12300000', '21.23')
-    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+    cy.getByTestID('details_dfi').click()
+    validateLockedToken('dfi', '2.12300000')
+    cy.getByTestID('dfi_utxo_percentage').contains('66.67%')
+    cy.getByTestID('dfi_token_percentage').contains('33.33%')
+    cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
   })
 
-  it('should display BTC and ETH breakdown percentage and values', () => {
+  it('should display available amount of BTC and ETH', () => {
     cy.intercept('**/address/**/vaults?size=*', {
       statusCode: 200,
       body: {
         data: sampleVault
       }
     })
-    validateTokenBreakdown('dBTC', '83.33%', '10', '100', '16.67%', '2', '20')
-    validateTokenBreakdown('dETH', '66.67%', '10', '100', '33.33%', '5', '50')
+    cy.getByTestID('balances_row_1_amount').contains('10.00000000')
+    cy.getByTestID('balances_row_2_amount').contains('10.00000000')
+  })
+
+  it('should display locked amount of BTC and ETH', () => {
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: sampleVault
+      }
+    })
+    validateLockedToken('dBTC', '2.00000000')
+    validateLockedToken('dETH', '5.00000000')
+  })
+
+  it('should hide DFI Utxo and Token breakdown percentage', () => {
+    cy.getByTestID('toggle_balance').click()
+    cy.getByTestID('dfi_utxo_percentage').should('have.text', '*****')
+    cy.getByTestID('dfi_token_percentage').should('have.text', '*****')
+  })
+
+  it('should hide all locked amount of BTC and ETH', () => {
+    cy.getByTestID('dBTC_locked_amount_text').should('have.text', '*****')
+    cy.getByTestID('dETH_locked_amount_text').should('have.text', '*****')
+  })
+
+  it('should not display locked amount if BTC and ETH have no locked token', () => {
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: []
+      }
+    })
+    cy.getByTestID('dBTC_locked_amount').should('not.exist')
+    cy.getByTestID('dETH_locked_amount').should('not.exist')
   })
 })
 
@@ -1026,7 +1042,7 @@ context('Wallet - Balances - portfolio', () => {
   beforeEach(function () {
     cy.intercept('**/poolpairs/dexprices?denomination=*', {
       body: getDexPrice({
-        dusd: '990.49720000',
+        dusd: '1.00000000',
         usdc: '1.00000000',
         eth: '10.00000000',
         btc: '10.00000000',
@@ -1099,8 +1115,26 @@ context('Wallet - Balances - portfolio', () => {
             }
           }
           ],
-          loanAmounts: [],
-          interestAmounts: []
+          loanAmounts: [
+            {
+              id: '12',
+              amount: '10.00001903',
+              symbol: 'DUSD',
+              symbolKey: 'DUSD',
+              name: 'Decentralized USD',
+              displaySymbol: 'DUSD'
+            }
+          ],
+          interestAmounts: [
+            {
+              id: '12',
+              amount: '0.00001903',
+              symbol: 'DUSD',
+              symbolKey: 'DUSD',
+              name: 'Decentralized USD',
+              displaySymbol: 'DUSD'
+            }
+          ]
         }]
       }
     }).as('getVaults')

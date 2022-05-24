@@ -3,6 +3,7 @@
 exports[`button should be clickable 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -41,7 +42,13 @@ exports[`button should be clickable 1`] = `
 
 exports[`button should match styling of button type fill-primary 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -96,7 +103,13 @@ exports[`button should match styling of button type fill-primary 1`] = `
 
 exports[`button should match styling of button type fill-primary 2`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -155,7 +168,13 @@ exports[`button should match styling of button type fill-primary 2`] = `
 
 exports[`button should match styling of button type fill-primary 3`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -190,10 +209,7 @@ exports[`button should match styling of button type fill-primary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
@@ -221,7 +237,13 @@ exports[`button should match styling of button type fill-primary 3`] = `
 
 exports[`button should match styling of button type fill-secondary 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -276,7 +298,13 @@ exports[`button should match styling of button type fill-secondary 1`] = `
 
 exports[`button should match styling of button type fill-secondary 2`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -335,7 +363,13 @@ exports[`button should match styling of button type fill-secondary 2`] = `
 
 exports[`button should match styling of button type fill-secondary 3`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -370,10 +404,7 @@ exports[`button should match styling of button type fill-secondary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
@@ -401,7 +432,13 @@ exports[`button should match styling of button type fill-secondary 3`] = `
 
 exports[`button should match styling of button type flat-primary 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -456,7 +493,13 @@ exports[`button should match styling of button type flat-primary 1`] = `
 
 exports[`button should match styling of button type flat-primary 2`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -515,7 +558,13 @@ exports[`button should match styling of button type flat-primary 2`] = `
 
 exports[`button should match styling of button type flat-primary 3`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -550,10 +599,7 @@ exports[`button should match styling of button type flat-primary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
@@ -581,7 +627,13 @@ exports[`button should match styling of button type flat-primary 3`] = `
 
 exports[`button should match styling of button type flat-secondary 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -636,7 +688,13 @@ exports[`button should match styling of button type flat-secondary 1`] = `
 
 exports[`button should match styling of button type flat-secondary 2`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -695,7 +753,13 @@ exports[`button should match styling of button type flat-secondary 2`] = `
 
 exports[`button should match styling of button type flat-secondary 3`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -730,10 +794,7 @@ exports[`button should match styling of button type flat-secondary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
@@ -761,7 +822,13 @@ exports[`button should match styling of button type flat-secondary 3`] = `
 
 exports[`button should match styling of button type outline-primary 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -816,7 +883,13 @@ exports[`button should match styling of button type outline-primary 1`] = `
 
 exports[`button should match styling of button type outline-primary 2`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -875,7 +948,13 @@ exports[`button should match styling of button type outline-primary 2`] = `
 
 exports[`button should match styling of button type outline-primary 3`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -910,10 +989,7 @@ exports[`button should match styling of button type outline-primary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
@@ -941,7 +1017,13 @@ exports[`button should match styling of button type outline-primary 3`] = `
 
 exports[`button should match styling of button type outline-secondary 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -996,7 +1078,13 @@ exports[`button should match styling of button type outline-secondary 1`] = `
 
 exports[`button should match styling of button type outline-secondary 2`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -1055,7 +1143,13 @@ exports[`button should match styling of button type outline-secondary 2`] = `
 
 exports[`button should match styling of button type outline-secondary 3`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -1090,10 +1184,7 @@ exports[`button should match styling of button type outline-secondary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
@@ -1121,7 +1212,13 @@ exports[`button should match styling of button type outline-secondary 3`] = `
 
 exports[`button should not be clickable when disabled 1`] = `
 <View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}

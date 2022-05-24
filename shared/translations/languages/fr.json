@@ -539,7 +539,7 @@
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Gardez vos mots de récupération sûrs et privés."
+    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés."
   },
   "screens/AddLiquidity": {
     "Balance": "Solde",
@@ -718,16 +718,15 @@
     "Enter Passcode": "Entrez le code d'accès.",
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code d'accès pour autoriser votre transaction en toute sécurité.",
-    "Access granted": "Accès accordé",
-    "You may now proceed": "Vous pouvez maintenant procéder",
-    "Sign to verify access": "Autoriser pour vérifier l'accès"
+    "Sign to verify access": "Autoriser pour vérifier l'accès",
+    "Success!": "Succès!"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
     "Signing your transaction...": "Autorisation de votre transaction...",
-    "Transaction authorized": "Transaction autorisée",
-    "Please wait while your transaction is being prepared": "Merci de patienter pendant la préparation de votre transaction",
-    "Verifying access": "Vérification de l'accès"
+    "Verifying access": "Vérification de l'accès",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "Votre portefeuille est sous votre responsabilité, n'oubliez pas de conserver vos 24 mots de récupération.",
+    "Transaction signed": "Transaction signée"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "Restauration",
@@ -794,6 +793,7 @@
   "components/DFIBalanceCard": {
     "Learn more about DFI": "En savoir plus sur DFI",
     "Locked in vault(s)": "Verrouillés",
+    "Locked": "Verrouillés",
     "Available": "Disponibles",
     "as UTXO": "comme UTXO",
     "as Token": "comme Token"
@@ -1117,7 +1117,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "Le facteur de garantie détermine le degré de contribution de chaque token à la garantie.",
     "Resulting collateralization": "Garantie correspondante",
     "N/A": "S/O",
-    "Vault %": "Vault %"
+    "Vault %": "Vault %",
+    "Vault requirement": "Exigence du vault"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",

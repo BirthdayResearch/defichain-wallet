@@ -26,9 +26,9 @@
     "Confirm Removal": "Conferma Rimozione",
     "Confirm swap": "Conferma swap",
     "Pick a pool pair below, supply liquidity to power the Decentralized Exchange (DEX), and start earning fees and annual returns of up to 100%. Withdraw at any time.": "Scegli un Pool-Pair sotto, fornisci liquidita' per alimentare l'Exchange Decentralizzato (DEX), inizia a guadagnare le commissioni e un rendimento annuale fino al 100%. Preleva in ogni momento.",
-    "Pooled {{symbol}}": "{{symbol}} in Pool",
-    "Total pooled {{symbol}}": "Totale {{symbol}} in Pool",
-    "Your pooled {{symbol}}": "I tuoi {{symbol}} in Pool",
+    "Pooled {{symbol}}": "{{symbol}} nella Pool",
+    "Total pooled {{symbol}}": "Totale {{symbol}} nella Pool",
+    "Your pooled {{symbol}}": "I tuoi {{symbol}} nella Pool",
     "SWAP TOKENS": "SCAMBIA-TOKEN",
     "REMOVE": "RIMUOVI",
     "APR": "APR",
@@ -202,7 +202,7 @@
     "CONVERT {{symbol}}": "{{symbol}} CONVERTI",
     "TO {{symbol}}": "A {{symbol}}",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una piccola quantità di UTXO (0,1 DFI (UTXO)) è riservata per la tariffa.",
-    "How much {{symbol}} to convert?": "Quanto {{simbolo}} da convertire?",
+    "How much {{symbol}} to convert?": "Quanto {{symbol}} da convertire?",
     "Enter an amount": "Inserisci un importo",
     "Available": "Disponibile",
     "After conversion, you will receive": "Dopo la conversione, riceverai",
@@ -546,7 +546,7 @@
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "Mantieni le tue parole di recupero sicure e private"
+    "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldo",
@@ -731,16 +731,15 @@
     "Enter Passcode": "Inserisci il codice di accesso",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Please enter passcode to securely sign your transaction": "Inserisci il codice di accesso per firmare in modo sicuro la tua transazione",
-    "Access granted": "Accesso concesso",
-    "You may now proceed": "Ora puoi procedere",
-    "Sign to verify access": "Firma per verificare l'accesso"
+    "Sign to verify access": "Firma per verificare l'accesso",
+    "Success!": "Fatto!"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Firma la transazione",
     "Signing your transaction...": "Firma in corso...",
-    "Transaction authorized": "Transazione autorizzata",
-    "Please wait while your transaction is being prepared": "Si prega di attendere mentre la transazione viene preparata",
-    "Verifying access": "Verifica accesso"
+    "Verifying access": "Verifica accesso",
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "Il tuo portafoglio è una tua responsabilità, non dimenticate di conservare le 24 parole di recupero.",
+    "Transaction signed": "Transazione firmata."
   },
   "components/CreateWalletIndicator": {
     "Recovery": "Recupera",
@@ -806,6 +805,7 @@
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "Scopri di più su UTXO e Token",
+    "Locked": "Bloccato",
     "Available": "Disponibile",
     "Locked in vault(s)": "bloccato in un vault",
     "as UTXO": "come UTXO",
@@ -1113,25 +1113,26 @@
     "Adding collateral": "Aggiungi collaterale",
     "Adding {{amount}} {{symbol}} as collateral": "Aggiungi {{amount}} {{symbol}} come collaterale",
     "Removing collateral": "Rimozione del collaterale",
-    "Removing {{amount}} {{symbol}} collateral from vault": "Rimuovi {{amount}} {{symbol}}} dal vault come collaterale",
+    "Removing {{amount}} {{symbol}} collateral from vault": "Rimuovi {{amount}} {{symbol}} dal vault come collaterale",
     "Total loans (USD)": "Totale prestiti (USD)",
     "Collateralization ratio": "Rapporto di collateralizzazione",
     "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
     "Vault interest (APR)": "Interesse del vault (APR)"
   },
   "components/AddOrRemoveCollateralForm": {
-    "How much {{symbol}} to add?": "Quanti {{symbol}}} vuoi aggiungere?",
+    "How much {{symbol}} to add?": "Quanti {{symbol}} vuoi aggiungere?",
     "collateral factor": "fattore collaterale",
     "Enter an amount": "Inserisci un importo",
     "Available": "Disponibile",
     "ADD TOKEN AS COLLATERAL": "AGGIUNGI IL TOKEN COME COLLATERALE",
     "REMOVE COLLATERAL AMOUNT": "RIMUOVI L'IMPORTO DEL COLLATERALE",
-    "How much {{symbol}} to remove?": "Quanti {{symbol}}} vuoi rimuovere?",
+    "How much {{symbol}} to remove?": "Quanti {{symbol}} vuoi rimuovere?",
     "Current": "Corrente",
     "The collateral factor determines the degree of contribution of each collateral token.": "Il fattore collaterale determina il grado di contributo di ogni token collaterale.",
     "Resulting collateralization": "Garanzia corrispondente",
     "N/A": "N/A",
-    "Vault %": "Vault %"
+    "Vault %": "Vault %",
+    "Vault requirement": "Vault requirement"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Stai aggiungendo collaterali a",

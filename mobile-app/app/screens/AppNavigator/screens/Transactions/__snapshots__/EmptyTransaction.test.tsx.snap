@@ -82,6 +82,7 @@ exports[`empty transaction should match snapshot 1`] = `
     </Text>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}

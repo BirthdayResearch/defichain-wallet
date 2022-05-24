@@ -214,6 +214,13 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     })
   })
 
+  it('should be able to see USD amount', function () {
+    cy.getByTestID('total_to_be_swapped').should('exist')
+    cy.getByTestID('total_to_be_swapped_rhsUsdAmount').should('exist')
+    cy.getByTestID('estimated_to_receive').should('exist')
+    cy.getByTestID('estimated_to_receive_rhsUsdAmount').should('exist')
+  })
+
   it('should be able to click half', function () {
     cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('text_input_tokenA').should('have.value', '9.95000000').wait(3000)

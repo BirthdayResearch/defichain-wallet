@@ -367,7 +367,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
   })
 
   it('should show payment tokens for DUSD loans regardless of wallet balance', () => {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }
@@ -470,7 +470,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.intercept('**/balance', {
       data: 10.00000000
     }).as('getUTXO')
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }
@@ -487,7 +487,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.intercept('**/balance', {
       data: 0.050000000
     }).as('getUTXO')
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }
@@ -568,7 +568,7 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
   })
 
   it('should show payment tokens for DUSD loans regardless of wallet balance', function () {
-    cy.intercept('**/tokens?size=*', {
+    cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
       }
