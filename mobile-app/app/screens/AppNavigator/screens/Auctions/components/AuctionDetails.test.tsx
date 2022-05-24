@@ -14,6 +14,7 @@ import { setTokenSymbol, wallet } from '@store/wallet'
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/DeFiScanContext')
 jest.mock('@shared-contexts/NetworkContext')
+jest.mock('react-native-popover-view')
 
 describe('AuctionDetails', () => {
   it('should match snapshot', async () => {
