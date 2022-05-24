@@ -90,8 +90,9 @@ export function DfxButtons (): JSX.Element {
                 light={tailwind('border-gray-100')}
                 dark={tailwind('border-dfxblue-800')}
                 style={tailwind('h-5/6 border-r')}
+                key={`tv ${i}`}
               />
-              <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
+              <ImageButton key={`b ${i}`} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
             </>
             )
           : <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />

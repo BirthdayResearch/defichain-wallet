@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { memo, useCallback, useRef, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */ // TODO remove
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
 import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '../themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetNavScreen, BottomSheetWithNavRouteParam, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { translate } from '@translations'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -16,6 +17,8 @@ import { Control, Controller, useForm } from 'react-hook-form'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 import { BottomSheetFiatPicker, FiatType } from './BottomSheetFiatPicker'
+import { Fiat } from '@shared-api/dfx/models/Fiat'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface BottomSheetFiatAccountCreateProps {
   headerLabel: string
@@ -45,6 +48,7 @@ export const BottomSheetFiatAccountCreate = ({
   onElementCreatePress,
   navigateToScreen
 }: BottomSheetFiatAccountCreateProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const logger = useLogger()
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const {
@@ -55,7 +59,12 @@ export const BottomSheetFiatAccountCreate = ({
     // trigger
   } = useForm({ mode: 'onChange' })
 
+  // const { listFiats } = useDFXAPIContext()
+  const { openDfxServices } = useDFXAPIContext()
+
   const [fiatType, setfiatType] = useState<FiatType>('EUR')
+  const [fiats, setFiats] = useState<Fiat[]>()
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   // fiat picker modal setup
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -102,8 +111,22 @@ export const BottomSheetFiatAccountCreate = ({
       }])
   }, [])
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
-
   const onSubmit = async (): Promise<void> => console.log('submit')
+
+  useEffect(() => {
+    // async () => {
+    //   await openDfxServices()
+    // }()
+    // openDfxServices()
+    //   .then(() => console.log('open'))
+    //   .catch(error => console.log(error))
+    // listFiats()
+    //   .then((fiats) => {
+    //     setFiats(fiats)
+    //   })
+    //   .catch(logger.error)
+    //   .finally(() => setIsLoaded(true))
+  }, [/* listFiats, logger.error */])
 
   return (
     <ScrollView
@@ -135,7 +158,10 @@ export const BottomSheetFiatAccountCreate = ({
             setBottomSheet()
             expandModal()
           }}
+          isloaded={isLoaded}
         />
+        {/* <listFiats.Provider>
+        </ListFiats.Provider> */}
 
         <IbanInput
           control={control}
@@ -187,7 +213,8 @@ export const BottomSheetFiatAccountCreate = ({
   )
 })
 
-function FiatPickerRow (props: { fiatType: FiatType, onPress: () => void}): JSX.Element {
+function FiatPickerRow (props: { fiatType: FiatType, onPress: () => void, isloaded?: boolean}): JSX.Element {
+  const isloaded = props.isloaded ?? true
   return (
     <>
       <ThemedText
@@ -199,30 +226,35 @@ function FiatPickerRow (props: { fiatType: FiatType, onPress: () => void}): JSX.
         {translate('screens/SellScreen', 'Select Currency')}
       </ThemedText>
 
-      <ThemedTouchableOpacity
-        onPress={props.onPress}
-        dark={tailwind('bg-dfxblue-900 border-dfxblue-900')}
-        light={tailwind('border-gray-300 bg-white')}
-        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-4')}
-        testID='select_fiatAccount_input'
-      >
-        <View style={tailwind('flex flex-row')}>
-          <ThemedText
-            style={tailwind('ml-2 font-medium')}
-            testID='selected_fiatAccount'
+      {!isloaded
+        ? (
+          <ThemedActivityIndicator style={tailwind('mb-4')} />)
+        : (
+          <ThemedTouchableOpacity
+            onPress={props.onPress}
+            dark={tailwind('bg-dfxblue-900 border-dfxblue-900')}
+            light={tailwind('border-gray-300 bg-white')}
+            style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-4')}
+            testID='select_fiatAccount_input'
           >
-            {props.fiatType}
-          </ThemedText>
-        </View>
-        <ThemedIcon
-          iconType='MaterialIcons'
-          name='unfold-more'
-          size={24}
-          dark={tailwind('text-dfxred-500')}
-          light={tailwind('text-primary-500')}
-          style={tailwind('-mr-1.5 flex-shrink-0')}
-        />
-      </ThemedTouchableOpacity>
+            <View style={tailwind('flex flex-row')}>
+              <ThemedText
+                style={tailwind('ml-2 font-medium')}
+                testID='selected_fiatAccount'
+              >
+                {props.fiatType}
+              </ThemedText>
+            </View>
+            <ThemedIcon
+              iconType='MaterialIcons'
+              name='unfold-more'
+              size={24}
+              dark={tailwind('text-dfxred-500')}
+              light={tailwind('text-primary-500')}
+              style={tailwind('-mr-1.5 flex-shrink-0')}
+            />
+          </ThemedTouchableOpacity>
+      )}
     </>
   )
 }
