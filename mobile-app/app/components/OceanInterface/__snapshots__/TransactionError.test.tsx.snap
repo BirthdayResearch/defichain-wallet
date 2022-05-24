@@ -860,7 +860,7 @@ Array [
 ]
 `;
 
-exports[`info text should match snapshot for error Price is higher than indicated. 1`] = `
+exports[`info text should match snapshot for error Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed. 1`] = `
 Array [
   <Text
     allowFontScaling={false}
@@ -934,7 +934,7 @@ Array [
           ]
         }
       >
-        Error Code: 3
+        Error Code: 0
       </Text>
       <Text
         ellipsizeMode="tail"
@@ -961,7 +961,7 @@ Array [
           ]
         }
       >
-        Price is higher than indicated
+        Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.
       </Text>
     </View>
   </RCTScrollView>,

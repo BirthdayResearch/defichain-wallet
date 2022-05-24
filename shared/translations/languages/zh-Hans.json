@@ -511,7 +511,7 @@
     "OK": "好了",
     "Insufficient UTXO DFI": "不足够的UTXO DFI",
     "Not enough balance": "余额不足",
-    "Price is higher than indicated": "价格高于指示",
+    "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "兑换价格已超出滑点设置的容许范围。调整容许滑点百分比再继续进行。",
     "Preparing broadcast": "准备传输",
     "Waiting for transaction": "等待交易"
   },

@@ -525,7 +525,7 @@
     "OK": "OK",
     "Insufficient UTXO DFI": "UTXO DFI insufficienti",
     "Not enough balance": "Saldo troppo basso",
-    "Price is higher than indicated": "Il prezzo è più alto di quello indicato",
+    "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Il prezzo di swap è superiore all'intervallo consentito dalla tolleranza di slittamento. Aumenta la percentuale di tolleranza per procedere.",
     "Preparing broadcast": "La trasmissione è in preparazione",
     "Waiting for transaction": "In attesa della transazione"
   },
