@@ -13,7 +13,6 @@ import { BalanceText } from './BalanceText'
 import { useState } from 'react'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { SymbolIcon } from '@components/SymbolIcon'
-import { IconTooltip } from '@components/tooltip/IconTooltip'
 
 export enum PortfolioButtonGroupTabKey {
   USDT = 'USDT',
@@ -190,7 +189,6 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   value={props.totalLoansValue}
                   isAddition={false}
                   denominationCurrency={denominationCurrency}
-                  isOraclePrice
                 />
               )
             }
@@ -200,7 +198,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   )
 }
 
-function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string, isAddition: boolean, denominationCurrency?: string, isOraclePrice?: boolean }): JSX.Element {
+function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNumber, label: string, isAddition: boolean, denominationCurrency?: string}): JSX.Element {
   if (props.isLoading) {
     return (
       <View style={tailwind('mt-1')}>
@@ -246,11 +244,6 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
       >
         {props.label}
       </ThemedText>
-      {
-        props.isOraclePrice === true && (
-          <IconTooltip />
-        )
-      }
     </View>
   )
 }
