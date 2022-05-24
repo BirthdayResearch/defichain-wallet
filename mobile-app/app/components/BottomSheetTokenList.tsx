@@ -67,7 +67,7 @@ export const BottomSheetTokenList = ({
   const { getTokenPrice } = useTokenPrice()
 
   function isCollateralItem (item: CollateralItem | BottomSheetToken): item is CollateralItem {
-    return (item as CollateralItem).activateAfterBlock !== undefined
+    return (item as CollateralItem).activePrice !== undefined
   }
   return (
     <FlatList
