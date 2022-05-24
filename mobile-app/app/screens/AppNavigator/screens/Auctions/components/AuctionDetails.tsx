@@ -58,7 +58,6 @@ export function AuctionDetails (props: { vault: LoanVaultLiquidated, batch: Loan
           testID: 'text_collateral_value',
           prefix: '$'
         }}
-        isOraclePrice
       />
 
       <NumberRow
