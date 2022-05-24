@@ -1374,7 +1374,7 @@
     "WITHDRAWING": "ABHEBUNG",
     "You are withdrawing": "Die Abhebung beträgt",
     "Withdraw": "Abheben",
-    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Gesperrten Betrag {{amountToWithdraw}} vom Tausch-Terminkontrakt abheben",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Gesperrten Betrag {{amountToWithdraw}} {{sourceDisplaySymbol}} vom Tausch-Terminkontrakt abheben",
     "Withdraw future swap": "Withdraw future swap"
   },
   "screens/FutureSwapScreen": {

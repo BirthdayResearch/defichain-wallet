@@ -1405,7 +1405,7 @@
     "WITHDRAWING": "RITIRO",
     "You are withdrawing": "Stai ritirando",
     "Withdraw": "Preleva",
-    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Preleva l'importo bloccato {{amountToWithdraw}} dal future swap",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Preleva l'importo bloccato {{amountToWithdraw}} {{sourceDisplaySymbol}} dal future swap",
     "To be confirmed": "Da confermare",
     "Withdraw future swap": "Withdraw future swap"
   },

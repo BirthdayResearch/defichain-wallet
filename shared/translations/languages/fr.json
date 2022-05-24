@@ -1386,7 +1386,7 @@
     "WITHDRAWING": "RETIRAGE EN COURS",
     "You are withdrawing": "Vous effectuez un retrait de",
     "Withdraw": "Retirer",
-    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Retirer le montant verrouillé {{amountToWithdraw}} de l’échange à terme",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Retirer le montant verrouillé {{amountToWithdraw}} {{sourceDisplaySymbol}} de l’échange à terme",
     "To be confirmed": "À confirmer",
     "Withdraw future swap": "Withdraw future swap"
   },

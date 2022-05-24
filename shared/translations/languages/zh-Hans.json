@@ -1382,7 +1382,7 @@
     "WITHDRAWING": "WITHDRAWING",
     "You are withdrawing": "You are withdrawing",
     "Withdraw": "Withdraw",
-    "Withdraw locked amount {{amountToWithdraw}} from future swap": "Withdraw locked amount {{amountToWithdraw}} from future swap",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
     "Withdraw future swap": "Withdraw future swap"
   },

@@ -171,8 +171,9 @@ async function withdrawFutureSwap ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdraw'),
-      description: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdraw locked amount {{amountToWithdraw}} from future swap', {
-        amountToWithdraw: source.amountToWithdraw.toFixed(8)
+      description: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap', {
+        amountToWithdraw: source.amountToWithdraw.toFixed(8),
+        sourceDisplaySymbol: source.displaySymbol
       }),
       onBroadcast
     }))
