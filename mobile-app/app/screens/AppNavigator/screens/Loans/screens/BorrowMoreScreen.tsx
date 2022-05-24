@@ -274,6 +274,7 @@ export function VaultInput ({
 
   const maxLoanAmount = useMaxLoanAmount({
     totalCollateralValue: new BigNumber(vault.collateralValue),
+    collateralAmounts: vault.collateralAmounts,
     existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
     loanActivePrice: new BigNumber(getActivePrice(loanToken?.token.symbol ?? '', loanToken?.activePrice)),

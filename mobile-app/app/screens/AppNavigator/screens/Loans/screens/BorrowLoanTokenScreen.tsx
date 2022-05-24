@@ -507,6 +507,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
 
   const maxLoanAmount = useMaxLoanAmount({
     totalCollateralValue: new BigNumber(props.vault.collateralValue),
+    collateralAmounts: props.vault.collateralAmounts,
     existingLoanValue: new BigNumber(props.vault.loanValue),
     minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
     loanActivePrice: new BigNumber(getActivePrice(props.loanToken.token.symbol, props.loanToken.activePrice)),
