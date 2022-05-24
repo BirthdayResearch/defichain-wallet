@@ -115,44 +115,81 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
               }
             </View>
           </ThemedTouchableOpacity>
-          <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
-            {
-              hasFetchedToken
-                ? (
-                  <View style={tailwind('flex-row items-center')}>
-                    <View style={tailwind('mr-1')}>
-                      <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} type='utxo' />
+          {new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)
+            ? (
+              <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
+                {
+                  hasFetchedToken
+                    ? (
+                      <View style={tailwind('flex-row items-center')}>
+                        <View style={tailwind('mr-1')}>
+                          <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} type='utxo' />
+                        </View>
+                        <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} type='token' />
+                      </View>
+                    )
+                    : (
+                      <>
+                        <TextSkeletonLoader
+                          iContentLoaderProps={{
+                            width: '97',
+                            height: '24',
+                            testID: 'dfi_utxo_percentage_skeleton_loader'
+                          }}
+                          textXRadius='12'
+                          textYRadius='12'
+                        />
+                        <TextSkeletonLoader
+                          iContentLoaderProps={{
+                            width: '101',
+                            height: '24',
+                            testID: 'dfi_token_percentage_skeleton_loader'
+                          }}
+                          textHorizontalOffset='4'
+                          textWidth='97'
+                          textXRadius='12'
+                          textYRadius='12'
+                        />
+                      </>
+                    )
+                  }
+                <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
+              </View>
+            )
+            : (
+              <ThemedView
+                light={tailwind('bg-primary-50')}
+                dark={tailwind('bg-darkprimary-50')}
+                style={tailwind('mt-1')}
+              >
+                <TouchableOpacity
+                  style={tailwind('flex-row items-center')}
+                  onPress={() => {}}
+                >
+                  <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
+                    <View style={tailwind('flex-row flex-1 items-center')}>
+                      <DFIIcon width={18} height={18} />
+                      <ThemedText
+                        dark={tailwind('text-gray-200')}
+                        light={tailwind('text-black')}
+                        style={tailwind('font-medium text-sm ml-2')}
+                      >
+                        {translate('screens/BalancesScreen', 'Get your $DFI here')}
+                      </ThemedText>
                     </View>
-                    <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} type='token' />
+
+                    <ThemedIcon
+                      iconType='MaterialCommunityIcons'
+                      name='arrow-right'
+                      size={18}
+                      testID='get_dfi'
+                      dark={tailwind('text-gray-200')}
+                      light={tailwind('text-black')}
+                    />
                   </View>
-                )
-                : (
-                  <>
-                    <TextSkeletonLoader
-                      iContentLoaderProps={{
-                        width: '97',
-                        height: '24',
-                        testID: 'dfi_utxo_percentage_skeleton_loader'
-                      }}
-                      textXRadius='12'
-                      textYRadius='12'
-                    />
-                    <TextSkeletonLoader
-                      iContentLoaderProps={{
-                        width: '101',
-                        height: '24',
-                        testID: 'dfi_token_percentage_skeleton_loader'
-                      }}
-                      textHorizontalOffset='4'
-                      textWidth='97'
-                      textXRadius='12'
-                      textYRadius='12'
-                    />
-                  </>
-                )
-            }
-            <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
-          </View>
+                </TouchableOpacity>
+              </ThemedView>
+            )}
         </ImageBackground>
       </View>
 
