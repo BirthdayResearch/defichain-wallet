@@ -1170,13 +1170,4 @@ context('Wallet - Balances - portfolio', () => {
       cy.getByTestID('icon-tooltip').should('exist')
     })
   })
-  it('should display tooltip message for oracle pricing', () => {
-    cy.wait('@getVaults').then(() => {
-      cy.getByTestID('toggle_portfolio').click()
-      cy.getByTestID('icon-tooltip').should('exist').click()
-      cy.getByTestID('icon-tooltip-text').should('exist').should('have.text', 'This icon indicates that the price is provided by Oracles instead of the DEX')
-      cy.wait(2000) // manual condition to hide popover/tooltip on web
-      cy.getByTestID('icon-tooltip-text').should('not.exist')
-    })
-  })
 })
