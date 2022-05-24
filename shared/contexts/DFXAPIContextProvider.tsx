@@ -27,7 +27,7 @@ import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
   clearDfxTokens: () => Promise<void>
-  getFiatAccounts: () => Promise<SellRoute[]>
+  listFiatAccounts: () => Promise<SellRoute[]>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
@@ -64,7 +64,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
       .catch(logger.error)
   }
 
-  const getFiatAccounts = async (): Promise<SellRoute[]> => {
+  const listFiatAccounts = async (): Promise<SellRoute[]> => {
     return await getSellRoutes()
   }
 
@@ -222,7 +222,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const context: DFXAPIContextI = {
     openDfxServices: openDfxServices,
     clearDfxTokens: clearDfxTokens,
-    getFiatAccounts: getFiatAccounts
+    listFiatAccounts: listFiatAccounts
   }
 
   // observe address state change

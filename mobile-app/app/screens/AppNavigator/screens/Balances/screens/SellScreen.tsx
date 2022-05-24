@@ -55,7 +55,7 @@ export function SellScreen ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const { getFiatAccounts } = useDFXAPIContext()
+  const { listFiatAccounts } = useDFXAPIContext()
   const [selectedFiatAccount, setSelectedFiatAccount] = useState<SellRoute>({} as SellRoute)
   const [fiatAccounts, setFiatAccounts] = useState<SellRoute[]>([])
   const isFocused = useIsFocused()
@@ -115,7 +115,7 @@ export function SellScreen ({
 
   // load sell routes
   useEffect(() => {
-    getFiatAccounts()
+    listFiatAccounts()
       .then((sellRoute) => {
         setFiatAccounts(sellRoute)
       })
