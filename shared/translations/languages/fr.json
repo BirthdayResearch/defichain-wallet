@@ -403,15 +403,14 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi natif sur Bitcoin",
-    "Take full control": "Prenez le contrôle total",
-    "of your digital assets": "de vos actifs numériques",
-    "Nobody owns your keys and wallet except you.": "Personne ne possède vos clés et votre portefeuille, sauf vous.",
-    "Unlock the highest": "Libérez le potentiel le plus",
-    "potential of your finances": "élevé de vos finances",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transférez, minez via des pools de liquidités, échangez et bien plus encore grâce à votre portefeuille entièrement décentralisé.",
-    "Earn high yields": "Obtenez des rendements élevés,",
-    "of up to 90% with DEX": "jusqu'à 90 %, avec le DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Fournissez des liquidités aux pools BTC, ETH, et bien d'autres, sans délai de retrait !"
+    "Take full control": "Prendre le contrôle total",
+    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "Le portefeuille DeFiChain est entièrement non gardé, non-custodial. Gardez votre phrase de récupération de 24 mots en sécurité. Vous seul avez accès à vos fonds.",
+    "View your assets in one place": "Visualisez vos actifs en un seul endroit",
+    "Review your available and locked assets in your portfolio.": "Vérifiez les actifs disponibles et verrouillés de votre portefeuille.",
+    "Maximize earning potential": "Maximiser le potentiel de gain",
+    "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Négociez sur le DEX et gagnez des récompenses de liquidity mining avec des cryptomonnaies et des dTokens.",
+    "Decentralized loans": "Prêts décentralisés",
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Accédez à des opportunités financières avec des dTokens mintés par des vaults décentralisés."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Quitter l'écran",

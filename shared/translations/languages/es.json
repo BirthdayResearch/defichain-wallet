@@ -409,15 +409,14 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo para Bitcoin",
-    "Take full control": "Obtenga todo el control",
-    "of your digital assets": "sobre tus activos digitales",
-    "Nobody owns your keys and wallet except you.": "Tu eres propietario de tu billetera y tus claves",
-    "Unlock the highest": "Desbloquea el máximo",
-    "potential of your finances": "potencial para tus finanzas",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Envía, añade liquidez, intercambia y muchas otras funciones de una billetera completamente descentralizada",
-    "Earn high yields": "Obtén altos rendimientos",
-    "of up to 90% with DEX": "de hasta 140% con el DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Añade liquidez a BTC, ETH y muchas otras pares del pool. ¡Puedes retirarlo en cualquier momento!"
+    "Take full control": "Ten todo el control",
+    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "La billetera DeFiChain es totalmente no custodiada. Mantén seguras tus 24 contraseñas. Solo tu tienes acceso a los fondos.",
+    "View your assets in one place": "Visualiza tus activos en un punto único",
+    "Review your available and locked assets in your portfolio.": "Revisa tus activos disponibles y bloqueados de tu portafolio.",
+    "Maximize earning potential": "Maximiza las ganancias potenciales",
+    "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Intercambia tokens para obtener recompensas del liquidity mining con los tokens descentralizados.",
+    "Decentralized loans": "Préstamos descentralizados",
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Abandonar pantalla",
