@@ -14,6 +14,7 @@ import { RootState } from '@store'
 import { vaultsSelector } from '@store/loans'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { IconTooltip } from '@components/tooltip/IconTooltip'
 
 interface LoanCardsProps {
   loans: LoanToken[]
@@ -128,18 +129,21 @@ function LoanCard ({
       >
         {translate('components/LoanCard', 'Price (USD)')}
       </ThemedText>
-      <NumberFormat
-        decimalScale={2}
-        thousandSeparator
-        displayType='text'
-        renderText={(value) =>
-          <View style={tailwind('flex flex-row items-center')}>
-            <ThemedText testID={`${testID}_loan_amount`} style={tailwind('text-sm mr-1')}>
-              ${value}
-            </ThemedText>
-          </View>}
-        value={currentPrice}
-      />
+      <View style={tailwind('flex-row items-center')}>
+        <NumberFormat
+          decimalScale={2}
+          thousandSeparator
+          displayType='text'
+          renderText={(value) =>
+            <View style={tailwind('flex flex-row items-center')}>
+              <ThemedText testID={`${testID}_loan_amount`} style={tailwind('text-sm')}>
+                ${value}
+              </ThemedText>
+            </View>}
+          value={currentPrice}
+        />
+        <IconTooltip />
+      </View>
     </ThemedTouchableOpacity>
   )
 }

@@ -426,6 +426,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         <ActiveUSDValue
           price={new BigNumber(props.outstandingBalanceInUSD)}
           testId='loan_outstanding_balance_usd'
+          isOraclePrice
         />
       </View>
     </ThemedView>
@@ -585,6 +586,7 @@ function TransactionDetailsSection ({
               prefix: '$'
             }}
             textStyle={tailwind('text-xs font-normal')}
+            isOraclePrice
           />
           <NumberRow
             {...rowStyle}
@@ -595,6 +597,7 @@ function TransactionDetailsSection ({
               prefix: '$'
             }}
             textStyle={tailwind('text-xs font-normal')}
+            isOraclePrice
           />
         </ThemedView>}
       <View style={tailwind('mx-4')}>

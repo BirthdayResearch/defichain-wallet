@@ -161,12 +161,14 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
             prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
             value={VaultStatus.Liquidated === vaultState.status ? '-' : getPrecisedTokenValue(vault.loanValue) ?? '-'}
             lhs={translate('components/VaultCard', 'Total loans (USD)')}
+            isOraclePrice
           />
           <VaultSectionTextRow
             testID={`${props.testID}_total_collateral`}
             prefix={VaultStatus.Liquidated === vaultState.status ? '' : '$'}
             value={VaultStatus.Liquidated === vaultState.status ? '-' : getPrecisedTokenValue(vault.collateralValue)}
             lhs={translate('components/VaultCard', 'Total collateral (USD)')}
+            isOraclePrice
           />
         </View>
       </ThemedTouchableOpacity>

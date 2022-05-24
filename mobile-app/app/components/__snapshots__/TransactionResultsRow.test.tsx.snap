@@ -115,6 +115,7 @@ Array [
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",
@@ -163,9 +164,6 @@ Array [
             testID="resulting_DFI"
           >
             0.00000001
-          </Text>
-          <Text>
-             
           </Text>
           <Text
             style={
@@ -289,6 +287,7 @@ Array [
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",
@@ -337,9 +336,6 @@ Array [
             testID="resulting_dBTC"
           >
             0.00000001
-          </Text>
-          <Text>
-             
           </Text>
           <Text
             style={

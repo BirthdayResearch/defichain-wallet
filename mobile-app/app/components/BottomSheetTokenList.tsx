@@ -141,6 +141,7 @@ export const BottomSheetTokenList = ({
                 <ActiveUSDValue
                   price={new BigNumber(item.available).multipliedBy(activePrice)}
                   containerStyle={tailwind('justify-end')}
+                  isOraclePrice
                 />
               </View>
               <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} />

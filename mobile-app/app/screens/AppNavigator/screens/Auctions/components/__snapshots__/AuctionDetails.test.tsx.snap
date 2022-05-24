@@ -402,6 +402,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
               "flexWrap": "wrap",
@@ -577,6 +578,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
               "flexWrap": "wrap",
@@ -719,6 +721,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
               "flexWrap": "wrap",
@@ -767,9 +770,6 @@ exports[`AuctionDetails should match snapshot 1`] = `
               testID="text_min_starting_bid"
             >
               5,265.83339660
-            </Text>
-            <Text>
-               
             </Text>
             <Text
               style={

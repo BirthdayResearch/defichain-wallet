@@ -783,10 +783,8 @@ function TransactionDetailsSection ({
                 testID: 'estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
-              rhsUsd={{
-                amount: getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false),
-                isOraclePrice: true
-              }}
+              rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
+              isOraclePrice
             />
           </>
         )

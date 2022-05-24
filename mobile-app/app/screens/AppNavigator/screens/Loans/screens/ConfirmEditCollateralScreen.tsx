@@ -230,7 +230,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount (USD)')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount')}
         rhs={{
           value: props.amount.toFixed(8),
           testID: 'collateral_amount',
@@ -245,6 +245,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
           testID: 'collateral_value',
           prefix: '$'
         }}
+        isOraclePrice
       />
       <VaultProportionRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Vault %')}

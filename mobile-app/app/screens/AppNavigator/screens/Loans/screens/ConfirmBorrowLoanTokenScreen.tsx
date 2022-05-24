@@ -262,6 +262,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
           testID: 'text_collateral_amount',
           prefix: '$'
         }}
+        isOraclePrice
       />
       {props.collateralRatio.isLessThan(0)
         ? (
