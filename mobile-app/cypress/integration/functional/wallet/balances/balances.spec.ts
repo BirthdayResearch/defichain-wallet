@@ -1167,7 +1167,6 @@ context('Wallet - Balances - portfolio', () => {
       cy.getByTestID('total_available_usd_amount').should('have.text', '*****')
       cy.getByTestID('total_locked_usd_amount').should('have.text', '*****')
       cy.getByTestID('outstanding_loans_amount').should('have.text', '*****')
-      cy.getByTestID('icon-tooltip').should('exist')
     })
   })
 })
