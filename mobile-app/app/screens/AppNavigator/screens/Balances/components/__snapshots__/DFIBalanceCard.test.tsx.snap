@@ -277,7 +277,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                 style={
                   Array [
                     Object {
-                      "alignItems": "flex-start",
+                      "alignItems": "center",
                       "display": "flex",
                       "flexDirection": "row",
                     },
