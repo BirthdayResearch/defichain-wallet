@@ -13,6 +13,7 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
   useScrollToTop: jest.fn()
 }))
+jest.mock('react-native-popover-view')
 
 describe('loan cards', () => {
   it('should match snapshot', async () => {

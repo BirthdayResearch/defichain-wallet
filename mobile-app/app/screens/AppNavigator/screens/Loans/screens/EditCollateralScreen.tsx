@@ -384,11 +384,13 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         prefix='$'
         value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_total_loans_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_col_ratio_value'
@@ -510,6 +512,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             <ActiveUSDValue
               price={prices.collateralPrice}
               testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
+              isOraclePrice
             />
           </View>
         </View>

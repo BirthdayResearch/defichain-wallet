@@ -120,25 +120,29 @@ function LoanCard (props: LoanCardProps): JSX.Element {
         <ActiveUSDValue
           price={new BigNumber(props.amount).multipliedBy(activePrice)}
           containerStyle={tailwind('justify-end')}
+          isOraclePrice
         />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION &&
         (
           <>
-            <VaultSectionTextRow
-              value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
-              lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
-              testID='text_interest_amount'
-              suffixType='text'
-              suffix={` ${props.displaySymbol}`}
-              info={{
+            <View style={tailwind('pt-1.5')}>
+              <VaultSectionTextRow
+                value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
+                lhs={translate('components/VaultDetailsLoansTab', 'Interest amount')}
+                testID='text_interest_amount'
+                suffixType='text'
+                suffix={` ${props.displaySymbol}`}
+                info={{
                 title: 'Interest amount',
                 message: 'This amount is the total interest amount from both vault and token interest rate.'
               }}
-            />
-            <ActiveUSDValue
-              price={new BigNumber(props.interestAmount ?? 0).multipliedBy(activePrice)}
-              containerStyle={tailwind('justify-end')}
-            />
+              />
+              <ActiveUSDValue
+                price={new BigNumber(props.interestAmount ?? 0).multipliedBy(activePrice)}
+                containerStyle={tailwind('justify-end')}
+                isOraclePrice
+              />
+            </View>
           </>
         )}
       </View>

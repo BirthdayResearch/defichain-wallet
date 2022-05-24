@@ -115,6 +115,7 @@ Array [
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",
@@ -289,6 +290,7 @@ Array [
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",

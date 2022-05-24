@@ -93,10 +93,8 @@ export function ConfirmWithdrawFutureSwapScreen ({
           suffixType: 'text',
           suffix: source.displaySymbol
         }}
-        rhsUsd={{
-          amount: source.remainingAmountInUSD,
-          isOraclePrice: true
-        }}
+        rhsUsdAmount={source.remainingAmountInUSD}
+        isOraclePrice
       />
       <InfoRow
         type={InfoType.EstimatedFee}

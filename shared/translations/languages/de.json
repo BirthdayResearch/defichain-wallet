@@ -86,7 +86,8 @@
     "(From lowest value)": "(vom niedrigsten Wert aus)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
     "loans": "Darlehen",
-    "You have pending future swap(s)": "Du hast anstehende(n) Tausch-Terminkontrakt(e)"
+    "You have pending future swap(s)": "Du hast anstehende(n) Tausch-Terminkontrakt(e)",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Dieses Symbol zeigt an, dass der Preis von Orakeln und nicht von der DEX bereitgestellt wird"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",

@@ -2,6 +2,7 @@ import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 
 type ActivePriceType = 'ACTIVE' | 'NEXT'
 
+// oracle prices
 export function getActivePrice (symbol: string, activePrice?: ActivePrice, type: ActivePriceType = 'ACTIVE'): string {
   const dUSDPrice = '1'
   if (symbol !== 'DUSD') {

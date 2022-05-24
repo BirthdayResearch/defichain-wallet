@@ -608,6 +608,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
               "flexWrap": "wrap",

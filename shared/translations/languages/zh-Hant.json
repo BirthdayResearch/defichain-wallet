@@ -86,7 +86,8 @@
     "(From lowest value)": "(從最低值開始)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*總資產組合價值已撇除以預言機價格計算的貸款金額",
     "loans": "貸款",
-    "You have pending future swap(s)": "You have pending future swap(s)"
+    "You have pending future swap(s)": "You have pending future swap(s)",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "這個圖標顯示的價格是由預言機產生而不是 DEX 提供的"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",

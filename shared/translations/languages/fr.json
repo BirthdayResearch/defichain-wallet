@@ -86,7 +86,8 @@
     "(From lowest value)": "(valeurs croissantes)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle.",
     "loans": "empruntés",
-    "You have pending future swap(s)": "Vous avez un ou plusieurs échanges à terme en attente"
+    "You have pending future swap(s)": "Vous avez un ou plusieurs échanges à terme en attente",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Cette icône indique que le prix est fourni par des oracles au lieu du DEX"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",

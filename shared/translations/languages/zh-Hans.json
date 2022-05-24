@@ -86,7 +86,8 @@
     "(From lowest value)": "(从最低值开始)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额",
     "loans": "贷款",
-    "You have pending future swap(s)": "You have pending future swap(s)"
+    "You have pending future swap(s)": "You have pending future swap(s)",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "这个图标显示的价格是由预言机产生而不是 DEX 提供的"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",

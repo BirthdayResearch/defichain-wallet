@@ -81,6 +81,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
     <View
       style={
         Object {
+          "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
           "flexWrap": "wrap",
@@ -229,6 +230,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
     <View
       style={
         Object {
+          "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
           "flexWrap": "wrap",
