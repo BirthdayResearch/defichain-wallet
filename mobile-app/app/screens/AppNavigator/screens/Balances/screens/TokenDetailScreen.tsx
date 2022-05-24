@@ -110,7 +110,7 @@ export function TokenDetailScreen ({
     destination,
     pair
   }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
-    navigation.navigate('DEX', {
+    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: destination,
       initial: false,
       params: {
