@@ -13,12 +13,11 @@ import { useIsFocused } from '@react-navigation/native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 import { fetchLoanTokens } from '@store/loans'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { TouchableOpacity } from 'react-native'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
-import { useWhaleRpcClient } from '@shared-contexts/WhaleRpcContext'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 

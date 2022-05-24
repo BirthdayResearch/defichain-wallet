@@ -4,7 +4,7 @@ import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
@@ -36,7 +36,6 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
-import { useWhaleRpcClient } from '@shared-contexts/WhaleRpcContext'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 

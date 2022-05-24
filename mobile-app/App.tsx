@@ -11,7 +11,6 @@ import { StoreProvider } from '@contexts/StoreProvider'
 import { ThemeProvider, useTheme } from '@shared-contexts/ThemeProvider'
 import { WalletPersistenceProvider } from '@shared-contexts/WalletPersistenceContext'
 import { WhaleProvider } from '@shared-contexts/WhaleContext'
-import { WhaleRpcProvider } from '@shared-contexts/WhaleRpcContext'
 import { useCachedResources } from '@hooks/useCachedResources'
 import ConnectionBoundary from '@screens/ConnectionBoundary/ConnectionBoundary'
 import ErrorBoundary from '@screens/ErrorBoundary/ErrorBoundary'
@@ -73,33 +72,31 @@ export default function App (): JSX.Element | null {
           <PrivacyLockContextProvider>
             <NetworkProvider api={SecuredStoreAPI}>
               <WhaleProvider>
-                <WhaleRpcProvider>
-                  <DeFiScanProvider>
-                    <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
-                      <StoreProvider>
-                        <StatsProvider>
-                          <FeatureFlagProvider>
-                            <WalletDataProvider>
-                              <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
-                                <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
-                                  <DisplayBalancesProvider>
-                                    <ConnectionBoundary>
-                                      <GestureHandlerRootView style={tailwind('flex-1')}>
-                                        <ToastProvider renderType={customToast}>
-                                          <Main />
-                                        </ToastProvider>
-                                      </GestureHandlerRootView>
-                                    </ConnectionBoundary>
-                                  </DisplayBalancesProvider>
-                                </LanguageProvider>
-                              </ThemeProvider>
-                            </WalletDataProvider>
-                          </FeatureFlagProvider>
-                        </StatsProvider>
-                      </StoreProvider>
-                    </WalletPersistenceProvider>
-                  </DeFiScanProvider>
-                </WhaleRpcProvider>
+                <DeFiScanProvider>
+                  <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
+                    <StoreProvider>
+                      <StatsProvider>
+                        <FeatureFlagProvider>
+                          <WalletDataProvider>
+                            <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
+                              <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
+                                <DisplayBalancesProvider>
+                                  <ConnectionBoundary>
+                                    <GestureHandlerRootView style={tailwind('flex-1')}>
+                                      <ToastProvider renderType={customToast}>
+                                        <Main />
+                                      </ToastProvider>
+                                    </GestureHandlerRootView>
+                                  </ConnectionBoundary>
+                                </DisplayBalancesProvider>
+                              </LanguageProvider>
+                            </ThemeProvider>
+                          </WalletDataProvider>
+                        </FeatureFlagProvider>
+                      </StatsProvider>
+                    </StoreProvider>
+                  </WalletPersistenceProvider>
+                </DeFiScanProvider>
               </WhaleProvider>
             </NetworkProvider>
           </PrivacyLockContextProvider>

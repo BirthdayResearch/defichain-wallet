@@ -13,7 +13,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { StackScreenProps } from '@react-navigation/stack'
 import {
@@ -47,7 +47,6 @@ import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
 import { PriceRateProps } from '@components/PricesSection'
-import { useWhaleRpcClient } from '@shared-contexts/WhaleRpcContext'
 import { fetchExecutionBlock } from '@store/futureSwap'
 
 export enum ButtonGroupTabKey {
