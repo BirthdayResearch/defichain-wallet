@@ -56,7 +56,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       </View>
 
       <View style={tailwind('flex-1')}>
-        <View style={tailwind('flex flex-row justify-end flex-wrap')}>
+        <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
           <NumberFormat
             decimalScale={8}
             displayType='text'
