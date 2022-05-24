@@ -8,6 +8,7 @@ import { BalancesScreen } from './BalancesScreen'
 import { loans } from '@store/loans'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { futureSwaps } from '@store/futureSwap'
+import { WhaleProvider } from '@shared-contexts/WhaleContext'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
@@ -193,10 +194,12 @@ describe('balances page', () => {
     const route: any = {}
     const component = (
       <Provider store={store}>
-        <BalancesScreen
-          navigation={navigation}
-          route={route}
-        />
+        <WhaleProvider>
+          <BalancesScreen
+            navigation={navigation}
+            route={route}
+          />
+        </WhaleProvider>
       </Provider>
     )
     const rendered = render(component)
@@ -313,10 +316,12 @@ describe('balances page', () => {
 
     const component = (
       <Provider store={store}>
-        <BalancesScreen
-          navigation={navigation}
-          route={route}
-        />
+        <WhaleProvider>
+          <BalancesScreen
+            navigation={navigation}
+            route={route}
+          />
+        </WhaleProvider>
       </Provider>
     )
     const rendered = render(component)
