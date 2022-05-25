@@ -672,7 +672,7 @@
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
     "Choose token for swap": "Choisissez un token pour l'échange",
     "Choose token to swap": "Choisissez le token à échanger",
-    "Enter amount to swap": "Enter amount to swap",
+    "Enter amount to swap": "Entrer le montant à échanger",
     "{{token}} tokens converted": "{{token}} tokens convertis",
     "Select token": "Sélectionner le token",
     "UTXO to be converted": "UTXO à convertir",
@@ -684,16 +684,15 @@
     "Total to be swapped": "Total à échanger",
     "Instant Swap": "Échange instantané",
     "Future Swap": "Échange à terme",
-    "By using future swap, you are": "En utilisant l’échange à terme, vous",
-    "buying {{tokenSymbol}} at 5% more": "achetez des {{tokenSymbol}} à 5% de plus",
-    "selling {{tokenSymbol}} at 5% lower": "vendez {{tokenSymbol}} à un prix 5% plus bas",
-    "than the oracle price": "que le prix oracle",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "En utilisant l’échange à terme, vous achetez des {{tokenSymbol}} à 5% de plus que le prix oracle",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "En utilisant l’échange à terme, vous vendez {{tokenSymbol}} à un prix 5% plus bas que le prix oracle",
     "Oracle price -5%": "Prix Oracle -5%",
     "Oracle price +5%": "Prix Oracle +5%",
     "Est. time remaining": "Temps estimé restant",
     "Execution block": "Bloc d’exécution",
     "To be confirmed": "À confirmer",
-    "Enter an amount": "Donnez un montant"
+    "Enter an amount": "Donnez un montant",
+    "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
@@ -701,7 +700,7 @@
     "SWAPPING": "ÉCHANGE EN COURS",
     "You are swapping": "Vous échangez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
-    "Transaction date": "Transaction date",
+    "Transaction date": "Date de la transaction",
     "Transaction type": "Type de transaction",
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
@@ -709,7 +708,7 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir",
-    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Échange sur le bloc à terme {{amountA}} {{fromTokenDisplaySymbol}} en {{toTokenDisplaySymbol}} sur le prix oracle {{percentageChange}}",
     "To be confirmed": "À confirmer",
     "Execution block": "Bloc d’exécution",
     "Resulting {{token}}": "{{token}} restants"
@@ -1375,21 +1374,22 @@
     "Amount to withdraw": "Montant à retirer",
     "Remaining amount": "Montant restant",
     "CONTINUE": "SUIVANT",
-    "Select token": "Sélectionner un token",
+    "Select token": "Sélectionner",
     "You are withdrawing": "Vous retirez",
-    "Withdraw from future swap": "Withdraw from future swap"
+    "Withdraw from future swap": "Retirer de l'échange à terme"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
     "Remaining amount": "Montant restant",
     "CONFIRM WITHDRAWAL": "CONFIRMER LE RETRAIT",
+    "Confirm withdrawal": "Confirmer le retrait",
     "WITHDRAWING": "RETIRAGE EN COURS",
     "You are withdrawing": "Vous effectuez un retrait de",
     "Withdraw": "Retirer",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Retirer le montant verrouillé {{amountToWithdraw}} {{sourceDisplaySymbol}} de l’échange à terme",
     "To be confirmed": "À confirmer",
-    "Withdraw future swap": "Withdraw future swap"
+    "Withdraw future swap": "Retirer l'échange à terme"
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} sur le prix oracle",

@@ -677,16 +677,15 @@
     "Total to be swapped": "要兌換的總數",
     "Instant Swap": "Instant Swap",
     "Future Swap": "Future Swap",
-    "By using future swap, you are": "By using future swap, you are",
-    "buying {{tokenSymbol}} at 5% more": "buying {{tokenSymbol}} at 5% more",
-    "selling {{tokenSymbol}} at 5% lower": "selling {{tokenSymbol}} at 5% lower",
-    "than the oracle price": "than the oracle price",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price",
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
     "Execution block": "Execution block",
     "To be confirmed": "To be confirmed",
-    "Enter an amount": "请输入数量"
+    "Enter an amount": "请输入数量",
+    "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -1380,6 +1379,7 @@
     "Transaction type": "Transaction type",
     "Remaining amount": "Remaining amount",
     "CONFIRM WITHDRAWAL": "CONFIRM WITHDRAWAL",
+    "Confirm withdrawal": "Confirm withdrawal",
     "WITHDRAWING": "WITHDRAWING",
     "You are withdrawing": "You are withdrawing",
     "Withdraw": "Withdraw",

@@ -560,17 +560,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 dark={tailwind('text-gray-400')}
                 testID='future_swap_warning_text'
               >
-                {`${translate('screens/CompositeSwapScreen', 'By using future swap, you are')} `}
-                <ThemedText style={tailwind('text-xs font-medium')}>
-                  {
-                    translate('screens/CompositeSwapScreen',
-                      oraclePriceText === '+5%'
-                        ? 'buying {{tokenSymbol}} at 5% more'
-                        : 'selling {{tokenSymbol}} at 5% lower',
-                      { tokenSymbol: oraclePriceText === '+5%' ? selectedTokenB.displaySymbol : selectedTokenA?.displaySymbol })
-                  }
-                </ThemedText>
-                {` ${translate('screens/CompositeSwapScreen', 'than the oracle price')}`}
+                {oraclePriceText === '+5%'
+                  ? `${translate('screens/CompositeSwapScreen', 'By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price', {
+                    tokenSymbol: selectedTokenB.displaySymbol
+                  })}`
+                  : `${translate('screens/CompositeSwapScreen', 'By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price', {
+                    tokenSymbol: selectedTokenA?.displaySymbol
+                  })}`}
               </ThemedText>
             </ThemedView>}
 
@@ -765,7 +761,11 @@ function TransactionDetailsSection ({
         ? (
           <>
             <NumberRow
-              lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
+              lhs={translate('screens/CompositeSwapScreen', 'Price ({{tokenB}}/{{tokenA}})', {
+                tokenB: tokenB.displaySymbol,
+                tokenA: tokenA.displaySymbol
+              }
+              )}
               rhs={{
                 value: new BigNumber(priceRate.value).toFixed(8),
                 suffixType: 'text',

@@ -666,7 +666,7 @@
     "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
     "Choose token for swap": "選擇要兌換的代幣",
     "Choose token to swap": "選擇要兌換的代幣",
-    "Enter amount to swap": "Enter amount to swap",
+    "Enter amount to swap": "輸入要兌換的金額",
     "{{token}} tokens converted": "{{token}} 代幣轉換",
     "Select token": "選擇代幣",
     "UTXO to be converted": "要轉換的 UTXO",
@@ -678,16 +678,15 @@
     "Total to be swapped": "要兌換的總數",
     "Instant Swap": "Instant Swap",
     "Future Swap": "Future Swap",
-    "By using future swap, you are": "By using future swap, you are",
-    "buying {{tokenSymbol}} at 5% more": "buying {{tokenSymbol}} at 5% more",
-    "selling {{tokenSymbol}} at 5% lower": "selling {{tokenSymbol}} at 5% lower",
-    "than the oracle price": "than the oracle price",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price",
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
     "Execution block": "Execution block",
     "To be confirmed": "To be confirmed",
-    "Enter an amount": "請輸入數量"
+    "Enter an amount": "請輸入數量",
+    "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -695,7 +694,7 @@
     "SWAPPING": "兌換",
     "You are swapping": "您正要兌換",
     "TRANSACTION DETAILS": "交易明細",
-    "Transaction date": "Transaction date",
+    "Transaction date": "交易日期",
     "Transaction type": "交易類型",
     "Convert & swap": "轉換並兌換",
     "Swap": "兌換",
@@ -703,7 +702,7 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Slippage tolerance": "交易滑價",
     "Estimated to receive": "您大約會收到",
-    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "在未來區塊兌換 {{amountA}} {{fromTokenDisplaySymbol}} 至 {{toTokenDisplaySymbol}} 以預言機價格",
     "To be confirmed": "To be confirmed",
     "Execution block": "Execution block",
     "Resulting {{token}}": "Resulting {{token}}"
@@ -1375,19 +1374,20 @@
     "CONTINUE": "CONTINUE",
     "Select token": "Select token",
     "You are withdrawing": "You are withdrawing",
-    "Withdraw from future swap": "Withdraw from future swap"
+    "Withdraw from future swap": "退出未來兌換"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
     "TRANSACTION DETAILS": "TRANSACTION DETAILS",
     "Transaction type": "Transaction type",
     "Remaining amount": "Remaining amount",
     "CONFIRM WITHDRAWAL": "CONFIRM WITHDRAWAL",
+    "Confirm withdrawal": "確認提款",
     "WITHDRAWING": "WITHDRAWING",
     "You are withdrawing": "You are withdrawing",
     "Withdraw": "Withdraw",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
-    "Withdraw future swap": "Withdraw future swap"
+    "Withdraw future swap": "提取未來兌換"
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
