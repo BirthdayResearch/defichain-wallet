@@ -22,11 +22,11 @@ export const BottomSheetModal = React.forwardRef((props: Props, ref: React.Ref<a
   const style = props.modalStyle !== undefined
       ? props.modalStyle
     : {
-        position: 'fixed',
-        height: '240px',
-        width: '375px',
-        zIndex: 50,
-        top: '55%'
+      position: 'absolute',
+      bottom: '0',
+      height: '505px',
+      width: '375px',
+      zIndex: 50
       }
 
   return (
