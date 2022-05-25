@@ -165,6 +165,9 @@ Array [
           >
             0.00000001
           </Text>
+          <Text>
+             
+          </Text>
           <Text
             style={
               Array [
@@ -336,6 +339,9 @@ Array [
             testID="resulting_dBTC"
           >
             0.00000001
+          </Text>
+          <Text>
+             
           </Text>
           <Text
             style={
