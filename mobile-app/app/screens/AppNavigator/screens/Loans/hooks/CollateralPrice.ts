@@ -47,6 +47,19 @@ export function useResultingCollateralRatio (collateralValue: BigNumber, existin
       activePrice))).multipliedBy(100)
 }
 
+/**
+ * Returns
+ * - activePrice of new collateral
+ * - collateralPrice - new collateral value
+ * - vaultShare - percentage of the proportion of new collateral from the total collateral
+ * - collateralFactor - factor of the new collateral
+ *
+ * Used primarily in screens that make changes to the collateral
+ *
+ * @param amount amount of new collateral
+ * @param collateralItem CollateralToken of the new collateral
+ * @param totalCollateralValue total collateral value of the existing vault and new collateral value
+ */
 export function getCollateralPrice (amount: BigNumber, collateralItem: CollateralItem | CollateralToken, totalCollateralValue: BigNumber): CollateralPrice {
   const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
   const collateralPrice = activePrice.multipliedBy(amount)
@@ -60,6 +73,9 @@ export function getCollateralPrice (amount: BigNumber, collateralItem: Collatera
   }
 }
 
+/**
+ * Returns the percentage of the proportion new collateral from the total collateral
+ */
 export function getVaultShare (collateralAmount: BigNumber, factor: BigNumber, price: BigNumber, totalCollateralValue: BigNumber): BigNumber {
   const vaultShare = new BigNumber(collateralAmount).multipliedBy(price).multipliedBy(factor).dividedBy(totalCollateralValue)
   return BigNumber.max(BigNumber.min(1, vaultShare), 0).times(100)
@@ -83,9 +99,9 @@ export function useValidCollateralRatio (
         amount: '0'
       }
       const amount = collateralToken.id === collateralTokenId ? updatedCollateralAmount ?? 0 : collateralToken.amount
-      const price = (collateralItem !== undefined) ? getCollateralPrice(new BigNumber(amount ?? 0), collateralItem, new BigNumber(totalCollateralVaultValue)) : { vaultShare: new BigNumber(0) }
-      if (!price?.vaultShare?.isNaN()) {
-        return share.plus(price?.vaultShare ?? 0)
+      const collateralValue = (collateralItem !== undefined) ? getCollateralPrice(new BigNumber(amount ?? 0), collateralItem, new BigNumber(totalCollateralVaultValue)) : { vaultShare: new BigNumber(0) }
+      if (!collateralValue?.vaultShare?.isNaN()) {
+        return share.plus(collateralValue?.vaultShare ?? 0)
       }
     }
     return share
