@@ -39,6 +39,6 @@ export function useMaxLoanAmount ({
     return dfiCollateralValue.plus(dusdCollateralValue)
   }
 
-  const maxLoanBoundedByColCondition = getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100))
+  const maxLoanBoundedByColCondition = BigNumber.max(getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue), 0)
   return maxLoanBoundedByColRatio.isLessThanOrEqualTo(maxLoanBoundedByColCondition) ? maxLoanBoundedByColRatio : maxLoanBoundedByColCondition
 }
