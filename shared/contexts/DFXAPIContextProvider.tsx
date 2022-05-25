@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */ // TODO remove
 import { WalletHdNodeProvider } from '@defichain/jellyfish-wallet'
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
@@ -9,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { getSellRoutes, postSellRoute, getFiats, signIn, signUp } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, getFiats, signIn, signUp } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -31,13 +30,13 @@ interface DFXAPIContextI {
   clearDfxTokens: () => Promise<void>
   listFiatAccounts: () => Promise<SellRoute[]>
   // createFiatAccount: (sellRoute: SellRoute) => Promise<SellRoute[]>
-  // listFiats: () => Promise<Fiat[]>
+  listFiats: () => Promise<Fiat[]>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
 
 export function useDFXAPIContext (): DFXAPIContextI {
-  console.log('useDFXAPIContext')
+  console.log('useDFXAPIContext') // TODO: instrument and remove
   return useContext(DFXAPIContext)
 }
 
@@ -77,9 +76,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   //   return await postSellRoute(route)
   // }
 
-  // const listFiats = async (): Promise<Fiat[]> => {
-  //   return await getFiats()
-  // }
+  const listFiats = async (): Promise<Fiat[]> => {
+    return await getFiats()
+  }
 
   // returns webtoken string of current active Wallet address
   const getActiveWebToken = async (): Promise<string> => {
@@ -235,9 +234,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const context: DFXAPIContextI = {
     openDfxServices: openDfxServices,
     clearDfxTokens: clearDfxTokens,
-    listFiatAccounts: listFiatAccounts
+    listFiatAccounts: listFiatAccounts,
     // createFiatAccount: createFiatAccount,
-    // listFiats: listFiats
+    listFiats: listFiats
   }
 
   // observe address state change

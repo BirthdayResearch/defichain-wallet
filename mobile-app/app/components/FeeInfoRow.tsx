@@ -75,7 +75,7 @@ export function FeeInfoRow (props: FeeInfoRowProps): JSX.Element {
           <BottomSheetInfo
             alertInfo={(() => {
                 switch (props.type) {
-                  case 'ESTIMATED_FEE':
+                  case 'ESTIMATED_FEE': // TODO: refactor
                     return estimatedFee
                   case 'VAULT_FEE':
                     return vaultFee

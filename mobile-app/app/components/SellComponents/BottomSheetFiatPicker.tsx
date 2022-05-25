@@ -5,11 +5,13 @@ import { Platform, View } from 'react-native'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { Fiat } from '@shared-api/dfx/models/Fiat'
 
 export type FiatType = 'EUR' | 'CHF' | 'USD' | 'GBP'
 
-interface BottomSheetFiatAccountCreateProps {
-  onFiatPress: (fiatType: FiatType) => void
+interface BottomSheetFiatPickerProps {
+  onFiatPress: (fiatType: FiatType | Fiat['name']) => void
+  fiats?: Fiat[]
   navigateToScreen?: {
     screenName: string
     onButtonPress: (fiatType: FiatType) => void // TODO necessary?
@@ -18,8 +20,9 @@ interface BottomSheetFiatAccountCreateProps {
 
 export const BottomSheetFiatPicker = ({
   onFiatPress,
+  fiats,
   navigateToScreen
-}: BottomSheetFiatAccountCreateProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+}: BottomSheetFiatPickerProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const flatListComponents = {
     mobile: BottomSheetFlatList,
@@ -27,6 +30,7 @@ export const BottomSheetFiatPicker = ({
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
   const availableFiats: FiatType[] = ['EUR', 'USD', 'CHF', 'GBP']
+  const liveFiats = fiats?.map((fiat) => fiat.name)
 
   return (
     <FlatList
@@ -35,15 +39,15 @@ export const BottomSheetFiatPicker = ({
         'bg-dfxblue-800': !isLight,
         'bg-white': isLight
       })}
-      data={availableFiats}
-      renderItem={({ item }: { item: FiatType }) => (
+      data={liveFiats ?? availableFiats}
+      renderItem={({ item }: { item: FiatType | Fiat['name'] }) => (
         <FiatItem fiat={item} onPress={() => onFiatPress(item)} />
       )}
     />
   )
 })
 
-function FiatItem (props: {fiat: FiatType, onPress: () => void}): JSX.Element {
+function FiatItem (props: { fiat: FiatType | Fiat['name'], onPress: () => void}): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
