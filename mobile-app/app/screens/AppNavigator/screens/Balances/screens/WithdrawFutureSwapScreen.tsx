@@ -150,7 +150,6 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
             lhsThemedProps={rowStyle.lhsThemedProps}
             rhsThemedProps={rowStyle.rhsThemedProps}
             rhsUsdAmount={getTokenPrice(source.symbol, new BigNumber(amountToWithdraw), false)}
-            isOraclePrice
           />
           <NumberRow
             lhs={translate('screens/WithdrawFutureSwapScreen', 'Remaining amount')}
@@ -161,7 +160,6 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
               suffix: source.displaySymbol
             }}
             rhsUsdAmount={remainingAmountInUSD}
-            isOraclePrice
             lhsThemedProps={rowStyle.lhsThemedProps}
             rhsThemedProps={rowStyle.rhsThemedProps}
           />
