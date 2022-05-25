@@ -39,7 +39,7 @@ jobs:
       - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
       - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
 
-      - uses: cypress-io/github-action@a45da79a2ea5457403a080c4fcc0ea3daf6924a0
+      - uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3
         with:
           install: false
           record: true

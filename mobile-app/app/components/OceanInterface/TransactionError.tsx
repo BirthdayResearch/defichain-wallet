@@ -83,7 +83,7 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('Price is higher than indicated.')) {
     return {
       code: ErrorCodes.PoolSwapHigher,
-      message: 'Price is higher than indicated'
+      message: 'Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.'
     }
   } else if (err.includes('no prevouts available to create a transaction')) {
     return {

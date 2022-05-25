@@ -166,6 +166,15 @@ Array [
             10.00000000
           </Text>
         </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        />
       </View>
     </View>
   </View>,
@@ -300,6 +309,15 @@ Array [
             0.00000001
           </Text>
         </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        />
       </View>
     </View>
   </View>,

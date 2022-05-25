@@ -242,8 +242,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     cy.getByTestID('MAX_amount_button').click().wait(3000)
 
     cy.getByTestID('button_confirm_submit').should('not.have.attr', 'disabled')
-    cy.getByTestID('total_to_be_swapped').should('exist')
-    cy.getByTestID('total_to_be_swapped_rhsUsdAmount').should('exist')
     cy.getByTestID('estimated_to_receive').should('exist')
     cy.getByTestID('estimated_to_receive_rhsUsdAmount').should('exist')
 

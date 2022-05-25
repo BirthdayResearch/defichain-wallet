@@ -1,10 +1,10 @@
 
-import { useScrollToTop } from '@react-navigation/native'
-import { ThemedScrollView } from '@components/themed'
+import { useIsFocused, useScrollToTop } from '@react-navigation/native'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
@@ -34,6 +34,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
@@ -43,8 +44,10 @@ export interface BalanceRowToken extends WalletToken {
 }
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const isFocused = useIsFocused()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
+  const whaleRpcClient = useWhaleRpcClient()
   const {
     address,
     addressLength
@@ -68,6 +71,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
+  const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
   const { hasFetchedToken, allTokens } = useSelector((state: RootState) => (state.wallet))
   const ref = useRef(null)
   useScrollToTop(ref)
@@ -79,6 +83,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     fetchPortfolioData()
   }, [address, blockCount])
+
+  useEffect(() => {
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchFutureSwaps({
+          client: whaleRpcClient,
+          address
+        }))
+        dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -362,6 +378,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           denominationCurrency={denominationCurrency}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
+        {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (
@@ -413,10 +430,49 @@ function BalanceActionSection ({
   isZeroBalance
 }: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
   return (
-    <View style={tailwind('flex flex-row mb-4 mx-4')}>
+    <View style={tailwind('flex flex-row mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
       <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
     </View>
+  )
+}
+
+function FutureSwapCta ({
+  navigation
+}: { navigation: StackNavigationProp<BalanceParamList> }): JSX.Element {
+  return (
+    <ThemedTouchableOpacity
+      onPress={() => navigation.navigate('FutureSwapScreen')}
+      style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-3xl justify-between')}
+      light={tailwind('bg-blue-100')}
+      dark={tailwind('bg-darkblue-50')}
+      testID='pending_future_swaps'
+    >
+      <View style={tailwind('flex flex-row items-center flex-1')}>
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='info'
+          size={16}
+          light={tailwind('text-blue-500')}
+          dark={tailwind('text-darkblue-500')}
+        />
+        <ThemedText
+          style={tailwind('ml-2 text-sm')}
+          light={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-500')}
+        >
+          {translate('screens/BalancesScreen', 'You have pending future swap(s)')}
+        </ThemedText>
+      </View>
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='chevron-right'
+        size={16}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      />
+
+    </ThemedTouchableOpacity>
   )
 }
 

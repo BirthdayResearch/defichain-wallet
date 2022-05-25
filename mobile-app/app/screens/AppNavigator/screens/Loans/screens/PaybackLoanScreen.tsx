@@ -20,7 +20,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
@@ -638,8 +638,8 @@ function TransactionDetailsSection ({
             lhsThemedProps={rowStyle.lhsThemedProps}
             rhsThemedProps={rowStyle.rhsThemedProps}
           />}
-        <FeeInfoRow
-          type='ESTIMATED_FEE'
+        <InfoRow
+          type={InfoType.EstimatedFee}
           value={fee.toFixed(8)}
           testID='estimated_fee'
           suffix='DFI'
