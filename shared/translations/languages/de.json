@@ -662,7 +662,7 @@
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
     "Choose token to swap": "Token zum Tauschen wählen",
-    "Enter amount to swap": "Enter amount to swap",
+    "Enter amount to swap": "Betrag für Tausch eingeben",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
     "UTXO to be converted": "Umzuwandelnde UTXO",
@@ -674,16 +674,15 @@
     "Total to be swapped": "Zu tauschende Summe",
     "Instant Swap": "Sofortiger Tausch",
     "Future Swap": "Tausch-Terminkontrakt",
-    "By using future swap, you are": "Wenn du den Tausch-Terminkontrakt benutzt,",
-    "buying {{tokenSymbol}} at 5% more": "erwirbst du {{tokenSymbol}} zu 5% teurer",
-    "selling {{tokenSymbol}} at 5% lower": "verkaufst du {{tokenSymbol}} um 5% günstiger",
-    "than the oracle price": "als der Preisorakelwert",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "Mit dem Future Swap erwirbst du {{tokenSymbol}} zu einem Preis, der 5% über dem Preisorakelwert liegt.",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "Mit dem Future Swap verkaufst du {{tokenSymbol}} um 5% unter dem Preisorakelwert",
     "Oracle price -5%": "Preisorakelwert -5%",
     "Oracle price +5%": "Preisorakelwert +5%",
     "Est. time remaining": "Verbleibende geschätzte Zeit",
     "Execution block": "Ausführungsblock",
     "To be confirmed": "Noch zu bestätigen",
-    "Enter an amount": "Gib einen Betrag ein"
+    "Enter an amount": "Gib einen Betrag ein",
+    "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -691,7 +690,7 @@
     "SWAPPING": "WIRD GETAUSCHT",
     "You are swapping": "Du tauschst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
-    "Transaction date": "Transaction date",
+    "Transaction date": "Transaktionsdatum",
     "Transaction type": "Transaktionsart",
     "Convert & swap": "Umwandeln & tauschen",
     "Swap": "Tausch",
@@ -1365,18 +1364,19 @@
     "CONTINUE": "WEITER",
     "Select token": "Token auswählen",
     "You are withdrawing": "Die Abhebung beträgt",
-    "Withdraw from future swap": "Withdraw from future swap"
+    "Withdraw from future swap": "Entnahme aus dem Future Swap"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Remaining amount": "Verbleibender Betrag",
-    "CONFIRM WITHDRAWAL": "ABHEBUNG BESTÄTIGEN",
+    "CONFIRM WITHDRAWAL": "AUSZAHLUNG BESTÄTIGEN",
+    "Confirm withdrawal": "Auszahlung bestätigen",
     "WITHDRAWING": "ABHEBUNG",
     "You are withdrawing": "Die Abhebung beträgt",
     "Withdraw": "Abheben",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Gesperrten Betrag {{amountToWithdraw}} {{sourceDisplaySymbol}} vom Tausch-Terminkontrakt abheben",
-    "Withdraw future swap": "Withdraw future swap"
+    "Withdraw future swap": "Future Swap-Auszahlung"
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",

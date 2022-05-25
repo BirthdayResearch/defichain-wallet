@@ -684,7 +684,7 @@
     "Review and confirm transaction in the next screen": "Revisa y confirma la transacción en la siguiente pantalla",
     "Choose token for swap": "Elige el token para el intercambio",
     "Choose token to swap": "Elige el token a intercambiar",
-    "Enter amount to swap": "Enter amount to swap",
+    "Enter amount to swap": "Immetti l'importo da scambiare",
     "{{token}} tokens converted": "Número de {{token}} convertidos",
     "Select token": "Selecciona tokens",
     "UTXO to be converted": "UTXO a convertir",
@@ -697,16 +697,15 @@
     "Slippage tolerance": "Tolerancia a la fluctuación",
     "Instant Swap": "Swap istantaneo",
     "Future Swap": "Future Swap",
-    "By using future swap, you are": "Utilizzando il future swap, stai",
-    "buying {{tokenSymbol}} at 5% more": "acquistando {{tokenSymbol}} al 5% in più",
-    "selling {{tokenSymbol}} at 5% lower": "vendendo il {{tokenSymbol}} al 5% in meno",
-    "than the oracle price": "rispetto al prezzo dell'oracolo",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "Utilizzando il future swap, stai acquistando {{tokenSymbol}} al 5% in più rispetto al prezzo dell'oracolo",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "Utilizzando il future swap, stai vendendo il {{tokenSymbol}} al 5% in meno rispetto al prezzo dell'oracolo",
     "Oracle price -5%": "Prezzo Oracolo -5%",
     "Oracle price +5%": "Prezzo Oracolo +5%",
     "Est. time remaining": "Tempo rimanente stimato",
     "Execution block": "Blocco di esecuzione",
     "To be confirmed": "Da confermare",
-    "Enter an amount": "Gib einen Betrag ein"
+    "Enter an amount": "Gib einen Betrag ein",
+    "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVIRTIENDO",
@@ -714,7 +713,7 @@
     "SWAPPING": "INTERCAMBIANDO",
     "You are swapping": "Tú estás intercambiando",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
-    "Transaction date": "Transaction date",
+    "Transaction date": "Data dell'operazione",
     "Transaction type": "Tipo de transacción",
     "Convert & swap": "Convierte e intercambia",
     "Swap": "Cambiar",
@@ -723,7 +722,7 @@
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Estimated to receive": "Estimación a recibir",
     "Slippage tolerance": "Tolerancia a la fluctuación",
-    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap sul future block {{amountA}} {{fromTokenDisplaySymbol}} => {{toTokenDisplaySymbol}} sul prezzo oracle future {{percentage_change}}",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Scambio sul blocco future {{amountA}} {{fromTokenDisplaySymbol}} a {{toTokenDisplaySymbol}} sul prezzo oracolo {{percentageChange}}",
     "To be confirmed": "Da confermare",
     "Execution block": "Blocco di esecuzione",
     "Resulting {{token}}": "Resultando {{token}}"
@@ -1396,19 +1395,20 @@
     "CONTINUE": "CONTINUA",
     "Select token": "Seleziona il token",
     "You are withdrawing": "Stai ritirando",
-    "Withdraw from future swap": "Withdraw from future swap"
+    "Withdraw from future swap": "Prelievo da future swap"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
     "TRANSACTION DETAILS": "Detalles de la transacción",
     "Transaction type": "Tipo di transazione",
     "Remaining amount": "Importo rimanente",
     "CONFIRM WITHDRAWAL": "CONFERMA IL PRELIEVO",
+    "Confirm withdrawal": "Conferma prelievo",
     "WITHDRAWING": "RITIRO",
     "You are withdrawing": "Stai ritirando",
     "Withdraw": "Preleva",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Preleva l'importo bloccato {{amountToWithdraw}} {{sourceDisplaySymbol}} dal future swap",
     "To be confirmed": "Da confermare",
-    "Withdraw future swap": "Withdraw future swap"
+    "Withdraw future swap": "Prelievo future swap"
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} sul prezzo dell'oracolo",
