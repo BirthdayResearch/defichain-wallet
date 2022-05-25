@@ -202,7 +202,6 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               suffix: swap.tokenTo.displaySymbol
             }}
             rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-            isOraclePrice
           />
         )}
       <InfoRow

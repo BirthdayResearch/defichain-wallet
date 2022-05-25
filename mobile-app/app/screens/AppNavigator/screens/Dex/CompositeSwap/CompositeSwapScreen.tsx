@@ -784,7 +784,6 @@ function TransactionDetailsSection ({
               }}
               textStyle={tailwind('text-sm font-normal')}
               rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-              isOraclePrice
             />
           </>
         )
