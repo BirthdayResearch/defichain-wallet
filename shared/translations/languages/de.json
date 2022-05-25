@@ -395,15 +395,14 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
-    "Take full control": "Übernimm die volle Kontrolle",
-    "of your digital assets": "über deine digitalen Vermögenswerte",
-    "Nobody owns your keys and wallet except you.": "Niemand außer dir besitzt deine Schlüssel und deine Wallet.",
-    "Unlock the highest": "Erschließe das höchste",
-    "potential of your finances": "Potenzial deiner Finanzen",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transferieren, Liquiditätsmining, Tauschgeschäfte und viele weitere Funktionen als vollständig dezentralisierte Wallet",
-    "Earn high yields": "Erwirtschafte hohe Rendite",
-    "of up to 90% with DEX": "von bis zu 90% mit der DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Stelle Liquidität für BTC, ETH und viele andere Pool-Paare zur Verfügung. Du kannst sie auch jederzeit wieder abheben!"
+    "Take full control": "Volle Kontrolle übernehmen",
+    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "Die DeFiChain Wallet ist völlig non-custodial. Bewahre deinen 24-Wörter-Wiederherstellungssatz sicher auf. Nur du hast Zugang zu deinem Guthaben.",
+    "View your assets in one place": "Anzeige deiner Vermögenswerte an einem Ort",
+    "Review your available and locked assets in your portfolio.": "Übersicht über deine verfügbaren und hinterlegten Vermögenswerte in deinem Portfolio.",
+    "Maximize earning potential": "Maximiere das Ertragspotenzial",
+    "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Handle auf der DEX und verdiene Rewards aus dem Liquiditäts-Mining mit Kryptos und dToken.",
+    "Decentralized loans": "Dezentrale Darlehen",
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Erhalte Zugang zu finanziellen Gelegenheiten mit dToken, die in dezentralen Vaults gemintet wurden."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Ansicht verlassen",
@@ -511,7 +510,7 @@
     "OK": "OK",
     "Insufficient UTXO DFI": "Nicht ausreichend UTXO-DFI",
     "Not enough balance": "Guthaben zu niedrig",
-    "Price is higher than indicated": "Preis höher als angezeigt",
+    "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Tauschpreis ist höher als die durch die Slippage-Toleranz erlaubte Spanne. Erhöhe den Toleranzprozentsatz, um fortzufahren.",
     "Preparing broadcast": "Übertragung wird vorbereitet",
     "Waiting for transaction": "Warten auf Transaktion"
   },

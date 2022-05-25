@@ -397,15 +397,14 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特币生态原生DeFi",
-    "Take full control": "掌控",
-    "of your digital assets": "您拥有的数字资产",
-    "Nobody owns your keys and wallet except you.": "除了您之外没有任何人能控制您的私钥.",
-    "Unlock the highest": "释放最高潜力的",
-    "potential of your finances": "开放式金融理财和资产回报",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "双方交易、流动性挖矿、兑换和其他去中心化钱包功能.",
-    "Earn high yields": "本项目从未做任何融资，",
-    "of up to 90% with DEX": "以先来先得的社区参与方式收获，目前高回报率高达90%",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "为流动性池提供 BTC、ETH和其他流动池配对，并获得区块奖励. 您可以随时取出奖励！"
+    "Take full control": "完全掌控",
+    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "DeFiChain 钱包是完全非托管的。妥善保管您的 24 个恢复字词。使用权限是您个人专属的包括钱包资金。",
+    "View your assets in one place": "在整合情况下查看您的资产",
+    "Review your available and locked assets in your portfolio.": "查看您的投资组合中可用和锁定的资产",
+    "Maximize earning potential": "最大化盈利潜力",
+    "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上进行交易并使用加密货币和 dToken 从流动性挖矿中获得奖励 ",
+    "Decentralized loans": "去中心化资产贷款",
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "离开页面",
@@ -514,7 +513,7 @@
     "OK": "好了",
     "Insufficient UTXO DFI": "不足够的UTXO DFI",
     "Not enough balance": "余额不足",
-    "Price is higher than indicated": "价格高于指示",
+    "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "兑换价格已超出滑点设置的容许范围。调整容许滑点百分比再继续进行。",
     "Preparing broadcast": "准备传输",
     "Waiting for transaction": "等待交易"
   },

@@ -24,7 +24,7 @@ describe('info text', () => {
     },
     {
       code: ErrorCodes.PoolSwapHigher,
-      message: 'Price is higher than indicated.'
+      message: 'Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.'
     },
     {
       code: ErrorCodes.InsufficientDFIInVault,
