@@ -86,6 +86,7 @@
     "(From lowest value)": "(從最低值開始)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*總資產組合價值已撇除以預言機價格計算的貸款金額",
     "loans": "貸款",
+    "You have pending future swap(s)": "You have pending future swap(s)",
     "This icon indicates that the price is provided by Oracles instead of the DEX": "這個圖標顯示的價格是由預言機產生而不是 DEX 提供的"
   },
   "components/BottomSheetAddressDetail": {
@@ -665,7 +666,7 @@
     "Review and confirm transaction in the next screen": "請在下個屏幕審查並確認兌換",
     "Choose token for swap": "選擇要兌換的代幣",
     "Choose token to swap": "選擇要兌換的代幣",
-    "Enter an amount": "請輸入數量",
+    "Enter amount to swap": "輸入要兌換的金額",
     "{{token}} tokens converted": "{{token}} 代幣轉換",
     "Select token": "選擇代幣",
     "UTXO to be converted": "要轉換的 UTXO",
@@ -674,7 +675,18 @@
     "PRICE DETAILS": "價格明細",
     "FROM": "從",
     "TO": "到",
-    "Total to be swapped": "要兌換的總數"
+    "Total to be swapped": "要兌換的總數",
+    "Instant Swap": "Instant Swap",
+    "Future Swap": "Future Swap",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price",
+    "Oracle price -5%": "Oracle price -5%",
+    "Oracle price +5%": "Oracle price +5%",
+    "Est. time remaining": "Est. time remaining",
+    "Execution block": "Execution block",
+    "To be confirmed": "To be confirmed",
+    "Enter an amount": "請輸入數量",
+    "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -682,13 +694,18 @@
     "SWAPPING": "兌換",
     "You are swapping": "您正要兌換",
     "TRANSACTION DETAILS": "交易明細",
+    "Transaction date": "交易日期",
     "Transaction type": "交易類型",
     "Convert & swap": "轉換並兌換",
     "Swap": "兌換",
     "Swapping Token": "兌換代幣",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Slippage tolerance": "交易滑價",
-    "Estimated to receive": "您大約會收到"
+    "Estimated to receive": "您大約會收到",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "在未來區塊兌換 {{amountA}} {{fromTokenDisplaySymbol}} 至 {{toTokenDisplaySymbol}} 以預言機價格",
+    "To be confirmed": "To be confirmed",
+    "Execution block": "Execution block",
+    "Resulting {{token}}": "Resulting {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
@@ -901,6 +918,7 @@
     "ACTIVE BID": "主動出價",
     "{{h}}h": "{{h}}時",
     "{{m}}m": "{{m}}分",
+    "{{s}}s": "{{s}}秒",
     "Total auction value (USD)": "拍賣總價值（美元）",
     "Min. next bid": "最低標價",
     "You are the highest bidder": "您目前是出價最高的人",
@@ -1016,7 +1034,8 @@
     "This amount is the total interest amount from both vault and token interest rate.": "此金額是金庫和代幣利率的利息總和",
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
-    "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。"
+    "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
+    "Execution block": "Execution block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1345,6 +1364,36 @@
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作為標價",
     "Collateral for auction": "待拍賣的抵押品",
     "Insufficient funds": "資金不足"
+  },
+  "screens/WithdrawFutureSwapScreen": {
+    "FROM": "FROM",
+    "TO": "TO",
+    "Enter an amount": "Enter an amount",
+    "Amount to withdraw": "Amount to withdraw",
+    "Remaining amount": "Remaining amount",
+    "CONTINUE": "CONTINUE",
+    "Select token": "Select token",
+    "You are withdrawing": "You are withdrawing",
+    "Withdraw from future swap": "退出未來兌換"
+  },
+  "screens/ConfirmWithdrawFutureSwapScreen": {
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Transaction type": "Transaction type",
+    "Remaining amount": "Remaining amount",
+    "CONFIRM WITHDRAWAL": "CONFIRM WITHDRAWAL",
+    "Confirm withdrawal": "確認提款",
+    "WITHDRAWING": "WITHDRAWING",
+    "You are withdrawing": "You are withdrawing",
+    "Withdraw": "Withdraw",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
+    "To be confirmed": "To be confirmed",
+    "Withdraw future swap": "提取未來兌換"
+  },
+  "screens/FutureSwapScreen": {
+    "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
+    "Execution block": "Execution block",
+    "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
+    "Future Swap": "Future Swap"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",

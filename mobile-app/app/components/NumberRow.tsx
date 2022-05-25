@@ -1,10 +1,10 @@
 import { StyleProp, TextStyle, View, ViewProps, Text } from 'react-native'
 import NumberFormat from 'react-number-format'
+import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
 import { BottomSheetAlertInfo, BottomSheetInfo } from './BottomSheetInfo'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import BigNumber from 'bignumber.js'
 import { IconTooltip } from './tooltip/IconTooltip'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
@@ -75,7 +75,6 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                 {
                   props.rhs.suffixType === 'text' &&
                     <>
-                      <Text>{' '}</Text>
                       <ThemedText
                         light={tailwind('text-gray-500')}
                         dark={tailwind('text-gray-400')}
@@ -97,19 +96,22 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
             props.rhs.suffixType === 'component' &&
             (props.children)
           }
-          {
-            props.isOraclePrice === true && (
-              <IconTooltip />
-            )
-          }
+          <View style={tailwind('flex flex-row items-center')}>
+            {
+              props.rhsUsdAmount !== undefined &&
+                <ActiveUSDValue
+                  price={props.rhsUsdAmount}
+                  containerStyle={tailwind('justify-end')}
+                  testId={`${props.rhs.testID}_rhsUsdAmount`}
+                />
+            }
+            {
+              props.isOraclePrice === true && (
+                <IconTooltip />
+              )
+            }
+          </View>
         </View>
-
-        {props.rhsUsdAmount !== undefined &&
-          <ActiveUSDValue
-            price={props.rhsUsdAmount}
-            containerStyle={tailwind('justify-end')}
-            testId={`${props.rhs.testID}_rhsUsdAmount`}
-          />}
       </View>
     </ThemedView>
   )

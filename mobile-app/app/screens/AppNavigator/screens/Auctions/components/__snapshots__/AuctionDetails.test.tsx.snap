@@ -453,6 +453,15 @@ exports[`AuctionDetails should match snapshot 1`] = `
               2,570
             </Text>
           </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          />
         </View>
       </View>
     </View>
@@ -620,6 +629,15 @@ exports[`AuctionDetails should match snapshot 1`] = `
               $40,000.00
             </Text>
           </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          />
         </View>
       </View>
     </View>
@@ -753,9 +771,6 @@ exports[`AuctionDetails should match snapshot 1`] = `
             >
               5,265.83339660
             </Text>
-            <Text>
-               
-            </Text>
             <Text
               style={
                 Array [
@@ -786,6 +801,15 @@ exports[`AuctionDetails should match snapshot 1`] = `
               DUSD
             </Text>
           </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          />
         </View>
       </View>
     </View>
