@@ -10,7 +10,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { useBottomSheet } from '@hooks/useBottomSheet'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { SetAmountButton, AmountButtonTypes } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -187,8 +187,8 @@ export function PlaceBidScreen (props: Props): JSX.Element {
               testID='title_tx_detail'
               text={translate('screens/PlaceBidScreen', 'TRANSACTION DETAILS')}
             />
-            <FeeInfoRow
-              type='ESTIMATED_FEE'
+            <InfoRow
+              type={InfoType.EstimatedFee}
               value={fee.toFixed(8)}
               testID='text_fee'
               suffix='DFI'

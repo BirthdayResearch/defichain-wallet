@@ -23,7 +23,7 @@ import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Button } from '@components/Button'
@@ -653,8 +653,8 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

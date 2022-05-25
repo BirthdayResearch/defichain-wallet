@@ -39,8 +39,15 @@ export interface DexParamList {
     priceRates: PriceRateProps[]
     slippage: BigNumber
     swap: CompositeSwapForm
+    futureSwap?: {
+      executionBlock: number
+      transactionDate: string
+      isSourceLoanToken: boolean
+      oraclePriceText: string
+    }
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }
+    estimatedAmount: BigNumber
   }
   AddLiquidity: {
     pair: PoolPairData

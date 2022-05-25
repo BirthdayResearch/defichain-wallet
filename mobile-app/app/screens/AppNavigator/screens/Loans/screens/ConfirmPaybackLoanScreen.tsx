@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { InfoText } from '@components/InfoText'
 import { NumberRow } from '@components/NumberRow'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -263,8 +263,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
             suffix: props.paymentTokenDisplaySymbol
           }}
         />}
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'
