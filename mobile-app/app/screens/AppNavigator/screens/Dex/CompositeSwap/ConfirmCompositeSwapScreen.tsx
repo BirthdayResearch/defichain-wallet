@@ -185,7 +185,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
               rhs={{
-                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/CompositeSwapScreen', `Oracle price ${futureSwap.oraclePriceText}`),
                 testID: 'confirm_estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
@@ -250,7 +250,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Resulting {{token}}', { token: tokenB.displaySymbol })}
               rhs={{
-                value: translate('screens/ConfirmCompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/ConfirmCompositeSwapScreen', `Oracle price ${futureSwap.oraclePriceText}`),
                 testID: `resulting_${tokenB.displaySymbol}`
               }}
               textStyle={tailwind('text-sm font-normal')}

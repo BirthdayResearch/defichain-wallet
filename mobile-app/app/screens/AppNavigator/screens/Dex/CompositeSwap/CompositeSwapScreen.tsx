@@ -593,6 +593,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               executionBlock={executionBlock}
               timeRemaining={timeRemaining}
               transactionDate={transactionDate}
+              oraclePriceText={oraclePriceText}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -728,7 +729,8 @@ function TransactionDetailsSection ({
   priceRate,
   executionBlock,
   timeRemaining,
-  transactionDate
+  transactionDate,
+  oraclePriceText
 }: {
   isFutureSwap: boolean
   conversionAmount: BigNumber
@@ -741,6 +743,7 @@ function TransactionDetailsSection ({
   executionBlock: number
   timeRemaining: string
   transactionDate: string
+  oraclePriceText: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   const { getTokenPrice } = useTokenPrice()
@@ -812,7 +815,7 @@ function TransactionDetailsSection ({
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
               rhs={{
-                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/CompositeSwapScreen', `Oracle price ${oraclePriceText}`),
                 testID: 'estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
