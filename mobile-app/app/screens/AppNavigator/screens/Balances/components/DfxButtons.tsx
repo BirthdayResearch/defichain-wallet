@@ -85,7 +85,7 @@ export function DfxButtons (): JSX.Element {
         .filter((b) => !(b.hide ?? false))
         .map((b, i) => (i === 2)
           ? (
-            <>
+            <React.Fragment key={`f ${i}`}>
               <ThemedView
                 light={tailwind('border-gray-100')}
                 dark={tailwind('border-dfxblue-800')}
@@ -93,7 +93,7 @@ export function DfxButtons (): JSX.Element {
                 key={`tv ${i}`}
               />
               <ImageButton key={`b ${i}`} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
-            </>
+            </React.Fragment>
             )
           : <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
       )}
