@@ -80,7 +80,7 @@ export function BorrowLoanTokenScreen ({
     new BigNumber(getActivePrice(loanToken.token.symbol, loanToken.activePrice)),
     interestPerBlock
   )
-  const { requiredTokensShare, minRequiredTokensShare } = useValidCollateralRatio(
+  const { requiredTokensShare } = useValidCollateralRatio(
     vault?.collateralAmounts ?? [],
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN)
@@ -254,7 +254,7 @@ export function BorrowLoanTokenScreen ({
 
         {vault !== undefined && (
           <>
-            {isFeatureAvailable('dusd_vault_share') && requiredTokensShare?.lt(minRequiredTokensShare)
+            {isFeatureAvailable('dusd_vault_share') && requiredTokensShare.isZero()
               ? (
                 <ThemedText
                   dark={tailwind('text-error-500')}
@@ -262,7 +262,7 @@ export function BorrowLoanTokenScreen ({
                   style={tailwind('text-sm text-center mt-2 px-4')}
                   testID='vault_min_share_warning'
                 >
-                  {translate('screens/BorrowLoanTokenScreen', 'This vault needs at least 50% of DFI and/or DUSD to be available for use in minting dTokens')}
+                  {translate('screens/BorrowLoanTokenScreen', 'Insufficient DFI and/or DUSD in vault, add more to start minting dTokens.')}
                 </ThemedText>
               )
               : (
