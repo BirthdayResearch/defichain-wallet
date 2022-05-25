@@ -254,6 +254,19 @@ export function SellScreen ({
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='sell_screen'>
+
+        <ActionButton
+          name='details'
+          onPress={() => {
+            navigation.navigate('UserDetails')
+          }}
+          pair={' '}
+          label={translate('screens/SellScreen', 'add user')}
+          style={tailwind('p-2 mb-2 h-10 mx-8 justify-center')}
+          testID={'/* `pool_pair_add_{symbol}` */'}
+          standalone
+        />
+
         <TokenInput
           token={token}
           onPress={() => {

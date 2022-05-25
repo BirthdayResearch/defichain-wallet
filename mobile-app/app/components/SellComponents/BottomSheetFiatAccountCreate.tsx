@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
 /* eslint-disable @typescript-eslint/no-unused-vars */ // TODO remove
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
@@ -7,7 +8,7 @@ import { ThemedActivityIndicator, ThemedIcon, ThemedScrollView, ThemedText, Them
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetNavScreen, BottomSheetWithNavRouteParam, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { translate } from '@translations'
-import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+import { DFXAPIContextProvider, useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -59,12 +60,10 @@ export const BottomSheetFiatAccountCreate = ({
     // trigger
   } = useForm({ mode: 'onChange' })
 
-  // const { listFiats } = useDFXAPIContext()
-  const { openDfxServices } = useDFXAPIContext()
-
-  const [fiatType, setfiatType] = useState<FiatType>('EUR')
+  // from server
   const [fiats, setFiats] = useState<Fiat[]>()
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  // returned from picker
+  const [fiatType, setfiatType] = useState<FiatType | Fiat['name']>('EUR')
 
   // fiat picker modal setup
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -103,7 +102,8 @@ export const BottomSheetFiatAccountCreate = ({
               setfiatType(fiatType)
             }
             dismissModal()
-          }
+          },
+          fiats: fiats
         }),
         option: {
           header: () => null
@@ -112,6 +112,12 @@ export const BottomSheetFiatAccountCreate = ({
   }, [])
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
   const onSubmit = async (): Promise<void> => console.log('submit')
+
+  // const handleFiatChange = (): Fiat[] => { return [{}] }
+
+  const handle = (fia: Fiat[]): void => {
+    setFiats(fia)
+  }
 
   useEffect(() => {
     // async () => {
@@ -152,16 +158,16 @@ export const BottomSheetFiatAccountCreate = ({
 
       <View style={tailwind('px-4')}>
 
-        <FiatPickerRow
-          fiatType={fiatType}
-          onPress={() => {
-            setBottomSheet()
-            expandModal()
-          }}
-          isloaded={isLoaded}
-        />
-        {/* <listFiats.Provider>
-        </ListFiats.Provider> */}
+        <DFXAPIContextProvider>
+          <FiatPickerRow
+            fiatType={fiatType}
+            onPress={() => {
+              setBottomSheet()
+              expandModal()
+            }}
+            // loadedFiat={handle()}
+          />
+        </DFXAPIContextProvider>
 
         <IbanInput
           control={control}
@@ -213,8 +219,22 @@ export const BottomSheetFiatAccountCreate = ({
   )
 })
 
-function FiatPickerRow (props: { fiatType: FiatType, onPress: () => void, isloaded?: boolean}): JSX.Element {
-  const isloaded = props.isloaded ?? true
+function FiatPickerRow (props: { fiatType: FiatType | Fiat['name'], loadedFiat?: void, onPress: () => void}): JSX.Element {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  const logger = useLogger()
+  const { listFiats } = useDFXAPIContext()
+
+  const sendToParent = (fia: Fiat[]): void => {}
+
+  useEffect(() => {
+    listFiats()
+      .then((fiats) => {
+        // props.loadedFiat = (): Fiat[] => fiats
+        props.loadedFiat = sendToParent(fiats)
+      })
+      .catch(logger.error)
+      .finally(() => setIsLoaded(true))
+  }, [])
   return (
     <>
       <ThemedText
@@ -226,7 +246,7 @@ function FiatPickerRow (props: { fiatType: FiatType, onPress: () => void, isload
         {translate('screens/SellScreen', 'Select Currency')}
       </ThemedText>
 
-      {!isloaded
+      {!isLoaded
         ? (
           <ThemedActivityIndicator style={tailwind('mb-4')} />)
         : (

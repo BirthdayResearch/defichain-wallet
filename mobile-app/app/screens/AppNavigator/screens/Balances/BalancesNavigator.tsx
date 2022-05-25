@@ -28,6 +28,7 @@ import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { SellScreen } from './screens/SellScreen'
+import { UserDetailsScreen } from './screens/UserDetailsScreen'
 // import { SellConfirmationScreen } from './screens/SellConfirmationScreen'
 
 export interface BalanceParamList {
@@ -41,6 +42,7 @@ export interface BalanceParamList {
   //   fee: BigNumber
   //   conversion?: ConversionParam
   // }
+  UserDetailsScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
@@ -204,6 +206,20 @@ export function BalancesNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       /> */}
+
+      <BalanceStack.Screen
+        component={UserDetailsScreen}
+        name='UserDetails'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/UserDetails', 'UserDetails')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
 
       <BalanceStack.Screen
         component={SendScreen}
