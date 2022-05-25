@@ -701,7 +701,7 @@
     "Oracle price -5%": "Prezzo Oracolo -5%",
     "Oracle price +5%": "Prezzo Oracolo +5%",
     "Est. time remaining": "Tempo rimanente stimato",
-    "Execution block": "Blocco di esecuzione",
+    "Settlement block": "Blocco di esecuzione",
     "To be confirmed": "Da confermare",
     "Enter an amount": "Gib einen Betrag ein",
     "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})"
@@ -723,7 +723,7 @@
     "Slippage tolerance": "Tolerancia a la fluctuación",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Scambio sul blocco future {{amountA}} {{fromTokenDisplaySymbol}} a {{toTokenDisplaySymbol}} sul prezzo oracolo {{percentageChange}}",
     "To be confirmed": "Da confermare",
-    "Execution block": "Blocco di esecuzione",
+    "Settlement block": "Blocco di esecuzione",
     "Resulting {{token}}": "Resultando {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1058,7 +1058,7 @@
     "Min. next bid": "Mínimo para la siguiente oferta",
     "The minimum bid a user must place in order to take part in the auction.": "La mínima oferta que un ofertante puede ejecutar para poder participar en la subasta.",
     "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "El ratio de colateralización representa la cantidad de colateral depositada en la bóveda con respecto a la cantidad del prestamo acumulado, se expresa en porcentage.",
-    "Execution block": "Blocco di esecuzione"
+    "Settlement block": "Blocco di esecuzione"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1411,7 +1411,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} sul prezzo dell'oracolo",
-    "Execution block": "Blocco di esecuzione",
+    "Settlement block": "Blocco di esecuzione",
     "The amount will be refunded automatically if the transaction does not go through.": "L'importo sarà rimborsato automaticamente se la transazione non va a buon fine.",
     "Future Swap": "Future Swap"
   },

@@ -681,7 +681,7 @@
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "请输入数量",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
@@ -702,7 +702,7 @@
     "Estimated to receive": "您大约会收到",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
     "To be confirmed": "To be confirmed",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1031,7 +1031,7 @@
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
     "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
-    "Execution block": "Execution block"
+    "Settlement block": "Settlement block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1388,7 +1388,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },

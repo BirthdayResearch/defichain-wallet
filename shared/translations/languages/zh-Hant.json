@@ -682,7 +682,7 @@
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})"
@@ -703,7 +703,7 @@
     "Estimated to receive": "您大約會收到",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "在未來區塊兌換 {{amountA}} {{fromTokenDisplaySymbol}} 至 {{toTokenDisplaySymbol}} 以預言機價格",
     "To be confirmed": "To be confirmed",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1034,7 +1034,7 @@
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
     "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
-    "Execution block": "Execution block"
+    "Settlement block": "Settlement block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1390,7 +1390,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },
