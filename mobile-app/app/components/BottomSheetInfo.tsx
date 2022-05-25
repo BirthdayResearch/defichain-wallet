@@ -9,8 +9,8 @@ export interface BottomSheetAlertInfo {
   message: string
 }
 interface BottomSheetInfoProps {
-  name: string
-  alertInfo: BottomSheetAlertInfo
+  name?: string
+  alertInfo?: BottomSheetAlertInfo
   infoIconStyle?: StyleProp<TextStyle>
 }
 
@@ -53,7 +53,7 @@ export function BottomSheetInfo ({
             light={tailwind('text-gray-900')}
             style={tailwind('ml-2 pr-10 text-2xl font-semibold')}
           >
-            {translate('components/BottomSheetInfo', alertInfo.title)}
+            {translate('components/BottomSheetInfo', alertInfo?.title ?? '')}
           </ThemedText>
 
         </View>
@@ -63,7 +63,7 @@ export function BottomSheetInfo ({
             dark={tailwind('text-gray-200')}
             light={tailwind('text-gray-700')}
           >
-            {translate('components/BottomSheetInfo', alertInfo.message)}
+            {translate('components/BottomSheetInfo', alertInfo?.message ?? '')}
           </ThemedText>
         </View>
       </View>

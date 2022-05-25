@@ -17,7 +17,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
@@ -107,8 +107,8 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'

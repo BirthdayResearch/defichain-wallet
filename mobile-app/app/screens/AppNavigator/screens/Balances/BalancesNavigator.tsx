@@ -26,6 +26,14 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { FutureSwapData } from '@store/futureSwap'
+import { FutureSwapScreen } from './screens/FutureSwapScreen'
+import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
+import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
+import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
+import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
+import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -62,7 +70,30 @@ export interface BalanceParamList {
     address?: string
     isAddNew: boolean
   }
-
+  FutureSwapScreen: undefined
+  FutureSwapDetailScreen: {
+    futureSwap: FutureSwapData
+    executionBlock: number
+  }
+  WithdrawFutureSwapScreen: {
+    futureSwap: FutureSwapData
+    executionBlock: number
+  }
+  ConfirmWithdrawFutureSwapScreen: {
+    source: {
+      amountToWithdraw: BigNumber
+      remainingAmount: BigNumber
+      remainingAmountInUSD: BigNumber
+      tokenId: string
+      displaySymbol: string
+      isLoanToken: boolean
+    }
+    destination: {
+      tokenId: string
+    }
+    fee: BigNumber
+    executionBlock: number
+  }
   [key: string]: undefined | object
 }
 
@@ -339,6 +370,101 @@ export function BalancesNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={AddLiquidityScreen}
+        name='AddLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Add Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={ConfirmAddLiquidityScreen}
+        name='ConfirmAddLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={WithdrawFutureSwapScreen}
+        name='WithdrawFutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/WithdrawFutureSwapScreen', 'Withdraw from future swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={RemoveLiquidityScreen}
+        name='RemoveLiquidity'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Remove Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={FutureSwapScreen}
+        name='FutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/FutureSwapScreen', 'Future Swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={ConfirmWithdrawFutureSwapScreen}
+        name='ConfirmWithdrawFutureSwapScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm withdrawal')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={RemoveLiquidityConfirmScreen}
+        name='RemoveLiquidityConfirmScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Removal')}
+              containerTestID={headerContainerTestId}
+            />
+          )
         }}
       />
     </BalanceStack.Navigator>

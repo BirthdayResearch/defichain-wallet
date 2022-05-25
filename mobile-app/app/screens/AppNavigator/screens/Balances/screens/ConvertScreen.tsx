@@ -20,7 +20,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { fetchTokens, tokensSelector } from '@store/wallet'
@@ -135,8 +135,8 @@ export function ConvertScreen (props: Props): JSX.Element {
         text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 mt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toString()}
         testID='transaction_fee'
         suffix='DFI'

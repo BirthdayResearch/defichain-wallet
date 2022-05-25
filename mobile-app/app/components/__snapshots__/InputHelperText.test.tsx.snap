@@ -31,10 +31,13 @@ exports[`input helper text should render 1`] = `
           "lineHeight": 24,
         },
         Array [
-          Object {
-            "fontSize": 14,
-            "lineHeight": 20,
-          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+            },
+            undefined,
+          ],
           Object {
             "color": "rgba(163, 163, 163, 1)",
           },
