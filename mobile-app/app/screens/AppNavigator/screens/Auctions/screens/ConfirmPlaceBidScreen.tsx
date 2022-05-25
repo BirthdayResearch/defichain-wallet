@@ -14,7 +14,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { AuctionsParamList } from '../AuctionNavigator'
 import { WalletAddressRow } from '@components/WalletAddressRow'
@@ -116,8 +116,8 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
           suffix: batch.loan.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={estimatedFees.toFixed(8)}
         testID='text_fee'
         suffix='DFI'

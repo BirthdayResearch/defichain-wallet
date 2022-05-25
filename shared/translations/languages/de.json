@@ -86,6 +86,7 @@
     "(From lowest value)": "(vom niedrigsten Wert aus)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
     "loans": "Darlehen",
+    "You have pending future swap(s)": "Du hast anstehende(n) Tausch-Terminkontrakt(e)",
     "This icon indicates that the price is provided by Oracles instead of the DEX": "Dieses Symbol zeigt an, dass der Preis von Orakeln und nicht von der DEX bereitgestellt wird"
   },
   "components/BottomSheetAddressDetail": {
@@ -660,7 +661,7 @@
     "Review and confirm transaction in the next screen": "Überprüfe und bestätige die Transaktion in der nächsten Ansicht",
     "Choose token for swap": "Token für den Tausch wählen",
     "Choose token to swap": "Token zum Tauschen wählen",
-    "Enter an amount": "Gib einen Betrag an",
+    "Enter amount to swap": "Betrag für Tausch eingeben",
     "{{token}} tokens converted": "Umgewandelte {{token}}-Token",
     "Select token": "Token auswählen",
     "UTXO to be converted": "Umzuwandelnde UTXO",
@@ -669,7 +670,18 @@
     "PRICE DETAILS": "PREISDETAILS",
     "FROM": "VON",
     "TO": "IN",
-    "Total to be swapped": "Zu tauschende Summe"
+    "Total to be swapped": "Zu tauschende Summe",
+    "Instant Swap": "Sofortiger Tausch",
+    "Future Swap": "Tausch-Terminkontrakt",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "Mit dem Future Swap erwirbst du {{tokenSymbol}} zu einem Preis, der 5% über dem Preisorakelwert liegt.",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "Mit dem Future Swap verkaufst du {{tokenSymbol}} um 5% unter dem Preisorakelwert",
+    "Oracle price -5%": "Preisorakelwert -5%",
+    "Oracle price +5%": "Preisorakelwert +5%",
+    "Est. time remaining": "Verbleibende geschätzte Zeit",
+    "Execution block": "Ausführungsblock",
+    "To be confirmed": "Noch zu bestätigen",
+    "Enter an amount": "Gib einen Betrag ein",
+    "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -677,13 +689,18 @@
     "SWAPPING": "WIRD GETAUSCHT",
     "You are swapping": "Du tauschst",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "Transaction date": "Transaktionsdatum",
     "Transaction type": "Transaktionsart",
     "Convert & swap": "Umwandeln & tauschen",
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Slippage-Toleranz",
-    "Estimated to receive": "Geschätzter Betrag"
+    "Estimated to receive": "Geschätzter Betrag",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tauschen auf zukünftigem Block {{amountA}} {{fromTokenDisplaySymbol}} => {{toTokenDisplaySymbol}} zum zukünftigem Preisorakelwert {{percentageChange}}",
+    "To be confirmed": "Noch zu bestätigen",
+    "Execution block": "Ausführungsblock",
+    "Resulting {{token}}": "Verbleibende {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
@@ -895,6 +912,7 @@
     "ACTIVE BID": "AKTIVES GEBOT",
     "{{h}}h": "{{h}}h",
     "{{m}}m": "{{m}}min",
+    "{{s}}s": "{{s}}s",
     "Total auction value (USD)": "Gesamtauktionswert (USD)",
     "Min. next bid": "Nächstes Mind. Gebot",
     "You are the highest bidder": "Du bist Höchstbietender",
@@ -1008,7 +1026,8 @@
     "This amount is the total interest amount from both vault and token interest rate.": "Dieser Betrag ist der Gesamtzinsbetrag zusammen gesetzt aus Vault- und Token-Zinssatz",
     "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können."
+    "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
+    "Execution block": "Ausführungsblock"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1334,6 +1353,35 @@
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Collateral for auction": "Zu ersteigern",
     "Insufficient funds": "Unzureichende Deckung"
+  },
+  "screens/WithdrawFutureSwapScreen": {
+    "FROM": "VON",
+    "TO": "IN",
+    "Enter an amount": "Gib einen Betrag ein",
+    "Amount to withdraw": "Abzuhebender Betrag",
+    "Remaining amount": "Verbleibender Betrag",
+    "CONTINUE": "WEITER",
+    "Select token": "Token auswählen",
+    "You are withdrawing": "Die Abhebung beträgt",
+    "Withdraw from future swap": "Entnahme aus dem Future Swap"
+  },
+  "screens/ConfirmWithdrawFutureSwapScreen": {
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "Transaction type": "Transaktionsart",
+    "Remaining amount": "Verbleibender Betrag",
+    "CONFIRM WITHDRAWAL": "AUSZAHLUNG BESTÄTIGEN",
+    "Confirm withdrawal": "Auszahlung bestätigen",
+    "WITHDRAWING": "ABHEBUNG",
+    "You are withdrawing": "Die Abhebung beträgt",
+    "Withdraw": "Abheben",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Gesperrten Betrag {{amountToWithdraw}} {{sourceDisplaySymbol}} vom Tausch-Terminkontrakt abheben",
+    "Withdraw future swap": "Future Swap-Auszahlung"
+  },
+  "screens/FutureSwapScreen": {
+    "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",
+    "Execution block": "Ausführungsblock",
+    "The amount will be refunded automatically if the transaction does not go through.": "Der Betrag wird automatisch zurückerstattet, wenn die Transaktion nicht zustande kommt.",
+    "Future Swap": "Tausch-Terminkontrakt"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
