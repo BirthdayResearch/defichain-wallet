@@ -226,7 +226,8 @@ export function EditCollateralScreen ({
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
                     onButtonPress: onAddCollateral as any
-                  }
+                  },
+                  isOraclePrice: true
                 }),
                 option: {
                   header: () => null,

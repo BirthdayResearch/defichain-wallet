@@ -75,6 +75,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                 {
                   props.rhs.suffixType === 'text' &&
                     <>
+                      <Text>{' '}</Text>
                       <ThemedText
                         light={tailwind('text-gray-500')}
                         dark={tailwind('text-gray-400')}

@@ -365,8 +365,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    setIsFutureSwap(activeButtonGroup === ButtonGroupTabKey.FutureSwap)
-  }, [activeButtonGroup])
+    setIsFutureSwap(activeButtonGroup === ButtonGroupTabKey.FutureSwap && isFutureSwapOptionEnabled)
+  }, [activeButtonGroup, isFutureSwapOptionEnabled])
 
   const navigateToConfirmScreen = (): void => {
     if (selectedPoolPairs === undefined || selectedTokenA === undefined || selectedTokenB === undefined || priceRates === undefined || tokenA === undefined || tokenB === undefined) {
@@ -380,7 +380,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       pairs: selectedPoolPairs,
       priceRates,
       slippage: slippageInDecimal,
-      futureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap
+      futureSwap: isFutureSwapOptionEnabled
         ? {
           executionBlock,
           transactionDate,
@@ -541,14 +541,14 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   />
                 </TouchableOpacity>
                 <View style={tailwind('flex-1')}>
-                  {activeButtonGroup === ButtonGroupTabKey.FutureSwap
+                  {isFutureSwap
                     ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={`Oracle price ${oraclePriceText}`} />
                     : <TargetTokenRow control={control} token={selectedTokenB} />}
                 </View>
               </View>
               {isConversionRequired && <ConversionInfoText />}
             </View>}
-          {isFutureSwapOptionEnabled && activeButtonGroup === ButtonGroupTabKey.FutureSwap && selectedTokenB !== undefined &&
+          {isFutureSwap && selectedTokenB !== undefined &&
             <ThemedView
               style={tailwind('flex flex-row py-2 px-4 mt-6 items-center rounded-t rounded-b-lg justify-between')}
               light={tailwind('bg-blue-100')}
@@ -593,6 +593,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               executionBlock={executionBlock}
               timeRemaining={timeRemaining}
               transactionDate={transactionDate}
+              oraclePriceText={oraclePriceText}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -728,7 +729,8 @@ function TransactionDetailsSection ({
   priceRate,
   executionBlock,
   timeRemaining,
-  transactionDate
+  transactionDate,
+  oraclePriceText
 }: {
   isFutureSwap: boolean
   conversionAmount: BigNumber
@@ -741,6 +743,7 @@ function TransactionDetailsSection ({
   executionBlock: number
   timeRemaining: string
   transactionDate: string
+  oraclePriceText: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   const { getTokenPrice } = useTokenPrice()
@@ -784,7 +787,6 @@ function TransactionDetailsSection ({
               }}
               textStyle={tailwind('text-sm font-normal')}
               rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-              isOraclePrice
             />
           </>
         )
@@ -813,7 +815,7 @@ function TransactionDetailsSection ({
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
               rhs={{
-                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/CompositeSwapScreen', `Oracle price ${oraclePriceText}`),
                 testID: 'estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
