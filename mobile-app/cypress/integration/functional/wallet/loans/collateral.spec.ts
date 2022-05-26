@@ -318,7 +318,7 @@ context('Wallet - Loans - Add/Remove Collateral - Invalid data', () => {
   })
 })
 
-context('Wallet - Loans - 50% valid collateral token ratio', () => {
+context('Wallet - Loans - valid collateral token ratio', () => {
   const walletTheme = { isDark: false }
   let vaultId: string
   beforeEach(function () {
@@ -377,7 +377,7 @@ context('Wallet - Loans - 50% valid collateral token ratio', () => {
     cy.getByTestID('collateral_card_remove_DFI').click()
     checkCollateralFormValues('How much DFI to remove?', 'DFI', '10')
     cy.getByTestID('form_input_text').type('6').blur()
-    cy.getByTestID('vault_min_share_warning').should('exist')
+    cy.getByTestID('vault_min_share_warning').should('not.exist')
   })
 
   it('should have valid vault requirement', () => {

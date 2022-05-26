@@ -46,3 +46,35 @@ export function useMaxLoanAmount ({
   , 0)
   return maxLoanBoundedByColRatio.isLessThanOrEqualTo(maxLoanBoundedByColCondition) ? maxLoanBoundedByColRatio : maxLoanBoundedByColCondition
 }
+
+interface useMaxLoanValueProps {
+  totalCollateralValue: BigNumber
+  collateralAmounts: LoanVaultTokenAmount[]
+  existingLoanValue: BigNumber
+  minColRatio: BigNumber
+}
+
+/**
+ * @returns additional loan VALUE that can be taken
+ */
+export function useMaxLoanValue ({
+  totalCollateralValue,
+  collateralAmounts,
+  existingLoanValue,
+  minColRatio
+}: useMaxLoanValueProps): BigNumber {
+  // 1st condition
+  const maxLoanBoundedByColRatio = totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue)
+
+  // 2nd condition
+  const getSpecialCollateralValue = (): BigNumber => {
+    const dfiCollateral = collateralAmounts.find(colAmount => colAmount.displaySymbol === 'DFI')
+    const dfiCollateralValue = new BigNumber(dfiCollateral?.amount ?? 0).multipliedBy(getActivePrice('DFI', dfiCollateral?.activePrice))
+    const dusdCollateral = collateralAmounts.find(colAmount => colAmount.displaySymbol === 'DUSD')
+    const dusdCollateralValue = new BigNumber(dusdCollateral?.amount ?? 0).multipliedBy(getActivePrice('DUSD'))
+    return dfiCollateralValue.plus(dusdCollateralValue)
+  }
+
+  const maxLoanBoundedByColCondition = getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue)
+  return maxLoanBoundedByColRatio.isLessThanOrEqualTo(maxLoanBoundedByColCondition) ? maxLoanBoundedByColRatio : maxLoanBoundedByColCondition
+}

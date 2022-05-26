@@ -32,6 +32,7 @@ import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/he
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 import { IconTooltip } from '@components/tooltip/IconTooltip'
+import { useMaxLoanValue } from '../hooks/MaxLoanAmount'
 
 export interface AddOrRemoveCollateralFormProps {
   collateralItem: CollateralItem
@@ -134,6 +135,23 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     token.id,
     totalAmount
   )
+  // use the user input value to calculate max loan
+  const maxLoanValue = useMaxLoanValue({
+    totalCollateralValue: totalCalculatedCollateralValue,
+    collateralAmounts: vault.collateralAmounts.map(colAmount => {
+      if (colAmount.displaySymbol === token.displaySymbol) {
+        return {
+          ...colAmount,
+          amount: isAdd ? new BigNumber(colAmount.amount).plus(inputValue).toFixed(8) : new BigNumber(colAmount.amount).minus(inputValue).toFixed(8)
+        }
+      }
+      return colAmount
+    }),
+    existingLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio)
+  })
+  console.log(maxLoanValue.toFixed(8))
+
   const isValidCollateralRatio = resultingColRatio.isGreaterThanOrEqualTo(vault.loanScheme.minColRatio) || resultingColRatio.isNaN() || resultingColRatio.isLessThanOrEqualTo(0)
   const removeMaxCollateralAmount = !isAdd && new BigNumber(collateralValue).isEqualTo(new BigNumber(available)) && prices.vaultShare.isNaN() && collateralItem !== undefined
   const displayNA = new BigNumber(collateralValue).isZero() || collateralValue === '' || removeMaxCollateralAmount
@@ -392,7 +410,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         </View>
       )}
       <Button
-        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && hasLoan)}
+        disabled={!isValid || hasPendingJob || hasPendingBroadcastJob || (isFeatureAvailable('dusd_vault_share') && !isAdd && !isValidCollateralRatio && hasLoan) || maxLoanValue.isNegative()}
         label={translate('components/AddOrRemoveCollateralForm', isAdd ? 'ADD TOKEN AS COLLATERAL' : 'REMOVE COLLATERAL AMOUNT')}
         onPress={() => onButtonPress({
           token,
@@ -409,6 +427,16 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           testID='vault_min_share_warning'
         >
           {translate('screens/BorrowLoanTokenScreen', 'Removing collateral will liquidate your vault')}
+        </ThemedText>
+      )}
+      {maxLoanValue.isNegative() && (
+        <ThemedText
+          dark={tailwind('text-error-500')}
+          light={tailwind('text-error-500')}
+          style={tailwind('text-sm text-center')}
+          testID='vault_min_share_warning'
+        >
+          {translate('screens/BorrowLoanTokenScreen', 'At least 50% of the minimum required collateral must be in DFI or DUSD')}
         </ThemedText>
       )}
       <ThemedText
