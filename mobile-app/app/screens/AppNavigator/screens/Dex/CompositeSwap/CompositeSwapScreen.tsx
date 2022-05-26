@@ -542,7 +542,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 </TouchableOpacity>
                 <View style={tailwind('flex-1')}>
                   {isFutureSwap
-                    ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={`Oracle price ${oraclePriceText}`} />
+                    ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={oraclePriceText} />
                     : <TargetTokenRow control={control} token={selectedTokenB} />}
                 </View>
               </View>
@@ -965,7 +965,9 @@ function OraclePriceRow ({
         light={tailwind('text-gray-400')}
         dark={tailwind('text-gray-500')}
         testID='oracle_price_percentage'
-      >{translate('screens/CompositeSwapScreen', oraclePriceText)}
+      >{translate('screens/CompositeSwapScreen', 'Oracle price {{percentageChange}}', {
+        percentageChange: oraclePriceText
+      })}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center')}>
         <Icon height={20} width={20} />
