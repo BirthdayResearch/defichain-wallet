@@ -673,12 +673,12 @@
     "Total to be swapped": "Zu tauschende Summe",
     "Instant Swap": "Sofortiger Tausch",
     "Future Swap": "Tausch-Terminkontrakt",
-    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "Mit dem Future Swap erwirbst du {{tokenSymbol}} zu einem Preis, der 5% über dem Preisorakelwert liegt.",
-    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "Mit dem Future Swap verkaufst du {{tokenSymbol}} um 5% unter dem Preisorakelwert",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "Mit dem Future Swap erwirbst du {{tokenSymbol}} zu einem Preis, der 5% über dem Preisorakelwert zum Abrechnungs-Block liegt.",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "Mit dem Future Swap verkaufst du {{tokenSymbol}} um 5% unter dem Preisorakelwert zum Abrechnungs-Block.",
     "Oracle price -5%": "Preisorakelwert -5%",
     "Oracle price +5%": "Preisorakelwert +5%",
     "Est. time remaining": "Verbleibende geschätzte Zeit",
-    "Execution block": "Ausführungsblock",
+    "Settlement block": "Abrechnungs-Block",
     "To be confirmed": "Noch zu bestätigen",
     "Enter an amount": "Gib einen Betrag ein",
     "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})"
@@ -699,7 +699,7 @@
     "Estimated to receive": "Geschätzter Betrag",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tauschen auf zukünftigem Block {{amountA}} {{fromTokenDisplaySymbol}} => {{toTokenDisplaySymbol}} zum zukünftigem Preisorakelwert {{percentageChange}}",
     "To be confirmed": "Noch zu bestätigen",
-    "Execution block": "Ausführungsblock",
+    "Settlement block": "Ausführungsblock",
     "Resulting {{token}}": "Verbleibende {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1027,7 +1027,7 @@
     "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
     "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
-    "Execution block": "Ausführungsblock"
+    "Settlement block": "Ausführungsblock"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1379,7 +1379,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",
-    "Execution block": "Ausführungsblock",
+    "Settlement block": "Ausführungsblock",
     "The amount will be refunded automatically if the transaction does not go through.": "Der Betrag wird automatisch zurückerstattet, wenn die Transaktion nicht zustande kommt.",
     "Future Swap": "Tausch-Terminkontrakt"
   },

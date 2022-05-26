@@ -176,7 +176,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               textStyle={tailwind('text-sm font-normal')}
             />
             <NumberRow
-              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Execution block')}
+              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Settlement block')}
               rhs={{
                 testID: 'confirm_execution_block',
                 value: futureSwap.executionBlock
