@@ -92,7 +92,7 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -278,7 +278,7 @@ exports[`info text should match snapshot for error Cannot payback loan while any
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -464,7 +464,7 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -650,7 +650,7 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -836,7 +836,7 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -1022,7 +1022,7 @@ exports[`info text should match snapshot for error Swap price is higher than the
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -1181,7 +1181,7 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -1367,7 +1367,7 @@ exports[`info text should match snapshot for error Vault does not have enough co
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -1553,7 +1553,7 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -1739,7 +1739,7 @@ exports[`info text should match snapshot for error no prevouts available to crea
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
@@ -1925,7 +1925,7 @@ exports[`info text should match snapshot for error not enough balance after comb
     </View>
     <Text
       ellipsizeMode="tail"
-      numberOfLines={false}
+      numberOfLines={0}
       onTextLayout={[Function]}
       style={
         Array [
