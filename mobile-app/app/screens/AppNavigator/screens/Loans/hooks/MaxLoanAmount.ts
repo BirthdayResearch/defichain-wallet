@@ -42,7 +42,7 @@ export function useMaxLoanAmount ({
   }
 
   const maxLoanBoundedByColCondition = BigNumber.max(
-    getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue)
+    getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue).dividedBy(loanActivePrice)
   , 0)
   return maxLoanBoundedByColRatio.isLessThanOrEqualTo(maxLoanBoundedByColCondition) ? maxLoanBoundedByColRatio : maxLoanBoundedByColCondition
 }
