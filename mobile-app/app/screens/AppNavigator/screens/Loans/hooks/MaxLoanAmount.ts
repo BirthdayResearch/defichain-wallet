@@ -27,8 +27,10 @@ export function useMaxLoanAmount ({
   interestPerBlock
 }: useMaxLoanAmountProps): BigNumber {
   // 1st condition
-  const maxLoanBoundedByColRatio = totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue).dividedBy(
-    loanActivePrice).dividedBy(interestPerBlock.plus(1))
+  const maxLoanBoundedByColRatio = BigNumber.max(
+    totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue).dividedBy(
+      loanActivePrice).dividedBy(interestPerBlock.plus(1))
+    , 0)
 
   // 2nd condition
   const getSpecialCollateralValue = (): BigNumber => {
@@ -39,6 +41,8 @@ export function useMaxLoanAmount ({
     return dfiCollateralValue.plus(dusdCollateralValue)
   }
 
-  const maxLoanBoundedByColCondition = BigNumber.max(getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue), 0)
+  const maxLoanBoundedByColCondition = BigNumber.max(
+    getSpecialCollateralValue().multipliedBy(2).dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue)
+  , 0)
   return maxLoanBoundedByColRatio.isLessThanOrEqualTo(maxLoanBoundedByColCondition) ? maxLoanBoundedByColRatio : maxLoanBoundedByColCondition
 }
