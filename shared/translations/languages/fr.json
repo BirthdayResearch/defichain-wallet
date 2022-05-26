@@ -685,8 +685,7 @@
     "Future Swap": "Échange à terme",
     "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "En utilisant le future swap, vous achetez {{tokenSymbol}} à 5% de plus que le prix oracle au bloc de règlement",
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "En utilisant le Future Swap, vous vendez {{tokenSymbol}} à un prix inférieur de 5% au prix oracle au bloc de règlement",
-    "Oracle price -5%": "Prix Oracle -5%",
-    "Oracle price +5%": "Prix Oracle +5%",
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
     "Est. time remaining": "Temps estimé restant",
     "Settlement block": "Bloc de règlement",
     "To be confirmed": "À confirmer",
@@ -710,7 +709,8 @@
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Échange sur le bloc à terme {{amountA}} {{fromTokenDisplaySymbol}} en {{toTokenDisplaySymbol}} sur le prix oracle {{percentageChange}}",
     "To be confirmed": "À confirmer",
     "Settlement block": "Bloc d’exécution",
-    "Resulting {{token}}": "{{token}} restants"
+    "Resulting {{token}}": "{{token}} restants",
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",

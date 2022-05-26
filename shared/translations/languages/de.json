@@ -675,8 +675,7 @@
     "Future Swap": "Tausch-Terminkontrakt",
     "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "Mit dem Future Swap erwirbst du {{tokenSymbol}} zu einem Preis, der 5% über dem Preisorakelwert zum Abrechnungs-Block liegt.",
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "Mit dem Future Swap verkaufst du {{tokenSymbol}} um 5% unter dem Preisorakelwert zum Abrechnungs-Block.",
-    "Oracle price -5%": "Preisorakelwert -5%",
-    "Oracle price +5%": "Preisorakelwert +5%",
+    "Oracle price {{percentageChange}}": "Preisorakelwert {{percentageChange}}",
     "Est. time remaining": "Verbleibende geschätzte Zeit",
     "Settlement block": "Abrechnungs-Block",
     "To be confirmed": "Noch zu bestätigen",
@@ -697,10 +696,11 @@
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Slippage-Toleranz",
     "Estimated to receive": "Geschätzter Betrag",
-    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tauschen auf zukünftigem Block {{amountA}} {{fromTokenDisplaySymbol}} => {{toTokenDisplaySymbol}} zum zukünftigem Preisorakelwert {{percentageChange}}",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tausch beim Erreichen des terminierten Blocks von {{amountA}} {{fromTokenDisplaySymbol}} gegen {{toTokenDisplaySymbol}} zum Preisorakelwert {{percentageChange}}",
     "To be confirmed": "Noch zu bestätigen",
     "Settlement block": "Ausführungsblock",
-    "Resulting {{token}}": "Verbleibende {{token}}"
+    "Resulting {{token}}": "Verbleibende {{token}}",
+    "Oracle price {{percentageChange}}": "Preisorakelwert {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
