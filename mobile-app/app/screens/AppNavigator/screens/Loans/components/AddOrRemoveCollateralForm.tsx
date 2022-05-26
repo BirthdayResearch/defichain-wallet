@@ -167,7 +167,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           })}
         </ThemedText>
         {onCloseButtonPress !== undefined && (
-          <TouchableOpacity onPress={onCloseButtonPress}>
+          <TouchableOpacity onPress={onCloseButtonPress} testID='close_add_or_remove_col_form'>
             <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
           </TouchableOpacity>
         )}

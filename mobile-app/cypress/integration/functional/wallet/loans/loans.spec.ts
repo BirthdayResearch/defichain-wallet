@@ -699,7 +699,7 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
   })
 })
 
-context('Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share', () => {
+context('Wallet - Loans - Take Loans using DFI and DUSD', () => {
   let vaultId = ''
   const walletTheme = { isDark: false }
   before(function () {
@@ -736,7 +736,7 @@ context('Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share', () 
     cy.getByTestID('vault_card_0_total_collateral').contains('$1,009.80')
   })
 
-  it('should add loan using DFI and DUSD as 50% vault share', function () {
+  it('should add loan using DFI and DUSD', function () {
     let annualInterest: string
     cy.getByTestID('vault_card_0_manage_loans_button').click()
     checkVaultDetailValues('READY', vaultId, '$1,009.80', '$0.00', '5')
@@ -775,7 +775,7 @@ context('Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share', () 
     cy.closeOceanInterface()
   })
 
-  it('should not able to remove required collateral token below its 50% vault share', function () {
+  it('should be able to remove DUSD collateral token below its 50% vault share', function () {
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.getByTestID('collateral_card_remove_DUSD').click()
     cy.getByTestID('form_input_text').type('20').blur()
@@ -785,18 +785,28 @@ context('Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share', () 
         expect(colRatio).to.be.closeTo(990, 1)
       })
     cy.getByTestID('bottom-sheet-vault-requirement-text').contains('49.50%')
-    cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
-    cy.go('back')
+    cy.getByTestID('add_collateral_button_submit').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('close_add_or_remove_col_form').click()
+    cy.removeCollateral('20', 'DUSD', 989.93)
+  })
 
-    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+  it('should be able to remove DFI collateral token below its 50% vault share', function () {
     cy.getByTestID('collateral_card_remove_DFI').click()
-    cy.getByTestID('form_input_text').type('1').blur()
+    cy.getByTestID('form_input_text').type('2.45').blur()
     cy.getByTestID('resulting_collateralization').invoke('text')
       .then(colRatioText => {
         const colRatio = parseFloat(colRatioText.replace('%', ''))
-        expect(colRatio).to.be.closeTo(909.9, 1)
+        expect(colRatio).to.be.closeTo(744.53, 1)
       })
-    cy.getByTestID('bottom-sheet-vault-requirement-text').contains('45.04%')
-    cy.getByTestID('add_collateral_button_submit').should('have.attr', 'aria-disabled')
+    cy.getByTestID('bottom-sheet-vault-requirement-text').contains('32.89%')
+    cy.getByTestID('add_collateral_button_submit').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('close_add_or_remove_col_form').click()
+    cy.removeCollateral('2.45', 'DFI', 744.53)
+  })
+
+  it('should be able to borrow another loan when DFI and DUSD collateral are below 50% vault share', function () {
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+    cy.takeLoan('10', 'dTU10', '0')
   })
 })

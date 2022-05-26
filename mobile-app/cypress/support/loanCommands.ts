@@ -84,8 +84,9 @@ declare global {
        * @description Take Loan
        * @param {string} amount - amount to loan
        * @param {string} symbol - symbol of token
+       * @param {string} vaultIndex - index of vault
        * */
-      takeLoan: (amount: string, symbol: string) => Chainable<Element>
+      takeLoan: (amount: string, symbol: string, vaultIndex: string ) => Chainable<Element>
 
       /**
        * @description Vault Tag
@@ -136,8 +137,10 @@ Cypress.Commands.add('removeCollateral', (amount: string, symbol: string, result
   cy.closeOceanInterface()
 })
 
-Cypress.Commands.add('takeLoan', (amount: string, symbol: string) => {
+Cypress.Commands.add('takeLoan', (amount: string, symbol: string, vaultIndex: string) => {
   cy.getByTestID(`loan_card_${symbol}`).click()
+  cy.getByTestID('borrow_loan_vault').click()
+  cy.getByTestID(`select_vault_${vaultIndex}`).click()
   cy.getByTestID('form_input_borrow').type(amount).blur()
   cy.getByTestID('borrow_loan_submit_button').click()
   cy.getByTestID('button_confirm_borrow_loan').click().wait(3000)
