@@ -688,7 +688,7 @@
     "Oracle price -5%": "Prix Oracle -5%",
     "Oracle price +5%": "Prix Oracle +5%",
     "Est. time remaining": "Temps estimé restant",
-    "Execution block": "Bloc d’exécution",
+    "Settlement block": "Bloc d’exécution",
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})"
@@ -709,7 +709,7 @@
     "Estimated to receive": "Estimé à recevoir",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Échange sur le bloc à terme {{amountA}} {{fromTokenDisplaySymbol}} en {{toTokenDisplaySymbol}} sur le prix oracle {{percentageChange}}",
     "To be confirmed": "À confirmer",
-    "Execution block": "Bloc d’exécution",
+    "Settlement block": "Bloc d’exécution",
     "Resulting {{token}}": "{{token}} restants"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1038,7 +1038,7 @@
     "Annual vault interest": "Intérêts annuels du Vault",
     "Min. next bid": "Surenchère min.",
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
-    "Execution block": "Bloc d’exécution"
+    "Settlement block": "Bloc d’exécution"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1392,7 +1392,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} sur le prix oracle",
-    "Execution block": "Bloc d’exécution",
+    "Settlement block": "Bloc d’exécution",
     "The amount will be refunded automatically if the transaction does not go through.": "Le montant sera remboursé automatiquement si la transaction n’aboutit pas.",
     "Future Swap": "Échange à terme"
   },
