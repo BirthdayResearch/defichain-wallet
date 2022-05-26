@@ -21,16 +21,15 @@ export function useFutureSwap (props: SwapType): {
   const fromTokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, props.fromTokenDisplaySymbol ?? ''))
   const toTokenDetail = useSelector((state: RootState) => tokenSelectorByDisplaySymbol(state.wallet, props.toTokenDisplaySymbol ?? ''))
   const { isFeatureAvailable } = useFeatureFlagContext()
-  const isFutureSwapEnabled = isFeatureAvailable('future_swap')
-  const hasTokenDetails = fromTokenDetail !== undefined && toTokenDetail !== undefined
+  const isFutureSwapEnabled = isFeatureAvailable('future_swap') && fromTokenDetail !== undefined && toTokenDetail !== undefined
 
-  if (isFutureSwapEnabled && hasTokenDetails && fromTokenDetail.isLoanToken && toTokenDetail.displaySymbol === 'DUSD') {
+  if (isFutureSwapEnabled && fromTokenDetail.isLoanToken && toTokenDetail.displaySymbol === 'DUSD') {
     return {
       isFutureSwapOptionEnabled: true,
       oraclePriceText: '-5%',
       isSourceLoanToken: true
     }
-  } else if (isFutureSwapEnabled && hasTokenDetails && toTokenDetail.isLoanToken && fromTokenDetail.displaySymbol === 'DUSD') {
+  } else if (isFutureSwapEnabled && toTokenDetail.isLoanToken && fromTokenDetail.displaySymbol === 'DUSD') {
     return {
       isFutureSwapOptionEnabled: true,
       oraclePriceText: '+5%',
