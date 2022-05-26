@@ -43,7 +43,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
     if (Platform.OS === 'web') {
       return numberOfLines
     }
-    return (canExpand && !expand) && numberOfLines
+    return (canExpand && !expand) ? numberOfLines : 0
   }
 
   const err = errorMessageMapping(errMsg)
