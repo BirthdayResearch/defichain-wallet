@@ -60,6 +60,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Allow DUSD payment on loans (+1% fee if paying a Non-DUSD loan)',
       networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'future_swap',
+      name: 'Future swap',
+      stage: 'public',
+      version: '>1.11.0',
+      description: 'Allow Future Swap at Settlement block',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }

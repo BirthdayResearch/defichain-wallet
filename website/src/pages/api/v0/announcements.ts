@@ -11,16 +11,23 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
-      en: 'Fort Canning Road upgrade is live!',
-      de: 'Fort Canning Road ist offiziell live!',
-      'zh-Hans': 'Fort Canning Road升级现已上线',
-      'zh-Hant': 'Fort Canning Road 升級現已上線',
-      fr: 'Fort Canning Road est officiellement en ligne !',
-      es: 'La actualizacion Fort Canning Road ya está en vivo!',
-      it: 'L\'aggiornamento di Fort Canning Road è attivo!'
+      en: 'An update is available. Download now.',
+      de: 'Ein Update ist verfügbar. Jetzt herunterladen.',
+      'zh-Hans': '已有新版本。请立即更新。',
+      'zh-Hant': '已有新版本。請立即更新。',
+      fr: 'Une mise à jour est disponible. Téléchargez maintenant.',
+      es: 'Hay una actualización disponible. Descargar ahora.',
+      it: 'È disponibile un update. Scaricalo ora.'
     },
-    version: '>=1.2.0',
-    id: '4',
-    type: 'OTHER_ANNOUNCEMENT'
+    version: '<1.11.0',
+    id: '5',
+    type: 'OTHER_ANNOUNCEMENT',
+    url: {
+      ios: 'https://apps.apple.com/us/app/defichain-wallet/id1572472820',
+      android: 'https://play.google.com/store/apps/details?id=com.defichain.app',
+      web: '',
+      windows: '',
+      macos: ''
+    }
   }])
 }

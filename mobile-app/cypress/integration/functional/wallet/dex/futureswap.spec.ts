@@ -41,7 +41,7 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price +5%')
     cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
     cy.getByTestID('future_swap_warning_text').contains('buying dTU10 at 5% more')
-    cy.getByTestID('future_swap_warning_text').contains('than the oracle price')
+    cy.getByTestID('future_swap_warning_text').contains('than the oracle price at Settlement block')
   })
 
   it('should disable continue button if amount is >available/zero/NaN/', function () {
@@ -56,7 +56,7 @@ context('Wallet - DEX - Future Swap', () => {
   })
 
   it('should display correct transaction details', function () {
-    cy.getByTestID('estimated_to_receive').should('have.text', 'To be confirmed')
+    cy.getByTestID('estimated_to_receive').should('have.text', 'Oracle price +5%')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('execution_block').should('exist')
     cy.getByTestID('time_remaining').should('exist')
@@ -67,11 +67,11 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('button_confirm_submit').click()
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Future swap')
     cy.getByTestID('confirm_text_transaction_date').should('have.text', dayjs().add(30, 'second').format('MMM D, YYYY')) // blocksSeconds = 30
-    cy.getByTestID('confirm_estimated_to_receive').should('have.text', 'To be confirmed')
+    cy.getByTestID('confirm_estimated_to_receive').should('have.text', 'Oracle price +5%')
     cy.getByTestID('confirm_text_fee').should('exist')
     cy.getByTestID('resulting_DUSD').should('have.text', '0.00000000')
     cy.getByTestID('resulting_DUSD_suffix').should('have.text', 'DUSD')
-    cy.getByTestID('resulting_dTU10').should('have.text', 'To be confirmed')
+    cy.getByTestID('resulting_dTU10').should('have.text', 'Oracle price +5%')
     cy.wait(3000)
     cy.getByTestID('button_confirm_swap').click().wait(3000)
     cy.getByTestID('txn_authorization_description').should('have.text', 'Swap on future block 10.00000000 DUSD to dTU10 on oracle price +5%')
@@ -94,7 +94,7 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price -5%')
     cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
     cy.getByTestID('future_swap_warning_text').contains('selling dTU10 at 5% lower')
-    cy.getByTestID('future_swap_warning_text').contains('than the oracle price')
+    cy.getByTestID('future_swap_warning_text').contains('than the oracle price at Settlement block')
   })
 
   it('should hide future swap option if no DUSD and loan token ', function () {

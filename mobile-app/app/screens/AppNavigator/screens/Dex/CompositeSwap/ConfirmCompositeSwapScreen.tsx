@@ -176,7 +176,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               textStyle={tailwind('text-sm font-normal')}
             />
             <NumberRow
-              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Execution block')}
+              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Settlement block')}
               rhs={{
                 testID: 'confirm_execution_block',
                 value: futureSwap.executionBlock
@@ -185,7 +185,9 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
               rhs={{
-                value: translate('screens/CompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/CompositeSwapScreen', 'Oracle price {{percentageChange}}', {
+                  percentageChange: futureSwap.oraclePriceText
+                }),
                 testID: 'confirm_estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
@@ -202,7 +204,6 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               suffix: swap.tokenTo.displaySymbol
             }}
             rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-            isOraclePrice
           />
         )}
       <InfoRow
@@ -251,7 +252,9 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             <TextRow
               lhs={translate('screens/ConfirmCompositeSwapScreen', 'Resulting {{token}}', { token: tokenB.displaySymbol })}
               rhs={{
-                value: translate('screens/ConfirmCompositeSwapScreen', 'To be confirmed'),
+                value: translate('screens/ConfirmCompositeSwapScreen', 'Oracle price {{percentageChange}}', {
+                  percentageChange: futureSwap.oraclePriceText
+                }),
                 testID: `resulting_${tokenB.displaySymbol}`
               }}
               textStyle={tailwind('text-sm font-normal')}

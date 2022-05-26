@@ -137,7 +137,7 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
         <ThemedView
           dark={tailwind('bg-gray-800')}
           light={tailwind('bg-white')}
-          style={tailwind('px-4 m-4 items-stretch rounded-b')}
+          style={tailwind('m-4 items-stretch rounded-b')}
         >
           <NumberRow
             lhs={translate('screens/WithdrawFutureSwapScreen', 'Amount to withdraw')}
@@ -150,7 +150,6 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
             lhsThemedProps={rowStyle.lhsThemedProps}
             rhsThemedProps={rowStyle.rhsThemedProps}
             rhsUsdAmount={getTokenPrice(source.symbol, new BigNumber(amountToWithdraw), false)}
-            isOraclePrice
           />
           <NumberRow
             lhs={translate('screens/WithdrawFutureSwapScreen', 'Remaining amount')}
@@ -161,7 +160,6 @@ export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
               suffix: source.displaySymbol
             }}
             rhsUsdAmount={remainingAmountInUSD}
-            isOraclePrice
             lhsThemedProps={rowStyle.lhsThemedProps}
             rhsThemedProps={rowStyle.rhsThemedProps}
           />

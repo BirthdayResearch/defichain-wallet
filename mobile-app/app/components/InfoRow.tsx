@@ -32,7 +32,7 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
       message: 'This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.'
     }],
     [InfoType.ExecutionBlock, {
-      title: 'Execution block',
+      title: 'Settlement block',
       message: 'The block height at which the future swap transaction will be executed.'
     }]
   ])
