@@ -41,7 +41,7 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price +5%')
     cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
     cy.getByTestID('future_swap_warning_text').contains('buying dTU10 at 5% more')
-    cy.getByTestID('future_swap_warning_text').contains('than the oracle price')
+    cy.getByTestID('future_swap_warning_text').contains('than the oracle price at Settlement block')
   })
 
   it('should disable continue button if amount is >available/zero/NaN/', function () {
@@ -94,7 +94,7 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price -5%')
     cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
     cy.getByTestID('future_swap_warning_text').contains('selling dTU10 at 5% lower')
-    cy.getByTestID('future_swap_warning_text').contains('than the oracle price')
+    cy.getByTestID('future_swap_warning_text').contains('than the oracle price at Settlement block')
   })
 
   it('should hide future swap option if no DUSD and loan token ', function () {

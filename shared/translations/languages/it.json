@@ -694,12 +694,12 @@
     "Slippage tolerance": "Tolleranza di slippage",
     "Instant Swap": "Instant Swap",
     "Future Swap": "Future Swap",
-    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price",
-    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
     "Oracle price -5%": "Oracle price -5%",
     "Oracle price +5%": "Oracle price +5%",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "Inserisci un importo",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
@@ -721,7 +721,7 @@
     "Slippage tolerance": "Tolleranza di slippage",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
     "To be confirmed": "To be confirmed",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1052,7 +1052,7 @@
     "Annual vault interest": "Interesse annuo del vault",
     "Min. next bid": "Min. prossima offerta",
     "The minimum bid a user must place in order to take part in the auction.": "Offerta minima che un utente deve fare per partecipare all'asta.",
-    "Execution block": "Execution block"
+    "Settlement block": "Settlement block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1405,7 +1405,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },

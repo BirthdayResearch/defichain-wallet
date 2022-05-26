@@ -186,7 +186,7 @@ function ExecutionBlock ({ executionBlock, transactionDate }: { executionBlock: 
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
       >
-        {`${translate('screens/FutureSwapScreen', 'Execution block')}:`}
+        {`${translate('screens/FutureSwapScreen', 'Settlement block')}:`}
       </ThemedText>
       <NumberFormat
         value={executionBlock}
