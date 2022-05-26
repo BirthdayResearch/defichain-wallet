@@ -150,7 +150,6 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio)
   })
-  console.log(maxLoanValue.toFixed(8))
 
   const isValidCollateralRatio = resultingColRatio.isGreaterThanOrEqualTo(vault.loanScheme.minColRatio) || resultingColRatio.isNaN() || resultingColRatio.isLessThanOrEqualTo(0)
   const removeMaxCollateralAmount = !isAdd && new BigNumber(collateralValue).isEqualTo(new BigNumber(available)) && prices.vaultShare.isNaN() && collateralItem !== undefined
