@@ -561,10 +561,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 testID='future_swap_warning_text'
               >
                 {oraclePriceText === '+5%'
-                  ? `${translate('screens/CompositeSwapScreen', 'By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price', {
+                  ? `${translate('screens/CompositeSwapScreen', 'By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block', {
                     tokenSymbol: selectedTokenB.displaySymbol
                   })}`
-                  : `${translate('screens/CompositeSwapScreen', 'By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price', {
+                  : `${translate('screens/CompositeSwapScreen', 'By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block', {
                     tokenSymbol: selectedTokenA?.displaySymbol
                   })}`}
               </ThemedText>
