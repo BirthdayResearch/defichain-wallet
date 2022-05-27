@@ -380,7 +380,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       pairs: selectedPoolPairs,
       priceRates,
       slippage: slippageInDecimal,
-      futureSwap: isFutureSwapOptionEnabled
+      futureSwap: isFutureSwap
         ? {
           executionBlock,
           transactionDate,
