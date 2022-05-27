@@ -100,7 +100,8 @@
     "Lowest Token Amount": "Importo del token più basso",
     "A to Z": "Da A a Z",
     "Z to A": "Da Z a A",
-    "AVAILABLE ASSETS": "ASSET DISPONIBILI"
+    "AVAILABLE ASSETS": "ASSET DISPONIBILI",
+    "Asset value": "Valore degli asset"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREA INDIRIZZO DEL WALLET",

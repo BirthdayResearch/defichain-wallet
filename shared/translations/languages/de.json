@@ -95,7 +95,8 @@
     "Lowest Token Amount": "Niedrigster Token-Betrag",
     "A to Z": "A bis Z",
     "Z to A": "Z bis A",
-    "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA"
+    "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
+    "Asset value": "Wert der Aktiva"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",

@@ -95,7 +95,8 @@
     "Lowest Token Amount": "最低代币数量",
     "A to Z": "A 到 Z",
     "Z to A": "Z 到 A",
-    "AVAILABLE ASSETS": "可用资产"
+    "AVAILABLE ASSETS": "可用资产",
+    "Asset value": "资产价值"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",

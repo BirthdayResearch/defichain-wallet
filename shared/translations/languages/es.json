@@ -98,7 +98,8 @@
     "Lowest Token Amount": "Cantidad Token más Baja",
     "A to Z": "A a Z",
     "Z to A": "Z a A",
-    "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES"
+    "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
+    "Asset value": "Valor del activo"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",

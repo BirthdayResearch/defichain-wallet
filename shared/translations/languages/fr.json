@@ -95,7 +95,8 @@
     "Lowest Token Amount": "Montant de tokens le plus faible",
     "A to Z": "A à Z",
     "Z to A": "Z à A",
-    "AVAILABLE ASSETS": "ACTIFS DISPONIBLES"
+    "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
+    "Asset value": "Valeur des actifs"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
