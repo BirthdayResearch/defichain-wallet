@@ -55,7 +55,7 @@ interface useMaxLoanValueProps {
 }
 
 /**
- * @returns additional loan VALUE that can be taken
+ * @returns additional loan VALUE that can be taken, negative value signifies new collateral should be blocked
  */
 export function useMaxLoanValue ({
   totalCollateralValue,

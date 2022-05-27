@@ -135,7 +135,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     token.id,
     totalAmount
   )
-  // use the user input value to calculate max loan
+  // calculate max loan using user input value
   const maxLoanValue = useMaxLoanValue({
     totalCollateralValue: totalCalculatedCollateralValue,
     collateralAmounts: vault.collateralAmounts.map(colAmount => {
