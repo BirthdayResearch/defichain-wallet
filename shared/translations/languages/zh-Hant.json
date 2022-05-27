@@ -398,7 +398,7 @@
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特幣生態原生DeFi",
     "Take full control": "完全掌控",
-    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "DeFiChain 錢包是完全非託管的。 妥善保管您的 24 個恢復字詞。 使用權限是您個人專屬的包括錢包資金。",
+    "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "DeFiChain 錢包是完全非託管的。 妥善保管您的 24 個恢復字詞。 使用權限是您個人專屬的包括錢包資金。",
     "View your assets in one place": "在整合情況下查看您的資產",
     "Review your available and locked assets in your portfolio.": "查看您的投資組合中可用和鎖定的資產",
     "Maximize earning potential": "最大化盈利潛力",
@@ -677,12 +677,11 @@
     "Total to be swapped": "要兌換的總數",
     "Instant Swap": "Instant Swap",
     "Future Swap": "Future Swap",
-    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price",
-    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price",
-    "Oracle price -5%": "Oracle price -5%",
-    "Oracle price +5%": "Oracle price +5%",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})"
@@ -703,8 +702,9 @@
     "Estimated to receive": "您大約會收到",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "在未來區塊兌換 {{amountA}} {{fromTokenDisplaySymbol}} 至 {{toTokenDisplaySymbol}} 以預言機價格",
     "To be confirmed": "To be confirmed",
-    "Execution block": "Execution block",
-    "Resulting {{token}}": "Resulting {{token}}"
+    "Settlement block": "Settlement block",
+    "Resulting {{token}}": "Resulting {{token}}",
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",
@@ -1034,7 +1034,7 @@
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
     "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
-    "Execution block": "Execution block"
+    "Settlement block": "Settlement block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1390,7 +1390,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },

@@ -398,7 +398,7 @@
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特币生态原生DeFi",
     "Take full control": "完全掌控",
-    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "DeFiChain 钱包是完全非托管的。妥善保管您的 24 个恢复字词。使用权限是您个人专属的包括钱包资金。",
+    "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "DeFiChain 钱包是完全非托管的。妥善保管您的 24 个恢复字词。使用权限是您个人专属的包括钱包资金。",
     "View your assets in one place": "在整合情况下查看您的资产",
     "Review your available and locked assets in your portfolio.": "查看您的投资组合中可用和锁定的资产",
     "Maximize earning potential": "最大化盈利潜力",
@@ -676,12 +676,11 @@
     "Total to be swapped": "要兌換的總數",
     "Instant Swap": "Instant Swap",
     "Future Swap": "Future Swap",
-    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price",
-    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price",
-    "Oracle price -5%": "Oracle price -5%",
-    "Oracle price +5%": "Oracle price +5%",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "Est. time remaining": "Est. time remaining",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "请输入数量",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
@@ -702,8 +701,9 @@
     "Estimated to receive": "您大约会收到",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
     "To be confirmed": "To be confirmed",
-    "Execution block": "Execution block",
-    "Resulting {{token}}": "Resulting {{token}}"
+    "Settlement block": "Settlement block",
+    "Resulting {{token}}": "Resulting {{token}}",
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",
@@ -765,7 +765,7 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的连续显示24个英文字组是指储存在钱包的private key，它由2048个单字所产生的，支持BIP-39 标准的钱包。就算整个硬体钱包被盗或入侵，仍然可以确保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
-  "components/DexFaq" : {
+  "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能让使用者运用点对点的方式兑换加密货币。去中心化交易所能让使用者在不透过第三方中心化交易所之下，直接兑换货币。",
     "Transaction fees": "交易费用",
@@ -774,7 +774,7 @@
     "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。\n\n这导致了滑价，也就是确认交易前显示出的价格和最终交易价格之间的差异。\n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。\n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
-  "components/LiquidityMiningFaq" : {
+  "components/LiquidityMiningFaq": {
     "Liquidity Mining": "流动性挖矿",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流动性挖矿是DeFi机制技术，可让使用者透过提供流动资金而赚取比例化的区块奖励和交易费用回报，此比例以「流动性池股份」代表。\n\n流动性池中的资金主要是为去中心化交易所提供资金，当池中有资金时其他使用者可随时兑换池中的两个货币。",
     "How do I supply liquidity?": "如何能开始提供流动资金?",
@@ -891,7 +891,7 @@
     "Confirm Place Bid": "确认出价",
     "Auction details": "拍卖细节"
   },
-  "components/AuctionDetailScreen":{
+  "components/AuctionDetailScreen": {
     "Collateral": "抵押品",
     "Min. next bid": "最低标价",
     "VAULT DETAILS": "金库明细",
@@ -1031,7 +1031,7 @@
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
     "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
-    "Execution block": "Execution block"
+    "Settlement block": "Settlement block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1388,7 +1388,7 @@
   },
   "screens/FutureSwapScreen": {
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
-    "Execution block": "Execution block",
+    "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },

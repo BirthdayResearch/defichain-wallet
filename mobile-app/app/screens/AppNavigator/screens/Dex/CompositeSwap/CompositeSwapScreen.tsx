@@ -380,7 +380,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       pairs: selectedPoolPairs,
       priceRates,
       slippage: slippageInDecimal,
-      futureSwap: isFutureSwapOptionEnabled
+      futureSwap: isFutureSwap
         ? {
           executionBlock,
           transactionDate,
@@ -542,7 +542,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 </TouchableOpacity>
                 <View style={tailwind('flex-1')}>
                   {isFutureSwap
-                    ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={`Oracle price ${oraclePriceText}`} />
+                    ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={oraclePriceText} />
                     : <TargetTokenRow control={control} token={selectedTokenB} />}
                 </View>
               </View>
@@ -561,10 +561,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 testID='future_swap_warning_text'
               >
                 {oraclePriceText === '+5%'
-                  ? `${translate('screens/CompositeSwapScreen', 'By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price', {
+                  ? `${translate('screens/CompositeSwapScreen', 'By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block', {
                     tokenSymbol: selectedTokenB.displaySymbol
                   })}`
-                  : `${translate('screens/CompositeSwapScreen', 'By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price', {
+                  : `${translate('screens/CompositeSwapScreen', 'By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block', {
                     tokenSymbol: selectedTokenA?.displaySymbol
                   })}`}
               </ThemedText>
@@ -965,7 +965,9 @@ function OraclePriceRow ({
         light={tailwind('text-gray-400')}
         dark={tailwind('text-gray-500')}
         testID='oracle_price_percentage'
-      >{translate('screens/CompositeSwapScreen', oraclePriceText)}
+      >{translate('screens/CompositeSwapScreen', 'Oracle price {{percentageChange}}', {
+        percentageChange: oraclePriceText
+      })}
       </ThemedText>
       <View style={tailwind('flex flex-row items-center')}>
         <Icon height={20} width={20} />
