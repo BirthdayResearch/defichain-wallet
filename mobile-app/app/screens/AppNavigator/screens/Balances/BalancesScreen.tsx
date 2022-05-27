@@ -296,6 +296,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [assetSortBottomSheetScreen, setAssetSortBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [assetSortType, setAssetSortType] = useState('Asset value')
   const filterTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
+    // assetSortList from BottomSheetAssetSortList
     switch (assetSortType) {
       case ('Highest USD value'):
         return filteredTokens.sort((a, b) => {
