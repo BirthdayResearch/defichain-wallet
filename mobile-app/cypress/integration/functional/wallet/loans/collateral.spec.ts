@@ -363,7 +363,29 @@ context('Wallet - Loans - valid collateral token ratio', () => {
     cy.getByTestID('vault_min_share_warning').should('exist')
   })
 
-  it('should display warning message while removing collateral', () => {
+  it('should not display warning message while taking loan with little DFI and DUSD', () => {
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.wait(3000)
+    cy.getByTestID('vault_card_0_edit_collaterals_button').click()
+    cy.getByTestID('add_collateral_button').click()
+    addCollateral('dBTC', '10', '10', '$500.00', '100', '100.00%', vaultId, '0.00%')
+    cy.getByTestID('add_collateral_button').click()
+    addCollateral('DFI', '18', '0.0001', '$0.01', '100', '0.00%', vaultId, '0.00%')
+    cy.getByTestID('add_collateral_button').click()
+    addCollateral('DUSD', '10', '0.01', '$0.01', '99', '0.00%', vaultId, '0.00%')
+    cy.go('back')
+    cy.wait(2000)
+    cy.getByTestID('loans_tabs_BROWSE_LOANS').click()
+    cy.getByTestID('header_loans_search').click()
+    cy.getByTestID('loans_search_input').type('dTS25').blur()
+    cy.getByTestID('loan_card_dTS25').click()
+    cy.getByTestID('borrow_loan_vault').click()
+    cy.wait(2000)
+    cy.getByTestID('select_vault_0').click()
+    cy.getByTestID('vault_min_share_warning').should('not.exist')
+  })
+
+  it.only('should display warning message when 50% of the minimum required collateral is not DFI or DUSD', () => {
     cy.getByTestID('bottom_tab_loans').click()
     cy.wait(3000)
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
@@ -376,8 +398,8 @@ context('Wallet - Loans - valid collateral token ratio', () => {
     cy.getByTestID('vault_card_0_edit_collaterals_button').click()
     cy.getByTestID('collateral_card_remove_DFI').click()
     checkCollateralFormValues('How much DFI to remove?', 'DFI', '10')
-    cy.getByTestID('form_input_text').type('6').blur()
-    cy.getByTestID('vault_min_share_warning').should('not.exist')
+    cy.getByTestID('form_input_text').type('9.993').blur()
+    cy.getByTestID('vault_min_share_warning').should('exist')
   })
 
   it('should have valid vault requirement', () => {
