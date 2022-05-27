@@ -17,7 +17,7 @@ import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, View } from 'react-native'
+import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
@@ -26,7 +26,7 @@ import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
-import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
@@ -36,6 +36,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
+import { BottomSheetAssetFilterList } from './components/BottomSheetAssetFilterList'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -142,8 +143,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  // TODO: Check if this is needed for recalculation with change of denominationCurrency
-  // const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
     totalAvailableValue,
     dstTokens
@@ -293,6 +292,47 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     )
   }, [tokens])
 
+  // Asset filter bottom sheet list
+  const [assetFilterBottomSheetScreen, setAssetFilterBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
+  const [assetFilterType, setAssetFilterType] = useState('Asset value')
+
+  const filterTokensAssetOnType = useCallback((assetFilterType: string) => {
+    switch (assetFilterType) {
+      case ('Highest USD value'):
+        filteredTokens.sort((a, b) => {
+          return b.usdAmount.minus(a.usdAmount).toNumber()
+        })
+        break
+      case ('Lowest USD value'):
+        filteredTokens.sort((a, b) => {
+          return a.usdAmount.minus(b.usdAmount).toNumber()
+        })
+        break
+      case ('Highest Token Amount'):
+        filteredTokens.sort((a, b) => {
+          return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
+        })
+        break
+      case ('Lowest Token Amount'):
+        filteredTokens.sort((a, b) => {
+          return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
+        })
+        break
+      case ('A to Z'):
+        filteredTokens.sort((a, b) => {
+          return a.displaySymbol.localeCompare(b.displaySymbol)
+        })
+        break
+      case ('Z to A'):
+        filteredTokens.sort((a, b) => {
+          return b.displaySymbol.localeCompare(a.displaySymbol)
+        })
+        break
+      default:
+        return filteredTokens
+    }
+  }, [filteredTokens])
+
   // Address selection bottom sheet
   const { isLight } = useThemeContext()
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
@@ -304,6 +344,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       setIsModalDisplayed(true)
     } else {
       bottomSheetRef.current?.present()
+      // TODO: set address bottom sheet here - TRY TO REFACTOR IT else we can do the ez way
     }
   }, [])
   const dismissModal = useCallback(() => {
@@ -312,6 +353,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     } else {
       bottomSheetRef.current?.close()
     }
+    setAssetFilterBottomSheetScreen([]) // to close asset filter list on web and mobile
   }, [])
   const bottomSheetScreen = useMemo(() => {
     return [
@@ -379,6 +421,37 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
+        {/* to show bottom sheet for asset filter */}
+        <AssetFilterRow
+          assetFilterType={assetFilterType}
+          onPress={() => {
+            setAssetFilterBottomSheetScreen([
+              {
+                stackScreenName: 'AssetFilterList',
+                component: BottomSheetAssetFilterList({
+                  setAssetFilterType: setAssetFilterType,
+                  headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
+                  onCloseButtonPress: dismissModal,
+                  onButtonPress: () => {
+                    console.log('onButtonPress')
+                    filterTokensAssetOnType(assetFilterType)
+                  }
+                }),
+                option: {
+                  headerStatusBarHeight: 1,
+                  headerBackgroundContainerStyle: tailwind('border-b', {
+                    'border-gray-200': isLight,
+                    'border-gray-700': !isLight,
+                    '-top-5': Platform.OS !== 'web'
+                  }),
+                  header: () => null,
+                  headerBackTitleVisible: false
+                }
+              }
+            ])
+            expandModal()
+        }}
+        />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (
@@ -392,17 +465,17 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={filteredTokens}
               navigation={navigation}
               buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
+                activeButtonGroup: activeButtonGroup,
+                setActiveButtonGroup: setActiveButtonGroup,
+                onButtonGroupPress: handleButtonFilter
+              }}
               denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'
           ? (
             <BottomSheetWebWithNav
               modalRef={containerRef}
-              screenList={bottomSheetScreen}
+              screenList={assetFilterBottomSheetScreen.length !== 0 ? assetFilterBottomSheetScreen : bottomSheetScreen} // TODOI: refactor the address onpress to set bottomsheetmodal
               isModalDisplayed={isModalDisplayed}
               modalStyle={{
                 position: 'absolute',
@@ -416,7 +489,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           : (
             <BottomSheetWithNav
               modalRef={bottomSheetRef}
-              screenList={bottomSheetScreen}
+              screenList={assetFilterBottomSheetScreen.length !== 0 ? assetFilterBottomSheetScreen : bottomSheetScreen} // TODO: refactor condition
               snapPoints={modalSnapPoints}
             />
           )}
@@ -506,5 +579,47 @@ function BalanceActionButton ({
       iconLabel={translate('screens/BalancesScreen', type)}
       disabled={disabled}
     />
+  )
+}
+
+function AssetFilterRow (props: { assetFilterType: string, onPress: () => void}): JSX.Element {
+  return (
+    <View
+      style={tailwind('px-4 flex flex-row justify-between pt-5')}
+      testID='toggle_sorting_assets'
+    >
+      <ThemedText
+        style={tailwind('text-xs text-gray-400 pr-1')}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      >
+        {translate('screens/BalancesScreen', 'AVAILABLE ASSETS')}
+      </ThemedText>
+      {/* to open bottom sheet */}
+      <TouchableOpacity style={tailwind('flex flex-row items-center')} onPress={props.onPress}>
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs font-medium')}
+        >
+          {translate('screens/BalancesScreen', `${props.assetFilterType}`)}
+        </ThemedText>
+        <ThemedIcon
+          style={tailwind('ml-1 font-medium')}
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          iconType='MaterialCommunityIcons'
+          name='sort-variant'
+          size={16}
+        />
+        <ThemedIcon
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          iconType='MaterialIcons'
+          name='arrow-drop-down'
+          size={16}
+        />
+      </TouchableOpacity>
+    </View>
   )
 }
