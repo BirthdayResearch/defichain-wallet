@@ -295,7 +295,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const [assetSortBottomSheetScreen, setAssetSortBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [assetSortType, setAssetSortType] = useState('Asset value')
-  const filterTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
+  const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
     // assetSortList from BottomSheetAssetSortList
     switch (assetSortType) {
       case ('Highest USD value'):
@@ -427,7 +427,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                   onCloseButtonPress: dismissModal,
                   onButtonPress: (item: string) => {
                     setAssetSortType(item)
-                    filterTokensAssetOnType(item)
+                    sortTokensAssetOnType(item)
                     dismissModal()
                   }
                 }),
@@ -456,7 +456,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           : (<BalanceCard
               isZeroBalance={isZeroBalance}
               dstTokens={combinedTokens}
-              filteredTokens={filterTokensAssetOnType(assetSortType)}
+              filteredTokens={sortTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{
                 activeButtonGroup: activeButtonGroup,
