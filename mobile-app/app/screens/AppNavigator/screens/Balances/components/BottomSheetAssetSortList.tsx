@@ -21,7 +21,7 @@ export const BottomSheetAssetSortList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const assetFilterList: string[] = ['Highest USD value', 'Lowest USD value', 'Highest Token Amount', 'Lowest Token Amount', 'A to Z', 'Z to A']
+  const assetSortList: string[] = ['Highest USD value', 'Lowest USD value', 'Highest Token Amount', 'Lowest Token Amount', 'A to Z', 'Z to A']
 
   const renderItem = ({
     item,
@@ -65,7 +65,7 @@ export const BottomSheetAssetSortList = ({
 
   return (
     <FlatList
-      data={assetFilterList}
+      data={assetSortList}
       renderItem={renderItem}
       ListHeaderComponent={headerComponent} // title of bottomsheet and close button
     />
