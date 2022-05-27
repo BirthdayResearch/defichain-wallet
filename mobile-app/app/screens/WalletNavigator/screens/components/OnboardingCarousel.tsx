@@ -23,7 +23,7 @@ const slides: JSX.Element[] = [<InitialSlide key={0} />,
   <ImageSlide
     image={ImageA}
     key={1}
-    subtitle='Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.'
+    subtitle='DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.'
     title='Take full control'
   />,
   <ImageSlide
