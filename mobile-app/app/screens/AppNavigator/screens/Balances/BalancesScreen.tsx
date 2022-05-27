@@ -292,42 +292,37 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     )
   }, [tokens])
 
-  // Asset filter bottom sheet list
-  const [assetFilterBottomSheetScreen, setAssetFilterBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
-  const [assetFilterType, setAssetFilterType] = useState('Asset value')
+  // Asset sort bottom sheet list
+  const [assetSortBottomSheetScreen, setAssetSortBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
+  const [assetSortType, setAssetSortType] = useState('Asset value')
 
-  const filterTokensAssetOnType = useCallback((assetFilterType: string) => {
+  // sort array to display, not numbers
+  const filterTokensAssetOnType = useCallback((assetFilterType: string): BalanceRowToken[] => {
     switch (assetFilterType) {
       case ('Highest USD value'):
-        filteredTokens.sort((a, b) => {
+        return filteredTokens.sort((a, b) => {
           return b.usdAmount.minus(a.usdAmount).toNumber()
         })
-        break
       case ('Lowest USD value'):
-        filteredTokens.sort((a, b) => {
+        return filteredTokens.sort((a, b) => {
           return a.usdAmount.minus(b.usdAmount).toNumber()
         })
-        break
       case ('Highest Token Amount'):
-        filteredTokens.sort((a, b) => {
+        return filteredTokens.sort((a, b) => {
           return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
         })
-        break
       case ('Lowest Token Amount'):
-        filteredTokens.sort((a, b) => {
+        return filteredTokens.sort((a, b) => {
           return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
         })
-        break
       case ('A to Z'):
-        filteredTokens.sort((a, b) => {
+        return filteredTokens.sort((a, b) => {
           return a.displaySymbol.localeCompare(b.displaySymbol)
         })
-        break
       case ('Z to A'):
-        filteredTokens.sort((a, b) => {
+        return filteredTokens.sort((a, b) => {
           return b.displaySymbol.localeCompare(a.displaySymbol)
         })
-        break
       default:
         return filteredTokens
     }
@@ -353,7 +348,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     } else {
       bottomSheetRef.current?.close()
     }
-    setAssetFilterBottomSheetScreen([]) // to close asset filter list on web and mobile
+    setAssetSortBottomSheetScreen([]) // to close asset filter list on web and mobile
   }, [])
   const bottomSheetScreen = useMemo(() => {
     return [
@@ -422,19 +417,20 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset filter */}
-        <AssetFilterRow
-          assetFilterType={assetFilterType}
+        <AssetSortRow
+          assetFilterType={assetSortType}
           onPress={() => {
-            setAssetFilterBottomSheetScreen([
+            setAssetSortBottomSheetScreen([
               {
                 stackScreenName: 'AssetFilterList',
                 component: BottomSheetAssetFilterList({
-                  setAssetFilterType: setAssetFilterType,
                   headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
                   onCloseButtonPress: dismissModal,
-                  onButtonPress: () => {
-                    console.log('onButtonPress')
-                    filterTokensAssetOnType(assetFilterType)
+                  onButtonPress: (item: string) => {
+                    console.log('item', item)
+                    setAssetSortType(item)
+                    filterTokensAssetOnType(item)
+                    dismissModal() // close bottom sheet after selecting item type
                   }
                 }),
                 option: {
@@ -475,7 +471,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           ? (
             <BottomSheetWebWithNav
               modalRef={containerRef}
-              screenList={assetFilterBottomSheetScreen.length !== 0 ? assetFilterBottomSheetScreen : bottomSheetScreen} // TODOI: refactor the address onpress to set bottomsheetmodal
+              screenList={assetSortBottomSheetScreen.length !== 0 ? assetSortBottomSheetScreen : bottomSheetScreen} // TODOI: refactor the address onpress to set bottomsheetmodal
               isModalDisplayed={isModalDisplayed}
               modalStyle={{
                 position: 'absolute',
@@ -489,7 +485,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           : (
             <BottomSheetWithNav
               modalRef={bottomSheetRef}
-              screenList={assetFilterBottomSheetScreen.length !== 0 ? assetFilterBottomSheetScreen : bottomSheetScreen} // TODO: refactor condition
+              screenList={assetSortBottomSheetScreen.length !== 0 ? assetSortBottomSheetScreen : bottomSheetScreen} // TODO: refactor condition
               snapPoints={modalSnapPoints}
             />
           )}
@@ -582,7 +578,7 @@ function BalanceActionButton ({
   )
 }
 
-function AssetFilterRow (props: { assetFilterType: string, onPress: () => void}): JSX.Element {
+function AssetSortRow (props: { assetFilterType: string, onPress: () => void}): JSX.Element {
   return (
     <View
       style={tailwind('px-4 flex flex-row justify-between pt-5')}
