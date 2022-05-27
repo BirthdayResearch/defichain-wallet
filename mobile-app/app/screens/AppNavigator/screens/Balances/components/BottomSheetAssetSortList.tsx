@@ -5,19 +5,17 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
-export interface BottomSheetAssetFilterProps {
+export interface BottomSheetAssetSortProps {
   headerLabel: string
   onCloseButtonPress: () => void
   onButtonPress: (item: string) => void
-  setAssetFilterType: (item: string) => void
 }
 
-export const BottomSheetAssetFilterList = ({
+export const BottomSheetAssetSortList = ({
   headerLabel,
   onCloseButtonPress,
-  setAssetFilterType,
   onButtonPress
-}: BottomSheetAssetFilterProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+}: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const flatListComponents = {
     mobile: BottomSheetFlatList,
     web: ThemedFlatList
@@ -38,7 +36,6 @@ export const BottomSheetAssetFilterList = ({
       <ThemedText
         testID={`${item}`}
         onPress={() => {
-          setAssetFilterType(item)
           onButtonPress(item)
         }}
       >

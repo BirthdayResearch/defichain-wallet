@@ -36,7 +36,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
-import { BottomSheetAssetFilterList } from './components/BottomSheetAssetFilterList'
+import { BottomSheetAssetSortList } from './components/BottomSheetAssetSortList'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -423,7 +423,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             setAssetSortBottomSheetScreen([
               {
                 stackScreenName: 'AssetFilterList',
-                component: BottomSheetAssetFilterList({
+                component: BottomSheetAssetSortList({
                   headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
                   onCloseButtonPress: dismissModal,
                   onButtonPress: (item: string) => {
