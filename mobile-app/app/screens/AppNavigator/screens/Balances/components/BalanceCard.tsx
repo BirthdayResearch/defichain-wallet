@@ -1,8 +1,6 @@
 import {
   ThemedView,
-  ThemedTouchableOpacity,
-  ThemedIcon,
-  ThemedText
+  ThemedTouchableOpacity
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { BalanceRowToken } from '../BalancesScreen'
@@ -18,7 +16,6 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
-import { TouchableOpacity } from 'react-native'
 import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
@@ -77,7 +74,7 @@ export function BalanceCard ({
   ]
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
-  const [isSorted, setIsSorted] = useState<boolean>(false)
+  // const [isSorted, setIsSorted] = useState<boolean>(false)
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -97,15 +94,15 @@ export function BalanceCard ({
     }
   }
 
-  filteredTokens.sort((a, b) => {
-    if (isSorted) {
-      // display value in increasing order
-      return a.usdAmount.minus(b.usdAmount).toNumber()
-    } else {
-      // display value in decreasing order
-      return b.usdAmount.minus(a.usdAmount).toNumber()
-    }
-  })
+  // filteredTokens.sort((a, b) => {
+  //   if (isSorted) {
+  //     // display value in increasing order
+  //     return a.usdAmount.minus(b.usdAmount).toNumber()
+  //   } else {
+  //     // display value in decreasing order
+  //     return b.usdAmount.minus(a.usdAmount).toNumber()
+  //   }
+  // })
 
   // return empty component if there are DFI but no other tokens
   if (!isZeroBalance && dstTokens.length === 0) {
@@ -133,12 +130,12 @@ export function BalanceCard ({
               />
             </View>
             {/*  dropdown arrow (sorting) appears when there are other tokens */}
-            {
+            {/* {
               filteredTokens.length > 0 && hasFetchedToken &&
                 <View testID='your_assets_dropdown_arrow'>
                   <SortTokens isSorted={isSorted} setIsSorted={setIsSorted} />
                 </View>
-            }
+            } */}
           </>
         )
       }
@@ -219,38 +216,38 @@ function BalanceItemRow ({
   )
 }
 
-function SortTokens ({
-  isSorted,
-  setIsSorted
-}: { isSorted: boolean, setIsSorted: (isSorted: boolean) => void }): JSX.Element {
-  return (
-    <View style={tailwind('px-4 flex flex-row items-center')}>
-      <TouchableOpacity
-        onPress={() => setIsSorted(!isSorted)}
-        style={tailwind('flex flex-row')}
-        testID='toggle_sorting_assets'
-      >
-        <ThemedText
-          style={tailwind('text-xs text-gray-400 pr-1')}
-        >
-          {translate('screens/BalancesScreen', 'YOUR ASSETS')}
-        </ThemedText>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
-        </ThemedText>
-        <ThemedIcon
-          style={tailwind('ml-1 pt-px')}
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
-          iconType='MaterialCommunityIcons'
-          name={!isSorted ? 'sort-ascending' : 'sort-descending'}
-          size={16}
-        />
-      </TouchableOpacity>
-    </View>
-  )
-}
+// function SortTokens ({
+//   isSorted,
+//   setIsSorted
+// }: { isSorted: boolean, setIsSorted: (isSorted: boolean) => void }): JSX.Element {
+//   return (
+//     <View style={tailwind('px-4 flex flex-row items-center')}>
+//       <TouchableOpacity
+//         onPress={() => setIsSorted(!isSorted)}
+//         style={tailwind('flex flex-row')}
+//         testID='toggle_sorting_assets'
+//       >
+//         <ThemedText
+//           style={tailwind('text-xs text-gray-400 pr-1')}
+//         >
+//           {translate('screens/BalancesScreen', 'YOUR ASSETS')}
+//         </ThemedText>
+//         <ThemedText
+//           light={tailwind('text-gray-500')}
+//           dark={tailwind('text-gray-400')}
+//           style={tailwind('text-xs')}
+//         >
+//           {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
+//         </ThemedText>
+//         <ThemedIcon
+//           style={tailwind('ml-1 pt-px')}
+//           light={tailwind('text-primary-500')}
+//           dark={tailwind('text-darkprimary-500')}
+//           iconType='MaterialCommunityIcons'
+//           name={!isSorted ? 'sort-ascending' : 'sort-descending'}
+//           size={16}
+//         />
+//       </TouchableOpacity>
+//     </View>
+//   )
+// }
