@@ -298,6 +298,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   // sort array to display, not numbers
   const filterTokensAssetOnType = useCallback((assetFilterType: string): BalanceRowToken[] => {
+    // console.log('assetFilterType', assetFilterType)
     switch (assetFilterType) {
       case ('Highest USD value'):
         return filteredTokens.sort((a, b) => {
@@ -416,9 +417,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
-        {/* to show bottom sheet for asset filter */}
+        {/* to show bottom sheet for asset sort */}
         <AssetSortRow
-          assetFilterType={assetSortType}
+          assetSortType={assetSortType}
           onPress={() => {
             setAssetSortBottomSheetScreen([
               {
@@ -427,7 +428,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                   headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
                   onCloseButtonPress: dismissModal,
                   onButtonPress: (item: string) => {
-                    console.log('item', item)
                     setAssetSortType(item)
                     filterTokensAssetOnType(item)
                     dismissModal() // close bottom sheet after selecting item type
@@ -578,7 +578,7 @@ function BalanceActionButton ({
   )
 }
 
-function AssetSortRow (props: { assetFilterType: string, onPress: () => void}): JSX.Element {
+function AssetSortRow (props: { assetSortType: string, onPress: () => void}): JSX.Element {
   return (
     <View
       style={tailwind('px-4 flex flex-row justify-between pt-5')}
@@ -598,7 +598,7 @@ function AssetSortRow (props: { assetFilterType: string, onPress: () => void}): 
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs font-medium')}
         >
-          {translate('screens/BalancesScreen', `${props.assetFilterType}`)}
+          {translate('screens/BalancesScreen', `${props.assetSortType}`)}
         </ThemedText>
         <ThemedIcon
           style={tailwind('ml-1 font-medium')}
