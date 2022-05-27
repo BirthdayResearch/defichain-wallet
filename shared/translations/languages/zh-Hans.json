@@ -398,7 +398,7 @@
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特币生态原生DeFi",
     "Take full control": "完全掌控",
-    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "DeFiChain 钱包是完全非托管的。妥善保管您的 24 个恢复字词。使用权限是您个人专属的包括钱包资金。",
+    "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "DeFiChain 钱包是完全非托管的。妥善保管您的 24 个恢复字词。使用权限是您个人专属的包括钱包资金。",
     "View your assets in one place": "在整合情况下查看您的资产",
     "Review your available and locked assets in your portfolio.": "查看您的投资组合中可用和锁定的资产",
     "Maximize earning potential": "最大化盈利潜力",
