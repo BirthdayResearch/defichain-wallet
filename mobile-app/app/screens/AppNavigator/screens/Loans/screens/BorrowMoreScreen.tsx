@@ -28,7 +28,7 @@ import NumberFormat from 'react-number-format'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { BottomSheetInfo } from '@components/BottomSheetInfo'
 import { useVaultStatus, VaultStatusTag } from '../components/VaultStatusTag'
-import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
+import { useMaxLoan } from '../hooks/MaxLoan'
 import { useCollateralizationRatioColor } from '../hooks/CollateralizationRatio'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowMoreScreen'>
@@ -272,7 +272,7 @@ export function VaultInput ({
     message: 'Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.'
   }
 
-  const maxLoanAmount = useMaxLoanAmount({
+  const maxLoanAmount = useMaxLoan({
     totalCollateralValue: new BigNumber(vault.collateralValue),
     collateralAmounts: vault.collateralAmounts,
     existingLoanValue: new BigNumber(vault.loanValue),
@@ -368,7 +368,7 @@ export function VaultInput ({
               {translate('screens/PaybackLoanScreen', 'Max loan amount')}
             </ThemedText>
             <NumberFormat
-              value={maxLoanAmount.isNaN() ? translate('screens/PaybackLoanScreen', 'N/A') : maxLoanAmount.toFixed(8)}
+              value={maxLoanAmount.isNaN() ? translate('screens/PaybackLoanScreen', 'N/A') : BigNumber.max(maxLoanAmount, 0).toFixed(8)}
               decimalScale={8}
               thousandSeparator
               suffix={` ${loanToken.token.displaySymbol}`}

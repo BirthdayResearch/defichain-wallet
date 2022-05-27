@@ -32,7 +32,7 @@ import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/he
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
 import { IconTooltip } from '@components/tooltip/IconTooltip'
-import { useMaxLoanValue } from '../hooks/MaxLoanAmount'
+import { useMaxLoan } from '../hooks/MaxLoan'
 
 export interface AddOrRemoveCollateralFormProps {
   collateralItem: CollateralItem
@@ -136,7 +136,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     totalAmount
   )
   // calculate max loan using user input value
-  const maxLoanValue = useMaxLoanValue({
+  const maxLoanValue = useMaxLoan({
     totalCollateralValue: totalCalculatedCollateralValue,
     collateralAmounts: vault.collateralAmounts.map(colAmount => {
       if (colAmount.displaySymbol === token.displaySymbol) {
@@ -428,7 +428,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           {translate('screens/BorrowLoanTokenScreen', 'Removing collateral will liquidate your vault')}
         </ThemedText>
       )}
-      {maxLoanValue.isNegative() && (
+      {isValidCollateralRatio && hasLoan && maxLoanValue.isNegative() && (
         <ThemedText
           dark={tailwind('text-error-500')}
           light={tailwind('text-error-500')}

@@ -36,7 +36,7 @@ import { useResultingCollateralRatio, useValidCollateralRatio } from '../hooks/C
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
-import { useMaxLoanAmount } from '../hooks/MaxLoanAmount'
+import { useMaxLoan } from '../hooks/MaxLoan'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { useBlocksPerDay } from '../hooks/BlocksPerDay'
@@ -505,7 +505,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
     message: 'Annual vault interest rate based on the loan scheme selected.'
   }
 
-  const maxLoanAmount = useMaxLoanAmount({
+  const maxLoanAmount = useMaxLoan({
     totalCollateralValue: new BigNumber(props.vault.collateralValue),
     collateralAmounts: props.vault.collateralAmounts,
     existingLoanValue: new BigNumber(props.vault.loanValue),
@@ -557,7 +557,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
       />
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Max loan amount')}
-        value={maxLoanAmount.isNaN() ? translate('screens/BorrowLoanTokenScreen', 'N/A') : maxLoanAmount.toFixed(8)}
+        value={maxLoanAmount.isNaN() ? translate('screens/BorrowLoanTokenScreen', 'N/A') : BigNumber.max(maxLoanAmount, 0).toFixed(8)}
         suffix={` ${props.loanToken.token.displaySymbol}`}
         suffixType='text'
         testID='max_loan_amount_text'
