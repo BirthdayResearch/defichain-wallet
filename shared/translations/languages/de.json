@@ -87,7 +87,15 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Der Gesamtwert des Portfolios wird nun abzüglich des auf dem Preisorakelwert basierenden Darlehensbetrags berechnet.",
     "loans": "Darlehen",
     "You have pending future swap(s)": "Du hast anstehende(n) Tausch-Terminkontrakt(e)",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "Dieses Symbol zeigt an, dass der Preis von Orakeln und nicht von der DEX bereitgestellt wird"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Dieses Symbol zeigt an, dass der Preis von Orakeln und nicht von der DEX bereitgestellt wird",
+    "Sort assets by": "Aktiva anordnen",
+    "Highest USD value": "Höchster USD-Wert",
+    "Lowest USD value": "Niedrigster USD-Wert",
+    "Highest Token Amount": "Höchster Token-Betrag",
+    "Lowest Token Amount": "Niedrigster Token-Betrag",
+    "A to Z": "A bis Z",
+    "Z to A": "Z bis A",
+    "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",

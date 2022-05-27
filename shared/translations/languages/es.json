@@ -90,7 +90,15 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*El Valor total del portafolio ahora excluye la cantidad del préstamo basada en el precio del oráculo",
     "loans": "Préstamos",
     "You have pending future swap(s)": "You have pending future swap(s)",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "Este icono indica que el precio ha sido proporcionado por los oráculos y no por el DEX"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Este icono indica que el precio ha sido proporcionado por los oráculos y no por el DEX",
+    "Sort assets by": "Ordenar activos por",
+    "Highest USD value": "Valor USD mayor",
+    "Lowest USD value": "Valor USD menor",
+    "Highest Token Amount": "Cantidad Token más Alta",
+    "Lowest Token Amount": "Cantidad Token más Baja",
+    "A to Z": "A a Z",
+    "Z to A": "Z a A",
+    "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",

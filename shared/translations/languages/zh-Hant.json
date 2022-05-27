@@ -87,7 +87,15 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*總資產組合價值已撇除以預言機價格計算的貸款金額",
     "loans": "貸款",
     "You have pending future swap(s)": "You have pending future swap(s)",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "這個圖標顯示的價格是由預言機產生而不是 DEX 提供的"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "這個圖標顯示的價格是由預言機產生而不是 DEX 提供的",
+    "Sort assets by": "按資產進行排序",
+    "Highest USD value": "最高美元價值",
+    "Lowest USD value": "最低美元价值",
+    "Highest Token Amount": "最高代币数量",
+    "Lowest Token Amount": "最低代币数量",
+    "A to Z": "A 到 Z",
+    "Z to A": "Z 到 A",
+    "AVAILABLE ASSETS": "可用資產"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
