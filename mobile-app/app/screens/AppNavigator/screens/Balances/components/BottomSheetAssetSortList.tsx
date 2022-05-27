@@ -21,7 +21,7 @@ export const BottomSheetAssetSortList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const assetFilterList: string[] = ['Highest USD value', 'Lowest USD value', 'Largest Token Amount', 'Fewest Token Amount', 'A to Z', 'Z to A']
+  const assetFilterList: string[] = ['Highest USD value', 'Lowest USD value', 'Highest Token Amount', 'Lowest Token Amount', 'A to Z', 'Z to A']
 
   const renderItem = ({
     item,
@@ -36,10 +36,10 @@ export const BottomSheetAssetSortList = ({
       <ThemedText
         testID={`${item}`}
         onPress={() => {
-          onButtonPress(item)
+          onButtonPress(translate('screens/BalancesScreen', item))
         }}
       >
-        {translate('screens/BottomSheetAssetFilterList', item)}
+        {translate('screens/BalancesScreen', item)}
       </ThemedText>
     </ThemedTouchableOpacity>
   )
@@ -54,7 +54,7 @@ export const BottomSheetAssetSortList = ({
         <ThemedText
           style={tailwind('text-lg font-medium')}
         >
-          {translate('screens/BottomSheetAssetFilterList', headerLabel)}
+          {translate('screens/BalancesScreen', headerLabel)}
         </ThemedText>
         <TouchableOpacity onPress={onCloseButtonPress}>
           <ThemedIcon iconType='MaterialIcons' name='close' size={20} />

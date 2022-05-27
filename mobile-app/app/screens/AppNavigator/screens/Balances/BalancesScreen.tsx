@@ -295,11 +295,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const [assetSortBottomSheetScreen, setAssetSortBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [assetSortType, setAssetSortType] = useState('Asset value')
-
-  // sort array to display, not numbers
-  const filterTokensAssetOnType = useCallback((assetFilterType: string): BalanceRowToken[] => {
-    // console.log('assetFilterType', assetFilterType)
-    switch (assetFilterType) {
+  const filterTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
+    switch (assetSortType) {
       case ('Highest USD value'):
         return filteredTokens.sort((a, b) => {
           return b.usdAmount.minus(a.usdAmount).toNumber()
@@ -327,7 +324,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       default:
         return filteredTokens
     }
-  }, [filteredTokens])
+  }, [filteredTokens, assetSortType])
 
   // Address selection bottom sheet
   const { isLight } = useThemeContext()
@@ -430,7 +427,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
                   onButtonPress: (item: string) => {
                     setAssetSortType(item)
                     filterTokensAssetOnType(item)
-                    dismissModal() // close bottom sheet after selecting item type
+                    dismissModal()
                   }
                 }),
                 option: {
@@ -458,7 +455,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           : (<BalanceCard
               isZeroBalance={isZeroBalance}
               dstTokens={combinedTokens}
-              filteredTokens={filteredTokens}
+              filteredTokens={filterTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{
                 activeButtonGroup: activeButtonGroup,
