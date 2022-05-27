@@ -199,7 +199,7 @@ export function TokenDetailScreen ({
         token.symbol === 'DFI' && (
           <TokenActionRow
             icon='swap-horiz'
-            onPress={() => onNavigateSwap({ fromToken: DFIUnified })}
+            onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
             testID='swap_button_dfi'
             title={translate('screens/TokenDetailScreen', 'Swap token')}
           />
