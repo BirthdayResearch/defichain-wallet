@@ -4,6 +4,7 @@ import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export interface BottomSheetAssetSortProps {
   headerLabel: string
@@ -16,6 +17,7 @@ export const BottomSheetAssetSortList = ({
   onCloseButtonPress,
   onButtonPress
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const { isLight } = useThemeContext()
   const flatListComponents = {
     mobile: BottomSheetFlatList,
     web: ThemedFlatList
@@ -68,6 +70,10 @@ export const BottomSheetAssetSortList = ({
       data={assetSortList}
       renderItem={renderItem}
       ListHeaderComponent={headerComponent} // title of bottomsheet and close button
+      style={tailwind({
+        'bg-gray-800': !isLight,
+        'bg-white': isLight
+      })}
     />
   )
 })
