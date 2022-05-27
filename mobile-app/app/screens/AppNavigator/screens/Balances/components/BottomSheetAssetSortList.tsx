@@ -38,7 +38,7 @@ export const BottomSheetAssetSortList = ({
       <ThemedText
         testID={`${item}`}
         onPress={() => {
-          onButtonPress(translate('screens/BalancesScreen', item))
+          onButtonPress(item)
         }}
       >
         {translate('screens/BalancesScreen', item)}
