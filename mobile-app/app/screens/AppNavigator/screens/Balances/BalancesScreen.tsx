@@ -26,7 +26,7 @@ import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
-import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
@@ -45,6 +45,7 @@ export interface BalanceRowToken extends WalletToken {
 }
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const { isLight } = useThemeContext()
   const isFocused = useIsFocused()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
@@ -293,10 +294,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [tokens])
 
   // Asset sort bottom sheet list
-  const [assetSortBottomSheetScreen, setAssetSortBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
-  const [assetSortType, setAssetSortType] = useState('Asset value')
+  const [assetSortType, setAssetSortType] = useState('Asset value') // to display selected sorted type text
+  const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
-    // assetSortList from BottomSheetAssetSortList
+    // from assetSortList
     switch (assetSortType) {
       case ('Highest USD value'):
         return filteredTokens.sort((a, b) => {
@@ -327,8 +328,34 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
   }, [filteredTokens, assetSortType])
 
+  const assetSortBottomSheetScreen = useMemo(() => {
+    return [
+      {
+        stackScreenName: 'AssetSortList',
+        component: BottomSheetAssetSortList({
+          headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
+          onCloseButtonPress: () => dismissModal(),
+          onButtonPress: (item: string) => {
+            setAssetSortType(item)
+            sortTokensAssetOnType(item)
+            dismissModal()
+          }
+        }),
+        option: {
+          headerStatusBarHeight: 1,
+          headerBackgroundContainerStyle: tailwind('border-b', {
+            'border-gray-200': isLight,
+            'border-gray-700': !isLight,
+            '-top-5': Platform.OS !== 'web'
+          }),
+          header: () => null,
+          headerBackTitleVisible: false
+        }
+      }
+    ]
+  }, [])
+
   // Address selection bottom sheet
-  const { isLight } = useThemeContext()
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -338,8 +365,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       setIsModalDisplayed(true)
     } else {
       bottomSheetRef.current?.present()
-      // TODO: set address bottom sheet here - TRY TO REFACTOR IT else we can do the ez way
     }
+    setShowAssetSortBottomSheet(true)
   }, [])
   const dismissModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -347,9 +374,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     } else {
       bottomSheetRef.current?.close()
     }
-    setAssetSortBottomSheetScreen([]) // to close asset filter list on web and mobile
+    setShowAssetSortBottomSheet(false)
   }, [])
-  const bottomSheetScreen = useMemo(() => {
+
+  const addressBottomSheetScreen = useMemo(() => {
     return [
       {
         stackScreenName: 'AddressDetail',
@@ -419,32 +447,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <AssetSortRow
           assetSortType={assetSortType}
           onPress={() => {
-            setAssetSortBottomSheetScreen([
-              {
-                stackScreenName: 'AssetFilterList',
-                component: BottomSheetAssetSortList({
-                  headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
-                  onCloseButtonPress: dismissModal,
-                  onButtonPress: (item: string) => {
-                    setAssetSortType(item)
-                    sortTokensAssetOnType(item)
-                    dismissModal()
-                  }
-                }),
-                option: {
-                  headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind('border-b', {
-                    'border-gray-200': isLight,
-                    'border-gray-700': !isLight,
-                    '-top-5': Platform.OS !== 'web'
-                  }),
-                  header: () => null,
-                  headerBackTitleVisible: false
-                }
-              }
-            ])
             expandModal()
-        }}
+          }}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
@@ -469,7 +473,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           ? (
             <BottomSheetWebWithNav
               modalRef={containerRef}
-              screenList={assetSortBottomSheetScreen.length !== 0 ? assetSortBottomSheetScreen : bottomSheetScreen} // TODOI: refactor the address onpress to set bottomsheetmodal
+              screenList={showAssetSortBottomSheet ? assetSortBottomSheetScreen : addressBottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
               modalStyle={{
                 position: 'absolute',
@@ -483,7 +487,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           : (
             <BottomSheetWithNav
               modalRef={bottomSheetRef}
-              screenList={assetSortBottomSheetScreen.length !== 0 ? assetSortBottomSheetScreen : bottomSheetScreen} // TODO: refactor condition
+              screenList={showAssetSortBottomSheet ? assetSortBottomSheetScreen : addressBottomSheetScreen}
               snapPoints={modalSnapPoints}
             />
           )}
