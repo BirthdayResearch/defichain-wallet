@@ -111,7 +111,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
             name='plus'
             style={tailwind('mr-2')}
             light={tailwind('text-primary-500')}
-            dark={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
             iconType='MaterialCommunityIcons'
           />
         </TouchableOpacity>
