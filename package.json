@@ -15,7 +15,7 @@
     "start:web": "expo start --web",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage",
-    "cypress:open": "cypress open",
+    "cypress:open": "cypress open --project mobile-app",
     "cypress:run": "cypress run --headless --browser chrome",
     "react-devtools:open": "react-devtools",
     "translation:missing": "ts-node shared/translations/reporter/index.ts"
@@ -95,7 +95,7 @@
     "react-native-web": "0.17.7",
     "react-number-format": "^4.9.3",
     "react-overlays": "^5.1.2",
-    "react-redux": "^7.2.6",
+    "react-redux": "^8.0.2",
     "semver": "^7.3.7",
     "smart-buffer": "^4.2.0",
     "stream-browserify": "^3.0.0",
