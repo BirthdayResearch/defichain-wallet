@@ -25,19 +25,43 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
 import { SearchInput } from '@components/SearchInput'
+import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
+
+export enum ButtonGroupTabKey {
+  Whitelisted = 'WHITELISTED',
+  YourAddress = 'YOUR_ADDRESS'
+}
 
 export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { selectedAddress, onAddressSelect } = route.params
   const { network } = useNetworkContext()
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.Whitelisted)
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const addressBook = userPreferences.addressBook
   const [isEditing, setIsEditing] = useState(false)
   const { getAddressUrl } = useDeFiScanContext()
+
+  const buttonGroup = [
+    {
+      id: ButtonGroupTabKey.Whitelisted,
+      label: translate('screens/AddressBookScreen', 'Whitelisted'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.Whitelisted)
+    },
+    {
+      id: ButtonGroupTabKey.YourAddress,
+      label: translate('screens/AddressBookScreen', 'Your address(es)'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.YourAddress)
+    }
+  ]
+
+  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    setActiveButtonGroup(buttonGroupTabKey)
+  }
 
   // Search
   const [searchString, setSearchString] = useState('')
@@ -105,19 +129,20 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         <TouchableOpacity
           onPress={goToAddAddressForm}
           testID='add_address_button'
+          disabled={activeButtonGroup === ButtonGroupTabKey.YourAddress}
         >
           <ThemedIcon
             size={28}
             name='plus'
             style={tailwind('mr-2')}
-            light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
+            light={tailwind(['text-primary-500', { 'text-gray-300': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
+            dark={tailwind(['text-darkprimary-500', { 'text-gray-600': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
             iconType='MaterialCommunityIcons'
           />
         </TouchableOpacity>
       )
     })
-  }, [searchString, addresses])
+  }, [searchString, addresses, activeButtonGroup])
 
   const AddressListItem = useCallback(({
     item,
@@ -267,16 +292,20 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   }
 
   const HeaderComponent = useMemo(() => {
-    if (addresses.length === 0) {
-      return <></>
-    }
-
     return (
       <ThemedView
         light={tailwind('bg-gray-50 border-gray-200')}
         dark={tailwind('bg-gray-900 border-gray-700')}
         style={tailwind('flex flex-col items-center px-4 pt-6 pb-2 border-b')}
       >
+        <View style={tailwind('mb-4 w-full')}>
+          <ButtonGroup
+            buttons={buttonGroup}
+            activeButtonGroupItem={activeButtonGroup}
+            labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
+            testID='address_button_group'
+          />
+        </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
           <WalletCounterDisplay addressLength={addresses.length} />
           {addresses.length > 0 &&
@@ -284,7 +313,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
       </ThemedView>
     )
-  }, [addresses, isEditing])
+  }, [addresses, isEditing, activeButtonGroup])
 
   const FooterComponent = useMemo(() => {
     if (addresses.length === 0) {
@@ -374,7 +403,7 @@ function EmptyDisplay ({ onPress }: { onPress: () => void }): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <ThemedView
-      style={tailwind('px-8 pt-32 pb-2 text-center')}
+      style={tailwind('px-8 pt-24 pb-2 text-center')}
       testID='empty_address_book'
     >
       <View style={tailwind('items-center pb-4')}>
