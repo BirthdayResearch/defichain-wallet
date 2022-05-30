@@ -26,6 +26,7 @@ import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
 import { SearchInput } from '@components/SearchInput'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
+import { DiscoverWalletAddress } from '../components/AddressControlScreen'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -61,6 +62,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setActiveButtonGroup(buttonGroupTabKey)
+    // TODO need to add logic to switch between whitelisted address and your address listing
   }
 
   // Search
@@ -100,6 +102,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       onAddressSelect(address)
     }
   }
+
   const [filteredAddresses, setFilteredAddresses] = useState<string[]>(addresses)
 
   // to update edit/delete/add addresses
@@ -307,8 +310,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           />
         </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
-          <WalletCounterDisplay addressLength={addresses.length} />
-          {addresses.length > 0 &&
+          <View style={tailwind('flex flex-row items-center')}>
+            <WalletCounterDisplay addressLength={addresses.length} />
+            {activeButtonGroup === ButtonGroupTabKey.YourAddress && <DiscoverWalletAddress size={18} />}
+          </View>
+          {(addresses.length > 0 && activeButtonGroup === ButtonGroupTabKey.Whitelisted) &&
             <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />}
         </View>
       </ThemedView>
