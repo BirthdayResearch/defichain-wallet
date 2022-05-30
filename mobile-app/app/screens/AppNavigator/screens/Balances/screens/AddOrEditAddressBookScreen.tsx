@@ -105,7 +105,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
           ...addressBook,
           [addressInput]: {
             label: labelInput,
-            isMine: false
+            isMine: false,
+            isFavourite: addressLabel?.isFavourite
           }
         }
 

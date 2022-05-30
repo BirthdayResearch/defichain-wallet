@@ -78,6 +78,28 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       onAddressSelect(address)
     }
   }
+
+  const onFavouriteAddress = (address: string): void => {
+    const localAddress = addressBook?.[address]
+    const _addressBook = {
+      ...addressBook,
+      [address]: {
+        label: localAddress.label,
+        isMine: localAddress.isMine,
+        isFavourite: typeof localAddress.isFavourite === 'boolean' ? !localAddress.isFavourite : true
+      }
+    }
+    dispatch(setAddressBook(_addressBook)).then(() => {
+      dispatch(setUserPreferences({
+        network,
+        preferences: {
+          ...userPreferences,
+          addressBook: _addressBook
+        }
+      }))
+    })
+  }
+
   const [filteredAddresses, setFilteredAddresses] = useState<string[]>(addresses)
 
   // to update edit/delete/add addresses
@@ -199,7 +221,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     address: item,
                     addressLabel: {
                       label: addressBook[item]?.label,
-                      isMine: false
+                      isMine: false,
+                      isFavourite: addressBook[item]?.isFavourite
                     },
                     onSaveButtonPress: (labelAddress: LabeledAddress) => {
                       dispatch(setAddressBook(labelAddress)).then(() => {
@@ -254,7 +277,22 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                 />
               )
               : (
-                <View style={tailwind('h-6 w-6')} />
+                <TouchableOpacity
+                  style={tailwind('pl-4')}
+                  onPress={() => onFavouriteAddress(item)}
+                >
+                  <ThemedIcon
+                    iconType='MaterialIcons'
+                    name={addressBook?.[item]?.isFavourite === true ? 'star' : 'star-outline'}
+                    size={20}
+                    light={tailwind(
+                      addressBook?.[item]?.isFavourite === true ? 'text-warning-500' : 'text-gray-600'
+                    )}
+                    dark={tailwind(
+                      addressBook?.[item]?.isFavourite === true ? 'text-darkwarning-500' : 'text-gray-300'
+                    )}
+                  />
+                </TouchableOpacity>
               )}
         </View>
       </ThemedTouchableOpacity>
