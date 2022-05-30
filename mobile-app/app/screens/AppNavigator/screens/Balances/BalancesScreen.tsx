@@ -327,7 +327,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       default:
         return filteredTokens
     }
-  }, [filteredTokens, assetSortType])
+  }, [filteredTokens, assetSortType, denominationCurrency])
 
   const assetSortBottomSheetScreen = useMemo(() => {
     return [
@@ -344,7 +344,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             sortTokensAssetOnType(item)
             setShowAssetSortBottomSheet(false)
             dismissModal()
-          }
+          },
+          modifiedDenominationCurrency: modifiedDenominationCurrency
         }),
         option: {
           headerStatusBarHeight: 1,
@@ -358,7 +359,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         }
       }
     ]
-  }, [])
+  }, [modifiedDenominationCurrency])
 
   // Address selection bottom sheet
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
