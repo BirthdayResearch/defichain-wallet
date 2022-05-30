@@ -278,7 +278,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [filteredTokens, assetSortType, denominationCurrency])
 
   useEffect(() => {
-    setAssetSortType(assetValue) // reset sorting state
+    setAssetSortType(assetValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
 
   // token tab items
