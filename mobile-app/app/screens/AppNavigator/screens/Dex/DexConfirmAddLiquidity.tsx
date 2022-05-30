@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -27,6 +27,7 @@ import { View } from '@components'
 import { InfoText } from '@components/InfoText'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { PricesSection } from '@components/PricesSection'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -44,7 +45,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
   } = props.route.params.summary
   const pair = props.route.params.pair
   const { conversion } = props.route.params
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)

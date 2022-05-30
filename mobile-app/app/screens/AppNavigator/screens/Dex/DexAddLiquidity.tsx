@@ -16,7 +16,7 @@ import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { ConversionInfoText } from '@components/ConversionInfoText'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -26,6 +26,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { PricesSection } from '@components/PricesSection'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -42,7 +43,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isFocused = useIsFocused()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { StackScreenProps } from '@react-navigation/stack'
 import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
@@ -33,6 +33,7 @@ import { fetchTokens, tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<AuctionsParamList, 'PlaceBidScreen'>
 
@@ -41,7 +42,7 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     batch,
     vault
   } = props.route.params
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const ownedToken = tokens.find(token => token.id === batch.loan.id)

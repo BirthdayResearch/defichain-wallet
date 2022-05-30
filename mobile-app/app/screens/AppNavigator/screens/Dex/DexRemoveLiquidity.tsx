@@ -5,7 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -23,6 +23,7 @@ import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { fetchTokens, tokenSelector, tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -30,7 +31,7 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isFocused = useIsFocused()
 
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))

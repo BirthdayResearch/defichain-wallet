@@ -1,16 +1,17 @@
 import { tailwind } from '@tailwind'
 import { ThemedScrollView } from '@components/themed'
 import { VaultCard } from '@screens/AppNavigator/screens/Loans/components/VaultCard'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useEffect, useRef } from 'react'
 import { fetchCollateralTokens, fetchVaults, vaultsSelector } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function Vaults (): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const isFocused = useIsFocused()
   const { address } = useWalletContext()

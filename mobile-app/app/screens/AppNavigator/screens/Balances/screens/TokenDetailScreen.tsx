@@ -22,11 +22,12 @@ import {
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 interface TokenActionItems {
   title: string
@@ -41,7 +42,7 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   // async calls
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)

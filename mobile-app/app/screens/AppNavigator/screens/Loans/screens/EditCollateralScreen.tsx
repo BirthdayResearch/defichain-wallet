@@ -15,7 +15,7 @@ import { BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenLis
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
 import {
@@ -41,6 +41,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -69,7 +70,7 @@ export function EditCollateralScreen ({
   const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const containerRef = useRef(null)

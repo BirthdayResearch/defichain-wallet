@@ -7,7 +7,7 @@ import {
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import * as React from 'react'
 import BigNumber from 'bignumber.js'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { View } from '@components'
 import {
   SkeletonLoader,
@@ -31,6 +31,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -46,7 +47,7 @@ export function DexScreen (): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)

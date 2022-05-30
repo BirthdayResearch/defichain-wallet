@@ -1,5 +1,5 @@
 import React, { useEffect, PropsWithChildren } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
@@ -7,12 +7,13 @@ import { fetchDexPrice, fetchPoolPairs } from '@store/wallet'
 import { fetchUserPreferences } from '@store/userPreferences'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const client = useWhaleApiClient()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { wallets } = useWalletPersistenceContext()
   const { isFeatureAvailable } = useFeatureFlagContext()
 

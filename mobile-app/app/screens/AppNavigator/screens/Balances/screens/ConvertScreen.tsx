@@ -6,7 +6,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
@@ -25,6 +25,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { fetchTokens, tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -36,7 +37,7 @@ interface ConversionIO extends AddressToken {
 export function ConvertScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const blockCount = useSelector((state: RootState) => state.block.count)
