@@ -307,11 +307,11 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         return filteredTokens.sort((a, b) => {
           return a.usdAmount.minus(b.usdAmount).toNumber()
         })
-      case ('Highest Token Amount'):
+      case ('Highest token amount'):
         return filteredTokens.sort((a, b) => {
           return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
         })
-      case ('Lowest Token Amount'):
+      case ('Lowest token amount'):
         return filteredTokens.sort((a, b) => {
           return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
         })
@@ -334,10 +334,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         stackScreenName: 'AssetSortList',
         component: BottomSheetAssetSortList({
           headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
-          onCloseButtonPress: () => dismissModal(),
+          onCloseButtonPress: () => {
+            setShowAssetSortBottomSheet(false)
+            dismissModal()
+          },
           onButtonPress: (item: string) => {
             setAssetSortType(item)
             sortTokensAssetOnType(item)
+            setShowAssetSortBottomSheet(false)
             dismissModal()
           }
         }),
@@ -366,7 +370,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     } else {
       bottomSheetRef.current?.present()
     }
-    setShowAssetSortBottomSheet(true)
   }, [])
   const dismissModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -374,7 +377,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     } else {
       bottomSheetRef.current?.close()
     }
-    setShowAssetSortBottomSheet(false)
   }, [])
 
   const addressBottomSheetScreen = useMemo(() => {
@@ -447,6 +449,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         <AssetSortRow
           assetSortType={assetSortType}
           onPress={() => {
+            setShowAssetSortBottomSheet(true)
             expandModal()
           }}
         />
@@ -594,7 +597,11 @@ function AssetSortRow (props: { assetSortType: string, onPress: () => void}): JS
         {translate('screens/BalancesScreen', 'AVAILABLE ASSETS')}
       </ThemedText>
       {/* to open bottom sheet */}
-      <TouchableOpacity style={tailwind('flex flex-row items-center')} onPress={props.onPress}>
+      <TouchableOpacity
+        style={tailwind('flex flex-row items-center')}
+        onPress={props.onPress}
+        testID='your_assets_dropdown_arrow'
+      >
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
