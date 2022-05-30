@@ -75,7 +75,7 @@
     "SWITCH": "切换钱包",
     "YOUR ASSETS": "YOUR ASSETS",
     "Available: ": "现有可使用: ",
-    "Locked: ": "已鎖定: ",
+    "Locked: ": "已锁定: ",
     "locked in vault(s)": "锁定在金库",
     "available": "可使用资金",
     "All tokens": "所有代币",
@@ -85,7 +85,9 @@
     "(From highest value)": "(从最高值开始)",
     "(From lowest value)": "(从最低值开始)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额",
-    "loans": "贷款"
+    "loans": "贷款",
+    "You have pending future swap(s)": "You have pending future swap(s)",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "这个图标显示的价格是由预言机产生而不是 DEX 提供的"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -96,13 +98,16 @@
     "CANCEL": "取消"
   },
   "screens/AddressBookScreen": {
-    "Address book": "Address book",
+    "Address Book": "地址簿",
     "ADD NEW ADDRESS": "ADD NEW ADDRESS",
-    "Please enter an address label": "Please enter an address label",
-    "Please enter a valid address": "Please enter a valid address",
-    "Please enter a unique address": "Please enter a unique address",
     "Empty address book": "空地址簿",
-    "Add your preferred address": "添加您的首选地址"
+    "Add your preferred address": "添加您的首选地址",
+    "No saved addresses": "沒有儲存地址",
+    "ADD ADDRESS": "添加地址",
+    "Add address": "添加地址",
+    "SAVED ADDRESS(ES)": "已储存地址",
+    "Search for address": "搜索地址",
+    "{{length}} ADDRESS(ES)": "{{length}} 地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址标签",
@@ -117,15 +122,20 @@
     "Edit address label": "更改地址标签",
     "Address label": "地址标签",
     "Address {{index}}": "地址 {{index}}",
-    "Add new address": "Add new address",
-    "Add New Address": "Add New Address",
+    "Add new address": "添加地址",
+    "Add New Address": "添加地址",
     "Address": "地址",
+    "Wallet address": "钱包地址",
     "SAVE CHANGES": "储存修改",
-    "Address label is too long (max 30 characters)": "地址标签太长（最多 30 个字符）",
-    "Enter address label": "Enter address label",
-    "Enter address": "Enter address",
-    "This address already exists in your address book, please enter a different address": "This address already exists in your address book, please enter a different address",
-    "Edit address": "Edit address"
+    "CONTINUE": "继续",
+    "Address label is too long (max 40 characters)": "地址标签太长（最多 40 个字符）",
+    "Enter address label": "输入地址标签",
+    "Enter address": "输入地址",
+    "This address already exists in your address book, please enter a different address": "此地址已储存在通讯录中，请输入其他地址",
+    "Edit Address": "编辑地址",
+    "Please enter an address label": "请输入地址标签",
+    "Please enter a valid address": "请输入有效地址",
+    "Required field, max. 40 characters": "必须填写栏，最多40个字符"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -153,7 +163,8 @@
     "Select token": "选择代币",
     "Select a token you want to send to get started": "若要开始，请先选您想发出的代币",
     "Choose token to send": "选择发出此代币",
-    "TRANSACTION DETAILS": "交易明细"
+    "TRANSACTION DETAILS": "交易明细",
+    "*Registered address": "*已注册地址"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
@@ -256,7 +267,9 @@
     "biometric": "生物辨识",
     "Enter passcode to continue": "输入密码后可继续",
     "Sign to save address": "签名储存地址",
-    "Sign to delete address": "签名移除地址"
+    "Sign to delete address": "签名移除地址",
+    "Address Book": "地址簿",
+    "GENERAL": "一般"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -384,15 +397,14 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特币生态原生DeFi",
-    "Take full control": "掌控",
-    "of your digital assets": "您拥有的数字资产",
-    "Nobody owns your keys and wallet except you.": "除了您之外没有任何人能控制您的私钥.",
-    "Unlock the highest": "释放最高潜力的",
-    "potential of your finances": "开放式金融理财和资产回报",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "双方交易、流动性挖矿、兑换和其他去中心化钱包功能.",
-    "Earn high yields": "本项目从未做任何融资，",
-    "of up to 90% with DEX": "以先来先得的社区参与方式收获，目前高回报率高达90%",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "为流动性池提供 BTC、ETH和其他流动池配对，并获得区块奖励. 您可以随时取出奖励！"
+    "Take full control": "完全掌控",
+    "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "DeFiChain 钱包是完全非托管的。妥善保管您的 24 个恢复字词。使用权限是您个人专属的包括钱包资金。",
+    "View your assets in one place": "在整合情况下查看您的资产",
+    "Review your available and locked assets in your portfolio.": "查看您的投资组合中可用和锁定的资产",
+    "Maximize earning potential": "最大化盈利潜力",
+    "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上进行交易并使用加密货币和 dToken 从流动性挖矿中获得奖励 ",
+    "Decentralized loans": "去中心化资产贷款",
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "离开页面",
@@ -501,7 +513,7 @@
     "OK": "好了",
     "Insufficient UTXO DFI": "不足够的UTXO DFI",
     "Not enough balance": "余额不足",
-    "Price is higher than indicated": "价格高于指示",
+    "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "兑换价格已超出滑点设置的容许范围。调整容许滑点百分比再继续进行。",
     "Preparing broadcast": "准备传输",
     "Waiting for transaction": "等待交易"
   },
@@ -521,7 +533,7 @@
     "Create new passcode for your wallet": "为您的钱包创建新的密码"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private": "请保管好您的恢复字组"
+    "Keep your recovery words safe and private.": "保持您的恢复字词安全和保密。"
   },
   "screens/AddLiquidity": {
     "Balance": "总资金",
@@ -647,15 +659,12 @@
     "How much {{token}} do you want to swap?": "您要兑换多少 {{token}}？",
     "You have": "您现有",
     "Estimated to receive": "您大约会收到",
-    "PRICES": "价格",
-    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
-    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值",
     "CONTINUE": "继续",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
     "Choose token for swap": "选择要兑换的代币",
     "Choose token to swap": "选择要兑换的代币",
-    "Enter an amount": "请输入数量",
+    "Enter amount to swap": "Enter amount to swap",
     "{{token}} tokens converted": "{{token}} 代币转换",
     "Select token": "选择代币",
     "UTXO to be converted": "要轉換的 UTXO",
@@ -664,7 +673,17 @@
     "PRICE DETAILS": "价格明细",
     "FROM": "从",
     "TO": "到",
-    "Total to be swapped": "要兌換的總數"
+    "Total to be swapped": "要兌換的總數",
+    "Instant Swap": "Instant Swap",
+    "Future Swap": "Future Swap",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
+    "Est. time remaining": "Est. time remaining",
+    "Settlement block": "Settlement block",
+    "To be confirmed": "To be confirmed",
+    "Enter an amount": "请输入数量",
+    "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -672,13 +691,19 @@
     "SWAPPING": "兑换",
     "You are swapping": "您正要兑换",
     "TRANSACTION DETAILS": "交易明细",
+    "Transaction date": "Transaction date",
     "Transaction type": "交易类型",
     "Convert & swap": "转换并兑换",
     "Swap": "兑换",
     "Swapping Token": "兑换代币",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Slippage tolerance": "交易滑点",
-    "Estimated to receive": "您大约会收到"
+    "Estimated to receive": "您大约会收到",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
+    "To be confirmed": "To be confirmed",
+    "Settlement block": "Settlement block",
+    "Resulting {{token}}": "Resulting {{token}}",
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",
@@ -703,16 +728,15 @@
     "Enter Passcode": "请输入密码",
     "Enter passcode to continue": "输入密码后可继续",
     "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易",
-    "Access granted": "现在可使用",
-    "You may now proceed": "您现在可以继续",
-    "Sign to verify access": "签下以确认使用"
+    "Sign to verify access": "签下以确认使用",
+    "Success!": "成功！"
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "签下交易",
     "Signing your transaction...": "正在签下交易",
     "Verifying access": "验证可使用的权限",
-    "Transaction authorized": "已授權交易",
-    "Please wait while your transaction is being prepared": "请稍候，您的交易正在准备中"
+    "Your wallet is your responsibility, do not forget to store your 24 recovery words.": "补管钱包是您的个人责任，不要忘记储存您的 24 个恢复字词。",
+    "Transaction signed": "已签名的交易"
   },
   "components/CreateWalletIndicator": {
     "Recovery": "恢复",
@@ -741,7 +765,7 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的连续显示24个英文字组是指储存在钱包的private key，它由2048个单字所产生的，支持BIP-39 标准的钱包。就算整个硬体钱包被盗或入侵，仍然可以确保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
-  "components/DexFaq" : {
+  "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能让使用者运用点对点的方式兑换加密货币。去中心化交易所能让使用者在不透过第三方中心化交易所之下，直接兑换货币。",
     "Transaction fees": "交易费用",
@@ -750,7 +774,7 @@
     "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。\n\n这导致了滑价，也就是确认交易前显示出的价格和最终交易价格之间的差异。\n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。\n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
-  "components/LiquidityMiningFaq" : {
+  "components/LiquidityMiningFaq": {
     "Liquidity Mining": "流动性挖矿",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流动性挖矿是DeFi机制技术，可让使用者透过提供流动资金而赚取比例化的区块奖励和交易费用回报，此比例以「流动性池股份」代表。\n\n流动性池中的资金主要是为去中心化交易所提供资金，当池中有资金时其他使用者可随时兑换池中的两个货币。",
     "How do I supply liquidity?": "如何能开始提供流动资金?",
@@ -779,6 +803,7 @@
   "components/DFIBalanceCard": {
     "Learn more about DFI": "了解更多关于 DFI",
     "Locked in vault(s)": "已锁定在金库",
+    "Locked": "已锁定",
     "Available": "现有可使用",
     "as UTXO": "as UTXO",
     "as Token": "as Token"
@@ -866,7 +891,7 @@
     "Confirm Place Bid": "确认出价",
     "Auction details": "拍卖细节"
   },
-  "components/AuctionDetailScreen":{
+  "components/AuctionDetailScreen": {
     "Collateral": "抵押品",
     "Min. next bid": "最低标价",
     "VAULT DETAILS": "金库明细",
@@ -890,6 +915,7 @@
     "ACTIVE BID": "主动出价",
     "{{h}}h": "{{h}}时",
     "{{m}}m": "{{m}}分",
+    "{{s}}s": "{{s}}秒",
     "Total auction value (USD)": "拍卖总价值（美元值）",
     "Min. next bid": "最低标价",
     "You are the highest bidder": "您目前是出价最高的人",
@@ -1004,7 +1030,8 @@
     "This amount is the total interest amount from both vault and token interest rate.": "此金额是金库和代币利率的利息总和",
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
-    "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。"
+    "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
+    "Settlement block": "Settlement block"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1102,7 +1129,8 @@
     "The collateral factor determines the degree of contribution of each collateral token.": "抵押因素决定了每款抵押代币的贡献程度比例。",
     "Resulting collateralization": "最终抵押率",
     "N/A": "不适用",
-    "Vault %": "金库 %"
+    "Vault %": "金库 %",
+    "Vault requirement": "Vault requirement"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "向金库增加抵押品",
@@ -1334,6 +1362,36 @@
     "Collateral for auction": "待拍卖的抵押品",
     "Insufficient funds": "资金不足"
   },
+  "screens/WithdrawFutureSwapScreen": {
+    "FROM": "FROM",
+    "TO": "TO",
+    "Enter an amount": "请输入数量",
+    "Amount to withdraw": "Amount to withdraw",
+    "Remaining amount": "Remaining amount",
+    "CONTINUE": "CONTINUE",
+    "Select token": "Select token",
+    "You are withdrawing": "You are withdrawing",
+    "Withdraw from future swap": "Withdraw from future swap"
+  },
+  "screens/ConfirmWithdrawFutureSwapScreen": {
+    "TRANSACTION DETAILS": "TRANSACTION DETAILS",
+    "Transaction type": "Transaction type",
+    "Remaining amount": "Remaining amount",
+    "CONFIRM WITHDRAWAL": "CONFIRM WITHDRAWAL",
+    "Confirm withdrawal": "Confirm withdrawal",
+    "WITHDRAWING": "WITHDRAWING",
+    "You are withdrawing": "You are withdrawing",
+    "Withdraw": "Withdraw",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
+    "To be confirmed": "To be confirmed",
+    "Withdraw future swap": "Withdraw future swap"
+  },
+  "screens/FutureSwapScreen": {
+    "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
+    "Settlement block": "Settlement block",
+    "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
+    "Future Swap": "Future Swap"
+  },
   "components/QuickBid": {
     "QUICK BID": "快速标价",
     "Insufficient amount to place a bid": "余额不足，无法出价",
@@ -1347,5 +1405,13 @@
   },
   "components/Announcements": {
     "DETAILS": "了解详情"
+  },
+  "components/PricesSection": {
+    "PRICES": "价格",
+    "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
+    "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值"
+  },
+  "components/VersionTag": {
+    "Version {{number}}": "版本 {{number}}"
   }
 }

@@ -31,6 +31,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -176,6 +177,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   </Text>
                   <Text
                     allowFontScaling={false}
+                    selectable={false}
                     style={
                       Array [
                         Object {
@@ -207,6 +209,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -256,6 +259,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 </Text>
                 <Text
                   allowFontScaling={false}
+                  selectable={false}
                   style={
                     Array [
                       Object {
@@ -283,6 +287,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             </View>
             <Text
               allowFontScaling={false}
+              selectable={false}
               style={
                 Array [
                   Object {
@@ -366,10 +371,16 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -615,6 +626,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           useNativeDriver={false}
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -772,67 +784,84 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_loan"
             >
-              $100.00
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_loan"
+              >
+                $100.00
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
       <View
@@ -902,67 +931,84 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_collateral"
             >
-              
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_collateral"
+              >
+                
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -988,7 +1034,13 @@ exports[`Vault card should match snapshot of active vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -1091,6 +1143,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1239,6 +1292,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -1288,6 +1342,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 </Text>
                 <Text
                   allowFontScaling={false}
+                  selectable={false}
                   style={
                     Array [
                       Object {
@@ -1315,6 +1370,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             </View>
             <Text
               allowFontScaling={false}
+              selectable={false}
               style={
                 Array [
                   Object {
@@ -1398,10 +1454,16 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -1647,6 +1709,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           useNativeDriver={false}
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1804,67 +1867,84 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_loan"
             >
-              $100.00
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_loan"
+              >
+                $100.00
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
       <View
@@ -1934,67 +2014,84 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_collateral"
             >
-              
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_collateral"
+              >
+                
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -2020,7 +2117,13 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -2123,6 +2226,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -2268,6 +2372,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   </Text>
                   <Text
                     allowFontScaling={false}
+                    selectable={false}
                     style={
                       Array [
                         Object {
@@ -2299,6 +2404,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -2348,6 +2454,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 </Text>
                 <Text
                   allowFontScaling={false}
+                  selectable={false}
                   style={
                     Array [
                       Object {
@@ -2375,6 +2482,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             </View>
             <Text
               allowFontScaling={false}
+              selectable={false}
               style={
                 Array [
                   Object {
@@ -2458,10 +2566,16 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -2707,6 +2821,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           useNativeDriver={false}
         >
           <View
+            collapsable={false}
             style={
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -2864,67 +2979,84 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_loan"
             >
-              $100.00
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_loan"
+              >
+                $100.00
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
       <View
@@ -2994,67 +3126,84 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_collateral"
             >
-              
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_collateral"
+              >
+                
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -3080,7 +3229,13 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -3183,6 +3338,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -3330,6 +3486,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
               </View>
               <View
                 accessible={true}
+                collapsable={false}
                 focusable={true}
                 onClick={[Function]}
                 onResponderGrant={[Function]}
@@ -3440,10 +3597,16 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             </Text>
             <View
               style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
+                Array [
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "position": "relative",
+                  },
+                  Object {
+                    "right": 0,
+                  },
+                ]
               }
             />
           </View>
@@ -3527,67 +3690,84 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_loan"
             >
-              -
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_loan"
+              >
+                -
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
       <View
@@ -3657,67 +3837,84 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         <View
           style={
             Object {
-              "alignItems": "center",
               "flexBasis": "0%",
-              "flexDirection": "row",
               "flexGrow": 1,
               "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
             }
           >
             <Text
               style={
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
+                  Object {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                    "marginLeft": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="vault_total_collateral"
             >
-              -
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                          "marginLeft": 0,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(23, 23, 23, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_total_collateral"
+              >
+                -
+              </Text>
             </Text>
-          </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -3743,7 +3940,13 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     }
   >
     <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}

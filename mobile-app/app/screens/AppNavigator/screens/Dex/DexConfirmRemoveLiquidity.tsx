@@ -17,11 +17,12 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { PricesSection } from '@components/PricesSection'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -106,8 +107,8 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
@@ -137,27 +138,30 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <ThemedSectionTitle
-        testID='title_price_detail'
-        text={translate('screens/ConfirmRemoveLiquidity', 'PRICE DETAILS')}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rhs={{
-          value: bToARate.toFixed(8),
-          testID: 'price_b',
-          suffixType: 'text',
-          suffix: translate('screens/ConfirmRemoveLiquidity', '{{symbolA}} per {{symbolB}}', { symbolA: pair.tokenA.displaySymbol, symbolB: pair.tokenB.displaySymbol })
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rhs={{
-          value: aToBRate.toFixed(8),
-          testID: 'price_a',
-          suffixType: 'text',
-          suffix: translate('screens/ConfirmRemoveLiquidity', '{{symbolB}} per {{symbolA}}', { symbolB: pair.tokenB.displaySymbol, symbolA: pair.tokenA.displaySymbol })
-        }}
+      <PricesSection
+        testID='confirm_pricerate_value'
+        priceRates={[
+          {
+            label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+              tokenA: pair.tokenA.displaySymbol,
+              tokenB: pair.tokenB.displaySymbol
+            }),
+            value: bToARate.toFixed(8),
+            aSymbol: pair.tokenB.displaySymbol,
+            bSymbol: pair.tokenA.displaySymbol
+          },
+          {
+            label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
+              tokenA: pair.tokenA.displaySymbol,
+              tokenB: pair.tokenB.displaySymbol
+            }),
+            value: aToBRate.toFixed(8),
+            aSymbol: pair.tokenA.displaySymbol,
+            bSymbol: pair.tokenB.displaySymbol
+          }
+
+        ]}
+        sectionTitle='PRICES'
       />
 
       <TransactionResultsRow

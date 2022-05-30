@@ -26,7 +26,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
@@ -37,10 +37,10 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { LocalAddress } from '@store/userPreferences'
+import { debounce } from 'lodash'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -58,8 +58,12 @@ export function SendScreen ({
     setValue,
     formState,
     getValues,
-    trigger
+    trigger,
+    watch
   } = useForm({ mode: 'onChange' })
+  const { address } = watch()
+  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -98,6 +102,14 @@ export function SendScreen ({
     }
   }, [])
 
+  const debounceMatchAddress = debounce(() => {
+    if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
+      setMatchedAddress(addressBook[address])
+    } else {
+      setMatchedAddress(undefined)
+    }
+  }, 200)
+
   useEffect(() => {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
@@ -116,6 +128,10 @@ export function SendScreen ({
 
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
+
+  useEffect(() => {
+    debounceMatchAddress()
+  }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -238,8 +254,34 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
+                  inputFooter={
+                    <>
+                      {matchedAddress !== undefined && (
+                        <ThemedView
+                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                          light={tailwind('bg-gray-50')}
+                          dark={tailwind('bg-gray-900')}
+                        >
+                          <ThemedIcon
+                            name='account-check'
+                            iconType='MaterialCommunityIcons'
+                            size={18}
+                            light={tailwind('text-gray-400')}
+                            dark={tailwind('text-gray-500')}
+                          />
+                          <ThemedText
+                            style={tailwind('text-xs ml-1 pt-px')}
+                            light={tailwind('text-gray-500')}
+                            dark={tailwind('text-gray-400')}
+                            testID='address_input_footer'
+                          >
+                            {matchedAddress.label}
+                          </ThemedText>
+                        </ThemedView>
+                      )}
+                    </>
+                  }
                 />
-
                 <AmountRow
                   control={control}
                   onAmountChange={async (amount) => {
@@ -276,8 +318,8 @@ export function SendScreen ({
                         }}
                       />}
 
-                    <FeeInfoRow
-                      type='ESTIMATED_FEE'
+                    <InfoRow
+                      type={InfoType.EstimatedFee}
                       value={fee.toString()}
                       testID='transaction_fee'
                       suffix='DFI'
@@ -418,8 +460,9 @@ function AddressRow ({
   onContactButtonPress,
   onQrButtonPress,
   onClearButtonPress,
-  onAddressChange
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
+  onAddressChange,
+  inputFooter
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -434,7 +477,7 @@ function AddressRow ({
             onChange
           }
         }) => (
-          <View style={tailwind('flex-row w-full mb-6')}>
+          <View style={tailwind('flex-row w-full')}>
             <WalletTextInput
               autoCapitalize='none'
               multiline
@@ -449,7 +492,27 @@ function AddressRow ({
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
+              inputFooter={inputFooter}
             >
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}
                 light={tailwind('bg-white border-gray-300')}
@@ -465,25 +528,6 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
-              {
-                isFeatureAvailable('local_storage') && (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('bg-gray-800 border-gray-400')}
-                    light={tailwind('bg-white border-gray-300')}
-                    onPress={onContactButtonPress}
-                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
-                    testID='address_book_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-darkprimary-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='contacts'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )
-              }
             </WalletTextInput>
           </View>
         )}
@@ -530,7 +574,7 @@ function AmountRow ({
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
-            style={tailwind('flex-row w-full')}
+            style={tailwind('flex-row w-full mt-6')}
           >
             <WalletTextInput
               autoCapitalize='none'

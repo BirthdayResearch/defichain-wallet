@@ -21,13 +21,19 @@ context('Wallet - Token Detail', () => {
     cy.getByTestID('remove_liquidity_button').should('not.exist')
   })
 
-  it('should be able to redirect with Add Liquidity', function () {
-    cy.getByTestID('add_liquidity_button').should('exist')
+  it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').click()
-    cy.url().should('include', 'DEX/AddLiquidity')
+    cy.getByTestID('token_input_primary').clear().type('5')
+    cy.getByTestID('button_confirm_continue_add_liq').click()
+
+    /* Redirect back from Confirm Add Liquidity screen */
+    cy.go('back')
+    /* Redirect back from Add Liquidity screen */
+    cy.go('back')
+    cy.url().should('include', 'app/TokenDetail')
   })
 
-  it('should be able to redirect with Pool Swap', function () {
+  it('should be able to redirect to Pool Swap screen', function () {
     cy.getByTestID('swap_button').should('exist')
     cy.getByTestID('swap_button').click()
     cy.url().should('include', 'app/CompositeSwap')
@@ -44,7 +50,7 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(['ETH-DFI'])
+      .sendTokenToWallet(['ETH-DFI', 'ETH'])
       .wait(10000)
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('balances_list').should('exist')
@@ -61,16 +67,30 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('swap_button').should('not.exist')
   })
 
-  it('should be able to redirect with Add Liquidity', function () {
+  it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').should('exist')
     cy.getByTestID('add_liquidity_button').click()
-    cy.url().should('include', 'DEX/AddLiquidity')
+    cy.getByTestID('token_input_primary').clear().type('5')
+    cy.getByTestID('button_confirm_continue_add_liq').click()
+
+    /* Redirect back from Confirm Add Liquidity screen */
+    cy.go('back')
+    /* Redirect back from Add Liquidity screen */
+    cy.go('back')
+    cy.url().should('include', 'app/TokenDetail')
   })
 
-  it('should be able to redirect with Remove Liquidity', function () {
+  it('should be able to redirect to Remove Liquidity screen', function () {
     cy.getByTestID('remove_liquidity_button').should('exist')
     cy.getByTestID('remove_liquidity_button').click()
-    cy.url().should('include', 'DEX/RemoveLiquidity')
+    cy.getByTestID('text_input_percentage').clear().type('10')
+    cy.getByTestID('button_continue_remove_liq').click()
+
+    /* Redirect back from ConfirmRemove Liquidity screen */
+    cy.go('back')
+    /* Redirect back from Remove Liquidity screen */
+    cy.go('back')
+    cy.url().should('include', 'app/TokenDetail')
   })
 })
 
@@ -89,5 +109,40 @@ context('Wallet - Token Detail Defiscan redirection', () => {
     cy.getByTestID('balances_row_1_amount').contains(10)
     cy.getByTestID('balances_row_1').click().wait(3000)
     cy.getByTestID('token_detail_explorer_url').should('exist')
+  })
+})
+
+context('Wallet - Token Detail - DFI', () => {
+  beforeEach(function () {
+    cy.createEmptyWallet(true)
+    cy.getByTestID('header_settings').click()
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .wait(10000)
+    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('dfi_balance_card_touchable').should('exist')
+    cy.getByTestID('dfi_balance_card_touchable').click()
+  })
+
+  it('should be able to click token DFI', function () {
+    cy.getByTestID('token_detail_amount').contains(20)
+    cy.getByTestID('send_button').should('exist')
+    cy.getByTestID('receive_button').should('exist')
+    cy.getByTestID('convert_button').should('exist')
+    cy.getByTestID('swap_button_dfi').should('exist')
+    cy.getByTestID('swap_button').should('not.exist')
+    cy.getByTestID('add_liquidity_button').should('not.exist')
+    cy.getByTestID('remove_liquidity_button').should('not.exist')
+  })
+
+  it('should be able to redirect with Swap', function () {
+    cy.getByTestID('swap_button_dfi').should('exist')
+    cy.getByTestID('swap_button_dfi').click()
+    cy.url().should('include', 'app/CompositeSwap')
+    cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_TO').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('token_select_button_FROM').should('contain', 'DFI')
+    cy.getByTestID('token_select_button_TO').should('contain', 'Select token')
   })
 })

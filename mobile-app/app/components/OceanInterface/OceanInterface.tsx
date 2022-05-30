@@ -164,7 +164,7 @@ export function OceanInterface (): JSX.Element | null {
     <Animated.View
       style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {
         bottom: slideAnim,
-        height: 75
+        minHeight: 75
       }]}
     >
       {

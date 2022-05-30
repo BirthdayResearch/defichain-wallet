@@ -1,4 +1,4 @@
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { NumberRow } from '@components/NumberRow'
 import { TextRow } from '@components/TextRow'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -205,8 +205,8 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
@@ -230,7 +230,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount (USD)')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount')}
         rhs={{
           value: props.amount.toFixed(8),
           testID: 'collateral_amount',
@@ -245,6 +245,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
           testID: 'collateral_value',
           prefix: '$'
         }}
+        isOraclePrice
       />
       <VaultProportionRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Vault %')}

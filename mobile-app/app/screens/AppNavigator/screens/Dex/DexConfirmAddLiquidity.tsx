@@ -20,12 +20,13 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ConversionTag } from '@components/ConversionTag'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { View } from '@components'
 import { InfoText } from '@components/InfoText'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { PricesSection } from '@components/PricesSection'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -178,8 +179,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           suffix: pair.tokenB.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
@@ -209,33 +210,27 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         }}
       />
 
-      <ThemedSectionTitle
-        testID='title_price_detail'
-        text={translate('screens/ConfirmAddLiq', 'PRICE DETAILS')}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
-          tokenA: pair.tokenA.displaySymbol,
-          tokenB: pair.tokenB.displaySymbol
-        })}
-        rhs={{
-          value: bToARate.toFixed(8),
-          testID: 'price_a',
-          suffixType: 'text',
-          suffix: pair.tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', '{{tokenA}} price per {{tokenB}}', {
-          tokenA: pair.tokenB.displaySymbol,
-          tokenB: pair.tokenA.displaySymbol
-        })}
-        rhs={{
+      <PricesSection
+        testID='confirm_pricerate_value'
+        priceRates={[{
+          label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
+            tokenA: pair.tokenA.displaySymbol,
+            tokenB: pair.tokenB.displaySymbol
+          }),
           value: aToBRate.toFixed(8),
-          testID: 'price_b',
-          suffixType: 'text',
-          suffix: pair.tokenB.displaySymbol
-        }}
+          aSymbol: pair.tokenA.displaySymbol,
+          bSymbol: pair.tokenB.displaySymbol
+        },
+        {
+          label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+            tokenA: pair.tokenA.displaySymbol,
+            tokenB: pair.tokenB.displaySymbol
+          }),
+          value: bToARate.toFixed(8),
+          aSymbol: pair.tokenB.displaySymbol,
+          bSymbol: pair.tokenA.displaySymbol
+        }
+        ]} sectionTitle='PRICES'
       />
 
       <TransactionResultsRow

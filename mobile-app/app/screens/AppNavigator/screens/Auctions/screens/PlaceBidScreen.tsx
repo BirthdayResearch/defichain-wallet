@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { StackScreenProps } from '@react-navigation/stack'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
@@ -10,7 +10,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { useBottomSheet } from '@hooks/useBottomSheet'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { SetAmountButton, AmountButtonTypes } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -28,7 +28,6 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { InfoText } from '@components/InfoText'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
@@ -41,7 +40,6 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     batch,
     vault
   } = props.route.params
-  const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
@@ -179,8 +177,8 @@ export function PlaceBidScreen (props: Props): JSX.Element {
               testID='title_tx_detail'
               text={translate('screens/PlaceBidScreen', 'TRANSACTION DETAILS')}
             />
-            <FeeInfoRow
-              type='ESTIMATED_FEE'
+            <InfoRow
+              type={InfoType.EstimatedFee}
               value={fee.toFixed(8)}
               testID='text_fee'
               suffix='DFI'

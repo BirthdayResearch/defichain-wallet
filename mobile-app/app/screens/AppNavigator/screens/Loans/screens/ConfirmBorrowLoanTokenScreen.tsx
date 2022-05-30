@@ -1,4 +1,4 @@
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { NumberRow } from '@components/NumberRow'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
@@ -224,8 +224,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: props.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'
@@ -262,6 +262,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
           testID: 'text_collateral_amount',
           prefix: '$'
         }}
+        isOraclePrice
       />
       {props.collateralRatio.isLessThan(0)
         ? (

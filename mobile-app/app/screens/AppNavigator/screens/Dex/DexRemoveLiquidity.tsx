@@ -8,11 +8,11 @@ import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
-import { NumberRow } from '@components/NumberRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { TokenIconPair } from '@components/TokenIconPair'
+import { PricesSection } from '@components/PricesSection'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -22,7 +22,6 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokenSelector, tokensSelector } from '@store/wallet'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -147,28 +146,30 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
           testID: 'price_b'
         }}
       />
+      <PricesSection
+        testID='pricerate_value'
+        priceRates={[
+          {
+           label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
+             tokenA: pair.tokenA.displaySymbol,
+             tokenB: pair.tokenB.displaySymbol
+           }),
+           value: tokenAPerLmToken.toFixed(8),
+           aSymbol: pair.tokenA.displaySymbol,
+           bSymbol: pair.tokenB.displaySymbol
+          },
+          {
+            label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+              tokenA: pair.tokenA.displaySymbol,
+              tokenB: pair.tokenB.displaySymbol
+            }),
+            value: tokenBPerLmToken.toFixed(8),
+            aSymbol: pair.tokenB.displaySymbol,
+            bSymbol: pair.tokenA.displaySymbol
+          }
 
-      <ThemedSectionTitle
-        testID='remove_liq_price_details_title'
-        text={translate('screens/RemoveLiquidity', 'PRICE DETAILS')}
-      />
-      <NumberRow
-        lhs={translate('screens/RemoveLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rhs={{
-          value: tokenBPerLmToken.toFixed(8),
-          testID: 'text_b_to_a_price',
-          suffixType: 'text',
-          suffix: translate('screens/RemoveLiquidity', '{{symbolA}} per {{symbolB}}', { symbolA: pair.tokenA.displaySymbol, symbolB: pair.tokenB.displaySymbol })
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/RemoveLiquidity', '{{tokenA}} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rhs={{
-          value: tokenAPerLmToken.toFixed(8),
-          testID: 'text_a_to_b_price',
-          suffixType: 'text',
-          suffix: translate('screens/RemoveLiquidity', '{{symbolB}} per {{symbolA}}', { symbolB: pair.tokenB.displaySymbol, symbolA: pair.tokenA.displaySymbol })
-        }}
+        ]}
+        sectionTitle='PRICES'
       />
       <ThemedText
         light={tailwind('text-gray-600')}
@@ -234,7 +235,7 @@ function AmountSlider (props: { current: number, onChange: (percentage: string) 
   )
 }
 
-function HelperText (props: {displayedPercentage: string}): JSX.Element {
+function HelperText (props: { displayedPercentage: string }): JSX.Element {
   return (
     <ThemedView
       light={tailwind('bg-transparent')}

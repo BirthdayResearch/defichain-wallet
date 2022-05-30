@@ -73,6 +73,7 @@ exports[`create wallet guidelines should match snapshot 1`] = `
     </Text>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -399,7 +400,13 @@ exports[`create wallet guidelines should match snapshot 1`] = `
       </View>
     </View>
     <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}

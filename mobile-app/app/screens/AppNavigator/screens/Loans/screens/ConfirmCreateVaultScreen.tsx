@@ -14,7 +14,7 @@ import { View } from '@components'
 import { TextRow } from '@components/TextRow'
 import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ConversionTag } from '@components/ConversionTag'
 import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -125,11 +125,11 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
       >
         {translate('screens/ConfirmCreateVaultScreen', 'You are creating vault')}
       </ThemedText>
-      <View style={tailwind('flex flex-row items-center')}>
+      <View style={tailwind('flex-row items-center')}>
         <ThemedView
           light={tailwind('bg-gray-100')}
           dark={tailwind('bg-gray-700')}
-          style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
+          style={tailwind('w-8 h-8 rounded-full items-center justify-center mr-2')}
         >
           <ThemedIcon
             iconType='MaterialIcons'
@@ -142,7 +142,7 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
         <ThemedText
           light={tailwind('text-gray-400')}
           dark={tailwind('text-gray-500')}
-          style={tailwind('text-sm')}
+          style={tailwind('text-sm flex-1')}
         >
           {translate('screens/ConfirmCreateVaultScreen', 'ID will generate once vault has been created')}
         </ThemedText>
@@ -170,14 +170,14 @@ function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: Conver
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='VAULT_FEE'
+      <InfoRow
+        type={InfoType.VaultFee}
         value={vaultFee.toFixed(8)}
         testID='vault_fee'
         suffix='DFI'
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

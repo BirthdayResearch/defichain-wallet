@@ -21,6 +21,16 @@ function createAddLiquidityToWallet (): void {
   cy.getByTestID('price_b').contains('0.00000000')
 }
 
+function validatePriceSection (testID: string): void {
+  cy.getByTestID(`${testID}_0`).contains('1 dETH = 0.01000000')
+  cy.getByTestID(`${testID}_0_label`).contains('dETH price in DFI')
+  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
+
+  cy.getByTestID(`${testID}_1`).contains('1 DFI = 100.00000000')
+  cy.getByTestID(`${testID}_1_label`).contains('DFI price in dETH')
+  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dETH')
+}
+
 context('Wallet - DEX - Remove Liquidity', () => {
   before(function () {
     createAddLiquidityToWallet()
@@ -39,22 +49,19 @@ context('Wallet - DEX - Remove Liquidity', () => {
 
   it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
     cy.wait(1000)
-    cy.getByTestID('text_a_to_b_price').contains('0.01000000')
-    cy.getByTestID('text_a_to_b_price_suffix').should('have.text', 'DFI per dETH')
-    cy.getByTestID('text_a_to_b_price_label').contains('dETH price in DFI')
-    cy.getByTestID('text_b_to_a_price').contains('100.00000000')
-    cy.getByTestID('text_b_to_a_price_suffix').should('have.text', 'dETH per DFI')
-    cy.getByTestID('text_b_to_a_price_label').contains('DFI price in dETH')
+    validatePriceSection('pricerate_value')
   })
 
-  // // unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
-  // it('Slider - should be draggable with 0.01% precision', function () {
-  //   cy.getByTestID('slider_remove_liq_percentage').invoke('val', '11.1').trigger('change').wait(100)
-  //   cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('11.10 %'))
+  /*
+  //  unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
+  it('Slider - should be draggable with 0.01% precision', function () {
+    cy.getByTestID('slider_remove_liq_percentage').invoke('val', '11.1').trigger('change').wait(100)
+    cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('11.10 %'))
 
-  //   cy.getByTestID('slider_remove_liq_percentage').invoke('val', '99.9949999').trigger('change').wait(100)
-  //   cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('99.99 %'))
-  // })
+    cy.getByTestID('slider_remove_liq_percentage').invoke('val', '99.9949999').trigger('change').wait(100)
+    cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('99.99 %'))
+  })
+  */
 
   it('should disable continue button by default', () => {
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
@@ -127,15 +134,11 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
         // Transaction Details section
         cy.getByTestID('text_transaction_type').should('have.text', 'Remove liquidity')
 
-        // Estimated Amount to Receive section
-        cy.getByTestID('price_a').contains('0.01000000')
-        cy.getByTestID('price_a_label').contains('dETH price in DFI')
-        cy.getByTestID('price_b').contains('100.00000000')
-        cy.getByTestID('price_b_label').contains('DFI price in dETH')
-
-        // Price Details section
         cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
         cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
+
+        // Prices section
+        validatePriceSection('confirm_pricerate_value')
 
         cy.getByTestID('button_confirm_remove').click().wait(2000)
         cy.closeOceanInterface()
@@ -161,12 +164,9 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('a_amount').should('exist')
     cy.getByTestID('b_amount').should('exist')
     cy.getByTestID('text_fee').should('exist')
-    cy.getByTestID('price_a').contains('0.01000000')
-    cy.getByTestID('price_a_label').contains('dETH price in DFI')
-    cy.getByTestID('price_a_suffix').should('have.text', 'DFI per dETH')
-    cy.getByTestID('price_b').contains('100.00000000')
-    cy.getByTestID('price_b_label').contains('DFI price in dETH')
-    cy.getByTestID('price_b_suffix').should('have.text', 'dETH per DFI')
+
+    // Prices section
+    validatePriceSection('confirm_pricerate_value')
 
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description

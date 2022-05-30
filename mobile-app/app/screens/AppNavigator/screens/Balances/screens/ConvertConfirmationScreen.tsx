@@ -13,7 +13,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { NumberRow } from '@components/NumberRow'
@@ -131,8 +131,8 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'

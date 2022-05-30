@@ -6,8 +6,8 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { View } from '@components/index'
+import { useSelector } from 'react-redux'
+import { View } from '@components'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
@@ -20,11 +20,10 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { tokensSelector } from '@store/wallet'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
@@ -36,7 +35,6 @@ interface ConversionIO extends AddressToken {
 export function ConvertScreen (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
-  const dispatch = useDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   // global state
@@ -126,8 +124,8 @@ export function ConvertScreen (props: Props): JSX.Element {
         text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
         style={tailwind('px-4 mt-6 pb-2 text-xs text-gray-500 font-medium')}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toString()}
         testID='transaction_fee'
         suffix='DFI'

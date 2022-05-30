@@ -1,8 +1,10 @@
-import { ThemedScrollView } from '@components/themed'
+
+import { useIsFocused, useScrollToTop } from '@react-navigation/native'
+import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
@@ -26,12 +28,13 @@ import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { activeVaultsSelector, fetchCollateralTokens, fetchVaults } from '@store/loans'
+import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
@@ -41,8 +44,10 @@ export interface BalanceRowToken extends WalletToken {
 }
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const isFocused = useIsFocused()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
+  const whaleRpcClient = useWhaleRpcClient()
   const {
     address,
     addressLength
@@ -66,7 +71,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
+  const { hasFetchedToken, allTokens } = useSelector((state: RootState) => (state.wallet))
+  const ref = useRef(null)
+  useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -75,6 +83,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     fetchPortfolioData()
   }, [address, blockCount])
+
+  useEffect(() => {
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchFutureSwaps({
+          client: whaleRpcClient,
+          address
+        }))
+        dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
+      })
+    }
+  }, [address, blockCount, isFocused])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -88,9 +108,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       )
     })
   }, [navigation, address, addressLength])
+
   useEffect(() => {
-    // fetch only once to decide flag to display locked balance breakdown
-    dispatch(fetchCollateralTokens({ client }))
+    batch(() => {
+      // fetch only once to decide flag to display locked balance breakdown
+      dispatch(fetchCollateralTokens({ client }))
+      dispatch(fetchLoanTokens({ client }))
+    })
   }, [])
 
   const fetchPortfolioData = (): void => {
@@ -126,9 +150,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableValue,
-          dstTokens
-        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
+        totalAvailableValue,
+        dstTokens
+      }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -149,10 +173,46 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-        totalAvailableValue: new BigNumber(0),
-        dstTokens: []
-      })
+      totalAvailableValue: new BigNumber(0),
+      dstTokens: []
+    })
   }, [prices, tokens])
+
+  // add token that are 100% locked as collateral into dstTokens
+  const combinedTokens = useMemo(() => {
+    if (lockedTokens === undefined || lockedTokens.size === 0) {
+      return dstTokens
+    }
+
+    const dstTokenSymbols = dstTokens.map(token => token.displaySymbol)
+    const lockedTokensArray: BalanceRowToken[] = []
+    lockedTokens.forEach((_lockedBalance, displaySymbol) => {
+      if (displaySymbol === 'DFI') {
+        return
+      }
+
+      const tokenExist = dstTokenSymbols.includes(displaySymbol)
+      if (!tokenExist) {
+        const tokenData = allTokens[displaySymbol]
+        if (tokenData !== undefined) {
+          lockedTokensArray.push({
+            id: tokenData.id,
+            amount: '0',
+            symbol: tokenData.symbol,
+            displaySymbol: tokenData.displaySymbol,
+            symbolKey: tokenData.symbolKey,
+            name: tokenData.name,
+            isDAT: tokenData.isDAT,
+            isLPS: tokenData.isLPS,
+            isLoanToken: tokenData.isLoanToken,
+            avatarSymbol: tokenData.displaySymbol,
+            usdAmount: new BigNumber(0)
+          })
+        }
+      }
+    })
+    return [...dstTokens, ...lockedTokensArray]
+  }, [dstTokens, allTokens, lockedTokens])
 
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
@@ -179,24 +239,24 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   ]
 
   // token tab items
-  const [filteredTokens, setFilteredTokens] = useState(dstTokens)
+  const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
-    const filterTokens = dstTokens.filter((dstToken) => {
+    const filterTokens = combinedTokens.filter((token) => {
       switch (buttonGroupTabKey) {
         case ButtonGroupTabKey.LPTokens:
-          return dstToken.isLPS
+          return token.isLPS
         case ButtonGroupTabKey.Crypto:
-          return dstToken.isDAT && !dstToken.isLoanToken && !dstToken.isLPS
+          return token.isDAT && !token.isLoanToken && !token.isLPS
         case ButtonGroupTabKey.dTokens:
-          return dstToken.isLoanToken
+          return token.isLoanToken
         // for All token tab will return true for list of dstToken
         default:
           return true
       }
     })
     setFilteredTokens(filterTokens)
-  }, [dstTokens])
+  }, [combinedTokens])
 
   const totalLockedValue = useMemo(() => {
     if (lockedTokens === undefined) {
@@ -204,7 +264,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -225,7 +285,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // to update filter list from selected token tab
   useEffect(() => {
     handleButtonFilter(activeButtonGroup)
-  }, [activeButtonGroup, dstTokens])
+  }, [activeButtonGroup, combinedTokens])
 
   useEffect(() => {
     setIsZeroBalance(
@@ -293,6 +353,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollView
+        ref={ref}
         light={tailwind('bg-gray-50')}
         contentContainerStyle={tailwind('pb-8')} testID='balances_list'
         refreshControl={
@@ -317,6 +378,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           denominationCurrency={denominationCurrency}
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
+        {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (
@@ -326,14 +388,14 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           )
           : (<BalanceCard
               isZeroBalance={isZeroBalance}
-              dstTokens={dstTokens}
+              dstTokens={combinedTokens}
               filteredTokens={filteredTokens}
               navigation={navigation}
               buttonGroupOptions={{
-                activeButtonGroup: activeButtonGroup,
-                setActiveButtonGroup: setActiveButtonGroup,
-                onButtonGroupPress: handleButtonFilter
-              }}
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
               denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'
@@ -368,10 +430,49 @@ function BalanceActionSection ({
   isZeroBalance
 }: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
   return (
-    <View style={tailwind('flex flex-row mb-4 mx-4')}>
+    <View style={tailwind('flex flex-row mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
       <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
     </View>
+  )
+}
+
+function FutureSwapCta ({
+  navigation
+}: { navigation: StackNavigationProp<BalanceParamList> }): JSX.Element {
+  return (
+    <ThemedTouchableOpacity
+      onPress={() => navigation.navigate('FutureSwapScreen')}
+      style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-3xl justify-between')}
+      light={tailwind('bg-blue-100')}
+      dark={tailwind('bg-darkblue-50')}
+      testID='pending_future_swaps'
+    >
+      <View style={tailwind('flex flex-row items-center flex-1')}>
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='info'
+          size={16}
+          light={tailwind('text-blue-500')}
+          dark={tailwind('text-darkblue-500')}
+        />
+        <ThemedText
+          style={tailwind('ml-2 text-sm')}
+          light={tailwind('text-gray-400')}
+          dark={tailwind('text-gray-500')}
+        >
+          {translate('screens/BalancesScreen', 'You have pending future swap(s)')}
+        </ThemedText>
+      </View>
+      <ThemedIcon
+        iconType='MaterialCommunityIcons'
+        name='chevron-right'
+        size={16}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      />
+
+    </ThemedTouchableOpacity>
   )
 }
 

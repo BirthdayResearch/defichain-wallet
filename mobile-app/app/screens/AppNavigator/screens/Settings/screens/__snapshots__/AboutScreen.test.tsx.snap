@@ -128,32 +128,67 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       >
         DeFiChain Wallet
       </Text>
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-                "fontFamily": "LightFont",
-                "fontSize": 16,
-                "fontWeight": "300",
-                "lineHeight": 24,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          Object {
+            "marginTop": 4,
+          }
         }
       >
-        vmock
-      </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftWidth": 1,
+                "borderRightWidth": 1,
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              },
+              Object {
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="version_tag"
+          >
+            Version mock
+          </Text>
+        </View>
+      </View>
       <View
         style={
           Object {
@@ -165,6 +200,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -195,6 +231,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -225,6 +262,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -255,6 +293,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         </View>
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -287,6 +326,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -380,6 +420,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -473,6 +514,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -566,6 +608,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -671,6 +714,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -724,6 +768,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       </View>
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -777,6 +822,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       </View>
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}

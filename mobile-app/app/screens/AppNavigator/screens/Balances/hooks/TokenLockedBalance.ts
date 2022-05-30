@@ -15,10 +15,11 @@ export interface LockedBalance {
 
 /**
  *
- * @param symbol optional token symbol
- * @returns Map of all token's locked balance or single object of symbol passed
+ * @param denominationCurrency currency for the value of locked balance
+ * @param displaySymbol optional token displaySymbol
+ * @returns `Map` of all tokens' locked balance or single object if displaySymbol is passed
  */
-export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbol?: string, denominationCurrency: string }): Map<string, LockedBalance> | LockedBalance | undefined {
+export function useTokenLockedBalance ({ displaySymbol, denominationCurrency }: { displaySymbol?: string, denominationCurrency: string }): Map<string, LockedBalance> | LockedBalance | undefined {
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [lockedBalance, setLockedBalance] = useState<Map<string, LockedBalance>>()
   const { getTokenPrice } = useTokenPrice(denominationCurrency)
@@ -36,10 +37,11 @@ export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbo
         return
       }
 
+      // TODO: include future swap token value as locked balance
       vault.collateralAmounts.forEach(collateral => {
-        const token = clone(lockedBalance.get(collateral.symbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+        const token = clone(lockedBalance.get(collateral.displaySymbol)) ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
         const tokenValue = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
-        lockedBalance.set(collateral.symbol, {
+        lockedBalance.set(collateral.displaySymbol, {
           amount: token.amount.plus(collateral.amount),
           tokenValue: token.tokenValue.plus(tokenValue)
         })
@@ -49,7 +51,7 @@ export function useTokenLockedBalance ({ symbol, denominationCurrency }: { symbo
     return lockedBalance
   }, [vaults, prices])
 
-  return symbol === undefined ? lockedBalance : lockedBalance?.get(symbol)
+  return displaySymbol === undefined ? lockedBalance : lockedBalance?.get(displaySymbol)
 }
 
 interface TokenBreakdownPercentage {

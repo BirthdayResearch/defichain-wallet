@@ -27,7 +27,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector } from '@store/wallet'
 import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
@@ -37,10 +37,8 @@ import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
-import { useIsFocused } from '@react-navigation/native'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -96,7 +94,8 @@ export function EditCollateralScreen ({
       ...c,
       available: getTokenAmount(c.token.id)
     }
-  }).sort((a, b) => b.available.minus(a.available).toNumber()))
+  }).filter((collateralItem) => new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice)).gt(0))
+    .sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
@@ -216,8 +215,9 @@ export function EditCollateralScreen ({
                   onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
-                    onButtonPress: onAddCollateral
-                  }
+                    onButtonPress: onAddCollateral as any
+                  },
+                  isOraclePrice: true
                 }),
                 option: {
                   header: () => null,
@@ -374,11 +374,13 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         prefix='$'
         value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_total_loans_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_col_ratio_value'
@@ -500,6 +502,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             <ActiveUSDValue
               price={prices.collateralPrice}
               testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
+              isOraclePrice
             />
           </View>
         </View>
