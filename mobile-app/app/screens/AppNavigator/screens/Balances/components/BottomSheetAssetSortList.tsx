@@ -23,7 +23,7 @@ export const BottomSheetAssetSortList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const assetSortList: string[] = ['Highest USD value', 'Lowest USD value', 'Highest Token Amount', 'Lowest Token Amount', 'A to Z', 'Z to A']
+  const assetSortList: string[] = ['Highest USD value', 'Lowest USD value', 'Highest token amount', 'Lowest token amount', 'A to Z', 'Z to A']
 
   const renderItem = ({
     item,
@@ -36,7 +36,7 @@ export const BottomSheetAssetSortList = ({
       style={tailwind('px-4 py-3 ')}
     >
       <ThemedText
-        testID={`${item}`}
+        testID={`select_asset_${item}`}
         onPress={() => {
           onButtonPress(item)
         }}
