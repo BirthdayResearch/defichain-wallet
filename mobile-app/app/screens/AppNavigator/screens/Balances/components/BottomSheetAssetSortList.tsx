@@ -5,6 +5,7 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useDenominationCurrency } from '../hooks/PortfolioCurrency'
 
 export interface BottomSheetAssetSortProps {
   headerLabel: string
@@ -18,12 +19,16 @@ export const BottomSheetAssetSortList = ({
   onButtonPress
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
+  const {
+    denominationCurrency
+  } = useDenominationCurrency()
   const flatListComponents = {
     mobile: BottomSheetFlatList,
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const assetSortList: string[] = ['Highest USD value', 'Lowest USD value', 'Highest token amount', 'Lowest token amount', 'A to Z', 'Z to A']
+  const modifiedDenominationCurrency = denominationCurrency === 'USDT' ? 'USD' : denominationCurrency
+  const assetSortList: string[] = [`Highest ${modifiedDenominationCurrency} value`, `Lowest ${modifiedDenominationCurrency} value`, 'Highest token amount', 'Lowest token amount', 'A to Z', 'Z to A']
 
   const renderItem = ({
     item,

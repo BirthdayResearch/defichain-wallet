@@ -296,14 +296,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState('Asset value') // to display selected sorted type text
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
+  const modifiedDenominationCurrency = denominationCurrency === 'USDT' ? 'USD' : denominationCurrency
   const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
     // from assetSortList
     switch (assetSortType) {
-      case ('Highest USD value'):
+      case (`Highest ${modifiedDenominationCurrency} value`):
         return filteredTokens.sort((a, b) => {
           return b.usdAmount.minus(a.usdAmount).toNumber()
         })
-      case ('Lowest USD value'):
+      case (`Lowest ${modifiedDenominationCurrency} value`):
         return filteredTokens.sort((a, b) => {
           return a.usdAmount.minus(b.usdAmount).toNumber()
         })
