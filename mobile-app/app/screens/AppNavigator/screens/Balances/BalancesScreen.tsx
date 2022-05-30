@@ -214,6 +214,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     return [...dstTokens, ...lockedTokensArray]
   }, [dstTokens, allTokens, lockedTokens])
 
+  const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
+
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setDenominationCurrency(portfolioButtonGroupTabKey)
@@ -238,8 +240,48 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
   ]
 
+  // Asset sort bottom sheet list
+  const assetValue = 'Asset value'
+  const [assetSortType, setAssetSortType] = useState(assetValue) // to display selected sorted type text
+  const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
+  const modifiedDenominationCurrency = denominationCurrency === 'USDT' ? 'USD' : denominationCurrency
+  const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
+    // from assetSortList
+    switch (assetSortType) {
+      case (`Highest ${modifiedDenominationCurrency} value`):
+        return filteredTokens.sort((a, b) => {
+          return b.usdAmount.minus(a.usdAmount).toNumber()
+        })
+      case (`Lowest ${modifiedDenominationCurrency} value`):
+        return filteredTokens.sort((a, b) => {
+          return a.usdAmount.minus(b.usdAmount).toNumber()
+        })
+      case ('Highest token amount'):
+        return filteredTokens.sort((a, b) => {
+          return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
+        })
+      case ('Lowest token amount'):
+        return filteredTokens.sort((a, b) => {
+          return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
+        })
+      case ('A to Z'):
+        return filteredTokens.sort((a, b) => {
+          return a.displaySymbol.localeCompare(b.displaySymbol)
+        })
+      case ('Z to A'):
+        return filteredTokens.sort((a, b) => {
+          return b.displaySymbol.localeCompare(a.displaySymbol)
+        })
+      default:
+        return filteredTokens
+    }
+  }, [filteredTokens, assetSortType, denominationCurrency])
+
+  useEffect(() => {
+    setAssetSortType(assetValue) // reset sorting state
+  }, [denominationCurrency])
+
   // token tab items
-  const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filterTokens = combinedTokens.filter((token) => {
@@ -292,42 +334,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       !tokens.some(token => new BigNumber(token.amount).isGreaterThan(0))
     )
   }, [tokens])
-
-  // Asset sort bottom sheet list
-  const [assetSortType, setAssetSortType] = useState('Asset value') // to display selected sorted type text
-  const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
-  const modifiedDenominationCurrency = denominationCurrency === 'USDT' ? 'USD' : denominationCurrency
-  const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
-    // from assetSortList
-    switch (assetSortType) {
-      case (`Highest ${modifiedDenominationCurrency} value`):
-        return filteredTokens.sort((a, b) => {
-          return b.usdAmount.minus(a.usdAmount).toNumber()
-        })
-      case (`Lowest ${modifiedDenominationCurrency} value`):
-        return filteredTokens.sort((a, b) => {
-          return a.usdAmount.minus(b.usdAmount).toNumber()
-        })
-      case ('Highest token amount'):
-        return filteredTokens.sort((a, b) => {
-          return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
-        })
-      case ('Lowest token amount'):
-        return filteredTokens.sort((a, b) => {
-          return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
-        })
-      case ('A to Z'):
-        return filteredTokens.sort((a, b) => {
-          return a.displaySymbol.localeCompare(b.displaySymbol)
-        })
-      case ('Z to A'):
-        return filteredTokens.sort((a, b) => {
-          return b.displaySymbol.localeCompare(a.displaySymbol)
-        })
-      default:
-        return filteredTokens
-    }
-  }, [filteredTokens, assetSortType, denominationCurrency])
 
   const assetSortBottomSheetScreen = useMemo(() => {
     return [
