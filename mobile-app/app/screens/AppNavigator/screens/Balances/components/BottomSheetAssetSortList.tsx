@@ -25,7 +25,9 @@ export const BottomSheetAssetSortList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const assetSortList: string[] = [`Highest ${modifiedDenominationCurrency} value`, `Lowest ${modifiedDenominationCurrency} value`, 'Highest token amount', 'Lowest token amount', 'A to Z', 'Z to A']
+  const highestCurrencyValue = translate('screens/BalancesScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
+  const lowestCurrencyValue = translate('screens/BalancesScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
+  const assetSortList: string[] = [highestCurrencyValue, lowestCurrencyValue, 'Highest token amount', 'Lowest token amount', 'A to Z', 'Z to A']
 
   const renderItem = ({
     item,
@@ -36,13 +38,12 @@ export const BottomSheetAssetSortList = ({
   }): JSX.Element => (
     <ThemedTouchableOpacity
       style={tailwind('px-4 py-3 ')}
+      testID={`select_asset_${item}`}
+      onPress={() => {
+        onButtonPress(item)
+      }}
     >
-      <ThemedText
-        testID={`select_asset_${item}`}
-        onPress={() => {
-          onButtonPress(item)
-        }}
-      >
+      <ThemedText>
         {translate('screens/BalancesScreen', item)}
       </ThemedText>
     </ThemedTouchableOpacity>
@@ -69,6 +70,7 @@ export const BottomSheetAssetSortList = ({
 
   return (
     <FlatList
+      keyExtractor={(item) => item}
       data={assetSortList}
       renderItem={renderItem}
       ListHeaderComponent={headerComponent} // title of bottomsheet and close button

@@ -244,7 +244,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const assetValue = 'Asset value'
   const [assetSortType, setAssetSortType] = useState(assetValue) // to display selected sorted type text
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
-  const modifiedDenominationCurrency = denominationCurrency === 'USDT' ? 'USD' : denominationCurrency
+  const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
   const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
     // from assetSortList
     switch (assetSortType) {
