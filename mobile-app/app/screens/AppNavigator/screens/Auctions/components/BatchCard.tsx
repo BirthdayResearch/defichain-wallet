@@ -141,7 +141,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               {translate('components/BatchCard', 'Total auction value (USD)')}
             </ThemedText>
           </View>
-          <View style={tailwind('flex flex-row')}>
+          <View style={tailwind('flex flex-row items-center')}>
             <NumberFormat
               displayType='text'
               prefix='$'
@@ -160,7 +160,6 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-
         <MinNextBidTextRow
           displaySymbol={batch.loan.displaySymbol}
           minNextBidInToken={minNextBidInToken}

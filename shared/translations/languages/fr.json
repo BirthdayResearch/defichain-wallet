@@ -85,7 +85,9 @@
     "(From highest value)": "(valeurs décroissantes)",
     "(From lowest value)": "(valeurs croissantes)",
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle.",
-    "loans": "empruntés"
+    "loans": "empruntés",
+    "You have pending future swap(s)": "Vous avez un ou plusieurs échanges à terme en attente",
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Cette icône indique que le prix est fourni par des oracles au lieu du DEX"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -403,15 +405,14 @@
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi natif sur Bitcoin",
-    "Take full control": "Prenez le contrôle total",
-    "of your digital assets": "de vos actifs numériques",
-    "Nobody owns your keys and wallet except you.": "Personne ne possède vos clés et votre portefeuille, sauf vous.",
-    "Unlock the highest": "Libérez le potentiel le plus",
-    "potential of your finances": "élevé de vos finances",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Transférez, minez via des pools de liquidités, échangez et bien plus encore grâce à votre portefeuille entièrement décentralisé.",
-    "Earn high yields": "Obtenez des rendements élevés,",
-    "of up to 90% with DEX": "jusqu'à 90 %, avec le DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Fournissez des liquidités aux pools BTC, ETH, et bien d'autres, sans délai de retrait !"
+    "Take full control": "Prendre le contrôle total",
+    "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "Le portefeuille DeFiChain est entièrement non gardé, non-custodial. Gardez votre phrase de récupération de 24 mots en sécurité. Vous seul avez accès à vos fonds.",
+    "View your assets in one place": "Visualisez vos actifs en un seul endroit",
+    "Review your available and locked assets in your portfolio.": "Vérifiez les actifs disponibles et verrouillés de votre portefeuille.",
+    "Maximize earning potential": "Maximiser le potentiel de gain",
+    "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Négociez sur le DEX et gagnez des récompenses de liquidity mining avec des cryptomonnaies et des dTokens.",
+    "Decentralized loans": "Prêts décentralisés",
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Accédez à des opportunités financières avec des dTokens mintés par des vaults décentralisés."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Quitter l'écran",
@@ -519,7 +520,7 @@
     "OK": "OK",
     "Insufficient UTXO DFI": "UTXO DFI insuffisant",
     "Not enough balance": "Pas assez de solde",
-    "Price is higher than indicated": "Prix supérieur à celui indiqué",
+    "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Le prix d'échange est supérieur à la fourchette autorisée par la tolérance de glissement. Augmentez le pourcentage de tolérance pour continuer.",
     "Preparing broadcast": "Préparation de l'envoi",
     "Waiting for transaction": "Attente de la transaction"
   },
@@ -670,7 +671,7 @@
     "Review and confirm transaction in the next screen": "Vérifiez et validez la transaction à l'étape suivante",
     "Choose token for swap": "Choisissez un token pour l'échange",
     "Choose token to swap": "Choisissez le token à échanger",
-    "Enter an amount": "Donnez un montant",
+    "Enter amount to swap": "Entrer le montant à échanger",
     "{{token}} tokens converted": "{{token}} tokens convertis",
     "Select token": "Sélectionner le token",
     "UTXO to be converted": "UTXO à convertir",
@@ -679,7 +680,17 @@
     "PRICE DETAILS": "DÉTAILS DU PRIX",
     "FROM": "DES",
     "TO": "CONTRE DES",
-    "Total to be swapped": "Total à échanger"
+    "Total to be swapped": "Total à échanger",
+    "Instant Swap": "Échange instantané",
+    "Future Swap": "Échange à terme",
+    "By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block": "En utilisant le future swap, vous achetez {{tokenSymbol}} à 5% de plus que le prix oracle au bloc de règlement",
+    "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "En utilisant le Future Swap, vous vendez {{tokenSymbol}} à un prix inférieur de 5% au prix oracle au bloc de règlement",
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
+    "Est. time remaining": "Temps estimé restant",
+    "Settlement block": "Bloc de règlement",
+    "To be confirmed": "À confirmer",
+    "Enter an amount": "Donnez un montant",
+    "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
@@ -687,13 +698,19 @@
     "SWAPPING": "ÉCHANGE EN COURS",
     "You are swapping": "Vous échangez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
+    "Transaction date": "Date de la transaction",
     "Transaction type": "Type de transaction",
     "Convert & swap": "Convertir et échanger",
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
-    "Estimated to receive": "Estimé à recevoir"
+    "Estimated to receive": "Estimé à recevoir",
+    "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Échange sur le bloc à terme {{amountA}} {{fromTokenDisplaySymbol}} en {{toTokenDisplaySymbol}} sur le prix oracle {{percentageChange}}",
+    "To be confirmed": "À confirmer",
+    "Settlement block": "Bloc d’exécution",
+    "Resulting {{token}}": "{{token}} restants",
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",
@@ -906,6 +923,7 @@
     "ACTIVE BID": "ENCHÈRE ACTIVE",
     "{{h}}h": "{{h}}h",
     "{{m}}m": "{{m}}min",
+    "{{s}}s": "{{s}}s",
     "Total auction value (USD)": "Valeur totale de l'enchère (USD)",
     "Min. next bid": "Surenchère min.",
     "You are the highest bidder": "Vous êtes le plus offrant",
@@ -1019,7 +1037,8 @@
     "This amount is the total interest amount from both vault and token interest rate.": "Ce montant est le montant total des intérêts du vault et du token.",
     "Annual vault interest": "Intérêts annuels du Vault",
     "Min. next bid": "Surenchère min.",
-    "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère."
+    "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
+    "Settlement block": "Bloc d’exécution"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1346,6 +1365,36 @@
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
     "Insufficient funds": "Fonds insuffisants",
     "Collateral for auction": "Garantie mise en vente"
+  },
+  "screens/WithdrawFutureSwapScreen": {
+    "FROM": "DES",
+    "TO": "CONTRE DES",
+    "Enter an amount": "Donner un montant",
+    "Amount to withdraw": "Montant à retirer",
+    "Remaining amount": "Montant restant",
+    "CONTINUE": "SUIVANT",
+    "Select token": "Sélectionner",
+    "You are withdrawing": "Vous retirez",
+    "Withdraw from future swap": "Retirer de l'échange à terme"
+  },
+  "screens/ConfirmWithdrawFutureSwapScreen": {
+    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
+    "Transaction type": "Type de transaction",
+    "Remaining amount": "Montant restant",
+    "CONFIRM WITHDRAWAL": "CONFIRMER LE RETRAIT",
+    "Confirm withdrawal": "Confirmer le retrait",
+    "WITHDRAWING": "RETIRAGE EN COURS",
+    "You are withdrawing": "Vous effectuez un retrait de",
+    "Withdraw": "Retirer",
+    "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Retirer le montant verrouillé {{amountToWithdraw}} {{sourceDisplaySymbol}} de l’échange à terme",
+    "To be confirmed": "À confirmer",
+    "Withdraw future swap": "Retirer l'échange à terme"
+  },
+  "screens/FutureSwapScreen": {
+    "{{percentage_change}} on oracle price": "{{percentage_change}} sur le prix oracle",
+    "Settlement block": "Bloc d’exécution",
+    "The amount will be refunded automatically if the transaction does not go through.": "Le montant sera remboursé automatiquement si la transaction n’aboutit pas.",
+    "Future Swap": "Échange à terme"
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",

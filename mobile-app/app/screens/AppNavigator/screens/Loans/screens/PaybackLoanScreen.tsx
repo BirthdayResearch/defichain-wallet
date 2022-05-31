@@ -20,7 +20,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
@@ -426,6 +426,7 @@ export function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         <ActiveUSDValue
           price={new BigNumber(props.outstandingBalanceInUSD)}
           testId='loan_outstanding_balance_usd'
+          isOraclePrice
         />
       </View>
     </ThemedView>
@@ -585,6 +586,7 @@ function TransactionDetailsSection ({
               prefix: '$'
             }}
             textStyle={tailwind('text-xs font-normal')}
+            isOraclePrice
           />
           <NumberRow
             {...rowStyle}
@@ -595,6 +597,7 @@ function TransactionDetailsSection ({
               prefix: '$'
             }}
             textStyle={tailwind('text-xs font-normal')}
+            isOraclePrice
           />
         </ThemedView>}
       <View style={tailwind('mx-4')}>
@@ -635,8 +638,8 @@ function TransactionDetailsSection ({
             lhsThemedProps={rowStyle.lhsThemedProps}
             rhsThemedProps={rowStyle.rhsThemedProps}
           />}
-        <FeeInfoRow
-          type='ESTIMATED_FEE'
+        <InfoRow
+          type={InfoType.EstimatedFee}
           value={fee.toFixed(8)}
           testID='estimated_fee'
           suffix='DFI'

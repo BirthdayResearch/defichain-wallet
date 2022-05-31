@@ -7,6 +7,8 @@ interface ButtonGroupProps {
   buttons: Buttons[]
   activeButtonGroupItem: string
   testID: string
+  labelStyle?: StyleProp<TextStyle>
+  containerThemedProps?: ThemedProps
   modalStyle?: StyleProp<TextStyle>
   lightThemeStyle?: { [key: string]: string }
   darkThemeStyle?: { [key: string]: string }
@@ -28,6 +30,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
       dark={props.darkThemeStyle ?? tailwind('bg-gray-800')}
       style={tailwind('rounded-2xl flex flex-row')}
       testID={props.testID}
+      {...props.containerThemedProps}
     >
       {
         props.buttons.map((button) => (
@@ -38,6 +41,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             width={buttonWidth}
             key={button.id}
             testID={`${props.testID}_${button.id}`}
+            labelStyle={props.labelStyle}
             modalStyle={props.modalStyle}
             customButtonGroupStyle={props.customButtonGroupStyle}
             customActiveStyle={props.customActiveStyle}
@@ -54,6 +58,7 @@ interface ButtonGroupItemProps {
   isActive: boolean
   width: BigNumber
   testID: string
+  labelStyle?: StyleProp<TextStyle>
   modalStyle?: StyleProp<TextStyle>
   customButtonGroupStyle?: StyleProp<TouchableOpacityProps>
   customActiveStyle?: ThemedProps
@@ -72,7 +77,7 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       <ThemedText
         light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
         dark={tailwind({ 'text-darkprimary-500': props.isActive, 'text-gray-50': !props.isActive })}
-        style={props.modalStyle ?? tailwind('font-medium text-sm text-center')}
+        style={props.labelStyle ?? tailwind('font-medium text-sm text-center')}
       >
         {props.label}
       </ThemedText>

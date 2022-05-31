@@ -20,6 +20,7 @@ jest.mock('@gorhom/bottom-sheet', () => ({
 jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
+jest.mock('react-native-popover-view')
 
 describe('Vault card', () => {
   const initialState: Partial<RootState> = {

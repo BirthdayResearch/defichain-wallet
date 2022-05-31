@@ -11,6 +11,7 @@ import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { createAsyncThunk, createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import { useVaultStatus } from '@screens/AppNavigator/screens/Loans/components/VaultStatusTag'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
+import { RootState } from '@store'
 import BigNumber from 'bignumber.js'
 
 export type LoanVault = LoanVaultActive | LoanVaultLiquidated
@@ -129,6 +130,8 @@ export const loans = createSlice({
     })
   }
 })
+
+export const selectLoansState = (state: RootState): LoansState => state.loans
 
 export const ascColRatioLoanScheme = createSelector((state: LoansState) => state.loanSchemes,
   (schemes) => schemes.map((c) => c).sort((a, b) => new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()))

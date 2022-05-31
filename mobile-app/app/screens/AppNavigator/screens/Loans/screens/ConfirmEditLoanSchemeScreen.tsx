@@ -7,7 +7,7 @@ import { translate } from '@translations'
 import { Dispatch, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import BigNumber from 'bignumber.js'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -188,8 +188,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           style: tailwind('ml-0')
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

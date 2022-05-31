@@ -28,6 +28,7 @@ interface BottomSheetTokenListProps {
   tokens: Array<CollateralItem | BottomSheetToken>
   vault?: LoanVaultActive
   tokenType: TokenType
+  isOraclePrice?: boolean
 }
 
 export interface BottomSheetToken {
@@ -55,7 +56,8 @@ export const BottomSheetTokenList = ({
   navigateToScreen,
   tokens,
   vault,
-  tokenType
+  tokenType,
+  isOraclePrice
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
@@ -141,6 +143,7 @@ export const BottomSheetTokenList = ({
                 <ActiveUSDValue
                   price={new BigNumber(item.available).multipliedBy(activePrice)}
                   containerStyle={tailwind('justify-end')}
+                  isOraclePrice={isOraclePrice}
                 />
               </View>
               <ThemedIcon iconType='MaterialIcons' name='chevron-right' size={20} />

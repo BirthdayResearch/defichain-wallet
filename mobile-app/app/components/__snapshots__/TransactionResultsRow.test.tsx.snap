@@ -115,6 +115,7 @@ Array [
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",
@@ -197,6 +198,15 @@ Array [
             DFI
           </Text>
         </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        />
       </View>
     </View>
   </View>,
@@ -280,6 +290,7 @@ Array [
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",
@@ -362,6 +373,15 @@ Array [
             dBTC
           </Text>
         </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        />
       </View>
     </View>
   </View>,

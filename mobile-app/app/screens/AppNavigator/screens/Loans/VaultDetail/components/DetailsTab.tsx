@@ -145,6 +145,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
           testID: 'text_collateral_value',
           prefix: '$'
         }}
+        isOraclePrice
       />
       <NumberRow
         lhs={translate('components/VaultDetailDetailsTab', 'Active loans')}
@@ -160,6 +161,7 @@ function CollateralizationRatioSection (props: CollateralizationRatioSectionProp
           testID: 'text_total_loan_value',
           prefix: '$'
         }}
+        isOraclePrice
       />
     </>
   )
