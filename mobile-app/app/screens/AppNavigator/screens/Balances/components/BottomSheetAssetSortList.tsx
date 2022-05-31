@@ -37,7 +37,7 @@ export const BottomSheetAssetSortList = ({
     index: number
   }): JSX.Element => (
     <ThemedTouchableOpacity
-      style={tailwind('px-4 py-3 ')}
+      style={tailwind('px-4 py-3')}
       testID={`select_asset_${item}`}
       onPress={() => {
         onButtonPress(item)
@@ -73,7 +73,7 @@ export const BottomSheetAssetSortList = ({
       keyExtractor={(item) => item}
       data={assetSortList}
       renderItem={renderItem}
-      ListHeaderComponent={headerComponent} // title of bottomsheet and close button
+      ListHeaderComponent={headerComponent}
       style={tailwind({
         'bg-gray-800': !isLight,
         'bg-white': isLight

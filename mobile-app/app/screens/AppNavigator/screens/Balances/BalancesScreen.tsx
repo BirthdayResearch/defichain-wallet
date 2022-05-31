@@ -50,6 +50,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
   const whaleRpcClient = useWhaleRpcClient()
+  const dispatch = useDispatch()
   const {
     address,
     addressLength
@@ -70,7 +71,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
 
-  const dispatch = useDispatch()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
@@ -105,7 +105,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ),
       headerRight: (): JSX.Element => (
         <View style={tailwind('mr-2')}>
-          <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} hasCount />
+          <AddressSelectionButton address={address} addressLength={addressLength} onPress={() => expandModal(false)} hasCount />
         </View>
       )
     })
@@ -357,15 +357,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
           onCloseButtonPress: () => {
             setShowAssetSortBottomSheet(false)
-            dismissModal()
+            dismissModal(true)
           },
           onButtonPress: (item: string) => {
             setAssetSortType(item)
             sortTokensAssetOnType(item)
             setShowAssetSortBottomSheet(false)
-            dismissModal()
+            dismissModal(true)
           },
-          modifiedDenominationCurrency: modifiedDenominationCurrency
+          modifiedDenominationCurrency
         }),
         option: {
           headerStatusBarHeight: 1,
@@ -383,21 +383,26 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   // Address selection bottom sheet
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
+  const bottomSheetSortRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
-  const expandModal = useCallback(() => {
+  const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
     } else {
-      bottomSheetRef.current?.present()
+      isSortBottomSheet
+        ? bottomSheetSortRef.current?.present()
+        : bottomSheetRef.current?.present()
     }
   }, [])
-  const dismissModal = useCallback(() => {
+  const dismissModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(false)
     } else {
-      bottomSheetRef.current?.close()
+      isSortBottomSheet
+        ? bottomSheetSortRef.current?.close()
+        : bottomSheetRef.current?.close()
     }
   }, [])
 
@@ -409,10 +414,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           address: address,
           addressLabel: 'TODO: get label from storage api',
           onReceiveButtonPress: () => {
-            dismissModal()
+            dismissModal(false)
             navigation.navigate('Receive')
           },
-          onCloseButtonPress: () => dismissModal(),
+          onCloseButtonPress: () => dismissModal(false),
           navigateToScreen: {
             screenName: 'CreateOrEditAddressLabelForm'
           }
@@ -472,7 +477,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           assetSortType={assetSortType}
           onPress={() => {
             setShowAssetSortBottomSheet(true)
-            expandModal()
+            expandModal(true)
           }}
           isSorted={isSorted}
           hideIcon={hideIcon}
@@ -490,10 +495,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={sortTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{
-                activeButtonGroup: activeButtonGroup,
-                setActiveButtonGroup: setActiveButtonGroup,
-                onButtonGroupPress: handleButtonFilter
-              }}
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
               denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'
@@ -512,11 +517,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             />
           )
           : (
-            <BottomSheetWithNav
-              modalRef={bottomSheetRef}
-              screenList={showAssetSortBottomSheet ? assetSortBottomSheetScreen : addressBottomSheetScreen}
-              snapPoints={modalSnapPoints}
-            />
+            <>
+              <BottomSheetWithNav
+                modalRef={bottomSheetSortRef}
+                screenList={assetSortBottomSheetScreen}
+                snapPoints={modalSnapPoints}
+              />
+              <BottomSheetWithNav
+                modalRef={bottomSheetRef}
+                screenList={addressBottomSheetScreen}
+                snapPoints={modalSnapPoints}
+              />
+            </>
           )}
       </ThemedScrollView>
     </View>
@@ -607,7 +619,7 @@ function BalanceActionButton ({
   )
 }
 
-function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: string, onPress: () => void}): JSX.Element {
+function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: string, onPress: () => void }): JSX.Element {
   return (
     <View
       style={tailwind('px-4 flex flex-row justify-between pt-5')}
@@ -641,7 +653,7 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
             name={!props.isSorted ? 'sort-variant' : 'sort-reverse-variant'}
             size={16}
           />
-          )}
+        )}
         <ThemedIcon
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
