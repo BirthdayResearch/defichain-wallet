@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LocalStorageProvider } from '@api/local_storage/provider'
 import { EnvironmentNetwork } from '@environment'
 
@@ -7,6 +7,7 @@ export interface LabeledAddress {
 }
 
 export interface LocalAddress {
+  address: string
   label: string
   isMine: boolean
   isFavourite?: boolean
@@ -56,7 +57,18 @@ export const setAddressBook = createAsyncThunk(
 export const userPreferences = createSlice({
   name: 'userPreferences',
   initialState,
-  reducers: {},
+  reducers: {
+    addToAddressBook: (state, action: PayloadAction<LabeledAddress>) => {
+      state.addressBook = {
+        ...state.addressBook,
+        ...action.payload
+      }
+    },
+    deleteFromAddressBook: (state, action: PayloadAction<string>) => {
+      const { [action.payload]: _, ...newAddressBook } = state.addressBook
+      state.addressBook = newAddressBook
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserPreferences.fulfilled, (state, action: PayloadAction<UserPreferences>) => {
       state = action.payload
@@ -71,4 +83,8 @@ export const userPreferences = createSlice({
       return state
     })
   }
+})
+
+export const selectAddressBookArray = createSelector((state: UserPreferences) => state.addressBook, addresses => {
+  return Object.values(addresses)
 })
