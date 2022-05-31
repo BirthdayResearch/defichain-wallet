@@ -439,7 +439,7 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
     <ThemedText
       light={tailwind('text-gray-400')}
       dark={tailwind('text-gray-500')}
-      style={tailwind('text-xs font-medium mr-1.5')}
+      style={tailwind('text-xs font-medium mr-1.5 my-0.5')}
       testID='address_detail_address_count'
     >
       {translate('screens/AddressBookScreen', '{{length}} ADDRESS(ES)', { length: addressLength })}
