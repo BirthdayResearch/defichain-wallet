@@ -631,6 +631,7 @@ exports[`balances page should match snapshot 1`] = `
               "opacity": 1,
             }
           }
+          testID="your_assets_dropdown_arrow"
         >
           <Text
             style={
