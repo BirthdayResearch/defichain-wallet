@@ -841,7 +841,7 @@ context('Wallet - Balances - Your Assets - BTC currency - All tokens tab - Sorti
     cy.getByTestID('portfolio_button_group_BTC').click()
     checkAssetsSortingOrder('Highest BTC value', 'dBTC', 'DUSD')
   })
-  it('should sort assetS based on Lowest BTC value', function () {
+  it('should sort assets based on Lowest BTC value', function () {
     checkAssetsSortingOrder('Lowest BTC value', 'DUSD', 'dBTC')
   })
 })
