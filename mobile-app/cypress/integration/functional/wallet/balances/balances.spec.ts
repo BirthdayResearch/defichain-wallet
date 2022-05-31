@@ -758,7 +758,7 @@ function checkAssetsSortingOrder (sortedType: string, firstToken: string, lastTo
   const arrowTestID = 'your_assets_dropdown_arrow'
   cy.getByTestID(arrowTestID).click()
   cy.getByTestID(`select_asset_${sortedType}`).click()
-  cy.wait(2000)
+  cy.wait(3000)
   cy.getByTestID(arrowTestID).contains(sortedType)
   cy.get(containerTestID).children().first().contains(firstToken)
   cy.get(containerTestID).children().last().contains(lastToken)
@@ -828,16 +828,9 @@ context('Wallet - Balances - Your Assets - BTC currency - All tokens tab - Sorti
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
-  it('should sort assets based on Highest DFI value', function () {
+  it('should sort assets based on Highest BTC value', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['BTC', 'LTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.getByTestID('portfolio_button_group_DFI').click()
-    checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dLTC')
-  })
-  it('should sort assets based on Lowest DFI value', function () {
-    checkAssetsSortingOrder('Lowest DFI value', 'dLTC', 'dBTC')
-  })
-  it('should sort assets based on Highest BTC value', function () {
     cy.getByTestID('portfolio_button_group_BTC').click()
     checkAssetsSortingOrder('Highest BTC value', 'dBTC', 'DUSD')
   })
