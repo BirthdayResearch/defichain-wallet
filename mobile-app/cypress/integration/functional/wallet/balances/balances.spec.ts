@@ -866,7 +866,7 @@ function checkAssetsSortingOrder (sortedType: string, firstToken: string, lastTo
   cy.get(containerTestID).children().last().contains(lastToken)
 }
 
-context('Wallet - Balances - Your Assets - USD currency - All tokens tab - Sorting function', function () {
+context('Wallet - Balances - Your Assets - USD currency - Sorting function - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
