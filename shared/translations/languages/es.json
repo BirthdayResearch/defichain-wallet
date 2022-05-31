@@ -68,7 +68,7 @@
   },
   "screens/BalancesScreen": {
     "Balances": "Saldos",
-    "Portfolio": "Portfalio",
+    "Portfolio": "Portafolio",
     "SEND": "ENVIAR",
     "RECEIVE": "RECIBIR",
     "BUY WITH FIAT": "COMPRAR CON FIAT",
@@ -412,7 +412,7 @@
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo para Bitcoin",
     "Take full control": "Ten todo el control",
-    "Take Full Control. Save your 24 Recovery Words As a fully non-custodial wallet, your 24 recovery passwords are the only access to your funds. Your wallet, your responsibility.": "La billetera DeFiChain es totalmente no custodiada. Mantén seguras tus 24 contraseñas. Solo tu tienes acceso a los fondos.",
+    "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "La billetera DeFiChain es totalmente no custodiada. Mantén seguras tus 24 contraseñas. Solo tu tienes acceso a los fondos.",
     "View your assets in one place": "Visualiza tus activos en un punto único",
     "Review your available and locked assets in your portfolio.": "Revisa tus activos disponibles y bloqueados de tu portafolio.",
     "Maximize earning potential": "Maximiza las ganancias potenciales",
