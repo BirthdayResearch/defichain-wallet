@@ -3,7 +3,8 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import { ImageBackground, TouchableOpacity } from 'react-native'
+import { ImageBackground, TouchableOpacity, Text } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 import DFIBackground from '@assets/images/DFI_balance_bg_gradient.png'
 import DFIBackgroundDark from '@assets/images/DFI_balance_bg_gradient_dark.png'
 import { ThemedIcon, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
@@ -162,32 +163,36 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                 dark={tailwind('bg-darkprimary-50')}
                 style={tailwind('mt-1')}
               >
-                <TouchableOpacity
-                  style={tailwind('flex-row items-center')}
-                  onPress={() => {}}
+                <LinearGradient
+                  colors={['#1A0C75', '#1C0C75', '#1F0D75', '#240E75', '#2A0F75', '#321175', '#3C1375', '#461575', '#511876', '#5C1B76', '#681D76', '#732076', '#7F2276', '#8A2576', '#952776', '#9E2A77']}
+                  start={[0, 0]}
+                  end={[1, 1]}
+                  locations={[0, 0.1124, 0.2038, 0.2776, 0.3368, 0.3848, 0.4247, 0.4598, 0.4933, 0.5284, 0.5683, 0.6163, 0.6756, 0.7493, 0.8408, 0.9531]}
                 >
-                  <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
-                    <View style={tailwind('flex-row flex-1 items-center')}>
-                      <DFIIcon width={18} height={18} />
-                      <ThemedText
-                        dark={tailwind('text-gray-200')}
-                        light={tailwind('text-black')}
-                        style={tailwind('font-medium text-sm ml-2')}
-                      >
-                        {translate('screens/BalancesScreen', 'Get your $DFI here')}
-                      </ThemedText>
-                    </View>
+                  <TouchableOpacity
+                    style={tailwind('flex-row items-center')}
+                    onPress={() => {}}
+                  >
+                    <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
+                      <View style={tailwind('flex-row flex-1 items-center')}>
+                        <Text
+                          style={tailwind('font-medium text-sm text-gray-50')}
+                        >
+                          {translate('screens/BalancesScreen', 'Get $DFI')}
+                        </Text>
+                      </View>
 
-                    <ThemedIcon
-                      iconType='MaterialCommunityIcons'
-                      name='arrow-right'
-                      size={18}
-                      testID='get_dfi'
-                      dark={tailwind('text-gray-200')}
-                      light={tailwind('text-black')}
-                    />
-                  </View>
-                </TouchableOpacity>
+                      <ThemedIcon
+                        iconType='MaterialCommunityIcons'
+                        name='arrow-right'
+                        size={18}
+                        testID='get_dfi'
+                        dark={tailwind('text-gray-50')}
+                        light={tailwind('text-gray-50')}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                </LinearGradient>
               </ThemedView>
             )}
         </ImageBackground>
