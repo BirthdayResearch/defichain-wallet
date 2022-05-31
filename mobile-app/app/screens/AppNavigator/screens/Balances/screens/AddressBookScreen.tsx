@@ -7,7 +7,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
@@ -21,11 +21,10 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { authentication, Authentication } from '@store/authentication'
 import { Button } from '@components/Button'
-import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
-import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
+import { SearchInput } from '@components/SearchInput'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -41,7 +40,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { getAddressUrl } = useDeFiScanContext()
 
   // Search
-  const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
   const filterAddress = debounce((searchString: string): void => {
     if (searchString?.trim().length > 0) {
@@ -54,7 +52,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       }
       setFilteredAddresses(addressBookList)
     } else {
-      setFilteredAddresses([])
+      setFilteredAddresses(addresses)
     }
   }, 200)
 
@@ -86,58 +84,40 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   }, [addresses])
 
   useEffect(() => {
-    if (showSearchInput) {
-      filterAddress(searchString) // filter while searching
-    }
+    filterAddress(searchString) // filter while searching
   }, [searchString])
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: (): JSX.Element => {
-        // don't display search icon if there are no addresses
-        if (addresses.length > 0) {
-          return (
-            <HeaderSearchIcon
-              onPress={() => {
-                setShowSearchInput(true)
-                setFilteredAddresses([])
-              }}
-              testID='address_search_icon'
-            />
-          )
-        } else {
-          return <></>
-        }
-      }
-    })
-  }, [navigation, showSearchInput, addresses])
-
   useEffect(() => {
-    if (showSearchInput) {
-      navigation.setOptions({
-        header: (): JSX.Element => (
-          <HeaderSearchInput
-            searchString={searchString}
-            onClearInput={() => setSearchString('')}
-            onChangeInput={(text: string) => {
-              setSearchString(text)
-            }}
-            onCancelPress={() => {
-              setSearchString('')
-              setShowSearchInput(false)
-              setFilteredAddresses(addresses)
-            }}
-            placeholder={translate('screens/AddressBookScreen', 'Search for address')}
-            testID='address_search_input'
+    navigation.setOptions({
+      headerTitle: (): JSX.Element => (
+        <SearchInput
+          value={searchString}
+          placeholder={translate('screens/AddressBookScreen', 'Search for address')}
+          showClearButton={searchString !== ''}
+          onClearInput={() => setSearchString('')}
+          onChangeText={(text: string) => {
+            setSearchString(text)
+          }}
+          testID='address_search_input'
+        />
+      ),
+      headerRight: (): JSX.Element => (
+        <TouchableOpacity
+          onPress={goToAddAddressForm}
+          testID='add_address_button'
+        >
+          <ThemedIcon
+            size={28}
+            name='plus'
+            style={tailwind('mr-2')}
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+            iconType='MaterialCommunityIcons'
           />
-        )
-      })
-    } else {
-      navigation.setOptions({
-        header: undefined
-      })
-    }
-  }, [showSearchInput, searchString, addresses])
+        </TouchableOpacity>
+      )
+    })
+  }, [searchString, addresses])
 
   const AddressListItem = useCallback(({
     item,
@@ -212,7 +192,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                         }))
                       })
                       setIsEditing(false)
-                      setShowSearchInput(false)
                       setSearchString('')
                     }
                   },
@@ -367,7 +346,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           }))
         })
         setIsEditing(false)
-        setShowSearchInput(false)
         setSearchString('')
       },
       onError: e => logger.error(e),
@@ -385,8 +363,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       stickyHeaderIndices={[0]}
       data={filteredAddresses}
       renderItem={AddressListItem} // Address list
-      ListHeaderComponent={showSearchInput ? <></> : HeaderComponent} // Address counter
-      ListFooterComponent={showSearchInput ? <></> : FooterComponent} // + Add new address
+      ListHeaderComponent={HeaderComponent} // Address counter
+      ListFooterComponent={FooterComponent} // + Add new address
       ListEmptyComponent={addresses.length > 0 ? <></> : <EmptyDisplay onPress={goToAddAddressForm} />}
     />
   )
