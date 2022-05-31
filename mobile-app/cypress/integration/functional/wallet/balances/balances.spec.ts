@@ -811,13 +811,13 @@ context('Wallet - Balances - Your Assets - DFI currency - All tokens tab - Sorti
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
-  it('should sort assetS based on Highest DFI value', function () {
+  it('should sort assets based on Highest DFI value', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['BTC', 'BTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
     cy.getByTestID('portfolio_button_group_DFI').click()
     checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dLTC')
   })
-  it('should sort assetS based on Lowest DFI value', function () {
+  it('should sort assets based on Lowest DFI value', function () {
     checkAssetsSortingOrder('Lowest DFI value', 'dLTC', 'dBTC')
   })
 })
