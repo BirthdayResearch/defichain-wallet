@@ -349,12 +349,6 @@ export function BalancesNavigator (): JSX.Element {
         component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/AddressBookScreen', 'Address Book')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
           headerBackTitleVisible: false
         }}
       />
