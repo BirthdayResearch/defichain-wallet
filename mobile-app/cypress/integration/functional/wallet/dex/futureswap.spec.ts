@@ -56,11 +56,11 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('select_dTU10').click()
     cy.getByTestID('50%_amount_button').click().wait(500)
     cy.getByTestID('swap_button_group').should('exist')
-    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('button_confirm_submit').click().wait(1500)
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
     cy.go('back')
     cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
-    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('button_confirm_submit').click().wait(1500)
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Future swap')
     cy.go('back')
 
