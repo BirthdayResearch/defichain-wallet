@@ -105,7 +105,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
   })
 })
 
-context.only('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
+context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
   beforeEach(function () {
     createAddLiquidityToWallet()
   })
