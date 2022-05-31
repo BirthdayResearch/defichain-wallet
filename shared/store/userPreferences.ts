@@ -85,6 +85,19 @@ export const userPreferences = createSlice({
   }
 })
 
-export const selectAddressBookArray = createSelector((state: UserPreferences) => state.addressBook, addresses => {
-  return Object.values(addresses)
+export const selectAddressBookArray = createSelector((state: UserPreferences) => state.addressBook, addressBook => {
+  const _addressBook: LabeledAddress = { ...addressBook }
+
+  // to pre-populate address and isFavourite flag for older app version
+  for (const address in addressBook) {
+    if (addressBook[address].address === undefined) {
+      const _address = {
+        ...addressBook[address],
+          address: address,
+          isFavourite: false
+      }
+      _addressBook[address] = _address
+    }
+  }
+  return Object.values(_addressBook)
 })
