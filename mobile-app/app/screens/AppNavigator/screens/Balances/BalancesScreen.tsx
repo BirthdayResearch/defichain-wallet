@@ -243,7 +243,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const assetValue = 'Asset value'
   const [assetSortType, setAssetSortType] = useState(assetValue) // to display selected sorted type text
-  const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon \
+  const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon
   const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
@@ -283,6 +283,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     setAssetSortType(assetValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
 
+  // conditions to display sort icons
   useEffect(() => {
     if (assetSortType.includes('Lowest')) {
       setIsSorted(true)
