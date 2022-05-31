@@ -28,7 +28,7 @@ context('Wallet - DEX - Future Swap', () => {
     cy.wait(5000)
   })
 
-  it('should toggle instant vs future swap on each token combination', function () {
+  it('should toggle instant vs future swap on crypto -> loan combination', function () {
     // crypto to loan token
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_dBTC').click().wait(1000)
@@ -39,7 +39,9 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('button_confirm_submit').click()
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
     cy.go('back')
+  })
 
+  it('should toggle instant vs future swap on crypto -> crpyto combination', function () {
     // crypto to crypto
     cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dETH').click()
@@ -48,7 +50,9 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('button_confirm_submit').click()
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
     cy.go('back')
+  })
 
+  it('should toggle instant vs future swap on loan -> loan combination', function () {
     // loan (DUSD) to loan token
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_DUSD').click().wait(1000)
@@ -63,7 +67,9 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('button_confirm_submit').click().wait(1500)
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Future swap')
     cy.go('back')
+  })
 
+  it('should toggle instant vs future swap on loan -> crypto combination', function () {
     // loan to crypto token
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_dTU10').click().wait(1000)
@@ -74,7 +80,9 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('button_confirm_submit').click()
     cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
     cy.go('back')
+  })
 
+  it('should toggle instant vs future swap on dfi -> crypto combination', function () {
     // dfi to crypto token
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_DFI').click().wait(1000)
