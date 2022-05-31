@@ -243,6 +243,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const assetValue = 'Asset value'
   const [assetSortType, setAssetSortType] = useState(assetValue) // to display selected sorted type text
+  const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon \
+  const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
   const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
@@ -280,6 +282,17 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     setAssetSortType(assetValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
+
+  useEffect(() => {
+    if (assetSortType.includes('Lowest')) {
+      setIsSorted(true)
+    } else if (assetSortType.includes('A to Z') || assetSortType.includes('Z to A')) {
+      setHideIcon(true)
+    } else {
+      setIsSorted(false)
+      setHideIcon(false)
+    }
+  }, [assetSortType])
 
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
@@ -460,6 +473,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             setShowAssetSortBottomSheet(true)
             expandModal()
           }}
+          isSorted={isSorted}
+          hideIcon={hideIcon}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
@@ -591,7 +606,7 @@ function BalanceActionButton ({
   )
 }
 
-function AssetSortRow (props: { assetSortType: string, onPress: () => void}): JSX.Element {
+function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: string, onPress: () => void}): JSX.Element {
   return (
     <View
       style={tailwind('px-4 flex flex-row justify-between pt-5')}
@@ -604,7 +619,6 @@ function AssetSortRow (props: { assetSortType: string, onPress: () => void}): JS
       >
         {translate('screens/BalancesScreen', 'AVAILABLE ASSETS')}
       </ThemedText>
-      {/* to open bottom sheet */}
       <TouchableOpacity
         style={tailwind('flex flex-row items-center')}
         onPress={props.onPress}
@@ -617,14 +631,16 @@ function AssetSortRow (props: { assetSortType: string, onPress: () => void}): JS
         >
           {translate('screens/BalancesScreen', `${props.assetSortType}`)}
         </ThemedText>
-        <ThemedIcon
-          style={tailwind('ml-1 font-medium')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          iconType='MaterialCommunityIcons'
-          name='sort-variant'
-          size={16}
-        />
+        {!props.hideIcon && (
+          <ThemedIcon
+            style={tailwind('ml-1 font-medium')}
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            iconType='MaterialCommunityIcons'
+            name={!props.isSorted ? 'sort-variant' : 'sort-reverse-variant'}
+            size={16}
+          />
+          )}
         <ThemedIcon
           light={tailwind('text-primary-500')}
           dark={tailwind('text-darkprimary-500')}
