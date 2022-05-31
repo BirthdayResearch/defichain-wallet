@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@headlessui/react": "^1.6.1",
+    "@headlessui/react": "^1.6.4",
     "@tailwindcss/line-clamp": "^0.2.2",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.3.1",
