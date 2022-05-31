@@ -39,6 +39,7 @@ export const BottomSheetAssetSortList = ({
     <ThemedTouchableOpacity
       style={tailwind('px-4 py-3')}
       testID={`select_asset_${item}`}
+      key={index}
       onPress={() => {
         onButtonPress(item)
       }}
