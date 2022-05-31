@@ -90,6 +90,7 @@ exports[`balances page should match snapshot 1`] = `
                       "color": "rgba(115, 115, 115, 1)",
                       "fontSize": 14,
                       "lineHeight": 20,
+                      "maxWidth": "50%",
                     },
                     Object {
                       "color": "rgba(115, 115, 115, 1)",
