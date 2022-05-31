@@ -753,14 +753,24 @@ function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt
   cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: EthUsdAmt })
 }
 
-context('Wallet - Balances - Your Assets - All tokens tab', function () {
+function checkAssetsSortingOrder (sortedType: string, firstToken: string, lastToken: string): void {
+  const containerTestID = '[data-testid="card_balance_row_container"]'
+  const arrowTestID = 'your_assets_dropdown_arrow'
+  cy.getByTestID(arrowTestID).click()
+  cy.getByTestID(`select_asset_${sortedType}`).click()
+  cy.wait(2000)
+  cy.getByTestID(arrowTestID).contains(sortedType)
+  cy.get(containerTestID).children().first().contains(firstToken)
+  cy.get(containerTestID).children().last().contains(lastToken)
+}
+
+context('Wallet - Balances - Your Assets - USD currency - All tokens tab - Sorting function', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_balances').click()
   })
-
-  it('should not display sorting icon if there are no other tokens', function () {
+  it('should display empty balances if there are no other tokens', function () {
     cy.intercept('**/address/**/tokens?size=*', {
       body: {
         data: []
@@ -768,25 +778,71 @@ context('Wallet - Balances - Your Assets - All tokens tab', function () {
     })
     cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('not.exist')
-    cy.getByTestID('toggle_sorting_assets').should('not.exist')
+    cy.getByTestID('toggle_sorting_assets').should('exist')
   })
-
-  it('should display highest value by default', function () {
+  it('should sort asset based on Highest USD value', function () {
     cy.sendDFItoWallet().wait(3000)
-    // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.sendTokenToWallet(['ETH', 'LTC']).wait(7000)
-    // dETH will be displayed at the top of the card on first topup
-    cy.getByTestID('your_assets_dropdown_arrow').contains('From highest value')
-    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
-    cy.sendTokenToWallet(['LTC']).wait(7000)
-    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dLTC')
+    cy.sendTokenToWallet(['ETH', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
+    cy.getByTestID('your_assets_dropdown_arrow').contains('Asset value')
+    checkAssetsSortingOrder('Highest USD value', 'DUSD', 'dLTC')
   })
-  it('should display lowest value on toggle', function () {
-    cy.sendTokenToWallet(['ETH', 'LTC']).wait(7000)
-    cy.getByTestID('toggle_sorting_assets').click()
-    cy.wait(2000)
-    cy.getByTestID('your_assets_dropdown_arrow').contains('From lowest value')
-    cy.get('[data-testid="card_balance_row_container"]').children().first().contains('dETH')
+  it('should sort assets based on Lowest USD value', function () {
+    checkAssetsSortingOrder('Lowest USD value', 'dETH', 'DUSD')
+  })
+  it('should sort assets based on Highest token amount', function () {
+    cy.sendTokenToWallet(['DUSD'])
+    cy.wait(6000)
+    checkAssetsSortingOrder('Highest token amount', 'DUSD', 'dLTC')
+  })
+  it('should sort assets based on Lowest token amount', function () {
+    checkAssetsSortingOrder('Lowest token amount', 'dETH', 'DUSD')
+  })
+  it('should sort assets based on A to Z', function () {
+    checkAssetsSortingOrder('A to Z', 'dETH', 'DUSD')
+  })
+  it('should sort assets based on Z to A', function () {
+    checkAssetsSortingOrder('Z to A', 'DUSD', 'dETH')
+  })
+})
+
+context('Wallet - Balances - Your Assets - DFI currency - All tokens tab - Sorting function', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+  it('should sort assetS based on Highest DFI value', function () {
+    cy.sendDFItoWallet().wait(3000)
+    cy.sendTokenToWallet(['BTC', 'BTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
+    cy.getByTestID('portfolio_button_group_DFI').click()
+    checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dLTC')
+  })
+  it('should sort assetS based on Lowest DFI value', function () {
+    checkAssetsSortingOrder('Lowest DFI value', 'dLTC', 'dBTC')
+  })
+})
+
+context('Wallet - Balances - Your Assets - BTC currency - All tokens tab - Sorting function', function () {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.getByTestID('header_settings').click()
+    cy.getByTestID('bottom_tab_balances').click()
+  })
+  it('should sort assets based on Highest DFI value', function () {
+    cy.sendDFItoWallet().wait(3000)
+    cy.sendTokenToWallet(['BTC', 'LTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
+    cy.getByTestID('portfolio_button_group_DFI').click()
+    checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dLTC')
+  })
+  it('should sort assets based on Lowest DFI value', function () {
+    checkAssetsSortingOrder('Lowest DFI value', 'dLTC', 'dBTC')
+  })
+  it('should sort assets based on Highest BTC value', function () {
+    cy.getByTestID('portfolio_button_group_BTC').click()
+    checkAssetsSortingOrder('Highest BTC value', 'dBTC', 'DUSD')
+  })
+  it('should sort assetS based on Lowest BTC value', function () {
+    checkAssetsSortingOrder('Lowest BTC value', 'DUSD', 'dBTC')
   })
 })
 
