@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootState, useAppDispatch } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
+import { LocalAddress, selectAddressBookArray, setUserPreferences, userPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -27,6 +27,7 @@ import { openURL } from '@api/linking'
 import { SearchInput } from '@components/SearchInput'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { DiscoverWalletAddress } from '../components/AddressControlScreen'
+import { Logging } from '@api'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -42,11 +43,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.Whitelisted)
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const userPreferences = useSelector((state: RootState) => state.userPreferences)
-  const addressBook = userPreferences.addressBook
+  const userPreferencesFromStore = useSelector((state: RootState) => state.userPreferences)
+  const addressBook: LocalAddress[] = useSelector((state: RootState) => selectAddressBookArray(state.userPreferences))
   const [isEditing, setIsEditing] = useState(false)
   const { getAddressUrl } = useDeFiScanContext()
-
+  const [filteredAddresses, setFilteredAddresses] = useState<LocalAddress[]>(addressBook)
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.Whitelisted,
@@ -68,30 +69,17 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   // Search
   const [searchString, setSearchString] = useState('')
   const filterAddress = debounce((searchString: string): void => {
-    if (searchString?.trim().length > 0) {
-      const addressBookList: string[] = []
-
-      for (const address in addressBook) {
-        if (address.includes(searchString.trim().toLowerCase()) || addressBook[address]?.label.toLowerCase().includes(searchString.trim().toLowerCase())) {
-          addressBookList.push(address)
-        }
-      }
-      setFilteredAddresses(addressBookList)
-    } else {
-      setFilteredAddresses(addresses)
+    if (searchString.trim().length === 0) {
+      setFilteredAddresses(sortByFavourite(addressBook))
     }
+
+    setFilteredAddresses(sortByFavourite(addressBook).filter(address =>
+      address.label.toLowerCase().includes(searchString.trim().toLowerCase())
+    ))
   }, 200)
 
   // disable address selection touchableopacity from settings page
   const disableAddressSelect = selectedAddress === undefined && onAddressSelect === undefined
-
-  const addresses = useMemo((): string[] => {
-    if (addressBook === undefined) {
-      return []
-    }
-
-    return Object.keys(addressBook)
-  }, [addressBook])
 
   const onChangeAddress = (address: string): void => {
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -103,15 +91,44 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     }
   }
 
-  const [filteredAddresses, setFilteredAddresses] = useState<string[]>(addresses)
+  // Favourite
+  const onFavouriteAddress = async (localAddress: LocalAddress): Promise<void> => {
+    const labeledAddress = {
+      [localAddress.address]: {
+        ...localAddress,
+        isFavourite: typeof localAddress.isFavourite === 'boolean' ? !localAddress.isFavourite : true
+      }
+    }
+    dispatch(userPreferences.actions.addToAddressBook(labeledAddress))
+  }
 
-  // to update edit/delete/add addresses
-  useEffect(() => {
-    setFilteredAddresses(addresses)
-  }, [addresses])
+  const sortByFavourite = (localAddresses: LocalAddress[]): LocalAddress[] => {
+    return [...localAddresses].sort((curr, next) => {
+      if (curr.isFavourite === true) {
+        return -1
+      }
+      if (next.isFavourite === true) {
+        return 1
+      }
+      return 0
+    })
+  }
 
   useEffect(() => {
-    filterAddress(searchString) // filter while searching
+    const updateLocalStorage = async (): Promise<void> => {
+      await dispatch(setUserPreferences({ network, preferences: userPreferencesFromStore }))
+    }
+    updateLocalStorage().catch(Logging.error)
+  }, [userPreferencesFromStore])
+
+  useEffect(() => {
+    // merge updated redux state to local state
+    filterAddress(searchString)
+  }, [addressBook])
+
+  useEffect(() => {
+    // update on search
+    filterAddress(searchString)
   }, [searchString])
 
   useEffect(() => {
@@ -145,19 +162,19 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </TouchableOpacity>
       )
     })
-  }, [searchString, addresses, activeButtonGroup])
+  }, [searchString, addressBook, activeButtonGroup])
 
   const AddressListItem = useCallback(({
     item,
     index
-  }: { item: string, index: number }): JSX.Element => {
+  }: { item: LocalAddress, index: number }): JSX.Element => {
     return (
       <ThemedTouchableOpacity
-        key={item}
+        key={item.address}
         style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
         onPress={async () => {
           if (!isEditing) {
-            onChangeAddress(item)
+            onChangeAddress(item.address)
           }
         }}
         testID={`address_row_${index}`}
@@ -165,11 +182,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           <View style={tailwind('mr-2 flex-auto')}>
-            {addressBook?.[item]?.label != null && addressBook?.[item]?.label !== '' &&
+            {item.label != null && item.label !== '' &&
               (
                 <View style={tailwind('flex flex-row')}>
-                  <ThemedText style={tailwind('text-sm')} testID={`address_row_label_${item}`}>
-                    {addressBook[item]?.label}
+                  <ThemedText style={tailwind('text-sm')} testID={`address_row_label_${item.address}`}>
+                    {item.label}
                   </ThemedText>
                   {!isEditing && (
                     <ThemedIcon
@@ -179,7 +196,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                       light={tailwind('text-primary-500')}
                       dark={tailwind('text-darkprimary-500')}
                       style={tailwind('pl-1 pt-0.5')}
-                      onPress={async () => await openURL(getAddressUrl(item))}
+                      onPress={async () => await openURL(getAddressUrl(item.address))}
                     />
                   )}
                 </View>
@@ -191,9 +208,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               dark={tailwind('text-gray-400')}
               ellipsizeMode='middle'
               numberOfLines={1}
-              testID={`address_row_text_${item}`}
+              testID={`address_row_text_${item.address}`}
             >
-              {item}
+              {item.address}
             </ThemedText>
           </View>
           {isEditing
@@ -204,21 +221,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   params: {
                     title: 'Edit Address',
                     isAddNew: false,
-                    address: item,
-                    addressLabel: {
-                      label: addressBook[item]?.label,
-                      isMine: false
-                    },
-                    onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                      dispatch(setAddressBook(labelAddress)).then(() => {
-                        dispatch(setUserPreferences({
-                          network,
-                          preferences: {
-                            ...userPreferences,
-                            addressBook: labelAddress
-                          }
-                        }))
-                      })
+                    address: item.address,
+                    addressLabel: item,
+                    onSaveButtonPress: () => {
                       setIsEditing(false)
                       setSearchString('')
                     }
@@ -233,23 +238,23 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     style={tailwind('mr-2 font-bold')}
                     light={tailwind('text-gray-600')}
                     dark={tailwind('text-gray-300')}
-                    testID={`address_edit_indicator_${item}`}
+                    testID={`address_edit_indicator_${item.address}`}
 
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={async () => await onDelete(item)}>
+                <TouchableOpacity onPress={async () => await onDelete(item.address)}>
                   <ThemedIcon
                     size={24}
                     name='delete'
                     iconType='MaterialIcons'
                     light={tailwind('text-gray-600')}
                     dark={tailwind('text-gray-300')}
-                    testID={`address_delete_indicator_${item}`}
+                    testID={`address_delete_indicator_${item.address}`}
                   />
                 </TouchableOpacity>
               </>
             )
-            : item === selectedAddress
+            : item.address === selectedAddress
               ? (
                 <ThemedIcon
                   size={24}
@@ -257,16 +262,31 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   iconType='MaterialIcons'
                   light={tailwind('text-success-600')}
                   dark={tailwind('text-darksuccess-600')}
-                  testID={`address_active_indicator_${item}`}
+                  testID={`address_active_indicator_${item.address}`}
                 />
               )
               : (
-                <View style={tailwind('h-6 w-6')} />
+                <TouchableOpacity
+                  style={tailwind('pl-4')}
+                  onPress={async () => await onFavouriteAddress(item)}
+                >
+                  <ThemedIcon
+                    iconType='MaterialIcons'
+                    name={item.isFavourite === true ? 'star' : 'star-outline'}
+                    size={20}
+                    light={tailwind(
+                      item.isFavourite === true ? 'text-warning-500' : 'text-gray-600'
+                    )}
+                    dark={tailwind(
+                      item.isFavourite === true ? 'text-darkwarning-500' : 'text-gray-300'
+                    )}
+                  />
+                </TouchableOpacity>
               )}
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [addressBook, isEditing])
+  }, [filteredAddresses, isEditing])
 
   const goToAddAddressForm = (): void => {
     navigation.navigate({
@@ -274,17 +294,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       params: {
         title: 'Add New Address',
         isAddNew: true,
-        onSaveButtonPress: (labelAddress: LabeledAddress, address?: string) => {
-          const _addressBook = { ...addressBook, ...labelAddress }
-          dispatch(setAddressBook(_addressBook)).then(() => {
-            dispatch(setUserPreferences({
-              network,
-              preferences: {
-                ...userPreferences,
-                addressBook: _addressBook
-              }
-            }))
-          })
+        onSaveButtonPress: (address?: string) => {
           if (onAddressSelect !== undefined && address !== undefined) {
             onAddressSelect(address)
           }
@@ -311,52 +321,15 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
           <View style={tailwind('flex flex-row items-center')}>
-            <WalletCounterDisplay addressLength={addresses.length} />
+            <WalletCounterDisplay addressLength={addressBook.length} />
             {activeButtonGroup === ButtonGroupTabKey.YourAddress && <DiscoverWalletAddress size={18} />}
           </View>
-          {(addresses.length > 0 && activeButtonGroup === ButtonGroupTabKey.Whitelisted) &&
+          {(addressBook.length > 0 && activeButtonGroup === ButtonGroupTabKey.Whitelisted) &&
             <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />}
         </View>
       </ThemedView>
     )
-  }, [addresses, isEditing, activeButtonGroup])
-
-  const FooterComponent = useMemo(() => {
-    if (addresses.length === 0) {
-      return <></>
-    }
-
-    return (
-      <ThemedTouchableOpacity
-        light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('py-3 pl-4 pr-2 border-b')}
-        onPress={goToAddAddressForm}
-        testID='add_new_address'
-      >
-        <View style={tailwind('flex-row items-center flex-grow')}>
-          <ThemedIcon
-            size={20}
-            name='add'
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('font-normal')}
-            iconType='MaterialIcons'
-          />
-
-          <View style={tailwind('mx-2 flex-auto')}>
-            <ThemedText
-              dark={tailwind('text-darkprimary-500')}
-              light={tailwind('text-primary-500')}
-              style={tailwind('font-medium')}
-            >
-              {translate('screens/AddressBookScreen', 'Add address')}
-            </ThemedText>
-          </View>
-        </View>
-      </ThemedTouchableOpacity>
-    )
-  }, [addresses, addressBook])
+  }, [addressBook, isEditing, activeButtonGroup])
 
   // Passcode prompt
   const { data: { type: encryptionType } } = useWalletNodeContext()
@@ -370,16 +343,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        const { [address]: _, ..._addressBook } = addressBook
-        dispatch(setAddressBook(_addressBook)).then(() => {
-          dispatch(setUserPreferences({
-            network,
-            preferences: {
-              ...userPreferences,
-              addressBook: _addressBook
-            }
-          }))
-        })
+        dispatch(userPreferences.actions.deleteFromAddressBook(address))
         setIsEditing(false)
         setSearchString('')
       },
@@ -394,13 +358,12 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   return (
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
-      keyExtractor={(item) => item}
+      keyExtractor={(item) => item.address}
       stickyHeaderIndices={[0]}
       data={filteredAddresses}
       renderItem={AddressListItem} // Address list
       ListHeaderComponent={HeaderComponent} // Address counter
-      ListFooterComponent={FooterComponent} // + Add new address
-      ListEmptyComponent={addresses.length > 0 ? <></> : <EmptyDisplay onPress={goToAddAddressForm} />}
+      ListEmptyComponent={addressBook.length > 0 ? <></> : <EmptyDisplay onPress={goToAddAddressForm} />}
     />
   )
 }

@@ -11,6 +11,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
+import { userPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useEffect, useLayoutEffect, useState } from 'react'
@@ -101,11 +102,12 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        const _addressBook = {
-          ...addressBook,
+        const editedAddress = {
           [addressInput]: {
+            address: addressInput,
             label: labelInput,
-            isMine: false
+            isMine: false,
+            isFavourite: addressLabel?.isFavourite
           }
         }
 
@@ -114,11 +116,10 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
           address !== addressInput.trim()
         ) {
           // delete current address if changing to a new address during edit
-          const { [address]: _, ...newAddressBook } = _addressBook
-          onSaveButtonPress(newAddressBook)
-        } else {
-          onSaveButtonPress(_addressBook, addressInput)
+          dispatch(userPreferences.actions.deleteFromAddressBook(address))
         }
+        dispatch(userPreferences.actions.addToAddressBook(editedAddress))
+        onSaveButtonPress(addressInput)
         navigation.pop()
       },
       onError: e => logger.error(e),
