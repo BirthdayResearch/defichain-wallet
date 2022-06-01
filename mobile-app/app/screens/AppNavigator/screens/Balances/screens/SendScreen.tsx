@@ -3,7 +3,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -37,9 +37,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { LocalAddress } from '@store/userPreferences'
 import { debounce } from 'lodash'
@@ -54,11 +52,8 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address: walletAddress } = useWalletContext()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const isFocused = useIsFocused()
   const {
     control,
     setValue,
@@ -127,15 +122,6 @@ export function SendScreen ({
   useEffect(() => {
     void fetchWalletAddresses().then((walletAddresses) => setWalletAddresses(walletAddresses))
   }, [])
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address: walletAddress
-      }))
-    }
-  }, [walletAddress, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

@@ -24,7 +24,7 @@ import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
@@ -177,11 +177,6 @@ export function PaybackLoanScreen ({
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
-
       if (loanTokenAmount.symbol === 'DUSD') {
         dispatch(fetchPrice({
           client,
