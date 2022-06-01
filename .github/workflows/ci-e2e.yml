@@ -33,8 +33,6 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2
-
       - run: npm ci
 
       - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 120
