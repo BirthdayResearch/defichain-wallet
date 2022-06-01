@@ -146,21 +146,12 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
               token: pair.tokenA.displaySymbol
             }),
             value: aToBRate.toFixed(8),
-            aSymbol: pair.tokenB.displaySymbol,
-            bSymbol: pair.tokenA.displaySymbol
-          },
-          {
-            label: translate('components/PricesSection', '1 {{token}}', {
-              token: pair.tokenB.displaySymbol
-            }),
-            value: bToARate.toFixed(8),
             aSymbol: pair.tokenA.displaySymbol,
             bSymbol: pair.tokenB.displaySymbol
           },
           {
-            label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
-              tokenA: pair.tokenA.displaySymbol,
-              tokenB: pair.tokenB.displaySymbol
+            label: translate('components/PricesSection', '1 {{token}}', {
+              token: pair.tokenB.displaySymbol
             }),
             value: bToARate.toFixed(8),
             aSymbol: pair.tokenB.displaySymbol,
