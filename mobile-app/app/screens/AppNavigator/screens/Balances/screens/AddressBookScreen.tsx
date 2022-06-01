@@ -74,7 +74,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     }
 
     setFilteredAddresses(sortByFavourite(addressBook).filter(address =>
-      address.label.includes(searchString.trim().toLowerCase()) ||
       address.label.toLowerCase().includes(searchString.trim().toLowerCase())
     ))
   }, 200)
