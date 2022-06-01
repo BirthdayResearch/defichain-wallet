@@ -16,7 +16,7 @@ concurrency:
 jobs:
   main:
     name: Cypress
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
@@ -32,6 +32,12 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+
+      # install specific version of chrome
+      - run: |
+          VERSION_STRING="102.0.5005.63"
+          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}_amd64.deb"
+          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}_amd64.deb"
 
       - run: npm ci
 
