@@ -17,33 +17,126 @@ function waitUntilFutureSwapSettles (): void {
   })
 }
 
-function validatePriceSection (testID: string): void {
-  cy.getByTestID(`${testID}_0`).invoke('text').then(text => {
-    checkValueWithinRange(text, '1', 0.2)
-  })
-  cy.getByTestID(`${testID}_0_label`).contains('1 DUSD')
-  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'dTU10')
+function validatePriceSection (testID: string, isHidden: boolean): void {
+  if (isHidden) {
+    cy.getByTestID(`${testID}_0`).should('not.exist')
+    cy.getByTestID(`${testID}_0_label`).should('not.exist')
+    cy.getByTestID(`${testID}_0_suffix`).should('not.exist')
+    cy.getByTestID(`${testID}_1`).should('not.exist')
+    cy.getByTestID(`${testID}_1_label`).should('not.exist')
+    cy.getByTestID(`${testID}_1_suffix`).should('not.exist')
+  } else {
+    cy.getByTestID(`${testID}_0`).invoke('text').then(text => {
+      checkValueWithinRange(text, '1', 0.2)
+    })
+    cy.getByTestID(`${testID}_0_label`).contains('1 dTU10')
+    cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DUSD')
 
-  cy.getByTestID(`${testID}_1`).invoke('text').then(text => {
-    checkValueWithinRange(text, '1', 0.2)
-  })
-  cy.getByTestID(`${testID}_1_label`).contains('1 dTU10')
-  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'DUSD')
+    cy.getByTestID(`${testID}_1`).invoke('text').then(text => {
+      checkValueWithinRange(text, '1', 0.2)
+    })
+    cy.getByTestID(`${testID}_1_label`).contains('1 DUSD')
+    cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dTU10')
+  }
 }
 
 context('Wallet - DEX - Future Swap', () => {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.sendDFITokentoWallet().sendDFItoWallet().sendTokenToWallet(['TU10', 'DUSD', 'BTC']).wait(3000)
+    cy.sendDFITokentoWallet().sendDFItoWallet().sendTokenToWallet(['DUSD', 'TU10', 'BTC', 'ETH']).wait(4000)
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('composite_swap').click()
-    cy.wait(5000)
+  })
+
+  it('should have no swap option on crypto -> loan combination', function () {
+    // crypto to loan token
+    cy.getByTestID('token_select_button_FROM').click()
+    cy.getByTestID('select_dBTC').click().wait(1000)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dTU10').click()
+    cy.getByTestID('50%_amount_button').click().wait(500)
+    cy.getByTestID('swap_button_group').should('not.exist')
+    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
+    cy.go('back')
+  })
+
+  it('should  have no swap option on crypto -> crpyto combination', function () {
+    // crypto to crypto
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dETH').click()
+    cy.getByTestID('50%_amount_button').click().wait(500)
+    cy.getByTestID('swap_button_group').should('not.exist')
+    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
+    cy.go('back')
+  })
+
+  it('should have no swap option on loan -> loan combination', function () {
+    // loan (DUSD) to loan token
+    cy.getByTestID('token_select_button_FROM').click()
+    cy.getByTestID('select_DUSD').click().wait(1000)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dTU10').click()
+    cy.getByTestID('50%_amount_button').click().wait(500)
+    cy.getByTestID('swap_button_group').should('exist')
+    cy.getByTestID('button_confirm_submit').click().wait(1500)
+    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
+    cy.go('back')
+    cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
+    cy.getByTestID('button_confirm_submit').click().wait(1500)
+    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Future swap')
+    cy.go('back')
+  })
+
+  it('should have no swap option on loan -> crypto combination', function () {
+    // loan to crypto token
+    cy.getByTestID('token_select_button_FROM').click()
+    cy.getByTestID('select_dTU10').click().wait(1000)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dBTC').click()
+    cy.getByTestID('50%_amount_button').click().wait(500)
+    cy.getByTestID('swap_button_group').should('not.exist')
+    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
+    cy.go('back')
+  })
+
+  it('should have no swap option on dfi -> crypto combination', function () {
+    // dfi to crypto token
+    cy.getByTestID('token_select_button_FROM').click()
+    cy.getByTestID('select_DFI').click().wait(1000)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_dBTC').click()
+    cy.getByTestID('50%_amount_button').click().wait(500)
+    cy.getByTestID('swap_button_group').should('not.exist')
+    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Swap')
+    cy.go('back')
+  })
+
+  it('should display future swap option if Loan token -> DUSD selected', function () {
+    cy.getByTestID('token_select_button_FROM').click()
+    cy.getByTestID('select_dTU10').click().wait(1000)
+    cy.getByTestID('token_select_button_TO').click()
+    cy.getByTestID('select_DUSD').click()
+    cy.getByTestID('swap_button_group').should('exist')
+  })
+
+  it('should display oracle price -5% if Loan token -> DUSD selected', function () {
+    cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
+    cy.getByTestID('MAX_amount_button').click()
+    cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price -5%')
+    cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
+    cy.getByTestID('future_swap_warning_text').contains('selling dTU10 at 5% lower')
+    cy.getByTestID('future_swap_warning_text').contains('than the oracle price at Settlement block')
   })
 
   it('should display future swap option if DUSD -> Loan token selected', function () {
+    cy.wait(4000)
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_DUSD').click().wait(1000)
     cy.getByTestID('token_select_button_TO').click()
@@ -53,12 +146,18 @@ context('Wallet - DEX - Future Swap', () => {
   })
 
   it('should display price rates on instant swap', function () {
-    validatePriceSection('pricerate_value')
+    validatePriceSection('pricerate_value', false)
+    cy.getByTestID('button_confirm_submit').click()
+    validatePriceSection('confirm_pricerate_value', false)
+    cy.go('back')
   })
 
-  it('should display price rates on future swap', function () {
+  it('should not display price rates on future swap', function () {
     cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
-    validatePriceSection('pricerate_value')
+    validatePriceSection('pricerate_value', true)
+    cy.getByTestID('button_confirm_submit').click()
+    validatePriceSection('confirm_pricerate_value', true)
+    cy.go('back')
   })
 
   it('should display oracle price +5% if DUSD to Loan token', function () {
@@ -97,51 +196,9 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('resulting_DUSD_suffix').should('have.text', 'DUSD')
     cy.getByTestID('resulting_dTU10').should('have.text', 'Oracle price +5%')
     cy.wait(3000)
-    cy.getByTestID('button_confirm_swap').click().wait(3000)
+    cy.getByTestID('button_confirm_swap').click().wait(3500)
     cy.getByTestID('txn_authorization_description').should('have.text', 'Swap on future block 10.00000000 DUSD to dTU10 on oracle price +5%')
     cy.closeOceanInterface()
-  })
-
-  it('should display future swap option if Loan token -> DUSD selected', function () {
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('composite_swap').click()
-    cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dTU10').click().wait(1000)
-    cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_DUSD').click()
-    cy.getByTestID('swap_button_group').should('exist')
-  })
-
-  it('should display oracle price -5% if Loan token to DUSD', function () {
-    cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
-    cy.getByTestID('MAX_amount_button').click()
-    cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price -5%')
-    cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
-    cy.getByTestID('future_swap_warning_text').contains('selling dTU10 at 5% lower')
-    cy.getByTestID('future_swap_warning_text').contains('than the oracle price at Settlement block')
-  })
-
-  it('should hide future swap option if no DUSD and loan token ', function () {
-    // crypto to loan
-    cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dBTC').click().wait(1000)
-    cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dTU10').click()
-    cy.getByTestID('swap_button_group').should('not.exist')
-
-    // loan to crypto
-    cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_dTU10').click().wait(1000)
-    cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dBTC').click()
-    cy.getByTestID('swap_button_group').should('not.exist')
-
-    // dfi to crypto
-    cy.getByTestID('token_select_button_FROM').click()
-    cy.getByTestID('select_DFI').click().wait(1000)
-    cy.getByTestID('token_select_button_TO').click()
-    cy.getByTestID('select_dBTC').click()
-    cy.getByTestID('swap_button_group').should('not.exist')
   })
 })
 

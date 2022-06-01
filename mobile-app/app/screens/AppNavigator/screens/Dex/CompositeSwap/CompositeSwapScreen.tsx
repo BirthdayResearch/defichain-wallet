@@ -354,18 +354,18 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
         label: translate('components/PricesSection', '1 {{token}}', {
-          token: selectedTokenA.displaySymbol
-        }),
-        value: aToBPrice.toFixed(8),
-        aSymbol: selectedTokenA.displaySymbol,
-        bSymbol: selectedTokenB.displaySymbol
-      }, {
-        label: translate('components/PricesSection', '1 {{token}}', {
           token: selectedTokenB.displaySymbol
         }),
         value: bToAPrice.toFixed(8),
         aSymbol: selectedTokenB.displaySymbol,
         bSymbol: selectedTokenA.displaySymbol
+      }, {
+        label: translate('components/PricesSection', '1 {{token}}', {
+          token: selectedTokenA.displaySymbol
+        }),
+        value: aToBPrice.toFixed(8),
+        aSymbol: selectedTokenA.displaySymbol,
+        bSymbol: selectedTokenB.displaySymbol
       }
       ])
 
@@ -595,17 +595,18 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
           <>
-            <ThemedView
-              style={tailwind('rounded-t-lg mx-4 py-2')}
-              dark={tailwind('bg-gray-800 border-b border-gray-700')}
-              light={tailwind('bg-white border-b border-gray-200')}
-            >
-              <PricesSection
-                testID='pricerate_value'
-                priceRates={priceRates}
-                isCompact
-              />
-            </ThemedView>
+            {!isFutureSwap &&
+              <ThemedView
+                style={tailwind('rounded-t-lg mx-4 py-2')}
+                dark={tailwind('bg-gray-800 border-b border-gray-700')}
+                light={tailwind('bg-white border-b border-gray-200')}
+              >
+                <PricesSection
+                  testID='pricerate_value'
+                  priceRates={priceRates}
+                  isCompact
+                />
+              </ThemedView>}
             <TransactionDetailsSection
               isFutureSwap={isFutureSwap}
               conversionAmount={conversionAmount}

@@ -22,13 +22,13 @@ function createAddLiquidityToWallet (): void {
 }
 
 function validatePriceSection (testID: string): void {
-  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 100.00000000')
-  cy.getByTestID(`${testID}_0_label`).contains('1 DFI')
-  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'dETH')
+  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 0.01000000')
+  cy.getByTestID(`${testID}_0_label`).contains('1 dETH')
+  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
 
-  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 0.01000000')
-  cy.getByTestID(`${testID}_1_label`).contains('1 dETH')
-  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'DFI')
+  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 100.00000000')
+  cy.getByTestID(`${testID}_1_label`).contains('1 DFI')
+  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dETH')
 }
 
 context('Wallet - DEX - Remove Liquidity', () => {

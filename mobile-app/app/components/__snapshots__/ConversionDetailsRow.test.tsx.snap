@@ -112,6 +112,63 @@ Array [
         }
       }
     >
+      <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      undefined,
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="resulting_utxo_balance"
+            >
+              10.00000000
+            </Text>
+          </Text>
+        </View>
+      </View>
       <View
         style={
           Object {
@@ -122,60 +179,7 @@ Array [
             "justifyContent": "flex-end",
           }
         }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "textAlign": "right",
-              },
-              undefined,
-              undefined,
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    undefined,
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="resulting_utxo_balance"
-          >
-            10.00000000
-          </Text>
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        />
-      </View>
+      />
     </View>
   </View>,
   <View
@@ -255,6 +259,63 @@ Array [
         }
       }
     >
+      <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      undefined,
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="resulting_token_balance"
+            >
+              0.00000001
+            </Text>
+          </Text>
+        </View>
+      </View>
       <View
         style={
           Object {
@@ -265,60 +326,7 @@ Array [
             "justifyContent": "flex-end",
           }
         }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "textAlign": "right",
-              },
-              undefined,
-              undefined,
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    undefined,
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="resulting_token_balance"
-          >
-            0.00000001
-          </Text>
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        />
-      </View>
+      />
     </View>
   </View>,
 ]
