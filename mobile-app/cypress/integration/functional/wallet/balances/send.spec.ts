@@ -562,6 +562,7 @@ context('Wallet - Send - Address book', function () {
     populateAddressBook()
     cy.getByTestID('bottom_tab_balances').click()
     cy.getByTestID('header_settings').click()
+    cy.wait(1000)
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {})
     cy.getByTestID('create_wallet_button').should('exist')
