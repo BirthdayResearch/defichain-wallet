@@ -135,7 +135,7 @@ context('Wallet - Loans - Close Vault', () => {
   })
 
   it('should be able to close vault', function () {
-    cy.sendTokenToWallet(['DUSD'])
+    cy.sendTokenToWallet(['DUSD']).sendTokenToWallet(['DUSD'])
     cy.wait(3000)
     cy.getByTestID('vault_card_0').click()
     cy.getByTestID('vault_detail_tabs_LOANS').click()
