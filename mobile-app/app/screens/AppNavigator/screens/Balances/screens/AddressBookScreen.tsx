@@ -113,11 +113,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     } else {
       activeButtonGroup === ButtonGroupTabKey.Whitelisted
         ? setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
-          address.label.includes(searchString.trim().toLowerCase()) ||
           address.label.toLowerCase().includes(searchString.trim().toLowerCase())
         ))
         : setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
-          address.label.includes(searchString.trim().toLowerCase()) ||
           address.label.toLowerCase().includes(searchString.trim().toLowerCase())
         ))
     }
