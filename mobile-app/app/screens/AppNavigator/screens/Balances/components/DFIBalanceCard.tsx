@@ -164,14 +164,14 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                 style={tailwind('mt-1')}
               >
                 <LinearGradient
-                  colors={['#1A0C75', '#1C0C75', '#1F0D75', '#240E75', '#2A0F75', '#321175', '#3C1375', '#461575', '#511876', '#5C1B76', '#681D76', '#732076', '#7F2276', '#8A2576', '#952776', '#9E2A77']}
                   start={[0, 0]}
                   end={[1, 1]}
+                  colors={['#1A0C75', '#1C0C75', '#1F0D75', '#240E75', '#2A0F75', '#321175', '#3C1375', '#461575', '#511876', '#5C1B76', '#681D76', '#732076', '#7F2276', '#8A2576', '#952776', '#9E2A77']}
                   locations={[0, 0.1124, 0.2038, 0.2776, 0.3368, 0.3848, 0.4247, 0.4598, 0.4933, 0.5284, 0.5683, 0.6163, 0.6756, 0.7493, 0.8408, 0.9531]}
                 >
                   <TouchableOpacity
                     style={tailwind('flex-row items-center')}
-                    onPress={() => {}}
+                    onPress={() => navigation.navigate('GetDFIScreen')}
                   >
                     <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
                       <View style={tailwind('flex-row flex-1 items-center')}>

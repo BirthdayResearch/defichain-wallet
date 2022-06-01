@@ -34,6 +34,7 @@ import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
+import { GetDFIScreen } from './screens/GetDFIScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
@@ -178,6 +179,20 @@ export function BalancesNavigator (): JSX.Element {
             />
           ),
           headerRightContainerStyle: tailwind('px-2 py-2'),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={GetDFIScreen}
+        name='GetDFIScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddressControlScreen', 'Get $DFI')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
