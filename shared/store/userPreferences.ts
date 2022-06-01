@@ -86,18 +86,26 @@ export const userPreferences = createSlice({
 })
 
 export const selectAddressBookArray = createSelector((state: UserPreferences) => state.addressBook, addressBook => {
-  const _addressBook: LabeledAddress = { ...addressBook }
+  return prepopulateField(addressBook)
+})
+
+export const selectLocalWalletAddressArray = createSelector((state: UserPreferences) => state.addresses, walletAddress => {
+  return prepopulateField(walletAddress)
+})
+
+const prepopulateField = (addresses: LabeledAddress): LocalAddress[] => {
+  const _addresses: LabeledAddress = { ...addresses }
 
   // to pre-populate address and isFavourite flag for older app version
-  for (const address in addressBook) {
-    if (addressBook[address].address === undefined) {
+  for (const address in addresses) {
+    if (addresses[address].address === undefined) {
       const _address = {
-        ...addressBook[address],
+        ...addresses[address],
           address: address,
           isFavourite: false
       }
-      _addressBook[address] = _address
+      _addresses[address] = _address
     }
   }
-  return Object.values(_addressBook)
-})
+  return Object.values(_addresses)
+}

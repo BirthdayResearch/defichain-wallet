@@ -68,6 +68,7 @@ export function SendScreen ({
   } = useForm({ mode: 'onChange' })
   const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const walletAddressesFromStore = useSelector((state: RootState) => state.userPreferences.addresses)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -110,6 +111,8 @@ export function SendScreen ({
   const debounceMatchAddress = debounce(() => {
     if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
       setMatchedAddress(addressBook[address])
+    } else if (address !== undefined && walletAddressesFromStore !== undefined && walletAddressesFromStore[address] !== undefined) {
+      setMatchedAddress(walletAddressesFromStore[address])
     } else {
       setMatchedAddress(undefined)
     }

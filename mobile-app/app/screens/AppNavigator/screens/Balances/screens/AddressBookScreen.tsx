@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootState, useAppDispatch } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { LocalAddress, selectAddressBookArray, setUserPreferences, userPreferences } from '@store/userPreferences'
+import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, setUserPreferences, userPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -28,6 +28,7 @@ import { SearchInput } from '@components/SearchInput'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { DiscoverWalletAddress } from '../components/AddressControlScreen'
 import { Logging } from '@api'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -45,6 +46,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const userPreferencesFromStore = useSelector((state: RootState) => state.userPreferences)
   const addressBook: LocalAddress[] = useSelector((state: RootState) => selectAddressBookArray(state.userPreferences))
+  const walletAddress: LocalAddress[] = useSelector((state: RootState) => selectLocalWalletAddressArray(state.userPreferences))
+  const [addresses, setAddresses] = useState<LocalAddress[]>(addressBook)
   const [isEditing, setIsEditing] = useState(false)
   const { getAddressUrl } = useDeFiScanContext()
   const [filteredAddresses, setFilteredAddresses] = useState<LocalAddress[]>(addressBook)
@@ -60,20 +63,53 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.YourAddress)
     }
   ]
+  const {
+    wallet,
+    addressLength
+  } = useWalletContext()
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setActiveButtonGroup(buttonGroupTabKey)
+    setIsEditing(false)
+    if (buttonGroupTabKey === ButtonGroupTabKey.Whitelisted) {
+      setAddresses(addressBook)
+    } else {
+      void fetchWalletAddresses(wallet, addressLength).then(walletAddresses =>
+        setAddresses(walletAddresses.map(address => {
+          const storedWalletAddress = walletAddress.find(a => a.address === address)
+          if (storedWalletAddress === undefined) {
+            return {
+              address,
+              label: '',
+              isMine: true
+            }
+          } else {
+            return storedWalletAddress
+          }
+        }))
+      )
+    }
     // TODO need to add logic to switch between whitelisted address and your address listing
+  }
+
+  const fetchWalletAddresses = async (wallet: any, addressLength: number): Promise<string[]> => {
+    const addresses: string[] = []
+    for (let i = 0; i <= addressLength; i++) {
+      const account = wallet.get(i)
+      const address = await account.getAddress()
+      addresses.push(address)
+    }
+    return addresses
   }
 
   // Search
   const [searchString, setSearchString] = useState('')
   const filterAddress = debounce((searchString: string): void => {
     if (searchString.trim().length === 0) {
-      setFilteredAddresses(sortByFavourite(addressBook))
+      setFilteredAddresses(sortByFavourite(addresses))
     }
 
-    setFilteredAddresses(sortByFavourite(addressBook).filter(address =>
+    setFilteredAddresses(sortByFavourite(addresses).filter(address =>
       address.label.includes(searchString.trim().toLowerCase()) ||
       address.label.toLowerCase().includes(searchString.trim().toLowerCase())
     ))
@@ -125,7 +161,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   useEffect(() => {
     // merge updated redux state to local state
     filterAddress(searchString)
-  }, [addressBook])
+  }, [addresses])
 
   useEffect(() => {
     // update on search
@@ -163,7 +199,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </TouchableOpacity>
       )
     })
-  }, [searchString, addressBook, activeButtonGroup])
+  }, [searchString, addresses, activeButtonGroup])
 
   const AddressListItem = useCallback(({
     item,
@@ -240,7 +276,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     light={tailwind('text-gray-600')}
                     dark={tailwind('text-gray-300')}
                     testID={`address_edit_indicator_${item.address}`}
-
                   />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={async () => await onDelete(item.address)}>
@@ -266,7 +301,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   testID={`address_active_indicator_${item.address}`}
                 />
               )
-              : (
+              : activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
                 <TouchableOpacity
                   style={tailwind('pl-4')}
                   onPress={async () => await onFavouriteAddress(item)}
@@ -287,7 +322,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
       </ThemedTouchableOpacity>
     )
-  }, [filteredAddresses, isEditing])
+  }, [filteredAddresses, isEditing, activeButtonGroup])
 
   const goToAddAddressForm = (): void => {
     navigation.navigate({
@@ -322,7 +357,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
         <View style={tailwind('flex flex-row items-center justify-between w-full')}>
           <View style={tailwind('flex flex-row items-center')}>
-            <WalletCounterDisplay addressLength={addressBook.length} />
+            <WalletCounterDisplay addressLength={filteredAddresses.length} />
             {activeButtonGroup === ButtonGroupTabKey.YourAddress && <DiscoverWalletAddress size={18} />}
           </View>
           {(addressBook.length > 0 && activeButtonGroup === ButtonGroupTabKey.Whitelisted) &&
@@ -330,7 +365,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         </View>
       </ThemedView>
     )
-  }, [addressBook, isEditing, activeButtonGroup])
+  }, [filteredAddresses, isEditing, activeButtonGroup])
 
   // Passcode prompt
   const { data: { type: encryptionType } } = useWalletNodeContext()
@@ -354,7 +389,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [navigation, dispatch, isEncrypted, addressBook])
+  }, [navigation, dispatch, isEncrypted])
 
   return (
     <ThemedFlatList
@@ -364,7 +399,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       data={filteredAddresses}
       renderItem={AddressListItem} // Address list
       ListHeaderComponent={HeaderComponent} // Address counter
-      ListEmptyComponent={addressBook.length > 0 ? <></> : <EmptyDisplay onPress={goToAddAddressForm} />}
+      ListEmptyComponent={activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddresses.length === 0 ? <EmptyDisplay onPress={goToAddAddressForm} /> : <></>}
     />
   )
 }
