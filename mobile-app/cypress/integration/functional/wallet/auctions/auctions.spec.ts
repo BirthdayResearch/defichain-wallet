@@ -422,18 +422,6 @@ context('Wallet - Auctions Feature Gated', () => {
     cy.getByTestID('bottom_tab_auctions').should('not.exist')
   })
 
-  it('should not have auctions tab if feature flag api failed', function () {
-    cy.intercept('**/settings/flags', {
-      statusCode: 404,
-      body: '404 Not Found!',
-      headers: {
-        'x-not-found': 'true'
-      }
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_auctions').should('not.exist')
-  })
-
   it('should not have auctions tab if auction feature is beta and not activated by user', function () {
     cy.intercept('**/settings/flags', {
       body: [

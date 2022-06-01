@@ -142,15 +142,6 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         testID='confirm_pricerate_value'
         priceRates={[
           {
-            label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
-              tokenA: pair.tokenA.displaySymbol,
-              tokenB: pair.tokenB.displaySymbol
-            }),
-            value: bToARate.toFixed(8),
-            aSymbol: pair.tokenB.displaySymbol,
-            bSymbol: pair.tokenA.displaySymbol
-          },
-          {
             label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
               tokenA: pair.tokenA.displaySymbol,
               tokenB: pair.tokenB.displaySymbol
@@ -158,8 +149,16 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
             value: aToBRate.toFixed(8),
             aSymbol: pair.tokenA.displaySymbol,
             bSymbol: pair.tokenB.displaySymbol
+          },
+          {
+            label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
+              tokenA: pair.tokenA.displaySymbol,
+              tokenB: pair.tokenB.displaySymbol
+            }),
+            value: bToARate.toFixed(8),
+            aSymbol: pair.tokenB.displaySymbol,
+            bSymbol: pair.tokenA.displaySymbol
           }
-
         ]}
         sectionTitle='PRICES'
       />

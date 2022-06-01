@@ -25,7 +25,7 @@ import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { QuickBid } from '../components/QuickBid'
 import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { fetchTokens, tokensSelector } from '@store/wallet'
+import { tokensSelector } from '@store/wallet'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { BidHistory } from '../components/BidHistory'
 import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
@@ -72,10 +72,9 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
       dispatch(fetchAuctions({ client }))
     }
-  }, [address, blockCount, isFocused])
+  }, [blockCount, isFocused])
 
   useEffect(() => {
     const _vault = auctions.find(auction => auction.vaultId === vault.vaultId)
