@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
 import dayjs from 'dayjs'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 /*
   Future swap settles every 20 blocks. To ensure that there's ample time (20 blocks) to:
@@ -14,6 +15,20 @@ function waitUntilFutureSwapSettles (): void {
       waitUntilFutureSwapSettles()
     }
   })
+}
+
+function validatePriceSection (testID: string): void {
+  cy.getByTestID(`${testID}_0`).invoke('text').then(text => {
+    checkValueWithinRange(text, '1', 0.2)
+  })
+  cy.getByTestID(`${testID}_0_label`).contains('1 DUSD')
+  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'dTU10')
+
+  cy.getByTestID(`${testID}_1`).invoke('text').then(text => {
+    checkValueWithinRange(text, '1', 0.2)
+  })
+  cy.getByTestID(`${testID}_1_label`).contains('1 dTU10')
+  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'DUSD')
 }
 
 context('Wallet - DEX - Future Swap', () => {
@@ -34,10 +49,19 @@ context('Wallet - DEX - Future Swap', () => {
     cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dTU10').click()
     cy.getByTestID('swap_button_group').should('exist')
+    cy.getByTestID('MAX_amount_button').click()
+  })
+
+  it('should display price rates on instant swap', function () {
+    validatePriceSection('pricerate_value')
+  })
+
+  it('should display price rates on future swap', function () {
+    cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
+    validatePriceSection('pricerate_value')
   })
 
   it('should display oracle price +5% if DUSD to Loan token', function () {
-    cy.getByTestID('swap_button_group_FUTURE_SWAP').click()
     cy.getByTestID('oracle_price_percentage').should('have.text', 'Oracle price +5%')
     cy.getByTestID('future_swap_warning_text').contains('By using future swap, you are')
     cy.getByTestID('future_swap_warning_text').contains('buying dTU10 at 5% more')

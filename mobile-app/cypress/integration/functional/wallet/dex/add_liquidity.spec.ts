@@ -36,12 +36,12 @@ function setupWalletForConversion (): void {
 }
 
 function validatePriceSection (testID: string): void {
-  cy.getByTestID(`${testID}_0`).contains('1 dBTC = 1.00000000')
-  cy.getByTestID(`${testID}_0_label`).contains('dBTC price in DFI')
+  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_0_label`).contains('1 dBTC')
   cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
 
-  cy.getByTestID(`${testID}_1`).contains('1 DFI = 1.00000000')
-  cy.getByTestID(`${testID}_1_label`).contains('DFI price in dBTC')
+  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_1_label`).contains('1 DFI')
   cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dBTC')
 }
 
