@@ -17,7 +17,7 @@ jobs:
   main:
     name: Cypress
     runs-on: ubuntu-latest
-    container: cypress/base:16.14.2
+    container: cypress/included:9.7.0
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
