@@ -5,18 +5,18 @@ exports[`wallet toast should render and match snapshot 1`] = `
   style={
     Array [
       Object {
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
-        "marginTop": 32,
+        "borderBottomLeftRadius": 24,
+        "borderBottomRightRadius": 24,
+        "borderTopLeftRadius": 24,
+        "borderTopRightRadius": 24,
+        "marginTop": 64,
         "paddingBottom": 6,
         "paddingLeft": 16,
         "paddingRight": 16,
         "paddingTop": 4,
       },
       Object {
-        "backgroundColor": "rgba(82, 82, 82, 1)",
+        "backgroundColor": "rgba(23, 23, 23, 1)",
       },
     ]
   }
