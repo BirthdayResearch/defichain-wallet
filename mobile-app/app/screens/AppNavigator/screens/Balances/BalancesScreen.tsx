@@ -1,4 +1,3 @@
-
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
@@ -73,17 +72,16 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
-  const { hasFetchedToken, allTokens } = useSelector((state: RootState) => (state.wallet))
+  const {
+    hasFetchedToken,
+    allTokens
+  } = useSelector((state: RootState) => (state.wallet))
   const ref = useRef(null)
   useScrollToTop(ref)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets])
-
-  useEffect(() => {
-    fetchPortfolioData()
-  }, [address, blockCount])
 
   useEffect(() => {
     if (isFocused) {
@@ -120,7 +118,6 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 
   const fetchPortfolioData = (): void => {
     batch(() => {
-      // do not add isFocused condition as its keeping token data updated in background
       dispatch(fetchTokens({
         client,
         address
@@ -132,8 +129,13 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     })
   }
 
+  // TODO: check if can reduce API calls. Already being called on WalletDataProvider
+  // But doesn't use the denominationCurrency
   useEffect(() => {
-    dispatch(fetchDexPrice({ client, denomination: denominationCurrency }))
+    dispatch(fetchDexPrice({
+      client,
+      denomination: denominationCurrency
+    }))
   }, [blockCount, denominationCurrency])
 
   const onRefresh = useCallback(async () => {
@@ -151,9 +153,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-        totalAvailableValue,
-        dstTokens
-      }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
+          totalAvailableValue,
+          dstTokens
+        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -174,9 +176,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-      totalAvailableValue: new BigNumber(0),
-      dstTokens: []
-    })
+        totalAvailableValue: new BigNumber(0),
+        dstTokens: []
+      })
   }, [prices, tokens])
 
   // add token that are 100% locked as collateral into dstTokens
@@ -265,7 +267,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -299,7 +301,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
+  const modalSnapPoints = {
+    ios: ['75%'],
+    android: ['75%']
+  }
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)

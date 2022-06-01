@@ -1,12 +1,14 @@
 import React, { useEffect, PropsWithChildren } from 'react'
-import { useSelector } from 'react-redux'
+import { batch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
-import { fetchDexPrice, fetchPoolPairs } from '@store/wallet'
+import { fetchDexPrice, fetchPoolPairs, fetchTokens } from '@store/wallet'
 import { fetchUserPreferences } from '@store/userPreferences'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { fetchVaults } from '@store/loans'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element | null {
@@ -14,13 +16,19 @@ export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element 
   const client = useWhaleApiClient()
   const { network } = useNetworkContext()
   const dispatch = useAppDispatch()
+  const { address } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
   const { isFeatureAvailable } = useFeatureFlagContext()
 
   // Global polling based on blockCount and network, so no need to fetch per page
   useEffect(() => {
-    dispatch(fetchPoolPairs({ client }))
-    dispatch(fetchDexPrice({ client, denomination: 'USDT' }))
+    batch(() => {
+      dispatch(fetchPoolPairs({ client }))
+      dispatch(fetchDexPrice({
+        client,
+        denomination: 'USDT'
+      }))
+    })
   }, [blockCount, network])
 
   // Fetch user data on start up
@@ -30,6 +38,20 @@ export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element 
       dispatch(fetchUserPreferences(network))
     }
   }, [network, wallets])
+
+  /* Global polling based on blockCount, network and address */
+  useEffect(() => {
+    batch(() => {
+      dispatch(fetchTokens({
+        client,
+        address
+      }))
+      dispatch(fetchVaults({
+        client,
+        address
+      }))
+    })
+  }, [blockCount, network, address])
 
   return (
     <>
