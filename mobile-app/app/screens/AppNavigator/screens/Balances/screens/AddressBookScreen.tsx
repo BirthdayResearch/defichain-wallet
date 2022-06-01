@@ -30,8 +30,7 @@ import { DiscoverWalletAddress } from '../components/AddressControlScreen'
 import { Logging } from '@api'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { RandomAvatar } from '../components/RandomAvatar'
-import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
+import { useWalletAddress } from '@hooks/useWalletAddress'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 
@@ -57,6 +56,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     wallet,
     addressLength
   } = useWalletContext()
+  const { fetchWalletAddresses } = useWalletAddress()
   const [filteredAddressBook, setFilteredAddressBook] = useState<LocalAddress[]>(addressBook)
   const [filteredWalletAddress, setFilteredWalletAddress] = useState<LocalAddress[]>(walletAddress)
   const buttonGroup = [
@@ -77,36 +77,30 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     setIsEditing(false)
   }
 
-  const fetchWalletAddresses = async (wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>, addressLength: number): Promise<LocalAddress[]> => {
-    const addresses: LocalAddress[] = []
-    for (let i = 0; i <= addressLength; i++) {
-      const account = wallet.get(i)
-      const address = await account.getAddress()
-      const storedWalletAddress = walletAddressFromStore.find(a => a.address === address)
-      if (storedWalletAddress === undefined) {
-        addresses.push({
-          address,
-          label: '',
-          isMine: true
-        })
-      } else {
-        addresses.push(storedWalletAddress)
-      }
-    }
-    return addresses
-  }
-
   useEffect(() => {
     // combine redux store and jellyfish wallet
     let isSubscribed = true
-    void fetchWalletAddresses(wallet, addressLength).then((walletAddresses) => {
+    void fetchWalletAddresses().then((walletAddresses) => {
       if (isSubscribed) {
-        setWalletAddress(walletAddresses)
+        const addresses: LocalAddress[] = []
+        walletAddresses.forEach((address) => {
+          const storedWalletAddress = walletAddressFromStore.find(a => a.address === address)
+          if (storedWalletAddress === undefined) {
+            addresses.push({
+              address,
+              label: '',
+              isMine: true
+            })
+          } else {
+            addresses.push(storedWalletAddress)
+          }
+        })
+        setWalletAddress(addresses)
       }
     })
     return () => {
-isSubscribed = false
-}
+      isSubscribed = false
+    }
   }, [wallet, addressLength, walletAddressFromStore])
 
   // Search

@@ -93,6 +93,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   }, [showToast, props.address])
 
   // Getting addresses
+  // TODO: replace with useWalletAddress hook
   const fetchAddresses = async (): Promise<void> => {
     const addresses: string[] = []
     for (let i = 0; i <= addressLength; i++) {
