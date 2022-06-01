@@ -49,7 +49,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const userPreferencesFromStore = useSelector((state: RootState) => state.userPreferences)
   const addressBook: LocalAddress[] = useSelector((state: RootState) => selectAddressBookArray(state.userPreferences))
   const walletAddressFromStore: LocalAddress[] = useSelector((state: RootState) => selectLocalWalletAddressArray(state.userPreferences)) // not all wallet address are stored in userPreference
-  const [walletAddress, setWalletAddress] = useState<LocalAddress[]>(walletAddressFromStore)
+  const [walletAddress, setWalletAddress] = useState<LocalAddress[]>(walletAddressFromStore) // combine labeled wallet address with jellyfish's api wallet
   const [isEditing, setIsEditing] = useState(false)
   const { getAddressUrl } = useDeFiScanContext()
   const {

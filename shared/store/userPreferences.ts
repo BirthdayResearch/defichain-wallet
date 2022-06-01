@@ -96,7 +96,7 @@ export const selectLocalWalletAddressArray = createSelector((state: UserPreferen
 const prepopulateField = (addresses: LabeledAddress): LocalAddress[] => {
   const _addresses: LabeledAddress = { ...addresses }
 
-  // to pre-populate address and isFavourite flag for older app version
+  // pre-populate address and isFavourite flag for older app version, used for UI data model only
   for (const address in addresses) {
     if (addresses[address].address === undefined) {
       const _address = {
