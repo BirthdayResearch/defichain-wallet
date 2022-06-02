@@ -565,11 +565,12 @@ context('Wallet - Send - Address book', function () {
     })
   })
 
-  it('should disable add new address button and edit in Your address tab', function () {
+  it('should disable add new, edit and favourite button has has refresh button in Your address tab', function () {
     cy.go('back')
     cy.getByTestID('address_button_group_YOUR_ADDRESS').click()
     cy.getByTestID('add_new_address').should('have.attr', 'aria-disabled')
     cy.getByTestID('address_list_edit_button').should('not.exist')
+    cy.getByTestID('address_row_favourite_0').should('not.exist')
     cy.getByTestID('discover_wallet_addresses').should('exist')
   })
 
