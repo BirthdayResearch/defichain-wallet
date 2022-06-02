@@ -171,6 +171,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                 >
                   <TouchableOpacity
                     style={tailwind('flex-row items-center')}
+                    testID='get_DFI_btn'
                     onPress={() => navigation.navigate('GetDFIScreen')}
                   >
                     <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
