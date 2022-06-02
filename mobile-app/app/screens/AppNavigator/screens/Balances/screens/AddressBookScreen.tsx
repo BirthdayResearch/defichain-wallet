@@ -106,19 +106,13 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   // Search
   const [searchString, setSearchString] = useState('')
   const filterAddress = useCallback(debounce((searchString: string): void => {
-    if (searchString.trim().length === 0) {
-      activeButtonGroup === ButtonGroupTabKey.Whitelisted
-        ? setFilteredAddressBook(sortByFavourite(addressBook))
-        : setFilteredWalletAddress(sortByFavourite(walletAddress))
-    } else {
-      activeButtonGroup === ButtonGroupTabKey.Whitelisted
-        ? setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
-          address.label.toLowerCase().includes(searchString.trim().toLowerCase())
-        ))
-        : setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
-          address.label.toLowerCase().includes(searchString.trim().toLowerCase())
-        ))
-    }
+    activeButtonGroup === ButtonGroupTabKey.Whitelisted
+      ? setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
+        address.label.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
+      : setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
+        address.label.toLowerCase().includes(searchString.trim().toLowerCase())
+      ))
   }, 200), [addressBook, walletAddress, activeButtonGroup])
 
   // disable address selection touchableopacity from settings page
@@ -167,7 +161,14 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
 
   useEffect(() => {
     // update on search, on tab change
-    filterAddress(searchString)
+    if (searchString.trim().length !== 0) {
+      filterAddress(searchString)
+      return
+    }
+
+    activeButtonGroup === ButtonGroupTabKey.Whitelisted
+    ? setFilteredAddressBook(sortByFavourite(addressBook))
+    : setFilteredWalletAddress(sortByFavourite(walletAddress))
   }, [addressBook, walletAddress, searchString, activeButtonGroup])
 
   useEffect(() => {
@@ -306,7 +307,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               )
               : activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
                 <TouchableOpacity
-                  style={tailwind('pl-4')}
+                  style={tailwind('pl-4 py-2')}
                   onPress={async () => await onFavouriteAddress(item)}
                 >
                   <ThemedIcon
