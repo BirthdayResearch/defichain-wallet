@@ -12,13 +12,15 @@ export interface BottomSheetAssetSortProps {
   onCloseButtonPress: () => void
   onButtonPress: (item: BalancesSortType) => void
   modifiedDenominationCurrency: string
+  selectedAssetSortType: BalancesSortType
 }
 
 export const BottomSheetAssetSortList = ({
   headerLabel,
   onCloseButtonPress,
   onButtonPress,
-  modifiedDenominationCurrency
+  modifiedDenominationCurrency,
+  selectedAssetSortType
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const flatListComponents = {
@@ -47,7 +49,7 @@ export const BottomSheetAssetSortList = ({
   }): JSX.Element => {
     return (
       <ThemedTouchableOpacity
-        style={tailwind('px-4 py-3')}
+        style={tailwind('px-4 py-3 flex-row justify-between')}
         testID={`select_asset_${getDisplayedSortText(item)}`}
         key={index}
         onPress={() => {
@@ -57,6 +59,14 @@ export const BottomSheetAssetSortList = ({
         <ThemedText>
           {translate('screens/BalancesScreen', getDisplayedSortText(item))}
         </ThemedText>
+        {selectedAssetSortType === item && (
+          <ThemedIcon
+            size={24}
+            name='check'
+            iconType='MaterialIcons'
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
+          />)}
       </ThemedTouchableOpacity>
     )
   }

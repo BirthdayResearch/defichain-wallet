@@ -259,37 +259,31 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
   const sortTokensAssetOnType = useCallback((assetSortType: BalancesSortType): BalanceRowToken[] => {
-    console.log({ assetSortType })
+    let sortedTokens: BalanceRowToken[]
     switch (assetSortType) {
       case (BalancesSortType.HighestDenominationValue):
-        return filteredTokens.sort((a, b) => {
-          return b.usdAmount.minus(a.usdAmount).toNumber()
-        })
+        sortedTokens = filteredTokens.sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
+        break
       case (BalancesSortType.LowestDenominationValue):
-        return filteredTokens.sort((a, b) => {
-          return a.usdAmount.minus(b.usdAmount).toNumber()
-        })
+        sortedTokens = filteredTokens.sort((a, b) => a.usdAmount.minus(b.usdAmount).toNumber())
+        break
       case (BalancesSortType.HighestTokenAmount):
-        return filteredTokens.sort((a, b) => {
-          return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
-        })
+        sortedTokens = filteredTokens.sort((a, b) => new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber())
+        break
       case (BalancesSortType.LowestTokenAmount):
-        return filteredTokens.sort((a, b) => {
-          return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
-        })
+        sortedTokens = filteredTokens.sort((a, b) => new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber())
+        break
       case (BalancesSortType.AtoZ):
-        return filteredTokens.sort((a, b) => {
-          return a.displaySymbol.localeCompare(b.displaySymbol)
-        })
+        sortedTokens = filteredTokens.sort((a, b) => a.symbol.localeCompare(b.symbol))
+        break
       case (BalancesSortType.ZtoA):
-        return filteredTokens.sort((a, b) => {
-          return b.displaySymbol.localeCompare(a.displaySymbol)
-        })
+        sortedTokens = filteredTokens.sort((a, b) => b.symbol.localeCompare(a.symbol))
+        break
       default:
-        return filteredTokens.sort((a, b) => {
-          return b.usdAmount.minus(a.usdAmount).toNumber()
-        })
+        sortedTokens = filteredTokens.sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
     }
+
+    return sortedTokens
   }, [filteredTokens, assetSortType, denominationCurrency])
 
   useEffect(() => {
@@ -378,7 +372,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             setShowAssetSortBottomSheet(false)
             dismissModal(true)
           },
-          modifiedDenominationCurrency
+          modifiedDenominationCurrency,
+          selectedAssetSortType: assetSortType
         }),
         option: {
           headerStatusBarHeight: 1,
@@ -392,7 +387,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         }
       }
     ]
-  }, [modifiedDenominationCurrency])
+  }, [modifiedDenominationCurrency, assetSortType])
 
   // Address selection bottom sheet
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
