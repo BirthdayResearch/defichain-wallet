@@ -189,7 +189,7 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/AddressControlScreen', 'Get $DFI')}
+              text={translate('screens/GetDFIScreen', 'Get $DFI')}
               containerTestID={headerContainerTestId}
             />
           ),

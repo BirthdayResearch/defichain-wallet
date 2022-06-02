@@ -145,6 +145,9 @@
     "SHARE": "转发地址",
     "WALLET ADDRESS": "钱包地址"
   },
+  "components/toaster": {
+    "Copied": "复制到剪贴板"
+  },
   "screens/SendScreen": {
     "Send": "移出资金",
     "Estimated fee": "所需费用(大约)",

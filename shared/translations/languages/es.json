@@ -154,6 +154,9 @@
     "SHARE": "COMPARTIR",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA"
   },
+  "components/toaster": {
+    "Copied": "Copiado"
+  },
   "screens/SendScreen": {
     "Send": "Enviar",
     "Estimated fee": "Comisión estimada",

@@ -156,6 +156,9 @@
     "SHARE": "CONDIVIDI",
     "WALLET ADDRESS": "INDIRIZZO WALLET"
   },
+  "components/toaster": {
+    "Copied": "Copiato"
+  },
   "screens/SendScreen": {
     "Send": "Invia",
     "Estimated fee": "Commmisione stimata",

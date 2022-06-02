@@ -32,7 +32,6 @@ interface ExchangeProps {
   image: ImageSourcePropType
   name: string
   url: string
-  testID: string
 }
 
 const exchanges: ExchangeProps[] = [
@@ -194,7 +193,7 @@ function StepTwo (): JSX.Element {
 
   useEffect(() => {
     if (showToast) {
-      toast.show('Copied', {
+      toast.show(translate('components/toaster', 'Copied'), {
         type: 'wallet_toast',
         placement: 'top',
         duration: TOAST_DURATION
@@ -315,7 +314,7 @@ function StepTwo (): JSX.Element {
   )
 }
 
-function ExchangeItemRow ({ image, name, url, testID }: ExchangeProps): JSX.Element {
+function ExchangeItemRow ({ image, name, url, testID }: ExchangeProps & { testID: string }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={async () => await openURL(url)}

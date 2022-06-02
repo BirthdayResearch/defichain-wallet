@@ -179,7 +179,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                         <Text
                           style={tailwind('font-medium text-sm text-gray-50')}
                         >
-                          {translate('screens/BalancesScreen', 'Get $DFI')}
+                          {translate('screens/GetDFIScreen', 'Get $DFI')}
                         </Text>
                       </View>
 
