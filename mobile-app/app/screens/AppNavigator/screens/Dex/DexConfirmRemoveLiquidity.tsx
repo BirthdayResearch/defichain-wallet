@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -23,6 +23,7 @@ import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { PricesSection } from '@components/PricesSection'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -41,7 +42,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
     ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
     : pair.symbol
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isSubmitting, setIsSubmitting] = useState(false)

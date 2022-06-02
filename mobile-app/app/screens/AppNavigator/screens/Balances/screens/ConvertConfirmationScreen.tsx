@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { RootState } from '@store'
@@ -21,6 +21,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
 
@@ -36,7 +37,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)

@@ -4,7 +4,7 @@ import { tailwind } from '@tailwind'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { translate } from '@translations'
 import { getNativeIcon } from '@components/icons/assets'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native'
 import { RootState } from '@store'
 import { useBottomSheet } from '@hooks/useBottomSheet'
@@ -31,6 +31,7 @@ import { BidHistory } from '../components/BidHistory'
 import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
 import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchAuctions } from '@store/auctions'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
 
@@ -45,7 +46,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
   const { batch: batchFromParam, vault } = props.route.params
   const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam)
   const client = useWhaleApiClient()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getAuctionsUrl } = useDeFiScanContext()
   const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory)

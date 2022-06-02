@@ -27,7 +27,7 @@ import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Button } from '@components/Button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -44,6 +44,7 @@ import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/he
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { IconTooltip } from '@components/tooltip/IconTooltip'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -58,7 +59,7 @@ export function BorrowLoanTokenScreen ({
   const isFocused = useIsFocused()
   const logger = useLogger()
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)

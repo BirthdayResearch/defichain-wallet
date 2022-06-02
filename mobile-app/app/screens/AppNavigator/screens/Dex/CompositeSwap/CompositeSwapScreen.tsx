@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
@@ -48,6 +48,7 @@ import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
 import { PriceRateProps, PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -73,7 +74,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const whaleRpcClient = useWhaleRpcClient()
   const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { address } = useWalletContext()
   const {
     getArbitraryPoolPair,
