@@ -782,7 +782,11 @@ function TransactionDetailsSection ({
   }
 
   return (
-    <View style={tailwind('rounded-lg mx-4 overflow-hidden')}>
+    <View style={tailwind('mx-4 overflow-hidden', {
+      'rounded-b-lg': !isFutureSwap,
+      'rounded-lg': isFutureSwap
+    })}
+    >
       {isConversionRequired &&
         <NumberRow
           lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
