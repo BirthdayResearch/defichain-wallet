@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { tailwind } from '@tailwind'
 import { StackScreenProps } from '@react-navigation/stack'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -28,6 +28,7 @@ import { DexParamList } from '../DexNavigator'
 import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
@@ -51,7 +52,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     estimatedAmount
   } = route.params
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const { getTokenPrice } = useTokenPrice()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))

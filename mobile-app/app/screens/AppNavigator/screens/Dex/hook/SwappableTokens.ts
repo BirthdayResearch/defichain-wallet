@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import { RootState } from '@store'
 import { DexItem, fetchSwappableTokens, tokensSelector } from '@store/wallet'
@@ -10,6 +10,7 @@ import { CacheApi } from '@api/cache'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useFocusEffect } from '@react-navigation/core'
 import { AllSwappableTokensResult } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 interface TokenPrice {
   toTokens: BottomSheetToken[]
@@ -19,7 +20,7 @@ interface TokenPrice {
 export function useSwappableTokens (fromTokenId: string | undefined): TokenPrice {
   const client = useWhaleApiClient()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const {
     swappableTokens,

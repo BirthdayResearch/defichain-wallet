@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { BalanceParamList } from '../BalancesNavigator'
 import { batch, useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, FutureSwapSelector } from '@store/futureSwap'
 import { useIsFocused } from '@react-navigation/native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -18,6 +18,7 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { TouchableOpacity } from 'react-native'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
 
