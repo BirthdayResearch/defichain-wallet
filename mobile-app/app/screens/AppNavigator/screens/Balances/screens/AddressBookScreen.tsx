@@ -1,5 +1,5 @@
 import { View } from '@components'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -52,6 +52,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const walletAddressFromStore: LocalAddress[] = useSelector((state: RootState) => selectLocalWalletAddressArray(state.userPreferences)) // not all wallet address are stored in userPreference
   const [walletAddress, setWalletAddress] = useState<LocalAddress[]>(walletAddressFromStore) // combine labeled wallet address with jellyfish's api wallet
   const [isEditing, setIsEditing] = useState(false)
+  const [isSearchFocus, setIsSearchFocus] = useState(false)
   const { getAddressUrl } = useDeFiScanContext()
   const {
     wallet,
@@ -107,13 +108,14 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   // Search
   const [searchString, setSearchString] = useState('')
   const filterAddress = useCallback(debounce((searchString: string): void => {
-    activeButtonGroup === ButtonGroupTabKey.Whitelisted
-      ? setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
-        address.label.toLowerCase().includes(searchString.trim().toLowerCase())
-      ))
-      : setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
-        address.label.toLowerCase().includes(searchString.trim().toLowerCase())
-      ))
+    setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
+      address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
+      address.address.includes(searchString.trim().toLowerCase())
+    ))
+    setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
+      address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
+      address.address.includes(searchString.trim().toLowerCase())
+    ))
   }, 200), [addressBook, walletAddress, activeButtonGroup])
 
   // disable address selection touchableopacity from settings page
@@ -183,27 +185,49 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           onChangeText={(text: string) => {
             setSearchString(text)
           }}
+          onFocus={() => setIsSearchFocus(true)}
           testID='address_search_input'
         />
       ),
-      headerRight: (): JSX.Element => (
-        <TouchableOpacity
-          onPress={goToAddAddressForm}
-          testID='add_new_address'
-          disabled={activeButtonGroup === ButtonGroupTabKey.YourAddress}
-        >
-          <ThemedIcon
-            size={28}
-            name='plus'
-            style={tailwind('mr-2')}
-            light={tailwind(['text-primary-500', { 'text-gray-300': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
-            dark={tailwind(['text-darkprimary-500', { 'text-gray-600': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
-            iconType='MaterialCommunityIcons'
-          />
-        </TouchableOpacity>
-      )
+      headerRight: (): JSX.Element => {
+        return !isSearchFocus
+        ? (
+          <TouchableOpacity
+            onPress={goToAddAddressForm}
+            testID='add_new_address'
+            disabled={activeButtonGroup === ButtonGroupTabKey.YourAddress}
+          >
+            <ThemedIcon
+              size={28}
+              name='plus'
+              style={tailwind('mr-2')}
+              light={tailwind(['text-primary-500', { 'text-gray-300': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
+              dark={tailwind(['text-darkprimary-500', { 'text-gray-600': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
+              iconType='MaterialCommunityIcons'
+            />
+          </TouchableOpacity>
+        )
+        : (
+          <TouchableOpacity
+            onPress={() => {
+              setIsSearchFocus(false)
+              setSearchString('')
+            }}
+            testID='cancel_search_button'
+            style={tailwind('px-3')}
+          >
+            <ThemedText
+              style={tailwind('font-medium')}
+              light={tailwind('text-primary-500')}
+              dark={tailwind('text-darkprimary-500')}
+            >
+              {translate('screens/AddressBookScreen', 'CANCEL')}
+            </ThemedText>
+          </TouchableOpacity>
+        )
+      }
     })
-  }, [searchString, activeButtonGroup])
+  }, [searchString, activeButtonGroup, isSearchFocus])
 
   const AddressListItem = useCallback(({
     item,
@@ -222,7 +246,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         disabled={hasPendingJob || hasPendingBroadcastJob || isEditing || disableAddressSelect}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
-          {activeButtonGroup === ButtonGroupTabKey.YourAddress &&
+          {item.isMine &&
             <View style={tailwind('mr-2')}>
               <RandomAvatar name={item.address} size={24} />
             </View>}
@@ -306,7 +330,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   testID={`address_active_indicator_${item.address}`}
                 />
               )
-              : activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
+              : !item.isMine && (
                 <TouchableOpacity
                   style={tailwind('pl-4 py-2')}
                   onPress={async () => await onFavouriteAddress(item)}
@@ -398,6 +422,60 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     dispatch(authentication.actions.prompt(auth))
   }, [navigation, dispatch, isEncrypted])
 
+  if (isSearchFocus) {
+    return (
+      <ThemedView style={tailwind('flex-1')}>
+        <View style={tailwind('pt-6 px-4')}>
+          {searchString.trim().length === 0
+            ? (
+              <ThemedText
+                style={tailwind('text-sm')}
+                light={tailwind('text-gray-500')}
+                dark={tailwind('text-gray-400')}
+              >
+                {translate('screens/AddressBookScreen', 'Search with Label or Address')}
+              </ThemedText>
+            )
+: (
+  <SearchResultTextWithCounter searchString={searchString} length={filteredAddressBook.length + filteredWalletAddress.length} />
+            )}
+        </View>
+        {searchString.trim().length === 0 && (addressBook.filter(address => address.isFavourite === true).length > 0) &&
+          (
+            <ThemedFlatList
+              data={addressBook.filter(address => address.isFavourite === true)}
+              renderItem={AddressListItem}
+              ListHeaderComponent={() => (
+                <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRES(ES)')} />
+              )}
+            />
+          )}
+        {searchString.trim().length > 0 &&
+          (
+            <View>
+              <ThemedFlatList
+                data={filteredAddressBook}
+                renderItem={AddressListItem}
+                ListHeaderComponent={() => (
+                  filteredAddressBook.length === 0
+                    ? <></>
+                    : <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'WHITELISTED')} />
+                )}
+              />
+              <ThemedFlatList
+                data={filteredWalletAddress}
+                renderItem={AddressListItem}
+                ListHeaderComponent={() => (
+                  filteredWalletAddress.length === 0
+                  ? <></>
+                  : <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRES(ES)')} />
+                )}
+              />
+            </View>
+          )}
+      </ThemedView>
+    )
+  }
   return (
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
@@ -450,5 +528,36 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
     >
       {translate('screens/AddressBookScreen', '{{length}} ADDRESS(ES)', { length: addressLength })}
     </ThemedText>
+  )
+}
+
+function SearchResultTextWithCounter ({ searchString, length }: {searchString: string, length: number}): JSX.Element {
+  return (
+    <View
+      style={tailwind('justify-between flex-row')}
+    >
+      <ThemedText
+        light={tailwind('text-gray-900')}
+        dark={tailwind('text-gray-50')}
+        style={tailwind('text-sm')}
+      >
+        {translate('screens/AddressBookScreen', 'Search results for')}
+        <ThemedText
+          light={tailwind('text-gray-900')}
+          dark={tailwind('text-gray-50')}
+          style={tailwind('text-sm font-medium')}
+        >
+          {` “${searchString}”`}
+        </ThemedText>
+      </ThemedText>
+      <ThemedText
+        light={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-500')}
+        style={tailwind('text-xs')}
+        testID='search_result_count'
+      >
+        {translate('screens/AddressBookScreen', '{{length}} results', { length })}
+      </ThemedText>
+    </View>
   )
 }
