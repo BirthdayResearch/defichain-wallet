@@ -3,9 +3,10 @@ import { CTransactionSegWit, PlaceAuctionBid } from '@defichain/jellyfish-transa
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued, OceanTransaction } from '@store/ocean'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 interface ConstructSignedBidAndSendProps {
   vaultId: PlaceAuctionBid['vaultId']
@@ -21,7 +22,7 @@ export const useSignBidAndSend = (): {
   currentBroadcastJob: OceanTransaction
   constructSignedBidAndSend: (props: ConstructSignedBidAndSendProps) => Promise<void>
 } => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))

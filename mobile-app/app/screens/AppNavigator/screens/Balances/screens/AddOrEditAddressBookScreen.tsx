@@ -5,6 +5,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { fromAddress } from '@defichain/jellyfish-address'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -14,7 +15,7 @@ import { authentication, Authentication } from '@store/authentication'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
 
 type Props = StackScreenProps<BalanceParamList, 'AddOrEditAddressBookScreen'>
@@ -85,7 +86,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   }
 
   // Passcode prompt
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { data: { type: encryptionType } } = useWalletNodeContext()
   const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
   const logger = useLogger()

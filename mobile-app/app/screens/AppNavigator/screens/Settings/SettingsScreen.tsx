@@ -19,19 +19,19 @@ import { ocean } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAddressBook } from '@hooks/useAddressBook'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const walletContext = useWalletPersistenceContext()
   const localAuth = usePrivacyLockContext()
   const { data: { type } } = useWalletNodeContext()

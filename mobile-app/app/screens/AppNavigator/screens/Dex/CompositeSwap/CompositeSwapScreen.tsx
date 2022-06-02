@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector } from '@store/wallet'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
@@ -48,6 +48,7 @@ import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
 import { PriceRateProps } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -73,9 +74,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const whaleRpcClient = useWhaleRpcClient()
   const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { address } = useWalletContext()
-  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath()
+  const {
+    getArbitraryPoolPair,
+    calculatePriceRates
+  } = useTokenBestPath()
   const {
     slippage,
     setSlippage
@@ -115,9 +119,20 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
   const [isFutureSwap, setIsFutureSwap] = useState(false)
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
-  const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
-  const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id)
-  const { isFutureSwapOptionEnabled, oraclePriceText, isSourceLoanToken } = useFutureSwap({
+  const {
+    timeRemaining,
+    transactionDate,
+    isEnded
+  } = useFutureSwapDate(executionBlock, blockCount)
+  const {
+    fromTokens,
+    toTokens
+  } = useSwappableTokens(selectedTokenA?.id)
+  const {
+    isFutureSwapOptionEnabled,
+    oraclePriceText,
+    isSourceLoanToken
+  } = useFutureSwap({
     fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
     toTokenDisplaySymbol: selectedTokenB?.displaySymbol
   })
@@ -236,10 +251,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
       dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
     }
   }, [address, blockCount, isFocused])
@@ -277,8 +288,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           displaySymbol: route.params.fromToken.displaySymbol,
           symbol: route.params.fromToken.symbol,
           name: route.params.fromToken.name
-        },
-        reserve: route.params.fromToken.amount
+        }
       }, 'FROM')
 
       return
@@ -336,7 +346,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         bToAPrice,
         estimated
       } = await calculatePriceRates(selectedTokenA.id, selectedTokenB.id, new BigNumber(tokenA))
-      const slippage = new BigNumber(1).minus(new BigNumber(tokenA).div(selectedTokenA.reserve))
+      // Find the selected reserve in case it's null. From Token Detail Screen, reserve does not exist due to pair not existing
+      const selectedReserve = selectedPoolPairs[0]?.tokenA?.id === selectedTokenA.id ? selectedPoolPairs[0]?.tokenA?.reserve : selectedPoolPairs[0]?.tokenB?.reserve
+      // This will keep the old behavior to prevent regression
+      const tokenAReserve = new BigNumber(selectedTokenA.reserve).gt(0) ? selectedTokenA.reserve : selectedReserve
+      const slippage = new BigNumber(1).minus(new BigNumber(tokenA).div(tokenAReserve))
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
@@ -542,7 +556,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 </TouchableOpacity>
                 <View style={tailwind('flex-1')}>
                   {isFutureSwap
-                    ? <OraclePriceRow tokenDisplaySymbol={selectedTokenB.displaySymbol} oraclePriceText={oraclePriceText} />
+                    ? <OraclePriceRow
+                        tokenDisplaySymbol={selectedTokenB.displaySymbol}
+                        oraclePriceText={oraclePriceText}
+                      />
                     : <TargetTokenRow control={control} token={selectedTokenB} />}
                 </View>
               </View>
@@ -765,9 +782,9 @@ function TransactionDetailsSection ({
           <>
             <NumberRow
               lhs={translate('screens/CompositeSwapScreen', 'Price ({{tokenB}}/{{tokenA}})', {
-                tokenB: tokenB.displaySymbol,
-                tokenA: tokenA.displaySymbol
-              }
+                  tokenB: tokenB.displaySymbol,
+                  tokenA: tokenA.displaySymbol
+                }
               )}
               rhs={{
                 value: new BigNumber(priceRate.value).toFixed(8),
@@ -832,7 +849,10 @@ function TransactionDetailsSection ({
   )
 }
 
-function TimeRemainingTextRow ({ timeRemaining, transactionDate }: { timeRemaining: string, transactionDate: string }): JSX.Element {
+function TimeRemainingTextRow ({
+  timeRemaining,
+  transactionDate
+}: { timeRemaining: string, transactionDate: string }): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}

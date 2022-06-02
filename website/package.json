@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@headlessui/react": "^1.6.1",
+    "@headlessui/react": "^1.6.4",
     "@tailwindcss/line-clamp": "^0.2.2",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.3.1",
@@ -22,13 +22,13 @@
     "nextjs-progressbar": "^0.0.13",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.3.1",
+    "react-icons": "^4.4.0",
     "react-number-format": "^4.9.1",
     "react-schemaorg": "^2.0.0",
     "schema-dts": "^1.1.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.7.0",
+    "@netlify/plugin-nextjs": "^4.7.1",
     "@next/eslint-plugin-next": "12.1.6",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/cors": "^2.8.12",
