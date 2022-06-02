@@ -1,15 +1,16 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { BalancesSortType } from '../BalancesScreen'
 
 export interface BottomSheetAssetSortProps {
   headerLabel: string
   onCloseButtonPress: () => void
-  onButtonPress: (item: string) => void
+  onButtonPress: (item: BalancesSortType) => void
   modifiedDenominationCurrency: string
 }
 
@@ -25,30 +26,40 @@ export const BottomSheetAssetSortList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
+  const assetSortList: BalancesSortType[] = Object.values(BalancesSortType)
   const highestCurrencyValue = translate('screens/BalancesScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/BalancesScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
-  const assetSortList: string[] = [highestCurrencyValue, lowestCurrencyValue, 'Highest token amount', 'Lowest token amount', 'A to Z', 'Z to A']
+  const getDisplayedSortText = useCallback((text: BalancesSortType): string => {
+    if (text === BalancesSortType.HighestDenominationValue) {
+      return highestCurrencyValue
+    } else if (text === BalancesSortType.LowestDenominationValue) {
+      return lowestCurrencyValue
+    }
+    return text
+  }, [modifiedDenominationCurrency])
 
   const renderItem = ({
     item,
     index
   }: {
-    item: string
+    item: BalancesSortType
     index: number
-  }): JSX.Element => (
-    <ThemedTouchableOpacity
-      style={tailwind('px-4 py-3')}
-      testID={`select_asset_${item}`}
-      key={index}
-      onPress={() => {
-        onButtonPress(item)
-      }}
-    >
-      <ThemedText>
-        {translate('screens/BalancesScreen', item)}
-      </ThemedText>
-    </ThemedTouchableOpacity>
-  )
+  }): JSX.Element => {
+    return (
+      <ThemedTouchableOpacity
+        style={tailwind('px-4 py-3')}
+        testID={`select_asset_${getDisplayedSortText(item)}`}
+        key={index}
+        onPress={() => {
+          onButtonPress(item)
+        }}
+      >
+        <ThemedText>
+          {translate('screens/BalancesScreen', getDisplayedSortText(item))}
+        </ThemedText>
+      </ThemedTouchableOpacity>
+    )
+  }
 
   const headerComponent = (): JSX.Element => {
     return (

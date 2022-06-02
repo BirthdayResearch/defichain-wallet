@@ -882,10 +882,10 @@ context('Wallet - Balances - Your Assets - USD currency - Sorting function - All
     cy.getByTestID('empty_portfolio').should('not.exist')
     cy.getByTestID('toggle_sorting_assets').should('exist')
   })
-  it('should sort asset based on Highest USD value', function () {
+  it('should sort asset based on Highest USD value (default)', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['ETH', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.getByTestID('your_assets_dropdown_arrow').contains('Asset value')
+    cy.getByTestID('your_assets_dropdown_arrow').contains('Highest USD value')
     checkAssetsSortingOrder('Highest USD value', 'DUSD', 'dLTC')
   })
   it('should sort assets based on Lowest USD value', function () {

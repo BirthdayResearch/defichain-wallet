@@ -44,6 +44,15 @@ export interface BalanceRowToken extends WalletToken {
   usdAmount: BigNumber
 }
 
+export enum BalancesSortType {
+  HighestDenominationValue = 'Highest denomination value',
+  LowestDenominationValue = 'Lowest denomination value',
+  HighestTokenAmount = 'Highest token amount',
+  LowestTokenAmount = 'Lowest token amount',
+  AtoZ = 'A to Z',
+  ZtoA = 'Z to A'
+}
+
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const { isLight } = useThemeContext()
   const isFocused = useIsFocused()
@@ -153,9 +162,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableValue,
-          dstTokens
-        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
+        totalAvailableValue,
+        dstTokens
+      }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -176,9 +185,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-        totalAvailableValue: new BigNumber(0),
-        dstTokens: []
-      })
+      totalAvailableValue: new BigNumber(0),
+      dstTokens: []
+    })
   }, [prices, tokens])
 
   // add token that are 100% locked as collateral into dstTokens
@@ -244,46 +253,47 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   ]
 
   // Asset sort bottom sheet list
-  const assetValue = 'Asset value'
-  const [assetSortType, setAssetSortType] = useState(assetValue) // to display selected sorted type text
+  const [assetSortType, setAssetSortType] = useState<BalancesSortType>(BalancesSortType.HighestDenominationValue) // to display selected sorted type text
   const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon
   const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
-  const sortTokensAssetOnType = useCallback((assetSortType: string): BalanceRowToken[] => {
-    // from assetSortList
+  const sortTokensAssetOnType = useCallback((assetSortType: BalancesSortType): BalanceRowToken[] => {
+    console.log({ assetSortType })
     switch (assetSortType) {
-      case (`Highest ${modifiedDenominationCurrency} value`):
+      case (BalancesSortType.HighestDenominationValue):
         return filteredTokens.sort((a, b) => {
           return b.usdAmount.minus(a.usdAmount).toNumber()
         })
-      case (`Lowest ${modifiedDenominationCurrency} value`):
+      case (BalancesSortType.LowestDenominationValue):
         return filteredTokens.sort((a, b) => {
           return a.usdAmount.minus(b.usdAmount).toNumber()
         })
-      case ('Highest token amount'):
+      case (BalancesSortType.HighestTokenAmount):
         return filteredTokens.sort((a, b) => {
           return new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
         })
-      case ('Lowest token amount'):
+      case (BalancesSortType.LowestTokenAmount):
         return filteredTokens.sort((a, b) => {
           return new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
         })
-      case ('A to Z'):
+      case (BalancesSortType.AtoZ):
         return filteredTokens.sort((a, b) => {
           return a.displaySymbol.localeCompare(b.displaySymbol)
         })
-      case ('Z to A'):
+      case (BalancesSortType.ZtoA):
         return filteredTokens.sort((a, b) => {
           return b.displaySymbol.localeCompare(a.displaySymbol)
         })
       default:
-        return filteredTokens
+        return filteredTokens.sort((a, b) => {
+          return b.usdAmount.minus(a.usdAmount).toNumber()
+        })
     }
   }, [filteredTokens, assetSortType, denominationCurrency])
 
   useEffect(() => {
-    setAssetSortType(assetValue) // reset sorting state upon denominationCurrency change
+    setAssetSortType(BalancesSortType.HighestDenominationValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
 
   // conditions to display sort icons
@@ -323,7 +333,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -362,7 +372,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             setShowAssetSortBottomSheet(false)
             dismissModal(true)
           },
-          onButtonPress: (item: string) => {
+          onButtonPress: (item: BalancesSortType) => {
             setAssetSortType(item)
             sortTokensAssetOnType(item)
             setShowAssetSortBottomSheet(false)
@@ -484,6 +494,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }}
           isSorted={isSorted}
           hideIcon={hideIcon}
+          modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
@@ -622,7 +633,18 @@ function BalanceActionButton ({
   )
 }
 
-function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: string, onPress: () => void }): JSX.Element {
+function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: BalancesSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
+  const highestCurrencyValue = translate('screens/BalancesScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const lowestCurrencyValue = translate('screens/BalancesScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const getDisplayedSortText = useCallback((text: BalancesSortType): string => {
+    if (text === BalancesSortType.HighestDenominationValue) {
+      return highestCurrencyValue
+    } else if (text === BalancesSortType.LowestDenominationValue) {
+      return lowestCurrencyValue
+    }
+    return text
+  }, [props.modifiedDenominationCurrency])
+
   return (
     <View
       style={tailwind('px-4 flex flex-row justify-between pt-5')}
@@ -645,7 +667,7 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs font-medium')}
         >
-          {translate('screens/BalancesScreen', `${props.assetSortType}`)}
+          {translate('screens/BalancesScreen', getDisplayedSortText(props.assetSortType))}
         </ThemedText>
         {!props.hideIcon && (
           <ThemedIcon
