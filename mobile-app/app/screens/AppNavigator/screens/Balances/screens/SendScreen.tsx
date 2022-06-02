@@ -65,6 +65,7 @@ export function SendScreen ({
   } = useForm({ mode: 'onChange' })
   const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const walletAddress = useSelector((state: RootState) => state.userPreferences.addresses)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useAppDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
@@ -84,7 +85,7 @@ export function SendScreen ({
   })
   const [hasBalance, setHasBalance] = useState(false)
   const { fetchWalletAddresses } = useWalletAddress()
-  const [walletAddresses, setWalletAddresses] = useState<string[]>([])
+  const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -109,7 +110,10 @@ export function SendScreen ({
   const debounceMatchAddress = debounce(() => {
     if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
       setMatchedAddress(addressBook[address])
-    } else if (address !== undefined && walletAddresses.includes(address)) {
+    } else if (address !== undefined && walletAddress !== undefined && walletAddress[address] !== undefined) {
+      setMatchedAddress(walletAddress[address])
+    } else if (address !== undefined && jellyfishWalletAddress.includes(address)) {
+      // wallet address that does not have a label
       setMatchedAddress({
         address,
         label: 'Saved address',
@@ -121,8 +125,8 @@ export function SendScreen ({
   }, 200)
 
   useEffect(() => {
-    void fetchWalletAddresses().then((walletAddresses) => setWalletAddresses(walletAddresses))
-  }, [])
+    void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
+  }, [fetchWalletAddresses])
 
   useEffect(() => {
     client.fee.estimate()
