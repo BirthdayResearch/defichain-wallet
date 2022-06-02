@@ -900,10 +900,10 @@ context('Wallet - Balances - Your Assets - USD currency - Sorting function - All
     checkAssetsSortingOrder('Lowest token amount', 'dETH', 'DUSD')
   })
   it('should sort assets based on A to Z', function () {
-    checkAssetsSortingOrder('A to Z', 'dETH', 'DUSD')
+    checkAssetsSortingOrder('A to Z', 'DUSD', 'LTC')
   })
   it('should sort assets based on Z to A', function () {
-    checkAssetsSortingOrder('Z to A', 'DUSD', 'dETH')
+    checkAssetsSortingOrder('Z to A', 'LTC', 'DUSD')
   })
 })
 
