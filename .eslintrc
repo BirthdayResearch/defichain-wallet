@@ -52,7 +52,8 @@
         "@typescript-eslint/indent": "off",
         "react/prop-types": "off",
         "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-floating-promises": "off"
       },
       "excludedFiles": [
         "*.test.ts",

@@ -8,13 +8,14 @@ import { RandomAvatar } from './RandomAvatar'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 interface BottomSheetAddressBookProps {
   address: string

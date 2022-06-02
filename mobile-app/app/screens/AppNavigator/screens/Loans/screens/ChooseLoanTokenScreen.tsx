@@ -5,7 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { LoanParamList } from '../LoansNavigator'
 import { debounce } from 'lodash'
 import { tailwind } from '@tailwind'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -13,6 +13,7 @@ import { fetchLoanTokens, loanTokensSelector } from '@store/loans'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ChooseLoanTokenScreen'>
 
@@ -20,7 +21,7 @@ export function ChooseLoanTokenScreen ({ navigation, route }: Props): JSX.Elemen
   const { vaultId } = route.params
   const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const isFocused = useIsFocused()
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans)
