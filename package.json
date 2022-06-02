@@ -94,7 +94,7 @@
     "react-native-toast-notifications": "^3.2.3",
     "react-native-web": "0.17.7",
     "react-number-format": "^4.9.3",
-    "react-overlays": "^5.1.2",
+    "react-overlays": "^5.2.0",
     "react-redux": "^8.0.2",
     "semver": "^7.3.7",
     "smart-buffer": "^4.2.0",
