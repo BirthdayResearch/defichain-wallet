@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, Platform, StatusBar } from 'react-native'
 import Popover, { PopoverPlacement } from 'react-native-popover-view'
 import { translate } from '@translations'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedProps, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 
-export function IconTooltip (): JSX.Element {
+interface IconTooltipProps extends ThemedProps {
+  size?: number
+}
+
+export function IconTooltip (props: IconTooltipProps): JSX.Element {
   const offsetAndroidHeight = StatusBar.currentHeight !== undefined ? (StatusBar.currentHeight * -1) : 0
   const [showPopover, setShowPopover] = useState(false)
 
@@ -28,11 +32,11 @@ export function IconTooltip (): JSX.Element {
         <TouchableOpacity onPress={() => setShowPopover(true)}>
           <ThemedIcon
             style={tailwind('pl-0.5')}
-            size={12}
+            size={props.size ?? 12}
             name='language'
             iconType='MaterialIcons'
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-gray-700')}
+            dark={props.dark ?? tailwind('text-gray-200')}
+            light={props.light ?? tailwind('text-gray-700')}
             testID='icon-tooltip'
           />
         </TouchableOpacity>
