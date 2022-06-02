@@ -1,7 +1,7 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, setUserPreferences, userPreferences } from '@store/userPreferences'
@@ -31,6 +31,7 @@ import { Logging } from '@api'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { RandomAvatar } from '../components/RandomAvatar'
 import { useWalletAddress } from '@hooks/useWalletAddress'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 

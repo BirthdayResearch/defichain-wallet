@@ -1,7 +1,8 @@
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { setAddressBook, setUserPreferences } from '@store/userPreferences'
 import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function useAddressBook (): {
   clearAddressBook: () => void

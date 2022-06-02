@@ -18,7 +18,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { wallet as walletReducer } from '@store/wallet'
 import { useSelector } from 'react-redux'
 import { loans } from '@store/loans'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -28,6 +28,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { AddressListEditButton } from './AddressListEditButton'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 interface BottomSheetAddressDetailProps {
   address: string

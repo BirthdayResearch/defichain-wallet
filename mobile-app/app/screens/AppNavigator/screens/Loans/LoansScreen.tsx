@@ -6,7 +6,7 @@ import { Tabs } from '@components/Tabs'
 import { Vaults } from './components/Vaults'
 import { EmptyVault } from './components/EmptyVault'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { batch, useDispatch, useSelector } from 'react-redux'
+import { batch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchLoanSchemes, fetchLoanTokens, fetchVaults, loanTokensSelector } from '@store/loans'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
@@ -19,6 +19,7 @@ import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { debounce } from 'lodash'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 enum TabKey {
   BrowseLoans = 'BROWSE_LOANS',
@@ -38,7 +39,7 @@ export function LoansScreen ({ navigation }: Props): JSX.Element {
   } = useSelector((state: RootState) => state.loans)
   const loans = useSelector((state: RootState) => loanTokensSelector(state.loans))
   const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const onPress = (tabId: string): void => {
     if (tabId === TabKey.YourVaults) {
