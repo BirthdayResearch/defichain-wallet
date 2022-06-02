@@ -1,7 +1,7 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LabeledAddress, setAddressBook, setUserPreferences } from '@store/userPreferences'
@@ -26,6 +26,7 @@ import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 

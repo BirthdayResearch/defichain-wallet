@@ -11,7 +11,7 @@ import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSele
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { batch, useDispatch, useSelector } from 'react-redux'
+import { batch, useSelector } from 'react-redux'
 import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
@@ -35,6 +35,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
@@ -67,7 +68,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count)
   const vaults = useSelector((state: RootState) => activeVaultsSelector(state.loans))
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
   const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
