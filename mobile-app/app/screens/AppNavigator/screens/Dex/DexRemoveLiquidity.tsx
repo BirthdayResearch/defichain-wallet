@@ -1,11 +1,11 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import Slider from '@react-native-community/slider'
-import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -21,17 +21,13 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { fetchTokens, tokenSelector, tokensSelector } from '@store/wallet'
-import { useWalletContext } from '@shared-contexts/WalletContext'
+import { tokenSelector, tokensSelector } from '@store/wallet'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const dispatch = useDispatch()
-  const isFocused = useIsFocused()
 
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -47,7 +43,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
   const displayedPercentage = percentage === '' || percentage === undefined ? '0.00' : percentage
 
   // gather required data
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { pair } = props.route.params
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
@@ -75,12 +70,6 @@ export function RemoveLiquidityScreen (props: Props): JSX.Element {
     }
     navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee, tokenA, tokenB })
   }
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

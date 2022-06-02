@@ -11,7 +11,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -30,6 +30,7 @@ import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { PaymentTokenProps } from '../hooks/LoanPaymentTokenRate'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmPaybackLoanScreen'>
 
@@ -53,7 +54,7 @@ export function ConfirmPaybackLoanScreen ({
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const { address } = useWalletContext()
   const { isFeatureAvailable } = useFeatureFlagContext()

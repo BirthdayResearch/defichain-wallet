@@ -14,7 +14,7 @@ import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -24,7 +24,7 @@ import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector } from '@store/wallet'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useInterestPerBlock } from '../hooks/InterestPerBlock'
 import { useResultingCollateralRatio } from '../hooks/CollateralPrice'
@@ -44,6 +44,7 @@ import { getTokenAmount, PaymentTokenProps, useLoanPaymentTokenRate } from '../h
 import { LoanPercentage } from '../components/LoanPercentage'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -57,7 +58,7 @@ export function PaybackLoanScreen ({
     vault
   } = route.params
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isFocused = useIsFocused()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
@@ -177,11 +178,6 @@ export function PaybackLoanScreen ({
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
-
       if (loanTokenAmount.symbol === 'DUSD') {
         dispatch(fetchPrice({
           client,

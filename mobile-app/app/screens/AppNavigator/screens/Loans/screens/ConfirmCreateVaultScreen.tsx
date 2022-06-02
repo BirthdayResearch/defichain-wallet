@@ -4,7 +4,7 @@ import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { Dispatch, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -27,6 +27,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { EnvironmentNetwork } from '@environment'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
@@ -46,7 +47,7 @@ export function ConfirmCreateVaultScreen ({
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setIsOnPage(true)

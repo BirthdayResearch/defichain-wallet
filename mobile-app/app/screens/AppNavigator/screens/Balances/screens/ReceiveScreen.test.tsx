@@ -12,6 +12,14 @@ jest.mock('expo-clipboard', () => ({
   setString: jest.fn()
 }))
 
+jest.mock('react-native-toast-notifications', () => ({
+  useToast: () => ({
+    show: jest.fn(),
+    hide: jest.fn(),
+    hideAll: jest.fn()
+  })
+}))
+
 jest.mock('@shared-contexts/ThemeProvider')
 
 describe('receive page', () => {

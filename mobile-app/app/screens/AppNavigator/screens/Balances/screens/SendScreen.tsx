@@ -3,12 +3,12 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
@@ -37,12 +37,11 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { LocalAddress } from '@store/userPreferences'
 import { debounce } from 'lodash'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -53,11 +52,8 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address: walletAddress } = useWalletContext()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const isFocused = useIsFocused()
   const {
     control,
     setValue,
@@ -69,7 +65,7 @@ export function SendScreen ({
   const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -114,15 +110,6 @@ export function SendScreen ({
       setMatchedAddress(undefined)
     }
   }, 200)
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address: walletAddress
-      }))
-    }
-  }, [walletAddress, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()

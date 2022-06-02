@@ -1,7 +1,7 @@
+import * as Linking from 'expo-linking'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
-import * as Linking from 'expo-linking'
 import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { PlaygroundNavigator } from '../PlaygroundNavigator/PlaygroundNavigator'
@@ -20,6 +20,7 @@ export interface AppParamList {
 export function AppNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}

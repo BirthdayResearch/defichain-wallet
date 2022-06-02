@@ -41,14 +41,16 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const { network } = useNetworkContext()
   const [retries, setRetries] = useState(0)
 
-  if (isError && retries < MAX_RETRY) {
-    setTimeout(() => {
+  useEffect(() => {
+    if (isError && retries < MAX_RETRY) {
+      setTimeout(() => {
+        prefetchPage({})
+        setRetries(retries + 1)
+      }, 10000)
+    } else if (!isError) {
       prefetchPage({})
-      setRetries(retries + 1)
-    }, 10000)
-  } else if (!isError) {
-    prefetchPage({})
-  }
+    }
+  }, [isError])
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
     return featureFlags.some((flag: FeatureFlag) => satisfies(appVersion, flag.version) &&
