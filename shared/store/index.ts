@@ -9,7 +9,6 @@ import { loans } from './loans'
 import { auctions } from './auctions'
 import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
 import { userPreferences } from '@store/userPreferences'
-import { useDispatch } from 'react-redux'
 import { futureSwaps } from './futureSwap'
 
 /**
@@ -45,4 +44,3 @@ export function initializeStore () {
 
 export type RootStore = ReturnType<typeof initializeStore>
 export type RootState = ReturnType<RootStore['getState']>
-export const useAppDispatch = () => useDispatch<any>()

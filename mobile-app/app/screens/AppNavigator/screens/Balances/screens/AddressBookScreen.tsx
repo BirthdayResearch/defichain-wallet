@@ -1,7 +1,7 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootState, useAppDispatch } from '@store'
+import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LocalAddress, selectAddressBookArray, setUserPreferences, userPreferences } from '@store/userPreferences'
@@ -28,6 +28,7 @@ import { SearchInput } from '@components/SearchInput'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { DiscoverWalletAddress } from '../components/AddressControlScreen'
 import { Logging } from '@api'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
 

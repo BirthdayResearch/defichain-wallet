@@ -8,7 +8,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -20,6 +20,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'ConfirmWithdrawFutureSwapScreen'>
 
@@ -37,7 +38,7 @@ export function ConfirmWithdrawFutureSwapScreen ({
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const { isEnded } = useFutureSwapDate(executionBlock, blockCount)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 

@@ -4,7 +4,7 @@ import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { Platform, View } from 'react-native'
-import { useDispatch, useSelector, batch } from 'react-redux'
+import { useSelector, batch } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -18,6 +18,7 @@ import { QuickBid } from './QuickBid'
 import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 import { tokensSelector } from '@store/wallet'
 
 interface Props {
@@ -33,7 +34,7 @@ export interface onQuickBidProps {
 }
 
 export function BrowseAuctions ({ searchString }: Props): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))

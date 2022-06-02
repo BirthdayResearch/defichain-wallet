@@ -14,7 +14,7 @@ import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -44,6 +44,7 @@ import { getTokenAmount, PaymentTokenProps, useLoanPaymentTokenRate } from '../h
 import { LoanPercentage } from '../components/LoanPercentage'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'PaybackLoanScreen'>
 
@@ -57,7 +58,7 @@ export function PaybackLoanScreen ({
     vault
   } = route.params
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isFocused = useIsFocused()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
