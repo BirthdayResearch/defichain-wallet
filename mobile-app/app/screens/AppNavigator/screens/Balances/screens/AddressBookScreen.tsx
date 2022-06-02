@@ -189,7 +189,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => (
         <TouchableOpacity
           onPress={goToAddAddressForm}
-          testID='add_address_button'
+          testID='add_new_address'
           disabled={activeButtonGroup === ButtonGroupTabKey.YourAddress}
         >
           <ThemedIcon
@@ -229,7 +229,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           <View style={tailwind('mr-2 flex-auto')}>
             <View style={tailwind('flex flex-row')}>
               {item.label !== '' &&
-                <ThemedText style={tailwind('text-sm pr-1')} testID={`address_row_label_${item.address}`}>
+                <ThemedText style={tailwind('text-sm pr-1')} testID={`address_row_label_${index}`}>
                   {item.label}
                 </ThemedText>}
               {!isEditing && (
@@ -250,7 +250,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               dark={tailwind('text-gray-400')}
               ellipsizeMode='middle'
               numberOfLines={1}
-              testID={`address_row_text_${item.address}`}
+              testID={`address_row_text_${index}`}
             >
               {item.address}
             </ThemedText>
@@ -310,6 +310,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                 <TouchableOpacity
                   style={tailwind('pl-4 py-2')}
                   onPress={async () => await onFavouriteAddress(item)}
+                  testID={`address_row_favourite_${index}`}
                 >
                   <ThemedIcon
                     iconType='MaterialIcons'
@@ -321,6 +322,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     dark={tailwind(
                       item.isFavourite === true ? 'text-darkwarning-500' : 'text-gray-300'
                     )}
+                    testID={item.isFavourite === true ? `address_row_${index}_is_favourite` : `address_row_${index}_not_favourite`}
                   />
                 </TouchableOpacity>
               )}
