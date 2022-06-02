@@ -53,7 +53,8 @@
         "react/prop-types": "off",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/no-floating-promises": "off"
+        "@typescript-eslint/no-floating-promises": "off",
+        "no-console": "error"
       },
       "excludedFiles": [
         "*.test.ts",
