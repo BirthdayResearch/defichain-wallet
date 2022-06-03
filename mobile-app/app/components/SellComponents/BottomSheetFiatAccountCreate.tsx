@@ -98,7 +98,7 @@ export const BottomSheetFiatAccountCreate = ({
         stackScreenName: 'FiatAccountList',
         component: BottomSheetFiatPicker({
           onFiatPress: async (fiatType): Promise<void> => {
-            if (fiatType !== undefined) {
+            if (fiatType !== undefined && ((typeof String).length > 0)) {
               setfiatType(fiatType)
             }
             dismissModal()
@@ -165,7 +165,7 @@ export const BottomSheetFiatAccountCreate = ({
               setBottomSheet()
               expandModal()
             }}
-            // loadedFiat={handle()}
+            // loadedFiat={(fi: Fiat[]) => setFiats(fi)()}
           />
         </DFXAPIContextProvider>
 

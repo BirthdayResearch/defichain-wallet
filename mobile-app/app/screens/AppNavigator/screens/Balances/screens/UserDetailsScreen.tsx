@@ -3,19 +3,15 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Control, Controller, useForm } from 'react-hook-form'
-import { Platform, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Control, Controller, FieldValues, UseControllerProps, useForm } from 'react-hook-form'
+import { Platform, TextInput, View, Text, TouchableOpacity, KeyboardTypeOptions } from 'react-native'
 import {
   ThemedIcon,
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
-  ThemedTextInput,
-  ThemedTouchableOpacity,
-  ThemedView
+  ThemedTextInput
 } from '@components/themed'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
@@ -24,18 +20,27 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
-import { BottomSheetFiatAccountList } from '@components/SellComponents/BottomSheetFiatAccountList'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
-import { ActionButton } from '../../Dex/components/PoolPairCards/ActionSection'
-import { BottomSheetFiatAccountCreate } from '@components/SellComponents/BottomSheetFiatAccountCreate'
+import { BottomSheetCountryPicker } from '@components/SellComponents/BottomSheetCountryPicker'
 import { BalanceParamList } from '../BalancesNavigator'
-// import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-// import { isValidIBAN } from 'ibantools'
+import { Country } from '@shared-api/dfx/models/Country'
+import { putKycData } from '@shared-api/dfx/ApiService'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { KycData } from '@shared-api/dfx/models/KycData'
+import { AccountType } from '@shared-api/dfx/models/User'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
+
+interface FormData {
+  firstName: string
+  lastName: string
+  street: string
+  zip: number
+  email: string
+  phone: string
+}
 
 export function UserDetailsScreen ({
   route,
@@ -43,15 +48,31 @@ export function UserDetailsScreen ({
 }: Props): JSX.Element {
   const logger = useLogger()
   const { listFiatAccounts } = useDFXAPIContext()
-  const isFocused = useIsFocused()
+
+  const schema = yup.object({
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+    street: yup.string().required(),
+    zip: yup.number().positive().integer().max(6).required(),
+    city: yup.number().positive().integer().required(),
+    email: yup.string().email().required(),
+    phone: yup.string().max(15).required()
+  }).required()
   const {
     control,
+    register,
     setValue,
-    formState,
-    getValues,
-    trigger
-  } = useForm({ mode: 'onChange' })
-  const dispatch = useDispatch()
+    formState: { errors, isValid },
+    getValues, trigger,
+    handleSubmit
+  } = useForm/* <FormData> */({ mode: 'onChange', resolver: yupResolver(schema) })
+
+  const { listCountries } = useDFXAPIContext()
+  const [countries, setCountries] = useState<Country[]>([])
+  const defaultCountry = { id: 99334, name: 'Germany', symbol: 'string', enable: true }
+  const [country, setCountry] = useState<Country>(defaultCountry)
+  const [loadingText, setloadingText] = useState<string>('…loading country list')
+  const [isloading, setIsLoading] = useState<boolean>(true)
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -73,249 +94,198 @@ export function UserDetailsScreen ({
     }
   }, [])
 
-  // load sell routes
-  useEffect(() => {
+  const setBottomSheet = useCallback(() => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'SheetFiatPicker',
+        component: BottomSheetCountryPicker({
+          onItemPress: async (item): Promise<void> => {
+            setCountry(item)
+            dismissModal()
+          },
+          countries: countries,
+          onCloseButtonPress: () => dismissModal()
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [countries])
 
-  }, [])
-
-  // const setFiatAccountListBottomSheet = useCallback((accounts: SellRoute[]) => {
-  //   setBottomSheetScreen([
-  //     {
-  //       stackScreenName: 'FiatAccountList',
-  //       component: BottomSheetFiatAccountList({
-  //         fiatAccounts: accounts,
-  //         headerLabel: translate('screens/UserDetailsScreen', 'Choose account for payout'),
-  //         onCloseButtonPress: () => dismissModal(),
-  //         onFiatAccountPress: async (item): Promise<void> => {
-  //           if (item.iban !== undefined) {
-  //             setSelectedFiatAccount(item)
-  //             setFee(item.fee)
-  //             // setValue('amount', '') // TODO: remove or use
-  //             // await trigger('amount')
-  //           }
-  //           dismissModal()
-  //         }
-  //       }),
-  //       option: {
-  //         header: () => null
-  //       }
-  //     }])
-  // }, [])
-
-  // const setFiatAccountCreateBottomSheet = useCallback((accounts: SellRoute[]) => { // TODO: remove accounts?
-  //   setBottomSheetScreen([
-  //     {
-  //       stackScreenName: 'FiatAccountCreate',
-  //       component: BottomSheetFiatAccountCreate({
-  //         fiatAccounts: accounts,
-  //         headerLabel: translate('screens/UserDetailsScreen', 'Add account for payout'),
-  //         onCloseButtonPress: () => dismissModal(),
-  //         onElementCreatePress: async (item): Promise<void> => {
-  //           if (item.iban !== undefined) {
-  //             // setSelectedFiatAccount(item)
-  //             // setFee(item.fee)
-  //             // setValue('amount', '') // TODO: remove
-  //             // await trigger('amount')
-  //           }
-  //           dismissModal()
-  //         }
-  //       }),
-  //       option: {
-  //         header: () => null
-  //       }
-  //     }])
-  // }, [])
-
-  async function onSubmit (): Promise<void> {
-    // if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
-    //   return
-    // }
-
-    // const values = getValues()
-    // if (formState.isValid && isConversionRequired) {
-    //   queueConvertTransaction({
-    //     mode: 'accountToUtxos',
-    //     amount: conversionAmount
-    //   }, dispatch, () => {
-    //     navigation.navigate({
-    //       name: 'SellConfirmationScreen',
-    //       params: {
-    //         destination: values.address,
-    //         token,
-    //         amount: new BigNumber(values.amount),
-    //         fee,
-    //         conversion: {
-    //           DFIUtxo,
-    //           DFIToken,
-    //           isConversionRequired,
-    //           conversionAmount
-    //         }
-    //       },
-    //       merge: true
-    //     })
-    //   }, logger)
-    // } else if (formState.isValid) {
-    //   const values = getValues()
-    //   navigation.navigate({
-    //     name: 'SellConfirmationScreen',
-    //     params: {
-    //       destination: values.address,
-    //       token,
-    //       amount: new BigNumber(values.amount),
-    //       fee
-    //     },
-    //     merge: true
-    //   })
-    // }
+  async function onSubmit (data: FormData | FieldValues): Promise<void> {
+    const _data: KycData = {
+      accountType: AccountType.PERSONAL,
+      firstName: data.firstName.toString(),
+      lastName: data.lastName.toString(),
+      street: data.street.toString(),
+      houseNumber: '2424',
+      zip: '1234',
+      location: '35353',
+      country: country,
+      organizationName: '',
+      organizationStreet: '',
+      organizationHouseNumber: '',
+      organizationLocation: '',
+      organizationZip: '',
+      organizationCountry: country
+    }
+    setIsLoading(true)
+    setloadingText('SENDING')
+    putKycData((_data))
+      .then((x) => console.log(x))
+      .catch((er) => console.log('ERROR', er))
   }
 
+  // load available countries
+  useEffect(() => {
+    listCountries()
+      .then((fetchedCountries) => {
+        setCountries(fetchedCountries)
+        setIsLoading(false)
+        setloadingText('Submit')
+      })
+      .catch(logger.error)
+  }, [])
+
   return (
-    <ThemedScrollView
-      style={tailwind('flex-1 pb-8')}
-      testID='setting_screen'
-    >
-      <ThemedSectionTitle
-        testID='network_title'
-        text={translate('screens/UserDetails', 'PERSONAL INFORMATION')}
-      />
+    <View style={tailwind('h-full')} ref={containerRef}>
+      <ThemedScrollView
+        style={tailwind('flex-1 pb-8')}
+        testID='setting_screen'
+      >
+        <ThemedSectionTitle
+          testID='network_title'
+          text={translate('screens/UserDetails', 'PERSONAL INFORMATION')}
+        />
+        <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
 
-      <ThemedSectionTitle
-        testID='security_title'
-        text={translate('screens/UserDetails', 'CONTACT DATA')}
-      />
-      <NavigateItemRow
-        label='Recovery Words'
-        testID='view_recovery_words'
-      />
-      <NavigateItemRow
-        label='Change Passcode'
-        testID='view_change_passcode'
-      />
+          <AddressDetailItem control={control} title='First Name' example='John' />
+          <AddressDetailItem control={control} title='Last Name' example='Doe' />
+          <AddressDetailItem control={control} title='Street Name' example='Main Street' />
+          <AddressDetailItem control={control} title='Zip Code' example='John' keyboardType='number-pad' />
+          <AddressDetailItem control={control} title='City' example='Berlin' />
 
-      <ThemedView style={tailwind('p-4 rounded-lg border-dfxblue-800')}>
-        <ThemedTextInput
-          style={tailwind('w-full h-12 bg-dfxblue-800')}
+          <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
+            <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
+              {translate('screens/UserDetails', 'Country')}
+            </Text>
+            <Text
+              style={tailwind('ml-4 flex-grow self-center text-sm text-white')}
+              onPress={() => {
+                // this event only triggers on web
+                setBottomSheet()
+                expandModal()
+              }}
+            >
+              {country?.name ?? 'Germany'}
+            </Text>
+          </View>
+        </View>
+
+        <ThemedSectionTitle
+          testID='contact_data_title'
+          text={translate('screens/UserDetails', 'CONTACT DATA')}
         />
-        <WalletTextInput
-          inputType='default'
-          inlineText={{ type: 'error', text: 'some' }}
-          placeholder='::::fefe::::'
+        <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
+          <AddressDetailItem control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
+          <AddressDetailItem control={control} title='Phone Number' example='+4977001234' keyboardType='phone-pad' />
+          {
+            // errors.map((item: any) => item != null && <ThemedText>This is required.</ThemedText>)
+          }
+          {isValid ?? <ThemedText>This is required.</ThemedText>}
+        </View>
+
+        <View style={tailwind('h-12')} />
+        <SubmitButtonGroup
+          isDisabled={isloading /* !formState.isValid */}
+          label={translate('screens/SellScreen', 'SUBMIT')}
+          processingLabel={translate('screens/SellScreen', loadingText)}
+          onSubmit={handleSubmit(onSubmit, onSubmit)}
+          title='sell_continue'
+          isProcessing={isloading}
+          displayCancelBtn={false}
         />
 
-        <WalletTextInput
-          inputType='default'
-          title={translate('screens/UserDetails', 'Last Name')}
-          inlineText={{ type: 'helper', text: 'John' }}
-        />
-        <WalletTextInput
-          inputType='numeric'
-          inlineText={{ type: 'error' }}
-        >
-          <ThemedText>
-            {translate('screens/UserDetails', 'Street')}
-          </ThemedText>
-        </WalletTextInput>
-        <WalletTextInput
-          inputType='default'
-          title={translate('screens/UserDetails', 'skdfhs')}
-        />
-        <WalletTextInput
-          inputType='numeric'
-        />
-      </ThemedView>
+        {Platform.OS === 'web' && (
+          <BottomSheetWebWithNav
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+            modalStyle={{
+              position: 'absolute',
+              height: '350px',
+              width: '375px',
+              zIndex: 50,
+              bottom: '0'
+            }}
+          />
+        )}
 
-      <ThemedSectionTitle
-        testID='addtional_options_title'
-        text={translate('screens/UserDetails', 'ADDITIONAL OPTIONS')}
-      />
-      <NavigateItemRow
-        testID='setting_navigate_About'
-        label='About'
-        onPress={() => navigation.navigate('Send')}
-      />
-      <NavigateItemRow
-        testID='setting_navigate_language_selection'
-        label='back'
-        onPress={() => navigation.navigate('Sell')}
-      />
-      {/* <RowExitWalletItem /> */}
-    </ThemedScrollView>
+        {Platform.OS !== 'web' && (
+          <BottomSheetWithNav
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+          />
+        )}
+      </ThemedScrollView>
+    </View>
   )
 }
 
-// function RowExitWalletItem (): JSX.Element {
-//   const { clearWallets } = useWalletPersistenceContext()
-//   const { clearAddressBook } = useAddressBook()
-//   const { clearDfxTokens } = useDFXAPIContext()
+interface AddressDetailProps {
+  dropdownOptions: any
+}
 
-//   async function onExitWallet (): Promise<void> {
-//     WalletAlert({
-//       title: translate('screens/UserDetails', 'Are you sure you want to unlink your wallet?'),
-//       message: translate('screens/UserDetails', 'You will need to use your recovery words the next time you want to get back to your wallet.'),
-//       buttons: [
-//         {
-//           text: translate('screens/UserDetails', 'Cancel'),
-//           style: 'cancel'
-//         },
-//         {
-//           text: translate('screens/UserDetails', 'Unlink Wallet'),
-//           onPress: async () => {
-//             clearAddressBook()
-//             await clearDfxTokens()
-//             await clearWallets()
-//           },
-//           style: 'destructive'
-//         }
-//       ]
-//     })
-//   }
-
-//   return (
-//     <ThemedTouchableOpacity
-//       onPress={onExitWallet}
-//       style={tailwind('flex flex-row p-4 mt-8 mb-8 items-center')}
-//       testID='setting_exit_wallet'
-//     >
-//       <ThemedIcon
-//         dark={tailwind('text-dfxred-500')}
-//         iconType='MaterialIcons'
-//         light={tailwind('text-primary-500')}
-//         name='exit-to-app'
-//         size={24}
-//         style={[tailwind('self-center mr-2'), { transform: [{ scaleX: -1 }] }]}
-//       />
-
-//       <ThemedText
-//         dark={tailwind('text-dfxred-500')}
-//         light={tailwind('text-primary-500')}
-//         style={tailwind('font-medium')}
-//       >
-//         {translate('screens/UserDetails', 'UNLINK WALLET')}
-//       </ThemedText>
-//     </ThemedTouchableOpacity>
-//   )
-// }
-
-function NavigateItemRow ({
-  testID,
-  label,
-  onPress
-}: { testID: string, label: string, onPress?: () => void }): JSX.Element {
+function AddressDetailItem ({
+  control,
+  // fieldName,
+  title,
+  required = true,
+  example,
+  keyboardType,
+  props
+}: { control: Control, /* fieldName: string, */ title: string, required?: boolean, example?: string, keyboardType?: KeyboardTypeOptions, props?: AddressDetailProps & UseControllerProps<FormData> }): JSX.Element {
   return (
-    <ThemedTouchableOpacity
-      onPress={onPress}
-      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
-      testID={testID}
-    >
-      <ThemedText style={tailwind('font-medium')}>
-        {translate('screens/UserDetails', label)}
-      </ThemedText>
 
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='chevron-right'
-        size={24}
+    <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
+
+      <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
+        {translate('screens/UserDetails', title)}
+      </Text>
+
+      <Controller
+        control={control}
+        // defaultValue={defaultValue}
+        name={title}
+        render={({
+          field: {
+            onBlur,
+            onChange,
+            value
+          }
+        }) => (
+          <ThemedTextInput
+            autoCapitalize='words'
+            style={tailwind('ml-4 flex-grow')}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            // onEndEditing={() => console.log(control._fields)}
+            value={value}
+            placeholder={example}
+            keyboardType={keyboardType ?? 'default'}
+          />
+        )}
+        // rules={{
+        //   required: required,
+        //   // pattern: /^\d*\.?\d*$/,
+        //   // max: maxAmount,
+        //   validate: {
+        //     // greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+        //   }
+        // }}
       />
-    </ThemedTouchableOpacity>
+
+      {/* {errors. && <Text>This is required.</Text>} */}
+    </View>
   )
 }

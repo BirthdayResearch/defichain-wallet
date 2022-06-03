@@ -8,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { getSellRoutes, getFiats, signIn, signUp } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, getFiats, signIn, signUp, getCountries } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -24,6 +24,7 @@ import * as Updates from 'expo-updates'
 import { useDebounce } from '@hooks/useDebounce'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 import { Fiat } from '@shared-api/dfx/models/Fiat'
+import { Country } from '@shared-api/dfx/models/Country'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
@@ -31,12 +32,13 @@ interface DFXAPIContextI {
   listFiatAccounts: () => Promise<SellRoute[]>
   // createFiatAccount: (sellRoute: SellRoute) => Promise<SellRoute[]>
   listFiats: () => Promise<Fiat[]>
+  listCountries: () => Promise<Country[]>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
 
 export function useDFXAPIContext (): DFXAPIContextI {
-  console.log('useDFXAPIContext') // TODO: instrument and remove
+  // console.log('useDFXAPIContext') // TODO: instrument and remove
   return useContext(DFXAPIContext)
 }
 
@@ -76,8 +78,16 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   //   return await postSellRoute(route)
   // }
 
+  // const createUserDetails = async (data: KycData): Promise<void> => {
+  //   return await putKycData(data)
+  // }
+
   const listFiats = async (): Promise<Fiat[]> => {
     return await getFiats()
+  }
+
+  const listCountries = async (): Promise<Country[]> => {
+    return await getCountries()
   }
 
   // returns webtoken string of current active Wallet address
@@ -236,7 +246,8 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     clearDfxTokens: clearDfxTokens,
     listFiatAccounts: listFiatAccounts,
     // createFiatAccount: createFiatAccount,
-    listFiats: listFiats
+    listFiats: listFiats,
+    listCountries: listCountries
   }
 
   // observe address state change

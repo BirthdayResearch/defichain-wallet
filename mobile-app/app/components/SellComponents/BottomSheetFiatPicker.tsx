@@ -6,12 +6,14 @@ import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity } from '
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { Fiat } from '@shared-api/dfx/models/Fiat'
+import { Country } from '@shared-api/dfx/models/Country'
 
 export type FiatType = 'EUR' | 'CHF' | 'USD' | 'GBP'
 
 interface BottomSheetFiatPickerProps {
-  onFiatPress: (fiatType: FiatType | Fiat['name']) => void
+  onFiatPress: (fiatType: FiatType | Fiat['name'] | Country['name']) => void
   fiats?: Fiat[]
+  paramData?: Country[]
   navigateToScreen?: {
     screenName: string
     onButtonPress: (fiatType: FiatType) => void // TODO necessary?
@@ -21,6 +23,7 @@ interface BottomSheetFiatPickerProps {
 export const BottomSheetFiatPicker = ({
   onFiatPress,
   fiats,
+  paramData,
   navigateToScreen
 }: BottomSheetFiatPickerProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
@@ -29,8 +32,13 @@ export const BottomSheetFiatPicker = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
+
   const availableFiats: FiatType[] = ['EUR', 'USD', 'CHF', 'GBP']
-  const liveFiats = fiats?.map((fiat) => fiat.name)
+
+  const liveFiats = fiats?.filter((item) => item.enable).map((item) => item.name)
+  // TODO: refactor for generic use (-> UserDetailsScreen)
+  const liveData = paramData?.filter((item) => item.enable).map((item) => item.name)
+  const data = liveData ?? (liveFiats ?? availableFiats)
 
   return (
     <FlatList
@@ -39,19 +47,19 @@ export const BottomSheetFiatPicker = ({
         'bg-dfxblue-800': !isLight,
         'bg-white': isLight
       })}
-      data={liveFiats ?? availableFiats}
-      renderItem={({ item }: { item: FiatType | Fiat['name'] }) => (
+      data={data}
+      renderItem={({ item }: { item: FiatType | Fiat['name'] | Country['name']}) => (
         <FiatItem fiat={item} onPress={() => onFiatPress(item)} />
       )}
     />
   )
 })
 
-function FiatItem (props: { fiat: FiatType | Fiat['name'], onPress: () => void}): JSX.Element {
+export function FiatItem (props: { fiat: FiatType | Fiat['name'], onPress: () => void}): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
-      dark={tailwind('bg-dfxblue-800 border-dfxblue-900')}
+      dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
       light={tailwind('border-gray-300 bg-white')}
       style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
       testID='select_fiatItem_input'
