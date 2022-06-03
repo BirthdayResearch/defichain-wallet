@@ -1,4 +1,4 @@
-name: DeFiChain Dependencies
+name: Jellyfish Dependencies
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     - cron: '0 * * * *'
 
 jobs:
-  jellyfish:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
@@ -16,7 +16,7 @@ jobs:
 
       - name: Upgrade dependencies
         run: |
-          npx npm-check-updates -l m -u --deep --target newest --pre -f "/^defichain|@defichain\/.+/" -x "/^@defichain\/(whale)-.+/" \
+          npx npm-check-updates -l m -u --deep --target newest --pre -f "/^defichain|@defichain\/.+/" \
           | grep -q 'Run npm install to install new versions' && \
           npm i
 
