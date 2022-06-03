@@ -159,8 +159,16 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   }, [addressInput])
 
   useEffect(() => {
-    void fetchWalletAddresses().then((walletAddress) => setWalletAddress(walletAddress))
-  }, [])
+    let isSubscribed = true
+    void fetchWalletAddresses().then((walletAddress) => {
+      if (isSubscribed) {
+        setWalletAddress(walletAddress)
+      }
+    })
+    return () => {
+ isSubscribed = false
+}
+  }, [fetchWalletAddresses])
 
   return (
     <ThemedView style={tailwind('p-4 pt-6 flex-1')}>
