@@ -325,7 +325,7 @@ export function SellScreen ({
                 />
               </View>
 
-              <View style={tailwind()}>
+              <>
                 <ThemedSectionTitle
                   text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
                 />
@@ -336,7 +336,7 @@ export function SellScreen ({
                   testID='transaction_fee'
                   suffix='%'
                 />
-              </View>
+              </>
 
               <ThemedText
                 testID='transaction_details_info_text'

@@ -5,7 +5,6 @@ import { Platform, TouchableOpacity, View } from 'react-native'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '../themed'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { isValidIBAN } from 'ibantools'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 
 interface BottomSheetFiatAccountListProps {
@@ -13,12 +12,6 @@ interface BottomSheetFiatAccountListProps {
   onCloseButtonPress: () => void
   onFiatAccountPress?: (sellRoute: SellRoute) => void
   fiatAccounts: SellRoute[]
-}
-
-function checkIban (iban: string): boolean {
-  // remove whitespaces
-  iban = iban.replace(/\s/g, '')
-  return isValidIBAN(iban)
 }
 
 export const BottomSheetFiatAccountList = ({
@@ -40,7 +33,6 @@ export const BottomSheetFiatAccountList = ({
       renderItem={({ item }: { item: SellRoute }): JSX.Element => {
         return (
           <ThemedTouchableOpacity
-            disabled={!checkIban(item.iban)}
             onPress={() => {
               if (onFiatAccountPress !== undefined) {
                 onFiatAccountPress(item)
@@ -54,14 +46,7 @@ export const BottomSheetFiatAccountList = ({
                 <ThemedText
                   testID={`token_symbol_${item.iban}`}
                 >
-                  {checkIban(item.iban) ? item.iban : '- Invalid IBAN -'}{/* // TODO @ThaBrad */}
-                </ThemedText>
-                <ThemedText
-                  light={tailwind('text-dfxgray-500')}
-                  dark={tailwind('text-dfxgray-400')}
-                  style={tailwind(['text-xs', { hidden: item.id === '' }])}
-                >
-                  {item.id}
+                  {`${item.fiat.name} / ${item.iban}`}
                 </ThemedText>
               </View>
             </View>
