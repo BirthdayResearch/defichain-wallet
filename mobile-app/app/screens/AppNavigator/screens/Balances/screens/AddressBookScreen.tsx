@@ -180,7 +180,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       headerTitle: (): JSX.Element => (
         <SearchInput
           value={searchString}
-          placeholder={translate('screens/AddressBookScreen', 'Search for address')}
+          placeholder={translate('screens/AddressBookScreen', 'Search Address book')}
           showClearButton={searchString !== ''}
           onClearInput={() => setSearchString('')}
           onChangeText={(text: string) => {

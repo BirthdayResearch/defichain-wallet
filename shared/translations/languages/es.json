@@ -114,7 +114,13 @@
     "Add address": "Añadir dirección",
     "SAVED ADDRESS(ES)": "DIRECCION(ES) GUARDADAS",
     "Search for address": "Buscar dirección",
-    "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)"
+    "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",
+    "Search Address book": "Search Address book",
+    "Whitelisted": "Whitelisted",
+    "Your address(es)": "Your address(es)",
+    "Search results for": "Search results for",
+    "Search with label or address": "Search with label or address",
+    "FAVOURITE ADDRES(ES)": "FAVOURITE ADDRES(ES)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Edita el nombre de la dirección",

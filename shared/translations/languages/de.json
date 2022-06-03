@@ -107,7 +107,13 @@
     "Add address": "Adresse hinzufügen",
     "SAVED ADDRESS(ES)": "GESPEICHERTE ADRESSE(N)",
     "Search for address": "Adresse suchen",
-    "{{length}} ADDRESS(ES)":"{{length}} ADRESSE(N)"
+    "{{length}} ADDRESS(ES)":"{{length}} ADRESSE(N)",
+    "Search Address book": "Adressbuch durchsuchen",
+    "Whitelisted": "Whitelist",
+    "Your address(es)": "Deine Adresse(n)",
+    "Search results for": "Suchergebnisse für",
+    "Search with label or address": "Suche nach bezeichnung oder adress",
+    "FAVOURITE ADDRES(ES)": "Favoriten"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",

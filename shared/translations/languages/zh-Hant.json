@@ -107,7 +107,13 @@
     "Add address": "添加地址",
     "SAVED ADDRESS(ES)": "已儲存地址",
     "Search for address": "搜索地址",
-    "{{length}} ADDRESS(ES)": "{{length}} 地址"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "Search Address book": "搜索地址簿",
+    "Whitelisted": "白名单",
+    "Your address(es)": "您的地址",
+    "Search results for": "搜索結果",
+    "Search with label or address": "使用標籤或地址搜索",
+    "FAVOURITE ADDRES(ES)": "收藏地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址標籤",
