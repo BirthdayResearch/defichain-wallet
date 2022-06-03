@@ -5,6 +5,7 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { fromAddress } from '@defichain/jellyfish-address'
+import { useWalletAddress } from '@hooks/useWalletAddress'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -35,6 +36,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState('')
   const [addressInputErrorMessage, setAddressInputErrorMessage] = useState('')
+  const { fetchWalletAddresses } = useWalletAddress()
+  const [walletAddress, setWalletAddress] = useState<string[]>([])
 
   const validateLabelInput = (input: string): boolean => {
     if (input !== undefined && input.trim().length > 40) {
@@ -67,8 +70,14 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       setAddressInputErrorMessage('Please enter a valid address')
       return false
     }
-    if (addressBook?.[input.trim()] !== undefined && (isAddNew || (!isAddNew && input.trim() !== address))) {
+    if ((
+      (addressBook?.[input.trim()] !== undefined) &&
+        (isAddNew || (!isAddNew && input.trim() !== address))
+      ) ||
+      walletAddress.includes(input.trim())
+    ) {
       // check for unique address when adding new, or only when new address is different from current during edit
+      // or when address exists in local address
       setAddressInputErrorMessage('This address already exists in your address book, please enter a different address')
       return false
     }
@@ -148,6 +157,18 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
     }
     validateAddressInput(addressInput)
   }, [addressInput])
+
+  useEffect(() => {
+    let isSubscribed = true
+    void fetchWalletAddresses().then((walletAddress) => {
+      if (isSubscribed) {
+        setWalletAddress(walletAddress)
+      }
+    })
+    return () => {
+      isSubscribed = false
+    }
+  }, [fetchWalletAddresses])
 
   return (
     <ThemedView style={tailwind('p-4 pt-6 flex-1')}>
