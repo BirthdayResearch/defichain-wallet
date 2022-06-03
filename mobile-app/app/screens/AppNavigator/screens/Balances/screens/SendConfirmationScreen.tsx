@@ -216,7 +216,7 @@ interface SendForm {
   networkName: NetworkName
 }
 
-async function send ({
+export async function send ({
   address,
   token,
   amount,

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unreachable */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -17,6 +19,7 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -26,7 +29,6 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { FeeInfoRow } from '@components/FeeInfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -34,14 +36,14 @@ import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/B
 import { BottomSheetFiatAccountList } from '@components/SellComponents/BottomSheetFiatAccountList'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
+import { StackActions, useIsFocused } from '@react-navigation/native'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 import { DfxKycInfo } from '@components/DfxKycInfo'
 import { ActionButton } from '../../Dex/components/PoolPairCards/ActionSection'
 import { BottomSheetFiatAccountCreate } from '@components/SellComponents/BottomSheetFiatAccountCreate'
-// import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-// import { isValidIBAN } from 'ibantools'
+import { send } from './SendConfirmationScreen'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
 
@@ -49,6 +51,7 @@ export function SellScreen ({
   route,
   navigation
 }: Props): JSX.Element {
+  const network = useNetworkContext()
   const logger = useLogger()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
@@ -56,7 +59,7 @@ export function SellScreen ({
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
   const { listFiatAccounts } = useDFXAPIContext()
-  const [selectedFiatAccount, setSelectedFiatAccount] = useState<SellRoute>({} as SellRoute)
+  const [selectedFiatAccount, setSelectedFiatAccount] = useState<SellRoute>()
   const [fiatAccounts, setFiatAccounts] = useState<SellRoute[]>([])
   const isFocused = useIsFocused()
   const {
@@ -70,19 +73,10 @@ export function SellScreen ({
   const [fee, setFee] = useState<number>(2.9)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
-  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
-  const {
-    isConversionRequired,
-    conversionAmount
-  } = useConversion({
-    inputToken: {
-      type: token?.id === '0_unified' ? 'utxo' : 'others',
-      amount: new BigNumber(getValues('amount'))
-    },
-    deps: [getValues('amount'), JSON.stringify(token)]
-  })
   const [hasBalance, setHasBalance] = useState(false)
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -120,6 +114,11 @@ export function SellScreen ({
         setFiatAccounts(sellRoute)
       })
       .catch(logger.error)
+
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -147,8 +146,6 @@ export function SellScreen ({
             if (item.iban !== undefined) {
               setSelectedFiatAccount(item)
               setFee(item.fee)
-              // setValue('amount', '') // TODO: remove or use
-              // await trigger('amount')
             }
             dismissModal()
           }
@@ -171,8 +168,6 @@ export function SellScreen ({
             if (item.iban !== undefined) {
               // setSelectedFiatAccount(item)
               // setFee(item.fee)
-              // setValue('amount', '') // TODO: remove
-              // await trigger('amount')
             }
             dismissModal()
           }
@@ -209,45 +204,25 @@ export function SellScreen ({
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
+    if (token === undefined) {
       return
     }
 
-    const values = getValues()
-    if (formState.isValid && isConversionRequired) {
-      queueConvertTransaction({
-        mode: 'accountToUtxos',
-        amount: conversionAmount
-      }, dispatch, () => {
-        navigation.navigate({
-          name: 'SellConfirmationScreen',
-          params: {
-            destination: values.address,
-            token,
-            amount: new BigNumber(values.amount),
-            fee,
-            conversion: {
-              DFIUtxo,
-              DFIToken,
-              isConversionRequired,
-              conversionAmount
-            }
-          },
-          merge: true
-        })
-      }, logger)
-    } else if (formState.isValid) {
-      const values = getValues()
-      navigation.navigate({
-        name: 'SellConfirmationScreen',
-        params: {
-          destination: values.address,
-          token,
-          amount: new BigNumber(values.amount),
-          fee
-        },
-        merge: true
-      })
+    if (formState.isValid && selectedFiatAccount !== undefined) {
+      // SELL TOKEN => api call
+      const amount = getValues('amount')
+      navigation.popToTop()
+
+      // setIsSubmitting(true)
+      // await send({
+      //   address: selectedFiatAccount.deposit.address,
+      //   token,
+      //   amount,
+      //   networkName: network.networkName
+      // }, dispatch, () => {
+      //   onTransactionBroadcast(isOnPage, navigation.dispatch)
+      // }, logger)
+      // setIsSubmitting(false)
     }
   }
 
@@ -351,12 +326,12 @@ export function SellScreen ({
 
         <View style={tailwind('mt-6')}>
           <SubmitButtonGroup
-            isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+            isDisabled={!formState.isValid || selectedFiatAccount === undefined || token === undefined}
             label={translate('screens/SellScreen', 'CONTINUE')}
             processingLabel={translate('screens/SellScreen', 'CONTINUE')}
             onSubmit={onSubmit}
             title='sell_continue'
-            isProcessing={hasPendingJob || hasPendingBroadcastJob}
+            isProcessing={hasPendingJob || hasPendingBroadcastJob || isSubmitting}
             displayCancelBtn={false}
           />
         </View>

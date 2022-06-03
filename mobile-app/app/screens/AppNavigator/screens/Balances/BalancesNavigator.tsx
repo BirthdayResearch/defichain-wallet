@@ -29,19 +29,13 @@ import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { SellScreen } from './screens/SellScreen'
 import { UserDetailsScreen } from './screens/UserDetailsScreen'
-// import { SellConfirmationScreen } from './screens/SellConfirmationScreen'
+import { SellConfirmationScreen } from './screens/SellConfirmationScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
   SellScreen: { token?: WalletToken }
-  // SellConfirmationScreen: {
-  //   token: WalletToken
-  //   destination: string
-  //   amount: BigNumber
-  //   fee: BigNumber
-  //   conversion?: ConversionParam
-  // }
+  SellConfirmationScreen: undefined
   UserDetailsScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
@@ -193,9 +187,9 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      {/* <BalanceStack.Screen
+      <BalanceStack.Screen
         component={SellConfirmationScreen}
-        name='SendConfirmationScreen'
+        name='SellConfirmationScreen'
         options={{
           headerTitle: () => (
             <HeaderTitle
@@ -205,7 +199,7 @@ export function BalancesNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      /> */}
+      />
 
       <BalanceStack.Screen
         component={UserDetailsScreen}
