@@ -8,7 +8,7 @@ import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, se
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Platform, TouchableOpacity } from 'react-native'
+import { Keyboard, Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -214,19 +214,20 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         : (
           <TouchableOpacity
             onPress={() => {
+              Keyboard.dismiss()
               setIsSearchFocus(false)
               setSearchString('')
             }}
             testID='cancel_search_button'
-            style={tailwind('px-3')}
           >
-            <ThemedText
-              style={tailwind('font-medium')}
+            <ThemedIcon
+              size={28}
+              name='close'
+              style={tailwind('mr-2')}
               light={tailwind('text-primary-500')}
               dark={tailwind('text-darkprimary-500')}
-            >
-              {translate('screens/AddressBookScreen', 'CANCEL')}
-            </ThemedText>
+              iconType='MaterialCommunityIcons'
+            />
           </TouchableOpacity>
         )
       }
@@ -442,7 +443,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                 light={tailwind('text-gray-500')}
                 dark={tailwind('text-gray-400')}
               >
-                {translate('screens/AddressBookScreen', 'Search with Label or Address')}
+                {translate('screens/AddressBookScreen', 'Search with label or address')}
               </ThemedText>
             )
 : (
