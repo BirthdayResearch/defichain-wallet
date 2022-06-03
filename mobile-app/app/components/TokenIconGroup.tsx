@@ -20,18 +20,21 @@ interface TokenIconGroupProps {
 
 export function TokenIconGroup (props: TokenIconGroupProps): JSX.Element {
   const additionalIcon = BigNumber.max(props.symbols?.length - props.maxIconToDisplay, 0)
-  let rightOffset
-  if (props.offsetContainer === true) {
-    if (additionalIcon.gt(0)) {
-      rightOffset = (props.maxIconToDisplay - 2) * -5
+
+  function calculateRightOffset (): number {
+    if (props.offsetContainer === true) {
+      if (additionalIcon.gt(0)) {
+        return (props.maxIconToDisplay - 2) * -5
+      } else {
+        return ((props.symbols.length - 1) * -5) - 1
+      }
     } else {
-      rightOffset = ((props.symbols.length - 1) * -5) - 1
+      return 0
     }
-  } else {
-    rightOffset = 0
   }
+
   return (
-    <View style={[tailwind('flex flex-row relative'), { right: rightOffset }]}>
+    <View style={[tailwind('flex flex-row relative'), { right: calculateRightOffset() }]}>
       {
         props.symbols?.map((symbol, index): JSX.Element | null => {
           if (index < props.maxIconToDisplay) {
