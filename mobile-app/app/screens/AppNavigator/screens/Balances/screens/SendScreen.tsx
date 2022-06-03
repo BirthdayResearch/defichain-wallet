@@ -150,6 +150,7 @@ export function SendScreen ({
   useEffect(() => {
     const decodedAddress = fromAddress(address, networkName)
     if (decodedAddress === undefined) {
+      setMatchedAddress(undefined)
       return
     }
     debounceMatchAddress()
