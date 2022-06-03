@@ -92,6 +92,20 @@
     "You have pending future swap(s)": "You have pending future swap(s)",
     "This icon indicates that the price is provided by Oracles instead of the DEX": "Este icono indica que el precio ha sido proporcionado por los oráculos y no por el DEX"
   },
+  "screens/GetDFIScreen": {
+    "Get $DFI": "Get $DFI",
+    "STEP 1": "STEP 1",
+    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
+    "Available on:": "Available on:",
+    "Show more": "Show more",
+    "To learn more about DFI, ": "To learn more about DFI, ",
+    "read here.": "read here.",
+    "STEP 2": "STEP 2",
+    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
+    "DFI oracle price": "DFI oracle price",
+    "Show less": "Show less",
+    "Wallet Address": "Wallet Address"
+  },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
     "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",

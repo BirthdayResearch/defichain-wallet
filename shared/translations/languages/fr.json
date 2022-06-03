@@ -101,7 +101,7 @@
     "Receive $DFI in Light Wallet": "Recevoir des $DFI dans le portefeuille léger",
     "DFI oracle price": "Prix oracle de DFI",
     "Show less": "Afficher moins",
-    "Wallet address": "Adresse du portefeuille"
+    "Wallet Address": "Adresse du portefeuille"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
