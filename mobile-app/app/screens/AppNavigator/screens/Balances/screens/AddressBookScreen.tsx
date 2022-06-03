@@ -240,8 +240,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
 
   const AddressListItem = useCallback(({
     item,
-    index
-  }: { item: LocalAddress, index: number }): JSX.Element => {
+    index,
+    testIDSuffix
+  }: { item: LocalAddress, index: number, testIDSuffix: string }): JSX.Element => {
     return (
       <ThemedTouchableOpacity
         key={item.address}
@@ -251,7 +252,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
             onChangeAddress(item.address)
           }
         }}
-        testID={`address_row_${index}`}
+        testID={`address_row_${index}_${testIDSuffix}`}
         disabled={hasPendingJob || hasPendingBroadcastJob || isEditing || disableAddressSelect}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
@@ -260,9 +261,9 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               <RandomAvatar name={item.address} size={24} />
             </View>}
           <View style={tailwind('mr-2 flex-auto')}>
-            <View style={tailwind('flex flex-row')}>
+            <View style={tailwind('flex flex-row items-center')}>
               {item.label !== '' &&
-                <ThemedText style={tailwind('text-sm pr-1')} testID={`address_row_label_${index}`}>
+                <ThemedText style={tailwind('text-sm pr-1')} testID={`address_row_label_${index}_${testIDSuffix}`}>
                   {item.label}
                 </ThemedText>}
               {!isEditing && (
@@ -272,7 +273,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   iconType='MaterialIcons'
                   light={tailwind('text-primary-500')}
                   dark={tailwind('text-darkprimary-500')}
-                  style={tailwind('pt-0.5')}
                   onPress={async () => await openURL(getAddressUrl(item.address))}
                 />
               )}
@@ -283,7 +283,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               dark={tailwind('text-gray-400')}
               ellipsizeMode='middle'
               numberOfLines={1}
-              testID={`address_row_text_${index}`}
+              testID={`address_row_text_${index}_${testIDSuffix}`}
             >
               {item.address}
             </ThemedText>
@@ -343,7 +343,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                 <TouchableOpacity
                   style={tailwind('pl-4 py-2')}
                   onPress={async () => await onFavouriteAddress(item)}
-                  testID={`address_row_favourite_${index}`}
+                  testID={`address_row_favourite_${index}_${testIDSuffix}`}
                 >
                   <ThemedIcon
                     iconType='MaterialIcons'
@@ -355,7 +355,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                     dark={tailwind(
                       item.isFavourite === true ? 'text-darkwarning-500' : 'text-gray-300'
                     )}
-                    testID={item.isFavourite === true ? `address_row_${index}_is_favourite` : `address_row_${index}_not_favourite`}
+                    testID={item.isFavourite === true ? `address_row_${index}_is_favourite_${testIDSuffix}` : `address_row_${index}_not_favourite_${testIDSuffix}`}
                   />
                 </TouchableOpacity>
               )}
@@ -454,7 +454,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           (
             <ThemedFlatList
               data={favouriteAddress}
-              renderItem={AddressListItem}
+              renderItem={({ item, index }) => AddressListItem({
+                item,
+                index,
+                testIDSuffix: 'favourite_address'
+})}
               ListHeaderComponent={() => (
                 <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRES(ES)')} />
               )}
@@ -465,7 +469,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
             <View>
               <ThemedFlatList
                 data={filteredAddressBook}
-                renderItem={AddressListItem}
+                renderItem={({ item, index }) => AddressListItem({
+                  item,
+                  index,
+                  testIDSuffix: 'address_book'
+})}
                 ListHeaderComponent={() => (
                   filteredAddressBook.length === 0
                     ? <></>
@@ -474,7 +482,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               />
               <ThemedFlatList
                 data={filteredWalletAddress}
-                renderItem={AddressListItem}
+                renderItem={({ item, index }) => AddressListItem({
+                  item,
+                  index,
+                  testIDSuffix: 'wallet_address'
+})}
                 ListHeaderComponent={() => (
                   filteredWalletAddress.length === 0
                   ? <></>
@@ -492,7 +504,11 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       keyExtractor={(item) => item.address}
       stickyHeaderIndices={[0]}
       data={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress}
-      renderItem={AddressListItem} // Address list
+      renderItem={({ item, index }) => AddressListItem({
+        item,
+        index,
+        testIDSuffix: `${activeButtonGroup}`
+})}
       ListHeaderComponent={HeaderComponent} // Address counter
       ListEmptyComponent={activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 ? <EmptyDisplay onPress={goToAddAddressForm} /> : <></>}
     />
@@ -559,6 +575,7 @@ function SearchResultTextWithCounter ({ searchString, length }: {searchString: s
             light={tailwind('text-gray-900')}
             dark={tailwind('text-gray-50')}
             style={tailwind('text-sm font-medium')}
+            testID='search_result_text_search_string'
           >
             {` “${searchString}”`}
           </ThemedText>

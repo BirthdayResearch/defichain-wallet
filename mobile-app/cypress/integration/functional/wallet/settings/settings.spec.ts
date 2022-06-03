@@ -121,8 +121,8 @@ context('Wallet - Settings - Address Book', () => {
       cy.getByTestID('address_book_address_input_error').should('not.exist')
       cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(2000)
-      cy.getByTestID(`address_row_label_${index}`).contains(labels[index])
-      cy.getByTestID(`address_row_text_${index}`).contains(addresses[index])
+      cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(labels[index])
+      cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(addresses[index])
     })
   }
 
@@ -133,18 +133,18 @@ context('Wallet - Settings - Address Book', () => {
 
   it('should have Your Addresses tab with one wallet address', () => {
     cy.getByTestID('address_button_group_YOUR_ADDRESS').click()
-    cy.getByTestID('address_row_text_0').should('exist')
+    cy.getByTestID('address_row_text_0_YOUR_ADDRESS').should('exist')
   })
 
   it('should disable add new, edit, and favourite functions and has refresh button in Your address tab', () => {
     cy.getByTestID('add_new_address').should('have.attr', 'aria-disabled')
     cy.getByTestID('address_list_edit_button').should('not.exist')
-    cy.getByTestID('address_row_favourite_0').should('not.exist')
+    cy.getByTestID('address_row_favourite_0_WHITELISTED').should('not.exist')
     cy.getByTestID('discover_wallet_addresses').should('exist')
   })
 
   it('should block wallet address during add new whitelisted address', () => {
-    cy.getByTestID('address_row_text_0').invoke('text').then(walletAddress => {
+    cy.getByTestID('address_row_text_0_YOUR_ADDRESS').invoke('text').then(walletAddress => {
       cy.getByTestID('address_button_group_WHITELISTED').click()
       cy.getByTestID('add_new_address').click()
       cy.getByTestID('address_book_address_input').clear().type(walletAddress).blur()
@@ -156,37 +156,48 @@ context('Wallet - Settings - Address Book', () => {
     populateAddressBook()
   })
 
+  it('should be able to display favourite address when search is in focus but without search string', function () {
+    cy.getByTestID('address_row_favourite_0_WHITELISTED').click().wait(500)
+    cy.getByTestID('address_search_input').click()
+    cy.getByTestID('address_row_text_0_favourite_address').contains(addresses[0])
+    cy.getByTestID('address_row_0_is_favourite_favourite_address').click()
+    cy.getByTestID('address_row_0_favourite_address').should('not.exist')
+  })
+
   it('should be able to search for address by label', function () {
     cy.wrap(labels).each((label: string, index: number) => {
       cy.getByTestID('address_search_input').type(label).blur().wait(1000)
-      cy.getByTestID('address_row_label_0').contains(label)
-      cy.getByTestID('address_row_text_0').contains(addresses[index])
+      cy.getByTestID('search_result_text_search_string').contains(label)
+      cy.getByTestID('address_row_label_0_address_book').contains(label)
+      cy.getByTestID('address_row_text_0_address_book').contains(addresses[index])
+      cy.getByTestID('search_result_count').contains('1')
       cy.getByTestID('address_search_input').clear()
     })
   })
 
   it('should be able to sort whitelisted address by favourite', function () {
-    cy.getByTestID('address_row_favourite_2').click().wait(500)
-    cy.getByTestID('address_row_0_is_favourite').should('exist')
-    cy.getByTestID('address_row_text_0').contains(addresses[2]) // 3rd became 1st
-    cy.getByTestID('address_row_favourite_2').click().wait(500)
-    cy.getByTestID('address_row_1_is_favourite').should('exist')
-    cy.getByTestID('address_row_text_1').contains(addresses[1]) // 2nd maintain 2nd
-    cy.getByTestID('address_row_text_2').contains(addresses[0]) // 1st became 3rd
-    cy.getByTestID('address_row_favourite_0').click().wait(500)
-    cy.getByTestID('address_row_2_not_favourite').should('exist')
-    cy.getByTestID('address_row_text_2').contains(addresses[2]) // 3rd back to 3rd
-    cy.getByTestID('address_row_favourite_0').click().wait(500)
-    cy.getByTestID('address_row_1_not_favourite').should('exist')
+    cy.getByTestID('cancel_search_button').click()
+    cy.getByTestID('address_row_favourite_2_WHITELISTED').click().wait(500)
+    cy.getByTestID('address_row_0_is_favourite_WHITELISTED').should('exist')
+    cy.getByTestID('address_row_text_0_WHITELISTED').contains(addresses[2]) // 3rd became 1st
+    cy.getByTestID('address_row_favourite_2_WHITELISTED').click().wait(500)
+    cy.getByTestID('address_row_1_is_favourite_WHITELISTED').should('exist')
+    cy.getByTestID('address_row_text_1_WHITELISTED').contains(addresses[1]) // 2nd maintain 2nd
+    cy.getByTestID('address_row_text_2_WHITELISTED').contains(addresses[0]) // 1st became 3rd
+    cy.getByTestID('address_row_favourite_0_WHITELISTED').click().wait(500)
+    cy.getByTestID('address_row_2_not_favourite_WHITELISTED').should('exist')
+    cy.getByTestID('address_row_text_2_WHITELISTED').contains(addresses[2]) // 3rd back to 3rd
+    cy.getByTestID('address_row_favourite_0_WHITELISTED').click().wait(500)
+    cy.getByTestID('address_row_1_not_favourite_WHITELISTED').should('exist')
   })
 
   it('should have no effect when click on any saved address', () => {
     populateAddressBook()
     cy.wrap(labels).each((_v, index: number) => {
-      cy.getByTestID(`address_row_${index}`).should('have.attr', 'aria-disabled')
+      cy.getByTestID(`address_row_${index}_WHITELISTED`).should('have.attr', 'aria-disabled')
     })
     cy.getByTestID('address_button_group_YOUR_ADDRESS').click()
-    cy.getByTestID('address_row_0').should('have.attr', 'aria-disabled')
+    cy.getByTestID('address_row_0_YOUR_ADDRESS').should('have.attr', 'aria-disabled')
   })
 
   it('should be able to edit address label', () => {
@@ -200,8 +211,8 @@ context('Wallet - Settings - Address Book', () => {
     cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
     cy.getByTestID('pin_authorize').type('000000').wait(2000)
     cy.wrap(modifiedLabels).each((_v, index: number) => {
-      cy.getByTestID(`address_row_label_${index}`).contains(modifiedLabels[index])
-      cy.getByTestID(`address_row_text_${index}`).contains(addresses[index])
+      cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(modifiedLabels[index])
+      cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(addresses[index])
     })
   })
 
@@ -211,7 +222,7 @@ context('Wallet - Settings - Address Book', () => {
     cy.getByTestID('address_list_edit_button').click()
     cy.getByTestID(`address_delete_indicator_${deletedAddress}`).click()
     cy.getByTestID('pin_authorize').type('000000').wait(2000)
-    cy.getByTestID('address_row_text_0').invoke('text').then(address => {
+    cy.getByTestID('address_row_text_0_WHITELISTED').invoke('text').then(address => {
       expect(address).not.eq(deletedAddress)
     })
   })
