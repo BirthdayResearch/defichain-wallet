@@ -94,6 +94,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     }
     onSaveButtonPress({
       [address]: {
+        address,
         label: labelInput.trim(),
         isMine: true
       }
@@ -119,6 +120,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       onAuthenticated: async () => {
         onSaveButtonPress({
           [addressInput]: {
+            address: addressInput,
             label: labelInput.trim(),
             isMine: false
           }

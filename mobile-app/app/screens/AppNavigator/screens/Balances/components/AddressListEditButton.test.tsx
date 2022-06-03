@@ -13,12 +13,14 @@ describe('Address List Edit Button', () => {
       userPreferences: {
         addresses: {
           foo: {
+            address: 'foo',
             label: 'foo',
             isMine: true
           }
         },
         addressBook: {
           bar: {
+            address: 'bar',
             label: 'bar',
             isMine: false
           }
