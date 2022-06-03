@@ -53,6 +53,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const [walletAddress, setWalletAddress] = useState<LocalAddress[]>(walletAddressFromStore) // combine labeled wallet address with jellyfish's api wallet
   const [isEditing, setIsEditing] = useState(false)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
+  const [favouriteAddress, setFavouriteAddress] = useState(addressBook.filter(address => address.isFavourite === true))
   const { getAddressUrl } = useDeFiScanContext()
   const {
     wallet,
@@ -185,7 +186,10 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
           onChangeText={(text: string) => {
             setSearchString(text)
           }}
-          onFocus={() => setIsSearchFocus(true)}
+          onFocus={() => {
+            setIsSearchFocus(true)
+            setIsEditing(false)
+          }}
           testID='address_search_input'
         />
       ),
@@ -228,6 +232,10 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       }
     })
   }, [searchString, activeButtonGroup, isSearchFocus])
+
+  useEffect(() => {
+    setFavouriteAddress(addressBook.filter(address => address.isFavourite === true))
+  }, [addressBook])
 
   const AddressListItem = useCallback(({
     item,
@@ -356,6 +364,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   }, [filteredAddressBook, filteredWalletAddress, isEditing, activeButtonGroup])
 
   const goToAddAddressForm = (): void => {
+    setIsEditing(false)
     navigation.navigate({
       name: 'AddOrEditAddressBookScreen',
       params: {
@@ -440,10 +449,10 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   <SearchResultTextWithCounter searchString={searchString} length={filteredAddressBook.length + filteredWalletAddress.length} />
             )}
         </View>
-        {searchString.trim().length === 0 && (addressBook.filter(address => address.isFavourite === true).length > 0) &&
+        {searchString.trim().length === 0 && favouriteAddress.length > 0 &&
           (
             <ThemedFlatList
-              data={addressBook.filter(address => address.isFavourite === true)}
+              data={favouriteAddress}
               renderItem={AddressListItem}
               ListHeaderComponent={() => (
                 <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRES(ES)')} />
@@ -534,22 +543,26 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
 function SearchResultTextWithCounter ({ searchString, length }: {searchString: string, length: number}): JSX.Element {
   return (
     <View
-      style={tailwind('justify-between flex-row')}
+      style={tailwind('justify-between flex-row items-center')}
     >
-      <ThemedText
-        light={tailwind('text-gray-900')}
-        dark={tailwind('text-gray-50')}
-        style={tailwind('text-sm')}
-      >
-        {translate('screens/AddressBookScreen', 'Search results for')}
+      <View style={tailwind('w-10/12')}>
         <ThemedText
           light={tailwind('text-gray-900')}
           dark={tailwind('text-gray-50')}
-          style={tailwind('text-sm font-medium')}
+          style={tailwind('text-sm')}
+          ellipsizeMode='middle'
+          numberOfLines={1}
         >
-          {` “${searchString}”`}
+          {translate('screens/AddressBookScreen', 'Search results for')}
+          <ThemedText
+            light={tailwind('text-gray-900')}
+            dark={tailwind('text-gray-50')}
+            style={tailwind('text-sm font-medium')}
+          >
+            {` “${searchString}”`}
+          </ThemedText>
         </ThemedText>
-      </ThemedText>
+      </View>
       <ThemedText
         light={tailwind('text-gray-400')}
         dark={tailwind('text-gray-500')}
