@@ -116,17 +116,28 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
               }
             </View>
           </ThemedTouchableOpacity>
-          {new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)
+          {hasFetchedToken && !new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)
             ? (
+              <GetDFIBtn />
+            )
+            : (
               <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
                 {
                   hasFetchedToken
                     ? (
                       <View style={tailwind('flex-row items-center')}>
                         <View style={tailwind('mr-1')}>
-                          <DFIBreakdownPercentageItem label='UTXO: ' value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)} type='utxo' />
+                          <DFIBreakdownPercentageItem
+                            label='UTXO: '
+                            value={new BigNumber(DFIUtxo.amount).div(DFIUnified.amount).multipliedBy(100)}
+                            type='utxo'
+                          />
                         </View>
-                        <DFIBreakdownPercentageItem label='Token: ' value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)} type='token' />
+                        <DFIBreakdownPercentageItem
+                          label='Token: '
+                          value={new BigNumber(DFIToken.amount).div(DFIUnified.amount).multipliedBy(100)}
+                          type='token'
+                        />
                       </View>
                     )
                     : (
@@ -156,45 +167,6 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                   }
                 <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
               </View>
-            )
-            : (
-              <ThemedView
-                light={tailwind('bg-primary-50')}
-                dark={tailwind('bg-darkprimary-50')}
-                style={tailwind('mt-1')}
-              >
-                <LinearGradient
-                  start={[0, 0]}
-                  end={[1, 1]}
-                  colors={['#1A0C75', '#1C0C75', '#1F0D75', '#240E75', '#2A0F75', '#321175', '#3C1375', '#461575', '#511876', '#5C1B76', '#681D76', '#732076', '#7F2276', '#8A2576', '#952776', '#9E2A77']}
-                  locations={[0, 0.1124, 0.2038, 0.2776, 0.3368, 0.3848, 0.4247, 0.4598, 0.4933, 0.5284, 0.5683, 0.6163, 0.6756, 0.7493, 0.8408, 0.9531]}
-                >
-                  <TouchableOpacity
-                    style={tailwind('flex-row items-center')}
-                    testID='get_DFI_btn'
-                    onPress={() => navigation.navigate('GetDFIScreen')}
-                  >
-                    <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
-                      <View style={tailwind('flex-row flex-1 items-center')}>
-                        <Text
-                          style={tailwind('font-medium text-sm text-gray-50')}
-                        >
-                          {translate('screens/GetDFIScreen', 'Get $DFI')}
-                        </Text>
-                      </View>
-
-                      <ThemedIcon
-                        iconType='MaterialCommunityIcons'
-                        name='arrow-right'
-                        size={18}
-                        testID='get_dfi'
-                        dark={tailwind('text-gray-50')}
-                        light={tailwind('text-gray-50')}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                </LinearGradient>
-              </ThemedView>
             )}
         </ImageBackground>
       </View>
@@ -289,5 +261,48 @@ function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBrea
         />
       </TouchableOpacity>
     </View>
+  )
+}
+
+function GetDFIBtn (): JSX.Element {
+  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  return (
+    <ThemedView
+      light={tailwind('bg-primary-50')}
+      dark={tailwind('bg-darkprimary-50')}
+      style={tailwind('mt-1')}
+    >
+      <LinearGradient
+        start={[0, 0]}
+        end={[1, 1]}
+        colors={['#1A0C75', '#1C0C75', '#1F0D75', '#240E75', '#2A0F75', '#321175', '#3C1375', '#461575', '#511876', '#5C1B76', '#681D76', '#732076', '#7F2276', '#8A2576', '#952776', '#9E2A77']}
+        locations={[0, 0.1124, 0.2038, 0.2776, 0.3368, 0.3848, 0.4247, 0.4598, 0.4933, 0.5284, 0.5683, 0.6163, 0.6756, 0.7493, 0.8408, 0.9531]}
+      >
+        <TouchableOpacity
+          style={tailwind('flex-row items-center')}
+          testID='get_DFI_btn'
+          onPress={() => navigation.navigate('GetDFIScreen')}
+        >
+          <View style={tailwind('mx-4 my-2 flex-row justify-between flex-1 items-center')}>
+            <View style={tailwind('flex-row flex-1 items-center')}>
+              <Text
+                style={tailwind('font-medium text-sm text-gray-50')}
+              >
+                {translate('screens/GetDFIScreen', 'Get $DFI')}
+              </Text>
+            </View>
+
+            <ThemedIcon
+              iconType='MaterialCommunityIcons'
+              name='arrow-right'
+              size={18}
+              testID='get_dfi'
+              dark={tailwind('text-gray-50')}
+              light={tailwind('text-gray-50')}
+            />
+          </View>
+        </TouchableOpacity>
+      </LinearGradient>
+    </ThemedView>
   )
 }

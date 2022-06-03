@@ -160,7 +160,7 @@ function StepOne (): JSX.Element {
         </ThemedText>
         <TouchableOpacity
           onPress={async () => await openURL('https://defichain.com/dfi')}
-          testID='share_button'
+          testID='read_here'
         >
           <ThemedText
             dark={tailwind('text-darkprimary-500')}
