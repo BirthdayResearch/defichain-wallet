@@ -1,6 +1,6 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { DeFiAddress, fromAddress } from '@defichain/jellyfish-address'
+import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
 import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
@@ -148,11 +148,6 @@ export function SendScreen ({
   }, [JSON.stringify(tokens)])
 
   useEffect(() => {
-    const decodedAddress = fromAddress(address, networkName)
-    if (decodedAddress === undefined) {
-      setMatchedAddress(undefined)
-      return
-    }
     debounceMatchAddress()
   }, [address, addressBook])
 
