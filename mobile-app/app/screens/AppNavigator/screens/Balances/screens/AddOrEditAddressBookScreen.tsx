@@ -166,8 +166,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
       }
     })
     return () => {
- isSubscribed = false
-}
+      isSubscribed = false
+    }
   }, [fetchWalletAddresses])
 
   return (
