@@ -204,25 +204,21 @@ export function SellScreen ({
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (token === undefined) {
+    if (hasPendingJob || hasPendingBroadcastJob || token === undefined || selectedFiatAccount === undefined) {
       return
     }
 
-    if (formState.isValid && selectedFiatAccount !== undefined) {
-      // SELL TOKEN => api call
-      const amount = getValues('amount')
-      navigation.popToTop()
-
-      // setIsSubmitting(true)
-      // await send({
-      //   address: selectedFiatAccount.deposit.address,
-      //   token,
-      //   amount,
-      //   networkName: network.networkName
-      // }, dispatch, () => {
-      //   onTransactionBroadcast(isOnPage, navigation.dispatch)
-      // }, logger)
-      // setIsSubmitting(false)
+    if (formState.isValid && (selectedFiatAccount?.deposit?.address?.length > 0)) {
+      setIsSubmitting(true)
+      await send({
+        address: selectedFiatAccount.deposit.address,
+        token,
+        amount: new BigNumber(getValues('amount')),
+        networkName: network.networkName
+      }, dispatch, () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch, 0, 'SellConfirmationScreen')
+      }, logger)
+      setIsSubmitting(false)
     }
   }
 
@@ -326,11 +322,11 @@ export function SellScreen ({
 
         <View style={tailwind('mt-6')}>
           <SubmitButtonGroup
-            isDisabled={!formState.isValid || selectedFiatAccount === undefined || token === undefined}
-            label={translate('screens/SellScreen', 'CONTINUE')}
-            processingLabel={translate('screens/SellScreen', 'CONTINUE')}
+            isDisabled={!formState.isValid || selectedFiatAccount === undefined || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+            label={translate('screens/SellScreen', 'SELL')}
+            processingLabel={translate('screens/SellScreen', 'SELL')}
             onSubmit={onSubmit}
-            title='sell_continue'
+            title='sell_sell'
             isProcessing={hasPendingJob || hasPendingBroadcastJob || isSubmitting}
             displayCancelBtn={false}
           />

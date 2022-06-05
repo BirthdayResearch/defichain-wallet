@@ -25,7 +25,7 @@ export function SellConfirmationScreen ({ route }: Props): JSX.Element {
       <Button
         fill='fill'
         label={translate('screens/common', title)}
-        margin='m-8 mb-16'
+        margin='m-8 mb-24'
         onPress={() => navigation.dispatch(StackActions.popToTop())}
         testID={`button_finish_${title}`}
         title={title}

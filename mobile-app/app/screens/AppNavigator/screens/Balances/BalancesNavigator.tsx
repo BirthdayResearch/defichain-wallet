@@ -193,11 +193,12 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/SellConfirmationScreen', 'Confirm Sell')}
+              text={translate('screens/SellConfirmationScreen', 'Processing Sell Order')}
               containerTestID={headerContainerTestId}
             />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerLeft: () => null
         }}
       />
 
