@@ -252,12 +252,12 @@ function interceptTokenWithSampleData (): void {
   })
 }
 
-context('Wallet - Balances page', () => {
+context('Wallet - Portfolio page', () => {
   beforeEach(() => {
     cy.createEmptyWallet(true)
   })
 
-  it('should load balances page when flags API is delayed', () => {
+  it('should load portfolio page when flags API is delayed', () => {
     cy.intercept({ url: '**/settings/flags', middleware: true }, (req) => {
       req.on('response', (res) => {
         res.setDelay(5000)
@@ -268,7 +268,7 @@ context('Wallet - Balances page', () => {
     })
   })
 
-  it('should not load balances page when flags API failed', () => {
+  it('should not load portfolio page when flags API failed', () => {
     cy.intercept('**/settings/flags', {
       statusCode: 404,
       body: '404 Not Found!',
@@ -281,7 +281,7 @@ context('Wallet - Balances page', () => {
     })
   })
 
-  it('should load balances page when flags API succeed after failed API attempt', () => {
+  it('should load portfolio page when flags API succeed after failed API attempt', () => {
     cy.intercept({ url: '**/settings/flags', middleware: true }, (req) => {
       req.on('response', (res) => {
         res.setDelay(5000)
@@ -292,7 +292,7 @@ context('Wallet - Balances page', () => {
     })
   })
 
-  it('should display EmptyPortfolio component when there are no DFI and other tokens', function () {
+  it('should display EmptyBalances component when there are no DFI and other tokens', function () {
     cy.intercept('**/poolpairs?size=*', {
       body: {
         data: []
@@ -304,7 +304,7 @@ context('Wallet - Balances page', () => {
   })
 })
 
-context('Wallet - Balances', () => {
+context('Wallet - Portfolio', () => {
   beforeEach(() => {
     cy.intercept('**/poolpairs/dexprices?denomination=*', {
       body: getDexPrice({
@@ -392,7 +392,7 @@ context('Wallet - Balances', () => {
   })
 })
 
-context('Wallet - Balances - Failed API', () => {
+context('Wallet - Portfolio - Failed API', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
   })
@@ -423,7 +423,7 @@ context('Wallet - Balances - Failed API', () => {
   })
 })
 
-context('Wallet - Balances - No balance', () => {
+context('Wallet - Portfolio - No balance', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
   })
@@ -438,7 +438,7 @@ context('Wallet - Balances - No balance', () => {
   })
 })
 
-context('Wallet - Balances - USD Value', () => {
+context('Wallet - Portfolio - USD Value', () => {
   before(function () {
     cy.intercept('**/poolpairs?size=*', {
       body: {
@@ -589,7 +589,7 @@ context('Wallet - Balances - USD Value', () => {
   })
 })
 
-context('Wallet - Balances - Assets filter tab', function () {
+context('Wallet - Portfolio - Assets filter tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
   })
@@ -638,7 +638,7 @@ context('Wallet - Balances - Assets filter tab', function () {
   })
 })
 
-context('Wallet - Balances - Assets filter tab - filter respective tokens in selected tab', function () {
+context('Wallet - Portfolio - Assets filter tab - filter respective tokens in selected tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
   })
@@ -704,7 +704,7 @@ context('Wallet - Balances - Assets filter tab - filter respective tokens in sel
   })
 })
 
-context('Wallet - Balances - Portfolio group tab', function () {
+context('Wallet - Portfolio - Portfolio group tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFITokentoWallet()
@@ -753,7 +753,7 @@ function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt
   cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: EthUsdAmt })
 }
 
-context('Wallet - Balances - Your Assets - All tokens tab', function () {
+context('Wallet - Portfolio - Your Assets - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -790,7 +790,7 @@ context('Wallet - Balances - Your Assets - All tokens tab', function () {
   })
 })
 
-context('Wallet - Balances - Skeleton Loader', () => {
+context('Wallet - Portfolio - Skeleton Loader', () => {
   beforeEach(function () {
     cy.createEmptyWallet()
   })
@@ -828,7 +828,7 @@ context('Wallet - Balances - Skeleton Loader', () => {
   })
 })
 
-context('Wallet - Balances - Token Breakdown', () => {
+context('Wallet - Portfolio - Token Breakdown', () => {
   const sampleVault = [
     {
       vaultId: '8ad217890f454de73c5eb095dbe9d9870a62840978970a4a5f38978d430dcfe5',
@@ -1040,7 +1040,7 @@ context('Wallet - Balances - Token Breakdown', () => {
   })
 })
 
-context('Wallet - Balances - portfolio', () => {
+context('Wallet - Portfolio - portfolio', () => {
   beforeEach(function () {
     cy.intercept('**/poolpairs/dexprices?denomination=*', {
       body: getDexPrice({

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-context('Wallet - Balances - Announcements', () => {
+context('Wallet - Portfolio - Announcements', () => {
   const sampleAnnouncements = [{
     lang: {
       en: 'Guidelines',
@@ -109,7 +109,7 @@ context('Wallet - Balances - Announcements', () => {
   })
 })
 
-context('Wallet - Balances - Announcements - Blockchain warning messages', () => {
+context('Wallet - Portfolio - Announcements - Blockchain warning messages', () => {
   const sampleAnnouncements = [{
     lang: {
       en: 'Guidelines',
@@ -314,7 +314,7 @@ context('Wallet - Balances - Announcements - Blockchain warning messages', () =>
   })
 })
 
-context('Wallet - balances - Announcements - Outages and Maintenances', () => {
+context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
   const sampleAnnouncementsWithID = [{
     lang: {
       en: 'Guidelines',
