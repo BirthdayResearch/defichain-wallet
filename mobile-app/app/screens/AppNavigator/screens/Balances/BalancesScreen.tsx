@@ -259,31 +259,31 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
   const sortTokensAssetOnType = useCallback((assetSortType: BalancesSortType): BalanceRowToken[] => {
-    let sortedTokens: BalanceRowToken[]
+    let sortTokensFunc: (a: BalanceRowToken, b: BalanceRowToken) => number
     switch (assetSortType) {
       case (BalancesSortType.HighestDenominationValue):
-        sortedTokens = filteredTokens.sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
+        sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber()
         break
       case (BalancesSortType.LowestDenominationValue):
-        sortedTokens = filteredTokens.sort((a, b) => a.usdAmount.minus(b.usdAmount).toNumber())
+        sortTokensFunc = (a, b) => a.usdAmount.minus(b.usdAmount).toNumber()
         break
       case (BalancesSortType.HighestTokenAmount):
-        sortedTokens = filteredTokens.sort((a, b) => new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber())
+        sortTokensFunc = (a, b) => new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
         break
       case (BalancesSortType.LowestTokenAmount):
-        sortedTokens = filteredTokens.sort((a, b) => new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber())
+        sortTokensFunc = (a, b) => new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
         break
       case (BalancesSortType.AtoZ):
-        sortedTokens = filteredTokens.sort((a, b) => a.symbol.localeCompare(b.symbol))
+        sortTokensFunc = (a, b) => a.symbol.localeCompare(b.symbol)
         break
       case (BalancesSortType.ZtoA):
-        sortedTokens = filteredTokens.sort((a, b) => b.symbol.localeCompare(a.symbol))
+        sortTokensFunc = (a, b) => b.symbol.localeCompare(a.symbol)
         break
       default:
-        sortedTokens = filteredTokens.sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
+        sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber()
     }
 
-    return sortedTokens
+    return filteredTokens.sort(sortTokensFunc)
   }, [filteredTokens, assetSortType, denominationCurrency])
 
   useEffect(() => {
