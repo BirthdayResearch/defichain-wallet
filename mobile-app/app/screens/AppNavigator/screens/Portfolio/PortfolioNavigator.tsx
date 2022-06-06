@@ -11,7 +11,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { BalancesScreen } from './BalancesScreen'
+import { PortfolioScreen } from './PortfolioScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
 import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
@@ -35,8 +35,8 @@ import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 
-export interface BalanceParamList {
-  BalancesScreen: undefined
+export interface PortfolioParamList {
+  PortfolioScreen: undefined
   ReceiveScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
@@ -104,29 +104,29 @@ export interface ConversionParam {
   DFIToken: WalletToken
 }
 
-const BalanceStack = createStackNavigator<BalanceParamList>()
+const PortfolioStack = createStackNavigator<PortfolioParamList>()
 
-export function BalancesNavigator (): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+export function PortfolioNavigator (): JSX.Element {
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'balances_header_container'
   return (
-    <BalanceStack.Navigator
-      initialRouteName='BalancesScreen'
+    <PortfolioStack.Navigator
+      initialRouteName='PortfolioScreen'
       screenOptions={{
         headerTitleAlign: 'center'
       }}
     >
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={SettingsNavigator}
-        name={translate('BalancesNavigator', 'Settings')}
+        name={translate('PortfolioNavigator', 'Settings')}
         options={{
           headerShown: false
         }}
       />
 
-      <BalanceStack.Screen
-        component={BalancesScreen}
-        name='BalancesScreen'
+      <PortfolioStack.Screen
+        component={PortfolioScreen}
+        name='PortfolioScreen'
         options={{
           headerLeft: () => (
             <TouchableOpacity
@@ -145,7 +145,7 @@ export function BalancesNavigator (): JSX.Element {
           ),
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/BalancesScreen', 'Portfolio')}
+              text={translate('screens/PortfolioScreen', 'Portfolio')}
               containerTestID={headerContainerTestId}
             />
           ),
@@ -153,7 +153,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={ReceiveScreen}
         name='Receive'
         options={{
@@ -167,7 +167,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={AddressControlScreen}
         name='AddressControlScreen'
         options={{
@@ -182,7 +182,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={SendScreen}
         name='Send'
         options={{
@@ -196,7 +196,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
@@ -210,7 +210,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={TokenDetailScreen}
         name='TokenDetail'
         options={({ route }: { route: any }) => ({
@@ -237,7 +237,7 @@ export function BalancesNavigator (): JSX.Element {
         })}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={ConvertScreen}
         name='Convert'
         options={{
@@ -251,7 +251,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={ConvertConfirmationScreen}
         name='ConvertConfirmationScreen'
         options={{
@@ -265,7 +265,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={BarCodeScanner}
         name='BarCodeScanner'
         options={{
@@ -279,7 +279,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={TokensVsUtxoScreen}
         name='TokensVsUtxo'
         options={{
@@ -293,7 +293,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={NetworkDetails}
         name='NetworkDetails'
         options={{
@@ -303,7 +303,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={AboutScreen}
         name='AboutScreen'
         options={{
@@ -317,7 +317,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={CompositeSwapScreen}
         name='CompositeSwap'
         options={{
@@ -331,7 +331,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={ConfirmCompositeSwapScreen}
         name='ConfirmCompositeSwapScreen'
         options={{
@@ -345,7 +345,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
@@ -359,7 +359,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={AddOrEditAddressBookScreen}
         name='AddOrEditAddressBookScreen'
         options={{
@@ -373,7 +373,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={AddLiquidityScreen}
         name='AddLiquidity'
         options={{
@@ -387,7 +387,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
@@ -400,7 +400,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={WithdrawFutureSwapScreen}
         name='WithdrawFutureSwapScreen'
         options={{
@@ -414,7 +414,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
@@ -427,7 +427,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={FutureSwapScreen}
         name='FutureSwapScreen'
         options={{
@@ -441,7 +441,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={ConfirmWithdrawFutureSwapScreen}
         name='ConfirmWithdrawFutureSwapScreen'
         options={{
@@ -455,7 +455,7 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      <BalanceStack.Screen
+      <PortfolioStack.Screen
         component={RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
@@ -467,6 +467,6 @@ export function BalancesNavigator (): JSX.Element {
           )
         }}
       />
-    </BalanceStack.Navigator>
+    </PortfolioStack.Navigator>
   )
 }

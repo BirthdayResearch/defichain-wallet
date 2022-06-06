@@ -18,7 +18,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -26,7 +26,7 @@ import { InfoTextLink } from '@components/InfoTextLink'
 import { tokensSelector } from '@store/wallet'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
-type Props = StackScreenProps<BalanceParamList, 'ConvertScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
   unit: 'UTXO' | 'Token'
@@ -40,7 +40,7 @@ export function ConvertScreen (props: Props): JSX.Element {
   // global state
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [mode, setMode] = useState(props.route.params.mode)
   const [sourceToken, setSourceToken] = useState<ConversionIO>()
   const [targetToken, setTargetToken] = useState<ConversionIO>()

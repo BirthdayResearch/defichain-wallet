@@ -9,7 +9,7 @@ import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { NumberRow } from '@components/NumberRow'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { InfoRow, InfoType } from '@components/InfoRow'
@@ -23,11 +23,11 @@ import { useSelector } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 
-type Props = StackScreenProps<BalanceParamList, 'WithdrawFutureSwapScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'WithdrawFutureSwapScreen'>
 
 export function WithdrawFutureSwapScreen (props: Props): JSX.Element {
   const { futureSwap: { source, destination }, executionBlock } = props.route.params
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const client = useWhaleApiClient()
   const logger = useLogger()
   const { getTokenPrice } = useTokenPrice()

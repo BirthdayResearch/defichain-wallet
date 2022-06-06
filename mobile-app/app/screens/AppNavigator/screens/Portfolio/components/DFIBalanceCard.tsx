@@ -1,6 +1,6 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import { ImageBackground, TouchableOpacity } from 'react-native'
@@ -11,9 +11,9 @@ import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
-import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { TokenNameText } from '@screens/AppNavigator/screens/Portfolio/components/TokenNameText'
+import { TokenAmountText } from '@screens/AppNavigator/screens/Portfolio/components/TokenAmountText'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
 import BigNumber from 'bignumber.js'
@@ -28,7 +28,7 @@ interface DFIBalaceCardProps {
 }
 
 export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
@@ -191,7 +191,7 @@ function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, va
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
       >
-        {translate('screens/BalancesScreen', label)}
+        {translate('screens/PortfolioScreen', label)}
       </ThemedText>
       <NumberFormat
         value={value.isNaN() ? 0 : value.toFixed(2)}
@@ -213,7 +213,7 @@ function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, va
 }
 
 function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBreakdownPress: () => void, isBreakdownExpanded: boolean }): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
 
   return (
     <View style={tailwind('flex-row justify-between flex-1 items-center')}>

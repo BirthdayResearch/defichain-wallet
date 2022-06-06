@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NoTokensLight } from '../assets/NoTokensLight'
@@ -28,7 +28,7 @@ import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'AddressBookScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'AddressBookScreen'>
 
 export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { selectedAddress, onAddressSelect } = route.params

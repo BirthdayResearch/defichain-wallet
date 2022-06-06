@@ -4,8 +4,8 @@ import {
   ThemedIcon,
   ThemedText
 } from '@components/themed'
-import { BalanceParamList } from '../BalancesNavigator'
-import { BalanceRowToken } from '../BalancesScreen'
+import { PortfolioParamList } from '../PortfolioNavigator'
+import { BalanceRowToken } from '../PortfolioScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -14,8 +14,8 @@ import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
 import { EmptyBalances } from './EmptyBalances'
-import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components/TokenNameText'
-import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
+import { TokenNameText } from '@screens/AppNavigator/screens/Portfolio/components/TokenNameText'
+import { TokenAmountText } from '@screens/AppNavigator/screens/Portfolio/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
 import { TouchableOpacity } from 'react-native'
@@ -36,7 +36,7 @@ interface BalanceCardProps {
   isZeroBalance: boolean
   filteredTokens: BalanceRowToken[]
   dstTokens: BalanceRowToken[]
-  navigation: StackNavigationProp<BalanceParamList>
+  navigation: StackNavigationProp<PortfolioParamList>
   buttonGroupOptions?: {
     onButtonGroupPress: (key: ButtonGroupTabKey) => void
     activeButtonGroup: string
@@ -56,22 +56,22 @@ export function BalanceCard ({
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.AllTokens,
-      label: translate('screens/BalancesScreen', 'All tokens'),
+      label: translate('screens/PortfolioScreen', 'All tokens'),
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllTokens)
     },
     {
       id: ButtonGroupTabKey.LPTokens,
-      label: translate('screens/BalancesScreen', 'LP tokens'),
+      label: translate('screens/PortfolioScreen', 'LP tokens'),
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.LPTokens)
     },
     {
       id: ButtonGroupTabKey.Crypto,
-      label: translate('screens/BalancesScreen', 'Crypto'),
+      label: translate('screens/PortfolioScreen', 'Crypto'),
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.Crypto)
     },
     {
       id: ButtonGroupTabKey.dTokens,
-      label: translate('screens/BalancesScreen', 'dTokens'),
+      label: translate('screens/PortfolioScreen', 'dTokens'),
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     }
   ]
@@ -233,14 +233,14 @@ function SortTokens ({
         <ThemedText
           style={tailwind('text-xs text-gray-400 pr-1')}
         >
-          {translate('screens/BalancesScreen', 'YOUR ASSETS')}
+          {translate('screens/PortfolioScreen', 'YOUR ASSETS')}
         </ThemedText>
         <ThemedText
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs')}
         >
-          {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
+          {translate('screens/PortfolioScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
         </ThemedText>
         <ThemedIcon
           style={tailwind('ml-1 pt-px')}

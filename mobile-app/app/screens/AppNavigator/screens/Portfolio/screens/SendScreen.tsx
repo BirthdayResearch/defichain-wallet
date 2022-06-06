@@ -25,7 +25,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
@@ -43,7 +43,7 @@ import { LocalAddress } from '@store/userPreferences'
 import { debounce } from 'lodash'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'SendScreen'>
 
 export function SendScreen ({
   route,

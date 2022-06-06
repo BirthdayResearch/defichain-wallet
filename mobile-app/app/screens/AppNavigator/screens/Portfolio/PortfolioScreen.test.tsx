@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { RootState } from '@store'
 import { wallet, setTokenSymbol } from '@store/wallet'
 import { block } from '@store/block'
-import { BalancesScreen } from './BalancesScreen'
+import { PortfolioScreen } from './PortfolioScreen'
 import { loans } from '@store/loans'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { futureSwaps } from '@store/futureSwap'
@@ -47,12 +47,12 @@ jest.mock('@store/website', () => ({
   useGetStatusQuery: () => jest.fn()
 }))
 
-jest.mock('@screens/AppNavigator/screens/Balances/components/Announcements', () => {
+jest.mock('@screens/AppNavigator/screens/Portfolio/components/Announcements', () => {
   const Announcements = (): JSX.Element => (<></>)
   return { Announcements }
 })
 
-describe('balances page', () => {
+describe('portfolio page', () => {
   const tokens = [{
     id: '0',
     symbol: 'DFI',
@@ -195,7 +195,7 @@ describe('balances page', () => {
     const component = (
       <Provider store={store}>
         <WhaleProvider>
-          <BalancesScreen
+          <PortfolioScreen
             navigation={navigation}
             route={route}
           />
@@ -317,7 +317,7 @@ describe('balances page', () => {
     const component = (
       <Provider store={store}>
         <WhaleProvider>
-          <BalancesScreen
+          <PortfolioScreen
             navigation={navigation}
             route={route}
           />

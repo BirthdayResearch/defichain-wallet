@@ -11,7 +11,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { TextRow } from '@components/TextRow'
@@ -23,7 +23,7 @@ import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'ConvertConfirmationScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
 export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const {
@@ -39,7 +39,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const logger = useLogger()
 

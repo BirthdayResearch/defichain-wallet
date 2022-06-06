@@ -6,9 +6,9 @@ import { View } from '@components'
 import { TouchableOpacity } from 'react-native'
 import { translate } from '@translations'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
+import { RandomAvatar } from '@screens/AppNavigator/screens/Portfolio/components/RandomAvatar'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -19,7 +19,7 @@ import { loans } from '@store/loans'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function AddressControlScreen (): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: (): JSX.Element => (

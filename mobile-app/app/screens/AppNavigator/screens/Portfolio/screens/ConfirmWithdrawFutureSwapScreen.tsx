@@ -13,7 +13,7 @@ import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { StackScreenProps } from '@react-navigation/stack'
-import { BalanceParamList } from '../../Balances/BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
@@ -22,7 +22,7 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'ConfirmWithdrawFutureSwapScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'ConfirmWithdrawFutureSwapScreen'>
 
 export function ConfirmWithdrawFutureSwapScreen ({
   route,

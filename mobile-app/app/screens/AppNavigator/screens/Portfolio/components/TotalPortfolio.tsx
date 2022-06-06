@@ -59,7 +59,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             dark={tailwind('text-gray-400')}
             style={tailwind('text-sm text-gray-500')}
           >
-            {translate('screens/BalancesScreen', 'Total Portfolio Value')}
+            {translate('screens/PortfolioScreen', 'Total Portfolio Value')}
           </ThemedText>
           <View style={tailwind('px-2')}>
             <ThemedTouchableOpacity
@@ -166,7 +166,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               <USDValueRow
                 testId='total_available_usd_amount'
                 isLoading={!hasFetchedToken}
-                label={translate('screens/BalancesScreen', 'available')}
+                label={translate('screens/PortfolioScreen', 'available')}
                 value={props.totalAvailableValue}
                 isAddition
                 denominationCurrency={denominationCurrency}
@@ -175,7 +175,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             <USDValueRow
               testId='total_locked_usd_amount'
               isLoading={!hasFetchedVaultsData}
-              label={translate('screens/BalancesScreen', 'locked in vault(s)')}
+              label={translate('screens/PortfolioScreen', 'locked in vault(s)')}
               value={props.totalLockedValue}
               isAddition
               denominationCurrency={denominationCurrency}
@@ -185,7 +185,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 <USDValueRow
                   testId='outstanding_loans_amount'
                   isLoading={!hasFetchedVaultsData}
-                  label={translate('screens/BalancesScreen', 'loans')}
+                  label={translate('screens/PortfolioScreen', 'loans')}
                   value={props.totalLoansValue}
                   isAddition={false}
                   denominationCurrency={denominationCurrency}

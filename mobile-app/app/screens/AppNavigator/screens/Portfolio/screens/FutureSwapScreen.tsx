@@ -5,7 +5,7 @@ import { translate } from '@translations'
 import { useCallback, useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { batch, useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, FutureSwapSelector } from '@store/futureSwap'
@@ -20,7 +20,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'FutureSwapScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'FutureSwapScreen'>
 
 export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const isFocused = useIsFocused()

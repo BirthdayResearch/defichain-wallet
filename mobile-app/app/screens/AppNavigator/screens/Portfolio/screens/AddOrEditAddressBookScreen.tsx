@@ -16,9 +16,9 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 
-type Props = StackScreenProps<BalanceParamList, 'AddOrEditAddressBookScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'AddOrEditAddressBookScreen'>
 
 export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const {

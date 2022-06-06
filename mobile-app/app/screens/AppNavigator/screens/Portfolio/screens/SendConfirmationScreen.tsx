@@ -19,7 +19,7 @@ import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@st
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { ConversionTag } from '@components/ConversionTag'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { InfoRow, InfoType } from '@components/InfoRow'
@@ -30,7 +30,7 @@ import { Switch, View } from '@components'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
 
 export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const network = useNetworkContext()
@@ -47,7 +47,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)), 0).toFixed(8)
   const [isAcknowledge, setIsAcknowledge] = useState(false)

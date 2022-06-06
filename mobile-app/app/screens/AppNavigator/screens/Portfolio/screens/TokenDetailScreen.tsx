@@ -20,7 +20,7 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
-import { BalanceParamList } from '../BalancesNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -32,7 +32,7 @@ interface TokenActionItems {
   testID: string
 }
 
-type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'TokenDetailScreen'>
 
 const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token: WalletToken, swapTokenDisplaySymbol?: string } => {
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)

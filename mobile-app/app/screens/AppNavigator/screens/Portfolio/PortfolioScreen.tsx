@@ -12,9 +12,9 @@ import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { batch, useSelector } from 'react-redux'
-import { BalanceParamList } from './BalancesNavigator'
-import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
-import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
+import { PortfolioParamList } from './PortfolioNavigator'
+import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
+import { DFIBalanceCard } from '@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard'
 import { translate } from '@translations'
 import { Platform, RefreshControl, View } from 'react-native'
 import { RootState } from '@store'
@@ -37,13 +37,13 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
-type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
 export interface BalanceRowToken extends WalletToken {
   usdAmount: BigNumber
 }
 
-export function BalancesScreen ({ navigation }: Props): JSX.Element {
+export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const isFocused = useIsFocused()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
@@ -231,12 +231,12 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     },
     {
       id: PortfolioButtonGroupTabKey.DFI,
-      label: translate('screens/BalancesScreen', 'DFI'),
+      label: translate('screens/PortfolioScreen', 'DFI'),
       handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.DFI)
     },
     {
       id: PortfolioButtonGroupTabKey.BTC,
-      label: translate('screens/BalancesScreen', 'BTC'),
+      label: translate('screens/PortfolioScreen', 'BTC'),
       handleOnPress: () => onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.BTC)
     }
   ]
@@ -434,7 +434,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
 function BalanceActionSection ({
   navigation,
   isZeroBalance
-}: { navigation: StackNavigationProp<BalanceParamList>, isZeroBalance: boolean }): JSX.Element {
+}: { navigation: StackNavigationProp<PortfolioParamList>, isZeroBalance: boolean }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
@@ -445,7 +445,7 @@ function BalanceActionSection ({
 
 function FutureSwapCta ({
   navigation
-}: { navigation: StackNavigationProp<BalanceParamList> }): JSX.Element {
+}: { navigation: StackNavigationProp<PortfolioParamList> }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={() => navigation.navigate('FutureSwapScreen')}
@@ -467,7 +467,7 @@ function FutureSwapCta ({
           light={tailwind('text-gray-400')}
           dark={tailwind('text-gray-500')}
         >
-          {translate('screens/BalancesScreen', 'You have pending future swap(s)')}
+          {translate('screens/PortfolioScreen', 'You have pending future swap(s)')}
         </ThemedText>
       </View>
       <ThemedIcon
@@ -509,7 +509,7 @@ function BalanceActionButton ({
         light: tailwind('bg-gray-100'),
         dark: tailwind('bg-gray-800')
       }}
-      iconLabel={translate('screens/BalancesScreen', type)}
+      iconLabel={translate('screens/PortfolioScreen', type)}
       disabled={disabled}
     />
   )
