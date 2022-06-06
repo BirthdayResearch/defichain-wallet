@@ -8,7 +8,7 @@ import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, se
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Keyboard, Platform, TouchableOpacity } from 'react-native'
+import { Keyboard, Platform, TouchableOpacity, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BalanceParamList } from '../BalancesNavigator'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -446,8 +446,8 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                 {translate('screens/AddressBookScreen', 'Search with label or address')}
               </ThemedText>
             )
-: (
-  <SearchResultTextWithCounter searchString={searchString} length={filteredAddressBook.length + filteredWalletAddress.length} />
+            : (
+              <SearchResultTextWithCounter searchString={searchString} length={filteredAddressBook.length + filteredWalletAddress.length} />
             )}
         </View>
         {searchString.trim().length === 0 && favouriteAddress.length > 0 &&
@@ -455,45 +455,37 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
             <ThemedFlatList
               data={favouriteAddress}
               renderItem={({ item, index }) => AddressListItem({
-                item,
-                index,
-                testIDSuffix: 'favourite_address'
-})}
+              item,
+              index,
+              testIDSuffix: 'favourite_address'
+            })}
               ListHeaderComponent={() => (
                 <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRES(ES)')} />
-              )}
+            )}
             />
-          )}
+        )}
         {searchString.trim().length > 0 &&
           (
-            <View>
-              <ThemedFlatList
-                data={filteredAddressBook}
-                renderItem={({ item, index }) => AddressListItem({
-                  item,
-                  index,
-                  testIDSuffix: 'address_book'
-})}
-                ListHeaderComponent={() => (
-                  filteredAddressBook.length === 0
-                    ? <></>
-                    : <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'WHITELISTED')} />
-                )}
-              />
-              <ThemedFlatList
-                data={filteredWalletAddress}
-                renderItem={({ item, index }) => AddressListItem({
-                  item,
-                  index,
-                  testIDSuffix: 'wallet_address'
-})}
-                ListHeaderComponent={() => (
-                  filteredWalletAddress.length === 0
-                  ? <></>
-                  : <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRES(ES)')} />
-                )}
-              />
-            </View>
+            <ScrollView contentContainerStyle={tailwind('pb-8')}>
+              {filteredAddressBook.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'WHITELISTED')} />}
+              {filteredAddressBook.map((item: LocalAddress, index: number) => (
+                <AddressListItem
+                  item={item}
+                  key={index}
+                  index={index}
+                  testIDSuffix='address_book'
+                />)
+              )}
+              {filteredWalletAddress.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRES(ES)')} />}
+              {filteredWalletAddress.map((item: LocalAddress, index: number) => (
+                <AddressListItem
+                  item={item}
+                  key={index}
+                  index={index}
+                  testIDSuffix='wallet_address'
+                />)
+              )}
+            </ScrollView>
           )}
       </ThemedView>
     )
@@ -508,7 +500,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         item,
         index,
         testIDSuffix: `${activeButtonGroup}`
-})}
+      })}
       ListHeaderComponent={HeaderComponent} // Address counter
       ListEmptyComponent={activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 ? <EmptyDisplay onPress={goToAddAddressForm} /> : <></>}
     />
