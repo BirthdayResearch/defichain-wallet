@@ -98,6 +98,20 @@
     "AVAILABLE ASSETS": "可用资产",
     "Asset value": "资产价值"
   },
+  "screens/GetDFIScreen": {
+    "Get $DFI": "Get $DFI",
+    "STEP 1": "STEP 1",
+    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
+    "Available on:": "Available on:",
+    "Show more": "Show more",
+    "To learn more about DFI, ": "To learn more about DFI, ",
+    "read here.": "read here.",
+    "STEP 2": "STEP 2",
+    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
+    "DFI oracle price": "DFI oracle price",
+    "Show less": "Show less",
+    "Wallet Address": "Wallet Address"
+  },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
     "{{length}} ADDRESS(ES)": "{{length}} 地址",
@@ -153,6 +167,9 @@
     "COPY": "复制地址",
     "SHARE": "转发地址",
     "WALLET ADDRESS": "钱包地址"
+  },
+  "components/toaster": {
+    "Copied": "复制到剪贴板"
   },
   "screens/SendScreen": {
     "Send": "移出资金",
