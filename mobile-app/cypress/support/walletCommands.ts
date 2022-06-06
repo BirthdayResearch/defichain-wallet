@@ -1,6 +1,6 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import '@testing-library/cypress/add-commands'
-import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
+import { BalanceTokenDetail } from '../integration/functional/wallet/portfolio/portfolio.spec'
 import BigNumber from 'bignumber.js'
 
 export function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
