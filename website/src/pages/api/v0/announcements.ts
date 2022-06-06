@@ -11,6 +11,20 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([{
     lang: {
+      en: 'Stock Split: dAMZN will be locked on 6 June from 1030hrs to 1630hrs UTC',
+      de: 'Aktiensplit: dAMZN wird am 6. Juni von 10.30 Uhr bis 16.30 Uhr UTC gesperrt sein.',
+      'zh-Hans': '股票拆分： dMZN 将于 6 月 6 日 10:30 时至 1630 时 UTC 锁定',
+      'zh-Hant': '股票拆分： dMZN 將於 6 月 6 日 10:30 時至 1630 時 UTC 鎖定',
+      fr: 'Le fractionnement de l\'action : dAMZN sera bloqué le 6 juin de 10h30 à 16h30 UTC',
+      es: 'Division de acciones: dMZN será bloqueado el 6 de Junio desde las 10:30h hasta las 16:h UTC',
+      it: 'Stock Split: dAMZN will be locked on 6 June from 1030hrs to 1630hrs UTC'
+    },
+    version: '>=1.12.3',
+    id: '8',
+    type: 'OTHER_ANNOUNCEMENT'
+  },
+  {
+    lang: {
       en: 'Future Swap is now available!',
       de: 'Future Swap ist jetzt verfügbar!',
       'zh-Hans': '未来兑换功能现已推出！',
