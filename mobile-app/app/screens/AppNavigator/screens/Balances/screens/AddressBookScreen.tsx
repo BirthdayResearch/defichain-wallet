@@ -45,7 +45,6 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { network } = useNetworkContext()
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.Whitelisted)
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const userPreferencesFromStore = useSelector((state: RootState) => state.userPreferences)
   const addressBook: LocalAddress[] = useSelector((state: RootState) => selectAddressBookArray(state.userPreferences))
@@ -62,6 +61,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress()
   const [filteredAddressBook, setFilteredAddressBook] = useState<LocalAddress[]>(addressBook)
   const [filteredWalletAddress, setFilteredWalletAddress] = useState<LocalAddress[]>(walletAddress)
+
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.Whitelisted,
@@ -74,6 +74,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.YourAddress)
     }
   ]
+  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.Whitelisted)
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setActiveButtonGroup(buttonGroupTabKey)
@@ -88,6 +89,10 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
         const addresses: LocalAddress[] = []
         walletAddresses.forEach((address) => {
           const storedWalletAddress = walletAddressFromStore.find(a => a.address === address)
+          if (selectedAddress === address) {
+            // change tab if selected address is from your addresses
+            setActiveButtonGroup(ButtonGroupTabKey.YourAddress)
+          }
           if (storedWalletAddress === undefined) {
             addresses.push({
               address,
