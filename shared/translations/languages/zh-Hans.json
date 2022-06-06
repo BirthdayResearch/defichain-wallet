@@ -113,7 +113,7 @@
     "Your address(es)": "您的地址",
     "Search results for": "搜索结果",
     "Search with label or address": "使用标签或地址搜索",
-    "FAVOURITE ADDRES(ES)": "收藏地址"
+    "FAVOURITE ADDRESS(ES)": "收藏地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址标签",

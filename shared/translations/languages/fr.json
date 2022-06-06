@@ -113,7 +113,7 @@
     "Your address(es)": "Votre/vos adresse(s)",
     "Search results for": "Résultats de la recherche pour",
     "Search with label or address": "Recherche par nom ou d'adresse",
-    "FAVOURITE ADDRES(ES)": "Adresse(s) favorite(s)"
+    "FAVOURITE ADDRESS(ES)": "Adresse(s) favorite(s)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",

@@ -465,7 +465,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               testIDSuffix: 'favourite_address'
             })}
               ListHeaderComponent={() => (
-                <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRES(ES)')} />
+                <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRESS(ES)')} />
             )}
             />
         )}
