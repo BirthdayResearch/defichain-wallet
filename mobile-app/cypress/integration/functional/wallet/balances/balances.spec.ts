@@ -1,4 +1,7 @@
+import { WhaleApiClient } from '@defichain/whale-api-client'
 import { DexPricesResult } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
+import BigNumber from 'bignumber.js'
 import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 export interface BalanceTokenDetail {
@@ -435,6 +438,49 @@ context('Wallet - Balances - No balance', () => {
   it('should display empty portfolio to replace token list', function () {
     cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('exist')
+  })
+
+  it('should show get DFI', function () {
+    cy.getByTestID('get_DFI_btn').should('exist').click()
+    cy.url().should('include', 'app/GetDFIScreen')
+  })
+
+  it('should have only three exchange list initially on get DFI screen', function () {
+    cy.getByTestID('get_DFI_btn').should('exist').click()
+    cy.url().should('include', 'app/GetDFIScreen')
+    cy.getByTestID('exchange_0').should('exist')
+    cy.getByTestID('exchange_1').should('exist')
+    cy.getByTestID('exchange_2').should('exist')
+    cy.getByTestID('exchange_3').should('not.exist')
+  })
+
+  it('should be able to expand exchange list on get DFI screen', function () {
+    cy.getByTestID('get_DFI_btn').should('exist').click()
+    cy.url().should('include', 'app/GetDFIScreen')
+    cy.getByTestID('exchange_0').should('exist')
+    cy.getByTestID('exchange_1').should('exist')
+    cy.getByTestID('exchange_2').should('exist')
+    cy.getByTestID('exchange_3').should('not.exist')
+    cy.getByTestID('show_more').should('exist').click()
+    cy.getByTestID('exchange_3').should('exist')
+    cy.getByTestID('exchange_4').should('exist')
+  })
+
+  it('should get DFI oracle price on get DFI screen', function () {
+    cy.getByTestID('get_DFI_btn').should('exist').click()
+    cy.url().should('include', 'app/GetDFIScreen')
+    cy.wait(3000)
+    const network = localStorage.getItem('Development.NETWORK')
+    const whale: WhaleApiClient = new WhaleApiClient({
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
+      network: 'regtest',
+      version: 'v0'
+    })
+    cy.wrap(whale.prices.get('DFI', 'USD')).then((response: PriceTicker) => {
+      cy.getByTestID('dfi_oracle_price').invoke('text').then(function (price: string) {
+        expect(price).to.equal(`$${new BigNumber(response.price.aggregated.amount).toFixed(2)}`)
+      })
+    })
   })
 })
 
