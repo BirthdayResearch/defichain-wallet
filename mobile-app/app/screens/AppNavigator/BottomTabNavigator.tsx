@@ -3,14 +3,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { OceanInterface } from '@components/OceanInterface/OceanInterface'
-import { BalancesNavigator } from './screens/Balances/BalancesNavigator'
+import { PortfolioNavigator } from './screens/Portfolio/PortfolioNavigator'
 import { DexNavigator } from './screens/Dex/DexNavigator'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { TransactionsNavigator } from './screens/Transactions/TransactionsNavigator'
 import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
 
 export interface BottomTabParamList {
-  Balances: undefined
+  Portfolio: undefined
   Dex: undefined
   Transactions: undefined
   Settings: undefined
@@ -26,7 +26,7 @@ export function BottomTabNavigator (): JSX.Element {
       <OceanInterface />
 
       <BottomTab.Navigator
-        initialRouteName='Balances'
+        initialRouteName='Portfolio'
         screenOptions={{
           headerShown: false,
           tabBarLabelPosition: 'below-icon',
@@ -34,7 +34,7 @@ export function BottomTabNavigator (): JSX.Element {
         }}
       >
         <BottomTab.Screen
-          component={BalancesNavigator}
+          component={PortfolioNavigator}
           name={translate('BottomTabNavigator', 'Balances')}
           options={{
             tabBarLabel: translate('BottomTabNavigator', 'Portfolio'),
@@ -115,9 +115,9 @@ export function BottomTabNavigator (): JSX.Element {
 }
 
 export const AppLinking = {
-  Balances: {
+  Portfolio: {
     screens: {
-      BalancesScreen: 'balances'
+      PortfolioScreen: 'portfolio'
     }
   },
   Dex: {
