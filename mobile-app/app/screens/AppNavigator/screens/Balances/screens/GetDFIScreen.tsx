@@ -223,7 +223,7 @@ function StepTwo (): JSX.Element {
         style={tailwind('flex flex-row justify-center items-center mt-3')}
       >
         <ThemedView
-          style={tailwind('w-4/12 p-3 rounded-lg')}
+          style={tailwind('w-4/12 p-3 rounded-lg justify-center items-center')}
           testID='qr_code_container'
           dark={tailwind('bg-gray-800')}
           light={tailwind('bg-white')}
