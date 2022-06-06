@@ -65,7 +65,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流動池裡兌換貨幣",
     "You have full control over your tokens unlike any other.": "您能完全掌控貨幣"
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "我的資產",
     "Portfolio": "資產組合",
     "SEND": "發出",

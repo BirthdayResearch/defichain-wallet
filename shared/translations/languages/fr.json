@@ -65,7 +65,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Échanger commodément les tokens participants au sein du pool de liquidité.",
     "You have full control over your tokens unlike any other.": "Vous avez un contrôle total sur vos tokens, contrairement à ce qui se passe ailleurs."
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "Soldes",
     "Portfolio": "Portfolio",
     "SEND": "ENVOYER",
