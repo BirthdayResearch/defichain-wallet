@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle, View, ViewProps, Text } from 'react-native'
+import { StyleProp, TextStyle, View, ViewProps, Text, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
@@ -18,6 +18,7 @@ interface NumberRowProps extends ThemedProps {
   textStyle?: StyleProp<TextStyle>
   lhsThemedProps?: ThemedProps // TODO: change lhs to type NumberRowElement, move themedprops into NumberRowElement
   rhsThemedProps?: ThemedProps
+  lhsStyle?: StyleProp<ViewStyle>
   isOraclePrice?: boolean
 }
 
@@ -38,7 +39,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       light={props.light ?? tailwind('bg-white border-b border-gray-200')}
       style={props.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-6/12')}>
+      <View style={props.lhsStyle ?? tailwind('w-6/12')}>
         <View style={tailwind('flex-row items-end justify-start')}>
           <ThemedText
             style={[tailwind('text-sm'), props.textStyle]}
@@ -56,62 +57,63 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
       </View>
 
       <View style={tailwind('flex-1')}>
-        <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
-          <NumberFormat
-            decimalScale={8}
-            displayType='text'
-            prefix={props.rhs.prefix}
-            renderText={(val: string) => (
-              <Text style={rhsStyle}>
-                <ThemedText
-                  dark={tailwind('text-gray-400')}
-                  light={tailwind('text-gray-500')}
-                  style={rhsStyle}
-                  testID={props.rhs.testID}
-                  {...props.rhsThemedProps}
-                >
-                  {val}
-                </ThemedText>
-                {
-                  props.rhs.suffixType === 'text' &&
-                    <>
-                      <Text>{' '}</Text>
-                      <ThemedText
-                        light={tailwind('text-gray-500')}
-                        dark={tailwind('text-gray-400')}
-                        style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
-                        testID={`${props.rhs.testID}_suffix`}
-                        {...props.rhsThemedProps}
-                      >
-                        {props.rhs.suffix}
-                      </ThemedText>
-                    </>
-                }
-              </Text>
-            )}
-            thousandSeparator
-            value={props.rhs.value}
-          />
-
-          {
-            props.rhs.suffixType === 'component' &&
-            (props.children)
-          }
-          <View style={tailwind('flex flex-row items-center')}>
-            {
-              props.rhsUsdAmount !== undefined &&
-                <ActiveUSDValue
-                  price={props.rhsUsdAmount}
-                  containerStyle={tailwind('justify-end')}
-                  testId={`${props.rhs.testID}_rhsUsdAmount`}
-                />
-            }
-            {
-              props.isOraclePrice === true && (
-                <IconTooltip />
-              )
-            }
+        <View>
+          <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
+            <NumberFormat
+              decimalScale={8}
+              displayType='text'
+              prefix={props.rhs.prefix}
+              renderText={(val: string) => (
+                <Text style={rhsStyle}>
+                  <ThemedText
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={rhsStyle}
+                    testID={props.rhs.testID}
+                    {...props.rhsThemedProps}
+                  >
+                    {val}
+                  </ThemedText>
+                  {
+                    props.rhs.suffixType === 'text' &&
+                      <>
+                        <Text>{' '}</Text>
+                        <ThemedText
+                          light={tailwind('text-gray-500')}
+                          dark={tailwind('text-gray-400')}
+                          style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
+                          testID={`${props.rhs.testID}_suffix`}
+                          {...props.rhsThemedProps}
+                        >
+                          {props.rhs.suffix}
+                        </ThemedText>
+                      </>
+                  }
+                </Text>
+              )}
+              thousandSeparator
+              value={props.rhs.value}
+            />
           </View>
+        </View>
+        {
+          props.rhs.suffixType === 'component' &&
+          (props.children)
+        }
+        <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
+          {
+            props.rhsUsdAmount !== undefined &&
+              <ActiveUSDValue
+                price={props.rhsUsdAmount}
+                containerStyle={tailwind('justify-end')}
+                testId={`${props.rhs.testID}_rhsUsdAmount`}
+              />
+          }
+          {
+            props.isOraclePrice === true && (
+              <IconTooltip />
+            )
+          }
         </View>
       </View>
     </ThemedView>
