@@ -953,7 +953,7 @@ context('Wallet - Portfolio - Your Assets - All tokens tab', function () {
   })
 })
 
-context('Wallet - Balances - Your Assets - DFI currency - Sorting function  - All tokens tab', function () {
+context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -976,7 +976,7 @@ function interceptTokensForSorting (data: {}): void {
     }
   })
 }
-context('Wallet - Balances - Your Assets - DFI currency - Sorting function  - LP tokens tab', function () {
+context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - LP tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -994,7 +994,7 @@ context('Wallet - Balances - Your Assets - DFI currency - Sorting function  - LP
   })
 })
 
-context('Wallet - Balances - Your Assets - DFI currency - Sorting function - Crypto tab', function () {
+context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - Crypto tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -1012,7 +1012,7 @@ context('Wallet - Balances - Your Assets - DFI currency - Sorting function - Cry
   })
 })
 
-context('Wallet - Balances - Your Assets - DFI currency - Sorting function - dTokens tab', function () {
+context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - dTokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -1030,7 +1030,7 @@ context('Wallet - Balances - Your Assets - DFI currency - Sorting function - dTo
   })
 })
 
-context('Wallet - Balances - Your Assets - BTC currency - Sorting function  - All tokens tab ', function () {
+context('Wallet - Portfolio - Your Assets - BTC currency - Sorting function  - All tokens tab ', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
