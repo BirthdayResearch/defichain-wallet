@@ -46,7 +46,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
-import { PriceRateProps } from '@components/PricesSection'
+import { PriceRateProps, PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
@@ -354,21 +354,19 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
-        label: translate('components/PricesSection', '{{tokenA}} price in {{tokenB}}', {
-          tokenA: selectedTokenA.displaySymbol,
-          tokenB: selectedTokenB.displaySymbol
-        }),
-        value: aToBPrice.toFixed(8),
-        aSymbol: selectedTokenA.displaySymbol,
-        bSymbol: selectedTokenB.displaySymbol
-      }, {
-        label: translate('components/PricesSection', '{{tokenB}} price in {{tokenA}}', {
-          tokenA: selectedTokenA.displaySymbol,
-          tokenB: selectedTokenB.displaySymbol
+        label: translate('components/PricesSection', '1 {{token}}', {
+          token: selectedTokenB.displaySymbol
         }),
         value: bToAPrice.toFixed(8),
         aSymbol: selectedTokenB.displaySymbol,
         bSymbol: selectedTokenA.displaySymbol
+      }, {
+        label: translate('components/PricesSection', '1 {{token}}', {
+          token: selectedTokenA.displaySymbol
+        }),
+        value: aToBPrice.toFixed(8),
+        aSymbol: selectedTokenA.displaySymbol,
+        bSymbol: selectedTokenB.displaySymbol
       }
       ])
 
@@ -598,6 +596,18 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
         {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
           <>
+            {!isFutureSwap &&
+              <ThemedView
+                style={tailwind('rounded-t-lg mx-4 py-2')}
+                dark={tailwind('bg-gray-800 border-b border-gray-700')}
+                light={tailwind('bg-white border-b border-gray-200')}
+              >
+                <PricesSection
+                  testID='pricerate_value'
+                  priceRates={priceRates}
+                  isCompact
+                />
+              </ThemedView>}
             <TransactionDetailsSection
               isFutureSwap={isFutureSwap}
               conversionAmount={conversionAmount}
@@ -606,7 +616,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               isConversionRequired={isConversionRequired}
               tokenA={selectedTokenA}
               tokenB={selectedTokenB}
-              priceRate={priceRates[1]}
               executionBlock={executionBlock}
               timeRemaining={timeRemaining}
               transactionDate={transactionDate}
@@ -743,7 +752,6 @@ function TransactionDetailsSection ({
   isConversionRequired,
   tokenA,
   tokenB,
-  priceRate,
   executionBlock,
   timeRemaining,
   transactionDate,
@@ -756,7 +764,6 @@ function TransactionDetailsSection ({
   isConversionRequired: boolean
   tokenA: OwnedTokenState
   tokenB: TokenState
-  priceRate: PriceRateProps
   executionBlock: number
   timeRemaining: string
   transactionDate: string
@@ -764,8 +771,23 @@ function TransactionDetailsSection ({
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   const { getTokenPrice } = useTokenPrice()
+  const rowStyle = {
+    lhsThemedProps: {
+      light: tailwind('text-gray-500'),
+      dark: tailwind('text-gray-400')
+    },
+    rhsThemedProps: {
+      light: tailwind('text-gray-900'),
+      dark: tailwind('text-gray-50')
+    }
+  }
+
   return (
-    <View style={tailwind('rounded-lg mx-4 overflow-hidden')}>
+    <View style={tailwind('mx-4 overflow-hidden', {
+      'rounded-b-lg': !isFutureSwap,
+      'rounded-lg': isFutureSwap
+    })}
+    >
       {isConversionRequired &&
         <NumberRow
           lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
@@ -775,37 +797,25 @@ function TransactionDetailsSection ({
             suffixType: 'text',
             suffix: tokenA.displaySymbol
           }}
+          lhsThemedProps={rowStyle.lhsThemedProps}
+          rhsThemedProps={rowStyle.rhsThemedProps}
         />}
 
       {!isFutureSwap
         ? (
-          <>
-            <NumberRow
-              lhs={translate('screens/CompositeSwapScreen', 'Price ({{tokenB}}/{{tokenA}})', {
-                  tokenB: tokenB.displaySymbol,
-                  tokenA: tokenA.displaySymbol
-                }
-              )}
-              rhs={{
-                value: new BigNumber(priceRate.value).toFixed(8),
-                suffixType: 'text',
-                suffix: tokenB.displaySymbol,
-                testID: 'price_rate_B_per_A'
-              }}
-              textStyle={tailwind('text-sm font-normal')}
-            />
-            <NumberRow
-              lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-              rhs={{
-                value: estimatedAmount,
-                suffixType: 'text',
-                suffix: tokenB.displaySymbol,
-                testID: 'estimated_to_receive'
-              }}
-              textStyle={tailwind('text-sm font-normal')}
-              rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-            />
-          </>
+          <NumberRow
+            lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+            rhs={{
+              value: estimatedAmount,
+              suffixType: 'text',
+              suffix: tokenB.displaySymbol,
+              testID: 'estimated_to_receive'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+            rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
+            lhsThemedProps={rowStyle.lhsThemedProps}
+            rhsThemedProps={rowStyle.rhsThemedProps}
+          />
         )
         : (
           <>
@@ -828,14 +838,26 @@ function TransactionDetailsSection ({
                   />
                 </TouchableOpacity>
               }
+              lhsThemedProps={rowStyle.lhsThemedProps}
+              rhsThemedProps={rowStyle.rhsThemedProps}
             />
             <TextRow
-              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive')}
+              lhs={{
+                value: translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive'),
+                themedProps: rowStyle.lhsThemedProps,
+                testID: 'estimated_to_receive'
+              }}
               rhs={{
                 value: translate('screens/CompositeSwapScreen', `Oracle price ${oraclePriceText}`),
+                themedProps: rowStyle.rhsThemedProps,
                 testID: 'estimated_to_receive'
               }}
               textStyle={tailwind('text-sm font-normal')}
+              containerStyle={{
+                dark: tailwind('bg-gray-800 border-b border-gray-700'),
+                light: tailwind('bg-white border-b border-gray-200'),
+                style: tailwind('p-4 flex-row items-start w-full')
+              }}
             />
           </>
         )}
@@ -844,6 +866,8 @@ function TransactionDetailsSection ({
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
+        lhsThemedProps={rowStyle.lhsThemedProps}
+        rhsThemedProps={rowStyle.rhsThemedProps}
       />
     </View>
   )
@@ -863,6 +887,8 @@ function TimeRemainingTextRow ({
         <View style={tailwind('flex-row items-end justify-start')}>
           <ThemedText
             style={tailwind('text-sm')}
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
             testID='time_remaining_label'
           >
             {translate('screens/CompositeSwapScreen', 'Est. time remaining')}
@@ -872,8 +898,8 @@ function TimeRemainingTextRow ({
       <View style={tailwind('flex flex-col justify-end flex-1')}>
         <ThemedText
           style={tailwind('text-sm text-right')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
+          light={tailwind('text-gray-900')}
+          dark={tailwind('text-gray-50')}
           testID='time_remaining'
         >
           {`≈${timeRemaining}`}
