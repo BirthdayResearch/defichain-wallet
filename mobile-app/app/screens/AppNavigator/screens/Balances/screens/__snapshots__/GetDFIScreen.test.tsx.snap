@@ -613,10 +613,12 @@ Array [
             style={
               Array [
                 Object {
+                  "alignItems": "center",
                   "borderBottomLeftRadius": 8,
                   "borderBottomRightRadius": 8,
                   "borderTopLeftRadius": 8,
                   "borderTopRightRadius": 8,
+                  "justifyContent": "center",
                   "paddingBottom": 12,
                   "paddingLeft": 12,
                   "paddingRight": 12,
