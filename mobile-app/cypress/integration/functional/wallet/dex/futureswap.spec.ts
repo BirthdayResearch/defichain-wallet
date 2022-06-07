@@ -121,7 +121,7 @@ context('Wallet - DEX - Future Swap', () => {
   })
 })
 
-context('Wallet - Balances -> Pending Future Swap Display', () => {
+context('Wallet - Portfolio -> Pending Future Swap Display', () => {
   beforeEach(() => {
     cy.intercept({
       pathname: '**/rpc'

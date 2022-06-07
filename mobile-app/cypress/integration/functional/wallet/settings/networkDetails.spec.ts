@@ -181,7 +181,7 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
     cy.createEmptyWallet(true)
   })
 
-  it('should get back to the balances page when network detail called from balances page', function () {
+  it('should get back to the portfolio page when network detail called from portfolio page', function () {
     cy.getByTestID('bottom_tab_balances').click().wait(3000)
     cy.url().should('include', 'app/balances')
     cy.getByTestID('balances_header_container').filter(':visible').click().wait(3000)
