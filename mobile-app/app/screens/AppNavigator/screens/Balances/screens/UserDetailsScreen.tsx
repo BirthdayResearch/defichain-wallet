@@ -30,6 +30,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { KycData } from '@shared-api/dfx/models/KycData'
 import { AccountType } from '@shared-api/dfx/models/User'
+import { DFXPersistence } from '@api/persistence/dfx_storage'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
 
@@ -132,7 +133,10 @@ export function UserDetailsScreen ({
     setIsLoading(true)
     setloadingText('SENDING')
     putKycData((_data))
-      .then((x) => console.log(x))
+      .then((x) => {
+        console.log(x)
+        void (async () => await DFXPersistence.setUserInfoComplete())()
+      })
       .catch((er) => console.log('ERROR', er))
   }
 
