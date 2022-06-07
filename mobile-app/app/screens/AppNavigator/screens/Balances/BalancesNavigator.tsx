@@ -25,7 +25,7 @@ import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
-import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
@@ -66,7 +66,7 @@ export interface BalanceParamList {
   }
   AddOrEditAddressBookScreen: {
     title: string
-    onSaveButtonPress: (labelAddress: LabeledAddress, address?: string) => void
+    onSaveButtonPress: (address?: string) => void
     addressLabel?: LocalAddress
     address?: string
     isAddNew: boolean
@@ -364,12 +364,6 @@ export function BalancesNavigator (): JSX.Element {
         component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/AddressBookScreen', 'Address Book')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
           headerBackTitleVisible: false
         }}
       />
