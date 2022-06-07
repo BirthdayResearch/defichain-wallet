@@ -27,8 +27,9 @@ import { InfoText } from '@components/InfoText'
 import { DexParamList } from '../DexNavigator'
 import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
 import { WalletAddressRow } from '@components/WalletAddressRow'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
+import { PricesSection } from '@components/PricesSection'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
@@ -225,17 +226,11 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
                 suffixType: 'text'
               }}
             />
-            {priceRates.length > 0 &&
-              <NumberRow
-                lhs={translate('screens/CompositeSwapScreen', `Price (${tokenB.displaySymbol}/${tokenA.displaySymbol})`)}
-                rhs={{
-                  value: new BigNumber(priceRates[1].value).toFixed(8),
-                  suffixType: 'text',
-                  suffix: tokenB.displaySymbol,
-                  testID: 'price_rate_B_per_A'
-                }}
-                textStyle={tailwind('text-sm font-normal')}
-              />}
+            <PricesSection
+              testID='confirm_pricerate_value'
+              priceRates={priceRates}
+              sectionTitle='PRICES'
+            />
           </>
         )}
       {isFutureSwap

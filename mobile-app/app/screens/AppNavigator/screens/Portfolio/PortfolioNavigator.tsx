@@ -25,7 +25,7 @@ import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
-import { LabeledAddress, LocalAddress } from '@store/userPreferences'
+import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
@@ -34,6 +34,7 @@ import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
+import { GetDFIScreen } from './screens/GetDFIScreen'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -65,7 +66,7 @@ export interface PortfolioParamList {
   }
   AddOrEditAddressBookScreen: {
     title: string
-    onSaveButtonPress: (labelAddress: LabeledAddress, address?: string) => void
+    onSaveButtonPress: (address?: string) => void
     addressLabel?: LocalAddress
     address?: string
     isAddNew: boolean
@@ -178,6 +179,20 @@ export function PortfolioNavigator (): JSX.Element {
             />
           ),
           headerRightContainerStyle: tailwind('px-2 py-2'),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={GetDFIScreen}
+        name='GetDFIScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/GetDFIScreen', 'Get $DFI')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -349,12 +364,6 @@ export function PortfolioNavigator (): JSX.Element {
         component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/AddressBookScreen', 'Address Book')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
           headerBackTitleVisible: false
         }}
       />

@@ -399,6 +399,63 @@ exports[`AuctionDetails should match snapshot 1`] = `
           }
         }
       >
+        <View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  undefined,
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        undefined,
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="text_liquidation_height"
+              >
+                2,570
+              </Text>
+            </Text>
+          </View>
+        </View>
         <View
           style={
             Object {
@@ -409,60 +466,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
               "justifyContent": "flex-end",
             }
           }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      undefined,
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="text_liquidation_height"
-            >
-              2,570
-            </Text>
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
-          />
-        </View>
+        />
       </View>
     </View>
     <Text
@@ -575,6 +579,63 @@ exports[`AuctionDetails should match snapshot 1`] = `
           }
         }
       >
+        <View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  undefined,
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        undefined,
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="text_collateral_value"
+              >
+                $40,000.00
+              </Text>
+            </Text>
+          </View>
+        </View>
         <View
           style={
             Object {
@@ -585,60 +646,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
               "justifyContent": "flex-end",
             }
           }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      undefined,
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="text_collateral_value"
-            >
-              $40,000.00
-            </Text>
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
-          />
-        </View>
+        />
       </View>
     </View>
     <View
@@ -718,6 +726,95 @@ exports[`AuctionDetails should match snapshot 1`] = `
           }
         }
       >
+        <View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  undefined,
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        undefined,
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="text_min_starting_bid"
+              >
+                5,265.83339660
+              </Text>
+              <Text>
+                 
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "marginLeft": 4,
+                        },
+                        undefined,
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="text_min_starting_bid_suffix"
+              >
+                DUSD
+              </Text>
+            </Text>
+          </View>
+        </View>
         <View
           style={
             Object {
@@ -728,92 +825,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
               "justifyContent": "flex-end",
             }
           }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      undefined,
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="text_min_starting_bid"
-            >
-              5,265.83339660
-            </Text>
-            <Text>
-               
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginLeft": 4,
-                      },
-                      undefined,
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="text_min_starting_bid_suffix"
-            >
-              DUSD
-            </Text>
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
-          />
-        </View>
+        />
       </View>
     </View>
     <View

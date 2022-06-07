@@ -26,7 +26,6 @@ export interface CreateOrEditAddressLabelFormProps {
   isAddressBook: boolean
   address?: string
   addressLabel?: LocalAddress
-  index: number
   onSaveButtonPress: (labelAddress: LabeledAddress) => void
 }
 
@@ -39,7 +38,6 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     isAddressBook,
     address,
     addressLabel,
-    index,
     onSaveButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
@@ -96,6 +94,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     }
     onSaveButtonPress({
       [address]: {
+        address,
         label: labelInput.trim(),
         isMine: true
       }
@@ -121,6 +120,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       onAuthenticated: async () => {
         onSaveButtonPress({
           [addressInput]: {
+            address: addressInput,
             label: labelInput.trim(),
             isMine: false
           }
@@ -201,7 +201,6 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
             </ThemedText>
             <AddressInput
               addressInput={addressInput}
-              index={index}
               setAddressInput={setAddressInput}
               validateAddressInput={validateAddressInput}
               addressInputErrorMessage={addressInputErrorMessage}
@@ -239,11 +238,10 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
 
 function AddressInput ({
   addressInput,
-  index,
   setAddressInput,
   validateAddressInput,
   addressInputErrorMessage
-}: { addressInput?: string, index: number, setAddressInput: (val?: string) => void, validateAddressInput: (val: string) => boolean, addressInputErrorMessage: string }): JSX.Element {
+}: { addressInput?: string, setAddressInput: (val?: string) => void, validateAddressInput: (val: string) => boolean, addressInputErrorMessage: string }): JSX.Element {
   return (
     <WalletTextInput
       value={addressInput}

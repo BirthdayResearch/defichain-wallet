@@ -39,7 +39,7 @@ export function ReceiveScreen (): JSX.Element {
 
   useEffect(() => {
     if (showToast) {
-      toast.show('Copied', {
+      toast.show(translate('components/toaster', 'Copied'), {
         type: 'wallet_toast',
         placement: 'top',
         duration: TOAST_DURATION

@@ -15,12 +15,14 @@ describe('Wallet Address Row', () => {
       userPreferences: {
         addresses: {
           foo: {
+            address: 'foo',
             label: 'foo',
             isMine: true
           }
         },
         addressBook: {
           bar: {
+            address: 'bar',
             label: 'bar',
             isMine: false
           }

@@ -21,7 +21,7 @@ export function EmptyBalances (props: EmptyBalancesProps): JSX.Element {
         {isLight ? <NoTokensLight /> : <NoTokensDark />}
       </View>
       <ThemedText testID='empty_tokens_title' style={tailwind('text-lg pb-1 font-semibold text-center')}>
-        {translate('components/EmptyBalances', `No ${props.type} in portfolio`)}
+        {translate('components/EmptyPortfolio', `No ${props.type} in portfolio`)}
       </ThemedText>
     </ThemedView>
   )

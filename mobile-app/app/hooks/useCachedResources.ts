@@ -38,6 +38,7 @@ async function loadResourcesAndDataAsync (): Promise<void> {
     })
   } catch (e) {
     // TODO(@defich/wallet): We might want to provide this error information to an error reporting service
+    // eslint-disable-next-line
     console.warn(e)
   }
 }

@@ -87,7 +87,30 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*La valeur totale du portfolio exclut désormais le montant du prêt basé sur le prix oracle.",
     "loans": "empruntés",
     "You have pending future swap(s)": "Vous avez un ou plusieurs échanges à terme en attente",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "Cette icône indique que le prix est fourni par des oracles au lieu du DEX"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Cette icône indique que le prix est fourni par des oracles au lieu du DEX",
+    "Sort assets by": "Trier les actifs par",
+    "Highest {{modifiedDenominationCurrency}} value": "Valeur en {{modifiedDenominationCurrency}} la plus élevée",
+    "Lowest {{modifiedDenominationCurrency}} value": "Valeur en {{modifiedDenominationCurrency}} la plus basse",
+    "Highest token amount": "Montant de tokens le plus élevé",
+    "Lowest token amount": "Montant de tokens le plus faible",
+    "A to Z": "A à Z",
+    "Z to A": "Z à A",
+    "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
+    "Asset value": "Valeur des actifs"
+  },
+  "screens/GetDFIScreen": {
+    "Get $DFI": "Obtenir $DFI",
+    "STEP 1": "ÉTAPE 1",
+    "Trade/Purchase $DFI": "Échanger/acheter $DFI",
+    "Available on:": "Disponible sur",
+    "Show more": "Afficher plus",
+    "To learn more about DFI, ": "Pour en savoir plus sur DFI, ",
+    "read here.": "lire ici.",
+    "STEP 2": "ÉTAPE 2",
+    "Receive $DFI in Light Wallet": "Recevoir des $DFI dans le portefeuille léger",
+    "DFI oracle price": "Prix oracle de DFI",
+    "Show less": "Afficher moins",
+    "Wallet Address": "Adresse du portefeuille"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -107,7 +130,13 @@
     "Add address": "Ajouter une adresse",
     "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)",
     "Search for address": "Rechercher une adresse",
-    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)"
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
+    "Search Address book": "Recherche dans le carnet d'adresses",
+    "Whitelisted": "Liste blanche",
+    "Your address(es)": "Votre/vos adresse(s)",
+    "Search results for": "Résultats de la recherche pour",
+    "Search with label or address": "Recherche par nom ou d'adresse",
+    "FAVOURITE ADDRESS(ES)": "Adresse(s) favorite(s)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
@@ -154,6 +183,9 @@
     "COPY": "COPIER",
     "SHARE": "PARTAGER",
     "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE"
+  },
+  "components/toaster": {
+    "Copied": "Copié"
   },
   "screens/SendScreen": {
     "Send": "Envoyer",
@@ -1072,12 +1104,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "Adresse du portefeuille"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "Aucun token de pool de liquidité (PL) dans le portfolio",
     "No Crypto in portfolio": "Aucune crypto dans le portfolio",
-    "No dTokens in portfolio": "Aucun dToken dans le portfolio"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "Aucun dToken dans le portfolio",
     "Empty portfolio": "Portfolio vide",
     "Add your DFI and other tokens to get started": "Ajoutez vos DFI et autres tokens pour démarrer"
   },

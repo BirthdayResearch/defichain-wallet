@@ -4,21 +4,25 @@ exports[`Search Input should match snapshot 1`] = `
 <View
   style={
     Array [
-      Object {
-        "alignItems": "center",
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
-        "display": "flex",
-        "flexBasis": "0%",
-        "flexDirection": "row",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingTop": 4,
-      },
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderTopLeftRadius": 8,
+          "borderTopRightRadius": 8,
+          "display": "flex",
+          "flexDirection": "row",
+          "paddingBottom": 4,
+          "paddingLeft": 8,
+          "paddingTop": 4,
+        },
+        Object {
+          "flexBasis": "0%",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+      ],
       Object {
         "backgroundColor": "rgba(245, 245, 245, 1)",
       },
@@ -31,11 +35,14 @@ exports[`Search Input should match snapshot 1`] = `
     showClearButton={true}
     style={
       Array [
-        Object {
-          "flexGrow": 1,
-          "height": 32,
-          "width": "66.666667%",
-        },
+        Array [
+          Object {
+            "flexGrow": 1,
+            "height": 32,
+            "width": "66.666667%",
+          },
+          Object {},
+        ],
         Object {
           "color": "rgba(64, 64, 64, 1)",
         },

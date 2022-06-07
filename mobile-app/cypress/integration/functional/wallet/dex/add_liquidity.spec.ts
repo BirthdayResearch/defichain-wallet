@@ -36,12 +36,12 @@ function setupWalletForConversion (): void {
 }
 
 function validatePriceSection (testID: string): void {
-  cy.getByTestID(`${testID}_0`).contains('1 dBTC = 1.00000000')
-  cy.getByTestID(`${testID}_0_label`).contains('dBTC price in DFI')
+  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_0_label`).contains('1 dBTC')
   cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
 
-  cy.getByTestID(`${testID}_1`).contains('1 DFI = 1.00000000')
-  cy.getByTestID(`${testID}_1_label`).contains('DFI price in dBTC')
+  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_1_label`).contains('1 DFI')
   cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dBTC')
 }
 
@@ -55,10 +55,12 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
 
-    validatePriceSection('pricerate_value')
-
     cy.getByTestID('share_of_pool').contains('1.00000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
+  })
+
+  it('should display price rates', function () {
+    validatePriceSection('pricerate_value')
   })
 
   it('should update both token and build summary when click on half amount button', function () {
@@ -67,10 +69,12 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
 
-    validatePriceSection('pricerate_value')
-
     cy.getByTestID('share_of_pool').contains('0.50000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
+  })
+
+  it('should display price rates on confirmation', function () {
+    validatePriceSection('pricerate_value')
   })
 
   it('should update both token and build summary base on primary token input', function () {
