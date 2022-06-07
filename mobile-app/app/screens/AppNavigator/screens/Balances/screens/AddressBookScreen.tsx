@@ -481,7 +481,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   testIDSuffix='address_book'
                 />)
               )}
-              {filteredWalletAddress.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRES(ES)')} />}
+              {filteredWalletAddress.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRESS(ES)')} />}
               {filteredWalletAddress.map((item: LocalAddress, index: number) => (
                 <AddressListItem
                   item={item}

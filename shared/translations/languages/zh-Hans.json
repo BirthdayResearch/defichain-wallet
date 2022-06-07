@@ -99,18 +99,18 @@
     "Asset value": "资产价值"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Get $DFI",
-    "STEP 1": "STEP 1",
-    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
-    "Available on:": "Available on:",
-    "Show more": "Show more",
-    "To learn more about DFI, ": "To learn more about DFI, ",
-    "read here.": "read here.",
-    "STEP 2": "STEP 2",
-    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
-    "DFI oracle price": "DFI oracle price",
-    "Show less": "Show less",
-    "Wallet Address": "Wallet Address"
+    "Get $DFI": "获取 $DFI",
+    "STEP 1": "步骤 1",
+    "Trade/Purchase $DFI": "交易/购买 $DFI",
+    "Available on:": "适用于：",
+    "Show more": "显示更多",
+    "To learn more about DFI, ": "要了解有关 DFI 的更多信息，",
+    "read here.": "在这里阅读。",
+    "STEP 2": "步骤 2",
+    "Receive $DFI in Light Wallet": "在轻钱包中接收 $DFI",
+    "DFI oracle price": "DFI 预言机价格",
+    "Show less": "显示较少",
+    "Wallet Address": "钱包地址"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -134,6 +134,8 @@
     "Search Address book": "搜索地址簿",
     "Whitelisted": "白名单",
     "Your address(es)": "您的地址",
+    "WHITELISTED": "白名单",
+    "YOUR ADDRESS(ES)": "您的地址",
     "Search results for": "搜索结果",
     "Search with label or address": "使用标签或地址搜索",
     "FAVOURITE ADDRESS(ES)": "收藏地址"
