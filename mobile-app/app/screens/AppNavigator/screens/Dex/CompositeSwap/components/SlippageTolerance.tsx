@@ -178,17 +178,23 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
 }
 
 function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => void, isActive: boolean, label: string, icon?: ReactElement }): JSX.Element {
-  const buttonStyles = 'flex flex-row px-2 py-1.5 border rounded items-center'
-  const activeStyle = 'bg-primary-50 border-primary-100 text-primary-500'
+  const buttonStyles = 'flex flex-row px-2 py-1.5 rounded items-center'
+  const activeStyle = 'text-primary-500'
   return (
     <View style={tailwind('mr-1.5 mt-2')}>
       <ThemedTouchableOpacity
         key={label}
         onPress={onPress}
-        light={tailwind('border-gray-300')}
-        dark={tailwind('border-gray-600')}
         style={tailwind(`${buttonStyles} ${isActive ? activeStyle : ''} `)}
         testID={`slippage_${label}`}
+        light={tailwind({
+          'bg-primary-50': isActive,
+          'bg-gray-50': !isActive
+        })}
+        dark={tailwind({
+          'bg-darkprimary-50': isActive,
+          'bg-gray-900': !isActive
+        })}
       >
         {icon}
         <ThemedText

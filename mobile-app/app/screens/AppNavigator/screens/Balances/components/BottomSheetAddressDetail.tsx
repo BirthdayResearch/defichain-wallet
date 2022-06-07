@@ -83,7 +83,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   useEffect(() => {
     if (showToast) {
       Clipboard.setString(props.address)
-      toast.show('Copied', {
+      toast.show(translate('components/toaster', 'Copied'), {
         type: 'wallet_toast',
         placement: 'top',
         duration: TOAST_DURATION
@@ -94,6 +94,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   }, [showToast, props.address])
 
   // Getting addresses
+  // TODO: replace with useWalletAddress hook
   const fetchAddresses = async (): Promise<void> => {
     const addresses: string[] = []
     for (let i = 0; i <= addressLength; i++) {

@@ -90,7 +90,30 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*El Valor total del portafolio ahora excluye la cantidad del préstamo basada en el precio del oráculo",
     "loans": "Préstamos",
     "You have pending future swap(s)": "You have pending future swap(s)",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "Este icono indica que el precio ha sido proporcionado por los oráculos y no por el DEX"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Este icono indica que el precio ha sido proporcionado por los oráculos y no por el DEX",
+    "Sort assets by": "Ordenar activos por",
+    "Highest {{modifiedDenominationCurrency}} value": "Valor {{modifiedDenominationCurrency}} mayor",
+    "Lowest {{modifiedDenominationCurrency}} value": "Valor {{modifiedDenominationCurrency}} menor",
+    "Highest token amount": "Cantidad token más alta",
+    "Lowest token amount": "Cantidad token más baja",
+    "A to Z": "A a Z",
+    "Z to A": "Z a A",
+    "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
+    "Asset value": "Valor del activo"
+  },
+  "screens/GetDFIScreen": {
+    "Get $DFI": "Get $DFI",
+    "STEP 1": "STEP 1",
+    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
+    "Available on:": "Available on:",
+    "Show more": "Show more",
+    "To learn more about DFI, ": "To learn more about DFI, ",
+    "read here.": "read here.",
+    "STEP 2": "STEP 2",
+    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
+    "DFI oracle price": "DFI oracle price",
+    "Show less": "Show less",
+    "Wallet Address": "Wallet Address"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
@@ -114,7 +137,13 @@
     "Add address": "Añadir dirección",
     "SAVED ADDRESS(ES)": "DIRECCION(ES) GUARDADAS",
     "Search for address": "Buscar dirección",
-    "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)"
+    "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",
+    "Search Address book": "Search Address book",
+    "Whitelisted": "Whitelisted",
+    "Your address(es)": "Your address(es)",
+    "Search results for": "Search results for",
+    "Search with label or address": "Search with label or address",
+    "FAVOURITE ADDRESS(ES)": "FAVOURITE ADDRESS(ES)"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Edita el nombre de la dirección",
@@ -153,6 +182,9 @@
     "COPY": "COPIAR",
     "SHARE": "COMPARTIR",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA"
+  },
+  "components/toaster": {
+    "Copied": "Copiado"
   },
   "screens/SendScreen": {
     "Send": "Enviar",

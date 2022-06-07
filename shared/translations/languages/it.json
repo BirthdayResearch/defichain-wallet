@@ -92,7 +92,30 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Il valore totale del portafoglio non include l'importo del prestito basato sul prezzo dell'oracolo.",
     "loans": "prestiti",
     "You have pending future swap(s)": "C'è uno o più future swap in sospeso",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "Questa icona indica che il prezzo è fornito dall'oracolo invece che dal DEX"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Questa icona indica che il prezzo è fornito dall'oracolo invece che dal DEX",
+    "Sort assets by": "Ordina gli asset per",
+    "Highest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più alto",
+    "Lowest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più basso",
+    "Highest token amount": "Importo del token più alto",
+    "Lowest token amount": "Importo del token più basso",
+    "A to Z": "Da A a Z",
+    "Z to A": "Da Z a A",
+    "AVAILABLE ASSETS": "ASSET DISPONIBILI",
+    "Asset value": "Valore degli asset"
+  },
+  "screens/GetDFIScreen": {
+    "Get $DFI": "Get $DFI",
+    "STEP 1": "STEP 1",
+    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
+    "Available on:": "Available on:",
+    "Show more": "Show more",
+    "To learn more about DFI, ": "To learn more about DFI, ",
+    "read here.": "read here.",
+    "STEP 2": "STEP 2",
+    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
+    "DFI oracle price": "DFI oracle price",
+    "Show less": "Show less",
+    "Wallet Address": "Wallet Address"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREA INDIRIZZO DEL WALLET",
@@ -116,7 +139,13 @@
     "Add address": "Aggiungi indirizzo",
     "SAVED ADDRESS(ES)": "INDIRIZZI SALVAT",
     "Search for address": "Cerca un indirizzo",
-    "{{length}} ADDRESS(ES)": "{{length}} INDIRIZZI"
+    "{{length}} ADDRESS(ES)": "{{length}} INDIRIZZI",
+    "Search Address book": "Ricerca nella rubrica",
+    "Whitelisted": "In lista bianca",
+    "Your address(es)": "I tuoi indirizzi",
+    "Search results for": "Ricerca i risultati per",
+    "Search with label or address": "Ricerca con etichetta o dell'indirizzo",
+    "FAVOURITE ADDRESS(ES)": "Indirizzi preferiti"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifica l'etichetta dell'indirizzo",
@@ -155,6 +184,9 @@
     "COPY": "COPIA",
     "SHARE": "CONDIVIDI",
     "WALLET ADDRESS": "INDIRIZZO WALLET"
+  },
+  "components/toaster": {
+    "Copied": "Copiato"
   },
   "screens/SendScreen": {
     "Send": "Invia",

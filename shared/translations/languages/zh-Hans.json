@@ -87,7 +87,30 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*总资产组合价值已撇除以预言机价格计算的贷款金额",
     "loans": "贷款",
     "You have pending future swap(s)": "You have pending future swap(s)",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "这个图标显示的价格是由预言机产生而不是 DEX 提供的"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "这个图标显示的价格是由预言机产生而不是 DEX 提供的",
+    "Sort assets by": "按资产进行排序",
+    "Highest {{modifiedDenominationCurrency}} value": "最高{{modifiedDenominationCurrency}}价值",
+    "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}价值",
+    "Highest token amount": "最高代币数量",
+    "Lowest token amount": "最低代币数量",
+    "A to Z": "A 到 Z",
+    "Z to A": "Z 到 A",
+    "AVAILABLE ASSETS": "可用资产",
+    "Asset value": "资产价值"
+  },
+  "screens/GetDFIScreen": {
+    "Get $DFI": "Get $DFI",
+    "STEP 1": "STEP 1",
+    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
+    "Available on:": "Available on:",
+    "Show more": "Show more",
+    "To learn more about DFI, ": "To learn more about DFI, ",
+    "read here.": "read here.",
+    "STEP 2": "STEP 2",
+    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
+    "DFI oracle price": "DFI oracle price",
+    "Show less": "Show less",
+    "Wallet Address": "Wallet Address"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
@@ -107,7 +130,13 @@
     "Add address": "添加地址",
     "SAVED ADDRESS(ES)": "已储存地址",
     "Search for address": "搜索地址",
-    "{{length}} ADDRESS(ES)": "{{length}} 地址"
+    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "Search Address book": "搜索地址簿",
+    "Whitelisted": "白名单",
+    "Your address(es)": "您的地址",
+    "Search results for": "搜索结果",
+    "Search with label or address": "使用标签或地址搜索",
+    "FAVOURITE ADDRESS(ES)": "收藏地址"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址标签",
@@ -144,6 +173,9 @@
     "COPY": "复制地址",
     "SHARE": "转发地址",
     "WALLET ADDRESS": "钱包地址"
+  },
+  "components/toaster": {
+    "Copied": "复制到剪贴板"
   },
   "screens/SendScreen": {
     "Send": "移出资金",
