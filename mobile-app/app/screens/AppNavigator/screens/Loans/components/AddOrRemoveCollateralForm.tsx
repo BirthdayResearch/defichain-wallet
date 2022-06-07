@@ -425,7 +425,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           style={tailwind('text-sm text-center')}
           testID='vault_min_share_warning'
         >
-          {translate('screens/BorrowLoanTokenScreen', 'Removing collateral will liquidate your vault')}
+          {translate('screens/BorrowLoanTokenScreen', 'Removing collateral will result in vault liquidation')}
         </ThemedText>
       )}
       {isValidCollateralRatio && hasLoan && maxLoanValue.isNegative() && (
@@ -435,7 +435,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
           style={tailwind('text-sm text-center')}
           testID='vault_min_share_warning'
         >
-          {translate('screens/BorrowLoanTokenScreen', 'At least 50% of the minimum required collateral must be in DFI or DUSD')}
+          {translate('screens/BorrowLoanTokenScreen', 'At least 50% of the minimum required collateral in vault must be in DFI and/or DUSD')}
         </ThemedText>
       )}
       <ThemedText
