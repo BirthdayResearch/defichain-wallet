@@ -92,7 +92,16 @@
     "*Total Portfolio Value now excludes loan amount based on the oracle price.": "*Il valore totale del portafoglio non include l'importo del prestito basato sul prezzo dell'oracolo.",
     "loans": "prestiti",
     "You have pending future swap(s)": "C'è uno o più future swap in sospeso",
-    "This icon indicates that the price is provided by Oracles instead of the DEX": "Questa icona indica che il prezzo è fornito dall'oracolo invece che dal DEX"
+    "This icon indicates that the price is provided by Oracles instead of the DEX": "Questa icona indica che il prezzo è fornito dall'oracolo invece che dal DEX",
+    "Sort assets by": "Ordina gli asset per",
+    "Highest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più alto",
+    "Lowest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più basso",
+    "Highest token amount": "Importo del token più alto",
+    "Lowest token amount": "Importo del token più basso",
+    "A to Z": "Da A a Z",
+    "Z to A": "Da Z a A",
+    "AVAILABLE ASSETS": "ASSET DISPONIBILI",
+    "Asset value": "Valore degli asset"
   },
   "screens/GetDFIScreen": {
     "Get $DFI": "Get $DFI",
