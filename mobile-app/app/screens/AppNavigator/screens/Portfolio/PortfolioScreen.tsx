@@ -389,7 +389,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         {!hasFetchedToken
           ? (
             <View style={tailwind('p-4')}>
-              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Balance} />
+              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
             </View>
           )
           : (<BalanceCard
