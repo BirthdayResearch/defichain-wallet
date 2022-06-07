@@ -287,10 +287,10 @@ const PoolCard = ({
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
     >
       <View
-        style={tailwind('flex flex-row justify-between w-full')}
+        style={tailwind('flex flex-row justify-between')}
         testID={`pool_pair_row_${index}_${symbol}`}
       >
-        <View style={tailwind('flex-row items-center')}>
+        <View style={tailwind('max-w-3/4 flex-row items-center')}>
           <PoolPairTextSection
             symbolA={symbolA}
             symbolB={symbolB}
@@ -315,21 +315,23 @@ const PoolCard = ({
             </TouchableOpacity>
           )}
         </View>
-        {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
-          <APRSection
-            label={`${translate('screens/DexScreen', 'APR')}: `}
-            value={{
-              text: new BigNumber(
-                isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
-              )
-                .times(100)
-                .toFixed(2),
-              decimalScale: 2,
-              testID: `apr_${symbol}`,
-              suffix: '%'
-            }}
-          />
-        )}
+        <View style={tailwind('max-w-1/4')}>
+          {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
+            <APRSection
+              label={`${translate('screens/DexScreen', 'APR')}: `}
+              value={{
+                text: new BigNumber(
+                  isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
+                )
+                  .times(100)
+                  .toFixed(2),
+                decimalScale: 2,
+                testID: `apr_${symbol}`,
+                suffix: '%'
+              }}
+            />
+          )}
+        </View>
       </View>
       {type === 'available'
         ? (
