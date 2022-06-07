@@ -35,22 +35,13 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
-import { BottomSheetAssetSortList } from './components/BottomSheetAssetSortList'
+import { BalancesSortType, BottomSheetAssetSortList } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
 
 export interface BalanceRowToken extends WalletToken {
   usdAmount: BigNumber
-}
-
-export enum BalancesSortType {
-  HighestDenominationValue = 'Highest denomination value',
-  LowestDenominationValue = 'Lowest denomination value',
-  HighestTokenAmount = 'Highest token amount',
-  LowestTokenAmount = 'Lowest token amount',
-  AtoZ = 'A to Z',
-  ZtoA = 'Z to A'
 }
 
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
