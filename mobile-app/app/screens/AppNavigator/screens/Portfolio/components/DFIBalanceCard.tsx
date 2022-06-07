@@ -265,7 +265,7 @@ function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBrea
 }
 
 function GetDFIBtn (): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   return (
     <ThemedView
       light={tailwind('bg-primary-50')}
