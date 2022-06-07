@@ -16,7 +16,7 @@ import { BalanceParamList } from './BalancesNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Balances/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Balances/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, View } from 'react-native'
+import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
@@ -35,6 +35,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
+import { BottomSheetAssetSortList } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'BalancesScreen'>
@@ -43,7 +44,17 @@ export interface BalanceRowToken extends WalletToken {
   usdAmount: BigNumber
 }
 
+export enum BalancesSortType {
+  HighestDenominationValue = 'Highest denomination value',
+  LowestDenominationValue = 'Lowest denomination value',
+  HighestTokenAmount = 'Highest token amount',
+  LowestTokenAmount = 'Lowest token amount',
+  AtoZ = 'A to Z',
+  ZtoA = 'Z to A'
+}
+
 export function BalancesScreen ({ navigation }: Props): JSX.Element {
+  const { isLight } = useThemeContext()
   const isFocused = useIsFocused()
   const height = useBottomTabBarHeight()
   const client = useWhaleApiClient()
@@ -102,7 +113,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
       ),
       headerRight: (): JSX.Element => (
         <View style={tailwind('mr-2')}>
-          <AddressSelectionButton address={address} addressLength={addressLength} onPress={expandModal} hasCount />
+          <AddressSelectionButton address={address} addressLength={addressLength} onPress={() => expandModal(false)} hasCount />
         </View>
       )
     })
@@ -145,17 +156,15 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch])
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  // TODO: Check if this is needed for recalculation with change of denominationCurrency
-  // const prices = useSelector((state: RootState) => dexPricesSelectorByDenomination(state.wallet, denominationCurrency))
   const {
     totalAvailableValue,
     dstTokens
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableValue,
-          dstTokens
-        }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
+        totalAvailableValue,
+        dstTokens
+      }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -176,9 +185,9 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-        totalAvailableValue: new BigNumber(0),
-        dstTokens: []
-      })
+      totalAvailableValue: new BigNumber(0),
+      dstTokens: []
+    })
   }, [prices, tokens])
 
   // add token that are 100% locked as collateral into dstTokens
@@ -217,6 +226,8 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     return [...dstTokens, ...lockedTokensArray]
   }, [dstTokens, allTokens, lockedTokens])
 
+  const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
+
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setDenominationCurrency(portfolioButtonGroupTabKey)
@@ -241,8 +252,57 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
   ]
 
+  // Asset sort bottom sheet list
+  const [assetSortType, setAssetSortType] = useState<BalancesSortType>(BalancesSortType.HighestDenominationValue) // to display selected sorted type text
+  const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon
+  const [hideIcon, setHideIcon] = useState(false)
+  const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
+  const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
+  const sortTokensAssetOnType = useCallback((assetSortType: BalancesSortType): BalanceRowToken[] => {
+    let sortTokensFunc: (a: BalanceRowToken, b: BalanceRowToken) => number
+    switch (assetSortType) {
+      case (BalancesSortType.HighestDenominationValue):
+        sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber()
+        break
+      case (BalancesSortType.LowestDenominationValue):
+        sortTokensFunc = (a, b) => a.usdAmount.minus(b.usdAmount).toNumber()
+        break
+      case (BalancesSortType.HighestTokenAmount):
+        sortTokensFunc = (a, b) => new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
+        break
+      case (BalancesSortType.LowestTokenAmount):
+        sortTokensFunc = (a, b) => new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
+        break
+      case (BalancesSortType.AtoZ):
+        sortTokensFunc = (a, b) => a.symbol.localeCompare(b.symbol)
+        break
+      case (BalancesSortType.ZtoA):
+        sortTokensFunc = (a, b) => b.symbol.localeCompare(a.symbol)
+        break
+      default:
+        sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber()
+    }
+
+    return filteredTokens.sort(sortTokensFunc)
+  }, [filteredTokens, assetSortType, denominationCurrency])
+
+  useEffect(() => {
+    setAssetSortType(BalancesSortType.HighestDenominationValue) // reset sorting state upon denominationCurrency change
+  }, [denominationCurrency])
+
+  // conditions to display sort icons
+  useEffect(() => {
+    if (assetSortType.includes('Lowest')) {
+      setIsSorted(true)
+    } else if (assetSortType.includes('A to Z') || assetSortType.includes('Z to A')) {
+      setHideIcon(true)
+    } else {
+      setIsSorted(false)
+      setHideIcon(false)
+    }
+  }, [assetSortType])
+
   // token tab items
-  const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filterTokens = combinedTokens.filter((token) => {
@@ -267,7 +327,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -296,30 +356,65 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
     )
   }, [tokens])
 
+  const assetSortBottomSheetScreen = useMemo(() => {
+    return [
+      {
+        stackScreenName: 'AssetSortList',
+        component: BottomSheetAssetSortList({
+          headerLabel: translate('screens/BalancesScreen', 'Sort assets by'),
+          onCloseButtonPress: () => {
+            setShowAssetSortBottomSheet(false)
+            dismissModal(true)
+          },
+          onButtonPress: (item: BalancesSortType) => {
+            setAssetSortType(item)
+            sortTokensAssetOnType(item)
+            setShowAssetSortBottomSheet(false)
+            dismissModal(true)
+          },
+          modifiedDenominationCurrency,
+          selectedAssetSortType: assetSortType
+        }),
+        option: {
+          headerStatusBarHeight: 1,
+          headerBackgroundContainerStyle: tailwind('border-b', {
+            'border-gray-200': isLight,
+            'border-gray-700': !isLight,
+            '-top-5': Platform.OS !== 'web'
+          }),
+          header: () => null,
+          headerBackTitleVisible: false
+        }
+      }
+    ]
+  }, [modifiedDenominationCurrency, assetSortType])
+
   // Address selection bottom sheet
-  const { isLight } = useThemeContext()
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
+  const bottomSheetSortRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const modalSnapPoints = {
-    ios: ['75%'],
-    android: ['75%']
-  }
-  const expandModal = useCallback(() => {
+  const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
+  const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
     } else {
-      bottomSheetRef.current?.present()
+      isSortBottomSheet
+        ? bottomSheetSortRef.current?.present()
+        : bottomSheetRef.current?.present()
     }
   }, [])
-  const dismissModal = useCallback(() => {
+  const dismissModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(false)
     } else {
-      bottomSheetRef.current?.close()
+      isSortBottomSheet
+        ? bottomSheetSortRef.current?.close()
+        : bottomSheetRef.current?.close()
     }
   }, [])
-  const bottomSheetScreen = useMemo(() => {
+
+  const addressBottomSheetScreen = useMemo(() => {
     return [
       {
         stackScreenName: 'AddressDetail',
@@ -327,10 +422,10 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           address: address,
           addressLabel: 'TODO: get label from storage api',
           onReceiveButtonPress: () => {
-            dismissModal()
+            dismissModal(false)
             navigation.navigate('Receive')
           },
-          onCloseButtonPress: () => dismissModal(),
+          onCloseButtonPress: () => dismissModal(false),
           navigateToScreen: {
             screenName: 'CreateOrEditAddressLabelForm'
           }
@@ -385,6 +480,17 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
         />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
+        {/* to show bottom sheet for asset sort */}
+        <AssetSortRow
+          assetSortType={assetSortType}
+          onPress={() => {
+            setShowAssetSortBottomSheet(true)
+            expandModal(true)
+          }}
+          isSorted={isSorted}
+          hideIcon={hideIcon}
+          modifiedDenominationCurrency={modifiedDenominationCurrency}
+        />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken
           ? (
@@ -395,7 +501,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           : (<BalanceCard
               isZeroBalance={isZeroBalance}
               dstTokens={combinedTokens}
-              filteredTokens={filteredTokens}
+              filteredTokens={sortTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{
               activeButtonGroup: activeButtonGroup,
@@ -408,7 +514,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
           ? (
             <BottomSheetWebWithNav
               modalRef={containerRef}
-              screenList={bottomSheetScreen}
+              screenList={showAssetSortBottomSheet ? assetSortBottomSheetScreen : addressBottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
               modalStyle={{
                 position: 'absolute',
@@ -420,11 +526,18 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
             />
           )
           : (
-            <BottomSheetWithNav
-              modalRef={bottomSheetRef}
-              screenList={bottomSheetScreen}
-              snapPoints={modalSnapPoints}
-            />
+            <>
+              <BottomSheetWithNav
+                modalRef={bottomSheetSortRef}
+                screenList={assetSortBottomSheetScreen}
+                snapPoints={modalSnapPoints}
+              />
+              <BottomSheetWithNav
+                modalRef={bottomSheetRef}
+                screenList={addressBottomSheetScreen}
+                snapPoints={modalSnapPoints}
+              />
+            </>
           )}
       </ThemedScrollView>
     </View>
@@ -512,5 +625,63 @@ function BalanceActionButton ({
       iconLabel={translate('screens/BalancesScreen', type)}
       disabled={disabled}
     />
+  )
+}
+
+function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: BalancesSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
+  const highestCurrencyValue = translate('screens/BalancesScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const lowestCurrencyValue = translate('screens/BalancesScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const getDisplayedSortText = useCallback((text: BalancesSortType): string => {
+    if (text === BalancesSortType.HighestDenominationValue) {
+      return highestCurrencyValue
+    } else if (text === BalancesSortType.LowestDenominationValue) {
+      return lowestCurrencyValue
+    }
+    return text
+  }, [props.modifiedDenominationCurrency])
+
+  return (
+    <View
+      style={tailwind('px-4 flex flex-row justify-between pt-5')}
+      testID='toggle_sorting_assets'
+    >
+      <ThemedText
+        style={tailwind('text-xs text-gray-400 pr-1')}
+        light={tailwind('text-gray-500')}
+        dark={tailwind('text-gray-400')}
+      >
+        {translate('screens/BalancesScreen', 'AVAILABLE ASSETS')}
+      </ThemedText>
+      <TouchableOpacity
+        style={tailwind('flex flex-row items-center')}
+        onPress={props.onPress}
+        testID='your_assets_dropdown_arrow'
+      >
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+          style={tailwind('text-xs font-medium')}
+        >
+          {translate('screens/BalancesScreen', getDisplayedSortText(props.assetSortType))}
+        </ThemedText>
+        {!props.hideIcon && (
+          <ThemedIcon
+            style={tailwind('ml-1 font-medium')}
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            iconType='MaterialCommunityIcons'
+            name={!props.isSorted ? 'sort-variant' : 'sort-reverse-variant'}
+            size={16}
+          />
+        )}
+        <ThemedIcon
+          light={tailwind('text-primary-500')}
+          dark={tailwind('text-darkprimary-500')}
+          iconType='MaterialIcons'
+          name='arrow-drop-down'
+          size={16}
+        />
+      </TouchableOpacity>
+    </View>
   )
 }
