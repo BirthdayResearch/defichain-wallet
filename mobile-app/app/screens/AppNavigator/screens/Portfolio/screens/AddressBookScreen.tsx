@@ -185,7 +185,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       headerTitle: (): JSX.Element => (
         <SearchInput
           value={searchString}
-          placeholder={translate('screens/AddressBookScreen', 'Search Address book')}
+          placeholder={translate('screens/AddressBookScreen', 'Search address book')}
           showClearButton={searchString !== ''}
           onClearInput={() => setSearchString('')}
           onChangeText={(text: string) => {
@@ -481,7 +481,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
                   testIDSuffix='address_book'
                 />)
               )}
-              {filteredWalletAddress.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRES(ES)')} />}
+              {filteredWalletAddress.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRESS(ES)')} />}
               {filteredWalletAddress.map((item: LocalAddress, index: number) => (
                 <AddressListItem
                   item={item}
