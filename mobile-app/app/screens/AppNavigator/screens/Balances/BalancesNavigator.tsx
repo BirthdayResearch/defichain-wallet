@@ -364,7 +364,10 @@ export function BalancesNavigator (): JSX.Element {
         component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <></>
+          )
         }}
       />
 

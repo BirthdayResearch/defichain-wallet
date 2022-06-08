@@ -102,18 +102,18 @@
     "Asset value": "Valor del activo"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Get $DFI",
-    "STEP 1": "STEP 1",
-    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
-    "Available on:": "Available on:",
-    "Show more": "Show more",
-    "To learn more about DFI, ": "To learn more about DFI, ",
-    "read here.": "read here.",
-    "STEP 2": "STEP 2",
-    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
-    "DFI oracle price": "DFI oracle price",
-    "Show less": "Show less",
-    "Wallet Address": "Wallet Address"
+    "Get $DFI": "Obtener $DFI",
+    "STEP 1": "PASO 1",
+    "Trade/Purchase $DFI": "Comercia/Compra $DFI",
+    "Available on:": "Disponible en:",
+    "Show more": "Mostrar más",
+    "To learn more about DFI, ": "Para aprender mas sobre DFI, ",
+    "read here.": "Leer aquí.",
+    "STEP 2": "PASO 2",
+    "Receive $DFI in Light Wallet": "Recibe $DFI en la Light Wallet",
+    "DFI oracle price": "Precio del oráculo de DFI",
+    "Show less": "Mostrar menos",
+    "Wallet Address": "Dirección de la billetera"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
@@ -138,12 +138,14 @@
     "SAVED ADDRESS(ES)": "DIRECCION(ES) GUARDADAS",
     "Search for address": "Buscar dirección",
     "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",
-    "Search Address book": "Search Address book",
-    "Whitelisted": "Whitelisted",
-    "Your address(es)": "Your address(es)",
-    "Search results for": "Search results for",
-    "Search with label or address": "Search with label or address",
-    "FAVOURITE ADDRESS(ES)": "FAVOURITE ADDRESS(ES)"
+    "Search address book": "Adressbuch durchsuchen",
+    "Whitelisted": "Whitelist",
+    "Your address(es)": "Deine Adresse(n)",
+    "WHITELISTED": "WHITELIST",
+    "YOUR ADDRESS(ES)": "DEINE ADRESSE(N)",
+    "Search results for": "Suchergebnisse für",
+    "Search with label or address": "Suche nach Bezeichnung oder Adress",
+    "FAVOURITE ADDRESS(ES)": "Favoriten"
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Edita el nombre de la dirección",

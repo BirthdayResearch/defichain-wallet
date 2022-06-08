@@ -140,9 +140,11 @@
     "SAVED ADDRESS(ES)": "INDIRIZZI SALVAT",
     "Search for address": "Cerca un indirizzo",
     "{{length}} ADDRESS(ES)": "{{length}} INDIRIZZI",
-    "Search Address book": "Ricerca nella rubrica",
+    "Search address book": "Ricerca nella rubrica",
     "Whitelisted": "In lista bianca",
     "Your address(es)": "I tuoi indirizzi",
+    "WHITELISTED": "IN LISTA BIANCA",
+    "YOUR ADDRESS(ES)": "I TUOI INDIRIZZI",
     "Search results for": "Ricerca i risultati per",
     "Search with label or address": "Ricerca con etichetta o dell'indirizzo",
     "FAVOURITE ADDRESS(ES)": "Indirizzi preferiti"
