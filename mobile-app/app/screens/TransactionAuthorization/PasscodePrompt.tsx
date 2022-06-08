@@ -50,8 +50,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           iconType='MaterialIcons'
           name='close'
           size={26}
-        />
-      </ThemedTouchableOpacity>
+        /></ThemedTouchableOpacity>
 
       <ThemedView
         dark={tailwind('bg-gray-900')}

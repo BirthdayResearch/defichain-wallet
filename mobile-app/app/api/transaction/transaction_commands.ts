@@ -6,10 +6,8 @@ import { NavigationProp, StackActions } from '@react-navigation/native'
  * */
 
 type Dispatch = NavigationProp<any>['dispatch']
-export const onTransactionBroadcast = (isPageMounted: boolean, dispatch: Dispatch, numberOfPop?: number): void => {
-  if (isPageMounted) {
-    if (numberOfPop !== undefined && numberOfPop > 0) {
-      dispatch(StackActions.pop(numberOfPop))
+export const onTransactionBroadcast = (isPageMounted: boolean, dispatch: Dispatch, numberOfPop?: number): void => {if (isPageMounted) {
+    if (numberOfPop !== undefined && numberOfPop > 0) {dispatch(StackActions.pop(numberOfPop))
     } else {
       dispatch(StackActions.popToTop())
     }
