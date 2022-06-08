@@ -29,7 +29,7 @@ export enum ButtonGroupTabKey {
   dTokens = 'd_TOKENS'
 }
 
-interface BalanceCardProps {
+interface PortfolioCardProps {
   isZeroBalance: boolean
   filteredTokens: BalanceRowToken[]
   dstTokens: BalanceRowToken[]
@@ -42,14 +42,14 @@ interface BalanceCardProps {
   denominationCurrency: string
 }
 
-export function BalanceCard ({
+export function PortfolioCard ({
   isZeroBalance,
   filteredTokens,
   dstTokens,
   navigation,
   buttonGroupOptions,
   denominationCurrency
-}: BalanceCardProps): JSX.Element {
+}: PortfolioCardProps): JSX.Element {
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.AllTokens,
