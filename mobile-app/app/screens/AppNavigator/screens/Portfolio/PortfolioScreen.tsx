@@ -30,7 +30,7 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { BalanceCard, ButtonGroupTabKey } from './components/BalanceCard'
+import { PortfolioCard, ButtonGroupTabKey } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
@@ -498,7 +498,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
             </View>
           )
-          : (<BalanceCard
+          : (<PortfolioCard
               isZeroBalance={isZeroBalance}
               dstTokens={combinedTokens}
               filteredTokens={sortTokensAssetOnType(assetSortType)}
