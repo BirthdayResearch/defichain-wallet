@@ -8,23 +8,20 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { Fiat } from '@shared-api/dfx/models/Fiat'
 import { Country } from '@shared-api/dfx/models/Country'
 
-export type FiatType = 'EUR' | 'CHF' | 'USD' | 'GBP'
+// export type FiatType = 'EUR' | 'CHF' | 'USD' | 'GBP'
 
 interface BottomSheetFiatPickerProps {
-  onFiatPress: (fiatType: FiatType | Fiat['name'] | Country['name']) => void
+  onFiatPress: (fiatType: Fiat) => void
+  onCloseModal: () => void
   fiats?: Fiat[]
   paramData?: Country[]
-  navigateToScreen?: {
-    screenName: string
-    onButtonPress: (fiatType: FiatType) => void // TODO necessary?
-  }
 }
 
 export const BottomSheetFiatPicker = ({
   onFiatPress,
+  onCloseModal,
   fiats,
-  paramData,
-  navigateToScreen
+  paramData
 }: BottomSheetFiatPickerProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   const { isLight } = useThemeContext()
   const flatListComponents = {
@@ -33,29 +30,29 @@ export const BottomSheetFiatPicker = ({
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
 
-  const availableFiats: FiatType[] = ['EUR', 'USD', 'CHF', 'GBP']
-
-  const liveFiats = fiats?.filter((item) => item.enable).map((item) => item.name)
+  const liveFiats = fiats?.filter((item) => item.enable)
   // TODO: refactor for generic use (-> UserDetailsScreen)
-  const liveData = paramData?.filter((item) => item.enable).map((item) => item.name)
-  const data = liveData ?? (liveFiats ?? availableFiats)
+  // const liveData = paramData?.filter((item) => item.enable).map((item) => item.name)
+  // const data = liveData ?? liveFiats
+  const data = liveFiats
+  data ?? onCloseModal()
 
   return (
     <FlatList
-      keyExtractor={(item) => item}
+      keyExtractor={(item) => item.id}
       style={tailwind({
         'bg-dfxblue-800': !isLight,
         'bg-white': isLight
       })}
       data={data}
-      renderItem={({ item }: { item: FiatType | Fiat['name'] | Country['name']}) => (
-        <FiatItem fiat={item} onPress={() => onFiatPress(item)} />
+      renderItem={({ item }: { item: Fiat }) => (
+        <ListItem item={item.name} onPress={() => onFiatPress(item)} />
       )}
     />
   )
 })
 
-export function FiatItem (props: { fiat: FiatType | Fiat['name'], onPress: () => void}): JSX.Element {
+export function ListItem (props: { item: Fiat['name'] | Country['name'], onPress: () => void}): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={props.onPress}
@@ -67,7 +64,7 @@ export function FiatItem (props: { fiat: FiatType | Fiat['name'], onPress: () =>
       <View style={tailwind('flex flex-row items-center')}>
         <View style={tailwind('ml-2')}>
           <ThemedText>
-            {props.fiat}
+            {props.item}
           </ThemedText>
         </View>
       </View>

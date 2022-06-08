@@ -6,11 +6,11 @@ import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { Country } from '@shared-api/dfx/models/Country'
-import { FiatItem } from './BottomSheetFiatPicker'
+import { ListItem } from './BottomSheetFiatPicker'
 
 interface BottomSheetCountryPickerProps {
   onItemPress: (country: Country) => void
-  onCloseButtonPress: () => void
+  onCloseButtonPress?: () => void
   countries: Country[]
   navigateToScreen?: {
     screenName: string
@@ -49,7 +49,7 @@ export const BottomSheetCountryPicker = ({
         })}
       data={filteredList}
       renderItem={({ item }: { item: Country }) => (
-        <FiatItem fiat={item.name} onPress={() => onItemPress(item)} />
+        <ListItem item={item.name} onPress={() => onItemPress(item)} />
         )}
       ListHeaderComponent={
         <ThemedView

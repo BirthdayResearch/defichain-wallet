@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
+import BtnDobby from '@assets/images/dfx_buttons/btn_dobby.png'
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, FieldValues, UseControllerProps, useForm } from 'react-hook-form'
-import { Platform, TextInput, View, Text, TouchableOpacity, KeyboardTypeOptions } from 'react-native'
+import { Platform, Image, View, Text, TouchableOpacity, KeyboardTypeOptions } from 'react-native'
 import {
   ThemedIcon,
   ThemedScrollView,
@@ -31,6 +32,7 @@ import * as yup from 'yup'
 import { KycData } from '@shared-api/dfx/models/KycData'
 import { AccountType } from '@shared-api/dfx/models/User'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
+import { CommonActions, StackActions } from '@react-navigation/native'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
 
@@ -49,6 +51,7 @@ export function UserDetailsScreen ({
 }: Props): JSX.Element {
   const logger = useLogger()
   const { listFiatAccounts } = useDFXAPIContext()
+  const [iconClicked, setIconClicked] = useState(false)
 
   const schema = yup.object({
     firstName: yup.string().required(),
@@ -135,7 +138,10 @@ export function UserDetailsScreen ({
     putKycData((_data))
       .then((x) => {
         console.log(x)
-        void (async () => await DFXPersistence.setUserInfoComplete())()
+        // void (async () => await DFXPersistence.setUserInfoComplete())()
+        // navigation.reset()
+        navigation.popToTop()
+        navigation.navigate('Sell')
       })
       .catch((er) => console.log('ERROR', er))
   }
@@ -150,6 +156,17 @@ export function UserDetailsScreen ({
       })
       .catch(logger.error)
   }, [])
+
+  if (!iconClicked) {
+    return (
+      <TouchableOpacity onPress={() => setIconClicked(true)} style={tailwind('h-full w-full')}>
+        <Image
+          source={BtnDobby}
+          style={tailwind('max-h-full max-w-full')}
+        />
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <View style={tailwind('h-full')} ref={containerRef}>

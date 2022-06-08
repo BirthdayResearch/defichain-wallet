@@ -73,7 +73,7 @@ export const BottomSheetFiatAccountList = ({
         </ThemedView>
       }
       stickyHeaderIndices={[0]}
-      keyExtractor={(item) => item.iban}
+      keyExtractor={(item) => item.id}
       style={tailwind({
         'bg-dfxblue-800': !isLight,
         'bg-white': isLight

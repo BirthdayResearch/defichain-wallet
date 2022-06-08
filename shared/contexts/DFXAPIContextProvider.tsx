@@ -8,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { getSellRoutes, getFiats, signIn, signUp, getCountries } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, signIn, signUp, getCountries } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -23,15 +23,12 @@ import { getEnvironment } from '@environment'
 import * as Updates from 'expo-updates'
 import { useDebounce } from '@hooks/useDebounce'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
-import { Fiat } from '@shared-api/dfx/models/Fiat'
 import { Country } from '@shared-api/dfx/models/Country'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
   clearDfxTokens: () => Promise<void>
   listFiatAccounts: () => Promise<SellRoute[]>
-  // createFiatAccount: (sellRoute: SellRoute) => Promise<SellRoute[]>
-  listFiats: () => Promise<Fiat[]>
   listCountries: () => Promise<Country[]>
 }
 
@@ -65,6 +62,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
 
         const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
         const url = `${baseUrl}/login?token=${token}`
+        console.log(url) // TODO!!! (thabrad) remove!!
         await Linking.openURL(url)
       })
       .catch(logger.error)
@@ -72,18 +70,6 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
 
   const listFiatAccounts = async (): Promise<SellRoute[]> => {
     return await getSellRoutes()
-  }
-
-  // const createFiatAccount = async (route: SellRoute): Promise<SellRoute> => {
-  //   return await postSellRoute(route)
-  // }
-
-  // const createUserDetails = async (data: KycData): Promise<void> => {
-  //   return await putKycData(data)
-  // }
-
-  const listFiats = async (): Promise<Fiat[]> => {
-    return await getFiats()
   }
 
   const listCountries = async (): Promise<Country[]> => {
@@ -245,8 +231,6 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     openDfxServices: openDfxServices,
     clearDfxTokens: clearDfxTokens,
     listFiatAccounts: listFiatAccounts,
-    // createFiatAccount: createFiatAccount,
-    listFiats: listFiats,
     listCountries: listCountries
   }
 

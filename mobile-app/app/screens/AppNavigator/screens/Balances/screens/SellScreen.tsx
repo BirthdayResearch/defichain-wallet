@@ -134,6 +134,11 @@ export function SellScreen ({
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
 
+  const setAccount = (item: SellRoute): void => {
+    setSelectedFiatAccount(item)
+    setFee(item.fee)
+  }
+
   const setFiatAccountListBottomSheet = useCallback((accounts: SellRoute[]) => {
     setBottomSheetScreen([
       {
@@ -144,8 +149,7 @@ export function SellScreen ({
           onCloseButtonPress: () => dismissModal(),
           onFiatAccountPress: async (item): Promise<void> => {
             if (item.iban !== undefined) {
-              setSelectedFiatAccount(item)
-              setFee(item.fee)
+              setAccount(item)
             }
             dismissModal()
           }
@@ -154,7 +158,7 @@ export function SellScreen ({
           header: () => null
         }
       }])
-  }, [])
+  }, [fiatAccounts])
 
   const setFiatAccountCreateBottomSheet = useCallback((accounts: SellRoute[]) => { // TODO: remove accounts?
     setBottomSheetScreen([
@@ -166,8 +170,8 @@ export function SellScreen ({
           onCloseButtonPress: () => dismissModal(),
           onElementCreatePress: async (item): Promise<void> => {
             if (item.iban !== undefined) {
-              // setSelectedFiatAccount(item)
-              // setFee(item.fee)
+              fiatAccounts.push(item)
+              setAccount(item)
             }
             dismissModal()
           }
@@ -176,7 +180,7 @@ export function SellScreen ({
           header: () => null
         }
       }])
-  }, [])
+  }, [fiatAccounts])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -276,7 +280,7 @@ export function SellScreen ({
                       setFiatAccountListBottomSheet(fiatAccounts)
                       expandModal()
                     }}
-                    fiat={selectedFiatAccount}
+                    fiatAccount={selectedFiatAccount}
                     isDisabled={!(fiatAccounts.length > 0)}
                   />}
 
@@ -429,7 +433,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
   )
 }
 
-function FiatAccountInput (props: { fiat?: SellRoute, onPress: () => void, isDisabled: boolean }): JSX.Element {
+function FiatAccountInput (props: { fiatAccount?: SellRoute, onPress: () => void, isDisabled: boolean }): JSX.Element {
   return (
     <>
       <ThemedText
@@ -452,7 +456,7 @@ function FiatAccountInput (props: { fiat?: SellRoute, onPress: () => void, isDis
         testID='select_fiatAccount_input'
         disabled={props.isDisabled}
       >
-        {props.fiat === undefined || props.isDisabled
+        {props.fiatAccount === undefined || props.isDisabled
           ? (
             <ThemedText
               dark={tailwind({
@@ -473,7 +477,7 @@ function FiatAccountInput (props: { fiat?: SellRoute, onPress: () => void, isDis
                 style={tailwind('ml-2 font-medium')}
                 testID='selected_fiatAccount'
               >
-                {props.fiat.iban}
+                {`${props.fiatAccount.fiat.name} / ${props.fiatAccount.iban}`}
               </ThemedText>
             </View>
           )}
