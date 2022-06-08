@@ -395,6 +395,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
+  const modalSortingSnapPoints = { ios: ['60%'], android: ['60%'] }
   const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
@@ -530,7 +531,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
               <BottomSheetWithNav
                 modalRef={bottomSheetSortRef}
                 screenList={assetSortBottomSheetScreen}
-                snapPoints={modalSnapPoints}
+                snapPoints={modalSortingSnapPoints}
               />
               <BottomSheetWithNav
                 modalRef={bottomSheetRef}
