@@ -30,7 +30,7 @@ exports[`portfolio page should match snapshot 1`] = `
         },
       ]
     }
-    testID="balances_list"
+    testID="portfolio_list"
   >
     <RCTRefreshControl />
     <View>
@@ -1250,7 +1250,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 },
               ]
             }
-            testID="balance_button_group"
+            testID="portfolio_button_group"
           >
             <View
               accessible={true}
@@ -1282,7 +1282,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": "25.00%",
                 }
               }
-              testID="balance_button_group_ALL_TOKENS_active"
+              testID="portfolio_button_group_ALL_TOKENS_active"
             >
               <Text
                 style={
@@ -1342,7 +1342,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": "25.00%",
                 }
               }
-              testID="balance_button_group_LP_TOKENS"
+              testID="portfolio_button_group_LP_TOKENS"
             >
               <Text
                 style={
@@ -1402,7 +1402,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": "25.00%",
                 }
               }
-              testID="balance_button_group_CRYPTO"
+              testID="portfolio_button_group_CRYPTO"
             >
               <Text
                 style={
@@ -1462,7 +1462,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": "25.00%",
                 }
               }
-              testID="balance_button_group_d_TOKENS"
+              testID="portfolio_button_group_d_TOKENS"
             >
               <Text
                 style={
@@ -1549,7 +1549,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     "opacity": 1,
                   }
                 }
-                testID="balances_row_1"
+                testID="portfolio_row_1"
               >
                 <View
                   style={
@@ -1582,7 +1582,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         },
                       ]
                     }
-                    testID="balances_row_1_icon"
+                    testID="portfolio_row_1_icon"
                     vbHeight={32}
                     vbWidth={32}
                     width={32}
@@ -1639,7 +1639,7 @@ exports[`portfolio page should match snapshot 1`] = `
                           ],
                         ]
                       }
-                      testID="balances_row_1_symbol"
+                      testID="portfolio_row_1_symbol"
                     >
                       dBTC
                     </Text>
@@ -1666,7 +1666,7 @@ exports[`portfolio page should match snapshot 1`] = `
                           ],
                         ]
                       }
-                      testID="balances_row_1_name"
+                      testID="portfolio_row_1_name"
                     >
                       Bitcoin
                     </Text>
@@ -1706,7 +1706,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             ],
                           ]
                         }
-                        testID="balances_row_1_amount"
+                        testID="portfolio_row_1_amount"
                       >
                         777.00000000
                       </Text>
@@ -1747,7 +1747,7 @@ exports[`portfolio page should match snapshot 1`] = `
                               ],
                             ]
                           }
-                          testID="balances_row_1_usd_amount"
+                          testID="portfolio_row_1_usd_amount"
                         >
                           ≈ $0.00000000
                         </Text>
@@ -1809,7 +1809,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     "opacity": 1,
                   }
                 }
-                testID="balances_row_2"
+                testID="portfolio_row_2"
               >
                 <View
                   style={
@@ -1842,7 +1842,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         },
                       ]
                     }
-                    testID="balances_row_2_icon"
+                    testID="portfolio_row_2_icon"
                     vbHeight={32}
                     vbWidth={32}
                     width={32}
@@ -1941,7 +1941,7 @@ exports[`portfolio page should match snapshot 1`] = `
                           ],
                         ]
                       }
-                      testID="balances_row_2_symbol"
+                      testID="portfolio_row_2_symbol"
                     >
                       dETH
                     </Text>
@@ -1968,7 +1968,7 @@ exports[`portfolio page should match snapshot 1`] = `
                           ],
                         ]
                       }
-                      testID="balances_row_2_name"
+                      testID="portfolio_row_2_name"
                     >
                       Ethereum
                     </Text>
@@ -2008,7 +2008,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             ],
                           ]
                         }
-                        testID="balances_row_2_amount"
+                        testID="portfolio_row_2_amount"
                       >
                         555.00000000
                       </Text>
@@ -2049,7 +2049,7 @@ exports[`portfolio page should match snapshot 1`] = `
                               ],
                             ]
                           }
-                          testID="balances_row_2_usd_amount"
+                          testID="portfolio_row_2_usd_amount"
                         >
                           ≈ $0.00000000
                         </Text>
