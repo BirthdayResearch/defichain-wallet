@@ -38,7 +38,7 @@ export function BottomTabNavigator (): JSX.Element {
           name={translate('BottomTabNavigator', 'Portfolio')}
           options={{
             tabBarLabel: translate('BottomTabNavigator', 'Portfolio'),
-            tabBarTestID: 'bottom_tab_balances',
+            tabBarTestID: 'bottom_tab_portfolio',
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 color={color}

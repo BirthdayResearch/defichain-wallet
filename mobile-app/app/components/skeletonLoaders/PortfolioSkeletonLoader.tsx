@@ -11,7 +11,7 @@ export function PortfolioSkeletonLoader (props: JSX.IntrinsicAttributes & IConte
       dark={tailwind('bg-gray-800')}
       light={tailwind('bg-white')}
       style={tailwind('py-4 mb-3 items-center justify-center rounded-lg')}
-      testID='balance_skeleton_loader'
+      testID='portfolio_skeleton_loader'
     >
       <ContentLoader
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
