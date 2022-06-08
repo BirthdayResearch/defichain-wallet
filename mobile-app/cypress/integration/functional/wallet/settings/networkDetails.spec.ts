@@ -183,10 +183,10 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
 
   it('should get back to the portfolio page when network detail called from portfolio page', function () {
     cy.getByTestID('bottom_tab_balances').click().wait(3000)
-    cy.url().should('include', 'app/balances')
+    cy.url().should('include', 'app/portfolio')
     cy.getByTestID('balances_header_container').filter(':visible').click().wait(3000)
     cy.getByTestID('network_details_header_back').click()
-    cy.url().should('include', 'app/balances')
+    cy.url().should('include', 'app/portfolio')
   })
 
   it('should get back to the dex guideline page when network detail called from dex guideline page', function () {

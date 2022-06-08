@@ -59,7 +59,7 @@ context('Wallet - Addresses', () => {
       expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq('1')
     })
     cy.wait(3000)
-    cy.url().should('include', 'app/balances')
+    cy.url().should('include', 'app/portfolio')
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('address_row_0').should('exist')
     cy.getByTestID('address_row_1').should('exist')

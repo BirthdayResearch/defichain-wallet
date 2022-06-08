@@ -896,7 +896,7 @@ function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt
   cy.getByTestID('dfi_locked_value_amount').contains(DfiLockedAmt)
   cy.getByTestID('dfi_available_value_amount').contains(DfiAvailableAmt)
 
-  // BalanceCard
+  // PortfolioCard
   cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: BtcUsdAmt })
   cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: EthUsdAmt })
 }
