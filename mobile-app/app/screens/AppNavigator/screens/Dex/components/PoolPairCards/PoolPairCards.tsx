@@ -290,7 +290,7 @@ const PoolCard = ({
         style={tailwind('flex flex-row justify-between w-full')}
         testID={`pool_pair_row_${index}_${symbol}`}
       >
-        <View style={tailwind('w-4/5 break-words overflow-ellipsis flex-shrink')}>
+        <View style={tailwind('max-w-4/5 flex-shrink')}>
           <View style={tailwind('flex-row items-center')}>
             <PoolPairTextSection
               symbolA={symbolA}
