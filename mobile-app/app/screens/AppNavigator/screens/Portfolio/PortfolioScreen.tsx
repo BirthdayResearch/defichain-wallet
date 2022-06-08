@@ -44,7 +44,7 @@ export interface BalanceRowToken extends WalletToken {
   usdAmount: BigNumber
 }
 
-export enum BalancesSortType {
+export enum PortfolioSortType {
   HighestDenominationValue = 'Highest denomination value',
   LowestDenominationValue = 'Lowest denomination value',
   HighestTokenAmount = 'Highest token amount',
@@ -253,30 +253,30 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   ]
 
   // Asset sort bottom sheet list
-  const [assetSortType, setAssetSortType] = useState<BalancesSortType>(BalancesSortType.HighestDenominationValue) // to display selected sorted type text
+  const [assetSortType, setAssetSortType] = useState<PortfolioSortType>(PortfolioSortType.HighestDenominationValue) // to display selected sorted type text
   const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon
   const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
-  const sortTokensAssetOnType = useCallback((assetSortType: BalancesSortType): BalanceRowToken[] => {
+  const sortTokensAssetOnType = useCallback((assetSortType: PortfolioSortType): BalanceRowToken[] => {
     let sortTokensFunc: (a: BalanceRowToken, b: BalanceRowToken) => number
     switch (assetSortType) {
-      case (BalancesSortType.HighestDenominationValue):
+      case (PortfolioSortType.HighestDenominationValue):
         sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber()
         break
-      case (BalancesSortType.LowestDenominationValue):
+      case (PortfolioSortType.LowestDenominationValue):
         sortTokensFunc = (a, b) => a.usdAmount.minus(b.usdAmount).toNumber()
         break
-      case (BalancesSortType.HighestTokenAmount):
+      case (PortfolioSortType.HighestTokenAmount):
         sortTokensFunc = (a, b) => new BigNumber(b.amount).minus(new BigNumber(a.amount)).toNumber()
         break
-      case (BalancesSortType.LowestTokenAmount):
+      case (PortfolioSortType.LowestTokenAmount):
         sortTokensFunc = (a, b) => new BigNumber(a.amount).minus(new BigNumber(b.amount)).toNumber()
         break
-      case (BalancesSortType.AtoZ):
+      case (PortfolioSortType.AtoZ):
         sortTokensFunc = (a, b) => a.symbol.localeCompare(b.symbol)
         break
-      case (BalancesSortType.ZtoA):
+      case (PortfolioSortType.ZtoA):
         sortTokensFunc = (a, b) => b.symbol.localeCompare(a.symbol)
         break
       default:
@@ -287,7 +287,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   }, [filteredTokens, assetSortType, denominationCurrency])
 
   useEffect(() => {
-    setAssetSortType(BalancesSortType.HighestDenominationValue) // reset sorting state upon denominationCurrency change
+    setAssetSortType(PortfolioSortType.HighestDenominationValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
 
   // conditions to display sort icons
@@ -366,7 +366,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             setShowAssetSortBottomSheet(false)
             dismissModal(true)
           },
-          onButtonPress: (item: BalancesSortType) => {
+          onButtonPress: (item: PortfolioSortType) => {
             setAssetSortType(item)
             sortTokensAssetOnType(item)
             setShowAssetSortBottomSheet(false)
@@ -456,7 +456,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       <ThemedScrollView
         ref={ref}
         light={tailwind('bg-gray-50')}
-        contentContainerStyle={tailwind('pb-8')} testID='balances_list'
+        contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
@@ -628,13 +628,13 @@ function BalanceActionButton ({
   )
 }
 
-function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: BalancesSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
+function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
-  const getDisplayedSortText = useCallback((text: BalancesSortType): string => {
-    if (text === BalancesSortType.HighestDenominationValue) {
+  const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
+    if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
-    } else if (text === BalancesSortType.LowestDenominationValue) {
+    } else if (text === PortfolioSortType.LowestDenominationValue) {
       return lowestCurrencyValue
     }
     return text

@@ -115,7 +115,7 @@ export function PortfolioCard ({
                 buttons={buttonGroup}
                 activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
                 labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
-                testID='balance_button_group'
+                testID='portfolio_button_group'
               />
             </View>
           </>
@@ -124,7 +124,7 @@ export function PortfolioCard ({
       <View testID='card_balance_row_container'>
         {filteredTokens.map((item) => (
           <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
-            <BalanceItemRow
+            <PortfolioItemRow
               onPress={() => navigation.navigate({
                 name: 'TokenDetail',
                 params: { token: item },
@@ -145,13 +145,13 @@ export function PortfolioCard ({
   )
 }
 
-function BalanceItemRow ({
+function PortfolioItemRow ({
   token,
   onPress,
   denominationCurrency
 }: { token: BalanceRowToken, onPress: () => void, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
-  const testID = `balances_row_${token.id}`
+  const testID = `portfolio_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
   const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)

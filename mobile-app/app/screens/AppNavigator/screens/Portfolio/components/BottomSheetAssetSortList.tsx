@@ -5,14 +5,14 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { BalancesSortType } from '../PortfolioScreen'
+import { PortfolioSortType } from '../PortfolioScreen'
 
 export interface BottomSheetAssetSortProps {
   headerLabel: string
   onCloseButtonPress: () => void
-  onButtonPress: (item: BalancesSortType) => void
+  onButtonPress: (item: PortfolioSortType) => void
   modifiedDenominationCurrency: string
-  selectedAssetSortType: BalancesSortType
+  selectedAssetSortType: PortfolioSortType
 }
 
 export const BottomSheetAssetSortList = ({
@@ -28,13 +28,13 @@ export const BottomSheetAssetSortList = ({
     web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
-  const assetSortList: BalancesSortType[] = Object.values(BalancesSortType)
+  const assetSortList: PortfolioSortType[] = Object.values(PortfolioSortType)
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
-  const getDisplayedSortText = useCallback((text: BalancesSortType): string => {
-    if (text === BalancesSortType.HighestDenominationValue) {
+  const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
+    if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
-    } else if (text === BalancesSortType.LowestDenominationValue) {
+    } else if (text === PortfolioSortType.LowestDenominationValue) {
       return lowestCurrencyValue
     }
     return text
@@ -44,7 +44,7 @@ export const BottomSheetAssetSortList = ({
     item,
     index
   }: {
-    item: BalancesSortType
+    item: PortfolioSortType
     index: number
   }): JSX.Element => {
     return (

@@ -109,7 +109,7 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>()
 
 export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-  const headerContainerTestId = 'balances_header_container'
+  const headerContainerTestId = 'portfolio_header_container'
   return (
     <PortfolioStack.Navigator
       initialRouteName='PortfolioScreen'
