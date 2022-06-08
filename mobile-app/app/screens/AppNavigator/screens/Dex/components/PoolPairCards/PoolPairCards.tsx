@@ -287,35 +287,37 @@ const PoolCard = ({
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
     >
       <View
-        style={tailwind('flex flex-row justify-between')}
+        style={tailwind('flex flex-row justify-between w-full')}
         testID={`pool_pair_row_${index}_${symbol}`}
       >
-        <View style={tailwind('max-w-3/4 flex-row items-center')}>
-          <PoolPairTextSection
-            symbolA={symbolA}
-            symbolB={symbolB}
-          />
-          {type === 'available' && (
-            <TouchableOpacity
-              onPress={() => setFavouritePoolpair(yourPair.id)}
-              style={tailwind('p-1.5')}
-              testID={`favorite_${symbolA}-${symbolB}`}
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name={isFavouritePair ? 'star' : 'star-outline'}
-                size={20}
-                light={tailwind(
-                  isFavouritePair ? 'text-warning-500' : 'text-gray-600'
-                )}
-                dark={tailwind(
-                  isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
-                )}
-              />
-            </TouchableOpacity>
-          )}
+        <View style={tailwind('w-4/5 break-words overflow-ellipsis flex-shrink')}>
+          <View style={tailwind('flex-row items-center')}>
+            <PoolPairTextSection
+              symbolA={symbolA}
+              symbolB={symbolB}
+            />
+            {type === 'available' && (
+              <TouchableOpacity
+                onPress={() => setFavouritePoolpair(yourPair.id)}
+                style={tailwind('p-1.5')}
+                testID={`favorite_${symbolA}-${symbolB}`}
+              >
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  name={isFavouritePair ? 'star' : 'star-outline'}
+                  size={20}
+                  light={tailwind(
+                    isFavouritePair ? 'text-warning-500' : 'text-gray-600'
+                  )}
+                  dark={tailwind(
+                    isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
+                  )}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-        <View style={tailwind('max-w-1/4')}>
+        <View>
           {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
             <APRSection
               label={`${translate('screens/DexScreen', 'APR')}: `}
