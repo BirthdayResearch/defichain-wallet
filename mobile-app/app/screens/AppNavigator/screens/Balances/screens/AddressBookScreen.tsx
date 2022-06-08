@@ -185,7 +185,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
       headerTitle: (): JSX.Element => (
         <SearchInput
           value={searchString}
-          placeholder={translate('screens/AddressBookScreen', 'Search Address book')}
+          placeholder={translate('screens/AddressBookScreen', 'Search address book')}
           showClearButton={searchString !== ''}
           onClearInput={() => setSearchString('')}
           onChangeText={(text: string) => {
