@@ -8,7 +8,7 @@ context('Wallet - Addresses', () => {
   })
 
   beforeEach(function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.restoreLocalStorage()
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
@@ -81,7 +81,7 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('address_row_text_1').invoke('text').then((activeAddress: string) => {
       cy.getByTestID('address_row_1').click()
       cy.reload()
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('wallet_address').contains(activeAddress)
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
       cy.getByTestID(`address_active_indicator_${activeAddress}`).should('exist')
@@ -175,7 +175,7 @@ context('Wallet - Addresses should persist addresses after restore with no activ
 
   it('should be able to restore wallet and get only one old addresses loaded', function () {
     cy.restoreMnemonicWords(settingsRecoveryWords)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000).should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
       expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq('0')
@@ -207,7 +207,7 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.sendDFItoWallet().wait(3000)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
@@ -236,7 +236,7 @@ context('Wallet - Addresses should persist addresses after restore with active a
 
   it('should be able to restore wallet and get old addresses loaded', function () {
     cy.restoreMnemonicWords(settingsRecoveryWords)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000).should(() => {
       const network: string = localStorage.getItem('Development.NETWORK')
       expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq(null)
@@ -265,7 +265,7 @@ context('Wallet - Addresses should able to create maximum 10 addresses', () => {
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     for (let i = 1; i < 10; i++) {
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
       cy.getByTestID('create_new_address').should('exist').click()
       cy.sendDFItoWallet().wait(3000)
@@ -285,18 +285,18 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
     cy.exitWallet()
     cy.createEmptyWallet(true)
     cy.verifyMnemonicOnSettingsPage(recoveryWords, recoveryWords)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.sendDFItoWallet().wait(5000)
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('switch_account_button').should('exist').click()
     cy.getByTestID('create_new_address').should('exist').click()
     cy.getByTestID('wallet_address').invoke('text').then(text => {
       address = text
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('switch_account_button').should('exist').click()
       cy.getByTestID('address_row_0').should('exist').click()
       cy.exitWallet()
@@ -305,8 +305,8 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
 
   it('should able to discover address after restore existing wallet', function () {
     cy.restoreMnemonicWords(recoveryWords)
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('portfolio_list').should('exist')
     cy.getByTestID('dfi_balance_card').should('exist')
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_balance_card_touchable').click()
@@ -317,7 +317,7 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
     cy.getByTestID('button_confirm_send_continue').click()
     cy.getByTestID('button_confirm_send').click().wait(3000)
     cy.closeOceanInterface()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('switch_account_button').should('exist').click()
     cy.getByTestID('address_row_1').should('not.exist')
     cy.getByTestID('discover_wallet_addresses').click().wait(3000)
@@ -445,7 +445,7 @@ context('Wallet - Local Storage feature', () => {
   })
 
   it('should not allow edit if feature is blocked', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('address_list_edit_button').should('not.exist')
   })

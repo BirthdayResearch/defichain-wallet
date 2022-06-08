@@ -373,7 +373,7 @@ context('Wallet - Portfolio page', () => {
       })
     }).as('flags')
     cy.wait('@flags').then(() => {
-      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('portfolio_list').should('exist')
     })
   })
 
@@ -386,7 +386,7 @@ context('Wallet - Portfolio page', () => {
       }
     }).as('flags')
     cy.wait('@flags').then(() => {
-      cy.getByTestID('balances_list').should('not.exist')
+      cy.getByTestID('portfolio_list').should('not.exist')
     })
   })
 
@@ -397,7 +397,7 @@ context('Wallet - Portfolio page', () => {
       })
     }).as('flags')
     cy.wait('@flags').then(() => {
-      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('portfolio_list').should('exist')
     })
   })
 
@@ -430,7 +430,7 @@ context('Wallet - Portfolio', () => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(6000)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
 
   it('should display no tokens text', function () {
@@ -464,7 +464,7 @@ context('Wallet - Portfolio', () => {
   })
 
   it('should display BTC and ETH with correct amounts', function () {
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('portfolio_list').should('exist')
     cy.wait('@getDexPrices').then(() => {
       cy.wait(2000)
       cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100,000.00' })
@@ -483,13 +483,13 @@ context('Wallet - Portfolio', () => {
   })
 
   it('should redirect to send page', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('send_balance_button').click()
     cy.getByTestID('send_screen').should('exist')
   })
 
   it('should redirect to receive page', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('receive_balance_button').click()
     cy.getByTestID('address_text').should('exist')
   })
@@ -519,11 +519,11 @@ context('Wallet - Portfolio - Failed API', () => {
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
-    cy.getByTestID('balance_skeleton_loader').should('exist')
+    cy.getByTestID('portfolio_skeleton_loader').should('exist')
   })
 
   it('should display correct address', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('receive_balance_button').click()
     cy.getByTestID('address_text').should('exist').then(($txt: any) => {
       const address = $txt[0].textContent
@@ -748,41 +748,41 @@ context('Wallet - Portfolio - Assets filter tab', function () {
 
   it('should display All tokens that are available in asset', function () {
     interceptTokenWithSampleData()
-    cy.getByTestID('balance_button_group_ALL_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_1').should('exist') // dBTC = row 1
-    cy.getByTestID('balances_row_2').should('exist') // dETH = row 2
-    cy.getByTestID('balances_row_14').should('exist') // DUSD = row 14
-    cy.getByTestID('balances_row_16').should('exist') // dBTC-DFI = row 16
+    cy.getByTestID('portfolio_button_group_ALL_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_row_1').should('exist') // dBTC = row 1
+    cy.getByTestID('portfolio_row_2').should('exist') // dETH = row 2
+    cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
+    cy.getByTestID('portfolio_row_16').should('exist') // dBTC-DFI = row 16
   })
 
   it('should display only LP tokens that are available in asset', function () {
     interceptTokenWithSampleData()
-    cy.getByTestID('balance_button_group_LP_TOKENS').click()
-    cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_1').should('not.exist')
-    cy.getByTestID('balances_row_2').should('not.exist')
-    cy.getByTestID('balances_row_14').should('not.exist')
-    cy.getByTestID('balances_row_16').should('exist')
+    cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_row_1').should('not.exist')
+    cy.getByTestID('portfolio_row_2').should('not.exist')
+    cy.getByTestID('portfolio_row_14').should('not.exist')
+    cy.getByTestID('portfolio_row_16').should('exist')
   })
 
   it('should display only Crypto that are available in asset', function () {
     interceptTokenWithSampleData()
-    cy.getByTestID('balance_button_group_CRYPTO').click()
-    cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
-    cy.getByTestID('balances_row_14').should('not.exist')
-    cy.getByTestID('balances_row_16').should('not.exist')
-    cy.getByTestID('balances_row_1').should('exist')
-    cy.getByTestID('balances_row_2').should('exist')
+    cy.getByTestID('portfolio_button_group_CRYPTO').click()
+    cy.getByTestID('portfolio_button_group_CRYPTO_active').should('exist')
+    cy.getByTestID('portfolio_row_14').should('not.exist')
+    cy.getByTestID('portfolio_row_16').should('not.exist')
+    cy.getByTestID('portfolio_row_1').should('exist')
+    cy.getByTestID('portfolio_row_2').should('exist')
   })
 
   it('should display only dTokens that are available in asset', function () {
     interceptTokenWithSampleData()
-    cy.getByTestID('balance_button_group_d_TOKENS').click()
-    cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_1').should('not.exist')
-    cy.getByTestID('balances_row_2').should('not.exist')
-    cy.getByTestID('balances_row_16').should('not.exist')
-    cy.getByTestID('balances_row_14').should('exist')
+    cy.getByTestID('portfolio_button_group_d_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_row_1').should('not.exist')
+    cy.getByTestID('portfolio_row_2').should('not.exist')
+    cy.getByTestID('portfolio_row_16').should('not.exist')
+    cy.getByTestID('portfolio_row_14').should('exist')
   })
 })
 
@@ -808,16 +808,16 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
       }
     })
     cy.getByTestID('toggle_sorting_assets').should('exist')
-    cy.getByTestID('balance_button_group_ALL_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_1').should('exist') // dBTC = row 1
-    cy.getByTestID('balance_button_group_CRYPTO').click()
-    cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
-    cy.getByTestID('balances_row_1').should('exist') // dBTC = row 1
-    cy.getByTestID('balance_button_group_LP_TOKENS').click()
-    cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_button_group_ALL_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_row_1').should('exist') // dBTC = row 1
+    cy.getByTestID('portfolio_button_group_CRYPTO').click()
+    cy.getByTestID('portfolio_button_group_CRYPTO_active').should('exist')
+    cy.getByTestID('portfolio_row_1').should('exist') // dBTC = row 1
+    cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
-    cy.getByTestID('balance_button_group_d_TOKENS').click()
-    cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_button_group_d_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
   })
   it('should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs', function () {
@@ -837,18 +837,18 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
       }
     })
     cy.getByTestID('toggle_sorting_assets').should('exist')
-    cy.getByTestID('balance_button_group_ALL_TOKENS').click()
-    cy.getByTestID('balance_button_group_ALL_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_14').should('exist') // DUSD = row 14
-    cy.getByTestID('balance_button_group_LP_TOKENS').click()
-    cy.getByTestID('balance_button_group_LP_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_button_group_ALL_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_ALL_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
+    cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
-    cy.getByTestID('balance_button_group_CRYPTO').click()
-    cy.getByTestID('balance_button_group_CRYPTO_active').should('exist')
+    cy.getByTestID('portfolio_button_group_CRYPTO').click()
+    cy.getByTestID('portfolio_button_group_CRYPTO_active').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'No Crypto in portfolio')
-    cy.getByTestID('balance_button_group_d_TOKENS').click()
-    cy.getByTestID('balance_button_group_d_TOKENS_active').should('exist')
-    cy.getByTestID('balances_row_14').should('exist') // DUSD = row 14
+    cy.getByTestID('portfolio_button_group_d_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
+    cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
   })
 })
 
@@ -916,7 +916,7 @@ context('Wallet - Portfolio - Your Assets - All tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
   it('should display empty balances if there are no other tokens', function () {
     cy.intercept('**/address/**/tokens?size=*', {
@@ -957,7 +957,7 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - A
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
   it('should sort assets based on Highest DFI value', function () {
     cy.sendDFItoWallet().wait(3000)
@@ -980,12 +980,12 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - L
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
   it('should sort assets based on Highest DFI value', function () {
     interceptTokensForSorting(addLPTokens)
     cy.getByTestID('portfolio_button_group_DFI').click()
-    cy.getByTestID('balance_button_group_LP_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     checkAssetsSortingOrder('Highest DFI value', 'dBTC-DFI', 'dUSDT-DFI')
   })
   it('should sort assets based on Lowest DFI value', function () {
@@ -998,12 +998,12 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - Cr
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
   it('should sort assets based on Highest DFI value', function () {
     interceptTokensForSorting(addCrypto)
     cy.getByTestID('portfolio_button_group_DFI').click()
-    cy.getByTestID('balance_button_group_CRYPTO').click()
+    cy.getByTestID('portfolio_button_group_CRYPTO').click()
     checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dETH')
   })
   it('should sort assets based on Lowest DFI value', function () {
@@ -1016,12 +1016,12 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - dT
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
   it('should sort assets based on Highest DFI value', function () {
     interceptTokensForSorting(addDTokens)
     cy.getByTestID('portfolio_button_group_DFI').click()
-    cy.getByTestID('balance_button_group_d_TOKENS').click()
+    cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     checkAssetsSortingOrder('Highest DFI value', 'dTD10', 'DUSD')
   })
   it('should sort assets based on Lowest DFI value', function () {
@@ -1034,7 +1034,7 @@ context('Wallet - Portfolio - Your Assets - BTC currency - Sorting function  - A
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
   it('should sort assets based on Highest BTC value', function () {
     cy.sendDFItoWallet().wait(3000)
@@ -1068,7 +1068,7 @@ context('Wallet - Portfolio - Skeleton Loader', () => {
     cy.getByTestID('dfi_token_percentage_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
-    cy.getByTestID('balance_skeleton_loader').should('exist')
+    cy.getByTestID('portfolio_skeleton_loader').should('exist')
   })
 
   it('should not display skeleton loader when API has return', () => {
@@ -1080,7 +1080,7 @@ context('Wallet - Portfolio - Skeleton Loader', () => {
       cy.getByTestID('dfi_token_percentage_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
-      cy.getByTestID('balance_skeleton_loader').should('not.exist')
+      cy.getByTestID('portfolio_skeleton_loader').should('not.exist')
     })
   })
 })
@@ -1232,7 +1232,7 @@ context('Wallet - Portfolio - Token Breakdown', () => {
     })
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(6000)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
 
   it('should display percentage of DFI UTXO and DFI Token', () => {
@@ -1257,8 +1257,8 @@ context('Wallet - Portfolio - Token Breakdown', () => {
         data: sampleVault
       }
     })
-    cy.getByTestID('balances_row_1_amount').contains('10.00000000')
-    cy.getByTestID('balances_row_2_amount').contains('10.00000000')
+    cy.getByTestID('portfolio_row_1_amount').contains('10.00000000')
+    cy.getByTestID('portfolio_row_2_amount').contains('10.00000000')
   })
 
   it('should display locked amount of BTC and ETH', () => {

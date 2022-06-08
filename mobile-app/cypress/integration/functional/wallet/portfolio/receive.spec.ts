@@ -2,11 +2,11 @@ context('Wallet - Receive', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(3000)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
 
   it('should display valid address when clicked', function () {
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('portfolio_list').should('exist')
     cy.getByTestID('receive_balance_button').click()
   })
 
@@ -30,7 +30,7 @@ context('Wallet - Receive', () => {
 context('Wallet - Receive - QR Code - Check', () => {
   before(function () {
     cy.createEmptyWallet()
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('portfolio_list').should('exist')
     cy.getByTestID('receive_balance_button').click()
   })
 

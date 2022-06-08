@@ -128,10 +128,10 @@ context('Wallet - Network detail screen - with wallet context', () => {
   })
 
   it('should check network detail without switching network', function () {
-    cy.getByTestID('balances_list').should('exist').wait(3000)
+    cy.getByTestID('portfolio_list').should('exist').wait(3000)
     cy.getByTestID('header_active_network').first().invoke('text').then((network) => {
       cy.getByTestID('header_status_indicator').should('have.css', 'background-color').then((statusBgColor) => {
-        cy.getByTestID('balances_header_container').filter(':visible').click()
+        cy.getByTestID('portfolio_header_container').filter(':visible').click()
         cy.getByTestID('network_details_network').should('exist').contains(network)
         cy.getByTestID('network_details_status_icon').should('have.css', 'background-color', statusBgColor)
       })
@@ -139,7 +139,7 @@ context('Wallet - Network detail screen - with wallet context', () => {
   })
 
   it('should check network detail by switching network', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('button_selected_network').should('exist').wait(3000)
     cy.getByTestID('header_active_network').first().invoke('text').then((network) => {
@@ -168,7 +168,7 @@ context('Wallet - Network detail screen - with wallet context', () => {
   })
 
   it('should be able to click block height and redirect it to defiscan', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_header_container').filter(':visible').click()
   })
@@ -182,9 +182,9 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
   })
 
   it('should get back to the portfolio page when network detail called from portfolio page', function () {
-    cy.getByTestID('bottom_tab_balances').click().wait(3000)
+    cy.getByTestID('bottom_tab_portfolio').click().wait(3000)
     cy.url().should('include', 'app/portfolio')
-    cy.getByTestID('balances_header_container').filter(':visible').click().wait(3000)
+    cy.getByTestID('portfolio_header_container').filter(':visible').click().wait(3000)
     cy.getByTestID('network_details_header_back').click()
     cy.url().should('include', 'app/portfolio')
   })
@@ -217,7 +217,7 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
   })
 
   it('should get back to the setting page when network detail called from setting page', function () {
-    cy.getByTestID('bottom_tab_balances').click().wait(3000)
+    cy.getByTestID('bottom_tab_portfolio').click().wait(3000)
     cy.getByTestID('header_settings').filter(':visible').click().wait(3000)
     cy.url().should('include', 'app/Settings')
     cy.getByTestID('setting_header_container').filter(':visible').click().wait(3000)

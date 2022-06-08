@@ -81,7 +81,7 @@ context('Mainnet - Wallet', () => {
 
   context('Restore - Mnemonic Verification', () => {
     it('should be able to restore mnemonic words', function () {
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
       cy.restoreMnemonicWords(settingsRecoveryWords)
@@ -90,14 +90,14 @@ context('Mainnet - Wallet', () => {
 
   context('Wallet - Verify Wallet Address', () => {
     it('should be have selected valid network', function () {
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('button_selected_network').contains('MainNet').should('exist')
     })
 
     it('should be have valid network address', function () {
       cy.verifyWalletAddress('mainnet', mainnetAddress)
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
     })
   })
 
@@ -105,7 +105,7 @@ context('Mainnet - Wallet', () => {
     it('should load selected network', function () {
       cy.reload()
       cy.isNetworkConnected('MainNet')
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
@@ -122,8 +122,8 @@ context('Mainnet - Wallet', () => {
 
     it('should have correct balances', function () {
       cy.fetchWalletBalance()
-      cy.getByTestID('bottom_tab_balances').click()
-      cy.getByTestID('balances_list').should('exist')
+      cy.getByTestID('bottom_tab_portfolio').click()
+      cy.getByTestID('portfolio_list').should('exist')
       cy.getByTestID('details_dfi').click()
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')
@@ -141,11 +141,11 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('close_dex_guidelines').click()
       cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
       cy.getByTestID('share_in_pool_dETH-DFI').contains('10.00000000')
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
     })
 
     it('should have correct address', function () {
-      cy.getByTestID('bottom_tab_balances').click()
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').then(($txt: any) => {
         const address = $txt[0].textContent
