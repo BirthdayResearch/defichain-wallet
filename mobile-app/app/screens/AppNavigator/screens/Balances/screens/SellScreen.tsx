@@ -1,12 +1,12 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
@@ -23,7 +23,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
@@ -33,9 +33,15 @@ import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { LocalAddress } from '@store/userPreferences'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { debounce } from 'lodash'
+import { useWalletAddress } from '@hooks/useWalletAddress'
+import { DeFiAddress } from '@defichain/jellyfish-address'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { NetworkName } from '@defichain/jellyfish-network'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 // import { BottomSheetAlertInfo, BottomSheetInfo } from '@components/BottomSheetInfo'
 // import { isValidIBAN } from 'ibantools'
@@ -47,20 +53,23 @@ export function SellScreen ({
   navigation
 }: Props): JSX.Element {
   const logger = useLogger()
+  const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const isFocused = useIsFocused()
   const {
     control,
     setValue,
     formState,
     getValues,
-    trigger
+    trigger,
+    watch
   } = useForm({ mode: 'onChange' })
-  const dispatch = useDispatch()
+  const { address } = watch()
+  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const walletAddress = useSelector((state: RootState) => state.userPreferences.addresses)
+  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
+  const dispatch = useAppDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -77,6 +86,8 @@ export function SellScreen ({
     deps: [getValues('amount'), JSON.stringify(token)]
   })
   const [hasBalance, setHasBalance] = useState(false)
+  const { fetchWalletAddresses } = useWalletAddress()
+  const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -98,14 +109,26 @@ export function SellScreen ({
     }
   }, [])
 
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
+  const debounceMatchAddress = debounce(() => {
+    if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
+      setMatchedAddress(addressBook[address])
+    } else if (address !== undefined && walletAddress !== undefined && walletAddress[address] !== undefined) {
+      setMatchedAddress(walletAddress[address])
+    } else if (address !== undefined && jellyfishWalletAddress.includes(address)) {
+      // wallet address that does not have a label
+      setMatchedAddress({
+        address,
+        label: 'Saved address',
+        isMine: true
+      })
+    } else {
+      setMatchedAddress(undefined)
     }
-  }, [address, blockCount, isFocused])
+  }, 200)
+
+  useEffect(() => {
+    void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
+  }, [fetchWalletAddresses])
 
   useEffect(() => {
     client.fee.estimate()
@@ -125,6 +148,10 @@ export function SellScreen ({
 
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
+
+  useEffect(() => {
+    debounceMatchAddress()
+  }, [address, addressBook])
 
   // const setFiatAccountListTokenListBottomSheet = useCallback(() => {
   //   setBottomSheetScreen([
@@ -248,6 +275,66 @@ export function SellScreen ({
                   isDisabled={false} // TODO: only show if payment route exists
                 />
 
+                <AddressRow
+                  control={control}
+                  networkName={networkName}
+                  onContactButtonPress={() => navigation.navigate({
+                    name: 'AddressBookScreen',
+                    params: {
+                      selectedAddress: getValues('address'),
+                      onAddressSelect: (savedAddres: string) => {
+                        setValue('address', savedAddres, { shouldDirty: true })
+                        navigation.goBack()
+                      }
+                    },
+                    merge: true
+                  })}
+                  onQrButtonPress={() => navigation.navigate({
+                    name: 'BarCodeScanner',
+                    params: {
+                      onQrScanned: async (value) => {
+                        setValue('address', value, { shouldDirty: true })
+                        await trigger('address')
+                      }
+                    },
+                    merge: true
+                  })}
+                  onClearButtonPress={async () => {
+                    setValue('address', '')
+                    await trigger('address')
+                  }}
+                  onAddressChange={async (address) => {
+                    setValue('address', address, { shouldDirty: true })
+                    await trigger('address')
+                  }}
+                  inputFooter={
+                    <>
+                      {matchedAddress !== undefined && (
+                        <ThemedView
+                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                          light={tailwind('bg-gray-50')}
+                          dark={tailwind('bg-dfxblue-900')}
+                        >
+                          <ThemedIcon
+                            name='account-check'
+                            iconType='MaterialCommunityIcons'
+                            size={18}
+                            light={tailwind('text-gray-400')}
+                            dark={tailwind('text-dfxgray-500')}
+                          />
+                          <ThemedText
+                            style={tailwind('text-xs ml-1 pt-px')}
+                            light={tailwind('text-gray-500')}
+                            dark={tailwind('text-dfxgray-400')}
+                            testID='address_input_footer'
+                          >
+                            {matchedAddress.label}
+                          </ThemedText>
+                        </ThemedView>
+                      )}
+                    </>
+                  }
+                />
                 <AmountRow
                   control={control}
                   onAmountChange={async (amount) => {
@@ -284,9 +371,9 @@ export function SellScreen ({
                         }}
                       />}
 
-                    <FeeInfoRow
-                      type='ESTIMATED_FEE'
-                      value={fee.toString()}
+                    <InfoRow
+                      type={InfoType.EstimatedFee}
+                      value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
                       testID='transaction_fee'
                       suffix='DFI'
                     />
@@ -341,6 +428,94 @@ export function SellScreen ({
         )}
       </ThemedScrollView>
     </View>
+  )
+}
+
+function AddressRow ({
+  control,
+  networkName,
+  onContactButtonPress,
+  onQrButtonPress,
+  onClearButtonPress,
+  onAddressChange,
+  inputFooter
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
+  const defaultValue = ''
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  return (
+    <>
+      <Controller
+        control={control}
+        defaultValue={defaultValue}
+        name='address'
+        render={({
+          field: {
+            value,
+            onChange
+          }
+        }) => (
+          <View style={tailwind('flex-row w-full')}>
+            <WalletTextInput
+              autoCapitalize='none'
+              multiline
+              onChange={onChange}
+              onChangeText={onAddressChange}
+              placeholder={translate('screens/SendScreen', 'Paste wallet address here')}
+              style={tailwind('w-3/5 flex-grow pb-1')}
+              testID='address_input'
+              value={value}
+              displayClearButton={value !== defaultValue}
+              onClearButtonPress={onClearButtonPress}
+              title={translate('screens/SendScreen', 'Where do you want to send?')}
+              titleTestID='title_to_address'
+              inputType='default'
+              inputFooter={inputFooter}
+            >
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('border border-dfxblue-900')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-dfxred-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
+              <ThemedTouchableOpacity
+                dark={tailwind('boarder border-dfxblue-900')}
+                light={tailwind('bg-white border-gray-300')}
+                onPress={onQrButtonPress}
+                style={tailwind('w-9 p-1.5 border rounded')}
+                testID='qr_code_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-dfxred-500')}
+                  iconType='MaterialIcons'
+                  light={tailwind('text-primary-500')}
+                  name='qr-code-scanner'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+            </WalletTextInput>
+          </View>
+        )}
+        rules={{
+          required: true,
+          validate: {
+            isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
+          }
+        }}
+      />
+    </>
   )
 }
 
