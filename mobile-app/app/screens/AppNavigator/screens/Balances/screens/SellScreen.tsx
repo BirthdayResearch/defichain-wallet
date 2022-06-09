@@ -259,68 +259,68 @@ export function SellScreen ({
           )
           : (
             <>
-              <View style={tailwind('px-4')}>
+              <ActionButton
+                name='add'
+                onPress={() => {
+                  setFiatAccountCreateBottomSheet(fiatAccounts)
+                  expandModal()
+                }}
+                pair={' '}
+                label={translate('screens/SellScreen', 'ADD payout account')}
+                style={tailwind('p-2 mb-2 h-10 mx-10 justify-center')}
+                testID={'/* `pool_pair_add_{symbol}` */'}
+                standalone
+              />
 
-                <ActionButton
-                  name='add'
-                  onPress={() => {
-                    setFiatAccountCreateBottomSheet(fiatAccounts)
-                    expandModal()
-                  }}
-                  pair={' '}
-                  label={translate('screens/SellScreen', 'ADD payout account')}
-                  style={tailwind('p-2 mb-2 h-10 mx-8 justify-center')}
-                  testID={'/* `pool_pair_add_{symbol}` */'}
-                  standalone
-                />
+              {(fiatAccounts.length > 0) &&
+                <>
+                  <View style={tailwind('px-4')}>
 
-                {(fiatAccounts.length > 0) &&
-                  <FiatAccountInput
-                    onPress={() => {
-                      setFiatAccountListBottomSheet(fiatAccounts)
-                      expandModal()
-                    }}
-                    fiatAccount={selectedFiatAccount}
-                    isDisabled={!(fiatAccounts.length > 0)}
-                  />}
+                    <FiatAccountInput
+                      onPress={() => {
+                        setFiatAccountListBottomSheet(fiatAccounts)
+                        expandModal()
+                      }}
+                      fiatAccount={selectedFiatAccount}
+                      isDisabled={!(fiatAccounts.length > 0)}
+                    />
 
-                <DfxKycInfo />
+                    <DfxKycInfo />
 
-                <AmountRow
-                  control={control}
-                  onAmountChange={async (amount) => {
-                    setValue('amount', amount, { shouldDirty: true })
-                    await trigger('amount')
-                  }}
-                  onClearButtonPress={async () => {
-                    setValue('amount', '')
-                    await trigger('amount')
-                  }}
-                  token={token}
-                />
-              </View>
+                    <AmountRow
+                      control={control}
+                      onAmountChange={async (amount) => {
+                        setValue('amount', amount, { shouldDirty: true })
+                        await trigger('amount')
+                      }}
+                      onClearButtonPress={async () => {
+                        setValue('amount', '')
+                        await trigger('amount')
+                      }}
+                      token={token}
+                    />
+                  </View>
 
-              <>
-                <ThemedSectionTitle
-                  text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-                />
+                  <ThemedSectionTitle
+                    text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                  />
 
-                <FeeInfoRow
-                  type='FIAT_FEE'
-                  value={fee}
-                  testID='transaction_fee'
-                  suffix='%'
-                />
-              </>
+                  <FeeInfoRow
+                    type='FIAT_FEE'
+                    value={fee}
+                    testID='transaction_fee'
+                    suffix='%'
+                  />
 
-              <ThemedText
-                testID='transaction_details_info_text'
-                light={tailwind('text-gray-600')}
-                dark={tailwind('text-dfxgray-300')}
-                style={tailwind('mt-2 mx-4 text-sm')}
-              >
-                {translate('screens/SendScreen', 'Review full transaction details in the next screen')}
-              </ThemedText>
+                  <ThemedText
+                    testID='transaction_details_info_text'
+                    light={tailwind('text-gray-600')}
+                    dark={tailwind('text-dfxgray-300')}
+                    style={tailwind('mt-2 mx-4 text-sm')}
+                  >
+                    {translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+                  </ThemedText>
+                </>}
             </>
           )}
 
@@ -440,7 +440,7 @@ function FiatAccountInput (props: { fiatAccount?: SellRoute, onPress: () => void
         testID='transaction_details_info_text'
         light={tailwind('text-gray-600')}
         dark={tailwind('text-dfxgray-300')}
-        style={tailwind('flex-grow')}
+        style={tailwind('flex-grow my-2')}
       >
         {translate('screens/SellScreen', 'Select account for payout')}
       </ThemedText>
