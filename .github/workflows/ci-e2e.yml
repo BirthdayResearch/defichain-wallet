@@ -47,6 +47,7 @@ jobs:
 
       - uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3
         with:
+          config-file: mobile-app/cypress.config.js
           install: false
           record: true
           parallel: true
