@@ -395,7 +395,7 @@ export function BalancesScreen ({ navigation }: Props): JSX.Element {
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
-  const modalSortingSnapPoints = { ios: ['60%'], android: ['60%'] }
+  const modalSortingSnapPoints = { ios: ['55%'], android: ['55%'] }
   const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
