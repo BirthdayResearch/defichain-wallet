@@ -150,9 +150,15 @@ If you discover a security vulnerability in
 - gray-300 => dfxgray-300
 - gray-400 => dfxgray-400
 - gray-500 => dfxgray-500
+--------------------------(next -> probably)--------->
+- bg-darkprimary-50 => bg-dfxred-500
+- bg-darkblue-50 => bg-dfxblue-800 / bg-darkblue-50 (if embedded)
+- ~~gray-600 => dfxgray-600~~
+- (icon) text-darkblue-500 => text-dfxred-500
+- bg-darkblue-50 => ??
 
 ## License & Disclaimer
 
-By using `DeFiChain Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
+By using `DFX Wallet` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDeFiCh%2Fwallet.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDeFiCh%2Fwallet?ref=badge_large)
