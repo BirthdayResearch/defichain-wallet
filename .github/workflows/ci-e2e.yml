@@ -53,7 +53,7 @@ jobs:
           start: npm run start:web
           wait-on: 'http://localhost:19006'
           browser: chrome
-          spec: mobile-app/cypress/integration/**
+          spec: mobile-app/cypress/e2e/**
           tag: ${{ github.event_name }}
           project: ./mobile-app
         env:
