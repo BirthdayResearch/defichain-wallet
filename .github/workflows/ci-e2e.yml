@@ -51,7 +51,7 @@ jobs:
           record: true
           parallel: true
           start: npm run start:web
-          wait-on: 'http://localhost:19006'
+          wait-on: 'npx wait-on --timeout 60000 http://localhost:19006'
           browser: chrome
           spec: mobile-app/cypress/e2e/**
           tag: ${{ github.event_name }}
@@ -60,5 +60,6 @@ jobs:
           CYPRESS_E2E: true
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: '@cypress/github-action'
 
       - uses: codecov/codecov-action@81cd2dc8148241f03f5839d295e000b8f761e378
