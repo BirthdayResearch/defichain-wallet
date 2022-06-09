@@ -51,7 +51,8 @@ jobs:
           record: true
           parallel: true
           start: npm run start:web
-          wait-on: 'npx wait-on --timeout 60000 http://localhost:19006'
+          wait-on: 'http://localhost:19006'
+          wait-on-timeout: 240
           browser: chrome
           spec: mobile-app/cypress/e2e/**
           tag: ${{ github.event_name }}
