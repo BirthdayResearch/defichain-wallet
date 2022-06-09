@@ -40,7 +40,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
-export interface BalanceRowToken extends WalletToken {
+export interface PortfolioRowToken extends WalletToken {
   usdAmount: BigNumber
 }
 
@@ -164,7 +164,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       ({
         totalAvailableValue,
         dstTokens
-      }: { totalAvailableValue: BigNumber, dstTokens: BalanceRowToken[] },
+      }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -197,7 +197,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }
 
     const dstTokenSymbols = dstTokens.map(token => token.displaySymbol)
-    const lockedTokensArray: BalanceRowToken[] = []
+    const lockedTokensArray: PortfolioRowToken[] = []
     lockedTokens.forEach((_lockedBalance, displaySymbol) => {
       if (displaySymbol === 'DFI') {
         return
@@ -258,8 +258,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
-  const sortTokensAssetOnType = useCallback((assetSortType: PortfolioSortType): BalanceRowToken[] => {
-    let sortTokensFunc: (a: BalanceRowToken, b: BalanceRowToken) => number
+  const sortTokensAssetOnType = useCallback((assetSortType: PortfolioSortType): PortfolioRowToken[] => {
+    let sortTokensFunc: (a: PortfolioRowToken, b: PortfolioRowToken) => number
     switch (assetSortType) {
       case (PortfolioSortType.HighestDenominationValue):
         sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber()

@@ -3,7 +3,7 @@ import {
   ThemedTouchableOpacity
 } from '@components/themed'
 import { PortfolioParamList } from '../PortfolioNavigator'
-import { BalanceRowToken } from '../PortfolioScreen'
+import { PortfolioRowToken } from '../PortfolioScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -31,8 +31,8 @@ export enum ButtonGroupTabKey {
 
 interface PortfolioCardProps {
   isZeroBalance: boolean
-  filteredTokens: BalanceRowToken[]
-  dstTokens: BalanceRowToken[]
+  filteredTokens: PortfolioRowToken[]
+  dstTokens: PortfolioRowToken[]
   navigation: StackNavigationProp<PortfolioParamList>
   buttonGroupOptions?: {
     onButtonGroupPress: (key: ButtonGroupTabKey) => void
@@ -149,7 +149,7 @@ function PortfolioItemRow ({
   token,
   onPress,
   denominationCurrency
-}: { token: BalanceRowToken, onPress: () => void, denominationCurrency: string }): JSX.Element {
+}: { token: PortfolioRowToken, onPress: () => void, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `portfolio_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
