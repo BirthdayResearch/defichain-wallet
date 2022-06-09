@@ -87,6 +87,7 @@ export function DfxButtons (): JSX.Element {
           ? (
             <>
               <ThemedView
+                key={i - 99999}
                 light={tailwind('border-gray-100')}
                 dark={tailwind('border-dfxblue-800')}
                 style={tailwind('h-5/6 border-r')}
