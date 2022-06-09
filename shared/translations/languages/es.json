@@ -737,7 +737,6 @@
     "Est. time remaining": "Est. time remaining",
     "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
-    "Enter an amount": "Enter an amount",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -1141,10 +1140,8 @@
     "Empty portfolio": "Portafolio vacío"
   },
   "components/DfxEmptyWallet": {
-    "Add your DFI and other dTokens to get started": "Añade tus DFI y otros tokens para empezar",
-    "buy them with a bank transfer": "comprarlos con una transferencia bancaria",
-    "Empty portfolio": "Portafolio vacío",
-    "Add your DFI and other tokens to get started": "Añade tus DFI y otros tokens para empezar"
+    "Add your DFI and other dTokens to get started or": "Añade tus DFI y otros tokens para empezar",
+    "buy them with a bank transfer": "comprarlos con una transferencia bancaria"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "TIPO DE PRESTAMO",
