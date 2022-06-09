@@ -123,8 +123,8 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             // eslint-disable-next-line no-constant-condition
             ? true ? (<></>) : (<GetDFIBtn />)
             : (
-              <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
-                {
+              <View style={tailwind('mx-4 mb-2 flex-row items-center')}>
+                {/* {
                   hasFetchedToken
                     ? (
                       <View style={tailwind('flex-row items-center')}>
@@ -166,7 +166,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                         />
                       </>
                     )
-                  }
+                  } */}
                 <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
               </View>
             )}
@@ -197,6 +197,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, value: BigNumber, type: 'utxo' | 'token' }): JSX.Element {
   return (
     <ThemedView
@@ -231,11 +232,12 @@ function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, va
 }
 
 function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBreakdownPress: () => void, isBreakdownExpanded: boolean }): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   return (
-    <View style={tailwind('flex-row justify-between flex-1 items-center')}>
-      <TouchableOpacity>
+    <View style={tailwind('flex-row justify-center flex-1 items-center')}>
+      {/* <TouchableOpacity>
         <ThemedIcon
           iconType='MaterialIcons'
           name='swap-vert'
@@ -250,7 +252,7 @@ function DFIBreakdownAction ({ onBreakdownPress, isBreakdownExpanded }: { onBrea
           light={tailwind('text-primary-500')}
           dark={tailwind('text-dfxred-500')}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         onPress={onBreakdownPress}
         testID='details_dfi'
