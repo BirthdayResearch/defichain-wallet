@@ -10,12 +10,13 @@ import { BalanceParamList } from '../BalancesNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Balances/components/RandomAvatar'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { wallet as walletReducer } from '@store/wallet'
 import { loans } from '@store/loans'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function AddressControlScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
@@ -84,7 +85,7 @@ export function AddressControlCard ({ onClose }: { onClose: () => void }): JSX.E
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([])
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false)
   const blockCount = useSelector((state: RootState) => state.block.count)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
 
   const fetchAddresses = async (): Promise<void> => {

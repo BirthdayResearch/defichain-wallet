@@ -23,23 +23,29 @@ jobs:
       matrix:
         containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
+      - uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048
         with:
           node-version: 16
           cache: 'npm'
 
+      # install specific version of chrome
+      - name: Install latest Google Chrome
+        run: |
+          wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+          sudo dpkg -i "google-chrome-stable_current_amd64.deb"
+
       - run: npm ci
 
-      - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 120
-      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
-      - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 240
+      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 240
+      - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 240
 
-      - uses: cypress-io/github-action@16aacf8ea6a67e5e5d907d34bc3be8ad0e6e979f
+      - uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3
         with:
           install: false
           record: true
@@ -55,4 +61,4 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@e3c560433a6cc60aec8812599b7844a7b4fa0d71
+      - uses: codecov/codecov-action@81cd2dc8148241f03f5839d295e000b8f761e378

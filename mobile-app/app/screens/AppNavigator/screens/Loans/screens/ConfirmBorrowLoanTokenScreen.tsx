@@ -1,4 +1,4 @@
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { NumberRow } from '@components/NumberRow'
 import { SummaryTitle } from '@components/SummaryTitle'
 import { TextRow } from '@components/TextRow'
@@ -8,7 +8,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -26,6 +26,7 @@ import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { getActivePrice } from '../../Auctions/helpers/ActivePrice'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmBorrowLoanTokenScreen'>
 
@@ -45,7 +46,7 @@ export function ConfirmBorrowLoanTokenScreen ({
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
@@ -224,8 +225,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           suffix: props.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'
@@ -262,6 +263,7 @@ function SummaryVaultDetails (props: { vaultId: string, collateralAmount: BigNum
           testID: 'text_collateral_amount',
           prefix: '$'
         }}
+        isOraclePrice
       />
       {props.collateralRatio.isLessThan(0)
         ? (

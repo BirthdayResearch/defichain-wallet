@@ -22,7 +22,7 @@ export function TokenNameText ({
         ellipsizeMode='tail'
         light={tailwind('text-gray-600')}
         numberOfLines={1}
-        style={tailwind('text-xs text-gray-600')}
+        style={tailwind('text-xs')}
         testID={`${testID}_name`}
       >
         {name}

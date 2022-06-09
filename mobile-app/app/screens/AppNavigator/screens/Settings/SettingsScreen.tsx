@@ -19,20 +19,20 @@ import { ocean } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 // import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAddressBook } from '@hooks/useAddressBook'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const walletContext = useWalletPersistenceContext()
   const localAuth = usePrivacyLockContext()
   const { data: { type } } = useWalletNodeContext()
@@ -93,7 +93,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     >
       <ThemedSectionTitle
         testID='network_title'
-        text={translate('screens/Settings', 'NETWORK')}
+        text={translate('screens/Settings', 'GENERAL')}
       />
 
       <SelectedNetworkItem
@@ -101,6 +101,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         onPress={() => {
           navigation.navigate('NetworkSelectionScreen')
         }}
+      />
+      <NavigateItemRow
+        testID='address_book_title'
+        label='Address Book'
+        onPress={() => navigation.navigate('AddressBookScreen', {})}
       />
 
       <ThemedSectionTitle

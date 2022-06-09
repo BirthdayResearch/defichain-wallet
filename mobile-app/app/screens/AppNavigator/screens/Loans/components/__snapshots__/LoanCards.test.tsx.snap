@@ -104,16 +104,12 @@ exports[`loan cards should match snapshot 1`] = `
       },
     ]
   }
-  disableVirtualization={false}
   getItem={[Function]}
   getItemCount={[Function]}
-  horizontal={false}
-  initialNumToRender={10}
   keyExtractor={[Function]}
-  maxToRenderPerBatch={10}
   onContentSizeChange={[Function]}
-  onEndReachedThreshold={2}
   onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
   onMomentumScrollEnd={[Function]}
   onScroll={[Function]}
   onScrollBeginDrag={[Function]}
@@ -130,9 +126,7 @@ exports[`loan cards should match snapshot 1`] = `
       },
     ]
   }
-  updateCellsBatchingPeriod={50}
   viewabilityConfigCallbackPairs={Array []}
-  windowSize={21}
 >
   <View>
     <View
@@ -155,6 +149,7 @@ exports[`loan cards should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -408,37 +403,45 @@ exports[`loan cards should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "display": "flex",
                   "flexDirection": "row",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
                     Array [
                       Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginRight": 4,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
                       },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="loan_card_0_loan_amount"
-              >
-                $
-                0.00
-              </Text>
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_0_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -451,6 +454,7 @@ exports[`loan cards should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -704,37 +708,45 @@ exports[`loan cards should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "display": "flex",
                   "flexDirection": "row",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
                     Array [
                       Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginRight": 4,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
                       },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="loan_card_1_loan_amount"
-              >
-                $
-                0.00
-              </Text>
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_1_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -760,6 +772,7 @@ exports[`loan cards should match snapshot 1`] = `
         >
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -1013,37 +1026,45 @@ exports[`loan cards should match snapshot 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "display": "flex",
                   "flexDirection": "row",
                 }
               }
             >
-              <Text
+              <View
                 style={
-                  Array [
-                    Object {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
                     Array [
                       Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "marginRight": 4,
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
                       },
-                      Object {
-                        "color": "rgba(0, 0, 0, 1)",
-                      },
-                    ],
-                  ]
-                }
-                testID="loan_card_2_loan_amount"
-              >
-                $
-                0.00
-              </Text>
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_2_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
             </View>
           </View>
         </View>

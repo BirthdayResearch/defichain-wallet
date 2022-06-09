@@ -7,7 +7,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -22,12 +22,13 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionTag } from '@components/ConversionTag'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { InfoText } from '@components/InfoText'
 import { Switch, View } from '@components'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'SendConfirmationScreen'>
 
@@ -44,7 +45,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
@@ -145,8 +146,8 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
           suffix: token.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix={token.displaySymbol}

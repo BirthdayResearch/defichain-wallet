@@ -8,6 +8,7 @@ export function EmptyActivePoolpair (): JSX.Element {
       dark={tailwind('bg-dfxblue-900')}
       light={tailwind('bg-gray-100')}
       style={tailwind('flex items-center justify-center px-14 h-full')}
+      testID='empty_active_poolpair'
     >
       <ThemedIcon
         iconType='MaterialCommunityIcons'

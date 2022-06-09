@@ -21,13 +21,13 @@ export function TokenAmountText ({
   denominationCurrency
 }: TokenAmountTextProps): JSX.Element {
   return (
-    <View style={tailwind('flex-row items-center')}>
+    <View style={tailwind('flex-row')}>
       <NumberFormat
         decimalScale={8}
         displayType='text'
         renderText={(value) =>
           <>
-            <View style={tailwind('flex leading-6')}>
+            <View style={tailwind('flex leading-6 items-end')}>
               <BalanceText
                 dark={tailwind('text-gray-200')}
                 light={tailwind('text-black')}

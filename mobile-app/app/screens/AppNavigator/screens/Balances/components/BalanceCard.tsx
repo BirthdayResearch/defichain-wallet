@@ -1,8 +1,6 @@
 import {
   ThemedView,
-  ThemedTouchableOpacity,
-  ThemedIcon,
-  ThemedText
+  ThemedTouchableOpacity
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { BalanceRowToken } from '../BalancesScreen'
@@ -18,11 +16,9 @@ import { TokenNameText } from '@screens/AppNavigator/screens/Balances/components
 import { TokenAmountText } from '@screens/AppNavigator/screens/Balances/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
-import { TouchableOpacity } from 'react-native'
 import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
-import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { EmptyPortfolio } from './EmptyPortfolio'
 
@@ -78,8 +74,6 @@ export function BalanceCard ({
   ]
   const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
-  const [isSorted, setIsSorted] = useState<boolean>(false)
-  const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<string, LockedBalance>
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
@@ -98,20 +92,6 @@ export function BalanceCard ({
         return setTabButtonLabel('dTokens')
     }
   }
-
-  filteredTokens.sort((a, b) => {
-    const lockedPriceA = new BigNumber(lockedTokens?.get(a.symbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(a.symbol)?.tokenValue
-    const lockedPriceB = new BigNumber(lockedTokens?.get(b.symbol)?.tokenValue ?? 0).isNaN() ? 0 : lockedTokens?.get(b.symbol)?.tokenValue
-    const aPrice = new BigNumber(a.usdAmount).plus(lockedPriceA ?? 0)
-    const bPrice = new BigNumber(b.usdAmount).plus(lockedPriceB ?? 0)
-    if (isSorted) {
-      // display value in increasing order
-      return aPrice.minus(bPrice).toNumber()
-    } else {
-      // display value in decreasing order
-      return bPrice.minus(aPrice).toNumber()
-      }
-    })
 
   // return empty component if there are DFI but no other tokens
   if (!isZeroBalance && dstTokens.length === 0) {
@@ -134,17 +114,10 @@ export function BalanceCard ({
               <ButtonGroup
                 buttons={buttonGroup}
                 activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
+                labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
                 testID='balance_button_group'
               />
             </View>
-            {/*  dropdown arrow (sorting) appears when there are other tokens */}
-            {
-              filteredTokens.length > 0 && hasFetchedToken &&
-                <View testID='your_assets_dropdown_arrow'>
-                  <SortTokens isSorted={isSorted} setIsSorted={setIsSorted} />
-                </View>
-            }
           </>
         )
       }
@@ -165,7 +138,7 @@ export function BalanceCard ({
       </View>
       {
         // display empty balance component if tokens under selected tab does not exist
-        filteredTokens.length === 0 && hasFetchedToken &&
+        filteredTokens.length === 0 && hasFetchedToken && tabButtonLabel !== '' &&
           <EmptyBalances type={tabButtonLabel} />
       }
     </ThemedView>
@@ -180,131 +153,47 @@ function BalanceItemRow ({
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `balances_row_${token.id}`
   const { isBalancesDisplayed } = useDisplayBalancesContext()
-  const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
-  const onBreakdownPress = (): void => {
-    setIsBreakdownExpanded(!isBreakdownExpanded)
-  }
-  const lockedToken = useTokenLockedBalance({ symbol: token.symbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
-  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
+  const lockedToken = useTokenLockedBalance({ displaySymbol: token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
+  const loanTokens = useSelector((state: RootState) => state.loans.loanTokens)
   const hasLockedBalance = useMemo((): boolean => {
-    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol)
+    return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === token.displaySymbol) ||
+      loanTokens.some(loanToken => loanToken.token.displaySymbol === token.displaySymbol)
   }, [token])
 
   return (
     <ThemedView
       dark={tailwind('bg-dfxblue-800')}
       light={tailwind('bg-white')}
-      style={tailwind('mb-1.5 rounded-lg')}
+      style={tailwind('p-4 rounded-lg')}
     >
-      <View style={tailwind('m-4', {
-        'mb-1': hasLockedBalance
-      })}
+      <ThemedTouchableOpacity
+        onPress={onPress}
+        dark={tailwind('border-0')}
+        light={tailwind('border-0')}
+        testID={testID}
       >
-        <View>
-          <ThemedTouchableOpacity
-            onPress={onPress}
-            dark={tailwind('border-0')}
-            light={tailwind('border-0')}
-            style={tailwind('flex-row justify-between items-center')}
+        <View style={tailwind('flex-row items-center flex-grow')}>
+          <Icon testID={`${testID}_icon`} />
+          <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
+          <TokenAmountText
+            tokenAmount={token.amount}
+            usdAmount={token.usdAmount}
             testID={testID}
-          >
-            <View style={tailwind('flex-row items-center flex-grow')}>
-              <Icon testID={`${testID}_icon`} />
-              <TokenNameText displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
-              <TokenAmountText
-                tokenAmount={lockedToken.amount.plus(token.amount).toFixed(8)}
-                usdAmount={lockedToken.tokenValue.plus(token.usdAmount)}
-                testID={testID}
-                isBalancesDisplayed={isBalancesDisplayed}
-                denominationCurrency={denominationCurrency}
-              />
-            </View>
-          </ThemedTouchableOpacity>
+            isBalancesDisplayed={isBalancesDisplayed}
+            denominationCurrency={denominationCurrency}
+          />
         </View>
-
-        {hasLockedBalance &&
+        {hasLockedBalance && !lockedToken.amount.isZero() &&
           (
-            <>
-              <View style={tailwind('flex flex-row justify-center')}>
-                <TouchableOpacity
-                  onPress={onBreakdownPress}
-                  testID={`details_${testID}`}
-                >
-                  <ThemedIcon
-                    light={tailwind('text-primary-500')}
-                    dark={tailwind('text-dfxred-500')}
-                    iconType='MaterialIcons'
-                    name={!isBreakdownExpanded ? 'expand-more' : 'expand-less'}
-                    size={28}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              {isBreakdownExpanded && (
-                <ThemedView
-                  light={tailwind('border-t border-gray-100')}
-                  dark={tailwind('border-t border-dfxblue-900')}
-                  style={tailwind('mt-1 pt-2 mb-2')}
-                >
-                  <TokenBreakdownPercentage
-                    symbol={token.symbol}
-                    availableAmount={new BigNumber(token.amount)}
-                    onBreakdownPress={onBreakdownPress}
-                    isBreakdownExpanded={isBreakdownExpanded}
-                    lockedAmount={lockedToken.amount}
-                    testID={token.displaySymbol}
-                  />
-                  <TokenBreakdownDetails
-                    hasFetchedToken={hasFetchedToken}
-                    lockedAmount={lockedToken.amount}
-                    lockedValue={lockedToken.tokenValue}
-                    availableAmount={new BigNumber(token.amount)}
-                    availableValue={token.usdAmount}
-                    testID={token.displaySymbol}
-                    denominationCurrency={denominationCurrency}
-                  />
-                </ThemedView>
-              )}
-            </>
+            <TokenBreakdownPercentage
+              displaySymbol={token.displaySymbol}
+              symbol={token.symbol}
+              lockedAmount={lockedToken.amount}
+              testID={token.displaySymbol}
+            />
           )}
-      </View>
+      </ThemedTouchableOpacity>
     </ThemedView>
-  )
-}
-
-function SortTokens ({
-  isSorted,
-  setIsSorted
-}: { isSorted: boolean, setIsSorted: (isSorted: boolean) => void }): JSX.Element {
-  return (
-    <View style={tailwind('px-4 flex flex-row items-center')}>
-      <TouchableOpacity
-        onPress={() => setIsSorted(!isSorted)}
-        style={tailwind('flex flex-row')}
-        testID='toggle_sorting_assets'
-      >
-        <ThemedText
-          style={tailwind('text-xs text-dfxgray-400 pr-1')}
-        >
-          {translate('screens/BalancesScreen', 'YOUR ASSETS')}
-        </ThemedText>
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-dfxgray-400')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/BalancesScreen', `(From ${!isSorted ? 'highest' : 'lowest'} value)`)}
-        </ThemedText>
-        <ThemedIcon
-          style={tailwind('ml-1 pt-px')}
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-dfxred-500')}
-          iconType='MaterialCommunityIcons'
-          name={!isSorted ? 'sort-ascending' : 'sort-descending'}
-          size={16}
-        />
-      </TouchableOpacity>
-    </View>
   )
 }

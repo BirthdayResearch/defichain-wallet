@@ -7,9 +7,9 @@ import { translate } from '@translations'
 import { Dispatch, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import BigNumber from 'bignumber.js'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -19,6 +19,7 @@ import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditLoanSchemeScreen'>
 
@@ -33,7 +34,7 @@ export function ConfirmEditLoanSchemeScreen ({ route, navigation }: Props): JSX.
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
@@ -188,8 +189,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
           style: tailwind('ml-0')
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

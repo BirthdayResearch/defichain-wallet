@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
 import { MaterialIcons } from '@expo/vector-icons'
 import { translate } from '@translations'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { tokensSelector, WalletToken, unifiedDFISelector } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components'
@@ -23,11 +23,8 @@ import {
 } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
 import { ConversionMode } from './ConvertScreen'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useIsFocused } from '@react-navigation/native'
 
 interface TokenActionItems {
   title: string
@@ -35,28 +32,17 @@ interface TokenActionItems {
   onPress: () => void
   testID: string
 }
+
 type Props = StackScreenProps<BalanceParamList, 'TokenDetailScreen'>
 
 const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token: WalletToken, swapTokenDisplaySymbol?: string } => {
-  // async calls
-  const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const dispatch = useDispatch()
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const isFocused = useIsFocused()
 
   // state
   const [token, setToken] = useState(tokenParam)
   const [pair, setPair] = useState<PoolPairData>()
   const [swapTokenDisplaySymbol, setSwapTokenDisplaySymbol] = useState<string>()
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     const t = tokens.find((t) => t.id === token.id)
@@ -93,10 +79,21 @@ const usePoolPairToken = (tokenParam: WalletToken): { pair?: PoolPairData, token
   }
 }
 
-export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
-  const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(route.params.token)
-  const onNavigateLiquidity = ({ destination, pair }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
-    navigation.navigate('DEX', {
+export function TokenDetailScreen ({
+  route,
+  navigation
+}: Props): JSX.Element {
+  const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
+  const {
+    pair,
+    token,
+    swapTokenDisplaySymbol
+  } = usePoolPairToken(route.params.token)
+  const onNavigateLiquidity = ({
+    destination,
+    pair
+  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
+    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: destination,
       initial: false,
       params: {
@@ -106,12 +103,16 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
-  const onNavigateSwap = ({ pair }: { pair: PoolPairData }): void => {
+  const onNavigateSwap = ({
+    pair,
+    fromToken
+  }: { pair?: PoolPairData, fromToken?: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
       screen: 'CompositeSwap',
       initial: false,
       params: {
         pair,
+        fromToken,
         tokenSelectOption: {
           from: {
             isDisabled: true,
@@ -189,6 +190,17 @@ export function TokenDetailScreen ({ route, navigation }: Props): JSX.Element {
       }
 
       {
+        token.symbol === 'DFI' && (
+          <TokenActionRow
+            icon='swap-horiz'
+            onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
+            testID='swap_button_dfi'
+            title={translate('screens/TokenDetailScreen', 'Swap token')}
+          />
+        )
+      }
+
+      {
         (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
           <TokenActionRow
             icon='swap-horiz'
@@ -232,7 +244,7 @@ function TokenSummary (props: { token: WalletToken }): JSX.Element {
   const { getTokenUrl } = useDeFiScanContext()
 
   const onTokenUrlPressed = async (): Promise<void> => {
-    const id = props.token.id === '0_utxo' ? 0 : props.token.id
+    const id = (props.token.id === '0_utxo' || props.token.id === '0_unified') ? 0 : props.token.id
     const url = getTokenUrl(id)
     await Linking.openURL(url)
   }
@@ -296,7 +308,12 @@ function TokenSummary (props: { token: WalletToken }): JSX.Element {
   )
 }
 
-function TokenActionRow ({ title, icon, onPress, testID }: TokenActionItems): JSX.Element {
+function TokenActionRow ({
+  title,
+  icon,
+  onPress,
+  testID
+}: TokenActionItems): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}

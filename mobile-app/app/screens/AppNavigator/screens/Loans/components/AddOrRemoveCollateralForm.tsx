@@ -31,6 +31,7 @@ import { CollateralItem } from '../screens/EditCollateralScreen'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { TokenIconGroup } from '@components/TokenIconGroup'
+import { IconTooltip } from '@components/tooltip/IconTooltip'
 
 export interface AddOrRemoveCollateralFormProps {
   collateralItem: CollateralItem
@@ -242,34 +243,37 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
         suffixType='component'
         styleProps={tailwind('font-medium')}
       >
-        <ThemedText
-          light={tailwind('text-gray-700')}
-          dark={tailwind('text-gray-200')}
-          style={tailwind('text-sm font-medium')}
-        >
-          <Text>{' '}</Text>
-          {token.displaySymbol}
-          {
-            !new BigNumber(activePrice).isZero() && (
-              <NumberFormat
-                value={getPrecisedTokenValue(activePrice.multipliedBy(available))}
-                thousandSeparator
-                decimalScale={2}
-                displayType='text'
-                prefix='$'
-                renderText={(val: string) => (
-                  <ThemedText
-                    dark={tailwind('text-dfxgray-400')}
-                    light={tailwind('text-gray-500')}
-                    style={tailwind('text-xs leading-5')}
-                  >
-                    {` /${val}`}
-                  </ThemedText>
-                )}
-              />
-            )
-          }
-        </ThemedText>
+        <View style={tailwind('flex flex-row items-center')}>
+          <ThemedText
+            light={tailwind('text-gray-700')}
+            dark={tailwind('text-gray-200')}
+            style={tailwind('text-sm font-medium')}
+          >
+            <Text>{' '}</Text>
+            {token.displaySymbol}
+            {
+              !new BigNumber(activePrice).isZero() && (
+                <NumberFormat
+                  value={getPrecisedTokenValue(activePrice.multipliedBy(available))}
+                  thousandSeparator
+                  decimalScale={2}
+                  displayType='text'
+                  prefix='$'
+                  renderText={(val: string) => (
+                    <ThemedText
+                      dark={tailwind('text-dfxgray-400')}
+                      light={tailwind('text-gray-500')}
+                      style={tailwind('text-xs leading-5')}
+                    >
+                      {` /${val}`}
+                    </ThemedText>
+                  )}
+                />
+              )
+            }
+          </ThemedText>
+          <IconTooltip />
+        </View>
       </InputHelperText>
       {isFeatureAvailable('dusd_vault_share')
         ? (
@@ -279,12 +283,13 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
             <ThemedText style={tailwind('mr-2 w-6/12')}>{translate('components/AddOrRemoveCollateralForm', 'Vault requirement')}</ThemedText>
 
             <ThemedView
-              style={tailwind('flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl')}
+              style={tailwind('flex flex-row items-center mb-0 p-1 rounded-2xl')}
             >
               <TokenIconGroup
                 testID='required_collateral_token_group'
                 symbols={requiredVaultShareTokens}
                 maxIconToDisplay={2}
+                offsetContainer
               />
               <NumberFormat
                 value={requiredTokensShare.toFixed(2)}

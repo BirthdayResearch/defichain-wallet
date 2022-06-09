@@ -13,19 +13,19 @@ import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export interface CreateOrEditAddressLabelFormProps {
   title: string
   isAddressBook: boolean
   address?: string
   addressLabel?: LocalAddress
-  index: number
   onSaveButtonPress: (labelAddress: LabeledAddress) => void
 }
 
@@ -38,7 +38,6 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     isAddressBook,
     address,
     addressLabel,
-    index,
     onSaveButtonPress
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
@@ -95,6 +94,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
     }
     onSaveButtonPress({
       [address]: {
+        address,
         label: labelInput.trim(),
         isMine: true
       }
@@ -102,7 +102,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
   }
 
   // Passcode prompt on create
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { data: { type: encryptionType } } = useWalletNodeContext()
   const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
   const logger = useLogger()
@@ -120,6 +120,7 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
       onAuthenticated: async () => {
         onSaveButtonPress({
           [addressInput]: {
+            address: addressInput,
             label: labelInput.trim(),
             isMine: false
           }
@@ -200,7 +201,6 @@ export const CreateOrEditAddressLabelForm = memo(({ route, navigation }: Props):
             </ThemedText>
             <AddressInput
               addressInput={addressInput}
-              index={index}
               setAddressInput={setAddressInput}
               validateAddressInput={validateAddressInput}
               addressInputErrorMessage={addressInputErrorMessage}
@@ -238,11 +238,10 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
 
 function AddressInput ({
   addressInput,
-  index,
   setAddressInput,
   validateAddressInput,
   addressInputErrorMessage
-}: { addressInput?: string, index: number, setAddressInput: (val?: string) => void, validateAddressInput: (val: string) => boolean, addressInputErrorMessage: string }): JSX.Element {
+}: { addressInput?: string, setAddressInput: (val?: string) => void, validateAddressInput: (val: string) => boolean, addressInputErrorMessage: string }): JSX.Element {
   return (
     <WalletTextInput
       value={addressInput}

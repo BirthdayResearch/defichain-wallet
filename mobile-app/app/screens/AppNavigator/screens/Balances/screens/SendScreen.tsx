@@ -3,12 +3,12 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { StackScreenProps } from '@react-navigation/stack'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { Platform, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
@@ -26,7 +26,7 @@ import { hasTxQueued } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { ConversionInfoText } from '@components/ConversionInfoText'
 import { NumberRow } from '@components/NumberRow'
@@ -37,10 +37,12 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { LocalAddress } from '@store/userPreferences'
+import { debounce } from 'lodash'
+import { useWalletAddress } from '@hooks/useWalletAddress'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<BalanceParamList, 'SendScreen'>
 
@@ -51,19 +53,21 @@ export function SendScreen ({
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
-  const isFocused = useIsFocused()
   const {
     control,
     setValue,
     formState,
     getValues,
-    trigger
+    trigger,
+    watch
   } = useForm({ mode: 'onChange' })
-  const dispatch = useDispatch()
+  const { address } = watch()
+  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
+  const walletAddress = useSelector((state: RootState) => state.userPreferences.addresses)
+  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
+  const dispatch = useAppDispatch()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -80,6 +84,8 @@ export function SendScreen ({
     deps: [getValues('amount'), JSON.stringify(token)]
   })
   const [hasBalance, setHasBalance] = useState(false)
+  const { fetchWalletAddresses } = useWalletAddress()
+  const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -101,14 +107,26 @@ export function SendScreen ({
     }
   }, [])
 
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
+  const debounceMatchAddress = debounce(() => {
+    if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
+      setMatchedAddress(addressBook[address])
+    } else if (address !== undefined && walletAddress !== undefined && walletAddress[address] !== undefined) {
+      setMatchedAddress(walletAddress[address])
+    } else if (address !== undefined && jellyfishWalletAddress.includes(address)) {
+      // wallet address that does not have a label
+      setMatchedAddress({
+        address,
+        label: 'Saved address',
+        isMine: true
+      })
+    } else {
+      setMatchedAddress(undefined)
     }
-  }, [address, blockCount, isFocused])
+  }, 200)
+
+  useEffect(() => {
+    void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
+  }, [fetchWalletAddresses])
 
   useEffect(() => {
     client.fee.estimate()
@@ -128,6 +146,10 @@ export function SendScreen ({
 
     setHasBalance(totalBalance.isGreaterThan(0))
   }, [JSON.stringify(tokens)])
+
+  useEffect(() => {
+    debounceMatchAddress()
+  }, [address, addressBook])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -250,8 +272,34 @@ export function SendScreen ({
                     setValue('address', address, { shouldDirty: true })
                     await trigger('address')
                   }}
+                  inputFooter={
+                    <>
+                      {matchedAddress !== undefined && (
+                        <ThemedView
+                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                          light={tailwind('bg-gray-50')}
+                          dark={tailwind('bg-dfxblue-900')}
+                        >
+                          <ThemedIcon
+                            name='account-check'
+                            iconType='MaterialCommunityIcons'
+                            size={18}
+                            light={tailwind('text-gray-400')}
+                            dark={tailwind('text-dfxgray-500')}
+                          />
+                          <ThemedText
+                            style={tailwind('text-xs ml-1 pt-px')}
+                            light={tailwind('text-gray-500')}
+                            dark={tailwind('text-dfxgray-400')}
+                            testID='address_input_footer'
+                          >
+                            {matchedAddress.label}
+                          </ThemedText>
+                        </ThemedView>
+                      )}
+                    </>
+                  }
                 />
-
                 <AmountRow
                   control={control}
                   onAmountChange={async (amount) => {
@@ -288,8 +336,8 @@ export function SendScreen ({
                         }}
                       />}
 
-                    <FeeInfoRow
-                      type='ESTIMATED_FEE'
+                    <InfoRow
+                      type={InfoType.EstimatedFee}
                       value={fee.toString()}
                       testID='transaction_fee'
                       suffix='DFI'
@@ -433,8 +481,9 @@ function AddressRow ({
   onContactButtonPress,
   onQrButtonPress,
   onClearButtonPress,
-  onAddressChange
-}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void }): JSX.Element {
+  onAddressChange,
+  inputFooter
+}: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   const { isFeatureAvailable } = useFeatureFlagContext()
   return (
@@ -449,7 +498,7 @@ function AddressRow ({
             onChange
           }
         }) => (
-          <View style={tailwind('flex-row w-full mb-6')}>
+          <View style={tailwind('flex-row w-full')}>
             <WalletTextInput
               autoCapitalize='none'
               multiline
@@ -464,9 +513,29 @@ function AddressRow ({
               title={translate('screens/SendScreen', 'Where do you want to send?')}
               titleTestID='title_to_address'
               inputType='default'
+              inputFooter={inputFooter}
             >
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('border border-dfxblue-900')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-dfxred-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
               <ThemedTouchableOpacity
-                dark={tailwind('border border-dfxblue-900')}
+                dark={tailwind('boarder border-dfxblue-900')}
                 light={tailwind('bg-white border-gray-300')}
                 onPress={onQrButtonPress}
                 style={tailwind('w-9 p-1.5 border rounded')}
@@ -480,25 +549,6 @@ function AddressRow ({
                   size={24}
                 />
               </ThemedTouchableOpacity>
-              {
-                isFeatureAvailable('local_storage') && (
-                  <ThemedTouchableOpacity
-                    dark={tailwind('border border-dfxblue-900')}
-                    light={tailwind('bg-white border-gray-300')}
-                    onPress={onContactButtonPress}
-                    style={tailwind('w-9 p-1.5 ml-1 border rounded')}
-                    testID='address_book_button'
-                  >
-                    <ThemedIcon
-                      dark={tailwind('text-dfxred-500')}
-                      iconType='MaterialIcons'
-                      light={tailwind('text-primary-500')}
-                      name='contacts'
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                )
-              }
             </WalletTextInput>
           </View>
         )}
@@ -545,7 +595,7 @@ function AmountRow ({
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
-            style={tailwind('flex-row w-full')}
+            style={tailwind('flex-row w-full mt-6')}
           >
             <WalletTextInput
               autoCapitalize='none'

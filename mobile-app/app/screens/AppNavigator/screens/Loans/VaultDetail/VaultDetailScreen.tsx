@@ -254,12 +254,14 @@ function VaultInfoSection (props: { vault?: LoanVault }): JSX.Element | null {
               lhs={translate('screens/VaultDetailScreen', 'Total collateral (USD)')}
               testID='text_total_collateral_value'
               prefix='$'
+              isOraclePrice
             />
             <VaultSectionTextRow
               value={getPrecisedTokenValue(props.vault.loanValue)}
               lhs={translate('screens/VaultDetailScreen', 'Total loans (USD)')}
               testID='text_total_loan_value'
               prefix='$'
+              isOraclePrice
             />
             <VaultSectionTextRow
               value={props.vault.loanScheme.interestRate}

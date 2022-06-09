@@ -83,5 +83,14 @@ context('Wallet - Loans - Confirm create vault', () => {
     cy.getByTestID('vault_card_0_collateral_none').contains('None')
     cy.getByTestID('vault_card_0_total_loan').contains('$0.00')
     cy.getByTestID('vault_card_0_total_collateral').contains('$0.00')
+    cy.getByTestID('icon-tooltip').should('exist')
+  })
+  it('should display tooltip message for oracle pricing', () => {
+    cy.getByTestID('bottom_tab_loans').click()
+    cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
+    cy.getByTestID('icon-tooltip').should('exist').first().click()
+    cy.getByTestID('icon-tooltip-text').should('exist').should('have.text', 'This icon indicates that the price is provided by Oracles instead of the DEX')
+    cy.wait(2000) // manual condition to hide popover/tooltip on web
+    cy.getByTestID('icon-tooltip-text').should('not.exist')
   })
 })

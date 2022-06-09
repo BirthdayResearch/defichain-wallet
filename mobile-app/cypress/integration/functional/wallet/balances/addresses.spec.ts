@@ -12,7 +12,7 @@ context('Wallet - Addresses', () => {
     cy.restoreLocalStorage()
     const network = localStorage.getItem('Development.NETWORK')
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })
@@ -105,7 +105,8 @@ context('Wallet - Addresses', () => {
         cy.getByTestID('dfi_balance_card').should('exist')
         cy.getByTestID('details_dfi').click()
         cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
-        cy.getByTestID('send_dfi_button').click()
+        cy.getByTestID('dfi_balance_card_touchable').click()
+        cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').type(sendAddress)
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
@@ -308,7 +309,8 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
     cy.getByTestID('balances_list').should('exist')
     cy.getByTestID('dfi_balance_card').should('exist')
     cy.getByTestID('details_dfi').click()
-    cy.getByTestID('send_dfi_button').click()
+    cy.getByTestID('dfi_balance_card_touchable').click()
+    cy.getByTestID('send_button').click()
     cy.getByTestID('address_input').clear().type(address)
     cy.getByTestID('amount_input').clear().type('1')
     cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')

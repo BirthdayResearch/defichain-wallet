@@ -5,7 +5,7 @@ import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View } from '@components/index'
+import { View } from '@components'
 import { Button } from '@components/Button'
 import { CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
 import { ThemedText, ThemedView } from '@components/themed'
@@ -125,65 +125,76 @@ export function RestoreMnemonicWallet (): JSX.Element {
               defaultValue=''
               key={order}
               name={`recover_word_${order}`}
-              render={({ field: { name, value, onChange }, fieldState: { invalid, isTouched, error } }) => (
-                <ThemedView
-                  dark={tailwind('bg-dfxblue-800')}
-                  light={tailwind('bg-white')}
-                  style={tailwind('flex-row pb-1')}
-                >
-                  <ThemedText style={tailwind('mx-3 mt-4 text-sm w-6 text-center')}>
-                    {`${order}.`}
-                  </ThemedText>
-                  <WalletTextInput
-                    autoCapitalize='none'
-                    autoCompleteType='off'
-                    blurOnSubmit={false}
-                    onBlur={async () => {
-                      onChange(value.trim())
-                      await trigger(name)
-                    }}
-                    inputType='default'
-                    keyboardType='default'
-                    onChangeText={onChange}
-                    onSubmitEditing={async () => {
-                      if (inputRefMap[order + 1] !== undefined) {
-                        inputRefMap[order + 1].current?.focus()
-                      } else {
-                        await onRestore()
-                      }
-                    }}
-                    placeholder={translate('screens/RestoreWallet', 'Enter word #{{order}}', { order })}
-                    placeholderTextColor={isLight
-                      ? `${invalid && isTouched
-                        ? 'rgba(255, 0, 0, 1)'
-                        : 'rgba(0, 0, 0, 0.4)'}`
-                      : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
-                    ref={inputRefMap[order]}
-                    returnKeyType={order === 24 ? 'done' : 'next'}
-                    containerStyle='w-10/12'
-                    style={tailwind('w-full')}
-                    valid={!invalid}
-                    testID={`recover_word_${order}`}
-                    value={value}
-                    inlineText={{
-                      type: 'error',
-                      text: error?.message
-                    }}
-                  />
-                </ThemedView>
-              )}
-              rules={{
-                validate: (value) => {
-                  const trimmedValue = value.trim()
-                    if (trimmedValue === undefined || trimmedValue === '') {
-                      return translate('screens/RestoreWallet', 'Required field is missing')
-                    } else if (!/^[a-z]+$/.test(trimmedValue)) {
-                      return translate('screens/RestoreWallet', 'Uppercase, numbers and special characters are not allowed')
+              render={({
+              field: {
+                name,
+                value,
+                onChange
+              },
+              fieldState: {
+                invalid,
+                isTouched,
+                error
+              }
+            }) => (
+              <ThemedView
+                dark={tailwind('bg-dfxblue-800')}
+                light={tailwind('bg-white')}
+                style={tailwind('flex-row pb-1')}
+              >
+                <ThemedText style={tailwind('mx-3 mt-4 text-sm w-6 text-center')}>
+                  {`${order}.`}
+                </ThemedText>
+                <WalletTextInput
+                  autoCapitalize='none'
+                  autoComplete='off'
+                  blurOnSubmit={false}
+                  onBlur={async () => {
+                    onChange(value.trim())
+                    await trigger(name)
+                  }}
+                  inputType='default'
+                  keyboardType='default'
+                  onChangeText={onChange}
+                  onSubmitEditing={async () => {
+                    if (inputRefMap[order + 1] !== undefined) {
+                      inputRefMap[order + 1].current?.focus()
+                    } else {
+                      await onRestore()
                     }
-
-                    return true
+                  }}
+                  placeholder={translate('screens/RestoreWallet', 'Enter word #{{order}}', { order })}
+                  placeholderTextColor={isLight
+                    ? `${invalid && isTouched
+                      ? 'rgba(255, 0, 0, 1)'
+                      : 'rgba(0, 0, 0, 0.4)'}`
+                    : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
+                  ref={inputRefMap[order]}
+                  returnKeyType={order === 24 ? 'done' : 'next'}
+                  containerStyle='w-10/12'
+                  style={tailwind('w-full')}
+                  valid={!invalid}
+                  testID={`recover_word_${order}`}
+                  value={value}
+                  inlineText={{
+                    type: 'error',
+                    text: error?.message
+                  }}
+                />
+              </ThemedView>
+            )}
+              rules={{
+              validate: (value) => {
+                const trimmedValue = value.trim()
+                if (trimmedValue === undefined || trimmedValue === '') {
+                  return translate('screens/RestoreWallet', 'Required field is missing')
+                } else if (!/^[a-z]+$/.test(trimmedValue)) {
+                  return translate('screens/RestoreWallet', 'Uppercase, numbers and special characters are not allowed')
                 }
-              }}
+
+                return true
+              }
+            }}
              />)
           : <SkeletonLoader key={order} row={1} screen={SkeletonLoaderScreen.MnemonicWord} />
       ))}

@@ -29,7 +29,7 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     alertInfo,
     snapPoints = ['100%', '50%'],
     light = tailwind('bg-gray-100 text-black'),
-    dark = tailwind('bg-gray-600 text-white text-opacity-90'),
+    dark = tailwind('bg-dfxgray-600 text-white text-opacity-90'),
     enableScroll,
     ...otherModalProps
   } = props

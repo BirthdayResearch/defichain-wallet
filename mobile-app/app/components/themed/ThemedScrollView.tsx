@@ -1,12 +1,13 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
+import { forwardRef } from 'react'
 
 import { ScrollView } from 'react-native'
 import { ThemedProps } from './index'
 
 type ThemedScrollViewProps = ScrollView['props'] & ThemedProps
 
-export function ThemedScrollView (props: ThemedScrollViewProps): JSX.Element {
+export const ThemedScrollView = forwardRef(function (props: ThemedScrollViewProps, ref: React.Ref<any>): JSX.Element {
   const { isLight } = useThemeContext()
   const {
     style,
@@ -17,7 +18,8 @@ export function ThemedScrollView (props: ThemedScrollViewProps): JSX.Element {
   return (
     <ScrollView
       style={[style, isLight ? light : dark]}
+      ref={ref}
       {...otherProps}
     />
   )
-}
+})

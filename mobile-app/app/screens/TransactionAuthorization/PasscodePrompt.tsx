@@ -216,7 +216,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <View
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-dfxblue-800 border-dfxblue-900'} border-t rounded`)]}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-dfxblue-900 border-dfxblue-900'} border-t rounded`)]}
         />
       )}
       onChange={(index) => {

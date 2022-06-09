@@ -1,9 +1,10 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { ThemedFlatList, ThemedScrollView } from '@components/themed'
 import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
 import { Platform, View } from 'react-native'
-import { useDispatch, useSelector, batch } from 'react-redux'
+import { useSelector, batch } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -17,8 +18,8 @@ import { QuickBid } from './QuickBid'
 import { useDebounce } from '@hooks/useDebounce'
 import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { fetchTokens, tokensSelector } from '@store/wallet'
-import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { tokensSelector } from '@store/wallet'
 
 interface Props {
   searchString: string
@@ -33,7 +34,7 @@ export interface onQuickBidProps {
 }
 
 export function BrowseAuctions ({ searchString }: Props): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
@@ -59,7 +60,6 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
   useEffect(() => {
     if (isFocused) {
       batch(() => {
-        dispatch(fetchTokens({ client, address }))
         dispatch(fetchAuctions({ client }))
         dispatch(fetchVaults({ client, address }))
       })
@@ -157,6 +157,9 @@ function BatchCards ({
   vaults: LoanVault[]
   onQuickBid: (props: onQuickBidProps) => void
 }): JSX.Element {
+  const ref = useRef(null)
+  useScrollToTop(ref)
+
   const RenderItems = useCallback(({
     item,
     index
@@ -180,6 +183,7 @@ function BatchCards ({
     <ThemedFlatList
       contentContainerStyle={tailwind('p-4 pb-2')}
       data={auctionBatches}
+      ref={ref}
       numColumns={1}
       initialNumToRender={5}
       windowSize={2}

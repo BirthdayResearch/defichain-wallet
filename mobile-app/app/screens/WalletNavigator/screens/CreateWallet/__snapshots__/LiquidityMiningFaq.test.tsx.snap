@@ -218,10 +218,12 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="auto"
               style={Object {}}
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -369,6 +371,7 @@ Once an amount is entered on one side of the pair, the app automatically balance
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -378,6 +381,7 @@ Once an amount is entered on one side of the pair, the app automatically balance
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -523,6 +527,7 @@ Once an amount is entered on one side of the pair, the app automatically balance
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -532,6 +537,7 @@ Once an amount is entered on one side of the pair, the app automatically balance
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -681,6 +687,7 @@ View more at DeFiChain.com
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -690,6 +697,7 @@ View more at DeFiChain.com
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -831,6 +839,7 @@ View more at DeFiChain.com
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -840,6 +849,7 @@ View more at DeFiChain.com
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}

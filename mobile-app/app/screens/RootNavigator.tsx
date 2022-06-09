@@ -14,6 +14,7 @@ import { Text } from '@components'
 import { useShowAdvertisement } from '@hooks/useShowAdvertisement'
 import { useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
+import { WalletDataProvider } from '@shared-contexts/WalletDataProvider'
 
 /**
  * Top Root Level Wallet State to control what screen to show
@@ -62,11 +63,13 @@ export function RootNavigator (): JSX.Element {
   return (
     <WalletNodeProvider data={wallets[0]}>
       <WalletContextProvider api={WalletAddressIndexPersistence}>
-        <PrivacyLock />
-        <BottomSheetModalProvider>
-          <TransactionAuthorization />
-          <AppNavigator />
-        </BottomSheetModalProvider>
+        <WalletDataProvider>
+          <PrivacyLock />
+          <BottomSheetModalProvider>
+            <TransactionAuthorization />
+            <AppNavigator />
+          </BottomSheetModalProvider>
+        </WalletDataProvider>
       </WalletContextProvider>
     </WalletNodeProvider>
   )

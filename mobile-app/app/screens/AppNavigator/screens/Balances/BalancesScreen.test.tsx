@@ -7,6 +7,8 @@ import { block } from '@store/block'
 import { BalancesScreen } from './BalancesScreen'
 import { loans } from '@store/loans'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { futureSwaps } from '@store/futureSwap'
+import { WhaleProvider } from '@shared-contexts/WhaleContext'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
@@ -24,7 +26,9 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => {
     return { navigate: jest.fn() }
-  }
+  },
+  useScrollToTop: jest.fn(),
+  useIsFocused: jest.fn()
 }))
 
 jest.mock('@gorhom/bottom-sheet', () => ({
@@ -168,6 +172,10 @@ describe('balances page', () => {
         hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
+      },
+      futureSwaps: {
+        futureSwaps: [],
+        executionBlock: 0
       }
     }
     const store = configureStore({
@@ -175,7 +183,8 @@ describe('balances page', () => {
       reducer: {
         wallet: wallet.reducer,
         block: block.reducer,
-        loans: loans.reducer
+        loans: loans.reducer,
+        futureSwaps: futureSwaps.reducer
       }
     })
     const navigation: any = {
@@ -185,10 +194,12 @@ describe('balances page', () => {
     const route: any = {}
     const component = (
       <Provider store={store}>
-        <BalancesScreen
-          navigation={navigation}
-          route={route}
-        />
+        <WhaleProvider>
+          <BalancesScreen
+            navigation={navigation}
+            route={route}
+          />
+        </WhaleProvider>
       </Provider>
     )
     const rendered = render(component)
@@ -281,6 +292,10 @@ describe('balances page', () => {
         hasFetchedLoanSchemes: true,
         loanSchemes: [],
         loanTokens: []
+      },
+      futureSwaps: {
+        futureSwaps: [],
+        executionBlock: 0
       }
     }
     const store = configureStore({
@@ -288,7 +303,8 @@ describe('balances page', () => {
       reducer: {
         wallet: wallet.reducer,
         block: block.reducer,
-        loans: loans.reducer
+        loans: loans.reducer,
+        futureSwaps: futureSwaps.reducer
       }
     })
     const navigation: any = {
@@ -297,12 +313,15 @@ describe('balances page', () => {
     }
     const route: any = {}
     const spy = jest.spyOn(navigation, 'navigate')
+
     const component = (
       <Provider store={store}>
-        <BalancesScreen
-          navigation={navigation}
-          route={route}
-        />
+        <WhaleProvider>
+          <BalancesScreen
+            navigation={navigation}
+            route={route}
+          />
+        </WhaleProvider>
       </Provider>
     )
     const rendered = render(component)

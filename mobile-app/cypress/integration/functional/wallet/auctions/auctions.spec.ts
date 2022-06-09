@@ -40,7 +40,7 @@ context('Wallet - Auctions', () => {
   const network = localStorage.getItem('Development.NETWORK')
   before(function () {
     whale = new WhaleApiClient({
-      url: network === 'Playground' ? 'https://playground.defichain.com' : 'http://localhost:19553',
+      url: network === 'Playground' ? 'https://playground.jellyfishsdk.com' : 'http://localhost:19553',
       network: 'regtest',
       version: 'v0'
     })
@@ -417,18 +417,6 @@ context('Wallet - Auctions Feature Gated', () => {
           platforms: ['ios', 'android', 'web']
         }
       ]
-    })
-    cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_auctions').should('not.exist')
-  })
-
-  it('should not have auctions tab if feature flag api failed', function () {
-    cy.intercept('**/settings/flags', {
-      statusCode: 404,
-      body: '404 Not Found!',
-      headers: {
-        'x-not-found': 'true'
-      }
     })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_auctions').should('not.exist')

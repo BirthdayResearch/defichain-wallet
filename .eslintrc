@@ -16,7 +16,8 @@
   ],
   "ignorePatterns": [
     "/*.config.js",
-    "*.json"
+    "*.json",
+    "jest.setup.js"
   ],
   "overrides": [
     // Js and Typescript files
@@ -51,7 +52,9 @@
         "@typescript-eslint/indent": "off",
         "react/prop-types": "off",
         "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "no-console": "error"
       },
       "excludedFiles": [
         "*.test.ts",

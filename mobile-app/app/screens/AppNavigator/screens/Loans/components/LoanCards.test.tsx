@@ -10,8 +10,10 @@ import { wallet } from '@store/wallet'
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@contexts/FeatureFlagContext')
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn()
+  useNavigation: jest.fn(),
+  useScrollToTop: jest.fn()
 }))
+jest.mock('react-native-popover-view')
 
 describe('loan cards', () => {
   it('should match snapshot', async () => {

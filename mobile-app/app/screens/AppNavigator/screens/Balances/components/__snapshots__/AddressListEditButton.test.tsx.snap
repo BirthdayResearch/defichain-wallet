@@ -3,6 +3,7 @@
 exports[`Address List Edit Button should match snapshot 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -33,7 +34,10 @@ exports[`Address List Edit Button should match snapshot 1`] = `
         },
         Array [
           Object {
-            "fontSize": 10,
+            "fontFamily": "MediumFont",
+            "fontSize": 14,
+            "fontWeight": "500",
+            "lineHeight": 20,
             "marginLeft": 6,
           },
           Object {

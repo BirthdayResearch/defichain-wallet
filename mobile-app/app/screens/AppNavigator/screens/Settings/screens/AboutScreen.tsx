@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { nativeApplicationVersion } from 'expo-application'
 
 import { TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '@components/icons/AppIcon'
@@ -10,6 +9,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { openURL } from '@api/linking'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { VersionTag } from '@components/VersionTag'
 
 interface AboutScreenLinks {
   testID: string
@@ -113,9 +113,9 @@ export function AboutScreen (): JSX.Element {
           {translate('screens/AboutScreen', 'Wallet')}
         </ThemedText>
 
-        <ThemedText style={tailwind('text-base font-light text-black')}>
-          {`v${nativeApplicationVersion ?? '0.0.0'}`}
-        </ThemedText>
+        <View style={tailwind('mt-1')}>
+          <VersionTag />
+        </View>
 
         {hasBetaFeatures && (
           <TouchableOpacity

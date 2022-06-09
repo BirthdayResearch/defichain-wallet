@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
@@ -14,16 +14,17 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { TextRow } from '@components/TextRow'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
 import { AuctionsParamList } from '../AuctionNavigator'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<AuctionsParamList, 'ConfirmPlaceBidScreen'>
 
 export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -116,8 +117,8 @@ export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
           suffix: batch.loan.displaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={estimatedFees.toFixed(8)}
         testID='text_fee'
         suffix='DFI'

@@ -35,6 +35,16 @@ function setupWalletForConversion (): void {
   cy.getByTestID('token_balance_secondary').contains('19.9')
 }
 
+function validatePriceSection (testID: string): void {
+  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_0_label`).contains('1 dBTC')
+  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
+
+  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_1_label`).contains('1 DFI')
+  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dBTC')
+}
+
 context('Wallet - DEX - Add Liquidity', () => {
   before(function () {
     setupWallet()
@@ -44,12 +54,13 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('MAX_amount_button').first().click()
     cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
+
     cy.getByTestID('share_of_pool').contains('1.00000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
+  })
+
+  it('should display price rates', function () {
+    validatePriceSection('pricerate_value')
   })
 
   it('should update both token and build summary when click on half amount button', function () {
@@ -57,12 +68,13 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('50%_amount_button').first().click()
     cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
     cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
+
     cy.getByTestID('share_of_pool').contains('0.50000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
+  })
+
+  it('should display price rates on confirmation', function () {
+    validatePriceSection('pricerate_value')
   })
 
   it('should update both token and build summary base on primary token input', function () {
@@ -73,10 +85,8 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('token_input_primary').type('3')
     cy.getByTestID('token_input_secondary').should('have.value', '3.00000000')
 
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
+    validatePriceSection('pricerate_value')
+
     cy.getByTestID('share_of_pool').contains('0.30000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
   })
@@ -87,10 +97,8 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     cy.getByTestID('token_input_primary').should('have.value', '2.00000000')
 
-    cy.getByTestID('a_per_b_price').contains('1.00000000')
-    cy.getByTestID('a_per_b_price_label').contains('dBTC price per DFI')
-    cy.getByTestID('b_per_a_price').contains('1.00000000')
-    cy.getByTestID('b_per_a_price_label').contains('DFI price per dBTC')
+    validatePriceSection('pricerate_value')
+
     cy.getByTestID('share_of_pool').contains('0.20000000')
     cy.getByTestID('share_of_pool_suffix').contains('%')
     cy.getByTestID('button_confirm_continue_add_liq').click()
@@ -104,6 +112,9 @@ context('Wallet - DEX - Add Liquidity', () => {
     cy.getByTestID('a_amount').contains('2.00000000')
     cy.getByTestID('b_amount_label').contains('DFI')
     cy.getByTestID('b_amount').contains('2.00000000')
+
+    validatePriceSection('confirm_pricerate_value')
+
     cy.getByTestID('percentage_pool').contains('0.20000000')
     cy.getByTestID('percentage_pool_suffix').contains('%')
     cy.getByTestID('button_cancel_add').click()

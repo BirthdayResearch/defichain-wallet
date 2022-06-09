@@ -138,14 +138,14 @@ export function getAppLanguages (): AppLanguageItem[] {
       locale: 'fr'
     },
     {
-      language: AppLanguage.Italian,
-      displayName: 'Italiano',
-      locale: 'it'
-    },
-    {
       language: AppLanguage.Spanish,
       displayName: 'Español',
       locale: 'es'
+    },
+    {
+      language: AppLanguage.Italian,
+      displayName: 'Italiano',
+      locale: 'it'
     }
     // TODO(davidleomay)
     // {

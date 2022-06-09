@@ -79,7 +79,7 @@ function LiquidatedVaultCollateralCard ({ displaySymbol }: { displaySymbol: stri
           <SymbolIcon symbol={displaySymbol} styleProps={tailwind('w-4 h-4')} />
           <ThemedText
             light={tailwind('text-gray-300')}
-            dark={tailwind('text-gray-600')}
+            dark={tailwind('text-dfxgray-600')}
             style={tailwind('ml-2 font-medium')}
           >
             {displaySymbol}
@@ -149,7 +149,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUSDValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
+            <ActiveUSDValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} isOraclePrice />
           </View>
         </View>
       </View>
