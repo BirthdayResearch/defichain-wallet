@@ -1,12 +1,14 @@
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
+// TODO: (thabrad) uncomment when applying proper BackgroundImage
+
+// import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import { ImageBackground, TouchableOpacity, Text } from 'react-native'
+import { /* ImageBackground, */ TouchableOpacity, Text } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import DFIBackground from '@assets/images/DFI_balance_bg_gradient.png'
-import DFIBackgroundDark from '@assets/images/DFI_balance_bg_gradient_dark.png'
+// import DFIBackground from '@assets/images/DFI_balance_bg_gradient.png'
+// import DFIBackgroundDark from '@assets/images/DFI_balance_bg_gradient_dark.png'
 import { ThemedIcon, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
@@ -40,7 +42,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   const usdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
   const availableValue = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount))
   const DFIIcon = getNativeIcon('_UTXO')
-  const { isLight } = useThemeContext()
+  // const { isLight } = useThemeContext()
   const [isBreakdownExpanded, setIsBreakdownExpanded] = useState(false)
   const onBreakdownPress = (): void => {
     setIsBreakdownExpanded(!isBreakdownExpanded)
@@ -54,12 +56,13 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col flex-1')}>
-        <ImageBackground
-          source={isLight ? DFIBackground : DFIBackgroundDark}
+        <>
+          {/* <ImageBackground
+          source={true ? '' : isLight ? DFIBackground : DFIBackgroundDark}
           style={tailwind('flex-1 rounded-lg overflow-hidden')}
           resizeMode='cover'
           resizeMethod='scale'
-        >
+        > */}
           <ThemedTouchableOpacity
             onPress={() => navigation.navigate({
               name: 'TokenDetail',
@@ -167,7 +170,8 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
                 <DFIBreakdownAction onBreakdownPress={onBreakdownPress} isBreakdownExpanded={isBreakdownExpanded} />
               </View>
             )}
-        </ImageBackground>
+        </>
+        {/* </ImageBackground> */}
       </View>
 
       {isBreakdownExpanded && (

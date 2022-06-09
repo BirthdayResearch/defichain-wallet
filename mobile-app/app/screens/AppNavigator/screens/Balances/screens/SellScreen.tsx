@@ -491,7 +491,7 @@ function AddressRow ({
                 )
               }
               <ThemedTouchableOpacity
-                dark={tailwind('boarder border-dfxblue-900')}
+                dark={tailwind('border border-dfxblue-900')}
                 light={tailwind('bg-white border-gray-300')}
                 onPress={onQrButtonPress}
                 style={tailwind('w-9 p-1.5 border rounded')}
