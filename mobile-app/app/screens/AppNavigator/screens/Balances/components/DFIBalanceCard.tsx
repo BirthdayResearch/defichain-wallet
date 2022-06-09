@@ -117,9 +117,8 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             </View>
           </ThemedTouchableOpacity>
           {hasFetchedToken && !new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)
-            ? (
-              <GetDFIBtn />
-            )
+            // eslint-disable-next-line no-constant-condition
+            ? true ? (<></>) : (<GetDFIBtn />)
             : (
               <View style={tailwind('mx-4 mb-4 flex-row items-center')}>
                 {

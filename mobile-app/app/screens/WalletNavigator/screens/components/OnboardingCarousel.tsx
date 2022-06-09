@@ -4,7 +4,6 @@ import SwiperFlatList from 'react-native-swiper-flatlist'
 import ImageA from '@assets/images/onboarding/a.png'
 import ImageB from '@assets/images/onboarding/b.png'
 import ImageC from '@assets/images/onboarding/c.png'
-import ImageD from '@assets/images/onboarding/d.png'
 import { View } from '@components/index'
 import { AppIcon } from '@components/icons/AppIcon'
 import { ThemedText } from '@components/themed'
@@ -39,12 +38,6 @@ const slides: JSX.Element[] = [<InitialSlide key={0} />,
     key={3}
     subtitle='Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.'
     title='Maximize earning potential'
-  />,
-  <ImageSlide
-    image={ImageD}
-    key={4}
-    subtitle='Access financial opportunities with dTokens minted through decentralized vaults.'
-    title='Decentralized loans'
   />]
 
 // Needs for it to work on web. Otherwise, it takes full window size

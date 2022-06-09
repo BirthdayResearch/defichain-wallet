@@ -502,6 +502,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                   light: tailwind('bg-gray-100'),
                   dark: tailwind('bg-dfxblue-900')
                 }}
+                inverted
               />
             </View>}
           {(selectedTokenA === undefined || selectedTokenB === undefined) && fromTokens?.length !== 0 &&
@@ -1004,12 +1005,13 @@ function OraclePriceRow ({
   return (
     <ThemedView
       light={tailwind('bg-gray-50')}
+      dark={tailwind('border border-dfxblue-900')}
       style={tailwind('flex-row flex-grow justify-between items-center p-2 rounded')}
     >
       <ThemedText
         style={tailwind('self-center text-sm')}
         light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
+        dark={tailwind('text-dfxgray-500')}
         testID='oracle_price_percentage'
       >{translate('screens/CompositeSwapScreen', 'Oracle price {{percentageChange}}', {
         percentageChange: oraclePriceText

@@ -205,7 +205,7 @@ function TokenSelection (props: { symbol?: string, label: string }): JSX.Element
       </ThemedText>
       <ThemedTouchableOpacity
         testID={`token_select_button_${props.label}`}
-        dark={tailwind('bg-dfxgray-600 text-dfxgray-500 border-0')}
+        dark={tailwind('bg-gray-600 text-dfxgray-500 border-0')}
         light={tailwind('bg-gray-200 border-0')}
         style={tailwind('flex flex-row items-center border rounded p-3')}
         disabled

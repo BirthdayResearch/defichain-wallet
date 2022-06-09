@@ -78,8 +78,8 @@ export function ReceiveScreen (): JSX.Element {
         </View>
 
         <ThemedText
-          dark={tailwind('text-dfxgray-100')}
-          light={tailwind('text-dfxgray-900')}
+          dark={tailwind('text-gray-100')}
+          light={tailwind('text-gray-900')}
           numberOfLines={2}
           selectable
           style={tailwind('font-semibold text-lg text-center')}

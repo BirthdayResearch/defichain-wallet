@@ -566,7 +566,7 @@ function FutureSwapCta ({
       onPress={() => navigation.navigate('FutureSwapScreen')}
       style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-3xl justify-between')}
       light={tailwind('bg-blue-100')}
-      dark={tailwind('bg-darkblue-50')}
+      dark={tailwind('bg-dfxblue-800')}
       testID='pending_future_swaps'
     >
       <View style={tailwind('flex flex-row items-center flex-1')}>
@@ -575,12 +575,12 @@ function FutureSwapCta ({
           name='info'
           size={16}
           light={tailwind('text-blue-500')}
-          dark={tailwind('text-darkblue-500')}
+          dark={tailwind('text-dfxyellow-500')}
         />
         <ThemedText
           style={tailwind('ml-2 text-sm')}
           light={tailwind('text-gray-400')}
-          dark={tailwind('text-dfxgray-500')}
+          dark={tailwind('text-dfxyellow-500')}
         >
           {translate('screens/BalancesScreen', 'You have pending future swap(s)')}
         </ThemedText>

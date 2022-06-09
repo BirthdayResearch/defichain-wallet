@@ -178,7 +178,7 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
 }
 
 function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => void, isActive: boolean, label: string, icon?: ReactElement }): JSX.Element {
-  const buttonStyles = 'flex flex-row px-2 py-1.5 border rounded items-center bg-dfxblue-800'
+  const buttonStyles = 'flex flex-row px-2 py-1.5 border border-dfxblue-900 rounded items-center bg-dfxblue-800'
   const activeStyle = 'bg-dfxred-500 border-dfxred-500'
   return (
     <View style={tailwind('mr-1.5 mt-2')}>
@@ -192,7 +192,7 @@ function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => vo
           'bg-gray-50': !isActive
         })}
         dark={tailwind({
-          'bg-darkprimary-50': isActive,
+          'bg-dfxred-500': isActive,
           'bg-dfxblue-900': !isActive
         })}
       >

@@ -14,6 +14,7 @@ interface ButtonGroupProps {
   darkThemeStyle?: { [key: string]: string }
   customButtonGroupStyle?: StyleProp<TouchableOpacityProps>
   customActiveStyle?: ThemedProps
+  inverted?: boolean
 }
 
 interface Buttons {
@@ -45,6 +46,7 @@ export function ButtonGroup (props: ButtonGroupProps): JSX.Element {
             modalStyle={props.modalStyle}
             customButtonGroupStyle={props.customButtonGroupStyle}
             customActiveStyle={props.customActiveStyle}
+            inverted={props.inverted}
           />
         ))
       }
@@ -62,6 +64,7 @@ interface ButtonGroupItemProps {
   modalStyle?: StyleProp<TextStyle>
   customButtonGroupStyle?: StyleProp<TouchableOpacityProps>
   customActiveStyle?: ThemedProps
+  inverted?: boolean
 }
 
 function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
@@ -70,17 +73,16 @@ function ButtonGroupItem (props: ButtonGroupItemProps): JSX.Element {
       <ThemedTouchableOpacity
         onPress={props.onPress}
         light={tailwind({ 'bg-primary-50': props.isActive })}
-        dark={tailwind({ 'bg-dfxblue-900': props.isActive })}
+        dark={(props.inverted === true) ? tailwind({ 'bg-dfxblue-800': props.isActive }) : tailwind({ 'bg-dfxblue-900': props.isActive })}
         {...props.isActive && props.customActiveStyle}
         style={props.customButtonGroupStyle ?? [[tailwind('m-0.5 py-2 px-3'), { borderRadius: 14 }]]}
-        // TODO: (thabrad) check, from LW --> style={props.customButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
+        // TODO: (thabrad) check, from LW (somehow isn't working, maybe bc of below Text style) --> style={props.customButtonGroupStyle ?? [tailwind(['rounded-2xl break-words justify-center py-2 px-3']), { width: `${props.width.toFixed(2)}%` }]}
         testID={`${props.testID}${props.isActive ? '_active' : ''}`}
       >
         <ThemedText
           light={tailwind({ 'text-primary-500': props.isActive, 'text-gray-900': !props.isActive })}
           dark={tailwind({ 'text-white': props.isActive, 'text-dfxgray-300': !props.isActive })}
-          style={props.modalStyle ?? tailwind('text-center')}
-          // TODO: (thabrad) check, from LW --> style={props.labelStyle ?? tailwind('font-medium text-sm text-center')}
+          style={props.modalStyle ?? tailwind('font-medium text-sm text-center')}
         >
           {props.label}
         </ThemedText>
