@@ -5,7 +5,6 @@ import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { PortfolioSortType } from '../PortfolioScreen'
 
 export interface BottomSheetAssetSortProps {
   headerLabel: string
@@ -13,6 +12,15 @@ export interface BottomSheetAssetSortProps {
   onButtonPress: (item: PortfolioSortType) => void
   modifiedDenominationCurrency: string
   selectedAssetSortType: PortfolioSortType
+}
+
+export enum PortfolioSortType {
+  HighestDenominationValue = 'Highest denomination value',
+  LowestDenominationValue = 'Lowest denomination value',
+  HighestTokenAmount = 'Highest token amount',
+  LowestTokenAmount = 'Lowest token amount',
+  AtoZ = 'A to Z',
+  ZtoA = 'Z to A'
 }
 
 export const BottomSheetAssetSortList = ({

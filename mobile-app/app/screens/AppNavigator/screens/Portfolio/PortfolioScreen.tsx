@@ -35,22 +35,13 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
-import { BottomSheetAssetSortList } from './components/BottomSheetAssetSortList'
+import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
 export interface PortfolioRowToken extends WalletToken {
   usdAmount: BigNumber
-}
-
-export enum PortfolioSortType {
-  HighestDenominationValue = 'Highest denomination value',
-  LowestDenominationValue = 'Lowest denomination value',
-  HighestTokenAmount = 'Highest token amount',
-  LowestTokenAmount = 'Lowest token amount',
-  AtoZ = 'A to Z',
-  ZtoA = 'Z to A'
 }
 
 export function PortfolioScreen ({ navigation }: Props): JSX.Element {
@@ -395,6 +386,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
+  const modalSortingSnapPoints = { ios: ['55%'], android: ['55%'] }
   const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
@@ -530,7 +522,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               <BottomSheetWithNav
                 modalRef={bottomSheetSortRef}
                 screenList={assetSortBottomSheetScreen}
-                snapPoints={modalSnapPoints}
+                snapPoints={modalSortingSnapPoints}
               />
               <BottomSheetWithNav
                 modalRef={bottomSheetRef}
