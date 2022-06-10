@@ -27,14 +27,15 @@ import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { BottomSheetCountryPicker } from '@components/SellComponents/BottomSheetCountryPicker'
 import { BalanceParamList } from '../BalancesNavigator'
 import { Country } from '@shared-api/dfx/models/Country'
-import { putKycData } from '@shared-api/dfx/ApiService'
+import { putKycData, putUser } from '@shared-api/dfx/ApiService'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { KycData } from '@shared-api/dfx/models/KycData'
-import { AccountType } from '@shared-api/dfx/models/User'
+import { AccountType, User, UserDetail } from '@shared-api/dfx/models/User'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { CommonActions, StackActions } from '@react-navigation/native'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
+import { Language } from '@shared-api/dfx/models/Language'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
 
@@ -53,28 +54,35 @@ export function UserDetailsScreen ({
 }: Props): JSX.Element {
   const logger = useLogger()
   const { listFiatAccounts } = useDFXAPIContext()
-  const [iconClicked, setIconClicked] = useState(false)
+  const [iconClicked, setIconClicked] = useState(true)
 
+  // TODO: (thabrad) refactor
   enum ButtonGroupTabKey {
     Personal = '0',
-    Company = '1'
+    BUSINESS = '1',
+    SOLE_PROPRIETORSHIP = '2'
   }
-  const accountType = [{
-    id: ButtonGroupTabKey.Personal,
-    label: 'Personal',
-    handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Personal)
-  },
-    {
-      id: ButtonGroupTabKey.Company,
-      label: 'Company',
-      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Company)
-    }]
-  const [selectedButton, setSelectedButton] = useState(ButtonGroupTabKey.Personal)
-  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    if (selectedButton !== undefined) {
-      setSelectedButton(buttonGroupTabKey)
+
+  const buttonOptions = [{
+      id: ButtonGroupTabKey.Personal,
+      label: AccountType.PERSONAL,
+      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Personal)
+    }, {
+      id: ButtonGroupTabKey.BUSINESS,
+      label: AccountType.BUSINESS,
+      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.BUSINESS)
+    }, {
+      id: ButtonGroupTabKey.SOLE_PROPRIETORSHIP,
+      label: AccountType.SOLE_PROPRIETORSHIP,
+      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.SOLE_PROPRIETORSHIP)
     }
-  }
+  ]
+  const [selectedButton, setSelectedButton] = useState(ButtonGroupTabKey.Personal)
+  // const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+  //   if (selectedButton !== undefined) {
+  //     setSelectedButton(buttonGroupTabKey)
+  //   }
+  // }
 
   const schema = yup.object({
     firstName: yup.string().required(),
@@ -92,7 +100,7 @@ export function UserDetailsScreen ({
     formState: { errors, isValid },
     getValues, trigger,
     handleSubmit
-  } = useForm/* <FormData> */({ mode: 'onChange', resolver: yupResolver(schema) })
+  } = useForm/* <User & KycData> */({ mode: 'onChange', resolver: yupResolver(schema) })
 
   const { listCountries } = useDFXAPIContext()
   const [countries, setCountries] = useState<Country[]>([])
@@ -139,32 +147,88 @@ export function UserDetailsScreen ({
       }])
   }, [countries])
 
+  // TODO: (thabrad) type fix
+  // const x = <User extends any>(firstName: keyof User): any => firstName
+
+  enum Fields{
+    accountType = 'accountType',
+    firstName = 'firstName',
+    lastName = 'lastName',
+    street = 'street',
+    houseNumber = 'houseNumber',
+    zip = 'zip',
+    location = 'location',
+    country = 'country',
+    organizationName = 'organizationName',
+    organizationStreet = 'organizationStreet',
+    organizationHouseNumber = 'organizationHouseNumber',
+    organizationLocation = 'organizationLocation',
+    organizationZip = 'organizationZip',
+    organizationCountry = 'organizationCountry',
+    email = 'mail',
+    phone = 'phone'
+  }
+
   async function onSubmit (data: FormData | FieldValues): Promise<void> {
-    const _data: KycData = {
-      accountType: AccountType.PERSONAL,
-      firstName: data.firstName.toString(),
-      lastName: data.lastName.toString(),
-      street: data.street.toString(),
-      houseNumber: '2424',
-      zip: '1234',
-      location: '35353',
+    // TODO quick & dirty --> clean up
+    let type
+    switch (selectedButton) {
+      case ButtonGroupTabKey.Personal:
+        type = AccountType.PERSONAL
+        break
+      case ButtonGroupTabKey.BUSINESS:
+        type = AccountType.BUSINESS
+        break
+      case ButtonGroupTabKey.SOLE_PROPRIETORSHIP:
+        type = AccountType.SOLE_PROPRIETORSHIP
+        break
+      default:
+        type = AccountType.PERSONAL
+        break
+    }
+
+    const kycData: KycData = {
+      accountType: type,
+      firstName: getValues(Fields.firstName),
+      lastName: getValues(Fields.lastName),
+      street: getValues(Fields.street),
+      houseNumber: getValues(Fields.houseNumber),
+      zip: getValues(Fields.zip),
+      location: getValues(Fields.location),
       country: country,
-      organizationName: '',
-      organizationStreet: '',
-      organizationHouseNumber: '',
-      organizationLocation: '',
-      organizationZip: '',
+      organizationName: getValues(Fields.organizationName),
+      organizationStreet: getValues(Fields.organizationStreet),
+      organizationHouseNumber: getValues(Fields.organizationHouseNumber),
+      organizationLocation: getValues(Fields.organizationLocation),
+      organizationZip: getValues(Fields.organizationZip),
       organizationCountry: country
     }
+    const userData: User = {
+      usedRef: 'string',
+      refFeePercent: 0,
+      mail: 'string',
+      phone: 'string',
+      language: {} as Language,
+      currency: {}
+    }
+
     setIsLoading(true)
     setloadingText('SENDING')
-    putKycData((_data))
+    putKycData((kycData))
       .then((x) => {
-        console.log(x)
-        // void (async () => await DFXPersistence.setUserInfoComplete())()
+        // console.log(x)
+        void (async () => await DFXPersistence.setUserInfoComplete())()
         // navigation.reset()
         navigation.popToTop()
         navigation.navigate('Sell')
+
+        putUser(userData)
+          .then(() => {})
+          .catch(() => {})
+          .finally(() => {
+            setIsLoading(false)
+            setloadingText('SUCCESS')
+          })
       })
       .catch((er) => console.log('ERROR', er))
   }
@@ -199,9 +263,9 @@ export function UserDetailsScreen ({
       >
         <ThemedView style={tailwind('mt-6 rounded-3xl self-center')}>
           <ButtonGroup
-            buttons={accountType}
+            buttons={buttonOptions}
             activeButtonGroupItem={selectedButton}
-            modalStyle={tailwind('text-2xl')}
+            modalStyle={tailwind('text-lg')}
             testID='portfolio_button_group'
             darkThemeStyle={tailwind('bg-dfxblue-800')}
             customActiveStyle={{
@@ -210,18 +274,18 @@ export function UserDetailsScreen ({
           />
         </ThemedView>
 
-        {selectedButton === ButtonGroupTabKey.Company &&
+        {(selectedButton === ButtonGroupTabKey.BUSINESS || selectedButton === ButtonGroupTabKey.SOLE_PROPRIETORSHIP) &&
           <>
             <ThemedSectionTitle
               testID='network_title'
               text={translate('screens/UserDetails', 'ORGANIZATION DATA')}
             />
             <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
-              <AddressDetailItem control={control} title='Name' example='DFX Inc.' />
-              <AddressDetailItem control={control} title='Street Name' example='Main Street' />
-              <AddressDetailItem control={control} title='Street Number' example='42' keyboardType='number-pad' />
-              <AddressDetailItem control={control} title='Zip Code' example='1234' keyboardType='number-pad' />
-              <AddressDetailItem control={control} title='City' example='Berlin' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationName} title='Name' example='DFX Inc.' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationStreet} title='Street Name' example='Main Street' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationHouseNumber} title='Street Number' example='42' keyboardType='number-pad' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationZip} title='Zip Code' example='1234' keyboardType='number-pad' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationLocation} title='City' example='Berlin' />
 
               <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
                 <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
@@ -247,12 +311,12 @@ export function UserDetailsScreen ({
         />
         <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
 
-          <AddressDetailItem control={control} title='First Name' example='John' />
-          <AddressDetailItem control={control} title='Last Name' example='Doe' />
-          <AddressDetailItem control={control} title='Street Name' example='Main Street' />
-          <AddressDetailItem control={control} title='House Number' example='42' keyboardType='number-pad' />
-          <AddressDetailItem control={control} title='Zip Code' example='1234' keyboardType='number-pad' />
-          <AddressDetailItem control={control} title='City' example='Berlin' />
+          <AddressDetailItem fieldName={Fields.firstName} control={control} title='First Name' example='John' />
+          <AddressDetailItem fieldName={Fields.lastName} control={control} title='Last Name' example='Doe' />
+          <AddressDetailItem fieldName={Fields.street} control={control} title='Street Name' example='Main Street' />
+          <AddressDetailItem fieldName={Fields.houseNumber} control={control} title='House Number' example='42' keyboardType='number-pad' />
+          <AddressDetailItem fieldName={Fields.zip} control={control} title='Zip Code' example='1234' keyboardType='number-pad' />
+          <AddressDetailItem fieldName={Fields.location} control={control} title='City' example='Berlin' />
 
           <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
             <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
@@ -276,8 +340,8 @@ export function UserDetailsScreen ({
           text={translate('screens/UserDetails', 'CONTACT DATA')}
         />
         <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
-          <AddressDetailItem control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
-          <AddressDetailItem control={control} title='Phone Number' example='+4977001234' keyboardType='phone-pad' />
+          <AddressDetailItem fieldName={Fields.email} control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
+          <AddressDetailItem fieldName={Fields.phone} control={control} title='Phone Number' example='+4977001234' keyboardType='phone-pad' />
           {
             // errors.map((item: any) => item != null && <ThemedText>This is required.</ThemedText>)
           }
@@ -327,13 +391,13 @@ interface AddressDetailProps {
 
 function AddressDetailItem ({
   control,
-  // fieldName,
+  fieldName,
   title,
   required = true,
   example,
   keyboardType,
   props
-}: { control: Control, /* fieldName: string, */ title: string, required?: boolean, example?: string, keyboardType?: KeyboardTypeOptions, props?: AddressDetailProps & UseControllerProps<FormData> }): JSX.Element {
+}: { control: Control, fieldName: string, title: string, required?: boolean, example?: string, keyboardType?: KeyboardTypeOptions, props?: AddressDetailProps & UseControllerProps<FormData> }): JSX.Element {
   return (
 
     <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
@@ -345,7 +409,7 @@ function AddressDetailItem ({
       <Controller
         control={control}
         // defaultValue={defaultValue}
-        name={title}
+        name={fieldName}
         render={({
           field: {
             onBlur,
@@ -364,14 +428,14 @@ function AddressDetailItem ({
             keyboardType={keyboardType ?? 'default'}
           />
         )}
-        // rules={{
-        //   required: required,
-        //   // pattern: /^\d*\.?\d*$/,
-        //   // max: maxAmount,
-        //   validate: {
-        //     // greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
-        //   }
-        // }}
+        rules={{
+          required: required,
+          // pattern: /^\d*\.?\d*$/,
+          // max: maxAmount,
+          validate: {
+            // greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+          }
+        }}
       />
 
       {/* {errors. && <Text>This is required.</Text>} */}
