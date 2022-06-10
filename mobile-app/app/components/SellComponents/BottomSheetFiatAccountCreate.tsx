@@ -115,7 +115,7 @@ export const BottomSheetFiatAccountCreate = ({
 
     postSellRoute(sellData)
       .then((sellRoute) => onElementCreatePress(sellRoute))
-      .catch((error) => WalletAlert(error.message))
+      .catch((error) => WalletAlert(error))
       .finally(() => setIsSubmitting(false))
   }
 

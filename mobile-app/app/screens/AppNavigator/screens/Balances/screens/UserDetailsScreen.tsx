@@ -56,17 +56,17 @@ export function UserDetailsScreen ({
   const [iconClicked, setIconClicked] = useState(false)
 
   enum ButtonGroupTabKey {
-    Personal = 'Personal',
-    Company = 'Company'
+    Personal = '0',
+    Company = '1'
   }
   const accountType = [{
-    id: '0',
-    label: ButtonGroupTabKey.Personal,
+    id: ButtonGroupTabKey.Personal,
+    label: 'Personal',
     handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Personal)
   },
     {
-      id: '1',
-      label: ButtonGroupTabKey.Company,
+      id: ButtonGroupTabKey.Company,
+      label: 'Company',
       handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Company)
     }]
   const [selectedButton, setSelectedButton] = useState(ButtonGroupTabKey.Personal)
@@ -197,28 +197,18 @@ export function UserDetailsScreen ({
         style={tailwind('flex-1 pb-8')}
         testID='setting_screen'
       >
-        {/* <View style={tailwind('p-4')}>
+        <ThemedView style={tailwind('mt-6 rounded-3xl self-center')}>
           <ButtonGroup
             buttons={accountType}
-            activeButtonGroupItem={ButtonGroupTabKey.Personal}
-            modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
-            testID='balance_button_group'
-          />
-        </View> */}
-
-        <View style={tailwind('p-8')}>
-          <ButtonGroup
-            buttons={accountType}
-            activeButtonGroupItem={ButtonGroupTabKey.Personal}
-            modalStyle={tailwind('text-xl')}
+            activeButtonGroupItem={selectedButton}
+            modalStyle={tailwind('text-2xl')}
             testID='portfolio_button_group'
-            // darkThemeStyle={tailwind('bg-dfxblue-800')}
-            customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
+            darkThemeStyle={tailwind('bg-dfxblue-800')}
             customActiveStyle={{
-              dark: tailwind('bg-dfxgreen-500')
+              dark: tailwind('bg-dfxblue-900')
             }}
           />
-        </View>
+        </ThemedView>
 
         {selectedButton === ButtonGroupTabKey.Company &&
           <>
