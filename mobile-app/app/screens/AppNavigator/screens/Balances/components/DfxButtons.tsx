@@ -53,7 +53,7 @@ export function DfxButtons (): JSX.Element {
   }
 
   // update loading, set isKInfo state & navigate accordingly
-  const nagivateSell = (isKyc: boolean): void => {
+  const navigateSell = (isKyc: boolean): void => {
     setLoadKycInfo(false)
     setIsKycInfo(isKyc)
     isKyc ? navigation.navigate('Sell') : navigation.navigate('UserDetails')
@@ -69,7 +69,7 @@ export function DfxButtons (): JSX.Element {
 
       if (isUserDetailStored !== null && isUserDetailStored) {
         // if stored navigate to Sell Screen
-        nagivateSell(true)
+        navigateSell(true)
       } else {
         // if not, retrieve from API
         void (async () => {
@@ -78,7 +78,7 @@ export function DfxButtons (): JSX.Element {
           // persist result to STORE
           await DFXPersistence.setUserInfoComplete(userdetail.kycDataComplete)
           // navigate based on BackendData result
-          nagivateSell(userdetail.kycDataComplete)
+          navigateSell(userdetail.kycDataComplete)
         })()
       }
     })()
@@ -106,19 +106,24 @@ export function DfxButtons (): JSX.Element {
           return
         }
 
+        // check cache
+        if (isKycInfo) {
+          navigateSell(true)
+          return
+        }
+
         // if false: re-check (STORE), if kyc true: proceed to sell
         if (!isKycInfo) {
           // check if kyc status has changed meanwhile
           void (async () => {
             const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
-            if (isUserDetailStored !== null && isUserDetailStored) {
+            if (isUserDetailStored !== null) {
               // if stored navigate to Sell Screen
-              nagivateSell(true)
+              navigateSell(isUserDetailStored)
+            } else {
+              navigateSell(false)
             }
           })()
-        } else {
-          // navigate based on already cached kyc status
-          nagivateSell(isKycInfo)
         }
       }
     },

@@ -12,7 +12,8 @@ import {
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
-  ThemedTextInput
+  ThemedTextInput,
+  ThemedView
 } from '@components/themed'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
@@ -33,6 +34,7 @@ import { KycData } from '@shared-api/dfx/models/KycData'
 import { AccountType } from '@shared-api/dfx/models/User'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { CommonActions, StackActions } from '@react-navigation/native'
+import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
 
@@ -52,6 +54,27 @@ export function UserDetailsScreen ({
   const logger = useLogger()
   const { listFiatAccounts } = useDFXAPIContext()
   const [iconClicked, setIconClicked] = useState(false)
+
+  enum ButtonGroupTabKey {
+    Personal = 'Personal',
+    Company = 'Company'
+  }
+  const accountType = [{
+    id: '0',
+    label: ButtonGroupTabKey.Personal,
+    handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Personal)
+  },
+    {
+      id: '1',
+      label: ButtonGroupTabKey.Company,
+      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Company)
+    }]
+  const [selectedButton, setSelectedButton] = useState(ButtonGroupTabKey.Personal)
+  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    if (selectedButton !== undefined) {
+      setSelectedButton(buttonGroupTabKey)
+    }
+  }
 
   const schema = yup.object({
     firstName: yup.string().required(),
@@ -174,6 +197,60 @@ export function UserDetailsScreen ({
         style={tailwind('flex-1 pb-8')}
         testID='setting_screen'
       >
+        {/* <View style={tailwind('p-4')}>
+          <ButtonGroup
+            buttons={accountType}
+            activeButtonGroupItem={ButtonGroupTabKey.Personal}
+            modalStyle={tailwind('font-medium text-xs text-center py-0.5')}
+            testID='balance_button_group'
+          />
+        </View> */}
+
+        <View style={tailwind('p-8')}>
+          <ButtonGroup
+            buttons={accountType}
+            activeButtonGroupItem={ButtonGroupTabKey.Personal}
+            modalStyle={tailwind('text-xl')}
+            testID='portfolio_button_group'
+            // darkThemeStyle={tailwind('bg-dfxblue-800')}
+            customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
+            customActiveStyle={{
+              dark: tailwind('bg-dfxgreen-500')
+            }}
+          />
+        </View>
+
+        {selectedButton === ButtonGroupTabKey.Company &&
+          <>
+            <ThemedSectionTitle
+              testID='network_title'
+              text={translate('screens/UserDetails', 'ORGANIZATION DATA')}
+            />
+            <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
+              <AddressDetailItem control={control} title='Name' example='DFX Inc.' />
+              <AddressDetailItem control={control} title='Street Name' example='Main Street' />
+              <AddressDetailItem control={control} title='Street Number' example='42' keyboardType='number-pad' />
+              <AddressDetailItem control={control} title='Zip Code' example='1234' keyboardType='number-pad' />
+              <AddressDetailItem control={control} title='City' example='Berlin' />
+
+              <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
+                <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
+                  {translate('screens/UserDetails', 'Country')}
+                </Text>
+                <Text
+                  style={tailwind('ml-4 flex-grow self-center text-sm text-white')}
+                  onPress={() => {
+                      // this event only triggers on web
+                      setBottomSheet()
+                      expandModal()
+                    }}
+                >
+                  {country?.name ?? 'Germany'}
+                </Text>
+              </View>
+            </View>
+          </>}
+
         <ThemedSectionTitle
           testID='network_title'
           text={translate('screens/UserDetails', 'PERSONAL INFORMATION')}
@@ -183,7 +260,8 @@ export function UserDetailsScreen ({
           <AddressDetailItem control={control} title='First Name' example='John' />
           <AddressDetailItem control={control} title='Last Name' example='Doe' />
           <AddressDetailItem control={control} title='Street Name' example='Main Street' />
-          <AddressDetailItem control={control} title='Zip Code' example='John' keyboardType='number-pad' />
+          <AddressDetailItem control={control} title='House Number' example='42' keyboardType='number-pad' />
+          <AddressDetailItem control={control} title='Zip Code' example='1234' keyboardType='number-pad' />
           <AddressDetailItem control={control} title='City' example='Berlin' />
 
           <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
