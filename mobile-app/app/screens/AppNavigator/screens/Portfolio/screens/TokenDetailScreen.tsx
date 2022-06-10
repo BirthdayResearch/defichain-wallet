@@ -92,7 +92,7 @@ export function TokenDetailScreen ({
     destination,
     pair
   }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
-    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
+    navigation.navigate(translate('BottomTabNavigator', 'Portfolio'), {
       screen: destination,
       initial: false,
       params: {
@@ -106,7 +106,7 @@ export function TokenDetailScreen ({
     pair,
     fromToken
   }: { pair?: PoolPairData, fromToken?: WalletToken }): void => {
-    navigation.navigate(translate('BottomTabNavigator', 'Balances'), {
+    navigation.navigate(translate('BottomTabNavigator', 'Portfolio'), {
       screen: 'CompositeSwap',
       initial: false,
       params: {
