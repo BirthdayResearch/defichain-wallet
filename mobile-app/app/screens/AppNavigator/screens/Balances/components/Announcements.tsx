@@ -21,7 +21,7 @@ export function Announcements (): JSX.Element {
   const {
     data: announcements,
     isSuccess
-  } = useGetAnnouncementsQuery({})
+  } = useGetAnnouncementsQuery() // TODO: add {} back after testing is done
 
   const {
     language

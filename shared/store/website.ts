@@ -49,16 +49,71 @@ export const announcementWebsiteSlice = createApi({
   })
 })
 
+export const _useGetAnnouncementsQuery = () => {
+  const test: AnnouncementData[] = [{
+    lang: {
+      en: 'Update to the latest app version to access Decentralized Loan.',
+      de: 'Aktualisiere auf die neueste Version der App, um Zugang zu dezentralen Darlehen zu erhalten.',
+      'zh-Hans': '请更新至最新版本应用程式使用去中心化贷款。',
+      'zh-Hant': '請更新至最新版本應用程式使用去中心化貸款。',
+      es: '',
+      it: ''
+    },
+    version: '<0.0.0',
+    url: {
+      ios: 'website',
+      android: 'website',
+      web: 'website',
+      macos: 'website',
+      windows: 'website'
+    },
+    type: 'OTHER_ANNOUNCEMENT'
+  }]
+  return {
+    data: test,
+    isSuccess: true
+  }
+}
+
 const { useGetStatusQuery } = statusWebsiteSlice
+
+// TOdo: remove this once QA tested announcement function 
+export const useGetAnnouncementsQuery = () => {
+  const test: AnnouncementData[] = [{
+    lang: {
+      en: 'Update to the latest app version to access Decentralized Loan.',
+      de: 'Aktualisiere auf die neueste Version der App, um Zugang zu dezentralen Darlehen zu erhalten.',
+      'zh-Hans': '请更新至最新版本应用程式使用去中心化贷款。',
+      'zh-Hant': '請更新至最新版本應用程式使用去中心化貸款。',
+      it: '',
+      es: ''
+    },
+    url: {
+      ios: 'https://status.defichain.com/',
+      android: 'https://status.defichain.com/',
+      web: 'https://status.defichain.com/',
+      macos: 'https://status.defichain.com/',
+      windows: 'https://status.defichain.com/'
+    },
+    id: '11',
+    version: '0.0.0',
+    type: 'EMERGENCY'
+  }]
+  return {
+    data: test,
+    isSuccess: true
+  }
+} 
+
 const {
-  useGetAnnouncementsQuery,
+  // useGetAnnouncementsQuery,
   useGetFeatureFlagsQuery,
   usePrefetch
 } = announcementWebsiteSlice
 
 export {
   useGetStatusQuery,
-  useGetAnnouncementsQuery,
+  // useGetAnnouncementsQuery,
   useGetFeatureFlagsQuery,
   usePrefetch
 }
