@@ -123,8 +123,12 @@ export function SellScreen ({
   // load sell routes
   useEffect(() => {
     listFiatAccounts()
-      .then((sellRoute) => {
-        setFiatAccounts(sellRoute)
+      .then((sellRoutes) => {
+        // if no sell routes navigate to UserDetails screen to create
+        if (sellRoutes === undefined || sellRoutes.length < 1) {
+          navigation.navigate('UserDetails')
+        }
+        setFiatAccounts(sellRoutes)
       })
       .catch(logger.error)
 
