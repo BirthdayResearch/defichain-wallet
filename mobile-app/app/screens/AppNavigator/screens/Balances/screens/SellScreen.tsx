@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unreachable */
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -16,6 +19,7 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -25,10 +29,6 @@ import { translate } from '@translations'
 import { BalanceParamList } from '../BalancesNavigator'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { ConversionInfoText } from '@components/ConversionInfoText'
-import { NumberRow } from '@components/NumberRow'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { SymbolIcon } from '@components/SymbolIcon'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -45,6 +45,17 @@ import { NetworkName } from '@defichain/jellyfish-network'
 // import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 // import { BottomSheetAlertInfo, BottomSheetInfo } from '@components/BottomSheetInfo'
 // import { isValidIBAN } from 'ibantools'
+import { BottomSheetFiatAccountList } from '@components/SellComponents/BottomSheetFiatAccountList'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { StackActions, useIsFocused } from '@react-navigation/native'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+import { SellRoute } from '@shared-api/dfx/models/SellRoute'
+import { DfxKycInfo } from '@components/DfxKycInfo'
+import { ActionButton } from '../../Dex/components/PoolPairCards/ActionSection'
+import { BottomSheetFiatAccountCreate } from '@components/SellComponents/BottomSheetFiatAccountCreate'
+import { send } from './SendConfirmationScreen'
+import { useConversion } from '@hooks/wallet/Conversion'
+import { NumberRow } from '@components/NumberRow'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
 
@@ -52,11 +63,16 @@ export function SellScreen ({
   route,
   navigation
 }: Props): JSX.Element {
+  const network = useNetworkContext()
   const logger = useLogger()
   const { networkName } = useNetworkContext()
   const client = useWhaleApiClient()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [token, setToken] = useState(route.params?.token)
+  const { listFiatAccounts } = useDFXAPIContext()
+  const [selectedFiatAccount, setSelectedFiatAccount] = useState<SellRoute>()
+  const [fiatAccounts, setFiatAccounts] = useState<SellRoute[]>([])
+  const isFocused = useIsFocused()
   const {
     control,
     setValue,
@@ -70,7 +86,7 @@ export function SellScreen ({
   const walletAddress = useSelector((state: RootState) => state.userPreferences.addresses)
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useAppDispatch()
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
+  const [fee, setFee] = useState<number>(2.9)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -88,6 +104,9 @@ export function SellScreen ({
   const [hasBalance, setHasBalance] = useState(false)
   const { fetchWalletAddresses } = useWalletAddress()
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -130,10 +149,22 @@ export function SellScreen ({
     void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
   }, [fetchWalletAddresses])
 
+  // load sell routes
   useEffect(() => {
-    client.fee.estimate()
-      .then((f) => setFee(new BigNumber(f)))
+    listFiatAccounts()
+      .then((sellRoutes) => {
+        // if no sell routes navigate to UserDetails screen to create
+        if (sellRoutes === undefined || sellRoutes.length < 1) {
+          navigation.navigate('UserDetails')
+        }
+        setFiatAccounts(sellRoutes)
+      })
       .catch(logger.error)
+
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -153,30 +184,53 @@ export function SellScreen ({
     debounceMatchAddress()
   }, [address, addressBook])
 
-  // const setFiatAccountListTokenListBottomSheet = useCallback(() => {
-  //   setBottomSheetScreen([
-  //     {
-  //       stackScreenName: 'FiatAccountList',
-  //       component: BottomSheetInfo({
-  //         tokens: getBottomSheetToken(tokens),
-  //         tokenType: TokenType.BottomSheetToken,
-  //         headerLabel: translate('screens/SellScreen', 'Choose account for payout'),
-  //         onCloseButtonPress: () => dismissModal(),
-  //         onTokenPress: async (item): Promise<void> => {
-  //           const _token = tokens.find(t => t.id === item.tokenId)
-  //           if (_token !== undefined) {
-  //             setToken(_token)
-  //             setValue('amount', '')
-  //             await trigger('amount')
-  //           }
-  //           dismissModal()
-  //         }
-  //       }),
-  //       option: {
-  //         header: () => null
-  //       }
-  //     }])
-  // }, [])
+  const setAccount = (item: SellRoute): void => {
+    setSelectedFiatAccount(item)
+    setFee(item.fee)
+  }
+
+  const setFiatAccountListBottomSheet = useCallback((accounts: SellRoute[]) => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'FiatAccountList',
+        component: BottomSheetFiatAccountList({
+          fiatAccounts: accounts,
+          headerLabel: translate('screens/SellScreen', 'Choose account for payout'),
+          onCloseButtonPress: () => dismissModal(),
+          onFiatAccountPress: async (item): Promise<void> => {
+            if (item.iban !== undefined) {
+              setAccount(item)
+            }
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [fiatAccounts])
+
+  const setFiatAccountCreateBottomSheet = useCallback((accounts: SellRoute[]) => { // TODO: remove accounts?
+    setBottomSheetScreen([
+      {
+        stackScreenName: 'FiatAccountCreate',
+        component: BottomSheetFiatAccountCreate({
+          fiatAccounts: accounts,
+          headerLabel: translate('screens/SellScreen', 'Add account for payout'),
+          onCloseButtonPress: () => dismissModal(),
+          onElementCreatePress: async (item): Promise<void> => {
+            if (item.iban !== undefined) {
+              fiatAccounts.push(item)
+              setAccount(item)
+            }
+            dismissModal()
+          }
+        }),
+        option: {
+          header: () => null
+        }
+      }])
+  }, [fiatAccounts])
 
   const setTokenListBottomSheet = useCallback(() => {
     setBottomSheetScreen([
@@ -204,51 +258,28 @@ export function SellScreen ({
   }, [])
 
   async function onSubmit (): Promise<void> {
-    if (hasPendingJob || hasPendingBroadcastJob || token === undefined) {
+    if (hasPendingJob || hasPendingBroadcastJob || token === undefined || selectedFiatAccount === undefined) {
       return
     }
 
-    const values = getValues()
-    if (formState.isValid && isConversionRequired) {
-      queueConvertTransaction({
-        mode: 'accountToUtxos',
-        amount: conversionAmount
+    if (formState.isValid && (selectedFiatAccount?.deposit?.address?.length > 0)) {
+      setIsSubmitting(true)
+      await send({
+        address: selectedFiatAccount.deposit.address,
+        token,
+        amount: new BigNumber(getValues('amount')),
+        networkName: network.networkName
       }, dispatch, () => {
-        navigation.navigate({
-          name: 'SendConfirmationScreen',
-          params: {
-            destination: values.address,
-            token,
-            amount: new BigNumber(values.amount),
-            fee,
-            conversion: {
-              DFIUtxo,
-              DFIToken,
-              isConversionRequired,
-              conversionAmount
-            }
-          },
-          merge: true
-        })
+        onTransactionBroadcast(isOnPage, navigation.dispatch, 0, 'SellConfirmationScreen')
       }, logger)
-    } else if (formState.isValid) {
-      const values = getValues()
-      navigation.navigate({
-        name: 'SendConfirmationScreen',
-        params: {
-          destination: values.address,
-          token,
-          amount: new BigNumber(values.amount),
-          fee
-        },
-        merge: true
-      })
+      setIsSubmitting(false)
     }
   }
 
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='sell_screen'>
+
         <TokenInput
           token={token}
           onPress={() => {
@@ -266,101 +297,32 @@ export function SellScreen ({
           )
           : (
             <>
-              <View style={tailwind('px-4')}>
-                <FiatAccountInput
-                  onPress={() => {
-                    setTokenListBottomSheet()
-                    expandModal()
-                  }}
-                  isDisabled={false} // TODO: only show if payment route exists
-                />
+              {/* TODO: (thabrad) remove test code sometime <ActionButton
+                name='add'
+                onPress={() => {
+                  setFiatAccountCreateBottomSheet(fiatAccounts)
+                  expandModal()
+                }}
+                pair={' '}
+                label={translate('screens/SellScreen', 'ADD payout account')}
+                style={tailwind('p-2 mb-2 h-10 mx-10 justify-center')}
+                testID={' `pool_pair_add_{symbol}` '}
+                standalone
+              /> */}
 
-                <AddressRow
-                  control={control}
-                  networkName={networkName}
-                  onContactButtonPress={() => navigation.navigate({
-                    name: 'AddressBookScreen',
-                    params: {
-                      selectedAddress: getValues('address'),
-                      onAddressSelect: (savedAddres: string) => {
-                        setValue('address', savedAddres, { shouldDirty: true })
-                        navigation.goBack()
-                      }
-                    },
-                    merge: true
-                  })}
-                  onQrButtonPress={() => navigation.navigate({
-                    name: 'BarCodeScanner',
-                    params: {
-                      onQrScanned: async (value) => {
-                        setValue('address', value, { shouldDirty: true })
-                        await trigger('address')
-                      }
-                    },
-                    merge: true
-                  })}
-                  onClearButtonPress={async () => {
-                    setValue('address', '')
-                    await trigger('address')
-                  }}
-                  onAddressChange={async (address) => {
-                    setValue('address', address, { shouldDirty: true })
-                    await trigger('address')
-                  }}
-                  inputFooter={
-                    <>
-                      {matchedAddress !== undefined && (
-                        <ThemedView
-                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
-                          light={tailwind('bg-gray-50')}
-                          dark={tailwind('bg-dfxblue-900')}
-                        >
-                          <ThemedIcon
-                            name='account-check'
-                            iconType='MaterialCommunityIcons'
-                            size={18}
-                            light={tailwind('text-gray-400')}
-                            dark={tailwind('text-dfxgray-500')}
-                          />
-                          <ThemedText
-                            style={tailwind('text-xs ml-1 pt-px')}
-                            light={tailwind('text-gray-500')}
-                            dark={tailwind('text-dfxgray-400')}
-                            testID='address_input_footer'
-                          >
-                            {matchedAddress.label}
-                          </ThemedText>
-                        </ThemedView>
-                      )}
-                    </>
-                  }
-                />
-                <AmountRow
-                  control={control}
-                  onAmountChange={async (amount) => {
-                    setValue('amount', amount, { shouldDirty: true })
-                    await trigger('amount')
-                  }}
-                  onClearButtonPress={async () => {
-                    setValue('amount', '')
-                    await trigger('amount')
-                  }}
-                  token={token}
-                />
+              {(fiatAccounts.length > 0) &&
+                <>
+                  <View style={tailwind('px-4')}>
 
-                <ReservedDFIInfoText />
-                {isConversionRequired &&
-                  <View style={tailwind('mt-2')}>
-                    <ConversionInfoText />
-                  </View>}
-              </View>
-              {
-                fee !== undefined && (
-                  <View style={tailwind()}>
-                    <ThemedSectionTitle
-                      text={translate('screens/SellScreen', 'TRANSACTION DETAILS')}
+                    <FiatAccountInput
+                      onPress={() => {
+                        setFiatAccountListBottomSheet(fiatAccounts)
+                        expandModal()
+                      }}
+                      fiatAccount={selectedFiatAccount}
+                      isDisabled={!(fiatAccounts.length > 0)}
                     />
-                    {isConversionRequired &&
+                    {/* {isConversionRequired &&
                       <NumberRow
                         lhs={translate('screens/SellScreen', 'UTXO to be converted')}
                         rhs={{
@@ -369,38 +331,46 @@ export function SellScreen ({
                           suffixType: 'text',
                           suffix: token.displaySymbol
                         }}
-                      />}
+                      />} */}
 
-                    <InfoRow
-                      type={InfoType.EstimatedFee}
-                      value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
-                      testID='transaction_fee'
-                      suffix='DFI'
+                    <DfxKycInfo />
+
+                    <AmountRow
+                      control={control}
+                      onAmountChange={async (amount) => {
+                        setValue('amount', amount, { shouldDirty: true })
+                        await trigger('amount')
+                      }}
+                      onClearButtonPress={async () => {
+                        setValue('amount', '')
+                        await trigger('amount')
+                      }}
+                      token={token}
+                      conversionAmount={conversionAmount}
                     />
                   </View>
-                )
-              }
-              <ThemedText
-                testID='transaction_details_info_text'
-                light={tailwind('text-gray-600')}
-                dark={tailwind('text-dfxgray-300')}
-                style={tailwind('mt-2 mx-4 text-sm')}
-              >
-                {isConversionRequired
-                  ? translate('screens/SellScreen', 'Authorize transaction in the next screen to convert')
-                  : translate('screens/SellScreen', 'Review full transaction details in the next screen')}
-              </ThemedText>
+
+                  <ThemedSectionTitle
+                    text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                  />
+                  <InfoRow
+                    type={InfoType.FiatFee}
+                    value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
+                    testID='fiat_fee'
+                    suffix='%'
+                  />
+                </>}
             </>
           )}
 
         <View style={tailwind('mt-6')}>
           <SubmitButtonGroup
-            isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-            label={translate('screens/SellScreen', 'CONTINUE')}
-            processingLabel={translate('screens/SellScreen', 'CONTINUE')}
+            isDisabled={!formState.isValid /* TODO: (davidleomay) check if needed || isConversionRequired */ || selectedFiatAccount === undefined || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+            label={translate('screens/SellScreen', 'SELL')}
+            processingLabel={translate('screens/SellScreen', 'SELL')}
             onSubmit={onSubmit}
-            title='sell_continue'
-            isProcessing={hasPendingJob || hasPendingBroadcastJob}
+            title='sell_sell'
+            isProcessing={hasPendingJob || hasPendingBroadcastJob || isSubmitting}
             displayCancelBtn={false}
           />
         </View>
@@ -590,18 +560,14 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
   )
 }
 
-export class FiatAccount /* extends IbanTool */ {
-  iban: string = 'DE89 3704 0044 0532 0130 00'
-}
-
-function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isDisabled: boolean }): JSX.Element {
+function FiatAccountInput (props: { fiatAccount?: SellRoute, onPress: () => void, isDisabled: boolean }): JSX.Element {
   return (
     <>
       <ThemedText
         testID='transaction_details_info_text'
         light={tailwind('text-gray-600')}
         dark={tailwind('text-dfxgray-300')}
-        style={tailwind('flex-grow')}
+        style={tailwind('flex-grow my-2')}
       >
         {translate('screens/SellScreen', 'Select account for payout')}
       </ThemedText>
@@ -613,11 +579,11 @@ function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isD
           'bg-gray-200 border-0': props.isDisabled,
           'border-gray-300 bg-white': !props.isDisabled
         })}
-        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-10')}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-4')}
         testID='select_fiatAccount_input'
         disabled={props.isDisabled}
       >
-        {props.fiat === undefined || props.isDisabled
+        {props.fiatAccount === undefined || props.isDisabled
           ? (
             <ThemedText
               dark={tailwind({
@@ -638,7 +604,7 @@ function FiatAccountInput (props: { fiat?: FiatAccount, onPress: () => void, isD
                 style={tailwind('ml-2 font-medium')}
                 testID='selected_fiatAccount'
               >
-                {props.fiat.iban}
+                {`${props.fiatAccount.fiat.name} / ${props.fiatAccount.iban}`}
               </ThemedText>
             </View>
           )}
@@ -666,16 +632,19 @@ interface AmountForm {
   token: WalletToken
   onAmountChange: (amount: string) => void
   onClearButtonPress: () => void
+  conversionAmount: BigNumber
 }
 
 function AmountRow ({
   token,
   control,
   onAmountChange,
-  onClearButtonPress
+  onClearButtonPress,
+  conversionAmount
 }: AmountForm): JSX.Element {
   const reservedDFI = 0.1
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(reservedDFI).toFixed(8) : token.amount
+  // TODO (thabrad) check conversion logic and fee structure
+  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(reservedDFI).minus(conversionAmount).toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
   const defaultValue = ''
   return (
@@ -693,7 +662,7 @@ function AmountRow ({
           <ThemedView
             dark={tailwind('bg-transparent')}
             light={tailwind('bg-transparent')}
-            style={tailwind('flex-row w-full')}
+            style={tailwind('flex-row w-full mt-8')}
           >
             <WalletTextInput
               autoCapitalize='none'
@@ -742,7 +711,7 @@ function AmountRow ({
 
       <InputHelperText
         testID='max_value'
-        label={`${translate('screens/SellScreen', 'Available')}: `}
+        label={`${translate('screens/SellScreen', 'Available to sell')}: `}
         content={maxAmount}
         suffix={` ${token.displaySymbol}`}
       />

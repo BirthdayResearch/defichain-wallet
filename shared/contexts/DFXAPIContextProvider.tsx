@@ -8,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { signIn, signUp } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, signIn, signUp, getCountries } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -22,15 +22,20 @@ import { Linking } from 'react-native'
 import { getEnvironment } from '@environment'
 import * as Updates from 'expo-updates'
 import { useDebounce } from '@hooks/useDebounce'
+import { SellRoute } from '@shared-api/dfx/models/SellRoute'
+import { Country } from '@shared-api/dfx/models/Country'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
   clearDfxTokens: () => Promise<void>
+  listFiatAccounts: () => Promise<SellRoute[]>
+  listCountries: () => Promise<Country[]>
 }
 
 const DFXAPIContext = createContext<DFXAPIContextI>(undefined as any)
 
 export function useDFXAPIContext (): DFXAPIContextI {
+  // console.log('useDFXAPIContext') // TODO: instrument and remove
   return useContext(DFXAPIContext)
 }
 
@@ -57,9 +62,18 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
 
         const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
         const url = `${baseUrl}/login?token=${token}`
+        // console.log(url) // TODO!!! (thabrad) comment out / REMOVE!!
         await Linking.openURL(url)
       })
       .catch(logger.error)
+  }
+
+  const listFiatAccounts = async (): Promise<SellRoute[]> => {
+    return await getSellRoutes()
+  }
+
+  const listCountries = async (): Promise<Country[]> => {
+    return await getCountries()
   }
 
   // returns webtoken string of current active Wallet address
@@ -215,7 +229,9 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   // public context API
   const context: DFXAPIContextI = {
     openDfxServices: openDfxServices,
-    clearDfxTokens: clearDfxTokens
+    clearDfxTokens: clearDfxTokens,
+    listFiatAccounts: listFiatAccounts,
+    listCountries: listCountries
   }
 
   // observe address state change

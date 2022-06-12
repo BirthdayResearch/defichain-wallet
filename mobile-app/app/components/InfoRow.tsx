@@ -18,7 +18,8 @@ interface InfoRowProps {
 export enum InfoType {
   EstimatedFee,
   VaultFee,
-  ExecutionBlock
+  ExecutionBlock,
+  FiatFee
 }
 
 export function InfoRow (props: InfoRowProps): JSX.Element {
@@ -34,6 +35,10 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
     [InfoType.ExecutionBlock, {
       title: 'Settlement block',
       message: 'The block height at which the future swap transaction will be executed.'
+    }],
+    [InfoType.FiatFee, {
+      title: 'Fee',
+      message: 'Each transaction will be subject to a small amount of fees.'
     }]
   ])
 

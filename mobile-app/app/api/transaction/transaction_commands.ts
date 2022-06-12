@@ -1,4 +1,4 @@
-import { NavigationProp, StackActions } from '@react-navigation/native'
+import { NavigationProp, StackActions, CommonActions } from '@react-navigation/native'
 
 /**
  * @description callback when a transaction is broadcasted
@@ -6,10 +6,12 @@ import { NavigationProp, StackActions } from '@react-navigation/native'
  * */
 
 type Dispatch = NavigationProp<any>['dispatch']
-export const onTransactionBroadcast = (isPageMounted: boolean, dispatch: Dispatch, numberOfPop?: number): void => {
+export const onTransactionBroadcast = (isPageMounted: boolean, dispatch: Dispatch, numberOfPop?: number, navigateToScreen?: string): void => {
   if (isPageMounted) {
     if (numberOfPop !== undefined && numberOfPop > 0) {
       dispatch(StackActions.pop(numberOfPop))
+    } else if (navigateToScreen != null && navigateToScreen !== '') {
+      dispatch(CommonActions.navigate(navigateToScreen))
     } else {
       dispatch(StackActions.popToTop())
     }

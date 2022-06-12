@@ -122,6 +122,7 @@ interface ActionButtonProps {
   label: string
   style?: StyleProp<ViewStyle>
   disabled?: boolean
+  standalone?: boolean
   testID: string
 }
 
@@ -136,6 +137,7 @@ export function ActionButton (props: ActionButtonProps): JSX.Element {
       testID={props.testID}
       iconLabel={props.label}
       disabled={props.disabled}
+      standalone={props.standalone}
     />
   )
 }

@@ -21,3 +21,21 @@ export function ThemedText (props: ThemedTextProps): JSX.Element {
     />
   )
 }
+
+type ThemedTextBasicProps = TextProps & ThemedProps
+
+export function ThemedTextBasic (props: ThemedTextBasicProps): JSX.Element {
+  const { isLight } = useThemeContext()
+  const {
+    style,
+    light = tailwind('text-black'),
+    dark = tailwind('text-white'),
+    ...otherProps
+  } = props
+  return (
+    <Text
+      style={[style, isLight ? light : dark]}
+      {...otherProps}
+    />
+  )
+}

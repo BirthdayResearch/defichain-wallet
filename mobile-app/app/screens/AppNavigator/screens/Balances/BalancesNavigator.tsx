@@ -27,7 +27,7 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { SellScreen } from './screens/SellScreen'
-// import { SellConfirmationScreen } from './screens/SellConfirmationScreen'
+import { SellConfirmationScreen } from './screens/SellConfirmationScreen'
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
@@ -38,18 +38,14 @@ import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
+import { UserDetailsScreen } from './screens/UserDetailsScreen'
 
 export interface BalanceParamList {
   BalancesScreen: undefined
   ReceiveScreen: undefined
   SellScreen: { token?: WalletToken }
-  // SellConfirmationScreen: {
-  //   token: WalletToken
-  //   destination: string
-  //   amount: BigNumber
-  //   fee: BigNumber
-  //   conversion?: ConversionParam
-  // }
+  SellConfirmationScreen: undefined
+  UserDetailsScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
@@ -237,19 +233,34 @@ export function BalancesNavigator (): JSX.Element {
         }}
       />
 
-      {/* <BalanceStack.Screen
+      <BalanceStack.Screen
         component={SellConfirmationScreen}
-        name='SendConfirmationScreen'
+        name='SellConfirmationScreen'
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/SellConfirmationScreen', 'Confirm Sell')}
+              text={translate('screens/SellConfirmationScreen', 'Processing Sell Order')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false,
+          headerLeft: () => null
+        }}
+      />
+
+      <BalanceStack.Screen
+        component={UserDetailsScreen}
+        name='UserDetails'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/UserDetails', 'UserDetails')}
               containerTestID={headerContainerTestId}
             />
           ),
           headerBackTitleVisible: false
         }}
-      /> */}
+      />
 
       <BalanceStack.Screen
         component={SendScreen}

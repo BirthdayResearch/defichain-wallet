@@ -25,6 +25,11 @@ export interface SellRoute {
   isInUse: boolean
 }
 
+export interface SellData {
+  fiat: Fiat
+  iban: string
+}
+
 export const fromSellRouteDto = (route: SellRouteDto): SellRoute => ({
   id: route.id,
   fiat: route.fiat,
@@ -37,14 +42,7 @@ export const fromSellRouteDto = (route: SellRouteDto): SellRoute => ({
   isInUse: route.isInUse
 })
 
-export const toSellRouteDto = (route: SellRoute): SellRouteDto => ({
-  id: route.id,
+export const toSellRouteDto = (route: SellData): SellData => ({
   fiat: route.fiat,
-  deposit: route.deposit,
-  iban: route.iban.split(' ').join(''),
-  active: route.active,
-  volume: route.volume,
-  annualVolume: route.annualVolume,
-  fee: route.fee,
-  isInUse: route.isInUse
+  iban: route.iban.split(' ').join('')
 })

@@ -16,14 +16,26 @@ import BtnSell from '@assets/images/dfx_buttons/btn_sell.png'
 import BtnOverview from '@assets/images/dfx_buttons/btn_income.png'
 import BtnTax from '@assets/images/dfx_buttons/btn_tax.png'
 import BtnDobby from '@assets/images/dfx_buttons/btn_dobby.png'
-import { ThemedView } from '@components/themed'
+import { ThemedActivityIndicator, ThemedView } from '@components/themed'
 import { BalanceParamList } from '../BalancesNavigator'
+import { useState } from 'react'
+import { getUserDetail } from '@shared-api/dfx/ApiService'
+import { DFXPersistence } from '@api/persistence/dfx_storage'
 
 export function DfxButtons (): JSX.Element {
   const { address } = useWalletContext()
   const { language } = useLanguageContext()
   const { openDfxServices } = useDFXAPIContext()
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  /**
+     * 3 Status for @param loadKycInfo / @param setLoadKycInfo:
+     * (1) undefinde --> status not yet retrieved
+     * (2) true --> retrieving from Store (or API) --> result to STORE + isKycInfo
+     * (3) false --> retrieved from Store (or API) --> check result
+     * @returns boolean
+     */
+  const [loadKycInfo, setLoadKycInfo] = useState<boolean>()
+  const [isKycInfo, setIsKycInfo] = useState<boolean>(false)
 
   async function onOverviewButtonPress (): Promise<void> {
     const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`
@@ -38,6 +50,38 @@ export function DfxButtons (): JSX.Element {
   async function onDobbyButtonPress (): Promise<void> {
     const url = `https://defichain-dobby.com/#/setup/${encodeURIComponent(address)}`
     await Linking.openURL(url)
+  }
+
+  // update loading, set isKInfo state & navigate accordingly
+  const navigateSell = (isKyc: boolean): void => {
+    setLoadKycInfo(false)
+    setIsKycInfo(isKyc)
+    isKyc ? navigation.navigate('Sell') : navigation.navigate('UserDetails')
+  }
+
+  function checkUserProfile (): void {
+    // start loading UserInfoCompleted --> (1) from STORE --> (2) from API + store result
+    setLoadKycInfo(true)
+
+    void (async () => {
+      // (1) from STORE
+      const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
+
+      if (isUserDetailStored !== null && isUserDetailStored) {
+        // if stored navigate to Sell Screen
+        navigateSell(true)
+      } else {
+        // if not, retrieve from API
+        void (async () => {
+          // (2) from API
+          const userdetail = await getUserDetail()
+          // persist result to STORE
+          await DFXPersistence.setUserInfoComplete(userdetail.kycDataComplete)
+          // navigate based on BackendData result
+          navigateSell(userdetail.kycDataComplete)
+        })()
+      }
+    })()
   }
 
   const buttons: Array<{ hide?: boolean, img: { [key: string]: ImageSourcePropType }, onPress: () => Promise<void>|void }> = [
@@ -55,7 +99,33 @@ export function DfxButtons (): JSX.Element {
       img: {
         en: BtnSell
       },
-      onPress: () => navigation.navigate('Sell')
+      onPress: () => {
+        // check kyc on app start
+        if (loadKycInfo === undefined) {
+          checkUserProfile()
+          return
+        }
+
+        // check cache
+        if (isKycInfo) {
+          navigateSell(true)
+          return
+        }
+
+        // if false: re-check (STORE), if kyc true: proceed to sell
+        if (!isKycInfo) {
+          // check if kyc status has changed meanwhile
+          void (async () => {
+            const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
+            if (isUserDetailStored !== null) {
+              // if stored navigate to Sell Screen
+              navigateSell(isUserDetailStored)
+            } else {
+              navigateSell(false)
+            }
+          })()
+        }
+      }
     },
     {
       img: {
@@ -83,17 +153,22 @@ export function DfxButtons (): JSX.Element {
       <View style={tailwind('flex-1')} />
       {buttons
         .filter((b) => !(b.hide ?? false))
-        .map((b, i) => (i === 2)
+        .map((b, i) => (b.img.en === BtnSell) // loading spinner when loading userInfo
           ? (
-            <>
+            <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} loading={loadKycInfo} />
+          )
+          // add divider before/on 3rd button
+          : (i === 2)
+          ? (
+            <React.Fragment key={`f ${i}`}>
               <ThemedView
-                key={i - 99999}
                 light={tailwind('border-gray-100')}
                 dark={tailwind('border-dfxblue-800')}
                 style={tailwind('h-5/6 border-r')}
+                key={`tv ${i}`}
               />
-              <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
-            </>
+              <ImageButton key={`b ${i}`} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
+            </React.Fragment>
             )
           : <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
       )}
@@ -104,6 +179,7 @@ export function DfxButtons (): JSX.Element {
 
 interface ImageButtonProps extends TouchableOpacityProps {
   source: ImageSourcePropType
+  loading?: boolean
 }
 
 export function ImageButton (props: ImageButtonProps): JSX.Element {
@@ -125,6 +201,7 @@ export function ImageButton (props: ImageButtonProps): JSX.Element {
         source={props.source}
         style={styles.image}
       />
+      {(props.loading ?? false) && <ThemedActivityIndicator size='large' color='#65728a' style={tailwind('absolute inset-0 items-center justify-center')} />}
     </TouchableOpacity>
   )
 }

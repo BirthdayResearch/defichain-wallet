@@ -39,6 +39,7 @@
     "@expo-google-fonts/ibm-plex-sans": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
     "@gorhom/bottom-sheet": "^4.3.1",
+    "@hookform/resolvers": "^2.9.1",
     "@react-native-async-storage/async-storage": "~1.17.6",
     "@react-native-community/netinfo": "8.2.0",
     "@react-native-community/slider": "4.2.1",
@@ -108,7 +109,8 @@
     "smart-buffer": "^4.2.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.19"
+    "tailwindcss": "^2.2.19",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
