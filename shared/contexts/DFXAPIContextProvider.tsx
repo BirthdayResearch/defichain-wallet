@@ -62,7 +62,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
 
         const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
         const url = `${baseUrl}/login?token=${token}`
-        console.log(url) // TODO!!! (thabrad) remove!!
+        // console.log(url) // TODO!!! (thabrad) comment out / REMOVE!!
         await Linking.openURL(url)
       })
       .catch(logger.error)

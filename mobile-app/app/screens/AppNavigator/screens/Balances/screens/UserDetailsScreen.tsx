@@ -36,6 +36,7 @@ import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { CommonActions, StackActions } from '@react-navigation/native'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { Language } from '@shared-api/dfx/models/Language'
+import { WalletAlert } from '@components/WalletAlert'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
 
@@ -83,31 +84,41 @@ export function UserDetailsScreen ({
   //     setSelectedButton(buttonGroupTabKey)
   //   }
   // }
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
   const schema = yup.object({
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     street: yup.string().required(),
-    zip: yup.number().positive().integer().max(6).required(),
-    city: yup.number().positive().integer().required(),
-    email: yup.string().email().required(),
-    phone: yup.string().max(15).required()
+    zip: yup.string().max(12).required(),
+    location: yup.string().required(),
+    mail: yup.string().email().required(),
+    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required()
   }).required()
   const {
     control,
-    register,
-    setValue,
     formState: { errors, isValid },
-    getValues, trigger,
+    getValues,
     handleSubmit
   } = useForm/* <User & KycData> */({ mode: 'onChange', resolver: yupResolver(schema) })
 
   const { listCountries } = useDFXAPIContext()
   const [countries, setCountries] = useState<Country[]>([])
-  const defaultCountry = { id: 99334, name: 'Germany', symbol: 'string', enable: true }
+  const defaultCountry =
+  {
+    id: 55,
+    updated: '2021-08-26T01:04:19.900Z',
+    created: '2021-08-26T01:04:19.900Z',
+    symbol: 'DE',
+    name: 'Germany',
+    enable: true,
+    ipEnable: true
+  }
   const [country, setCountry] = useState<Country>(defaultCountry)
+  const [orgCountry, setOrgCountry] = useState<Country>(defaultCountry)
   const [loadingText, setloadingText] = useState<string>('…loading country list')
   const [isloading, setIsLoading] = useState<boolean>(true)
+  const [formError, setFormError] = useState()
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -129,13 +140,15 @@ export function UserDetailsScreen ({
     }
   }, [])
 
-  const setBottomSheet = useCallback(() => {
+  const setBottomSheet = useCallback((fn: React.Dispatch<React.SetStateAction<Country>>) => {
     setBottomSheetScreen([
       {
         stackScreenName: 'SheetFiatPicker',
         component: BottomSheetCountryPicker({
           onItemPress: async (item): Promise<void> => {
-            setCountry(item)
+            fn(item)
+            // setCountries(countries)
+            // setOrgCountry(orgCountry)
             dismissModal()
           },
           countries: countries,
@@ -145,7 +158,7 @@ export function UserDetailsScreen ({
           header: () => null
         }
       }])
-  }, [countries])
+  }, [countries, setCountry, setOrgCountry, country, orgCountry])
 
   // TODO: (thabrad) type fix
   // const x = <User extends any>(firstName: keyof User): any => firstName
@@ -165,11 +178,20 @@ export function UserDetailsScreen ({
     organizationLocation = 'organizationLocation',
     organizationZip = 'organizationZip',
     organizationCountry = 'organizationCountry',
-    email = 'mail',
+    mail = 'mail',
     phone = 'phone'
   }
 
-  async function onSubmit (data: FormData | FieldValues): Promise<void> {
+  async function onError (error: any): Promise<void> {
+    setFormError(error)
+  }
+
+  async function onSubmit (data: User & KycData | FieldValues): Promise<void> {
+    if (!isValid) {
+      console.log('NOOOPE ', errors)
+      return
+    }
+    // const ob = { ...data }
     // TODO quick & dirty --> clean up
     let type
     switch (selectedButton) {
@@ -201,15 +223,27 @@ export function UserDetailsScreen ({
       organizationHouseNumber: getValues(Fields.organizationHouseNumber),
       organizationLocation: getValues(Fields.organizationLocation),
       organizationZip: getValues(Fields.organizationZip),
-      organizationCountry: country
+      organizationCountry: orgCountry
     }
-    const userData: User = {
-      usedRef: 'string',
-      refFeePercent: 0,
-      mail: 'string',
-      phone: 'string',
+    const userData: UserDetail | any = {
+      // refVolume: 0,
+      // refCredit: 0,
+      // paidRefCredit: 0,
+      // refCount: 0,
+      // refCountActive: 0,
+      // accountType: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".PERSONAL,
+      // address: '',
+      mail: getValues(Fields.mail),
+      mobileNumber: getValues(Fields.phone),
       language: {} as Language,
-      currency: {}
+      usedRef: ''
+      // status: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".NA,
+      // kycStatus: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".NA,
+      // kycState: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".NA,
+      // kycHash: '',
+      // depositLimit: 0,
+      // kycDataComplete: false,
+      // cfpVotes: undefined
     }
 
     setIsLoading(true)
@@ -224,13 +258,14 @@ export function UserDetailsScreen ({
 
         putUser(userData)
           .then(() => {})
-          .catch(() => {})
+          .catch((error) => WalletAlert(error))
           .finally(() => {
             setIsLoading(false)
             setloadingText('SUCCESS')
           })
       })
-      .catch((er) => console.log('ERROR', er))
+      .catch((error) => WalletAlert(error))
+      .finally(() => setIsLoading(false))
   }
 
   // load available countries
@@ -284,7 +319,7 @@ export function UserDetailsScreen ({
               <AddressDetailItem control={control} fieldName={Fields.organizationName} title='Name' example='DFX Inc.' />
               <AddressDetailItem control={control} fieldName={Fields.organizationStreet} title='Street Name' example='Main Street' />
               <AddressDetailItem control={control} fieldName={Fields.organizationHouseNumber} title='Street Number' example='42' keyboardType='number-pad' />
-              <AddressDetailItem control={control} fieldName={Fields.organizationZip} title='Zip Code' example='1234' keyboardType='number-pad' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationZip} title='Zip Code' example='1234' />
               <AddressDetailItem control={control} fieldName={Fields.organizationLocation} title='City' example='Berlin' />
 
               <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
@@ -294,12 +329,11 @@ export function UserDetailsScreen ({
                 <Text
                   style={tailwind('ml-4 flex-grow self-center text-sm text-white')}
                   onPress={() => {
-                      // this event only triggers on web
-                      setBottomSheet()
+                      setBottomSheet(setOrgCountry)
                       expandModal()
                     }}
                 >
-                  {country?.name ?? 'Germany'}
+                  {orgCountry?.name}
                 </Text>
               </View>
             </View>
@@ -315,7 +349,7 @@ export function UserDetailsScreen ({
           <AddressDetailItem fieldName={Fields.lastName} control={control} title='Last Name' example='Doe' />
           <AddressDetailItem fieldName={Fields.street} control={control} title='Street Name' example='Main Street' />
           <AddressDetailItem fieldName={Fields.houseNumber} control={control} title='House Number' example='42' keyboardType='number-pad' />
-          <AddressDetailItem fieldName={Fields.zip} control={control} title='Zip Code' example='1234' keyboardType='number-pad' />
+          <AddressDetailItem fieldName={Fields.zip} control={control} title='Zip Code' example='1234' />
           <AddressDetailItem fieldName={Fields.location} control={control} title='City' example='Berlin' />
 
           <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
@@ -325,12 +359,11 @@ export function UserDetailsScreen ({
             <Text
               style={tailwind('ml-4 flex-grow self-center text-sm text-white')}
               onPress={() => {
-                // this event only triggers on web
-                setBottomSheet()
+                setBottomSheet(setCountry)
                 expandModal()
               }}
             >
-              {country?.name ?? 'Germany'}
+              {country?.name}
             </Text>
           </View>
         </View>
@@ -340,7 +373,7 @@ export function UserDetailsScreen ({
           text={translate('screens/UserDetails', 'CONTACT DATA')}
         />
         <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
-          <AddressDetailItem fieldName={Fields.email} control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
+          <AddressDetailItem fieldName={Fields.mail} control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
           <AddressDetailItem fieldName={Fields.phone} control={control} title='Phone Number' example='+4977001234' keyboardType='phone-pad' />
           {
             // errors.map((item: any) => item != null && <ThemedText>This is required.</ThemedText>)
@@ -350,14 +383,21 @@ export function UserDetailsScreen ({
 
         <View style={tailwind('h-12')} />
         <SubmitButtonGroup
-          isDisabled={isloading /* !formState.isValid */}
+          isDisabled={isloading || !isValid}
           label={translate('screens/SellScreen', 'SUBMIT')}
           processingLabel={translate('screens/SellScreen', loadingText)}
-          onSubmit={handleSubmit(onSubmit, onSubmit)}
+          onSubmit={handleSubmit(onSubmit, onError)}
           title='sell_continue'
           isProcessing={isloading}
           displayCancelBtn={false}
         />
+
+        {/* <ThemedText>
+          {formError}
+          {errors}
+        </ThemedText> */}
+
+        <View style={tailwind('h-60')} />
 
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
@@ -397,7 +437,7 @@ function AddressDetailItem ({
   example,
   keyboardType,
   props
-}: { control: Control, fieldName: string, title: string, required?: boolean, example?: string, keyboardType?: KeyboardTypeOptions, props?: AddressDetailProps & UseControllerProps<FormData> }): JSX.Element {
+}: { control: Control, fieldName: string, title: string, required?: boolean, example?: string, keyboardType?: KeyboardTypeOptions, props?: AddressDetailProps & UseControllerProps<User & KycData> }): JSX.Element {
   return (
 
     <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
@@ -437,8 +477,6 @@ function AddressDetailItem ({
           }
         }}
       />
-
-      {/* {errors. && <Text>This is required.</Text>} */}
     </View>
   )
 }
