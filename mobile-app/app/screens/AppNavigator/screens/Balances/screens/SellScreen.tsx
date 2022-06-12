@@ -4,7 +4,7 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -44,6 +44,7 @@ import { ActionButton } from '../../Dex/components/PoolPairCards/ActionSection'
 import { BottomSheetFiatAccountCreate } from '@components/SellComponents/BottomSheetFiatAccountCreate'
 import { send } from './SendConfirmationScreen'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useConversion } from '@hooks/wallet/Conversion'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
 
@@ -73,6 +74,18 @@ export function SellScreen ({
   const [fee, setFee] = useState<number>(2.9)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+  const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
+  const {
+    isConversionRequired,
+    conversionAmount
+  } = useConversion({
+    inputToken: {
+      type: token?.id === '0_unified' ? 'utxo' : 'others',
+      amount: new BigNumber(getValues('amount'))
+    },
+    deps: [getValues('amount'), JSON.stringify(token)]
+  })
   const [hasBalance, setHasBalance] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -326,7 +339,7 @@ export function SellScreen ({
 
         <View style={tailwind('mt-6')}>
           <SubmitButtonGroup
-            isDisabled={!formState.isValid || selectedFiatAccount === undefined || hasPendingJob || hasPendingBroadcastJob || token === undefined}
+            isDisabled={!formState.isValid /* TODO: (davidleomay) check if needed || isConversionRequired */ || selectedFiatAccount === undefined || hasPendingJob || hasPendingBroadcastJob || token === undefined}
             label={translate('screens/SellScreen', 'SELL')}
             processingLabel={translate('screens/SellScreen', 'SELL')}
             onSubmit={onSubmit}
