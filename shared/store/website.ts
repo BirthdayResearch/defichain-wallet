@@ -48,6 +48,7 @@ export const announcementWebsiteSlice = createApi({
     })
   })
 })
+
 const { useGetStatusQuery } = statusWebsiteSlice
 const {
   useGetAnnouncementsQuery,
