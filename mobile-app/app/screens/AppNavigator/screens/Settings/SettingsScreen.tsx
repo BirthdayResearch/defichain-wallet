@@ -144,6 +144,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         text={translate('screens/Settings', 'ADDITIONAL OPTIONS')}
       />
       <NavigateItemRow
+        testID='setting_navigate_service_provider'
+        label='Server'
+        onPress={() => navigation.navigate('ServiceProviderScreen')}
+      />
+      <NavigateItemRow
         testID='setting_navigate_About'
         label='About'
         onPress={() => navigation.navigate('AboutScreen')}

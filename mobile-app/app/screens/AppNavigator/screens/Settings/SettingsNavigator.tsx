@@ -20,6 +20,7 @@ import { LiquidityMiningFaq } from '@screens/WalletNavigator/screens/CreateWalle
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
+import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -91,6 +92,20 @@ export function SettingsNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/Settings', 'Recovery Words')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={ServiceProviderScreen}
+        name='ServiceProviderScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ServiceProviderScreen', 'Service Provider')}
               containerTestID={headerContainerTestId}
             />
           ),
