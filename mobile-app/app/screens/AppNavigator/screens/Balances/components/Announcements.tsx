@@ -18,7 +18,6 @@ import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export function Announcements (): JSX.Element {
-
   const {
     data: announcements,
     isSuccess
@@ -204,7 +203,7 @@ function findDisplayedAnnouncementForVersion (version: string, language: string,
     const lang: any = announcement.lang
     const platformUrl: any = announcement.url
 
-    if (((Platform.OS !== 'ios'  && Platform.OS !== 'android') || 
+    if (((Platform.OS !== 'ios' && Platform.OS !== 'android') ||
       satisfies(version, announcement.version)) && getDisplayAnnouncement(hiddenAnnouncements, announcement)) {
       return {
         content: lang[language] ?? lang.en,
