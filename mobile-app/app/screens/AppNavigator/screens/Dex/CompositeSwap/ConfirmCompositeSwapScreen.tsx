@@ -269,7 +269,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
                 rhs={{
                   value: new BigNumber(fee.amount).toFixed(8),
                   suffix: fee.suffix,
-                  testID: 'dex_fee',
+                  testID: `dex_fee_${fee.suffix}`,
                   suffixType: 'text'
                 }}
               />

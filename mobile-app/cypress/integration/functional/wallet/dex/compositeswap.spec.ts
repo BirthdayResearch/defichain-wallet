@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../support/walletCommands'
 
 function setupWalletForConversion (): void {
   cy.createEmptyWallet(true)
@@ -410,5 +411,80 @@ context('Wallet - DEX - Composite Swap with Conversion', () => {
     cy.getByTestID('text_swap_amount').should('contain', '11.00000000')
     cy.getByTestID('button_confirm_swap').click().wait(3000)
     cy.closeOceanInterface()
+  })
+})
+
+context('Wallet - DEX - Display DEX fees breakdown', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(['BTC', 'DUSD', 'TU10'])
+      .wait(5000)
+
+    cy.getByTestID('bottom_tab_dex').click().wait(3000)
+    cy.getByTestID('close_dex_guidelines').click()
+  })
+
+  function validateDexFee (displaySymbol: string, expectedValue: string): void {
+    cy.getByTestID(`dex_fee_breakdown_${displaySymbol}`).invoke('text').then(fee => {
+      checkValueWithinRange(fee.replace(` ${displaySymbol}`, ''), expectedValue, 0.0005)
+      cy.getByTestID('button_confirm_submit').click()
+      cy.getByTestID(`dex_fee_${displaySymbol}`).invoke('text').then(fee => {
+        checkValueWithinRange(fee.replace(` ${displaySymbol}`, ''), expectedValue, 0.0005)
+      })
+    })
+  }
+
+  it('should display DEX fees breakdown for dBTC <> DFI pair', function () {
+    cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
+    cy.getByTestID('pool_pair_swap-horiz_dBTC-DFI').click()
+    cy.getByTestID('text_input_tokenA').type('1.2345').blur()
+    cy.getByTestID('dex_fee_breakdown_transaction_fee').should('exist')
+    validateDexFee('dBTC', '0.00123450')
+    cy.go('back')
+    cy.getByTestID('switch_button').click()
+    cy.getByTestID('text_input_tokenA').type('5.4321').blur()
+    validateDexFee('dBTC', '0.00540259')
+    cy.go('back')
+  })
+
+  it('should display DEX fees breakdown for DUSD <> DFI pair', function () {
+    cy.getByTestID('bottom_tab_dex').click().wait(3000)
+    cy.getByTestID('pool_pair_swap-horiz_DUSD-DFI').click()
+    cy.getByTestID('text_input_tokenA').type('1.2323').blur()
+    cy.getByTestID('dex_fee_breakdown_transaction_fee').should('exist')
+    validateDexFee('DUSD', '0.00616150')
+    cy.go('back')
+    cy.getByTestID('switch_button').click()
+    cy.getByTestID('text_input_tokenA').clear().type('3.2121').blur()
+    validateDexFee('DUSD', '0.01607216')
+    cy.go('back')
+  })
+
+  it('should display DEX fees breakdown for DUSD <> dToken pair', function () {
+    cy.getByTestID('bottom_tab_dex').click().wait(3000)
+    cy.getByTestID('pool_pair_swap-horiz_dTU10-DUSD').click()
+    cy.getByTestID('text_input_tokenA').type('5.555').blur()
+    cy.getByTestID('dex_fee_breakdown_transaction_fee').should('exist')
+    validateDexFee('dTU10', '0.00555500')
+    cy.go('back')
+    validateDexFee('DUSD', '0.00555589')
+    cy.go('back')
+    cy.getByTestID('switch_button').click()
+    cy.getByTestID('text_input_tokenA').clear().type('4.444').blur()
+    validateDexFee('dTU10', '0.00444328')
+    cy.go('back')
+    validateDexFee('DUSD', '0.00444400')
+    cy.go('back')
+  })
+
+  it('should not display DEX fees breakdown for dUSDC <> DFI pair', function () {
+    cy.getByTestID('bottom_tab_dex').click().wait(3000)
+    cy.getByTestID('pool_pair_swap-horiz_dUSDC-DFI').click()
+    cy.getByTestID('text_input_tokenA').type('0.0001').blur()
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('dex_fee_breakdown_label').should('not.exist')
+    cy.getByTestID('dex_fee_breakdown_transaction_fee').should('not.exist')
   })
 })

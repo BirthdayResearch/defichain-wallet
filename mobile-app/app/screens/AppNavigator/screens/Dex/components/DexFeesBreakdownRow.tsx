@@ -17,7 +17,7 @@ export interface DexFee {
   suffix: string
 }
 
-export function DexFeesBreakdownRow ({ transactionFee, dexFees, testID }: DexFeesBreakdownRowProps): JSX.Element {
+export function DexFeesBreakdownRow ({ transactionFee, dexFees }: DexFeesBreakdownRowProps): JSX.Element {
   const alertInfo = {
     title: 'Fees breakdown',
     message: 'Each transaction is subject to a small amount of fees. The amount may vary depending on how congested the network is. This also includes a burn fee for swapping.'
@@ -34,7 +34,7 @@ export function DexFeesBreakdownRow ({ transactionFee, dexFees, testID }: DexFee
           style={tailwind('text-sm mr-1')}
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
-          testID={`${testID}_label`}
+          testID='dex_fee_breakdown_label'
         >
           {translate('components/BottomSheetInfo', 'Fees breakdown')}
         </ThemedText>
@@ -58,7 +58,7 @@ export function DexFeesBreakdownRow ({ transactionFee, dexFees, testID }: DexFee
               style={tailwind('text-xs text-right')}
               light={tailwind('text-gray-900')}
               dark={tailwind('text-gray-50')}
-              testID={testID}
+              testID='dex_fee_breakdown_transaction_fee'
             >
               {val}
             </ThemedText>
@@ -87,7 +87,7 @@ export function DexFeesBreakdownRow ({ transactionFee, dexFees, testID }: DexFee
                   style={tailwind('text-xs text-right mb-1')}
                   light={tailwind('text-gray-900')}
                   dark={tailwind('text-gray-50')}
-                  testID={testID}
+                  testID={`dex_fee_breakdown_${fee.suffix}`}
                 >
                   {val}
                 </ThemedText>
