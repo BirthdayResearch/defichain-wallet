@@ -62,6 +62,5 @@ jobs:
           CYPRESS_E2E: true
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: '@cypress/github-action'
 
       - uses: codecov/codecov-action@81cd2dc8148241f03f5839d295e000b8f761e378
