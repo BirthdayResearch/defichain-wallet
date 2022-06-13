@@ -391,7 +391,7 @@ context('Wallet - Send - Switch token', function () {
     cy.createEmptyWallet(true)
 
     // No token
-    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('details_dfi').should('not.exist')
     cy.getByTestID('dfi_balance_card_touchable').click()
     cy.getByTestID('send_button').click()
     cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')

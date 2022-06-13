@@ -24,12 +24,12 @@ context('Wallet - Pool Pair Rewards', () => {
       cy.wait(3000)
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('details_dfi').should('not.exist')
-      cy.getByTestID('dfi_token_amount').contains('0.00000000')
     })
 
     it('should receive LP tokens DFI tokens and receive rewards', function () {
       cy.sendDFItoWallet()
         .sendTokenToWallet(['BTC-DFI']).wait(10000)
+      cy.getByTestID('details_dfi').click()
       cy.getByTestID('dfi_token_amount').should('exist')
       cy.getByTestID('dfi_token_amount').then(($txt: any) => {
         const balanceAmount = $txt[0].textContent.replace(' DFI', '').replace(',', '')
