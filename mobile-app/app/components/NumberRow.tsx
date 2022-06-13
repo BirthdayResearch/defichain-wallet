@@ -75,7 +75,7 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                     {val}
                   </ThemedText>
                   {
-                    props.rhs.suffixType === 'text' &&
+                      props.rhs.suffixType === 'text' &&
                       <>
                         <Text>{' '}</Text>
                         <ThemedText
@@ -94,26 +94,26 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
               thousandSeparator
               value={props.rhs.value}
             />
+            {
+              props.rhs.suffixType === 'component' &&
+              (props.children)
+            }
+            <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
+              {
+                props.rhsUsdAmount !== undefined &&
+                <ActiveUSDValue
+                  price={props.rhsUsdAmount}
+                  containerStyle={tailwind('justify-end')}
+                  testId={`${props.rhs.testID}_rhsUsdAmount`}
+                />
+              }
+              {
+                props.isOraclePrice === true && (
+                  <IconTooltip />
+                )
+              }
+            </View>
           </View>
-        </View>
-        {
-          props.rhs.suffixType === 'component' &&
-          (props.children)
-        }
-        <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
-          {
-            props.rhsUsdAmount !== undefined &&
-              <ActiveUSDValue
-                price={props.rhsUsdAmount}
-                containerStyle={tailwind('justify-end')}
-                testId={`${props.rhs.testID}_rhsUsdAmount`}
-              />
-          }
-          {
-            props.isOraclePrice === true && (
-              <IconTooltip />
-            )
-          }
         </View>
       </View>
     </ThemedView>
