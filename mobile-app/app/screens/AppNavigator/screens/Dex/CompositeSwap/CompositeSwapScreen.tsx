@@ -430,7 +430,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           conversionAmount
         }
       }),
-      estimatedAmount: new BigNumber(tokenB)
+      estimatedAmount: new BigNumber(tokenB),
+      dexFees: dexFees
     })
   }
 

@@ -50,7 +50,8 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     tokenB,
     swap,
     futureSwap,
-    estimatedAmount
+    estimatedAmount,
+    dexFees
   } = route.params
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const dispatch = useAppDispatch()
@@ -194,6 +195,12 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
               }}
               textStyle={tailwind('text-sm font-normal')}
             />
+            <InfoRow
+              type={InfoType.EstimatedFee}
+              value={fee.toFixed(8)}
+              testID='confirm_text_fee'
+              suffix='DFI'
+            />
           </>
         )
         : (
@@ -208,13 +215,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
           />
         )}
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID='confirm_text_fee'
-        suffix='DFI'
-      />
-      {!isFutureSwap &&
+      {!isFutureSwap && dexFees.length === 0 &&
         (
           <>
             <NumberRow
@@ -226,11 +227,53 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
                 suffixType: 'text'
               }}
             />
+            <InfoRow
+              type={InfoType.EstimatedFee}
+              value={fee.toFixed(8)}
+              testID='confirm_text_fee'
+              suffix='DFI'
+            />
             <PricesSection
               testID='confirm_pricerate_value'
               priceRates={priceRates}
               sectionTitle='PRICES'
             />
+          </>
+        )}
+
+      {!isFutureSwap && dexFees.length > 0 &&
+        (
+          <>
+            <NumberRow
+              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Slippage tolerance')}
+              rhs={{
+                value: new BigNumber(slippage).times(100).toFixed(),
+                suffix: '%',
+                testID: 'slippage_fee',
+                suffixType: 'text'
+              }}
+            />
+            <NumberRow
+              lhs={translate('screens/ConfirmCompositeSwapScreen', 'Transaction fee')}
+              rhs={{
+                value: fee.toFixed(),
+                suffix: 'DFI',
+                testID: 'transaction_fee',
+                suffixType: 'text'
+              }}
+            />
+            {dexFees.map(fee => (
+              <NumberRow
+                key={fee.suffix}
+                lhs={translate('screens/ConfirmCompositeSwapScreen', 'DEX fee (for {{token}})', { token: fee.suffix })}
+                rhs={{
+                  value: new BigNumber(fee.amount).toFixed(8),
+                  suffix: fee.suffix,
+                  testID: 'dex_fee',
+                  suffixType: 'text'
+                }}
+              />
+            ))}
           </>
         )}
       {isFutureSwap

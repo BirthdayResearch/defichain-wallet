@@ -11,7 +11,7 @@ export function WalletAddressRow (): JSX.Element {
   return (
     <ThemedView
       dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-300')}
+      light={tailwind('bg-white border-b border-gray-200')}
       style={tailwind('p-4 flex-row w-full items-center justify-between')}
     >
       <ThemedText

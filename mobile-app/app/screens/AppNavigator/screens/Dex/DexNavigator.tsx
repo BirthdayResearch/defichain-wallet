@@ -15,6 +15,7 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Balances/BalancesNavigator'
+import { DexFee } from './components/DexFeesBreakdownRow'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -48,6 +49,7 @@ export interface DexParamList {
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }
     estimatedAmount: BigNumber
+    dexFees: DexFee[]
   }
   AddLiquidity: {
     pair: PoolPairData
