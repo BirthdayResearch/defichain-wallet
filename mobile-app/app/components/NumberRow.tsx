@@ -75,19 +75,19 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                     {val}
                   </ThemedText>
                   {
-                      props.rhs.suffixType === 'text' &&
-                      <>
-                        <Text>{' '}</Text>
-                        <ThemedText
-                          light={tailwind('text-gray-500')}
-                          dark={tailwind('text-gray-400')}
-                          style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
-                          testID={`${props.rhs.testID}_suffix`}
-                          {...props.rhsThemedProps}
-                        >
-                          {props.rhs.suffix}
-                        </ThemedText>
-                      </>
+                    props.rhs.suffixType === 'text' &&
+                    <>
+                      <Text>{' '}</Text>
+                      <ThemedText
+                        light={tailwind('text-gray-500')}
+                        dark={tailwind('text-gray-400')}
+                        style={[tailwind('text-sm ml-1'), props.textStyle, props.rhs.style]}
+                        testID={`${props.rhs.testID}_suffix`}
+                        {...props.rhsThemedProps}
+                      >
+                        {props.rhs.suffix}
+                      </ThemedText>
+                    </>
                   }
                 </Text>
               )}
