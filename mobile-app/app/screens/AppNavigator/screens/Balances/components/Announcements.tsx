@@ -18,10 +18,32 @@ import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export function Announcements (): JSX.Element {
+  // TODO: remove variable and uncomment data: announcements once QA testing is done
+  const announcements: AnnouncementData[] = [{
+    lang: {
+      en: 'Update to the latest app version to access Decentralized Loan.',
+      de: 'Aktualisiere auf die neueste Version der App, um Zugang zu dezentralen Darlehen zu erhalten.',
+      'zh-Hans': '请更新至最新版本应用程式使用去中心化贷款。',
+      'zh-Hant': '請更新至最新版本應用程式使用去中心化貸款。',
+      it: 'Update to the latest app version to access Decentralized Loan.',
+      es: 'Update to the latest app version to access Decentralized Loan.'
+    },
+    url: {
+      ios: 'https://status.defichain.com/',
+      android: 'https://status.defichain.com/',
+      web: 'https://status.defichain.com/',
+      macos: 'https://status.defichain.com/',
+      windows: 'https://status.defichain.com/'
+    },
+    id: '20',
+    version: '2.24.3',
+    type: 'EMERGENCY'
+  }]
+  
   const {
-    data: announcements,
+    // data: announcements,
     isSuccess
-  } = useGetAnnouncementsQuery() // TODO: add {} back after testing is done
+  } = useGetAnnouncementsQuery({})
 
   const {
     language
