@@ -101,11 +101,11 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
             <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
               {
                 props.rhsUsdAmount !== undefined &&
-                <ActiveUSDValue
-                  price={props.rhsUsdAmount}
-                  containerStyle={tailwind('justify-end')}
-                  testId={`${props.rhs.testID}_rhsUsdAmount`}
-                />
+                  <ActiveUSDValue
+                    price={props.rhsUsdAmount}
+                    containerStyle={tailwind('justify-end')}
+                    testId={`${props.rhs.testID}_rhsUsdAmount`}
+                  />
               }
               {
                 props.isOraclePrice === true && (
