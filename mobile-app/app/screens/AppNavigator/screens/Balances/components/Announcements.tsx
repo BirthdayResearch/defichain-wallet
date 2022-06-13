@@ -20,7 +20,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 export function Announcements (): JSX.Element {
 
   const {
-    // data: announcements,
+    data: announcements,
     isSuccess
   } = useGetAnnouncementsQuery({})
 
@@ -51,28 +51,6 @@ export function Announcements (): JSX.Element {
       it: 'Stiamo indagando su un problema di sincronizzazione della blockchain. Vedi maggiori dettagli sulla pagina di stato di DeFiChain.'
     },
     version: '0.0.0',
-    url: {
-      ios: deFiChainStatusUrl,
-      android: deFiChainStatusUrl,
-      windows: deFiChainStatusUrl,
-      web: deFiChainStatusUrl,
-      macos: deFiChainStatusUrl
-    },
-    type: 'EMERGENCY'
-  }]
-
-  // TODO: remove this and uncommment data:announcememt once QA has tested
-  const announcements: AnnouncementData[] = [{
-    lang: {
-      en: 'temporary announcement',
-      de: 'temporary announcement',
-      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面了解更多状态详情。',
-      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面了解更多狀態詳情。',
-      fr: 'Nous enquêtons actuellement sur un problème de synchronisation sur la blockchain. Voir plus de détails sur DeFiChain Status Page.',
-      es: 'Estamos investigando un problema de sincronización en la blockchain. Más detalles en la pagina de estado de DeFiChain',
-      it: 'Stiamo indagando su un problema di sincronizzazione della blockchain. Vedi maggiori dettagli sulla pagina di stato di DeFiChain.'
-    },
-    version: '2.24.3',
     url: {
       ios: deFiChainStatusUrl,
       android: deFiChainStatusUrl,
@@ -226,8 +204,7 @@ function findDisplayedAnnouncementForVersion (version: string, language: string,
     const lang: any = announcement.lang
     const platformUrl: any = announcement.url
 
-    // TODO: might need to modify back to (((Platform.OS !== 'ios' && Platform.OS !== 'android') ||
-    if (((Platform.OS !== 'ios') || 
+    if (((Platform.OS !== 'ios'  && Platform.OS !== 'android') || 
       satisfies(version, announcement.version)) && getDisplayAnnouncement(hiddenAnnouncements, announcement)) {
       return {
         content: lang[language] ?? lang.en,
