@@ -133,22 +133,22 @@ exports[`Number row should match snapshot for component suffix 1`] = `
             100
           </Text>
         </Text>
+        <Text>
+          $
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        />
       </View>
     </View>
-    <Text>
-      $
-    </Text>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
-    />
   </View>
 </View>
 `;
@@ -318,19 +318,19 @@ exports[`Number row should match snapshot for text suffix 1`] = `
             $
           </Text>
         </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        />
       </View>
     </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
-    />
   </View>
 </View>
 `;
