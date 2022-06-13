@@ -49,6 +49,8 @@ import { TextRow } from '@components/TextRow'
 import { PriceRateProps, PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { DexFee, DexFeesBreakdownRow } from '../components/DexFeesBreakdownRow'
+import { useDexFees } from '../hook/DexFees'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -248,6 +250,13 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       }])
     expandModal()
   }
+
+  const dexFees = useDexFees({
+    tokenADisplaySymbol: selectedTokenA?.displaySymbol,
+    tokenAAmount: tokenA,
+    tokenBDisplaySymbol: selectedTokenB?.displaySymbol,
+    tokenBAmount: tokenB
+  })
 
   useEffect(() => {
     if (isFocused) {
@@ -620,6 +629,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               timeRemaining={timeRemaining}
               transactionDate={transactionDate}
               oraclePriceText={oraclePriceText}
+              dexFees={dexFees}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -755,7 +765,8 @@ function TransactionDetailsSection ({
   executionBlock,
   timeRemaining,
   transactionDate,
-  oraclePriceText
+  oraclePriceText,
+  dexFees
 }: {
   isFutureSwap: boolean
   conversionAmount: BigNumber
@@ -768,6 +779,7 @@ function TransactionDetailsSection ({
   timeRemaining: string
   transactionDate: string
   oraclePriceText: string
+  dexFees: DexFee[]
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   const { getTokenPrice } = useTokenPrice()
@@ -801,74 +813,119 @@ function TransactionDetailsSection ({
           rhsThemedProps={rowStyle.rhsThemedProps}
         />}
 
-      {!isFutureSwap
-        ? (
-          <NumberRow
-            lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-            rhs={{
-              value: estimatedAmount,
-              suffixType: 'text',
-              suffix: tokenB.displaySymbol,
-              testID: 'estimated_to_receive'
-            }}
-            textStyle={tailwind('text-sm font-normal')}
-            rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-        )
-        : (
+      {!isFutureSwap && dexFees.length === 0 &&
+        (
           <>
-            <TimeRemainingTextRow timeRemaining={timeRemaining} transactionDate={transactionDate} />
-            <InfoRow
-              type={InfoType.ExecutionBlock}
-              value={executionBlock}
-              testID='execution_block'
-              suffix={
-                <TouchableOpacity
-                  onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}
-                >
-                  <ThemedIcon
-                    name='open-in-new'
-                    size={16}
-                    iconType='MaterialIcons'
-                    style={tailwind('ml-1')}
-                    light={tailwind('text-primary-500')}
-                    dark={tailwind('text-darkprimary-500')}
-                  />
-                </TouchableOpacity>
-              }
+            <ThemedView
+              light={tailwind('border-b border-gray-200')}
+              dark={tailwind('border-b border-gray-700')}
+            >
+              <InfoRow
+                type={InfoType.EstimatedFee}
+                value={fee.toFixed(8)}
+                testID='text_fee'
+                suffix='DFI'
+                lhsThemedProps={rowStyle.lhsThemedProps}
+                rhsThemedProps={rowStyle.rhsThemedProps}
+                containerStyle={{
+                  style: tailwind('p-4 flex-row items-start w-full'),
+                  light: tailwind('bg-white'),
+                  dark: tailwind('bg-gray-800')
+                }}
+              />
+            </ThemedView>
+            <NumberRow
+              lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+              rhs={{
+                value: estimatedAmount,
+                suffixType: 'text',
+                suffix: tokenB.displaySymbol,
+                testID: 'estimated_to_receive'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+              rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
               lhsThemedProps={rowStyle.lhsThemedProps}
               rhsThemedProps={rowStyle.rhsThemedProps}
+              dark={tailwind('bg-gray-800')}
+              light={tailwind('bg-white')}
             />
-            <TextRow
-              lhs={{
+          </>
+        )}
+      {!isFutureSwap && dexFees.length > 0 &&
+          (
+            <>
+              <ThemedView
+                light={tailwind('border-b border-gray-200')}
+                dark={tailwind('border-b border-gray-700')}
+              >
+                <DexFeesBreakdownRow
+                  transactionFee={fee}
+                  dexFees={dexFees}
+                  testID='swap'
+                />
+              </ThemedView>
+              <NumberRow
+                lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+                rhs={{
+                  value: estimatedAmount,
+                  suffixType: 'text',
+                  suffix: tokenB.displaySymbol,
+                  testID: 'estimated_to_receive'
+                }}
+                textStyle={tailwind('text-sm font-normal')}
+                rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
+                lhsThemedProps={rowStyle.lhsThemedProps}
+                rhsThemedProps={rowStyle.rhsThemedProps}
+                dark={tailwind('bg-gray-800')}
+                light={tailwind('bg-white')}
+              />
+            </>
+          )}
+      {isFutureSwap &&
+          (
+            <>
+              <TimeRemainingTextRow timeRemaining={timeRemaining} transactionDate={transactionDate} />
+              <InfoRow
+                type={InfoType.ExecutionBlock}
+                value={executionBlock}
+                testID='execution_block'
+                suffix={
+                  <TouchableOpacity
+                    onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}
+                  >
+                    <ThemedIcon
+                      name='open-in-new'
+                      size={16}
+                      iconType='MaterialIcons'
+                      style={tailwind('ml-1')}
+                      light={tailwind('text-primary-500')}
+                      dark={tailwind('text-darkprimary-500')}
+                    />
+                  </TouchableOpacity>
+              }
+                lhsThemedProps={rowStyle.lhsThemedProps}
+                rhsThemedProps={rowStyle.rhsThemedProps}
+              />
+              <TextRow
+                lhs={{
                 value: translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive'),
                 themedProps: rowStyle.lhsThemedProps,
                 testID: 'estimated_to_receive'
               }}
-              rhs={{
+                rhs={{
                 value: translate('screens/CompositeSwapScreen', `Oracle price ${oraclePriceText}`),
                 themedProps: rowStyle.rhsThemedProps,
                 testID: 'estimated_to_receive'
               }}
-              textStyle={tailwind('text-sm font-normal')}
-              containerStyle={{
+                textStyle={tailwind('text-sm font-normal')}
+                containerStyle={{
                 dark: tailwind('bg-gray-800 border-b border-gray-700'),
                 light: tailwind('bg-white border-b border-gray-200'),
                 style: tailwind('p-4 flex-row items-start w-full')
               }}
-            />
-          </>
+              />
+            </>
         )}
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-        lhsThemedProps={rowStyle.lhsThemedProps}
-        rhsThemedProps={rowStyle.rhsThemedProps}
-      />
     </View>
   )
 }
