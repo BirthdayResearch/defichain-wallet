@@ -16,7 +16,7 @@ export function ServiceProviderScreen (): JSX.Element {
             light={tailwind('text-gray-400')}
             dark={tailwind('text-gray-500')}
           >
-            {translate('screens/ServiceProviderScreen', 'ADDRESS LABEL')}
+            {translate('screens/ServiceProviderScreen', 'Endpoint URL')}
           </ThemedText>
           <WalletTextInput
             value={labelInput}
@@ -28,7 +28,7 @@ export function ServiceProviderScreen (): JSX.Element {
             placeholder={translate('screens/ServiceProviderScreen', 'https://ocean.defichain.com')}
             style={tailwind('h-9 w-6/12 flex-grow')}
             hasBottomSheet
-            testID='address_book_label_input'
+            testID='endpoint_url_input'
           />
         </View>
       </ThemedScrollView>
