@@ -112,9 +112,7 @@ export const fetchPoolPairs = createAsyncThunk(
   'wallet/fetchPoolPairs',
   async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
-    return pairs
-      .filter(pair => !pair.displaySymbol.includes('/v1'))
-      .map(data => ({ type: 'available', data }))
+    return pairs.map(data => ({ type: 'available', data }))
   }
 )
 
@@ -130,8 +128,7 @@ export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
   async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
     const tokens = await client.address.listToken(address, size)
-    const allTokens = (await client.tokens.list(size))
-      .filter(token => !token.displaySymbol.includes('/v1'))
+    const allTokens = await client.tokens.list(size)
     const utxoBalance = await client.address.getBalance(address)
     return { tokens, utxoBalance, allTokens }
   }
@@ -159,6 +156,7 @@ export const wallet = createSlice({
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
+        .filter(({ data }) => !data.symbol.includes('/v1')) // Filter out v1 pairs due to stock split
     })
     builder.addCase(fetchDexPrice.fulfilled, (state, action: PayloadAction<{dexPrices: DexPricesProps, denomination: string}>) => {
       state.dexPrices = { ...state.dexPrices, [action.payload.denomination]: action.payload.dexPrices }
@@ -167,7 +165,7 @@ export const wallet = createSlice({
       state.hasFetchedToken = true
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
-      state.allTokens = associateTokens(action.payload.allTokens)
+      state.allTokens = associateTokens(action.payload.allTokens.filter(token => !token.symbol.includes('/v1'))) // Filter out v1 pairs due to stock split
     })
     builder.addCase(fetchSwappableTokens.fulfilled, (state, action: PayloadAction<AllSwappableTokensResult>) => {
       state.hasFetchedSwappableTokens = true
