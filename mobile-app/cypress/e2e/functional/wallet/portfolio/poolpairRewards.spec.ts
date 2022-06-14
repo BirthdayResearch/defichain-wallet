@@ -21,8 +21,8 @@ context('Wallet - Pool Pair Rewards', () => {
     })
 
     it('should not have any DFI tokens', function () {
-      cy.getByTestID('bottom_tab_portfolio').click()
       cy.wait(3000)
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('details_dfi').should('not.exist')
     })
 
