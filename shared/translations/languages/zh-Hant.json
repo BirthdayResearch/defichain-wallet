@@ -65,7 +65,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流動池裡兌換貨幣",
     "You have full control over your tokens unlike any other.": "您能完全掌控貨幣"
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "我的資產",
     "Portfolio": "資產組合",
     "SEND": "發出",
@@ -1102,12 +1102,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "錢包地址"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
     "No Crypto in portfolio": "資產組合中沒有加密貨幣",
-    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣",
     "Empty portfolio": "沒有資產",
     "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
   },

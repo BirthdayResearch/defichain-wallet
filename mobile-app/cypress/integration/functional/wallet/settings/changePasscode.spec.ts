@@ -1,6 +1,6 @@
 function sendWithNewPin (): void {
-  cy.getByTestID('bottom_tab_balances').click()
-  cy.getByTestID('balances_list').should('exist')
+  cy.getByTestID('bottom_tab_portfolio').click()
+  cy.getByTestID('portfolio_list').should('exist')
   cy.getByTestID('details_dfi').click()
   cy.getByTestID('dfi_balance_card_touchable').click()
   cy.getByTestID('send_button').click()
@@ -13,7 +13,7 @@ function sendWithNewPin (): void {
 }
 
 function nonTransactionNewPin (): void {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('view_recovery_words').click()
   cy.getByTestID('pin_authorize').type('696969').wait(3000)
@@ -32,8 +32,8 @@ context('Wallet - Change Passcode', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(10000)
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('portfolio_list').should('exist')
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
   })

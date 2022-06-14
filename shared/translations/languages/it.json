@@ -66,7 +66,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Scambia comodamente i token nel Liquidity Pool.",
     "You have full control over your tokens unlike any other.": "Solo tu hai il pieno controllo dei tuoi token."
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "Saldo",
     "Portfolio": "Portafoglio",
     "SEND": "INVIA",
@@ -1120,12 +1120,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "Indirizzo del Wallet"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "Nessun token di liquidità nel portafoglio",
     "No Crypto in portfolio": "Nessuna Crypto nel portafoglio",
-    "No dTokens in portfolio": "Nessun dTokens in portafoglio"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "Nessun dTokens in portafoglio",
     "Empty portfolio": "Portfolio leer",
     "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
   },

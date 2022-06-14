@@ -25,7 +25,7 @@ context('Wallet - Feature Gate', () => {
       statusCode: 200,
       body: flags
     })
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_About').click()
     cy.getByTestID('try_beta_features').click()

@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -28,7 +28,7 @@ export function HeaderTitle ({
   containerTestID,
   children
 }: HeaderTitleProps): JSX.Element {
-  const navigation = useNavigation<NavigationProp<BalanceParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
 
   const goToNetworkDetails = (): void => {
     navigation.navigate('NetworkDetails')
