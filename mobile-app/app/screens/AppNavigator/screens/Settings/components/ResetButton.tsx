@@ -10,10 +10,10 @@ import { authentication, Authentication } from '@store/authentication';
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage';
 import { useLogger } from '@shared-contexts/NativeLoggingProvider';
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { hasTxQueued } from '@store/transaction_queue'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
+// import { hasTxQueued } from '@store/transaction_queue'
+// import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+// import { useSelector } from 'react-redux';
+// import { RootState } from '@store';
 
 interface ResetButtonProps {
   defaultDefichainURL: string
@@ -23,8 +23,8 @@ export function ResetButton ({ defaultDefichainURL }: ResetButtonProps): JSX.Ele
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const logger = useLogger()
   const dispatch = useAppDispatch()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  // const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  // const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   const resetServiceProvider = useCallback((defaultURL: string) => {
     const auth: Authentication<string[]> = {
