@@ -112,7 +112,9 @@ export const fetchPoolPairs = createAsyncThunk(
   'wallet/fetchPoolPairs',
   async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
-    return pairs.map(data => ({ type: 'available', data }))
+    return pairs
+      .filter(data => !data.displaySymbol.includes('/v1'))
+      .map(data => ({ type: 'available', data }))
   }
 )
 
@@ -128,7 +130,8 @@ export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
   async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
     const tokens = await client.address.listToken(address, size)
-    const allTokens = await client.tokens.list(size)
+    const allTokens = (await client.tokens.list(size))
+      .filter(token => !token.displaySymbol.includes('/v1'))
     const utxoBalance = await client.address.getBalance(address)
     return { tokens, utxoBalance, allTokens }
   }
