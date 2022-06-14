@@ -1,36 +1,83 @@
-import { useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedScrollView, ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { ResetButton } from '../components/ResetButton'
 import { UnlockButton } from '../components/UnlockButton'
+import { Button } from '@components/Button'
+import { authentication, Authentication } from '@store/authentication'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { StackScreenProps } from '@react-navigation/stack'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued } from '@store/transaction_queue'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 interface ServiceProviderParamList {
-
+  SettingsScreen: {}
+  [key: string]: undefined | object
 }
 
-export function ServiceProviderScreen(): JSX.Element {
-  const [labelInput] = useState('https://ocean.defichain.com')
-  const navigation = useNavigation<NavigationProp<ServiceProviderParamList>>()
-  // TODO: 
+type Props = StackScreenProps<ServiceProviderParamList, 'ServiceProviderScreen'>
+
+export function ServiceProviderScreen( {navigation}: Props): JSX.Element {
+  const defaultDefichainURL = 'https://ocean.defichain.com'
+  const logger = useLogger()
+  const dispatch = useAppDispatch()
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+
+  const [labelInput, setLabelInput] = useState(defaultDefichainURL)
+  const [isValid, setIsValid] = useState(true) // TODO: continue button: set to false once logic is done
   const [isUnlocked, setIsUnlocked] = useState(false)
- 
+
+    // TODO: custom service provider to update custom URL 
+  const submitCustomServiceProvider = useCallback(() => {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    const auth: Authentication<string[]> = {
+      consume: async passphrase => await MnemonicStorage.get(passphrase),
+      onAuthenticated: async (words) => {
+        navigation.navigate({
+          name: 'SettingsScreen',
+          params: { words },
+          merge: true
+        })
+      },
+      onError: e => logger.error(e),
+      message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
+      loading: translate('screens/ServiceProviderScreen', 'Verifying acess')
+    }
+    dispatch(authentication.actions.prompt(auth))
+    // TODO: go back to settings page once authenticated url
+  }, [dispatch, navigation])
+  
+  const validateInputlabelInput = (input: string): boolean => {
+    // TODO: validation for url address
+    if (input !== undefined && input.trim().length > 40) {
+      return false
+    }
+    return true
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: (): JSX.Element => {
         if (isUnlocked) {
-          return <ResetButton isUnlocked={isUnlocked}/>
+          return <ResetButton defaultDefichainURL={defaultDefichainURL} />
         }
-        return <UnlockButton isUnlocked={isUnlocked} setIsUnlocked={setIsUnlocked}/>
+        return <UnlockButton isUnlocked={isUnlocked} setIsUnlocked={setIsUnlocked} />
       }
     })
   })
 
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
-      { isUnlocked && (
+      {isUnlocked && (
         <View style={tailwind('pt-3 flex-1')}>
           <ThemedView
             light={tailwind('bg-warning-100')}
@@ -56,7 +103,7 @@ export function ServiceProviderScreen(): JSX.Element {
         </View>
         )
       }
-      
+
       <View style={tailwind('flex-1 mt-4 mb-8')}>
         <ThemedText
           style={tailwind('text-sm')}
@@ -66,18 +113,21 @@ export function ServiceProviderScreen(): JSX.Element {
           {translate('screens/ServiceProviderScreen', 'Endpoint URL')}
         </ThemedText>
         <WalletTextInput
+          editable={isUnlocked}
           value={labelInput}
           inputType='default'
           onChangeText={(_text: string) => {
+            setLabelInput(_text)
+            validateInputlabelInput(_text)
           }}
           onClearButtonPress={() => {
           }}
-          placeholder={translate('screens/ServiceProviderScreen', 'https://ocean.defichain.com')}
+          placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
           style={tailwind('h-9 w-6/12 flex-grow')}
-          // hasBottomSheet
+          // hasBottomSheet // this is giving some error
           testID='endpoint_url_input'
         />
-        { isUnlocked && (
+        {isUnlocked && (
           <View style={tailwind('pt-1.5')}>
             <ThemedText
               style={tailwind('text-xs font-medium')}
@@ -86,6 +136,16 @@ export function ServiceProviderScreen(): JSX.Element {
             >
               {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured.')}
             </ThemedText>
+            <View style={tailwind('mb-6')}>
+
+              {/* TODO: set button at the bottom of the screen */}
+              <Button
+                label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
+                testID='button_submit'
+                onPress={submitCustomServiceProvider}
+                disabled={!isValid}
+              />
+            </View>
           </View>
           )
         }
