@@ -113,7 +113,7 @@ export const fetchPoolPairs = createAsyncThunk(
   async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
     return pairs
-      .filter(data => !data.displaySymbol.includes('/v1'))
+      .filter(pair => !pair.displaySymbol.includes('/v1'))
       .map(data => ({ type: 'available', data }))
   }
 )
