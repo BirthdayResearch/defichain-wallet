@@ -19,8 +19,8 @@ function addCollateral (): void {
 
 function sendTokenToRandomAddress (tokenId: string, isMax = false): void {
   const randomAddress = 'bcrt1qnr4cxeu5dx6nk0u8qr5twppzd0uq7m5wygfhz3'
-  cy.getByTestID('bottom_tab_balances').click().wait(4000)
-  cy.getByTestID(`balances_row_${tokenId}`).click()
+  cy.getByTestID('bottom_tab_portfolio').click().wait(4000)
+  cy.getByTestID(`portfolio_row_${tokenId}`).click()
   cy.getByTestID('send_button').click()
   cy.getByTestID('address_input').clear().type(randomAddress).blur()
   isMax
