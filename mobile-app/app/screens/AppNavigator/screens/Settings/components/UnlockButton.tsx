@@ -14,7 +14,6 @@ export function UnlockButton ( { isUnlocked, setIsUnlocked }: UnlockButtonProps)
     <TouchableOpacity
       style={tailwind('pr-4')}
       onPress={() => {
-        //TODO: set auth
         setIsUnlocked(true)
       }}
     >
