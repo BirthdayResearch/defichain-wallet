@@ -165,7 +165,7 @@ export const wallet = createSlice({
       state.hasFetchedToken = true
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
-      state.allTokens = associateTokens(action.payload.allTokens.filter(token => !token.symbol.includes('/v1'))) // Filter out v1 pairs due to stock split
+      state.allTokens = associateTokens(action.payload.allTokens.filter(token => !token.symbol.includes('/v1'))) // Filter out v1 tokens due to stock split
     })
     builder.addCase(fetchSwappableTokens.fulfilled, (state, action: PayloadAction<AllSwappableTokensResult>) => {
       state.hasFetchedSwappableTokens = true
