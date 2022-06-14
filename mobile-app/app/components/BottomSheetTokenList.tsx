@@ -14,7 +14,7 @@ import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loa
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 
 interface BottomSheetTokenListProps {

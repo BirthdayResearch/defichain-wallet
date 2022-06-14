@@ -101,9 +101,9 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   let vaultId = ''
 
   function validateCollateralInPortfolio (token: string, tokenId: string, availableAmount: string, lockedAmount: string): void {
-    cy.getByTestID('bottom_tab_balances').click()
-    cy.getByTestID(`balances_row_${tokenId}_symbol`).contains(token)
-    cy.getByTestID(`balances_row_${tokenId}_amount`).contains(availableAmount)
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID(`portfolio_row_${tokenId}_symbol`).contains(token)
+    cy.getByTestID(`portfolio_row_${tokenId}_amount`).contains(availableAmount)
     cy.getByTestID(`${token}_locked_amount_text`).contains(lockedAmount)
   }
 
@@ -157,7 +157,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should update locked DFI in portfolio screen', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_locked_amount').contains('10.00000000')
     cy.getByTestID('dfi_locked_value_amount').contains('≈ $100,000.00')

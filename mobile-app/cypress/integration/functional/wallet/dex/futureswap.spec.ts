@@ -45,7 +45,7 @@ context('Wallet - DEX - Future Swap', () => {
     cy.createEmptyWallet(true)
     cy.sendDFITokentoWallet().sendDFItoWallet().sendTokenToWallet(['DUSD', 'TU10', 'BTC', 'ETH']).wait(4000)
     cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('composite_swap').click()
@@ -202,7 +202,7 @@ context('Wallet - DEX - Future Swap', () => {
   })
 })
 
-context('Wallet - Balances -> Pending Future Swap Display', () => {
+context('Wallet - Portfolio -> Pending Future Swap Display', () => {
   beforeEach(() => {
     cy.intercept({
       pathname: '**/rpc'
@@ -238,7 +238,7 @@ context('Wallet - Balances -> Pending Future Swap Display', () => {
       }
     })
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
   })
 
   it('should display the pending future swaps', () => {
@@ -283,7 +283,7 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
     cy.createEmptyWallet(true)
     cy.sendDFITokentoWallet().sendDFItoWallet().sendTokenToWallet(['TU10', 'DUSD', 'BTC']).wait(3000)
     cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('composite_swap').click()
@@ -303,7 +303,7 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
     cy.wait(3000)
     cy.getByTestID('button_confirm_swap').click().wait(3000)
     cy.closeOceanInterface()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('pending_future_swaps').click()
   })
 
@@ -327,7 +327,7 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
   })
 
   it('should display partial withdrawal amount', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('pending_future_swaps').click()
     cy.getByTestID('DUSD-dTU10_amount').should('have.text', '4.00000000 DUSD')
   })

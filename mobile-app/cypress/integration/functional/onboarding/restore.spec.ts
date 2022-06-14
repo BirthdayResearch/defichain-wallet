@@ -74,6 +74,6 @@ context('Onboarding - Restore Wallet', () => {
   it('should be able to set pincode', function () {
     cy.getByTestID('pin_input').type('000000')
     cy.getByTestID('pin_confirm_input').type('000000')
-    cy.getByTestID('balances_list').should('exist')
+    cy.getByTestID('portfolio_list').should('exist')
   })
 })

@@ -17,7 +17,7 @@ import { RootState } from '@store'
 import { useAuctionTime } from '../hooks/AuctionTimeLeft'
 import { MinNextBidTextRow } from './MinNextBidTextRow'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenPrice } from '../../Portfolio/hooks/TokenPrice'
 
 interface QuickBidProps {
   loanTokenId: string // TODO: remove if no use case
