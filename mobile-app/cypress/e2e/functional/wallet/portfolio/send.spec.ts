@@ -391,7 +391,7 @@ context('Wallet - Send - Switch token', function () {
     cy.createEmptyWallet(true)
 
     // No token
-    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('details_dfi').should('not.exist')
     cy.getByTestID('dfi_balance_card_touchable').click()
     cy.getByTestID('send_button').click()
     cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')
@@ -416,10 +416,10 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.createEmptyWallet(true).wait(3000)
     cy.sendTokenToWallet(['BTC']).wait(3000)
-    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('details_dfi').should('not.exist')
     cy.getByTestID('dfi_balance_card_touchable').click()
     cy.getByTestID('send_button').click()
-    cy.getByTestID('select_token_input').should('not.have.attr', 'aria-disabled')
+    cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')
     cy.getByTestID('select_token_placeholder').should('exist')
   })
 })
@@ -557,6 +557,7 @@ context('Wallet - Send - Address book', function () {
 
   it('should be able to block duplicate address', function () {
     cy.getByTestID('address_book_button').click()
+    cy.getByTestID('address_button_group_WHITELISTED').click()
     cy.wrap(addresses).each((_v, index: number) => {
       cy.getByTestID('add_new_address').click()
       cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()

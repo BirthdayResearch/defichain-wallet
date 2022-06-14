@@ -17,7 +17,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
     <ThemedTouchableOpacity
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
-      style={tailwind('rounded-2xl p-1 pr-2 flex flex-row items-center')}
+      style={tailwind('rounded-2xl p-1 pr-2 flex flex-row items-center overflow-hidden')}
       onPress={props.onPress}
       testID='switch_account_button'
     >
