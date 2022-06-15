@@ -81,7 +81,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     setIsSubmitting(true)
-    if (isFutureSwap) {
+    if (futureSwap !== undefined) {
       const futureSwapForm: FutureSwapForm = {
         fromTokenId: Number(swap.tokenFrom.id),
         toTokenId: Number(swap.tokenTo.id),
@@ -166,7 +166,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
       />
       <WalletAddressRow />
 
-      {isFutureSwap
+      {futureSwap !== undefined
         ? (
           <>
             <TextRow
@@ -233,7 +233,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>
         )}
-      {isFutureSwap
+      {futureSwap !== undefined
         ? (
           <>
             <TransactionResultsRow
@@ -283,7 +283,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         </View>
       )}
       <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (isFutureSwap && blockCount >= futureSwap.executionBlock)}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (futureSwap !== undefined && blockCount >= futureSwap.executionBlock)}
         label={translate('screens/ConfirmCompositeSwapScreen', 'CONFIRM SWAP')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmCompositeSwapScreen', getSubmitLabel())}

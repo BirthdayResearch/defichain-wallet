@@ -28,7 +28,7 @@ Type | Location
 ---- | ----------------------------------------
 ui   | [app/screens/**.test.ts](mobile-app/app/screens)
 api  | [app/hooks/**.test.ts](mobile-app/app/hooks)
-e2e  | [cypress/integration/functional](mobile-app/cypress/integration/functional)
+e2e  | [cypress/e2e/functional](mobile-app/cypress/e2e/functional)
 
 ### Element should have `testID` attributes
 
