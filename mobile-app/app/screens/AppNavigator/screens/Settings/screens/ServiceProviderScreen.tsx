@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -16,49 +16,48 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-interface ServiceProviderParamList {
-  SettingsScreen: {}
-  [key: string]: undefined | object
-}
+import { SettingsParamList } from '../SettingsNavigator'
+import { serviceProvider } from '@store/serviceProvider'
 
-type Props = StackScreenProps<ServiceProviderParamList, 'ServiceProviderScreen'>
+type Props = StackScreenProps<SettingsParamList, 'ServiceProviderScreen'>
 
-export function ServiceProviderScreen( {navigation}: Props): JSX.Element {
-  const defaultDefichainURL = 'https://ocean.defichain.com'
+export const defaultDefichainURL = 'https://ocean.defichain.com'
+
+export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const { serviceProviderURL } = useSelector((state: RootState) => state.serviceProvider)
 
-  const [labelInput, setLabelInput] = useState(defaultDefichainURL)
-  const [isValid, setIsValid] = useState(true) // TODO: continue button: set to false once logic is done
+  const [labelInput, setLabelInput] = useState(serviceProviderURL)
+  const [isValid, setIsValid] = useState(false)
   const [isUnlocked, setIsUnlocked] = useState(false)
 
-    // TODO: custom service provider to update custom URL 
   const submitCustomServiceProvider = useCallback(() => {
+    // to check if user's transactions to be completed before changing url
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
-      onAuthenticated: async (words) => {
-        navigation.navigate({
-          name: 'SettingsScreen',
-          params: { words },
-          merge: true
-        })
+      onAuthenticated: async () => {
+        dispatch(serviceProvider.actions.saveCustomServiceProvider(labelInput))
+        navigation.pop()
       },
       onError: e => logger.error(e),
+      title: translate('screens/ServiceProviderScreen', 'Adding custom service provider'),
       message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
-      loading: translate('screens/ServiceProviderScreen', 'Verifying acess')
+      loading: translate('screens/ServiceProviderScreen', 'Verifying acess'),
+      // TODO: URL link msg
+      // additionalMessage: translate('screens/ServiceProviderScreen', '') 
     }
     dispatch(authentication.actions.prompt(auth))
-    // TODO: go back to settings page once authenticated url
-  }, [dispatch, navigation])
+  }, [dispatch, navigation, labelInput])
   
+  // TODO: dummy validation check for url address
   const validateInputlabelInput = (input: string): boolean => {
-    // TODO: validation for url address
-    if (input !== undefined && input.trim().length > 40) {
+    if (input === '' || (input !== undefined && input.trim().length > 40)) {
       return false
     }
     return true
@@ -68,12 +67,20 @@ export function ServiceProviderScreen( {navigation}: Props): JSX.Element {
     navigation.setOptions({
       headerRight: (): JSX.Element => {
         if (isUnlocked) {
-          return <ResetButton defaultDefichainURL={defaultDefichainURL} />
+          return <ResetButton />
         }
-        return <UnlockButton isUnlocked={isUnlocked} setIsUnlocked={setIsUnlocked} />
+        return <UnlockButton setIsUnlocked={setIsUnlocked} />
       }
     })
   })
+
+  // to enable continue button
+  useEffect(() => {
+    if (isUnlocked && validateInputlabelInput(labelInput)) {
+      return setIsValid(true)
+    }
+    return setIsValid(false)
+  }, [isUnlocked, labelInput])
 
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
@@ -121,6 +128,8 @@ export function ServiceProviderScreen( {navigation}: Props): JSX.Element {
             validateInputlabelInput(_text)
           }}
           onClearButtonPress={() => {
+            setLabelInput('')
+            validateInputlabelInput('')
           }}
           placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
           style={tailwind('h-9 w-6/12 flex-grow')}

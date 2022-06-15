@@ -27,6 +27,7 @@ import { tailwind } from '@tailwind'
 import { ToastProvider } from 'react-native-toast-notifications'
 import { ToastProps } from 'react-native-toast-notifications/lib/typescript/toast'
 import { WalletToast } from '@components/WalletToast'
+import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
 
 /**
  * Loads
@@ -70,31 +71,33 @@ export default function App (): JSX.Element | null {
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
             <NetworkProvider api={SecuredStoreAPI}>
-              <WhaleProvider>
-                <DeFiScanProvider>
-                  <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
-                    <StoreProvider>
-                      <StatsProvider>
-                        <FeatureFlagProvider>
-                          <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
-                            <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
-                              <DisplayBalancesProvider>
-                                <ConnectionBoundary>
-                                  <GestureHandlerRootView style={tailwind('flex-1')}>
-                                    <ToastProvider renderType={customToast}>
-                                      <Main />
-                                    </ToastProvider>
-                                  </GestureHandlerRootView>
-                                </ConnectionBoundary>
-                              </DisplayBalancesProvider>
-                            </LanguageProvider>
-                          </ThemeProvider>
-                        </FeatureFlagProvider>
-                      </StatsProvider>
-                    </StoreProvider>
-                  </WalletPersistenceProvider>
-                </DeFiScanProvider>
-              </WhaleProvider>
+              <StoreServiceProvider>
+                <WhaleProvider>
+                  <DeFiScanProvider>
+                    <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
+                      <StoreProvider>
+                        <StatsProvider>
+                          <FeatureFlagProvider>
+                            <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
+                              <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
+                                <DisplayBalancesProvider>
+                                  <ConnectionBoundary>
+                                    <GestureHandlerRootView style={tailwind('flex-1')}>
+                                      <ToastProvider renderType={customToast}>
+                                        <Main />
+                                      </ToastProvider>
+                                    </GestureHandlerRootView>
+                                  </ConnectionBoundary>
+                                </DisplayBalancesProvider>
+                              </LanguageProvider>
+                            </ThemeProvider>
+                          </FeatureFlagProvider>
+                        </StatsProvider>
+                      </StoreProvider>
+                    </WalletPersistenceProvider>
+                  </DeFiScanProvider>
+                </WhaleProvider>
+              </StoreServiceProvider>
             </NetworkProvider>
           </PrivacyLockContextProvider>
         </AppStateContextProvider>
