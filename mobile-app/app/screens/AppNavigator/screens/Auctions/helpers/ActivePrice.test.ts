@@ -3,7 +3,7 @@ import { getActivePrice } from './ActivePrice'
 describe('Active Price', () => {
   it('should return a fixed DUSD price regardless of activePrice', () => {
     let price = getActivePrice('DUSD')
-    expect(price).toStrictEqual('1')
+    expect(price).toStrictEqual('1.00000000')
     const mockDUSDActivePrice = {
       id: 'custom_DUSD',
       key: 'custom_DUSD',
@@ -33,7 +33,7 @@ describe('Active Price', () => {
       }
     }
     price = getActivePrice('DUSD', mockDUSDActivePrice)
-    expect(price).toStrictEqual('1')
+    expect(price).toStrictEqual('1.00000000')
   })
 
   it('should return active price for other tokens', () => {
