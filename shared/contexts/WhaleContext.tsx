@@ -2,6 +2,8 @@ import { WhaleApiClient, WhaleRpcClient } from '@defichain/whale-api-client'
 import React, { createContext, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from '@environment'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 const WhaleApiClientContext = createContext<{
   whaleAPI: WhaleApiClient
@@ -18,13 +20,19 @@ export function useWhaleRpcClient (): WhaleRpcClient {
 
 export function WhaleProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
+  const { serviceProviderURL } = useSelector((state: RootState) => state.serviceProvider)
 
+  // TODO: check 'client' references on useeffect
+  // to ensure requests are updated on the new Request URL
   const client = useMemo(() => {
+
     return {
-      whaleAPI: newWhaleAPIClient(network),
-      whaleRPC: newWhaleRpcClient(network)
+      whaleAPI: newWhaleAPIClient(network, serviceProviderURL),
+      whaleRPC: newWhaleRpcClient(network, serviceProviderURL)
     }
-  }, [network])
+    // TODO: serviceProviderURL param to trigger network change when dispatch
+    // by using provider on top of whalecontext
+  }, [network, serviceProviderURL])
 
   return (
     <WhaleApiClientContext.Provider value={client}>
@@ -32,8 +40,19 @@ export function WhaleProvider (props: React.PropsWithChildren<any>): JSX.Element
     </WhaleApiClientContext.Provider>
   )
 }
-
-function newWhaleAPIClient (network: EnvironmentNetwork): WhaleApiClient {
+// TODO: import type for serviceProviderURL 
+function newWhaleAPIClient (network: EnvironmentNetwork, serviceProviderURL: string): WhaleApiClient {
+  // TODO: update to user's custom input URL 
+  // switch (network) {
+  //   case EnvironmentNetwork.MainNet:
+  //     return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
+  //   case EnvironmentNetwork.TestNet:
+  //     return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet', version: 'v0' })
+  //   case EnvironmentNetwork.RemotePlayground:
+  //     return new WhaleApiClient({ url: serviceProviderURL, network: 'regtest', version: 'v0' })
+  //   case EnvironmentNetwork.LocalPlayground:
+  //     return new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest', version: 'v0' })
+  // }
   switch (network) {
     case EnvironmentNetwork.MainNet:
       return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
@@ -46,7 +65,8 @@ function newWhaleAPIClient (network: EnvironmentNetwork): WhaleApiClient {
   }
 }
 
-function newWhaleRpcClient (network: EnvironmentNetwork): WhaleRpcClient {
+// TODO: import type for serviceProviderURL 
+function newWhaleRpcClient (network: EnvironmentNetwork, serviceProviderURL: string): WhaleRpcClient {
   switch (network) {
     case EnvironmentNetwork.MainNet:
       return new WhaleRpcClient('https://ocean.defichain.com/v0/mainnet/rpc')
