@@ -92,7 +92,7 @@
     "react-native-screens": "~3.11.1",
     "react-native-svg": "12.3.0",
     "react-native-swiper-flatlist": "^3.0.16",
-    "react-native-toast-notifications": "^3.2.3",
+    "react-native-toast-notifications": "^3.3.0",
     "react-native-web": "0.17.7",
     "react-number-format": "^4.9.3",
     "react-overlays": "^5.2.0",
