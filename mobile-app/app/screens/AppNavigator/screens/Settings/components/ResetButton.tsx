@@ -10,33 +10,35 @@ import { authentication, Authentication } from '@store/authentication';
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage';
 import { useLogger } from '@shared-contexts/NativeLoggingProvider';
 import { useAppDispatch } from '@hooks/useAppDispatch';
-// import { hasTxQueued } from '@store/transaction_queue'
-// import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-// import { useSelector } from 'react-redux';
-// import { RootState } from '@store';
+import { serviceProvider } from '@store/serviceProvider';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store';
+import { hasTxQueued } from '@store/transaction_queue';
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
-interface ResetButtonProps {
-  defaultDefichainURL: string
-}
-
-export function ResetButton ({ defaultDefichainURL }: ResetButtonProps): JSX.Element {
+export function ResetButton (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const logger = useLogger()
   const dispatch = useAppDispatch()
-  // const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  // const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
-  const resetServiceProvider = useCallback((defaultURL: string) => {
+  const resetServiceProvider = useCallback(() => {
+    // to check if user's transactions to be completed before resetting url
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
-      onAuthenticated: async (words) => {
-
+      onAuthenticated: async () => {
+        // dispatch fn to reset to defaultDefiChain URL 
+        dispatch(serviceProvider.actions.resetServiceProvider())
+        navigation.goBack()
       },
       onError: e => logger.error(e),
       message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
       loading: translate('screens/ServiceProviderScreen', 'Verifying acess')
     }
-    // TODO: to dispatch fn to reset to original URL 
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, navigation])
 
@@ -54,7 +56,7 @@ export function ResetButton ({ defaultDefichainURL }: ResetButtonProps): JSX.Ele
           text: translate('screens/ServiceProviderScreen', 'Reset'),
           style: 'destructive',
           onPress: async () => {
-            resetServiceProvider(defaultDefichainURL)
+            resetServiceProvider()
           }
         }
       ]

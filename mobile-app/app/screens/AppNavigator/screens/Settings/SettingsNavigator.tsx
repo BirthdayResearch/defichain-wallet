@@ -28,6 +28,7 @@ export interface SettingsParamList {
   RecoveryWordsScreen: { words: string[] }
   ChangePinScreen: { pinLength: number, words: string[] }
   ConfirmPinScreen: { pin: string, words: string[] }
+  ServiceProviderScreen: {}
 
   [key: string]: undefined | object
 }

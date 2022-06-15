@@ -146,7 +146,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       <NavigateItemRow
         testID='setting_navigate_service_provider'
         label='Server'
-        onPress={() => navigation.navigate('ServiceProviderScreen')}
+        onPress={() => navigation.navigate('ServiceProviderScreen', {})}
       />
       <NavigateItemRow
         testID='setting_navigate_About'

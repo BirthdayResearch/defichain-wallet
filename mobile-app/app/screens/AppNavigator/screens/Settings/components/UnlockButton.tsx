@@ -5,11 +5,10 @@ import { Dispatch, SetStateAction } from "react";
 import { TouchableOpacity } from "react-native";
 
 interface UnlockButtonProps {
-  isUnlocked: boolean
   setIsUnlocked: Dispatch<SetStateAction<boolean>>
 }
 
-export function UnlockButton ( { isUnlocked, setIsUnlocked }: UnlockButtonProps): JSX.Element {
+export function UnlockButton ( {setIsUnlocked }: UnlockButtonProps): JSX.Element {
   return (
     <TouchableOpacity
       style={tailwind('pr-4')}
