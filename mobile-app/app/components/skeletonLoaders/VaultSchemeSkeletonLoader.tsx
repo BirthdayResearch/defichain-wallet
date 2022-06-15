@@ -11,7 +11,7 @@ export function VaultSchemesSkeletonLoader (props: JSX.IntrinsicAttributes & ICo
       light={tailwind('bg-white border-gray-300')}
       dark={tailwind('bg-gray-800 border-gray-700')}
       style={tailwind('mb-1 py-2 border rounded-lg items-center justify-center')}
-      testID='balance_skeleton_loader'
+      testID='portfolio_skeleton_loader'
     >
       <ContentLoader
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}

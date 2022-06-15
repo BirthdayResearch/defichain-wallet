@@ -126,7 +126,7 @@ context('Wallet - DEX - Composite Swap with disabled pool pairs', () => {
       }
     })
     cy.createEmptyWallet(true)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
   })
@@ -143,7 +143,7 @@ context('Wallet - DEX - Composite Swap without balance', () => {
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
   })
@@ -163,7 +163,7 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC']).wait(3000)
     cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
   })
@@ -274,7 +274,7 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
     cy.getByTestID('header_settings').click()
     cy.sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['LTC', 'USDC']).wait(5000)
     cy.fetchWalletBalance()
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('close_dex_guidelines').click()
   })
@@ -288,7 +288,7 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
   })
 
   it('should be able to swap direct pair', function () {
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_dLTC').click().wait(100)
@@ -316,10 +316,10 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
         cy.getByTestID('button_confirm_swap').click().wait(3000)
         cy.closeOceanInterface()
         cy.fetchWalletBalance()
-        cy.getByTestID('bottom_tab_balances').click()
-        cy.getByTestID('balances_row_4').should('exist')
+        cy.getByTestID('bottom_tab_portfolio').click()
+        cy.getByTestID('portfolio_row_4').should('exist')
 
-        cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
+        cy.getByTestID('portfolio_row_4_amount').then(($txt: any) => {
           const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
           expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(tokenValue).toNumber())
         })
@@ -352,10 +352,10 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
           cy.getByTestID('button_confirm_swap').click().wait(3000)
           cy.closeOceanInterface()
           cy.fetchWalletBalance()
-          cy.getByTestID('bottom_tab_balances').click()
-          cy.getByTestID('balances_row_4').should('exist')
+          cy.getByTestID('bottom_tab_portfolio').click()
+          cy.getByTestID('portfolio_row_4').should('exist')
 
-          cy.getByTestID('balances_row_4_amount').then(($txt: any) => {
+          cy.getByTestID('portfolio_row_4_amount').then(($txt: any) => {
             const balanceAmount = $txt[0].textContent.replace(' dLTC', '').replace(',', '')
             expect(new BigNumber(balanceAmount).toNumber()).be.gte(new BigNumber(updatedTokenValue).toNumber())
           })

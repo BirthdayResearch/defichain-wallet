@@ -15,7 +15,7 @@ context('Wallet - DEX - guidelines', () => {
     cy.getByTestID('close_dex_guidelines').click()
     cy.url().should('include', 'app/DEX/DexScreen')
     cy.getByTestID('available_liquidity_tab').should('exist')
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
     cy.url().should('include', 'app/DEX/DexScreen')
   })

@@ -5,7 +5,7 @@ import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
 import { AddressSkeletonLoader } from './skeletonLoaders/AddressSkeletonLoader'
 import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
-import { BalanceSkeletonLoader } from './skeletonLoaders/BalanceSkeletonLoader'
+import { PortfolioSkeletonLoader } from './skeletonLoaders/PortfolioSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './skeletonLoaders/VaultSchemeSkeletonLoader'
 import { DexPricesSkeletonLoader } from './skeletonLoaders/DexPricesSkeletonLoader'
 
@@ -23,7 +23,7 @@ export enum SkeletonLoaderScreen {
   'Address' = 'Address',
   'BrowseAuction' = 'BrowseAuction',
   'Vault' = 'Vault',
-  'Balance' = 'Balance',
+  'Portfolio' = 'Portfolio',
   'VaultSchemes' = 'VaultSchemes'
 }
 
@@ -96,11 +96,11 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
           ))}
         </>
       )
-    case SkeletonLoaderScreen.Balance:
+    case SkeletonLoaderScreen.Portfolio:
       return (
         <>
           {skeletonRow.map(i => (
-            <BalanceSkeletonLoader key={i} />
+            <PortfolioSkeletonLoader key={i} />
           ))}
         </>
       )

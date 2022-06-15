@@ -48,9 +48,9 @@ Should you need utxoDFI or Tokens for testing, you may generate them using DeFi 
       </div>
 5. Click on any operation (e.g. top-up 10 utxoDFI) 
 6. Click on `Fetch Balances`
-7. Click on `Back` and navigate to `Balances` screen via bottom navigation bar
+7. Click on `Back` and navigate to `Portfolio` screen via bottom navigation bar
 8. Check if your balance has been updated
-9. Otherwise, try `pull to refresh` on the Balances screen to retrieve your latest balance
+9. Otherwise, try `pull to refresh` on the Portfolio screen to retrieve your latest balance
 
 ## Test Results
 

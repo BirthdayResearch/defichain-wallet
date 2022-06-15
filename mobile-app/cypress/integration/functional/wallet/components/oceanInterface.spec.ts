@@ -3,7 +3,7 @@ context('Wallet - Ocean Interface', () => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
       .sendDFITokentoWallet().wait(3000)
-    cy.getByTestID('bottom_tab_balances').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('convert_dfi_button').click()
   })

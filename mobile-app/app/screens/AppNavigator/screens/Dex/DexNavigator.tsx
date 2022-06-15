@@ -14,7 +14,7 @@ import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
-import { ConversionParam } from '../Balances/BalancesNavigator'
+import { ConversionParam } from '../Portfolio/PortfolioNavigator'
 
 export interface DexParamList {
   DexScreen: undefined

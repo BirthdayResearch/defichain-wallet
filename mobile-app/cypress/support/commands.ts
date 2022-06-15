@@ -165,7 +165,7 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 })
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('button_selected_network').click()
   cy.getByTestID(`button_network_${network}`).click()
@@ -187,7 +187,7 @@ Cypress.Commands.add('restoreLocalStorage', () => {
 })
 
 Cypress.Commands.add('setWalletTheme', (walletTheme: any) => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('light_mode_icon').then(($txt: any) => {
     walletTheme.isDark = $txt[0].style.color === 'rgb(212, 212, 212)'

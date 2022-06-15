@@ -2,7 +2,7 @@ import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/
 import BigNumber from 'bignumber.js'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenPrice } from '../../Portfolio/hooks/TokenPrice'
 
 interface AuctionBid {
   minStartingBidInToken: string

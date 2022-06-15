@@ -66,7 +66,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Intercambia cómodamente los tokens de la piscina de liqiudez.",
     "You have full control over your tokens unlike any other.": "Solo tú posees absoluto control de tus tokens."
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "Saldos",
     "Portfolio": "Portafolio",
     "SEND": "ENVIAR",
@@ -1126,12 +1126,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "Dirección de la billetera"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "No tienes LP en el portafolio",
     "No Crypto in portfolio": "No tienes cripto en el portafolio",
-    "No dTokens in portfolio": "No tienes dTokens en el portafolio"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "No tienes dTokens en el portafolio",
     "Empty portfolio": "Portafolio vacío",
     "Add your DFI and other tokens to get started": "Añade tus DFI y otros tokens para empezar"
   },
