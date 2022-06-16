@@ -34,7 +34,6 @@ export function initializeStore () {
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
       userPreferences: userPreferences.reducer,
       futureSwaps: futureSwaps.reducer,
-      serviceProvider: serviceProvider.reducer
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false })
