@@ -17,7 +17,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { SettingsParamList } from '../SettingsNavigator'
-import { serviceProvider } from '@store/serviceProvider'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'ServiceProviderScreen'>
 
@@ -28,9 +28,13 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const { serviceProviderURL } = useSelector((state: RootState) => state.serviceProvider)
 
-  const [labelInput, setLabelInput] = useState(serviceProviderURL)
+  const { 
+    url, 
+    setUrl 
+  } = useServiceProviderContext()
+  
+  const [labelInput, setLabelInput] = useState(url)
   const [isValid, setIsValid] = useState(false)
   const [isUnlocked, setIsUnlocked] = useState(false)
 
@@ -42,7 +46,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        dispatch(serviceProvider.actions.saveCustomServiceProvider(labelInput))
+        setUrl(labelInput)
         navigation.pop()
       },
       onError: e => logger.error(e),
@@ -129,9 +133,10 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           }}
           onClearButtonPress={() => {
             setLabelInput('')
+            setUrl('')
             validateInputlabelInput('')
           }}
-          placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
+          placeholder={translate('screens/ServiceProviderScreen', url)}
           style={tailwind('h-9 w-6/12 flex-grow')}
           // hasBottomSheet // this is giving some error
           testID='endpoint_url_input'

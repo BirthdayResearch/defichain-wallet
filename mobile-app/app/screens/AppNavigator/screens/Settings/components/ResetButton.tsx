@@ -10,11 +10,12 @@ import { authentication, Authentication } from '@store/authentication';
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage';
 import { useLogger } from '@shared-contexts/NativeLoggingProvider';
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { serviceProvider } from '@store/serviceProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { hasTxQueued } from '@store/transaction_queue';
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { defaultDefichainURL } from '../screens/ServiceProviderScreen';
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider';
 
 export function ResetButton (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
@@ -22,6 +23,9 @@ export function ResetButton (): JSX.Element {
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const {
+    setUrl
+  } = useServiceProviderContext()
 
   const resetServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before resetting url
@@ -31,8 +35,7 @@ export function ResetButton (): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        // dispatch fn to reset to defaultDefiChain URL 
-        dispatch(serviceProvider.actions.resetServiceProvider())
+        setUrl(defaultDefichainURL)
         navigation.goBack()
       },
       onError: e => logger.error(e),
