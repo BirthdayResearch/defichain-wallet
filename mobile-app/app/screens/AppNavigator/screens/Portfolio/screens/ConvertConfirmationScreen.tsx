@@ -143,11 +143,11 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
         tokens={[
           {
             symbol: sourceUnit,
-            value: sourceBalance.minus(sourceUnit === 'UTXO' ? fee : 0).toFixed(8)
+            value: BigNumber.max(sourceBalance.minus(sourceUnit === 'UTXO' ? fee : 0), 0).toFixed(8)
           },
           {
             symbol: targetUnit,
-            value: targetBalance.minus(targetUnit === 'UTXO' ? fee : 0).toFixed(8)
+            value: BigNumber.max(targetBalance.minus(targetUnit === 'UTXO' ? fee : 0), 0).toFixed(8)
           }
         ]}
       />

@@ -170,7 +170,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           },
           {
             symbol: pair.tokenB.displaySymbol,
-            value: BigNumber.maximum(new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(pair.tokenB.symbol === 'DFI' ? fee : 0), 0).toFixed(8),
+            value: BigNumber.max(new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(pair.tokenB.symbol === 'DFI' ? fee : 0), 0).toFixed(8),
             suffix: pair.tokenB.displaySymbol
           }
         ]}
