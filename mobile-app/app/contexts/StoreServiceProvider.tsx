@@ -1,9 +1,4 @@
-import { useNetworkContext } from '@shared-contexts/NetworkContext';
-import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
-import { Provider, useSelector } from 'react-redux';
-import { initializeStore, RootState } from '@store' 
-import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext';
-import { ServiceProviderURL } from '@store/serviceProvider';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { useLogger } from '@shared-contexts/NativeLoggingProvider';
 import { defaultDefichainURL } from '@screens/AppNavigator/screens/Settings/screens/ServiceProviderScreen';
 
@@ -34,7 +29,7 @@ export function useServiceProviderUrl ({ api }: ServiceProviderURLI): ServicePro
     })
     .catch((err) => logger.error(err))
     .finally(() => setIsUrlLoaded(true))
-  }, [])
+  }, [url])
 
   return {
     isUrlLoaded, 
@@ -53,7 +48,7 @@ export function useServiceProviderContext (): ServiceProviderUrl {
   return useContext(ServiceProviderContext)
 }
 
-export function StoreServiceProvider (props: ServiceProviderURL & PropsWithChildren<any>): JSX.Element {
+export function StoreServiceProvider (props: ServiceProviderURLI & PropsWithChildren<any>): JSX.Element | null {
   const { api } = props
   const { url } = useServiceProviderUrl({ api })
   const [currentUrl, setCurrentUrl] = useState<NonNullable<string>>(url)
