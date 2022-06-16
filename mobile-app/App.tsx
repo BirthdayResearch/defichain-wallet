@@ -28,6 +28,7 @@ import { ToastProvider } from 'react-native-toast-notifications'
 import { ToastProps } from 'react-native-toast-notifications/lib/typescript/toast'
 import { WalletToast } from '@components/WalletToast'
 import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
+import { ServiceProviderPersistence } from '@api/persistence/service_provider_persistence'
 
 /**
  * Loads
@@ -71,7 +72,7 @@ export default function App (): JSX.Element | null {
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
             <NetworkProvider api={SecuredStoreAPI}>
-              <StoreServiceProvider>
+              <StoreServiceProvider api={ServiceProviderPersistence}>
                 <WhaleProvider>
                   <DeFiScanProvider>
                     <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
