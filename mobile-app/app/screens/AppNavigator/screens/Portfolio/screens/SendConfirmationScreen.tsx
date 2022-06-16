@@ -49,7 +49,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)), 0).toFixed(8)
+  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee), 0).toFixed(8)
   const [isAcknowledge, setIsAcknowledge] = useState(false)
 
   useEffect(() => {
@@ -150,7 +150,7 @@ export function SendConfirmationScreen ({ route }: Props): JSX.Element {
         type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
-        suffix={token.displaySymbol}
+        suffix='DFI'
       />
 
       <TransactionResultsRow

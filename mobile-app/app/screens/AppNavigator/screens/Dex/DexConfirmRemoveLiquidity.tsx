@@ -48,7 +48,6 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const reservedDfi = 0.1
 
   useEffect(() => {
     setIsOnPage(true)
@@ -171,7 +170,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           },
           {
             symbol: pair.tokenB.displaySymbol,
-            value: BigNumber.maximum(new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(pair.tokenB.symbol === 'DFI' ? reservedDfi : 0), 0).toFixed(8),
+            value: BigNumber.maximum(new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(pair.tokenB.symbol === 'DFI' ? fee : 0), 0).toFixed(8),
             suffix: pair.tokenB.displaySymbol
           }
         ]}

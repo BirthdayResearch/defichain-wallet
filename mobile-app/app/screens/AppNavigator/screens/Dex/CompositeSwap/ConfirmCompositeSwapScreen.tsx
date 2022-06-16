@@ -262,12 +262,20 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             tokens={[
               {
                 symbol: tokenA.displaySymbol,
-                value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.amountFrom), 0).toFixed(8),
+                value: BigNumber.max(
+                  new BigNumber(tokenA.amount)
+                    .minus(swap.amountFrom)
+                    .minus(tokenA.displaySymbol === 'DFI' ? fee : 0)
+                , 0).toFixed(8),
                 suffix: tokenA.displaySymbol
               },
               {
                 symbol: tokenB.displaySymbol,
-                value: BigNumber.max(new BigNumber(tokenB?.amount === '' || tokenB?.amount === undefined ? 0 : tokenB?.amount).plus(swap.amountTo), 0).toFixed(8),
+                value: BigNumber.max(
+                  new BigNumber(tokenB?.amount === '' || tokenB?.amount === undefined ? 0 : tokenB?.amount)
+                    .plus(swap.amountTo)
+                    .minus(tokenB.displaySymbol === 'DFI' ? fee : 0)
+                , 0).toFixed(8),
                 suffix: tokenB.displaySymbol
               }
             ]}
