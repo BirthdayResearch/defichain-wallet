@@ -68,6 +68,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Allow Future Swap at Settlement block',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'service_provider',
+      name: 'Service Provider',
+      stage: 'alpha',
+      version: '>1.13.0',
+      description: 'Allows the usage of custom server provider url',
+      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }
