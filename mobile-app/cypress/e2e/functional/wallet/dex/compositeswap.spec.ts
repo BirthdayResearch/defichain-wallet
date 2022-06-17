@@ -177,7 +177,11 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dLTC').should('exist')
     cy.getByTestID('select_DFI').should('not.exist')
-    cy.getByTestID('select_dAMZN/v1').should('not.exist') // Test if v1 token are not showing
+    cy.findByTestId('bottom_sheet_token_list').within(() => {
+      cy.get('[data-testid^="select_"]').each((item) => {
+        cy.wrap(item).should('not.contain.text', '/v1')
+      })
+    })
     cy.getByTestID('select_dLTC').click()
   })
 

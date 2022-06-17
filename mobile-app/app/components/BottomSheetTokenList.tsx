@@ -73,6 +73,7 @@ export const BottomSheetTokenList = ({
   }
   return (
     <FlatList
+      testID='bottom_sheet_token_list'
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
         const activePrice = tokenType === TokenType.CollateralItem
