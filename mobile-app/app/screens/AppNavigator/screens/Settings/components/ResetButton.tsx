@@ -39,7 +39,9 @@ export function ResetButton (): JSX.Element {
       },
       onError: e => logger.error(e),
       message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
-      loading: translate('screens/ServiceProviderScreen', 'Verifying acess')
+      loading: translate('screens/ServiceProviderScreen', 'Verifying acess'),
+      additionalMessage: translate('screens/ServiceProviderScreen', 'Default'),
+      additionalMessageUrl: defaultDefichainURL
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, navigation])

@@ -52,8 +52,8 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       title: translate('screens/ServiceProviderScreen', 'Adding custom service provider'),
       message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
       loading: translate('screens/ServiceProviderScreen', 'Verifying acess'),
-      // TODO: URL link msg
-      // additionalMessage: translate('screens/ServiceProviderScreen', '') 
+      additionalMessage: translate('screens/ServiceProviderScreen', 'Custom'),
+      additionalMessageUrl: labelInput 
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, navigation, labelInput])
@@ -96,7 +96,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           <ThemedView
             light={tailwind('bg-warning-100')}
             dark={tailwind('bg-darkwarning-100')}
-            style={tailwind('flex flex-row p-2 text-sm font-medium rounded items-center ')}
+            style={tailwind('flex flex-row p-2 text-sm font-medium rounded items-center')}
           >
             <ThemedIcon
               dark={tailwind('text-yellow-300')}
@@ -148,7 +148,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           }}
         />
         {isUnlocked && errMsg === '' && (
-          <View style={tailwind('pt-1.5 relative')}>
+          <View style={tailwind('pt-1.5')}>
             <ThemedText
               style={tailwind('text-xs font-medium')}
               light={tailwind('text-gray-400')}
@@ -160,7 +160,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
         )
         }
         {isUnlocked && (
-          <View style={tailwind('-m-4 mt-4 ')}>
+          <View style={tailwind('-m-4 mt-4')}>
             <Button
               label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
               testID='button_submit'
