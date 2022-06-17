@@ -1,8 +1,7 @@
 import { ServiceProviderPersistence } from "@api/persistence/service_provider_persistence"
-import { defaultDefichainURL } from "@screens/AppNavigator/screens/Settings/screens/ServiceProviderScreen"
+import { defaultDefichainURL } from "@contexts/StoreServiceProvider"
 import { useLogger } from "@shared-contexts/NativeLoggingProvider"
 import { useEffect, useState } from "react"
-
 interface ServiceProviderURL {
   url: string
   setUrl: (val: string) => void
