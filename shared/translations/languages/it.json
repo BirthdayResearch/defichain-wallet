@@ -316,7 +316,8 @@
     "Sign to save address": "Firma per salvare l'indirizzo",
     "Sign to delete address": "Firma per cancellare l'indirizzo",
     "Address Book": "Rubrica",
-    "GENERAL": "GENERALE"
+    "GENERAL": "GENERALE",
+    "Server": ""
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -1440,6 +1441,21 @@
     "Settlement block": "Blocco di regolamento",
     "The amount will be refunded automatically if the transaction does not go through.": "L'importo sarà rimborsato automaticamente se la transazione non va a buon fine.",
     "Future Swap": "Future Swap"
+  },
+  "screens/ServiceProviderScreen": {
+    "Server": "", 
+    "Service Provider": "",
+    "UNLOCK": "", 
+    "RESET": "", 
+    "Endpoint URL": "",
+    "Custom": "Anpassen",
+    "Default": "",
+    "CONTINUE": "CONTINUA",
+    "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "",
+    "Only add URLs that are fully trusted and secured.": "",
+    "Adding custom service provider": "",
+    "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "",
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
