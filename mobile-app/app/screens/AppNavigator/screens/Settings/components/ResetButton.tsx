@@ -14,8 +14,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { hasTxQueued } from '@store/transaction_queue';
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { defaultDefichainURL } from '../screens/ServiceProviderScreen';
-import { useServiceProviderContext } from '@contexts/StoreServiceProvider';
+import { defaultDefichainURL, useServiceProviderContext } from '@contexts/StoreServiceProvider';
 
 export function ResetButton (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()

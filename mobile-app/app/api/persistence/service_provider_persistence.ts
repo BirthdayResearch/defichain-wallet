@@ -1,5 +1,5 @@
+import { defaultDefichainURL } from '@contexts/StoreServiceProvider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { defaultDefichainURL } from '@screens/AppNavigator/screens/Settings/screens/ServiceProviderScreen'
 
 const KEY = 'WALLET.SERVICE_PROVIDER_URL'
 

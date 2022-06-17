@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { useLogger } from '@shared-contexts/NativeLoggingProvider';
-import { defaultDefichainURL } from '@screens/AppNavigator/screens/Settings/screens/ServiceProviderScreen';
 
+export const defaultDefichainURL = 'https://ocean.defichain.com'
 interface ServiceProviderLoader {
   isUrlLoaded: boolean
   url: NonNullable<string>
