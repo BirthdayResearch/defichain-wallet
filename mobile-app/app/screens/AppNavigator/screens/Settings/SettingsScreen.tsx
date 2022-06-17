@@ -25,7 +25,7 @@ import { SettingsParamList } from './SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAddressBook } from '@hooks/useAddressBook'
 import { useAppDispatch } from '@hooks/useAppDispatch'
-// import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
@@ -37,7 +37,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const localAuth = usePrivacyLockContext()
   const { data: { type } } = useWalletNodeContext()
   const isEncrypted = type === 'MNEMONIC_ENCRYPTED'
-  // const { isFeatureAvailable } = useFeatureFlagContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -145,13 +145,13 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         testID='addtional_options_title'
         text={translate('screens/Settings', 'ADDITIONAL OPTIONS')}
       />
-      {/* {isFeatureAvailable('service_provider') && ( */}
+      {isFeatureAvailable('service_provider') && (
         <NavigateItemRow
           testID='setting_navigate_service_provider'
           label='Server'
           onPress={() => navigation.navigate('ServiceProviderScreen', {})}
         />
-      {/* )} */}
+      )}
       <NavigateItemRow
         testID='setting_navigate_About'
         label='About'
