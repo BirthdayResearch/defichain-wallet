@@ -100,6 +100,7 @@ export function SettingsNavigator (): JSX.Element {
         }}
       />
 
+      {/* TODO: hide this row if its not beta? */}
       <SettingsStack.Screen
         component={ServiceProviderScreen}
         name='ServiceProviderScreen'

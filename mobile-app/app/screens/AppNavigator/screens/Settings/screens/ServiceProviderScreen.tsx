@@ -18,16 +18,17 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { InfoText } from '@components/InfoText'
 
 type Props = StackScreenProps<SettingsParamList, 'ServiceProviderScreen'>
-
-export const defaultDefichainURL = 'https://ocean.defichain.com'
 
 export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   const { 
     url, 
@@ -88,6 +89,16 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
+      {
+        isFeatureAvailable('service_provider') && (
+          <View style={tailwind('pb-1 pt-2')}>
+            <InfoText
+              testID='beta_warning_info_text'
+              text={translate('screens/FeatureFlagScreen', 'Feature is still in Beta. Use at your own risk.')}
+            />
+          </View>
+        )
+      }
       {isUnlocked && (
         <View style={tailwind('pt-3 flex-1')}>
           <ThemedView
