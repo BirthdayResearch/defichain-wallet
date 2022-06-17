@@ -48,7 +48,7 @@ export function useResultingCollateralRatio (collateralValue: BigNumber, existin
 }
 
 export function getCollateralPrice (amount: BigNumber, collateralItem: CollateralItem | CollateralToken, totalCollateralValue: BigNumber): CollateralPrice {
-  const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
+  const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice, collateralItem.factor))
   const collateralPrice = activePrice.multipliedBy(amount)
   const collateralFactor = new BigNumber(collateralItem?.factor ?? 0)
   const vaultShare = getVaultShare(amount, collateralFactor, activePrice, new BigNumber(totalCollateralValue.isZero() ? collateralPrice : totalCollateralValue))

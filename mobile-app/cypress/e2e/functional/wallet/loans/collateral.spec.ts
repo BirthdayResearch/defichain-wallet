@@ -197,14 +197,14 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
 
   it('should add DUSD as collateral', function () {
     cy.getByTestID('add_collateral_button').click()
-    addCollateral('DUSD', '10', '5.1357', '$5.14', '99', '0.32%', vaultId)
+    addCollateral('DUSD', '10', '5.1357', '$5.08', '99', '0.32%', vaultId)
   })
 
   it('should update collateral list', function () {
     checkCollateralCardValues('DFI', '10.00000000 DFI', '$1,000.00', '63.49%')
     checkCollateralCardValues('dBTC', '10.00000000 dBTC', '$500.00', '31.74%')
     checkCollateralCardValues('dETH', '10.00000000 dETH', '$100.00', '4.44%')
-    checkCollateralCardValues('DUSD', '5.13570000 DUSD', '$5.14', '0.32%')
+    checkCollateralCardValues('DUSD', '5.13570000 DUSD', '$5.08', '0.32%')
   })
 
   it('should remove dBTC collateral', function () {
@@ -212,7 +212,7 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should remove DUSD collateral', function () {
-    removeCollateral('DUSD', '5.1357', '1.8642', '$3.27', '99', '0.21%', vaultId)
+    removeCollateral('DUSD', '5.1357', '1.8642', '$3.24', '99', '0.21%', vaultId)
   })
 
   it('vault % should be 0.00% when MAX amount of DUSD collateral is removed', function () {
@@ -390,7 +390,7 @@ context('Wallet - Loans - 50% valid collateral token ratio', () => {
     cy.getByTestID('add_collateral_button').click()
     addCollateral('DFI', '18', '4.9', '$490.00', '100', '49.49%', vaultId, '49.49%')
     cy.getByTestID('add_collateral_button').click()
-    addCollateral('DUSD', '20', '20', '$20.00', '99', '1.96%', vaultId, '50.48%')
+    addCollateral('DUSD', '20', '20', '$19.80', '99', '1.94%', vaultId, '50.47%')
     cy.go('back')
   })
 })

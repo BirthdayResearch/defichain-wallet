@@ -76,7 +76,7 @@ export const BottomSheetTokenList = ({
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
         const activePrice = tokenType === TokenType.CollateralItem
-        ? new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
+        ? new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice, (item as CollateralItem).factor))
         : getTokenPrice(item.token.symbol, new BigNumber('1'), item.token.isLPS)
         return (
           <ThemedTouchableOpacity
