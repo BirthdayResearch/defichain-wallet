@@ -21,7 +21,6 @@ import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
 import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -38,7 +37,6 @@ const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
   const headerContainerTestId = 'setting_header_container'
-  const { isFeatureAvailable } = useFeatureFlagContext()
 
   return (
     <SettingsStack.Navigator
@@ -103,7 +101,6 @@ export function SettingsNavigator (): JSX.Element {
         }}
       />
 
-      {isFeatureAvailable('service_provider') && (
         <SettingsStack.Screen
           component={ServiceProviderScreen}
           name='ServiceProviderScreen'
@@ -117,8 +114,6 @@ export function SettingsNavigator (): JSX.Element {
             headerBackTitleVisible: false
           }}
         />
-        )
-      }
       
       <SettingsStack.Screen
         component={AboutScreen}
