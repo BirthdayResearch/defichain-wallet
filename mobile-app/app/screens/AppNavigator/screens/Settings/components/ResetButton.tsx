@@ -47,8 +47,8 @@ export function ResetButton (): JSX.Element {
   // pop up box
   const onPress = async (): Promise<void> => {
     WalletAlert({
-      title: translate('screens/Settings', 'Reset Service Provider'),
-      message: translate('screens/Settings', 'In doing so, you will be reverted back to Light wallet\'s default endpoint. Would you like to continue?'),
+      title: translate('screens/ServiceProviderScreen', 'Reset Service Provider'),
+      message: translate('screens/ServiceProviderScreen', 'In doing so, you will be reverted back to Light wallet\'s default endpoint. Would you like to continue?'),
       buttons: [
         {
           text: translate('screens/ServiceProviderScreen', 'Go back'),

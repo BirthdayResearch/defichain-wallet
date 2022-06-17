@@ -27,14 +27,15 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
-  const { 
-    url, 
-    setUrl 
+  const {
+    url,
+    setUrl
   } = useServiceProviderContext()
-  
-  const [labelInput, setLabelInput] = useState(url)
-  const [isValid, setIsValid] = useState(false)
-  const [isUnlocked, setIsUnlocked] = useState(false)
+
+  const [labelInput, setLabelInput] = useState<string>(url)
+  const [isValid, setIsValid] = useState<boolean>(false)
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(false)
+  const [errMsg, setErrMsg] = useState<string>('')
 
   const submitCustomServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before changing url
@@ -56,12 +57,16 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, navigation, labelInput])
-  
-  // TODO: dummy validation check for url address
-  const validateInputlabelInput = (input: string): boolean => {
-    if (input === '' || (input !== undefined && input.trim().length > 40)) {
+
+  const validateInputlabel = (input: string): boolean => {
+    const exp = new RegExp('^https')
+    if (input === '' || !(exp.test(input))) {
+      setIsValid(false)
+      setErrMsg('Invalid URL')
       return false
     }
+    setErrMsg('')
+    setIsValid(true)
     return true
   }
 
@@ -78,7 +83,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
 
   // to enable continue button
   useEffect(() => {
-    if (isUnlocked && validateInputlabelInput(labelInput)) {
+    if (isUnlocked && validateInputlabel(labelInput)) {
       return setIsValid(true)
     }
     return setIsValid(false)
@@ -106,11 +111,11 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
               dark={tailwind('text-white')}
               style={tailwind('text-xs flex-1')}
             >
-              {translate('screens/RecoveryWordsScreen', 'Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.')}
+              {translate('screens/ServiceProviderScreen', 'Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.')}
             </ThemedText>
           </ThemedView>
         </View>
-        )
+      )
       }
 
       <View style={tailwind('mt-4')}>
@@ -122,24 +127,27 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           {translate('screens/ServiceProviderScreen', 'Endpoint URL')}
         </ThemedText>
         <WalletTextInput
+          valid={errMsg === ''}
           editable={isUnlocked}
           value={labelInput}
           inputType='default'
           onChangeText={(_text: string) => {
             setLabelInput(_text)
-            validateInputlabelInput(_text)
+            validateInputlabel(_text)
           }}
           onClearButtonPress={() => {
             setLabelInput('')
-            setUrl('')
-            validateInputlabelInput('')
+            validateInputlabel('')
           }}
           placeholder={translate('screens/ServiceProviderScreen', url)}
           style={tailwind('h-9 w-6/12 flex-grow')}
-          // hasBottomSheet // this is giving some error
           testID='endpoint_url_input'
+          inlineText={{
+            type: 'error',
+            text: translate('screens/ServiceProviderScreen', errMsg)
+          }}
         />
-        {isUnlocked && (
+        {isUnlocked && errMsg === '' && (
           <View style={tailwind('pt-1.5 relative')}>
             <ThemedText
               style={tailwind('text-xs font-medium')}
@@ -148,16 +156,19 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             >
               {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured.')}
             </ThemedText>
-            <View style={tailwind('-m-4 mt-4 ')}>
-              <Button
-                label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
-                testID='button_submit'
-                onPress={submitCustomServiceProvider}
-                disabled={!isValid}
-              />
-              </View>
           </View>
-          )
+        )
+        }
+        {isUnlocked && (
+          <View style={tailwind('-m-4 mt-4 ')}>
+            <Button
+              label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
+              testID='button_submit'
+              onPress={submitCustomServiceProvider}
+              disabled={!isValid}
+            />
+          </View>
+        )
         }
       </View>
     </ThemedScrollView>
