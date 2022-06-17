@@ -21,6 +21,7 @@ import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
 import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -37,6 +38,8 @@ const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
   const headerContainerTestId = 'setting_header_container'
+  const { isFeatureAvailable } = useFeatureFlagContext()
+
   return (
     <SettingsStack.Navigator
       screenOptions={{
@@ -100,21 +103,23 @@ export function SettingsNavigator (): JSX.Element {
         }}
       />
 
-      {/* TODO: hide this row if its not beta? */}
-      <SettingsStack.Screen
-        component={ServiceProviderScreen}
-        name='ServiceProviderScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ServiceProviderScreen', 'Service Provider')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
+      {isFeatureAvailable('service_provider') && (
+        <SettingsStack.Screen
+          component={ServiceProviderScreen}
+          name='ServiceProviderScreen'
+          options={{
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/ServiceProviderScreen', 'Service Provider')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
+            headerBackTitleVisible: false
+          }}
+        />
+        )
+      }
+      
       <SettingsStack.Screen
         component={AboutScreen}
         name='AboutScreen'
