@@ -52,9 +52,9 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       onError: e => logger.error(e),
       title: translate('screens/ServiceProviderScreen', 'Adding custom service provider'),
       message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
-      loading: translate('screens/ServiceProviderScreen', 'Verifying acess'),
+      loading: translate('screens/ServiceProviderScreen', 'Verifying access'),
       additionalMessage: translate('screens/ServiceProviderScreen', 'Custom'),
-      additionalMessageUrl: labelInput 
+      additionalMessageUrl: labelInput
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, navigation, labelInput])
@@ -116,7 +116,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
       {isUnlocked && (
-        <View style={tailwind('pt-3 flex-1')}>
+        <View style={tailwind('pt-3')}>
           <ThemedView
             light={tailwind('bg-warning-100')}
             dark={tailwind('bg-darkwarning-100')}
@@ -142,62 +142,60 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       )
       }
 
-      <View style={tailwind('mt-4')}>
-        <ThemedText
-          style={tailwind('text-sm')}
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-        >
-          {translate('screens/ServiceProviderScreen', 'Endpoint URL')}
-        </ThemedText>
-        <WalletTextInput
-          valid={errMsg === ''}
-          editable={isUnlocked}
-          value={labelInput}
-          inputType='default'
-          onChangeText={(_text: string) => {
-            setLabelInput(_text)
-            validateInputlabel(_text)
-          }}
-          onClearButtonPress={() => {
-            setLabelInput('')
-            validateInputlabel('')
-          }}
-          placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
-          style={tailwind('h-9 w-6/12 flex-grow')}
-          testID='endpoint_url_input'
-          inlineText={{
-            type: 'error',
-            text: translate('screens/ServiceProviderScreen', errMsg)
-          }}
-          displayClearButton={labelInput !== '' && labelInput !== undefined && isUnlocked}
-          displayTickIcon={displayTickIcon}
-        />
+      <ThemedText
+        style={tailwind('text-sm pt-2')}
+        light={tailwind('text-gray-400')}
+        dark={tailwind('text-gray-500')}
+      >
+        {translate('screens/ServiceProviderScreen', 'Endpoint URL')}
+      </ThemedText>
+      <WalletTextInput
+        valid={errMsg === ''}
+        editable={isUnlocked}
+        value={labelInput}
+        inputType='default'
+        onChangeText={(_text: string) => {
+          setLabelInput(_text)
+          validateInputlabel(_text)
+        }}
+        onClearButtonPress={() => {
+          setLabelInput('')
+          validateInputlabel('')
+        }}
+        placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
+        style={tailwind('h-9 w-6/12 flex-grow')}
+        testID='endpoint_url_input'
+        inlineText={{
+          type: 'error',
+          text: translate('screens/ServiceProviderScreen', errMsg)
+        }}
+        displayClearButton={labelInput !== '' && labelInput !== undefined && isUnlocked}
+        displayTickIcon={displayTickIcon}
+      />
 
-        {isUnlocked && errMsg === '' && (
-          <View style={tailwind('pt-1.5')}>
-            <ThemedText
-              style={tailwind('text-xs font-medium')}
-              light={tailwind('text-gray-400')}
-              dark={tailwind('text-gray-500')}
-            >
-              {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured.')}
-            </ThemedText>
-          </View>
-        )
-        }
-        {isUnlocked && (
-          <View style={tailwind('-m-4 mt-4')}>
-            <Button
-              label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
-              testID='button_submit'
-              onPress={submitCustomServiceProvider}
-              disabled={!isValid}
-            />
-          </View>
-        )
-        }
-      </View>
+      {isUnlocked && errMsg === '' && (
+        <View style={tailwind('pt-1.5')}>
+          <ThemedText
+            style={tailwind('text-xs font-medium')}
+            light={tailwind('text-gray-400')}
+            dark={tailwind('text-gray-500')}
+          >
+            {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured.')}
+          </ThemedText>
+        </View>
+      )
+      }
+      {isUnlocked && (
+        <View style={tailwind('-m-4 mt-4')}>
+          <Button
+            label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
+            testID='button_submit'
+            onPress={submitCustomServiceProvider}
+            disabled={!isValid}
+          />
+        </View>
+      )
+      }
     </ThemedScrollView>
   )
 }
