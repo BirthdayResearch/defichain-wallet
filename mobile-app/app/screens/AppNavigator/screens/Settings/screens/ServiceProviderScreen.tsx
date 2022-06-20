@@ -17,7 +17,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { SettingsParamList } from '../SettingsNavigator'
-import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { defaultDefichainURL, useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'ServiceProviderScreen'>
 
@@ -84,16 +84,23 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
 
   // to enable continue button
   useEffect(() => {
-    if (isUnlocked && validateInputlabel(labelInput)) {
+    if (validateInputlabel(labelInput)) {
       return setIsValid(true)
     }
     return setIsValid(false)
-  }, [isUnlocked, labelInput])
+  }, [labelInput])
 
-  // clear input on unlock
+  // hide err msg when input is empty
+  useEffect(() => {
+    if (labelInput === '') {
+      return setErrMsg('')
+    }
+  }, [labelInput])
+
+  // clear input on unlock and not display warning msg
   useEffect(() => {
     if (isUnlocked) {
-      setLabelInput('')
+      return setLabelInput('')
     }
   }, [isUnlocked])
 
@@ -104,7 +111,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     } else if (labelInput === '' && !isValid) {
       return setDisplayTickIcon(false)
     }
-  })
+  }, [labelInput, isValid])
 
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
@@ -156,7 +163,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             setLabelInput('')
             validateInputlabel('')
           }}
-          placeholder={translate('screens/ServiceProviderScreen', url)}
+          placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
           style={tailwind('h-9 w-6/12 flex-grow')}
           testID='endpoint_url_input'
           inlineText={{
@@ -165,8 +172,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           }}
           displayClearButton={labelInput !== '' && labelInput !== undefined && isUnlocked}
           displayTickIcon={displayTickIcon}
-        >
-        </WalletTextInput>
+        />
 
         {isUnlocked && errMsg === '' && (
           <View style={tailwind('pt-1.5')}>
