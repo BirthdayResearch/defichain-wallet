@@ -64,7 +64,7 @@ export function HeaderTitle ({
 export function ConnectionStatus (): JSX.Element {
   const { network } = useNetworkContext()
   const { url } = useServiceProviderContext()
-  const showCustomUrlIndicator = url === defaultDefichainURL 
+  const showCustomUrlIndicator = url !== defaultDefichainURL
   const connected = useSelector((state: RootState) => state.block.connected)
   return (
     <View style={tailwind('flex-row items-center justify-center')}>
@@ -82,7 +82,7 @@ export function ConnectionStatus (): JSX.Element {
           {network}
         </ThemedText>
 
-        {showCustomUrlIndicator && 
+        {showCustomUrlIndicator &&
           <View style={tailwind('pl-0.5')}>
             <ThemedText
               dark={tailwind('text-white text-opacity-70')}
@@ -92,8 +92,7 @@ export function ConnectionStatus (): JSX.Element {
             >
               C
             </ThemedText>
-        </View>
-        }
+          </View>}
       </View>
     </View>
   )

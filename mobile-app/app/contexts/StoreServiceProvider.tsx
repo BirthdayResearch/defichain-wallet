@@ -1,5 +1,5 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
-import { useLogger } from '@shared-contexts/NativeLoggingProvider';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 export const defaultDefichainURL = 'https://ocean.defichain.com'
 interface ServiceProviderLoader {
@@ -11,10 +11,10 @@ interface ServiceProviderURLI {
   api: {
     get: () => Promise<string | null>
     set: (url: NonNullable<string>) => Promise<void>
-  },
+  }
 }
 
-export function useServiceProviderUrl ({ api }: ServiceProviderURLI): ServiceProviderLoader {
+function useServiceProviderUrl ({ api }: ServiceProviderURLI): ServiceProviderLoader {
   const logger = useLogger()
   const [isUrlLoaded, setIsUrlLoaded] = useState<boolean>(false)
   const [url, setUrl] = useState<NonNullable<string>>(defaultDefichainURL)
@@ -32,7 +32,7 @@ export function useServiceProviderUrl ({ api }: ServiceProviderURLI): ServicePro
   }, [url])
 
   return {
-    isUrlLoaded, 
+    isUrlLoaded,
     url
   }
 }
@@ -52,7 +52,7 @@ export function StoreServiceProvider (props: ServiceProviderURLI & PropsWithChil
   const { api } = props
   const { url } = useServiceProviderUrl({ api })
   const [currentUrl, setCurrentUrl] = useState<NonNullable<string>>(url)
-  
+
   useEffect(() => {
     setCurrentUrl(url)
   }, [url])
