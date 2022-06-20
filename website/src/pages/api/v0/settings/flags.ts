@@ -76,6 +76,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Allows the usage of custom server provider url',
       networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'onboarding_v2',
+      name: 'Onboarding for LW 2.0',
+      stage: 'alpha',
+      version: '>1.13.0',
+      description: 'Display redesigned onboarding flow for LW 2.0',
+      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }
