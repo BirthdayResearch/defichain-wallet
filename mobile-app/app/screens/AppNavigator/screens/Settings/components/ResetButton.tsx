@@ -77,7 +77,7 @@ export function ResetButton (): JSX.Element {
         light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
         style={tailwind('font-medium')}
-        testID='composite_swap'
+        testID='reset_button'
       >
         {translate('screens/ServiceProviderScreen', 'RESET')}
       </ThemedText>

@@ -227,3 +227,49 @@ context('Wallet - Settings - Address Book', () => {
     })
   })
 })
+
+// TODO: set custom URL 
+const defaultDefichainURL = 'https://playground.jellyfishsdk.com'
+const customURL = 'https://ocean.defichain.com'
+
+context('Wallet - Settings - Service Provider', () => {
+  before(function () {
+    cy.createEmptyWallet(true)
+    cy.getByTestID('header_settings').click()
+  })
+
+  it('should display default on first app load', () => {
+    cy.getByTestID('setting_navigate_service_provider').contains('Default')
+  })
+  it('should have default service provider url', () => {
+    cy.getByTestID('setting_navigate_service_provider').click()
+    cy.getByTestID('endpoint_url_input').should('have.value', defaultDefichainURL)
+  })
+  it('input should be locked and not editable', () => {
+    cy.getByTestID('endpoint_url_input').should('have.attr', 'readonly')
+  })
+  it('can unlock to change service provider endpoint', () => {
+    cy.getByTestID('unlock_button').click()
+    cy.getByTestID('unlock_button').should('not.exist')
+    cy.getByTestID('reset_button').should('exist')
+    cy.getByTestID('endpoint_url_input').should('not.have.attr', 'readonly')
+    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
+  })
+  it('should type invalid custom provider URL', () => {
+    cy.getByTestID('endpoint_url_input').should('have.value', '')
+    cy.getByTestID('endpoint_url_input').type('http://invalidcustomURL.com')
+    cy.getByTestID('endpoint_url_input_error').contains('Invalid URL')
+    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
+  })
+  it('should submit valid custom service provider', () => {
+    cy.getByTestID('endpoint_url_input').clear().type(customURL).wait(3000)
+    cy.getByTestID('button_submit').click().wait(1000)
+    cy.getByTestID('pin_authorize').type('000000').wait(2000)
+  })
+  // TODO: check on server endpoints
+  // it('should display Custom on Server', () => {
+  //   cy.getByTestID('bottom_tab_portfolio').click()
+  //   cy.getByTestID('header_settings').click()
+  //   cy.getByTestID('setting_navigate_service_provider').contains('Custom')
+  // })
+})

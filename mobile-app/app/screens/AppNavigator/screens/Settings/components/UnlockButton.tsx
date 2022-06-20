@@ -20,7 +20,7 @@ export function UnlockButton ( {setIsUnlocked }: UnlockButtonProps): JSX.Element
         light={tailwind('text-primary-500')}
         dark={tailwind('text-darkprimary-500')}
         style={tailwind('font-medium')}
-        testID='composite_swap'
+        testID='unlock_button'
       >
         {translate('screens/ServiceProviderScreen', 'UNLOCK')}
       </ThemedText>
