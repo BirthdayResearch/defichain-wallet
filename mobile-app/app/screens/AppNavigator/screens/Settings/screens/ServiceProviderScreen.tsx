@@ -36,6 +36,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   const [isValid, setIsValid] = useState<boolean>(false)
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false)
   const [errMsg, setErrMsg] = useState<string>('')
+  const [displayTickIcon, setDisplayTickIcon] = useState<boolean>(true)
 
   const submitCustomServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before changing url
@@ -88,6 +89,22 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     }
     return setIsValid(false)
   }, [isUnlocked, labelInput])
+
+  // clear input on unlock
+  useEffect(() => {
+    if (isUnlocked) {
+      setLabelInput('')
+    }
+  }, [isUnlocked])
+
+  // to display tick icon 
+  useEffect(() => {
+    if (isUnlocked && isValid) {
+      return setDisplayTickIcon(true)
+    } else if (labelInput === '' && !isValid) {
+      return setDisplayTickIcon(false)
+    }
+  })
 
   return (
     <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
@@ -146,7 +163,11 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             type: 'error',
             text: translate('screens/ServiceProviderScreen', errMsg)
           }}
-        />
+          displayClearButton={labelInput !== '' && labelInput !== undefined && isUnlocked}
+          displayTickIcon={displayTickIcon}
+        >
+        </WalletTextInput>
+
         {isUnlocked && errMsg === '' && (
           <View style={tailwind('pt-1.5')}>
             <ThemedText
