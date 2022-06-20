@@ -242,7 +242,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
           },
           {
             symbol: pair.tokenB.displaySymbol,
-            value: tokenBBalance.minus(tokenBAmount).toFixed(8),
+            value: BigNumber.max(tokenBBalance.minus(tokenBAmount).minus(pair.tokenB.displaySymbol === 'DFI' ? fee : 0), 0).toFixed(8),
             suffix: pair.tokenB.displaySymbol
           }
         ]}

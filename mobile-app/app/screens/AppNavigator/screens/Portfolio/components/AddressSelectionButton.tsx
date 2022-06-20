@@ -9,6 +9,7 @@ interface AddressSelectionButtonProps {
   addressLength: number
   onPress?: () => void
   hasCount?: boolean
+  disabled?: boolean
 }
 
 export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX.Element {
@@ -20,6 +21,7 @@ export function AddressSelectionButton (props: AddressSelectionButtonProps): JSX
       style={tailwind('rounded-2xl p-1 pr-2 flex flex-row items-center overflow-hidden')}
       onPress={props.onPress}
       testID='switch_account_button'
+      disabled={props.disabled}
     >
       <RandomAvatar name={props.address} size={24} />
       <ThemedText
