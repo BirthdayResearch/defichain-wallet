@@ -16,7 +16,7 @@ function createDFIWallet (): void {
   cy.getByTestID('convert_dfi_button').click()
 }
 
-context.only('Wallet - Convert DFI', () => {
+context('Wallet - Convert DFI', () => {
   before(function () {
     createDFIWallet()
   })
