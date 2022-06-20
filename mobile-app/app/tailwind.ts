@@ -22,6 +22,26 @@ const fonts = {
   'font-bold': {
     fontFamily: 'BoldFont',
     fontWeight: '700'
+  },
+  'font-light-v2': {
+    fontFamily: 'SoraLight',
+    fontWeight: '300'
+  },
+  'font-normal-v2': {
+    fontFamily: 'SoraRegular',
+    fontWeight: '400'
+  },
+  'font-medium-v2': {
+    fontFamily: 'SoraMedium',
+    fontWeight: '500'
+  },
+  'font-semibold-v2': {
+    fontFamily: 'SoraSemiBold',
+    fontWeight: '600'
+  },
+  'font-bold-v2': {
+    fontFamily: 'SoraBold',
+    fontWeight: '700'
   }
 }
 
