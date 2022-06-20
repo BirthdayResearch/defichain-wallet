@@ -185,7 +185,6 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
 })
 
 export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Element => {
-  console.log('props', props)
   const { isLight } = useThemeContext()
   const containerRef = React.useRef(null)
   const getSnapPoints = (): string[] => {
