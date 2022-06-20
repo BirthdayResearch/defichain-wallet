@@ -38,6 +38,7 @@ export function ResetButton (): JSX.Element {
         navigation.goBack()
       },
       onError: e => logger.error(e),
+      title: translate('screens/ServiceProviderScreen', 'Reset default service provider'),
       message: translate('screens/ServiceProviderScreen', 'Enter passcode to continue'),
       loading: translate('screens/ServiceProviderScreen', 'Verifying acess'),
       additionalMessage: translate('screens/ServiceProviderScreen', 'Default'),
