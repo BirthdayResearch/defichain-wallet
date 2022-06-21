@@ -26,7 +26,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAddressBook } from '@hooks/useAddressBook'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { defaultDefichainURL, useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
@@ -39,7 +39,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const { data: { type } } = useWalletNodeContext()
   const isEncrypted = type === 'MNEMONIC_ENCRYPTED'
   const { isFeatureAvailable } = useFeatureFlagContext()
-  const { url } = useServiceProviderContext()
+  const { isCustomUrl } = useServiceProviderContext()
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -151,7 +151,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         <NavigateItemRow
           testID='setting_navigate_service_provider'
           label='Server'
-          value={url !== defaultDefichainURL ? 'Custom' : 'Default'}
+          value={isCustomUrl ? 'Custom' : 'Default'}
           onPress={() => navigation.navigate('ServiceProviderScreen', {})}
         />
       )}

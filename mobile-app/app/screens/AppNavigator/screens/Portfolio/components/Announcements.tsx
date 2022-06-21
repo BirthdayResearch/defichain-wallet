@@ -16,7 +16,7 @@ import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
 import { useDefiChainStatus } from '../hooks/DefichainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { defaultDefichainURL, useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 export function Announcements (): JSX.Element {
   const {
@@ -37,8 +37,7 @@ export function Announcements (): JSX.Element {
     maintenanceAnnouncement: maintenanceAnnouncementContent
   } = useDefiChainStatus(hiddenAnnouncements)
 
-  const { url } = useServiceProviderContext()
-  const isCustomProvider = url === defaultDefichainURL
+  const { isCustomUrl } = useServiceProviderContext()
 
   const isBlockchainDown = useBlockchainStatus()
   const deFiChainStatusUrl = 'https://status.defichain.com/'
@@ -96,12 +95,11 @@ export function Announcements (): JSX.Element {
 
   useEffect(() => {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
-    if (isBlockchainDown && !isCustomProvider) {
+    if (isBlockchainDown && !isCustomUrl) {
       setEmergencyMsgContent(blockChainIsDownContent)
-    } else if (isBlockchainDown && isCustomProvider) {
+    } else if (isBlockchainDown && isCustomUrl) {
       setEmergencyMsgContent(customServiceProviderIssue)
-    }
-    else {
+    } else {
       setEmergencyMsgContent(undefined)
     }
   }, [isBlockchainDown])

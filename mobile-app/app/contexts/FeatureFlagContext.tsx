@@ -10,6 +10,7 @@ import { FeatureFlagPersistence } from '@api'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { getReleaseChannel } from '@api/releaseChannel'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useServiceProviderContext } from './StoreServiceProvider'
 
 const MAX_RETRY = 3
 export interface FeatureFlagContextI {
@@ -40,6 +41,7 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
   const { network } = useNetworkContext()
   const [retries, setRetries] = useState(0)
+  const { isCustomUrl } = useServiceProviderContext()
 
   useEffect(() => {
     if (isError && retries < MAX_RETRY) {
@@ -95,7 +97,11 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
       .catch((err) => logger.error(err))
   }, [])
 
-  if (isLoading) {
+  /*
+    If service provider === custom, we keep showing the app regardless if feature flags loaded to ensure app won't be stuck on white screen
+    Note: return null === app will be stuck at white screen until the feature flags API are applied
+  */
+  if (isLoading && !isCustomUrl) {
     return null
   }
 

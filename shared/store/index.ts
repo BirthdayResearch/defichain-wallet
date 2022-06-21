@@ -10,7 +10,6 @@ import { auctions } from './auctions'
 import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
 import { userPreferences } from '@store/userPreferences'
 import { futureSwaps } from './futureSwap'
-import { serviceProvider } from './serviceProvider'
 /**
  * RootState for DeFiChain Wallet App
  *
@@ -33,7 +32,7 @@ export function initializeStore () {
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
       userPreferences: userPreferences.reducer,
-      futureSwaps: futureSwaps.reducer,
+      futureSwaps: futureSwaps.reducer
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false })

@@ -17,11 +17,11 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { SettingsParamList } from '../SettingsNavigator'
-import { defaultDefichainURL, useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'ServiceProviderScreen'>
 
-export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
+export function ServiceProviderScreen ({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -29,6 +29,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
 
   const {
     url,
+    defaultUrl,
     setUrl
   } = useServiceProviderContext()
 
@@ -60,8 +61,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   }, [dispatch, navigation, labelInput])
 
   const validateInputlabel = (input: string): boolean => {
-    const exp = new RegExp('^https')
-    if (input === '' || !(exp.test(input))) {
+    if (input === '' || !(/^https/.test(input))) {
       setIsValid(false)
       setErrMsg('Invalid URL')
       return false
@@ -104,7 +104,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     }
   }, [isUnlocked])
 
-  // to display tick icon 
+  // to display tick icon
   useEffect(() => {
     if (isUnlocked && isValid) {
       return setDisplayTickIcon(true)
@@ -139,8 +139,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             </ThemedText>
           </ThemedView>
         </View>
-      )
-      }
+      )}
 
       <ThemedText
         style={tailwind('text-sm pt-2')}
@@ -162,7 +161,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           setLabelInput('')
           validateInputlabel('')
         }}
-        placeholder={translate('screens/ServiceProviderScreen', defaultDefichainURL)}
+        placeholder={translate('screens/ServiceProviderScreen', defaultUrl)}
         style={tailwind('h-9 w-6/12 flex-grow')}
         testID='endpoint_url_input'
         inlineText={{
@@ -183,8 +182,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured.')}
           </ThemedText>
         </View>
-      )
-      }
+      )}
       {isUnlocked && (
         <View style={tailwind('-m-4 mt-4')}>
           <Button
@@ -194,8 +192,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             disabled={!isValid}
           />
         </View>
-      )
-      }
+      )}
     </ThemedScrollView>
   )
 }
