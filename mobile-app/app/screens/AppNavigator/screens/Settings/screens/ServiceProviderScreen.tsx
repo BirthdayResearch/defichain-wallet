@@ -10,22 +10,17 @@ import { Button } from '@components/Button'
 import { authentication, Authentication } from '@store/authentication'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { StackScreenProps } from '@react-navigation/stack'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued } from '@store/transaction_queue'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'ServiceProviderScreen'>
 
 export function ServiceProviderScreen ({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const dispatch = useAppDispatch()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
 
   const {
     url,
@@ -39,11 +34,14 @@ export function ServiceProviderScreen ({ navigation }: Props): JSX.Element {
   const [errMsg, setErrMsg] = useState<string>('')
   const [displayTickIcon, setDisplayTickIcon] = useState<boolean>(true)
 
-  const submitCustomServiceProvider = useCallback(() => {
-    // to check if user's transactions to be completed before changing url
-    if (hasPendingJob || hasPendingBroadcastJob) {
+  // Passcode prompt
+  const { data: { type: encryptionType } } = useWalletNodeContext()
+  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
+  const submitCustomServiceProvider = useCallback(async (): Promise<void> => {
+    if (!isEncrypted) {
       return
     }
+
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
@@ -58,7 +56,7 @@ export function ServiceProviderScreen ({ navigation }: Props): JSX.Element {
       additionalMessageUrl: labelInput
     }
     dispatch(authentication.actions.prompt(auth))
-  }, [dispatch, navigation, labelInput])
+  }, [dispatch, isEncrypted, navigation, labelInput])
 
   const validateInputlabel = (input: string): boolean => {
     if (input === '' || !(/^https/.test(input))) {
@@ -188,7 +186,7 @@ export function ServiceProviderScreen ({ navigation }: Props): JSX.Element {
           <Button
             label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
             testID='button_submit'
-            onPress={submitCustomServiceProvider}
+            onPress={async () => await submitCustomServiceProvider()}
             disabled={!isValid}
           />
         </View>

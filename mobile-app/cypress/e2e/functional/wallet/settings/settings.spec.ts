@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "../../../../../../shared/environment"
+import { EnvironmentNetwork } from '../../../../../../shared/environment'
 
 const activatedIconColor = 'rgb(251, 191, 36)'
 const deactivatedIconColor = 'rgb(212, 212, 212)'
@@ -48,7 +48,7 @@ context('Wallet - Settings', () => {
 
   it('should exit wallet when clicked on positive action', function () {
     cy.getByTestID('setting_exit_wallet').click()
-    cy.on('window:confirm', () => {})
+    cy.on('window:confirm', () => { })
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
   })
@@ -230,66 +230,107 @@ context('Wallet - Settings - Address Book', () => {
   })
 })
 
-// TODO: set custom URL 
-const defaultDefichainURL = 'https://playground.jellyfishsdk.com'
-const customURL = 'https://sea.defichain.com'
-
-context.only('Wallet - Settings - Service Provider', () => {
-  before(function () {
+// TODO: set custom URL
+const defichainUrls = {
+  [EnvironmentNetwork.MainNet]: {
+    default: 'https://ocean.defichain.com',
+    custom: 'https:/custom-mainnet.defichain.com'
+  },
+  [EnvironmentNetwork.TestNet]: {
+    default: 'https://ocean.defichain.com',
+    custom: 'https:/custom-testnet.defichain.com'
+  },
+  [EnvironmentNetwork.RemotePlayground]: {
+    default: 'https://playground.jellyfishsdk.com',
+    custom: 'https://custom-remote-playground.defichain.com'
+  },
+  [EnvironmentNetwork.LocalPlayground]: {
+    default: 'http://localhost:19553',
+    custom: 'https://custom-localhost.defichain.com'
+  }
+}
+const defichainUrlEnvs = Object.keys(defichainUrls) as EnvironmentNetwork[]
+context('Wallet - Settings - Service Provider', () => {
+  before(() => {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
   })
-  // TODO: check env resp. to url
-  it('should display default on first app load', () => {
-    cy.getByTestID('setting_navigate_service_provider').contains('Default')
-    cy.url().should('include', 'app/Settings', () => {
-      expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(defaultDefichainURL)
+
+  defichainUrlEnvs.forEach((defichainUrlEnv) => {
+    const url = defichainUrls[defichainUrlEnv]
+    it(`should display default on first app load on ${defichainUrlEnv}`, () => {
+      cy.intercept('**/settings/flags', {
+        body: [
+          {
+            id: 'service_provider',
+            name: 'Service Provider',
+            stage: 'beta',
+            version: '>0.0.0',
+            description: 'Allows the usage of custom server provider url',
+            networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
+            platforms: ['ios', 'android', 'web']
+          }
+        ]
+      })
+      localStorage.setItem('WALLET.ENABLED_FEATURES', '["service_provider"]')
+      cy.getByTestID('button_selected_network').click().wait(50)
+      cy.getByTestID(`button_network_${defichainUrlEnv}`).click()
+      cy.on('window:confirm', () => {
+      })
+      cy.createEmptyWallet(true).wait(2000)
+      cy.getByTestID('header_settings').click().wait(50)
+      cy.getByTestID('setting_navigate_service_provider').contains('Default')
+      cy.url().should('include', 'app/Settings', () => {
+        expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.default)
+      })
     })
-  })
-  it('should have default service provider url', () => {
-    cy.getByTestID('setting_navigate_service_provider').click()
-    cy.getByTestID('endpoint_url_input').should('have.value', defaultDefichainURL)
-  })
-  it('input should be locked and not editable', () => {
-    cy.getByTestID('endpoint_url_input').should('have.attr', 'readonly')
-  })
-  it('can unlock to change service provider endpoint', () => {
-    cy.getByTestID('unlock_button').click()
-    cy.getByTestID('unlock_button').should('not.exist')
-    cy.getByTestID('reset_button').should('exist')
-    cy.getByTestID('endpoint_url_input').should('not.have.attr', 'readonly')
-    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
-  })
-  it('should type invalid custom provider URL', () => {
-    cy.getByTestID('endpoint_url_input').should('have.value', '')
-    cy.getByTestID('endpoint_url_input').type('http://invalidcustomURL.com')
-    cy.getByTestID('endpoint_url_input_error').contains('Invalid URL')
-    cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
-  })
-  // TODO: 
-  it('should submit valid custom service provider', () => {
-    cy.getByTestID('endpoint_url_input').clear().type(customURL).wait(3000)
-    cy.getByTestID('button_submit').click().wait(1000)
-    cy.getByTestID('pin_authorize').type('000000').wait(2000)
-    cy.url().should('include', 'app/Settings', () => {
-      expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(customURL)
+
+    it(`should have default service provider url on ${defichainUrlEnv}`, () => {
+      cy.getByTestID('setting_navigate_service_provider').click()
+      cy.getByTestID('endpoint_url_input').should('have.value', url.default)
     })
-    cy.intercept(customURL+'/stats', {
-      
+
+    it(`input should be locked and not editable on ${defichainUrlEnv}`, () => {
+      cy.getByTestID('endpoint_url_input').should('have.attr', 'readonly')
     })
-    // TODO: to expect body of res
+
+    it('can unlock to change service provider endpoint', () => {
+      cy.getByTestID('unlock_button').click()
+      cy.getByTestID('unlock_button').should('not.exist')
+      cy.getByTestID('reset_button').should('exist')
+      cy.getByTestID('endpoint_url_input').should('not.have.attr', 'readonly')
+      cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
+    })
+
+    it('should type invalid custom provider URL', () => {
+      cy.getByTestID('endpoint_url_input').should('have.value', '')
+      cy.getByTestID('endpoint_url_input').type('http://invalidcustomURL.com')
+      cy.getByTestID('endpoint_url_input_error').contains('Invalid URL')
+      cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
+    })
+
+    it('should submit valid custom service provider', () => {
+      cy.getByTestID('endpoint_url_input').clear().type(url.custom).wait(3000)
+      cy.getByTestID('button_submit').click().wait(1000)
+      cy.getByTestID('pin_authorize').type('000000').wait(5000)
+      cy.go('back')
+    })
+
+    // it('should display Custom on Server', () => {
+    //   cy.getByTestID('bottom_tab_portfolio').click()
+    //   cy.getByTestID('header_settings').click()
+    //   cy.getByTestID('setting_navigate_service_provider').contains('Custom')
+    //   cy.url().should('include', 'app/Settings', () => {
+    //     expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
+    //   })
+    // })
   })
-  // it('should display Custom on Server', () => {
-  //   cy.getByTestID('bottom_tab_portfolio').click()
-  //   cy.getByTestID('header_settings').click()
-  //   cy.getByTestID('setting_navigate_service_provider').contains('Custom')
-  // })
-  // TODO: ensure that custom url is persistent in diff envs with P's implementation
 })
-context.only('Wallet - Settings - Service Provider Feature Gated', () => {
+
+context('Wallet - Settings - Service Provider Feature Gated', () => {
   before(() => {
     cy.intercept('**/settings/flags', {
-      statusCode: 200, 
+      statusCode: 200,
       body: []
     })
     cy.createEmptyWallet(true)
@@ -308,7 +349,7 @@ context.only('Wallet - Settings - Service Provider Feature Gated', () => {
           networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
           platforms: ['ios', 'android', 'web']
         }
-      ]   
+      ]
     })
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
