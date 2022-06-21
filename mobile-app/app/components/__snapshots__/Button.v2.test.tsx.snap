@@ -1,0 +1,675 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`button should be clickable 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(18, 18, 18, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+  testID="primary_button"
+>
+  <Text>
+    Hello World
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill 1`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(18, 18, 18, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(242, 242, 242, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill 2`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type fill 3`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    color="#ff00af"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat 1`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(18, 18, 18, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat 2`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type flat 3`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    color="#ff00af"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline 1`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(18, 18, 18, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline 2`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submit
+  </Text>
+</View>
+`;
+
+exports[`button should match styling of button type outline 3`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+>
+  <ActivityIndicator
+    color="#ff00af"
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "rgba(163, 163, 163, 1)",
+          "fontFamily": "BoldFont",
+          "fontWeight": "700",
+          "marginLeft": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Submitting
+  </Text>
+</View>
+`;
+
+exports[`button should not be clickable when disabled 1`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(229, 229, 229, 1)",
+      "borderBottomLeftRadius": 4,
+      "borderBottomRightRadius": 4,
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderTopLeftRadius": 4,
+      "borderTopRightRadius": 4,
+      "borderTopWidth": 0,
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 16,
+      "marginLeft": 16,
+      "marginRight": 16,
+      "marginTop": 32,
+      "opacity": 1,
+      "paddingBottom": 12,
+      "paddingLeft": 12,
+      "paddingRight": 12,
+      "paddingTop": 12,
+    }
+  }
+  testID="primary_button"
+>
+  <Text>
+    Hello World
+  </Text>
+</View>
+`;
