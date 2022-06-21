@@ -315,7 +315,8 @@
     "Sign to save address": "Acepta para guardar tu dirección",
     "Sign to delete address": "Acepta para borrar la dirección",
     "Address Book": "Libro de direcciones",
-    "GENERAL": "GENERAL"
+    "GENERAL": "GENERAL",
+    "Server": "Servidor"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -1447,6 +1448,23 @@
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },
+  "screens/ServiceProviderScreen": {
+    "Server": "Servidor", 
+    "Service Provider": "Proveedor de Servicio",
+    "UNLOCK": "Desbloquear", 
+    "RESET": "Resetear", 
+    "Endpoint URL": "Endpoint URL",
+    "Custom": "Personalizado",
+    "Default": "Por defecto",
+    "CONTINUE": "CONTINUAR",
+    "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Añadir proveedores de servicio malignos puede resultar en la perdida de los fondos. Actua bajo tu propia responsabilidad.",
+    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Añade solo URLs en las que tengas plena confianza y sean seguras.",
+    "Adding custom service provider": "Añadiendo proveedor de servicios personalizado",
+    "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "i procedes, tu proveedor de servicio será revertido al del Light Wallet. Quieres continuar?",
+    "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
+    "Invalid URL": "URL no válida",
+    "Reset default service provider": "Restaurar proveedor de servicio por defecto"
+},
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",
     "Insufficient amount to place a bid": "Cantidad insuficiente para hacer una oferta",

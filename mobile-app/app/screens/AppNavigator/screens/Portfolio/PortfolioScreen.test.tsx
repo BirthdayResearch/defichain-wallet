@@ -9,6 +9,8 @@ import { loans } from '@store/loans'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { futureSwaps } from '@store/futureSwap'
 import { WhaleProvider } from '@shared-contexts/WhaleContext'
+import { ServiceProviderPersistence } from '@api/wallet/service_provider'
+import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
@@ -194,12 +196,14 @@ describe('portfolio page', () => {
     const route: any = {}
     const component = (
       <Provider store={store}>
-        <WhaleProvider>
-          <PortfolioScreen
-            navigation={navigation}
-            route={route}
-          />
-        </WhaleProvider>
+        <StoreServiceProvider api={ServiceProviderPersistence}>
+          <WhaleProvider>
+            <PortfolioScreen
+              navigation={navigation}
+              route={route}
+            />
+          </WhaleProvider>
+        </StoreServiceProvider>
       </Provider>
     )
     const rendered = render(component)
@@ -316,12 +320,14 @@ describe('portfolio page', () => {
 
     const component = (
       <Provider store={store}>
-        <WhaleProvider>
-          <PortfolioScreen
-            navigation={navigation}
-            route={route}
-          />
-        </WhaleProvider>
+        <StoreServiceProvider api={ServiceProviderPersistence}>
+          <WhaleProvider>
+            <PortfolioScreen
+              navigation={navigation}
+              route={route}
+            />
+          </WhaleProvider>
+        </StoreServiceProvider>
       </Provider>
     )
     const rendered = render(component)

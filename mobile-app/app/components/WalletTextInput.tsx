@@ -37,6 +37,7 @@ interface IWalletTextInputProps {
     onPasteButtonPress: () => void
   }
   inputFooter?: React.ReactElement
+  displayTickIcon?: boolean
 }
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
@@ -55,6 +56,7 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
     hasBottomSheet,
     pasteButton,
     inputFooter,
+    displayTickIcon,
     ...otherProps
   } = props
 
@@ -124,6 +126,14 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
             editable={editable}
             {...otherProps}
           />
+          {displayTickIcon === true &&
+            <ThemedIcon
+              size={18}
+              name='check'
+              iconType='MaterialIcons'
+              light={tailwind('text-success-600')}
+              dark={tailwind('text-darksuccess-600')}
+            />}
           {
             hasClearButton() &&
               <ClearButton

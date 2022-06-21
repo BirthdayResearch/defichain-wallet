@@ -10,7 +10,6 @@ import { auctions } from './auctions'
 import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
 import { userPreferences } from '@store/userPreferences'
 import { futureSwaps } from './futureSwap'
-
 /**
  * RootState for DeFiChain Wallet App
  *
