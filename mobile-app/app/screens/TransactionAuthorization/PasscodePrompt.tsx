@@ -88,8 +88,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                     {props.additionalMessage}
                   </ThemedText>
                 </View>
-              )
-              }
+              )}
               {props.additionalMessageUrl !== undefined && (
                 <View style={tailwind('text-sm text-center')}>
                   <ThemedText
@@ -101,8 +100,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                     {props.additionalMessageUrl}
                   </ThemedText>
                 </View>
-              )
-              }
+              )}
 
               <View style={tailwind('px-8 text-sm text-center mb-6')}>
                 <ThemedText

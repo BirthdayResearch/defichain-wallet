@@ -101,10 +101,10 @@ export function SettingsNavigator (): JSX.Element {
         }}
       />
 
-        <SettingsStack.Screen
-          component={ServiceProviderScreen}
-          name='ServiceProviderScreen'
-          options={{
+      <SettingsStack.Screen
+        component={ServiceProviderScreen}
+        name='ServiceProviderScreen'
+        options={{
             headerTitle: () => (
               <HeaderTitle
                 text={translate('screens/ServiceProviderScreen', 'Service Provider')}
@@ -113,8 +113,8 @@ export function SettingsNavigator (): JSX.Element {
             ),
             headerBackTitleVisible: false
           }}
-        />
-      
+      />
+
       <SettingsStack.Screen
         component={AboutScreen}
         name='AboutScreen'

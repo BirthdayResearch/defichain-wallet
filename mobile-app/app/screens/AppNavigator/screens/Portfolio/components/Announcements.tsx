@@ -70,8 +70,8 @@ export function Announcements (): JSX.Element {
       'zh-Hans': '我们侦测到您目前使用的自定义终端点会影响到您的连接问题。建议您与供应者检查其连接状态。 ',
       'zh-Hant': '我們偵測到您目前使用的自定義終端點會影響到您的連接問題。 建議您與供應者檢查其連接狀態。',
       fr: 'Nous avons détecté des problèmes avec votre point de terminaison personnalisé qui affectent votre connexion. Nous vous conseillons de vérifier le statut de votre fournisseur de point d\'accès personnalisé.',
-      es: '',
-      it: ''
+      es: 'We have detected issues with your custom endpoint that is affecting your connection. You are advised to check on the status of your custom endpoint provider',
+      it: 'We have detected issues with your custom endpoint that is affecting your connection. You are advised to check on the status of your custom endpoint provider'
     },
     version: '0.0.0',
     type: 'EMERGENCY'

@@ -126,15 +126,14 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
             editable={editable}
             {...otherProps}
           />
-          {displayTickIcon &&
+          {displayTickIcon === true &&
             <ThemedIcon
-            size={18}
-            name='check'
-            iconType='MaterialIcons'
-            light={tailwind('text-success-600')}
-            dark={tailwind('text-darksuccess-600')}
-            />
-          }
+              size={18}
+              name='check'
+              iconType='MaterialIcons'
+              light={tailwind('text-success-600')}
+              dark={tailwind('text-darksuccess-600')}
+            />}
           {
             hasClearButton() &&
               <ClearButton
