@@ -316,14 +316,19 @@ context('Wallet - Settings - Service Provider', () => {
       cy.go('back')
     })
 
-    // it('should display Custom on Server', () => {
-    //   cy.getByTestID('bottom_tab_portfolio').click()
-    //   cy.getByTestID('header_settings').click()
-    //   cy.getByTestID('setting_navigate_service_provider').contains('Custom')
-    //   cy.url().should('include', 'app/Settings', () => {
-    //     expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
-    //   })
-    // })
+    /*
+      TODO: There is an issue where in cypress clears local storage after every 'it'. Will uncomment once fixed
+
+    it('should display Custom on Server', () => {
+      cy.getByTestID('bottom_tab_portfolio').click()
+      cy.getByTestID('header_settings').click()
+      cy.getByTestID('setting_navigate_service_provider').contains('Custom')
+      cy.url().should('include', 'app/Settings', () => {
+        expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
+      })
+    })
+
+    */
   })
 })
 
