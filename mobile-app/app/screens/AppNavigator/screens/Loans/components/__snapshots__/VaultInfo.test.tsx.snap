@@ -65,7 +65,7 @@ exports[`Vault info should render label with token icon group 1`] = `
             "position": "relative",
           },
           Object {
-            "right": -26,
+            "right": -15,
           },
         ]
       }

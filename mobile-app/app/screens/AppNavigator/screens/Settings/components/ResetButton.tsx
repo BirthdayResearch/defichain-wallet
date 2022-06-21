@@ -29,7 +29,7 @@ export function ResetButton (): JSX.Element {
   } = useServiceProviderContext()
 
   const isCustom = url === defaultUrl
-  
+
   const resetServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before resetting url
     if (hasPendingJob || hasPendingBroadcastJob) {
