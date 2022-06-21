@@ -6,7 +6,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
-import { defaultDefichainURL, useServiceProviderContext } from '@contexts/StoreServiceProvider'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type SubHeadingType = 'Status' | 'NetworkSelect'
 
@@ -63,8 +63,7 @@ export function HeaderTitle ({
 
 export function ConnectionStatus (): JSX.Element {
   const { network } = useNetworkContext()
-  const { url } = useServiceProviderContext()
-  const showCustomUrlIndicator = url !== defaultDefichainURL
+  const { isCustomUrl } = useServiceProviderContext()
   const connected = useSelector((state: RootState) => state.block.connected)
   return (
     <View style={tailwind('flex-row items-center justify-center')}>
@@ -82,7 +81,7 @@ export function ConnectionStatus (): JSX.Element {
           {network}
         </ThemedText>
 
-        {showCustomUrlIndicator &&
+        {isCustomUrl &&
           <View style={tailwind('pl-0.5')}>
             <ThemedText
               dark={tailwind('text-white text-opacity-70')}
