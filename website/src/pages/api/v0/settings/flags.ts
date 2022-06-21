@@ -74,7 +74,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       stage: 'alpha',
       version: '>1.13.0',
       description: 'Allows the usage of custom server provider url',
-      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }, {
       id: 'onboarding_v2',
