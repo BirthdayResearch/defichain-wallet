@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../../../../support/walletCommands'
 
 function createDFIWallet (): void {
   cy.createEmptyWallet(true)
@@ -91,7 +92,9 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('convert_amount_target_suffix').contains('UTXO')
     cy.getByTestID('resulting_Token').contains('9.00000000')
     cy.getByTestID('resulting_Token_label').contains('Token')
-    cy.getByTestID('resulting_UTXO').contains('21.00000000')
+    cy.getByTestID('resulting_UTXO').invoke('text').then(value => {
+      checkValueWithinRange(value, '20.99999', 0.1)
+    })
     cy.getByTestID('resulting_UTXO_label').contains('UTXO')
     cy.getByTestID('text_fee').should('exist')
     cy.getByTestID('button_cancel_convert').click()
@@ -109,7 +112,9 @@ context('Wallet - Convert DFI', () => {
     cy.getByTestID('text_convert_amount').contains('1.00000000')
     cy.getByTestID('convert_amount_source_suffix').contains('UTXO')
     cy.getByTestID('convert_amount_target_suffix').contains('Token')
-    cy.getByTestID('resulting_UTXO').contains('18.90000000')
+    cy.getByTestID('resulting_UTXO').invoke('text').then(value => {
+      checkValueWithinRange(value, '18.89999', 0.1)
+    })
     cy.getByTestID('resulting_UTXO_label').contains('UTXO')
     cy.getByTestID('resulting_Token').contains('11.00000000')
     cy.getByTestID('resulting_Token_label').contains('Token')

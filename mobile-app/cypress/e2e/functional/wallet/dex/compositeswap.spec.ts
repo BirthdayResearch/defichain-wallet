@@ -174,10 +174,14 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.getByTestID('token_select_button_FROM').click()
     cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
     cy.getByTestID('select_DFI').click().wait(1000)
-
     cy.getByTestID('token_select_button_TO').click()
     cy.getByTestID('select_dLTC').should('exist')
     cy.getByTestID('select_DFI').should('not.exist')
+    cy.getByTestID('bottom_sheet_token_list').within(() => {
+      cy.get('[data-testid^="select_"]').each((item) => {
+        cy.wrap(item).should('not.contain.text', '/v1')
+      })
+    })
     cy.getByTestID('select_dLTC').click()
   })
 
