@@ -256,6 +256,14 @@ context('Wallet - Settings - Service Provider', () => {
     cy.getByTestID('header_settings').click()
   })
 
+  beforeEach(() => {
+    cy.restoreLocalStorage()
+  })
+
+  afterEach(() => {
+    cy.saveLocalStorage()
+  })
+
   defichainUrlEnvs.forEach((defichainUrlEnv) => {
     const url = defichainUrls[defichainUrlEnv]
     it(`should display default on first app load on ${defichainUrlEnv}`, () => {
@@ -294,7 +302,7 @@ context('Wallet - Settings - Service Provider', () => {
       cy.getByTestID('endpoint_url_input').should('have.attr', 'readonly')
     })
 
-    it('can unlock to change service provider endpoint', () => {
+    it(`can unlock to change service provider endpoint on ${defichainUrlEnv}`, () => {
       cy.getByTestID('unlock_button').click()
       cy.getByTestID('unlock_button').should('not.exist')
       cy.getByTestID('reset_button').should('exist')
@@ -302,22 +310,18 @@ context('Wallet - Settings - Service Provider', () => {
       cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
     })
 
-    it('should type invalid custom provider URL', () => {
+    it(`should type invalid custom provider URL on ${defichainUrlEnv}`, () => {
       cy.getByTestID('endpoint_url_input').should('have.value', '')
       cy.getByTestID('endpoint_url_input').type('http://invalidcustomURL.com')
       cy.getByTestID('endpoint_url_input_error').contains('Invalid URL')
       cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
     })
 
-    it('should submit valid custom service provider', () => {
+    it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
       cy.getByTestID('endpoint_url_input').clear().type(url.custom).wait(3000)
       cy.getByTestID('button_submit').click().wait(1000)
-      cy.getByTestID('pin_authorize').type('000000').wait(5000)
-      cy.go('back')
+      cy.getByTestID('pin_authorize').type('000000').wait(3000)
     })
-
-    /*
-      TODO: There is an issue where in cypress clears local storage after every 'it'. Will uncomment once fixed
 
     it('should display Custom on Server', () => {
       cy.getByTestID('bottom_tab_portfolio').click()
@@ -327,8 +331,6 @@ context('Wallet - Settings - Service Provider', () => {
         expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
       })
     })
-
-    */
   })
 })
 
