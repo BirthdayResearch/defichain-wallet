@@ -33,9 +33,10 @@ interface ServiceProviderURLProps {
     get: () => Promise<string | undefined>
     set: (url: NonNullable<string>) => Promise<void>
   }
+  network: any
 }
 
-function _useServiceProviderUrl ({ api }: ServiceProviderURLProps): ServiceProviderLoader {
+function _useServiceProviderUrl ({ api, network }: ServiceProviderURLProps): ServiceProviderLoader {
   const logger = useLogger()
   const [isUrlLoaded, setIsUrlLoaded] = useState<boolean>(false)
   const defaultDefichainURL = _useDefaultDefiChainURL()
@@ -47,7 +48,7 @@ function _useServiceProviderUrl ({ api }: ServiceProviderURLProps): ServiceProvi
     })
       .catch((err) => logger.error(err))
       .finally(() => setIsUrlLoaded(true))
-  }, [url])
+  }, [url, network])
 
   return {
     isUrlLoaded,
@@ -70,7 +71,8 @@ export function useServiceProviderContext (): ServiceProviderContextProps {
 
 export function StoreServiceProvider (props: ServiceProviderContextProps & PropsWithChildren<any>): JSX.Element | null {
   const { api } = props
-  const { url } = _useServiceProviderUrl({ api })
+  const network = useNetworkContext()
+  const { url } = _useServiceProviderUrl({ api, network })
   const defaultUrl = _useDefaultDefiChainURL()
   const [currentUrl, setCurrentUrl] = useState<string>(url)
 
