@@ -85,6 +85,8 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [title, setTitle] = useState<string | undefined>()
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
+  const [additionalMessage, setAdditionalMessage] = useState<string | undefined>()
+  const [additionalMessageUrl, setAdditionalMessageUrl] = useState<string | undefined>()
 
   const closeModal = (): void => {
     dismiss(modalName)
@@ -267,6 +269,8 @@ export function TransactionAuthorization (): JSX.Element | null {
       setMessage(authentication.message)
       setTitle(authentication.title)
       setLoadingMessage(authentication.loading)
+      setAdditionalMessage(authentication.additionalMessage)
+      setAdditionalMessageUrl(authentication.additionalMessageUrl)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
         .then(async () => {
@@ -373,6 +377,8 @@ export function TransactionAuthorization (): JSX.Element | null {
           closeModal()
         }
       }}
+      additionalMessage={additionalMessage}
+      additionalMessageUrl={additionalMessageUrl}
     />
   )
 }
