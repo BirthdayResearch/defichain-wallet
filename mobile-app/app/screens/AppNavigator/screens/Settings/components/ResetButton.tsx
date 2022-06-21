@@ -23,10 +23,13 @@ export function ResetButton (): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
+    url,
     defaultUrl,
     setUrl
   } = useServiceProviderContext()
 
+  const isCustom = url === defaultUrl
+  
   const resetServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before resetting url
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -73,10 +76,11 @@ export function ResetButton (): JSX.Element {
     <TouchableOpacity
       style={tailwind('pr-4')}
       onPress={onPress}
+      disabled={isCustom}
     >
       <ThemedText
-        light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
+        light={tailwind(`${isCustom ? 'text-gray-400' : 'text-primary-500'}`)}
+        dark={tailwind(`${isCustom ? 'text-gray-500' : 'text-primary-500'}`)}
         style={tailwind('font-medium')}
         testID='reset_button'
       >

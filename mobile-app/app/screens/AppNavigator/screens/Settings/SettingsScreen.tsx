@@ -294,7 +294,7 @@ function NavigateItemRow ({
         {translate('screens/Settings', label)}
       </ThemedText>
 
-      <View style={tailwind('flex flex-row')}>
+      <View style={tailwind('flex flex-row items-center')}>
         {
           value !== undefined &&
             <ThemedText
@@ -309,6 +309,7 @@ function NavigateItemRow ({
           iconType='MaterialIcons'
           name='chevron-right'
           size={24}
+          style={tailwind('mt-0.5')}
         />
       </View>
     </ThemedTouchableOpacity>
