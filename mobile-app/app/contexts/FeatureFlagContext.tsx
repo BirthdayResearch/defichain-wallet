@@ -29,19 +29,20 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
 }
 
 export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+  const { network } = useNetworkContext()
+  const { url, isCustomUrl } = useServiceProviderContext()
   const {
     data: featureFlags = [],
     isLoading,
-    isError
-  } = useGetFeatureFlagsQuery({})
+    isError,
+    refetch
+  } = useGetFeatureFlagsQuery(`${network}.${url}`)
   const logger = useLogger()
 
   const prefetchPage = usePrefetch('getFeatureFlags')
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
-  const { network } = useNetworkContext()
   const [retries, setRetries] = useState(0)
-  const { isCustomUrl } = useServiceProviderContext()
 
   useEffect(() => {
     if (isError && retries < MAX_RETRY) {
@@ -53,6 +54,10 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
       prefetchPage({})
     }
   }, [isError])
+
+  useEffect(() => {
+    refetch()
+  }, [network])
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
     return featureFlags.some((flag: FeatureFlag) => satisfies(appVersion, flag.version) &&
