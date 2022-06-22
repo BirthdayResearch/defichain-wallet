@@ -6,6 +6,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedText } from './themed'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type SubHeadingType = 'Status' | 'NetworkSelect'
 
@@ -62,6 +63,7 @@ export function HeaderTitle ({
 
 export function ConnectionStatus (): JSX.Element {
   const { network } = useNetworkContext()
+  const { isCustomUrl } = useServiceProviderContext()
   const connected = useSelector((state: RootState) => state.block.connected)
   return (
     <View style={tailwind('flex-row items-center justify-center')}>
@@ -69,15 +71,27 @@ export function ConnectionStatus (): JSX.Element {
         style={tailwind(`h-2 w-2 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'} mr-1.5`)}
         testID='header_status_indicator'
       />
-      <View style={tailwind('h-full')}>
+      <View style={tailwind('flex flex-row h-full')}>
         <ThemedText
           dark={tailwind('text-white text-opacity-70')}
           light={tailwind('text-gray-600')}
-          style={tailwind('text-xs font-semibold leading-4')}
+          style={tailwind('text-xs font-semibold leading-5')}
           testID='header_active_network'
         >
           {network}
         </ThemedText>
+
+        {isCustomUrl &&
+          <View style={tailwind('pl-0.5')}>
+            <ThemedText
+              dark={tailwind('text-white text-opacity-70')}
+              light={tailwind('text-gray-600')}
+              style={tailwind('text-2xs font-semibold leading-4')}
+              testID='header_custom_active_network'
+            >
+              C
+            </ThemedText>
+          </View>}
       </View>
     </View>
   )

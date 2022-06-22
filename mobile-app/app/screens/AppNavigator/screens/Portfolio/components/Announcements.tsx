@@ -16,6 +16,7 @@ import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
 import { useDefiChainStatus } from '../hooks/DefichainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 export function Announcements (): JSX.Element {
   const {
@@ -35,6 +36,8 @@ export function Announcements (): JSX.Element {
     defichainStatusAnnouncement: defichainStatusAnnouncementContent,
     maintenanceAnnouncement: maintenanceAnnouncementContent
   } = useDefiChainStatus(hiddenAnnouncements)
+
+  const { isCustomUrl } = useServiceProviderContext()
 
   const isBlockchainDown = useBlockchainStatus()
   const deFiChainStatusUrl = 'https://status.defichain.com/'
@@ -60,6 +63,20 @@ export function Announcements (): JSX.Element {
     type: 'EMERGENCY'
   }]
 
+  const customServiceProviderIssue: AnnouncementData[] = [{
+    lang: {
+      en: 'We have detected issues with your custom endpoint that is affecting your connection. You are advised to check on the status of your custom endpoint provider',
+      de: 'Wir haben Probleme mit deinem benutzerdefinierten Endpunkt festgestellt, die deine Verbindung beeinträchtigen. Wir empfehlen, den Status deines benutzerdefinierten Endpunktanbieters zu überprüfen.',
+      'zh-Hans': '我们侦测到您目前使用的自定义终端点会影响到您的连接问题。建议您与供应者检查其连接状态。 ',
+      'zh-Hant': '我們偵測到您目前使用的自定義終端點會影響到您的連接問題。 建議您與供應者檢查其連接狀態。',
+      fr: 'Nous avons détecté des problèmes avec votre point de terminaison personnalisé qui affectent votre connexion. Nous vous conseillons de vérifier le statut de votre fournisseur de point d\'accès personnalisé.',
+      es: 'We have detected issues with your custom endpoint that is affecting your connection. You are advised to check on the status of your custom endpoint provider',
+      it: 'We have detected issues with your custom endpoint that is affecting your connection. You are advised to check on the status of your custom endpoint provider'
+    },
+    version: '0.0.0',
+    type: 'EMERGENCY'
+  }]
+
   const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
 
   const announcement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, announcements)
@@ -78,8 +95,10 @@ export function Announcements (): JSX.Element {
 
   useEffect(() => {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
-    if (isBlockchainDown) {
+    if (isBlockchainDown && !isCustomUrl) {
       setEmergencyMsgContent(blockChainIsDownContent)
+    } else if (isBlockchainDown && isCustomUrl) {
+      setEmergencyMsgContent(customServiceProviderIssue)
     } else {
       setEmergencyMsgContent(undefined)
     }

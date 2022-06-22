@@ -10,6 +10,7 @@ import { FeatureFlagPersistence } from '@api'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { getReleaseChannel } from '@api/releaseChannel'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useServiceProviderContext } from './StoreServiceProvider'
 
 const MAX_RETRY = 3
 export interface FeatureFlagContextI {
@@ -28,17 +29,19 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
 }
 
 export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+  const { network } = useNetworkContext()
+  const { url, isCustomUrl } = useServiceProviderContext()
   const {
     data: featureFlags = [],
     isLoading,
-    isError
-  } = useGetFeatureFlagsQuery({})
+    isError,
+    refetch
+  } = useGetFeatureFlagsQuery(`${network}.${url}`)
   const logger = useLogger()
 
   const prefetchPage = usePrefetch('getFeatureFlags')
   const appVersion = nativeApplicationVersion ?? '0.0.0'
   const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([])
-  const { network } = useNetworkContext()
   const [retries, setRetries] = useState(0)
 
   useEffect(() => {
@@ -51,6 +54,10 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
       prefetchPage({})
     }
   }, [isError])
+
+  useEffect(() => {
+    refetch()
+  }, [network])
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
     return featureFlags.some((flag: FeatureFlag) => satisfies(appVersion, flag.version) &&
@@ -95,7 +102,11 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
       .catch((err) => logger.error(err))
   }, [])
 
-  if (isLoading) {
+  /*
+    If service provider === custom, we keep showing the app regardless if feature flags loaded to ensure app won't be stuck on white screen
+    Note: return null === app will be stuck at white screen until the feature flags API are applied
+  */
+  if (isLoading && !isCustomUrl) {
     return null
   }
 
