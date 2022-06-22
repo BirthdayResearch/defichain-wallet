@@ -177,7 +177,7 @@ export function ServiceProviderScreen ({ navigation }: Props): JSX.Element {
             light={tailwind('text-gray-400')}
             dark={tailwind('text-gray-500')}
           >
-            {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app. Changes do not take effect until you manually restart the app. Changes do not take effect until you manually restart the app.')}
+            {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.')}
           </ThemedText>
         </View>
       )}
