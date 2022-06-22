@@ -20,6 +20,9 @@ import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 import { PasscodeFaq } from './screens/CreateWallet/PasscodeFaq'
 import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetails'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -45,7 +48,14 @@ export interface WalletParamList {
   [key: string]: undefined | object
 }
 
+export interface WalletParamListV2 {
+  WalletOnboardingScreen: undefined
+  CreateWalletGuidelines: undefined
+  [key: string]: undefined | object
+}
+
 const WalletStack = createStackNavigator<WalletParamList>()
+const WalletStackV2 = createStackNavigator<WalletParamListV2>()
 
 const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
   prefixes: [Linking.makeUrl('/')],
@@ -70,6 +80,8 @@ export function WalletNavigator (): JSX.Element {
   const navigationRef = useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
   const headerContainerTestId = 'wallet_header_container'
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  const insets = useSafeAreaInsets()
 
   const goToNetworkSelect = (): void => {
     // @ts-expect-error
@@ -77,15 +89,14 @@ export function WalletNavigator (): JSX.Element {
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
   }
 
-  return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      ref={navigationRef}
-      theme={DeFiChainTheme}
-    >
+  function WalletStacks (): JSX.Element {
+    return (
       <WalletStack.Navigator
         initialRouteName='Onboarding'
-        screenOptions={{ headerTitleStyle: HeaderFont, headerTitleAlign: 'center' }}
+        screenOptions={{
+          headerTitleStyle: HeaderFont,
+          headerTitleAlign: 'center'
+        }}
       >
         <WalletStack.Screen
           component={Onboarding}
@@ -219,6 +230,57 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
       </WalletStack.Navigator>
+    )
+  }
+
+  function WalletStacksV2 (): JSX.Element {
+    return (
+      <WalletStackV2.Navigator
+        initialRouteName='Onboarding'
+        screenOptions={{
+          headerTitleStyle: tailwind('font-normal-v2 text-xl'),
+          headerTitleAlign: 'center',
+          headerBackTitleVisible: false,
+          headerRightContainerStyle: tailwind('pr-4 py-2'),
+          headerLeftContainerStyle: tailwind('pl-4'),
+          headerStyle: [tailwind('h-28 rounded-b-2xl'), { height: 76 + insets.top }],
+          headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          )
+        }}
+      >
+        <WalletStackV2.Screen
+          component={Onboarding}
+          name='OnboardingV2'
+          options={{
+            headerShown: false
+          }}
+        />
+        <WalletStackV2.Screen
+          component={CreateWalletGuidelines}
+          name='CreateWalletGuidelines'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Guidelines')
+          }}
+        />
+      </WalletStackV2.Navigator>
+    )
+  }
+
+  return (
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      ref={navigationRef}
+      theme={DeFiChainTheme}
+    >
+      {isFeatureAvailable('onboarding_v2')
+        ? (
+          <WalletStacksV2 />
+        )
+: (
+  <WalletStacks />
+        )}
     </NavigationContainer>
   )
 }
