@@ -4,6 +4,9 @@ import { render } from '@testing-library/react-native'
 import { HeaderTitle } from './HeaderTitle'
 import { RootState } from '@store'
 import { block } from '@store/block'
+import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
+import { ServiceProviderPersistence } from '@api/wallet/service_provider'
+import { WhaleProvider } from '@shared-contexts/WhaleContext'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/NetworkContext')
@@ -28,12 +31,16 @@ describe('Header title', () => {
     })
     const component = (
       <Provider store={store}>
-        <HeaderTitle
-          text='Foo'
-          subHeadingType='Status'
-          onPress={jest.fn()}
-          disabled={false}
-        />
+        <StoreServiceProvider api={ServiceProviderPersistence}>
+          <WhaleProvider>
+            <HeaderTitle
+              text='Foo'
+              subHeadingType='Status'
+              onPress={jest.fn()}
+              disabled={false}
+            />
+          </WhaleProvider>
+        </StoreServiceProvider>
       </Provider>
     )
     const rendered = render(component)

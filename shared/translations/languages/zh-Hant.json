@@ -303,7 +303,8 @@
     "Sign to save address": "簽名儲存地址",
     "Sign to delete address": "簽名移除地址",
     "Address Book": "地址簿",
-    "GENERAL": "一般"
+    "GENERAL": "一般",
+    "Server": "伺服器"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -1425,6 +1426,23 @@
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
+  },
+  "screens/ServiceProviderScreen": {
+    "Server": "伺服器", 
+    "Service Provider": "服務供應商",
+    "UNLOCK": "解鎖", 
+    "RESET": "重置", 
+    "Endpoint URL": "終端點網址",
+    "Custom": "自定",
+    "Default": "預設",
+    "CONTINUE": "繼續",
+    "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加惡意服務供應商 可能會導致可收回資金。 風險自負",
+    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
+    "Adding custom service provider": "添加自定義服務提供者",
+    "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "這樣做，您將恢復到手機輕錢包的預設終端點。 你想繼續嗎？",
+    "Enter passcode to continue": "輸入密碼後可繼續",
+    "Invalid URL": "無效的網址",
+    "Reset default service provider": "重置預設 服務供應商"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",
