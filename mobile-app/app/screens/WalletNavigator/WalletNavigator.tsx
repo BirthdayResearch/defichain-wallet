@@ -243,7 +243,7 @@ export function WalletNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-4 py-2'),
           headerLeftContainerStyle: tailwind('pl-4'),
-          headerStyle: [tailwind('h-28 rounded-b-2xl'), { height: 76 + insets.top }],
+          headerStyle: [tailwind('rounded-b-2xl'), { height: 76 + insets.top }],
           headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -275,12 +275,12 @@ export function WalletNavigator (): JSX.Element {
       theme={DeFiChainTheme}
     >
       {isFeatureAvailable('onboarding_v2')
-        ? (
-          <WalletStacksV2 />
-        )
-: (
-  <WalletStacks />
-        )}
+          ? (
+            <WalletStacksV2 />
+          )
+          : (
+            <WalletStacks />
+          )}
     </NavigationContainer>
   )
 }
