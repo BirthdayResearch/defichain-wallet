@@ -272,7 +272,9 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
               )
             }
           </ThemedText>
-          <IconTooltip />
+          <View style={tailwind('pt-0.5')}>
+            <IconTooltip />
+          </View>
         </View>
       </InputHelperText>
       {isFeatureAvailable('dusd_vault_share')

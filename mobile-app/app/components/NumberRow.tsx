@@ -107,12 +107,12 @@ export function NumberRow (props: INumberRowProps): JSX.Element {
                     testId={`${props.rhs.testID}_rhsUsdAmount`}
                   />
               }
-              {
-                props.isOraclePrice === true && (
-                  <IconTooltip />
-                )
-              }
             </View>
+            {
+              props.isOraclePrice === true && (
+                <IconTooltip />
+              )
+            }
           </View>
         </View>
       </View>
