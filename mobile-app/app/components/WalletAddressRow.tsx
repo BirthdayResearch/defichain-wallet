@@ -3,7 +3,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedView, ThemedText } from './themed'
 import { View } from '@components'
-import { AddressSelectionButton } from '@screens/AppNavigator/screens/Balances/components/AddressSelectionButton'
+import { AddressSelectionButton } from '@screens/AppNavigator/screens/Portfolio/components/AddressSelectionButton'
 
 export function WalletAddressRow (): JSX.Element {
   const { address, addressLength } = useWalletContext()
@@ -21,7 +21,7 @@ export function WalletAddressRow (): JSX.Element {
         {translate('components/WalletAddressRow', 'Wallet address')}
       </ThemedText>
       <View>
-        <AddressSelectionButton address={address} addressLength={addressLength} />
+        <AddressSelectionButton address={address} addressLength={addressLength} disabled />
       </View>
     </ThemedView>
   )

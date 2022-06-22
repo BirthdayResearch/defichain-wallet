@@ -6,7 +6,7 @@ import { View } from '@components'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewStyle } from 'react-native'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
-import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Balances/components/TotalPortfolio'
+import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio'
 import { IconTooltip } from '@components/tooltip/IconTooltip'
 
 interface ActiveUSDValueProps {

@@ -109,6 +109,6 @@ export interface DefiChainStatus {
 
 export type Platform = 'ios' | 'android' | 'windows' | 'macos' | 'web'
 
-export type FEATURE_FLAG_ID = 'loan' | 'auction' | 'dfi_loan_payment' | 'local_storage' | 'dusd_vault_share' | 'dusd_loan_payment' | 'future_swap'
+export type FEATURE_FLAG_ID = 'loan' | 'auction' | 'dfi_loan_payment' | 'local_storage' | 'dusd_vault_share' | 'dusd_loan_payment' | 'future_swap' | 'service_provider' | 'onboarding_v2'
 
 export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'

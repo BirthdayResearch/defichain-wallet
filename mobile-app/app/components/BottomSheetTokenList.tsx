@@ -14,7 +14,7 @@ import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loa
 import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 
 interface BottomSheetTokenListProps {
@@ -73,10 +73,11 @@ export const BottomSheetTokenList = ({
   }
   return (
     <FlatList
+      testID='bottom_sheet_token_list'
       data={tokens}
       renderItem={({ item }: { item: CollateralItem | BottomSheetToken }): JSX.Element => {
         const activePrice = tokenType === TokenType.CollateralItem
-        ? new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice))
+        ? new BigNumber(getActivePrice(item.token.symbol, (item as CollateralItem)?.activePrice, (item as CollateralItem).factor))
         : getTokenPrice(item.token.symbol, new BigNumber('1'), item.token.isLPS)
         return (
           <ThemedTouchableOpacity

@@ -631,7 +631,7 @@ exports[`AuctionDetails should match snapshot 1`] = `
                 }
                 testID="text_collateral_value"
               >
-                $40,000.00
+                $0.00000000
               </Text>
             </Text>
             <View

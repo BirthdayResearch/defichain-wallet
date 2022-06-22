@@ -1,6 +1,6 @@
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import '@testing-library/cypress/add-commands'
-import { BalanceTokenDetail } from '../integration/functional/wallet/balances/balances.spec'
+import { BalanceTokenDetail } from '../e2e/functional/wallet/portfolio/portfolio.spec'
 import BigNumber from 'bignumber.js'
 
 export function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
@@ -63,7 +63,7 @@ declare global {
 }
 
 Cypress.Commands.add('verifyWalletAddress', (network: string, addressObject?: { address: string }) => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('receive_balance_button').click()
   cy.getByTestID('address_text').then(($txt: any) => {
     const a = $txt[0].textContent
@@ -83,7 +83,7 @@ Cypress.Commands.add('isNetworkConnected', (network: string) => {
 })
 
 Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail, dynamicAmount?: boolean) => {
-  const testID = `balances_row_${id}`
+  const testID = `portfolio_row_${id}`
   cy.getByTestID(testID).should('exist')
   cy.getByTestID(`${testID}_icon`).should('exist')
   cy.getByTestID(`${testID}_symbol`).should('have.text', details.displaySymbol)
@@ -100,7 +100,7 @@ Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail
 })
 
 Cypress.Commands.add('changePasscode', () => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('view_change_passcode').click()
   cy.getByTestID('pin_authorize').type('000000').wait(3000)
@@ -121,7 +121,7 @@ Cypress.Commands.add('validateConversionDetails', (isTokenToUTXO: boolean, amoun
 })
 
 Cypress.Commands.add('changeLanguage', (language: string) => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('setting_navigate_language_selection').click()
   cy.getByTestID('language_option_description').contains(language)

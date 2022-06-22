@@ -51,6 +51,11 @@ exports[`Wallet Address Row should match snapshot 1`] = `
   </Text>
   <View>
     <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
       collapsable={false}
       focusable={false}

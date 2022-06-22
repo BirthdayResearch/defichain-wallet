@@ -66,7 +66,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Scambia comodamente i token nel Liquidity Pool.",
     "You have full control over your tokens unlike any other.": "Solo tu hai il pieno controllo dei tuoi token."
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "Saldo",
     "Portfolio": "Portafoglio",
     "SEND": "INVIA",
@@ -316,7 +316,8 @@
     "Sign to save address": "Firma per salvare l'indirizzo",
     "Sign to delete address": "Firma per cancellare l'indirizzo",
     "Address Book": "Rubrica",
-    "GENERAL": "GENERALE"
+    "GENERAL": "GENERALE",
+    "Server": "Server"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -1120,12 +1121,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "Indirizzo del Wallet"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "Nessun token di liquidità nel portafoglio",
     "No Crypto in portfolio": "Nessuna Crypto nel portafoglio",
-    "No dTokens in portfolio": "Nessun dTokens in portafoglio"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "Nessun dTokens in portafoglio",
     "Empty portfolio": "Portfolio leer",
     "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
   },
@@ -1442,6 +1441,23 @@
     "Settlement block": "Blocco di regolamento",
     "The amount will be refunded automatically if the transaction does not go through.": "L'importo sarà rimborsato automaticamente se la transazione non va a buon fine.",
     "Future Swap": "Future Swap"
+  },
+  "screens/ServiceProviderScreen": {
+    "Server": "Server", 
+    "Service Provider": "Service Provider",
+    "UNLOCK": "UNLOCK", 
+    "RESET": "RESET", 
+    "Endpoint URL": "Endpoint URL",
+    "Custom": "Personalizza",
+    "Default": "Default",
+    "CONTINUE": "CONTINUA",
+    "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.",
+    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
+    "Adding custom service provider": "Adding custom service provider",
+    "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?",
+    "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
+    "Invalid URL": "Invalid URL",
+    "Reset default service provider": "Reset default service provider"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",

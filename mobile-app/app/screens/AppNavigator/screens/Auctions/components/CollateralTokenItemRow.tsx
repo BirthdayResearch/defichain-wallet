@@ -5,14 +5,14 @@ import { getNativeIcon } from '@components/icons/assets'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
-import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { useTokenPrice } from '../../Portfolio/hooks/TokenPrice'
 
 export function CollateralTokenItemRow ({ token }: { token: LoanVaultTokenAmount }): JSX.Element {
   const Icon = getNativeIcon(token.displaySymbol)
   const testID = `collateral_row_${token.id}`
-  const activePrice = new BigNumber(getActivePrice(token.symbol, token.activePrice))
-  const collateralPrice = new BigNumber(activePrice).multipliedBy(token.amount)
+  const { getTokenPrice } = useTokenPrice()
+  const collateralPrice = getTokenPrice(token.symbol, new BigNumber(token.amount))
 
   return (
     <ThemedView

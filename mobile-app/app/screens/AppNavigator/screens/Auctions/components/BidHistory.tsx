@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useTokenPrice } from '../../Portfolio/hooks/TokenPrice'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 import { useBidTimeAgo } from '../hooks/BidTimeAgo'
 

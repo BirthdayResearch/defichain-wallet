@@ -1228,7 +1228,7 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
       },
     ]
   }
-  testID="balance_skeleton_loader"
+  testID="portfolio_skeleton_loader"
 >
   <RNSVGSvgView
     align="xMidYMid"

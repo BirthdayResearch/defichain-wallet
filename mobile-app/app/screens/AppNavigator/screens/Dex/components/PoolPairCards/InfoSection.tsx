@@ -6,7 +6,7 @@ import { translate } from '@translations'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { ThemedText } from '@components/themed'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 
 interface InfoSectionProps {
   type: 'available' | 'your'

@@ -14,7 +14,7 @@ import { tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
 import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
-import { CreateOrEditAddressLabelFormProps } from '@screens/AppNavigator/screens/Balances/components/CreateOrEditAddressLabelForm'
+import { CreateOrEditAddressLabelFormProps } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
