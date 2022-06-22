@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { Text } from 'react-native'
-import { ButtonV2, ButtonFillType } from './Button.v2'
+import { ButtonV2, ButtonFillType } from './ButtonV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -16,7 +16,6 @@ describe('button', () => {
           fill={fill}
           label='Submit'
           onPress={onPress}
-          title='Test'
         />).toJSON()
       expect(enabled).toMatchSnapshot()
 
@@ -26,21 +25,8 @@ describe('button', () => {
           fill={fill}
           label='Submit'
           onPress={onPress}
-          title='Test'
         />).toJSON()
       expect(disabled).toMatchSnapshot()
-
-      const submitting = render(
-        <ButtonV2
-          disabled
-          isSubmitting
-          submittingLabel='Submitting'
-          fill={fill}
-          label='Submit'
-          onPress={onPress}
-          title='Test'
-        />).toJSON()
-      expect(submitting).toMatchSnapshot()
     })
   })
 
@@ -50,7 +36,6 @@ describe('button', () => {
       <ButtonV2
         onPress={onPress}
         testID='primary_button'
-        title='Submit'
       >
         <Text>
           Hello World
@@ -71,7 +56,6 @@ describe('button', () => {
         disabled
         onPress={onPress}
         testID='primary_button'
-        title='Submit'
       >
         <Text>
           Hello World
