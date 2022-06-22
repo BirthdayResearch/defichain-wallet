@@ -1435,7 +1435,7 @@
     "Default": "预设",
     "CONTINUE": "继续",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加恶意服务供应商 可能会导致可收回资金。风险自负",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "仅添加完全受信任和安全的网址",
+    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "添加自定义服务提供者",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "这样做，您将恢复到手机轻钱包的预设终端点。你想继续吗？",
     "Enter passcode to continue": "输入密码后可继续",
