@@ -10,6 +10,7 @@ import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
+import { CreateMnemonicWallet as CreateMnemonicWalletV2 } from './screens/CreateWallet/CreateMnemonicWallet.v2'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
 import { CreateWalletGuidelines as CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelines.v2'
 import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
@@ -83,7 +84,7 @@ export function WalletNavigator (): JSX.Element {
   const headerContainerTestId = 'wallet_header_container'
   const { isFeatureAvailable } = useFeatureFlagContext() // TODO: uncomment to test v2
   const insets = useSafeAreaInsets()
-  const testV2 = false // TODO: temp flag to disable v2
+  const testV2 = true // TODO: temp flag to disable v2
 
   const goToNetworkSelect = (): void => {
     // @ts-expect-error
@@ -266,6 +267,16 @@ export function WalletNavigator (): JSX.Element {
             headerTitle: translate('screens/WalletNavigator', 'New Wallet')
           }}
         />
+        <WalletStack.Screen
+          component={CreateMnemonicWalletV2}
+          name='CreateMnemonicWallet'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
+            headerRightContainerStyle: tailwind('px-2 py-2'),
+            headerBackTitleVisible: false
+          }}
+        />
+
       </WalletStackV2.Navigator>
     )
   }
