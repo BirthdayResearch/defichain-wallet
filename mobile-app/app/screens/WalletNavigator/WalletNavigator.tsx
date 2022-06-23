@@ -23,6 +23,7 @@ import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/N
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -237,14 +238,14 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='Onboarding'
+        initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-4 py-2'),
           headerLeftContainerStyle: tailwind('pl-4'),
-          headerStyle: [tailwind('rounded-b-2xl'), { height: 76 + insets.top }],
+          headerStyle: [tailwind('h-28 rounded-b-2xl'), { height: 76 + insets.top }],
           headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -252,7 +253,7 @@ export function WalletNavigator (): JSX.Element {
         }}
       >
         <WalletStackV2.Screen
-          component={Onboarding}
+          component={OnboardingV2}
           name='OnboardingV2'
           options={{
             headerShown: false
