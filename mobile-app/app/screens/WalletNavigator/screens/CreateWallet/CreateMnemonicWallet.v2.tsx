@@ -112,7 +112,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         <CreateWalletStepIndicator
           current={1}
           steps={CREATE_STEPS}
-          style={tailwind('p-4')}
+          style={tailwind('px-4')}
         />
 
         <ThemedText
