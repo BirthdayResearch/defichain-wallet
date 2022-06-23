@@ -110,7 +110,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
           disabled={!isEnabled}
           style={tailwind('rounded')}
           label={translate('screens/Guidelines', 'Create wallet')}
-          margin='mt-9'
+          margin='mt-9 mx-4'
           onPress={() => navigation.navigate('CreateMnemonicWallet')}
           testID='create_recovery_words_button'
           title='create mnemonic words'
