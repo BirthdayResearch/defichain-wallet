@@ -68,17 +68,17 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault()
       WalletAlert({
-        title: translate('screens/CreateMnemonicWallet', 'Exit screen'),
-        message: translate('screens/CreateMnemonicWallet', 'If you leave this screen, you will be provided with a new set of 24 recovery words. Do you want to proceed?'),
+        title: translate('screens/CreateMnemonicWallet', 'Leave wallet creation?'),
+        message: translate('screens/CreateMnemonicWallet', 'A new set of recovery words will be generated for the wallet once you leave this page.'),
         buttons: [
           {
-            text: translate('screens/CreateMnemonicWallet', 'Cancel'),
+            text: translate('screens/CreateMnemonicWallet', 'Return'),
             style: 'cancel',
             onPress: () => {
             }
           },
           {
-            text: translate('screens/CreateMnemonicWallet', 'Yes'),
+            text: translate('screens/CreateMnemonicWallet', 'Leave'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action)
           }
