@@ -15,10 +15,10 @@ exports[`button should be clickable 1`] = `
   style={
     Object {
       "backgroundColor": "rgba(18, 18, 18, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -26,10 +26,10 @@ exports[`button should be clickable 1`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
   testID="primary_button"
@@ -60,10 +60,10 @@ exports[`button should match styling of button type fill 1`] = `
   style={
     Object {
       "backgroundColor": "rgba(18, 18, 18, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -71,10 +71,10 @@ exports[`button should match styling of button type fill 1`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -121,13 +121,13 @@ exports[`button should match styling of button type fill 2`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -136,10 +136,10 @@ exports[`button should match styling of button type fill 2`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -186,13 +186,13 @@ exports[`button should match styling of button type fill 3`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -201,10 +201,10 @@ exports[`button should match styling of button type fill 3`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -255,10 +255,10 @@ exports[`button should match styling of button type flat 1`] = `
   style={
     Object {
       "backgroundColor": "transparent",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -266,10 +266,10 @@ exports[`button should match styling of button type flat 1`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -316,13 +316,13 @@ exports[`button should match styling of button type flat 2`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -331,10 +331,10 @@ exports[`button should match styling of button type flat 2`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -381,13 +381,13 @@ exports[`button should match styling of button type flat 3`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -396,10 +396,10 @@ exports[`button should match styling of button type flat 3`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -450,10 +450,10 @@ exports[`button should match styling of button type outline 1`] = `
   style={
     Object {
       "backgroundColor": "transparent",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -461,10 +461,10 @@ exports[`button should match styling of button type outline 1`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -511,13 +511,13 @@ exports[`button should match styling of button type outline 2`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -526,10 +526,10 @@ exports[`button should match styling of button type outline 2`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -576,13 +576,13 @@ exports[`button should match styling of button type outline 3`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -591,10 +591,10 @@ exports[`button should match styling of button type outline 3`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
 >
@@ -645,13 +645,13 @@ exports[`button should not be clickable when disabled 1`] = `
   style={
     Object {
       "backgroundColor": "rgba(229, 229, 229, 1)",
-      "borderBottomLeftRadius": 4,
-      "borderBottomRightRadius": 4,
+      "borderBottomLeftRadius": 24,
+      "borderBottomRightRadius": 24,
       "borderBottomWidth": 0,
       "borderLeftWidth": 0,
       "borderRightWidth": 0,
-      "borderTopLeftRadius": 4,
-      "borderTopRightRadius": 4,
+      "borderTopLeftRadius": 24,
+      "borderTopRightRadius": 24,
       "borderTopWidth": 0,
       "flexDirection": "row",
       "justifyContent": "center",
@@ -660,10 +660,10 @@ exports[`button should not be clickable when disabled 1`] = `
       "marginRight": 16,
       "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 12,
-      "paddingLeft": 12,
-      "paddingRight": 12,
-      "paddingTop": 12,
+      "paddingBottom": 14,
+      "paddingLeft": 14,
+      "paddingRight": 14,
+      "paddingTop": 14,
     }
   }
   testID="primary_button"
