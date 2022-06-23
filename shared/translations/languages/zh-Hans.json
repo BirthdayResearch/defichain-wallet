@@ -1208,7 +1208,7 @@
     "Vault ID": "金库编号",
     "Resulting {{displaySymbol}} Balance": "产生的 {{displaySymbol}} 余额",
     "Insufficient {{token}} to pay for the entered amount": "{{token}} 余额不足以支付输入的金额",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "当您使用 {{tokenSymbol}} 付款时，将收取 1% 的费用",
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "当您使用 {{tokenSymbol}} 付款时，将收取 1% 的费用。",
     "Read more": "阅读更多",
     "How do you want to pay?": "How do you want to pay?",
     "You are paying": "You are paying",
