@@ -1,12 +1,12 @@
+import { IconName } from '@components/themed'
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
-import { MaterialIcons } from '@expo/vector-icons'
 import BigNumber from 'bignumber.js'
 
 // VM for ViewModel
 export interface VMTransaction {
   id: string
   desc: string // of each transaction type, eg: Sent, Add Liquidity
-  iconName: React.ComponentProps<typeof MaterialIcons>['name']
+  iconName: IconName
   color: string
   amount: string
   block: number

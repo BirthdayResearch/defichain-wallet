@@ -161,7 +161,7 @@ function TransactionRow ({
       <View style={tailwind('w-8 justify-center items-center')}>
         <MaterialIcons
           color={color}
-          name={iconName}
+          name={iconName as React.ComponentProps<typeof MaterialIcons>['name']}
           size={24}
         />
       </View>
