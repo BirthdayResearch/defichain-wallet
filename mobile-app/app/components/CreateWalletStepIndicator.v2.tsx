@@ -70,14 +70,13 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
 
   return (
     <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
-      <View style={tailwind('flex-row justify-center w-9/12 h-14')}>
+      <View style={tailwind('flex-row justify-center w-9/12 h-16')}>
         <StepNode
           content={steps[0]}
           current={current}
           isLight={isLight}
           step={1}
         />
-
         {following()}
       </View>
     </View>

@@ -18,7 +18,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
-        "height": 56,
+        "height": 64,
         "justifyContent": "center",
         "width": "75%",
       }
@@ -110,16 +110,9 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     <View
       style={
         Object {
-          "borderBottomColor": "rgba(18, 18, 18, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(18, 18, 18, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(18, 18, 18, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(18, 18, 18, 1)",
-          "borderTopWidth": 1,
+          "backgroundColor": "rgba(18, 18, 18, 1)",
           "flexGrow": 1,
-          "height": 2,
+          "height": 1,
           "marginTop": 16,
         }
       }
@@ -210,16 +203,9 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     <View
       style={
         Object {
-          "borderBottomColor": "rgba(18, 18, 18, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(18, 18, 18, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(18, 18, 18, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(18, 18, 18, 1)",
-          "borderTopWidth": 1,
+          "backgroundColor": "rgba(18, 18, 18, 1)",
           "flexGrow": 1,
-          "height": 2,
+          "height": 1,
           "marginTop": 16,
         }
       }
