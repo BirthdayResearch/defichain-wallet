@@ -91,11 +91,11 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             </ThemedText>
           </View>
        ))}
-        <View style={tailwind('flex-row items-start')}>
+        <View style={tailwind('flex-row items-start my-3')}>
           <Checkbox
             value={isEnabled}
             onValueChange={toggleSwitch}
-            style={tailwind('h-6 w-6 mt-1')}
+            style={tailwind('h-6 w-6 mt-1 rounded')}
             color={isEnabled ? getColor('brand-v2-500') : undefined}
           />
           <ThemedText
@@ -110,7 +110,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
           disabled={!isEnabled}
           style={tailwind('rounded')}
           label={translate('screens/Guidelines', 'Create wallet')}
-          margin='mt-12'
+          margin='mt-9'
           onPress={() => navigation.navigate('CreateMnemonicWallet')}
           testID='create_recovery_words_button'
           title='create mnemonic words'

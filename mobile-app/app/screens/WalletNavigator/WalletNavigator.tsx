@@ -11,6 +11,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
+import { CreateWalletGuidelines as CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelines.v2'
 import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
@@ -237,7 +238,7 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='Onboarding'
+        initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
@@ -258,11 +259,11 @@ export function WalletNavigator (): JSX.Element {
             headerShown: false
           }}
         />
-        <WalletStackV2.Screen
-          component={CreateWalletGuidelines}
+        <WalletStack.Screen
+          component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Guidelines')
+            headerTitle: translate('screens/WalletNavigator', 'New Wallet')
           }}
         />
       </WalletStackV2.Navigator>
@@ -277,12 +278,12 @@ export function WalletNavigator (): JSX.Element {
     >
       {/* {isFeatureAvailable('onboarding_v2') TODO: uncomment this condition to test v2 and when all onboarding screens are completed */}
       {isFeatureAvailable('onboarding_v2') && testV2
-          ? (
-            <WalletStacksV2 />
+        ? (
+          <WalletStacksV2 />
           )
-          : (
-            <WalletStacks />
-          )}
+        : (
+          <WalletStacks />
+        )}
     </NavigationContainer>
   )
 }
