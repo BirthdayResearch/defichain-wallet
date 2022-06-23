@@ -777,7 +777,11 @@
     "Recovery": "恢复",
     "Verify": "确认",
     "Secure": "安全",
-    "Restore": "还原"
+    "Restore": "还原",
+    "RECOVERY": "恢复",
+    "VERIFY": "确认",
+    "SECURE": "安全",
+    "RESTORE": "还原"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "语言",

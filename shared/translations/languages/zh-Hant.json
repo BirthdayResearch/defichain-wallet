@@ -778,7 +778,11 @@
     "Recovery": "恢復",
     "Verify": "確認",
     "Secure": "安全",
-    "Restore": "還原"
+    "Restore": "還原",
+    "RECOVERY": "恢復",
+    "VERIFY": "確認",
+    "SECURE": "安全",
+    "RESTORE": "還原"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "語言",
