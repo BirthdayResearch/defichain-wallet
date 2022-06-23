@@ -774,7 +774,11 @@
     "Recovery": "Stelle wieder her",
     "Verify": "Bestätige",
     "Secure": "Sichere",
-    "Restore": "Stelle wieder her"
+    "Restore": "Stelle wieder her",
+    "RECOVERY": "STELLE WIEDER HER",
+    "VERIFY": "BESTÄTIGE",
+    "SECURE": "SICHERE",
+    "RESTORE": "STELLE WIEDER HER"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "SPRACHE",

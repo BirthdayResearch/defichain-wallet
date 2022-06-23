@@ -784,7 +784,11 @@
     "Recovery": "Restauration",
     "Verify": "Vérifiez",
     "Secure": "Sécurisez",
-    "Restore": "Restaurez"
+    "Restore": "Restaurez",
+    "RECOVERY": "RESTAURATION",
+    "VERIFY": "VERIFY",
+    "SECURE": "SECURE",
+    "RESTORE": "RESTORE"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "LANGUE",

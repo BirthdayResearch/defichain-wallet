@@ -797,7 +797,11 @@
     "Recovery": "Recupera",
     "Verify": "Verifica",
     "Secure": "Assicura",
-    "Restore": "Ripristina"
+    "Restore": "Ripristina",
+    "RECOVERY": "RECUPERA",
+    "VERIFY": "VERIFICA",
+    "SECURE": "ASSICURA",
+    "RESTORE": "RIPRISTINA"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "LINGUA",
