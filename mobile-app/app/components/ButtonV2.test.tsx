@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { Text } from 'react-native'
-import { ButtonV2, ButtonFillType } from './ButtonV2'
+import { Button, ButtonFillType } from './Button'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -11,7 +11,7 @@ describe('button', () => {
     it(`should match styling of button type ${fill}`, () => {
       const onPress = jest.fn()
       const enabled = render(
-        <ButtonV2
+        <Button
           disabled={false}
           fill={fill}
           label='Submit'
@@ -20,7 +20,7 @@ describe('button', () => {
       expect(enabled).toMatchSnapshot()
 
       const disabled = render(
-        <ButtonV2
+        <Button
           disabled
           fill={fill}
           label='Submit'
@@ -33,14 +33,14 @@ describe('button', () => {
   it('should be clickable', async () => {
     const onPress = jest.fn()
     const component = (
-      <ButtonV2
+      <Button
         onPress={onPress}
         testID='primary_button'
       >
         <Text>
           Hello World
         </Text>
-      </ButtonV2>
+      </Button>
     )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('primary_button')
@@ -52,7 +52,7 @@ describe('button', () => {
   it('should not be clickable when disabled', async () => {
     const onPress = jest.fn()
     const component = (
-      <ButtonV2
+      <Button
         disabled
         onPress={onPress}
         testID='primary_button'
@@ -60,7 +60,7 @@ describe('button', () => {
         <Text>
           Hello World
         </Text>
-      </ButtonV2>
+      </Button>
     )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('primary_button')
