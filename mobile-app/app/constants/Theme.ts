@@ -7,9 +7,8 @@ export function getDefaultTheme (isLight: boolean): Theme {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      primary: isLight ? '#ff00af' : '#EE2CB1',
-      card: isLight ? defaultTheme.colors.card : '#262626',
-      border: isLight ? defaultTheme.colors.border : '#404040'
+      primary: isLight ? '#121212' : '#F2F2F2',
+      card: isLight ? defaultTheme.colors.card : '#262626'
     }
   }
 }
