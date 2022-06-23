@@ -112,7 +112,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         <CreateWalletStepIndicator
           current={1}
           steps={CREATE_STEPS}
-          style={tailwind('py-4 px-1')}
+          style={tailwind('p-4')}
         />
 
         <ThemedText
@@ -158,7 +158,7 @@ function RecoveryWordRow (props: { index: number, word: string, key: number, bor
     <ThemedView
       dark={tailwind('border-mono-dark-v2-300')}
       light={tailwind('border-mono-light-v2-300')}
-      style={tailwind(['py-4 mx-5 flex-row', { 'border-b': props.border }])}
+      style={tailwind(['py-4 mx-5 flex-row justify-center', { 'border-b': props.border }])}
     >
       <ThemedText
         dark={tailwind('text-mono-dark-v2-500')}
