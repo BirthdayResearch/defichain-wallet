@@ -106,15 +106,15 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
           </ThemedText>
         </View>
-        <Button
-          disabled={!isEnabled}
-          style={tailwind('rounded')}
-          label={translate('screens/Guidelines', 'Create wallet')}
-          styleProps='mt-12 mx-4'
-          onPress={() => navigation.navigate('CreateMnemonicWallet')}
-          testID='create_recovery_words_button'
-        />
       </View>
+      <Button
+        disabled={!isEnabled}
+        style={tailwind('rounded')}
+        label={translate('screens/Guidelines', 'Create wallet')}
+        styleProps='mt-12 mx-7'
+        onPress={() => navigation.navigate('CreateMnemonicWallet')}
+        testID='create_recovery_words_button'
+      />
     </ThemedScrollView>
   )
 }
