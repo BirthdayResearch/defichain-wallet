@@ -225,7 +225,6 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           Object {
             "alignItems": "flex-start",
             "flexDirection": "row",
-            "marginBottom": 12,
             "marginTop": 12,
           }
         }
@@ -318,18 +317,16 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "backgroundColor": "rgba(229, 229, 229, 1)",
+            "backgroundColor": "rgba(166, 166, 166, 1)",
             "borderBottomLeftRadius": 24,
             "borderBottomRightRadius": 24,
-            "borderBottomWidth": 0,
-            "borderLeftWidth": 0,
-            "borderRightWidth": 0,
             "borderTopLeftRadius": 24,
             "borderTopRightRadius": 24,
-            "borderTopWidth": 0,
             "flexDirection": "row",
             "justifyContent": "center",
-            "marginTop": 36,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "marginTop": 48,
             "opacity": 1,
             "paddingBottom": 14,
             "paddingLeft": 14,
@@ -349,7 +346,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 "lineHeight": 24,
               },
               Object {
-                "color": "rgba(163, 163, 163, 1)",
+                "color": "rgba(242, 242, 242, 1)",
                 "fontFamily": "BoldFont",
                 "fontWeight": "700",
                 "textAlign": "center",
