@@ -441,7 +441,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREA UN WALLET",
-    "RESTORE WALLET": "RIPRISTINA IL WALLET"
+    "RESTORE WALLET": "RIPRISTINA IL WALLET",
+    "Get started": "Get started"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo per Bitcoin",
@@ -452,7 +453,8 @@
     "Maximize earning potential": "Massimizza il potenziale di guadagno",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Scambia i token per ottenere rendimenti elevati e guadagna i premi di liquidity mining con i token decentralizzati.",
     "Decentralized loans": "Prestiti decentralizzati",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati."
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati.",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Schermata d'uscita",
@@ -1443,10 +1445,10 @@
     "Future Swap": "Future Swap"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "Server", 
+    "Server": "Server",
     "Service Provider": "Service Provider",
-    "UNLOCK": "UNLOCK", 
-    "RESET": "RESET", 
+    "UNLOCK": "UNLOCK",
+    "RESET": "RESET",
     "Endpoint URL": "Endpoint URL",
     "Custom": "Personalizza",
     "Default": "Default",

@@ -428,7 +428,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "創建錢包",
-    "RESTORE WALLET": "恢復錢包"
+    "RESTORE WALLET": "恢復錢包",
+    "Get started": "開始"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特幣生態原生DeFi",
@@ -439,7 +440,8 @@
     "Maximize earning potential": "最大化盈利潛力",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上進行交易並使用加密貨幣和 dToken 從流動性挖礦中獲得獎勵 ",
     "Decentralized loans": "去中心化資產貸款",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會"
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund": "DeFiChain 錢包是完全非託管的。 個人資金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "離開頁面",
@@ -1428,10 +1430,10 @@
     "Future Swap": "Future Swap"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "伺服器", 
+    "Server": "伺服器",
     "Service Provider": "服務供應商",
-    "UNLOCK": "解鎖", 
-    "RESET": "重置", 
+    "UNLOCK": "解鎖",
+    "RESET": "重置",
     "Endpoint URL": "終端點網址",
     "Custom": "自定",
     "Default": "預設",
