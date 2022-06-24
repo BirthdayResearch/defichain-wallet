@@ -2,7 +2,7 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '@api/wallet'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator.v2'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicatorV2'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { tailwind } from '@tailwind'
@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
 import { TouchableOpacity } from 'react-native'
 import { View } from '@components'
-import { ButtonV2 } from '@components/Button.v2'
+import { Button } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
 
@@ -141,13 +141,12 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
       </ThemedView>
 
-      <ButtonV2
-        margin='m-12 mb-0'
+      <Button
+        styleProps='mt-12 mx-7'
         label={translate('screens/CreateMnemonicWallet', 'Verify words')}
         disabled={words.length === 0}
         onPress={onContinue}
         testID='verify_button'
-        title='verify button'
       />
     </ThemedScrollView>
   )
