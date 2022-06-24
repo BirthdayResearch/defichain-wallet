@@ -15,7 +15,18 @@ interface TextRowProps {
 }
 
 export function TextRowV2 (props: TextRowProps): JSX.Element {
-  const { themedProps, testID, value, ...otherProps } = props.rhs
+  const {
+    themedProps: lhsThemedProps,
+    testID: lhsTestID,
+    value: lhsValue,
+     ...lhsOtherProps
+  } = props.lhs
+  const {
+    themedProps: rhsThemedProps,
+    testID: rhsTestID,
+    value: rhsValue,
+     ...rhsOtherProps
+  } = props.rhs
 
   return (
     <ThemedView
@@ -34,9 +45,11 @@ export function TextRowV2 (props: TextRowProps): JSX.Element {
             style={tailwind('text-sm font-normal-v2')}
             light={tailwind('text-mono-light-v2-900')}
             dark={tailwind('text-mono-dark-v2-900')}
-            {...(typeof (props.lhs) !== 'string') && props.lhs.themedProps}
+            testID={lhsTestID}
+            {...lhsThemedProps}
+            {...lhsOtherProps}
           >
-            {typeof (props.lhs) === 'string' ? props.lhs : props.lhs.value}
+            {lhsValue}
           </ThemedText>
         </View>
       </View>
@@ -46,11 +59,11 @@ export function TextRowV2 (props: TextRowProps): JSX.Element {
           style={tailwind('text-right font-normal-v2 text-sm')}
           light={tailwind('text-mono-light-v2-700')}
           dark={tailwind('text-mono-dark-v2-700')}
-          testID={testID}
-          {...themedProps}
-          {...otherProps}
+          testID={rhsTestID}
+          {...rhsThemedProps}
+          {...rhsOtherProps}
         >
-          {value}
+          {rhsValue}
         </ThemedText>
       </View>
     </ThemedView>
