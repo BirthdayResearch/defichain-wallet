@@ -22,7 +22,7 @@ export function useAuctionBidValue (batch: LoanVaultLiquidationBatch, liquidatio
   const minNextBidInToken = highestBid?.amount?.amount != null ? new BigNumber(highestBid.amount.amount).times(1.01) : minStartingBidInToken
   const minNextBidInUSD = getPrecisedTokenValue(getTokenPrice(batch.loan.symbol, minNextBidInToken))
   const totalCollateralsValueInUSD = getPrecisedTokenValue(batch.collaterals.reduce((total, eachItem) => {
-    return total.plus(new BigNumber(eachItem.amount).multipliedBy(getTokenPrice(eachItem.symbol, new BigNumber(eachItem.amount))))
+    return total.plus(getTokenPrice(eachItem.symbol, new BigNumber(eachItem.amount)))
   }, new BigNumber(0)))
   const hasFirstBid = highestBid?.amount?.amount !== undefined
 

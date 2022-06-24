@@ -1,11 +1,10 @@
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { StyleProp, TextStyle, TouchableOpacityProps } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, IconType } from './themed'
+import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, IconType, IconName } from './themed'
 
 interface IconButtonProps extends TouchableOpacityProps {
-  iconName?: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  iconName?: IconName
   iconType?: IconType
   iconSize?: number
   iconLabel?: string
