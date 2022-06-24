@@ -120,7 +120,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
           light={tailwind('text-mono-light-v2-900')}
           style={tailwind('text-base mt-7 text-center')}
         >
-          {translate('screens/CreateMnemonicWallet', 'Write the words down. Take note of their correct spelling and order.')}
+          {translate('screens/CreateMnemonicWallet', 'Write down the words. Take note of the spelling and order.')}
         </ThemedText>
       </View>
       <ThemedView
