@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { Text } from 'react-native'
-import { ButtonV2, ButtonFillType } from './Button.v2'
+import { Button, ButtonFillType } from './ButtonV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -11,51 +11,36 @@ describe('button', () => {
     it(`should match styling of button type ${fill}`, () => {
       const onPress = jest.fn()
       const enabled = render(
-        <ButtonV2
+        <Button
           disabled={false}
           fill={fill}
           label='Submit'
           onPress={onPress}
-          title='Test'
         />).toJSON()
       expect(enabled).toMatchSnapshot()
 
       const disabled = render(
-        <ButtonV2
+        <Button
           disabled
           fill={fill}
           label='Submit'
           onPress={onPress}
-          title='Test'
         />).toJSON()
       expect(disabled).toMatchSnapshot()
-
-      const submitting = render(
-        <ButtonV2
-          disabled
-          isSubmitting
-          submittingLabel='Submitting'
-          fill={fill}
-          label='Submit'
-          onPress={onPress}
-          title='Test'
-        />).toJSON()
-      expect(submitting).toMatchSnapshot()
     })
   })
 
   it('should be clickable', async () => {
     const onPress = jest.fn()
     const component = (
-      <ButtonV2
+      <Button
         onPress={onPress}
         testID='primary_button'
-        title='Submit'
       >
         <Text>
           Hello World
         </Text>
-      </ButtonV2>
+      </Button>
     )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('primary_button')
@@ -67,16 +52,15 @@ describe('button', () => {
   it('should not be clickable when disabled', async () => {
     const onPress = jest.fn()
     const component = (
-      <ButtonV2
+      <Button
         disabled
         onPress={onPress}
         testID='primary_button'
-        title='Submit'
       >
         <Text>
           Hello World
         </Text>
-      </ButtonV2>
+      </Button>
     )
     const rendered = render(component)
     const receiveButton = await rendered.findByTestId('primary_button')
