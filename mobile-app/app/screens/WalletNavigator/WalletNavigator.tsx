@@ -245,8 +245,8 @@ export function WalletNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-4 py-2'),
           headerLeftContainerStyle: tailwind('pl-4'),
-          headerStyle: [tailwind('rounded-b-2xl'), { height: 76 + insets.top }],
-          headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
+          headerStyle: [tailwind('rounded-b-2xl', { 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }), { height: 76 + insets.top }],
+          headerBackgroundContainerStyle: tailwind({ 'bg-mono-light-v2-100': isLight, 'bg-mono-dark-v2-100': !isLight }),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           )
