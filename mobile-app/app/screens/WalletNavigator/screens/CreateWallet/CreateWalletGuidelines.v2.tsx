@@ -11,7 +11,7 @@ import { WalletParamList } from '../../WalletNavigator'
 import DarkNewWallet from '@assets/images/DarkNewWallet.png'
 import LightNewWallet from '@assets/images/LightNewWallet.png'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { ButtonV2 } from '@components/Button.v2'
+import { Button } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
 
@@ -91,7 +91,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             </ThemedText>
           </View>
        ))}
-        <View style={tailwind('flex-row items-start my-3')}>
+        <View style={tailwind('flex-row items-start mt-3')}>
           <Checkbox
             value={isEnabled}
             onValueChange={toggleSwitch}
@@ -106,14 +106,13 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
           </ThemedText>
         </View>
-        <ButtonV2
+        <Button
           disabled={!isEnabled}
           style={tailwind('rounded')}
           label={translate('screens/Guidelines', 'Create wallet')}
-          margin='mt-9 mx-4'
+          styleProps='mt-12 mx-4'
           onPress={() => navigation.navigate('CreateMnemonicWallet')}
           testID='create_recovery_words_button'
-          title='create mnemonic words'
         />
       </View>
     </ThemedScrollView>
