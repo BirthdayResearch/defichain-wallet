@@ -1218,7 +1218,7 @@
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 1% sont appliqués quand vous payez en {{tokenSymbol}}",
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 1% sont appliqués quand vous payez en {{tokenSymbol}}.",
     "Read more": "En savoir plus",
     "How do you want to pay?": "Comment voulez-vous rembourser?",
     "You are paying": "Vous remboursez",

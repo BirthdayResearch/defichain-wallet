@@ -1206,7 +1206,7 @@
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
     "Insufficient {{token}} to pay for the entered amount": "Unzureichendes {{token}}-Guthaben zur Zahlung des eingegebenen Betrags",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Wenn du mit {{tokenSymbol}} bezahlst, wird eine Gebühr von 1% erhoben",
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Wenn du mit {{tokenSymbol}} bezahlst, wird eine Gebühr von 1% erhoben.",
     "Read more": "Mehr dazu",
     "How do you want to pay?": "Wie möchtest du tilgen?",
     "You are paying": "Du tilgst",
