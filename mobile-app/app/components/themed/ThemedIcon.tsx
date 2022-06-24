@@ -6,6 +6,7 @@ import { tailwind } from '@tailwind'
 import { ThemedProps } from './index'
 
 export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons' | 'Feather'
+export type IconName = React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name'] | React.ComponentProps<typeof Feather>['name']
 
 interface IThemedIcon {
   iconType: IconType

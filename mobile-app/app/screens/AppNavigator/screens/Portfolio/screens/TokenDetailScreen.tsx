@@ -5,7 +5,6 @@ import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { StackScreenProps } from '@react-navigation/stack'
-import { MaterialIcons } from '@expo/vector-icons'
 import { translate } from '@translations'
 import { tokensSelector, WalletToken, unifiedDFISelector } from '@store/wallet'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -13,6 +12,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components'
 import { getNativeIcon } from '@components/icons/assets'
 import {
+  IconName,
   ThemedIcon,
   ThemedScrollView,
   ThemedSectionTitle,
@@ -27,7 +27,7 @@ import { RootState } from '@store'
 
 interface TokenActionItems {
   title: string
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
+  icon: IconName
   onPress: () => void
   testID: string
 }
