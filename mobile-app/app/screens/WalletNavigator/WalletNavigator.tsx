@@ -10,9 +10,9 @@ import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
-import { CreateMnemonicWallet as CreateMnemonicWalletV2 } from './screens/CreateWallet/CreateMnemonicWallet.v2'
+import { CreateMnemonicWallet as CreateMnemonicWalletV2 } from './screens/CreateWallet/CreateMnemonicWalletV2'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
-import { CreateWalletGuidelines as CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelines.v2'
+import { CreateWalletGuidelines as CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelinesV2'
 import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
@@ -26,6 +26,7 @@ import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/N
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -247,7 +248,7 @@ export function WalletNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-4 py-2'),
           headerLeftContainerStyle: tailwind('pl-4'),
-          headerStyle: [tailwind('rounded-b-2xl'), { height: 76 + insets.top }],
+          headerStyle: [tailwind('h-28 rounded-b-2xl'), { height: 76 + insets.top }],
           headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -255,7 +256,7 @@ export function WalletNavigator (): JSX.Element {
         }}
       >
         <WalletStackV2.Screen
-          component={Onboarding}
+          component={OnboardingV2}
           name='OnboardingV2'
           options={{
             headerShown: false

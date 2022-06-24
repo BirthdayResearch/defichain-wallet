@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { CreateWalletStepIndicator } from './CreateWalletStepIndicator.v2'
+import { CreateWalletStepIndicator } from './CreateWalletStepIndicatorV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 

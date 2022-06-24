@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { CreateWalletGuidelines } from './CreateWalletGuidelines.v2'
+import { CreateWalletGuidelines } from './CreateWalletGuidelinesV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 describe('create wallet guidelines v2', () => {

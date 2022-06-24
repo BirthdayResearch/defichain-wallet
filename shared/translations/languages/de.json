@@ -426,7 +426,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "EINE WALLET ERSTELLEN",
-    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN"
+    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
+    "Get started": "Loslegen"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
@@ -437,7 +438,8 @@
     "Maximize earning potential": "Maximiere das Ertragspotenzial",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Handle auf der DEX und verdiene Rewards aus dem Liquiditäts-Mining mit Kryptos und dToken.",
     "Decentralized loans": "Dezentrale Darlehen",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Erhalte Zugang zu finanziellen Gelegenheiten mit dToken, die in dezentralen Vaults gemintet wurden."
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Erhalte Zugang zu finanziellen Gelegenheiten mit dToken, die in dezentralen Vaults gemintet wurden.",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "Die DeFiChain-Wallet ist völlig non-custodial. Nur du hast Zugang zu deinem Guthaben."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Ansicht verlassen",
@@ -1421,10 +1423,10 @@
     "Future Swap": "Future Swap"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "Server", 
+    "Server": "Server",
     "Service Provider": "Dienstanbieter",
-    "UNLOCK": "Entsperren", 
-    "RESET": "Zurücksetzen", 
+    "UNLOCK": "Entsperren",
+    "RESET": "Zurücksetzen",
     "Endpoint URL": "URL des Endpunkts",
     "Custom": "Benutzerdefiniert",
     "Default": "Standard",
