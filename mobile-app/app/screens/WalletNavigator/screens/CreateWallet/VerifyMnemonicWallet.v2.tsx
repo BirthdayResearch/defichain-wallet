@@ -129,7 +129,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         light={tailwind('text-mono-light-v2-900')}
         style={tailwind('text-base mt-7 text-center')}
       >
-        {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly')}
+        {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
       </ThemedText>
 
       <ButtonV2

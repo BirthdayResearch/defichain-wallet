@@ -85,7 +85,7 @@ export function WalletNavigator (): JSX.Element {
   const headerContainerTestId = 'wallet_header_container'
   const { isFeatureAvailable } = useFeatureFlagContext() // TODO: uncomment to test v2
   const insets = useSafeAreaInsets()
-  const testV2 = true // TODO: temp flag to disable v2
+  const testV2 = false // TODO: temp flag to disable v2
 
   const goToNetworkSelect = (): void => {
     // @ts-expect-error
