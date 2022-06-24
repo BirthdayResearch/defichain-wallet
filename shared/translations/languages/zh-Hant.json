@@ -441,7 +441,7 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上進行交易並使用加密貨幣和 dToken 從流動性挖礦中獲得獎勵 ",
     "Decentralized loans": "去中心化資產貸款",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會",
-    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund": "DeFiChain 錢包是完全非託管的。 個人資金只供您私人操作。"
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 錢包是完全非託管的。 個人資金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "離開頁面",
