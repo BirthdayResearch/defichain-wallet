@@ -174,6 +174,9 @@ module.exports = {
       },
       fontSize: {
         '2xs': 10
+      },
+      padding: {
+        4.5: 18
       }
     }
   }

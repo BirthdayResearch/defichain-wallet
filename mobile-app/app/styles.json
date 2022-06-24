@@ -7567,6 +7567,12 @@
 		"paddingBottom": 14,
 		"paddingLeft": 14
 	},
+	"p-4.5": {
+		"paddingTop": 18,
+		"paddingRight": 18,
+		"paddingBottom": 18,
+		"paddingLeft": 18
+	},
 	"px-0": {
 		"paddingLeft": 0,
 		"paddingRight": 0
@@ -7706,6 +7712,10 @@
 	"px-3.5": {
 		"paddingLeft": 14,
 		"paddingRight": 14
+	},
+	"px-4.5": {
+		"paddingLeft": 18,
+		"paddingRight": 18
 	},
 	"py-0": {
 		"paddingTop": 0,
@@ -7847,6 +7857,10 @@
 		"paddingTop": 14,
 		"paddingBottom": 14
 	},
+	"py-4.5": {
+		"paddingTop": 18,
+		"paddingBottom": 18
+	},
 	"pt-0": {
 		"paddingTop": 0
 	},
@@ -7951,6 +7965,9 @@
 	},
 	"pt-3.5": {
 		"paddingTop": 14
+	},
+	"pt-4.5": {
+		"paddingTop": 18
 	},
 	"pr-0": {
 		"paddingRight": 0
@@ -8057,6 +8074,9 @@
 	"pr-3.5": {
 		"paddingRight": 14
 	},
+	"pr-4.5": {
+		"paddingRight": 18
+	},
 	"pb-0": {
 		"paddingBottom": 0
 	},
@@ -8162,6 +8182,9 @@
 	"pb-3.5": {
 		"paddingBottom": 14
 	},
+	"pb-4.5": {
+		"paddingBottom": 18
+	},
 	"pl-0": {
 		"paddingLeft": 0
 	},
@@ -8266,6 +8289,9 @@
 	},
 	"pl-3.5": {
 		"paddingLeft": 14
+	},
+	"pl-4.5": {
+		"paddingLeft": 18
 	},
 	"text-left": {
 		"textAlign": "left"
