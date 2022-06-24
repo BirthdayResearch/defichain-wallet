@@ -127,19 +127,18 @@ function StepNode (props: { step: number, current: number, content: string, isLi
         )}
         <Description
           content={props.content}
-          current={props.current}
-          step={props.step}
+          textStyle={textStyle}
         />
       </View>
     </View>
   )
 }
 
-function Description (props: { step: number, current: number, content: string }): JSX.Element {
+function Description (props: {content: string, textStyle: string }): JSX.Element {
   return (
     <ThemedText
-      dark={tailwind(props.current === props.step ? 'text-green-v2' : 'text-mono-dark-v2-900')}
-      light={tailwind(props.current === props.step ? 'text-green-v2' : 'text-mono-light-v2-900')}
+      dark={tailwind(props.textStyle)}
+      light={tailwind(props.textStyle)}
       style={tailwind('text-center text-xs font-normal top-12 absolute w-20')}
     >
       {translate('components/CreateWalletIndicator', props.content)}
