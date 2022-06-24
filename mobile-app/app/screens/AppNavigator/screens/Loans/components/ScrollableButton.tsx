@@ -1,7 +1,6 @@
 import { View } from '@components'
 import { IconButton } from '@components/IconButton'
-import { IconType, ThemedScrollView } from '@components/themed'
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { IconName, IconType, ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
@@ -15,7 +14,7 @@ interface ScrollableButtonProps {
 export interface ScrollButton {
   label: string
   iconType?: IconType
-  iconName?: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  iconName?: IconName
   disabled?: boolean
   handleOnPress: () => void
   testID?: string
