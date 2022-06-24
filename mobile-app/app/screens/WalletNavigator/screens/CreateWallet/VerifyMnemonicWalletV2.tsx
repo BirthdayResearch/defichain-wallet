@@ -1,4 +1,4 @@
-import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator.v2'
+import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicatorV2'
 import { View } from '@components/index'
 import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
@@ -10,7 +10,7 @@ import { shuffle } from 'lodash'
 import { useEffect, useState } from 'react'
 import { WalletParamList } from '../../WalletNavigator'
 import { getReleaseChannel } from '@api/releaseChannel'
-import { ButtonV2 } from '@components/Button.v2'
+import { Button } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
@@ -132,15 +132,14 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
       </ThemedText>
 
-      <ButtonV2
-        margin='mx-12 mt-5'
+      <Button
+        styleProps='mt-5 mx-7'
         delayLongPress={1000}
         disabled={!isValid}
-        label={translate('screens/VerifyMnemonicWallet', 'Verify words')}
         onLongPress={debugBypass}
         onPress={onVerify}
         testID='verify_words_button'
-        title='verify mnemonic'
+        label={translate('screens/VerifyMnemonicWallet', 'Verify words')}
       />
     </ThemedScrollView>
   )
