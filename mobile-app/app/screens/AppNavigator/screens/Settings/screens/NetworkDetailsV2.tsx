@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { TouchableOpacity, Linking } from 'react-native'
 import { View } from '@components/index'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -27,7 +27,7 @@ export function NetworkDetailsV2 (): JSX.Element {
   return (
     <ThemedViewV2
       testID='network_details'
-      style={tailwind('px-5 pt-4.5 flex-1')}
+      style={tailwind('px-5 flex-1')}
     >
 
       <ThemedSectionTitleV2
@@ -35,7 +35,7 @@ export function NetworkDetailsV2 (): JSX.Element {
         text={translate('screens/NetworkDetails', 'CONNECTION')}
       />
 
-      <ThemedView
+      <ThemedViewV2
         style={[tailwind('p-5'), { borderRadius: 10 }]}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
@@ -50,14 +50,14 @@ export function NetworkDetailsV2 (): JSX.Element {
           }}
         />
         <NetworkStatusRow connected={connected} />
-      </ThemedView>
+      </ThemedViewV2>
 
       <ThemedSectionTitleV2
         testID='network_details_block_info'
         text={translate('screens/NetworkDetails', 'DETAILS')}
       />
 
-      <ThemedView
+      <ThemedViewV2
         style={[tailwind('p-5'), { borderRadius: 10 }]}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
@@ -90,7 +90,7 @@ export function NetworkDetailsV2 (): JSX.Element {
             dark: tailwind('bg-transparent')
           }}
         />
-      </ThemedView>
+      </ThemedViewV2>
     </ThemedViewV2>
   )
 }
@@ -156,7 +156,7 @@ function BlocksInfoRow ({ blockCount }: { blockCount?: number }): JSX.Element {
   }
 
   return (
-    <ThemedView
+    <ThemedViewV2
       style={tailwind('flex-row items-start w-full bg-transparent py-4.5 border-b')}
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
@@ -206,6 +206,6 @@ function BlocksInfoRow ({ blockCount }: { blockCount?: number }): JSX.Element {
           </View>
         </TouchableOpacity>
       </View>
-    </ThemedView>
+    </ThemedViewV2>
   )
 }

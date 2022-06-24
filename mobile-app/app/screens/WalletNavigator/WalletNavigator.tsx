@@ -24,6 +24,8 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { NetworkDetailsV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetailsV2'
+import { OnboardingNetworkSelectScreenV2 } from './screens/CreateWallet/OnboardingNetworkSelectScreenV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -86,9 +88,14 @@ export function WalletNavigator (): JSX.Element {
   const insets = useSafeAreaInsets()
 
   const goToNetworkSelect = (): void => {
-    // @ts-expect-error
     // TODO(kyleleow) update typings
-    navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
+    if (isFeatureAvailable('onboarding_v2')) {
+      // @ts-expect-error
+      navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreenV2' })
+    } else {
+      // @ts-expect-error
+      navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
+    }
   }
 
   function WalletStacks (): JSX.Element {
@@ -245,8 +252,8 @@ export function WalletNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-4 py-2'),
           headerLeftContainerStyle: tailwind('pl-4'),
-          headerStyle: [tailwind('rounded-b-2xl'), { height: 76 + insets.top }],
-          headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
+          headerStyle: [tailwind('rounded-b-2xl', { 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }), { height: 76 + insets.top }],
+          headerBackgroundContainerStyle: tailwind({ 'bg-mono-light-v2-100': isLight, 'bg-mono-dark-v2-100': !isLight }),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           )
@@ -264,6 +271,22 @@ export function WalletNavigator (): JSX.Element {
           name='CreateWalletGuidelines'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Guidelines')
+          }}
+        />
+        <WalletStackV2.Screen
+          component={NetworkDetailsV2}
+          name='NetworkDetailsV2'
+          options={{
+            headerTitle: translate('screens/NetworkDetails', 'Network'),
+            headerRight: undefined
+          }}
+        />
+        <WalletStackV2.Screen
+          component={OnboardingNetworkSelectScreenV2}
+          name='OnboardingNetworkSelectScreenV2'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Select Network'),
+            headerRight: undefined
           }}
         />
       </WalletStackV2.Navigator>
