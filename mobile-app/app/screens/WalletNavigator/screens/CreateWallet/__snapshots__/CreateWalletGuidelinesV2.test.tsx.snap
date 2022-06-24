@@ -299,64 +299,64 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.
         </Text>
       </View>
-      <View
-        accessibilityState={
-          Object {
-            "disabled": true,
-          }
+    </View>
+    <View
+      accessibilityState={
+        Object {
+          "disabled": true,
         }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(166, 166, 166, 1)",
+          "borderBottomLeftRadius": 24,
+          "borderBottomRightRadius": 24,
+          "borderTopLeftRadius": 24,
+          "borderTopRightRadius": 24,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginLeft": 28,
+          "marginRight": 28,
+          "marginTop": 48,
+          "opacity": 1,
+          "paddingBottom": 14,
+          "paddingLeft": 14,
+          "paddingRight": 14,
+          "paddingTop": 14,
+        }
+      }
+      testID="create_recovery_words_button"
+    >
+      <Text
         style={
-          Object {
-            "backgroundColor": "rgba(166, 166, 166, 1)",
-            "borderBottomLeftRadius": 24,
-            "borderBottomRightRadius": 24,
-            "borderTopLeftRadius": 24,
-            "borderTopRightRadius": 24,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginLeft": 16,
-            "marginRight": 16,
-            "marginTop": 48,
-            "opacity": 1,
-            "paddingBottom": 14,
-            "paddingLeft": 14,
-            "paddingRight": 14,
-            "paddingTop": 14,
-          }
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(242, 242, 242, 1)",
+              "fontFamily": "BoldFont",
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+          ]
         }
-        testID="create_recovery_words_button"
       >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Object {
-                "color": "rgba(242, 242, 242, 1)",
-                "fontFamily": "BoldFont",
-                "fontWeight": "700",
-                "textAlign": "center",
-              },
-            ]
-          }
-        >
-          Create wallet
-        </Text>
-      </View>
+        Create wallet
+      </Text>
     </View>
   </View>
 </RCTScrollView>
