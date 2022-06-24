@@ -52,8 +52,6 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
     <ThemedTouchableOpacityV2
       onPress={onPress}
       style={tailwind('flex-row py-4.5 items-center justify-between border-b', { 'border-0': props.isLast })}
-      light={tailwind('border-mono-light-v2-300')}
-      dark={tailwind('border-mono-dark-v2-300')}
       testID={`button_network_${props.network}`}
     >
       <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
@@ -61,8 +59,8 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
       </ThemedTextV2>
 
       <ThemedIcon
-        light={tailwind({ 'text-green-v2': props.network === network, 'text-light-mono-v2-700': props.network !== network })}
-        dark={tailwind({ 'text-green-v2': props.network === network, 'text-dark-mono-v2-700': props.network !== network })}
+        light={tailwind({ 'text-green-v2': props.network === network, 'text-mono-light-v2-300': props.network !== network })}
+        dark={tailwind({ 'text-green-v2': props.network === network, 'text-mono-dark-v2-300': props.network !== network })}
         iconType='MaterialCommunityIcons'
         name='check-circle'
         size={18}
