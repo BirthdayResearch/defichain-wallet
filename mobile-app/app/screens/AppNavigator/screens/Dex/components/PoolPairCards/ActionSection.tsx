@@ -1,9 +1,9 @@
 import { StyleProp, View, ViewStyle } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { IconButton } from '@components/IconButton'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { IconName } from '@components/themed'
 
 interface ActionSectionProps {
   type: 'your' | 'available'
@@ -116,7 +116,7 @@ function AvailablePairActions ({
 }
 
 interface ActionButtonProps {
-  name: React.ComponentProps<typeof MaterialIcons>['name']
+  name: IconName
   pair: string
   onPress: () => void
   label: string
