@@ -59,8 +59,8 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
       </ThemedTextV2>
 
       <ThemedIcon
-        light={tailwind({ 'text-green-v2': props.network === network, 'text-mono-light-v2-300': props.network !== network })}
-        dark={tailwind({ 'text-green-v2': props.network === network, 'text-mono-dark-v2-300': props.network !== network })}
+        light={tailwind({ 'text-green-v2': props.network === network, 'text-mono-light-v2-700 opacity-30': props.network !== network })}
+        dark={tailwind({ 'text-green-v2': props.network === network, 'text-mono-dark-v2-700 opacity-30': props.network !== network })}
         iconType='MaterialCommunityIcons'
         name='check-circle'
         size={18}
