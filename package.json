@@ -72,7 +72,7 @@
     "i18n-js": "^3.9.2",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
-    "lru-cache": "^7.10.1",
+    "lru-cache": "^7.10.2",
     "react": "17.0.2",
     "react-content-loader": "^6.2.0",
     "react-devtools": "^4.24.7",
