@@ -84,9 +84,9 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           Array [
             Object {
               "fontFamily": "SoraSemiBold",
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "600",
-              "lineHeight": 24,
+              "lineHeight": 20,
               "marginTop": 8,
               "paddingLeft": 12,
               "paddingRight": 12,

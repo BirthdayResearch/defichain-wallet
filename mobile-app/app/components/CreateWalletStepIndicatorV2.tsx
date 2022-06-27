@@ -3,7 +3,7 @@ import { Text, View } from '.'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { ThemedIcon, ThemedTextV2 as ThemedText } from './themed'
+import { ThemedIcon, ThemedTextV2 } from './themed'
 
 interface StepIndicatorProps {
   current: number
@@ -30,7 +30,7 @@ export const RESTORE_STEPS = [
  * @param {string[]} props.steps description displayed for each step
  * @returns {JSX.Element}
  */
-export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Element {
+export function CreateWalletStepIndicatorV2 (props: StepIndicatorProps): JSX.Element {
   const { isLight } = useThemeContext()
   const {
     current,
@@ -133,12 +133,12 @@ function StepNode (props: { step: number, current: number, content: string, isLi
 
 function Description (props: {content: string, textStyle: string }): JSX.Element {
   return (
-    <ThemedText
+    <ThemedTextV2
       dark={tailwind(props.textStyle)}
       light={tailwind(props.textStyle)}
       style={tailwind('text-center text-xs font-normal-v2 top-12 absolute w-20')}
     >
       {translate('components/CreateWalletIndicator', props.content)}
-    </ThemedText>
+    </ThemedTextV2>
   )
 }

@@ -2,8 +2,8 @@ import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader
 import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '@api/wallet'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicatorV2'
-import { ThemedIcon, ThemedScrollViewV2 as ThemedScrollView, ThemedTextV2 as ThemedText, ThemedViewV2 as ThemedView } from '@components/themed'
+import { CREATE_STEPS, CreateWalletStepIndicatorV2 } from '@components/CreateWalletStepIndicatorV2'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -18,7 +18,7 @@ export interface CreateMnemonicWalletHandle {
   getMnemonicWords: () => void
 }
 
-export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
+export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
   const [words, setWords] = useState<string[]>(MnemonicUnprotected.generateWords())
 
   const refreshRecoveryWords = (): void => {
@@ -53,9 +53,9 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
           testID='reset_recovery_word_button'
         >
           <ThemedIcon
-            dark={tailwind('text-darkprimary-500')}
             iconType='MaterialIcons'
-            light={tailwind('text-primary-500')}
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
             name='refresh'
             size={24}
           />
@@ -102,24 +102,24 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView
+    <ThemedScrollViewV2
       contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       style={tailwind('flex-1')}
     >
       <View style={tailwind('px-5 mb-12')}>
-        <CreateWalletStepIndicator
+        <CreateWalletStepIndicatorV2
           current={1}
           steps={CREATE_STEPS}
           style={tailwind('px-4')}
         />
 
-        <ThemedText
+        <ThemedTextV2
           style={tailwind('text-base mt-7 text-center font-normal-v2')}
         >
           {translate('screens/CreateMnemonicWallet', 'Write down the words. Take note of the spelling and order.')}
-        </ThemedText>
+        </ThemedTextV2>
       </View>
-      <ThemedView
+      <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         style={tailwind('rounded-xl')}
@@ -135,7 +135,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
             )
           )
           : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
-      </ThemedView>
+      </ThemedViewV2>
 
       <Button
         styleProps='mt-12 mx-7'
@@ -144,34 +144,34 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         onPress={onContinue}
         testID='verify_button'
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
 
 function RecoveryWordRow (props: { index: number, word: string, key: number, border: boolean }): JSX.Element {
   return (
-    <ThemedView
+    <ThemedViewV2
       dark={tailwind('border-mono-dark-v2-300')}
       light={tailwind('border-mono-light-v2-300')}
       style={tailwind(['py-4 mx-5 flex-row justify-center', { 'border-b': props.border }])}
     >
-      <ThemedText
+      <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-500')}
         light={tailwind('text-mono-light-v2-500')}
         style={tailwind('w-12 text-sm font-normal-v2')}
         testID={`word_${props.index + 1}_number`}
       >
         {`${props.index + 1}.`}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <ThemedText
+      <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-700')}
         light={tailwind('text-mono-light-v2-700')}
         style={tailwind('flex-grow text-sm font-normal-v2')}
         testID={`word_${props.index + 1}`}
       >
         {props.word}
-      </ThemedText>
-    </ThemedView>
+      </ThemedTextV2>
+    </ThemedViewV2>
   )
 }

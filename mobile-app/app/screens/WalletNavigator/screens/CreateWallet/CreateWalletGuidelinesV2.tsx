@@ -31,7 +31,7 @@ const guidelines: GuidelineItem[] = [
   }
 ]
 
-export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
+export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
   const { isLight } = useThemeContext()

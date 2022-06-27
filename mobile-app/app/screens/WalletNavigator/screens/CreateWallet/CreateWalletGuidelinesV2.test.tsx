@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { CreateWalletGuidelines } from './CreateWalletGuidelinesV2'
+import { CreateWalletGuidelinesV2 } from './CreateWalletGuidelinesV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 describe('create wallet guidelines v2', () => {
@@ -9,7 +9,7 @@ describe('create wallet guidelines v2', () => {
     }
     const route: any = {}
     const rendered = render(
-      <CreateWalletGuidelines
+      <CreateWalletGuidelinesV2
         navigation={navigation}
         route={route}
       />)
