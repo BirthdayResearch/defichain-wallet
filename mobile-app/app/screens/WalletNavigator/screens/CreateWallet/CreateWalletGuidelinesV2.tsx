@@ -11,7 +11,7 @@ import { WalletParamList } from '../../WalletNavigator'
 import DarkNewWallet from '@assets/images/DarkNewWallet.png'
 import LightNewWallet from '@assets/images/LightNewWallet.png'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { Button } from '@components/ButtonV2'
+import { ButtonV2 } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
 
@@ -101,7 +101,7 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
           </ThemedText>
         </View>
       </View>
-      <Button
+      <ButtonV2
         disabled={!isEnabled}
         style={tailwind('rounded')}
         label={translate('screens/Guidelines', 'Create wallet')}

@@ -5,10 +5,10 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../WalletNavigator'
 import { ImageBackground } from 'react-native'
-import { Button } from '@components/ButtonV2'
+import { ButtonV2 } from '@components/ButtonV2'
 import GridBackgroundImage from '@assets/images/onboarding/grid-background.png'
-import { VersionTag } from '@components/VersionTagV2'
-import { OnboardingCarousel } from '@screens/WalletNavigator/screens/components/OnboardingCarouselV2'
+import { VersionTagV2 } from '@components/VersionTagV2'
+import { OnboardingCarouselV2 } from '@screens/WalletNavigator/screens/components/OnboardingCarouselV2'
 
 export function OnboardingV2 (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
@@ -19,7 +19,7 @@ export function OnboardingV2 (): JSX.Element {
       testID='onboarding_carousel'
     >
       <View style={tailwind('h-3/5')}>
-        <OnboardingCarousel />
+        <OnboardingCarouselV2 />
       </View>
       <View>
         <ImageBackground
@@ -27,13 +27,13 @@ export function OnboardingV2 (): JSX.Element {
           style={tailwind('px-8')}
           resizeMode='cover'
         >
-          <Button
+          <ButtonV2
             label={translate('screens/Onboarding', 'Get started')}
             styleProps='m-2 mt-20'
             onPress={() => navigator.navigate('CreateWalletGuidelines')}
             testID='get_started_button'
           />
-          <Button
+          <ButtonV2
             fill='flat'
             label={translate('screens/Onboarding', 'Restore Wallet')}
             styleProps='mx-2 mt-6 mb-12'
@@ -41,7 +41,7 @@ export function OnboardingV2 (): JSX.Element {
             testID='restore_wallet_button'
           />
         </ImageBackground>
-        <VersionTag />
+        <VersionTagV2 />
       </View>
     </ThemedScrollView>
   )

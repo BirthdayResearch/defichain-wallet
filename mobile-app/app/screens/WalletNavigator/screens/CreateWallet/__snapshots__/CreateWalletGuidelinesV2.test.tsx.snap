@@ -360,8 +360,8 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
             },
             Object {
               "color": "rgba(242, 242, 242, 1)",
-              "fontFamily": "BoldFont",
-              "fontWeight": "700",
+              "fontFamily": "SoraSemiBold",
+              "fontWeight": "600",
               "textAlign": "center",
             },
           ]
