@@ -1,6 +1,6 @@
 import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicatorV2'
 import { View } from '@components/index'
-import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedScrollViewV2 as ThemedScrollView, ThemedTextV2 as ThemedText, ThemedTouchableOpacityV2 as ThemedTouchableOpacity, ThemedViewV2 as ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { getEnvironment } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -89,8 +89,6 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-mono-dark-v2-100')}
-      light={tailwind('bg-mono-light-v2-100')}
       contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       style={tailwind('flex-1')}
     >
@@ -102,8 +100,6 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         />
 
         <ThemedText
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
           style={tailwind('text-base mt-7 text-center font-normal-v2')}
         >
           {translate('screens/VerifyMnemonicWallet', 'Verify the written recovery words.')}
@@ -125,8 +121,6 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
       ))}
 
       <ThemedText
-        dark={tailwind('text-mono-dark-v2-900')}
-        light={tailwind('text-mono-light-v2-900')}
         style={tailwind('text-base mt-7 text-center font-normal-v2')}
       >
         {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
@@ -158,17 +152,17 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
     <View style={tailwind('mb-5')}>
       <View style={tailwind('flex-row')}>
         <ThemedText
-          style={tailwind('text-xs font-normal-v2')}
           light={tailwind('text-mono-light-v2-400')}
           dark={tailwind('text-mono-dark-v2-400')}
+          style={tailwind('text-xs font-normal-v2')}
           testID={`line_${lineNumber}`}
         >
           {numberOrdinal(index + 1)}
         </ThemedText>
         <ThemedText
-          style={tailwind('text-xs ml-1 font-normal-v2')}
           light={tailwind('text-mono-light-v2-400')}
           dark={tailwind('text-mono-dark-v2-400')}
+          style={tailwind('text-xs ml-1 font-normal-v2')}
         >
           {translate('screens/VerifyMnemonicWallet', 'word')}
         </ThemedText>
