@@ -3,6 +3,7 @@ context('Onboarding - Restore Wallet', () => {
 
   before(function () {
     cy.visit('/')
+    cy.blockAllFeatureFlag()
     cy.exitWallet()
     cy.getByTestID('restore_wallet_button').click()
     cy.url().should('include', 'wallet/mnemonic/restore')
