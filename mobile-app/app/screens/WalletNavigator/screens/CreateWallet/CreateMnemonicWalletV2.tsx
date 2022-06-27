@@ -10,7 +10,7 @@ import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
 import { TouchableOpacity } from 'react-native'
 import { View } from '@components'
-import { Button } from '@components/ButtonV2'
+import { ButtonV2 } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
 
@@ -137,7 +137,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
           : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
       </ThemedViewV2>
 
-      <Button
+      <ButtonV2
         styleProps='mt-12 mx-7'
         label={translate('screens/CreateMnemonicWallet', 'Verify words')}
         disabled={words.length === 0}
