@@ -10,22 +10,14 @@ export const statusWebsiteSlice = createApi({
     getBlockchainStatus: builder.query<DefiChainStatus, any>({
       query: () => ({
         url: '/blockchain',
-        method: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          mode: 'no-cors'
-        }
+        method: 'GET'
       })
     }),
     // Ocean API 
     getOceanStatus: builder.query<DefiChainStatus, any>({
       query: () => ({
         url:'/overall',
-        method: 'GET', 
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          mode: 'no-cors'
-        }
+        method: 'GET'
       })
     })
   })
