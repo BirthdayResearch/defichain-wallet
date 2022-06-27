@@ -63,15 +63,15 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
   const isBlockchainDown = useBlockchainStatus()
 
   const setAnnouncementAsync = useCallback(async () => {
-    // isBlockchainDown measures 45mins sync 
     if (isBlockchainDown && isBlockchainSuccess && blockchainStatus?.status.description === 'outage') {
       return setBlockchainStatusAnnouncement(blockChainIsDownContent)
-    } else if (isBlockchainDown && isOceanSuccess && oceanStatus?.status.description === 'outage') {
+    } else if (!isBlockchainDown && isOceanSuccess && oceanStatus?.status.description === 'outage') {
+      // if overall (ocean) api is down
       return setOceanStatusAnnouncement(oceanIsDownContent)
     } else {
       return setOceanStatusAnnouncement(undefined)
     }
-  }, [isOceanSuccess, isBlockchainDown, oceanStatus?.status?.description])
+  }, [isOceanSuccess, isBlockchainDown, oceanStatus?.status?.description, blockchainStatus?.status?.description])
 
   useEffect(() => {
     void setAnnouncementAsync()

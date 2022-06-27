@@ -33,8 +33,8 @@ export function Announcements (): JSX.Element {
   } = useDisplayAnnouncement()
 
   const {
-    blockchainStatusAnnouncement: blockchainStatusAnnouncement,
-    oceanStatusAnnouncement: oceanStatusAnnouncement
+    blockchainStatusAnnouncement,
+    oceanStatusAnnouncement
   } = useDefiChainStatus(hiddenAnnouncements)
 
   const { isCustomUrl } = useServiceProviderContext()
