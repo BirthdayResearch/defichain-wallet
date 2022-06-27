@@ -11,7 +11,7 @@ interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
   styleProps?: string
 }
 
-export function Button (props: ButtonProps): JSX.Element {
+export function ButtonV2 (props: ButtonProps): JSX.Element {
   const {
     label,
     fill = 'fill',

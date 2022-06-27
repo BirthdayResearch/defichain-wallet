@@ -3,7 +3,7 @@ import { nativeApplicationVersion } from 'expo-application'
 import { ThemedText, ThemedView } from '@components/themed'
 import { translate } from '@translations'
 
-export function VersionTag (): JSX.Element {
+export function VersionTagV2 (): JSX.Element {
   return (
     <ThemedView>
       <ThemedText

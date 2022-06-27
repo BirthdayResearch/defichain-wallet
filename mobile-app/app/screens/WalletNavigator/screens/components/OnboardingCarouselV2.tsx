@@ -83,7 +83,7 @@ export function ImageSlide ({ image, imageLight, title, subtitle }: CarouselImag
   )
 }
 
-export function OnboardingCarousel (): JSX.Element {
+export function OnboardingCarouselV2 (): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <SwiperFlatList
