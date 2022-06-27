@@ -32,7 +32,7 @@ export function ButtonV2 (props: ButtonProps): JSX.Element {
       style={tailwind(`${styleProps} p-3.5 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)}
     >
       <>
-        <Text style={(tailwind(`${textStyle} font-bold text-center`))}>
+        <Text style={(tailwind(`${textStyle} font-semibold-v2 text-center`))}>
           {label}
         </Text>
       </>
