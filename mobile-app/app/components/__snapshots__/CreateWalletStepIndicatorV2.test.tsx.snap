@@ -65,7 +65,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               Object {
                 "color": "rgba(0, 173, 29, 1)",
-                "fontFamily": "SemiBoldFont",
+                "fontFamily": "SoraSemiBold",
                 "fontSize": 18,
                 "fontWeight": "600",
                 "lineHeight": 28,
@@ -87,7 +87,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
@@ -158,7 +158,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               Object {
                 "color": "rgba(18, 18, 18, 1)",
-                "fontFamily": "SemiBoldFont",
+                "fontFamily": "SoraSemiBold",
                 "fontSize": 18,
                 "fontWeight": "600",
                 "lineHeight": 28,
@@ -180,7 +180,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
@@ -251,7 +251,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               Object {
                 "color": "rgba(18, 18, 18, 1)",
-                "fontFamily": "SemiBoldFont",
+                "fontFamily": "SoraSemiBold",
                 "fontSize": 18,
                 "fontWeight": "600",
                 "lineHeight": 28,
@@ -273,7 +273,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "RegularFont",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
