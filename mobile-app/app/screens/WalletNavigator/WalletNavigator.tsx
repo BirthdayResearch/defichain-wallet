@@ -28,6 +28,8 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
+import { PinCreationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinCreationV2'
+import { PinConfirmationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinConfirmationV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -286,6 +288,26 @@ export function WalletNavigator (): JSX.Element {
           name='VerifyMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Verify Words')
+          }}
+        />
+        <WalletStack.Screen
+          component={PinCreationV2}
+          name='PinCreation'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Create Passcode')
+          }}
+        />
+        <WalletStack.Screen
+          component={PinConfirmationV2}
+          name='PinConfirmation'
+          options={{
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/WalletNavigator', 'Verify passcode')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
+            headerBackTitleVisible: false
           }}
         />
       </WalletStackV2.Navigator>
