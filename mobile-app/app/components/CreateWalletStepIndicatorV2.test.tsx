@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react-native'
-import { CreateWalletStepIndicator } from './CreateWalletStepIndicatorV2'
+import { CreateWalletStepIndicatorV2 } from './CreateWalletStepIndicatorV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
 describe('Create wallet step indicator', () => {
   it('should match snapshot', () => {
     const rendered = render(
-      <CreateWalletStepIndicator
+      <CreateWalletStepIndicatorV2
         current={1}
         steps={['Recovery', 'Verify', 'Secure']}
       />
