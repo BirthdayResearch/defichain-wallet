@@ -10,7 +10,7 @@ import { shuffle } from 'lodash'
 import { useEffect, useState } from 'react'
 import { WalletParamList } from '../../WalletNavigator'
 import { getReleaseChannel } from '@api/releaseChannel'
-import { Button } from '@components/ButtonV2'
+import { ButtonV2 } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
@@ -126,7 +126,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
       </ThemedTextV2>
 
-      <Button
+      <ButtonV2
         styleProps='mt-5 mx-7'
         delayLongPress={1000}
         disabled={!isValid}
