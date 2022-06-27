@@ -55,6 +55,7 @@ context('Wallet - Pool Pair Rewards', () => {
     })
 
     it('should check if WalletA received LP tokens', function () {
+      cy.blockAllFeatureFlag()
       cy.exitWallet()
       cy.restoreMnemonicWords(walletA.recoveryWords)
       cy.getByTestID('portfolio_row_17_amount').contains('10')
