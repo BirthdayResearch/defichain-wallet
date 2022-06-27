@@ -45,8 +45,8 @@ exports[`button should be clickable 1`] = `
         },
         Object {
           "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -104,8 +104,8 @@ exports[`button should match styling of button type fill 1`] = `
         },
         Object {
           "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -165,8 +165,8 @@ exports[`button should match styling of button type fill 2`] = `
         },
         Object {
           "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -226,8 +226,8 @@ exports[`button should match styling of button type flat 1`] = `
         },
         Object {
           "color": "rgba(18, 18, 18, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -287,8 +287,8 @@ exports[`button should match styling of button type flat 2`] = `
         },
         Object {
           "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -348,8 +348,8 @@ exports[`button should match styling of button type outline 1`] = `
         },
         Object {
           "color": "rgba(18, 18, 18, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -409,8 +409,8 @@ exports[`button should match styling of button type outline 2`] = `
         },
         Object {
           "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
@@ -471,8 +471,8 @@ exports[`button should not be clickable when disabled 1`] = `
         },
         Object {
           "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "BoldFont",
-          "fontWeight": "700",
+          "fontFamily": "SoraSemiBold",
+          "fontWeight": "600",
           "textAlign": "center",
         },
       ]
