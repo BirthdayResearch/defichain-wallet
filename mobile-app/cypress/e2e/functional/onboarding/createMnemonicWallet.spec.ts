@@ -63,6 +63,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     before(() => {
       cy.blockAllFeatureFlag()
     })
+
     it('should be able to verify mnemonic from settings page', function () {
       cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
     })
@@ -72,6 +73,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     before(() => {
       cy.blockAllFeatureFlag()
     })
+
     it('should be able to restore mnemonic words', function () {
       cy.exitWallet()
       cy.restoreMnemonicWords(settingsRecoveryWords)
