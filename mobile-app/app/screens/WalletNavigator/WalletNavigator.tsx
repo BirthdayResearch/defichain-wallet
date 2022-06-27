@@ -25,6 +25,7 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
+import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -53,6 +54,9 @@ export interface WalletParamList {
 export interface WalletParamListV2 {
   WalletOnboardingScreen: undefined
   CreateWalletGuidelines: undefined
+  WalletCreateRestoreSuccess: {
+    isWalletRestored: boolean
+  }
   [key: string]: undefined | object
 }
 
@@ -239,7 +243,7 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='OnboardingV2'
+        initialRouteName='WalletCreateRestoreSuccess'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
@@ -267,6 +271,15 @@ export function WalletNavigator (): JSX.Element {
             headerTitle: translate('screens/WalletNavigator', 'Guidelines')
           }}
         />
+
+        <WalletStackV2.Screen
+          component={WalletCreateRestoreSuccess}
+          name='WalletCreateRestoreSuccess'
+          options={{
+            headerShown: false
+          }}
+        />
+
       </WalletStackV2.Navigator>
     )
   }
