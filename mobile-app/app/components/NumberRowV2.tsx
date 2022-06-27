@@ -10,11 +10,11 @@ type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 
 interface NumberRowProps extends ThemedProps {
   lhs: NumberRowElement
-  rhs: rhsNumberRowElement
+  rhs: RhsNumberRowElement
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> }
 }
 
-interface rhsNumberRowElement extends NumberRowElement {
+interface RhsNumberRowElement extends NumberRowElement {
   usdAmount?: BigNumber
   isOraclePrice?: boolean
 }
