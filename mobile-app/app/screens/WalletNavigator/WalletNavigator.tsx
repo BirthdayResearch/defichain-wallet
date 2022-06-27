@@ -26,7 +26,7 @@ import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/N
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
+import { getDefaultThemeV2 } from '@constants/ThemeV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -83,10 +83,10 @@ export function WalletNavigator (): JSX.Element {
   const { isLight } = useThemeContext()
   const navigationRef = useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight)
   const headerContainerTestId = 'wallet_header_container'
-  const { isFeatureAvailable } = useFeatureFlagContext() // TODO: uncomment to test v2
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const insets = useSafeAreaInsets()
-  const testV2 = false // TODO: temp flag to disable v2
 
   const goToNetworkSelect = (): void => {
     // @ts-expect-error
@@ -241,27 +241,28 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='OnboardingV2'
+        initialRouteName='Onboarding'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-4 py-2'),
           headerLeftContainerStyle: tailwind('pl-4'),
-          headerStyle: [tailwind('h-28 rounded-b-2xl'), { height: 76 + insets.top }],
-          headerBackgroundContainerStyle: tailwind(isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'),
+          headerStyle: [tailwind('rounded-b-2xl', { 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }), { height: 76 + insets.top }],
+          headerBackgroundContainerStyle: tailwind({ 'bg-mono-light-v2-100': isLight, 'bg-mono-dark-v2-100': !isLight }),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           )
         }}
       >
         <WalletStackV2.Screen
-          component={OnboardingV2}
+          component={Onboarding}
           name='OnboardingV2'
           options={{
             headerShown: false
           }}
         />
+
         <WalletStack.Screen
           component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
@@ -269,6 +270,7 @@ export function WalletNavigator (): JSX.Element {
             headerTitle: translate('screens/WalletNavigator', 'New Wallet')
           }}
         />
+
         <WalletStack.Screen
           component={CreateMnemonicWalletV2}
           name='CreateMnemonicWallet'
@@ -285,7 +287,6 @@ export function WalletNavigator (): JSX.Element {
             headerTitle: translate('screens/WalletNavigator', 'Verify Words')
           }}
         />
-
       </WalletStackV2.Navigator>
     )
   }
@@ -294,13 +295,12 @@ export function WalletNavigator (): JSX.Element {
     <NavigationContainer
       linking={LinkingConfiguration}
       ref={navigationRef}
-      theme={DeFiChainTheme}
+      theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}
     >
-      {/* {isFeatureAvailable('onboarding_v2') TODO: uncomment this condition to test v2 and when all onboarding screens are completed */}
-      {isFeatureAvailable('onboarding_v2') && testV2
+      {isFeatureAvailable('onboarding_v2')
         ? (
           <WalletStacksV2 />
-          )
+        )
         : (
           <WalletStacks />
         )}

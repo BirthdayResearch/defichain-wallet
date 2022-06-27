@@ -50,14 +50,14 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
         />
       </View>
       <ThemedText
-        style={tailwind('mt-7 text-base text-center')}
+        style={tailwind('mt-7 px-3 text-base font-normal-v2 text-center')}
         light={tailwind('text-mono-light-v2-900')}
         dark={tailwind('text-mono-dark-v2-900')}
       >
         {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
       </ThemedText>
       <ThemedText
-        style={tailwind('mt-2 text-base text-center font-semibold')}
+        style={tailwind('mt-2 px-3 text-base text-center font-semibold-v2')}
         light={tailwind('text-mono-light-v2-900')}
         dark={tailwind('text-mono-dark-v2-900')}
       >
@@ -85,7 +85,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
             <ThemedText
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('text-xs ml-4')}
+              style={tailwind('text-xs ml-4 font-normal-v2')}
             >
               {translate('screens/Guidelines', g.title)}
             </ThemedText>
@@ -101,7 +101,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
           <ThemedText
             light={tailwind('text-mono-light-v2-700')}
             dark={tailwind('text-mono-dark-v2-700')}
-            style={tailwind('text-xs ml-4')}
+            style={tailwind('text-xs ml-4 font-normal-v2')}
           >
             {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
           </ThemedText>

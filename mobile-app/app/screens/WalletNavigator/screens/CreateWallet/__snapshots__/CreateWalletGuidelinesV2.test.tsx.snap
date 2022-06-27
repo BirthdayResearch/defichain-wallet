@@ -54,9 +54,13 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           },
           Array [
             Object {
+              "fontFamily": "SoraRegular",
               "fontSize": 16,
+              "fontWeight": "400",
               "lineHeight": 24,
               "marginTop": 28,
+              "paddingLeft": 12,
+              "paddingRight": 12,
               "textAlign": "center",
             },
             Object {
@@ -79,11 +83,13 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           },
           Array [
             Object {
-              "fontFamily": "SemiBoldFont",
+              "fontFamily": "SoraSemiBold",
               "fontSize": 16,
               "fontWeight": "600",
               "lineHeight": 24,
               "marginTop": 8,
+              "paddingLeft": 12,
+              "paddingRight": 12,
               "textAlign": "center",
             },
             Object {
@@ -148,7 +154,9 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
               },
               Array [
                 Object {
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
+                  "fontWeight": "400",
                   "lineHeight": 16,
                   "marginLeft": 16,
                 },
@@ -206,7 +214,9 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
               },
               Array [
                 Object {
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
+                  "fontWeight": "400",
                   "lineHeight": 16,
                   "marginLeft": 16,
                 },
@@ -285,7 +295,9 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
               },
               Array [
                 Object {
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
+                  "fontWeight": "400",
                   "lineHeight": 16,
                   "marginLeft": 16,
                 },
