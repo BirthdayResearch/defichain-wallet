@@ -3,7 +3,7 @@ import { Text, View } from '.'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { ThemedIcon, ThemedText } from './themed'
+import { ThemedIcon, ThemedTextV2 as ThemedText } from './themed'
 
 interface StepIndicatorProps {
   current: number

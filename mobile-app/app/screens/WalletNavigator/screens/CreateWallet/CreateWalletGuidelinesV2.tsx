@@ -4,7 +4,7 @@ import { useState } from 'react'
 import * as React from 'react'
 import { View, Image } from 'react-native'
 import Checkbox from 'expo-checkbox'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2 as ThemedScrollView, ThemedTextV2 as ThemedText, ThemedViewV2 as ThemedView } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -38,8 +38,6 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-mono-dark-v2-100')}
-      light={tailwind('bg-mono-light-v2-100')}
       contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       style={tailwind('flex-1')}
     >
@@ -51,15 +49,11 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
       </View>
       <ThemedText
         style={tailwind('mt-7 px-3 text-base font-normal-v2 text-center')}
-        light={tailwind('text-mono-light-v2-900')}
-        dark={tailwind('text-mono-dark-v2-900')}
       >
         {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
       </ThemedText>
       <ThemedText
         style={tailwind('mt-2 px-3 text-base text-center font-semibold-v2')}
-        light={tailwind('text-mono-light-v2-900')}
-        dark={tailwind('text-mono-dark-v2-900')}
       >
         {translate('screens/Guidelines', 'Learn more')}
       </ThemedText>

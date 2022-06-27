@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '@api/wallet'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicatorV2'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2 as ThemedScrollView, ThemedTextV2 as ThemedText, ThemedViewV2 as ThemedView } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -103,8 +103,6 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollView
-      dark={tailwind('bg-mono-dark-v2-100')}
-      light={tailwind('bg-mono-light-v2-100')}
       contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       style={tailwind('flex-1')}
     >
@@ -116,8 +114,6 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         />
 
         <ThemedText
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
           style={tailwind('text-base mt-7 text-center font-normal-v2')}
         >
           {translate('screens/CreateMnemonicWallet', 'Write down the words. Take note of the spelling and order.')}
