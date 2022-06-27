@@ -10,11 +10,14 @@ import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
+import { CreateMnemonicWalletV2 } from './screens/CreateWallet/CreateMnemonicWalletV2'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
+import { CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelinesV2'
 import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
+import { VerifyMnemonicWallet as VerifyMnemonicWalletV2 } from './screens/CreateWallet/VerifyMnemonicWalletV2'
 import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
@@ -24,6 +27,7 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -238,7 +242,7 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='Onboarding'
+        initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
@@ -253,17 +257,35 @@ export function WalletNavigator (): JSX.Element {
         }}
       >
         <WalletStackV2.Screen
-          component={Onboarding}
+          component={OnboardingV2}
           name='OnboardingV2'
           options={{
             headerShown: false
           }}
         />
-        <WalletStackV2.Screen
-          component={CreateWalletGuidelines}
+
+        <WalletStack.Screen
+          component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Guidelines')
+            headerTitle: translate('screens/WalletNavigator', 'New Wallet')
+          }}
+        />
+
+        <WalletStack.Screen
+          component={CreateMnemonicWalletV2}
+          name='CreateMnemonicWallet'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
+            headerRightContainerStyle: tailwind('px-2 py-2')
+          }}
+        />
+
+        <WalletStack.Screen
+          component={VerifyMnemonicWalletV2}
+          name='VerifyMnemonicWallet'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Verify Words')
           }}
         />
       </WalletStackV2.Navigator>
