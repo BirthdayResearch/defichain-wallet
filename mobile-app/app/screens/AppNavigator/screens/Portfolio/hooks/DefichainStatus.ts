@@ -3,6 +3,8 @@ import { useGetBlockchainStatusQuery, useGetOceanStatusQuery } from '@store/webs
 import { AnnouncementData } from '@shared-types/website'
 import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
 
+const deFiChainStatusUrl = 'https://status.defichain.com/'
+
 // TODO: get translations
 const oceanIsDownContent: AnnouncementData[] = [{
   lang: {
@@ -15,10 +17,16 @@ const oceanIsDownContent: AnnouncementData[] = [{
     it: 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.'
   },
   version: '0.0.0',
+  url: {
+    ios: deFiChainStatusUrl,
+    android: deFiChainStatusUrl,
+    windows: deFiChainStatusUrl,
+    web: deFiChainStatusUrl,
+    macos: deFiChainStatusUrl
+  },
   type: 'EMERGENCY'
 }]
 
-const deFiChainStatusUrl = 'https://status.defichain.com/'
 export const blockChainIsDownContent: AnnouncementData[] = [{
   lang: {
     en: 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.',
