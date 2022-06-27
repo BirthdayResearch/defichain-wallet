@@ -1,15 +1,13 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 
-export function getDefaultTheme (isLight: boolean): Theme {
+export function getDefaultThemeV2 (isLight: boolean): Theme {
   const defaultTheme = isLight ? DefaultTheme : DarkTheme
   return {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      primary: isLight ? '#FF00AF' : '#EE2CB1',
-      card: isLight ? defaultTheme.colors.card : '#262626',
-      border: isLight ? defaultTheme.colors.border : '#404040'
+      primary: isLight ? '#121212' : '#F2F2F2'
     }
   }
 }
