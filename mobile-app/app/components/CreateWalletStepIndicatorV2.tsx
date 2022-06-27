@@ -1,4 +1,4 @@
-import { StyleProp, ViewStyle } from 'react-native'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
 import { Text, View } from '.'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
@@ -118,7 +118,9 @@ function StepNode (props: { step: number, current: number, content: string, isLi
             light={tailwind('text-mono-light-v2-00')}
           />
         : (
-          <Text style={tailwind(`${textStyle} font-semibold-v2 text-lg absolute`)}>
+          <Text
+            style={tailwind([`${textStyle} font-semibold-v2 text-lg`, { '-mt-1.5': Platform.OS === 'android' }])}
+          >
             {props.step}
           </Text>
         )}

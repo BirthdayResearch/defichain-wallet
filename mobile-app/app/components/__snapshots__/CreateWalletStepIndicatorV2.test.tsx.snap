@@ -69,7 +69,6 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                 "fontSize": 18,
                 "fontWeight": "600",
                 "lineHeight": 28,
-                "position": "absolute",
               },
             ]
           }
@@ -162,7 +161,6 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                 "fontSize": 18,
                 "fontWeight": "600",
                 "lineHeight": 28,
-                "position": "absolute",
               },
             ]
           }
@@ -255,7 +253,6 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                 "fontSize": 18,
                 "fontWeight": "600",
                 "lineHeight": 28,
-                "position": "absolute",
               },
             ]
           }
