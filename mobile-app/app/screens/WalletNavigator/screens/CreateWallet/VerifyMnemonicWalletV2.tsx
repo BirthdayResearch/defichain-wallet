@@ -104,7 +104,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         <ThemedText
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
-          style={tailwind('text-base mt-7 text-center')}
+          style={tailwind('text-base mt-7 text-center font-normal-v2')}
         >
           {translate('screens/VerifyMnemonicWallet', 'Verify the written recovery words.')}
         </ThemedText>
@@ -127,7 +127,7 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
       <ThemedText
         dark={tailwind('text-mono-dark-v2-900')}
         light={tailwind('text-mono-light-v2-900')}
-        style={tailwind('text-base mt-7 text-center')}
+        style={tailwind('text-base mt-7 text-center font-normal-v2')}
       >
         {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
       </ThemedText>
@@ -158,7 +158,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
     <View style={tailwind('mb-5')}>
       <View style={tailwind('flex-row')}>
         <ThemedText
-          style={tailwind('text-xs')}
+          style={tailwind('text-xs font-normal-v2')}
           light={tailwind('text-mono-light-v2-400')}
           dark={tailwind('text-mono-dark-v2-400')}
           testID={`line_${lineNumber}`}
@@ -166,7 +166,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
           {numberOrdinal(index + 1)}
         </ThemedText>
         <ThemedText
-          style={tailwind('text-xs ml-1')}
+          style={tailwind('text-xs ml-1 font-normal-v2')}
           light={tailwind('text-mono-light-v2-400')}
           dark={tailwind('text-mono-dark-v2-400')}
         >
@@ -194,7 +194,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
               testID={`line_${lineNumber}_${w}`}
             >
               <ThemedText
-                style={tailwind('text-center text-xs')}
+                style={tailwind('text-center text-xs font-normal-v2')}
                 dark={tailwind(`${selectedWord === w ? 'text-mono-dark-v2-100' : 'text-mono-dark-v2-400'}`)}
                 light={tailwind(`${selectedWord === w ? 'text-mono-light-v2-100' : 'text-mono-light-v2-400'}`)}
               >
