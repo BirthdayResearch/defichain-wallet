@@ -254,7 +254,7 @@ export function WalletNavigator (): JSX.Element {
       >
         <WalletStackV2.Screen
           component={Onboarding}
-          name='OnboardingV2'
+          name='Onboarding'
           options={{
             headerShown: false
           }}
