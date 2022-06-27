@@ -53,7 +53,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
         {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
       </ThemedText>
       <ThemedText
-        style={tailwind('mt-2 px-3 text-base text-center font-semibold-v2')}
+        style={tailwind('mt-2 px-3 text-sm text-center font-semibold-v2')}
       >
         {translate('screens/Guidelines', 'Learn more')}
       </ThemedText>
