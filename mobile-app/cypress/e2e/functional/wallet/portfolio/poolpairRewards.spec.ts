@@ -16,6 +16,10 @@ context('Wallet - Pool Pair Rewards', () => {
   })
 
   context('Wallet with LP Tokens', () => {
+    before(() => {
+      cy.blockAllFeatureFlag()
+    })
+
     it('should create Wallet B with LP tokens', function () {
       cy.createEmptyWallet(true)
     })
