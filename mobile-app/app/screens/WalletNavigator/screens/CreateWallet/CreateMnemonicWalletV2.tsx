@@ -118,7 +118,7 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         <ThemedText
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
-          style={tailwind('text-base mt-7 text-center')}
+          style={tailwind('text-base mt-7 text-center font-normal-v2')}
         >
           {translate('screens/CreateMnemonicWallet', 'Write down the words. Take note of the spelling and order.')}
         </ThemedText>
@@ -129,16 +129,16 @@ export function CreateMnemonicWallet ({ navigation }: Props): JSX.Element {
         style={tailwind('rounded-xl')}
       >
         {(words.length > 0)
-        ? words.map((word, index) => (
-          <RecoveryWordRow
-            key={index}
-            index={index}
-            word={word}
-            border={index < words.length - 1}
-          />
+          ? words.map((word, index) => (
+            <RecoveryWordRow
+              key={index}
+              index={index}
+              word={word}
+              border={index < words.length - 1}
+            />
+            )
           )
-        )
-        : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
+          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
       </ThemedView>
 
       <Button
@@ -162,7 +162,7 @@ function RecoveryWordRow (props: { index: number, word: string, key: number, bor
       <ThemedText
         dark={tailwind('text-mono-dark-v2-500')}
         light={tailwind('text-mono-light-v2-500')}
-        style={tailwind('w-12 font-normal text-sm')}
+        style={tailwind('w-12 text-sm font-normal-v2')}
         testID={`word_${props.index + 1}_number`}
       >
         {`${props.index + 1}.`}
@@ -171,7 +171,7 @@ function RecoveryWordRow (props: { index: number, word: string, key: number, bor
       <ThemedText
         dark={tailwind('text-mono-dark-v2-700')}
         light={tailwind('text-mono-light-v2-700')}
-        style={tailwind('flex-grow font-normal text-sm')}
+        style={tailwind('flex-grow text-sm font-normal-v2')}
         testID={`word_${props.index + 1}`}
       >
         {props.word}
