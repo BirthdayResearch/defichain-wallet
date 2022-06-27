@@ -480,7 +480,9 @@
     "Close": "關閉",
     "Last attempt or your wallet will be unlinked for your security": "最後一次可輸入密碼，為了安全，如果不通過，您的錢包會解開鏈接",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密碼錯誤. 您還剩 {{attemptsRemaining}} 次可輸入密碼",
-    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼"
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼",
+    "Enter passcode for verification": "輸入驗證碼",
+    "It may take a few seconds to secure and encrypt your wallet": "It may take a few seconds to secure and encrypt your wallet"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您創建新錢包！接著請創建密碼以維持安全保護.",
@@ -488,7 +490,10 @@
     "Keep your passcode private": "請把密碼保管好",
     "CREATE PASSCODE": "創建密碼",
     "CHANGE PASSCODE": "更換密碼",
-    "Learn more about passcode": "了解更多關於密碼的資訊"
+    "Learn more about passcode": "了解更多關於密碼的資訊",
+    "Learn more": "Learn more",
+    "Create your passcode": "設置您的密碼",
+    "Add an additional layer of security by setting a passcode": "通過設置密碼添加額外的安全性"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "選擇的字組錯誤. 請確認您已經寫下正確的字和順序.",
