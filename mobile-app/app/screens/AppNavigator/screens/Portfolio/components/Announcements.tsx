@@ -13,7 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
 import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
-import { useDefiChainStatus } from '../hooks/DefichainStatus'
+import { blockChainIsDownContent, useDefiChainStatus } from '../hooks/DefichainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
@@ -33,35 +33,13 @@ export function Announcements (): JSX.Element {
   } = useDisplayAnnouncement()
 
   const {
-    defichainStatusAnnouncement: defichainStatusAnnouncementContent,
-    maintenanceAnnouncement: maintenanceAnnouncementContent
+    blockchainStatusAnnouncement: blockchainStatusAnnouncement,
+    oceanStatusAnnouncement: oceanStatusAnnouncement
   } = useDefiChainStatus(hiddenAnnouncements)
 
   const { isCustomUrl } = useServiceProviderContext()
 
   const isBlockchainDown = useBlockchainStatus()
-  const deFiChainStatusUrl = 'https://status.defichain.com/'
-
-  const blockChainIsDownContent: AnnouncementData[] = [{
-    lang: {
-      en: 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.',
-      de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der DeFiChain Statusseite.',
-      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面了解更多状态详情。',
-      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面了解更多狀態詳情。',
-      fr: 'Nous enquêtons actuellement sur un problème de synchronisation sur la blockchain. Voir plus de détails sur DeFiChain Status Page.',
-      es: 'Estamos investigando un problema de sincronización en la blockchain. Más detalles en la pagina de estado de DeFiChain',
-      it: 'Stiamo indagando su un problema di sincronizzazione della blockchain. Vedi maggiori dettagli sulla pagina di stato di DeFiChain.'
-    },
-    version: '0.0.0',
-    url: {
-      ios: deFiChainStatusUrl,
-      android: deFiChainStatusUrl,
-      windows: deFiChainStatusUrl,
-      web: deFiChainStatusUrl,
-      macos: deFiChainStatusUrl
-    },
-    type: 'EMERGENCY'
-  }]
 
   const customServiceProviderIssue: AnnouncementData[] = [{
     lang: {
@@ -79,28 +57,28 @@ export function Announcements (): JSX.Element {
 
   const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
 
-  const announcement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, announcements)
   const emergencyAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, emergencyMsgContent)
-  const outageAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, defichainStatusAnnouncementContent)
-  const maintenanceAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, maintenanceAnnouncementContent)
+  const blockchainIsDownAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, blockchainStatusAnnouncement)
+  const oceanIsDownAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, oceanStatusAnnouncement)
+  const announcement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, announcements)
 
   /*
     Display priority:
-    1. Emergencies
-    2. Outages
-    3. Maintenance
+    1. Emergencies - Custom Provider/Blockchain Issue
+    2. Outages - Blockchain API
+    3. Outages - Ocean API
     4. Other announcements
   */
-  const announcementToDisplay = emergencyAnnouncement ?? outageAnnouncement ?? maintenanceAnnouncement ?? announcement
+  const announcementToDisplay = emergencyAnnouncement ?? blockchainIsDownAnnouncement ?? oceanIsDownAnnouncement ?? announcement
 
   useEffect(() => {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
     if (isBlockchainDown && !isCustomUrl) {
-      setEmergencyMsgContent(blockChainIsDownContent)
+      return setEmergencyMsgContent(blockChainIsDownContent)
     } else if (isBlockchainDown && isCustomUrl) {
-      setEmergencyMsgContent(customServiceProviderIssue)
+      return setEmergencyMsgContent(customServiceProviderIssue)
     } else {
-      setEmergencyMsgContent(undefined)
+      return setEmergencyMsgContent(undefined)
     }
   }, [isBlockchainDown])
 
@@ -123,9 +101,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
     EMERGENCY: 'warning',
     OTHER_ANNOUNCEMENT: 'campaign',
-    PARTIAL_OUTAGE: 'warning',
-    MAJOR_OUTAGE: 'warning',
-    MAINTENANCE: 'warning'
+    OUTAGE: 'warning',
   }
   const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
 

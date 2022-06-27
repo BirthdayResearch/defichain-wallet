@@ -27,7 +27,7 @@ export interface AnnouncementData {
    * `id` will be stored in device's persistence storage. Therefore, each announcement's `id` should be unique string to enable close announcement function
    */
   id?: string
-  type: 'EMERGENCY' | 'OTHER_ANNOUNCEMENT' | 'PARTIAL_OUTAGE' | 'MAJOR_OUTAGE' | 'MAINTENANCE'
+  type: 'EMERGENCY' | 'OTHER_ANNOUNCEMENT' | 'OUTAGE'
 }
 
 export interface FeatureFlag {
@@ -48,7 +48,7 @@ export interface DefiChainStatus {
     updated_at: string
   }
   status: {
-    description: 'All Systems Operational' | 'Partial System Outage' | 'Major Service Outage'
+    description: 'operational' | 'outage'
     indicator: string
   }
   components?: Array<{
