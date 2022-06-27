@@ -332,67 +332,16 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
     },
     id: '1'
   }]
-  const scheduledDate23rdHr = dayjs(new Date()).subtract(23, 'hour')
-  const scheduledDate25thHr = dayjs(new Date()).subtract(25, 'hour')
-  const getMaintenance = (scheduledDate: dayjs.Dayjs = scheduledDate23rdHr, isInProgress: boolean = false): any[] => {
-    const currentDate = new Date().toUTCString()
-    const schedDate = new Date(scheduledDate.toString()).toUTCString()
-    return [{
-      created_at: '2014-05-14T14:24:40.430-06:00',
-      id: 'w1zdr745wmfy',
-      impact: 'none',
-      incident_updates: [
-        {
-          body: '',
-          created_at: currentDate,
-          display_at: currentDate,
-          id: 'qq0vx910b3qj',
-          incident_id: 'w1zdr745wmfy',
-          status: 'scheduled',
-          updated_at: currentDate
-        }
-      ],
-      monitoring_at: null,
-      name: isInProgress ? 'In progress maintenance' : 'Upcoming maintenance',
-      page_id: 'y2j98763l56x',
-      resolved_at: null,
-      scheduled_for: schedDate,
-      scheduled_until: dayjs(schedDate).add(24, 'hour'),
-      shortlink: 'http://stspg.co:5000/Q0F',
-      status: isInProgress ? 'In Progress' : 'Scheduled',
-      updated_at: currentDate
-    }]
-  }
 
-  const summaryWithPartialOutageOnly = {
+  const operational = {
     status: {
-      description: 'Partial System Outage',
-      indicator: 'minor'
-    },
-    scheduled_maintenances: []
+      description: 'operational',
+    }
   }
-
-  const summaryWithMajorOutageOnly = {
+  const outage = {
     status: {
-      description: 'Major Service Outage',
-      indicator: 'major'
-    },
-    scheduled_maintenances: []
-  }
-  const summaryWithMajorOutageAndMaintenance = {
-    status: {
-      description: 'Major Service Outage',
-      indicator: 'major'
-    },
-    scheduled_maintenances: getMaintenance()
-  }
-
-  const summaryAllOperational = {
-    status: {
-      description: 'All Systems Operational',
-      indicator: 'none'
-    },
-    scheduled_maintenances: []
+      description: 'outage',
+    }
   }
 
   before(function () {
@@ -403,8 +352,18 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
     cy.createEmptyWallet(true)
   })
 
-  it('should handle failed API status calls', function () {
-    cy.intercept('**/summary.json', {
+  it('should handle failed blockchain API status calls', function () {
+    cy.intercept('GET', '**/blockchain', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.getByTestID('announcements_banner').should('not.exist')
+  })
+  it('should handle failed overall (ocean) API status calls', function () {
+    cy.intercept('GET', '**/overall', {
       statusCode: 404,
       body: '404 Not Found!',
       headers: {
@@ -414,10 +373,10 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
     cy.getByTestID('announcements_banner').should('not.exist')
   })
 
-  it('should not display banner if no outage or maintenance', function () {
-    cy.intercept('**/summary.json', {
+  it('should not display banner if no outage', function () {
+    cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: summaryAllOperational
+      body: operational
     })
     cy.intercept('**/announcements', {
       statusCode: 200,
@@ -430,10 +389,10 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
     })
   })
 
-  it('should be able to display announcement if no outage or maintenance', function () {
-    cy.intercept('**/summary.json', {
+  it('should be able to display announcement if no blockchain outage', function () {
+    cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: summaryAllOperational
+      body: operational
     })
     cy.intercept('**/announcements', {
       statusCode: 200,
@@ -443,86 +402,18 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
       cy.wait(2000)
       cy.getByTestID('announcements_banner').should('exist')
       cy.getByTestID('announcements_text').should('contain', 'Guidelines')
-      cy.getByTestID('announcements_text').should('not.contain', 'There will be a scheduled maintenance')
-      cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
+      cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
 
-  it('should be able to display upcoming maintenance if schedule <24 hrs', function () {
-    cy.intercept('**/announcements', {
+  it('should be able to display blockchain status down over any announcement', function () {
+    cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: sampleAnnouncementsWithID
+      body: outage
     })
-
-    cy.intercept('**/summary.json', {
+    cy.intercept('GET', '**/overall', {
       statusCode: 200,
-      body: {
-        status: {
-          description: 'All Systems Operational',
-          indicator: 'none'
-        },
-        scheduled_maintenances: getMaintenance(scheduledDate23rdHr, false)
-      }
-    })
-
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'There will be a scheduled maintenance')
-  })
-
-  it('should be able to hide upcoming maintenance if schedule >24 hrs', function () {
-    cy.intercept('**/announcements', {
-      statusCode: 200,
-      body: sampleAnnouncementsWithID
-    })
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: {
-        status: {
-          description: 'All Systems Operational',
-          indicator: 'none'
-        },
-        scheduled_maintenances: getMaintenance(scheduledDate25thHr, false)
-      }
-    })
-
-    cy.getByTestID('announcements_banner').should('not.exist')
-    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
-  })
-
-  it('should be able to display in progress maintenance', function () {
-    cy.intercept('**/announcements', {
-      statusCode: 200,
-      body: sampleAnnouncementsWithID
-    })
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: {
-        status: {
-          description: 'All Systems Operational',
-          indicator: 'none'
-        },
-        scheduled_maintenances: getMaintenance(dayjs(new Date()), true)
-      }
-    })
-
-    cy.getByTestID('announcements_banner').should('not.exist')
-    cy.getByTestID('announcements_text').should('contain', 'Scheduled maintenance is currently ongoing.')
-  })
-
-  it('should be able to display major outage over maintenance', function () {
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: summaryWithMajorOutageAndMaintenance
-    })
-
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
-  })
-
-  it('should be able to display emergency over any announcement', function () {
-    cy.intercept('**/summary.json', {
-      statusCode: 200,
-      body: summaryWithMajorOutageAndMaintenance
+      body: operational
     })
     cy.intercept('**/regtest/stats', {
       statusCode: 404,
@@ -536,26 +427,25 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
-
-  it('should be able to display in event of major outage', function () {
-    cy.intercept('**/summary.json', {
+  it('should be able to display overall (ocean) status down over any announcement', function () {
+    cy.intercept('GET', '**/overall', {
       statusCode: 200,
-      body: summaryWithMajorOutageOnly
+      body: outage
     })
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating an unexpected interruption of service.')
-  })
-
-  it('should not display banner in event of partial outage', function () {
-    cy.intercept('**/announcements', {
+    cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: sampleAnnouncementsWithID
+      body: operational
     })
-    cy.intercept('**/summary.json', {
+    cy.intercept('**/regtest/stats', {
       statusCode: 200,
-      body: summaryWithPartialOutageOnly
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    }).as('stats')
+    cy.wait('@stats').then(() => {
+      cy.getByTestID('announcements_banner').should('exist')
+      cy.getByTestID('announcements_text').should('contain', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
     })
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating an unexpected interruption of service.')
   })
 })
