@@ -1,9 +1,9 @@
 import { Dimensions, Image, ImageSourcePropType, Platform } from 'react-native'
 import SwiperFlatList from 'react-native-swiper-flatlist'
-import ImageA from '@assets/images/onboarding/welcome-screen-c-dark.png'
-import ImageB from '@assets/images/onboarding/welcome-screen-b-dark.png'
-import ImageC from '@assets/images/onboarding/welcome-screen-a-dark.png'
-import ImageD from '@assets/images/onboarding/welcome-screen-d-dark.png'
+import ImageADark from '@assets/images/onboarding/welcome-screen-c-dark.png'
+import ImageBDark from '@assets/images/onboarding/welcome-screen-b-dark.png'
+import ImageCDark from '@assets/images/onboarding/welcome-screen-a-dark.png'
+import ImageDDark from '@assets/images/onboarding/welcome-screen-d-dark.png'
 import ImageALight from '@assets/images/onboarding/welcome-screen-a-light.png'
 import ImageBLight from '@assets/images/onboarding/welcome-screen-b-light.png'
 import ImageCLight from '@assets/images/onboarding/welcome-screen-c-light.png'
@@ -23,21 +23,21 @@ interface CarouselImage {
 
 const slides: JSX.Element[] = [
   <ImageSlide
-    imageDark={ImageA}
+    imageDark={ImageADark}
     imageLight={ImageALight}
     key={0}
     subtitle='DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.'
     title='Take full control'
   />,
   <ImageSlide
-    imageDark={ImageB}
+    imageDark={ImageBDark}
     imageLight={ImageBLight}
     key={1}
     subtitle='Review your available and locked assets in your portfolio.'
     title='View your assets in one place'
   />,
   <ImageSlide
-    imageDark={ImageC}
+    imageDark={ImageCDark}
     imageLight={ImageCLight}
     key={2}
     subtitle='Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.'
@@ -45,7 +45,7 @@ const slides: JSX.Element[] = [
   />,
 
   <ImageSlide
-    imageDark={ImageD}
+    imageDark={ImageDDark}
     imageLight={ImageDLight}
     key={3}
     subtitle='Access financial opportunities with dTokens minted through decentralized vaults.'
@@ -93,7 +93,7 @@ export function OnboardingCarouselV2 (): JSX.Element {
       autoplayLoopKeepAnimation
       data={slides}
       index={0}
-      paginationActiveColor={isLight ? getColor('mono-dark-v2-100') : getColor('mono-dark-v2-900')}
+      paginationActiveColor={isLight ? getColor('mono-light-v2-900') : getColor('mono-dark-v2-900')}
       paginationStyleItemActive={tailwind('w-6 h-1.5')}
       paginationDefaultColor={isLight ? getColor('mono-light-v2-400') : getColor('mono-dark-v2-400')}
       paginationStyleItem={tailwind('h-1.5 w-1.5 mx-1.5')}

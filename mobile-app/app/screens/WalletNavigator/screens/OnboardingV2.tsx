@@ -6,12 +6,15 @@ import { translate } from '@translations'
 import { WalletParamList } from '../WalletNavigator'
 import { ImageBackground } from 'react-native'
 import { ButtonV2 } from '@components/ButtonV2'
-import GridBackgroundImage from '@assets/images/onboarding/grid-background.png'
+import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
+import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
 import { VersionTagV2 } from '@components/VersionTagV2'
 import { OnboardingCarouselV2 } from '@screens/WalletNavigator/screens/components/OnboardingCarouselV2'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export function OnboardingV2 (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
+  const { isLight } = useThemeContext()
   return (
     <ThemedScrollView
       contentContainerStyle={tailwind('h-full')}
@@ -23,7 +26,7 @@ export function OnboardingV2 (): JSX.Element {
       </View>
       <View>
         <ImageBackground
-          source={GridBackgroundImage}
+          source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
           style={tailwind('px-8')}
           resizeMode='cover'
         >
