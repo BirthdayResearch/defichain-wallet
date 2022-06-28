@@ -48,7 +48,6 @@ export const blockChainIsDownContent: AnnouncementData[] = [{
   type: 'EMERGENCY'
 }]
 
-
 export function useDefiChainStatus (hiddenAnnouncements: string[]): {
   blockchainStatusAnnouncement: AnnouncementData[] | undefined
   oceanStatusAnnouncement: AnnouncementData[] | undefined
@@ -79,7 +78,7 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
     } else {
       return setOceanStatusAnnouncement(undefined)
     }
-  }, [isOceanSuccess, isBlockchainDown, oceanStatus?.status?.description, blockchainStatus?.status?.description])
+  }, [isBlockchainDown, isBlockchainSuccess, isOceanSuccess, oceanStatus?.status?.description, blockchainStatus?.status?.description])
 
   useEffect(() => {
     void setAnnouncementAsync()

@@ -1,5 +1,3 @@
-import dayjs from 'dayjs'
-
 context('Wallet - Portfolio - Announcements', () => {
   const sampleAnnouncements = [{
     lang: {
@@ -335,12 +333,12 @@ context('Wallet - portfolio - Announcements - Outages and Maintenances', () => {
 
   const operational = {
     status: {
-      description: 'operational',
+      description: 'operational'
     }
   }
   const outage = {
     status: {
-      description: 'outage',
+      description: 'outage'
     }
   }
 

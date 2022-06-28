@@ -13,10 +13,10 @@ export const statusWebsiteSlice = createApi({
         method: 'GET'
       })
     }),
-    // Ocean API 
+    // Ocean API
     getOceanStatus: builder.query<DefiChainStatus, any>({
       query: () => ({
-        url:'/overall',
+        url: '/overall',
         method: 'GET'
       })
     })
@@ -52,7 +52,7 @@ export const announcementWebsiteSlice = createApi({
   })
 })
 
-const { 
+const {
   useGetBlockchainStatusQuery,
   useGetOceanStatusQuery
 } = statusWebsiteSlice

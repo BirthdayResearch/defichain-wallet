@@ -80,7 +80,8 @@ export function Announcements (): JSX.Element {
     } else {
       return setEmergencyMsgContent(undefined)
     }
-  }, [isBlockchainDown])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isBlockchainDown, isCustomUrl])
 
   if (!isSuccess || announcementToDisplay === undefined) {
     return <></>
@@ -101,7 +102,7 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
     EMERGENCY: 'warning',
     OTHER_ANNOUNCEMENT: 'campaign',
-    OUTAGE: 'warning',
+    OUTAGE: 'warning'
   }
   const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
 
