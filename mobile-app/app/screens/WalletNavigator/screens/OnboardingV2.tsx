@@ -24,7 +24,7 @@ export function OnboardingV2 (): JSX.Element {
       {
         (Platform.OS === 'web')
 ? (
-  <View style={tailwind('h-43/5')}>
+  <View style={tailwind('h-4/5')}>
     <OnboardingCarouselV2 />
   </View>
         )
