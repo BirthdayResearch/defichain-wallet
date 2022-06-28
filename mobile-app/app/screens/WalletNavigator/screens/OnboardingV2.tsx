@@ -21,8 +21,10 @@ export function OnboardingV2 (): JSX.Element {
       style={tailwind('flex-1')}
       testID='onboarding_carousel'
     >
-      <View style={tailwind('h-3/5')}>
-        <OnboardingCarouselV2 />
+      <View style={tailwind('h-3/5 flex justify-center')}>
+        <View style={tailwind('h-4/5')}>
+          <OnboardingCarouselV2 />
+        </View>
       </View>
       <View>
         <ImageBackground
