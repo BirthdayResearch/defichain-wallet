@@ -24,6 +24,8 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
+import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -266,6 +268,23 @@ export function WalletNavigator (): JSX.Element {
             headerTitle: translate('screens/WalletNavigator', 'Guidelines')
           }}
         />
+
+        <WalletStack.Screen
+          component={RecoveryWordsFaqV2}
+          name='RecoveryWordsFaq'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'About Recovery Words')
+          }}
+        />
+
+        <WalletStack.Screen
+          component={PasscodeFaqV2}
+          name='PasscodeFaq'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'About Passcodes')
+          }}
+        />
+
       </WalletStackV2.Navigator>
     )
   }
