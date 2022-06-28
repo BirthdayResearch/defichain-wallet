@@ -281,7 +281,7 @@ export function WalletNavigator (): JSX.Element {
           component={PasscodeFaqV2}
           name='PasscodeFaq'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'About Passcodes')
+            headerTitle: translate('screens/WalletNavigator', 'About Passcode')
           }}
         />
 
