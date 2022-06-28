@@ -374,8 +374,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Il tasso d'interesse totale applicato su un prestito si ottiene prendendo il tasso d'interesse del vault + il tasso d'interesse del token, ed è calcolato su base annua.",
     "What is collateral factor?": "Cos'è il fattore di collateralizzazione?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Il fattore di collateralizzazione determina il grado di contributo di ogni token collateralizzato. Per esempio, se un token è accettato al 70% di collateralizzazione, 100 dollari del token contribuiranno a 70 dollari di valore collaterale nel vault.",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "Perché c'è una penale dell’1% quando pago i prestiti di DUSD in DFI??",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Per il DFIP 2112-A, ogni prestito di DUSD sarà pagabile con DFI come modo per risolvere il sovrapprezzo di DUSD attualmente riscontrabile sul DEX.\n\nUna volta calcolato l’equivalente in DFI da pagare per il prestito di DUSD, una penale dell’1% è applicata al valore DFI/DUSD dell’oracolo. Per esempio, se il prezzo dell’oracolo DFI/DUSD oggi è di $10, il valore di una DFI per un pagamento di DUSD, è calcolato prendendo $10 * (1 - 0,01), riducendo in tale scenario effettivamente il valore di DFI dell'1% a $9,90.",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "Perché c'è una penale dell’5% quando pago i prestiti di DUSD in DFI??",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Per il DFIP 2206-C, ogni prestito di DUSD sarà pagabile con DFI come modo per risolvere il sovrapprezzo di DUSD attualmente riscontrabile sul DEX.\n\nUna volta calcolato l’equivalente in DFI da pagare per il prestito di DUSD, una penale dell’5% è applicata al valore DFI/DUSD dell’oracolo. Per esempio, se il prezzo dell’oracolo DFI/DUSD oggi è di $10, il valore di una DFI per un pagamento di DUSD, è calcolato prendendo $10 * (1 - 0,05), riducendo in tale scenario effettivamente il valore di DFI dell'5% a $9,50.",
     "What is vault share?": "Cos'è un vault share?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "un vault share del vault rappresenta la proporzione di token collaterali depositati in un vault. È richiesto che tutti i vault contengano almeno il 50% di DFI e/o DUSD come token collaterali. Questo requisito viene controllato in 2 occasioni - quando stai coniando nuovi dTokens e quando ritiri il collaterale dal tuo vault."
   },
@@ -1228,7 +1228,7 @@
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} Risultante",
     "Insufficient {{token}} to pay for the entered amount": "Insufficiente {{token}} per pagare l'importo inserito",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Viene applicata una tassa dell'1% quando si paga con {{tokenSymbol}}.",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "Viene applicata una tassa dell'5% quando si paga con {{tokenSymbol}}.",
     "Read more": "Leggi di più",
     "How do you want to pay?": "Come vuoi pagare?",
     "You are paying": "Stai pagando",
@@ -1443,10 +1443,10 @@
     "Future Swap": "Future Swap"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "Server", 
+    "Server": "Server",
     "Service Provider": "Service Provider",
-    "UNLOCK": "UNLOCK", 
-    "RESET": "RESET", 
+    "UNLOCK": "UNLOCK",
+    "RESET": "RESET",
     "Endpoint URL": "Endpoint URL",
     "Custom": "Personalizza",
     "Default": "Default",

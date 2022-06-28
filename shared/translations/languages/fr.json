@@ -369,8 +369,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Le taux d'intérêt total appliqué sur un prêt est obtenu en prenant le taux d'intérêt du vault + le taux d'intérêt du token, et est calculé sur une base annuelle.",
     "What is collateral factor?": "Qu'est-ce que le facteur de garantie ?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault.",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 1% lors du paiement des prêts DUSD avec DFI?",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Conformément au DFIP 2112-A, chaque prêt DUSD sera payable avec DFI afin de surmonter la prime DUSD actuellement observée sur le DEX.\n\nLors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais de fourniture de 1 % sont appliqués à la valeur oracle DFI/USD. Pour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur d'un DFI lors d'un paiement DUSD est calculée en prenant 10 $ * (1 - 0,01), ce qui réduit effectivement la valeur du DFI de 1 % à 9,90 $ dans un tel scénario.",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 5 % lors du remboursement des prêts DUSD avec DFI ?",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Conformément au DFIP 2206-C, lorsque les prêts DUSD sont remboursés en DFI, des frais de fourniture de 5% seront facturés aux utilisateurs. Il s'agit d'une mesure provisoire visant à inciter les arbitres à utiliser les DUSD pour rembourser leurs prêts, ce qui réduira l'offre de DUSD sur le marché. Lors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais supplémentaires de 5 % sont appliqués à la valeur oracle DFI/DUSD.\n\nPour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur du DFI dans un paiement DUSD est calculée en prenant 10 $*(1-0,05), ce qui réduit effectivement la valeur du DFI de 5 % à 9,50 $ dans un tel scénario.",
     "What is vault share?": "Qu'est-ce qu'une part de vault?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "La part de vault représente la proportion de tokens de garantie déposés dans un vault. Tous les vaults doivent contenir au moins 50 % de DFI et/ou de DUSD comme tokens de garantie. Cette exigence est vérifiée à deux occasions — lorsque vous mintez de nouveaux dTokens et lorsque vous retirez des garanties de votre vault."
   },
@@ -1216,7 +1216,7 @@
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 1% sont appliqués quand vous payez en {{tokenSymbol}}.",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 5% sont appliqués quand vous payez en {{tokenSymbol}}.",
     "Read more": "En savoir plus",
     "How do you want to pay?": "Comment voulez-vous rembourser?",
     "You are paying": "Vous remboursez",
@@ -1430,10 +1430,10 @@
     "Future Swap": "Échange à terme"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "Serveur", 
+    "Server": "Serveur",
     "Service Provider": "Fournisseur de services",
-    "UNLOCK": "Déverrouiller", 
-    "RESET": "Réinitialiser", 
+    "UNLOCK": "Déverrouiller",
+    "RESET": "Réinitialiser",
     "Endpoint URL": "URL du point de terminaison",
     "Custom": "Personnalisé",
     "Default": "Défaut",
