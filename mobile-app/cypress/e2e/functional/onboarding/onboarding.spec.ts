@@ -1,6 +1,7 @@
 context('Onboarding', () => {
   beforeEach(function () {
     cy.visit('/')
+    cy.blockAllFeatureFlag()
     cy.exitWallet()
   })
 
