@@ -13,7 +13,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 type Props = StackScreenProps<WalletParamList, 'WalletCreateRestoreSuccess'>
 
 export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
-  const { isWalletRestored } = route.params ?? { isWalletRestored: false }
+  const isWalletRestored = route.params?.isWalletRestored
   const { isLight } = useThemeContext()
 
   // Needs for it to work on web. Otherwise, it takes full window size
@@ -37,20 +37,20 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
           {translate('screens/VerifyMnemonicWallet', 'Access decentralized finance with Bitcoin-grade security, strength and immutability.')}
         </ThemedTextV2>
       </View>
-      <View style={tailwind('mt-20')}>
+      <View style={tailwind('mt-28')}>
         <ImageBackground
-          imageStyle={tailwind('top-44')}
+          imageStyle={tailwind('top-36 mt-3')}
           style={tailwind('relative')}
           source={isLight ? GridBackgroundLight : GridBackgroundDark}
           resizeMode='cover'
         >
           <Image
             source={CoinImage}
-            style={{ width: width, height: 322 }}
+            style={{ width: width, height: 332 }}
           />
           <View style={tailwind('px-12')}>
             <ButtonV2
-              styleProps='mt-14'
+              styleProps='mt-9'
               testID='continue_button'
               label={translate('screens/Onboarding', 'Continue')}
             />
