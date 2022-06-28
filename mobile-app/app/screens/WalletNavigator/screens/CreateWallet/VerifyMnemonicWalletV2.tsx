@@ -184,7 +184,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
               }}
               dark={tailwind({ 'bg-mono-dark-v2-900': selectedWord === w })}
               light={tailwind({ 'bg-mono-light-v2-900': selectedWord === w })}
-              style={tailwind('rounded py-3 w-1/4 rounded-3xl')}
+              style={tailwind('rounded py-3 px-1 w-1/4 rounded-3xl')}
               testID={`line_${lineNumber}_${w}`}
             >
               <ThemedTextV2
