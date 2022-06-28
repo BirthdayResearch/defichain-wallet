@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 context('Wallet - Network detail screen - outside wallet context', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.blockAllFeatureFlag()
     cy.exitWallet()
     cy.getByTestID('create_wallet_button').click()
     cy.getByTestID('guidelines_switch').click()
@@ -123,6 +124,7 @@ context('Wallet - Network detail screen - outside wallet context', () => {
 context('Wallet - Network detail screen - with wallet context', () => {
   before(function () {
     cy.visit('/')
+    cy.blockAllFeatureFlag()
     cy.exitWallet()
     cy.createEmptyWallet(true)
   })
@@ -149,7 +151,8 @@ context('Wallet - Network detail screen - with wallet context', () => {
         cy.getByTestID('network_details_status_icon').should('have.css', 'background-color', statusBgColor)
         cy.getByTestID('network_details_header_back').filter(':visible').click()
         cy.getByTestID('button_selected_network').click()
-        cy.getByTestID('button_network_Playground').click().wait(3000)
+        cy.getByTestID('button_network_Playground').click()
+        cy.blockAllFeatureFlag()
         cy.exitWallet()
         cy.createEmptyWallet(true)
         cy.getByTestID('header_settings').click()
@@ -176,6 +179,7 @@ context('Wallet - Network detail screen - with wallet context', () => {
 
 context('Wallet - Network detail screen - with wallet context go back check', () => {
   before(function () {
+    cy.blockAllFeatureFlag()
     cy.visit('/')
     cy.exitWallet()
     cy.createEmptyWallet(true)
