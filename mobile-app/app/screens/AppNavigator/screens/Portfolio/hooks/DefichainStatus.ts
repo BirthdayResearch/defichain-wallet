@@ -24,7 +24,7 @@ const oceanIsDownContent: AnnouncementData[] = [{
     web: deFiChainStatusUrl,
     macos: deFiChainStatusUrl
   },
-  type: 'EMERGENCY'
+  type: 'OUTAGE'
 }]
 
 export const blockChainIsDownContent: AnnouncementData[] = [{
@@ -45,7 +45,7 @@ export const blockChainIsDownContent: AnnouncementData[] = [{
     web: deFiChainStatusUrl,
     macos: deFiChainStatusUrl
   },
-  type: 'EMERGENCY'
+  type: 'OUTAGE'
 }]
 
 export function useDefiChainStatus (hiddenAnnouncements: string[]): {
