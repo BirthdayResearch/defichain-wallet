@@ -78,7 +78,6 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
     } else {
       setBlockchainStatusAnnouncement(undefined)
       setOceanStatusAnnouncement(undefined)
-      return
     }
   }, [isBlockchainDown, isBlockchainSuccess, isOceanSuccess, oceanStatus?.status?.description, blockchainStatus?.status?.description])
 
