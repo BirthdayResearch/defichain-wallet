@@ -61,7 +61,7 @@ export function ImageSlide ({ imageDark, imageLight, title, subtitle }: Carousel
     <View style={tailwind('flex-1 items-center justify-center py-8 px-10')}>
       <Image
         source={isLight ? imageLight : imageDark}
-        style={{ width: 220, height: 136 }}
+        style={{ width: 200, height: 136 }}
       />
       <View style={tailwind('h-2/6 items-center justify-center mt-7')}>
         <ThemedTextV2
