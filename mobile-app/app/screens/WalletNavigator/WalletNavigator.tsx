@@ -273,7 +273,8 @@ export function WalletNavigator (): JSX.Element {
           component={RecoveryWordsFaqV2}
           name='RecoveryWordsFaq'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'About Recovery Words')
+            headerTitle: translate('screens/WalletNavigator', 'About Recovery Words'),
+            headerRight: () => <></>
           }}
         />
 
@@ -281,7 +282,8 @@ export function WalletNavigator (): JSX.Element {
           component={PasscodeFaqV2}
           name='PasscodeFaq'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'About Passcode')
+            headerTitle: translate('screens/WalletNavigator', 'About Passcode'),
+            headerRight: () => <></>
           }}
         />
 
