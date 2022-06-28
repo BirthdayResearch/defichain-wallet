@@ -2,9 +2,9 @@ import { Feather } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import * as React from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, Platform } from 'react-native'
 import Checkbox from 'expo-checkbox'
-import { ThemedIcon, ThemedScrollViewV2 as ThemedScrollView, ThemedTextV2 as ThemedText, ThemedViewV2 as ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -37,7 +37,7 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
   const { isLight } = useThemeContext()
 
   return (
-    <ThemedScrollView
+    <ThemedScrollViewV2
       contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       style={tailwind('flex-1')}
     >
@@ -47,26 +47,33 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
           source={isLight ? LightNewWallet : DarkNewWallet}
         />
       </View>
-      <ThemedText
+      <ThemedTextV2
         style={tailwind('mt-7 px-3 text-base font-normal-v2 text-center')}
       >
         {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
-      </ThemedText>
-      <ThemedText
-        style={tailwind('mt-2 px-3 text-sm text-center font-semibold-v2')}
+      </ThemedTextV2>
+      <ThemedTouchableOpacityV2
+        light={tailwind('border-b-0')}
+        dark={tailwind('border-b-0')}
+        onPress={() => navigation.navigate('RecoveryWordsFaq')}
+        testID='recovery_words_faq'
       >
-        {translate('screens/Guidelines', 'Learn more')}
-      </ThemedText>
-      <View style={tailwind('px-3 mt-12')}>
+        <ThemedTextV2
+          style={tailwind('mt-2 px-3 text-sm text-center font-semibold-v2')}
+        >
+          {translate('screens/Guidelines', 'Learn more')}
+        </ThemedTextV2>
+      </ThemedTouchableOpacityV2>
+      <View style={tailwind('px-6 mt-12')}>
         {guidelines.map((g, i) => (
           <View
             key={i}
-            style={tailwind('flex-row items-start my-3')}
+            style={tailwind('flex flex-row items-start my-3')}
           >
-            <ThemedView
+            <ThemedViewV2
               light={tailwind('bg-mono-light-v2-700')}
               dark={tailwind('bg-mono-dark-v2-700')}
-              style={tailwind('h-6 w-6 flex-row items-center justify-center rounded-full mt-1')}
+              style={tailwind('flex h-6 w-6 flex-row items-center justify-center rounded-full mt-1')}
             >
               <ThemedIcon
                 light={tailwind('text-mono-light-v2-100')}
@@ -75,30 +82,37 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
                 name={g.icon}
                 size={14}
               />
-            </ThemedView>
-            <ThemedText
+            </ThemedViewV2>
+            <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('text-xs ml-4 font-normal-v2')}
+              style={tailwind('text-xs ml-4 font-normal-v2', { 'mr-6': Platform.OS !== 'web' })}
             >
               {translate('screens/Guidelines', g.title)}
-            </ThemedText>
+            </ThemedTextV2>
           </View>
        ))}
-        <View style={tailwind('flex-row items-start mt-3')}>
-          <Checkbox
-            value={isEnabled}
-            onValueChange={toggleSwitch}
-            style={tailwind('h-6 w-6 mt-1 rounded')}
-            color={isEnabled ? getColor('brand-v2-500') : undefined}
-          />
-          <ThemedText
-            light={tailwind('text-mono-light-v2-700')}
-            dark={tailwind('text-mono-dark-v2-700')}
-            style={tailwind('text-xs ml-4 font-normal-v2')}
+        <View style={tailwind('mt-3')}>
+          <ThemedTouchableOpacityV2
+            light={tailwind('border-b-0')}
+            dark={tailwind('border-b-0')}
+            style={tailwind('flex flex-row items-start')}
+            onPress={toggleSwitch}
           >
-            {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
-          </ThemedText>
+            <Checkbox
+              value={isEnabled}
+              onValueChange={toggleSwitch}
+              style={tailwind('h-6 w-6 mt-1 rounded')}
+              color={isEnabled ? getColor('brand-v2-500') : undefined}
+            />
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              style={tailwind('text-xs ml-4 font-normal-v2', { 'mr-6': Platform.OS !== 'web' })}
+            >
+              {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
+            </ThemedTextV2>
+          </ThemedTouchableOpacityV2>
         </View>
       </View>
       <ButtonV2
@@ -109,6 +123,6 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
         onPress={() => navigation.navigate('CreateMnemonicWallet')}
         testID='create_recovery_words_button'
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
