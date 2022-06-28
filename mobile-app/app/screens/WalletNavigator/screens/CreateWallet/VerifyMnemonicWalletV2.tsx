@@ -21,7 +21,7 @@ interface VerifyMnemonicItem {
 
 const HARDCODED_PIN_LENGTH = 6
 
-export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element {
+export function VerifyMnemonicWalletV2 ({ route, navigation }: Props): JSX.Element {
   const recoveryWords = route.params.words
 
   const [selectedWords, setSelectedWords] = useState<string[]>([...recoveryWords])
@@ -184,7 +184,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
               }}
               dark={tailwind({ 'bg-mono-dark-v2-900': selectedWord === w })}
               light={tailwind({ 'bg-mono-light-v2-900': selectedWord === w })}
-              style={tailwind('rounded py-3 w-1/4 rounded-3xl')}
+              style={tailwind('rounded py-3 px-1 w-1/4 rounded-3xl')}
               testID={`line_${lineNumber}_${w}`}
             >
               <ThemedTextV2
@@ -206,11 +206,9 @@ function numberOrdinal (n: number): string {
   let suffix = 'th'
   if (n === 1 || n === 21) {
     suffix = 'st'
-  }
-  if (n === 2 || n === 22) {
+  } else if (n === 2 || n === 22) {
     suffix = 'nd'
-  }
-  if (n === 3 || n === 23) {
+  } else if (n === 3 || n === 23) {
     suffix = 'rd'
   }
   return `${n}${suffix}`

@@ -381,7 +381,7 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     })
 
     cy.getByTestID('payment_token_card_DFI').click()
-    cy.getByTestID('text_penalty_fee_warning').contains('A 1% fee is applied when you pay with DFI.')
+    cy.getByTestID('text_penalty_fee_warning').contains('A 5% fee is applied when you pay with DFI.')
     cy.getByTestID('payment_token_card_DUSD').click()
   })
 
@@ -582,7 +582,7 @@ context('Wallet - Loans Payback Non-DUSD Loans', () => {
     })
 
     cy.getByTestID('payment_token_card_DUSD').click()
-    cy.getByTestID('text_penalty_fee_warning').contains('A 1% fee is applied when you pay with DUSD.')
+    cy.getByTestID('text_penalty_fee_warning').contains('A 5% fee is applied when you pay with DUSD.')
     cy.getByTestID('payment_token_card_dTU10').click()
   })
 
