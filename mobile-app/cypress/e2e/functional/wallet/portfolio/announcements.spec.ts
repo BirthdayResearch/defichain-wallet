@@ -1,47 +1,3 @@
-const operational = {
-  status: {
-    description: 'operational'
-  }
-}
-const outage = {
-  status: {
-    description: 'outage'
-  }
-}
-
-const sampleAnnouncements = [{
-  lang: {
-    en: 'Guidelines',
-    de: 'Richtlinien',
-    'zh-Hans': '指导方针',
-    'zh-Hant': '指導方針'
-  },
-  version: '0.0.0 - 0.12.0',
-  url: {
-    ios: '',
-    android: '',
-    macos: '',
-    windows: '',
-    web: ''
-  }
-}, {
-  lang: {
-    en: 'Refresh',
-    de: 'Erneuern',
-    'zh-Hans': '刷新',
-    'zh-Hant': '刷新'
-  },
-  version: '>=0.12.1',
-  url: {
-    ios: 'https://foo.ios',
-    android: 'https://foo.android',
-    macos: 'https://foo.macos',
-    windows: 'https://foo.windows',
-    web: 'https://foo.web'
-  }
-}]
-
-
 context('Wallet - Portfolio - Announcements', () => {
   const sampleAnnouncements = [{
     lang: {
@@ -152,6 +108,37 @@ context('Wallet - Portfolio - Announcements', () => {
 })
 
 context('Wallet - Portfolio - Announcements - Blockchain warning messages', () => {
+  const sampleAnnouncements = [{
+    lang: {
+      en: 'Guidelines',
+      de: 'Richtlinien',
+      'zh-Hans': '指导方针',
+      'zh-Hant': '指導方針'
+    },
+    version: '0.0.0 - 0.12.0',
+    url: {
+      ios: '',
+      android: '',
+      macos: '',
+      windows: '',
+      web: ''
+    }
+  }, {
+    lang: {
+      en: 'Refresh',
+      de: 'Erneuern',
+      'zh-Hans': '刷新',
+      'zh-Hant': '刷新'
+    },
+    version: '>=0.12.1',
+    url: {
+      ios: 'https://foo.ios',
+      android: 'https://foo.android',
+      macos: 'https://foo.macos',
+      windows: 'https://foo.windows',
+      web: 'https://foo.web'
+    }
+  }]
   const sampleAnnouncementsWithID = [{
     lang: {
       en: 'Guidelines',
@@ -169,6 +156,11 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
     },
     id: '1'
   }]
+  const operational = {
+    status: {
+      description: 'operational'
+    }
+  }
 
   beforeEach(function () {
     cy.createEmptyWallet(true)
@@ -331,6 +323,37 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
 })
 
 context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () => {
+  const sampleAnnouncements = [{
+    lang: {
+      en: 'Guidelines',
+      de: 'Richtlinien',
+      'zh-Hans': '指导方针',
+      'zh-Hant': '指導方針'
+    },
+    version: '0.0.0 - 0.12.0',
+    url: {
+      ios: '',
+      android: '',
+      macos: '',
+      windows: '',
+      web: ''
+    }
+  }, {
+    lang: {
+      en: 'Refresh',
+      de: 'Erneuern',
+      'zh-Hans': '刷新',
+      'zh-Hant': '刷新'
+    },
+    version: '>=0.12.1',
+    url: {
+      ios: 'https://foo.ios',
+      android: 'https://foo.android',
+      macos: 'https://foo.macos',
+      windows: 'https://foo.windows',
+      web: 'https://foo.web'
+    }
+  }]
   const sampleAnnouncementsWithID = [{
     lang: {
       en: 'Guidelines',
@@ -348,6 +371,16 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
     },
     id: '1'
   }]
+  const operational = {
+    status: {
+      description: 'operational'
+    }
+  }
+  const outage = {
+    status: {
+      description: 'outage'
+    }
+  }
 
   before(function () {
     localStorage.setItem('WALLET.HIDDEN_ANNOUNCEMENTS', '[]')
@@ -383,6 +416,10 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       statusCode: 200,
       body: operational
     })
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: operational
+    })
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: []
@@ -410,6 +447,22 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
+  it('should be able to display announcement if no (overall) ocean outage', function () {
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: operational
+    })
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncementsWithID
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.wait(2000)
+      cy.getByTestID('announcements_banner').should('exist')
+      cy.getByTestID('announcements_text').should('contain', 'Guidelines')
+      cy.getByTestID('announcements_text').should('not.contain', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
+    })
+  })
 
   it('should be able to display blockchain status down', function () {
     cy.intercept('**/blockchain', {
@@ -432,6 +485,7 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
+  
   it('should be able to display overall (ocean) status down', function () {
     cy.intercept('GET', '**/overall', {
       statusCode: 200,
@@ -453,36 +507,25 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
     })
   })
-  // TODO: Failing - showing blockchain down msg instead
-  it.skip('should replace existing announcement with overall (ocean) is down warning message', function () {
-    cy.intercept('**/announcements', {
-      statusCode: 200,
-      body: sampleAnnouncements
-    })
-    
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'Guidelines')
 
-    cy.intercept('GET', '**/overall', {
-      statusCode: 200,
-      body: outage
-    })
+  it('should replace existing announcement with overall (ocean) is down warning message', function () {
     cy.intercept('**/blockchain', {
       statusCode: 200,
       body: operational
     })
-    cy.intercept('**/regtest/stats', {
+    cy.intercept('**/overall', {
       statusCode: 200,
-      body: {
-        data: {
-          count: {
-            lastSync: new Date().toString(),
-            lastSuccessfulSync: new Date().toString()
-          }
-        }
-      }
+      body: outage
     })
-    cy.getByTestID('announcements_banner').should('exist')
-    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncements
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.wait(2000)
+      cy.getByTestID('announcements_banner').should('exist')
+      cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
+      cy.getByTestID('announcements_text').should('contain', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
+    })
   })
 })
