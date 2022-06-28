@@ -6,7 +6,8 @@ import GridBackgroundDark from '@assets/images/onboarding/grid-background-dark.p
 import GridBackgroundLight from '@assets/images/onboarding/grid-background-light.png'
 import { WalletParamListV2 as WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
 import { StackScreenProps } from '@react-navigation/stack'
-import CoinImage from '@assets/images/create-success-coin.png'
+import CoinImageCreate from '@assets/images/create-success-coin.png'
+import CoinImageRestore from '@assets/images/restore-success-coin.png'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
@@ -45,7 +46,7 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
           resizeMode='cover'
         >
           <Image
-            source={CoinImage}
+            source={isWalletRestored ? CoinImageRestore : CoinImageCreate}
             style={{ width: width, height: 332 }}
           />
           <View style={tailwind('px-12')}>
