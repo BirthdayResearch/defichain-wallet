@@ -72,35 +72,55 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     >
       You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet
     </Text>
-    <Text
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+        Object {
+          "borderBottomWidth": 0,
+          "opacity": 1,
+        }
+      }
+      testID="recovery_words_faq"
+    >
+      <Text
+        style={
           Array [
             Object {
-              "fontFamily": "SoraSemiBold",
-              "fontSize": 14,
-              "fontWeight": "600",
-              "lineHeight": 20,
-              "marginTop": 8,
-              "paddingLeft": 12,
-              "paddingRight": 12,
-              "textAlign": "center",
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
             },
-            Object {
-              "color": "rgba(18, 18, 18, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Learn more
-    </Text>
+            Array [
+              Object {
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "lineHeight": 20,
+                "marginTop": 8,
+                "paddingLeft": 12,
+                "paddingRight": 12,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Learn more
+      </Text>
+    </View>
     <View
       style={
         Object {
@@ -284,32 +304,51 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
             ]
           }
         />
-        <Text
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "marginLeft": 16,
-                },
-                Object {
-                  "color": "rgba(43, 43, 43, 1)",
-                },
-              ],
-            ]
+            Object {
+              "borderBottomWidth": 0,
+              "opacity": 1,
+            }
           }
         >
-          I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.
-        </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 12,
+                    "fontWeight": "400",
+                    "lineHeight": 16,
+                    "marginLeft": 16,
+                  },
+                  Object {
+                    "color": "rgba(43, 43, 43, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.
+          </Text>
+        </View>
       </View>
     </View>
     <View
