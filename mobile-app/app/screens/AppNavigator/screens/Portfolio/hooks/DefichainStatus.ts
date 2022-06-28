@@ -76,7 +76,9 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
       // if overall (ocean) api is down
       return setOceanStatusAnnouncement(oceanIsDownContent)
     } else {
-      return setOceanStatusAnnouncement(undefined)
+      setBlockchainStatusAnnouncement(undefined)
+      setOceanStatusAnnouncement(undefined)
+      return
     }
   }, [isBlockchainDown, isBlockchainSuccess, isOceanSuccess, oceanStatus?.status?.description, blockchainStatus?.status?.description])
 

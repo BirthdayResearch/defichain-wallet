@@ -81,7 +81,7 @@ export function Announcements (): JSX.Element {
       return setEmergencyMsgContent(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isBlockchainDown, isCustomUrl])
+  }, [isBlockchainDown])
 
   if (!isSuccess || announcementToDisplay === undefined) {
     return <></>
