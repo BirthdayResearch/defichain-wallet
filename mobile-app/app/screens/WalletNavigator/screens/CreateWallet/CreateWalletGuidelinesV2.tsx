@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import * as React from 'react'
-import { View, Image, Platform } from 'react-native'
+import { View, Image } from 'react-native'
 import Checkbox from 'expo-checkbox'
 import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
@@ -86,29 +86,29 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('text-xs ml-4 font-normal-v2', { 'mr-6': Platform.OS !== 'web' })}
+              style={tailwind('flex-1 text-xs ml-4 font-normal-v2')}
             >
               {translate('screens/Guidelines', g.title)}
             </ThemedTextV2>
           </View>
        ))}
-        <View style={tailwind('mt-3')}>
+        <View style={tailwind('mt-3 flex flex-row items-start')}>
+          <Checkbox
+            value={isEnabled}
+            onValueChange={toggleSwitch}
+            style={tailwind('h-6 w-6 mt-1 rounded')}
+            color={isEnabled ? getColor('brand-v2-500') : undefined}
+          />
           <ThemedTouchableOpacityV2
             light={tailwind('border-b-0')}
             dark={tailwind('border-b-0')}
-            style={tailwind('flex flex-row items-start')}
+            style={tailwind('flex-1')}
             onPress={toggleSwitch}
           >
-            <Checkbox
-              value={isEnabled}
-              onValueChange={toggleSwitch}
-              style={tailwind('h-6 w-6 mt-1 rounded')}
-              color={isEnabled ? getColor('brand-v2-500') : undefined}
-            />
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('text-xs ml-4 font-normal-v2', { 'mr-6': Platform.OS !== 'web' })}
+              style={tailwind('text-xs ml-4 font-normal-v2')}
             >
               {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
             </ThemedTextV2>
