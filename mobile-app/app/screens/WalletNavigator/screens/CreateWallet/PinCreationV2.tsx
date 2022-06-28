@@ -36,8 +36,6 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      dark={tailwind('bg-gray-900')}
-      light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
       contentContainerStyle={tailwind('items-center')}
       testID='screen_create_pin'
@@ -78,8 +76,6 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
 
       <View style={tailwind('mt-1.5')}>
         <ThemedTextV2
-          light={tailwind('text-mono-light-v2-500')}
-          dark={tailwind('text-mono-dark-v2-500')}
           style={tailwind('text-sm font-normal-v2 text-center')}
         >
           {translate('screens/PinCreation', 'Create your passcode')}

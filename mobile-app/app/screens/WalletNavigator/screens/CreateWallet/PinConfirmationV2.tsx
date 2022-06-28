@@ -84,8 +84,6 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      dark={tailwind('bg-gray-900')}
-      light={tailwind('bg-white')}
       style={tailwind('w-full flex-1 flex-col')}
     >
       <CreateWalletStepIndicatorV2
@@ -119,31 +117,31 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
 
       <View style={tailwind('mt-1.5 px-14')}>
         {
-          (spinnerMessage !== undefined)
-            ? (
-              <ThemedTextV2
-                style={tailwind('font-normal-v2 text-sm text-center ')}
-              >
-                {spinnerMessage}
-              </ThemedTextV2>
+          (spinnerMessage !== undefined) && (
+            <ThemedTextV2
+              style={tailwind('font-normal-v2 text-sm text-center ')}
+            >
+              {spinnerMessage}
+            </ThemedTextV2>
             )
-            : (
+        }
+        {
+          (spinnerMessage === undefined && !invalid) && (
+            (
               <ThemedTextV2
-                light={tailwind('text-mono-light-v2-500')}
-                dark={tailwind('text-mono-dark-v2-500')}
                 style={tailwind('text-sm font-normal-v2 text-center')}
               >
                 {translate('screens/PinConfirmation', 'Enter passcode for verification')}
               </ThemedTextV2>
             )
+          )
         }
-
         {
           invalid && (
             <ThemedTextV2
-              dark={tailwind('text-darkerror-500')}
-              light={tailwind('text-error-500')}
-              style={tailwind('text-center font-semibold-v2 text-sm')}
+              style={tailwind('text-center font-normal-v2 text-sm text-red-v2')}
+              light={tailwind('text-red-v2')}
+              dark={tailwind('text-red-v2')}
               testID='wrong_passcode_text'
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
