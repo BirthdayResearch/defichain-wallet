@@ -189,7 +189,7 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
         'x-not-found': 'true'
       }
     })
-    
+
     cy.wait(5000)
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
@@ -485,7 +485,7 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
-  
+
   it('should be able to display overall (ocean) status down', function () {
     cy.intercept('GET', '**/overall', {
       statusCode: 200,
