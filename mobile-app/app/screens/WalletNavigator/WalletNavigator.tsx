@@ -243,7 +243,7 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='WalletCreateRestoreSuccess'
+        initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
