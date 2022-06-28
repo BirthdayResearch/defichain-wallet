@@ -153,7 +153,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
       style={tailwind('p-4 py-6')}
     >
       <View style={tailwind('flex-row')}>
-        <ThemedText style={tailwind('text-dfxgray-600')}>
+        <ThemedText style={tailwind('text-gray-600')}>
           {translate('screens/VerifyMnemonicWallet', 'What is word ')}
         </ThemedText>
 

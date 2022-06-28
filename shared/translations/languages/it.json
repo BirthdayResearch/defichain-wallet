@@ -743,7 +743,6 @@
     "Est. time remaining": "Tempo rimanente stimato",
     "Settlement block": "Blocco di regolamento",
     "To be confirmed": "Da confermare",
-    "Enter an amount": "Inserisci un importo",
     "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -1390,10 +1389,10 @@
   "screens/CloseVaultScreen": {
     "You are closing Vault ID": "Stai chiudendo l'ID del Vault",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
-    "Fees to return": "Commissioni da restituire",    
+    "Fees to return": "Commissioni da restituire",
     "Fees to burn": "Commissioni da bruciare",
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Alla chiusura, questo Vault ID non sarà più utilizzabile. Assicurati di non aver bisogno di nulla da questo vault prima di chiudere.",
-	  "CONFIRM CLOSE VAULT": "CONFERMA LA CHIUSURA DEL VAULT",
+    "CONFIRM CLOSE VAULT": "CONFERMA LA CHIUSURA DEL VAULT",
     "You are about to close vault {{vaultId}}": "Stai per chiudere il vault {{vaultId}}",
     "CLOSING": "CHIUDI"
   },
@@ -1484,5 +1483,19 @@
   },
   "components/VersionTag": {
     "Version {{number}}": "Versione {{number}}"
+  },
+  "components/DfxKycInfo": {
+    "Your account needs to get verified once your daily transaction volume exceeds 900 € per day.  If you want to increase daily trading limit, please complete our KYC (Know-Your-Customer) process.": "L'account deve essere verificato quando il volume delle transazioni giornaliere supera i 900 €.  Se si desidera aumentare il limite di trading giornaliero, si prega di completare il processo KYC (Know-Your-Customer)"
+  },
+  "screens/SellScreen": {
+    "Cash out to my bank account": "Versamento in contanti sul mio conto corrente bancario",
+    "Bank account": "Conto corrente bancario",
+    "Select a token you want to sell to get started": "Seleziona un token che vuoi vendere per iniziare",
+    "please select": "si prega di selezionare",
+    "Enter your desired payout amount": "Entrez le montant souhaité du virement",
+    "Available to sell": "Disponibile per la vendita",
+    "Fee": "Commmisione",
+    "Each transaction will be subject to a small amount of fees.": "Ogni transazione sarà soggetta a una piccola quantità di commissioni.",
+    "Transfer to your bank account": ""
   }
 }

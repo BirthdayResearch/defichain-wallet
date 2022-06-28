@@ -457,11 +457,11 @@ function AddCollateralButton (props: {disabled: boolean, onPress: () => void}): 
         name='add'
         size={14}
         light={tailwind({ 'text-primary-500': !props.disabled, 'text-dfxgray-300': props.disabled })}
-        dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-dfxgray-600': props.disabled })}
+        dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-gray-600': props.disabled })}
       />
       <ThemedText
         light={tailwind({ 'text-primary-500': !props.disabled, 'text-dfxgray-300': props.disabled })}
-        dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-dfxgray-600': props.disabled })}
+        dark={tailwind({ 'text-dfxred-500': !props.disabled, 'text-gray-600': props.disabled })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4')}
       >
         {translate('screens/AddCollateralScreen', 'ADD TOKEN AS COLLATERAL')}

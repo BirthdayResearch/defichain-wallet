@@ -136,7 +136,7 @@ function PaymentTokenCard (props: PaymentTokenCardProps): JSX.Element {
           })}
           dark={tailwind({
             'text-dfxgray-400': !props.disabled,
-            'text-dfxgray-600': props.disabled
+            'text-gray-600': props.disabled
           })}
           style={tailwind('font-medium')}
         >{props.paymentToken.tokenDisplaySymbol}

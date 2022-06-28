@@ -366,8 +366,8 @@ export function SellScreen ({
         <View style={tailwind('mt-6')}>
           <SubmitButtonGroup
             isDisabled={!formState.isValid /* TODO: (davidleomay) check if needed || isConversionRequired */ || selectedFiatAccount === undefined || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-            label={translate('screens/SellScreen', 'SELL')}
-            processingLabel={translate('screens/SellScreen', 'SELL')}
+            label={translate('screens/SellScreen', 'Transfer to your bank account')}
+            processingLabel={translate('screens/SellScreen', 'Transfer to your bank account')}
             onSubmit={onSubmit}
             title='sell_sell'
             isProcessing={hasPendingJob || hasPendingBroadcastJob || isSubmitting}
@@ -499,7 +499,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
         dark={tailwind('text-dfxgray-300')}
         style={tailwind('text-xl font-semibold')}
       >
-        {translate('screens/SellScreen', 'Sell token')}
+        {translate('screens/SellScreen', 'Cash out to my bank account')}
       </ThemedText>
       {/* TODO */}
       <ThemedTouchableOpacity
@@ -527,7 +527,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
               style={tailwind('text-sm')}
               testID='select_token_placeholder'
             >
-              {translate('screens/SellScreen', 'Select token')}
+              {translate('screens/SendScreen', 'Select token')}
             </ThemedText>
           )
           : (
@@ -569,7 +569,7 @@ function FiatAccountInput (props: { fiatAccount?: SellRoute, onPress: () => void
         dark={tailwind('text-dfxgray-300')}
         style={tailwind('flex-grow my-2')}
       >
-        {translate('screens/SellScreen', 'Select account for payout')}
+        {translate('screens/SellScreen', 'Bank account')}
       </ThemedText>
       {/* TODO  -> came from SendScreen(fork) -> why? */}
       <ThemedTouchableOpacity
@@ -593,7 +593,7 @@ function FiatAccountInput (props: { fiatAccount?: SellRoute, onPress: () => void
               style={tailwind('text-sm')}
               testID='select_fiatAccount_placeholder'
             >
-              {translate('screens/SellScreen', 'Select fiat account')}
+              {translate('screens/SellScreen', 'please select')}
             </ThemedText>
           )
           : (
@@ -668,13 +668,13 @@ function AmountRow ({
               autoCapitalize='none'
               onChange={onChange}
               onChangeText={onAmountChange}
-              placeholder={translate('screens/SellScreen', 'Enter an amount')}
+              placeholder={translate('screens/SendScreen', 'Enter an amount')}
               style={tailwind('flex-grow w-2/5')}
               testID='amount_input'
               value={value}
               displayClearButton={value !== defaultValue}
               onClearButtonPress={onClearButtonPress}
-              title={translate('screens/SellScreen', 'How much do you want to sell?')}
+              title={translate('screens/SellScreen', 'Enter your desired payout amount')}
               titleTestID='title_sell'
               inputType='numeric'
             >

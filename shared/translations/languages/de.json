@@ -132,7 +132,7 @@
     "Add address": "Adresse hinzufügen",
     "SAVED ADDRESS(ES)": "GESPEICHERTE ADRESSE(N)",
     "Search for address": "Adresse suchen",
-    "{{length}} ADDRESS(ES)":"{{length}} ADRESSE(N)",
+    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(N)",
     "Search address book": "Adressbuch durchsuchen",
     "Whitelisted": "Whitelist",
     "Your address(es)": "Deine Adresse(n)",
@@ -858,6 +858,9 @@
     "Please wait as we convert tokens for your transaction. Conversions are irreversible.": "Warte bitte, während wir Token für deine Transaktion umwandeln. Konvertierungen sind nicht umkehrbar.",
     "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-kompatible Wallets. Andernfalls kann der Versand an andere Tauschbörsen (bis auf DFX) zu einem irreversiblen Verlust von Einlagen führen."
   },
+  "components/DfxKycInfo": {
+    "Your account needs to get verified once your daily transaction volume exceeds 900 € per day.  If you want to increase daily trading limit, please complete our KYC (Know-Your-Customer) process.": "Ab einem Transaktionsvolumen von mehr als 900 € pro Tag muss dein Account verifiziert sein. Möchtest du dieses Limit erhöhen, dann schließe bitte den KYC-Prozess (Know-Your-Customer) ab."
+  },
   "components/ConversionTag": {
     "Conversion required": "Konvertierung erforderlich"
   },
@@ -1452,5 +1455,16 @@
   },
   "components/VersionTag": {
     "Version {{number}}": "Version {{number}}"
+  },
+  "screens/SellScreen": {
+    "Cash out to my bank account": "Auf mein Bankkonto auszahlen",
+    "Bank account": "Auszahlungskonto",
+    "Select a token you want to sell to get started": "Wähle einen Token, den du verkaufen möchtest, um loszulegen",
+    "please select": "bitte auswählen",
+    "Enter your desired payout amount": "Gebe deinen gewünschten Auszahlungsbetrag an",
+    "Available to sell": "Zum Verkauf verfügbar",
+    "Fee": "Gebühr",
+    "Each transaction will be subject to a small amount of fees.": "Jede Transaktion unterliegt einer geringen Gebühr.",
+    "Transfer to your bank account": "Auf dein Bankkonto auszahlen"
   }
 }

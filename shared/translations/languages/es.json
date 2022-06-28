@@ -225,10 +225,9 @@
     "Sending {{amount}} {{symbol}}": "Enviando {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
     "Convert & send": "Convertir y enviar",
-    "Send Liquidity Pool tokens only to DeFiChain compatible wallets. Otherwise, sending to other exchanges (except DFX) may result in irreversible loss of funds.": "Envía tokens de la piscina de liquidez únicamente a billeteras compatibles con DeFiChain. De lo contrario, el envío puede ocasionar la pérdida irreversible de los fondos. (excepto DFX)",
-    "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Yo reconozco que enviando tokens de liquidez que no son compatibles con billeteras DeFiChain puede resultar en una pérdida irreversible de los fondos.",
     "Transaction type": "Tipo de transacción",
-    "Amount to send": "Cantidad a enviar"
+    "Amount to send": "Cantidad a enviar",
+    "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange (except DFX) or a central entity will result in irreversible loss of funds.": "Envía tokens de la piscina de liquidez únicamente a billeteras compatibles con DeFiChain. De lo contrario, el envío puede ocasionar la pérdida irreversible de los fondos. (excepto DFX)"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "Convertir DFI",
@@ -1480,5 +1479,19 @@
   },
   "components/VersionTag": {
     "Version {{number}}": "Versión {{number}}"
+  },
+  "components/DfxKycInfo": {
+    "Your account needs to get verified once your daily transaction volume exceeds 900 € per day.  If you want to increase daily trading limit, please complete our KYC (Know-Your-Customer) process.": "Tu cuenta necesitará ser verificada si tus transacciones diarias exceden el volumen de 900 € al día. Si quieres incrementar el límite de comercio diario, por favor completa nuestro proceso de verificación (KYC o Conoce a Tu Cliente por la siglas en inglés). "
+  },
+  "screens/SellScreen": {
+    "Cash out to my bank account": "Ingresar en mi cuenta bancaria",
+    "Bank account": "Cuenta bancaria",
+    "Select a token you want to sell to get started": "Seleccione el token que desea vender para empezar",
+    "please select": "por favor selecciona",
+    "Enter your desired payout amount": "Teclea la cantidad de pago deseada",
+    "Available to sell": "Disponible para vender",
+    "Fee": "Comisión",
+    "Each transaction will be subject to a small amount of fees.": "Cada transacción concurrirá en una pequeña comisión.",
+    "Transfer to your bank account": ""
   }
 }

@@ -568,7 +568,7 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
         })}
         dark={tailwind({
           'text-dfxred-500': !props.disabled,
-          'text-dfxdfxgray-600': props.disabled
+          'text-gray-600': props.disabled
         })}
       />
       <ThemedText
@@ -578,7 +578,7 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
         })}
         dark={tailwind({
           'text-dfxred-500': !props.disabled,
-          'text-dfxdfxgray-600': props.disabled
+          'text-gray-600': props.disabled
         })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4 mb-2')}
       >

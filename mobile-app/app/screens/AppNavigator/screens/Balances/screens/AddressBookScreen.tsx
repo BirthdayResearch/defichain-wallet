@@ -211,7 +211,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
               name='plus'
               style={tailwind('mr-2')}
               light={tailwind(['text-primary-500', { 'text-gray-300': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
-              dark={tailwind(['text-dfxred-500', { 'text-dfxgray-600': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
+              dark={tailwind(['text-dfxred-500', { 'text-gray-600': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
               iconType='MaterialCommunityIcons'
             />
           </TouchableOpacity>

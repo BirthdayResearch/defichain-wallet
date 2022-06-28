@@ -1447,5 +1447,16 @@
   },
   "components/VersionTag": {
     "Version {{number}}": "版本 {{number}}"
+  },
+  "screens/SellScreen": {
+    "Cash out to my bank account": "提现到我的银行账户",
+    "Bank account": "银行账户",
+    "Select a token you want to sell to get started": "若要开始，请先选您想发出的代币",
+    "please select": "请选择",
+    "Enter your desired payout amount": "输入您想要的付款金额",
+    "Available to sell": "可出售",
+    "Fee": "费用",
+    "Each transaction will be subject to a small amount of fees.": "每笔交易需要支付少量的费用.",
+    "Transfer to your bank account": ""
   }
 }

@@ -110,7 +110,7 @@
     "Receive $DFI in Light Wallet": "在輕錢包中接收 $DFI",
     "DFI oracle price": "DFI 預言機價格",
     "Show less": "顯示較少",
-    "Wallet Address":  "錢包地址"
+    "Wallet Address": "錢包地址"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
@@ -1449,5 +1449,16 @@
   },
   "components/VersionTag": {
     "Version {{number}}": "版本 {{number}}"
+  },
+  "screens/SellScreen": {
+    "Cash out to my bank account": "提現到我的銀行賬戶",
+    "Bank account": "銀行賬戶",
+    "Select a token you want to sell to get started": "若要開始，請先選您想發出的代幣",
+    "please select": "請選擇",
+    "Enter your desired payout amount": "輸入您想要的付款金額",
+    "Available to sell": "可出售",
+    "Fee": "費用",
+    "Each transaction will be subject to a small amount of fees.": "每筆交易需要支付少量的費用.",
+    "Transfer to your bank account": ""
   }
 }

@@ -175,7 +175,7 @@ function TransactionRow ({
           </ThemedText>
 
           <ThemedText
-            style={tailwind('text-xs text-dfxgray-600')}
+            style={tailwind('text-xs text-gray-600')}
           >
             {formatBlockTime(medianTime)}
           </ThemedText>
@@ -199,7 +199,7 @@ function TransactionRow ({
           />
 
           <View style={tailwind('ml-2 items-start')}>
-            <ThemedText style={tailwind('flex-shrink font-medium text-dfxgray-600')}>
+            <ThemedText style={tailwind('flex-shrink font-medium text-gray-600')}>
               {token}
             </ThemedText>
           </View>

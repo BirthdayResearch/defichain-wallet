@@ -58,7 +58,7 @@ export function LoanPercentage ({
       <Progress.Bar
         progress={amountToPayInPaymentToken.gt(0) ? Number(amountToPayInPaymentToken.dividedBy(outstandingBalanceInPaymentToken)) : 0}
         width={null}
-        borderColor={getColor(isLight ? 'gray-300' : 'dfxgray-600')}
+        borderColor={getColor(isLight ? 'gray-300' : 'gray-600')}
         color={getColor(isLight ? 'blue-500' : 'blue-500')}
         unfilledColor='gray-100'
         borderRadius={8}

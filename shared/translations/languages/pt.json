@@ -35,7 +35,7 @@
     "ADD MORE": "HINZUFÜGEN",
     "No active pool pairs": "Keine aktiven Pool-Paare",
     "Supply liquidity pool tokens to earn high yields": "Liquiditätspool-Token bereitstellen, um hohe Renditen zu erzielen",
-    "Total liquidity (USD)":"Gesamtliquidität (USD)",
+    "Total liquidity (USD)": "Gesamtliquidität (USD)",
     "Browse pool pairs": "Alle Pool-Paare",
     "Your pool pairs": "Deine Pool-Paare",
     "Total Value Locked (USD)": "Fixierter Gesamtwert (USD)",
@@ -96,7 +96,8 @@
     "Select token": "Token auswählen",
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
     "Choose token to send": "Token zum Senden auswählen",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "*Registered address": "*Endereço registrado"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -677,7 +678,7 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z.B. durch Brute-Force-Attacken.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
-  "components/DexFaq" : {
+  "components/DexFaq": {
     "Decentralized Exchange": "Dezentrale Börse",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z.B. Währungen.",
     "Transaction fees": "Transaktionsgebühren",
@@ -686,7 +687,7 @@
     "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Aufgrund der dynamischen Natur der Blockchain ändern sich die Preise auf der DEX mit jedem Block.\n\nDaraus resultiert Slippage, also die Differenz zwischen dem endgültigen Transaktionspreis und dem Preis, der vor der Transaktionsbestätigung in der App angezeigt wird.\n\nMit der Slippage-Toleranzfunktion kannst du die maximale Slippage angeben, die du bei einer Transaktion zu akzeptieren bereit bist.\n\nWenn die Abweichung für deine Transaktion höher ist als deine Slippage-Toleranz, wird die Transaktion nicht abgeschlossen und der ursprüngliche Betrag wird auf deine Wallet zurücktransferiert.",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
-  "components/LiquidityMiningFaq" : {
+  "components/LiquidityMiningFaq": {
     "Liquidity Mining": "Liquiditäts-Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden.\n\nDie Liquiditätspools der DeFiChain bestehen aus Liquidität in Token-Paaren, die von der DeFiChain DEX (Dezentrale Börse) verwendet werden.",
     "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
@@ -795,7 +796,7 @@
     "Confirm Place Bid": "Gebot bestätigen",
     "Auction details": "Auktionsdetails"
   },
-  "components/AuctionDetailScreen":{
+  "components/AuctionDetailScreen": {
     "Collaterals": "Sicherheiten",
     "Min. next bid": "Nächstes Mind. Gebot",
     "VAULT DETAILS": "VAULT-DETAILS",
@@ -955,7 +956,7 @@
   },
   "components/EmptyBalances": {
     "No other tokens yet": "Noch keine weiteren Token",
-    "Get started by adding your tokens here in your wallet": "Fange an, indem du deine Token hier deiner Wallet hinzufügst"
+    "Get started by adding your tokens here in your wallet": ""
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",
@@ -1055,8 +1056,9 @@
     "Resulting {{displaySymbol}} Balance": "Ergibt {{displaySymbol}}",
     "Insufficient {{token}} balance to pay the entered amount": "Nicht ausreichend {{token}} für die Rückzahlung des eingegebenen Betrags",
     "Select payment token": "Token für die Zahlung auswählen",
-    "A 1% fee is applied when you pay with DFI.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
-    "Read more": "Mehr dazu"
+    "Read more": "Mehr dazu",
+    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Wenn du mit DFI bezahlst, wird eine Gebühr von 1% erhoben",
+    "{{paymentToken}} payment fee": "{{paymentToken}}-Zahlungsgebühr"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "ZAHLUNG BESTÄTIGEN",
@@ -1239,5 +1241,19 @@
   },
   "components/Announcements": {
     "VIEW": "ANZEIGEN"
+  },
+  "components/DfxKycInfo": {
+    "Your account needs to get verified once your daily transaction volume exceeds 900 € per day.  If you want to increase daily trading limit, please complete our KYC (Know-Your-Customer) process.": "Você pode obter o volume de transações de mais de 900 € pro Tag muss dein Account verifiziert sein. Möchtest du dieses Limit erhöhen, dann schließe bitte den KYC-Prozess (Know-Your-Customer) ab."
+  },
+  "screens/SellScreen": {
+    "Cash out to my bank account": "Saque na minha conta bancária",
+    "Bank account": "Conta bancária",
+    "Select a token you want to sell to get started": "Select a token you want to sell to get started",
+    "please select": "por favor selecione",
+    "Enter your desired payout amount": "Insira o valor de pagamento desejado",
+    "Available to sell": "Disponível para vender",
+    "Fee": "Taxa",
+    "Each transaction will be subject to a small amount of fees.": "Jede Transaktion unterliegt einer geringen Gebühr.",
+    "Transfer to your bank account": ""
   }
 }
