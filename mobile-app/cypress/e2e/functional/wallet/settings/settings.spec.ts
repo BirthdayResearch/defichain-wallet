@@ -21,6 +21,7 @@ context('Wallet - Settings', () => {
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {
     })
+    cy.blockAllFeatureFlag()
   })
 
   it('should be able to display top up screen when click on playground on playground network', function () {
