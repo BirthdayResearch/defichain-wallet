@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { View } from '@components/index'
-import { ThemedScrollView } from '@components/themed'
+import { ThemedScrollViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../WalletNavigator'
@@ -16,7 +16,7 @@ export function OnboardingV2 (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
   const { isLight } = useThemeContext()
   return (
-    <ThemedScrollView
+    <ThemedScrollViewV2
       contentContainerStyle={tailwind('h-full')}
       style={tailwind('flex-1')}
       testID='onboarding_carousel'
@@ -39,13 +39,13 @@ export function OnboardingV2 (): JSX.Element {
           <ButtonV2
             fill='flat'
             label={translate('screens/Onboarding', 'Restore Wallet')}
-            styleProps='mx-2 mt-6 mb-12'
+            styleProps='mx-2 mt-4 mb-11'
             onPress={() => navigator.navigate('RestoreMnemonicWallet')}
             testID='restore_wallet_button'
           />
         </ImageBackground>
         <VersionTagV2 />
       </View>
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

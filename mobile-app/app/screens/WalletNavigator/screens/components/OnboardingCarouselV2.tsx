@@ -1,15 +1,15 @@
 import { Dimensions, Image, ImageSourcePropType, Platform } from 'react-native'
 import SwiperFlatList from 'react-native-swiper-flatlist'
-import ImageADark from '@assets/images/onboarding/welcome-screen-c-dark.png'
+import ImageADark from '@assets/images/onboarding/welcome-screen-a-dark.png'
 import ImageBDark from '@assets/images/onboarding/welcome-screen-b-dark.png'
-import ImageCDark from '@assets/images/onboarding/welcome-screen-a-dark.png'
+import ImageCDark from '@assets/images/onboarding/welcome-screen-c-dark.png'
 import ImageDDark from '@assets/images/onboarding/welcome-screen-d-dark.png'
 import ImageALight from '@assets/images/onboarding/welcome-screen-a-light.png'
 import ImageBLight from '@assets/images/onboarding/welcome-screen-b-light.png'
 import ImageCLight from '@assets/images/onboarding/welcome-screen-c-light.png'
 import ImageDLight from '@assets/images/onboarding/welcome-screen-d-light.png'
 import { View } from '@components/index'
-import { ThemedText } from '@components/themed'
+import { ThemedTextV2 } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -63,21 +63,21 @@ export function ImageSlide ({ imageDark, imageLight, title, subtitle }: Carousel
         source={isLight ? imageLight : imageDark}
         style={{ width: 220, height: 136 }}
       />
-      <View style={tailwind('h-2/6 items-center justify-center')}>
-        <ThemedText
-          style={tailwind('text-xl font-semibold-v2 text-center mt-8')}
+      <View style={tailwind('h-2/6 items-center justify-center mt-7')}>
+        <ThemedTextV2
+          style={tailwind('text-xl font-semibold-v2 text-center')}
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
         >
           {translate('screens/OnboardingCarousel', title)}
-        </ThemedText>
-        <ThemedText
+        </ThemedTextV2>
+        <ThemedTextV2
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
           style={tailwind('font-normal-v2 text-center mt-2 mb-8')}
         >
           {translate('screens/OnboardingCarousel', subtitle)}
-        </ThemedText>
+        </ThemedTextV2>
       </View>
     </View>
   )
