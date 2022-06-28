@@ -1,9 +1,34 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 
+function addLocalStorageFeatureFlag (): void {
+  cy.intercept('**/settings/flags', {
+    statusCode: 200,
+    body: [{
+      id: 'local_storage',
+      name: 'Native local storage',
+      stage: 'public',
+      version: '>1.6.0',
+      description: 'Native local storage',
+      networks: [
+        'MainNet',
+        'TestNet',
+        'Playground',
+        'Local'
+      ],
+      platforms: [
+        'ios',
+        'android',
+        'web'
+      ]
+    }]
+  })
+}
+
 context('Wallet - Addresses', () => {
   let whale: WhaleApiClient
 
   before(function () {
+    addLocalStorageFeatureFlag()
     cy.createEmptyWallet(true)
   })
 
@@ -135,6 +160,7 @@ context('Wallet - Addresses', () => {
       })
       cy.getByTestID('dfi_utxo_amount').contains('1.00000000')
       cy.exitWallet()
+      addLocalStorageFeatureFlag()
     })
   })
 })
@@ -146,6 +172,7 @@ context('Wallet - Addresses should persist addresses after restore with no activ
 
   before(() => {
     cy.visit('/')
+    addLocalStorageFeatureFlag()
     cy.exitWallet()
   })
 
@@ -170,6 +197,7 @@ context('Wallet - Addresses should persist addresses after restore with no activ
       address = activeAddress
     })
     cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
+    addLocalStorageFeatureFlag()
     cy.exitWallet().wait(3000)
   })
 
@@ -195,6 +223,7 @@ context('Wallet - Addresses should persist addresses after restore with active a
 
   before(() => {
     cy.visit('/')
+    addLocalStorageFeatureFlag()
     cy.exitWallet()
   })
 
@@ -232,6 +261,7 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
     cy.exitWallet()
+    addLocalStorageFeatureFlag()
   })
 
   it('should be able to restore wallet and get old addresses loaded', function () {
@@ -252,6 +282,7 @@ context('Wallet - Addresses should persist addresses after restore with active a
 
 context('Wallet - Addresses should able to create maximum 10 addresses', () => {
   before(function () {
+    addLocalStorageFeatureFlag()
     cy.createEmptyWallet(true)
   })
 
@@ -282,7 +313,9 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
   let address: string
   before(function () {
     cy.visit('/')
+    addLocalStorageFeatureFlag()
     cy.exitWallet()
+    addLocalStorageFeatureFlag()
     cy.createEmptyWallet(true)
     cy.verifyMnemonicOnSettingsPage(recoveryWords, recoveryWords)
     cy.getByTestID('bottom_tab_portfolio').click()
@@ -300,6 +333,7 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
       cy.getByTestID('switch_account_button').should('exist').click()
       cy.getByTestID('address_row_0').should('exist').click()
       cy.exitWallet()
+      addLocalStorageFeatureFlag()
     })
   })
 
