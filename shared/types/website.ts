@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from '../environment'
+import { EnvironmentNetwork } from '@environment'
 
 export interface AnnouncementText {
   en: string
@@ -27,7 +27,7 @@ export interface AnnouncementData {
    * `id` will be stored in device's persistence storage. Therefore, each announcement's `id` should be unique string to enable close announcement function
    */
   id?: string
-  type: 'EMERGENCY' | 'OTHER_ANNOUNCEMENT' | 'PARTIAL_OUTAGE' | 'MAJOR_OUTAGE' | 'MAINTENANCE'
+  type: 'EMERGENCY' | 'OTHER_ANNOUNCEMENT' | 'OUTAGE'
 }
 
 export interface FeatureFlag {
@@ -40,7 +40,7 @@ export interface FeatureFlag {
   platforms: Platform[]
 }
 
-export interface DefiChainStatus {
+export interface DeFiChainStatus {
   page?: {
     id: string
     name: string
@@ -48,7 +48,7 @@ export interface DefiChainStatus {
     updated_at: string
   }
   status: {
-    description: 'All Systems Operational' | 'Partial System Outage' | 'Major Service Outage'
+    description: 'operational' | 'outage'
     indicator: string
   }
   components?: Array<{
@@ -109,6 +109,15 @@ export interface DefiChainStatus {
 
 export type Platform = 'ios' | 'android' | 'windows' | 'macos' | 'web'
 
-export type FEATURE_FLAG_ID = 'loan' | 'auction' | 'dfi_loan_payment' | 'local_storage' | 'dusd_vault_share' | 'dusd_loan_payment' | 'future_swap' | 'service_provider' | 'onboarding_v2'
+export type FEATURE_FLAG_ID =
+  'loan'
+  | 'auction'
+  | 'dfi_loan_payment'
+  | 'local_storage'
+  | 'dusd_vault_share'
+  | 'dusd_loan_payment'
+  | 'future_swap'
+  | 'service_provider'
+  | 'onboarding_v2'
 
 export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'
