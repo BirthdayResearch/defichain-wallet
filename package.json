@@ -125,7 +125,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "colors": "1.4.0",
-    "cypress": "^10.2.0",
+    "cypress": "^10.3.0",
     "cypress-image-diff-js": "1.19.2",
     "eas-cli": "^0.54.1",
     "eslint": "7.32.0",
