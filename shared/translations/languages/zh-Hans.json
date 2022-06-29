@@ -5,6 +5,7 @@
     "Display recovery words": "显示恢复字组",
     "Verify words": "确认字组",
     "Restore Wallet": "恢复钱包",
+    "Restore wallet": "恢复钱包",
     "Create a passcode": "创建密码",
     "Verify passcode": "确认密码",
     "Select network": "选择网络",
@@ -1468,6 +1469,6 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值"
   },
   "components/VersionTag": {
-    "Version {{number}}": "版本 {{number}}"
+    "VERSION {{number}}": "版本 {{number}}"
   }
 }

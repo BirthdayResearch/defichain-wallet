@@ -159,7 +159,7 @@ module.exports = {
           1000: '#000000'
         },
         'red-v2': '#E54545',
-        'orange-v2': '#F2973D',
+        'orange-v2': '#D97B01',
         'green-v2': '#00AD1D'
 
       },

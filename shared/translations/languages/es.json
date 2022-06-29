@@ -5,6 +5,7 @@
     "Display recovery words": "Mostrar palabras de recuperación",
     "Verify words": "Verificar código",
     "Restore Wallet": "Restaurar billetera",
+    "Restore wallet": "Restaurar billetera",
     "Create a passcode": "Crear contraseña",
     "Verify passcode": "Verificar contraseña",
     "Select network": "Seleccionar Red",
@@ -1491,6 +1492,6 @@
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} precio en {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Versión {{number}}"
+    "VERSION {{number}}": "VERSIÓN {{number}}"
   }
 }
