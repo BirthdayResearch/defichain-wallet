@@ -231,7 +231,6 @@ context('Wallet - Settings - Address Book', () => {
   })
 })
 
-// TODO: set custom URL
 const defichainUrls = {
   [EnvironmentNetwork.MainNet]: {
     default: 'https://ocean.defichain.com',
@@ -251,7 +250,7 @@ const defichainUrls = {
   }
 }
 const defichainUrlEnvs = Object.keys(defichainUrls) as EnvironmentNetwork[]
-context('Wallet - Settings - Service Provider', () => {
+context.only('Wallet - Settings - Service Provider', () => {
   before(() => {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()

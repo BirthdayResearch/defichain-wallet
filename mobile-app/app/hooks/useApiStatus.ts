@@ -21,10 +21,10 @@ export function useApiStatus (): {
         pollingInterval: 1000 * 60 * 5 // every 5mins
       })
 
-      const {
-        data: oceanStatus,
-        isSuccess: isOceanSuccess
-      } = useGetOceanStatusQuery({})
+    const {
+    data: oceanStatus,
+    isSuccess: isOceanSuccess
+    } = useGetOceanStatusQuery({})
 
     const [isBlockchainDown, setIsBlockchainDown] = useState(false)
     const [isOceanDown, setIsOceanDown] = useState(false)
@@ -44,12 +44,12 @@ export function useApiStatus (): {
                     setIsBlockchainDown(true)
                     setIsOceanDown(true)
                 }
+            } else {
+                // stats api is up - both blockchain and ocean apis are up
+                setIsOceanDown(false)
+                setIsBlockchainDown(false)
             }
-        } else {
-            // stats api is up - both blockchain and ocean apis are up
-            setIsOceanDown(false)
-            setIsBlockchainDown(false)
-        }
+        } 
     }
     useEffect(() => {
         getBlockStatus(lastSync, lastSuccessfulSync)

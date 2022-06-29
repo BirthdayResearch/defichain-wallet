@@ -156,6 +156,11 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
     },
     id: '1'
   }]
+  const operational = {
+    status: {
+      description: 'operational'
+    }
+  }
   const outage = {
     status: {
       description: 'outage'
@@ -211,6 +216,10 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
     cy.intercept('**/blockchain', {
       statusCode: 200,
       body: outage
+    })
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: operational
     })
     cy.wait(5000)
     cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
@@ -300,13 +309,21 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
     cy.reload()
     cy.getByTestID('announcements_banner').should('not.exist')
   })
-
+  //
   it('should display warning msg when blockchain is down after certain time on start of the app', () => {
     cy.reload()
     cy.createEmptyWallet(true)
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: []
+    })
+    cy.intercept('**/blockchain', {
+      statusCode: 200,
+      body: outage
+    })
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: operational
     })
     cy.intercept('**/regtest/stats', {
       statusCode: 404,
@@ -585,5 +602,32 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
+  })
+
+  it('should display blockchain is down announcement when stats, blockchain and overall (ocean) apis are down', function () {
+    cy.intercept('**/overall', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.intercept('**/blockchain', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain')
   })
 })
