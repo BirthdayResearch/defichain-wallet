@@ -94,7 +94,7 @@ function getStepNodeStyle (isLight: boolean, current: number, step: number): { s
     stepperStyle = 'border bg-green-v2 border-green-v2'
     textStyle = 'text-green-v2'
   } else {
-    stepperStyle = isLight ? 'bg-green-v2' : 'border border-mono-dark-v2-900'
+    stepperStyle = isLight ? 'border border-mono-light-v2-900' : 'border border-mono-dark-v2-900'
     textStyle = isLight ? 'text-mono-light-v2-900' : 'text-mono-dark-v2-900'
   }
   return {
