@@ -5,6 +5,7 @@
     "Display recovery words": "Mostra le parole di ripristino",
     "Verify words": "Verfica le parole",
     "Restore Wallet": "Ripristina il wallet",
+    "Restore wallet": "Ripristina il wallet",
     "Create a passcode": "Crea una password",
     "Verify passcode": "Verifica la password",
     "Select network": "Seleziona la rete",
@@ -441,7 +442,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREA UN WALLET",
-    "RESTORE WALLET": "RIPRISTINA IL WALLET"
+    "RESTORE WALLET": "RIPRISTINA IL WALLET",
+    "Get started": "Get started"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo per Bitcoin",
@@ -452,7 +454,8 @@
     "Maximize earning potential": "Massimizza il potenziale di guadagno",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Scambia i token per ottenere rendimenti elevati e guadagna i premi di liquidity mining con i token decentralizzati.",
     "Decentralized loans": "Prestiti decentralizzati",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati."
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati.",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Schermata d'uscita",
@@ -1479,6 +1482,6 @@
     "{{tokenB}} price in {{tokenA}}": "Prezzo {{tokenB}} in {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Versione {{number}}"
+    "VERSION {{number}}": "VERSIONE {{number}}"
   }
 }

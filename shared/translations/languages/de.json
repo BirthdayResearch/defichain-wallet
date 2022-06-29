@@ -5,6 +5,7 @@
     "Display recovery words": "Zeige Wiederherstellungssatz an",
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
+    "Restore wallet": "Stelle die wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
     "Select network": "Netzwerkauswahl",
@@ -426,7 +427,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "EINE WALLET ERSTELLEN",
-    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN"
+    "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
+    "Get started": "Loslegen"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
@@ -437,7 +439,8 @@
     "Maximize earning potential": "Maximiere das Ertragspotenzial",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Handle auf der DEX und verdiene Rewards aus dem Liquiditäts-Mining mit Kryptos und dToken.",
     "Decentralized loans": "Dezentrale Darlehen",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Erhalte Zugang zu finanziellen Gelegenheiten mit dToken, die in dezentralen Vaults gemintet wurden."
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Erhalte Zugang zu finanziellen Gelegenheiten mit dToken, die in dezentralen Vaults gemintet wurden.",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "Die DeFiChain-Wallet ist völlig non-custodial. Nur du hast Zugang zu deinem Guthaben."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Ansicht verlassen",
@@ -1453,6 +1456,6 @@
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Version {{number}}"
+    "VERSION {{number}}": "VERSION {{number}}"
   }
 }
