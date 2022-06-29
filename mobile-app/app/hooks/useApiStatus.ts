@@ -20,7 +20,7 @@ export function useApiStatus(): {
       } = useGetBlockchainStatusQuery({}, {
         pollingInterval: 1000 * 60 * 5 // every 5mins
       })
-    
+
       const {
         data: oceanStatus,
         isSuccess: isOceanSuccess
@@ -29,26 +29,24 @@ export function useApiStatus(): {
     const [isBlockchainDown, setIsBlockchainDown] = useState(false)
     const [isOceanDown, setIsOceanDown] = useState(false)
 
-    function getBlockStatus(lastSync?: string, lastSuccessfulSync?: string): void {
+    function getBlockStatus (lastSync?: string, lastSuccessfulSync?: string): void {
         if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
             // stats api is down - if syncing time is more than MAX_TIME_DIFF - checks which api is down
             if (dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF) {
                 // blockchain api is down
                 if (isBlockchainSuccess && blockchainStatus?.status.description === 'outage') {
                     setIsBlockchainDown(true)
-                }
-                // ocean api is down
-                else if (isOceanSuccess && oceanStatus?.status.description === 'outage') {
+                } else if (isOceanSuccess && oceanStatus?.status.description === 'outage') {
+                    // ocean api is down
                     setIsOceanDown(true)
                 } else {
-                    // both apis are down 
+                    // both apis are down
                     setIsBlockchainDown(true)
-                    setIsOceanDown(true) //
+                    setIsOceanDown(true)
                 }
-            } 
-        } 
-        // stats api is up - both blockchain and ocean apis are up 
-        else {
+            }
+        } else {
+            // stats api is up - both blockchain and ocean apis are up
             setIsOceanDown(false)
             setIsBlockchainDown(false)
         }
@@ -61,5 +59,4 @@ export function useApiStatus(): {
         isBlockchainDown,
         isOceanDown
     }
-
 }
