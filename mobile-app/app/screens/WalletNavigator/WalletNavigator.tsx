@@ -301,13 +301,7 @@ export function WalletNavigator (): JSX.Element {
           component={PinConfirmationV2}
           name='PinConfirmation'
           options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Verify passcode')}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerBackTitleVisible: false
+            headerTitle: translate('screens/WalletNavigator', 'Verify Passcode')
           }}
         />
       </WalletStackV2.Navigator>
