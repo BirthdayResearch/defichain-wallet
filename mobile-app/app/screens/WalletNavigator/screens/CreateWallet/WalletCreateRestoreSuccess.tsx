@@ -11,7 +11,7 @@ import CoinImageRestore from '@assets/images/restore-success-coin.png'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
-type Props = StackScreenProps<WalletParamList, 'WalletCreateRestoreSuccess'>
+type Props = StackScreenProps<WalletParamListV2, 'WalletCreateRestoreSuccess'>
 
 export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
   const isWalletRestored = route.params?.isWalletRestored
