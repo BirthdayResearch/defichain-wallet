@@ -5,6 +5,7 @@
     "Display recovery words": "显示恢复字组",
     "Verify words": "确认字组",
     "Restore Wallet": "恢复钱包",
+    "Restore wallet": "恢复钱包",
     "Create a passcode": "创建密码",
     "Verify passcode": "确认密码",
     "Select network": "选择网络",
@@ -428,7 +429,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "创建钱包",
-    "RESTORE WALLET": "恢复钱包"
+    "RESTORE WALLET": "恢复钱包",
+    "Get started": "开始"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特币生态原生DeFi",
@@ -439,7 +441,8 @@
     "Maximize earning potential": "最大化盈利潜力",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上进行交易并使用加密货币和 dToken 从流动性挖矿中获得奖励 ",
     "Decentralized loans": "去中心化资产贷款",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会"
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 钱包是完全非托管的。个人资金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "离开页面",
@@ -1426,10 +1429,10 @@
     "Future Swap": "Future Swap"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "伺服器", 
+    "Server": "伺服器",
     "Service Provider": "服务供应商",
-    "UNLOCK": "解锁", 
-    "RESET": "重置", 
+    "UNLOCK": "解锁",
+    "RESET": "重置",
     "Endpoint URL": "终端点网址",
     "Custom": "自定",
     "Default": "预设",
@@ -1462,6 +1465,6 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值"
   },
   "components/VersionTag": {
-    "Version {{number}}": "版本 {{number}}"
+    "VERSION {{number}}": "版本 {{number}}"
   }
 }

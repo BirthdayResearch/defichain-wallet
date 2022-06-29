@@ -26,6 +26,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
+import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -240,7 +241,7 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='Onboarding'
+        initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
@@ -255,7 +256,7 @@ export function WalletNavigator (): JSX.Element {
         }}
       >
         <WalletStackV2.Screen
-          component={Onboarding}
+          component={OnboardingV2}
           name='OnboardingV2'
           options={{
             headerShown: false
@@ -274,7 +275,7 @@ export function WalletNavigator (): JSX.Element {
           name='RecoveryWordsFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'About Recovery Words'),
-            headerRight: () => <></>
+            headerRight: undefined
           }}
         />
 
@@ -283,7 +284,7 @@ export function WalletNavigator (): JSX.Element {
           name='PasscodeFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'About Passcode'),
-            headerRight: () => <></>
+            headerRight: undefined
           }}
         />
 
