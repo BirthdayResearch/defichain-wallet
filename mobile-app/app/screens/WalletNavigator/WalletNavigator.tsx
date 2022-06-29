@@ -25,7 +25,6 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { NetworkDetailsV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetailsV2'
-import { OnboardingNetworkSelectScreenV2 } from './screens/CreateWallet/OnboardingNetworkSelectScreenV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -54,6 +53,9 @@ export interface WalletParamList {
 export interface WalletParamListV2 {
   WalletOnboardingScreen: undefined
   CreateWalletGuidelines: undefined
+  NetworkDetails: {
+    isSelectNetwork?: boolean
+  }
   [key: string]: undefined | object
 }
 
@@ -91,7 +93,7 @@ export function WalletNavigator (): JSX.Element {
     // TODO(kyleleow) update typings
     if (isFeatureAvailable('onboarding_v2')) {
       // @ts-expect-error
-      navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreenV2' })
+      navigationRef.current?.navigate({ name: 'NetworkDetails', params: { isSelectNetwork: true } })
     } else {
       // @ts-expect-error
       navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
@@ -261,7 +263,7 @@ export function WalletNavigator (): JSX.Element {
       >
         <WalletStackV2.Screen
           component={Onboarding}
-          name='OnboardingV2'
+          name='Onboarding'
           options={{
             headerShown: false
           }}
@@ -275,17 +277,9 @@ export function WalletNavigator (): JSX.Element {
         />
         <WalletStackV2.Screen
           component={NetworkDetailsV2}
-          name='NetworkDetailsV2'
+          name='NetworkDetails'
           options={{
             headerTitle: translate('screens/NetworkDetails', 'Network'),
-            headerRight: undefined
-          }}
-        />
-        <WalletStackV2.Screen
-          component={OnboardingNetworkSelectScreenV2}
-          name='OnboardingNetworkSelectScreenV2'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Select Network'),
             headerRight: undefined
           }}
         />

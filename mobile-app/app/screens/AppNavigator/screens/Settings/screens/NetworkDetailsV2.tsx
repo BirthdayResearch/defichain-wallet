@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { TouchableOpacity, Linking } from 'react-native'
 import { View } from '@components/index'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTextV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -13,9 +13,22 @@ import { ThemedSectionTitleV2 } from '@components/themed/ThemedSectionTitleV2'
 import { TextRowV2 } from '@components/TextRowV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { ThemedViewV2 } from '@components/themed/ThemedViewV2'
+import { StackScreenProps } from '@react-navigation/stack'
+import { WalletParamListV2 } from '@screens/WalletNavigator/WalletNavigator'
+import { getEnvironment } from '@environment'
+import { getReleaseChannel } from '@api/releaseChannel'
+import { NetworkItemRowV2 } from '@components/NetworkItemRowV2'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
-export function NetworkDetailsV2 (): JSX.Element {
+type Props = StackScreenProps<WalletParamListV2, 'NetworkDetails'>
+
+export function NetworkDetailsV2 ({ route }: Props): JSX.Element {
   const { network } = useNetworkContext()
+  const networks = getEnvironment(getReleaseChannel()).networks
+  const { isSelectNetwork } = route.params
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
     connected,
     count: blockCount,
@@ -31,26 +44,55 @@ export function NetworkDetailsV2 (): JSX.Element {
     >
 
       <ThemedSectionTitleV2
-        testID='network_details_current_connection'
-        text={translate('screens/NetworkDetails', 'CONNECTION')}
+        testID={isSelectNetwork === true ? 'onboarding_network_selection_screen_title' : 'network_details_current_connection'}
+        text={isSelectNetwork === true ? translate('screens/OnboardingNetworkSelectScreen', 'NETWORK') : translate('screens/NetworkDetails', 'CONNECTION')}
       />
 
       <ThemedViewV2
-        style={[tailwind('p-5'), { borderRadius: 10 }]}
+        style={[tailwind('px-5'), { borderRadius: 10 }]}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
       >
-        <TextRowV2
-          lhs={{ value: translate('screens/NetworkDetails', 'Network') }}
-          rhs={{ value: network, testID: 'network_details_network' }}
-          containerStyle={{
-            style: tailwind('pb-4.5 border-b flex-row items-start w-full bg-transparent'),
-            light: tailwind('border-mono-light-v2-300'),
-            dark: tailwind('border-mono-dark-v2-300')
-          }}
-        />
-        <NetworkStatusRow connected={connected} />
+        {
+          isSelectNetwork === true
+? (
+            networks.map((network, index) => (
+              <NetworkItemRowV2
+                key={index}
+                network={network}
+                alertMessage={translate(
+                  'screens/OnboardingNetworkSelectScreen', 'You are about to switch to {{network}}. Do you want to proceed?', { network: network }
+                )}
+                isLast={index === networks.length - 1}
+              />
+            ))
+          )
+: (
+  <>
+    <TextRowV2
+      lhs={{ value: translate('screens/NetworkDetails', 'Network') }}
+      rhs={{ value: network, testID: 'network_details_network' }}
+      containerStyle={{
+                  style: tailwind('pt-5 pb-4.5 border-b flex-row items-start w-full bg-transparent'),
+                  light: tailwind('border-mono-light-v2-300'),
+                  dark: tailwind('border-mono-dark-v2-300')
+                }}
+    />
+    <NetworkStatusRow connected={connected} />
+  </>
+          )
+        }
       </ThemedViewV2>
+      {(hasPendingJob || hasPendingBroadcastJob) &&
+        (
+          <ThemedTextV2
+            style={tailwind('pt-1.5 pb-2 px-5 text-xs font-normal-v2')}
+            light={tailwind('text-orange-v2')}
+            dark={tailwind('text-orange-v2')}
+          >
+            {translate('screens/OnboardingNetworkSelectScreen', 'Network selection is currently unavailable due to ongoing transaction')}
+          </ThemedTextV2>
+        )}
 
       <ThemedSectionTitleV2
         testID='network_details_block_info'
@@ -98,7 +140,7 @@ export function NetworkDetailsV2 (): JSX.Element {
 function NetworkStatusRow ({ connected }: { connected: boolean }): JSX.Element {
   return (
     <View
-      style={tailwind('pt-4.5 flex-row items-start w-full bg-transparent')}
+      style={tailwind('pt-4.5 pb-5 flex-row items-start w-full bg-transparent')}
     >
       <View style={tailwind('w-5/12')}>
         <ThemedText
@@ -131,14 +173,14 @@ function NetworkStatusRow ({ connected }: { connected: boolean }): JSX.Element {
               dark={tailwind('text-green-v2')}
             />
           )
-: (
-  <ThemedIcon
-    size={18}
-    name='close-circle'
-    iconType='MaterialCommunityIcons'
-    light={tailwind('text-red-v2')}
-    dark={tailwind('text-red-v2')}
-  />
+          : (
+            <ThemedIcon
+              size={18}
+              name='close-circle'
+              iconType='MaterialCommunityIcons'
+              light={tailwind('text-red-v2')}
+              dark={tailwind('text-red-v2')}
+            />
           )}
       </View>
     </View>
