@@ -23,7 +23,12 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={[tailwind('flex-1'), { paddingTop: safeAreaInsets.top }]}
+      style={[
+        tailwind('flex-1'), {
+          paddingTop: safeAreaInsets.top,
+          paddingBottom: safeAreaInsets.bottom
+        }
+      ]}
       contentContainerStyle={tailwind('pt-12 pb-16')}
       testID='wallet_create-restore_success'
     >

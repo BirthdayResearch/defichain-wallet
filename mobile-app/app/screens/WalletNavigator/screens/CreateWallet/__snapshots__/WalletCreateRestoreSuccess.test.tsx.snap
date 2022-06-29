@@ -17,6 +17,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           "flexShrink": 1,
         },
         Object {
+          "paddingBottom": 100,
           "paddingTop": 100,
         },
       ],
@@ -219,6 +220,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           "flexShrink": 1,
         },
         Object {
+          "paddingBottom": 100,
           "paddingTop": 100,
         },
       ],

@@ -3,7 +3,7 @@ import { WalletCreateRestoreSuccess } from './WalletCreateRestoreSuccess'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('react-native-safe-area-context', () => ({
-  useSafeAreaInsets: () => ({ top: 100 })
+  useSafeAreaInsets: () => ({ top: 100, bottom: 100 })
 }))
 describe('WalletCreateRestoreSuccess', () => {
   it('should match create wallet snapshot', () => {
