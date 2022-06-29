@@ -49,7 +49,7 @@ export function useApiStatus (): {
                 setIsOceanDown(false)
                 setIsBlockchainDown(false)
             }
-        } 
+        }
     }
     useEffect(() => {
         getBlockStatus(lastSync, lastSuccessfulSync)
