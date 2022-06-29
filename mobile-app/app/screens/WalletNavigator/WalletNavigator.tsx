@@ -264,7 +264,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
           options={{
@@ -272,7 +272,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={CreateMnemonicWalletV2}
           name='CreateMnemonicWallet'
           options={{
@@ -281,7 +281,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={VerifyMnemonicWalletV2}
           name='VerifyMnemonicWallet'
           options={{

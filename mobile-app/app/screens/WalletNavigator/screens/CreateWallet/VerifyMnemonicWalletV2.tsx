@@ -121,7 +121,9 @@ export function VerifyMnemonicWalletV2 ({ route, navigation }: Props): JSX.Eleme
       ))}
 
       <ThemedTextV2
-        style={tailwind('text-base mt-7 text-center font-normal-v2')}
+        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind('text-mono-dark-v2-700')}
+        style={tailwind('text-xs mt-7 text-center font-normal-v2')}
       >
         {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
       </ThemedTextV2>
