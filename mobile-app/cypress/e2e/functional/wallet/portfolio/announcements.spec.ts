@@ -156,9 +156,9 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
     },
     id: '1'
   }]
-  const operational = {
+  const outage = {
     status: {
-      description: 'operational'
+      description: 'outage'
     }
   }
 
@@ -189,7 +189,6 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
         'x-not-found': 'true'
       }
     })
-
     cy.wait(5000)
     cy.getByTestID('announcements_banner').should('exist')
     cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
@@ -209,9 +208,9 @@ context('Wallet - Portfolio - Announcements - Blockchain warning messages', () =
         'x-not-found': 'true'
       }
     })
-    cy.intercept('**/overall', {
+    cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: operational
+      body: outage
     })
     cy.wait(5000)
     cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
@@ -452,6 +451,10 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       statusCode: 200,
       body: operational
     })
+    cy.intercept('**/blockchain', {
+      statusCode: 200,
+      body: operational
+    })
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: sampleAnnouncementsWithID
@@ -485,7 +488,7 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
-  
+
   it('should be able to display overall (ocean) status down', function () {
     cy.intercept('GET', '**/overall', {
       statusCode: 200,
@@ -533,6 +536,54 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_banner').should('exist')
       cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
+    })
+  })
+
+  it('should display blockchain is down announcement when both blockchain and overall (ocean) apis are down', function () {
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: outage
+    })
+    cy.intercept('**/blockchain', {
+      statusCode: 200,
+      body: outage
+    })
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.getByTestID('announcements_banner').should('exist')
+    cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
+  })
+
+  it('should replace existing announcement with blockchain is down announcement when both blockchain and overall (ocean) apis are down', function () {
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: outage
+    })
+    cy.intercept('**/blockchain', {
+      statusCode: 200,
+      body: outage
+    })
+    cy.intercept('**/regtest/stats', {
+      statusCode: 404,
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
+    })
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: sampleAnnouncements
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.wait(2000)
+      cy.getByTestID('announcements_banner').should('exist')
+      cy.getByTestID('announcements_text').should('not.contain', 'Guidelines')
+      cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
 })
