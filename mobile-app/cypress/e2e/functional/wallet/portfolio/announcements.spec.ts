@@ -485,7 +485,7 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
       cy.getByTestID('announcements_text').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
     })
   })
-
+  
   it('should be able to display overall (ocean) status down', function () {
     cy.intercept('GET', '**/overall', {
       statusCode: 200,
@@ -509,13 +509,20 @@ context('Wallet - portfolio - Announcements - Blockchain and Ocean Outages', () 
   })
 
   it('should replace existing announcement with overall (ocean) is down warning message', function () {
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: outage
+    })
     cy.intercept('**/blockchain', {
       statusCode: 200,
       body: operational
     })
-    cy.intercept('**/overall', {
+    cy.intercept('**/regtest/stats', {
       statusCode: 200,
-      body: outage
+      body: '404 Not Found!',
+      headers: {
+        'x-not-found': 'true'
+      }
     })
     cy.intercept('**/announcements', {
       statusCode: 200,
