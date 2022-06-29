@@ -276,8 +276,7 @@ export function WalletNavigator (): JSX.Element {
           component={CreateMnemonicWalletV2}
           name='CreateMnemonicWallet'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
-            headerRightContainerStyle: tailwind('px-2 py-2')
+            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words')
           }}
         />
 

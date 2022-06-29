@@ -20,7 +20,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         "flexDirection": "row",
         "height": 64,
         "justifyContent": "center",
-        "width": "75%",
+        "width": "83.333333%",
       }
     }
   >

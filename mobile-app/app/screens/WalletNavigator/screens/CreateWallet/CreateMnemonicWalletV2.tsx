@@ -50,6 +50,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => (
         <TouchableOpacity
           onPress={refreshRecoveryWords}
+          style={tailwind('mr-3')}
           testID='reset_recovery_word_button'
         >
           <ThemedIcon
