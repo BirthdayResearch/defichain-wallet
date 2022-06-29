@@ -50,7 +50,7 @@ export function OnboardingV2 (): JSX.Element {
           />
           <ButtonV2
             fill='flat'
-            label={translate('screens/Onboarding', 'Restore Wallet')}
+            label={translate('screens/Onboarding', 'Restore wallet')}
             styleProps='mx-2 mt-4 mb-11'
             onPress={() => navigator.navigate('RestoreMnemonicWallet')}
             testID='restore_wallet_button'
