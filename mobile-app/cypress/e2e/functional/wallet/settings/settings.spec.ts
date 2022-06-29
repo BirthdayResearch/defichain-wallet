@@ -49,7 +49,8 @@ context('Wallet - Settings', () => {
 
   it('should exit wallet when clicked on positive action', function () {
     cy.getByTestID('setting_exit_wallet').click()
-    cy.on('window:confirm', () => { })
+    cy.on('window:confirm', () => {
+    })
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
   })
@@ -250,7 +251,7 @@ const defichainUrls = {
   }
 }
 const defichainUrlEnvs = Object.keys(defichainUrls) as EnvironmentNetwork[]
-context.only('Wallet - Settings - Service Provider', () => {
+context('Wallet - Settings - Service Provider', () => {
   before(() => {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
