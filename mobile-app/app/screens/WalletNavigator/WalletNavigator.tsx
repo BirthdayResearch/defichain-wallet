@@ -263,7 +263,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
           options={{
@@ -271,12 +271,11 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={CreateMnemonicWalletV2}
           name='CreateMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
-            headerRightContainerStyle: tailwind('px-2 py-2'),
             headerBackTitleVisible: false
           }}
         />
