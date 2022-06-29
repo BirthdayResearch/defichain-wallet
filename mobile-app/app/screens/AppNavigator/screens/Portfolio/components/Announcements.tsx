@@ -13,7 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
 import { useApiStatus } from '@hooks/useApiStatus'
-import { blockChainIsDownContent, useDefiChainStatus } from '../hooks/DefichainStatus'
+import { blockChainIsDownContent, useDeFiChainStatus } from '../hooks/DefichainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
@@ -35,7 +35,7 @@ export function Announcements (): JSX.Element {
   const {
     blockchainStatusAnnouncement,
     oceanStatusAnnouncement
-  } = useDefiChainStatus(hiddenAnnouncements)
+  } = useDeFiChainStatus(hiddenAnnouncements)
 
   const { isCustomUrl } = useServiceProviderContext()
 

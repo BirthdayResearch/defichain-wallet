@@ -10,53 +10,58 @@ import { useGetBlockchainStatusQuery, useGetOceanStatusQuery } from '@store/webs
 const MAX_TIME_DIFF = getEnvironment(getReleaseChannel()).debug ? 5 * 1000 : 45 * 60 * 1000 // 45 mins in milliseconds
 
 export function useApiStatus (): {
-    isBlockchainDown: boolean
-    isOceanDown: boolean
+  isBlockchainDown: boolean
+  isOceanDown: boolean
 } {
-    const { lastSync, lastSuccessfulSync } = useSelector((state: RootState) => state.block)
-    const {
-        data: blockchainStatus,
-        isSuccess: isBlockchainSuccess
-      } = useGetBlockchainStatusQuery({}, {
-        pollingInterval: 1000 * 60 * 5 // every 5mins
-      })
+  const {
+    lastSync,
+    lastSuccessfulSync
+  } = useSelector((state: RootState) => state.block)
+  const {
+    data: blockchainStatus,
+    isSuccess: isBlockchainSuccess
+  } = useGetBlockchainStatusQuery({}, {
+    pollingInterval: 1000 * 60 * 5 // every 5mins
+  })
 
-    const {
+  const {
     data: oceanStatus,
     isSuccess: isOceanSuccess
-    } = useGetOceanStatusQuery({})
+  } = useGetOceanStatusQuery({})
 
-    const [isBlockchainDown, setIsBlockchainDown] = useState(false)
-    const [isOceanDown, setIsOceanDown] = useState(false)
+  const [isBlockchainDown, setIsBlockchainDown] = useState(false)
+  const [isOceanDown, setIsOceanDown] = useState(false)
 
-    function getBlockStatus (lastSync?: string, lastSuccessfulSync?: string): void {
-        if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
-            // stats api is down - if syncing time is more than MAX_TIME_DIFF - checks which api is down
-            if (dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF) {
-                // blockchain api is down
-                if (isBlockchainSuccess && blockchainStatus?.status.description === 'outage') {
-                    setIsBlockchainDown(true)
-                } else if (isOceanSuccess && oceanStatus?.status.description === 'outage') {
-                    // ocean api is down
-                    setIsOceanDown(true)
-                } else {
-                    // both apis are down
-                    setIsBlockchainDown(true)
-                    setIsOceanDown(true)
-                }
-            } else {
-                // stats api is up - both blockchain and ocean apis are up
-                setIsOceanDown(false)
-                setIsBlockchainDown(false)
-            }
+  function getBlockStatus (lastSync?: string, lastSuccessfulSync?: string): void {
+    if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
+      // stats api is down - if syncing time is more than MAX_TIME_DIFF - checks which api is down
+      const OUTAGE = 'outage'
+      if (dayjs(lastSync).diff(dayjs(lastSuccessfulSync)) > MAX_TIME_DIFF) {
+        // blockchain api is down
+        if (isBlockchainSuccess && blockchainStatus?.status.description === OUTAGE) {
+          setIsBlockchainDown(true)
+        } else if (isOceanSuccess && oceanStatus?.status.description === OUTAGE) {
+          // ocean api is down
+          setIsOceanDown(true)
+        } else {
+          // both apis are down
+          setIsBlockchainDown(true)
+          setIsOceanDown(true)
         }
+      } else {
+        // stats api is up - both blockchain and ocean apis are up
+        setIsOceanDown(false)
+        setIsBlockchainDown(false)
+      }
     }
-    useEffect(() => {
-        getBlockStatus(lastSync, lastSuccessfulSync)
-    }, [getBlockStatus])
+  }
 
-    return {
-        isBlockchainDown,
-        isOceanDown
-    }
+  useEffect(() => {
+    getBlockStatus(lastSync, lastSuccessfulSync)
+  }, [getBlockStatus])
+
+  return {
+    isBlockchainDown,
+    isOceanDown
+  }
 }

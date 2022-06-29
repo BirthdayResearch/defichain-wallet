@@ -47,7 +47,7 @@ export const blockChainIsDownContent: AnnouncementData[] = [{
   type: 'OUTAGE'
 }]
 
-export function useDefiChainStatus (hiddenAnnouncements: string[]): {
+export function useDeFiChainStatus (hiddenAnnouncements: string[]): {
   blockchainStatusAnnouncement: AnnouncementData[] | undefined
   oceanStatusAnnouncement: AnnouncementData[] | undefined
 } {

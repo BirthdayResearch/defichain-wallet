@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { AnnouncementData, DefiChainStatus, FeatureFlag } from '@shared-types/website'
+import { AnnouncementData, DeFiChainStatus, FeatureFlag } from '@shared-types/website'
 
 export const statusWebsiteSlice = createApi({
   reducerPath: 'websiteStatus',
@@ -7,14 +7,14 @@ export const statusWebsiteSlice = createApi({
     baseUrl: 'https://api.status.jellyfishsdk.com'
   }),
   endpoints: builder => ({
-    getBlockchainStatus: builder.query<DefiChainStatus, any>({
+    getBlockchainStatus: builder.query<DeFiChainStatus, any>({
       query: () => ({
         url: '/blockchain',
         method: 'GET'
       })
     }),
     // Ocean API
-    getOceanStatus: builder.query<DefiChainStatus, any>({
+    getOceanStatus: builder.query<DeFiChainStatus, any>({
       query: () => ({
         url: '/overall',
         method: 'GET'
