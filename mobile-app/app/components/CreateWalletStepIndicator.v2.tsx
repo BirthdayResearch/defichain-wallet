@@ -3,7 +3,7 @@ import { Text, View } from '.'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { ThemedIcon, ThemedText } from './themed'
+import { ThemedIcon, ThemedTextV2 } from './themed'
 
 interface StepIndicatorProps {
   current: number
@@ -91,10 +91,10 @@ function getStepNodeStyle (isLight: boolean, current: number, step: number): { s
     stepperStyle = 'border border-green-v2'
     textStyle = 'text-green-v2'
   } else if (current > step) {
-    stepperStyle = 'border bg-green-v2'
+    stepperStyle = 'border bg-green-v2 border-green-v2'
     textStyle = 'text-green-v2'
   } else {
-    stepperStyle = isLight ? 'border border-mono-light-v2-900' : 'border border-mono-dark-v2-900'
+    stepperStyle = isLight ? 'bg-green-v2' : 'border border-mono-dark-v2-900'
     textStyle = isLight ? 'text-mono-light-v2-900' : 'text-mono-dark-v2-900'
   }
   return {
@@ -138,12 +138,12 @@ function StepNode (props: { step: number, current: number, content: string, isLi
 
 function Description (props: { step: number, current: number, content: string }): JSX.Element {
   return (
-    <ThemedText
-      dark={tailwind(props.current === props.step ? 'text-green-v2' : 'text-mono-dark-v2-900')}
-      light={tailwind(props.current === props.step ? 'text-green-v2' : 'text-mono-light-v2-900')}
+    <ThemedTextV2
+      dark={tailwind('text-green-v2')}
+      light={tailwind('text-green-v2')}
       style={tailwind('text-center text-xs font-normal top-12 absolute w-20')}
     >
       {translate('components/CreateWalletIndicator', props.content)}
-    </ThemedText>
+    </ThemedTextV2>
   )
 }
