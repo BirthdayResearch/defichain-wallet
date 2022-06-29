@@ -5,6 +5,7 @@
     "Display recovery words": "Zeige Wiederherstellungssatz an",
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
+    "Restore wallet": "Stelle die wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
     "Select network": "Netzwerkauswahl",
@@ -1459,6 +1460,6 @@
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}}-Preis in {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Version {{number}}"
+    "VERSION {{number}}": "VERSION {{number}}"
   }
 }

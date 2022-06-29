@@ -5,6 +5,7 @@
     "Display recovery words": "顯示恢復字組",
     "Verify words": "確認字組",
     "Restore Wallet": "恢復錢包",
+    "Restore wallet": "恢復錢包",
     "Create a passcode": "創建密碼",
     "Verify passcode": "確認密碼",
     "Select network": "選擇網絡",
@@ -1470,6 +1471,6 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值"
   },
   "components/VersionTag": {
-    "Version {{number}}": "版本 {{number}}"
+    "VERSION {{number}}": "版本 {{number}}"
   }
 }
