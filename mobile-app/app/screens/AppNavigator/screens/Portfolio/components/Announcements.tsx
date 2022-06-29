@@ -12,7 +12,7 @@ import { Text } from '@components'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
-import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
+import { useApiStatus } from '@hooks/useApiStatus'
 import { blockChainIsDownContent, useDefiChainStatus } from '../hooks/DefichainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -39,7 +39,7 @@ export function Announcements (): JSX.Element {
 
   const { isCustomUrl } = useServiceProviderContext()
 
-  const isBlockchainDown = useBlockchainStatus()
+  const { isBlockchainDown } = useApiStatus()
 
   const customServiceProviderIssue: AnnouncementData[] = [{
     lang: {

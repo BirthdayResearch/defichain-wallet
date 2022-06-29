@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useGetBlockchainStatusQuery, useGetOceanStatusQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
-import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
+import { useApiStatus } from '@hooks/useApiStatus'
 
 const deFiChainStatusUrl = 'https://status.defichain.com/'
 
@@ -55,31 +54,18 @@ export function useDefiChainStatus (hiddenAnnouncements: string[]): {
   const [oceanStatusAnnouncement, setOceanStatusAnnouncement] = useState<AnnouncementData[] | undefined>()
   const [blockchainStatusAnnouncement, setBlockchainStatusAnnouncement] = useState<AnnouncementData[] | undefined>()
 
-  const {
-    data: blockchainStatus,
-    isSuccess: isBlockchainSuccess
-  } = useGetBlockchainStatusQuery({}, {
-    pollingInterval: 1000 * 60 * 5 // every 5mins
-  })
-
-  const {
-    data: oceanStatus,
-    isSuccess: isOceanSuccess
-  } = useGetOceanStatusQuery({})
-
-  const isBlockchainDown = useBlockchainStatus()
+  const { isBlockchainDown, isOceanDown } = useApiStatus()
 
   const setAnnouncementAsync = useCallback(async () => {
-    if (isBlockchainDown && isBlockchainSuccess && blockchainStatus?.status.description === 'outage') {
+    if (isBlockchainDown) {
       return setBlockchainStatusAnnouncement(blockChainIsDownContent)
-    } else if (!isBlockchainDown && isOceanSuccess && oceanStatus?.status.description === 'outage') {
-      // if overall (ocean) api is down
+    } else if (isOceanDown) {
       return setOceanStatusAnnouncement(oceanIsDownContent)
     } else {
       setBlockchainStatusAnnouncement(undefined)
       setOceanStatusAnnouncement(undefined)
     }
-  }, [isBlockchainDown, isBlockchainSuccess, isOceanSuccess, oceanStatus?.status?.description, blockchainStatus?.status?.description])
+  }, [isBlockchainDown, isOceanDown])
 
   useEffect(() => {
     void setAnnouncementAsync()
