@@ -24,6 +24,7 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -238,7 +239,7 @@ export function WalletNavigator (): JSX.Element {
   function WalletStacksV2 (): JSX.Element {
     return (
       <WalletStackV2.Navigator
-        initialRouteName='Onboarding'
+        initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl'),
           headerTitleAlign: 'center',
@@ -253,7 +254,7 @@ export function WalletNavigator (): JSX.Element {
         }}
       >
         <WalletStackV2.Screen
-          component={Onboarding}
+          component={OnboardingV2}
           name='OnboardingV2'
           options={{
             headerShown: false
