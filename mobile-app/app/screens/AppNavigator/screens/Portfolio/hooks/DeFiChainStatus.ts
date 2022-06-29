@@ -54,7 +54,10 @@ export function useDeFiChainStatus (hiddenAnnouncements: string[]): {
   const [oceanStatusAnnouncement, setOceanStatusAnnouncement] = useState<AnnouncementData[] | undefined>()
   const [blockchainStatusAnnouncement, setBlockchainStatusAnnouncement] = useState<AnnouncementData[] | undefined>()
 
-  const { isBlockchainDown, isOceanDown } = useApiStatus()
+  const {
+    isBlockchainDown,
+    isOceanDown
+  } = useApiStatus()
 
   const setAnnouncementAsync = useCallback(async () => {
     if (isBlockchainDown) {

@@ -13,7 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
 import { useApiStatus } from '@hooks/useApiStatus'
-import { blockChainIsDownContent, useDeFiChainStatus } from '../hooks/DefichainStatus'
+import { blockChainIsDownContent, useDeFiChainStatus } from '../hooks/DeFiChainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
@@ -97,7 +97,10 @@ interface AnnouncementBannerProps {
   announcement: Announcement
 }
 
-function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBannerProps): JSX.Element {
+function AnnouncementBanner ({
+  hideAnnouncement,
+  announcement
+}: AnnouncementBannerProps): JSX.Element {
   const { isLight } = useThemeContext()
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
     EMERGENCY: 'warning',
@@ -120,24 +123,24 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       })}
     >
       {announcement.id !== undefined &&
-      (
-        <MaterialIcons
-          style={tailwind(['mr-1', {
-            'text-white': !isLight || isOtherAnnouncement,
-            'text-gray-900': !(!isLight || isOtherAnnouncement)
-          }])}
-          iconType='MaterialIcons'
-          name='close'
-          size={18}
-          onPress={() => {
-            if (announcement.id === undefined) {
-              return
-            }
-            hideAnnouncement(announcement.id)
-          }}
-          testID='close_announcement'
-        />
-      )}
+        (
+          <MaterialIcons
+            style={tailwind(['mr-1', {
+              'text-white': !isLight || isOtherAnnouncement,
+              'text-gray-900': !(!isLight || isOtherAnnouncement)
+            }])}
+            iconType='MaterialIcons'
+            name='close'
+            size={18}
+            onPress={() => {
+              if (announcement.id === undefined) {
+                return
+              }
+              hideAnnouncement(announcement.id)
+            }}
+            testID='close_announcement'
+          />
+        )}
 
       <MaterialIcons
         style={tailwind(['mr-2.5', {
@@ -159,26 +162,26 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
         {`${announcement.content} `}
       </Text>
       {announcement.url !== undefined && announcement.url.length !== 0 &&
-      (
-        <TouchableOpacity
-          onPress={async () => await openURL(announcement.url)}
-          style={tailwind('ml-2 py-1')}
-        >
-          <ThemedText
-            style={tailwind('text-sm font-medium')}
-            light={tailwind({
-            'text-white': isOtherAnnouncement,
-            'text-warning-600': !isOtherAnnouncement
-          })}
-            dark={tailwind({
-            'text-white': isOtherAnnouncement,
-            'text-darkwarning-600': !isOtherAnnouncement
-          })}
+        (
+          <TouchableOpacity
+            onPress={async () => await openURL(announcement.url)}
+            style={tailwind('ml-2 py-1')}
           >
-            {translate('components/Announcements', 'DETAILS')}
-          </ThemedText>
-        </TouchableOpacity>
-      )}
+            <ThemedText
+              style={tailwind('text-sm font-medium')}
+              light={tailwind({
+                'text-white': isOtherAnnouncement,
+                'text-warning-600': !isOtherAnnouncement
+              })}
+              dark={tailwind({
+                'text-white': isOtherAnnouncement,
+                'text-darkwarning-600': !isOtherAnnouncement
+              })}
+            >
+              {translate('components/Announcements', 'DETAILS')}
+            </ThemedText>
+          </TouchableOpacity>
+        )}
     </ThemedView>
   )
 }
