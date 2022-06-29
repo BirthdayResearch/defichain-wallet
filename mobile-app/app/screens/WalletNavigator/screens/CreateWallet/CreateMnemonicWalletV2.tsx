@@ -8,7 +8,7 @@ import { WalletAlert } from '@components/WalletAlert'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import { View } from '@components'
 import { ButtonV2 } from '@components/ButtonV2'
 
@@ -50,7 +50,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => (
         <TouchableOpacity
           onPress={refreshRecoveryWords}
-          style={tailwind('mr-3')}
+          style={tailwind({ 'mr-3': Platform.OS === 'android' })}
           testID='reset_recovery_word_button'
         >
           <ThemedIcon
