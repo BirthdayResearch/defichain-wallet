@@ -1465,6 +1465,9 @@
     "Available to sell": "Zum Verkauf verfügbar",
     "Fee": "Gebühr",
     "Each transaction will be subject to a small amount of fees.": "Jede Transaktion unterliegt einer geringen Gebühr.",
-    "Transfer to your bank account": "Auf dein Bankkonto auszahlen"
+    "Transfer to your bank account": "Auf dein Bankkonto auszahlen",
+    "Your Currency": "Deine Währung",
+    "Select account to cash out": "Konto für Auszahlung auswählen",
+    "Add account": "Konto hinzufügen"
   }
 }

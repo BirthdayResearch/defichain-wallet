@@ -1492,6 +1492,9 @@
     "Available to sell": "Disponible para vender",
     "Fee": "Comisión",
     "Each transaction will be subject to a small amount of fees.": "Cada transacción concurrirá en una pequeña comisión.",
-    "Transfer to your bank account": ""
+    "Transfer to your bank account": "",
+    "Your Currency": "Su moneda",
+    "Select account to cash out": "Seleccionar cuenta para cobrar",
+    "Add account": "Añadir cuenta"
   }
 }

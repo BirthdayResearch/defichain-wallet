@@ -1254,6 +1254,9 @@
     "Available to sell": "Disponível para vender",
     "Fee": "Taxa",
     "Each transaction will be subject to a small amount of fees.": "Jede Transaktion unterliegt einer geringen Gebühr.",
-    "Transfer to your bank account": ""
+    "Transfer to your bank account": "",
+    "Your Currency": "Sua moeda",
+    "Select account to cash out": "Selecione a conta para sacar",
+    "Add account": "Adicionar Conta"
   }
 }

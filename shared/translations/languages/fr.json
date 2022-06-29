@@ -1481,6 +1481,9 @@
     "Available to sell": "Disponible à la vente",
     "Fee": "Frais",
     "Each transaction will be subject to a small amount of fees.": "Chaque transaction sera soumise à un petit montant de frais.",
-    "Transfer to your bank account": ""
+    "Transfer to your bank account": "",
+    "Your Currency": "Votre devise",
+    "Select account to cash out": "Sélectionnez le compte à retirer",
+    "Add account": "Ajouter un compte"
   }
 }

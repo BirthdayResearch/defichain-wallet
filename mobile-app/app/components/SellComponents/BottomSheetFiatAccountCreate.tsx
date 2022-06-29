@@ -12,7 +12,6 @@ import { DFXAPIContextProvider, useDFXAPIContext } from '@shared-contexts/DFXAPI
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { AddOrRemoveCollateralResponse } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
 import { isValidIBAN } from 'ibantools'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -227,7 +226,7 @@ function FiatPickerRow (props: { selectedFiat: Fiat['name'], loadedFiats: (selec
         dark={tailwind('text-dfxgray-300')}
         style={tailwind('flex-grow mt-4')}
       >
-        {translate('screens/SellScreen', 'Select Currency')}
+        {translate('screens/SellScreen', 'Your Currency')}
       </ThemedText>
 
       {isLoading
@@ -271,7 +270,8 @@ interface IbanForm {
 
 function IbanInput ({
   control,
-  onAmountChange
+  onAmountChange,
+  onClearButtonPress
 }: IbanForm): JSX.Element {
   return (
     <Controller
@@ -287,6 +287,12 @@ function IbanInput ({
         >
           <WalletTextInput
             autoCapitalize='characters'
+            // pasteButton={{
+            //   isPasteDisabled: false,
+            //   onPasteButtonPress: async () => {
+            //     value = await Clipboard.getString()
+            //   }
+            // }}
             onChange={onChange}
             onChangeText={onAmountChange}
             placeholder='IBAN: XX 0000 0000 0000 00'
@@ -295,10 +301,8 @@ function IbanInput ({
             value={value}
             maxLength={34}
             displayClearButton={value !== ''}
-            onClearButtonPress={() => {
-              value = ''
-            }}
-            title={translate('screens/SellScreen', 'Please enter IBAN')}
+            onClearButtonPress={onClearButtonPress}
+            title={translate('screens/SellScreen', 'IBAN')}
             titleTestID='title_send'
             inputType='default'
             hasBottomSheet
