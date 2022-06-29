@@ -114,6 +114,11 @@ declare global {
        * @param {any} walletTheme
        */
       setWalletTheme: (walletTheme: any) => Chainable<Element>
+
+      /**
+       * @description return empty array of feature flag
+       */
+      blockAllFeatureFlag: () => Chainable<Element>
     }
   }
 }
@@ -191,5 +196,12 @@ Cypress.Commands.add('setWalletTheme', (walletTheme: any) => {
   cy.getByTestID('header_settings').click()
   cy.getByTestID('light_mode_icon').then(($txt: any) => {
     walletTheme.isDark = $txt[0].style.color === 'rgb(212, 212, 212)'
+  })
+})
+
+Cypress.Commands.add('blockAllFeatureFlag', () => {
+  cy.intercept('**/settings/flags', {
+    statusCode: 200,
+    body: []
   })
 })
