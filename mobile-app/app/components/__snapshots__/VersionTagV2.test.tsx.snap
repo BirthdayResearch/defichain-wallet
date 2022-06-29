@@ -6,7 +6,7 @@ exports[`version tag should render 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -23,9 +23,8 @@ exports[`version tag should render 1`] = `
         Array [
           Object {
             "fontFamily": "SoraRegular",
-            "fontSize": 14,
+            "fontSize": 10,
             "fontWeight": "400",
-            "lineHeight": 20,
             "textAlign": "center",
           },
           Object {
@@ -36,7 +35,11 @@ exports[`version tag should render 1`] = `
     }
     testID="version_tag"
   >
+<<<<<<< HEAD
     Version mock
+=======
+    VERSION mock
+>>>>>>> 3145767ce8fb9c5c3e126ab9556586f313870ede
   </Text>
 </View>
 `;
