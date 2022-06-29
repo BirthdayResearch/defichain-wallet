@@ -9,7 +9,7 @@ import { useGetBlockchainStatusQuery, useGetOceanStatusQuery } from '@store/webs
 // MAX_TIME_DIFF set to 45 mins to display warning message (in AnnouncementBanner) when blockchain is down only in Production mode, else 5 seconds for local runs
 const MAX_TIME_DIFF = getEnvironment(getReleaseChannel()).debug ? 5 * 1000 : 45 * 60 * 1000 // 45 mins in milliseconds
 
-export function useApiStatus(): {
+export function useApiStatus (): {
     isBlockchainDown: boolean
     isOceanDown: boolean
 } {
