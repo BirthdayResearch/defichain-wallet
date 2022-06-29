@@ -35,7 +35,7 @@ export function Announcements (): JSX.Element {
   const {
     blockchainStatusAnnouncement,
     oceanStatusAnnouncement
-  } = useDeFiChainStatus(hiddenAnnouncements)
+  } = useDeFiChainStatus()
 
   const { isCustomUrl } = useServiceProviderContext()
 
