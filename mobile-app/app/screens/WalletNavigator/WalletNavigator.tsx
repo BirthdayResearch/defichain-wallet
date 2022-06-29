@@ -269,7 +269,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={RecoveryWordsFaqV2}
           name='RecoveryWordsFaq'
           options={{
@@ -278,7 +278,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={PasscodeFaqV2}
           name='PasscodeFaq'
           options={{
