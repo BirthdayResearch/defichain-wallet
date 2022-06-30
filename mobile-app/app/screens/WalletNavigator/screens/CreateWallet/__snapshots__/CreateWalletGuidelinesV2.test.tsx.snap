@@ -85,12 +85,17 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
+          "alignItems": "center",
           "borderBottomWidth": 0,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginTop": 8,
           "opacity": 1,
         }
       }
       testID="recovery_words_faq"
     >
+      <Text />
       <Text
         style={
           Array [
@@ -106,9 +111,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 "fontSize": 14,
                 "fontWeight": "600",
                 "lineHeight": 20,
-                "marginTop": 8,
-                "paddingLeft": 12,
-                "paddingRight": 12,
+                "paddingLeft": 6,
                 "textAlign": "center",
               },
               Object {
