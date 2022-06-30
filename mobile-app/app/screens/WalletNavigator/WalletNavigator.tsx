@@ -24,7 +24,9 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
-import { NetworkDetailsV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetailsV2'
+import { OnboardingNetworkSelectScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/OnboardingNetworkSelectScreenV2'
+import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
+import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 
 type PinCreationType = 'create' | 'restore'
@@ -54,9 +56,6 @@ export interface WalletParamList {
 export interface WalletParamListV2 {
   WalletOnboardingScreen: undefined
   CreateWalletGuidelines: undefined
-  NetworkDetails: {
-    isSelectNetwork?: boolean
-  }
   [key: string]: undefined | object
 }
 
@@ -92,13 +91,8 @@ export function WalletNavigator (): JSX.Element {
 
   const goToNetworkSelect = (): void => {
     // TODO(kyleleow) update typings
-    if (isFeatureAvailable('onboarding_v2')) {
-      // @ts-expect-error
-      navigationRef.current?.navigate({ name: 'NetworkDetails', params: { isSelectNetwork: true } })
-    } else {
-      // @ts-expect-error
-      navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
-    }
+    // @ts-expect-error
+    navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
   }
 
   function WalletStacks (): JSX.Element {
@@ -276,14 +270,34 @@ export function WalletNavigator (): JSX.Element {
             headerTitle: translate('screens/WalletNavigator', 'Guidelines')
           }}
         />
+
         <WalletStackV2.Screen
-          component={NetworkDetailsV2}
-          name='NetworkDetails'
+          component={OnboardingNetworkSelectScreenV2}
+          name='OnboardingNetworkSelectScreen'
           options={{
             headerTitle: translate('screens/NetworkDetails', 'Network'),
             headerRight: undefined
           }}
         />
+
+        <WalletStackV2.Screen
+          component={RecoveryWordsFaqV2}
+          name='RecoveryWordsFaq'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'About Recovery Words'),
+            headerRight: undefined
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={PasscodeFaqV2}
+          name='PasscodeFaq'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'About Passcode'),
+            headerRight: undefined
+          }}
+        />
+
       </WalletStackV2.Navigator>
     )
   }
