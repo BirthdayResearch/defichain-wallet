@@ -29,6 +29,7 @@ import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
+import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -57,6 +58,9 @@ export interface WalletParamList {
 export interface WalletParamListV2 {
   WalletOnboardingScreen: undefined
   CreateWalletGuidelines: undefined
+  WalletCreateRestoreSuccess: {
+    isWalletRestored: boolean
+  }
   [key: string]: undefined | object
 }
 
@@ -283,6 +287,14 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStackV2.Screen
+          component={WalletCreateRestoreSuccess}
+          name='WalletCreateRestoreSuccess'
+          options={{
+            headerShown: false
+          }}
+        />
+
+        <WalletStackV2.Screen
           component={RecoveryWordsFaqV2}
           name='RecoveryWordsFaq'
           options={{
@@ -299,7 +311,6 @@ export function WalletNavigator (): JSX.Element {
             headerRight: undefined
           }}
         />
-
       </WalletStackV2.Navigator>
     )
   }
