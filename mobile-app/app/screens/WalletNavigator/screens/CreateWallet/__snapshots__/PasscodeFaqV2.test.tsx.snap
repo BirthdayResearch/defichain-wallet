@@ -84,7 +84,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                   "paddingRight": 20,
                 },
                 Object {
-                  "color": "rgba(89, 89, 89, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
@@ -328,7 +328,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                           "lineHeight": 20,
                         },
                         Object {
-                          "color": "rgba(43, 43, 43, 1)",
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -481,7 +481,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                           "lineHeight": 20,
                         },
                         Object {
-                          "color": "rgba(43, 43, 43, 1)",
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
