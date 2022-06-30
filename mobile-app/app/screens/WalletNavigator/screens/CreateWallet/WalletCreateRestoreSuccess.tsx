@@ -20,8 +20,8 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
   const safeAreaInsets = useSafeAreaInsets()
   // Needs for it to work on web. Otherwise, it takes full window size
   const { width, height } = Platform.OS === 'web' ? { width: '375px', height: '100%' } : Dimensions.get('window')
-  // show all content for small screen to adjust margins and paddings
-  const isSmallScreen = height <= 667
+  // show all content for small screen and web to adjust margins and paddings
+  const isSmallScreen = height <= 667 || Platform.OS === 'web'
   return (
     <ThemedScrollViewV2
       style={[
