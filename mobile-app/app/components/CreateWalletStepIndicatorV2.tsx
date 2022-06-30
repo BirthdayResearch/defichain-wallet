@@ -90,10 +90,10 @@ export function CreateWalletStepIndicatorV2 (props: StepIndicatorProps): JSX.Ele
 function getStepNodeStyle (isLight: boolean, current: number, step: number, isComplete?: boolean): { stepperStyle: string, textStyle: string } {
   let stepperStyle = isLight ? 'border border-mono-light-v2-900' : 'border border-mono-dark-v2-900'
   let textStyle = isLight ? 'text-mono-light-v2-900' : 'text-mono-dark-v2-900'
-  if (isComplete !== undefined && current === step) {
+  if (!isComplete && current === step) {
     stepperStyle = 'border border-green-v2'
     textStyle = 'text-green-v2'
-  } else if (isComplete ?? current > step) {
+  } else if (isComplete || current > step) {
     stepperStyle = 'border bg-green-v2 border-green-v2'
     textStyle = 'text-green-v2'
   }
@@ -113,7 +113,7 @@ function StepNode (props: { step: number, current: number, content: string, isLi
       <View
         style={tailwind(`h-9 w-9 rounded-full justify-center items-center relative ${stepperStyle}`)}
       >
-        {props.isComplete ?? props.current > props.step
+        {props.isComplete || props.current > props.step
           ? <ThemedIcon
               size={18}
               name='check'
