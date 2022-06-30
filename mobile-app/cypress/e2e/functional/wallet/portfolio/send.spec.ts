@@ -424,7 +424,7 @@ context('Wallet - Send - Switch token', function () {
   })
 })
 
-context('Wallet - Send - Address book', function () {
+context.only('Wallet - Send - Address book', function () {
   function populateAddressBook (): void {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
@@ -636,6 +636,7 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('header_settings').click()
     cy.wait(1000)
+    cy.blockAllFeatureFlag()
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {})
     cy.getByTestID('create_wallet_button').should('exist')
@@ -651,6 +652,7 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('view_recovery_words').click()
+    cy.blockAllFeatureFlag()
     cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(2000)
     })

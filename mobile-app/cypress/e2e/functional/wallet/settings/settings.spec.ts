@@ -4,7 +4,7 @@ const activatedIconColor = 'rgb(251, 191, 36)'
 const deactivatedIconColor = 'rgb(212, 212, 212)'
 const lightModeIconTestId = 'light_mode_icon'
 
-context('Wallet - Settings', () => {
+context.only('Wallet - Settings', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
@@ -48,6 +48,7 @@ context('Wallet - Settings', () => {
   })
 
   it('should exit wallet when clicked on positive action', function () {
+    cy.blockAllFeatureFlag()
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {
     })
