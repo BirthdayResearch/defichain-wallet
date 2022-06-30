@@ -313,14 +313,6 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStackV2.Screen
-          component={WalletCreateRestoreSuccess}
-          name='WalletCreateRestoreSuccess'
-          options={{
-            headerShown: false
-          }}
-        />
-
-        <WalletStackV2.Screen
           component={RecoveryWordsFaqV2}
           name='RecoveryWordsFaq'
           options={{
