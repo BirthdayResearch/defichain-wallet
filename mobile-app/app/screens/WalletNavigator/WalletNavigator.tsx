@@ -58,6 +58,9 @@ export interface WalletParamList {
 }
 
 export interface WalletParamListV2 {
+  VerifyMnemonicWallet: {
+    words: string[]
+  }
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
   }
