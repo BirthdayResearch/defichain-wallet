@@ -293,3 +293,5 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
   </View>
 </View>
 `;
+
+exports[`Create wallet step indicator should match snapshot wne there is zero steps available 1`] = `null`;
