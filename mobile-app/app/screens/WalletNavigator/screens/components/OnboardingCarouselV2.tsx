@@ -95,7 +95,7 @@ export function OnboardingCarouselV2 (): JSX.Element {
       index={0}
       paginationActiveColor={isLight ? getColor('mono-light-v2-900') : getColor('mono-dark-v2-900')}
       paginationStyleItemActive={tailwind('w-6 h-1.5')}
-      paginationDefaultColor={isLight ? getColor('mono-light-v2-400') : getColor('mono-dark-v2-400')}
+      paginationDefaultColor={isLight ? getColor('mono-light-v2-500') : getColor('mono-dark-v2-500')}
       paginationStyleItem={tailwind('h-1.5 w-1.5 mx-1.5')}
       renderItem={({ item }) => (
         <View style={{ width }}>

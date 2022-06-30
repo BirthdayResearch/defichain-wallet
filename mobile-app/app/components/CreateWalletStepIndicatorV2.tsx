@@ -4,6 +4,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedIcon, ThemedTextV2 } from './themed'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface StepIndicatorProps {
   current: number
@@ -38,13 +39,11 @@ export function CreateWalletStepIndicatorV2 (props: StepIndicatorProps): JSX.Ele
     style: containerViewStyle,
     steps = []
   } = props
-  if (total === undefined && steps.length === 0) {
-    throw Error('Invalid prop for CreateWalletStepIndicator')
-  }
-
+  const logger = useLogger()
   const totalStep = total ?? steps.length
-  if (totalStep > 5 || current <= 0 || current > totalStep) {
-    throw Error('Invalid prop for CreateWalletStepIndicator')
+  if (totalStep === 0 || totalStep > 5 || current <= 0 || current > totalStep) {
+    logger.error('Invalid prop for CreateWalletStepIndicator')
+    return <></>
   }
 
   function following (): JSX.Element[] {
