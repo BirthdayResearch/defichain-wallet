@@ -37,12 +37,12 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
         <ThemedTextV2
           style={tailwind('text-xl text-center font-semibold-v2')}
         >
-          {translate('screens/VerifyMnemonicWallet', isWalletRestored ? 'Wallet restored!' : 'Wallet created!')}
+          {translate('screens/WalletCreateRestoreSuccess', isWalletRestored ? 'Wallet restored!' : 'Wallet created!')}
         </ThemedTextV2>
         <ThemedTextV2
           style={tailwind('text-center mt-2 font-normal-v2')}
         >
-          {translate('screens/VerifyMnemonicWallet', 'Access decentralized finance with Bitcoin-grade security, strength and immutability.')}
+          {translate('screens/WalletCreateRestoreSuccess', 'Access decentralized finance with Bitcoin-grade security, strength and immutability.')}
         </ThemedTextV2>
       </View>
       <View style={tailwind(isSmallScreen ? 'mt-14' : 'mt-28')}>
@@ -60,7 +60,7 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
             <ButtonV2
               styleProps='mt-9'
               testID='continue_button'
-              label={translate('screens/Onboarding', 'Continue')}
+              label={translate('screens/WalletCreateRestoreSuccess', 'Continue')}
             />
           </View>
         </ImageBackground>
