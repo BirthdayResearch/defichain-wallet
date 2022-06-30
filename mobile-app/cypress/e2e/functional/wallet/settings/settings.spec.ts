@@ -4,7 +4,7 @@ const activatedIconColor = 'rgb(251, 191, 36)'
 const deactivatedIconColor = 'rgb(212, 212, 212)'
 const lightModeIconTestId = 'light_mode_icon'
 
-context.only('Wallet - Settings', () => {
+context('Wallet - Settings', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()

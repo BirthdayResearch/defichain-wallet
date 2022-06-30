@@ -424,7 +424,7 @@ context('Wallet - Send - Switch token', function () {
   })
 })
 
-context.only('Wallet - Send - Address book', function () {
+context('Wallet - Send - Address book', function () {
   function populateAddressBook (): void {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
