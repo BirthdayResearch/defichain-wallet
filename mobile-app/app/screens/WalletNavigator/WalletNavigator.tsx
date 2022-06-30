@@ -58,8 +58,9 @@ export interface WalletParamList {
 }
 
 export interface WalletParamListV2 {
-  WalletOnboardingScreen: undefined
-  CreateWalletGuidelines: undefined
+  VerifyMnemonicWallet: {
+    words: string[]
+  }
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
   }

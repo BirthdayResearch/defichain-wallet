@@ -8,11 +8,11 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { shuffle } from 'lodash'
 import { useEffect, useState } from 'react'
-import { WalletParamList } from '../../WalletNavigator'
+import { WalletParamListV2 } from '../../WalletNavigator'
 import { getReleaseChannel } from '@api/releaseChannel'
 import { ButtonV2 } from '@components/ButtonV2'
 
-type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
+type Props = StackScreenProps<WalletParamListV2, 'VerifyMnemonicWallet'>
 
 interface VerifyMnemonicItem {
   index: number
@@ -154,16 +154,16 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
     <View style={tailwind('mb-5')}>
       <View style={tailwind('flex-row')}>
         <ThemedTextV2
-          light={tailwind('text-mono-light-v2-400')}
-          dark={tailwind('text-mono-dark-v2-400')}
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
           style={tailwind('text-xs font-normal-v2')}
           testID={`line_${lineNumber}`}
         >
           {numberOrdinal(index + 1)}
         </ThemedTextV2>
         <ThemedTextV2
-          light={tailwind('text-mono-light-v2-400')}
-          dark={tailwind('text-mono-dark-v2-400')}
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
           style={tailwind('text-xs ml-1 font-normal-v2')}
         >
           {translate('screens/VerifyMnemonicWallet', 'word')}
@@ -191,8 +191,8 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
             >
               <ThemedTextV2
                 style={tailwind('text-center text-xs font-normal-v2')}
-                dark={tailwind(`${selectedWord === w ? 'text-mono-dark-v2-100' : 'text-mono-dark-v2-400'}`)}
-                light={tailwind(`${selectedWord === w ? 'text-mono-light-v2-100' : 'text-mono-light-v2-400'}`)}
+                dark={tailwind(`${selectedWord === w ? 'text-mono-dark-v2-100' : 'text-mono-dark-v2-500'}`)}
+                light={tailwind(`${selectedWord === w ? 'text-mono-light-v2-100' : 'text-mono-light-v2-500'}`)}
               >
                 {w}
               </ThemedTextV2>

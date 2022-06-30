@@ -7,13 +7,13 @@ import Checkbox from 'expo-checkbox'
 import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { WalletParamList } from '../../WalletNavigator'
+import { WalletParamListV2 } from '../../WalletNavigator'
 import DarkNewWallet from '@assets/images/darkNewWallet.png'
 import LightNewWallet from '@assets/images/lightNewWallet.png'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ButtonV2 } from '@components/ButtonV2'
 
-type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
+type Props = StackScreenProps<WalletParamListV2, 'CreateWalletGuidelines'>
 
 interface GuidelineItem {
   icon: React.ComponentProps<typeof Feather>['name']
