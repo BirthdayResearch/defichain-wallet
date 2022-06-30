@@ -48,6 +48,7 @@ context('Wallet - Settings', () => {
   })
 
   it('should exit wallet when clicked on positive action', function () {
+    cy.blockAllFeatureFlag()
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {
     })
