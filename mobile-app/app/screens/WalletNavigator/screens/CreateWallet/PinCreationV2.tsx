@@ -37,18 +37,18 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
-      contentContainerStyle={tailwind('items-center')}
+      contentContainerStyle={tailwind('items-center pt-12')}
       testID='screen_create_pin'
     >
       <CreateWalletStepIndicator
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
-        style={tailwind('py-4 px-1')}
+        style={tailwind('py-0.5  px-3')}
       />
 
-      <View style={tailwind('p-8 mb-12')}>
+      <View style={tailwind('px-10')}>
         <ThemedTextV2
-          style={tailwind('text-center font-normal-v2')}
+          style={tailwind('text-center font-normal-v2 mt-7')}
         >
           {translate('screens/PinCreation', 'Add an additional layer of security by setting a passcode.')}
         </ThemedTextV2>
@@ -56,7 +56,7 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
           onPress={goToPasscodeFaq}
           light={tailwind('border-0')}
           dark={tailwind('border-0')}
-          style={tailwind(' pt-2')}
+          style={tailwind('mb-12 pb-1 pt-2')}
           testID='passcode_faq_link'
         >
           <ThemedTextV2
@@ -74,7 +74,7 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
         value={newPin}
       />
 
-      <View style={tailwind('mt-1.5')}>
+      <View style={tailwind('mt-1')}>
         <ThemedTextV2
           style={tailwind('text-sm font-normal-v2 text-center')}
         >

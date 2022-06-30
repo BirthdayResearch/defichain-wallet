@@ -85,22 +85,23 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
+      contentContainerStyle={tailwind('pt-12')}
     >
       <CreateWalletStepIndicatorV2
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
-        style={tailwind('py-4 px-1')}
+        style={tailwind('py-0.5 px-3')}
       />
 
-      <View style={tailwind(`px-8 ${spinnerMessage !== undefined ? 'mb-7 pt-8' : 'mb-12 py-8'}`)}>
+      <View style={tailwind('px-10')}>
         <ThemedTextV2
-          style={tailwind('text-center font-normal-v2')}
+          style={tailwind(['text-center font-normal-v2 mt-7', { 'mb-20': spinnerMessage === undefined }])}
         >
           {translate('screens/PinCreation', 'Add an additional layer of security by setting a passcode.')}
         </ThemedTextV2>
         {
           (spinnerMessage !== undefined) && (
-            <ThemedActivityIndicator style={tailwind('mt-7')} />
+            <ThemedActivityIndicator style={tailwind('my-7')} />
           )
         }
       </View>
@@ -115,11 +116,11 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
         value={newPin}
       />
 
-      <View style={tailwind('mt-1.5 px-14')}>
+      <View style={tailwind('mt-1')}>
         {
           (spinnerMessage !== undefined) && (
             <ThemedTextV2
-              style={tailwind('font-normal-v2 text-sm text-center ')}
+              style={tailwind('font-normal-v2 text-sm text-center px-12')}
             >
               {spinnerMessage}
             </ThemedTextV2>

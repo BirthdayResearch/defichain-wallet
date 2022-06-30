@@ -301,14 +301,16 @@ export function WalletNavigator (): JSX.Element {
           component={PinCreationV2}
           name='PinCreation'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Create Passcode')
+            headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
+            headerRight: undefined
           }}
         />
         <WalletStack.Screen
           component={PinConfirmationV2}
           name='PinConfirmation'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify Passcode')
+            headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
+            headerRight: undefined
           }}
         />
 
