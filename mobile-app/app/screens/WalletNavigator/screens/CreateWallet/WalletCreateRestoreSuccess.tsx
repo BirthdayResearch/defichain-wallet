@@ -11,17 +11,61 @@ import CoinImageRestore from '@assets/images/restore-success-coin.png'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { initJellyfishWallet, MnemonicEncrypted } from '@api/wallet'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { useWalletPersistenceContext, WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
+import { MAX_ALLOWED_ADDRESSES } from '@shared-contexts/WalletContext'
+import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 
 type Props = StackScreenProps<WalletParamListV2, 'WalletCreateRestoreSuccess'>
 
 export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
-  const isWalletRestored = route.params?.isWalletRestored
+  const { isWalletRestored, pin, network, words } = route.params
   const { isLight } = useThemeContext()
+  const logger = useLogger()
+  const { setWallet } = useWalletPersistenceContext()
+  const client = useWhaleApiClient()
   const safeAreaInsets = useSafeAreaInsets()
   // Needs for it to work on web. Otherwise, it takes full window size
   const { width, height } = Platform.OS === 'web' ? { width: '375px', height: '100%' } : Dimensions.get('window')
   // show all content for small screen and web to adjust margins and paddings
   const isSmallScreen = height <= 667 || Platform.OS === 'web'
+
+  function handleOnPress (): void {
+    MnemonicEncrypted.toData(words, network, pin)
+      .then(async encrypted => {
+        await MnemonicStorage.set(words, pin)
+        if (isWalletRestored) {
+          await discoverWalletAddresses(encrypted)
+        }
+        await setWallet(encrypted)
+      })
+      .catch(logger.error)
+  }
+
+  async function discoverWalletAddresses (data: WalletPersistenceDataI<EncryptedProviderData>): Promise<void> {
+    const provider = await MnemonicEncrypted.initProvider(data, network, {
+      /**
+       * wallet context only use for READ purpose (non signing)
+       * see {@link TransactionAuthorization} for signing implementation
+       */
+      async prompt () {
+        throw new Error('No UI attached for passphrase prompting')
+      }
+    })
+    const wallet = await initJellyfishWallet(provider, network, client)
+
+    // get discovered address
+    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESSES)
+
+    // sub 1 from total discovered address to get address index of last active address
+    const lastDiscoveredAddressIndex = Math.max(0, activeAddress.length - 1)
+    await WalletAddressIndexPersistence.setLength(lastDiscoveredAddressIndex)
+  }
+
   return (
     <ThemedScrollViewV2
       style={[
@@ -58,6 +102,7 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
           />
           <View style={tailwind('px-12')}>
             <ButtonV2
+              onPress={handleOnPress}
               styleProps='mt-9'
               testID='continue_button'
               label={translate('screens/WalletCreateRestoreSuccess', 'Continue')}

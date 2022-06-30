@@ -34,6 +34,7 @@ import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
+import { EnvironmentNetwork } from '@environment'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -64,6 +65,9 @@ export interface WalletParamListV2 {
   CreateWalletGuidelines: undefined
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
+    pin: string
+    words: string[]
+    network: EnvironmentNetwork
   }
   [key: string]: undefined | object
 }

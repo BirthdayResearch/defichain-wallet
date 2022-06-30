@@ -1,30 +1,23 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
-import { initJellyfishWallet, MnemonicEncrypted } from '@api/wallet'
-import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View } from '@components/index'
 import { CREATE_STEPS, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
 import { ThemedActivityIndicator, ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletPersistenceContext, WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
-import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { MAX_ALLOWED_ADDRESSES } from '@shared-contexts/WalletContext'
 import { CreateWalletStepIndicatorV2 } from '@components/CreateWalletStepIndicatorV2'
 import { PinTextInputV2 } from '@components/PinTextInputV2'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { EnvironmentNetwork } from '@environment'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmationV2 ({ route }: Props): JSX.Element {
-  const logger = useLogger()
+  const navigation = useNavigation<NavigationProp<WalletParamList>>()
+  const [isComplete, setIsComplete] = useState<boolean>(false) // To complete the last stepper node when pin is verified.
   const { network } = useNetworkContext()
-  const { setWallet } = useWalletPersistenceContext()
-  const client = useWhaleApiClient()
   const {
     pin,
     words,
@@ -47,41 +40,19 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
       setInvalid(false)
     }
 
-    const copy = { words, network, pin }
+    const copy = { words, network, pin, isWalletRestored: type === 'restore' }
     setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet'))
+    setIsComplete(true)
     setTimeout(() => {
-      MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
-        .then(async encrypted => {
-          await MnemonicStorage.set(words, pin)
-          if (type === 'restore') {
-            await discoverWalletAddresses(encrypted)
-          }
-          await setWallet(encrypted)
-        })
-        .catch(logger.error)
+     navigateToNextPage(copy)
     }, 50) // allow UI render the spinner before async task
   }
 
-  async function discoverWalletAddresses (data: WalletPersistenceDataI<EncryptedProviderData>): Promise<void> {
-    const provider = await MnemonicEncrypted.initProvider(data, network, {
-      /**
-       * wallet context only use for READ purpose (non signing)
-       * see {@link TransactionAuthorization} for signing implementation
-       */
-      async prompt () {
-        throw new Error('No UI attached for passphrase prompting')
-      }
+  function navigateToNextPage (params: {pin: string, network: EnvironmentNetwork, words: string[], isWalletRestored: boolean}): void {
+    navigation.navigate({
+      name: 'WalletCreateRestoreSuccess', params, merge: true
     })
-    const wallet = await initJellyfishWallet(provider, network, client)
-
-    // get discovered address
-    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESSES)
-
-    // sub 1 from total discovered address to get address index of last active address
-    const lastDiscoveredAddressIndex = Math.max(0, activeAddress.length - 1)
-    await WalletAddressIndexPersistence.setLength(lastDiscoveredAddressIndex)
   }
-
   return (
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
@@ -91,6 +62,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
         style={tailwind('py-0.5 px-3')}
+        isComplete={isComplete}
       />
 
       <View style={tailwind('px-10')}>
@@ -124,7 +96,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
             >
               {spinnerMessage}
             </ThemedTextV2>
-            )
+          )
         }
         {
           (spinnerMessage === undefined && !invalid) && (
