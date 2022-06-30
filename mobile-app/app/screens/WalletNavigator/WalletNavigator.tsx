@@ -58,8 +58,6 @@ export interface WalletParamList {
 }
 
 export interface WalletParamListV2 {
-  WalletOnboardingScreen: undefined
-  CreateWalletGuidelines: undefined
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
   }
