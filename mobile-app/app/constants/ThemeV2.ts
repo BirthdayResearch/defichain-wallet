@@ -1,5 +1,6 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
+import { getColor } from '@tailwind'
 
 export function getDefaultThemeV2 (isLight: boolean): Theme {
   const defaultTheme = isLight ? DefaultTheme : DarkTheme
@@ -7,7 +8,8 @@ export function getDefaultThemeV2 (isLight: boolean): Theme {
     ...defaultTheme,
     colors: {
       ...defaultTheme.colors,
-      primary: isLight ? '#121212' : '#F2F2F2'
+      primary: getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900'),
+      border: getColor(isLight ? 'mono-light-v2-100' : 'mono-dark-v2-00')
     }
   }
 }
