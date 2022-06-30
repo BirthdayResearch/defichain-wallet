@@ -135,7 +135,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
             />
             )
           )
-          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
+          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWordV2} />}
       </ThemedViewV2>
 
       <ButtonV2

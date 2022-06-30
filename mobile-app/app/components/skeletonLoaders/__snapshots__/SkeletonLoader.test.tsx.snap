@@ -1075,6 +1075,115 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 </View>
 `;
 
+exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader v2 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "borderBottomWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginLeft": 20,
+        "marginRight": 20,
+        "paddingBottom": 20,
+        "paddingTop": 20,
+      },
+      Object {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+      },
+    ]
+  }
+  testID="mnemonic_word_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={20}
+    bbWidth="100%"
+    border={true}
+    focusable={false}
+    height={20}
+    interval={0.25}
+    meetOrSlice={1}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 20,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={20}
+    vbWidth={328}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="mnemonic_word_v2-animated-diff"
+        fill={
+          Array [
+            1,
+            "mnemonic_word_v2-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="mnemonic_word_v2-animated-diff"
+        >
+          <RNSVGRect
+            height="16"
+            rx="5"
+            ry="5"
+            width="226"
+            x="18"
+            y="2"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -855310,
+              0.5,
+              -1,
+              1,
+              -855310,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="mnemonic_word_v2-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
+
 exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`] = `
 <View
   style={
