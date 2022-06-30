@@ -23,18 +23,18 @@ export function OnboardingV2 (): JSX.Element {
     >
       {
         (Platform.OS === 'web')
-? (
-  <View style={tailwind('h-3/5')}>
-    <OnboardingCarouselV2 />
-  </View>
-        )
-: (
-  <View style={tailwind('h-3/5 flex justify-center')}>
-    <View style={tailwind('h-4/5')}>
-      <OnboardingCarouselV2 />
-    </View>
-  </View>
-        )
+          ? (
+            <View style={tailwind('h-3/5')}>
+              <OnboardingCarouselV2 />
+            </View>
+          )
+          : (
+            <View style={tailwind('h-3/5 flex justify-center')}>
+              <View style={tailwind('h-4/5')}>
+                <OnboardingCarouselV2 />
+              </View>
+            </View>
+          )
       }
       <View>
         <ImageBackground
@@ -50,7 +50,7 @@ export function OnboardingV2 (): JSX.Element {
           />
           <ButtonV2
             fill='flat'
-            label={translate('screens/Onboarding', 'Restore Wallet')}
+            label={translate('screens/Onboarding', 'Restore wallet')}
             styleProps='mx-2 mt-4 mb-11'
             onPress={() => navigator.navigate('RestoreMnemonicWallet')}
             testID='restore_wallet_button'

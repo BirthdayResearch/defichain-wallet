@@ -5,6 +5,7 @@
     "Display recovery words": "显示恢复字组",
     "Verify words": "确认字组",
     "Restore Wallet": "恢复钱包",
+    "Restore wallet": "恢复钱包",
     "Create a passcode": "创建密码",
     "Verify passcode": "确认密码",
     "Select network": "选择网络",
@@ -360,8 +361,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
     "What is collateral factor?": "抵押因素是什么？",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。",
-    "Why is there a 5% fee when paying DUSD loans with DFI?": "為什麼用 DFI 支付 DUSD 貸款要收取 5% 的費用？",
-    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "根据 递飞链改进提议 DFIP 2206-C，每笔 DUSD 贷款都将由 DFI 支付，以克服目前在 DEX 上 DUSD 溢价的情况。\n\n在计算用多少等值 DFI 作为支付 DUSD 贷款时，将会按照 预言机 上 DFI/USD 的价值收取 5% 的罚款。以举例来说，如果今天 DFI/USD 预言机价格是 10 美元，那么用作支付 DUSD  期间， DFI 的相对价格计算方法 是 10 美元 * (1 - 0.05) 。在这情况下，DFI 的价值实际上减少了 5% 等于 9.50 美元。",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "为什么用 DFI 支付 DUSD 贷款时要收取 5% 的费用？",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "根据 社区提案 DFIP 2206-C，当在 DFI 中偿还 DUSD 贷款时，将向用户收取 5% 的费用。这是一项激励套利交易者使用 DUSD 偿还贷款的临时措施，将减少DUSD 在市场上的供应。在计算为 DUSD 贷款支付多少等值 DFI 时，对 DFI/DUSD 预言机价值收取 5% 的额外费用。以此案例说明，如果今天 DFI/USD 的预言机价格为 $10 美元，那么在 DUSD 支付中 DFI 的价值是通过取 $10 美元*（1-0.05）来计算的，在这种情况下，DFI 的价值实际上减少了 5% 至 $9.50 美元。",
     "What is vault share?": "金库份额是什么？",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "金库库份额代表存放在金库中的抵押代币的比例。所有金库都必须包含至少 50% 的 DFI 和/或 DUSD 作为抵押代币。当您铸造新的 dToken 时，和当您从您的金库中提取抵押品时，均会被要求达到这项要求。"
   },
@@ -1473,6 +1474,12 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值"
   },
   "components/VersionTag": {
-    "Version {{number}}": "版本 {{number}}"
+    "VERSION {{number}}": "版本 {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "钱包已恢复！",
+    "Wallet created!": "钱包已创建！",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "透过去中心化金融按触如同比特币级别般安全、强度和不可随意变更的特性。",
+    "Continue": "继续"
   }
 }

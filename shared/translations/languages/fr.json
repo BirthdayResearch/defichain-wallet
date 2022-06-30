@@ -5,6 +5,7 @@
     "Display recovery words": "Afficher les mots de récupération",
     "Verify words": "Vérifier les mots",
     "Restore Wallet": "Restaurer le portefeuille",
+    "Restore wallet": "Restaurer le portefeuille",
     "Create a passcode": "Créer un code d'accès",
     "Verify passcode": "Vérifier le code d'accès",
     "Select network": "Sélection du réseau",
@@ -1477,6 +1478,12 @@
     "{{tokenB}} price in {{tokenA}}": "Prix d'un {{tokenB}} en {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Version {{number}}"
+    "VERSION {{number}}": "VERSION {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Portefeuille restauré !",
+    "Wallet created!": "Portefeuille créé ! ",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accéder à la finance décentralisée avec une sécurité, une solidité et une immuabilité de niveau Bitcoin.",
+    "Continue": "Suivant"
   }
 }

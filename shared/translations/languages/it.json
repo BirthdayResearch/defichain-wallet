@@ -5,6 +5,7 @@
     "Display recovery words": "Mostra le parole di ripristino",
     "Verify words": "Verfica le parole",
     "Restore Wallet": "Ripristina il wallet",
+    "Restore wallet": "Ripristina il wallet",
     "Create a passcode": "Crea una password",
     "Verify passcode": "Verifica la password",
     "Select network": "Seleziona la rete",
@@ -1490,6 +1491,12 @@
     "{{tokenB}} price in {{tokenA}}": "Prezzo {{tokenB}} in {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Versione {{number}}"
+    "VERSION {{number}}": "VERSIONE {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Wallet restored!",
+    "Wallet created!": "Wallet created!",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Access decentralized finance with Bitcoin-grade security, strength and immutability.",
+    "Continue": "Continua"
   }
 }
