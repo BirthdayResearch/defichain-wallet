@@ -13,13 +13,9 @@ import { NumberRowV2 } from '@components/NumberRowV2'
 import { getEnvironment } from '@environment'
 import { getReleaseChannel } from '@api/releaseChannel'
 import { NetworkItemRowV2 } from '@components/NetworkItemRowV2'
-import { hasTxQueued } from '@store/transaction_queue'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
 export function OnboardingNetworkSelectScreenV2 (): JSX.Element {
   const networks = getEnvironment(getReleaseChannel()).networks
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
     count: blockCount,
     masternodeCount,
@@ -52,22 +48,11 @@ export function OnboardingNetworkSelectScreenV2 (): JSX.Element {
           />
         ))}
       </ThemedViewV2>
-      {(hasPendingJob || hasPendingBroadcastJob) &&
-        (
-          <ThemedTextV2
-            style={tailwind('pt-1.5 pb-2 px-5 text-xs font-normal-v2')}
-            light={tailwind('text-orange-v2')}
-            dark={tailwind('text-orange-v2')}
-          >
-            {translate('screens/OnboardingNetworkSelectScreen', 'Network selection is currently unavailable due to ongoing transaction')}
-          </ThemedTextV2>
-        )}
 
       <ThemedSectionTitleV2
         testID='network_details_block_info'
         text={translate('screens/NetworkDetails', 'DETAILS')}
       />
-
       <ThemedViewV2
         style={[tailwind('p-5'), { borderRadius: 10 }]}
         light={tailwind('bg-mono-light-v2-00')}

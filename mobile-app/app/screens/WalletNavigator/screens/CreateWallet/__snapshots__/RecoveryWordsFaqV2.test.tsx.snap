@@ -84,7 +84,7 @@ exports[`recovery words faq should match snapshot 1`] = `
                   "paddingRight": 20,
                 },
                 Object {
-                  "color": "rgba(89, 89, 89, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
@@ -328,7 +328,7 @@ exports[`recovery words faq should match snapshot 1`] = `
                           "lineHeight": 20,
                         },
                         Object {
-                          "color": "rgba(43, 43, 43, 1)",
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -487,7 +487,7 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
                           "lineHeight": 20,
                         },
                         Object {
-                          "color": "rgba(43, 43, 43, 1)",
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -640,7 +640,7 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
                           "lineHeight": 20,
                         },
                         Object {
-                          "color": "rgba(43, 43, 43, 1)",
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
