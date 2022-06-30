@@ -19,8 +19,9 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
   const { isLight } = useThemeContext()
   const safeAreaInsets = useSafeAreaInsets()
   // Needs for it to work on web. Otherwise, it takes full window size
-  const { width } = Platform.OS === 'web' ? { width: '375px' } : Dimensions.get('window')
-
+  const { width, height } = Platform.OS === 'web' ? { width: '375px', height: '100%' } : Dimensions.get('window')
+  // show all content for small screen to adjust margins and paddings
+  const isSmallScreen = height <= 667
   return (
     <ThemedScrollViewV2
       style={[
@@ -29,7 +30,7 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
           paddingBottom: safeAreaInsets.bottom
         }
       ]}
-      contentContainerStyle={tailwind('pt-12 pb-16')}
+      contentContainerStyle={tailwind('pb-16', { 'pt-12': !isSmallScreen })}
       testID='wallet_create-restore_success'
     >
       <View style={tailwind('pt-10 px-10')}>
@@ -44,7 +45,7 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
           {translate('screens/VerifyMnemonicWallet', 'Access decentralized finance with Bitcoin-grade security, strength and immutability.')}
         </ThemedTextV2>
       </View>
-      <View style={tailwind('mt-28')}>
+      <View style={tailwind(isSmallScreen ? 'mt-14' : 'mt-28')}>
         <ImageBackground
           imageStyle={tailwind('top-36 mt-3')}
           style={tailwind('relative')}
