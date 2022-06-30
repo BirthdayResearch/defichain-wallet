@@ -1489,5 +1489,11 @@
   },
   "components/VersionTag": {
     "VERSION {{number}}": "VERSIÓN {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Cartera restaurada!",
+    "Wallet created!": "Cartera creada!",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accede a finanzas descentralizadas con el grado de seguridad, fuerza e inmutabilidad de Bitcoin.",
+    "Continue": "Continúa"
   }
 }

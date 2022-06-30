@@ -24,9 +24,11 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { OnboardingNetworkSelectScreenV2 } from './screens/CreateWallet/OnboardingNetworkSelectScreenV2'
 import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
+import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -55,6 +57,9 @@ export interface WalletParamList {
 export interface WalletParamListV2 {
   WalletOnboardingScreen: undefined
   CreateWalletGuidelines: undefined
+  WalletCreateRestoreSuccess: {
+    isWalletRestored: boolean
+  }
   [key: string]: undefined | object
 }
 
@@ -89,8 +94,8 @@ export function WalletNavigator (): JSX.Element {
   const insets = useSafeAreaInsets()
 
   const goToNetworkSelect = (): void => {
-    // @ts-expect-error
     // TODO(kyleleow) update typings
+    // @ts-expect-error
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
   }
 
@@ -262,11 +267,29 @@ export function WalletNavigator (): JSX.Element {
             headerShown: false
           }}
         />
+
         <WalletStackV2.Screen
           component={CreateWalletGuidelines}
           name='CreateWalletGuidelines'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Guidelines')
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={OnboardingNetworkSelectScreenV2}
+          name='OnboardingNetworkSelectScreen'
+          options={{
+            headerTitle: translate('screens/NetworkDetails', 'Network'),
+            headerRight: undefined
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={WalletCreateRestoreSuccess}
+          name='WalletCreateRestoreSuccess'
+          options={{
+            headerShown: false
           }}
         />
 
@@ -287,7 +310,6 @@ export function WalletNavigator (): JSX.Element {
             headerRight: undefined
           }}
         />
-
       </WalletStackV2.Navigator>
     )
   }

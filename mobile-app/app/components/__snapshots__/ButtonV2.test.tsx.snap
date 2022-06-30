@@ -135,7 +135,7 @@ exports[`button should match styling of button type fill 2`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "rgba(166, 166, 166, 1)",
+      "backgroundColor": "rgba(140, 140, 140, 1)",
       "borderBottomLeftRadius": 24,
       "borderBottomRightRadius": 24,
       "borderTopLeftRadius": 24,
@@ -257,7 +257,7 @@ exports[`button should match styling of button type flat 2`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "rgba(166, 166, 166, 1)",
+      "backgroundColor": "rgba(140, 140, 140, 1)",
       "borderBottomLeftRadius": 24,
       "borderBottomRightRadius": 24,
       "borderTopLeftRadius": 24,
@@ -379,7 +379,7 @@ exports[`button should match styling of button type outline 2`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "rgba(166, 166, 166, 1)",
+      "backgroundColor": "rgba(140, 140, 140, 1)",
       "borderBottomLeftRadius": 24,
       "borderBottomRightRadius": 24,
       "borderTopLeftRadius": 24,
@@ -440,7 +440,7 @@ exports[`button should not be clickable when disabled 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "rgba(166, 166, 166, 1)",
+      "backgroundColor": "rgba(140, 140, 140, 1)",
       "borderBottomLeftRadius": 24,
       "borderBottomRightRadius": 24,
       "borderTopLeftRadius": 24,
