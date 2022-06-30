@@ -1474,5 +1474,11 @@
   },
   "components/VersionTag": {
     "VERSION {{number}}": "VERSION {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Portefeuille restauré !",
+    "Wallet created!": "Portefeuille créé ! ",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accéder à la finance décentralisée avec une sécurité, une solidité et une immuabilité de niveau Bitcoin.",
+    "Continue": "Suivant"
   }
 }

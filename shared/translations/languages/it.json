@@ -1487,5 +1487,11 @@
   },
   "components/VersionTag": {
     "VERSION {{number}}": "VERSIONE {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Wallet restored!",
+    "Wallet created!": "Wallet created!",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Access decentralized finance with Bitcoin-grade security, strength and immutability.",
+    "Continue": "Continua"
   }
 }
