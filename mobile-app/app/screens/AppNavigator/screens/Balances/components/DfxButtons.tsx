@@ -29,7 +29,7 @@ export function DfxButtons (): JSX.Element {
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
   /**
      * 3 Status for @param loadKycInfo / @param setLoadKycInfo:
-     * (1) undefinde --> status not yet retrieved
+     * (1) undefined --> status not yet retrieved
      * (2) true --> retrieving from Store (or API) --> result to STORE + isKycInfo
      * (3) false --> retrieved from Store (or API) --> check result
      * @returns boolean

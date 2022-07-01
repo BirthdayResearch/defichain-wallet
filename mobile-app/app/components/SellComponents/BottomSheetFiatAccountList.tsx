@@ -72,10 +72,18 @@ export const BottomSheetFiatAccountList = ({
       }])
   }, [fiatAccounts])
 
+  const filterEnabled = (sellRouteList: SellRoute[]): SellRoute[] => {
+    return sellRouteList?.filter((item) => {
+      return item.isInUse
+    })
+  }
+
+  const filteredList = filterEnabled(fiatAccounts)
+
   return (
     <>
       <FlatList
-        data={fiatAccounts}
+        data={filteredList}
         renderItem={({ item }: { item: SellRoute }): JSX.Element => {
           return (
             <ThemedTouchableOpacity
