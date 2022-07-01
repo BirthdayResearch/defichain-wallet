@@ -82,7 +82,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       stage: 'public',
       version: '>1.14.3',
       description: 'Display redesigned onboarding flow for LW 2.0',
-      networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }
   ])
