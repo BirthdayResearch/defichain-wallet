@@ -10,7 +10,9 @@ import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
 import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
+import { CreateMnemonicWalletV2 } from './screens/CreateWallet/CreateMnemonicWalletV2'
 import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
+import { CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelinesV2'
 import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
@@ -55,8 +57,6 @@ export interface WalletParamList {
 }
 
 export interface WalletParamListV2 {
-  WalletOnboardingScreen: undefined
-  CreateWalletGuidelines: undefined
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
   }
@@ -269,10 +269,27 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStackV2.Screen
-          component={CreateWalletGuidelines}
+          component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Guidelines')
+            headerTitle: translate('screens/WalletNavigator', 'New Wallet')
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={CreateMnemonicWalletV2}
+          name='CreateMnemonicWallet'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
+            headerBackTitleVisible: false
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={WalletCreateRestoreSuccess}
+          name='WalletCreateRestoreSuccess'
+          options={{
+            headerShown: false
           }}
         />
 
@@ -282,14 +299,6 @@ export function WalletNavigator (): JSX.Element {
           options={{
             headerTitle: translate('screens/NetworkDetails', 'Network'),
             headerRight: undefined
-          }}
-        />
-
-        <WalletStackV2.Screen
-          component={WalletCreateRestoreSuccess}
-          name='WalletCreateRestoreSuccess'
-          options={{
-            headerShown: false
           }}
         />
 

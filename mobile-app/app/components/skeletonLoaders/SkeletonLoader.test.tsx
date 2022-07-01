@@ -8,6 +8,7 @@ import { BrowseAuctionsLoader } from './BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './VaultSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './VaultSchemeSkeletonLoader'
 import { DexPricesSkeletonLoader } from './DexPricesSkeletonLoader'
+import { MnemonicWordSkeletonLoaderV2 } from './MnemonicWordSkeletonLoaderV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -39,6 +40,14 @@ describe('Skeleton Loader', () => {
   it('should match snapshot of mnemonic word skeleton loader', async () => {
     const component = (
       <MnemonicWordSkeletonLoader uniqueKey='mnemonic_word' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of mnemonic word skeleton loader v2', async () => {
+    const component = (
+      <MnemonicWordSkeletonLoaderV2 uniqueKey='mnemonic_word_v2' border />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()
