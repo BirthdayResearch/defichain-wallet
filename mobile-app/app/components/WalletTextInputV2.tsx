@@ -78,8 +78,8 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
         </View>
         )}
       <ThemedViewV2
-        light={tailwind('bg-mono-light-v2-00', { 'border-mono-light-v2-800': isFocus, 'border-red-v2': !valid })}
-        dark={tailwind('bg-mono-dark-v2-00', { 'border-mono-dark-v2-800': isFocus, 'border-red-v2': !valid })}
+        light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-00', { 'border-mono-light-v2-800': isFocus, 'border-red-v2': !valid })}
+        dark={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-00', { 'border-mono-dark-v2-800': isFocus, 'border-red-v2': !valid })}
         style={tailwind('flex-col w-full border-0.5 rounded-2lg')}
       >
         <View
@@ -153,7 +153,7 @@ export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, ic
       <ThemedIcon
         iconType='MaterialIcons'
         name='cancel'
-        size={16}
+        size={18}
         light={{ color: '#8E8E93' }}
         dark={{ color: '#8E8E93' }}
         {...props.iconThemedProps}
