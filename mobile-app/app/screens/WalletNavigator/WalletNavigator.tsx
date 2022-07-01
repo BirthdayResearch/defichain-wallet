@@ -17,6 +17,7 @@ import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
 import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
 import { PinCreation } from './screens/CreateWallet/PinCreation'
 import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
+import { VerifyMnemonicWalletV2 } from './screens/CreateWallet/VerifyMnemonicWalletV2'
 import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
@@ -57,6 +58,9 @@ export interface WalletParamList {
 }
 
 export interface WalletParamListV2 {
+  VerifyMnemonicWallet: {
+    words: string[]
+  }
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
   }
@@ -281,7 +285,16 @@ export function WalletNavigator (): JSX.Element {
           name='CreateMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
-            headerBackTitleVisible: false
+            headerRight: undefined
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={VerifyMnemonicWalletV2}
+          name='VerifyMnemonicWallet'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Verify Words'),
+            headerRight: undefined
           }}
         />
 
