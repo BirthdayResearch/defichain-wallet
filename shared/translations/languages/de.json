@@ -479,7 +479,9 @@
     "Close": "Schließen",
     "Last attempt or your wallet will be unlinked for your security": "Letzter Versuch, bevor deine Walletverknüpfung aufgehoben wird",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Passwort fehlerhaft. {{attemptsRemaining}} verbleibende Versuche",
-    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche"
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche",
+    "Enter passcode for verification": "Passcode zur Überprüfung eingeben",
+    "It may take a few seconds to secure and encrypt your wallet": "It may take a few seconds to secure and encrypt your wallet"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Die Wallet ist erstellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
@@ -487,7 +489,10 @@
     "Keep your passcode private": "Behalte dein Passwort für dich",
     "CREATE PASSCODE": "PASSWORT ERSTELLEN",
     "CHANGE PASSCODE": "PASSWORT ÄNDERN",
-    "Learn more about passcode": "Erfahre mehr über das Passwort"
+    "Learn more about passcode": "Erfahre mehr über das Passwort",
+    "Learn more": "Learn more",
+    "Create your passcode": "Erstelle deinen Passcode",
+    "Add an additional layer of security by setting a passcode": "Füge eine zusätzliche Sicherheitsebene hinzu, indem du einen Passcode einrichtest"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Auswahl ungültig. Bitte versichere dich, dass du die 24 Wörter notiert hast.",

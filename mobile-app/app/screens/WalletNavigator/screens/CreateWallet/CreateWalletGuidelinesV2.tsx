@@ -8,10 +8,11 @@ import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2,
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamListV2 } from '../../WalletNavigator'
-import DarkNewWallet from '@assets/images/darkNewWallet.png'
-import LightNewWallet from '@assets/images/lightNewWallet.png'
+import DarkNewWallet from '@assets/images/dark-wallet-guidelines.png'
+import LightNewWallet from '@assets/images/light-wallet-guidelines.png'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ButtonV2 } from '@components/ButtonV2'
+import { LearnMoreCTA } from '../components/LearnModeCTA'
 
 type Props = StackScreenProps<WalletParamListV2, 'CreateWalletGuidelines'>
 
@@ -52,26 +53,7 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
       >
         {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
       </ThemedTextV2>
-      <ThemedTouchableOpacityV2
-        style={tailwind('mt-2 flex-row items-center justify-center')}
-        light={tailwind('border-b-0')}
-        dark={tailwind('border-b-0')}
-        onPress={() => navigation.navigate('RecoveryWordsFaq')}
-        testID='recovery_words_faq'
-      >
-        <ThemedIcon
-          light={tailwind('text-mono-light-v2-900')}
-          dark={tailwind('text-mono-dark-v2-900')}
-          iconType='MaterialIcons'
-          name='help'
-          size={16}
-        />
-        <ThemedTextV2
-          style={tailwind('pl-1.5 text-sm text-center font-semibold-v2')}
-        >
-          {translate('screens/Guidelines', 'Learn more')}
-        </ThemedTextV2>
-      </ThemedTouchableOpacityV2>
+      <LearnMoreCTA onPress={() => navigation.navigate('RecoveryWordsFaq')} />
       <View style={tailwind('px-6 mt-12')}>
         {guidelines.map((g, i) => (
           <View

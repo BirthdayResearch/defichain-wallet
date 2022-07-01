@@ -27,11 +27,15 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { PinCreationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinCreationV2'
+import { PinConfirmationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinConfirmationV2'
 import { OnboardingNetworkSelectScreenV2 } from './screens/CreateWallet/OnboardingNetworkSelectScreenV2'
 import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
+import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -63,6 +67,7 @@ export interface WalletParamListV2 {
   }
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
+    data: WalletPersistenceDataI<EncryptedProviderData>
   }
   [key: string]: undefined | object
 }
@@ -329,6 +334,23 @@ export function WalletNavigator (): JSX.Element {
           name='PasscodeFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'About Passcode'),
+            headerRight: undefined
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={PinCreationV2}
+          name='PinCreation'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
+            headerRight: undefined
+          }}
+        />
+        <WalletStackV2.Screen
+          component={PinConfirmationV2}
+          name='PinConfirmation'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
             headerRight: undefined
           }}
         />

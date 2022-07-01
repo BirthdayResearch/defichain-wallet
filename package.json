@@ -53,7 +53,7 @@
     "expo": "^45.0.5",
     "expo-asset": "~8.5.0",
     "expo-barcode-scanner": "~11.3.0",
-    "expo-checkbox": "^2.1.0",
+    "expo-checkbox": "~2.1.0",
     "expo-cli": "^5.4.11",
     "expo-clipboard": "~3.0.1",
     "expo-constants": "~13.1.1",
