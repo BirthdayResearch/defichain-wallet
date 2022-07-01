@@ -7,6 +7,7 @@ import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { Country } from '@shared-api/dfx/models/Country'
 import { ListItem } from './BottomSheetFiatPicker'
+import { translate } from '@translations'
 
 interface BottomSheetCountryPickerProps {
   onItemPress: (country: Country) => void
@@ -60,7 +61,7 @@ export const BottomSheetCountryPicker = ({
           <ThemedText
             style={tailwind('text-lg font-medium')}
           >
-            headerLabel
+            {translate('screens/UserDetails', 'Country')}
           </ThemedText>
           <TouchableOpacity onPress={onCloseButtonPress}>
             <ThemedIcon iconType='MaterialIcons' name='close' size={20} />

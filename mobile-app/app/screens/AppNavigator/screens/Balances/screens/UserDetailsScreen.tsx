@@ -37,6 +37,7 @@ import { CommonActions, StackActions } from '@react-navigation/native'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { Language } from '@shared-api/dfx/models/Language'
 import { WalletAlert } from '@components/WalletAlert'
+import PNF, { PhoneNumberUtil } from 'google-libphonenumber'
 
 type Props = StackScreenProps<BalanceParamList, 'UserDetailsScreen'>
 
@@ -57,6 +58,25 @@ export function UserDetailsScreen ({
   const { listFiatAccounts } = useDFXAPIContext()
   const [iconClicked, setIconClicked] = useState(true)
 
+  enum Fields {
+    accountType = 'accountType',
+    firstName = 'firstName',
+    lastName = 'lastName',
+    street = 'street',
+    houseNumber = 'houseNumber',
+    zip = 'zip',
+    location = 'location',
+    country = 'country',
+    organizationName = 'organizationName',
+    organizationStreet = 'organizationStreet',
+    organizationHouseNumber = 'organizationHouseNumber',
+    organizationLocation = 'organizationLocation',
+    organizationZip = 'organizationZip',
+    organizationCountry = 'organizationCountry',
+    mail = 'mail',
+    phone = 'phone'
+  }
+
   // TODO: (thabrad) refactor
   enum ButtonGroupTabKey {
     Personal = '0',
@@ -66,15 +86,15 @@ export function UserDetailsScreen ({
 
   const buttonOptions = [{
       id: ButtonGroupTabKey.Personal,
-      label: AccountType.PERSONAL,
+      label: translate('screens/UserDetails', 'Personal'),
       handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Personal)
     }, {
       id: ButtonGroupTabKey.BUSINESS,
-      label: AccountType.BUSINESS,
+      label: translate('screens/UserDetails', 'Business'),
       handleOnPress: () => setSelectedButton(ButtonGroupTabKey.BUSINESS)
     }, {
       id: ButtonGroupTabKey.SOLE_PROPRIETORSHIP,
-      label: AccountType.SOLE_PROPRIETORSHIP,
+      label: translate('screens/UserDetails', 'Sole Proprietorship'),
       handleOnPress: () => setSelectedButton(ButtonGroupTabKey.SOLE_PROPRIETORSHIP)
     }
   ]
@@ -84,7 +104,8 @@ export function UserDetailsScreen ({
   //     setSelectedButton(buttonGroupTabKey)
   //   }
   // }
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+  const phoneNumberUtil = PhoneNumberUtil.getInstance()
 
   const schema = yup.object({
     firstName: yup.string().required(),
@@ -93,8 +114,16 @@ export function UserDetailsScreen ({
     zip: yup.string().max(12).required(),
     location: yup.string().required(),
     mail: yup.string().email().required(),
-    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required()
+    phone: yup.string().test(
+      'phone number check',
+      'Phone number is not valid',
+      (value, { createError }) => {
+        const number = phoneNumberUtil.parseAndKeepRawInput(value ?? '')
+        return phoneNumberUtil.isValidNumber(number)
+      }
+    ).required()
   }).required()
+
   const {
     control,
     formState: { errors, isValid },
@@ -116,7 +145,7 @@ export function UserDetailsScreen ({
   }
   const [country, setCountry] = useState<Country>(defaultCountry)
   const [orgCountry, setOrgCountry] = useState<Country>(defaultCountry)
-  const [loadingText, setloadingText] = useState<string>('…loading country list')
+  const [loadingText, setloadingText] = useState<string>('…loading')
   const [isloading, setIsLoading] = useState<boolean>(true)
   const [formError, setFormError] = useState()
 
@@ -147,8 +176,6 @@ export function UserDetailsScreen ({
         component: BottomSheetCountryPicker({
           onItemPress: async (item): Promise<void> => {
             fn(item)
-            // setCountries(countries)
-            // setOrgCountry(orgCountry)
             dismissModal()
           },
           countries: countries,
@@ -162,25 +189,6 @@ export function UserDetailsScreen ({
 
   // TODO: (thabrad) type fix
   // const x = <User extends any>(firstName: keyof User): any => firstName
-
-  enum Fields{
-    accountType = 'accountType',
-    firstName = 'firstName',
-    lastName = 'lastName',
-    street = 'street',
-    houseNumber = 'houseNumber',
-    zip = 'zip',
-    location = 'location',
-    country = 'country',
-    organizationName = 'organizationName',
-    organizationStreet = 'organizationStreet',
-    organizationHouseNumber = 'organizationHouseNumber',
-    organizationLocation = 'organizationLocation',
-    organizationZip = 'organizationZip',
-    organizationCountry = 'organizationCountry',
-    mail = 'mail',
-    phone = 'phone'
-  }
 
   async function onError (error: any): Promise<void> {
     setFormError(error)
@@ -250,7 +258,6 @@ export function UserDetailsScreen ({
     setloadingText('SENDING')
     putKycData((kycData))
       .then((x) => {
-        // console.log(x)
         void (async () => await DFXPersistence.setUserInfoComplete())()
         // navigation.reset()
         navigation.popToTop()
@@ -300,7 +307,7 @@ export function UserDetailsScreen ({
           <ButtonGroup
             buttons={buttonOptions}
             activeButtonGroupItem={selectedButton}
-            modalStyle={tailwind('text-lg')}
+            modalStyle={tailwind('text-base')}
             testID='portfolio_button_group'
             darkThemeStyle={tailwind('bg-dfxblue-800')}
             customActiveStyle={{
@@ -316,11 +323,11 @@ export function UserDetailsScreen ({
               text={translate('screens/UserDetails', 'ORGANIZATION DATA')}
             />
             <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
-              <AddressDetailItem control={control} fieldName={Fields.organizationName} title='Name' example='DFX Inc.' />
-              <AddressDetailItem control={control} fieldName={Fields.organizationStreet} title='Street Name' example='Main Street' />
-              <AddressDetailItem control={control} fieldName={Fields.organizationHouseNumber} title='Street Number' example='42' keyboardType='number-pad' />
-              <AddressDetailItem control={control} fieldName={Fields.organizationZip} title='Zip Code' example='1234' />
-              <AddressDetailItem control={control} fieldName={Fields.organizationLocation} title='City' example='Berlin' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationName} title={translate('screens/UserDetails', 'Name')} example='DFX Inc.' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationStreet} title={translate('screens/UserDetails', 'Street Name')} example='Main Street' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationHouseNumber} title={translate('screens/UserDetails', 'House Number')} example='42' keyboardType='number-pad' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationZip} title={translate('screens/UserDetails', 'Zip Code')} example='1234' />
+              <AddressDetailItem control={control} fieldName={Fields.organizationLocation} title={translate('screens/UserDetails', 'City')} example='Berlin' />
 
               <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
                 <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
@@ -345,12 +352,12 @@ export function UserDetailsScreen ({
         />
         <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
 
-          <AddressDetailItem fieldName={Fields.firstName} control={control} title='First Name' example='John' />
-          <AddressDetailItem fieldName={Fields.lastName} control={control} title='Last Name' example='Doe' />
-          <AddressDetailItem fieldName={Fields.street} control={control} title='Street Name' example='Main Street' />
-          <AddressDetailItem fieldName={Fields.houseNumber} control={control} title='House Number' example='42' keyboardType='number-pad' />
-          <AddressDetailItem fieldName={Fields.zip} control={control} title='Zip Code' example='1234' />
-          <AddressDetailItem fieldName={Fields.location} control={control} title='City' example='Berlin' />
+          <AddressDetailItem fieldName={Fields.firstName} control={control} title={translate('screens/UserDetails', 'First Name')} example='John' />
+          <AddressDetailItem fieldName={Fields.lastName} control={control} title={translate('screens/UserDetails', 'Last Name')} example='Doe' />
+          <AddressDetailItem fieldName={Fields.street} control={control} title={translate('screens/UserDetails', 'Street Name')} example='Main Street' />
+          <AddressDetailItem fieldName={Fields.houseNumber} control={control} title={translate('screens/UserDetails', 'House Number')} example='42' keyboardType='number-pad' />
+          <AddressDetailItem fieldName={Fields.zip} control={control} title={translate('screens/UserDetails', 'Zip Code')} example='1234' />
+          <AddressDetailItem fieldName={Fields.location} control={control} title={translate('screens/UserDetails', 'City')} example='Berlin' />
 
           <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
             <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
@@ -374,18 +381,15 @@ export function UserDetailsScreen ({
         />
         <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
           <AddressDetailItem fieldName={Fields.mail} control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
-          <AddressDetailItem fieldName={Fields.phone} control={control} title='Phone Number' example='+4977001234' keyboardType='phone-pad' />
-          {
-            // errors.map((item: any) => item != null && <ThemedText>This is required.</ThemedText>)
-          }
-          {isValid ?? <ThemedText>This is required.</ThemedText>}
+          <AddressDetailItem fieldName={Fields.phone} control={control} title={translate('screens/UserDetails', 'Phone Number')} example='+4977001234' keyboardType='phone-pad' />
+          {!isValid ?? <ThemedText>{JSON.stringify(errors)}</ThemedText>}
         </View>
 
         <View style={tailwind('h-12')} />
         <SubmitButtonGroup
           isDisabled={isloading || !isValid}
-          label={translate('screens/SellScreen', 'SUBMIT')}
-          processingLabel={translate('screens/SellScreen', loadingText)}
+          label={translate('screens/UserDetails', 'SUBMIT')}
+          processingLabel={translate('screens/UserDetails', loadingText)}
           onSubmit={handleSubmit(onSubmit, onError)}
           title='sell_continue'
           isProcessing={isloading}
@@ -439,7 +443,6 @@ function AddressDetailItem ({
   props
 }: { control: Control, fieldName: string, title: string, required?: boolean, example?: string, keyboardType?: KeyboardTypeOptions, props?: AddressDetailProps & UseControllerProps<User & KycData> }): JSX.Element {
   return (
-
     <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
 
       <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>

@@ -137,6 +137,7 @@ export function SellScreen ({
       .then((sellRoutes) => {
         // if no sell routes navigate to UserDetails screen to create
         if (sellRoutes === undefined || sellRoutes.length < 1) {
+          navigation.popToTop()
           navigation.navigate('UserDetails')
         }
         setFiatAccounts(sellRoutes)

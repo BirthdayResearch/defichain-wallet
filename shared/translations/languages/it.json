@@ -421,7 +421,8 @@
     "Convert to {{symbol}}": "Convertire in {{symbol}}",
     "Add to liquidity pool": "Aggiungere al pool di liquidità",
     "Remove liquidity": "Rimuovere la liquidità",
-    "Swap token": "Scambiare token"
+    "Swap token": "Scambiare token",
+    "Sell": "Vendere"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Per saperne di più su UTXO e Token",
@@ -1500,5 +1501,23 @@
     "Your Currency": "La tua valuta",
     "Select account to cash out": "Seleziona il conto per incassare",
     "Add account": "Aggiungi account"
+  },
+  "screens/UserDetails": {
+    "ORGANIZATION DATA": "DATI DELL'ORGANIZZAZIONE",
+    "Name": "Nome",
+    "Street Name": "Nome della via",
+    "Zip Code": "Cap",
+    "City": "Città",
+    "First Name": "Nome di battesimo",
+    "Last Name": "Cognome",
+    "House Number": "Numero di casa",
+    "CONTACT DATA": "INFORMAZIONI DI CONTATTO",
+    "Phone Number": "Numero di telefono",
+    "SUBMIT": "SOTTOSCRIVI",
+    "PERSONAL INFORMATION": "INFORMAZIONE PERSONALE",
+    "Country": "Paese",
+    "Personal": "Personale",
+    "Business": "Affare",
+    "Sole Proprietorship": "Ditta individuale"
   }
 }

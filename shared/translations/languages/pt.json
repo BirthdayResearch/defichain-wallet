@@ -299,7 +299,8 @@
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}",
     "Add to liquidity pool": "Zu Liquiditätspool hinzufügen",
     "Remove liquidity": "Liquidität entfernen",
-    "Swap with {{token}}": "Tausche gegen {{token}}"
+    "Swap with {{token}}": "Tausche gegen {{token}}",
+    "Sell": "Vender"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Erfahre mehr über UTXOs und Token",
@@ -1258,5 +1259,23 @@
     "Your Currency": "Sua moeda",
     "Select account to cash out": "Selecione a conta para sacar",
     "Add account": "Adicionar Conta"
+  },
+  "screens/UserDetails": {
+    "ORGANIZATION DATA": "DADOS DA ORGANIZAÇÃO",
+    "Name": "Nome",
+    "Street Name": "Nome da rua",
+    "Zip Code": "Código postal",
+    "City": "Cidade",
+    "First Name": "Primeiro nome",
+    "Last Name": "Sobrenome",
+    "House Number": "Número da casa",
+    "CONTACT DATA": "DADOS DE CONTATO",
+    "Phone Number": "Número de telefone",
+    "SUBMIT": "ENVIAR",
+    "PERSONAL INFORMATION": "INFORMAÇÃO PESSOAL",
+    "Country": "País",
+    "Personal": "Pessoal",
+    "Business": "O negócio",
+    "Sole Proprietorship": "Empresa individual"
   }
 }

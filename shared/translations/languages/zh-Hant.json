@@ -408,7 +408,8 @@
     "Convert to {{symbol}}": "轉換至 {{symbol}}",
     "Add to liquidity pool": "加入流動性池",
     "Remove liquidity": "撒出 流動性池",
-    "Swap token": "兌換代幣"
+    "Swap token": "兌換代幣",
+    "Sell": "賣"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "了解UTXO和代幣區別",
@@ -1463,5 +1464,23 @@
     "Your Currency": "您的貨幣",
     "Select account to cash out": "選擇要提現的賬戶",
     "Add account": "新增帳戶"
+  },
+  "screens/UserDetails": {
+    "ORGANIZATION DATA": "組織數據",
+    "Name": "姓名",
+    "Street Name": "街道名稱",
+    "Zip Code": "郵政編碼",
+    "City": "城市",
+    "First Name": "名",
+    "Last Name": "姓",
+    "House Number": "門牌號碼",
+    "CONTACT DATA": "聯繫方式",
+    "Phone Number": "電話號碼",
+    "SUBMIT": "提交",
+    "PERSONAL INFORMATION": "個人信息",
+    "Country": "國家",
+    "Personal": "個人的",
+    "Business": "商業",
+    "Sole Proprietorship": "獨資企業"
   }
 }
