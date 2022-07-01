@@ -8,7 +8,7 @@ import {
   ThemedProps,
   ThemedSectionTitleV2
 } from '@components/themed'
-import { tailwind } from '@tailwind'
+import { getColor, tailwind } from '@tailwind'
 import { MaterialIcons } from '@expo/vector-icons'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
@@ -96,6 +96,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
             ref={ref}
             editable
             style={tailwind('font-normal-v2 flex-1')}
+            selectionColor={getColor('brand-v2-500')}
             {...otherProps}
           />
           {displayTickIcon === true &&
