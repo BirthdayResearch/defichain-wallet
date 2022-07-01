@@ -84,33 +84,48 @@ export function UserDetailsScreen ({
     SOLE_PROPRIETORSHIP = '2'
   }
 
+  function selectButton (param: ButtonGroupTabKey): any {
+    setSelectedButton(param)
+    // needed for redux to update
+    setTimeout(() => {
+      trigger()
+    }, 50)
+  }
+
   const buttonOptions = [{
       id: ButtonGroupTabKey.Personal,
       label: translate('screens/UserDetails', 'Personal'),
-      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.Personal)
+      handleOnPress: () => selectButton(ButtonGroupTabKey.Personal)
     }, {
       id: ButtonGroupTabKey.BUSINESS,
       label: translate('screens/UserDetails', 'Business'),
-      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.BUSINESS)
+      handleOnPress: () => selectButton(ButtonGroupTabKey.BUSINESS)
     }, {
       id: ButtonGroupTabKey.SOLE_PROPRIETORSHIP,
       label: translate('screens/UserDetails', 'Sole Proprietorship'),
-      handleOnPress: () => setSelectedButton(ButtonGroupTabKey.SOLE_PROPRIETORSHIP)
+      handleOnPress: () => selectButton(ButtonGroupTabKey.SOLE_PROPRIETORSHIP)
     }
   ]
   const [selectedButton, setSelectedButton] = useState(ButtonGroupTabKey.Personal)
-  // const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-  //   if (selectedButton !== undefined) {
-  //     setSelectedButton(buttonGroupTabKey)
-  //   }
-  // }
 
+  // Helper for phone validation
   const phoneNumberUtil = PhoneNumberUtil.getInstance()
 
-  const schema = yup.object({
+  // optional company validation
+  const optionalSchema = yup.object({
+    organizationName: yup.string().required(),
+    organizationStreet: yup.string().required(),
+    organizationHouseNumber: yup.string().max(12).required(),
+    organizationLocation: yup.string().required(),
+    organizationZip: yup.string().max(12).required()
+  }).required()
+
+  // validation for personal info
+  const basicSchema = yup.object({
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     street: yup.string().required(),
+    houseNumber: yup.string().max(12).required(),
     zip: yup.string().max(12).required(),
     location: yup.string().required(),
     mail: yup.string().email().required(),
@@ -124,9 +139,18 @@ export function UserDetailsScreen ({
     ).required()
   }).required()
 
+  // if ButtonGroupTabKey.BUSINESS or .SOLE_PROPRIETORSHIP is selected, also validate optionalSchema
+  let schema
+  if (selectedButton !== ButtonGroupTabKey.Personal) {
+    schema = basicSchema.concat(optionalSchema)
+  } else {
+    schema = basicSchema
+  }
+
   const {
     control,
     formState: { errors, isValid },
+    trigger,
     getValues,
     handleSubmit
   } = useForm/* <User & KycData> */({ mode: 'onChange', resolver: yupResolver(schema) })
