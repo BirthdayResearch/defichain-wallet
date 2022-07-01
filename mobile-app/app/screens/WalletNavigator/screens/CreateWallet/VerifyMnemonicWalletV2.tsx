@@ -214,4 +214,4 @@ function numberOrdinal (n: number): string {
     suffix = 'rd'
   }
   return `${n}${suffix}`
-};
+}
