@@ -43,6 +43,8 @@ import { ActionButton } from '../../Dex/components/PoolPairCards/ActionSection'
 import { BottomSheetFiatAccountCreate } from '@components/SellComponents/BottomSheetFiatAccountCreate'
 import { send } from './SendConfirmationScreen'
 import { useConversion } from '@hooks/wallet/Conversion'
+import { DFXPersistence } from '@api/persistence/dfx_storage'
+import { getUserDetail } from '@shared-api/dfx/ApiService'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
 
@@ -131,14 +133,37 @@ export function SellScreen ({
     void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
   }, [fetchWalletAddresses])
 
+  function checkUserProfile (): void {
+    void (async () => {
+      // (1) from STORE
+      const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
+
+      if (isUserDetailStored === null || !isUserDetailStored) {
+        // if not, retrieve from API
+        void (async () => {
+          // (2) from API
+          const userDetail = await getUserDetail()
+          // persist result to STORE
+          await DFXPersistence.setUserInfoComplete(userDetail.kycDataComplete)
+          // navigate based on BackendData result
+          if (!userDetail.kycDataComplete) {
+            navigation.popToTop()
+            navigation.navigate('UserDetails')
+          }
+        })()
+      }
+    })()
+  }
+
   // load sell routes
   useEffect(() => {
+    checkUserProfile()
+
     listFiatAccounts()
       .then((sellRoutes) => {
         // if no sell routes navigate to UserDetails screen to create
         if (sellRoutes === undefined || sellRoutes.length < 1) {
-          navigation.popToTop()
-          navigation.navigate('UserDetails')
+          // checkUserProfile()
         }
         setFiatAccounts(sellRoutes)
       })

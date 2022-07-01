@@ -171,7 +171,6 @@ export function UserDetailsScreen ({
   const [orgCountry, setOrgCountry] = useState<Country>(defaultCountry)
   const [loadingText, setloadingText] = useState<string>('…loading')
   const [isloading, setIsLoading] = useState<boolean>(true)
-  const [formError, setFormError] = useState()
 
   // Bottom sheet token
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -213,10 +212,6 @@ export function UserDetailsScreen ({
 
   // TODO: (thabrad) type fix
   // const x = <User extends any>(firstName: keyof User): any => firstName
-
-  async function onError (error: any): Promise<void> {
-    setFormError(error)
-  }
 
   async function onSubmit (data: User & KycData | FieldValues): Promise<void> {
     if (!isValid) {
@@ -406,24 +401,19 @@ export function UserDetailsScreen ({
         <View style={tailwind('mx-4 bg-dfxblue-800 rounded-md border border-dfxblue-900')}>
           <AddressDetailItem fieldName={Fields.mail} control={control} title='Email' example='John.Doe@gmail.com' keyboardType='email-address' />
           <AddressDetailItem fieldName={Fields.phone} control={control} title={translate('screens/UserDetails', 'Phone Number')} example='+4977001234' keyboardType='phone-pad' />
-          {!isValid ?? <ThemedText>{JSON.stringify(errors)}</ThemedText>}
         </View>
+        {/* <ThemedText>{JSON.stringify(errors)}</ThemedText> */}
 
         <View style={tailwind('h-12')} />
         <SubmitButtonGroup
           isDisabled={isloading || !isValid}
           label={translate('screens/UserDetails', 'SUBMIT')}
           processingLabel={translate('screens/UserDetails', loadingText)}
-          onSubmit={handleSubmit(onSubmit, onError)}
+          onSubmit={handleSubmit(onSubmit)}
           title='sell_continue'
           isProcessing={isloading}
           displayCancelBtn={false}
         />
-
-        {/* <ThemedText>
-          {formError}
-          {errors}
-        </ThemedText> */}
 
         <View style={tailwind('h-60')} />
 
