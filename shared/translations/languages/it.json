@@ -853,7 +853,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Codice di accesso",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
+    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Cosa succede se ho dimenticato il mio codice di accesso? Qualcuno può aiutarmi a recuperare il mio codice di accesso?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Il tuo codice di accesso è una tua responsabilità, quindi nessuno, a parte te, lo conosce. È importante che tu tenga il tuo codice di accesso al sicuro e che lo cambi di tanto in tanto.",
     "Can I change my passcode?": "Posso cambiare il mio codice di accesso?",

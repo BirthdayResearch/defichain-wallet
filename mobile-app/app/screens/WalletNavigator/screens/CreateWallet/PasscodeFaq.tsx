@@ -42,7 +42,7 @@ export function PasscodeFaq (): JSX.Element {
       <ThemedText
         style={tailwind('mt-2 text-sm')}
       >
-        {translate('components/PasscodeFaq', 'Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.')}
+        {translate('components/PasscodeFaq', 'Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.')}
       </ThemedText>
 
       <WalletAccordion
