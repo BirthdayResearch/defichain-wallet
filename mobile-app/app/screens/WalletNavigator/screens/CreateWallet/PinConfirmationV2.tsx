@@ -10,12 +10,17 @@ import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
 import { CreateWalletStepIndicatorV2 } from '@components/CreateWalletStepIndicatorV2'
 import { PinTextInputV2 } from '@components/PinTextInputV2'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { EnvironmentNetwork } from '@environment'
+import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
+import { MnemonicEncrypted } from '@api/wallet'
+import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 type Props = StackScreenProps<WalletParamList, 'PinConfirmation'>
 
 export function PinConfirmationV2 ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
+  const logger = useLogger()
   const [isComplete, setIsComplete] = useState<boolean>(false) // To complete the last stepper node when pin is verified.
   const { network } = useNetworkContext()
   const {
@@ -24,7 +29,6 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
     type
   } = route.params
   const [newPin, setNewPin] = useState('')
-
   const [invalid, setInvalid] = useState<boolean>(false)
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
 
@@ -38,21 +42,33 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
       return
     } else {
       setInvalid(false)
+      setIsComplete(true)
     }
 
     const copy = { words, network, pin, isWalletRestored: type === 'restore' }
-    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet'))
-    setIsComplete(true)
+
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to securely encrypt your wallet...'))
     setTimeout(() => {
-     navigateToNextPage(copy)
+      MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
+        .then(async encrypted => {
+          await MnemonicStorage.set(words, pin)
+          navigateToNextPage({
+            data: encrypted,
+            isWalletRestored: type === 'restore'
+          })
+        })
+        .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
+
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet'))
   }
 
-  function navigateToNextPage (params: {pin: string, network: EnvironmentNetwork, words: string[], isWalletRestored: boolean}): void {
+  function navigateToNextPage (params: {data: WalletPersistenceDataI<EncryptedProviderData>, isWalletRestored: boolean}): void {
     navigation.navigate({
       name: 'WalletCreateRestoreSuccess', params, merge: true
     })
   }
+
   return (
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}

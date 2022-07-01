@@ -34,7 +34,8 @@ import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
-import { EnvironmentNetwork } from '@environment'
+import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -66,9 +67,7 @@ export interface WalletParamListV2 {
   }
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
-    pin: string
-    words: string[]
-    network: EnvironmentNetwork
+    data: WalletPersistenceDataI<EncryptedProviderData>
   }
   [key: string]: undefined | object
 }

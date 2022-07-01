@@ -12,20 +12,19 @@ import { ButtonV2 } from '@components/ButtonV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { initJellyfishWallet, MnemonicEncrypted } from '@api/wallet'
-import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { useWalletPersistenceContext, WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { MAX_ALLOWED_ADDRESSES } from '@shared-contexts/WalletContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 type Props = StackScreenProps<WalletParamListV2, 'WalletCreateRestoreSuccess'>
 
 export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
-  const { isWalletRestored, pin, network, words } = route.params
+  const { isWalletRestored, data } = route.params
+  const { network } = useNetworkContext()
   const { isLight } = useThemeContext()
-  const logger = useLogger()
   const { setWallet } = useWalletPersistenceContext()
   const client = useWhaleApiClient()
   const safeAreaInsets = useSafeAreaInsets()
@@ -34,16 +33,12 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
   // show all content for small screen and web to adjust margins and paddings
   const isSmallScreen = height <= 667 || Platform.OS === 'web'
 
-  function handleOnPress (): void {
-    MnemonicEncrypted.toData(words, network, pin)
-      .then(async encrypted => {
-        await MnemonicStorage.set(words, pin)
-        if (isWalletRestored) {
-          await discoverWalletAddresses(encrypted)
-        }
-        await setWallet(encrypted)
-      })
-      .catch(logger.error)
+  async function handleOnPress (): Promise<void> {
+    if (isWalletRestored) {
+      await discoverWalletAddresses(data)
+    } else {
+      await setWallet(data)
+    }
   }
 
   async function discoverWalletAddresses (data: WalletPersistenceDataI<EncryptedProviderData>): Promise<void> {
