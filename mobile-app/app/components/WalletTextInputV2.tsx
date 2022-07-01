@@ -79,7 +79,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
         )}
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-00', { 'border-mono-light-v2-800': isFocus, 'border-red-v2': !valid })}
-        dark={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-00', { 'border-mono-dark-v2-800': isFocus, 'border-red-v2': !valid })}
+        dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-00', { 'border-mono-dark-v2-800': isFocus, 'border-red-v2': !valid })}
         style={tailwind('flex-col w-full border-0.5 rounded-2lg')}
       >
         <View
