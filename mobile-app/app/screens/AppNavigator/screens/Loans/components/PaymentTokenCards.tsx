@@ -72,7 +72,7 @@ export function PaymentTokenCards ({
                 onPress={() => navigation.navigate({
                   name: 'LoansFaq',
                   params: {
-                    activeSessions: [5]
+                    activeSessions: [6]
                   }
                 })}
               >
