@@ -53,13 +53,21 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
         {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
       </ThemedTextV2>
       <ThemedTouchableOpacityV2
+        style={tailwind('mt-2 flex-row items-center justify-center')}
         light={tailwind('border-b-0')}
         dark={tailwind('border-b-0')}
         onPress={() => navigation.navigate('RecoveryWordsFaq')}
         testID='recovery_words_faq'
       >
+        <ThemedIcon
+          light={tailwind('text-mono-light-v2-900')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          iconType='MaterialIcons'
+          name='help'
+          size={16}
+        />
         <ThemedTextV2
-          style={tailwind('mt-2 px-3 text-sm text-center font-semibold-v2')}
+          style={tailwind('pl-1.5 text-sm text-center font-semibold-v2')}
         >
           {translate('screens/Guidelines', 'Learn more')}
         </ThemedTextV2>
@@ -91,7 +99,7 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
               {translate('screens/Guidelines', g.title)}
             </ThemedTextV2>
           </View>
-       ))}
+        ))}
         <View style={tailwind('mt-3 flex flex-row items-start')}>
           <Checkbox
             value={isEnabled}
