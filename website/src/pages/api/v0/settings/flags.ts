@@ -79,8 +79,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'onboarding_v2',
       name: 'Onboarding for LW 2.0',
-      stage: 'alpha',
-      version: '>1.13.0',
+      stage: 'public',
+      version: '>1.14.3',
       description: 'Display redesigned onboarding flow for LW 2.0',
       networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
