@@ -70,6 +70,16 @@ export interface WalletParamListV2 {
     isWalletRestored: boolean
     data: WalletPersistenceDataI<EncryptedProviderData>
   }
+  PinCreation: {
+    pinLength: 4 | 6
+    words: string[]
+    type: PinCreationType
+  }
+  PinConfirmation: {
+    pin: string
+    words: string[]
+    type: PinCreationType
+  }
   [key: string]: undefined | object
 }
 
