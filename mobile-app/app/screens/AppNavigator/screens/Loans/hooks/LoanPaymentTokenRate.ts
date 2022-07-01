@@ -55,11 +55,12 @@ export const useLoanPaymentTokenRate = (props: {
       return new BigNumber(0)
     }
 
+    const dfiPenalty = 0.95
     const conversionRate = paymentTokenSymbol === props.loanToken.symbol || paymentTokenSymbol === 'DUSD'
       ? new BigNumber(1)
       : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
-    const penaltyOfOutstandingBalance = props.outstandingBalance.div(0.99).minus(props.outstandingBalance)
-    const penaltyOfAmountToPay = props.amountToPay.div(0.99).minus(props.amountToPay)
+    const penaltyOfOutstandingBalance = props.outstandingBalance.div(dfiPenalty).minus(props.outstandingBalance)
+    const penaltyOfAmountToPay = props.amountToPay.div(dfiPenalty).minus(props.amountToPay)
 
     if (paymentTokenSymbol === props.loanToken.symbol) {
       const cappedPenalty = BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
@@ -68,9 +69,7 @@ export const useLoanPaymentTokenRate = (props: {
 
     const penaltyOfOutstandingBalanceInPaymentToken = penaltyOfOutstandingBalance.multipliedBy(conversionRate)
     const penaltyOfAmountToPayInPaymentToken = penaltyOfAmountToPay.multipliedBy(conversionRate)
-    const cappedPenaltyInPaymentToken = BigNumber.max(BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken), 0)
-
-    return cappedPenaltyInPaymentToken
+    return BigNumber.max(BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken), 0)
   }
 
   const getPaymentTokens = (): GetAmountProps => {
