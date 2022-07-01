@@ -19,7 +19,7 @@ export function SellConfirmationScreen ({ route }: Props): JSX.Element {
       <View style={tailwind('flex-grow')} />
 
       <ThemedTextBasic style={tailwind('flex-grow mx-12 self-center text-xl')}>
-        {translate('screens/SellConfirmationScreen', 'Thank you, we have received your sell order.')}
+        {translate('screens/SellConfirmationScreen', 'We will sell your assets now and prepare the payout to your bank transaction.')}
       </ThemedTextBasic>
 
       <Button
