@@ -58,8 +58,7 @@ export const useLoanPaymentTokenRate = (props: {
     const penaltyOfAmountToPay = props.amountToPay.multipliedBy(penaltyFee)
 
     if (paymentTokenSymbol === props.loanToken.symbol) {
-      const cappedPenalty = BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
-      return cappedPenalty
+      return BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
     }
 
     return BigNumber.max(BigNumber.min(penaltyOfAmountToPay, penaltyOfOutstandingBalance), 0)
