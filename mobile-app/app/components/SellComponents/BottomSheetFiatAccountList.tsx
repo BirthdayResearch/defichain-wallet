@@ -74,7 +74,7 @@ export const BottomSheetFiatAccountList = ({
 
   const filterEnabled = (sellRouteList: SellRoute[]): SellRoute[] => {
     return sellRouteList?.filter((item) => {
-      return item.isInUse
+      return item.active
     })
   }
 

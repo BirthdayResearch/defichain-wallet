@@ -1519,5 +1519,8 @@
     "Personal": "Personale",
     "Business": "Affare",
     "Sole Proprietorship": "Ditta individuale"
+  },
+  "screens/SellConfirmationScreen": {
+    "We will sell your assets now and prepare the payout to your bank transaction.": "Vendiamo subito i tuoi asset e prepariamo il pagamento per la transazione bancaria."
   }
 }

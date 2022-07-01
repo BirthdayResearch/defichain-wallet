@@ -1515,5 +1515,8 @@
     "Personal": "Personal",
     "Business": "Negocio",
     "Sole Proprietorship": "Propietario único"
+  },
+  "screens/SellConfirmationScreen": {
+    "We will sell your assets now and prepare the payout to your bank transaction.": "Vamos a proceder a vender tus activos ahora y así poder preparar el ingreso para la transacción bancaria."
   }
 }

@@ -1482,5 +1482,8 @@
     "Personal": "個人的",
     "Business": "商業",
     "Sole Proprietorship": "獨資企業"
+  },
+  "screens/SellConfirmationScreen": {
+    "We will sell your assets now and prepare the payout to your bank transaction.": "我們現在將出售您的資產並準備支付給您的銀行交易。"
   }
 }

@@ -1277,5 +1277,8 @@
     "Personal": "Pessoal",
     "Business": "O negócio",
     "Sole Proprietorship": "Empresa individual"
+  },
+  "screens/SellConfirmationScreen": {
+    "We will sell your assets now and prepare the payout to your bank transaction.": "Vamos vender seus ativos agora e preparar o pagamento para sua transação bancária."
   }
 }

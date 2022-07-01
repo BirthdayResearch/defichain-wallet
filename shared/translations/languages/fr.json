@@ -337,7 +337,8 @@
     "Track transactions, tokens and DEX pairs": "Suivi des transactions, des tokens et des paires du DEX",
     "View official website": "Voir le site officiel",
     "Learn more about the blockchain": "En savoir plus sur la blockchain",
-    "Try Beta features": "Essayez les fonctionnalités de la version bêta"
+    "Try Beta features": "Essayez les fonctionnalités de la version bêta",
+    "Learn more about DFX": "En savoir plus sur DFX"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "EN SAVOIR PLUS",
@@ -1504,5 +1505,8 @@
     "Personal": "Personnel",
     "Business": "Entreprise",
     "Sole Proprietorship": "Entreprise individuelle"
+  },
+  "screens/SellConfirmationScreen": {
+    "We will sell your assets now and prepare the payout to your bank transaction.": "Nous allons à présent vendre vos actifs et préparer le virement vers votre compte."
   }
 }

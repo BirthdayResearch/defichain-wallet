@@ -1488,5 +1488,8 @@
     "Personal": "Persönlich",
     "Business": "Geschäft",
     "Sole Proprietorship": "Einzelunternehmen"
+  },
+  "screens/SellConfirmationScreen": {
+    "We will sell your assets now and prepare the payout to your bank transaction.": "Im nächsten Schritt verkaufen wir das Asset und bereiten die Banktransaktion vor."
   }
 }
