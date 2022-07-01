@@ -1,7 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import { View } from '@components/index'
-import { ThemedActivityIndicator, ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { ThemedActivityIndicatorV2, ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -88,7 +88,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
         </ThemedTextV2>
         {
           (spinnerMessage !== undefined) && (
-            <ThemedActivityIndicator style={tailwind('my-7')} />
+            <ThemedActivityIndicatorV2 style={tailwind('mt-7 mb-8')} />
           )
         }
       </View>
