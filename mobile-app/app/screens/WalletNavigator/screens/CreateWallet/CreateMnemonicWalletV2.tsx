@@ -7,12 +7,12 @@ import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@com
 import { WalletAlert } from '@components/WalletAlert'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { WalletParamList } from '../../WalletNavigator'
-import { TouchableOpacity } from 'react-native'
+import { WalletParamListV2 } from '../../WalletNavigator'
+import { Platform, TouchableOpacity } from 'react-native'
 import { View } from '@components'
 import { ButtonV2 } from '@components/ButtonV2'
 
-type Props = StackScreenProps<WalletParamList, 'CreateMnemonicWallet'>
+type Props = StackScreenProps<WalletParamListV2, 'CreateMnemonicWallet'>
 
 export interface CreateMnemonicWalletHandle {
   getMnemonicWords: () => void
@@ -50,6 +50,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => (
         <TouchableOpacity
           onPress={refreshRecoveryWords}
+          style={tailwind({ 'mr-3': Platform.OS === 'android' })}
           testID='reset_recovery_word_button'
         >
           <ThemedIcon
@@ -134,7 +135,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
             />
             )
           )
-          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWord} />}
+          : <SkeletonLoader row={10} screen={SkeletonLoaderScreen.MnemonicWordV2} />}
       </ThemedViewV2>
 
       <ButtonV2

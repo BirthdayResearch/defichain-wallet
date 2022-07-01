@@ -61,8 +61,6 @@ export interface WalletParamList {
 }
 
 export interface WalletParamListV2 {
-  WalletOnboardingScreen: undefined
-  CreateWalletGuidelines: undefined
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
     pin: string
@@ -277,7 +275,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={CreateWalletGuidelinesV2}
           name='CreateWalletGuidelines'
           options={{
@@ -285,44 +283,20 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
 
-        <WalletStack.Screen
+        <WalletStackV2.Screen
           component={CreateMnemonicWalletV2}
           name='CreateMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
-            headerRightContainerStyle: tailwind('px-2 py-2')
-          }}
-        />
-
-        <WalletStack.Screen
-          component={VerifyMnemonicWalletV2}
-          name='VerifyMnemonicWallet'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify Words')
-          }}
-        />
-        <WalletStack.Screen
-          component={PinCreationV2}
-          name='PinCreation'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
-            headerRight: undefined
-          }}
-        />
-        <WalletStack.Screen
-          component={PinConfirmationV2}
-          name='PinConfirmation'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
             headerRight: undefined
           }}
         />
 
         <WalletStackV2.Screen
-          component={OnboardingNetworkSelectScreenV2}
-          name='OnboardingNetworkSelectScreen'
+          component={VerifyMnemonicWalletV2}
+          name='VerifyMnemonicWallet'
           options={{
-            headerTitle: translate('screens/NetworkDetails', 'Network'),
+            headerTitle: translate('screens/WalletNavigator', 'Verify Words'),
             headerRight: undefined
           }}
         />
@@ -332,6 +306,15 @@ export function WalletNavigator (): JSX.Element {
           name='WalletCreateRestoreSuccess'
           options={{
             headerShown: false
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={OnboardingNetworkSelectScreenV2}
+          name='OnboardingNetworkSelectScreen'
+          options={{
+            headerTitle: translate('screens/NetworkDetails', 'Network'),
+            headerRight: undefined
           }}
         />
 
@@ -349,6 +332,23 @@ export function WalletNavigator (): JSX.Element {
           name='PasscodeFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'About Passcode'),
+            headerRight: undefined
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={PinCreationV2}
+          name='PinCreation'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
+            headerRight: undefined
+          }}
+        />
+        <WalletStackV2.Screen
+          component={PinConfirmationV2}
+          name='PinConfirmation'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
             headerRight: undefined
           }}
         />

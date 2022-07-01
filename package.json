@@ -43,7 +43,7 @@
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
-    "@reduxjs/toolkit": "^1.8.2",
+    "@reduxjs/toolkit": "^1.8.3",
     "bignumber.js": "^9.0.2",
     "buffer": "^6.0.3",
     "classnames": "^2.3.1",

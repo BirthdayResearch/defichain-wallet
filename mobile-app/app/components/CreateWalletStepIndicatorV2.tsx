@@ -4,6 +4,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ThemedIcon, ThemedTextV2 } from './themed'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
 interface StepIndicatorProps {
   current: number
@@ -40,13 +41,11 @@ export function CreateWalletStepIndicatorV2 (props: StepIndicatorProps): JSX.Ele
     steps = [],
     isComplete
   } = props
-  if (total === undefined && steps.length === 0) {
-    throw Error('Invalid prop for CreateWalletStepIndicator')
-  }
-
+  const logger = useLogger()
   const totalStep = total ?? steps.length
-  if (totalStep > 5 || current <= 0 || current > totalStep) {
-    throw Error('Invalid prop for CreateWalletStepIndicator')
+  if (totalStep === 0 || totalStep > 5 || current <= 0 || current > totalStep) {
+    logger.error('Invalid prop for CreateWalletStepIndicator')
+    return <></>
   }
 
   function following (): JSX.Element[] {
@@ -73,7 +72,7 @@ export function CreateWalletStepIndicatorV2 (props: StepIndicatorProps): JSX.Ele
 
   return (
     <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
-      <View style={tailwind('flex-row justify-center w-9/12 h-16')}>
+      <View style={tailwind('flex-row justify-center w-10/12 h-16')}>
         <StepNode
           content={steps[0]}
           current={current}
@@ -90,10 +89,10 @@ export function CreateWalletStepIndicatorV2 (props: StepIndicatorProps): JSX.Ele
 function getStepNodeStyle (isLight: boolean, current: number, step: number, isComplete?: boolean): { stepperStyle: string, textStyle: string } {
   let stepperStyle = isLight ? 'border border-mono-light-v2-900' : 'border border-mono-dark-v2-900'
   let textStyle = isLight ? 'text-mono-light-v2-900' : 'text-mono-dark-v2-900'
-  if (!isComplete && current === step) {
+  if ((isComplete !== true) && current === step) {
     stepperStyle = 'border border-green-v2'
     textStyle = 'text-green-v2'
-  } else if (isComplete || current > step) {
+  } else if ((isComplete === true) || current > step) {
     stepperStyle = 'border bg-green-v2 border-green-v2'
     textStyle = 'text-green-v2'
   }
@@ -113,7 +112,7 @@ function StepNode (props: { step: number, current: number, content: string, isLi
       <View
         style={tailwind(`h-9 w-9 rounded-full justify-center items-center relative ${stepperStyle}`)}
       >
-        {props.isComplete || props.current > props.step
+        {(props.isComplete === true) || (props.current > props.step)
           ? <ThemedIcon
               size={18}
               name='check'
