@@ -2,12 +2,13 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useEffect, useState } from 'react'
 import { View } from '@components/index'
-import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator.v2'
 import { PinTextInputV2 } from '@components/PinTextInputV2'
-import { ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
+import { CREATE_STEPS, RESTORE_STEPS, CreateWalletStepIndicatorV2 } from '@components/CreateWalletStepIndicatorV2'
+import { LearnMoreCTA } from '../components/LearnModeCTA'
 
 type Props = StackScreenProps<WalletParamList, 'PinCreation'>
 
@@ -40,10 +41,10 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
       contentContainerStyle={tailwind('items-center pt-12')}
       testID='screen_create_pin'
     >
-      <CreateWalletStepIndicator
+      <CreateWalletStepIndicatorV2
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
-        style={tailwind('py-0.5  px-3')}
+        style={tailwind('py-0.5 px-14')}
       />
 
       <View style={tailwind('px-10')}>
@@ -52,19 +53,9 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
         >
           {translate('screens/PinCreation', 'Add an additional layer of security by setting a passcode.')}
         </ThemedTextV2>
-        <ThemedTouchableOpacity
-          onPress={goToPasscodeFaq}
-          light={tailwind('border-0')}
-          dark={tailwind('border-0')}
-          style={tailwind('mb-12 pb-1 pt-2')}
-          testID='passcode_faq_link'
-        >
-          <ThemedTextV2
-            style={tailwind('text-center text-sm font-semibold-v2')}
-          >
-            {translate('screens/PinCreation', 'Learn more')}
-          </ThemedTextV2>
-        </ThemedTouchableOpacity>
+        <View style={{ marginBottom: 52 }}>
+          <LearnMoreCTA onPress={goToPasscodeFaq} />
+        </View>
       </View>
 
       <PinTextInputV2

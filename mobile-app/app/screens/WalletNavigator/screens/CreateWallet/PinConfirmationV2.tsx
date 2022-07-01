@@ -61,7 +61,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
       <CreateWalletStepIndicatorV2
         current={type === 'create' ? 3 : 2}
         steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
-        style={tailwind('py-0.5 px-3')}
+        style={tailwind('py-0.5 px-14')}
         isComplete={isComplete}
       />
 
