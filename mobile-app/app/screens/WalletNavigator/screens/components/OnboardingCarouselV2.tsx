@@ -13,6 +13,7 @@ import { ThemedTextV2 } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { CarouselPagination } from '@screens/WalletNavigator/screens/components/CarouselPagination'
 
 interface CarouselImage {
   imageDark: ImageSourcePropType
@@ -66,14 +67,10 @@ export function ImageSlide ({ imageDark, imageLight, title, subtitle }: Carousel
       <View style={tailwind('h-2/6 items-center justify-center mt-7')}>
         <ThemedTextV2
           style={tailwind('text-xl font-semibold-v2 text-center')}
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
         >
           {translate('screens/OnboardingCarousel', title)}
         </ThemedTextV2>
         <ThemedTextV2
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
           style={tailwind('font-normal-v2 text-center mt-2 mb-8')}
         >
           {translate('screens/OnboardingCarousel', subtitle)}
@@ -97,6 +94,7 @@ export function OnboardingCarouselV2 (): JSX.Element {
       paginationStyleItemActive={tailwind('w-6 h-1.5')}
       paginationDefaultColor={isLight ? getColor('mono-light-v2-500') : getColor('mono-dark-v2-500')}
       paginationStyleItem={tailwind('h-1.5 w-1.5 mx-1.5')}
+      PaginationComponent={CarouselPagination}
       renderItem={({ item }) => (
         <View style={{ width }}>
           {
