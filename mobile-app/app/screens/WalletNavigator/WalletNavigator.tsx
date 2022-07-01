@@ -284,7 +284,8 @@ export function WalletNavigator (): JSX.Element {
           component={CreateMnemonicWalletV2}
           name='CreateMnemonicWallet'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words')
+            headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
+            headerRight: undefined
           }}
         />
 
@@ -292,7 +293,8 @@ export function WalletNavigator (): JSX.Element {
           component={VerifyMnemonicWalletV2}
           name='VerifyMnemonicWallet'
           options={{
-            headerTitle: translate('screens/WalletNavigator', 'Verify Words')
+            headerTitle: translate('screens/WalletNavigator', 'Verify Words'),
+            headerRight: undefined
           }}
         />
 
