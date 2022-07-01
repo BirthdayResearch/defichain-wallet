@@ -835,7 +835,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Passwort",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
+    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Was passiert, wenn ich mein Passwort vergessen habe? Kann mir jemand helfen, mein Passwort wiederherzustellen?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Du bist für dein Passwort verantwortlich, daher kennt es niemand außer dir. Es ist wichtig, dass du dein Passwort sicher aufbewahrst und es von Zeit zu Zeit änderst.",
     "Can I change my passcode?": "Kann ich mein Passwort ändern?",

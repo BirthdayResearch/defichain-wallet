@@ -839,7 +839,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "密碼",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
+    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘記了我的密碼會怎麼樣？有人能幫我找回我的密碼嗎？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密碼之外，沒有任何人會知道。因此，沒有人能幫您找回您的私人密碼。",
     "Can I change my passcode?": "我可以更改我的密碼嗎？",
