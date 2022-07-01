@@ -6,12 +6,13 @@ import { ThemedViewV2 } from '../themed'
 
 export function MnemonicWordSkeletonLoaderV2 (props: JSX.IntrinsicAttributes & IContentLoaderProps & { children?: React.ReactNode, border: boolean }): JSX.Element {
   const { isLight } = useThemeContext()
+  const { border, ...otherProps } = props
   return (
     <ThemedViewV2
       testID='mnemonic_word_skeleton_loader'
       dark={tailwind('border-mono-dark-v2-300')}
       light={tailwind('border-mono-light-v2-300')}
-      style={tailwind(['py-5 mx-5 flex-row justify-center', { 'border-b': props.border }])}
+      style={tailwind(['py-5 mx-5 flex-row justify-center', { 'border-b': border }])}
     >
       <ContentLoader
         speed={2}
@@ -21,7 +22,7 @@ export function MnemonicWordSkeletonLoaderV2 (props: JSX.IntrinsicAttributes & I
         preserveAspectRatio='xMidYMid slice'
         backgroundColor={getColor(isLight ? 'mono-light-v2-100' : 'mono-dark-v2-100')}
         foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
-        {...props}
+        {...otherProps}
       >
         <Rect x='18' y='2' rx='5' ry='5' width='226' height='16' />
       </ContentLoader>
