@@ -3,14 +3,16 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { MnemonicUnprotected } from '@api/wallet'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { CREATE_STEPS, CreateWalletStepIndicatorV2 } from '@components/CreateWalletStepIndicatorV2'
-import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { tailwind } from '@tailwind'
+import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamListV2 } from '../../WalletNavigator'
 import { Platform, TouchableOpacity } from 'react-native'
 import { View } from '@components'
 import { ButtonV2 } from '@components/ButtonV2'
+import { RefreshIcon } from '@screens/WalletNavigator/assets/RefreshIcon'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 type Props = StackScreenProps<WalletParamListV2, 'CreateMnemonicWallet'>
 
@@ -20,6 +22,7 @@ export interface CreateMnemonicWalletHandle {
 
 export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
   const [words, setWords] = useState<string[]>(MnemonicUnprotected.generateWords())
+  const { isLight } = useThemeContext()
 
   const refreshRecoveryWords = (): void => {
     WalletAlert({
@@ -50,16 +53,10 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
       headerRight: (): JSX.Element => (
         <TouchableOpacity
           onPress={refreshRecoveryWords}
-          style={tailwind('relative left-1', { 'pt-1 ': Platform.OS === 'ios', 'pt-2': Platform.OS !== 'ios' })}
+          style={tailwind('relative left-1', { 'pt-1 ': Platform.OS === 'ios', 'pt-1.5': Platform.OS !== 'ios' })}
           testID='reset_recovery_word_button'
         >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            dark={tailwind('text-mono-dark-v2-900')}
-            light={tailwind('text-mono-light-v2-900')}
-            name='refresh'
-            size={24}
-          />
+          <RefreshIcon color={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')} />
         </TouchableOpacity>
       )
     })
