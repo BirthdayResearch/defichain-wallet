@@ -141,7 +141,7 @@ export function RestoreMnemonicWalletV2 (): JSX.Element {
                 <ThemedTextV2
                   light={tailwind('text-mono-light-v2-500')}
                   dark={tailwind('text-mono-dark-v2-500')}
-                  style={[tailwind('ml-5 mr-1 py-2 font-normal-v2 text-sm', { 'mt-1': Platform.OS === 'android' }), { width: 26 }]}
+                  style={[tailwind('ml-5 mr-1 py-2 font-normal-v2 text-sm', { 'mt-px': Platform.OS === 'android' }), { width: 26 }]}
                 >
                   {`${order}.`}
                 </ThemedTextV2>
