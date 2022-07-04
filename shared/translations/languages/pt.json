@@ -1282,6 +1282,6 @@
     "We will sell your assets now and prepare the payout to your bank transaction.": "Vamos vender seus ativos agora e preparar o pagamento para sua transação bancária."
   },
   "components/DfxConversionInfo": {
-    "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens in DFI UTXO by clicking on DFI in the portfolio.": "Observe que atualmente apenas DFI UTXO pode ser vendido. Você pode trocar tokens DFI em DFI UTXO clicando em DFI no portfólio."
+    "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "Observe que atualmente apenas DFI UTXO pode ser vendido. Você pode trocar tokens DFI clicando aqui."
   }
 }
