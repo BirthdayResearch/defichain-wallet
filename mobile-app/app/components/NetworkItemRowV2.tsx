@@ -63,7 +63,7 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
         dark={tailwind({ 'text-green-v2': props.network === network, 'text-mono-dark-v2-700 opacity-30': props.network !== network })}
         iconType='MaterialCommunityIcons'
         name='check-circle'
-        size={18}
+        size={20}
         testID={`button_network_${props.network}_check`}
       />
     </ThemedTouchableOpacityV2>
