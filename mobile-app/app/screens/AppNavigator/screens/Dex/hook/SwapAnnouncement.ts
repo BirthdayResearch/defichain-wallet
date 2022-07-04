@@ -5,11 +5,13 @@ import { useDisplayAnnouncement } from '../../Portfolio/hooks/DisplayAnnouncemen
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { nativeApplicationVersion } from 'expo-application'
 import { useCallback, useMemo } from 'react'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export function useSwapAnnouncement (): {
     swapAnnouncement: Announcement | undefined
     hideSwapAnnouncement: (id: string) => void
 } {
+    const { isFeatureAvailable } = useFeatureFlagContext()
     const highFeesUrl = 'https://'
     const dUSDToDFIHighFees: AnnouncementData[] = [{
         lang: {
@@ -47,7 +49,7 @@ export function useSwapAnnouncement (): {
     }, [])
 
     return {
-        swapAnnouncement,
+        swapAnnouncement: isFeatureAvailable('dusd_dfi_high_fee') ? swapAnnouncement : undefined,
         hideSwapAnnouncement
     }
 }
