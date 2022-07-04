@@ -159,7 +159,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
           style={tailwind('text-xs font-normal-v2')}
           testID={`line_${lineNumber}`}
         >
-          {numberOrdinal(index + 1)}
+          {translate('screens/VerifyMnemonicWallet', `{{number}}${getOrdinalSuffix(index + 1)}`, { number: index + 1 })}
         </ThemedTextV2>
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-700')}
@@ -204,7 +204,7 @@ function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWo
   )
 }
 
-function numberOrdinal (n: number): string {
+function getOrdinalSuffix (n: number): string {
   let suffix = 'th'
   if (n === 1 || n === 21) {
     suffix = 'st'
@@ -213,5 +213,5 @@ function numberOrdinal (n: number): string {
   } else if (n === 3 || n === 23) {
     suffix = 'rd'
   }
-  return `${n}${suffix}`
+  return suffix
 }
