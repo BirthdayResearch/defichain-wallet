@@ -26,6 +26,7 @@ context('Mainnet - Wallet', () => {
 
   beforeEach(() => {
     cy.restoreLocalStorage()
+    // block all feature flag
     cy.blockAllFeatureFlag()
   })
 
