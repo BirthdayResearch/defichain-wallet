@@ -153,7 +153,7 @@ export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, ic
       <ThemedIcon
         iconType='MaterialIcons'
         name='cancel'
-        size={18}
+        size={16}
         light={{ color: '#8E8E93' }}
         dark={{ color: '#8E8E93' }}
         {...props.iconThemedProps}
