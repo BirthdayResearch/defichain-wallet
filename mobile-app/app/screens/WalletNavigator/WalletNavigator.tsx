@@ -36,6 +36,7 @@ import { OnboardingV2 } from '@screens/WalletNavigator/screens/OnboardingV2'
 import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
+import { RestoreMnemonicWalletV2 } from './screens/RestoreWallet/RestoreMnemonicWalletV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -68,6 +69,16 @@ export interface WalletParamListV2 {
   WalletCreateRestoreSuccess: {
     isWalletRestored: boolean
     data: WalletPersistenceDataI<EncryptedProviderData>
+  }
+  PinCreation: {
+    pinLength: 4 | 6
+    words: string[]
+    type: PinCreationType
+  }
+  PinConfirmation: {
+    pin: string
+    words: string[]
+    type: PinCreationType
   }
   [key: string]: undefined | object
 }
@@ -300,6 +311,14 @@ export function WalletNavigator (): JSX.Element {
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Verify Words'),
             headerRight: undefined
+          }}
+        />
+
+        <WalletStackV2.Screen
+          component={RestoreMnemonicWalletV2}
+          name='RestoreMnemonicWallet'
+          options={{
+            headerTitle: translate('screens/WalletNavigator', 'Restore Wallet')
           }}
         />
 
