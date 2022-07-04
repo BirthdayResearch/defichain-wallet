@@ -59,19 +59,19 @@ const { width } = Platform.OS === 'web' ? { width: '375px' } : Dimensions.get('w
 export function ImageSlide ({ imageDark, imageLight, title, subtitle }: CarouselImage): JSX.Element {
   const { isLight } = useThemeContext()
   return (
-    <View style={tailwind('flex-1 items-center justify-center py-8 px-10')}>
+    <View style={tailwind('flex-1 items-center justify-center px-10')}>
       <Image
         source={isLight ? imageLight : imageDark}
         style={{ width: 204, height: 136 }}
       />
-      <View style={tailwind('h-2/6 items-center justify-center mt-7')}>
+      <View style={tailwind('items-center justify-center mt-7 mb-5')}>
         <ThemedTextV2
           style={tailwind('text-xl font-semibold-v2 text-center')}
         >
           {translate('screens/OnboardingCarousel', title)}
         </ThemedTextV2>
         <ThemedTextV2
-          style={tailwind('font-normal-v2 text-center mt-2 mb-8')}
+          style={tailwind('font-normal-v2 text-center mt-2')}
         >
           {translate('screens/OnboardingCarousel', subtitle)}
         </ThemedTextV2>
