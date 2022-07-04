@@ -136,7 +136,7 @@ export function RestoreMnemonicWalletV2 (): JSX.Element {
               }
             }) => (
               <ThemedViewV2
-                style={tailwind('flex-row py-1.5')}
+                style={tailwind('flex-row py-1.5 pr-3')}
               >
                 <ThemedTextV2
                   light={tailwind('text-mono-light-v2-500')}
