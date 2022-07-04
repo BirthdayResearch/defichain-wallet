@@ -269,7 +269,8 @@ export function WalletNavigator (): JSX.Element {
       <WalletStackV2.Navigator
         initialRouteName='OnboardingV2'
         screenOptions={{
-          headerTitleStyle: tailwind('font-normal-v2 text-xl'),
+          headerTitleStyle: tailwind('font-normal-v2 text-xl text-center'),
+          headerTitleContainerStyle: tailwind('w-7/12'),
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-5 pb-2'),

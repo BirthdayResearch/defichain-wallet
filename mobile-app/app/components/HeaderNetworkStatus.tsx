@@ -1,7 +1,7 @@
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { NetworkIcon } from './icons/assets/NetworkIcon'
 import { ThemedText } from './themed'
@@ -11,7 +11,7 @@ export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.
   const { connected } = useSelector((state: RootState) => state.block)
 
   return (
-    <TouchableOpacity onPress={onPress} style={tailwind('items-center justify-center')}>
+    <TouchableOpacity onPress={onPress} style={tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' })}>
       <NetworkIcon pathColor={connected ? '#00AD1D' : '#E54545'} />
       <ThemedText
         style={[tailwind('font-bold-v2 text-2xs'), { lineHeight: 12 }]}
