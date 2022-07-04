@@ -1102,7 +1102,6 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
     align="xMidYMid"
     bbHeight={20}
     bbWidth="100%"
-    border={true}
     focusable={false}
     height={20}
     interval={0.25}

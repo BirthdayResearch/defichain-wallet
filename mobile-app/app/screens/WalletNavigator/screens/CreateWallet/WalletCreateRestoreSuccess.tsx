@@ -36,9 +36,8 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
   async function handleOnPress (): Promise<void> {
     if (isWalletRestored) {
       await discoverWalletAddresses(data)
-    } else {
-      await setWallet(data)
     }
+    await setWallet(data)
   }
 
   async function discoverWalletAddresses (data: WalletPersistenceDataI<EncryptedProviderData>): Promise<void> {

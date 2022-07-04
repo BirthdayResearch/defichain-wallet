@@ -175,6 +175,12 @@ module.exports = {
       fontSize: {
         '2xs': 10
       },
+      borderWidth: {
+        0.5: 0.5
+      },
+      borderRadius: {
+        '2lg': 10
+      },
       padding: {
         4.5: 18
       },
