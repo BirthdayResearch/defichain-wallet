@@ -37,7 +37,7 @@ import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateR
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { RestoreMnemonicWalletV2 } from './screens/RestoreWallet/RestoreMnemonicWalletV2'
-import { Platform } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -265,12 +265,14 @@ export function WalletNavigator (): JSX.Element {
   }
 
   function WalletStacksV2 (): JSX.Element {
+    const { width } = Dimensions.get('window')
+
     return (
       <WalletStackV2.Navigator
         initialRouteName='OnboardingV2'
         screenOptions={{
           headerTitleStyle: tailwind('font-normal-v2 text-xl text-center'),
-          headerTitleContainerStyle: tailwind('w-7/12'),
+          headerTitleContainerStyle: { width: width - (Platform.OS === 'ios' ? 200 : 180) },
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind('pr-5 pb-2'),
