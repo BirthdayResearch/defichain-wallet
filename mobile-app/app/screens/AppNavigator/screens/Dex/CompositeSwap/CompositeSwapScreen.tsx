@@ -343,9 +343,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
           {
             text: translate('screens/ServiceProviderScreen', 'Continue'),
             style: 'default'
-          }
-
-        ]
+          }]
       })
     }
   }
