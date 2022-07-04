@@ -515,7 +515,13 @@
     "VERIFY": "BESTÄTIGE",
     "What is word ": "Wie lautet das Wort ",
     "All questions must be answered correctly.": "Alle Fragen müssen richtig beantwortet werden.",
-    "Verify words": "Bestätige die Worte"
+    "Verify words": "Bestätige die Worte",
+    "Verify the written recovery words.": "Überprüfe den geschriebenen Wiederherstellungssatz.",
+    "word": "Wort",
+    "{{number}}st": "{{number}}.",
+    "{{number}}nd": "{{number}}.",
+    "{{number}}rd": "{{number}}.",
+    "{{number}}th": "{{number}}."
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Änderungen verwerfen?",
