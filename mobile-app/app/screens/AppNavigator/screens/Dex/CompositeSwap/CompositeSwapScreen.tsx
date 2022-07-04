@@ -142,9 +142,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
-  // announcements
-  const [isHighFeesWarningDisplayed, setHighFeesWarningDisplayed] = useState(false)
-  const { swapAnnouncement, hideSwapAnnouncement } = useSwapAnnouncement()
+  const { isHighFeesEnabled, swapAnnouncement, hideSwapAnnouncement } = useSwapAnnouncement(selectedTokenA, selectedTokenB)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -337,8 +335,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }, [selectedTokenA, selectedTokenB])
 
   const displayHighFeesAlert = (): void => {
-    const _isHighFeesDisplayed = selectedTokenA?.displaySymbol === 'DUSD' && selectedTokenB?.displaySymbol === 'DFI'
-    if (_isHighFeesDisplayed) {
+    if (isHighFeesEnabled) {
       WalletAlert({
         title: translate('screens/ServiceProviderScreen', 'DUSD-DFI high fees'),
         message: translate('screens/ServiceProviderScreen', 'There is a high fee in swapping DUSD-DFI'),
@@ -351,8 +348,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
         ]
       })
     }
-
-    setHighFeesWarningDisplayed(_isHighFeesDisplayed)
   }
 
   const getSelectedPoolPairs = async (): Promise<void> => {
@@ -488,7 +483,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
-        {swapAnnouncement !== undefined && isHighFeesWarningDisplayed && <AnnouncementBanner announcement={swapAnnouncement} hideAnnouncement={hideSwapAnnouncement} />}
+        {swapAnnouncement !== undefined && isHighFeesEnabled && <AnnouncementBanner announcement={swapAnnouncement} hideAnnouncement={hideSwapAnnouncement} />}
         {
           (fromTokens !== undefined && fromTokens?.length > 0) && (
             <ThemedText

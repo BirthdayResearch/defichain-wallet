@@ -1,4 +1,3 @@
-
 import { AnnouncementData } from '@shared-types/website'
 import { Announcement, findDisplayedAnnouncementForVersion } from '../../Portfolio/components/Announcements'
 import { useDisplayAnnouncement } from '../../Portfolio/hooks/DisplayAnnouncement'
@@ -6,12 +5,15 @@ import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { nativeApplicationVersion } from 'expo-application'
 import { useCallback, useMemo } from 'react'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { OwnedTokenState, TokenState } from '../CompositeSwap/CompositeSwapScreen'
 
-export function useSwapAnnouncement (): {
+export function useSwapAnnouncement (tokenA: OwnedTokenState | undefined, tokenB: TokenState | undefined): {
     swapAnnouncement: Announcement | undefined
     hideSwapAnnouncement: (id: string) => void
+    isHighFeesEnabled: boolean
 } {
     const { isFeatureAvailable } = useFeatureFlagContext()
+    const isHighFeesFlagEnabled = isFeatureAvailable('dusd_dfi_high_fee')
     const highFeesUrl = 'https://'
     const dUSDToDFIHighFees: AnnouncementData[] = [{
         lang: {
@@ -44,12 +46,18 @@ export function useSwapAnnouncement (): {
         return findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, dUSDToDFIHighFees)
     }, [language, nativeApplicationVersion, hiddenAnnouncements])
 
+    const isHighFeesEnabled = useMemo(() => {
+        const isDUSDtoDFI = tokenA?.displaySymbol === 'DUSD' && tokenB?.displaySymbol === 'DFI'
+        return isHighFeesFlagEnabled && isDUSDtoDFI
+    }, [tokenA, tokenB])
+
     const hideSwapAnnouncement = useCallback((id: string) => {
         hideAnnouncement(id)
     }, [])
 
     return {
-        swapAnnouncement: isFeatureAvailable('dusd_dfi_high_fee') ? swapAnnouncement : undefined,
-        hideSwapAnnouncement
+        swapAnnouncement: isHighFeesEnabled ? swapAnnouncement : undefined,
+        hideSwapAnnouncement,
+        isHighFeesEnabled
     }
 }
