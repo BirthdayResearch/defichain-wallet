@@ -391,10 +391,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       style={
         Object {
           "backgroundColor": "rgba(140, 140, 140, 1)",
-          "borderBottomLeftRadius": 24,
-          "borderBottomRightRadius": 24,
-          "borderTopLeftRadius": 24,
-          "borderTopRightRadius": 24,
+          "borderRadius": 26,
           "flexDirection": "row",
           "justifyContent": "center",
           "marginLeft": 28,

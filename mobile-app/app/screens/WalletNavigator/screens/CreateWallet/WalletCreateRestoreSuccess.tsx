@@ -68,6 +68,8 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
           paddingBottom: safeAreaInsets.bottom
         }
       ]}
+      light={tailwind('bg-mono-light-v2-00')}
+      dark={tailwind('bg-mono-dark-v2-00')}
       contentContainerStyle={tailwind('pb-16', { 'pt-12': !isSmallScreen })}
       testID='wallet_create-restore_success'
     >

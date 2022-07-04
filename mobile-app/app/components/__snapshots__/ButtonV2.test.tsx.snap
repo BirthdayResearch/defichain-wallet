@@ -15,10 +15,7 @@ exports[`button should be clickable 1`] = `
   style={
     Object {
       "backgroundColor": "rgba(18, 18, 18, 1)",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -75,10 +72,7 @@ exports[`button should match styling of button type fill 1`] = `
   style={
     Object {
       "backgroundColor": "rgba(18, 18, 18, 1)",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -136,10 +130,7 @@ exports[`button should match styling of button type fill 2`] = `
   style={
     Object {
       "backgroundColor": "rgba(140, 140, 140, 1)",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -197,10 +188,7 @@ exports[`button should match styling of button type flat 1`] = `
   style={
     Object {
       "backgroundColor": "transparent",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -258,10 +246,7 @@ exports[`button should match styling of button type flat 2`] = `
   style={
     Object {
       "backgroundColor": "rgba(140, 140, 140, 1)",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -319,10 +304,7 @@ exports[`button should match styling of button type outline 1`] = `
   style={
     Object {
       "backgroundColor": "transparent",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -380,10 +362,7 @@ exports[`button should match styling of button type outline 2`] = `
   style={
     Object {
       "backgroundColor": "rgba(140, 140, 140, 1)",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -441,10 +420,7 @@ exports[`button should not be clickable when disabled 1`] = `
   style={
     Object {
       "backgroundColor": "rgba(140, 140, 140, 1)",
-      "borderBottomLeftRadius": 24,
-      "borderBottomRightRadius": 24,
-      "borderTopLeftRadius": 24,
-      "borderTopRightRadius": 24,
+      "borderRadius": 26,
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,

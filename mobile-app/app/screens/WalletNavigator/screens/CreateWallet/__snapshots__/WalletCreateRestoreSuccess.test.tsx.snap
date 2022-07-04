@@ -22,7 +22,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
         },
       ],
       Object {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
@@ -159,10 +159,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
             style={
               Object {
                 "backgroundColor": "rgba(18, 18, 18, 1)",
-                "borderBottomLeftRadius": 24,
-                "borderBottomRightRadius": 24,
-                "borderTopLeftRadius": 24,
-                "borderTopRightRadius": 24,
+                "borderRadius": 26,
                 "flexDirection": "row",
                 "justifyContent": "center",
                 "marginTop": 36,
@@ -225,7 +222,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
         },
       ],
       Object {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
@@ -362,10 +359,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
             style={
               Object {
                 "backgroundColor": "rgba(18, 18, 18, 1)",
-                "borderBottomLeftRadius": 24,
-                "borderBottomRightRadius": 24,
-                "borderTopLeftRadius": 24,
-                "borderTopRightRadius": 24,
+                "borderRadius": 26,
                 "flexDirection": "row",
                 "justifyContent": "center",
                 "marginTop": 36,
