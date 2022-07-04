@@ -65,10 +65,6 @@ context('Onboarding V2 - Create Mnemonic Wallet', () => {
   })
 
   context('Settings - Mnemonic Verification', () => {
-    before(() => {
-      cy.blockAllFeatureFlag()
-    })
-
     it('should be able to verify mnemonic from settings page', function () {
       cy.verifyMnemonicOnSettingsPageV2(settingsRecoveryWords, recoveryWords)
     })
