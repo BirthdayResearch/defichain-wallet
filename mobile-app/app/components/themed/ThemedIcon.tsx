@@ -1,5 +1,5 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { MaterialCommunityIcons, MaterialIcons, Feather, Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons, Feather } from '@expo/vector-icons'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { tailwind } from '@tailwind'
 
@@ -9,7 +9,6 @@ export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons' | 'Feather' | 
 export type IconName = React.ComponentProps<typeof MaterialIcons>['name']
   | React.ComponentProps<typeof MaterialCommunityIcons>['name']
   | React.ComponentProps<typeof Feather>['name']
-  | React.ComponentProps<typeof Ionicons>['name']
 
 interface IThemedIcon {
   iconType: IconType
@@ -43,13 +42,6 @@ export function ThemedIcon (props: ThemedIconProps): JSX.Element {
   } else if (iconType === 'Feather') {
     return (
       <Feather
-        style={[style, isLight ? light : dark]}
-        {...otherProps}
-      />
-    )
-  } else if (iconType === 'Ionicons') {
-    return (
-      <Ionicons
         style={[style, isLight ? light : dark]}
         {...otherProps}
       />

@@ -54,7 +54,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
           testID='reset_recovery_word_button'
         >
           <ThemedIcon
-            iconType='Ionicons'
+            iconType='MaterialIcons'
             dark={tailwind('text-mono-dark-v2-900')}
             light={tailwind('text-mono-light-v2-900')}
             name='refresh'
