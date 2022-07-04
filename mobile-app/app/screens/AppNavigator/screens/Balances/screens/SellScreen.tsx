@@ -1,7 +1,7 @@
 import { InputHelperText } from '@components/InputHelperText'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { StackScreenProps } from '@react-navigation/stack'
-import { tokensSelector, WalletToken } from '@store/wallet'
+import { DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -45,6 +45,7 @@ import { send } from './SendConfirmationScreen'
 import { useConversion } from '@hooks/wallet/Conversion'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
+import { DfxConversionInfo } from '@components/DfxConversionInfo'
 
 type Props = StackScreenProps<BalanceParamList, 'SellScreen'>
 
@@ -161,11 +162,14 @@ export function SellScreen ({
 
     listFiatAccounts()
       .then((sellRoutes) => {
-        // if no sell routes navigate to UserDetails screen to create
+        // if no sell routes check kycDataComplete --> navigate to UserDetailsScreen
         if (sellRoutes === undefined || sellRoutes.length < 1) {
           // checkUserProfile()
         }
         setFiatAccounts(sellRoutes)
+        if (sellRoutes.length === 1) {
+          setAccount(sellRoutes[0])
+        }
       })
       .catch(logger.error)
 
@@ -355,6 +359,8 @@ export function SellScreen ({
                       token={token}
                       conversionAmount={conversionAmount}
                     />
+
+                    <DfxConversionInfo token={token} />
                   </View>
 
                   <ThemedSectionTitle
@@ -561,9 +567,22 @@ function AmountRow ({
   conversionAmount
 }: AmountForm): JSX.Element {
   const reservedDFI = 0.1
-  // TODO (thabrad) check conversion logic and fee structure
-  let maxAmount = token.symbol === 'DFI' ? new BigNumber(token.amount).minus(reservedDFI).minus(conversionAmount).toFixed(8) : token.amount
+  // TODO (thabrad) use only max UTXO amount
+  const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
+
+  // TODO (thabrad) maybe add in-place conversion element for token type conversion
+  let maxAmount = token.symbol === 'DFI' ? new BigNumber(DFIUtxo.amount).minus(reservedDFI)/* .minus(conversionAmount) */.toFixed(8) : token.amount
   maxAmount = BigNumber.max(maxAmount, 0).toFixed(8)
+
+  // cap amount with maxAmount before setting the setValue('amount', amount) field
+  const onAmountChangeCAPPED = (amount: string): void => {
+    const base = new BigNumber(amount)
+    const max = new BigNumber(maxAmount)
+    base.isGreaterThan(max)
+
+    return onAmountChange(new BigNumber(amount).isGreaterThan(new BigNumber(maxAmount)) ? maxAmount : amount)
+  }
+
   const defaultValue = ''
   return (
     <>
@@ -585,7 +604,7 @@ function AmountRow ({
             <WalletTextInput
               autoCapitalize='none'
               onChange={onChange}
-              onChangeText={onAmountChange}
+              onChangeText={onAmountChangeCAPPED}
               placeholder={translate('screens/SendScreen', 'Enter an amount')}
               style={tailwind('flex-grow w-2/5')}
               testID='amount_input'
@@ -603,13 +622,13 @@ function AmountRow ({
               >
                 <SetAmountButton
                   amount={new BigNumber(maxAmount)}
-                  onPress={onAmountChange}
+                  onPress={onAmountChangeCAPPED}
                   type={AmountButtonTypes.half}
                 />
 
                 <SetAmountButton
                   amount={new BigNumber(maxAmount)}
-                  onPress={onAmountChange}
+                  onPress={onAmountChangeCAPPED}
                   type={AmountButtonTypes.max}
                 />
               </ThemedView>

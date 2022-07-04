@@ -1508,5 +1508,8 @@
   },
   "screens/SellConfirmationScreen": {
     "We will sell your assets now and prepare the payout to your bank transaction.": "Nous allons à présent vendre vos actifs et préparer le virement vers votre compte."
+  },
+  "components/DfxConversionInfo": {
+    "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens in DFI UTXO by clicking on DFI in the portfolio.": "Veuillez noter qu'actuellement, seuls les DFI UTXO peuvent être vendus. Vous pouvez échanger des jetons DFI dans DFI UTXO en cliquant sur DFI dans le portefeuille."
   }
 }

@@ -1483,5 +1483,8 @@
   },
   "screens/SellConfirmationScreen": {
     "We will sell your assets now and prepare the payout to your bank transaction.": "我们现在将出售您的资产并准备支付给您的银行交易。"
+  },
+  "components/DfxConversionInfo": {
+    "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens in DFI UTXO by clicking on DFI in the portfolio.": "请注意，目前只能出售 DFI UTXO。 您可以通过点击投资组合中的 DFI 在 DFI UTXO 中兑换 DFI 代币。"
   }
 }

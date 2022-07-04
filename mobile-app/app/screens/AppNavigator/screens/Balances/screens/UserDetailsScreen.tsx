@@ -459,7 +459,7 @@ function AddressDetailItem ({
   return (
     <View style={tailwind('h-12 flex-row border-b border-dfxblue-900')}>
 
-      <Text style={tailwind('ml-4 self-center text-sm text-gray-400')}>
+      <Text style={tailwind('ml-4 self-center text-sm text-dfxgray-400')}>
         {translate('screens/UserDetails', title)}
       </Text>
 
