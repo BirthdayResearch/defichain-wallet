@@ -1486,7 +1486,8 @@
     "Transfer to your bank account": "",
     "Your Currency": "Votre devise",
     "Select account to cash out": "Sélectionnez le compte à retirer",
-    "Add account": "Ajouter un compte"
+    "Add account": "Ajouter un compte",
+    "Sell": "Vendre"
   },
   "screens/UserDetails": {
     "ORGANIZATION DATA": "DONNÉES SUR L'ORGANISATION",
@@ -1504,10 +1505,12 @@
     "Country": "Pays",
     "Personal": "Personnel",
     "Business": "Entreprise",
-    "Sole Proprietorship": "Entreprise individuelle"
+    "Sole Proprietorship": "Entreprise individuelle",
+    "User Details": "Détails de l'utilisateur"
   },
   "screens/SellConfirmationScreen": {
-    "We will sell your assets now and prepare the payout to your bank transaction.": "Nous allons à présent vendre vos actifs et préparer le virement vers votre compte."
+    "We will sell your assets now and prepare the payout to your bank transaction.": "Nous allons à présent vendre vos actifs et préparer le virement vers votre compte.",
+    "Processing Sell Order": "Traitement de l'ordre de vente"
   },
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "Veuillez noter qu'actuellement, seuls les DFI UTXO peuvent être vendus. Vous pouvez échanger des jetons DFI en cliquant ici."

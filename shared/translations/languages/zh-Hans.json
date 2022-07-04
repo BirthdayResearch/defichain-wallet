@@ -1461,7 +1461,8 @@
     "Transfer to your bank account": "",
     "Your Currency": "您的货币",
     "Select account to cash out": "选择要提现的账户",
-    "Add account": "新增帐户"
+    "Add account": "新增帐户",
+    "Sell": "卖"
   },
   "screens/UserDetails": {
     "ORGANIZATION DATA": "组织数据",
@@ -1479,10 +1480,12 @@
     "Country": "国家",
     "Personal": "个人的",
     "Business": "商业",
-    "Sole Proprietorship": "独资企业"
+    "Sole Proprietorship": "独资企业",
+    "User Details": "用户详情"
   },
   "screens/SellConfirmationScreen": {
-    "We will sell your assets now and prepare the payout to your bank transaction.": "我们现在将出售您的资产并准备支付给您的银行交易。"
+    "We will sell your assets now and prepare the payout to your bank transaction.": "我们现在将出售您的资产并准备支付给您的银行交易。",
+    "Processing Sell Order": "处理卖单"
   },
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "请注意，目前只能出售 DFI UTXO。 您可以点击此处兑换 DFI 代币。"

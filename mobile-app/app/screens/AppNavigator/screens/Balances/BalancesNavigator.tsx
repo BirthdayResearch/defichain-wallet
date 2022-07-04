@@ -254,7 +254,7 @@ export function BalancesNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/UserDetails', 'UserDetails')}
+              text={translate('screens/UserDetails', 'User Details')}
               containerTestID={headerContainerTestId}
             />
           ),
