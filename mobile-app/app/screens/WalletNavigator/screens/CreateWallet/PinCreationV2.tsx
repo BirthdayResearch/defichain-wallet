@@ -54,7 +54,7 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
           {translate('screens/PinCreation', 'Add an additional layer of security by setting a passcode.')}
         </ThemedTextV2>
         <View style={{ marginBottom: 52 }}>
-          <LearnMoreCTA onPress={goToPasscodeFaq} />
+          <LearnMoreCTA onPress={goToPasscodeFaq} testId='passcode_faq_link' />
         </View>
       </View>
 

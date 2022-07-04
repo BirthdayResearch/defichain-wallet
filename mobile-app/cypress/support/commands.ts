@@ -1,7 +1,9 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
+import './onboardingCommandsV2'
 import './walletCommands'
 import './loanCommands'
+import { EnvironmentNetwork } from '../../../shared/environment'
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
@@ -110,15 +112,21 @@ declare global {
       compareSnapshot: (element?: string) => Chainable<Element>
 
       /**
-       * @description setWalletTheme
+       * @description Set wallet theme
        * @param {any} walletTheme
        */
       setWalletTheme: (walletTheme: any) => Chainable<Element>
 
       /**
-       * @description return empty array of feature flag
+       * @description Return empty array of feature flag
        */
       blockAllFeatureFlag: () => Chainable<Element>
+      /**
+       * @description Set feature flags
+       * @param {string[]} flags to be set
+       * @example cy.setFeatureFlag(['feature_a', 'feature_b'])
+       */
+      setFeatureFlag: (flags: string[]) => Chainable<Element>
     }
   }
 }
@@ -203,5 +211,21 @@ Cypress.Commands.add('blockAllFeatureFlag', () => {
   cy.intercept('**/settings/flags', {
     statusCode: 200,
     body: []
+  })
+})
+
+Cypress.Commands.add('setFeatureFlag', (flags: string[]) => {
+  const body = flags.map((flag) => ({
+    id: flag,
+    name: flag,
+    stage: 'public',
+    version: '>0.0.0',
+    description: `Display ${flag} features`,
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
+  }))
+  cy.intercept('**/settings/flags', {
+    statusCode: 200,
+    body: body
   })
 })
