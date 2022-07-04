@@ -19,6 +19,7 @@ export function OnboardingV2 (): JSX.Element {
     <ThemedScrollViewV2
       contentContainerStyle={tailwind('h-full')}
       style={tailwind('flex-1')}
+      light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
       testID='onboarding_carousel'
     >

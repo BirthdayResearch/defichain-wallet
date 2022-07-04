@@ -6,6 +6,7 @@ import { translate } from '@translations'
 export function VersionTagV2 (): JSX.Element {
   return (
     <ThemedViewV2
+      light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
     >
       <ThemedTextV2
