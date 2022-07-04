@@ -37,6 +37,7 @@ import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateR
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { RestoreMnemonicWalletV2 } from './screens/RestoreWallet/RestoreMnemonicWalletV2'
+import { Platform } from 'react-native'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -268,11 +269,12 @@ export function WalletNavigator (): JSX.Element {
       <WalletStackV2.Navigator
         initialRouteName='OnboardingV2'
         screenOptions={{
-          headerTitleStyle: tailwind('font-normal-v2 text-xl'),
+          headerTitleStyle: tailwind('font-normal-v2 text-xl text-center'),
+          headerTitleContainerStyle: tailwind('w-7/12'),
           headerTitleAlign: 'center',
           headerBackTitleVisible: false,
-          headerRightContainerStyle: tailwind('pr-4 py-2'),
-          headerLeftContainerStyle: tailwind('pl-4'),
+          headerRightContainerStyle: tailwind('pr-5 pb-2'),
+          headerLeftContainerStyle: tailwind('pl-5 relative', { 'right-2': Platform.OS === 'ios', 'right-5': Platform.OS !== 'ios' }),
           headerStyle: [tailwind('rounded-b-2xl border-b', { 'bg-mono-light-v2-00 border-mono-light-v2-100': isLight, 'bg-mono-dark-v2-00 border-mono-dark-v2-100': !isLight }), { height: 76 + insets.top }],
           headerBackgroundContainerStyle: tailwind({ 'bg-mono-light-v2-100': isLight, 'bg-mono-dark-v2-100': !isLight }),
           headerRight: () => (

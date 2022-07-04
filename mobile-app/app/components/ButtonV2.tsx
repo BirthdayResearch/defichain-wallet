@@ -30,7 +30,7 @@ export function ButtonV2 (props: ButtonProps): JSX.Element {
     <TouchableOpacity
       {...props}
       style={[tailwind(`${styleProps} p-3.5 flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`), { borderRadius: 26 }]}
-      activeOpacity={0.7}
+      activeOpacity={0.3}
     >
       <>
         <Text style={(tailwind(`${textStyle} font-semibold-v2 text-center`))}>

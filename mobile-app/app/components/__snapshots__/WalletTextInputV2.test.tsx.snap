@@ -110,6 +110,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
               "flexShrink": 1,
               "fontFamily": "SoraRegular",
               "fontWeight": "400",
+              "height": 20,
             },
             Object {
               "color": "rgba(64, 64, 64, 1)",
@@ -250,6 +251,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
               "flexShrink": 1,
               "fontFamily": "SoraRegular",
               "fontWeight": "400",
+              "height": 20,
             },
             Object {
               "color": "rgba(64, 64, 64, 1)",
