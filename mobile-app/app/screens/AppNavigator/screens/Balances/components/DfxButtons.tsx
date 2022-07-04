@@ -11,7 +11,12 @@ import BtnDfxDe from '@assets/images/dfx_buttons/btn_dfx_de.png'
 import BtnDfxFr from '@assets/images/dfx_buttons/btn_dfx_fr.png'
 import BtnDfxIt from '@assets/images/dfx_buttons/btn_dfx_it.png'
 import BtnDfxEs from '@assets/images/dfx_buttons/btn_dfx_es.png'
-import BtnSell from '@assets/images/dfx_buttons/btn_sell.png'
+
+import BtnSellEn from '@assets/images/dfx_buttons/btn_sell_EN.png'
+import BtnSellDe from '@assets/images/dfx_buttons/btn_sell.png'
+import BtnSellFr from '@assets/images/dfx_buttons/btn_sell_FR.png'
+import BtnSellIt from '@assets/images/dfx_buttons/btn_sell_IT.png'
+import BtnSellEs from '@assets/images/dfx_buttons/btn_sell_ES.png'
 
 import BtnOverview from '@assets/images/dfx_buttons/btn_income.png'
 import BtnTax from '@assets/images/dfx_buttons/btn_tax.png'
@@ -97,7 +102,11 @@ export function DfxButtons (): JSX.Element {
     },
     {
       img: {
-        en: BtnSell
+        en: BtnSellEn,
+        de: BtnSellDe,
+        fr: BtnSellFr,
+        it: BtnSellIt,
+        es: BtnSellEs
       },
       onPress: () => {
         // check kyc on app start
@@ -150,10 +159,10 @@ export function DfxButtons (): JSX.Element {
 
   return (
     <View style={tailwind('flex justify-center flex-row mt-3')}>
-      <View style={tailwind('flex-1')} />
+      <View style={tailwind('flex w-6')} />
       {buttons
         .filter((b) => !(b.hide ?? false))
-        .map((b, i) => (b.img.en === BtnSell) // loading spinner when loading userInfo
+        .map((b, i) => (b.img.en === BtnSellEn) // loading spinner when loading userInfo
           ? (
             <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} loading={loadKycInfo} />
           )
@@ -172,7 +181,7 @@ export function DfxButtons (): JSX.Element {
             )
           : <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
       )}
-      <View style={tailwind('flex-1')} />
+      <View style={tailwind('flex w-6')} />
     </View>
   )
 }
