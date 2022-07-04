@@ -3,7 +3,7 @@ context('Onboarding V2 - Create Mnemonic Wallet', () => {
   const settingsRecoveryWords: string[] = []
 
   before(function () {
-    cy.setFeatureFlag(['onboarding_v2'])
+    cy.setFeatureFlags(['onboarding_v2'])
   })
 
   beforeEach(() => {
@@ -92,7 +92,7 @@ context('Onboarding V2 - Create Mnemonic Wallet with refresh recovery word', () 
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.setFeatureFlag(['onboarding_v2'])
+    cy.setFeatureFlags(['onboarding_v2'])
     cy.createEmptyWallet()
     cy.visit('/')
     cy.exitWallet()

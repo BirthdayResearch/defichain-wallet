@@ -124,9 +124,9 @@ declare global {
       /**
        * @description Set feature flags
        * @param {string[]} flags to be set
-       * @example cy.setFeatureFlag(['feature_a', 'feature_b'])
+       * @example cy.setFeatureFlags(['feature_a', 'feature_b'])
        */
-      setFeatureFlag: (flags: string[]) => Chainable<Element>
+      setFeatureFlags: (flags: string[]) => Chainable<Element>
     }
   }
 }
@@ -214,14 +214,14 @@ Cypress.Commands.add('blockAllFeatureFlag', () => {
   })
 })
 
-Cypress.Commands.add('setFeatureFlag', (flags: string[]) => {
+Cypress.Commands.add('setFeatureFlags', (flags: string[]) => {
   const body = flags.map((flag) => ({
     id: flag,
     name: flag,
     stage: 'public',
     version: '>0.0.0',
     description: `Display ${flag} features`,
-    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
     platforms: ['ios', 'android', 'web']
   }))
   cy.intercept('**/settings/flags', {

@@ -1,7 +1,7 @@
 context('Onboarding V2', () => {
   beforeEach(function () {
     cy.visit('/')
-    cy.setFeatureFlag(['onboarding_v2'])
+    cy.setFeatureFlags(['onboarding_v2'])
     cy.exitWallet()
   })
 

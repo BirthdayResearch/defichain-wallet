@@ -35,7 +35,7 @@ declare global {
        * @param {string[]} recoveryWords - recovery words to restore
        * @example cy.restoreMnemonicWordsV2(recoveryWords)
        */
-       restoreMnemonicWordsV2: (recoveryWords: string[]) => Chainable<Element>
+      restoreMnemonicWordsV2: (recoveryWords: string[]) => Chainable<Element>
     }
   }
 }
