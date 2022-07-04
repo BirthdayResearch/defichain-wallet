@@ -132,9 +132,14 @@ export function UserDetailsScreen ({
     phone: yup.string().test(
       'phone number check',
       'Phone number is not valid',
-      (value, { createError }) => {
-        const number = phoneNumberUtil.parseAndKeepRawInput(value ?? '')
-        return phoneNumberUtil.isValidNumber(number)
+      (value) => {
+        let number
+        try {
+          number = phoneNumberUtil.parseAndKeepRawInput(value ?? '')
+        } catch (error) {
+          logger.info(JSON.stringify(error))
+        }
+        return phoneNumberUtil.isValidNumber(number as PNF.PhoneNumber)
       }
     ).required()
   }).required()
