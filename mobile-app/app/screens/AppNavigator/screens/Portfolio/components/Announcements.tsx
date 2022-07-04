@@ -97,7 +97,7 @@ interface AnnouncementBannerProps {
   announcement: Announcement
 }
 
-function AnnouncementBanner ({
+export function AnnouncementBanner ({
   hideAnnouncement,
   announcement
 }: AnnouncementBannerProps): JSX.Element {
@@ -186,14 +186,14 @@ function AnnouncementBanner ({
   )
 }
 
-interface Announcement {
+export interface Announcement {
   content: string
   url: string
   id?: string
   type: AnnouncementData['type']
 }
 
-function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
+export function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return
   }

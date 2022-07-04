@@ -49,6 +49,9 @@ import { TextRow } from '@components/TextRow'
 import { PriceRateProps, PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { WalletAlert } from '@components/WalletAlert'
+import { AnnouncementBanner } from '../../Portfolio/components/Announcements'
+import { useSwapAnnouncement } from '../hook/SwapAnnouncement'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -138,6 +141,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   })
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+
+  // announcements
+  const [isHighFeesWarningDisplayed, setHighFeesWarningDisplayed] = useState(false)
+  const { swapAnnouncement, hideSwapAnnouncement } = useSwapAnnouncement()
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -326,7 +333,27 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     void getSelectedPoolPairs()
+    displayHighFeesAlert()
   }, [selectedTokenA, selectedTokenB])
+
+  const displayHighFeesAlert = (): void => {
+    const _isHighFeesDisplayed = selectedTokenA?.displaySymbol === 'DUSD' && selectedTokenB?.displaySymbol === 'DFI'
+    if (_isHighFeesDisplayed) {
+      WalletAlert({
+        title: translate('screens/ServiceProviderScreen', 'DUSD-DFI high fees'),
+        message: translate('screens/ServiceProviderScreen', 'There is a high fee in swapping DUSD-DFI'),
+        buttons: [
+          {
+            text: translate('screens/ServiceProviderScreen', 'Continue'),
+            style: 'default'
+          }
+
+        ]
+      })
+    }
+
+    setHighFeesWarningDisplayed(_isHighFeesDisplayed)
+  }
 
   const getSelectedPoolPairs = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
@@ -461,6 +488,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
+        {swapAnnouncement !== undefined && isHighFeesWarningDisplayed && <AnnouncementBanner announcement={swapAnnouncement} hideAnnouncement={hideSwapAnnouncement} />}
         {
           (fromTokens !== undefined && fromTokens?.length > 0) && (
             <ThemedText
