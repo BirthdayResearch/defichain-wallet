@@ -9,7 +9,7 @@ export function getDefaultThemeV2 (isLight: boolean): Theme {
     colors: {
       ...defaultTheme.colors,
       primary: getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900'),
-      border: getColor(isLight ? 'mono-light-v2-100' : 'mono-dark-v2-00')
+      border: getColor(isLight ? 'mono-light-v2-100' : 'mono-dark-v2-100')
     }
   }
 }
