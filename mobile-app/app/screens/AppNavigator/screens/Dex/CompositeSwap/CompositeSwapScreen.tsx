@@ -437,7 +437,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const onWarningBeforeSubmit = async (): Promise<void> => {
     const message = dexStabilizationType === 'composite-dusd-dfi'
       ? 'Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?'
-      : 'Are you certain that you want to proceed to swap DUSD for DFI despite the high DEX Stabilization fees?'
+      : 'Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?'
 
     WalletAlert({
       title: translate('screens/CompositeSwapScreen', ''),
@@ -494,7 +494,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
-        {isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationAnnouncement !== undefined && <AnnouncementBanner announcement={dexStabilizationAnnouncement} testID='swap_announcements_banner' />}
         {
           (fromTokens !== undefined && fromTokens?.length > 0) && (
             <ThemedText
@@ -520,6 +519,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
           />
         </View>
+        {isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationAnnouncement !== undefined &&
+          <View style={tailwind('flex mx-4 mt-4 rounded')}>
+            <AnnouncementBanner announcement={dexStabilizationAnnouncement} testID='swap_announcements_banner' />
+          </View>}
         <ThemedView
           style={tailwind('m-4 pt-4 rounded-lg flex-1')}
           light={tailwind('bg-white')}
