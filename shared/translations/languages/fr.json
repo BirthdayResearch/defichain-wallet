@@ -16,7 +16,7 @@
     "Passcode FAQ": "FAQ code d'accès",
     "DEX FAQ": "FAQ DEX",
     "Liquidity Mining FAQ": "FAQ liquidity mining",
-    "View Recovery Words": "Mots de récupération",
+    "View Recovery Words": "Voir les mots de récupération",
     "Verify Words": "Vérifier Les Mots",
     "Create Passcode": "Créer Un Code D'accès",
     "Verify Passcode": "Vérifier Le Code D'accès",
@@ -535,11 +535,11 @@
     "Verify the written recovery words.": "Vérifier les mots de récupération écrits",
     "Verify words": "Vérifier les mots",
     "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions.",
-    "word": "word",
-    "{{number}}st": "{{number}}st",
-    "{{number}}nd": "{{number}}nd",
-    "{{number}}rd": "{{number}}rd",
-    "{{number}}th": "{{number}}th"
+    "word": "mot",
+    "{{number}}st": "{{number}}ème",
+    "{{number}}nd": "{{number}}ème",
+    "{{number}}rd": "{{number}}ème",
+    "{{number}}th": "{{number}}ème"
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Annuler les modifications ?",
