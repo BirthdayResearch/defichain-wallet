@@ -8,6 +8,7 @@ import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 import { PortfolioSkeletonLoader } from './skeletonLoaders/PortfolioSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './skeletonLoaders/VaultSchemeSkeletonLoader'
 import { DexPricesSkeletonLoader } from './skeletonLoaders/DexPricesSkeletonLoader'
+import { MnemonicWordSkeletonLoaderV2 } from './skeletonLoaders/MnemonicWordSkeletonLoaderV2'
 
 interface SkeletonLoaderProp {
   row: number
@@ -19,6 +20,7 @@ export enum SkeletonLoaderScreen {
   'DexPrices' = 'DexPrices',
   'Transaction' = 'Transaction',
   'MnemonicWord' = 'MnemonicWord',
+  'MnemonicWordV2' = 'MnemonicWordV2',
   'Loan' = 'Loan',
   'Address' = 'Address',
   'BrowseAuction' = 'BrowseAuction',
@@ -64,6 +66,14 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
           ))}
         </>
       )
+    case SkeletonLoaderScreen.MnemonicWordV2:
+        return (
+          <>
+            {skeletonRow.map((i, index) => (
+              <MnemonicWordSkeletonLoaderV2 key={i} border={index < skeletonRow.length - 1} />
+            ))}
+          </>
+        )
     case SkeletonLoaderScreen.Loan:
       return (
         <>

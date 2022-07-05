@@ -12,8 +12,8 @@ import { Text } from '@components'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useDisplayAnnouncement } from '../hooks/DisplayAnnouncement'
 import { useEffect, useState } from 'react'
-import { useBlockchainStatus } from '@hooks/useBlockchainStatus'
-import { useDefiChainStatus } from '../hooks/DefichainStatus'
+import { useApiStatus } from '@hooks/useApiStatus'
+import { blockChainIsDownContent, useDeFiChainStatus } from '../hooks/DeFiChainStatus'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
@@ -33,35 +33,13 @@ export function Announcements (): JSX.Element {
   } = useDisplayAnnouncement()
 
   const {
-    defichainStatusAnnouncement: defichainStatusAnnouncementContent,
-    maintenanceAnnouncement: maintenanceAnnouncementContent
-  } = useDefiChainStatus(hiddenAnnouncements)
+    blockchainStatusAnnouncement,
+    oceanStatusAnnouncement
+  } = useDeFiChainStatus()
 
   const { isCustomUrl } = useServiceProviderContext()
 
-  const isBlockchainDown = useBlockchainStatus()
-  const deFiChainStatusUrl = 'https://status.defichain.com/'
-
-  const blockChainIsDownContent: AnnouncementData[] = [{
-    lang: {
-      en: 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.',
-      de: 'Wir untersuchen derzeit ein Synchronisierungsproblem der Blockchain. Weitere Details auf der DeFiChain Statusseite.',
-      'zh-Hans': '我们目前正在调查区块链上的同步化问题。前往 DeFiChain Status 页面了解更多状态详情。',
-      'zh-Hant': '我們目前正在調查區塊鏈上的同步化問題。前往 DeFiChain Status 頁面了解更多狀態詳情。',
-      fr: 'Nous enquêtons actuellement sur un problème de synchronisation sur la blockchain. Voir plus de détails sur DeFiChain Status Page.',
-      es: 'Estamos investigando un problema de sincronización en la blockchain. Más detalles en la pagina de estado de DeFiChain',
-      it: 'Stiamo indagando su un problema di sincronizzazione della blockchain. Vedi maggiori dettagli sulla pagina di stato di DeFiChain.'
-    },
-    version: '0.0.0',
-    url: {
-      ios: deFiChainStatusUrl,
-      android: deFiChainStatusUrl,
-      windows: deFiChainStatusUrl,
-      web: deFiChainStatusUrl,
-      macos: deFiChainStatusUrl
-    },
-    type: 'EMERGENCY'
-  }]
+  const { isBlockchainDown } = useApiStatus()
 
   const customServiceProviderIssue: AnnouncementData[] = [{
     lang: {
@@ -79,29 +57,30 @@ export function Announcements (): JSX.Element {
 
   const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
 
-  const announcement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, announcements)
   const emergencyAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, emergencyMsgContent)
-  const outageAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, defichainStatusAnnouncementContent)
-  const maintenanceAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, maintenanceAnnouncementContent)
+  const blockchainIsDownAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, blockchainStatusAnnouncement)
+  const oceanIsDownAnnouncement = findDisplayedAnnouncementForVersion('0.0.0', language, hiddenAnnouncements, oceanStatusAnnouncement)
+  const announcement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, hiddenAnnouncements, announcements)
 
   /*
     Display priority:
-    1. Emergencies
-    2. Outages
-    3. Maintenance
+    1. Emergencies - Custom Provider/Blockchain Issue
+    2. Outages - Blockchain API
+    3. Outages - Ocean API
     4. Other announcements
   */
-  const announcementToDisplay = emergencyAnnouncement ?? outageAnnouncement ?? maintenanceAnnouncement ?? announcement
+  const announcementToDisplay = emergencyAnnouncement ?? blockchainIsDownAnnouncement ?? oceanIsDownAnnouncement ?? announcement
 
   useEffect(() => {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
     if (isBlockchainDown && !isCustomUrl) {
-      setEmergencyMsgContent(blockChainIsDownContent)
+      return setEmergencyMsgContent(blockChainIsDownContent)
     } else if (isBlockchainDown && isCustomUrl) {
-      setEmergencyMsgContent(customServiceProviderIssue)
+      return setEmergencyMsgContent(customServiceProviderIssue)
     } else {
-      setEmergencyMsgContent(undefined)
+      return setEmergencyMsgContent(undefined)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isBlockchainDown])
 
   if (!isSuccess || announcementToDisplay === undefined) {
@@ -109,29 +88,32 @@ export function Announcements (): JSX.Element {
   }
 
   return (
-    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} />
+    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} testID='announcements_banner' />
   )
 }
 
 interface AnnouncementBannerProps {
-  hideAnnouncement: (id: string) => void
+  hideAnnouncement?: (id: string) => void
   announcement: Announcement
+  testID: string
 }
 
-function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBannerProps): JSX.Element {
+export function AnnouncementBanner ({
+  hideAnnouncement,
+  announcement,
+  testID
+}: AnnouncementBannerProps): JSX.Element {
   const { isLight } = useThemeContext()
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
     EMERGENCY: 'warning',
     OTHER_ANNOUNCEMENT: 'campaign',
-    PARTIAL_OUTAGE: 'warning',
-    MAJOR_OUTAGE: 'warning',
-    MAINTENANCE: 'warning'
+    OUTAGE: 'warning'
   }
   const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
 
   return (
     <ThemedView
-      testID='announcements_banner'
+      testID={testID}
       style={tailwind('px-4 py-3 flex-row items-center')}
       light={tailwind({
         'bg-primary-700': isOtherAnnouncement,
@@ -143,24 +125,26 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
       })}
     >
       {announcement.id !== undefined &&
-      (
-        <MaterialIcons
-          style={tailwind(['mr-1', {
-            'text-white': !isLight || isOtherAnnouncement,
-            'text-gray-900': !(!isLight || isOtherAnnouncement)
-          }])}
-          iconType='MaterialIcons'
-          name='close'
-          size={18}
-          onPress={() => {
-            if (announcement.id === undefined) {
-              return
-            }
-            hideAnnouncement(announcement.id)
-          }}
-          testID='close_announcement'
-        />
-      )}
+        (
+          <MaterialIcons
+            style={tailwind(['mr-1', {
+              'text-white': !isLight || isOtherAnnouncement,
+              'text-gray-900': !(!isLight || isOtherAnnouncement)
+            }])}
+            iconType='MaterialIcons'
+            name='close'
+            size={18}
+            onPress={() => {
+              if (announcement.id === undefined) {
+                return
+              }
+              if (hideAnnouncement !== undefined) {
+                hideAnnouncement(announcement.id)
+              }
+            }}
+            testID='close_announcement'
+          />
+        )}
 
       <MaterialIcons
         style={tailwind(['mr-2.5', {
@@ -182,38 +166,38 @@ function AnnouncementBanner ({ hideAnnouncement, announcement }: AnnouncementBan
         {`${announcement.content} `}
       </Text>
       {announcement.url !== undefined && announcement.url.length !== 0 &&
-      (
-        <TouchableOpacity
-          onPress={async () => await openURL(announcement.url)}
-          style={tailwind('ml-2 py-1')}
-        >
-          <ThemedText
-            style={tailwind('text-sm font-medium')}
-            light={tailwind({
-            'text-white': isOtherAnnouncement,
-            'text-warning-600': !isOtherAnnouncement
-          })}
-            dark={tailwind({
-            'text-white': isOtherAnnouncement,
-            'text-darkwarning-600': !isOtherAnnouncement
-          })}
+        (
+          <TouchableOpacity
+            onPress={async () => await openURL(announcement.url)}
+            style={tailwind('ml-2 py-1')}
           >
-            {translate('components/Announcements', 'DETAILS')}
-          </ThemedText>
-        </TouchableOpacity>
-      )}
+            <ThemedText
+              style={tailwind('text-sm font-medium')}
+              light={tailwind({
+                'text-white': isOtherAnnouncement,
+                'text-warning-600': !isOtherAnnouncement
+              })}
+              dark={tailwind({
+                'text-white': isOtherAnnouncement,
+                'text-darkwarning-600': !isOtherAnnouncement
+              })}
+            >
+              {translate('components/Announcements', 'DETAILS')}
+            </ThemedText>
+          </TouchableOpacity>
+        )}
     </ThemedView>
   )
 }
 
-interface Announcement {
+export interface Announcement {
   content: string
   url: string
   id?: string
   type: AnnouncementData['type']
 }
 
-function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
+export function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return
   }

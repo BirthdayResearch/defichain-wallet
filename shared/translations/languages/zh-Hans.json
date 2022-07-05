@@ -5,6 +5,7 @@
     "Display recovery words": "显示恢复字组",
     "Verify words": "确认字组",
     "Restore Wallet": "恢复钱包",
+    "Restore wallet": "恢复钱包",
     "Create a passcode": "创建密码",
     "Verify passcode": "确认密码",
     "Select network": "选择网络",
@@ -360,8 +361,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
     "What is collateral factor?": "抵押因素是什么？",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "為什麼用 DFI 支付 DUSD 貸款要收取 1% 的費用？",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "根据 递飞链改进提议 DFIP 2112-A，每笔 DUSD 贷款都将由 DFI 支付，以克服目前在 DEX 上 DUSD 溢价的情况。\n\n在计算用多少等值 DFI 作为支付 DUSD 贷款时，将会按照 预言机 上 DFI/USD 的价值收取 1% 的罚款。以举例来说，如果今天 DFI/USD 预言机价格是 10 美元，那么用作支付 DUSD  期间， DFI 的相对价格计算方法 是 10 美元 * (1 - 0.01) 。在这情况下，DFI 的价值实际上减少了 1% 等于 9.90 美元。",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "为什么用 DFI 支付 DUSD 贷款时要收取 5% 的费用？",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "根据 社区提案 DFIP 2206-C，当在 DFI 中偿还 DUSD 贷款时，将向用户收取 5% 的费用。这是一项激励套利交易者使用 DUSD 偿还贷款的临时措施，将减少DUSD 在市场上的供应。在计算为 DUSD 贷款支付多少等值 DFI 时，对 DFI/DUSD 预言机价值收取 5% 的额外费用。以此案例说明，如果今天 DFI/USD 的预言机价格为 $10 美元，那么在 DUSD 支付中 DFI 的价值是通过取 $10 美元*（1-0.05）来计算的，在这种情况下，DFI 的价值实际上减少了 5% 至 $9.50 美元。",
     "What is vault share?": "金库份额是什么？",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "金库库份额代表存放在金库中的抵押代币的比例。所有金库都必须包含至少 50% 的 DFI 和/或 DUSD 作为抵押代币。当您铸造新的 dToken 时，和当您从您的金库中提取抵押品时，均会被要求达到这项要求。"
   },
@@ -428,7 +429,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "创建钱包",
-    "RESTORE WALLET": "恢复钱包"
+    "RESTORE WALLET": "恢复钱包",
+    "Get started": "开始"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特币生态原生DeFi",
@@ -439,7 +441,8 @@
     "Maximize earning potential": "最大化盈利潜力",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上进行交易并使用加密货币和 dToken 从流动性挖矿中获得奖励 ",
     "Decentralized loans": "去中心化资产贷款",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会"
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 钱包是完全非托管的。个人资金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "离开页面",
@@ -478,7 +481,9 @@
     "Close": "关闭",
     "Last attempt or your wallet will be unlinked for your security": "最后一次可输入密码，为了安全，如果不通过，您的钱包会解开链接",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密码错误. 您还剩 {{attemptsRemaining}} 次可输入密码",
-    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可输入密码"
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可输入密码",
+    "Enter passcode for verification": "输入验证码",
+    "It may take a few seconds to secure and encrypt your wallet": "It may take a few seconds to secure and encrypt your wallet"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您创建新钱包！接着请创建密码以维持安全保护.",
@@ -486,7 +491,10 @@
     "Keep your passcode private": "请把密码保管好",
     "CREATE PASSCODE": "创建密码",
     "CHANGE PASSCODE": "更换密码",
-    "Learn more about passcode": "了解更多关于密码的资讯"
+    "Learn more about passcode": "了解更多关于密码的资讯",
+    "Learn more": "Learn more",
+    "Create your passcode": "设置您的密码",
+    "Add an additional layer of security by setting a passcode": "通过设置密码添加额外的安全性"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "选择的字组错误. 请确认您已经写下正确的字和顺序.",
@@ -718,7 +726,9 @@
     "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "请输入数量",
-    "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})"
+    "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 稳定费费用较高，您确定要继续进行兑换将 DUSD 换成 DFI 吗？",
+    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -777,7 +787,11 @@
     "Recovery": "恢复",
     "Verify": "确认",
     "Secure": "安全",
-    "Restore": "还原"
+    "Restore": "还原",
+    "RECOVERY": "恢复",
+    "VERIFY": "确认",
+    "SECURE": "安全",
+    "RESTORE": "还原"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "语言",
@@ -826,7 +840,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "密码",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位数字密码是由您设置，这密码将用于授权所有交易。请保管好和负责您的密码私密性和安全性。",
+    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位数字密码是由您设置，这密码将用于授权所有交易。请保管好和负责您的密码私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘记了我的密码会怎么样？有人能帮我找回我的密码吗？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密码之外，没有任何人会知道。因此，没有人能帮您找回您的私人密码。",
     "Can I change my passcode?": "我可以更改我的密码吗？",
@@ -1208,7 +1222,7 @@
     "Vault ID": "金库编号",
     "Resulting {{displaySymbol}} Balance": "产生的 {{displaySymbol}} 余额",
     "Insufficient {{token}} to pay for the entered amount": "{{token}} 余额不足以支付输入的金额",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "当您使用 {{tokenSymbol}} 付款时，将收取 1% 的费用。",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "当您使用 {{tokenSymbol}} 付款时，将收取 5% 的费用。",
     "Read more": "阅读更多",
     "How do you want to pay?": "How do you want to pay?",
     "You are paying": "You are paying",
@@ -1426,10 +1440,10 @@
     "Future Swap": "Future Swap"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "伺服器", 
+    "Server": "伺服器",
     "Service Provider": "服务供应商",
-    "UNLOCK": "解锁", 
-    "RESET": "重置", 
+    "UNLOCK": "解锁",
+    "RESET": "重置",
     "Endpoint URL": "终端点网址",
     "Custom": "自定",
     "Default": "预设",
@@ -1462,6 +1476,12 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值"
   },
   "components/VersionTag": {
-    "Version {{number}}": "版本 {{number}}"
+    "VERSION {{number}}": "版本 {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "钱包已恢复！",
+    "Wallet created!": "钱包已创建！",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "透过去中心化金融按触如同比特币级别般安全、强度和不可随意变更的特性。",
+    "Continue": "继续"
   }
 }

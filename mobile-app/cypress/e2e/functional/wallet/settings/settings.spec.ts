@@ -21,6 +21,7 @@ context('Wallet - Settings', () => {
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {
     })
+    cy.blockAllFeatureFlag()
   })
 
   it('should be able to display top up screen when click on playground on playground network', function () {
@@ -47,8 +48,10 @@ context('Wallet - Settings', () => {
   })
 
   it('should exit wallet when clicked on positive action', function () {
+    cy.blockAllFeatureFlag()
     cy.getByTestID('setting_exit_wallet').click()
-    cy.on('window:confirm', () => { })
+    cy.on('window:confirm', () => {
+    })
     cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
   })
@@ -230,7 +233,6 @@ context('Wallet - Settings - Address Book', () => {
   })
 })
 
-// TODO: set custom URL
 const defichainUrls = {
   [EnvironmentNetwork.MainNet]: {
     default: 'https://ocean.defichain.com',

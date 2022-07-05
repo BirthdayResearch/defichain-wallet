@@ -67,12 +67,12 @@ export function PaymentTokenCards ({
               style={tailwind('text-xs m-2')}
               testID='text_penalty_fee_warning'
             >
-              {translate('screens/PaybackLoanScreen', 'A 1% fee is applied when you pay with {{tokenSymbol}}.', { tokenSymbol: selectedPaymentTokenSymbol })}
+              {translate('screens/PaybackLoanScreen', 'A 5% fee is applied when you pay with {{tokenSymbol}}.', { tokenSymbol: selectedPaymentTokenSymbol })}
               <TouchableOpacity
                 onPress={() => navigation.navigate({
                   name: 'LoansFaq',
                   params: {
-                    activeSessions: [5]
+                    activeSessions: [6]
                   }
                 })}
               >

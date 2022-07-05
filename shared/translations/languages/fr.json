@@ -5,6 +5,7 @@
     "Display recovery words": "Afficher les mots de récupération",
     "Verify words": "Vérifier les mots",
     "Restore Wallet": "Restaurer le portefeuille",
+    "Restore wallet": "Restaurer le portefeuille",
     "Create a passcode": "Créer un code d'accès",
     "Verify passcode": "Vérifier le code d'accès",
     "Select network": "Sélection du réseau",
@@ -14,7 +15,11 @@
     "You are about to generate a new set of recovery words. Continue?": "Vous génèrez un nouveau jeu de mots de récupération. Continuer ?",
     "Passcode FAQ": "FAQ code d'accès",
     "DEX FAQ": "FAQ DEX",
-    "Liquidity Mining FAQ": "FAQ liquidity mining"
+    "Liquidity Mining FAQ": "FAQ liquidity mining",
+    "View Recovery Words": "Mots de récupération",
+    "Verify Words": "Vérifier Les Mots",
+    "Create Passcode": "Créer Un Code D'accès",
+    "Verify Passcode": "Vérifier Le Code D'accès"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Échange décentralisé",
@@ -369,8 +374,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Le taux d'intérêt total appliqué sur un prêt est obtenu en prenant le taux d'intérêt du vault + le taux d'intérêt du token, et est calculé sur une base annuelle.",
     "What is collateral factor?": "Qu'est-ce que le facteur de garantie ?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault.",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 1% lors du paiement des prêts DUSD avec DFI?",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Conformément au DFIP 2112-A, chaque prêt DUSD sera payable avec DFI afin de surmonter la prime DUSD actuellement observée sur le DEX.\n\nLors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais de fourniture de 1 % sont appliqués à la valeur oracle DFI/USD. Pour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur d'un DFI lors d'un paiement DUSD est calculée en prenant 10 $ * (1 - 0,01), ce qui réduit effectivement la valeur du DFI de 1 % à 9,90 $ dans un tel scénario.",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 5 % lors du remboursement des prêts DUSD avec DFI ?",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Conformément au DFIP 2206-C, lorsque les prêts DUSD sont remboursés en DFI, des frais de fourniture de 5% seront facturés aux utilisateurs. Il s'agit d'une mesure provisoire visant à inciter les arbitres à utiliser les DUSD pour rembourser leurs prêts, ce qui réduira l'offre de DUSD sur le marché. Lors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais supplémentaires de 5 % sont appliqués à la valeur oracle DFI/DUSD.\n\nPour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur du DFI dans un paiement DUSD est calculée en prenant 10 $*(1-0,05), ce qui réduit effectivement la valeur du DFI de 5 % à 9,50 $ dans un tel scénario.",
     "What is vault share?": "Qu'est-ce qu'une part de vault?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "La part de vault représente la proportion de tokens de garantie déposés dans un vault. Tous les vaults doivent contenir au moins 50 % de DFI et/ou de DUSD comme tokens de garantie. Cette exigence est vérifiée à deux occasions — lorsque vous mintez de nouveaux dTokens et lorsque vous retirez des garanties de votre vault."
   },
@@ -436,7 +441,9 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CRÉER UN PORTEFEUILLE",
-    "RESTORE WALLET": "RESTAURER LE PORTEFEUILLE"
+    "RESTORE WALLET": "RESTAURER LE PORTEFEUILLE",
+    "Get started": "Commencer",
+    "Restore wallet": "Restaurer le portefeuille"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi natif sur Bitcoin",
@@ -447,7 +454,8 @@
     "Maximize earning potential": "Maximiser le potentiel de gain",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Négociez sur le DEX et gagnez des récompenses de liquidity mining avec des cryptomonnaies et des dTokens.",
     "Decentralized loans": "Prêts décentralisés",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Accédez à des opportunités financières avec des dTokens mintés par des vaults décentralisés."
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Accédez à des opportunités financières avec des dTokens mintés par des vaults décentralisés.",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "Le portefeuille DeFiChain est entièrement sans garde. Vous seul aurez accès à votre fonds."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Quitter l'écran",
@@ -455,7 +463,9 @@
     "Cancel": "Annuler",
     "Yes": "Oui",
     "Take note of the words in their correct order": "Notez les mots dans leur ordre correct.",
-    "VERIFY WORDS": "VERIFIEZ LES MOTS"
+    "VERIFY WORDS": "VERIFIEZ LES MOTS",
+    "Verify words": "Vérifier les mots",
+    "Write down the words. Take note of the spelling and order.": "Notez les mots. Prenez note de l'orthographe et de l'ordre."
   },
   "screens/Guidelines": {
     "Creating a wallet": "Créer un portefeuille",
@@ -468,7 +478,13 @@
     "Secure them in a safe space": "Sécurisez-les dans un endroit sûr",
     "Store them offline and in a safe place.": "Conservez-les hors ligne et dans un endroit sûr.",
     "Keep them private": "Gardez-les secrets.",
-    "Don’t share to anyone. Keep the recovery words only to yourself.": "Ne partagez pas avec qui que ce soit. Gardez les mots de récupération uniquement pour vous."
+    "Learn more": "En savoir plus",
+    "Create wallet": "Créer un portefeuille",
+    "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.": "Je comprends qu'il est de ma responsabilité de garder mes mots de récupération en sécurité. Leur perte entraînera la perte irrémédiable de l'accès aux fonds de mon portefeuille.",
+    "Write the words on paper. Take note of their correct spelling and order.": "Prenez note des mots sur papier. Faites bien attention à l'orthographe et à respecter l'ordre.",
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Sécurisez-les dans un endroit sûr. Conservez-les hors ligne et dans un endroit sûr auquel vous êtes le seul à avoir accès. Gardez-les secrets et ne partagez pas avec qui que ce soit.",
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "Ne partagez pas avec qui que ce soit. Gardez les mots de récupération uniquement pour vous.",
+    "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "Vous verrez apparaître 24 mots de récupération sur l'écran suivant. Gardez en sécurité vos 24 mots de récupération car ils vous permettront de récupérer l'accès au porte-monnaie."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Que sont les mots de récupération ?",
@@ -486,7 +502,10 @@
     "Close": "Fermer",
     "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera dissocié pour votre sécurité.",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
-    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes"
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes",
+    "Enter passcode for verification":"Donner le code d'accès pour vérification",
+    "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
+    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
@@ -494,7 +513,10 @@
     "Keep your passcode private": "Gardez votre code d'accès secret.",
     "CREATE PASSCODE": "CRÉER UN CODE D'ACCÈS",
     "CHANGE PASSCODE": "CHANGER LE CODE D'ACCÈS",
-    "Learn more about passcode": "En savoir plus sur le code d'accès"
+    "Learn more about passcode": "En savoir plus sur le code d'accès",
+    "Learn more": "En savoir plus",
+    "Create your passcode": "Créez votre code d'accès",
+    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Sélection invalide. Veuillez vous assurer que vous avez bien écrit vos 24 mots.",
@@ -502,7 +524,10 @@
     "Verify what you wrote as correct.": "Vérifiez que ce que vous avez écrit est correct.",
     "Answer the questions to proceed.": "Répondez aux questions pour continuer.",
     "VERIFY": "VÉRIFIER",
-    "What is word ": "Quel est le mot "
+    "What is word ": "Quel est le mot ",
+    "Verify the written recovery words.": "Vérifier les mots de récupération écrits",
+    "Verify words": "Vérifier les mots",
+    "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions."
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Annuler les modifications ?",
@@ -515,7 +540,10 @@
     "Cancel": "Annuler",
     "Discard": "Abandonner",
     "Required field is missing": "Le champ requis est manquant",
-    "Uppercase, numbers and special characters are not allowed": "Les majuscules, les chiffres et les caractères spéciaux ne sont pas autorisés."
+    "Restore": "Restaurez",
+    "Uppercase, numbers and special characters are not allowed": "Les majuscules, les chiffres et les caractères spéciaux ne sont pas autorisés.",
+    "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions.",
+    "Key in the 24 recovery words to regain access to your wallet.": "Donner les 24 mots de récupération pour retrouver l'accès à votre portefeuille."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Il y a eu un problème",
@@ -725,8 +753,10 @@
     "Settlement block": "Bloc de règlement",
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
-    "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})"
-  },
+    "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?",
+    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?"
+ },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
     "CONFIRM SWAP": "VALIDER L'ÉCHANGE",
@@ -784,7 +814,11 @@
     "Recovery": "Restauration",
     "Verify": "Vérifiez",
     "Secure": "Sécurisez",
-    "Restore": "Restaurez"
+    "Restore": "Restaurez",
+    "RECOVERY": "RESTAURATION",
+    "VERIFY": "VÉRIFIER",
+    "SECURE": "SÉCURISEZ",
+    "RESTORE": "RESTAUREZ"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "LANGUE",
@@ -833,7 +867,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Code d'accès",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code d'accès privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
+    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code d'accès privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code d'accès ? Quelqu'un peut-il m'aider à retrouver mon code d'accès ?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code d'accès est sous votre responsabilité, donc personne, à part vous, ne le connaît. Il est important que vous gardiez votre code d'accès en sécurité et que vous le changiez de temps en temps.",
     "Can I change my passcode?": "Puis-je changer mon code d'accès ?",
@@ -1216,7 +1250,7 @@
     "Resulting {{displaySymbol}} Balance": "Tokens {{displaySymbol}} restants",
     "Insufficient {{token}} to pay for the entered amount": "Solde {{token}} insuffisant pour rembourser le montant entré",
     "Select payment token": "Sélectionner le token de remboursement",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 1% sont appliqués quand vous payez en {{tokenSymbol}}.",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "Des frais de 5% sont appliqués quand vous payez en {{tokenSymbol}}.",
     "Read more": "En savoir plus",
     "How do you want to pay?": "Comment voulez-vous rembourser?",
     "You are paying": "Vous remboursez",
@@ -1430,10 +1464,10 @@
     "Future Swap": "Échange à terme"
   },
   "screens/ServiceProviderScreen": {
-    "Server": "Serveur", 
+    "Server": "Serveur",
     "Service Provider": "Fournisseur de services",
-    "UNLOCK": "Déverrouiller", 
-    "RESET": "Réinitialiser", 
+    "UNLOCK": "Déverrouiller",
+    "RESET": "Réinitialiser",
     "Endpoint URL": "URL du point de terminaison",
     "Custom": "Personnalisé",
     "Default": "Défaut",
@@ -1466,6 +1500,12 @@
     "{{tokenB}} price in {{tokenA}}": "Prix d'un {{tokenB}} en {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Version {{number}}"
+    "VERSION {{number}}": "VERSION {{number}}"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Portefeuille restauré !",
+    "Wallet created!": "Portefeuille créé ! ",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accéder à la finance décentralisée avec une sécurité, une solidité et une immuabilité de niveau Bitcoin.",
+    "Continue": "Suivant"
   }
 }
