@@ -88,18 +88,20 @@ export function Announcements (): JSX.Element {
   }
 
   return (
-    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} />
+    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} testID='announcements_banner' />
   )
 }
 
 interface AnnouncementBannerProps {
-  hideAnnouncement: (id: string) => void
+  hideAnnouncement?: (id: string) => void
   announcement: Announcement
+  testID: string
 }
 
-function AnnouncementBanner ({
+export function AnnouncementBanner ({
   hideAnnouncement,
-  announcement
+  announcement,
+  testID
 }: AnnouncementBannerProps): JSX.Element {
   const { isLight } = useThemeContext()
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
@@ -111,7 +113,7 @@ function AnnouncementBanner ({
 
   return (
     <ThemedView
-      testID='announcements_banner'
+      testID={testID}
       style={tailwind('px-4 py-3 flex-row items-center')}
       light={tailwind({
         'bg-primary-700': isOtherAnnouncement,
@@ -136,7 +138,9 @@ function AnnouncementBanner ({
               if (announcement.id === undefined) {
                 return
               }
-              hideAnnouncement(announcement.id)
+              if (hideAnnouncement !== undefined) {
+                hideAnnouncement(announcement.id)
+              }
             }}
             testID='close_announcement'
           />
@@ -186,14 +190,14 @@ function AnnouncementBanner ({
   )
 }
 
-interface Announcement {
+export interface Announcement {
   content: string
   url: string
   id?: string
   type: AnnouncementData['type']
 }
 
-function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
+export function findDisplayedAnnouncementForVersion (version: string, language: string, hiddenAnnouncements: string[], announcements?: AnnouncementData[]): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return
   }
