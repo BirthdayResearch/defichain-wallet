@@ -748,7 +748,7 @@
     "To be confirmed": "Noch zu bestätigen",
     "Enter an amount": "Gib einen Betrag ein",
     "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high Dex-Stabilization fees": "Bist du dir sicher, dass du trotz der hohen Dex-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Bist du dir sicher, dass du trotz der hohen Dex-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
     "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Bist du dir sicher, dass du diesen Swap trotz der hohen DEX-Stabilisierungsgebühr, die im Rahmen des Composite-Pfads (DUSD → DFI) anfallen wird, durchführen willst?"
   },
   "screens/ConfirmCompositeSwapScreen": {

@@ -728,7 +728,7 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees??": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
     "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?"
   },
   "screens/ConfirmCompositeSwapScreen": {
