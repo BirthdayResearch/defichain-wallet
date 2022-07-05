@@ -107,11 +107,11 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
         />
       </View>
 
-      <View style={tailwind('mt-5')}>
+      <View style={tailwind('mt-5 px-7')}>
         {
           (spinnerMessage !== undefined) && (
             <ThemedTextV2
-              style={tailwind('font-normal-v2 text-sm text-center px-12')}
+              style={tailwind('font-normal-v2 text-sm text-center')}
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
             >
