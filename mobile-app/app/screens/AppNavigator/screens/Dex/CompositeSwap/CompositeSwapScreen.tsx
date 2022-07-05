@@ -143,7 +143,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
-  // dex stab
+  // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext()
   const isDexStabilizationEnabled = isFeatureAvailable('dusd_dfi_high_fee')
   const { dexStabilizationAnnouncement, dexStabilizationType } = useDexStabilization(selectedTokenA, selectedTokenB)

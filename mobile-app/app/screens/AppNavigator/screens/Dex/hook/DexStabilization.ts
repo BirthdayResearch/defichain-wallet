@@ -63,7 +63,7 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
           web: HIGH_FEES_URL,
           macos: HIGH_FEES_URL
         },
-        type: 'OUTAGE'
+        type: 'OTHER_ANNOUNCEMENT'
       }]
     } else if (dexStabilizationType === 'composite-dusd-dfi') {
       announcement = [{
@@ -84,7 +84,7 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
           web: HIGH_FEES_URL,
           macos: HIGH_FEES_URL
         },
-        type: 'OUTAGE'
+        type: 'OTHER_ANNOUNCEMENT'
       }]
     }
     return announcement
