@@ -15,7 +15,14 @@
     "You are about to generate a new set of recovery words. Continue?": "您正要產生新的恢復字組，確認要繼續？",
     "Passcode FAQ": "密碼常見問題",
     "DEX FAQ": "DEX 問題",
-    "Liquidity Mining FAQ": "流動性挖礦问题"
+    "Liquidity Mining FAQ": "流動性挖礦问题",
+    "New Wallet": "New Wallet",
+    "View Recovery Words": "View Recovery Words",
+    "Verify Words": "Verify Words",
+    "Verify Passcode": "Verify Passcode",
+    "Create Passcode": "Create Passcode",
+    "About Passcode": "About Passcode",
+    "About Recovery Words": "About Recovery Words"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "ＤＥＸ",
@@ -430,7 +437,8 @@
   "screens/Onboarding": {
     "CREATE A WALLET": "創建錢包",
     "RESTORE WALLET": "恢復錢包",
-    "Get started": "開始"
+    "Get started": "開始",
+    "Restore wallet": "Restore wallet"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特幣生態原生DeFi",
@@ -450,7 +458,13 @@
     "Cancel": "取消",
     "Yes": "是的",
     "Take note of the words in their correct order": "請注意每個字的正確順序排列",
-    "VERIFY WORDS": "確認字組"
+    "VERIFY WORDS": "確認字組",
+    "Write down the words. Take note of the spelling and order.": "Write down the words. Take note of the spelling and order.",
+    "Verify words": "Verify words",
+    "Leave wallet creation?": "Leave wallet creation?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "A new set of recovery words will be generated for the wallet once you leave this page.",
+    "Return": "Return",
+    "Leave": "Leave"
   },
   "screens/Guidelines": {
     "Creating a wallet": "創建錢包",
@@ -463,7 +477,13 @@
     "Secure them in a safe space": "請保管好恢復字組",
     "Store them offline and in a safe place.": "建議存在離線、不在光線下或潮濕的地方.",
     "Keep them private": "請保密您的字組",
-    "Don’t share to anyone. Keep the recovery words only to yourself.": "請不要把這恢復字組告訴別人"
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "請不要把這恢復字組告訴別人",
+    "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.": "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.",
+    "Learn more": "Learn more",
+    "Create wallet": "Create wallet",
+    "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
+    "Write the words on paper. Take note of their correct spelling and order.": "Write the words on paper. Take note of their correct spelling and order.",
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "「恢復字組」是什麼?",
@@ -483,7 +503,7 @@
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密碼錯誤. 您還剩 {{attemptsRemaining}} 次可輸入密碼",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼",
     "Enter passcode for verification": "輸入驗證碼",
-    "It may take a few seconds to secure and encrypt your wallet": "It may take a few seconds to secure and encrypt your wallet"
+    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您創建新錢包！接著請創建密碼以維持安全保護.",
@@ -494,7 +514,7 @@
     "Learn more about passcode": "了解更多關於密碼的資訊",
     "Learn more": "Learn more",
     "Create your passcode": "設置您的密碼",
-    "Add an additional layer of security by setting a passcode": "通過設置密碼添加額外的安全性"
+    "Add an additional layer of security by setting a passcode.": "通過設置密碼添加額外的安全性"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "選擇的字組錯誤. 請確認您已經寫下正確的字和順序.",
@@ -502,7 +522,15 @@
     "Verify what you wrote as correct.": "接下來要確認您寫下正確的字組.",
     "Answer the questions to proceed.": "請回答以下問題.",
     "VERIFY": "確認",
-    "What is word ": "這個號碼對上的字是什麼"
+    "What is word ": "這個號碼對上的字是什麼",
+    "All questions must be answered correctly.": "All questions must be answered correctly.",
+    "Verify words": "Verify words",
+    "Verify the written recovery words.": "Verify the written recovery words.",
+    "word": "word",
+    "{{number}}st": "{{number}}st",
+    "{{number}}nd": "{{number}}nd",
+    "{{number}}rd": "{{number}}rd",
+    "{{number}}th": "{{number}}th"
   },
   "screens/RestoreWallet": {
     "Discard changes?": "放棄更改？",
@@ -515,7 +543,10 @@
     "Cancel": "取消",
     "Discard": "放棄",
     "Required field is missing": "缺少必要填入的字欄",
-    "Uppercase, numbers and special characters are not allowed": "不允許使用大寫字母、數字和特殊字符"
+    "Uppercase, numbers and special characters are not allowed": "不允許使用大寫字母、數字和特殊字符",
+    "Restore": "Restore",
+    "All questions must be answered correctly.": "All questions must be answered correctly.",
+    "Key in the 24 recovery words to regain access to your wallet.": "Key in the 24 recovery words to regain access to your wallet."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "出了些問題",
@@ -841,7 +872,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "密碼",
-    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘記了我的密碼會怎麼樣？有人能幫我找回我的密碼嗎？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密碼之外，沒有任何人會知道。因此，沒有人能幫您找回您的私人密碼。",
     "Can I change my passcode?": "我可以更改我的密碼嗎？",
