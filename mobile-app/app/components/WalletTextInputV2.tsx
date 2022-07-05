@@ -95,7 +95,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
             }}
             ref={ref}
             editable
-            style={tailwind('font-normal-v2 flex-1')}
+            style={tailwind('font-normal-v2 flex-1 h-5')}
             selectionColor={getColor('brand-v2-500')}
             {...otherProps}
           />
@@ -153,7 +153,7 @@ export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, ic
       <ThemedIcon
         iconType='MaterialIcons'
         name='cancel'
-        size={18}
+        size={16}
         light={{ color: '#8E8E93' }}
         dark={{ color: '#8E8E93' }}
         {...props.iconThemedProps}

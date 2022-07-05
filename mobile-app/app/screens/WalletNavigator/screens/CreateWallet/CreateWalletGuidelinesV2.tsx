@@ -51,7 +51,7 @@ export function CreateWalletGuidelinesV2 ({ navigation }: Props): JSX.Element {
       <ThemedTextV2
         style={tailwind('mt-7 px-3 text-base font-normal-v2 text-center')}
       >
-        {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet')}
+        {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.')}
       </ThemedTextV2>
       <LearnMoreCTA onPress={() => navigation.navigate('RecoveryWordsFaq')} />
       <View style={tailwind('px-6 mt-12')}>

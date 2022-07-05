@@ -13,6 +13,7 @@ import { ThemedTextV2 } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { CarouselPagination } from '@screens/WalletNavigator/screens/components/CarouselPagination'
 
 interface CarouselImage {
   imageDark: ImageSourcePropType
@@ -58,23 +59,19 @@ const { width } = Platform.OS === 'web' ? { width: '375px' } : Dimensions.get('w
 export function ImageSlide ({ imageDark, imageLight, title, subtitle }: CarouselImage): JSX.Element {
   const { isLight } = useThemeContext()
   return (
-    <View style={tailwind('flex-1 items-center justify-center py-8 px-10')}>
+    <View style={tailwind('flex-1 items-center justify-center px-10')}>
       <Image
         source={isLight ? imageLight : imageDark}
         style={{ width: 204, height: 136 }}
       />
-      <View style={tailwind('h-2/6 items-center justify-center mt-7')}>
+      <View style={tailwind('items-center justify-center mt-7 mb-5')}>
         <ThemedTextV2
           style={tailwind('text-xl font-semibold-v2 text-center')}
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
         >
           {translate('screens/OnboardingCarousel', title)}
         </ThemedTextV2>
         <ThemedTextV2
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
-          style={tailwind('font-normal-v2 text-center mt-2 mb-8')}
+          style={tailwind('font-normal-v2 text-center mt-2')}
         >
           {translate('screens/OnboardingCarousel', subtitle)}
         </ThemedTextV2>
@@ -96,7 +93,8 @@ export function OnboardingCarouselV2 (): JSX.Element {
       paginationActiveColor={isLight ? getColor('mono-light-v2-900') : getColor('mono-dark-v2-900')}
       paginationStyleItemActive={tailwind('w-6 h-1.5')}
       paginationDefaultColor={isLight ? getColor('mono-light-v2-500') : getColor('mono-dark-v2-500')}
-      paginationStyleItem={tailwind('h-1.5 w-1.5 mx-1.5')}
+      paginationStyleItem={tailwind('h-1.5 w-1.5 mx-0.75')}
+      PaginationComponent={CarouselPagination}
       renderItem={({ item }) => (
         <View style={{ width }}>
           {

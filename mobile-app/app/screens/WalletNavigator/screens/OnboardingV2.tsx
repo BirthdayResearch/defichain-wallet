@@ -4,38 +4,31 @@ import { ThemedScrollViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../WalletNavigator'
-import { ImageBackground, Platform } from 'react-native'
+import { ImageBackground } from 'react-native'
 import { ButtonV2 } from '@components/ButtonV2'
 import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
 import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
 import { VersionTagV2 } from '@components/VersionTagV2'
 import { OnboardingCarouselV2 } from '@screens/WalletNavigator/screens/components/OnboardingCarouselV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export function OnboardingV2 (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
   const { isLight } = useThemeContext()
+  const { top: topInset } = useSafeAreaInsets()
+
   return (
     <ThemedScrollViewV2
-      contentContainerStyle={tailwind('h-full')}
+      contentContainerStyle={{ paddingTop: topInset + 88, paddingBottom: 40 }}
       style={tailwind('flex-1')}
+      light={tailwind('bg-mono-light-v2-00')}
+      dark={tailwind('bg-mono-dark-v2-00')}
       testID='onboarding_carousel'
     >
-      {
-        (Platform.OS === 'web')
-          ? (
-            <View style={tailwind('h-3/5')}>
-              <OnboardingCarouselV2 />
-            </View>
-          )
-          : (
-            <View style={tailwind('h-3/5 flex justify-center')}>
-              <View style={tailwind('h-4/5')}>
-                <OnboardingCarouselV2 />
-              </View>
-            </View>
-          )
-      }
+      <View style={tailwind('flex-1')}>
+        <OnboardingCarouselV2 />
+      </View>
       <View>
         <ImageBackground
           source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
@@ -44,7 +37,7 @@ export function OnboardingV2 (): JSX.Element {
         >
           <ButtonV2
             label={translate('screens/Onboarding', 'Get started')}
-            styleProps='m-2 mt-20'
+            styleProps='mx-2 mt-20'
             onPress={() => navigator.navigate('CreateWalletGuidelines')}
             testID='get_started_button'
           />

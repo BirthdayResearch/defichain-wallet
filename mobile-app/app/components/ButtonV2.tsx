@@ -22,14 +22,15 @@ export function ButtonV2 (props: ButtonProps): JSX.Element {
   const disabledText = isLight ? 'text-mono-dark-v2-900' : 'text-mono-light-v2-900'
 
   const buttonColor = isLight ? 'bg-mono-light-v2-900' : 'bg-mono-dark-v2-900'
-  const buttonStyle = `${fill === 'fill' ? buttonColor : 'bg-transparent'} rounded-3xl`
+  const buttonStyle = `${fill === 'fill' ? buttonColor : 'bg-transparent'}`
   const buttonText = isLight ? `${fill === 'fill' ? 'text-mono-dark-v2-900' : 'text-mono-light-v2-900'} ` : `${fill === 'fill' ? 'text-mono-light-v2-900' : 'text-mono-dark-v2-900'}`
 
   const textStyle = `${props.disabled === true ? disabledText : buttonText}`
   return (
     <TouchableOpacity
       {...props}
-      style={tailwind(`${styleProps} p-3.5 rounded flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`)}
+      style={[tailwind(`${styleProps} p-3.5 flex-row justify-center ${buttonStyle} ${props.disabled === true ? disabledStyle : ''}`), { borderRadius: 26 }]}
+      activeOpacity={0.3}
     >
       <>
         <Text style={(tailwind(`${textStyle} font-semibold-v2 text-center`))}>

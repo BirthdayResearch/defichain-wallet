@@ -6,7 +6,7 @@ exports[`version tag should render 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }

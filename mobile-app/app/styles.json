@@ -2639,6 +2639,12 @@
 		"marginBottom": -14,
 		"marginLeft": -14
 	},
+	"m-0.75": {
+		"marginTop": 3,
+		"marginRight": 3,
+		"marginBottom": 3,
+		"marginLeft": 3
+	},
 	"mx-0": {
 		"marginLeft": 0,
 		"marginRight": 0
@@ -2918,6 +2924,10 @@
 	"-mx-3.5": {
 		"marginLeft": -14,
 		"marginRight": -14
+	},
+	"mx-0.75": {
+		"marginLeft": 3,
+		"marginRight": 3
 	},
 	"my-0": {
 		"marginTop": 0,
@@ -3199,6 +3209,10 @@
 		"marginTop": -14,
 		"marginBottom": -14
 	},
+	"my-0.75": {
+		"marginTop": 3,
+		"marginBottom": 3
+	},
 	"mt-0": {
 		"marginTop": 0
 	},
@@ -3408,6 +3422,9 @@
 	},
 	"-mt-3.5": {
 		"marginTop": -14
+	},
+	"mt-0.75": {
+		"marginTop": 3
 	},
 	"mr-0": {
 		"marginRight": 0
@@ -3619,6 +3636,9 @@
 	"-mr-3.5": {
 		"marginRight": -14
 	},
+	"mr-0.75": {
+		"marginRight": 3
+	},
 	"mb-0": {
 		"marginBottom": 0
 	},
@@ -3829,6 +3849,9 @@
 	"-mb-3.5": {
 		"marginBottom": -14
 	},
+	"mb-0.75": {
+		"marginBottom": 3
+	},
 	"ml-0": {
 		"marginLeft": 0
 	},
@@ -4038,6 +4061,9 @@
 	},
 	"-ml-3.5": {
 		"marginLeft": -14
+	},
+	"ml-0.75": {
+		"marginLeft": 3
 	},
 	"flex": {
 		"display": "flex"

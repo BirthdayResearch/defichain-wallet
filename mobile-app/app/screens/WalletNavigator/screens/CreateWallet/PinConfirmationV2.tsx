@@ -59,7 +59,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
         .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
 
-    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet'))
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet.'))
   }
 
   function navigateToNextPage (params: {data: WalletPersistenceDataI<EncryptedProviderData>, isWalletRestored: boolean}): void {
@@ -108,6 +108,8 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
           (spinnerMessage !== undefined) && (
             <ThemedTextV2
               style={tailwind('font-normal-v2 text-sm text-center px-12')}
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
             >
               {spinnerMessage}
             </ThemedTextV2>
@@ -118,6 +120,8 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
             (
               <ThemedTextV2
                 style={tailwind('text-sm font-normal-v2 text-center')}
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
               >
                 {translate('screens/PinConfirmation', 'Enter passcode for verification')}
               </ThemedTextV2>
