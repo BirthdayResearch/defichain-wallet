@@ -70,7 +70,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         ]
       }
     >
-      You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet
+      You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.
     </Text>
     <View
       accessible={true}
@@ -321,6 +321,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
               false,
             ]
           }
+          testID="guidelines_check"
         />
         <View
           accessible={true}

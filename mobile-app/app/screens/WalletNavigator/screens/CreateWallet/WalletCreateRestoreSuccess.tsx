@@ -71,7 +71,7 @@ export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
       contentContainerStyle={tailwind('pb-16', { 'pt-12': !isSmallScreen })}
-      testID='wallet_create-restore_success'
+      testID={`wallet_${isWalletRestored ? 'restore' : 'create'}_success`}
     >
       <View style={tailwind('pt-10 px-10')}>
         <ThemedTextV2

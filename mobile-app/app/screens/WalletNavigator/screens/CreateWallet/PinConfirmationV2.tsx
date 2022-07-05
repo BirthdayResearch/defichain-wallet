@@ -59,7 +59,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
         .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
 
-    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet'))
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to secure and encrypt your wallet.'))
   }
 
   function navigateToNextPage (params: {data: WalletPersistenceDataI<EncryptedProviderData>, isWalletRestored: boolean}): void {

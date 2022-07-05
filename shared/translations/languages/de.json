@@ -15,7 +15,14 @@
     "You are about to generate a new set of recovery words. Continue?": "Du generierst einen neuen Satz Wiederherstellungswörter. Möchtest du fortfahren?",
     "Passcode FAQ": "Passwort FAQ",
     "DEX FAQ": "DEX FAQ",
-    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ"
+    "Liquidity Mining FAQ": "Liquiditäts-Mining FAQ",
+    "New Wallet": "Neue Wallet",
+    "View Recovery Words": "Wiederherstellungssatz",
+    "Verify Words": "Bestätige die Worte",
+    "Verify Passcode": "Bestätige das Passwort",
+    "Create Passcode": "Passwort Erstellen",
+    "About Passcode": "Über den Passcode",
+    "About Recovery Words": "Wiederherstellungswörter"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -428,7 +435,8 @@
   "screens/Onboarding": {
     "CREATE A WALLET": "EINE WALLET ERSTELLEN",
     "RESTORE WALLET": "WALLET WIEDERHERSTELLEN",
-    "Get started": "Loslegen"
+    "Get started": "Loslegen",
+    "Restore wallet": "Wallet wiederherstellen"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "Natives DeFi für Bitcoin",
@@ -448,20 +456,31 @@
     "Cancel": "Abbrechen",
     "Yes": "Ja",
     "Take note of the words in their correct order": "Notiere die Worte in der korrekten Reihenfolge",
-    "VERIFY WORDS": "BESTÄTIGE DIE WORTE"
+    "VERIFY WORDS": "BESTÄTIGE DIE WORTE",
+    "Write down the words. Take note of the spelling and order.": "Schreibe die Wörter auf. Achte auf die Schreibweise und die Reihenfolge.",
+    "Verify words": "Bestätige die worte",
+    "Leave wallet creation?": "Wallet-Erstellung verlassen?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "Sobald du diese Seite verlässt, wird ein neuer Satz von Wiederherstellungswörtern für die Wallet generiert.",
+    "Return": "Zurück",
+    "Leave": "Verlassen"
   },
   "screens/Guidelines": {
     "Creating a wallet": "Erstellen einer Wallet",
     "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Beim Erstellen einer Wallet siehst du zunächst 24 Worte. Behalte sie für dich und bewahre sie sicher auf.",
     "Learn more about recovery words": "Erfahre mehr über den Wiederherstellungssatz",
-    "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "Ich verstehe, dass die Verantwortung, meinen Wiederherstellungssatz sicher aufzubewahren, bei mir liegt. Der Verlust dieses Schlüssels hat den unwiederbringlichen Verlust der Guthaben auf dieser Wallet zur Folge.",
+    "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.": "Ich verstehe, dass ich dafür verantwortlich bin, meinen Wiederherstellungssatz sicher aufzubewahren. Wenn ich ihn verliere, habe ich keinen Zugriff mehr auf mein Wallet-Guthaben.",
     "SHOW MY 24 RECOVERY WORDS": "ZEIGE 24 WIEDERHERSTELLUNGSWORTE AN",
     "Write the words on paper": "Schreibe die Wörter auf Papier",
     "Take note of their correct spelling and correct order.": "Achte dabei auf die korrekte Schreibweise und die richtige Reihenfolge.",
     "Secure them in a safe space": "Verstaue sie an einem sicheren Platz",
     "Store them offline and in a safe place.": "Bewahre sie offline und an einem geschützten Ort auf.",
     "Keep them private": "Behalte sie für dich",
-    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungssatz kennen."
+    "Learn more": "Erfahre mehr",
+    "Create wallet": "Wallet erstellen",
+    "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungssatz kennen.",
+    "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "In der nächsten Ansicht werden dir 24 Wiederherstellungswörter angezeigt. Bewahre deine 24 Wiederherstellungswörter sicher auf, denn mit ihnen kannst du den Zugang zur Wallet wiederherstellen.",
+    "Write the words on paper. Take note of their correct spelling and order.": "Schreibe die Wörter auf Papier. Achte auf die richtige Schreibweise und Reihenfolge.",
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Bewahre sie an einem sicheren Ort auf. Speichere sie offline an einem Ort, zu dem nur du Zugang hast. Schütze sie vor fremden Einblicken und teile sie mit niemandem."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
@@ -481,7 +500,7 @@
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Passwort fehlerhaft. {{attemptsRemaining}} verbleibende Versuche",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche",
     "Enter passcode for verification": "Passcode zur Überprüfung eingeben",
-    "It may take a few seconds to secure and encrypt your wallet": "It may take a few seconds to secure and encrypt your wallet"
+    "It may take a few seconds to secure and encrypt your wallet.": "Es kann ein paar Sekunden dauern, bis deine Wallet gesichert und verschlüsselt ist."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Die Wallet ist erstellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
@@ -490,9 +509,9 @@
     "CREATE PASSCODE": "PASSWORT ERSTELLEN",
     "CHANGE PASSCODE": "PASSWORT ÄNDERN",
     "Learn more about passcode": "Erfahre mehr über das Passwort",
-    "Learn more": "Learn more",
+    "Learn more": "Erfahre mehr",
     "Create your passcode": "Erstelle deinen Passcode",
-    "Add an additional layer of security by setting a passcode": "Füge eine zusätzliche Sicherheitsebene hinzu, indem du einen Passcode einrichtest"
+    "Add an additional layer of security by setting a passcode.": "Füge eine zusätzliche Sicherheitsebene hinzu, indem du einen Passcode einrichtest."
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Auswahl ungültig. Bitte versichere dich, dass du die 24 Wörter notiert hast.",
@@ -500,7 +519,15 @@
     "Verify what you wrote as correct.": "Bestätige die Eingabe.",
     "Answer the questions to proceed.": "Um fortzufahren, beantworte folgende Fragen.",
     "VERIFY": "BESTÄTIGE",
-    "What is word ": "Wie lautet das Wort "
+    "What is word ": "Wie lautet das Wort ",
+    "All questions must be answered correctly.": "Alle Fragen müssen richtig beantwortet werden.",
+    "Verify words": "Bestätige die Worte",
+    "Verify the written recovery words.": "Überprüfe den geschriebenen Wiederherstellungssatz.",
+    "word": "Wort",
+    "{{number}}st": "{{number}}.",
+    "{{number}}nd": "{{number}}.",
+    "{{number}}rd": "{{number}}.",
+    "{{number}}th": "{{number}}."
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Änderungen verwerfen?",
@@ -513,7 +540,10 @@
     "Cancel": "Abbrechen",
     "Discard": "Verwerfen",
     "Required field is missing": "Erforderliches Feld fehlt",
-    "Uppercase, numbers and special characters are not allowed": "Großbuchstaben, Zahlen und Sonderzeichen sind nicht erlaubt."
+    "Restore": "Stelle wieder her",
+    "Uppercase, numbers and special characters are not allowed": "Großbuchstaben, Zahlen und Sonderzeichen sind nicht erlaubt.",
+    "All questions must be answered correctly.": "Alle Fragen müssen richtig beantwortet werden.",
+    "Key in the 24 recovery words to regain access to your wallet.": "Gib die 24 Wiederherstellungswörter ein, um wieder Zugang zu deiner Wallet zu erhalten."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Etwas ging schief",
@@ -723,7 +753,9 @@
     "Settlement block": "Abrechnungs-Block",
     "To be confirmed": "Noch zu bestätigen",
     "Enter an amount": "Gib einen Betrag ein",
-    "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})"
+    "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Bist du dir sicher, dass du trotz der hohen DEX-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
+    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Bist du dir sicher, dass du diesen Tausch trotz der hohen DEX-Stabilisierungsgebühr, die als Teil des zusammengesetzten Pfads (DUSD → DFI)(Komposit-Swap) anfallen wird, durchführen willst?"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -835,7 +867,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Passwort",
-    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Was passiert, wenn ich mein Passwort vergessen habe? Kann mir jemand helfen, mein Passwort wiederherzustellen?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Du bist für dein Passwort verantwortlich, daher kennt es niemand außer dir. Es ist wichtig, dass du dein Passwort sicher aufbewahrst und es von Zeit zu Zeit änderst.",
     "Can I change my passcode?": "Kann ich mein Passwort ändern?",

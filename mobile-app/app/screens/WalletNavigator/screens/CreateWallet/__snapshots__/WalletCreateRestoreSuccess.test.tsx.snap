@@ -26,7 +26,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
       },
     ]
   }
-  testID="wallet_create-restore_success"
+  testID="wallet_create_success"
 >
   <View>
     <View
@@ -226,7 +226,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
       },
     ]
   }
-  testID="wallet_create-restore_success"
+  testID="wallet_restore_success"
 >
   <View>
     <View

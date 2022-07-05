@@ -11,7 +11,11 @@ export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.
   const { connected } = useSelector((state: RootState) => state.block)
 
   return (
-    <TouchableOpacity onPress={onPress} style={tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' })}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' })}
+      testID='header_active_network'
+    >
       <NetworkIcon pathColor={connected ? '#00AD1D' : '#E54545'} />
       <ThemedText
         style={[tailwind('font-bold-v2 text-2xs'), { lineHeight: 12 }]}
