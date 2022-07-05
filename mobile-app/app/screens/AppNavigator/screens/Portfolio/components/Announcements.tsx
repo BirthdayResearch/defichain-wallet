@@ -88,18 +88,20 @@ export function Announcements (): JSX.Element {
   }
 
   return (
-    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} />
+    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} testID='announcements_banner' />
   )
 }
 
 interface AnnouncementBannerProps {
-  hideAnnouncement: (id: string) => void
+  hideAnnouncement?: (id: string) => void
   announcement: Announcement
+  testID: string
 }
 
 export function AnnouncementBanner ({
   hideAnnouncement,
-  announcement
+  announcement,
+  testID
 }: AnnouncementBannerProps): JSX.Element {
   const { isLight } = useThemeContext()
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
@@ -111,7 +113,7 @@ export function AnnouncementBanner ({
 
   return (
     <ThemedView
-      testID='announcements_banner'
+      testID={testID}
       style={tailwind('px-4 py-3 flex-row items-center')}
       light={tailwind({
         'bg-primary-700': isOtherAnnouncement,
@@ -136,7 +138,9 @@ export function AnnouncementBanner ({
               if (announcement.id === undefined) {
                 return
               }
-              hideAnnouncement(announcement.id)
+              if (hideAnnouncement !== undefined) {
+                hideAnnouncement(announcement.id)
+              }
             }}
             testID='close_announcement'
           />

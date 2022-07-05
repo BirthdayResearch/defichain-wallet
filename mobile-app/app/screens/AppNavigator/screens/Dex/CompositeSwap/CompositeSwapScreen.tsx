@@ -51,7 +51,8 @@ import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { WalletAlert } from '@components/WalletAlert'
 import { AnnouncementBanner } from '../../Portfolio/components/Announcements'
-import { useSwapAnnouncement } from '../hook/SwapAnnouncement'
+import { useDexStabilization } from '../hook/DexStabilization'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -142,7 +143,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
-  const { isHighFeesEnabled, swapAnnouncement, hideSwapAnnouncement } = useSwapAnnouncement(selectedTokenA, selectedTokenB)
+  // dex stab
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  const isDexStabilizationEnabled = isFeatureAvailable('dusd_dfi_high_fee')
+  const { dexStabilizationAnnouncement, dexStabilizationType } = useDexStabilization(selectedTokenA, selectedTokenB)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -331,22 +335,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   useEffect(() => {
     void getSelectedPoolPairs()
-    displayHighFeesAlert()
   }, [selectedTokenA, selectedTokenB])
-
-  const displayHighFeesAlert = (): void => {
-    if (isHighFeesEnabled) {
-      WalletAlert({
-        title: translate('screens/ServiceProviderScreen', 'DUSD-DFI high fees'),
-        message: translate('screens/ServiceProviderScreen', 'There is a high fee in swapping DUSD-DFI'),
-        buttons: [
-          {
-            text: translate('screens/ServiceProviderScreen', 'Continue'),
-            style: 'default'
-          }]
-      })
-    }
-  }
 
   const getSelectedPoolPairs = async (): Promise<void> => {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
@@ -445,6 +434,30 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     })
   }
 
+  const onWarningBeforeSubmit = async (): Promise<void> => {
+    const message = dexStabilizationType === 'composite-dusd-dfi'
+      ? 'Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?'
+      : 'Are you certain that you want to proceed to swap DUSD for DFI despite the high DEX Stabilization fees?'
+
+    WalletAlert({
+      title: translate('screens/CompositeSwapScreen', ''),
+      message: translate('screens/CompositeSwapScreen', message),
+      buttons: [
+        {
+          text: translate('screens/Settings', 'Cancel'),
+          style: 'cancel'
+        },
+        {
+          text: translate('screens/Settings', 'Confirm'),
+          onPress: async () => {
+            await onSubmit()
+          },
+          style: 'default'
+        }
+      ]
+    })
+  }
+
   const onSubmit = async (): Promise<void> => {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
@@ -481,7 +494,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedScrollView>
-        {swapAnnouncement !== undefined && isHighFeesEnabled && <AnnouncementBanner announcement={swapAnnouncement} hideAnnouncement={hideSwapAnnouncement} />}
+        {isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationAnnouncement !== undefined && <AnnouncementBanner announcement={dexStabilizationAnnouncement} testID='swap_announcements_banner' />}
         {
           (fromTokens !== undefined && fromTokens?.length > 0) && (
             <ThemedText
@@ -653,7 +666,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 (isFutureSwap && isEnded)}
               label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-              onSubmit={onSubmit}
+              onSubmit={dexStabilizationType === 'none' && isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
               title='submit'
               isProcessing={hasPendingJob || hasPendingBroadcastJob}
               displayCancelBtn={false}
