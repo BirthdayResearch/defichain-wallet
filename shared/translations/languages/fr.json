@@ -16,10 +16,13 @@
     "Passcode FAQ": "FAQ code d'accès",
     "DEX FAQ": "FAQ DEX",
     "Liquidity Mining FAQ": "FAQ liquidity mining",
-    "View Recovery Words": "Mots de récupération",
+    "View Recovery Words": "Voir les mots de récupération",
     "Verify Words": "Vérifier Les Mots",
     "Create Passcode": "Créer Un Code D'accès",
-    "Verify Passcode": "Vérifier Le Code D'accès"
+    "Verify Passcode": "Vérifier Le Code D'accès",
+    "About Passcode": "Code d'accès",
+    "About Recovery Words": "Mots de récupération",
+    "New Wallet": "New Wallet"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Échange décentralisé",
@@ -465,7 +468,11 @@
     "Take note of the words in their correct order": "Notez les mots dans leur ordre correct.",
     "VERIFY WORDS": "VERIFIEZ LES MOTS",
     "Verify words": "Vérifier les mots",
-    "Write down the words. Take note of the spelling and order.": "Notez les mots. Prenez note de l'orthographe et de l'ordre."
+    "Write down the words. Take note of the spelling and order.": "Notez les mots. Prenez note de l'orthographe et de l'ordre.",
+    "Leave wallet creation?": "Quitter la création du portefeuille ?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "Un nouvel ensemble de mots de récupération sera généré pour le portefeuille dès que vous aurez quitté cette page.",
+    "Return": "Retour",
+    "Leave": "Quitter"
   },
   "screens/Guidelines": {
     "Creating a wallet": "Créer un portefeuille",
@@ -503,7 +510,7 @@
     "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera dissocié pour votre sécurité.",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes",
-    "Enter passcode for verification":"Donner le code d'accès pour vérification",
+    "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
   },
@@ -527,7 +534,12 @@
     "What is word ": "Quel est le mot ",
     "Verify the written recovery words.": "Vérifier les mots de récupération écrits",
     "Verify words": "Vérifier les mots",
-    "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions."
+    "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions.",
+    "word": "mot",
+    "{{number}}st": "{{number}}ème",
+    "{{number}}nd": "{{number}}ème",
+    "{{number}}rd": "{{number}}ème",
+    "{{number}}th": "{{number}}ème"
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Annuler les modifications ?",
@@ -756,7 +768,7 @@
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?",
     "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?"
- },
+  },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
     "CONFIRM SWAP": "VALIDER L'ÉCHANGE",
@@ -867,7 +879,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Code d'accès",
-    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code d'accès privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code d'accès privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code d'accès ? Quelqu'un peut-il m'aider à retrouver mon code d'accès ?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code d'accès est sous votre responsabilité, donc personne, à part vous, ne le connaît. Il est important que vous gardiez votre code d'accès en sécurité et que vous le changiez de temps en temps.",
     "Can I change my passcode?": "Puis-je changer mon code d'accès ?",

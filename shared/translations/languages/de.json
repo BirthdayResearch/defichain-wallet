@@ -20,7 +20,9 @@
     "View Recovery Words": "Wiederherstellungssatz",
     "Verify Words": "Bestätige die Worte",
     "Verify Passcode": "Bestätige das Passwort",
-    "Create Passcode": "Passwort Erstellen"
+    "Create Passcode": "Passwort Erstellen",
+    "About Passcode": "Über den Passcode",
+    "About Recovery Words": "Wiederherstellungswörter"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -456,7 +458,11 @@
     "Take note of the words in their correct order": "Notiere die Worte in der korrekten Reihenfolge",
     "VERIFY WORDS": "BESTÄTIGE DIE WORTE",
     "Write down the words. Take note of the spelling and order.": "Schreibe die Wörter auf. Achte auf die Schreibweise und die Reihenfolge.",
-    "Verify words": "Bestätige die worte"
+    "Verify words": "Bestätige die worte",
+    "Leave wallet creation?": "Wallet-Erstellung verlassen?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "Sobald du diese Seite verlässt, wird ein neuer Satz von Wiederherstellungswörtern für die Wallet generiert.",
+    "Return": "Zurück",
+    "Leave": "Verlassen"
   },
   "screens/Guidelines": {
     "Creating a wallet": "Erstellen einer Wallet",
@@ -748,8 +754,8 @@
     "To be confirmed": "Noch zu bestätigen",
     "Enter an amount": "Gib einen Betrag ein",
     "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Bist du dir sicher, dass du trotz der hohen Dex-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Bist du dir sicher, dass du diesen Swap trotz der hohen DEX-Stabilisierungsgebühr, die im Rahmen des Composite-Pfads (DUSD → DFI) anfallen wird, durchführen willst?"
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Bist du dir sicher, dass du trotz der hohen DEX-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
+    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Bist du dir sicher, dass du diesen Tausch trotz der hohen DEX-Stabilisierungsgebühr, die als Teil des zusammengesetzten Pfads (DUSD → DFI)(Komposit-Swap) anfallen wird, durchführen willst?"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -861,7 +867,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Passwort",
-    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Was passiert, wenn ich mein Passwort vergessen habe? Kann mir jemand helfen, mein Passwort wiederherzustellen?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Du bist für dein Passwort verantwortlich, daher kennt es niemand außer dir. Es ist wichtig, dass du dein Passwort sicher aufbewahrst und es von Zeit zu Zeit änderst.",
     "Can I change my passcode?": "Kann ich mein Passwort ändern?",
