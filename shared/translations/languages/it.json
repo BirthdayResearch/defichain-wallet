@@ -744,7 +744,9 @@
     "Settlement block": "Blocco di regolamento",
     "To be confirmed": "Da confermare",
     "Enter an amount": "Inserisci un importo",
-    "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})"
+    "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})",
+    "Are you certain that you want to proceed to swap DUSD for DFI despite the high DEX Stabilization fees?": "Are you certain that you want to proceed to swap DUSD for DFI despite the high DEX Stabilization fees?",
+    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSIONE",
