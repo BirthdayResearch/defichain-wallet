@@ -20,7 +20,9 @@
     "View Recovery Words": "View Recovery Words",
     "Verify Words": "Verify Words",
     "Verify Passcode": "Verify Passcode",
-    "Create Passcode": "Create Passcode"
+    "Create Passcode": "Create Passcode",
+    "About Passcode": "About Passcode",
+    "About Recovery Words": "About Recovery Words"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "DEX",
@@ -472,7 +474,11 @@
     "Take note of the words in their correct order": "Toma nota de las palabras en el orden correcto",
     "VERIFY WORDS": "VERIFICAR PALABRAS",
     "Write down the words. Take note of the spelling and order.": "Write down the words. Take note of the spelling and order.",
-    "Verify words": "Verify words"
+    "Verify words": "Verify words",
+    "Leave wallet creation?": "Leave wallet creation?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "A new set of recovery words will be generated for the wallet once you leave this page.",
+    "Return": "Return",
+    "Leave": "Leave"
   },
   "screens/Guidelines": {
     "Creating a wallet": "Creando una billetera",
