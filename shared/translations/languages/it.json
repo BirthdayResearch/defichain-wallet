@@ -15,7 +15,14 @@
     "You are about to generate a new set of recovery words. Continue?": "Stai per generare un nuovo set di parole di ripristino. Vuoi continuare?",
     "Passcode FAQ": "Password FAQ",
     "DEX FAQ": "FAQ DEX",
-    "Liquidity Mining FAQ": "FAQ liquidity mining"
+    "Liquidity Mining FAQ": "FAQ liquidity mining",
+    "New Wallet": "New Wallet",
+    "View Recovery Words": "View Recovery Words",
+    "Verify Words": "Verify Words",
+    "Verify Passcode": "Verify Passcode",
+    "Create Passcode": "Create Passcode",
+    "About Passcode": "About Passcode",
+    "About Recovery Words": "About Recovery Words"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "DEX",
@@ -443,7 +450,8 @@
   "screens/Onboarding": {
     "CREATE A WALLET": "CREA UN WALLET",
     "RESTORE WALLET": "RIPRISTINA IL WALLET",
-    "Get started": "Get started"
+    "Get started": "Get started",
+    "Restore wallet": "Restore wallet"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo per Bitcoin",
@@ -463,7 +471,13 @@
     "Cancel": "Cancella",
     "Yes": "Si",
     "Take note of the words in their correct order": "Prendi nota delle parole nel loro ordine corretto",
-    "VERIFY WORDS": "VERIFICA LE PAROLE"
+    "VERIFY WORDS": "VERIFICA LE PAROLE",
+    "Write down the words. Take note of the spelling and order.": "Write down the words. Take note of the spelling and order.",
+    "Verify words": "Verify words",
+    "Leave wallet creation?": "Leave wallet creation?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "A new set of recovery words will be generated for the wallet once you leave this page.",
+    "Return": "Return",
+    "Leave": "Leave"
   },
   "screens/Guidelines": {
     "Creating a wallet": "Crea un Wallet",
@@ -478,7 +492,13 @@
     "Keep them private": "Mantienile private",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Non condividerle con nessuno.  Tieni le parole di recupero solo per te.",
     "I have read and agree to the terms and conditions.": "Ho letto e accetto i termini e le condizioni.",
-    "View terms and conditions.": "Mostra i termini e le condizioni generali."
+    "View terms and conditions.": "Mostra i termini e le condizioni generali.",
+    "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.": "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.",
+    "Learn more": "Learn more",
+    "Create wallet": "Create wallet",
+    "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
+    "Write the words on paper. Take note of their correct spelling and order.": "Write the words on paper. Take note of their correct spelling and order.",
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Cosa sono le parole di recupero (Seed Phrase)?",
@@ -498,7 +518,7 @@
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Codice di accesso errato. {{attemptsRemaining}} tentativi rimanenti",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentativi rimanenti",
     "Enter passcode for verification": "Enter passcode for verification",
-    "It may take a few seconds to secure and encrypt your wallet": "It may take a few seconds to secure and encrypt your wallet"
+    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Perfetto! Il tuo wallet è stato creato. Mantieni il tuo wallet privato e sicuro creando un codice di accesso.",
@@ -509,7 +529,7 @@
     "Learn more about passcode": "Ulteriori informazioni sul codice di accesso",
     "Learn more": "Learn more",
     "Create your passcode": "Create your passcode",
-    "Add an additional layer of security by setting a passcode": "Add an additional layer of security by setting a passcode"
+    "Add an additional layer of security by setting a passcode.": "Add an additional layer of security by setting a passcode."
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Selezione non valida. Assicurati di aver scritto le tue 24 parole.",
@@ -517,7 +537,15 @@
     "Verify what you wrote as correct.": "Verifica che ciò che hai scritto sia corretto.",
     "Answer the questions to proceed.": "Rispondi alle domande per procedere.",
     "VERIFY": "VERIFICA",
-    "What is word ": "Cos'è la parola "
+    "What is word ": "Cos'è la parola ",
+    "Verify words": "Verify words",
+    "Verify the written recovery words.": "Verify the written recovery words.",
+    "word": "word",
+    "{{number}}st": "{{number}}st",
+    "{{number}}nd": "{{number}}nd",
+    "{{number}}rd": "{{number}}rd",
+    "{{number}}th": "{{number}}th",
+    "All questions must be answered correctly.": "All questions must be answered correctly."
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Cancellare le modifiche?",
@@ -530,7 +558,10 @@
     "Cancel": "Cancella",
     "Discard": "Abbandona",
     "Required field is missing": "Manca un campo obbligatorio",
-    "Uppercase, numbers and special characters are not allowed": "Le maiuscole, i numeri e i caratteri speciali non sono ammessi"
+    "Uppercase, numbers and special characters are not allowed": "Le maiuscole, i numeri e i caratteri speciali non sono ammessi",
+    "Restore": "Restore",
+    "All questions must be answered correctly.": "All questions must be answered correctly.",
+    "Key in the 24 recovery words to regain access to your wallet.": "Key in the 24 recovery words to regain access to your wallet."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Qualcosa è andato male",
@@ -860,7 +891,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Codice di accesso",
-    "Your six-digit numeric passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Cosa succede se ho dimenticato il mio codice di accesso? Qualcuno può aiutarmi a recuperare il mio codice di accesso?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Il tuo codice di accesso è una tua responsabilità, quindi nessuno, a parte te, lo conosce. È importante che tu tenga il tuo codice di accesso al sicuro e che lo cambi di tanto in tanto.",
     "Can I change my passcode?": "Posso cambiare il mio codice di accesso?",
