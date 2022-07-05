@@ -321,6 +321,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
               false,
             ]
           }
+          testID="guidelines_check"
         />
         <View
           accessible={true}
