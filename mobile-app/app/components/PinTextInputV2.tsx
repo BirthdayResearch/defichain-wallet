@@ -45,7 +45,7 @@ export function PinTextInputV2 ({ cellCount, testID, value, onChange }: PinTextI
   }
   const autofocus = true
   return (
-    <View style={tailwind('flex-row justify-center mb-4')}>
+    <View style={tailwind('flex-row justify-center')}>
       <CodeField
         ref={ref}
         {...props}
