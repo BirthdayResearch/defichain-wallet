@@ -59,7 +59,7 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
       mode,
       amount
     }, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation.dispatch)
+      onTransactionBroadcast(isOnPage, navigation.dispatch, 2)
     }, logger)
     setIsSubmitting(false)
   }

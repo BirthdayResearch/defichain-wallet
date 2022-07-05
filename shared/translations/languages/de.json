@@ -664,7 +664,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "WEITER"
+    "CONTINUE": "WEITER",
+    "CLOSE": "SCHLIESSEN"
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "Slippage-Toleranz",

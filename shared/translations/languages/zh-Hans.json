@@ -659,7 +659,8 @@
     "Max": "最高值"
   },
   "components/Button": {
-    "CONTINUE": "继续"
+    "CONTINUE": "继续",
+    "CLOSE": "关闭"
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "交易滑点",

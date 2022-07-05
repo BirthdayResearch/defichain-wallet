@@ -10,7 +10,7 @@ import { View } from '@components'
 type Props = StackScreenProps<BalanceParamList, 'SellConfirmationScreen'>
 
 export function SellConfirmationScreen ({ route }: Props): JSX.Element {
-  const title = 'CLOSE'
+  const title = translate('components/Button', 'CLOSE')
   const navigation = useNavigation<NavigationProp<BalanceParamList>>()
 
   return (

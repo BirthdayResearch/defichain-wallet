@@ -168,8 +168,8 @@ export const BottomSheetFiatAccountCreate = ({
         <View style={tailwind('my-6')}>
           <SubmitButtonGroup
             isDisabled={!formState.isValid}
-            label={translate('screens/SellScreen', 'CONTINUE')}
-            processingLabel={translate('screens/SellScreen', 'CONTINUE')}
+            label={translate('components/Button', 'CONTINUE')}
+            processingLabel={translate('components/Button', 'CONTINUE')}
             onSubmit={onSubmit}
             title='sell_continue'
             isProcessing={isSubmitting}
