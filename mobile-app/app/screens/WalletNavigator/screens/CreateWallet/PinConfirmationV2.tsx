@@ -30,6 +30,7 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
   const [newPin, setNewPin] = useState('')
   const [invalid, setInvalid] = useState<boolean>(false)
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
+  const isCreateWallet = type === 'create'
 
   function verifyPin (input: string): void {
     if (input.length !== pin.length) {
@@ -70,40 +71,43 @@ export function PinConfirmationV2 ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={tailwind('w-full flex-1 flex-col')}
-      contentContainerStyle={tailwind('pt-12')}
+      style={tailwind('flex-1')}
+      contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
+      testID='screen_confirm_pin'
     >
-      <CreateWalletStepIndicatorV2
-        current={type === 'create' ? 3 : 2}
-        steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
-        style={tailwind('py-0.5 px-14')}
-        isComplete={isComplete}
-      />
+      <View style={tailwind(['px-5 mb-5', { 'mb-12': spinnerMessage === undefined }])}>
+        <CreateWalletStepIndicatorV2
+          current={isCreateWallet ? 3 : 2}
+          steps={isCreateWallet ? CREATE_STEPS : RESTORE_STEPS}
+          style={tailwind(isCreateWallet ? 'px-4' : 'px-16')}
+          isComplete={isComplete}
+        />
 
-      <View style={tailwind('px-10')}>
         <ThemedTextV2
-          style={tailwind(['text-center font-normal-v2 mt-7', { 'mb-20': spinnerMessage === undefined }])}
+          style={tailwind('text-center font-normal-v2 mt-7')}
         >
           {translate('screens/PinCreation', 'Add an additional layer of security by setting a passcode.')}
         </ThemedTextV2>
         {
           (spinnerMessage !== undefined) && (
-            <ThemedActivityIndicatorV2 style={tailwind('mt-7 mb-8')} />
+            <ThemedActivityIndicatorV2 style={tailwind('py-4 my-0.5')} />
           )
         }
       </View>
 
-      <PinTextInputV2
-        cellCount={6}
-        onChange={(pin) => {
-          setNewPin(pin)
-          verifyPin(pin)
-        }}
-        testID='pin_confirm_input'
-        value={newPin}
-      />
+      <View style={tailwind('mx-16', { 'mt-7': spinnerMessage === undefined })}>
+        <PinTextInputV2
+          cellCount={6}
+          onChange={(pin) => {
+            setNewPin(pin)
+            verifyPin(pin)
+          }}
+          testID='pin_confirm_input'
+          value={newPin}
+        />
+      </View>
 
-      <View style={tailwind('mt-1')}>
+      <View style={tailwind('mt-5')}>
         {
           (spinnerMessage !== undefined) && (
             <ThemedTextV2

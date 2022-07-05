@@ -20,6 +20,7 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
     type
   } = route.params
   const [newPin, setNewPin] = useState('')
+  const isCreateWallet = type === 'create'
   const goToPasscodeFaq = (): void => {
     navigation.navigate('PasscodeFaq')
   }
@@ -37,35 +38,34 @@ export function PinCreationV2 ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={tailwind('w-full flex-1 flex-col')}
-      contentContainerStyle={tailwind('items-center pt-12')}
+      style={tailwind('flex-1')}
+      contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       testID='screen_create_pin'
     >
-      <CreateWalletStepIndicatorV2
-        current={type === 'create' ? 3 : 2}
-        steps={type === 'create' ? CREATE_STEPS : RESTORE_STEPS}
-        style={tailwind('py-0.5 px-14')}
-      />
-
-      <View style={tailwind('px-10')}>
+      <View style={tailwind('px-5 mb-12')}>
+        <CreateWalletStepIndicatorV2
+          current={isCreateWallet ? 3 : 2}
+          steps={isCreateWallet ? CREATE_STEPS : RESTORE_STEPS}
+          style={tailwind(isCreateWallet ? 'px-4' : 'px-16')}
+        />
         <ThemedTextV2
-          style={tailwind('text-center font-normal-v2 mt-7')}
+          style={tailwind('text-center mt-7 text-center font-normal-v2')}
         >
           {translate('screens/PinCreation', 'Add an additional layer of security by setting a passcode.')}
         </ThemedTextV2>
-        <View style={{ marginBottom: 52 }}>
-          <LearnMoreCTA onPress={goToPasscodeFaq} />
-        </View>
+        <LearnMoreCTA onPress={goToPasscodeFaq} testId='passcode_faq_link' />
       </View>
 
-      <PinTextInputV2
-        cellCount={6}
-        onChange={setNewPin}
-        testID='pin_input'
-        value={newPin}
-      />
+      <View style={tailwind('mx-16')}>
+        <PinTextInputV2
+          cellCount={6}
+          onChange={setNewPin}
+          testID='pin_input'
+          value={newPin}
+        />
+      </View>
 
-      <View style={tailwind('mt-1')}>
+      <View style={tailwind('mt-5')}>
         <ThemedTextV2
           style={tailwind('text-sm font-normal-v2 text-center')}
           light={tailwind('text-mono-light-v2-700')}
