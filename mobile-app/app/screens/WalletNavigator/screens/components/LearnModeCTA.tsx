@@ -4,14 +4,15 @@ import { translate } from '@translations'
 
 interface LearnMoreCTAProps {
   onPress: () => void
+  testId?: string
 }
 
-export function LearnMoreCTA ({ onPress }: LearnMoreCTAProps): JSX.Element {
+export function LearnMoreCTA ({ onPress, testId }: LearnMoreCTAProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={tailwind('mt-2 flex-row items-center justify-center border-b-0')}
       onPress={onPress}
-      testID='recovery_words_faq'
+      testID={testId}
     >
       <ThemedIcon
         light={tailwind('text-mono-light-v2-900')}
