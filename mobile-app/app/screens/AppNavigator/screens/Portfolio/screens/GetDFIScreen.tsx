@@ -78,10 +78,6 @@ const exchanges: ExchangeProps[] = [
     image: EasyCrypto,
     url: 'https://easycrypto.com/nz/buy-sell/dfi-defichain'
   }, {
-    name: 'Cake DeFi',
-    image: CakeDeFi,
-    url: 'https://cakedefi.com/'
-  }, {
     name: 'Bybit',
     image: Bybit,
     url: 'https://www.bybit.com/en-US/trade/spot/DFI/USDT'
@@ -89,6 +85,10 @@ const exchanges: ExchangeProps[] = [
     name: 'Swyftx',
     image: Swyftx,
     url: 'https://swyftx.com/au/buy/defichain/'
+  }, {
+    name: 'Cake DeFi',
+    image: CakeDeFi,
+    url: 'https://cakedefi.com/'
   }
 
 ]
