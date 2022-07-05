@@ -27,6 +27,8 @@ import Hotbit from '@assets/images/exchanges/Hotbit.png'
 import Hoo from '@assets/images/exchanges/Hoo.png'
 import EasyCrypto from '@assets/images/exchanges/EasyCrypto.png'
 import CakeDeFi from '@assets/images/exchanges/CakeDeFi.png'
+import Bybit from '@assets/images/exchanges/Bybit.png'
+import Swyftx from '@assets/images/exchanges/Swyftx.png'
 
 interface ExchangeProps {
   image: ImageSourcePropType
@@ -79,6 +81,14 @@ const exchanges: ExchangeProps[] = [
     name: 'Cake DeFi',
     image: CakeDeFi,
     url: 'https://cakedefi.com/'
+  }, {
+    name: 'Bybit',
+    image: Bybit,
+    url: 'https://www.bybit.com/en-US/trade/spot/DFI/USDT'
+  }, {
+    name: 'Swyftx',
+    image: Swyftx,
+    url: 'https://swyftx.com/au/buy/defichain/'
   }
 
 ]
