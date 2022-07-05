@@ -16,6 +16,7 @@ interface CalculatePriceRatesProps {
 interface TokenBestPath {
   calculatePriceRates: (fromTokenId: string, toTokenId: string, amount: BigNumber) => Promise<CalculatePriceRatesProps>
   getArbitraryPoolPair: (tokenAId: string, tokenBId: string) => Promise<PoolPairData[]>
+  getBestPath: (fromTokenId: string, toTokenId: string) => Promise<BestSwapPathResult>
 }
 
 export function useTokenBestPath (): TokenBestPath {
@@ -61,6 +62,7 @@ export function useTokenBestPath (): TokenBestPath {
 
   return {
     calculatePriceRates,
-    getArbitraryPoolPair
+    getArbitraryPoolPair,
+    getBestPath
   }
 }
