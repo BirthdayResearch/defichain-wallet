@@ -55,7 +55,7 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
           es: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps. Proceed with caution!',
           it: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps. Proceed with caution!'
         },
-        version: '0.0.0',
+        version: '>=1.14.5',
         url: {
           ios: HIGH_FEES_URL,
           android: HIGH_FEES_URL,
@@ -76,7 +76,7 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
           es: 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.',
           it: 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.'
         },
-        version: '0.0.0',
+        version: '>=1.14.5',
         url: {
           ios: HIGH_FEES_URL,
           android: HIGH_FEES_URL,
