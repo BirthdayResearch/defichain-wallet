@@ -134,7 +134,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
@@ -182,7 +182,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                     ]
                   }
                 >
-                  What happens if I forgot my passcode? Can someone help me to retrieve my passcode?
+                  What happens if I forgot my passcode? Can someone help me retrieve my passcode?
                 </Text>
                 <Text />
               </View>
@@ -255,7 +255,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.
+                      Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.
                     </Text>
                   </View>
                 </View>
@@ -286,7 +286,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
@@ -410,7 +410,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.
+                      Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.
                     </Text>
                   </View>
                 </View>
@@ -441,7 +441,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
@@ -563,7 +563,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
                         ]
                       }
                     >
-                      Your passcode is valid only for DeFiChain wallet.
+                      Your passcode is valid only for DeFiChain Light Wallet.
                     </Text>
                   </View>
                 </View>

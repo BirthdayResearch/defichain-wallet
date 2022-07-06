@@ -352,7 +352,8 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Prestiti",
     "Auctions": "Aste",
-    "Liquidity Mining": "Estrazione di liquidità"
+    "Liquidity Mining": "Estrazione di liquidità",
+    "Liquidity mining": "Estrazione di liquidità"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ prestiti",
