@@ -35,11 +35,11 @@ import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useTokenBestPath } from '../../Balances/hooks/TokenBestPath'
+import { useTokenBestPath } from '../../Portfolio/hooks/TokenBestPath'
 import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { ButtonGroup } from '../components/ButtonGroup'
 import { useFutureSwap, useFutureSwapDate } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -49,6 +49,10 @@ import { TextRow } from '@components/TextRow'
 import { PriceRateProps, PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { WalletAlert } from '@components/WalletAlert'
+import { AnnouncementBanner } from '../../Portfolio/components/Announcements'
+import { useDexStabilization } from '../hook/DexStabilization'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -138,6 +142,11 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   })
   const containerRef = useRef(null)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+
+  // dex stabilization
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  const isDexStabilizationEnabled = isFeatureAvailable('dusd_dfi_high_fee')
+  const { dexStabilizationAnnouncement, dexStabilizationType } = useDexStabilization(selectedTokenA, selectedTokenB)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -425,6 +434,30 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     })
   }
 
+  const onWarningBeforeSubmit = async (): Promise<void> => {
+    const message = dexStabilizationType === 'composite-dusd-dfi'
+      ? 'Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?'
+      : 'Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?'
+
+    WalletAlert({
+      title: translate('screens/CompositeSwapScreen', ''),
+      message: translate('screens/CompositeSwapScreen', message),
+      buttons: [
+        {
+          text: translate('screens/Settings', 'Cancel'),
+          style: 'cancel'
+        },
+        {
+          text: translate('screens/Settings', 'Confirm'),
+          onPress: async () => {
+            await onSubmit()
+          },
+          style: 'default'
+        }
+      ]
+    })
+  }
+
   const onSubmit = async (): Promise<void> => {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
@@ -486,6 +519,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
             disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
           />
         </View>
+        {isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationAnnouncement !== undefined &&
+          <View style={tailwind('flex mx-4 mt-4 rounded')}>
+            <AnnouncementBanner announcement={dexStabilizationAnnouncement} testID='swap_announcements_banner' />
+          </View>}
         <ThemedView
           style={tailwind('m-4 pt-4 rounded-lg flex-1')}
           light={tailwind('bg-white')}
@@ -633,7 +670,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 (isFutureSwap && isEnded)}
               label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-              onSubmit={onSubmit}
+              onSubmit={dexStabilizationType === 'none' && isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
               title='submit'
               isProcessing={hasPendingJob || hasPendingBroadcastJob}
               displayCancelBtn={false}

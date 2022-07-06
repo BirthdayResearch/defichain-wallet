@@ -75,8 +75,8 @@ Cypress.Commands.add('setupPinCode', () => {
 })
 
 Cypress.Commands.add('verifyMnemonicOnSettingsPage', function (settingsRecoveryWords: string[], recoveryWords: string[]) {
-  cy.getByTestID('balances_list').should('exist')
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('portfolio_list').should('exist')
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('view_recovery_words').click().wait(3000)
   cy.getByTestID('pin_authorize').type('000000')
@@ -101,5 +101,5 @@ Cypress.Commands.add('restoreMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('recover_wallet_button').click()
   cy.getByTestID('pin_input').type('000000')
   cy.getByTestID('pin_confirm_input').type('000000')
-  cy.getByTestID('balances_list').should('exist')
+  cy.getByTestID('portfolio_list').should('exist')
 })

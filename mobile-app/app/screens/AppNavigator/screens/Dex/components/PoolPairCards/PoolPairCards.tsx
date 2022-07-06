@@ -13,8 +13,8 @@ import { ActionSection } from './ActionSection'
 import { PoolPairTextSection } from './PoolPairTextSection'
 import { InfoSection } from './InfoSection'
 import { APRSection } from './APRSection'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
-import { useTokenBestPath } from '@screens/AppNavigator/screens/Balances/hooks/TokenBestPath'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
+import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath'
 import { PriceRatesSection } from './PriceRatesSection'
 import React, { useEffect, useRef, useState } from 'react'
 import { useScrollToTop } from '@react-navigation/native'
@@ -290,46 +290,50 @@ const PoolCard = ({
         style={tailwind('flex flex-row justify-between w-full')}
         testID={`pool_pair_row_${index}_${symbol}`}
       >
-        <View style={tailwind('w-3/5 flex-row items-center')}>
-          <PoolPairTextSection
-            symbolA={symbolA}
-            symbolB={symbolB}
-          />
-          {type === 'available' && (
-            <TouchableOpacity
-              onPress={() => setFavouritePoolpair(yourPair.id)}
-              style={tailwind('p-1.5 flex-row items-center')}
-              testID={`favorite_${symbolA}-${symbolB}`}
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name={isFavouritePair ? 'star' : 'star-outline'}
-                size={20}
-                light={tailwind(
-                  isFavouritePair ? 'text-warning-500' : 'text-gray-600'
-                )}
-                dark={tailwind(
-                  isFavouritePair ? 'text-dfxyellow-500' : 'text-dfxgray-300'
-                )}
-              />
-            </TouchableOpacity>
+        <View style={tailwind('max-w-4/5 flex-shrink')}>
+          <View style={tailwind('flex-row items-center')}>
+            <PoolPairTextSection
+              symbolA={symbolA}
+              symbolB={symbolB}
+            />
+            {type === 'available' && (
+              <TouchableOpacity
+                onPress={() => setFavouritePoolpair(yourPair.id)}
+                style={tailwind('p-1.5')}
+                testID={`favorite_${symbolA}-${symbolB}`}
+              >
+                <ThemedIcon
+                  iconType='MaterialIcons'
+                  name={isFavouritePair ? 'star' : 'star-outline'}
+                  size={20}
+                  light={tailwind(
+                    isFavouritePair ? 'text-warning-500' : 'text-gray-600'
+                  )}
+                  dark={tailwind(
+                    isFavouritePair ? 'text-dfxyellow-500' : 'text-dfxgray-300'
+                  )}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+        <View>
+          {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
+            <APRSection
+              label={`${translate('screens/DexScreen', 'APR')}: `}
+              value={{
+                text: new BigNumber(
+                  isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
+                )
+                  .times(100)
+                  .toFixed(2),
+                decimalScale: 2,
+                testID: `apr_${symbol}`,
+                suffix: '%'
+              }}
+            />
           )}
         </View>
-        {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
-          <APRSection
-            label={`${translate('screens/DexScreen', 'APR')}: `}
-            value={{
-              text: new BigNumber(
-                isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
-              )
-                .times(100)
-                .toFixed(2),
-              decimalScale: 2,
-              testID: `apr_${symbol}`,
-              suffix: '%'
-            }}
-          />
-        )}
       </View>
       {type === 'available'
         ? (

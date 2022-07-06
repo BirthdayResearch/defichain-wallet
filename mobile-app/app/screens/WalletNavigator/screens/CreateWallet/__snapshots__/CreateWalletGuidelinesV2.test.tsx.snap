@@ -1,0 +1,433 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create wallet guidelines v2 should match snapshot 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 48,
+    }
+  }
+  style={
+    Array [
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+      },
+    ]
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": 136,
+            "width": 200,
+          }
+        }
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraRegular",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+              "marginTop": 28,
+              "paddingLeft": 12,
+              "paddingRight": 12,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.
+    </Text>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "rgba(204, 204, 204, 1)",
+          "borderBottomWidth": 0,
+          "borderLeftColor": "rgba(204, 204, 204, 1)",
+          "borderRightColor": "rgba(204, 204, 204, 1)",
+          "borderTopColor": "rgba(204, 204, 204, 1)",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginTop": 8,
+          "opacity": 1,
+        }
+      }
+      testID="recovery_words_faq"
+    >
+      <Text />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "lineHeight": 20,
+                "paddingLeft": 6,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Learn more
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "marginTop": 48,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "display": "flex",
+            "flexDirection": "row",
+            "marginBottom": 12,
+            "marginTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderBottomLeftRadius": 9999,
+                "borderBottomRightRadius": 9999,
+                "borderTopLeftRadius": 9999,
+                "borderTopRightRadius": 9999,
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 24,
+                "justifyContent": "center",
+                "marginTop": 4,
+                "width": 24,
+              },
+              Object {
+                "backgroundColor": "rgba(89, 89, 89, 1)",
+              },
+            ]
+          }
+        >
+          <Text />
+        </View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginLeft": 16,
+                },
+                Object {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Write the words on paper. Take note of their correct spelling and order.
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "display": "flex",
+            "flexDirection": "row",
+            "marginBottom": 12,
+            "marginTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderBottomLeftRadius": 9999,
+                "borderBottomRightRadius": 9999,
+                "borderTopLeftRadius": 9999,
+                "borderTopRightRadius": 9999,
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 24,
+                "justifyContent": "center",
+                "marginTop": 4,
+                "width": 24,
+              },
+              Object {
+                "backgroundColor": "rgba(89, 89, 89, 1)",
+              },
+            ]
+          }
+        >
+          <Text />
+        </View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginLeft": 16,
+                },
+                Object {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "display": "flex",
+            "flexDirection": "row",
+            "marginTop": 12,
+          }
+        }
+      >
+        <View
+          accessibilityRole="checkbox"
+          accessibilityState={
+            Object {
+              "checked": false,
+              "disabled": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "borderColor": "#657786",
+                "borderRadius": 2,
+                "borderWidth": 2,
+                "height": 20,
+                "width": 20,
+              },
+              Object {
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "height": 24,
+                "marginTop": 4,
+                "width": 24,
+              },
+              false,
+              false,
+              undefined,
+              false,
+            ]
+          }
+          testID="guidelines_check"
+        />
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "borderBottomWidth": 0,
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 12,
+                    "fontWeight": "400",
+                    "lineHeight": 16,
+                    "marginLeft": 16,
+                  },
+                  Object {
+                    "color": "rgba(89, 89, 89, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(140, 140, 140, 1)",
+          "borderRadius": 26,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginLeft": 28,
+          "marginRight": 28,
+          "marginTop": 48,
+          "opacity": 1,
+          "paddingBottom": 14,
+          "paddingLeft": 14,
+          "paddingRight": 14,
+          "paddingTop": 14,
+        }
+      }
+      testID="create_recovery_words_button"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Object {
+              "color": "rgba(242, 242, 242, 1)",
+              "fontFamily": "SoraSemiBold",
+              "fontWeight": "600",
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Create wallet
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

@@ -156,6 +156,7 @@ export const wallet = createSlice({
     builder.addCase(fetchPoolPairs.fulfilled, (state, action: PayloadAction<DexItem[]>) => {
       state.hasFetchedPoolpairData = true
       state.poolpairs = action.payload
+        .filter(({ data }) => !data.symbol.includes('/v1')) // Filter out v1 pairs due to stock split
     })
     builder.addCase(fetchDexPrice.fulfilled, (state, action: PayloadAction<{dexPrices: DexPricesProps, denomination: string}>) => {
       state.dexPrices = { ...state.dexPrices, [action.payload.denomination]: action.payload.dexPrices }
@@ -164,7 +165,7 @@ export const wallet = createSlice({
       state.hasFetchedToken = true
       state.tokens = action.payload.tokens.map(setTokenSymbol)
       state.utxoBalance = action.payload.utxoBalance
-      state.allTokens = associateTokens(action.payload.allTokens)
+      state.allTokens = associateTokens(action.payload.allTokens.filter(token => !token.symbol.includes('/v1'))) // Filter out v1 tokens due to stock split
     })
     builder.addCase(fetchSwappableTokens.fulfilled, (state, action: PayloadAction<AllSwappableTokensResult>) => {
       state.hasFetchedSwappableTokens = true

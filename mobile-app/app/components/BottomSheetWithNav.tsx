@@ -15,7 +15,9 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getDefaultTheme } from '@constants/Theme'
 import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
 import { theme } from '../tailwind.config'
-import { CreateOrEditAddressLabelFormProps } from '@screens/AppNavigator/screens/Balances/components/CreateOrEditAddressLabelForm'
+import { CreateOrEditAddressLabelFormProps } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm'
+import { getDefaultThemeV2 } from '@constants/ThemeV2'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -90,8 +92,10 @@ export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps 
 
 const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
   const { isLight } = useThemeContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
-  DeFiChainTheme.colors.background = theme.extend.colors.dfxblue[800]
+  DeFiChainTheme.colors.background = theme.extend.colors.dfxblue[800] // TODO (thabrad) check if still needed
+  const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight)
   const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
   const screenOptions = useMemo<StackNavigationOptions>(
     () => ({
@@ -108,7 +112,7 @@ const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
   )
 
   return (
-    <NavigationContainer independent theme={DeFiChainTheme}>
+    <NavigationContainer independent theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}>
       <BottomSheetWithNavStack.Navigator screenOptions={screenOptions}>
         {props.screenList.map(screen => (
           <BottomSheetWithNavStack.Screen

@@ -48,29 +48,20 @@ export const useLoanPaymentTokenRate = (props: {
   }, props.loanTokenBalance, tokens, DUSDToken, isDUSDPaymentEnabled)
 
   const getPaymentPenalty = (paymentTokenSymbol: string): BigNumber => {
-    const paymentTokenActivePriceInUSD = getActivePrice(paymentTokenSymbol ?? '', paymentTokenActivePrices[`${paymentTokenSymbol}-USD`] ?? undefined)
-
     const hasPenalty = paymentTokenSymbol === 'DFI' || (paymentTokenSymbol === 'DUSD' && props.loanToken.symbol !== 'DUSD')
     if (!hasPenalty) {
       return new BigNumber(0)
     }
 
-    const conversionRate = paymentTokenSymbol === props.loanToken.symbol || paymentTokenSymbol === 'DUSD'
-      ? new BigNumber(1)
-      : new BigNumber(props.loanTokenAmountActivePriceInUSD).div(paymentTokenActivePriceInUSD)
-    const penaltyOfOutstandingBalance = props.outstandingBalance.div(0.99).minus(props.outstandingBalance)
-    const penaltyOfAmountToPay = props.amountToPay.div(0.99).minus(props.amountToPay)
+    const penaltyFee = props.loanToken.displaySymbol === 'DUSD' && paymentTokenSymbol === 'DFI' ? 0.05 : 0.01
+    const penaltyOfOutstandingBalance = props.outstandingBalance.multipliedBy(penaltyFee)
+    const penaltyOfAmountToPay = props.amountToPay.multipliedBy(penaltyFee)
 
     if (paymentTokenSymbol === props.loanToken.symbol) {
-      const cappedPenalty = BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
-      return cappedPenalty
+      return BigNumber.max(BigNumber.min(penaltyOfOutstandingBalance, penaltyOfAmountToPay), 0)
     }
 
-    const penaltyOfOutstandingBalanceInPaymentToken = penaltyOfOutstandingBalance.multipliedBy(conversionRate)
-    const penaltyOfAmountToPayInPaymentToken = penaltyOfAmountToPay.multipliedBy(conversionRate)
-    const cappedPenaltyInPaymentToken = BigNumber.max(BigNumber.min(penaltyOfAmountToPayInPaymentToken, penaltyOfOutstandingBalanceInPaymentToken), 0)
-
-    return cappedPenaltyInPaymentToken
+    return BigNumber.max(BigNumber.min(penaltyOfAmountToPay, penaltyOfOutstandingBalance), 0)
   }
 
   const getPaymentTokens = (): GetAmountProps => {

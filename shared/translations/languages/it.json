@@ -5,6 +5,7 @@
     "Display recovery words": "Mostra le parole di ripristino",
     "Verify words": "Verfica le parole",
     "Restore Wallet": "Ripristina il wallet",
+    "Restore wallet": "Ripristina il wallet",
     "Create a passcode": "Crea una password",
     "Verify passcode": "Verifica la password",
     "Select network": "Seleziona la rete",
@@ -13,8 +14,7 @@
     "Refresh recovery words": "Aggiorna le parole di ripristino",
     "You are about to generate a new set of recovery words. Continue?": "Stai per generare un nuovo set di parole di ripristino. Vuoi continuare?",
     "Passcode FAQ": "Password FAQ",
-    "DEX FAQ": "FAQ DEX",
-    "Liquidity Mining FAQ": "FAQ liquidity mining"
+    "DEX FAQ": "FAQ DEX"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Exchange Decentralizzato",
@@ -66,7 +66,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Scambia comodamente i token nel Liquidity Pool.",
     "You have full control over your tokens unlike any other.": "Solo tu hai il pieno controllo dei tuoi token."
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "Saldo",
     "Portfolio": "Portafoglio",
     "SEND": "INVIA",
@@ -373,8 +373,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Il tasso d'interesse totale applicato su un prestito si ottiene prendendo il tasso d'interesse del vault + il tasso d'interesse del token, ed è calcolato su base annua.",
     "What is collateral factor?": "Cos'è il fattore di collateralizzazione?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Il fattore di collateralizzazione determina il grado di contributo di ogni token collateralizzato. Per esempio, se un token è accettato al 70% di collateralizzazione, 100 dollari del token contribuiranno a 70 dollari di valore collaterale nel vault.",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "Perché c'è una penale dell’1% quando pago i prestiti di DUSD in DFI??",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Per il DFIP 2112-A, ogni prestito di DUSD sarà pagabile con DFI come modo per risolvere il sovrapprezzo di DUSD attualmente riscontrabile sul DEX.\n\nUna volta calcolato l’equivalente in DFI da pagare per il prestito di DUSD, una penale dell’1% è applicata al valore DFI/DUSD dell’oracolo. Per esempio, se il prezzo dell’oracolo DFI/DUSD oggi è di $10, il valore di una DFI per un pagamento di DUSD, è calcolato prendendo $10 * (1 - 0,01), riducendo in tale scenario effettivamente il valore di DFI dell'1% a $9,90.",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "Perché c'è una penale dell’5% quando pago i prestiti di DUSD in DFI??",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Per il DFIP 2206-C, ogni prestito di DUSD sarà pagabile con DFI come modo per risolvere il sovrapprezzo di DUSD attualmente riscontrabile sul DEX.\n\nUna volta calcolato l’equivalente in DFI da pagare per il prestito di DUSD, una penale dell’5% è applicata al valore DFI/DUSD dell’oracolo. Per esempio, se il prezzo dell’oracolo DFI/DUSD oggi è di $10, il valore di una DFI per un pagamento di DUSD, è calcolato prendendo $10 * (1 - 0,05), riducendo in tale scenario effettivamente il valore di DFI dell'5% a $9,50.",
     "What is vault share?": "Cos'è un vault share?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "un vault share del vault rappresenta la proporzione di token collaterali depositati in un vault. È richiesto che tutti i vault contengano almeno il 50% di DFI e/o DUSD come token collaterali. Questo requisito viene controllato in 2 occasioni - quando stai coniando nuovi dTokens e quando ritiri il collaterale dal tuo vault."
   },
@@ -518,7 +518,11 @@
     "Verify what you wrote as correct.": "Verifica che ciò che hai scritto sia corretto.",
     "Answer the questions to proceed.": "Rispondi alle domande per procedere.",
     "VERIFY": "VERIFICA",
-    "What is word ": "Cos'è la parola "
+    "What is word ": "Cos'è la parola ",
+    "{{number}}st": "{{number}}st",
+    "{{number}}nd": "{{number}}nd",
+    "{{number}}rd": "{{number}}rd",
+    "{{number}}th": "{{number}}th"
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Cancellare le modifiche?",
@@ -811,7 +815,11 @@
     "Recovery": "Recupera",
     "Verify": "Verifica",
     "Secure": "Assicura",
-    "Restore": "Ripristina"
+    "Restore": "Ripristina",
+    "RECOVERY": "RECUPERA",
+    "VERIFY": "VERIFICA",
+    "SECURE": "ASSICURA",
+    "RESTORE": "RIPRISTINA"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "LINGUA",
@@ -860,7 +868,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Codice di accesso",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Il tuo codice numerico di sei cifre, da te impostato, sarà usato per autorizzare tutte le transazioni. Mantieni il tuo codice di accesso privato e sicuro. Sei responsabile della tua sicurezza.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Cosa succede se ho dimenticato il mio codice di accesso? Qualcuno può aiutarmi a recuperare il mio codice di accesso?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Il tuo codice di accesso è una tua responsabilità, quindi nessuno, a parte te, lo conosce. È importante che tu tenga il tuo codice di accesso al sicuro e che lo cambi di tanto in tanto.",
     "Can I change my passcode?": "Posso cambiare il mio codice di accesso?",
@@ -1135,12 +1143,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "Indirizzo del Wallet"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "Nessun token di liquidità nel portafoglio",
     "No Crypto in portfolio": "Nessuna Crypto nel portafoglio",
-    "No dTokens in portfolio": "Nessun dTokens in portafoglio"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "Nessun dTokens in portafoglio",
     "Empty portfolio": "Portafoglio vuoto"
   },
   "components/DfxEmptyWallet": {
@@ -1248,7 +1254,7 @@
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} Risultante",
     "Insufficient {{token}} to pay for the entered amount": "Insufficiente {{token}} per pagare l'importo inserito",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Viene applicata una tassa dell'1% quando si paga con {{tokenSymbol}}.",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "Viene applicata una tassa dell'5% quando si paga con {{tokenSymbol}}.",
     "Read more": "Leggi di più",
     "How do you want to pay?": "Come vuoi pagare?",
     "You are paying": "Stai pagando",
@@ -1464,6 +1470,12 @@
     "The amount will be refunded automatically if the transaction does not go through.": "L'importo sarà rimborsato automaticamente se la transazione non va a buon fine.",
     "Future Swap": "Future Swap"
   },
+  "screens/ServiceProviderScreen": {
+    "Custom": "Personalizza",
+    "CONTINUE": "CONTINUA",
+    "Enter passcode to continue": "Inserisci il codice di accesso per continuare"
+
+  },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
     "Insufficient amount to place a bid": "Importo insufficiente per fare un'offerta",
@@ -1484,7 +1496,7 @@
     "{{tokenB}} price in {{tokenA}}": "Prezzo {{tokenB}} in {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Versione {{number}}"
+    "VERSION {{number}}": "VERSIONE {{number}}"
   },
   "components/DfxKycInfo": {
     "Your account needs to get verified once your daily transaction volume exceeds 900 € per day.  If you want to increase daily trading limit, please complete our KYC (Know-Your-Customer) process.": "L'account deve essere verificato quando il volume delle transazioni giornaliere supera i 900 €.  Se si desidera aumentare il limite di trading giornaliero, si prega di completare il processo KYC (Know-Your-Customer)"
@@ -1529,5 +1541,8 @@
   },
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "Si prega di notare che attualmente è possibile vendere solo DFI UTXO. Puoi scambiare token DFI facendo clic qui."
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Continue": "Continua"
   }
 }

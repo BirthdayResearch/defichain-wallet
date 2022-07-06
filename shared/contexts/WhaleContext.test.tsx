@@ -3,6 +3,8 @@ import { Text, View } from 'react-native'
 import { useWhaleApiClient, WhaleProvider } from './WhaleContext'
 import * as NetworkContext from './NetworkContext'
 import { EnvironmentNetwork } from '@environment'
+import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
+import { ServiceProviderPersistence } from '@api/wallet/service_provider'
 
 const networkContext = jest.spyOn(NetworkContext, 'useNetworkContext')
 
@@ -70,9 +72,11 @@ describe('Whale Context test', () => {
         }
 
         const rendered = render(
-          <WhaleProvider>
-            <WhaleProviderComponent />
-          </WhaleProvider>
+          <StoreServiceProvider api={ServiceProviderPersistence}>
+            <WhaleProvider>
+              <WhaleProviderComponent />
+            </WhaleProvider>
+          </StoreServiceProvider>
         )
         expect(rendered.toJSON()).toMatchSnapshot()
       })

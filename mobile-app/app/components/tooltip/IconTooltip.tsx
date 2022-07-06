@@ -48,7 +48,7 @@ export function IconTooltip (props: IconTooltipProps): JSX.Element {
         dark={tailwind('text-white')}
         testID='icon-tooltip-text'
       >
-        {translate('screens/BalancesScreen', 'This icon indicates that the price is provided by Oracles instead of the DEX')}
+        {translate('screens/PortfolioScreen', 'This icon indicates that the price is provided by Oracles instead of the DEX')}
       </ThemedText>
     </Popover>
   )
