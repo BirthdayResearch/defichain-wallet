@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -385,15 +386,16 @@ export function WalletNavigator (): JSX.Element {
     <NavigationContainer
       linking={LinkingConfiguration}
       ref={navigationRef}
-      theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}
+      theme={DeFiChainTheme} // isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}
     >
-      {isFeatureAvailable('onboarding_v2')
+      {/* {isFeatureAvailable('onboarding_v2')
         ? (
           <WalletStacksV2 />
         )
         : (
           <WalletStacks />
-        )}
+        )} */}
+      <WalletStacks />
     </NavigationContainer>
   )
 }

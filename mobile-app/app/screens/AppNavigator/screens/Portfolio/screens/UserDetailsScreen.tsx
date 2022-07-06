@@ -263,9 +263,9 @@ export function UserDetailsScreen ({
       // accountType: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".PERSONAL,
       // address: '',
       mail: getValues(Fields.mail),
-      mobileNumber: getValues(Fields.phone),
-      language: {} as Language,
-      usedRef: ''
+      mobileNumber: getValues(Fields.phone)
+      // language: {} as Language,
+      // usedRef: ''
       // status: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".NA,
       // kycStatus: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".NA,
       // kycState: "/Users/david/Documents/DEV/DFX/wallet/shared/api/dfx/models/User".NA,
@@ -279,17 +279,17 @@ export function UserDetailsScreen ({
     setloadingText('SENDING')
     putKycData((kycData))
       .then((x) => {
-        void (async () => await DFXPersistence.setUserInfoComplete())()
-        // navigation.reset()
-        navigation.popToTop()
-        navigation.navigate('Sell')
-
         putUser(userData)
           .then(() => {})
           .catch((error) => WalletAlert(error))
           .finally(() => {
             setIsLoading(false)
             setloadingText('SUCCESS')
+
+            void (async () => await DFXPersistence.setUserInfoComplete())()
+
+            navigation.popToTop()
+            navigation.navigate('Sell')
           })
       })
       .catch((error) => WalletAlert(error))
