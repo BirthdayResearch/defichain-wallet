@@ -23,7 +23,7 @@ import { DexFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/DexFaqV2
 import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaqV2'
 import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
 
-export interface SettingsParamListV2 {
+export interface SettingsParamList {
   SettingsScreen: undefined
   CommunityScreen: undefined
   RecoveryWordsScreen: { words: string[] }
@@ -35,10 +35,10 @@ export interface SettingsParamListV2 {
   [key: string]: undefined | object
 }
 
-const SettingsStack = createStackNavigator<SettingsParamListV2>()
+const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigatorV2 (): JSX.Element {
-  const navigationV2 = useNavigation<NavigationProp<SettingsParamListV2>>()
+  const navigationV2 = useNavigation<NavigationProp<SettingsParamList>>()
 
   const goToNetworkSelect = (): void => {
     navigationV2.navigate('NetworkDetails')

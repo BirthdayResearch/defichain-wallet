@@ -9,7 +9,7 @@ import {
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { SettingsParamList } from '../SettingsNavigator'
+import { SettingsParamList } from '../SettingsNavigatorV2'
 
 type Props = StackScreenProps<SettingsParamList, 'KnowledgeBaseScreen'>
 
