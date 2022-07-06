@@ -30,6 +30,27 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
         windows: 'https://blog.defichain.com/dex-stabilization-fee/',
         macos: 'https://blog.defichain.com/dex-stabilization-fee/'
       }
+    },
+    {
+      lang: {
+        en: 'There is currently a high DEX stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.',
+        de: 'Derzeit wird eine hohe DEX-Stabilisierungsgebühr bei Tausch von DUSD-DFI aufgrund von DFIP 2206-D erhoben.',
+        'zh-Hans': '由于社区提案 DFIP 2206-D，目前对 DUSD - DFI 兑换征收高额的 Dex 稳定费。',
+        'zh-Hant': '由於社區提案 DFIP 2206-D，目前對 DUSD - DFI 兌換徵收高額的 Dex 穩定費。',
+        fr: 'Il existe actuellement une taxe de stabilisation du DEX élevée imposée sur les échanges DUSD-DFI en raison du DFIP 2206-D.',
+        es: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.',
+        it: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.'
+      },
+      version: '>=100.0.0',
+      type: 'SCAN',
+      id: '12',
+      url: {
+        ios: 'https://blog.defichain.com/dex-stabilization-fee/',
+        android: 'https://blog.defichain.com/dex-stabilization-fee/',
+        web: 'https://blog.defichain.com/dex-stabilization-fee/',
+        windows: 'https://blog.defichain.com/dex-stabilization-fee/',
+        macos: 'https://blog.defichain.com/dex-stabilization-fee/'
+      }
     }
   ])
 }
