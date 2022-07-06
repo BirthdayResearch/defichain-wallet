@@ -62,7 +62,6 @@ export function TransactionAuthorization (): JSX.Element | null {
   const dispatch = useAppDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
   const authentication = useSelector((state: RootState) => state.authentication.authentication)
-
   const [transactionStatus, setTransactionStatus] = useState<TransactionStatus>(TransactionStatus.INIT)
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(MAX_PASSCODE_ATTEMPT)
   const [pin, setPin] = useState<string>('')
@@ -339,13 +338,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   return (
     <PasscodePrompt
       onCancel={onCancel}
-      title={
-        title !== undefined
-        ? translate('screens/UnlockWallet', title)
-        : transaction === undefined
-          ? translate('screens/UnlockWallet', 'Sign to verify access')
-          : translate('screens/TransactionAuthorization', 'Sign Transaction')
-      }
+      title={title !== undefined ? translate('screens/UnlockWallet', title) : translate('screens/TransactionAuthorization', 'Sign Transaction')}
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
       status={transactionStatus}
