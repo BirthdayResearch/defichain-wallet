@@ -31,8 +31,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'dfi_loan_payment',
       name: 'DFI Loan Payment',
-      stage: 'public',
-      version: '<1.14.3',
+      stage: 'alpha',
+      version: '<1.0.0',
       description: 'DFI Loan Payment',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
