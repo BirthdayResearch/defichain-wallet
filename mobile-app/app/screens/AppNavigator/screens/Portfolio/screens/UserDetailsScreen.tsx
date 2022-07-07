@@ -151,7 +151,7 @@ export function UserDetailsScreen ({
         } catch (error) {
           logger.info(JSON.stringify(error))
         }
-        number = (typeof number !== 'boolean') ?? false
+        number = (typeof number !== 'boolean') ? false : number
         return number ?? false
       }
     ).required()
