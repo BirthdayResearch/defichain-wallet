@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DEX FAQ V2 screen should match snapshot 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 32,
+    }
+  }
+  style={
+    Array [
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+      },
+    ]
+  }
+  testID="dex_faq"
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraRegular",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
+            Object {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.
+    </Text>
+    <RCTScrollView
+      style={
+        Array [
+          undefined,
+          Object {
+            "backgroundColor": "rgba(242, 242, 242, 1)",
+          },
+        ]
+      }
+      testID="dex_faq_accordian"
+    >
+      <View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 32,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          text="FREQUENTLY ASKED QUESTIONS"
+        >
+          FREQUENTLY ASKED QUESTIONS
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "borderBottomLeftRadius": 8,
+                "borderBottomRightRadius": 8,
+                "borderTopLeftRadius": 8,
+                "borderTopRightRadius": 8,
+                "marginTop": 8,
+                "overflow": "hidden",
+              },
+              Object {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+              },
+            ]
+          }
+        >
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": true,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      false,
+                      Object {
+                        "paddingBottom": 4,
+                      },
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Transaction fees
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="auto"
+              style={Object {}}
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        Object {
+                          "borderBottomWidth": 1,
+                        },
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      false,
+                      false,
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  What is slippage tolerance?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        false,
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Due to the dynamic nature of the blockchain, prices on the DEX change every block.
+
+This results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.
+
+The slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.
+
+If the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTScrollView>
+`;
