@@ -41,7 +41,8 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const { language } = useLanguageContext()
   const languages = getAppLanguages()
-  const selectedLanguage = languages.find(item => language === item.locale)
+
+  const selectedLanguage = languages.find(languageItem => language?.startsWith(languageItem.locale))
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
