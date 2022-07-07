@@ -730,7 +730,6 @@
     "Review and confirm transaction in the next screen": "Rivedi e conferma la transazione nella prossima schermata",
     "Choose token for swap": "Scegli il token per lo scambio",
     "Choose token to swap": "Scegli il token da scambiare",
-    "Enter an amount": "Inserisci un importo",
     "{{token}} tokens converted": "{{token}} token convertiti",
     "Select token": "Seleziona il token",
     "UTXO to be converted": "UTXO da convertire",
@@ -749,6 +748,7 @@
     "Est. time remaining": "Tempo rimanente stimato",
     "Settlement block": "Blocco di regolamento",
     "To be confirmed": "Da confermare",
+    "Enter an amount": "Inserisci un importo",
     "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})"
   },
   "screens/ConfirmCompositeSwapScreen": {

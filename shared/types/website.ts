@@ -27,7 +27,7 @@ export interface AnnouncementData {
    * `id` will be stored in device's persistence storage. Therefore, each announcement's `id` should be unique string to enable close announcement function
    */
   id?: string
-  type: 'EMERGENCY' | 'OTHER_ANNOUNCEMENT' | 'OUTAGE'
+  type: 'EMERGENCY' | 'OTHER_ANNOUNCEMENT' | 'OUTAGE' | 'SCAN'
 }
 
 export interface FeatureFlag {
