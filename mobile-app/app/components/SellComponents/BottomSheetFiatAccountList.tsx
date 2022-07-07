@@ -51,6 +51,15 @@ export const BottomSheetFiatAccountList = ({
     }
   }, [])
 
+  const filterEnabled = (sellRouteList: SellRoute[]): SellRoute[] => {
+    return sellRouteList?.filter((item) => {
+      return item.active
+    })
+  }
+
+  const filteredList = filterEnabled(fiatAccounts)
+  const [accountList, setAccountList] = useState(filteredList)
+
   const setFiatAccountCreateBottomSheet = React.useCallback((accounts: SellRoute[]) => { // TODO: remove accounts?
     setBottomSheetScreen([
       {
@@ -61,7 +70,8 @@ export const BottomSheetFiatAccountList = ({
           onCloseButtonPress: () => dismissModal(),
           onElementCreatePress: async (item): Promise<void> => {
             if (item.iban !== undefined) {
-              fiatAccounts.push(item)
+              filteredList.push(item)
+              setAccountList(filteredList)
             }
             dismissModal()
           }
@@ -72,18 +82,10 @@ export const BottomSheetFiatAccountList = ({
       }])
   }, [fiatAccounts])
 
-  const filterEnabled = (sellRouteList: SellRoute[]): SellRoute[] => {
-    return sellRouteList?.filter((item) => {
-      return item.active
-    })
-  }
-
-  const filteredList = filterEnabled(fiatAccounts)
-
   return (
     <>
       <FlatList
-        data={filteredList}
+        data={accountList}
         renderItem={({ item }: { item: SellRoute }): JSX.Element => {
           return (
             <ThemedTouchableOpacity
