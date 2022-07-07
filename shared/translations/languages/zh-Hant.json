@@ -806,7 +806,11 @@
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易",
     "Sign to verify access": "簽下以確認使用",
-    "Success!": "成功！"
+    "Success!": "成功！",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "簽下交易",

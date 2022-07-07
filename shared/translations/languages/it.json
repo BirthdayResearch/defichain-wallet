@@ -825,7 +825,11 @@
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Please enter passcode to securely sign your transaction": "Inserisci il codice di accesso per firmare in modo sicuro la tua transazione",
     "Sign to verify access": "Firma per verificare l'accesso",
-    "Success!": "Fatto!"
+    "Success!": "Fatto!",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Firma la transazione",

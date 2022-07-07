@@ -101,14 +101,14 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   style={tailwind('px-8 text-sm text-center')}
                 >
                   {(() => {
-                    if(props.status === TransactionStatus.SIGNING && props.attemptsRemaining === props.maxPasscodeAttempt) {
-                      return props.loadingMessage
+                    if (props.status === TransactionStatus.SIGNING && props.attemptsRemaining === props.maxPasscodeAttempt) {
+                      return translate('screens/UnlockWallet', props.loadingMessage)
                     }
 
-                    if(props.status === TransactionStatus.AUTHORIZED) {
-                      return props.grantedAccessMessage.title
+                    if (props.status === TransactionStatus.AUTHORIZED) {
+                      return translate('screens/UnlockWallet', props.grantedAccessMessage.title)
                     }
-                    if(!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) return props.message
+                    if (!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) return translate('screens/UnlockWallet', props.message)
                   })()}
                 </ThemedTextV2>
                 {

@@ -801,7 +801,11 @@
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Please enter passcode to securely sign your transaction": "Gib bitte das Passwort ein, um die Transaktion freizugeben",
     "Sign to verify access": "Freigeben, um den Zugriff zu bestätigen",
-    "Success!": "Erfolgreich!"
+    "Success!": "Erfolgreich!",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",

@@ -805,7 +805,11 @@
     "Enter passcode to continue": "输入密码后可继续",
     "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易",
     "Sign to verify access": "签下以确认使用",
-    "Success!": "成功！"
+    "Success!": "成功！",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "签下交易",

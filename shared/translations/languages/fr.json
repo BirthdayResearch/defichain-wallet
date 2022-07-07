@@ -813,7 +813,11 @@
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code d'accès pour autoriser votre transaction en toute sécurité.",
     "Sign to verify access": "Autoriser pour vérifier l'accès",
-    "Success!": "Succès!"
+    "Success!": "Succès!",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
