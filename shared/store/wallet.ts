@@ -1,4 +1,3 @@
-
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { AllSwappableTokensResult, PoolPairData, DexPrice } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -9,6 +8,7 @@ import BigNumber from 'bignumber.js'
 interface AssociatedToken {
   [key: string]: TokenData
 }
+
 export interface SwappableTokens {
   [key: string]: AllSwappableTokensResult
 }
@@ -22,7 +22,7 @@ export interface WalletState {
   tokens: WalletToken[]
   allTokens: AssociatedToken
   poolpairs: DexItem[]
-  dexPrices: {[symbol: string]: DexPricesProps }
+  dexPrices: { [symbol: string]: DexPricesProps }
   swappableTokens: SwappableTokens
   hasFetchedPoolpairData: boolean
   hasFetchedToken: boolean
@@ -110,33 +110,56 @@ const associateTokens = (tokens: TokenData[]): AssociatedToken => {
 
 export const fetchPoolPairs = createAsyncThunk(
   'wallet/fetchPoolPairs',
-  async ({ size = 200, client }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
+  async ({
+    size = 200,
+    client
+  }: { size?: number, client: WhaleApiClient }): Promise<DexItem[]> => {
     const pairs = await client.poolpairs.list(size)
-    return pairs.map(data => ({ type: 'available', data }))
+    return pairs.map(data => ({
+      type: 'available',
+      data
+    }))
   }
 )
 
 export const fetchDexPrice = createAsyncThunk(
   'wallet/fetchDexPrice',
-  async ({ client, denomination }: { size?: number, client: WhaleApiClient, denomination: string }): Promise<{dexPrices: DexPricesProps, denomination: string}> => {
+  async ({
+    client,
+    denomination
+  }: { size?: number, client: WhaleApiClient, denomination: string }): Promise<{ dexPrices: DexPricesProps, denomination: string }> => {
     const { dexPrices } = await client.poolpairs.listDexPrices(denomination)
-    return { dexPrices, denomination }
+    return {
+      dexPrices,
+      denomination
+    }
   }
 )
 
 export const fetchTokens = createAsyncThunk(
   'wallet/fetchTokens',
-  async ({ size = 200, address, client }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
+  async ({
+    size = 200,
+    address,
+    client
+  }: { size?: number, address: string, client: WhaleApiClient }): Promise<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }> => {
     const tokens = await client.address.listToken(address, size)
     const allTokens = await client.tokens.list(size)
     const utxoBalance = await client.address.getBalance(address)
-    return { tokens, utxoBalance, allTokens }
+    return {
+      tokens,
+      utxoBalance,
+      allTokens
+    }
   }
 )
 
 export const fetchSwappableTokens = createAsyncThunk(
   'wallet/swappableTokens',
-  async ({ client, fromTokenId }: {
+  async ({
+    client,
+    fromTokenId
+  }: {
     client: WhaleApiClient
     fromTokenId: string
   }): Promise<AllSwappableTokensResult> => {
@@ -158,8 +181,11 @@ export const wallet = createSlice({
       state.poolpairs = action.payload
         .filter(({ data }) => !data.symbol.includes('/v1')) // Filter out v1 pairs due to stock split
     })
-    builder.addCase(fetchDexPrice.fulfilled, (state, action: PayloadAction<{dexPrices: DexPricesProps, denomination: string}>) => {
-      state.dexPrices = { ...state.dexPrices, [action.payload.denomination]: action.payload.dexPrices }
+    builder.addCase(fetchDexPrice.fulfilled, (state, action: PayloadAction<{ dexPrices: DexPricesProps, denomination: string }>) => {
+      state.dexPrices = {
+        ...state.dexPrices,
+        [action.payload.denomination]: action.payload.dexPrices
+      }
     })
     builder.addCase(fetchTokens.fulfilled, (state, action: PayloadAction<{ tokens: AddressToken[], allTokens: TokenData[], utxoBalance: string }>) => {
       state.hasFetchedToken = true
@@ -194,17 +220,23 @@ const rawTokensSelector = createSelector((state: WalletState) => state.tokens, (
 })
 
 export const tokensSelector = createSelector([rawTokensSelector, (state: WalletState) => state.utxoBalance], (tokens, utxoBalance) => {
-  const utxoAmount = new BigNumber(utxoBalance)
-  const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
-  return tokens.map((t) => {
-    if (t.id === '0_utxo') {
-      return { ...t, amount: utxoAmount.toFixed(8) }
-    } else if (t.id === '0_unified') {
-      return { ...t, amount: utxoAmount.plus(tokenAmount).toFixed(8) }
-    }
-    return t
-  })
-}
+    const utxoAmount = new BigNumber(utxoBalance)
+    const tokenAmount = new BigNumber((tokens.find(t => t.id === '0') ?? tokenDFI).amount)
+    return tokens.map((t) => {
+      if (t.id === '0_utxo') {
+        return {
+          ...t,
+          amount: utxoAmount.toFixed(8)
+        }
+      } else if (t.id === '0_unified') {
+        return {
+          ...t,
+          amount: utxoAmount.plus(tokenAmount).toFixed(8)
+        }
+      }
+      return t
+    })
+  }
 )
 
 export const DFITokenSelector = createSelector(tokensSelector, tokens => {
@@ -244,6 +276,6 @@ export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState)
 /**
  * Get dexprices by currency denomination
  */
- export const dexPricesSelectorByDenomination = createSelector([(state: WalletState) => state.dexPrices, selectTokenId], (dexPrices, denomination) => {
+export const dexPricesSelectorByDenomination = createSelector([(state: WalletState) => state.dexPrices, selectTokenId], (dexPrices, denomination) => {
   return dexPrices[denomination] ?? {}
 })

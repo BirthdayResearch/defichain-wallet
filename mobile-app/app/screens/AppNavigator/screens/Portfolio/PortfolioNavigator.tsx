@@ -35,6 +35,8 @@ import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -110,6 +112,7 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>()
 export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
+  const { isFeatureAvailable } = useFeatureFlagContext()
   return (
     <PortfolioStack.Navigator
       initialRouteName='PortfolioScreen'
@@ -118,7 +121,7 @@ export function PortfolioNavigator (): JSX.Element {
       }}
     >
       <PortfolioStack.Screen
-        component={SettingsNavigator}
+        component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
         name={translate('PortfolioNavigator', 'Settings')}
         options={{
           headerShown: false

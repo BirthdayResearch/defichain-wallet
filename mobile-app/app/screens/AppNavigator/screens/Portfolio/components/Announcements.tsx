@@ -88,7 +88,10 @@ export function Announcements (): JSX.Element {
   }
 
   return (
-    <AnnouncementBanner announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement} testID='announcements_banner' />
+    <AnnouncementBanner
+      announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement}
+      testID='announcements_banner'
+    />
   )
 }
 
@@ -107,7 +110,8 @@ export function AnnouncementBanner ({
   const icons: { [key in AnnouncementData['type']]: IconProps<any>['name'] } = {
     EMERGENCY: 'warning',
     OTHER_ANNOUNCEMENT: 'campaign',
-    OUTAGE: 'warning'
+    OUTAGE: 'warning',
+    SCAN: 'campaign'
   }
   const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
 

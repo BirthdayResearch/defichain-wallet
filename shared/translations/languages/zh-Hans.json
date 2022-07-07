@@ -338,7 +338,8 @@
     "UTXO vs Token": "UTXO和代币区别",
     "Loans": "贷款",
     "Auctions": "清算拍卖",
-    "Liquidity Mining": "流动性挖矿"
+    "Liquidity Mining": "流动性挖矿",
+    "Liquidity mining": "流动性挖矿"
   },
   "components/LoansFaq": {
     "Loans FAQ": "贷款常见问题",
@@ -759,7 +760,8 @@
     "Enter an amount": "请输入数量",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 稳定费费用较高，您确定要继续进行兑换将 DUSD 换成 DFI 吗？",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?"
+    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",

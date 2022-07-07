@@ -1,0 +1,899 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Liquidity Mining V2 FAQ screen should match snapshot 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 32,
+    }
+  }
+  style={
+    Array [
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+      },
+    ]
+  }
+  testID="liquidity_mining_faq"
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraRegular",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
+            Object {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.
+    </Text>
+    <RCTScrollView
+      style={
+        Array [
+          undefined,
+          Object {
+            "backgroundColor": "rgba(242, 242, 242, 1)",
+          },
+        ]
+      }
+      testID="recovery_words_faq_accordion"
+    >
+      <View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 32,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+          text="FREQUENTLY ASKED QUESTIONS"
+        >
+          FREQUENTLY ASKED QUESTIONS
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "borderBottomLeftRadius": 8,
+                "borderBottomRightRadius": 8,
+                "borderTopLeftRadius": 8,
+                "borderTopRightRadius": 8,
+                "marginTop": 8,
+                "overflow": "hidden",
+              },
+              Object {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+              },
+            ]
+          }
+        >
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": true,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      false,
+                      Object {
+                        "paddingBottom": 4,
+                      },
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  How do I supply liquidity?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="auto"
+              style={Object {}}
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        Object {
+                          "borderBottomWidth": 1,
+                        },
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.
+
+Once an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      Object {
+                        "borderBottomWidth": 1,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  How do I send tokens from my DFI wallet?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        false,
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.
+
+Similarly, liquidity tokens can only be sent to another DFI wallet address.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      Object {
+                        "borderBottomWidth": 1,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  What are some exchanges and platforms I can send to?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        false,
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      1. Kucoin
+2. Bittrex
+3. Transak
+4. Cake DeFi
+
+View more at DeFiChain.com
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      Object {
+                        "borderBottomWidth": 1,
+                      },
+                      false,
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Can I send liquidity pool tokens to an exchange or another entity?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        false,
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={Object {}}
+          >
+            <View
+              accessibilityState={
+                Object {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Array [
+                    Array [
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      false,
+                      false,
+                    ],
+                    Object {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  How do I receive tokens on my DFI wallet?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="none"
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={Object {}}
+              >
+                <View
+                  style={
+                    Array [
+                      Array [
+                        Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        false,
+                      ],
+                      Object {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.
+
+Note that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTScrollView>
+`;
