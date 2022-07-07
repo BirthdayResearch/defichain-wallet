@@ -32,9 +32,9 @@ import { KycData } from '@shared-api/dfx/models/KycData'
 import { AccountType, User, UserDetail } from '@shared-api/dfx/models/User'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
-import { Language } from '@shared-api/dfx/models/Language'
-import { WalletAlert } from '@components/WalletAlert'
+import { WalletAlert, WalletAlertErrorApi } from '@components/WalletAlert'
 import PNF, { PhoneNumberUtil } from 'google-libphonenumber'
+import isEmailValidator from 'validator/lib/isEmail'
 
 type Props = StackScreenProps<PortfolioParamList, 'UserDetailsScreen'>
 
@@ -125,7 +125,16 @@ export function UserDetailsScreen ({
     houseNumber: yup.string().max(12).required(),
     zip: yup.string().max(12).required(),
     location: yup.string().required(),
-    mail: yup.string().email().required(),
+    // mail: yup.string().email().required(), // old faulty validation
+    mail: yup
+      .string()
+      .email('Invalid email format')
+      .required('Mail is required')
+      .test(
+        'is-valid', (message) =>
+          `${message.path} is invalid`, (value) =>
+            (value != null) ? isEmailValidator(value) : new yup.ValidationError('Invalid value')),
+
     phone: yup.string().test(
       'phone number check',
       'Phone number is not valid',
@@ -280,10 +289,7 @@ export function UserDetailsScreen ({
     putKycData((kycData))
       .then((x) => {
         putUser(userData)
-          .then(() => {})
-          .catch((error) => WalletAlert(error))
-          .finally(() => {
-            setIsLoading(false)
+          .then(() => {
             setloadingText('SUCCESS')
 
             void (async () => await DFXPersistence.setUserInfoComplete())()
@@ -291,8 +297,13 @@ export function UserDetailsScreen ({
             navigation.popToTop()
             navigation.navigate('Sell')
           })
+          .catch((error) =>
+            WalletAlertErrorApi(error))
+          .finally(() => {
+            setIsLoading(false)
+          })
       })
-      .catch((error) => WalletAlert(error))
+      .catch((error) => WalletAlertErrorApi(error))
       .finally(() => setIsLoading(false))
   }
 

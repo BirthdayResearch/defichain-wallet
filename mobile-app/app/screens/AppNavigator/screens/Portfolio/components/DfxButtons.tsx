@@ -79,11 +79,11 @@ export function DfxButtons (): JSX.Element {
         // if not, retrieve from API
         void (async () => {
           // (2) from API
-          const userdetail = await getUserDetail()
+          const userDetail = await getUserDetail()
           // persist result to STORE
-          await DFXPersistence.setUserInfoComplete(userdetail.kycDataComplete)
+          await DFXPersistence.setUserInfoComplete(userDetail.kycDataComplete)
           // navigate based on BackendData result
-          navigateSell(userdetail.kycDataComplete)
+          navigateSell(userDetail.kycDataComplete)
         })()
       }
     })()
