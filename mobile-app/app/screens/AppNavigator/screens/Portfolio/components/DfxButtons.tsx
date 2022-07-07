@@ -32,13 +32,7 @@ export function DfxButtons (): JSX.Element {
   const { language } = useLanguageContext()
   const { openDfxServices } = useDFXAPIContext()
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-  /**
-     * 3 Status for @param loadKycInfo / @param setLoadKycInfo:
-     * (1) undefined --> status not yet retrieved
-     * (2) true --> retrieving from Store (or API) --> result to STORE + isKycInfo
-     * (3) false --> retrieved from Store (or API) --> check result
-     * @returns boolean
-     */
+
   const [isLoadingKycInfo, setIsLoadingKycInfo] = useState<boolean>()
 
   async function onOverviewButtonPress (): Promise<void> {
