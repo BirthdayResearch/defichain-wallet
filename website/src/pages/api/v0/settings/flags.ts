@@ -31,8 +31,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'dfi_loan_payment',
       name: 'DFI Loan Payment',
-      stage: 'public',
-      version: '<1.14.3',
+      stage: 'alpha',
+      version: '<1.0.0',
       description: 'DFI Loan Payment',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
@@ -90,6 +90,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       stage: 'public',
       version: '>0.0.0',
       description: 'There are high fees in DUSD and DFI as of the moment',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'setting_v2',
+      name: 'Setting 2.0',
+      stage: 'alpha',
+      version: '>1.14.3',
+      description: 'Display redesigned Setting flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }

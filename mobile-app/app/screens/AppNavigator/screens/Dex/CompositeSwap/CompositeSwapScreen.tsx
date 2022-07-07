@@ -51,7 +51,7 @@ import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { WalletAlert } from '@components/WalletAlert'
 import { AnnouncementBanner } from '../../Portfolio/components/Announcements'
-import { useDexStabilization } from '../hook/DexStabilization'
+import { DexStabilizationType, useDexStabilization } from '../hook/DexStabilization'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export enum ButtonGroupTabKey {
@@ -122,6 +122,8 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
   const [isFutureSwap, setIsFutureSwap] = useState(false)
+  const [dexStabilizationFee, setDexStabilizationFee] = useState<string | undefined>(undefined)
+
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const {
     timeRemaining,
@@ -146,7 +148,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext()
   const isDexStabilizationEnabled = isFeatureAvailable('dusd_dfi_high_fee')
-  const { dexStabilizationAnnouncement, dexStabilizationType } = useDexStabilization(selectedTokenA, selectedTokenB)
+  const {
+    dexStabilizationAnnouncement,
+    dexStabilizationType
+  } = useDexStabilization(selectedTokenA, selectedTokenB)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -268,6 +273,15 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error)
+  }, [])
+
+  //* Calculate DEX Stabilization fee
+  useEffect(() => {
+    const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === 'DUSD-DFI')
+    if (dusdDFIPair !== undefined) {
+      const fee = dusdDFIPair.data.tokenA.fee?.pct
+      setDexStabilizationFee(fee !== undefined ? new BigNumber(fee).times(100).toFixed(2) : undefined)
+    }
   }, [])
 
   useEffect(() => {
@@ -657,6 +671,9 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
               timeRemaining={timeRemaining}
               transactionDate={transactionDate}
               oraclePriceText={oraclePriceText}
+              isDexStabilizationEnabled={isDexStabilizationEnabled}
+              dexStabilizationType={dexStabilizationType}
+              dexStabilizationFee={dexStabilizationFee}
             />
           </>}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (
@@ -792,7 +809,10 @@ function TransactionDetailsSection ({
   executionBlock,
   timeRemaining,
   transactionDate,
-  oraclePriceText
+  oraclePriceText,
+  isDexStabilizationEnabled,
+  dexStabilizationType,
+  dexStabilizationFee
 }: {
   isFutureSwap: boolean
   conversionAmount: BigNumber
@@ -805,6 +825,9 @@ function TransactionDetailsSection ({
   timeRemaining: string
   transactionDate: string
   oraclePriceText: string
+  isDexStabilizationEnabled: boolean
+  dexStabilizationType: DexStabilizationType
+  dexStabilizationFee?: string
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext()
   const { getTokenPrice } = useTokenPrice()
@@ -906,6 +929,22 @@ function TransactionDetailsSection ({
         lhsThemedProps={rowStyle.lhsThemedProps}
         rhsThemedProps={rowStyle.rhsThemedProps}
       />
+      {
+        isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationFee !== undefined && (
+          <NumberRow
+            lhs={translate('screens/CompositeSwapScreen', 'DEX stabilization fee')}
+            rhs={{
+              value: dexStabilizationFee,
+              suffix: '%',
+              testID: 'dex_stab_fee',
+              suffixType: 'text'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+            lhsThemedProps={rowStyle.lhsThemedProps}
+            rhsThemedProps={rowStyle.rhsThemedProps}
+          />
+        )
+      }
     </View>
   )
 }

@@ -45,7 +45,7 @@ export function WalletAccordionV2 (props: AccordionProps): JSX.Element {
             <ThemedViewV2
               light={tailwind('border-mono-light-v2-300')}
               dark={tailwind('border-mono-dark-v2-300')}
-              style={[tailwind('mx-5 py-4 flex-row items-center justify-between'), !isActive && !isLastContent(index) && tailwind('border-b'), isActive && tailwind('pb-1')]}
+              style={[tailwind('mx-5 py-4 flex-row items-start justify-between'), !isActive && !isLastContent(index) && tailwind('border-b'), isActive && tailwind('pb-1')]}
             >
               <ThemedTextV2
                 style={tailwind(['text-sm flex-1 font-normal-v2', { 'font-semibold-v2': isActive }])}
@@ -75,7 +75,7 @@ export function WalletAccordionV2 (props: AccordionProps): JSX.Element {
               {prop.content.map(({ text, type }) => (
                 <View key={text} style={tailwind('flex-row justify-start')}>
                   {type === 'bullet' && (
-                    <ThemedTextV2 style={tailwind('w-1/12 font-bold-v2 text-sm')}>{'\u2022'}</ThemedTextV2>
+                    <ThemedTextV2 style={tailwind('w-1/12 text-center font-bold-v2 text-sm')}>{'\u2022'}</ThemedTextV2>
                   )}
                   <ThemedTextV2
                     key={text}
