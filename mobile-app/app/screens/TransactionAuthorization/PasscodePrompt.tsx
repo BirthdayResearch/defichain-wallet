@@ -69,7 +69,6 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         dark={tailwind('bg-mono-dark-v2-100')}
         style={tailwind('w-full flex-1 flex-col')}
       >
-
             <ThemedViewV2
               light={tailwind('bg-mono-light-v2-100')}
               dark={tailwind('bg-mono-dark-v2-100')}
@@ -95,29 +94,28 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               }
               <View style={tailwind('px-8 text-sm text-center mb-14 mt-4')}>
                   <ThemedTextV2
-                  testID='txn_authorization_message'
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('px-8 text-sm text-center')}
-                >
-                  {(() => {
-                    if (props.status === TransactionStatus.SIGNING && props.attemptsRemaining === props.maxPasscodeAttempt) {
-                      return translate('screens/UnlockWallet', props.loadingMessage)
-                    }
-
-                    if (props.status === TransactionStatus.AUTHORIZED) {
-                      return translate('screens/UnlockWallet', props.grantedAccessMessage.title)
-                    }
-                    if (!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) return translate('screens/UnlockWallet', props.message)
-                  })()}
-                </ThemedTextV2>
+                    testID='txn_authorization_message'
+                    dark={tailwind('text-mono-dark-v2-700')}
+                    light={tailwind('text-mono-light-v2-700')}
+                    style={tailwind('px-8 text-sm text-center')}
+                  >
+                    {(() => {
+                      if (props.status === TransactionStatus.SIGNING && props.attemptsRemaining === props.maxPasscodeAttempt) {
+                        return translate('screens/UnlockWallet', props.loadingMessage)
+                      }
+                      if (props.status === TransactionStatus.AUTHORIZED) {
+                        return translate('screens/UnlockWallet', props.grantedAccessMessage.title)
+                      }
+                      if (!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) return translate('screens/UnlockWallet', props.message)
+                    })()}
+                  </ThemedTextV2>
                 {
                   props.transaction?.description !== undefined && (
                     <ThemedTextV2
                       testID='txn_authorization_description'
                       dark={tailwind('text-mono-dark-v2-700')}
                       light={tailwind('text-mono-light-v2-700')}
-                      style={tailwind('text-sm text-center mt-4')}
+                      style={tailwind('text-sm text-center')}
                     >
                       {props.transaction.description}
                     </ThemedTextV2>
@@ -139,7 +137,6 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                     )
                     : null
                 }
-
                 {// on first time: warn user there were accumulated error attempt counter
                   (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
                     ? (
