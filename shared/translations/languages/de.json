@@ -564,7 +564,7 @@
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit echten Guthaben ist Vorsicht geboten.",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {
