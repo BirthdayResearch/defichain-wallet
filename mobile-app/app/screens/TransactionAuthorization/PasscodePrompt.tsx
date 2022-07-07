@@ -78,10 +78,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               >
                 {props.title}
               </ThemedTextV2>
-
               {props.status === TransactionStatus.SIGNING &&  <ThemedActivityIndicatorV2 style={tailwind('py-4 my-1.5')} />}
               {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-
               {TransactionStatus.PIN &&
               <PinTextInputV2
                 cellCount={props.pinLength}
