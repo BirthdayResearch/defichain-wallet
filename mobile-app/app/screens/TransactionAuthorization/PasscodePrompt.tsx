@@ -40,19 +40,19 @@ interface PasscodePromptProps {
 }
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
-  const {isLight} = useThemeContext()
+  const { isLight } = useThemeContext()
   return (
     <>
       <ThemedTouchableOpacityV2
         light={tailwind('bg-mono-light-v2-100')}
         dark={tailwind('bg-mono-dark-v2-100')}
         onPress={() => props.onCancel(USER_CANCELED)}
-        style={[tailwind('items-end pt-6 pr-6'), {borderTopLeftRadius: 15, borderTopRightRadius: 15}]}
+        style={[tailwind('items-end pt-6 pr-6'), { borderTopLeftRadius: 15, borderTopRightRadius: 15 }]}
         testID='cancel_authorization'
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
         <View
-          style={[tailwind(`w-6 h-6 flex justify-center items-center rounded-full ${isLight ? 'border-mono-light-v2-900' : 'border-mono-dark-v2-900'}`), {borderWidth: 1.5}]}
+          style={[tailwind(`w-6 h-6 flex justify-center items-center rounded-full ${isLight ? 'border-mono-light-v2-900' : 'border-mono-dark-v2-900'}`), { borderWidth: 1.5 }]}
         >
           <ThemedIcon
             dark={tailwind('text-mono-dark-v2-900')}
@@ -69,45 +69,46 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         dark={tailwind('bg-mono-dark-v2-100')}
         style={tailwind('w-full flex-1 flex-col')}
       >
-            <ThemedViewV2
-              light={tailwind('bg-mono-light-v2-100')}
-              dark={tailwind('bg-mono-dark-v2-100')}
-            >
-              <ThemedTextV2
-                style={[tailwind('text-center font-normal-v2 px-16 pt-3.5'), {marginBottom: props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED  ? 76 : 0}]}
-              >
-                {props.title}
-              </ThemedTextV2>
-              {props.status === TransactionStatus.SIGNING &&  <ThemedActivityIndicatorV2 style={tailwind('py-4 my-1.5')} />}
-              {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-              {TransactionStatus.PIN &&
-              <PinTextInputV2
-                cellCount={props.pinLength}
-                onChange={(pin) => {
+        <ThemedViewV2
+          light={tailwind('bg-mono-light-v2-100')}
+          dark={tailwind('bg-mono-dark-v2-100')}
+        >
+          <ThemedTextV2
+            style={[tailwind('text-center font-normal-v2 px-16 pt-3.5'), { marginBottom: props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 76 : 0 }]}
+          >
+            {props.title}
+          </ThemedTextV2>
+          {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-4 my-1.5')} />}
+          {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
+          {props.status === TransactionStatus.PIN &&
+            <PinTextInputV2
+              cellCount={props.pinLength}
+              onChange={(pin) => {
                   props.onPinInput(pin)
                 }}
-                testID='pin_authorize'
-                value={props.pin}
-              />
-              }
-              <View style={tailwind('px-8 text-sm text-center mb-14 mt-4')}>
-                  <ThemedTextV2
-                    testID='txn_authorization_message'
-                    dark={tailwind('text-mono-dark-v2-700')}
-                    light={tailwind('text-mono-light-v2-700')}
-                    style={tailwind('px-8 text-sm text-center')}
-                  >
-                    {(() => {
+              testID='pin_authorize'
+              value={props.pin}
+            />}
+          <View style={tailwind('px-8 text-sm text-center mb-14 mt-4')}>
+            <ThemedTextV2
+              testID='txn_authorization_message'
+              dark={tailwind('text-mono-dark-v2-700')}
+              light={tailwind('text-mono-light-v2-700')}
+              style={tailwind('px-8 text-sm text-center')}
+            >
+              {(() => {
                       if (props.status === TransactionStatus.SIGNING && props.attemptsRemaining === props.maxPasscodeAttempt) {
                         return translate('screens/UnlockWallet', props.loadingMessage)
                       }
                       if (props.status === TransactionStatus.AUTHORIZED) {
                         return translate('screens/UnlockWallet', props.grantedAccessMessage.title)
                       }
-                      if (!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) return translate('screens/UnlockWallet', props.message)
+                      if (!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) {
+return translate('screens/UnlockWallet', props.message)
+}
                     })()}
-                  </ThemedTextV2>
-                {
+            </ThemedTextV2>
+            {
                   props.transaction?.description !== undefined && (
                     <ThemedTextV2
                       testID='txn_authorization_description'
@@ -119,7 +120,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                     </ThemedTextV2>
                   )
                 }
-                {// upon retry: show remaining attempt allowed
+            {// upon retry: show remaining attempt allowed
                   (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
                     ? (
                       <ThemedTextV2
@@ -135,7 +136,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                     )
                     : null
                 }
-                {// on first time: warn user there were accumulated error attempt counter
+            {// on first time: warn user there were accumulated error attempt counter
                   (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
                     ? (
                       <ThemedTextV2
@@ -151,8 +152,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                     )
                     : null
                 }
-              </View>
-            </ThemedViewV2>
+          </View>
+        </ThemedViewV2>
       </ThemedViewV2>
     </>
   )
@@ -222,7 +223,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <View
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`), {borderRadius: 15}]}
+          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`), { borderRadius: 15 }]}
         />
       )}
       onChange={(index) => {
@@ -244,17 +245,17 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 function SuccessIndicator (): JSX.Element {
   return (
     <View style={tailwind('flex flex-col items-center py-4 my-1.5')}>
-    <View
-      style={tailwind(`h-6 w-6 rounded-full flex justify-center items-center border bg-green-v2 border-green-v2`)}
-    >
-    <ThemedIcon
-      size={18}
-      name='check'
-      iconType='Feather'
-      dark={tailwind('text-mono-dark-v2-00')}
-      light={tailwind('text-mono-light-v2-00')}
-      />
+      <View
+        style={tailwind('h-6 w-6 rounded-full flex justify-center items-center border bg-green-v2 border-green-v2')}
+      >
+        <ThemedIcon
+          size={18}
+          name='check'
+          iconType='Feather'
+          dark={tailwind('text-mono-dark-v2-00')}
+          light={tailwind('text-mono-light-v2-00')}
+        />
+      </View>
     </View>
-    </View>
-    )
+  )
 }
