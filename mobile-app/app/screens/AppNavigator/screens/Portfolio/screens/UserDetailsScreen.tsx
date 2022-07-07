@@ -35,6 +35,7 @@ import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { WalletAlert, WalletAlertErrorApi } from '@components/WalletAlert'
 import PNF, { PhoneNumberUtil } from 'google-libphonenumber'
 import isEmailValidator from 'validator/lib/isEmail'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<PortfolioParamList, 'UserDetailsScreen'>
 
@@ -52,7 +53,7 @@ export function UserDetailsScreen ({
   navigation
 }: Props): JSX.Element {
   const logger = useLogger()
-  const { listFiatAccounts } = useDFXAPIContext()
+  const { address } = useWalletContext()
   const [iconClicked, setIconClicked] = useState(true)
 
   enum Fields {
@@ -145,7 +146,13 @@ export function UserDetailsScreen ({
         } catch (error) {
           logger.info(JSON.stringify(error))
         }
-        return phoneNumberUtil.isValidNumber(number as PNF.PhoneNumber)
+        try {
+          number = phoneNumberUtil.isValidNumber(number as PNF.PhoneNumber)
+        } catch (error) {
+          logger.info(JSON.stringify(error))
+        }
+        number = (typeof number !== 'boolean') ?? false
+        return number ?? false
       }
     ).required()
   }).required()
@@ -292,7 +299,7 @@ export function UserDetailsScreen ({
           .then(() => {
             setloadingText('SUCCESS')
 
-            void (async () => await DFXPersistence.setUserInfoComplete())()
+            void (async () => await DFXPersistence.setUserInfoComplete(address))()
 
             navigation.popToTop()
             navigation.navigate('Sell')

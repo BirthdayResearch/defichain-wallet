@@ -39,8 +39,7 @@ export function DfxButtons (): JSX.Element {
      * (3) false --> retrieved from Store (or API) --> check result
      * @returns boolean
      */
-  const [loadKycInfo, setLoadKycInfo] = useState<boolean>()
-  const [isKycInfo, setIsKycInfo] = useState<boolean>(false)
+  const [isLoadingKycInfo, setIsLoadingKycInfo] = useState<boolean>()
 
   async function onOverviewButtonPress (): Promise<void> {
     const url = `https://defichain-income.com/address/${encodeURIComponent(address)}`
@@ -59,29 +58,31 @@ export function DfxButtons (): JSX.Element {
 
   // update loading, set isKInfo state & navigate accordingly
   const navigateSell = (isKyc: boolean): void => {
-    setLoadKycInfo(false)
-    setIsKycInfo(isKyc)
+    setIsLoadingKycInfo(false)
     isKyc ? navigation.navigate('Sell') : navigation.navigate('UserDetails')
   }
 
   function checkUserProfile (): void {
-    // start loading UserInfoCompleted --> (1) from STORE --> (2) from API + store result
-    setLoadKycInfo(true)
+    // start loading UserInfoCompleted/KycDataComplete --> (1) from STORE --> (2) from API + store result
+    setIsLoadingKycInfo(true)
 
     void (async () => {
       // (1) from STORE
-      const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
+      const isUserDetailStored = await DFXPersistence.getUserInfoComplete(address)
 
       if (isUserDetailStored !== null && isUserDetailStored) {
-        // if stored navigate to Sell Screen
+        // if stored, navigate to Sell Screen
         navigateSell(true)
       } else {
         // if not, retrieve from API
         void (async () => {
           // (2) from API
           const userDetail = await getUserDetail()
+          userDetail.kycDataComplete = userDetail?.kycDataComplete ?? false
+
           // persist result to STORE
-          await DFXPersistence.setUserInfoComplete(userDetail.kycDataComplete)
+          await DFXPersistence.setUserInfoComplete(address, userDetail.kycDataComplete)
+
           // navigate based on BackendData result
           navigateSell(userDetail.kycDataComplete)
         })()
@@ -109,31 +110,8 @@ export function DfxButtons (): JSX.Element {
         es: BtnSellEs
       },
       onPress: () => {
-        // check kyc on app start
-        if (loadKycInfo === undefined) {
-          checkUserProfile()
-          return
-        }
-
-        // check cache
-        if (isKycInfo) {
-          navigateSell(true)
-          return
-        }
-
-        // if false: re-check (STORE), if kyc true: proceed to sell
-        if (!isKycInfo) {
-          // check if kyc status has changed meanwhile
-          void (async () => {
-            const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
-            if (isUserDetailStored !== null) {
-              // if stored navigate to Sell Screen
-              navigateSell(isUserDetailStored)
-            } else {
-              navigateSell(false)
-            }
-          })()
-        }
+        // check kycData
+        checkUserProfile()
       }
     },
     {
@@ -164,7 +142,7 @@ export function DfxButtons (): JSX.Element {
         .filter((b) => !(b.hide ?? false))
         .map((b, i) => (b.img.en === BtnSellEn) // loading spinner when loading userInfo
           ? (
-            <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} loading={loadKycInfo} />
+            <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} loading={isLoadingKycInfo} />
           )
           // add divider before/on 3rd button
           : (i === 2)

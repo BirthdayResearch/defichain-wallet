@@ -46,6 +46,7 @@ import { useConversion } from '@hooks/wallet/Conversion'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { DfxConversionInfo } from '@components/DfxConversionInfo'
+import { useWalletContext } from '@shared-contexts/WalletContext'
 
 type Props = StackScreenProps<PortfolioParamList, 'SellScreen'>
 
@@ -68,6 +69,7 @@ export function SellScreen ({
     trigger,
     watch
   } = useForm({ mode: 'onChange' })
+  const walletContext = useWalletContext()
   const { address } = watch()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const walletAddress = useSelector((state: RootState) => state.userPreferences.addresses)
@@ -91,6 +93,7 @@ export function SellScreen ({
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoadingKyc, setIsLoadingKyc] = useState(true)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 
   // Bottom sheet
@@ -137,7 +140,7 @@ export function SellScreen ({
   function checkUserProfile (): void {
     void (async () => {
       // (1) from STORE
-      const isUserDetailStored = await DFXPersistence.getUserInfoComplete()
+      const isUserDetailStored = await DFXPersistence.getUserInfoComplete(walletContext.address)
 
       if (isUserDetailStored === null || !isUserDetailStored) {
         // if not, retrieve from API
@@ -145,18 +148,24 @@ export function SellScreen ({
           // (2) from API
           const userDetail = await getUserDetail()
           // persist result to STORE
-          await DFXPersistence.setUserInfoComplete(userDetail.kycDataComplete)
+          await DFXPersistence.setUserInfoComplete(walletContext.address, userDetail.kycDataComplete)
           // navigate based on BackendData result
           if (!userDetail.kycDataComplete) {
             navigation.popToTop()
             navigation.navigate('UserDetails')
           }
+
+          // finished loading kycInfo
+          setIsLoadingKyc(false)
         })()
+      } else {
+        // finished loading kycInfo on Success
+        setIsLoadingKyc(false)
       }
     })()
   }
 
-  // load sell routes
+  // check kycInfo & load sell routes
   useEffect(() => {
     checkUserProfile()
 
@@ -383,7 +392,7 @@ export function SellScreen ({
             processingLabel={translate('screens/SellScreen', 'Transfer to your bank account')}
             onSubmit={onSubmit}
             title='sell_sell'
-            isProcessing={hasPendingJob || hasPendingBroadcastJob || isSubmitting}
+            isProcessing={hasPendingJob || hasPendingBroadcastJob || isSubmitting || isLoadingKyc}
             displayCancelBtn={false}
           />
         </View>
