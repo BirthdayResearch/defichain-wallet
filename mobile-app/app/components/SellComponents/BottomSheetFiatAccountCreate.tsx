@@ -269,6 +269,25 @@ function IbanInput ({
   onAmountChange,
   onClearButtonPress
 }: IbanForm): JSX.Element {
+  // TODO: (thabrad) activate if needed (-> if keyboard bug comes back 🤷‍♂️)
+  // const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
+  // const handleOnFocus = useCallback(
+  //   () => {
+  //     if (Platform.OS === 'ios') {
+  //       shouldHandleKeyboardEvents.value = true
+  //     }
+  //   },
+  //   [shouldHandleKeyboardEvents]
+  // )
+  // const handleOnBlur = useCallback(
+  //   () => {
+  //     if (Platform.OS === 'ios') {
+  //       shouldHandleKeyboardEvents.value = true
+  //     }
+  //   },
+  //   [shouldHandleKeyboardEvents]
+  // )
+
   return (
     <Controller
       control={control}
@@ -306,15 +325,13 @@ function IbanInput ({
               type: 'error',
               text: error?.message
             }}
+            // onBlur={handleOnBlur}
+            // onFocus={handleOnFocus}
           />
         </ThemedView>
       )}
       rules={{
         required: true,
-        // pattern: {
-        //   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        //   message: "invalid email address"
-        // },
         validate: {
           isValidAddress: (iban: string) => {
             return isValidIBAN(iban.replace(/\s/g, ''))
