@@ -94,8 +94,8 @@ export function encodeScope (text: string): string {
 export enum AppLanguage {
   English = 'English',
   German = 'German',
-  ChineseSimplified = 'Chinese (Simplified)',
-  ChineseTraditional = 'Chinese (Traditional)',
+  ChineseSimplified = 'Simplified Chinese',
+  ChineseTraditional = 'Traditional Chinese',
   French = 'French',
   Spanish = 'Spanish',
   Italian = 'Italian'
