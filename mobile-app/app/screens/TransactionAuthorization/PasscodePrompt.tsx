@@ -94,7 +94,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   testID='txn_authorization_message'
                   dark={tailwind('text-mono-dark-v2-700')}
                   light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('px-8 text-sm text-center')}
+                  style={tailwind('px-8 text-sm text-center font-normal-v2')}
                 >
                   {translate('screens/UnlockWallet', props.grantedAccessMessage.title)}
                 </ThemedTextV2>
@@ -108,7 +108,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                 testID='txn_authorization_message'
                 dark={tailwind('text-mono-dark-v2-700')}
                 light={tailwind('text-mono-light-v2-700')}
-                style={tailwind('px-8 text-sm text-center')}
+                style={tailwind('px-8 text-sm text-center font-normal-v2')}
               >
                 {translate('screens/UnlockWallet', props.loadingMessage)}
               </ThemedTextV2>
@@ -120,7 +120,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   testID='txn_authorization_message'
                   dark={tailwind('text-mono-dark-v2-700')}
                   light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('px-8 text-sm text-center')}
+                  style={tailwind('px-8 text-sm text-center font-normal-v2')}
                 >
                   {translate('screens/UnlockWallet', props.message)}
                 </ThemedTextV2>
@@ -133,7 +133,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   testID='txn_authorization_description'
                   dark={tailwind('text-mono-dark-v2-700')}
                   light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('text-sm text-center')}
+                  style={tailwind('text-sm text-center font-normal-v2')}
                 >
                   {props.transaction.description}
                 </ThemedTextV2>
@@ -145,7 +145,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                       <ThemedTextV2
                         dark={tailwind('text-red-v2')}
                         light={tailwind('text-red-v2')}
-                        style={tailwind('text-center text-sm')}
+                        style={tailwind('text-center text-sm font-normal-v2')}
                         testID='pin_attempt_error'
                       >
                         {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
@@ -161,7 +161,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                       <ThemedTextV2
                         dark={tailwind('text-red-v2')}
                         light={tailwind('text-red-v2')}
-                        style={tailwind('text-center text-sm')}
+                        style={tailwind('text-center text-sm font-normal-v2')}
                         testID='pin_attempt_warning'
                       >
                         {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
