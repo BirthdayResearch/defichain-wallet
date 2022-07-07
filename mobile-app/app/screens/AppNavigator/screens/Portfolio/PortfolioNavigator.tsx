@@ -121,7 +121,7 @@ export function PortfolioNavigator (): JSX.Element {
       }}
     >
       <PortfolioStack.Screen
-        component={isFeatureAvailable('onboarding_v2') ? SettingsNavigatorV2 : SettingsNavigator}
+        component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
         name={translate('PortfolioNavigator', 'Settings')}
         options={{
           headerShown: false

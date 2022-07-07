@@ -51,7 +51,7 @@ export function KnowledgeBaseScreenV2 ({ navigation }: Props): JSX.Element {
       onPress: () => navigation.navigate('RecoveryWordsFaq')
     },
     {
-      label: 'UTXO vs Token',
+      label: 'UTXOs vs. Tokens',
       testID: 'utxo_and_token_faq',
       onPress: () => navigation.navigate('TokensVsUtxo')
     }
@@ -65,7 +65,7 @@ export function KnowledgeBaseScreenV2 ({ navigation }: Props): JSX.Element {
     >
       <ThemedSectionTitleV2
         testID='knowledge_base_title'
-        text={translate('screens/KnowledgeBase', 'LEARN ABOUT')}
+        text={translate('screens/KnowledgeBase', 'LEARN MORE')}
       />
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}

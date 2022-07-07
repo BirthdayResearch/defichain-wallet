@@ -51,9 +51,9 @@ exports[`knowledge base V2 screen should render 1`] = `
         ]
       }
       testID="knowledge_base_title"
-      text="LEARN ABOUT"
+      text="LEARN MORE"
     >
-      LEARN ABOUT
+      LEARN MORE
     </Text>
     <View
       style={
@@ -471,7 +471,7 @@ exports[`knowledge base V2 screen should render 1`] = `
             ]
           }
         >
-          UTXO vs Token
+          UTXOs vs. Tokens
         </Text>
         <Text />
       </View>
