@@ -93,7 +93,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                 value={props.pin}
               />
               }
-              <View style={tailwind('px-8 text-sm text-center mb-14 mt-5')}>
+              <View style={tailwind('px-8 text-sm text-center mb-14 mt-4')}>
                   <ThemedTextV2
                   testID='txn_authorization_message'
                   dark={tailwind('text-mono-dark-v2-700')}
@@ -117,7 +117,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                       testID='txn_authorization_description'
                       dark={tailwind('text-mono-dark-v2-700')}
                       light={tailwind('text-mono-light-v2-700')}
-                      style={tailwind('text-sm text-center')}
+                      style={tailwind('text-sm text-center mt-4')}
                     >
                       {props.transaction.description}
                     </ThemedTextV2>
@@ -146,7 +146,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                       <ThemedTextV2
                         dark={tailwind('text-red-v2')}
                         light={tailwind('text-red-v2')}
-                        style={tailwind('text-center text-sm font-bold')}
+                        style={tailwind('text-center text-sm')}
                         testID='pin_attempt_warning'
                       >
                         {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
@@ -194,7 +194,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
               bottom: 0,
               left: 0,
               backgroundColor: 'black',
-              opacity: 0.3
+              opacity: 0.6
             }}
             />
           )}
@@ -222,7 +222,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       snapPoints={getSnapPoints()}
       handleComponent={null}
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
-        <View {...backdropProps} style={[backdropProps.style, tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'} bg-black bg-opacity-60`)]} />
+        <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <View
