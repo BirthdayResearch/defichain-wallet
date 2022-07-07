@@ -4,10 +4,10 @@ import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { TransactionsParamList } from './TransactionsNavigator'
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 
 interface EmptyTransactionProps {
-  navigation: NavigationProp<TransactionsParamList>
+  navigation: NavigationProp<PortfolioParamList>
   handleRefresh: (nextToken?: string | undefined) => void
   loadingStatus: string
 }

@@ -2,6 +2,8 @@ context('Wallet - Transaction - Detail', () => {
   before(() => {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet().wait(4000)
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('switch_account_button').click()
     cy.getByTestID('bottom_tab_transactions').click()
     cy.getByTestID('transaction_row_0').click()
   })
