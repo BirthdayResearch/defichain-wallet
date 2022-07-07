@@ -1,4 +1,4 @@
-import { Text } from 'react-native'
+import { Text, Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -39,9 +39,10 @@ export function BottomTabNavigator (): JSX.Element {
         screenOptions={{
           headerShown: false,
           tabBarLabelPosition: 'below-icon',
-          tabBarStyle: tailwind('px-5 py-2 h-16', { 'bg-mono-light-v2-00': isLight }, { 'bg-mono-dark-v2-00': !isLight }),
+          tabBarStyle: tailwind('px-5 py-2 h-16', { 'bg-mono-light-v2-00': isLight }, { 'bg-mono-dark-v2-00': !isLight }, { 'pt-1 pb-4 h-24': Platform.OS === 'ios' }),
           tabBarActiveTintColor: '#FF008C',
-          tabBarInactiveTintColor: isLight ? '#121212' : '#FFFFFF'
+          tabBarInactiveTintColor: isLight ? '#121212' : '#FFFFFF',
+          tabBarItemStyle: tailwind({ 'pb-4 pt-2': Platform.OS === 'ios' })
         }}
       >
         <BottomTab.Screen
@@ -62,7 +63,7 @@ export function BottomTabNavigator (): JSX.Element {
             }) => (
               <PortfolioIcon
                 color={color}
-                size={22}
+                size={24}
               />
             )
           }}
@@ -86,7 +87,7 @@ export function BottomTabNavigator (): JSX.Element {
             }) => (
               <DEXIcon
                 color={color}
-                size={22}
+                size={24}
               />
             )
           }}
@@ -110,7 +111,7 @@ export function BottomTabNavigator (): JSX.Element {
             }) => (
               <LoansIcon
                 color={color}
-                size={22}
+                size={24}
               />
             )
           }}
@@ -134,7 +135,7 @@ export function BottomTabNavigator (): JSX.Element {
             }) => (
               <AuctionsIcon
                 color={color}
-                size={22}
+                size={24}
               />
             )
           }}
