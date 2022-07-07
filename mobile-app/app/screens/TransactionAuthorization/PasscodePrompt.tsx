@@ -63,7 +63,6 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           />
         </View>
       </ThemedTouchableOpacityV2>
-
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-100')}
         dark={tailwind('bg-mono-dark-v2-100')}
@@ -80,48 +79,68 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           </ThemedTextV2>
           {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-4 my-1.5')} />}
           {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-          {props.status === TransactionStatus.PIN &&
-            <PinTextInputV2
-              cellCount={props.pinLength}
-              onChange={(pin) => {
+          <PinTextInputV2
+            cellCount={props.pinLength}
+            onChange={(pin) => {
                   props.onPinInput(pin)
                 }}
-              testID='pin_authorize'
-              value={props.pin}
-            />}
+            testID='pin_authorize'
+            value={props.pin}
+          />
           <View style={tailwind('px-8 text-sm text-center mb-14 mt-4')}>
-            <ThemedTextV2
-              testID='txn_authorization_message'
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
-              style={tailwind('px-8 text-sm text-center')}
-            >
-              {(() => {
-                      if (props.status === TransactionStatus.SIGNING && props.attemptsRemaining === props.maxPasscodeAttempt) {
-                        return translate('screens/UnlockWallet', props.loadingMessage)
-                      }
-                      if (props.status === TransactionStatus.AUTHORIZED) {
-                        return translate('screens/UnlockWallet', props.grantedAccessMessage.title)
-                      }
-                      if (!props.isRetry && props.attemptsRemaining === props.maxPasscodeAttempt) {
-return translate('screens/UnlockWallet', props.message)
-}
-                    })()}
-            </ThemedTextV2>
-            {
-                  props.transaction?.description !== undefined && (
-                    <ThemedTextV2
-                      testID='txn_authorization_description'
-                      dark={tailwind('text-mono-dark-v2-700')}
-                      light={tailwind('text-mono-light-v2-700')}
-                      style={tailwind('text-sm text-center')}
-                    >
-                      {props.transaction.description}
-                    </ThemedTextV2>
-                  )
-                }
+            {// show pin success message
+              props.status === TransactionStatus.AUTHORIZED &&
+                <ThemedTextV2
+                  testID='txn_authorization_message'
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  style={tailwind('px-8 text-sm text-center')}
+                >
+                  {translate('screens/UnlockWallet', props.grantedAccessMessage.title)}
+                </ThemedTextV2>
+
+            }
+
+            {// show loading message
+              props.status === TransactionStatus.SIGNING &&
+            (
+              <ThemedTextV2
+                testID='txn_authorization_message'
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                style={tailwind('px-8 text-sm text-center')}
+              >
+                {translate('screens/UnlockWallet', props.loadingMessage)}
+              </ThemedTextV2>
+            )
+            }
+            {// show default message
+              (!props.isRetry && props.status !== TransactionStatus.AUTHORIZED && props.status !== TransactionStatus.SIGNING) &&
+                <ThemedTextV2
+                  testID='txn_authorization_message'
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  style={tailwind('px-8 text-sm text-center')}
+                >
+                  {translate('screens/UnlockWallet', props.message)}
+                </ThemedTextV2>
+
+            }
+            {// hide description when passcode is incorrect or verified.
+            (props.transaction?.description !== undefined && !props.isRetry && props.status !== TransactionStatus.AUTHORIZED) &&
+              (
+                <ThemedTextV2
+                  testID='txn_authorization_description'
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  style={tailwind('text-sm text-center')}
+                >
+                  {props.transaction.description}
+                </ThemedTextV2>
+              )
+            }
             {// upon retry: show remaining attempt allowed
-                  (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
+                  (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING)
                     ? (
                       <ThemedTextV2
                         dark={tailwind('text-red-v2')}
@@ -137,7 +156,7 @@ return translate('screens/UnlockWallet', props.message)
                     : null
                 }
             {// on first time: warn user there were accumulated error attempt counter
-                  (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt)
+                  (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING)
                     ? (
                       <ThemedTextV2
                         dark={tailwind('text-red-v2')}
