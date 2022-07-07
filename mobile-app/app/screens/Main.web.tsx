@@ -18,7 +18,9 @@ export function Main (): JSX.Element {
   const env = getEnvironment(getReleaseChannel())
   const { isLight } = useThemeContext()
   const DeFiChainTheme: Theme = getDefaultTheme(isLight)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isFeatureAvailable } = useFeatureFlagContext()
 
   return (
@@ -30,7 +32,8 @@ export function Main (): JSX.Element {
 
         {env.name !== EnvironmentName.Production && (
           <View style={[styles.phone, tailwind('bg-white ml-2')]}>
-            <NavigationContainer theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}>
+            {/* <NavigationContainer theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}> */}
+            <NavigationContainer theme={DeFiChainTheme}>
               <PlaygroundNavigator />
             </NavigationContainer>
           </View>

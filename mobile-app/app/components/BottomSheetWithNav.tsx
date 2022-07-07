@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo } from 'react'
 import * as React from 'react'
 import {
@@ -112,7 +113,8 @@ const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
   )
 
   return (
-    <NavigationContainer independent theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}>
+    // <NavigationContainer independent theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}>
+    <NavigationContainer independent theme={DeFiChainTheme}>
       <BottomSheetWithNavStack.Navigator screenOptions={screenOptions}>
         {props.screenList.map(screen => (
           <BottomSheetWithNavStack.Screen

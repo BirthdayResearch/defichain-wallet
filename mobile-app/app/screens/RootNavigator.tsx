@@ -27,6 +27,7 @@ export function RootNavigator (): JSX.Element {
     isLoaded
   } = useWalletPersistenceContext()
 
+  // TODO: (thabrad) reactivate ads
   // DFX advertisement display
   // const [skipped, setSkipped] = useState(false)
   // const { showAd, counter, adUrl } = useShowAdvertisement()

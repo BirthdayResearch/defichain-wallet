@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as Linking from 'expo-linking'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { Theme } from '@react-navigation/native/lib/typescript/src/types'
@@ -28,7 +29,8 @@ export function AppNavigator (): JSX.Element {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}
+      // theme={isFeatureAvailable('onboarding_v2') ? DeFiChainThemeV2 : DeFiChainTheme}
+      theme={DeFiChainTheme}
     >
       <App.Navigator screenOptions={{ headerShown: false }}>
         <App.Screen
