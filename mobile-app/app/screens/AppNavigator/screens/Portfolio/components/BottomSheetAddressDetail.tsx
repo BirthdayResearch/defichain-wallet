@@ -34,6 +34,7 @@ interface BottomSheetAddressDetailProps {
   address: string
   addressLabel: string
   onReceiveButtonPress: () => void
+  onTransactionsButtonPress: () => void
   onCloseButtonPress: () => void
   navigateToScreen: {
     screenName: string
@@ -296,7 +297,10 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           )
         }
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
-        <AddressDetailAction address={props.address} onReceivePress={props.onReceiveButtonPress} />
+        <AddressDetailAction
+          onReceivePress={props.onReceiveButtonPress}
+          onTransactionsButtonPress={props.onTransactionsButtonPress}
+        />
         <View style={tailwind('mt-8 flex flex-row items-center justify-between w-full')}>
           <View style={tailwind('flex flex-row items-center justify-start')}>
             <WalletCounterDisplay addressLength={addressLength} />
@@ -331,33 +335,47 @@ function ActiveAddress ({
   address,
   onPress
 }: { address: string, onPress: () => void }): JSX.Element {
+  const { getAddressUrl } = useDeFiScanContext()
   return (
-    <ThemedTouchableOpacity
-      style={tailwind('mb-4 mt-2 rounded-2xl py-1 px-2 w-5/12')}
-      light={tailwind('bg-gray-50')}
-      dark={tailwind('bg-gray-900')}
-      onPress={onPress}
-    >
-      <ThemedText
-        ellipsizeMode='middle'
-        style={tailwind('text-sm')}
-        light={tailwind('text-black')}
-        dark={tailwind('text-white')}
-        numberOfLines={1}
-        testID='active_address'
+    <View style={tailwind('flex-row items-center')}>
+      <ThemedTouchableOpacity
+        style={tailwind('mb-4 mt-2 rounded-2xl py-1 px-2 w-5/12')}
+        light={tailwind('bg-gray-50')}
+        dark={tailwind('bg-gray-900')}
+        onPress={onPress}
       >
-        {address}
-      </ThemedText>
-    </ThemedTouchableOpacity>
+        <ThemedText
+          ellipsizeMode='middle'
+          style={tailwind('text-sm')}
+          light={tailwind('text-black')}
+          dark={tailwind('text-white')}
+          numberOfLines={1}
+          testID='active_address'
+        >
+          {address}
+        </ThemedText>
+      </ThemedTouchableOpacity>
+      <TouchableOpacity
+        onPress={async () => await openURL(getAddressUrl(address))}
+        style={tailwind('mb-2 ml-1 bg-transparent')}
+      >
+        <ThemedIcon
+          size={16}
+          name='open-in-new'
+          dark={tailwind('text-darkprimary-500')}
+          light={tailwind('text-primary-500')}
+          style={tailwind('font-normal')}
+          iconType='MaterialIcons'
+        />
+      </TouchableOpacity>
+    </View>
   )
 }
 
 function AddressDetailAction ({
-  address,
-  onReceivePress
-}: { address: string, onReceivePress: () => void }): JSX.Element {
-  const { getAddressUrl } = useDeFiScanContext()
-
+  onReceivePress,
+  onTransactionsButtonPress
+}: { onReceivePress: () => void, onTransactionsButtonPress: () => void }): JSX.Element {
   return (
     <View style={tailwind('flex flex-row justify-center')}>
       <IconButton
@@ -370,13 +388,14 @@ function AddressDetailAction ({
         textStyle={tailwind('pt-0.5')}
       />
       <IconButton
-        iconLabel={translate('components/BottomSheetAddressDetail', 'VIEW ON SCAN')}
-        iconName='open-in-new'
+        iconLabel={translate('BottomTabNavigator', 'TRANSACTIONS')}
+        iconName='clock-outline'
         iconSize={18}
-        iconType='MaterialIcons'
-        style={tailwind('py-2 px-3 ml-1 w-5/12 flex-row justify-center')}
-        onPress={async () => await openURL(getAddressUrl(address))}
+        iconType='MaterialCommunityIcons'
+        style={tailwind('py-2 px-3 ml-1 flex-row justify-center')}
+        onPress={onTransactionsButtonPress}
         textStyle={tailwind('pt-0.5')}
+        testID='bottom_tab_transactions'
       />
     </View>
   )

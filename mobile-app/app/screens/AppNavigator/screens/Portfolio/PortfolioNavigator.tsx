@@ -37,6 +37,9 @@ import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
+import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
+import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
+import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -96,6 +99,10 @@ export interface PortfolioParamList {
     }
     fee: BigNumber
     executionBlock: number
+  }
+  TransactionsScreen: undefined
+  TransactionDetailScreen: {
+    tx: VMTransaction
   }
   [key: string]: undefined | object
 }
@@ -480,6 +487,34 @@ export function PortfolioNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           )
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={TransactionsScreen}
+        name='TransactionsScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsScreen', 'Transactions')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={TransactionDetailScreen}
+        name='TransactionDetail'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionDetailScreen', 'Transaction')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
     </PortfolioStack.Navigator>
