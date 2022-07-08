@@ -9,6 +9,7 @@ export interface PinTextInputItem {
   testID: string
   value: string
   onChange: (text: string) => void
+  style?: string // additional tailwind classes
 }
 
 export interface RenderCellItem {
@@ -17,7 +18,7 @@ export interface RenderCellItem {
   isFocused: boolean
 }
 
-export function PinTextInputV2 ({ cellCount, testID, value, onChange }: PinTextInputItem): JSX.Element {
+export function PinTextInputV2 ({ cellCount, testID, value, onChange, style }: PinTextInputItem): JSX.Element {
   const ref = useBlurOnFulfill({ value, cellCount })
   const { isLight } = useThemeContext()
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -37,7 +38,8 @@ export function PinTextInputV2 ({ cellCount, testID, value, onChange }: PinTextI
           !isLight && styles.borderColorDark,
           hasValue && isLight && styles.filledCellLight,
           hasValue && !isLight && styles.filledCellDark,
-          index === 0 && { marginLeft: 0 }
+          index === 0 && { marginLeft: 0 },
+          tailwind(`${style ?? ''}`)
         ]}
         testID={`${testID}_${index}`}
       />
