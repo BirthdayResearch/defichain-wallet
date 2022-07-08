@@ -50,7 +50,7 @@ export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { langua
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
     >
-      <View style={tailwind('flex flex-row mx-5 py-4 items-center justify-between border-b-0.5', { 'border-b-0': lastItem }, { 'border-mono-light-v2-300': isLight }, { 'border-mono-dark-v2-300': !isLight })}>
+      <View style={tailwind(`flex flex-row mx-5 py-4 items-center justify-between border-b-0.5 ${isLight ? 'border-mono-light-v2-300' : 'border-mono-dark-v2-300'}`, { 'border-b-0': lastItem })}>
         <View style={tailwind('flex flex-row items-center')}>
           <ThemedText testID='language_option' style={tailwind('font-normal')}>
             {languageItem.displayName}
@@ -66,7 +66,7 @@ export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { langua
             </ThemedText>}
         </View>
         <View
-          style={tailwind('p-px rounded-full', { 'bg-success-600': language.startsWith(languageItem.locale) }, { 'bg-mono-dark-v2-700 bg-opacity-30': !language.startsWith(languageItem.locale) })}
+          style={tailwind(`p-px rounded-full ${language.startsWith(languageItem.locale) ? 'bg-success-600' : 'bg-mono-dark-v2-700 bg-opacity-30'}`)}
         >
           <ThemedIcon
             iconType='MaterialIcons'
