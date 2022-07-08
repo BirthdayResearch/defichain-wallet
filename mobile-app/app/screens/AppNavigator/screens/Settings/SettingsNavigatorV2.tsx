@@ -1,9 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '@translations'
 import { AboutScreen } from './screens/AboutScreen'
-import { ChangePinScreen } from './screens/ChangePinScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
-import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkDetails } from './screens/NetworkDetails'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
@@ -22,6 +20,8 @@ import { RecoveryWordsFaqV2 } from '@screens/WalletNavigator/screens/CreateWalle
 import { DexFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/DexFaqV2'
 import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaqV2'
 import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
+import { ChangePinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ChangePinScreenV2'
+import { ConfirmPinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreenV2'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -96,19 +96,19 @@ export function SettingsNavigatorV2 (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={ChangePinScreen}
+        component={ChangePinScreenV2}
         name='ChangePinScreen'
         options={{
-          headerTitle: translate('screens/AboutScreen', 'Create new passcode'),
+          headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
           headerBackTitleVisible: false
         }}
       />
 
       <SettingsStack.Screen
-        component={ConfirmPinScreen}
+        component={ConfirmPinScreenV2}
         name='ConfirmPinScreen'
         options={{
-          headerTitle: translate('screens/ConfirmPinScreen', 'Verify passcode'),
+          headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
           headerBackTitleVisible: false
         }}
       />
