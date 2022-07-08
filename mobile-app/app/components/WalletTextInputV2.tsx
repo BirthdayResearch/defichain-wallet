@@ -19,6 +19,7 @@ interface IWalletTextInputProps {
   title?: string
   titleTestID?: string
   valid?: boolean
+  editable?: boolean
   inlineText?: {
     type: 'error' | 'helper'
     text?: string | JSX.Element
@@ -40,6 +41,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
     titleTestID,
     valid = true,
     inlineText,
+    editable = true,
     displayClearButton = false,
     onClearButtonPress,
     children,
@@ -94,15 +96,15 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
               setIsFocus(false)
             }}
             ref={ref}
-            editable
+            editable={editable}
             style={tailwind('font-normal-v2 flex-1 h-5')}
             selectionColor={getColor('brand-v2-500')}
             {...otherProps}
           />
           {displayTickIcon === true &&
             <MaterialIcons
-              size={18}
-              name='check'
+              size={16}
+              name='check-circle'
               iconType='MaterialIcons'
               style={tailwind('text-green-v2')}
               testID={props.testID !== undefined ? `${props.testID}_check_button` : undefined}
