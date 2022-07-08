@@ -116,7 +116,6 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
           valid={errMsg === ''}
           editable={isUnlocked}
           value={labelInput}
-          // defaultValue={labelInput}
           inputType='default'
           onChangeText={(_text: string) => {
             setLabelInput(_text)
@@ -127,7 +126,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
             validateInputlabel('')
           }}
           placeholder={translate('screens/ServiceProviderScreen', defaultUrl)}
-          style={tailwind('py-2.5')}
+          style={tailwind('font-normal-v2 flex-1 py-2.5')}
           containerStyle='flex-1'
           testID='endpoint_url_input'
           inlineText={{
@@ -155,7 +154,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
       </View>
       {isUnlocked && (
         <>
-          <View style={tailwind('mt-3 px-5 mb-6')}>
+          <View style={tailwind('mt-2 px-5 mb-6')}>
             <Text style={tailwind('text-orange-v2 font-normal-v2 text-xs')}>
               {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.')}
             </Text>
@@ -166,7 +165,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
       {isUnlocked && (
         <View style={tailwind('mt-48', { 'mt-36': isSmallScreen })}>
           <ButtonV2
-            styleProps='mx-7 mt-6'
+            styleProps='mx-7 mt-2'
             label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
             testID='button_submit'
             onPress={async () => await submitCustomServiceProvider()}

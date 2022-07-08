@@ -83,7 +83,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={ServiceProviderScreenV2}
         name='ServiceProviderScreen'
         options={{
-          headerTitle: translate('screens/ServiceProviderScreen', 'Service Provider')
+          headerTitle: translate('screens/ServiceProviderScreen', 'Provider')
         }}
       />
 

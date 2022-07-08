@@ -106,7 +106,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
               size={16}
               name='check-circle'
               iconType='MaterialIcons'
-              style={tailwind('text-green-v2')}
+              style={tailwind('text-green-v2 ml-1')}
               testID={props.testID !== undefined ? `${props.testID}_check_button` : undefined}
             />}
           {
@@ -149,7 +149,7 @@ export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, ic
   return (
     <TouchableOpacity
       testID={props.testID}
-      style={tailwind('flex flex-row items-center bg-transparent')}
+      style={tailwind('flex flex-row items-center bg-transparent ml-1')}
       onPress={props.onPress}
     >
       <ThemedIcon
