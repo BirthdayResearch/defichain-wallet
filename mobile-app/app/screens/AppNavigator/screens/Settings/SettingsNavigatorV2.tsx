@@ -7,7 +7,6 @@ import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkDetails } from './screens/NetworkDetails'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
-import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
 import { SettingsScreenV2 } from './SettingsScreenV2'
 import { KnowledgeBaseScreenV2 } from './screens/KnowledgeBaseScreenV2'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
@@ -22,6 +21,7 @@ import { RecoveryWordsFaqV2 } from '@screens/WalletNavigator/screens/CreateWalle
 import { DexFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/DexFaqV2'
 import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaqV2'
 import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
+import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -72,7 +72,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={RecoveryWordsScreen}
+        component={RecoveryWordsScreenV2}
         name='RecoveryWordsScreen'
         options={{
           headerTitle: translate('screens/Settings', 'Recovery Words')
