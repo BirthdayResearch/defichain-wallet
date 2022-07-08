@@ -69,7 +69,6 @@ export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { langua
             </ThemedText>}
         </View>
         <View
-          // style={tailwind(`p-px rounded-full ${language.startsWith(languageItem.locale) ? 'bg-success-600' : isLight ? 'bg-mono-light-v2-700 bg-opacity-30' : 'bg-mono-dark-v2-700 bg-opacity-30'}`)}
           style={tailwind(`p-px rounded-full ${language.startsWith(languageItem.locale) ? checkActive : checkInactive}`)}
         >
           <ThemedIcon
