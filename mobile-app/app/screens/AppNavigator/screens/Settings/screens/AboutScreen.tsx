@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import { TouchableOpacity, View } from 'react-native'
+import { Image, ImageBackground, TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '@components/icons/AppIcon'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -9,7 +9,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { openURL } from '@api/linking'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { VersionTag } from '@components/VersionTag'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import DeFiChainWalletImageLight from '@assets/images/DeFiChainWallet-light.png'
+import DeFiChainWalletImageDark from '@assets/images/DeFiChainWallet-dark.png'
+import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
+import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
+import { VersionTagV2 } from '@components/VersionTagV2'
 
 interface AboutScreenLinks {
   testID: string
@@ -107,22 +112,29 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
 export function AboutScreen (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { hasBetaFeatures } = useFeatureFlagContext()
+  const { isLight } = useThemeContext()
 
   return (
-    <ThemedScrollView light={tailwind('bg-white')} style={tailwind('px-4')}>
-      <View style={tailwind('flex-1 items-center justify-center p-4 mt-4 mb-8')}>
+    <ThemedScrollView style={tailwind('flex-1')}>
+      <View style={tailwind('flex-1 items-center justify-center mt-12 mb-8')}>
         <AppIcon
-          height={70}
+          height={52}
           testID='app_logo'
-          width={70}
+          width={52}
         />
 
-        <ThemedText style={tailwind('text-2xl font-bold mt-3')}>
-          {translate('screens/AboutScreen', 'DeFiChain Wallet')}
-        </ThemedText>
+        <Image
+          source={isLight ? DeFiChainWalletImageLight : DeFiChainWalletImageDark}
+          style={tailwind('flex-wrap w-64 h-6 mt-5')}
+          resizeMode='contain'
+        />
 
-        <View style={tailwind('mt-1')}>
-          <VersionTag />
+        {/* <ThemedText style={tailwind('text-2xl font-bold mt-3')}> */}
+        {/*  {translate('screens/AboutScreen', 'DeFiChain Wallet')} */}
+        {/* </ThemedText> */}
+
+        <View style={tailwind('mt-3')}>
+          <VersionTagV2 />
         </View>
 
         {hasBetaFeatures && (
@@ -130,22 +142,36 @@ export function AboutScreen (): JSX.Element {
             testID='try_beta_features'
             onPress={() => navigation.navigate('FeatureFlagScreen')}
           >
-            <ThemedText style={tailwind('mt-1 mb-1 text-xs font-light text-black underline')}>
+            <ThemedText style={tailwind('mt-1 mb-1 text-2xs font-bold-v2 text-black uppercase')}>
               {translate('screens/AboutScreen', 'Try Beta features')}
             </ThemedText>
           </TouchableOpacity>
         )}
 
-        <View style={tailwind('flex-row justify-center pt-3')}>
-          {
-            SOCIAL_LINKS.map((link) => (
-              <SocialIcon
-                {...link}
-                key={link.testID}
-              />
-            ))
-          }
-        </View>
+        <ImageBackground
+          source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
+          style={tailwind('w-full mt-10 overflow-hidden')}
+          resizeMode='cover'
+          imageStyle={tailwind('h-56')}
+        >
+          <ThemedText
+            style={tailwind('mt-16 text-2xs leading-4 font-normal-v2 uppercase text-center')}
+          >
+            {translate('screens/AboutScreen', 'Delevoped by\nBirthday Research')}
+          </ThemedText>
+
+          <View style={tailwind('flex-row justify-center pt-11')}>
+            {
+              SOCIAL_LINKS.map((link) => (
+                <SocialIcon
+                  {...link}
+                  key={link.testID}
+                />
+              ))
+            }
+          </View>
+        </ImageBackground>
+
       </View>
 
       {
@@ -252,13 +278,13 @@ function SocialIcon ({
       dark={tailwind('bg-gray-100')}
       light={tailwind('bg-gray-900')}
       onPress={handlePress}
-      style={tailwind('justify-center items-center rounded-full w-7 h-7 mx-2')}
+      style={tailwind('justify-center items-center rounded-full w-10 h-10 mx-4')}
       testID={testID}
     >
       <ThemedIcon
         dark={tailwind('text-black')}
         light={tailwind('text-white')} style={tailwind('text-gray-100 pl-px')}
-        iconType='MaterialCommunityIcons' name={iconName} size={18}
+        iconType='MaterialCommunityIcons' name={iconName} size={24}
       />
     </ThemedTouchableOpacity>
   )
