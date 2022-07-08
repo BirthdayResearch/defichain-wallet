@@ -40,7 +40,6 @@ interface PasscodePromptProps {
 }
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
-  const { isLight } = useThemeContext()
   return (
     <>
       <ThemedTouchableOpacityV2
@@ -52,7 +51,9 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
         <ThemedViewV2
-          style={[tailwind(`w-6 h-6 flex justify-center items-center rounded-full ${isLight ? 'border-mono-light-v2-900' : 'border-mono-dark-v2-900'}`), { borderWidth: 1.5 }]}
+          light={tailwind('border-mono-light-v2-900')}
+          dark={tailwind('border-mono-dark-v2-900')}
+          style={[tailwind('w-6 h-6 flex justify-center items-center rounded-full'), { borderWidth: 1.5 }]}
         >
           <ThemedIcon
             dark={tailwind('text-mono-dark-v2-900')}
@@ -69,7 +70,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         style={tailwind('w-full flex-1 flex-col')}
       >
         <ThemedTextV2
-          style={tailwind(`text-center font-normal-v2 px-5 pt-3.5 ${props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mb-16' : ''}`)}
+          style={tailwind('text-center font-normal-v2 px-5 pt-3.5', { 'mb-16': props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED })}
         >
           {props.title}
         </ThemedTextV2>
