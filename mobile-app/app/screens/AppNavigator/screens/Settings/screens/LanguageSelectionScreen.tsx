@@ -10,7 +10,7 @@ export function LanguageSelectionScreen (): JSX.Element {
   return (
     <ThemedScrollView testID='language_selection_screen'>
       <ThemedSectionTitle
-        style={tailwind('px-10 pt-6 pb-2 text-xs font-normal')}
+        style={tailwind('px-10 pt-6 pb-2 text-xs font-normal-v2')}
         light={tailwind('text-mono-light-v2-500')}
         dark={tailwind('text-mono-dark-v2-500')}
         testID='language_selection_screen_title'

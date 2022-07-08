@@ -24,7 +24,7 @@ exports[`language selection screen should render 1`] = `
           },
           Array [
             Object {
-              "fontFamily": "RegularFont",
+              "fontFamily": "SoraRegular",
               "fontSize": 12,
               "fontWeight": "400",
               "lineHeight": 16,
@@ -106,7 +106,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -199,7 +199,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -223,7 +223,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -316,7 +316,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -340,7 +340,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -433,7 +433,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -457,7 +457,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -550,7 +550,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -574,7 +574,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -667,7 +667,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -691,7 +691,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -786,7 +786,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {
@@ -810,7 +810,7 @@ exports[`language selection screen should render 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "RegularFont",
+                    "fontFamily": "SoraRegular",
                     "fontWeight": "400",
                   },
                   Object {

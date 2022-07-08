@@ -52,7 +52,7 @@ export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { langua
     >
       <View style={tailwind(`flex flex-row mx-5 py-4 items-center justify-between border-b-0.5 ${isLight ? 'border-mono-light-v2-300' : 'border-mono-dark-v2-300'}`, { 'border-b-0': lastItem })}>
         <View style={tailwind('flex flex-row items-center')}>
-          <ThemedText testID='language_option' style={tailwind('font-normal')}>
+          <ThemedText testID='language_option' style={tailwind('font-normal-v2')}>
             {languageItem.displayName}
           </ThemedText>
           {languageItem.displayName !== 'English' &&
@@ -60,7 +60,7 @@ export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { langua
               testID='language_option_description'
               dark={tailwind('text-mono-dark-v2-900')}
               light={tailwind('text-mono-light-v2-900')}
-              style={tailwind('font-normal')}
+              style={tailwind('font-normal-v2')}
             >
               {translate('screens/Settings', ` (${languageItem.language})`)}
             </ThemedText>}
