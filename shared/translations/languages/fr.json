@@ -347,7 +347,8 @@
     "UTXO vs Token": "UTXO vs token",
     "Loans": "Prêts",
     "Auctions": "Enchères",
-    "Liquidity Mining": "Liquidity mining"
+    "Liquidity Mining": "Liquidity mining",
+    "Liquidity mining": "Liquidity mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ - Prêts",
@@ -582,7 +583,7 @@
     "Balances": "Soldes",
     "Portfolio": "Portfolio",
     "Liquidity": "Liquidité",
-    "Transactions": "Transactions",
+    "TRANSACTIONS": "TRANSACTIONS",
     "Settings": "Paramètres",
     "Loans": "Prêts",
     "Auctions": "Enchères"

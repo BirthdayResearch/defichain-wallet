@@ -351,7 +351,8 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Préstamos",
     "Auctions": "Subastas",
-    "Liquidity Mining": "Minería de Liquidez (pool de liquidez)"
+    "Liquidity Mining": "Minería de Liquidez (pool de liquidez)",
+    "Liquidity mining": "Minería de Liquidez (pool de liquidez)"
   },
   "components/LoansFaq": {
     "Loans FAQ": "Preguntas frecuentes sobre Préstamos",
@@ -589,7 +590,7 @@
     "Balances": "Saldos",
     "Portfolio": "Portafolio",
     "Liquidity": "Liquidez",
-    "Transactions": "Transacciones",
+    "TRANSACTIONS": "TRANSACCIONES",
     "Settings": "Ajustes",
     "Loans": "Préstamos",
     "Auctions": "Subastas"

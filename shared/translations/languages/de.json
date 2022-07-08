@@ -337,7 +337,8 @@
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
-    "Liquidity Mining": "Liquiditäts-Mining"
+    "Liquidity Mining": "Liquiditäts-Mining",
+    "Liquidity mining": "Liquiditäts-mining"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
@@ -570,7 +571,7 @@
     "Balances": "Guthaben",
     "Portfolio": "Portfolio",
     "Liquidity": "Liquidität",
-    "Transactions": "Transaktionen",
+    "TRANSACTIONS": "TRANSAKTIONEN",
     "Settings": "Einstellungen",
     "Loans": "Darlehen",
     "Auctions": "Auktionen"

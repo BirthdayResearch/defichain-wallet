@@ -338,7 +338,8 @@
     "UTXO vs Token": "UTXO和代幣區別",
     "Loans": "貸款",
     "Auctions": "清算拍賣",
-    "Liquidity Mining": "流動性挖礦"
+    "Liquidity Mining": "流動性挖礦",
+    "Liquidity mining": "流動性挖礦"
   },
   "components/LoansFaq": {
     "Loans FAQ": "貸款常見問題",
@@ -573,7 +574,7 @@
     "Balances": "總資金",
     "Portfolio": "資產組合",
     "Liquidity": "流動",
-    "Transactions": "交易",
+    "TRANSACTIONS": "交易",
     "Settings": "設定",
     "DEX": "DEX",
     "Loans": "貸款",
