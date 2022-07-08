@@ -107,7 +107,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
     >
       <ThemedSectionTitleV2
         testID='knowledge_base_title'
-        text={translate('screens/KnowledgeBase', 'ENDPOINT URL')}
+        text={translate('screens/ServiceProviderScreen', 'ENDPOINT URL')}
       />
       <View
         style={tailwind('flex flex-row items-center w-full')}
@@ -166,7 +166,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
         <View style={tailwind('mt-48', { 'mt-36': isSmallScreen })}>
           <ButtonV2
             styleProps='mx-7 mt-2'
-            label={translate('screens/ServiceProviderScreen', 'CONTINUE')}
+            label={translate('screens/ServiceProviderScreen', 'Continue')}
             testID='button_submit'
             onPress={async () => await submitCustomServiceProvider()}
             disabled={!isValid}
