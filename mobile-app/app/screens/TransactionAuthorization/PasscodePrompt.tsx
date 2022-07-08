@@ -69,7 +69,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         style={tailwind('w-full flex-1 flex-col')}
       >
         <ThemedTextV2
-          style={tailwind(`text-center font-normal-v2 px-16 pt-3.5 ${props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mb-16' : ''}`)}
+          style={tailwind(`text-center font-normal-v2 px-5 pt-3.5 ${props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mb-16' : ''}`)}
         >
           {props.title}
         </ThemedTextV2>
