@@ -73,7 +73,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         >
           {props.title}
         </ThemedTextV2>
-        {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-4 my-1.5')} />}
+        {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
         {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
         <PinTextInputV2
           cellCount={props.pinLength}
@@ -249,12 +249,12 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 
 function SuccessIndicator (): JSX.Element {
   return (
-    <View style={tailwind('flex flex-col items-center py-4 my-1.5')}>
+    <View style={tailwind('flex flex-col items-center py-4 my-1')}>
       <View
-        style={tailwind('h-6 w-6 rounded-full flex justify-center items-center bg-green-v2 border-green-v2')}
+        style={tailwind('h-9 w-9 rounded-full flex justify-center items-center bg-green-v2 border-green-v2')}
       >
         <ThemedIcon
-          size={18}
+          size={36}
           name='check'
           iconType='Feather'
           dark={tailwind('text-mono-dark-v2-00')}
