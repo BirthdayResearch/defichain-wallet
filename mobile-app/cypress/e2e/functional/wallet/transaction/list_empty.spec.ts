@@ -2,6 +2,8 @@ context('Wallet - Transaction - Empty', () => {
   describe('new wallet', function () {
     before(() => {
       cy.createEmptyWallet(true)
+      cy.getByTestID('bottom_tab_portfolio').click()
+      cy.getByTestID('switch_account_button').click()
       cy.getByTestID('bottom_tab_transactions').click()
     })
 
