@@ -11,9 +11,8 @@ import { translate } from '@translations'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { debounce } from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-export async function onShare(address: string, logger: NativeLoggingProps): Promise<void> {
+export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
     await Share.share({
       message: address
@@ -23,7 +22,7 @@ export async function onShare(address: string, logger: NativeLoggingProps): Prom
   }
 }
 
-export function ReceiveScreenV2(): JSX.Element {
+export function ReceiveScreenV2 (): JSX.Element {
   const logger = useLogger()
   const { isLight } = useThemeContext()
   const { address } = useWalletContext()
@@ -133,9 +132,9 @@ export function ReceiveScreenV2(): JSX.Element {
       <TouchableOpacity
         onPress={async () => {
           await onShare(address, logger)
-          }}
-          testID='share_button'
-        >
+        }}
+        testID='share_button'
+      >
         <ThemedViewV2
           dark={tailwind('bg-mono-dark-v2-00')}
           light={tailwind('bg-mono-light-v2-00')}

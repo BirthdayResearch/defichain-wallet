@@ -49,40 +49,34 @@ exports[`receive page should match snapshot 1`] = `
         ]
       }
     >
-      Use QR or Wallet Address to receive any tokens (DST) or DFI
+      Use QR or Wallet Address to receive any DST or DFI
     </Text>
     <View
       style={
         Object {
-          "marginLeft": 16,
-          "marginRight": 16,
+          "alignItems": "center",
+          "marginBottom": 8,
+          "marginLeft": 8,
+          "marginRight": 8,
+          "marginTop": 8,
         }
       }
+      testID="qr_code_container"
     >
       <View
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "borderBottomLeftRadius": 6,
-              "borderBottomRightRadius": 6,
-              "borderTopLeftRadius": 6,
-              "borderTopRightRadius": 6,
-              "display": "flex",
-              "justifyContent": "center",
-              "marginBottom": 16,
-              "marginLeft": 16,
-              "marginRight": 16,
-              "marginTop": 16,
-              "paddingBottom": 16,
-              "paddingTop": 16,
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+            "borderBottomLeftRadius": 6,
+            "borderBottomRightRadius": 6,
+            "borderTopLeftRadius": 6,
+            "borderTopRightRadius": 6,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          }
         }
-        testID="qr_code_container"
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -181,7 +175,7 @@ exports[`receive page should match snapshot 1`] = `
               "paddingBottom": 8,
               "paddingLeft": 8,
               "paddingRight": 8,
-              "paddingTop": 8,
+              "paddingTop": 16,
               "textAlign": "center",
             },
             Object {
@@ -220,6 +214,7 @@ exports[`receive page should match snapshot 1`] = `
                 "fontSize": 14,
                 "fontWeight": "400",
                 "lineHeight": 20,
+                "paddingBottom": 16,
                 "textAlign": "center",
               },
               Object {
