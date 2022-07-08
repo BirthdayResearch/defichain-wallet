@@ -326,7 +326,7 @@ export function SellScreen ({
                     expandModal()
                   }}
                   pair={' '}
-                  label={translate('screens/SellScreen', 'ADD payout account')}
+                  label={translate('screens/SellScreen', 'IBAN')}
                   style={tailwind('p-2 mb-2 h-10 mx-10 justify-center')}
                   testID='pool_pair_add_{symbol}'
                   standalone
