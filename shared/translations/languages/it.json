@@ -327,8 +327,10 @@
     "Sign to save address": "Firma per salvare l'indirizzo",
     "Sign to delete address": "Firma per cancellare l'indirizzo",
     "Address Book": "Rubrica",
+    "Address book": "Rubrica",
     "GENERAL": "GENERALE",
-    "Server": "Server"
+    "Server": "Server",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",

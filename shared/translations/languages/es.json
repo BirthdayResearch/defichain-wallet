@@ -326,8 +326,10 @@
     "Sign to save address": "Acepta para guardar tu dirección",
     "Sign to delete address": "Acepta para borrar la dirección",
     "Address Book": "Libro de direcciones",
+    "Address book": "Libro de direcciones",
     "GENERAL": "GENERAL",
-    "Server": "Servidor"
+    "Server": "Servidor",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
   },
   "screens/AboutScreen": {
     "About": "Más información",

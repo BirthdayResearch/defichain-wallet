@@ -17,7 +17,7 @@ import { ocean } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { getAppLanguages, translate } from '@translations'
 import { useCallback } from 'react'
-import { Text } from 'react-native'
+import { Platform, Text } from 'react-native'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { SettingsParamList } from './SettingsNavigatorV2'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -128,7 +128,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
         )}
         <NavigateItemRow
           testID='address_book_title'
-          label='Address Book'
+          label='Address book'
           onPress={() => navigation.navigate('AddressBookScreen', {})}
         />
       </ThemedViewV2>
@@ -247,7 +247,7 @@ function RowExitWalletItem (): JSX.Element {
       testID='setting_exit_wallet'
     >
       <Text
-        style={tailwind('font-normal-v2 text-red-v2')}
+        style={tailwind('font-normal-v2 text-sm text-red-v2')}
       >
         {translate('screens/Settings', 'Unlink wallet')}
       </Text>
@@ -262,7 +262,7 @@ function PrivacyLockToggle ({
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <View
-      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between')}
+      style={tailwind('flex py-2 ml-5 mr-4 flex-row items-center justify-between', { 'py-4.5': Platform.OS === 'ios' })}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
@@ -282,13 +282,15 @@ function PrivacyLockToggle ({
   )
 }
 
+interface INavigateItemRow { testID: string, label: string, value?: string, onPress: () => void, border?: boolean }
+
 function NavigateItemRow ({
   testID,
   label,
   value,
   onPress,
   border
-}: { testID: string, label: string, value?: string, onPress: () => void, border?: boolean }): JSX.Element {
+}: INavigateItemRow): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       onPress={onPress}
@@ -309,7 +311,7 @@ function NavigateItemRow ({
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('font-normal-v2 text-sm mr-2')}
+              style={tailwind('font-normal-v2 text-sm mr-1')}
             >
               {translate('screens/Settings', value)}
             </ThemedTextV2>

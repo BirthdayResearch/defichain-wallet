@@ -323,8 +323,10 @@
     "Sign to save address": "Signer pour sauvegarder l'adresse",
     "Sign to delete address": "Signer pour supprimer l'adresse",
     "Address Book": "Carnet d'adresses",
+    "Address book": "Carnet d'adresses",
     "GENERAL": "GÉNÉRAL",
-    "Server": "Serveur"
+    "Server": "Serveur",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",

@@ -1,4 +1,4 @@
-import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollViewV2, ThemedText, ThemedTextV2, ThemedView } from '@components/themed'
 import { Switch } from '@components/index'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -13,7 +13,11 @@ export interface BetaFeaturesI extends FeatureFlag {
 }
 
 export function FeatureFlagScreen (): JSX.Element {
-  const { featureFlags, enabledFeatures, updateEnabledFeatures } = useFeatureFlagContext()
+  const {
+    featureFlags,
+    enabledFeatures,
+    updateEnabledFeatures
+  } = useFeatureFlagContext()
   const [betaFeatures, setBetaFeatures] = useState<BetaFeaturesI []>([])
 
   const getBetaFeature = (flags: FEATURE_FLAG_ID[]): BetaFeaturesI[] => {
@@ -61,16 +65,14 @@ export function FeatureFlagScreen (): JSX.Element {
   }
 
   return (
-    <ThemedScrollView testID='features_flag_screen'>
+    <ThemedScrollViewV2 testID='features_flag_screen'>
       <View style={tailwind('flex-1 px-10 py-8')}>
 
-        <ThemedText
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
+        <ThemedTextV2
           style={tailwind('text-base font-normal-v2')}
         >
           {translate('screens/FeatureFlagScreen', 'Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.')}
-        </ThemedText>
+        </ThemedTextV2>
       </View>
       {betaFeatures.map((item: BetaFeaturesI) => (
         <FeatureFlagItem
@@ -79,7 +81,7 @@ export function FeatureFlagScreen (): JSX.Element {
           onChange={onFeatureChange}
         />
       ))}
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -88,7 +90,10 @@ interface FeatureFlagItemProps {
   onChange: (feature: FeatureFlag, value: boolean) => void
 }
 
-export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.Element {
+export function FeatureFlagItem ({
+  item,
+  onChange
+}: FeatureFlagItemProps): JSX.Element {
   return (
     <View testID={`feature_${item.id}_row`}>
       <ThemedView
@@ -107,8 +112,8 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
         <View style={tailwind('flex-row items-center')}>
           <Switch
             onValueChange={(v: boolean) => {
-            onChange(item, v)
-          }}
+              onChange(item, v)
+            }}
             testID={`feature_${item.id}_switch`}
             value={item.value}
           />

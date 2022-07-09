@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useState } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { ThemePersistence } from '@api'
 import { Switch } from '@components/index'
 import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
@@ -18,7 +18,7 @@ export function RowThemeItemV2 (props: { border?: boolean }): JSX.Element {
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between', { 'border-b-0.5': props.border })}
+      style={tailwind('flex py-2 ml-5 mr-4 flex-row items-center justify-between', { 'border-b-0.5': props.border, 'py-4.5': Platform.OS === 'ios' })}
       testID='theme_row'
     >
       <ThemedTextV2
@@ -36,7 +36,7 @@ export function RowThemeItemV2 (props: { border?: boolean }): JSX.Element {
             name='wb-sunny'
             size={20}
             testID='light_mode_icon'
-            style={tailwind('mr-2 text-orange-v2')}
+            style={tailwind('mr-1 text-orange-v2', { 'mr-2': Platform.OS === 'ios' })}
           />
           )
         : (
@@ -44,7 +44,7 @@ export function RowThemeItemV2 (props: { border?: boolean }): JSX.Element {
             name='nightlight-round'
             size={20}
             testID='dark_mode_icon'
-            style={tailwind('mr-2 text-orange-v2')}
+            style={tailwind('text-orange-v2', { 'mr-2': Platform.OS === 'ios' })}
           />
         )}
 

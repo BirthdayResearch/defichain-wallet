@@ -313,8 +313,10 @@
     "Sign to save address": "Freigeben, um Adresse zu speichern",
     "Sign to delete address": "Freigeben, um Adresse zu löschen",
     "Address Book": "Adressbuch",
+    "Address book": "Adressbuch",
     "GENERAL": "ALLGEMEIN",
-    "Server": "Server"
+    "Server": "Server",
+    "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt."
   },
   "screens/AboutScreen": {
     "About": "Über",

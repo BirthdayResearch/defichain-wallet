@@ -314,8 +314,10 @@
     "Sign to save address": "簽名儲存地址",
     "Sign to delete address": "簽名移除地址",
     "Address Book": "地址簿",
+    "Address book": "地址簿",
     "GENERAL": "一般",
-    "Server": "伺服器"
+    "Server": "伺服器",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
   },
   "screens/AboutScreen": {
     "About": "關於",
