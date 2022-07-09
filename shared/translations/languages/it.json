@@ -285,12 +285,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "Parole di recupero",
+    "Recovery words": "Parole di recupero",
     "Are you sure you want to unlink your wallet?": "Sei sicuro di voler scollegare il tuo wallet?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Dovrai usare le tue parole di recupero la prossima volta che vorrai accedere al tuo wallet.",
     "Cancel": "Cancella",
     "Unlink Wallet": "Scollegare il wallet",
+    "Unlink wallet": "Scollegare il wallet",
     "UNLINK WALLET": "SCOLLEGARE IL WALLET",
     "Change Passcode": "Cambiare il codice di accesso",
+    "Change passcode": "Cambiare il codice di accesso",
     "About": "Informazioni",
     "NETWORK": "RETE",
     "To update your passcode, we need you to enter your current passcode.": "Per aggiornare il tuo codice di accesso, abbiamo bisogno che tu inserisca il tuo attuale codice di accesso.",
@@ -324,8 +327,10 @@
     "Sign to save address": "Firma per salvare l'indirizzo",
     "Sign to delete address": "Firma per cancellare l'indirizzo",
     "Address Book": "Rubrica",
+    "Address book": "Rubrica",
     "GENERAL": "GENERALE",
-    "Server": "Server"
+    "Server": "Server",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",

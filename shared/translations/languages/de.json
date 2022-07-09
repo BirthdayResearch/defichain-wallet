@@ -274,12 +274,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "Wiederherstellungssatz",
+    "Recovery words": "Wiederherstellungssatz",
     "Are you sure you want to unlink your wallet?": "Möchtest du wirklich deine Wallet abmelden?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Wenn du das nächste Mal deine Wallet aufrufen möchtest, musst du deinen Wiederherstellungssatz eingeben.",
     "Cancel": "Abbrechen",
     "Unlink Wallet": "Wallet abmelden",
+    "Unlink wallet": "Wallet abmelden",
     "UNLINK WALLET": "WALLET ABMELDEN",
     "Change Passcode": "Passwort ändern",
+    "Change passcode": "Passwort ändern",
     "About": "Über",
     "NETWORK": "NETZWERK",
     "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
@@ -310,8 +313,10 @@
     "Sign to save address": "Freigeben, um Adresse zu speichern",
     "Sign to delete address": "Freigeben, um Adresse zu löschen",
     "Address Book": "Adressbuch",
+    "Address book": "Adressbuch",
     "GENERAL": "ALLGEMEIN",
-    "Server": "Server"
+    "Server": "Server",
+    "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt."
   },
   "screens/AboutScreen": {
     "About": "Über",

@@ -9,21 +9,22 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
       Array [
         Object {
           "alignItems": "center",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderTopLeftRadius": 8,
+          "borderTopRightRadius": 8,
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
+          "marginLeft": 20,
+          "marginRight": 20,
           "paddingBottom": 16,
           "paddingLeft": 16,
-          "paddingRight": 8,
+          "paddingRight": 16,
           "paddingTop": 16,
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
         },
       ]
     }
@@ -39,11 +40,13 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
           },
           Array [
             Object {
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "fontFamily": "SoraRegular",
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 20,
             },
             Object {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(18, 18, 18, 1)",
             },
           ],
         ]
@@ -95,14 +98,14 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
         },
         Array [
           Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 14,
+            "fontFamily": "SoraRegular",
+            "fontSize": 12,
             "fontWeight": "400",
-            "lineHeight": 20,
+            "lineHeight": 16,
             "marginBottom": 8,
             "paddingBottom": 8,
-            "paddingLeft": 16,
-            "paddingRight": 16,
+            "paddingLeft": 40,
+            "paddingRight": 40,
             "paddingTop": 8,
           },
           Object {
@@ -123,7 +126,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -136,10 +139,10 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
           "flexBasis": "0%",
           "flexGrow": 1,
           "flexShrink": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 24,
+          "paddingBottom": 32,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "paddingTop": 32,
         }
       }
     >
@@ -154,44 +157,19 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "SemiBoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 16,
-                "fontWeight": "600",
+                "fontWeight": "400",
                 "lineHeight": 24,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(18, 18, 18, 1)",
               },
             ],
           ]
         }
       >
-        Beta Features
-      </Text>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.
+        Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.
       </Text>
     </View>
     <View
@@ -202,21 +180,22 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
           Array [
             Object {
               "alignItems": "center",
+              "borderBottomLeftRadius": 8,
+              "borderBottomRightRadius": 8,
+              "borderTopLeftRadius": 8,
+              "borderTopRightRadius": 8,
               "display": "flex",
               "flexDirection": "row",
               "justifyContent": "space-between",
+              "marginLeft": 20,
+              "marginRight": 20,
               "paddingBottom": 16,
               "paddingLeft": 16,
-              "paddingRight": 8,
+              "paddingRight": 16,
               "paddingTop": 16,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
             },
           ]
         }
@@ -232,11 +211,13 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "MediumFont",
-                  "fontWeight": "500",
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                  "color": "rgba(18, 18, 18, 1)",
                 },
               ],
             ]
@@ -288,14 +269,14 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 14,
+                "fontFamily": "SoraRegular",
+                "fontSize": 12,
                 "fontWeight": "400",
-                "lineHeight": 20,
+                "lineHeight": 16,
                 "marginBottom": 8,
                 "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
+                "paddingLeft": 40,
+                "paddingRight": 40,
                 "paddingTop": 8,
               },
               Object {
