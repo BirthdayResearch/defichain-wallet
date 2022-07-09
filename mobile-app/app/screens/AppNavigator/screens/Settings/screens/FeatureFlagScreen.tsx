@@ -62,19 +62,14 @@ export function FeatureFlagScreen (): JSX.Element {
 
   return (
     <ThemedScrollView testID='features_flag_screen'>
-      <View style={tailwind('flex-1 p-4 pt-6')}>
-        <ThemedText
-          style={tailwind('text-base font-semibold')}
-        >
-          {translate('screens/FeatureFlagScreen', 'Beta Features')}
-        </ThemedText>
+      <View style={tailwind('flex-1 px-10 py-8')}>
 
         <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
-          style={tailwind('text-sm font-normal')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          light={tailwind('text-mono-light-v2-900')}
+          style={tailwind('text-base font-normal-v2')}
         >
-          {translate('screens/FeatureFlagScreen', 'Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.')}
+          {translate('screens/FeatureFlagScreen', 'Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.')}
         </ThemedText>
       </View>
       {betaFeatures.map((item: BetaFeaturesI) => (
@@ -97,14 +92,14 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
   return (
     <View testID={`feature_${item.id}_row`}>
       <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-200')}
-        style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
+        dark={tailwind('bg-black')}
+        light={tailwind('bg-white')}
+        style={tailwind('flex flex-row p-4 mx-5 items-center justify-between rounded-lg')}
       >
         <ThemedText
-          dark={tailwind('text-white text-opacity-90')}
-          light={tailwind('text-black')}
-          style={tailwind('font-medium')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          light={tailwind('text-mono-light-v2-900')}
+          style={tailwind('text-sm font-normal-v2')}
         >
           {translate('screens/FeatureFlagScreen', item.name)}
         </ThemedText>
@@ -120,9 +115,9 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
         </View>
       </ThemedView>
       <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
-        style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
+        dark={tailwind('text-mono-dark-v2-500')}
+        light={tailwind('text-mono-light-v2-500')}
+        style={tailwind('px-10 py-2 mb-2 text-xs font-normal-v2')}
       >
         {translate('screens/FeatureFlagScreen', item.description)}
       </ThemedText>
