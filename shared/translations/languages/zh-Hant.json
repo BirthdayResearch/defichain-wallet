@@ -567,7 +567,7 @@
     "Enable {{feature}} (Beta)": "啟用Beta測試版 {{feature}}",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍處於Beta測試版 階段，使用它可能有些風險。您是否想繼續？",
     "Beta Features": "測試版功能",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "輕錢包的Beta版功能是在正式發布前正在進行最後測試的功能。我們鼓勵您對這些功能進行測試，但建議在使用您的資產時要謹慎。",
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "輕錢包 beta 功能處於用戶驗收測試階段。 鼓勵大家使用 beta 功能，但在使用資產時建議審慎。",
     "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。"
   },
   "BottomTabNavigator": {
