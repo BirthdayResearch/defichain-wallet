@@ -1,4 +1,4 @@
-import { ThemedScrollView } from '@components/themed'
+import { ThemedScrollViewV2 } from '@components/themed'
 import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
 import { getAppLanguages, translate } from '@translations'
 import { RowLanguageItem } from '../components/RowLanguageItem'
@@ -8,9 +8,9 @@ export function LanguageSelectionScreen (): JSX.Element {
   const languages = getAppLanguages()
 
   return (
-    <ThemedScrollView testID='language_selection_screen'>
+    <ThemedScrollViewV2 testID='language_selection_screen'>
       <ThemedSectionTitle
-        style={tailwind('px-10 pt-6 pb-2 text-xs font-normal-v2')}
+        style={tailwind('px-10 pt-6 pb-2 text-xs font-normal-v2 tracking-wide')}
         light={tailwind('text-mono-light-v2-500')}
         dark={tailwind('text-mono-dark-v2-500')}
         testID='language_selection_screen_title'
@@ -26,6 +26,6 @@ export function LanguageSelectionScreen (): JSX.Element {
           />
         ))
       }
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

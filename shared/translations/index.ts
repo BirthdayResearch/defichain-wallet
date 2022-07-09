@@ -126,7 +126,7 @@ export function getAppLanguages (): AppLanguageItem[] {
     },
     {
       language: AppLanguage.ChineseTraditional,
-      displayName: '繁體中文',
+      displayName: '簡體中文',
       locale: 'zh-Hant'
     },
     {
