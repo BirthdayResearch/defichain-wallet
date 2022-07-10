@@ -274,12 +274,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "Wiederherstellungssatz",
+    "Recovery words": "Wiederherstellungssatz",
     "Are you sure you want to unlink your wallet?": "Möchtest du wirklich deine Wallet abmelden?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Wenn du das nächste Mal deine Wallet aufrufen möchtest, musst du deinen Wiederherstellungssatz eingeben.",
     "Cancel": "Abbrechen",
     "Unlink Wallet": "Wallet abmelden",
+    "Unlink wallet": "Wallet abmelden",
     "UNLINK WALLET": "WALLET ABMELDEN",
     "Change Passcode": "Passwort ändern",
+    "Change passcode": "Passwort ändern",
     "About": "Über",
     "NETWORK": "NETZWERK",
     "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
@@ -310,8 +313,10 @@
     "Sign to save address": "Freigeben, um Adresse zu speichern",
     "Sign to delete address": "Freigeben, um Adresse zu löschen",
     "Address Book": "Adressbuch",
+    "Address book": "Adressbuch",
     "GENERAL": "ALLGEMEIN",
-    "Server": "Server"
+    "Server": "Server",
+    "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt."
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -564,7 +569,7 @@
     "Enable {{feature}} (Beta)": "Aktiviere {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Light Wallet sind Funktionen, die vor der offiziellen Freigabe noch getestet werden. Das Ausprobieren der Funktionen ist erwünscht, aber bei der Verwendung mit echten Guthaben ist Vorsicht geboten.",
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Lightwallet befinden sich in der Testphase. Es wird empfohlen, die Beta-Funktionen zu nutzen, aber bei der Verwendung deines Vermögens ist Vorsicht geboten.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
   },
   "BottomTabNavigator": {

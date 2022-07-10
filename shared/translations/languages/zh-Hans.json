@@ -274,12 +274,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "恢复字组",
+    "Recovery words": "恢复字组",
     "Are you sure you want to unlink your wallet?": "您是否确认要解除钱包链接?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "请留意，您下次回道钱包时需要恢复字组",
     "Cancel": "取消",
     "Unlink Wallet": "解除钱包链接",
+    "Unlink wallet": "解除钱包链接",
     "UNLINK WALLET": "解除钱包链接",
     "Change Passcode": "更换密码",
+    "Change passcode": "更换密码",
     "About": "关于",
     "NETWORK": "网络",
     "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密码才能更换密码",
@@ -311,8 +314,10 @@
     "Sign to save address": "签名储存地址",
     "Sign to delete address": "签名移除地址",
     "Address Book": "地址簿",
+    "Address book": "地址簿",
     "GENERAL": "一般",
-    "Server": "伺服器"
+    "Server": "伺服器",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -567,7 +572,7 @@
     "Enable {{feature}} (Beta)": "启用Beta测试版 {{feature}}",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍处于Beta测试版 阶段，使用它可能有些风险。您是否想继续？",
     "Beta Features": " 测试版功能",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "轻钱包的Beta版功能是在正式发布前正在进行最后测试的功能。我们鼓励您对这些功能进行测试，但建议在使用您的资产时要谨慎。",
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "轻钱包 beta 功能处于用户验收测试阶段。鼓励大家使用 beta 功能，但在使用资产时建议审慎。",
     "Feature is still in Beta. Use at your own risk.": "功能仍处于测试阶段。使用时风险请自己负责。"
   },
   "BottomTabNavigator": {
