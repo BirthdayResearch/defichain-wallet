@@ -1,5 +1,4 @@
-import { ThemedScrollViewV2 } from '@components/themed'
-import { ThemedSectionTitle } from '@components/themed/ThemedSectionTitle'
+import { ThemedScrollViewV2, ThemedSectionTitleV2, ThemedViewV2 } from '@components/themed'
 import { getAppLanguages, translate } from '@translations'
 import { RowLanguageItem } from '../components/RowLanguageItem'
 import { tailwind } from '@tailwind'
@@ -8,24 +7,30 @@ export function LanguageSelectionScreen (): JSX.Element {
   const languages = getAppLanguages()
 
   return (
-    <ThemedScrollViewV2 testID='language_selection_screen'>
-      <ThemedSectionTitle
-        style={tailwind('px-10 pt-6 pb-2 text-xs font-normal-v2 tracking-wide')}
-        light={tailwind('text-mono-light-v2-500')}
-        dark={tailwind('text-mono-dark-v2-500')}
+    <ThemedScrollViewV2
+      style={tailwind('flex-1')}
+      contentContainerStyle={tailwind('px-5')}
+      testID='language_selection_screen'
+    >
+      <ThemedSectionTitleV2
         testID='language_selection_screen_title'
         text={translate('screens/LanguageSelectionScreen', 'LANGUAGE')}
       />
-      {
+      <ThemedViewV2
+        dark={tailwind('bg-mono-dark-v2-00')}
+        light={tailwind('bg-mono-light-v2-00')}
+        style={tailwind('rounded-2lg')}
+      >
+        {
         languages.map((language, index) => (
           <RowLanguageItem
             key={index}
             languageItem={language}
-            firstItem={index === 0}
-            lastItem={index === languages.length - 1}
+            border={index < languages.length - 1}
           />
         ))
-      }
+        }
+      </ThemedViewV2>
     </ThemedScrollViewV2>
   )
 }

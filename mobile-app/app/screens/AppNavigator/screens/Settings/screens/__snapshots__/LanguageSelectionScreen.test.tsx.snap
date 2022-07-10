@@ -2,9 +2,19 @@
 
 exports[`language selection screen should render 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingLeft": 20,
+      "paddingRight": 20,
+    }
+  }
   style={
     Array [
-      undefined,
+      Object {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
       Object {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
@@ -27,11 +37,10 @@ exports[`language selection screen should render 1`] = `
               "fontFamily": "SoraRegular",
               "fontSize": 12,
               "fontWeight": "400",
-              "letterSpacing": 0.30000000000000004,
               "lineHeight": 16,
               "paddingBottom": 8,
-              "paddingLeft": 40,
-              "paddingRight": 40,
+              "paddingLeft": 20,
+              "paddingRight": 20,
               "paddingTop": 24,
             },
             Object {
@@ -46,29 +55,31 @@ exports[`language selection screen should render 1`] = `
       LANGUAGE
     </Text>
     <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
+        Array [
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
       }
-      testID="button_language_English"
     >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
@@ -82,10 +93,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_English"
       >
         <View
           style={
@@ -114,7 +127,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]
@@ -142,29 +155,17 @@ exports[`language selection screen should render 1`] = `
           <Text />
         </View>
       </View>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
-      }
-      testID="button_language_German"
-    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
@@ -178,10 +179,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_German"
       >
         <View
           style={
@@ -210,7 +213,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]
@@ -268,29 +271,17 @@ exports[`language selection screen should render 1`] = `
           <Text />
         </View>
       </View>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
-      }
-      testID="button_language_Simplified Chinese"
-    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
@@ -304,10 +295,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_Simplified Chinese"
       >
         <View
           style={
@@ -336,7 +329,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]
@@ -394,29 +387,17 @@ exports[`language selection screen should render 1`] = `
           <Text />
         </View>
       </View>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
-      }
-      testID="button_language_Traditional Chinese"
-    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
@@ -430,10 +411,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_Traditional Chinese"
       >
         <View
           style={
@@ -462,7 +445,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]
@@ -520,29 +503,17 @@ exports[`language selection screen should render 1`] = `
           <Text />
         </View>
       </View>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
-      }
-      testID="button_language_French"
-    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
@@ -556,10 +527,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_French"
       >
         <View
           style={
@@ -588,7 +561,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]
@@ -646,29 +619,17 @@ exports[`language selection screen should render 1`] = `
           <Text />
         </View>
       </View>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
-      }
-      testID="button_language_Spanish"
-    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
@@ -682,10 +643,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_Spanish"
       >
         <View
           style={
@@ -714,7 +677,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]
@@ -772,36 +735,21 @@ exports[`language selection screen should render 1`] = `
           <Text />
         </View>
       </View>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "marginLeft": 20,
-          "marginRight": 20,
-          "opacity": 1,
-        }
-      }
-      testID="button_language_Italian"
-    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
             "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0,
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
             "borderTopColor": "rgba(204, 204, 204, 1)",
@@ -810,10 +758,12 @@ exports[`language selection screen should render 1`] = `
             "justifyContent": "space-between",
             "marginLeft": 20,
             "marginRight": 20,
-            "paddingBottom": 16,
-            "paddingTop": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
           }
         }
+        testID="button_language_Italian"
       >
         <View
           style={
@@ -842,7 +792,7 @@ exports[`language selection screen should render 1`] = `
                     "paddingRight": 4,
                   },
                   Object {
-                    "color": "rgba(0, 0, 0, 1)",
+                    "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
               ]

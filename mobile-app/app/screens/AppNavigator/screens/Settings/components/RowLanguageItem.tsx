@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -8,7 +8,7 @@ import { AppLanguageItem, translate } from '@translations'
 import { View, Text } from 'react-native'
 import { SettingsParamList } from '../SettingsNavigator'
 
-export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { languageItem: AppLanguageItem, firstItem: boolean, lastItem: boolean}): JSX.Element {
+export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLanguageItem, border: boolean}): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const { isLight } = useThemeContext()
   const {
@@ -46,43 +46,39 @@ export function RowLanguageItem ({ languageItem, firstItem, lastItem }: { langua
   const checkInactive = `${isLight ? 'bg-mono-light-v2-700 bg-opacity-30' : 'bg-mono-dark-v2-700 bg-opacity-30'}`
 
   return (
-    <ThemedTouchableOpacity
+    <ThemedTouchableOpacityV2
       onPress={onPress}
-      style={tailwind('mx-5', { 'rounded-t-lg': firstItem }, { 'rounded-b-lg': lastItem })}
+      style={tailwind('flex flex-row items-center justify-between py-4.5 mx-5', { 'border-b-0.5': border })}
       testID={`button_language_${languageItem.language}`}
-      dark={tailwind('bg-mono-dark-v2-00')}
-      light={tailwind('bg-mono-light-v2-00')}
     >
-      <View style={tailwind(`flex flex-row mx-5 py-4 items-center justify-between border-b-0.5 ${isLight ? 'border-mono-light-v2-300' : 'border-mono-dark-v2-300'}`, { 'border-b-0': lastItem })}>
-        <View style={tailwind('flex flex-row items-center')}>
-          <ThemedText testID='language_option' style={tailwind('font-normal-v2 text-sm pr-1')}>
-            {languageItem.displayName}
-          </ThemedText>
-          {languageItem.displayName !== 'English' &&
-            <ThemedText
-              testID='language_option_description'
-              dark={tailwind('text-mono-dark-v2-900')}
-              light={tailwind('text-mono-light-v2-900')}
-              style={tailwind('font-normal-v2 text-sm')}
-            >
-              <Text>
-                ({translate('screens/Settings', languageItem.language)})
-              </Text>
-            </ThemedText>}
-        </View>
-        <View
-          style={tailwind(`p-px rounded-full ${language.startsWith(languageItem.locale) ? checkActive : checkInactive}`)}
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            dark={tailwind('text-mono-dark-v2-00')}
-            light={tailwind('text-mono-light-v2-00')}
-            name='check'
-            size={18}
-            testID={`button_network_${languageItem.language}_check`}
-          />
-        </View>
+      <View style={tailwind('flex flex-row items-center')}>
+        <ThemedTextV2 testID='language_option' style={tailwind('font-normal-v2 text-sm pr-1')}>
+          {languageItem.displayName}
+        </ThemedTextV2>
+        {languageItem.displayName !== 'English' &&
+          <ThemedTextV2
+            testID='language_option_description'
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+            style={tailwind('font-normal-v2 text-sm')}
+          >
+            <Text>
+              ({translate('screens/Settings', languageItem.language)})
+            </Text>
+          </ThemedTextV2>}
       </View>
-    </ThemedTouchableOpacity>
+      <View
+        style={tailwind(`p-px rounded-full ${language.startsWith(languageItem.locale) ? checkActive : checkInactive}`)}
+      >
+        <ThemedIcon
+          iconType='MaterialIcons'
+          dark={tailwind('text-mono-dark-v2-00')}
+          light={tailwind('text-mono-light-v2-00')}
+          name='check'
+          size={18}
+          testID={`button_network_${languageItem.language}_check`}
+        />
+      </View>
+    </ThemedTouchableOpacityV2>
   )
 }
