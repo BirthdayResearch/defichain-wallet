@@ -55,7 +55,7 @@ export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLa
         <ThemedTextV2 testID='language_option' style={tailwind('font-normal-v2 text-sm pr-1')}>
           {languageItem.displayName}
         </ThemedTextV2>
-        {languageItem.displayName !== 'English' &&
+        {!language.startsWith(languageItem.locale) &&
           <ThemedTextV2
             testID='language_option_description'
             dark={tailwind('text-mono-dark-v2-900')}
