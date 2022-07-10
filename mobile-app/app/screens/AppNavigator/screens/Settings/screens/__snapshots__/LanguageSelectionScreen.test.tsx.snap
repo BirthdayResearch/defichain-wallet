@@ -4,6 +4,7 @@ exports[`language selection screen should render 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {
+      "paddingBottom": 64,
       "paddingLeft": 20,
       "paddingRight": 20,
     }
