@@ -284,12 +284,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "Palabras de recuperación",
+    "Recovery words": "Palabras de recuperación",
     "Are you sure you want to unlink your wallet?": "¿Estás seguro de que quieres desvincular tu billetera?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Tendrás que utilizar tus palabras de recuparación la próxima vez que quieras recuperar tu billetera.",
     "Cancel": "Cancelar",
     "Unlink Wallet": "Desvincular billetera",
+    "Unlink wallet": "Desvincular billetera",
     "UNLINK WALLET": "DESVINCULAR BILLETERA",
     "Change Passcode": "Cambiar Contraseña",
+    "Change passcode": "Cambiar Contraseña",
     "About": "Más información",
     "NETWORK": "RED",
     "To update your passcode, we need you to enter your current passcode.": "Para actualizar tu contraseña, necesitamos que introduzcas tu contraseña actual.",
@@ -303,8 +306,8 @@
     "Language": "Idioma",
     "English": "Inglés",
     "German": "Alemán",
-    "Chinese (Simplified)": "Chino (simplificado)",
-    "Chinese (Traditional)": "Chino (tradicional)",
+    "Simplified Chinese": "Chino simplificado",
+    "Traditional Chinese": "Chino tradicional",
     "French": "Francés",
     "Italian": "Italiano",
     "Spanish": "Español",
@@ -323,8 +326,11 @@
     "Sign to save address": "Acepta para guardar tu dirección",
     "Sign to delete address": "Acepta para borrar la dirección",
     "Address Book": "Libro de direcciones",
+    "Address book": "Libro de direcciones",
     "GENERAL": "GENERAL",
-    "Server": "Servidor"
+    "Server": "Servidor",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
+    "Display & Language": "Display & Language"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -587,7 +593,7 @@
     "Enable {{feature}} (Beta)": "Permite {{feature}} (Beta Experimental)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Esta función está aún en pruebas, por lo que su uso te expone a ciertos riesgos. ¿Quieres continuar?",
     "Beta Features": "Herramienta en desarrollo",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Los servicios en prueba de la billetera precisan de desarrollo antes de su salida oficial.",
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.",
     "Feature is still in Beta. Use at your own risk.": "Estas características están aún en prueba. Úsalas a tu propio riesgo."
   },
   "BottomTabNavigator": {

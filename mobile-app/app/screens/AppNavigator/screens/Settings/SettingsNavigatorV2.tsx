@@ -5,7 +5,7 @@ import { CommunityScreen } from './screens/CommunityScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkDetails } from './screens/NetworkDetails'
 import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
-import { SettingsScreen } from './SettingsScreen'
+import { SettingsScreenV2 } from './SettingsScreenV2'
 import { KnowledgeBaseScreenV2 } from './screens/KnowledgeBaseScreenV2'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
@@ -56,7 +56,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
     }}
     >
       <SettingsStack.Screen
-        component={SettingsScreen}
+        component={SettingsScreenV2}
         name='SettingsScreen'
         options={{
           headerTitle: translate('screens/SettingsNavigator', 'Settings')
