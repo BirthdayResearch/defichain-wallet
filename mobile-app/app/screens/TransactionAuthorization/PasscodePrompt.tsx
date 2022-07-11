@@ -91,7 +91,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   testID='txn_authorization_message'
                   dark={tailwind('text-mono-dark-v2-700')}
                   light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('px-8 text-sm text-center font-normal-v2')}
+                  style={tailwind('text-sm text-center font-normal-v2')}
                 >
                   {translate('screens/UnlockWallet', props.grantedAccessMessage.title)}
                 </ThemedTextV2>
