@@ -28,7 +28,7 @@
     "Decentralized Exchange": "ＤＥＸ",
     "ADD LIQUIDITY": "增加流動資金",
     "Add liquidity": "增加流動資金",
-    "Add Liquidity": "增加流動資金", 
+    "Add Liquidity": "增加流動資金",
     "Confirm Add Liquidity": "請輸入密碼",
     "Remove Liquidity": "退出流動資金",
     "Confirm Removal": "確認退出",
@@ -317,7 +317,8 @@
     "Address book": "地址簿",
     "GENERAL": "一般",
     "Server": "伺服器",
-    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
+    "This will unlink your wallet from the app.": "這將取消您的錢包與應用程式的綁定。",
+    "Display & Language": "顯示和語言"
   },
   "screens/AboutScreen": {
     "About": "關於",

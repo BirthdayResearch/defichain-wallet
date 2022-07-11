@@ -329,7 +329,8 @@
     "Address book": "Libro de direcciones",
     "GENERAL": "GENERAL",
     "Server": "Servidor",
-    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
+    "Display & Language": "Display & Language"
   },
   "screens/AboutScreen": {
     "About": "Más información",
