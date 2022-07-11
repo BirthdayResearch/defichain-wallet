@@ -274,12 +274,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "恢復字組",
+    "Recovery words": "恢復字組",
     "Are you sure you want to unlink your wallet?": "您是否確認要解除錢包鏈接?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "請留意，您下次回道錢包時需要恢復字組",
     "Cancel": "取消",
     "Unlink Wallet": "解除錢包鏈接",
+    "Unlink wallet": "解除錢包鏈接",
     "UNLINK WALLET": "解除錢包鏈接",
     "Change Passcode": "更換密碼",
+    "Change passcode": "更換密碼",
     "About": "關於",
     "NETWORK": "網絡",
     "To update your passcode, we need you to enter your current passcode.": "需要使用目前的密碼才能更換密碼",
@@ -293,8 +296,8 @@
     "Language": "語言",
     "English": "英語",
     "German": "德語",
-    "Chinese (Simplified)": "简体中文",
-    "Chinese (Traditional)": "繁體中文",
+    "Simplified Chinese": "簡體中文",
+    "Traditional Chinese": "繁體中文",
     "French": "法語",
     "Switch Language": "切換語言",
     "ADDITIONAL OPTIONS": "更多選項",
@@ -311,8 +314,11 @@
     "Sign to save address": "簽名儲存地址",
     "Sign to delete address": "簽名移除地址",
     "Address Book": "地址簿",
+    "Address book": "地址簿",
     "GENERAL": "一般",
-    "Server": "伺服器"
+    "Server": "伺服器",
+    "This will unlink your wallet from the app.": "這將取消您的錢包與應用程式的綁定。",
+    "Display & Language": "顯示和語言"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -567,7 +573,7 @@
     "Enable {{feature}} (Beta)": "啟用Beta測試版 {{feature}}",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍處於Beta測試版 階段，使用它可能有些風險。您是否想繼續？",
     "Beta Features": "測試版功能",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "輕錢包的Beta版功能是在正式發布前正在進行最後測試的功能。我們鼓勵您對這些功能進行測試，但建議在使用您的資產時要謹慎。",
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "輕錢包 beta 功能處於用戶驗收測試階段。 鼓勵大家使用 beta 功能，但在使用資產時建議審慎。",
     "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。"
   },
   "BottomTabNavigator": {

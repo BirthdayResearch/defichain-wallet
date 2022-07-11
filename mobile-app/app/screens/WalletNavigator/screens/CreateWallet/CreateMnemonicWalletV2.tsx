@@ -151,7 +151,7 @@ function RecoveryWordRow (props: { index: number, word: string, key: number, bor
     <ThemedViewV2
       dark={tailwind('border-mono-dark-v2-300')}
       light={tailwind('border-mono-light-v2-300')}
-      style={tailwind(['py-4 mx-5 flex-row justify-center', { 'border-b': props.border }])}
+      style={tailwind(['py-4.5 mx-5 flex-row justify-center', { 'border-b-0.5': props.border }])}
     >
       <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-500')}
