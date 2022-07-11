@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import { MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
-import { View } from '@components/index'
+import { View, Text } from '@components/index'
 import { PinTextInputV2 } from '@components/PinTextInputV2'
 import { ThemedActivityIndicatorV2, ThemedScrollViewV2, ThemedTextV2, ThemedIcon } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -66,7 +66,7 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
     >
-      <View style={tailwind('px-6 mt-12', { 'mb-10 pb-9': spinnerMessage === undefined })}>
+      <View style={tailwind('px-5 mt-12', { 'mb-10 pb-9': spinnerMessage === undefined })}>
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2')}
         >
@@ -84,7 +84,7 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
         testID='pin_confirm_input'
         value={newPin}
       />
-      <View style={tailwind('mt-5 px-12')}>
+      <View style={tailwind('mt-5 px-5')}>
         {
           (spinnerMessage !== undefined) &&
             (
@@ -114,12 +114,12 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
 
         {
           invalid && (
-            <View
+            <Text
               style={tailwind('text-center font-normal-v2 text-sm text-red-v2')}
               testID='wrong_passcode_text'
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
-            </View>
+            </Text>
           )
         }
       </View>
