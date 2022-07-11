@@ -296,8 +296,8 @@
     "Language": "语言",
     "English": "英语",
     "German": "德语",
-    "Chinese (Simplified)": "简体中文",
-    "Chinese (Traditional)": "繁體中文",
+    "Simplified Chinese": "简体中文",
+    "Traditional Chinese": "繁体中文",
     "French": "法语",
     "Switch Language": "切换语言",
     "ADDITIONAL OPTIONS": "更多选项",
@@ -317,7 +317,8 @@
     "Address book": "地址簿",
     "GENERAL": "一般",
     "Server": "伺服器",
-    "This will unlink your wallet from the app.": "This will unlink your wallet from the app."
+    "This will unlink your wallet from the app.": "这将取消您的钱包与应用程式的绑定。",
+    "Display & Language": "显示和语言"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -828,7 +829,7 @@
     "Restore": "还原",
     "RECOVERY": "恢复",
     "VERIFY": "确认",
-    "SECURE": "安全",
+    "SECURE": "安全", 
     "RESTORE": "还原"
   },
   "screens/LanguageSelectionScreen": {

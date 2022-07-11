@@ -296,8 +296,8 @@
     "Language": "Sprache",
     "English": "Englisch",
     "German": "Deutsch",
-    "Chinese (Simplified)": "Chinesisch (vereinfacht)",
-    "Chinese (Traditional)": "Chinesisch (traditionell)",
+    "Simplified Chinese": "Vereinfachtes Chinesisch",
+    "Traditional Chinese": "Traditionelles Chinesisch",
     "French": "Französisch",
     "Switch Language": "Sprache ändern",
     "ADDITIONAL OPTIONS": "WEITERE OPTIONEN",
@@ -316,7 +316,8 @@
     "Address book": "Adressbuch",
     "GENERAL": "ALLGEMEIN",
     "Server": "Server",
-    "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt."
+    "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt.",
+    "Display & Language": "Anzeige & Sprachen"
   },
   "screens/AboutScreen": {
     "About": "Über",
