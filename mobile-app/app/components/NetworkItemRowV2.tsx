@@ -12,7 +12,8 @@ import { ThemedTouchableOpacityV2 } from './themed/ThemedTouchableOpacityV2'
 interface NetworkItemRowProps {
   network: EnvironmentNetwork
   alertMessage: string
-  isLast: boolean
+  isLast: boolean,
+  disabled?: boolean
 }
 
 export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
@@ -51,8 +52,9 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       onPress={onPress}
-      style={tailwind('flex-row py-4.5 items-center justify-between border-b', { 'border-0': props.isLast })}
+      style={tailwind('flex-row py-4.5 items-center justify-between border-b', { 'border-0': props.isLast, 'opacity-30': props.disabled})}
       testID={`button_network_${props.network}`}
+      disabled={props.disabled}
     >
       <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
         {props.network}
