@@ -22,6 +22,7 @@ import { DexFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/DexFaqV2
 import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaqV2'
 import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
 import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
+import { AddressBookScreenV2 } from '../Portfolio/screens/AddressBookScreenV2'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -128,6 +129,15 @@ export function SettingsNavigatorV2 (): JSX.Element {
         options={{
           headerTitle: translate('screens/LanguageSelectionScreen', 'Select language'),
           headerBackTitleVisible: false
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={AddressBookScreenV2}
+        name='AddressBookScreen'
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/LanguageSelectionScreen', 'Address Book')
         }}
       />
 
