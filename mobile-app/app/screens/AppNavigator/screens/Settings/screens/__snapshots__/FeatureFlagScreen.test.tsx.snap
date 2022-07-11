@@ -126,7 +126,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
     Array [
       undefined,
       Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
