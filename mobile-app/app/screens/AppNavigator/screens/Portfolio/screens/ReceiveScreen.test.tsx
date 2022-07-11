@@ -4,7 +4,7 @@ import * as Clipboard from 'expo-clipboard'
 import { Provider } from 'react-redux'
 import { RootState } from '@store'
 import { wallet } from '@store/wallet'
-import { ReceiveScreenV2 } from './ReceiveScreenV2'
+import { ReceiveScreen } from './ReceiveScreen'
 
 jest.mock('@shared-contexts/WalletContext')
 
@@ -43,7 +43,7 @@ describe('receive page', () => {
     })
     const component = (
       <Provider store={store}>
-        <ReceiveScreenV2 />
+        <ReceiveScreen />
       </Provider>
     )
     const rendered = render(component)
@@ -70,7 +70,7 @@ describe('receive page', () => {
     })
     const component = (
       <Provider store={store}>
-        <ReceiveScreenV2 />
+        <ReceiveScreen />
       </Provider>
     )
     const spy = jest.spyOn(Clipboard, 'setString')
@@ -100,7 +100,7 @@ describe('receive page', () => {
     })
     const component = (
       <Provider store={store}>
-        <ReceiveScreenV2 />
+        <ReceiveScreen />
       </Provider>
     )
     const spy = jest.spyOn(Clipboard, 'setString')

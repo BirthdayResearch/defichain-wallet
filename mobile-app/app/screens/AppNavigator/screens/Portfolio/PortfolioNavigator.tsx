@@ -14,7 +14,7 @@ import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
 import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
-import { ReceiveScreenV2 } from './screens/ReceiveScreenV2'
+import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
@@ -45,7 +45,7 @@ import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
-  ReceiveScreenV2: undefined
+  ReceiveScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
@@ -172,7 +172,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ReceiveScreenV2}
+        component={ReceiveScreen}
         name='Receive'
         options={{
           ...screenOptions,
