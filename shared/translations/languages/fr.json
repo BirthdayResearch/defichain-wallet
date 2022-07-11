@@ -284,12 +284,15 @@
   },
   "screens/Settings": {
     "Recovery Words": "Mots de récupération",
+    "Recovery words": "Mots de récupération",
     "Are you sure you want to unlink your wallet?": "Êtes-vous sûr de vouloir dissocier votre portefeuille ?",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Vous devrez utiliser vos mots de récupération la prochaine fois que vous voudrez accéder à votre portefeuille.",
     "Cancel": "Annuler",
     "Unlink Wallet": "Dissocier le portefeuille",
+    "Unlink wallet": "Dissocier le portefeuille",
     "UNLINK WALLET": "DISSOCIER LE PORTEFEUILLE",
     "Change Passcode": "Modifier le code d'accès",
+    "Change passcode": "Modifier le code d'accès",
     "About": "A propos de l'appli",
     "NETWORK": "RÉSEAU",
     "To update your passcode, we need you to enter your current passcode.": "Pour mettre à jour votre code d'accès, entrez votre code d'accès actuel.",
@@ -303,8 +306,8 @@
     "Language": "Langue",
     "English": "Anglais",
     "German": "Allemand",
-    "Chinese (Simplified)": "Chinois (simplifié)",
-    "Chinese (Traditional)": "Chinois (traditionnel)",
+    "Simplified Chinese": "Chinois simplifié",
+    "Traditional Chinese": "Chinois traditionnel",
     "French": "Français",
     "Switch Language": "Changer de langue",
     "ADDITIONAL OPTIONS": "PLUS D'OPTIONS",
@@ -320,8 +323,11 @@
     "Sign to save address": "Signer pour sauvegarder l'adresse",
     "Sign to delete address": "Signer pour supprimer l'adresse",
     "Address Book": "Carnet d'adresses",
+    "Address book": "Carnet d'adresses",
     "GENERAL": "GÉNÉRAL",
-    "Server": "Serveur"
+    "Server": "Serveur",
+    "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
+    "Display & Language": "Affichage et langues"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -576,7 +582,7 @@
     "Enable {{feature}} (Beta)": "Activer {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Cette fonctionnalité est encore en version bêta. Lors de son activation, vous serez exposé à certains risques. Voulez-vous continuer ?",
     "Beta Features": "Fonctionnalités bêta",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Les fonctions bêta de portefeuille léger sont des fonctions en cours de test final avant la sortie officielle. L'expérimentation de la ou des fonctionnalités est encouragée, mais la prudence est de mise lors de l'utilisation de vos actifs.",
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Les fonctionnalités bêta du portefeuille léger sont en phase de test d'acceptation par les utilisateurs. L'utilisation des fonctionnalités bêta est encouragée, mais la prudence est de mise lorsque vous utilisez vos actifs.",
     "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls."
   },
   "BottomTabNavigator": {
