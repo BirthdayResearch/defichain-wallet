@@ -56,9 +56,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         })
       },
       onError: e => logger.error(e),
-      message: translate('screens/UnlockWallet', 'Enter passcode to continue'),
-      loading: translate('screens/UnlockWallet', 'It may take a few seconds to verify'),
-      title: translate('screens/UnlockWallet', 'Provide your passcode to view recovery words.')
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/Settings', 'Verifying access')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, isEncrypted, navigation])
@@ -83,9 +82,8 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
       onError: (e) => {
         dispatch(ocean.actions.setError(e))
       },
-      message: translate('screens/UnlockWallet', 'Enter passcode to continue'),
-      loading: translate('screens/UnlockWallet', 'It may take a few seconds to verify'),
-      title: translate('screens/UnlockWallet', 'Provide existing passcode to change passcode.')
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/Settings', 'Verifying access')
     }
 
     dispatch(authentication.actions.prompt(auth))
