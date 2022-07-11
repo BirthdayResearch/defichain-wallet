@@ -223,7 +223,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <ThemedViewV2
           {...backgroundProps}
-          style={backgroundProps.style}
+          style={[backgroundProps.style, tailwind('rounded-t-2xl')]}
           dark={tailwind('bg-mono-dark-v2-100')}
           light={tailwind('bg-mono-light-v2-100')}
         />
