@@ -316,10 +316,10 @@ context('Wallet - Settings - Service Provider', () => {
       cy.getByTestID('endpoint_url_input').clear().type(url.custom).wait(3000)
       cy.getByTestID('button_submit').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(3000)
+      cy.reload().wait(3000)
     })
 
     it('should display Custom on Server', () => {
-      cy.reload()
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_navigate_service_provider').contains('Custom')
