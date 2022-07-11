@@ -66,13 +66,13 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
     >
-      <View style={[tailwind('px-6 mt-12'), { marginBottom: spinnerMessage === undefined ? 76 : 0 }]}>
+      <View style={tailwind('px-6 mt-12', { 'mb-10 pb-9': spinnerMessage === undefined })}>
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2')}
         >
           {translate('screens/PinConfirmation', 'Keep the passcode for your wallet confidential.')}
         </ThemedTextV2>
-        {spinnerMessage !== undefined && !isSuccess && <ThemedActivityIndicatorV2 style={{ marginVertical: 22 }} />}
+        {spinnerMessage !== undefined && !isSuccess && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
         {isSuccess && <SuccessIndicator />}
       </View>
       <PinTextInputV2
@@ -114,14 +114,12 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
 
         {
           invalid && (
-            <ThemedTextV2
-              dark={tailwind('text-red-v2')}
-              light={tailwind('text-red-v2')}
-              style={tailwind('text-center font-normal-v2 text-sm')}
+            <View
+              style={tailwind('text-center font-normal-v2 text-sm text-red-v2')}
               testID='wrong_passcode_text'
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
-            </ThemedTextV2>
+            </View>
           )
         }
       </View>
@@ -131,12 +129,12 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
 
 function SuccessIndicator (): JSX.Element {
   return (
-    <View style={[tailwind('flex flex-col items-center'), { marginVertical: 22 }]}>
+    <View style={tailwind('flex flex-col items-center my-5')}>
       <View
-        style={tailwind('h-9 w-9 rounded-full flex justify-center items-center border bg-green-v2 border-green-v2')}
+        style={tailwind('h-9 w-9 rounded-full flex justify-center items-center bg-green-v2 border-green-v2')}
       >
         <ThemedIcon
-          size={32}
+          size={36}
           name='check'
           iconType='Feather'
           dark={tailwind('text-mono-dark-v2-00')}

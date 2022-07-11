@@ -39,7 +39,7 @@ export function ChangePinScreenV2 ({ route }: Props): JSX.Element {
       style={tailwind('w-full flex-1 flex-col')}
       testID='screen_create_pin'
     >
-      <View style={tailwind('px-6 my-12')}>
+      <View style={tailwind('px-10 my-12')}>
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2')}
         >
