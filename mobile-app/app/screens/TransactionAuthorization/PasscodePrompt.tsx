@@ -6,11 +6,10 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { Platform, SafeAreaView, View } from 'react-native'
+import { Platform, SafeAreaView, View, Text } from 'react-native'
 import { TransactionStatus, USER_CANCELED } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
@@ -135,31 +134,27 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           {// upon retry: show remaining attempt allowed
                   (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
                     (
-                      <ThemedTextV2
-                        dark={tailwind('text-red-v2')}
-                        light={tailwind('text-red-v2')}
-                        style={tailwind('text-center text-sm font-normal-v2')}
+                      <Text
+                        style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
                         testID='pin_attempt_error'
                       >
                         {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                           ? 'Last attempt or your wallet will be unlinked for your security'
                           : 'Wrong passcode entered'}`, { attemptsRemaining: props.attemptsRemaining })}
-                      </ThemedTextV2>
+                      </Text>
                     )
                 }
           {// on first time: warn user there were accumulated error attempt counter
                   (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
                     (
-                      <ThemedTextV2
-                        dark={tailwind('text-red-v2')}
-                        light={tailwind('text-red-v2')}
-                        style={tailwind('text-center text-sm font-normal-v2')}
+                      <Text
+                        style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
                         testID='pin_attempt_warning'
                       >
                         {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                           ? 'Last attempt or your wallet will be unlinked for your security'
                           : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                      </ThemedTextV2>
+                      </Text>
                     )
                 }
         </View>
@@ -169,7 +164,6 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
 })
 
 export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Element => {
-  const { isLight } = useThemeContext()
   const containerRef = React.useRef(null)
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
@@ -227,9 +221,11 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-        <View
+        <ThemedViewV2
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`)]}
+          style={backgroundProps.style}
+          dark={tailwind('bg-mono-dark-v2-100')}
+          light={tailwind('bg-mono-light-v2-100')}
         />
       )}
       onChange={(index) => {
