@@ -83,7 +83,7 @@ export function MarketplaceScreen (): JSX.Element {
     return (
       <ThemedScrollViewV2
         style={tailwind('flex-1')}
-        contentContainerStyle={tailwind('px-5 pb-16')}
+        contentContainerStyle={tailwind('mx-5 pb-16')}
         testID='language_selection_screen'
       >
         <ThemedSectionTitleV2

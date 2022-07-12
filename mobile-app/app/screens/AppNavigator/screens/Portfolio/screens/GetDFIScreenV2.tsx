@@ -34,7 +34,7 @@ export function GetDFIScreenV2 (): JSX.Element {
   return (
     <>
       <ThemedScrollViewV2
-        contentContainerStyle={tailwind('pb-24')}
+        contentContainerStyle={tailwind('mx-5 pb-24')}
         style={tailwind('flex')}
         testID='get_dfi_screen'
       >
@@ -50,7 +50,7 @@ function StepOne (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
 
   return (
-    <View style={tailwind('mx-5 mt-8')}>
+    <View style={tailwind('mt-8')}>
       <View style={tailwind('px-5 pb-4')}>
         <ThemedTextV2
           style={tailwind('text-xs font-normal-v2')}
@@ -130,7 +130,7 @@ function StepTwo (): JSX.Element {
   }, [showToast, address])
 
   return (
-    <View style={tailwind('mx-5 mt-8')}>
+    <View style={tailwind('mt-8')}>
       <View style={tailwind('px-5 pb-4')}>
         <ThemedTextV2 style={tailwind('text-xs font-normal-v2')}>
           {translate('screens/GetDFIScreen', 'STEP 2')}
@@ -195,7 +195,7 @@ function StepTwo (): JSX.Element {
               <ThemedTextV2
                 dark={tailwind('text-mono-dark-v2-700')}
                 light={tailwind('text-mono-light-v2-700')}
-                style={tailwind('text-sm font-normal-v2 text-center')}
+                style={tailwind('text-xs font-normal-v2 text-center')}
               >
                 {translate('screens/GetDFIScreen', 'SHARE')}
               </ThemedTextV2>
@@ -225,7 +225,7 @@ function DFIOraclePrice (): JSX.Element {
     <ThemedViewV2
       dark={tailwind('border-mono-dark-v2-900')}
       light={tailwind('border-mono-light-v2-900')}
-      style={tailwind('flex flex-row items-center justify-between rounded-lg mx-5 mt-10 px-5 py-4.5 border-0.5')}
+      style={tailwind('flex flex-row items-center justify-between rounded-lg mt-10 px-5 py-4.5 border-0.5')}
     >
       <View style={tailwind('flex flex-row items-center')}>
         <DFITokenIcon width={24} height={24} style={tailwind('mr-2')} />
