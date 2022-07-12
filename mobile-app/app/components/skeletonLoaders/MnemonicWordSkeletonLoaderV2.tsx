@@ -12,7 +12,7 @@ export function MnemonicWordSkeletonLoaderV2 (props: JSX.IntrinsicAttributes & I
       testID='mnemonic_word_skeleton_loader'
       dark={tailwind('border-mono-dark-v2-300')}
       light={tailwind('border-mono-light-v2-300')}
-      style={tailwind(['py-5 mx-5 flex-row justify-center', { 'border-b': border }])}
+      style={tailwind(['py-5 mx-5 flex-row justify-center', { 'border-b-0.5': border }])}
     >
       <ContentLoader
         speed={2}
