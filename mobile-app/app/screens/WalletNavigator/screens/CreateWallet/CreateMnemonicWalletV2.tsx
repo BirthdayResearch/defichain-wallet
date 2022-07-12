@@ -120,7 +120,7 @@ export function CreateMnemonicWalletV2 ({ navigation }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-2lg')}
+        style={tailwind('rounded-lg-v2')}
       >
         {(words.length > 0)
           ? words.map((word, index) => (

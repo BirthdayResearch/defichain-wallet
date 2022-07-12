@@ -182,7 +182,10 @@
     "COPIED": "複製到剪貼板",
     "COPY": "複製地址",
     "SHARE": "轉發地址",
-    "WALLET ADDRESS": "錢包地址"
+    "Copy": "複製地址",
+    "Share": "轉發地址",
+    "WALLET ADDRESS": "錢包地址",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "複製到剪貼板"
@@ -1490,9 +1493,11 @@
     "UNLOCK": "解鎖",
     "RESET": "重置",
     "Endpoint URL": "終端點網址",
+    "ENDPOINT URL": "終端點網址",
     "Custom": "自定",
     "Default": "預設",
     "CONTINUE": "繼續",
+    "Continue": "繼續",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加惡意服務供應商 可能會導致可收回資金。 風險自負",
     "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "添加自定義服務提供者",

@@ -108,7 +108,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-2lg')}
+        style={tailwind('rounded-lg-v2')}
       >
         <NavigateItemRow
           testID='setting_navigate_About'
@@ -142,7 +142,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
           <ThemedViewV2
             dark={tailwind('bg-mono-dark-v2-00')}
             light={tailwind('bg-mono-light-v2-00')}
-            style={tailwind('rounded-2lg')}
+            style={tailwind('rounded-lg-v2')}
           >
             {
               isEncrypted && (
@@ -191,7 +191,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-2lg mb-6')}
+        style={tailwind('rounded-lg-v2 mb-6')}
       >
         <RowThemeItemV2 border />
         <NavigateItemRow
@@ -242,7 +242,7 @@ function RowExitWalletItem (): JSX.Element {
     <ThemedTouchableOpacityV2
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
-      style={tailwind('border-0 p-4.5 flex-row justify-center rounded-2lg')}
+      style={tailwind('border-0 p-4.5 flex-row justify-center rounded-lg-v2')}
       onPress={onExitWallet}
       testID='setting_exit_wallet'
     >
@@ -262,7 +262,7 @@ function PrivacyLockToggle ({
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <View
-      style={tailwind('flex py-2 ml-5 mr-4 flex-row items-center justify-between', { 'py-4.5': Platform.OS === 'ios' })}
+      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between', { 'py-2': Platform.OS === 'android' })}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}

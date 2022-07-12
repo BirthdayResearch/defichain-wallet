@@ -8,7 +8,7 @@ import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { SettingsScreenV2 } from './SettingsScreenV2'
 import { KnowledgeBaseScreenV2 } from './screens/KnowledgeBaseScreenV2'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
-import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
+import { ServiceProviderScreenV2 } from './screens/ServiceProviderScreenV2'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
@@ -80,10 +80,10 @@ export function SettingsNavigatorV2 (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={ServiceProviderScreen}
+        component={ServiceProviderScreenV2}
         name='ServiceProviderScreen'
         options={{
-          headerTitle: translate('screens/ServiceProviderScreen', 'Service Provider')
+          headerTitle: translate('screens/ServiceProviderScreen', 'Provider')
         }}
       />
 

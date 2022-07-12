@@ -182,7 +182,10 @@
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
-    "WALLET ADDRESS": "WALLETADRESSE"
+    "Copy": "Kopieren",
+    "Share": "Teilen",
+    "WALLET ADDRESS": "WALLETADRESSE",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten"
   },
   "components/toaster": {
     "Copied": "Kopiert"
@@ -1478,9 +1481,11 @@
     "UNLOCK": "Entsperren",
     "RESET": "Zurücksetzen",
     "Endpoint URL": "URL des Endpunkts",
+    "ENDPOINT URL": "URL DES ENDPUNKTS",
     "Custom": "Benutzerdefiniert",
     "Default": "Standard",
     "CONTINUE": "WEITER",
+    "Continue": "Weiter",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Das Hinzufügen von betrügerischen Dienstanbietern kann zu unwiederbringlichen Guthaben führen. Du handelst auf eigenes Risiko.",
     "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Bitte füge lediglich vertrauenswürdige und gesicherte URLs hinzu. Die Änderungen werden erst nach einem manuellen Neustart der App wirksam.",
     "Adding custom service provider": "Hinzufügen eines benutzerdefinierten Dienstanbieters",

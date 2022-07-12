@@ -193,7 +193,10 @@
     "COPIED": "COPIATO",
     "COPY": "COPIA",
     "SHARE": "CONDIVIDI",
-    "WALLET ADDRESS": "INDIRIZZO WALLET"
+    "Copy": "Copia",
+    "Share": "Condividi",
+    "WALLET ADDRESS": "INDIRIZZO WALLET",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "Copiato"
@@ -307,8 +310,8 @@
     "Language": "Lingua",
     "English": "Inglese",
     "German": "Tedesco",
-    "Chinese (Simplified)": "Cinese (Simplificato)",
-    "Chinese (Traditional)": "Cinese (Tradizionale)",
+    "Simplified Chinese": "Cinese semplificato",
+    "Traditional Chinese": "Cinese tradizionale",
     "French": "Francese",
     "Italian": "Italiano",
     "Spanish": "Spagnolo",
@@ -1505,9 +1508,11 @@
     "UNLOCK": "UNLOCK",
     "RESET": "RESET",
     "Endpoint URL": "Endpoint URL",
+    "ENDPOINT URL": "ENDPOINT URL",
     "Custom": "Personalizza",
     "Default": "Default",
     "CONTINUE": "CONTINUA",
+    "Continue": "Continua",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.",
     "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "Adding custom service provider",

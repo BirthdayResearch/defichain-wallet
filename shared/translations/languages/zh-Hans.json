@@ -182,7 +182,10 @@
     "COPIED": "复制到剪贴板",
     "COPY": "复制地址",
     "SHARE": "转发地址",
-    "WALLET ADDRESS": "钱包地址"
+    "Copy": "复制地址",
+    "Share": "转发地址",
+    "WALLET ADDRESS": "钱包地址",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "复制到剪贴板"
@@ -833,7 +836,7 @@
     "Restore": "还原",
     "RECOVERY": "恢复",
     "VERIFY": "确认",
-    "SECURE": "安全", 
+    "SECURE": "安全",
     "RESTORE": "还原"
   },
   "screens/LanguageSelectionScreen": {
@@ -1488,9 +1491,11 @@
     "UNLOCK": "解锁",
     "RESET": "重置",
     "Endpoint URL": "终端点网址",
+    "ENDPOINT URL": "终端点网址",
     "Custom": "自定",
     "Default": "预设",
     "CONTINUE": "继续",
+    "Continue": "继续",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加恶意服务供应商 可能会导致可收回资金。风险自负",
     "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "添加自定义服务提供者",
