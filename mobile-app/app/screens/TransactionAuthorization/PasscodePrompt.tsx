@@ -15,6 +15,7 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal 
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
 import Modal from 'react-overlays/Modal'
+import { MaterialIcons } from '@expo/vector-icons'
 
 interface PasscodePromptProps {
   onCancel: (err: string) => void
@@ -53,24 +54,22 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-900')}
           dark={tailwind('border-mono-dark-v2-900')}
-          style={[tailwind('w-6 h-6 flex justify-center items-center rounded-full'), { borderWidth: 1.5 }]}
+          style={[tailwind('w-5 h-5 flex justify-center items-center rounded-full'), { borderWidth: 1.5 }]}
         >
           <ThemedIcon
             dark={tailwind('text-mono-dark-v2-900')}
             light={tailwind('text-mono-light-v2-900')}
             iconType='MaterialIcons'
             name='close'
-            size={16}
+            size={14}
           />
         </ThemedViewV2>
       </ThemedTouchableOpacityV2>
       <ThemedViewV2
-        light={tailwind('bg-mono-light-v2-100')}
-        dark={tailwind('bg-mono-dark-v2-100')}
         style={tailwind('w-full flex-1 flex-col px-5')}
       >
         <ThemedTextV2
-          style={tailwind('text-center font-normal-v2 pt-3.5', { 'mb-16': props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED })}
+          style={tailwind('text-center font-normal-v2 pt-1.5 px-10', { 'mb-16': props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED })}
         >
           {props.title}
         </ThemedTextV2>
@@ -79,8 +78,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         <PinTextInputV2
           cellCount={props.pinLength}
           onChange={(pin) => {
-                  props.onPinInput(pin)
-                }}
+props.onPinInput(pin)
+}}
           testID='pin_authorize'
           value={props.pin}
           style={props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mt-3' : ''}
@@ -133,31 +132,31 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               )
             }
           {// upon retry: show remaining attempt allowed
-                  (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
-                    (
-                      <Text
-                        style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
-                        testID='pin_attempt_error'
-                      >
-                        {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                          ? 'Last attempt or your wallet will be unlinked for your security'
-                          : 'Wrong passcode entered'}`, { attemptsRemaining: props.attemptsRemaining })}
-                      </Text>
-                    )
-                }
+              (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
+                (
+                  <Text
+                    style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
+                    testID='pin_attempt_error'
+                  >
+                    {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                      ? 'Last attempt or your wallet will be unlinked for your security'
+                      : 'Wrong passcode entered'}`, { attemptsRemaining: props.attemptsRemaining })}
+                  </Text>
+                )
+            }
           {// on first time: warn user there were accumulated error attempt counter
-                  (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
-                    (
-                      <Text
-                        style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
-                        testID='pin_attempt_warning'
-                      >
-                        {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                          ? 'Last attempt or your wallet will be unlinked for your security'
-                          : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                      </Text>
-                    )
-                }
+              (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
+                (
+                  <Text
+                    style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
+                    testID='pin_attempt_warning'
+                  >
+                    {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                      ? 'Last attempt or your wallet will be unlinked for your security'
+                      : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                  </Text>
+                )
+            }
         </View>
       </ThemedViewV2>
     </>
@@ -225,8 +224,6 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
         <ThemedViewV2
           {...backgroundProps}
           style={[backgroundProps.style, tailwind('rounded-t-2xl')]}
-          dark={tailwind('bg-mono-dark-v2-100')}
-          light={tailwind('bg-mono-light-v2-100')}
         />
       )}
       onChange={(index) => {
@@ -248,17 +245,12 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 function SuccessIndicator (): JSX.Element {
   return (
     <View style={tailwind('flex flex-col items-center py-4 my-1')}>
-      <View
-        style={tailwind('h-9 w-9 rounded-full flex justify-center items-center border bg-green-v2 border-green-v2')}
-      >
-        <ThemedIcon
-          size={36}
-          name='check'
-          iconType='Feather'
-          dark={tailwind('text-mono-dark-v2-00')}
-          light={tailwind('text-mono-light-v2-00')}
-        />
-      </View>
+      <MaterialIcons
+        size={36}
+        name='check-circle'
+        iconType='MaterialIcons'
+        style={tailwind('text-green-v2')}
+      />
     </View>
   )
 }
