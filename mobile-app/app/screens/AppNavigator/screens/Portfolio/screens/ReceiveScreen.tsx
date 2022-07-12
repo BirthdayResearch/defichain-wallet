@@ -76,6 +76,8 @@ export function ReceiveScreen (): JSX.Element {
       </View>
 
       <ThemedTextV2
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-dark-v2-500')}
         numberOfLines={2}
         selectable
         style={tailwind('text-xs text-center p-2 pt-8 font-normal-v2')}
@@ -88,7 +90,7 @@ export function ReceiveScreen (): JSX.Element {
         <ThemedTextV2
           numberOfLines={2}
           selectable
-          style={tailwind('font-normal-v2 text-sm text-center pb-12')}
+          style={tailwind('font-normal-v2 text-sm text-center pb-12 px-5')}
           testID='address_text'
         >
           {address}
