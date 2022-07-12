@@ -51,7 +51,7 @@ export function ReceiveScreen (): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={tailwind('px-6 pt-2 pb-2')}
+      style={tailwind('px-6 pt-2 pb-4')}
       testID='receive_screen'
     >
       <ThemedTextV2
@@ -111,7 +111,7 @@ export function ReceiveScreen (): JSX.Element {
           <ThemedViewV2
             dark={tailwind('border-mono-dark-v2-300')}
             light={tailwind('border-mono-light-v2-300')}
-            style={tailwind('py-4 mx-5 flex-row justify-center border-b')}
+            style={tailwind('py-4 mx-5 flex-row justify-center items-center border-b')}
           >
             <ThemedTextV2
               dark={tailwind('text-mono-dark-v2-900')}
@@ -144,7 +144,7 @@ export function ReceiveScreen (): JSX.Element {
           <ThemedViewV2
             dark={tailwind('border-mono-dark-v2-300')}
             light={tailwind('border-mono-light-v2-300')}
-            style={tailwind('py-4 mx-5 flex-row justify-center')}
+            style={tailwind('py-4 mx-5 flex-row justify-center items-center')}
           >
             <ThemedTextV2
               dark={tailwind('text-mono-dark-v2-900')}

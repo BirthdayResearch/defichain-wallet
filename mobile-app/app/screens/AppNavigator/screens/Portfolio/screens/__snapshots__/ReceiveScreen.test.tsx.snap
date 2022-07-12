@@ -5,7 +5,7 @@ exports[`receive page should match snapshot 1`] = `
   style={
     Array [
       Object {
-        "paddingBottom": 8,
+        "paddingBottom": 16,
         "paddingLeft": 24,
         "paddingRight": 24,
         "paddingTop": 8,
@@ -263,6 +263,7 @@ exports[`receive page should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "alignItems": "center",
                 "borderBottomWidth": 1,
                 "flexDirection": "row",
                 "justifyContent": "center",
@@ -345,6 +346,7 @@ exports[`receive page should match snapshot 1`] = `
           style={
             Array [
               Object {
+                "alignItems": "center",
                 "flexDirection": "row",
                 "justifyContent": "center",
                 "marginLeft": 20,
