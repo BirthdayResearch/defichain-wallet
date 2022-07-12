@@ -4817,13 +4817,13 @@
 		"borderBottomRightRadius": 10,
 		"borderBottomLeftRadius": 10
 	},
-	"rounded-2lg-v2": {
+	"rounded-xl-v2": {
 		"borderTopLeftRadius": 15,
 		"borderTopRightRadius": 15,
 		"borderBottomRightRadius": 15,
 		"borderBottomLeftRadius": 15
 	},
-	"rounded-xl-v2": {
+	"rounded-2xl-v2": {
 		"borderTopLeftRadius": 20,
 		"borderTopRightRadius": 20,
 		"borderBottomRightRadius": 20,
@@ -4869,11 +4869,11 @@
 		"borderTopLeftRadius": 10,
 		"borderTopRightRadius": 10
 	},
-	"rounded-t-2lg-v2": {
+	"rounded-t-xl-v2": {
 		"borderTopLeftRadius": 15,
 		"borderTopRightRadius": 15
 	},
-	"rounded-t-xl-v2": {
+	"rounded-t-2xl-v2": {
 		"borderTopLeftRadius": 20,
 		"borderTopRightRadius": 20
 	},
@@ -4917,11 +4917,11 @@
 		"borderTopRightRadius": 10,
 		"borderBottomRightRadius": 10
 	},
-	"rounded-r-2lg-v2": {
+	"rounded-r-xl-v2": {
 		"borderTopRightRadius": 15,
 		"borderBottomRightRadius": 15
 	},
-	"rounded-r-xl-v2": {
+	"rounded-r-2xl-v2": {
 		"borderTopRightRadius": 20,
 		"borderBottomRightRadius": 20
 	},
@@ -4965,11 +4965,11 @@
 		"borderBottomRightRadius": 10,
 		"borderBottomLeftRadius": 10
 	},
-	"rounded-b-2lg-v2": {
+	"rounded-b-xl-v2": {
 		"borderBottomRightRadius": 15,
 		"borderBottomLeftRadius": 15
 	},
-	"rounded-b-xl-v2": {
+	"rounded-b-2xl-v2": {
 		"borderBottomRightRadius": 20,
 		"borderBottomLeftRadius": 20
 	},
@@ -5013,11 +5013,11 @@
 		"borderTopLeftRadius": 10,
 		"borderBottomLeftRadius": 10
 	},
-	"rounded-l-2lg-v2": {
+	"rounded-l-xl-v2": {
 		"borderTopLeftRadius": 15,
 		"borderBottomLeftRadius": 15
 	},
-	"rounded-l-xl-v2": {
+	"rounded-l-2xl-v2": {
 		"borderTopLeftRadius": 20,
 		"borderBottomLeftRadius": 20
 	},
@@ -5051,10 +5051,10 @@
 	"rounded-tl-lg-v2": {
 		"borderTopLeftRadius": 10
 	},
-	"rounded-tl-2lg-v2": {
+	"rounded-tl-xl-v2": {
 		"borderTopLeftRadius": 15
 	},
-	"rounded-tl-xl-v2": {
+	"rounded-tl-2xl-v2": {
 		"borderTopLeftRadius": 20
 	},
 	"rounded-tr-none": {
@@ -5087,10 +5087,10 @@
 	"rounded-tr-lg-v2": {
 		"borderTopRightRadius": 10
 	},
-	"rounded-tr-2lg-v2": {
+	"rounded-tr-xl-v2": {
 		"borderTopRightRadius": 15
 	},
-	"rounded-tr-xl-v2": {
+	"rounded-tr-2xl-v2": {
 		"borderTopRightRadius": 20
 	},
 	"rounded-br-none": {
@@ -5123,10 +5123,10 @@
 	"rounded-br-lg-v2": {
 		"borderBottomRightRadius": 10
 	},
-	"rounded-br-2lg-v2": {
+	"rounded-br-xl-v2": {
 		"borderBottomRightRadius": 15
 	},
-	"rounded-br-xl-v2": {
+	"rounded-br-2xl-v2": {
 		"borderBottomRightRadius": 20
 	},
 	"rounded-bl-none": {
@@ -5159,10 +5159,10 @@
 	"rounded-bl-lg-v2": {
 		"borderBottomLeftRadius": 10
 	},
-	"rounded-bl-2lg-v2": {
+	"rounded-bl-xl-v2": {
 		"borderBottomLeftRadius": 15
 	},
-	"rounded-bl-xl-v2": {
+	"rounded-bl-2xl-v2": {
 		"borderBottomLeftRadius": 20
 	},
 	"border-0": {
