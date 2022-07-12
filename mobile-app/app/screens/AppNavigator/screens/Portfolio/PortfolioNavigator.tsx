@@ -41,6 +41,8 @@ import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
 import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
 import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
 import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -121,6 +123,11 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isFeatureAvailable } = useFeatureFlagContext()
+
+  const goToNetworkSelect = (): void => {
+    navigation.navigate('NetworkDetails')
+  }
+  const screenOptions = useNavigatorScreenOptions()
   return (
     <PortfolioStack.Navigator
       initialRouteName='PortfolioScreen'
@@ -169,13 +176,12 @@ export function PortfolioNavigator (): JSX.Element {
         component={ReceiveScreen}
         name='Receive'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ReceiveScreen', 'Receive')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Receive')
         }}
       />
 
