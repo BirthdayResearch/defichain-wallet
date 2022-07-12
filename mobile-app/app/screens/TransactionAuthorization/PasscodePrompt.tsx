@@ -35,8 +35,8 @@ interface PasscodePromptProps {
   modalRef: React.RefObject<BottomSheetModalMethods>
   onModalCancel: () => void
   additionalMessage?: string
-  additionalMessageUrl?: string,
-  successMessage: string
+  additionalMessageUrl?: string
+  successMessage?: string
 }
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
