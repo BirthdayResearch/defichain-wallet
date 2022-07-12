@@ -51,19 +51,14 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         testID='cancel_authorization'
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
-        <ThemedViewV2
-          light={tailwind('border-mono-light-v2-900')}
-          dark={tailwind('border-mono-dark-v2-900')}
-          style={[tailwind('w-5 h-5 flex justify-center items-center rounded-full'), { borderWidth: 1.5 }]}
-        >
-          <ThemedIcon
-            dark={tailwind('text-mono-dark-v2-900')}
-            light={tailwind('text-mono-light-v2-900')}
-            iconType='MaterialIcons'
-            name='close'
-            size={14}
-          />
-        </ThemedViewV2>
+        <ThemedIcon
+          dark={tailwind('text-mono-dark-v2-900')}
+          light={tailwind('text-mono-light-v2-900')}
+          iconType='MaterialCommunityIcons'
+          name='close-circle-outline'
+          style={tailwind('w-5 h-5')}
+          size={20}
+        />
       </ThemedTouchableOpacityV2>
       <ThemedViewV2
         style={tailwind('w-full flex-1 flex-col px-5')}
