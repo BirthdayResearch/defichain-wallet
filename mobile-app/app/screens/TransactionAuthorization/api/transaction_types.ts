@@ -13,7 +13,7 @@ export const DEFAULT_MESSAGES = {
     description: 'Your wallet is your responsibility, do not forget to store your 24 recovery words.'
   },
   grantedAccessMessage: {
-    title: 'Passcode verified!',
+    title: 'Success!',
     description: ''
   }
 }
