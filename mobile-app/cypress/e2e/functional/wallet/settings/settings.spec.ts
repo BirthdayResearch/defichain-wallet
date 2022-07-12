@@ -6,6 +6,7 @@ const lightModeIconTestId = 'light_mode_icon'
 
 context('Wallet - Settings', () => {
   beforeEach(function () {
+    cy.blockAllFeatureFlag()
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
   })
@@ -99,11 +100,14 @@ context('Wallet - Settings', () => {
 
 context('Wallet - Settings - Address Book', () => {
   before(function () {
+    cy.blockAllFeatureFlag()
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('address_book_title').click()
   })
-
+  beforeEach(function () {
+    cy.blockAllFeatureFlag()
+  })
   const labels = ['Light', 'Wallet', '🪨']
   const addresses = ['bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9', '2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB', 'n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo']
 
@@ -251,13 +255,16 @@ const defichainUrls = {
   }
 }
 const defichainUrlEnvs = Object.keys(defichainUrls) as EnvironmentNetwork[]
+
 context('Wallet - Settings - Service Provider', () => {
   before(() => {
+    cy.setFeatureFlags(['service_provider'])
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
   })
 
   beforeEach(() => {
+    cy.setFeatureFlags(['service_provider'])
     cy.restoreLocalStorage()
   })
 
@@ -268,19 +275,6 @@ context('Wallet - Settings - Service Provider', () => {
   defichainUrlEnvs.forEach((defichainUrlEnv) => {
     const url = defichainUrls[defichainUrlEnv]
     it(`should display default on first app load on ${defichainUrlEnv}`, () => {
-      cy.intercept('**/settings/flags', {
-        body: [
-          {
-            id: 'service_provider',
-            name: 'Service Provider',
-            stage: 'beta',
-            version: '>0.0.0',
-            description: 'Allows the usage of custom server provider url',
-            networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
-            platforms: ['ios', 'android', 'web']
-          }
-        ]
-      })
       localStorage.setItem('WALLET.ENABLED_FEATURES', '["service_provider"]')
       cy.getByTestID('button_selected_network').click().wait(50)
       cy.getByTestID(`button_network_${defichainUrlEnv}`).click()
@@ -322,6 +316,7 @@ context('Wallet - Settings - Service Provider', () => {
       cy.getByTestID('endpoint_url_input').clear().type(url.custom).wait(3000)
       cy.getByTestID('button_submit').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(3000)
+      cy.reload().wait(3000)
     })
 
     it('should display Custom on Server', () => {
@@ -337,65 +332,25 @@ context('Wallet - Settings - Service Provider', () => {
 
 context('Wallet - Settings - Service Provider Feature Gated', () => {
   before(() => {
-    cy.intercept('**/settings/flags', {
-      statusCode: 200,
-      body: []
-    })
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('setting_navigate_service_provider').should('not.exist')
   })
   it('shoud not have service provider row if feature flag api does not contain service provider', () => {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'foo',
-          name: 'bar',
-          stage: 'alpha',
-          version: '>=0.0.0',
-          description: 'foo',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
+    cy.setFeatureFlags(['service_provider'], 'alpha')
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_service_provider').should('not.exist')
   })
   it('should have service provider tab if feature is beta and is activated', () => {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'service_provider',
-          name: 'Service Provider',
-          stage: 'beta',
-          version: '>1.13.0',
-          description: 'Allows the usage of custom server provider url',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
+    cy.setFeatureFlags(['service_provider'], 'beta')
     localStorage.setItem('WALLET.ENABLED_FEATURES', '["service_provider"]')
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_service_provider').should('exist')
   })
   it('should have service provider row if feature is public', () => {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'service_provider',
-          name: 'Service Provider',
-          stage: 'public',
-          version: '>1.13.0',
-          description: 'Allows the usage of custom server provider url',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
+    cy.setFeatureFlags(['service_provider'], 'public')
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_service_provider').should('exist')
