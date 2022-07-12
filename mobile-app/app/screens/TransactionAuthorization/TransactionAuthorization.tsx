@@ -84,6 +84,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [title, setTitle] = useState<string | undefined>()
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
+  const [successMessage, setSuccessMessage] = useState<string | undefined>()
   const [additionalMessage, setAdditionalMessage] = useState<string | undefined>()
   const [additionalMessageUrl, setAdditionalMessageUrl] = useState<string | undefined>()
 
@@ -270,6 +271,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       setLoadingMessage(authentication.loading)
       setAdditionalMessage(authentication.additionalMessage)
       setAdditionalMessageUrl(authentication.additionalMessageUrl)
+      setSuccessMessage(authentication.successMessage)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
         .then(async () => {
@@ -338,7 +340,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   return (
     <PasscodePrompt
       onCancel={onCancel}
-      title={title !== undefined ? translate('screens/UnlockWallet', title) : translate('screens/TransactionAuthorization', 'Sign Transaction')}
+      title={ title ?? translate('screens/TransactionAuthorization', 'Sign Transaction')}
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
       status={transactionStatus}
@@ -346,6 +348,7 @@ export function TransactionAuthorization (): JSX.Element | null {
       onPinInput={onPinInput}
       pin={pin}
       loadingMessage={translate('screens/TransactionAuthorization', loadingMessage)}
+      successMessage={successMessage ?? translate('screens/UnlockWallet', DEFAULT_MESSAGES.grantedAccessMessage.title)}
       authorizedTransactionMessage={
         {
           title: translate('screens/TransactionAuthorization', DEFAULT_MESSAGES.authorizedTransactionMessage.title),

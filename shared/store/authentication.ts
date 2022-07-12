@@ -14,6 +14,7 @@ export interface Authentication<T> {
   loading: string
   additionalMessage?: string
   additionalMessageUrl?: string
+  successMessage?: string
 }
 
 const initialState: { authentication?: Authentication<any> } = {}
