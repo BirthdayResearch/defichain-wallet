@@ -11,6 +11,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { debounce } from 'lodash'
+import { openURL } from '@api/linking'
 import { IconTooltip } from '@components/tooltip/IconTooltip'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
@@ -82,7 +83,10 @@ function StepOne (): JSX.Element {
           />
         </ThemedTouchableOpacityV2>
       </ThemedViewV2>
-      <TouchableOpacity style={tailwind('flex flex-row items-center mx-5 mt-2')}>
+      <TouchableOpacity
+        onPress={async () => await openURL('https://defichain.com/dfi')}
+        style={tailwind('flex flex-row items-center mx-5 mt-2')}
+      >
         <ThemedIcon
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
@@ -90,7 +94,7 @@ function StepOne (): JSX.Element {
           name='help-circle'
           size={18}
         />
-        <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
+        <ThemedTextV2 style={tailwind('text-xs font-semibold-v2')}>
           {translate('screens/GetDFIScreen', '  Learn more about DFI')}
         </ThemedTextV2>
       </TouchableOpacity>
@@ -133,7 +137,7 @@ function StepOne (): JSX.Element {
 }
 
 function StepTwo (): JSX.Element {
-  const logger = useLogger()
+  // const logger = useLogger()
   const { isLight } = useThemeContext()
   const { address } = useWalletContext()
   const [showToast, setShowToast] = useState(false)
@@ -171,31 +175,33 @@ function StepTwo (): JSX.Element {
         </ThemedTextV2>
       </View>
       <View
-        style={tailwind('flex flex-row justify-center items-center mx-4')}
+        style={tailwind('flex flex-row justify-center mx-4')}
       >
-        <ThemedViewV2
-          style={tailwind('w-4/12 p-3 rounded-lg justify-center items-center')}
-          testID='qr_code_container'
-          dark={tailwind('bg-mono-light-v2-00')}
-          light={tailwind('bg-mono-light-v2-00')}
-        >
-          <QRCode
-            backgroundColor={isLight ? 'white' : 'black'}
-            color={isLight ? 'black' : 'white'}
-            size={90}
-            value={address}
-          />
-        </ThemedViewV2>
-        <View style={tailwind('w-8/12 px-3')}>
+        <View style={tailwind('w-5/12 items-center')}>
+          <ThemedViewV2
+            style={tailwind('rounded-lg p-2 drop-shadow-lg')}
+            testID='qr_code_container'
+            dark={tailwind('bg-mono-light-v2-00')}
+            light={tailwind('bg-mono-light-v2-00')}
+          >
+            <QRCode
+              backgroundColor='white'
+              color='black'
+              size={106}
+              value={address}
+            />
+          </ThemedViewV2>
+        </View>
+        <View style={tailwind('w-7/12 pl-5')}>
           <ThemedTextV2
             numberOfLines={2}
             selectable
-            style={tailwind('font-normal-v2 mb-2 text-xs uppercase')}
+            style={tailwind('font-normal-v2 mb-px text-xs')}
             dark={tailwind('text-mono-dark-v2-500')}
             light={tailwind('text-mono-light-v2-500')}
             testID='wallet_address'
           >
-            {translate('screens/GetDFIScreen', 'Wallet Address')}
+            {translate('screens/GetDFIScreen', 'WALLET ADDRESS')}
           </ThemedTextV2>
           <TouchableOpacity
             onPress={() => {
@@ -209,6 +215,7 @@ function StepTwo (): JSX.Element {
               numberOfLines={3}
               selectable
               testID='address_text'
+              style={tailwind('text-sm font-normal-v2')}
             >
               {address}<CopyIcon />
             </ThemedTextV2>
@@ -248,7 +255,27 @@ function StepTwo (): JSX.Element {
             {translate('screens/GetDFIScreen', 'Wallet Address')}
           </ThemedTextV2> */}
 
-          <View style={tailwind('flex flex-row mt-2')}>
+          {/* <ButtonV2
+            fill='outline'
+            // style={tailwind('text-xs border-mono-light-v2-700')}
+            styleProps='text-xs text-red'
+            label={translate('screens/GetDFIScreen', 'SHARE')}
+            testID='button_submit'
+            // onPress={async () => await submitCustomServiceProvider()}
+          /> */}
+          <TouchableOpacity
+            style={tailwind(`px-4 py-2 mt-2 border rounded-full w-min ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
+          >
+            <ThemedTextV2
+              dark={tailwind('text-mono-dark-v2-700')}
+              light={tailwind('text-mono-light-v2-700')}
+              style={tailwind('text-sm font-normal-v2 text-center')}
+            >
+              {translate('screens/GetDFIScreen', 'SHARE')}
+            </ThemedTextV2>
+          </TouchableOpacity>
+
+          {/* <View style={tailwind('flex flex-row mt-2')}>
             <TouchableOpacity
               onPress={async () => {
                 await onShare(address, logger)
@@ -273,7 +300,7 @@ function StepTwo (): JSX.Element {
                 {translate('screens/GetDFIScreen', 'SHARE')}
               </ThemedTextV2>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </View>
     </View>
@@ -339,11 +366,11 @@ function DFIOraclePrice (): JSX.Element {
 function CopyIcon (): JSX.Element {
   return (
     <ThemedIcon
-      iconType='MaterialIcons'
+      iconType='Feather'
       dark={tailwind('text-mono-dark-v2-700')}
       light={tailwind('text-mono-light-v2-700')}
-      name='content-copy'
-      size={18}
+      name='copy'
+      size={16}
       style={tailwind('self-center ml-2')}
     />
   )
