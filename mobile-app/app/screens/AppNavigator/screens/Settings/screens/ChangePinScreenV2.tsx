@@ -39,7 +39,7 @@ export function ChangePinScreenV2 ({ route }: Props): JSX.Element {
       style={tailwind('w-full flex-1 flex-col')}
       testID='screen_create_pin'
     >
-      <View style={tailwind('px-5 my-12')}>
+      <View style={tailwind('px-10 my-12')}>
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2')}
         >
@@ -47,15 +47,13 @@ export function ChangePinScreenV2 ({ route }: Props): JSX.Element {
         </ThemedTextV2>
         <LearnMoreCTA onPress={goToPasscodeFaq} testId='passcode_faq_link' />
       </View>
-
       <PinTextInputV2
         cellCount={6}
         onChange={setNewPin}
         testID='pin_input'
         value={newPin}
       />
-
-      <View style={tailwind('mt-5 px-5')}>
+      <View style={tailwind('mt-5 px-12')}>
         <ThemedTextV2
           style={tailwind('text-center text-sm font-normal-v2')}
           light={tailwind('text-mono-light-v2-700')}

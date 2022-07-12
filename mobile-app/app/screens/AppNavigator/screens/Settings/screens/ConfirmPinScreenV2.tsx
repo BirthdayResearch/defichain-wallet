@@ -5,13 +5,14 @@ import { MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { View, Text } from '@components/index'
 import { PinTextInputV2 } from '@components/PinTextInputV2'
-import { ThemedActivityIndicatorV2, ThemedScrollViewV2, ThemedTextV2, ThemedIcon } from '@components/themed'
+import { ThemedActivityIndicatorV2, ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { MaterialIcons } from '@expo/vector-icons'
 
 type Props = StackScreenProps<SettingsParamList, 'ConfirmPinScreen'>
 
@@ -66,7 +67,7 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
     >
-      <View style={tailwind('px-5 mt-12', { 'mb-10 pb-9': spinnerMessage === undefined })}>
+      <View style={tailwind('px-10 mt-12', { 'mb-10 pb-9': spinnerMessage === undefined })}>
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2')}
         >
@@ -84,19 +85,17 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
         testID='pin_confirm_input'
         value={newPin}
       />
-      <View style={tailwind('mt-5 px-5')}>
+      <View style={tailwind('mt-5 px-12')}>
         {
           (spinnerMessage !== undefined) &&
             (
-              <View style={tailwind('items-center px-4')}>
-                <ThemedTextV2
-                  style={tailwind('font-normal-v2 text-sm text-center')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  dark={tailwind('text-mono-dark-v2-700')}
-                >
-                  {spinnerMessage}
-                </ThemedTextV2>
-              </View>
+              <ThemedTextV2
+                style={tailwind('font-normal-v2 text-sm text-center')}
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
+              >
+                {spinnerMessage}
+              </ThemedTextV2>
             )
         }
 
@@ -130,17 +129,12 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
 function SuccessIndicator (): JSX.Element {
   return (
     <View style={tailwind('flex flex-col items-center my-5')}>
-      <View
-        style={tailwind('h-9 w-9 rounded-full flex justify-center items-center bg-green-v2 border-green-v2')}
-      >
-        <ThemedIcon
-          size={36}
-          name='check'
-          iconType='Feather'
-          dark={tailwind('text-mono-dark-v2-00')}
-          light={tailwind('text-mono-light-v2-00')}
-        />
-      </View>
+      <MaterialIcons
+        size={36}
+        name='check-circle'
+        iconType='MaterialIcons'
+        style={tailwind('text-green-v2 w-9 h-9')}
+      />
     </View>
   )
 }
