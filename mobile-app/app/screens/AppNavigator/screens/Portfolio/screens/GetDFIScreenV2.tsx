@@ -157,7 +157,7 @@ function StepTwo (): JSX.Element {
             />
           </ThemedViewV2>
         </View>
-        <View style={tailwind('items-start w-7/12 pl-5')}>
+        <View style={tailwind('w-7/12 pl-5')}>
           <ThemedTextV2
             numberOfLines={2}
             selectable
@@ -185,20 +185,22 @@ function StepTwo (): JSX.Element {
               {address}<CopyIcon />
             </ThemedTextV2>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={async () => {
-              await onShare(address, logger)
-            }}
-            style={tailwind(`px-4 py-2 mt-2 border rounded-full ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
-          >
-            <ThemedTextV2
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
-              style={tailwind('text-sm font-normal-v2 text-center')}
+          <View style={tailwind('items-start')}>
+            <TouchableOpacity
+              onPress={async () => {
+                await onShare(address, logger)
+              }}
+              style={tailwind(`px-4 py-2 mt-2 border rounded-full ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
             >
-              {translate('screens/GetDFIScreen', 'SHARE')}
-            </ThemedTextV2>
-          </TouchableOpacity>
+              <ThemedTextV2
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                style={tailwind('text-sm font-normal-v2 text-center')}
+              >
+                {translate('screens/GetDFIScreen', 'SHARE')}
+              </ThemedTextV2>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
