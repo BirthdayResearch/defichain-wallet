@@ -12,7 +12,7 @@ import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingPro
 import { debounce } from 'lodash'
 import { TouchableOpacity } from 'react-native'
 
-export async function onShare(address: string, logger: NativeLoggingProps): Promise<void> {
+export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
     await Share.share({
       message: address
