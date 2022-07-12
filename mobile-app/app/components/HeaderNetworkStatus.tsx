@@ -21,6 +21,9 @@ export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.
     >
       <NetworkIcon pathColor={connected ? getColor('green-v2') : getColor('red-v2')} />
       <ThemedTextV2
+        ellipsizeMode='tail'
+        numberOfLines={1}
+        lineBreakMode='tail'
         style={tailwind('font-bold-v2 text-2xs leading-3')}
       >
         {network}
