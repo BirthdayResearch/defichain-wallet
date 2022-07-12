@@ -184,7 +184,8 @@
     "SHARE": "转发地址",
     "Copy": "复制地址",
     "Share": "转发地址",
-    "WALLET ADDRESS": "钱包地址"
+    "WALLET ADDRESS": "钱包地址",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "复制到剪贴板"
@@ -831,7 +832,7 @@
     "Restore": "还原",
     "RECOVERY": "恢复",
     "VERIFY": "确认",
-    "SECURE": "安全", 
+    "SECURE": "安全",
     "RESTORE": "还原"
   },
   "screens/LanguageSelectionScreen": {

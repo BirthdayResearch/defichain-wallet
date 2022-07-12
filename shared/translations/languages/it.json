@@ -195,7 +195,8 @@
     "SHARE": "CONDIVIDI",
     "Copy": "Copia",
     "Share": "Condividi",
-    "WALLET ADDRESS": "INDIRIZZO WALLET"
+    "WALLET ADDRESS": "INDIRIZZO WALLET",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "Copiato"

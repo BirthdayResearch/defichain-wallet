@@ -194,7 +194,8 @@
     "SHARE": "PARTAGER",
     "Copy": "Copier",
     "Share": "Partager",
-    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE"
+    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Utiliser l'adresse QR ou Wallet pour recevoir des tokens (DST) ou des DFI"
   },
   "components/toaster": {
     "Copied": "Copié"
