@@ -47,7 +47,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         light={tailwind('bg-mono-light-v2-100')}
         dark={tailwind('bg-mono-dark-v2-100')}
         onPress={() => props.onCancel(USER_CANCELED)}
-        style={tailwind('items-end pt-6 pr-6 rounded-t-2xl')}
+        style={tailwind('items-end pt-6 pr-6 rounded-t-xl-v2')}
         testID='cancel_authorization'
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
@@ -218,7 +218,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
         <ThemedViewV2
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind('rounded-t-2xl')]}
+          style={[backgroundProps.style, tailwind('rounded-t-xl-v2')]}
         />
       )}
       onChange={(index) => {
