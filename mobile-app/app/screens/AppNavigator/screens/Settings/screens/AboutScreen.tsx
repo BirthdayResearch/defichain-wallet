@@ -1,8 +1,16 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { Image, ImageBackground, TouchableOpacity, View } from 'react-native'
 import { AppIcon } from '@components/icons/AppIcon'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedText,
+  ThemedTextV2,
+  ThemedTouchableOpacity,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
+} from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -20,7 +28,7 @@ interface AboutScreenLinks {
   testID: string
   title: string
   subtitle: string
-  iconName: React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  iconName: React.ComponentProps<typeof Feather>['name']
   url?: string
   onPress?: (navigation: any) => void
 }
@@ -38,32 +46,61 @@ interface AboutLinks {
 }
 
 const MAIN_LINKS: AboutScreenLinks[] = [
-  {
-    testID: 'knowledge_base_link',
-    title: 'Knowledge base',
-    subtitle: 'Common questions and support documents',
-    iconName: 'help-circle-outline',
-    onPress: (navigation) => navigation.navigate('KnowledgeBaseScreen')
-  },
+  // {
+  //   testID: 'knowledge_base_link',
+  //   title: 'Knowledge base',
+  //   subtitle: 'Common questions and support documents',
+  //   iconName: 'help-circle-outline',
+  //   onPress: (navigation) => navigation.navigate('KnowledgeBaseScreen')
+  // },
+  // {
+  //   testID: 'community_link',
+  //   title: 'Participate with active community',
+  //   subtitle: 'Report in Github, discuss in Reddit and Telegram',
+  //   iconName: 'account-multiple-outline',
+  //   onPress: (navigation) => navigation.navigate('CommunityScreen')
+  // },
+  // {
+  //   testID: 'explorer_link',
+  //   title: 'DeFi Scan', // "DeFi Scan" does not need to be translated
+  //   subtitle: 'Track transactions, tokens and DEX pairs',
+  //   iconName: 'compass-outline',
+  //   url: 'https://defiscan.live/'
+  // },
+  // {
+  //   testID: 'official_website',
+  //   title: 'View official website',
+  //   subtitle: 'Learn more about the blockchain',
+  //   iconName: 'web',
+  //   url: 'https://defichain.com/'
+  // }
+
   {
     testID: 'community_link',
-    title: 'Participate with active community',
+    title: 'Join our active community',
     subtitle: 'Report in Github, discuss in Reddit and Telegram',
-    iconName: 'account-multiple-outline',
+    iconName: 'message-square',
     onPress: (navigation) => navigation.navigate('CommunityScreen')
+  },
+  {
+    testID: 'knowledge_base_link',
+    title: 'FAQ',
+    subtitle: 'Common questions and support documents',
+    iconName: 'book',
+    onPress: (navigation) => navigation.navigate('KnowledgeBaseScreen')
   },
   {
     testID: 'explorer_link',
     title: 'DeFi Scan', // "DeFi Scan" does not need to be translated
     subtitle: 'Track transactions, tokens and DEX pairs',
-    iconName: 'compass-outline',
+    iconName: 'activity',
     url: 'https://defiscan.live/'
   },
   {
     testID: 'official_website',
-    title: 'View official website',
-    subtitle: 'Learn more about the blockchain',
-    iconName: 'web',
+    title: 'DeFiChain official website',
+    subtitle: 'Learn more about the native decentralized finance for Bitcoin',
+    iconName: 'mouse-pointer',
     url: 'https://defichain.com/'
   }
 ]
@@ -115,8 +152,8 @@ export function AboutScreen (): JSX.Element {
   const { isLight } = useThemeContext()
 
   return (
-    <ThemedScrollView style={tailwind('flex-1')}>
-      <View style={tailwind('flex-1 items-center justify-center mt-12 mb-8')}>
+    <ThemedScrollViewV2 style={tailwind('flex-1')}>
+      <View style={tailwind('flex-1 items-center justify-center mt-12 mb-11')}>
         <AppIcon
           height={52}
           testID='app_logo'
@@ -128,10 +165,6 @@ export function AboutScreen (): JSX.Element {
           style={tailwind('flex-wrap w-64 h-6 mt-5')}
           resizeMode='contain'
         />
-
-        {/* <ThemedText style={tailwind('text-2xl font-bold mt-3')}> */}
-        {/*  {translate('screens/AboutScreen', 'DeFiChain Wallet')} */}
-        {/* </ThemedText> */}
 
         <View style={tailwind('mt-3')}>
           <VersionTagV2 />
@@ -154,11 +187,18 @@ export function AboutScreen (): JSX.Element {
           resizeMode='cover'
           imageStyle={tailwind('h-56')}
         >
-          <ThemedText
-            style={tailwind('mt-16 text-2xs leading-4 font-normal-v2 uppercase text-center')}
-          >
-            {translate('screens/AboutScreen', 'Delevoped by\nBirthday Research')}
-          </ThemedText>
+          <View style={tailwind('flex-col mt-16')}>
+            <ThemedText
+              style={tailwind('text-2xs leading-4 font-normal-v2 uppercase text-center')}
+            >
+              {translate('screens/AboutScreen', 'Developed by')}
+            </ThemedText>
+            <ThemedText
+              style={tailwind('text-2xs leading-4 font-normal-v2 uppercase text-center')}
+            >
+              {translate('screens/AboutScreen', 'Birthday Research')}
+            </ThemedText>
+          </View>
 
           <View style={tailwind('flex-row justify-center pt-11')}>
             {
@@ -183,39 +223,45 @@ export function AboutScreen (): JSX.Element {
         ))
       }
 
-      <View style={tailwind('flex-row justify-center items-center text-center mt-2 mb-6')}>
+      <ThemedTextV2
+        dark={tailwind('text-mono-dark-v2-500')}
+        light={tailwind('text-mono-light-v2-500')}
+        style={tailwind('font-normal-v2 text-xs uppercase mt-6 mx-10')}
+      >
+        {translate('screens/AboutSCreen', 'Other information')}
+      </ThemedTextV2>
+      <ThemedViewV2
+        dark={tailwind('bg-mono-dark-v2-00')}
+        light={tailwind('bg-mono-light-v2-00')}
+        style={tailwind('flex-col rounded-lg mx-5 mt-2')}
+      >
         {
-          ABOUT_LINKS.map((l) => (
-            <TouchableOpacity
-              testID={l.testID}
-              style={tailwind('flex-1 p-2 justify-center items-center text-center')}
-              onPress={async () => await openURL(l.url)} key={l.testID}
-            >
-              <ThemedText
-                style={tailwind('text-sm font-medium')}
-              >{translate('screens/AboutScreen', l.title)}
-              </ThemedText>
-            </TouchableOpacity>
+          ABOUT_LINKS.map((link, index) => (
+            <AboutLinkItem
+              link={link}
+              key={link.testID}
+              border={index < ABOUT_LINKS.length - 1}
+            />
           ))
         }
-      </View>
+      </ThemedViewV2>
 
-      <View style={tailwind('items-center mt-2 mb-6')}>
-        <ThemedText
-          dark={tailwind('text-gray-600')} light={tailwind('text-gray-400')}
-          style={tailwind('text-xs font-normal text-center')}
+      <View style={tailwind('items-center my-12 mx-10')}>
+        <ThemedTextV2
+          dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
+          style={tailwind('font-normal-v2 text-xs font-normal text-center')}
         >
           {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
-        </ThemedText>
+        </ThemedTextV2>
 
-        <ThemedText
-          dark={tailwind('text-gray-600')} light={tailwind('text-gray-400')}
-          style={tailwind('text-xs font-normal text-center')}
+        <ThemedTextV2
+          dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
+          style={tailwind('font-normal-v2 text-xs font-normal text-center')}
         >
           {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
-        </ThemedText>
+        </ThemedTextV2>
       </View>
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -238,28 +284,33 @@ function LinkItemRow ({
 
   return (
     <ThemedTouchableOpacity
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-gray-50')}
+      dark={tailwind('bg-mono-dark-v2-00')}
+      light={tailwind('bg-mono-light-v2-00')}
       onPress={handlePress}
-      style={tailwind('flex-row p-4 items-center rounded-lg mb-3')}
+      style={tailwind('flex-row px-5 py-4 items-center rounded-lg mb-2 mx-5')}
       testID={testID}
     >
-      <ThemedIcon iconType='MaterialCommunityIcons' name={iconName} size={30} />
-      <View style={tailwind('flex-col flex-1 ml-4')}>
-        <ThemedText
-          dark={tailwind('text-gray-100')}
-          style={tailwind('font-semibold flex-wrap')}
+      <View style={tailwind('flex-col flex-1 mr-8')}>
+        <ThemedTextV2
+          style={tailwind('font-semibold-v2 text-sm flex-wrap')}
         >
           {translate('screens/AboutScreen', title)}
-        </ThemedText>
-        <ThemedText
-          dark={tailwind('text-gray-300')}
-          light={tailwind('text-gray-600')}
-          style={tailwind('font-light text-sm flex-wrap')}
+        </ThemedTextV2>
+        <ThemedTextV2
+          dark={tailwind('text-mono-dark-v2-700')}
+          light={tailwind('text-mono-light-v2-700')}
+          style={tailwind('font-normal-v2 text-sm flex-wrap pt-px')}
         >
           {translate('screens/AboutScreen', subtitle)}
-        </ThemedText>
+        </ThemedTextV2>
       </View>
+      <ThemedIcon
+        dark={tailwind('text-mono-dark-v2-700')}
+        light={tailwind('text-mono-light-v2-700')}
+        iconType='Feather'
+        name={iconName}
+        size={20}
+      />
     </ThemedTouchableOpacity>
   )
 }
@@ -287,5 +338,31 @@ function SocialIcon ({
         iconType='MaterialCommunityIcons' name={iconName} size={24}
       />
     </ThemedTouchableOpacity>
+  )
+}
+
+function AboutLinkItem ({
+  link,
+  border
+}: { link: AboutLinks, border: boolean }): JSX.Element {
+  return (
+    <ThemedTouchableOpacityV2
+      testID={link.testID}
+      style={tailwind('flex-row py-5 mx-5', { 'border-b-0.5': border })}
+      onPress={async () => await openURL(link.url)} key={link.testID}
+    >
+      <ThemedTextV2
+        style={tailwind('flex-1 font-normal-v2 text-sm')}
+      >
+        {translate('screens/AboutScreen', link.title)}
+      </ThemedTextV2>
+      <ThemedIcon
+        dark={tailwind('text-mono-dark-v2-700')}
+        light={tailwind('text-mono-light-v2-700')}
+        iconType='Feather'
+        name='external-link'
+        size={16}
+      />
+    </ThemedTouchableOpacityV2>
   )
 }

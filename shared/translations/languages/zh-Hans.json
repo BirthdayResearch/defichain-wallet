@@ -335,7 +335,13 @@
     "Track transactions, tokens and DEX pairs": "审查交易、代币、和去中心化交易所配对",
     "View official website": "前往递飞链官网",
     "Learn more about the blockchain": "了解更多关于递飞链区块链和相关资讯",
-    "Try Beta features": "试用测试版功能"
+    "Try Beta features": "试用测试版功能",
+    "Join our active community": "Join our active community",
+    "FAQ": "FAQ",
+    "DeFiChain official website": "DeFiChain official website",
+    "Learn more about the native decentralized finance for Bitcoin": "Learn more about the native decentralized finance for Bitcoin",
+    "Other information": "Other information",
+    "Developed by": "Developed by"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "关于",
@@ -829,7 +835,7 @@
     "Restore": "还原",
     "RECOVERY": "恢复",
     "VERIFY": "确认",
-    "SECURE": "安全", 
+    "SECURE": "安全",
     "RESTORE": "还原"
   },
   "screens/LanguageSelectionScreen": {
