@@ -21,7 +21,7 @@ export function RecoveryWordsScreenV2 ({ route }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-2lg mt-8')}
+        style={tailwind('rounded-lg-v2 mt-8')}
       >
         {words.map((word, index) => {
           return (
