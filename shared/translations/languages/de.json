@@ -182,7 +182,10 @@
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
-    "WALLET ADDRESS": "WALLETADRESSE"
+    "Copy": "Kopieren",
+    "Share": "Teilen",
+    "WALLET ADDRESS": "WALLETADRESSE",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten"
   },
   "components/toaster": {
     "Copied": "Kopiert"
