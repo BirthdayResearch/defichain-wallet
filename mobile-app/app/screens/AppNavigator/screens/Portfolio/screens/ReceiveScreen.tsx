@@ -2,7 +2,7 @@ import * as Clipboard from 'expo-clipboard'
 import { useCallback, useEffect, useState } from 'react'
 import { Share, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { useToast } from 'react-native-toast-notifications'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -10,9 +10,9 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { debounce } from 'lodash'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 
-export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
+export async function onShare(address: string, logger: NativeLoggingProps): Promise<void> {
   try {
     await Share.share({
       message: address
@@ -51,14 +51,14 @@ export function ReceiveScreen (): JSX.Element {
   }, [showToast, address])
 
   return (
-    <ThemedScrollView
-      style={tailwind('px-8 pt-2 flex flex-1 w-full relative')}
+    <ThemedScrollViewV2
+      style={tailwind('px-6 pt-2 pb-2')}
       testID='receive_screen'
     >
       <ThemedTextV2
-        style={tailwind('p-3 font-normal-v2 text-center')}
+        style={tailwind('p-4 px-8 text-center text-base font-normal-v2')}
       >
-        {translate('screens/ReceiveScreen', 'Use QR or Wallet Address to receive any DST or DFI')}
+        {translate('screens/ReceiveScreen', 'Use QR or Wallet address to receive any tokens (DST) or DFI')}
       </ThemedTextV2>
 
       <View
@@ -69,7 +69,7 @@ export function ReceiveScreen (): JSX.Element {
           <QRCode
             backgroundColor={isLight ? 'white' : 'black'}
             color={isLight ? 'black' : 'white'}
-            size={200}
+            size={196}
             value={address}
           />
         </View>
@@ -78,17 +78,17 @@ export function ReceiveScreen (): JSX.Element {
       <ThemedTextV2
         numberOfLines={2}
         selectable
-        style={tailwind('text-xs text-center p-2 pt-4')}
+        style={tailwind('text-xs text-center p-2 pt-8 font-normal-v2')}
         testID='wallet_address'
       >
         {translate('screens/ReceiveScreen', 'WALLET ADDRESS')}
       </ThemedTextV2>
 
-      <View style={tailwind('mx-7 mb-4')}>
+      <View style={tailwind('mx-7')}>
         <ThemedTextV2
           numberOfLines={2}
           selectable
-          style={tailwind('font-normal-v2 text-sm text-center pb-4')}
+          style={tailwind('font-normal-v2 text-sm text-center pb-12')}
           testID='address_text'
         >
           {address}
@@ -113,8 +113,8 @@ export function ReceiveScreen (): JSX.Element {
             style={tailwind('py-4 mx-5 flex-row justify-center border-b')}
           >
             <ThemedTextV2
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-900')}
+              light={tailwind('text-mono-light-v2-900')}
               style={tailwind('flex-grow text-sm font-normal-v2')}
             >
               {translate('screens/ReceiveScreen', 'Copy')}
@@ -122,9 +122,9 @@ export function ReceiveScreen (): JSX.Element {
             <ThemedIcon
               dark={tailwind('text-mono-dark-v2-700')}
               light={tailwind('text-mono-light-v2-700')}
-              iconType='MaterialIcons'
-              name='content-copy'
-              size={18}
+              iconType='Feather'
+              name='copy'
+              size={16}
             />
           </ThemedViewV2>
         </ThemedViewV2>
@@ -146,8 +146,8 @@ export function ReceiveScreen (): JSX.Element {
             style={tailwind('py-4 mx-5 flex-row justify-center')}
           >
             <ThemedTextV2
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-900')}
+              light={tailwind('text-mono-light-v2-900')}
               style={tailwind('flex-grow text-sm font-normal-v2')}
             >
               {translate('screens/ReceiveScreen', 'Share')}
@@ -155,13 +155,13 @@ export function ReceiveScreen (): JSX.Element {
             <ThemedIcon
               dark={tailwind('text-mono-dark-v2-700')}
               light={tailwind('text-mono-light-v2-700')}
-              iconType='MaterialIcons'
-              name='share'
-              size={18}
+              iconType='Feather'
+              name='share-2'
+              size={16}
             />
           </ThemedViewV2>
         </ThemedViewV2>
       </TouchableOpacity>
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
