@@ -75,7 +75,7 @@ export function ResetButtonV2 (): JSX.Element {
       <ThemedTouchableOpacityV2
         light={tailwind('bg-mono-light-v2-00', { 'bg-opacity-30': isDisabled })}
         dark={tailwind('bg-mono-dark-v2-00 ', { 'bg-opacity-30': isDisabled })}
-        style={tailwind('border-0 p-4.5 flex-row justify-center rounded-2lg')}
+        style={tailwind('border-0 p-4.5 flex-row justify-center rounded-lg-v2')}
         onPress={onPress}
         disabled={isDisabled}
       >
