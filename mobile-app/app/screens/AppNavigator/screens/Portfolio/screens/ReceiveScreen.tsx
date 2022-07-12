@@ -1,6 +1,6 @@
 import * as Clipboard from 'expo-clipboard'
 import { useCallback, useEffect, useState } from 'react'
-import { Share, View } from 'react-native'
+import { Share, View, TouchableOpacity } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { useToast } from 'react-native-toast-notifications'
@@ -10,7 +10,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { debounce } from 'lodash'
-import { TouchableOpacity } from 'react-native'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
