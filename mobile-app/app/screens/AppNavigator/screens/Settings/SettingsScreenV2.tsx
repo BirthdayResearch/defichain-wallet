@@ -262,7 +262,7 @@ function PrivacyLockToggle ({
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <View
-      style={tailwind('flex py-2 ml-5 mr-4 flex-row items-center justify-between', { 'py-4.5': Platform.OS === 'ios' })}
+      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between', { 'py-2': Platform.OS === 'android' })}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
