@@ -179,7 +179,8 @@ export function PortfolioNavigator (): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Receive')
         }}
       />
 

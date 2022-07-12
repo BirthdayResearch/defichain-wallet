@@ -182,6 +182,8 @@
     "COPIED": "复制到剪贴板",
     "COPY": "复制地址",
     "SHARE": "转发地址",
+    "Copy": "复制地址",
+    "Share": "转发地址",
     "WALLET ADDRESS": "钱包地址"
   },
   "components/toaster": {

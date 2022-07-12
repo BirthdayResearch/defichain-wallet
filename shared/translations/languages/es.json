@@ -191,6 +191,8 @@
     "COPIED": "COPIADO",
     "COPY": "COPIAR",
     "SHARE": "COMPARTIR",
+    "Copy": "Copiar",
+    "Share": "Compartir",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA"
   },
   "components/toaster": {

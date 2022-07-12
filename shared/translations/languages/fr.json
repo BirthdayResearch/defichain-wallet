@@ -192,6 +192,8 @@
     "COPIED": "COPIÉ!",
     "COPY": "COPIER",
     "SHARE": "PARTAGER",
+    "Copy": "Copier",
+    "Share": "Partager",
     "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE"
   },
   "components/toaster": {

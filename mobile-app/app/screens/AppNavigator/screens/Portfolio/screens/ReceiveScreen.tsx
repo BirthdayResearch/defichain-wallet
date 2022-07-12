@@ -117,7 +117,7 @@ export function ReceiveScreen (): JSX.Element {
               light={tailwind('text-mono-light-v2-700')}
               style={tailwind('flex-grow text-sm font-normal-v2')}
             >
-              Copy
+              {translate('screens/ReceiveScreen', 'Copy')}
             </ThemedTextV2>
             <ThemedIcon
               dark={tailwind('text-mono-dark-v2-700')}
@@ -150,7 +150,7 @@ export function ReceiveScreen (): JSX.Element {
               light={tailwind('text-mono-light-v2-700')}
               style={tailwind('flex-grow text-sm font-normal-v2')}
             >
-              Share
+              {translate('screens/ReceiveScreen', 'Share')}
             </ThemedTextV2>
             <ThemedIcon
               dark={tailwind('text-mono-dark-v2-700')}

@@ -193,6 +193,8 @@
     "COPIED": "COPIATO",
     "COPY": "COPIA",
     "SHARE": "CONDIVIDI",
+    "Copy": "Copia",
+    "Share": "Condividi",
     "WALLET ADDRESS": "INDIRIZZO WALLET"
   },
   "components/toaster": {
