@@ -340,7 +340,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   return (
     <PasscodePrompt
       onCancel={onCancel}
-      title={ title ?? translate('screens/TransactionAuthorization', 'Sign Transaction')}
+      title={title ?? translate('screens/TransactionAuthorization', 'Sign Transaction')}
       message={translate('screens/UnlockWallet', message)}
       transaction={transaction}
       status={transactionStatus}
