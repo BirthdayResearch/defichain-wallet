@@ -836,9 +836,9 @@
     "Please enter passcode to securely sign your transaction": "Por favor, introduce contraseña para asegurar tu transacción",
     "Sign to verify access": "Confirma para verificar el acceso",
     "Success!": "Éxito!",
-    "It may take a few seconds to verify": "It may take a few seconds to verify",
-    "Passcode verified!": "Passcode verified!",
-    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "It may take a few seconds to verify": "La verificación puede tardar varios segundos",
+    "Passcode verified!": "Contraseña verificada!",
+    "Provide your passcode to view recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
     "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
