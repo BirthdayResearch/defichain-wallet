@@ -715,7 +715,8 @@
     "Block height": "Altezza del blocco",
     "Total Masternodes": "Totale Masternodes",
     "YOU ARE CURRENTLY CONNECTED TO": "SEI ATTUALMENTE CONNESSO A",
-    "NETWORK DETAILS": "DETTAGLI DELLA RETE"
+    "NETWORK DETAILS": "DETTAGLI DELLA RETE",
+    "Network selection is currently unavailable due to ongoing transaction(s).": "Network selection is currently unavailable due to ongoing transaction(s)."
   },
   "components/slider": {
     "None": "Nessuna",
