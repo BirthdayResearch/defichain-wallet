@@ -160,7 +160,7 @@ function TransactionOngoingMessage (): JSX.Element {
   return (
     <View style={tailwind('px-5 mt-2')}>
       <Text style={tailwind('text-xs font-normal-v2 text-orange-v2')}>
-        {translate('screens/NetworkDetails', 'Network selection is currently unavailable due to ongoing transaction')}
+        {translate('screens/NetworkDetails', 'Network selection is currently unavailable due to ongoing transaction(s).')}
       </Text>
     </View>
   )
