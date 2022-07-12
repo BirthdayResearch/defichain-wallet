@@ -193,7 +193,10 @@
     "COPIED": "COPIATO",
     "COPY": "COPIA",
     "SHARE": "CONDIVIDI",
-    "WALLET ADDRESS": "INDIRIZZO WALLET"
+    "Copy": "Copia",
+    "Share": "Condividi",
+    "WALLET ADDRESS": "INDIRIZZO WALLET",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "Copiato"
@@ -307,8 +310,8 @@
     "Language": "Lingua",
     "English": "Inglese",
     "German": "Tedesco",
-    "Chinese (Simplified)": "Cinese (Simplificato)",
-    "Chinese (Traditional)": "Cinese (Tradizionale)",
+    "Simplified Chinese": "Cinese semplificato",
+    "Traditional Chinese": "Cinese tradizionale",
     "French": "Francese",
     "Italian": "Italiano",
     "Spanish": "Spagnolo",

@@ -70,7 +70,7 @@ export function KnowledgeBaseScreenV2 ({ navigation }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-2lg')}
+        style={tailwind('rounded-lg-v2')}
       >
         {knowledgeBaseItems.map((each, index) =>
           <NavigateItemRow key={each.label} {...each} border={index < knowledgeBaseItems.length - 1} />
