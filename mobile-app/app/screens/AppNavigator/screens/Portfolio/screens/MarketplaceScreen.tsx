@@ -93,7 +93,7 @@ export function MarketplaceScreen (): JSX.Element {
         <ThemedViewV2
           dark={tailwind('bg-mono-dark-v2-00')}
           light={tailwind('bg-mono-light-v2-00')}
-          style={tailwind('rounded-2lg')}
+          style={tailwind('rounded-lg-v2')}
         >
           {
           exchanges.map(({ name, image, url }, index) => (
@@ -116,7 +116,7 @@ function ExchangeItemRow ({ image, name, url, testID, border }: ExchangeProps & 
     return (
       <ThemedTouchableOpacityV2
         onPress={async () => await openURL(url)}
-        style={tailwind('flex flex-row px-5 py-4 items-center justify-between', { 'border-b-0.5': border })}
+        style={tailwind('flex flex-row mx-5 py-4 items-center justify-between', { 'border-b-0.5': border })}
         testID={testID}
       >
         <View style={tailwind('flex flex-row items-center')}>

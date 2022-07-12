@@ -12,7 +12,7 @@ import { translate } from '@translations'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
-import { IconTooltip } from '@components/tooltip/IconTooltip'
+import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
@@ -40,14 +40,13 @@ export function GetDFIScreenV2 (): JSX.Element {
       >
         <StepOne />
         <StepTwo />
+        <DFIOraclePrice />
       </ThemedScrollViewV2>
-      <DFIOraclePrice />
     </>
   )
 }
 
 function StepOne (): JSX.Element {
-  // const [expand, setExpand] = useState(false)
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
 
   return (
@@ -65,7 +64,7 @@ function StepOne (): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-2lg')}
+        style={tailwind('rounded-lg-v2')}
       >
         <ThemedTouchableOpacityV2
           style={tailwind('flex flex-row items-center justify-between py-4.5 ml-5 mr-4')}
@@ -98,46 +97,12 @@ function StepOne (): JSX.Element {
           {translate('screens/GetDFIScreen', '  Learn more about DFI')}
         </ThemedTextV2>
       </TouchableOpacity>
-      {/* <ThemedViewV2 style={tailwind('mt-1')}>
-        {(exchanges.slice(0, expand ? exchanges.length : 3))
-          .map(({ name, image, url }, index) =>
-            <ExchangeItemRow
-              url={url}
-              key={name}
-              name={name}
-              image={image}
-              testID={`exchange_${index}`}
-            />
-          )}
-      </ThemedViewV2> */}
-      {/* <ShowMore onPress={setExpand} expand={expand} /> */}
-      {/* <View style={tailwind('px-4 mt-2 flex flex-row')}>
-        <ThemedTextV2
-          dark={tailwind('text-gray-50')}
-          light={tailwind('text-gray-900')}
-          style={tailwind('text-xs')}
-        >
-          {translate('screens/GetDFIScreen', 'To learn more about DFI, ')}
-        </ThemedTextV2>
-        <TouchableOpacity
-          onPress={async () => await openURL('https://defichain.com/dfi')}
-          testID='read_here'
-        >
-          <ThemedTextV2
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('text-xs')}
-          >
-            {translate('screens/GetDFIScreen', 'read here.')}
-          </ThemedTextV2>
-        </TouchableOpacity>
-      </View> */}
     </View>
   )
 }
 
 function StepTwo (): JSX.Element {
-  // const logger = useLogger()
+  const logger = useLogger()
   const { isLight } = useThemeContext()
   const { address } = useWalletContext()
   const [showToast, setShowToast] = useState(false)
@@ -175,7 +140,7 @@ function StepTwo (): JSX.Element {
         </ThemedTextV2>
       </View>
       <View
-        style={tailwind('flex flex-row justify-center mx-4')}
+        style={tailwind('flex flex-row mx-4')}
       >
         <View style={tailwind('w-5/12 items-center')}>
           <ThemedViewV2
@@ -192,7 +157,7 @@ function StepTwo (): JSX.Element {
             />
           </ThemedViewV2>
         </View>
-        <View style={tailwind('w-7/12 pl-5')}>
+        <View style={tailwind('items-start w-7/12 pl-5')}>
           <ThemedTextV2
             numberOfLines={2}
             selectable
@@ -219,52 +184,12 @@ function StepTwo (): JSX.Element {
             >
               {address}<CopyIcon />
             </ThemedTextV2>
-            {/* <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
-              iconType='MaterialIcons'
-              light={tailwind('text-primary-500')}
-              name='content-copy'
-              size={18}
-              style={tailwind('self-center')}
-            /> */}
-            {/* <ThemedTextV2
-              dark={tailwind('text-darkprimary-500')}
-              light={tailwind('text-primary-500')}
-              style={tailwind('ml-2 uppercase font-medium text-sm')}
-            >
-              {translate('screens/GetDFIScreen', 'COPY')}
-            </ThemedTextV2> */}
           </TouchableOpacity>
-          {/* <ThemedTextV2
-            dark={tailwind('text-gray-100')}
-            light={tailwind('text-gray-900')}
-            numberOfLines={3}
-            selectable
-            testID='address_text'
-          >
-            {address}
-          </ThemedTextV2> */}
-          {/* <ThemedTextV2
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
-            numberOfLines={2}
-            selectable
-            style={tailwind('font-medium my-2 text-xs')}
-            testID='wallet_address'
-          >
-            {translate('screens/GetDFIScreen', 'Wallet Address')}
-          </ThemedTextV2> */}
-
-          {/* <ButtonV2
-            fill='outline'
-            // style={tailwind('text-xs border-mono-light-v2-700')}
-            styleProps='text-xs text-red'
-            label={translate('screens/GetDFIScreen', 'SHARE')}
-            testID='button_submit'
-            // onPress={async () => await submitCustomServiceProvider()}
-          /> */}
           <TouchableOpacity
-            style={tailwind(`px-4 py-2 mt-2 border rounded-full w-min ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
+            onPress={async () => {
+              await onShare(address, logger)
+            }}
+            style={tailwind(`px-4 py-2 mt-2 border rounded-full ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
           >
             <ThemedTextV2
               dark={tailwind('text-mono-dark-v2-700')}
@@ -274,33 +199,6 @@ function StepTwo (): JSX.Element {
               {translate('screens/GetDFIScreen', 'SHARE')}
             </ThemedTextV2>
           </TouchableOpacity>
-
-          {/* <View style={tailwind('flex flex-row mt-2')}>
-            <TouchableOpacity
-              onPress={async () => {
-                await onShare(address, logger)
-              }}
-              style={tailwind('flex flex-1 flex-row justify-start text-center items-center')}
-              testID='share_button'
-            >
-              <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                name='share'
-                size={18}
-                style={tailwind('self-center')}
-              />
-
-              <ThemedTextV2
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-                style={tailwind('ml-2 uppercase font-medium text-sm')}
-              >
-                {translate('screens/GetDFIScreen', 'SHARE')}
-              </ThemedTextV2>
-            </TouchableOpacity>
-          </View> */}
         </View>
       </View>
     </View>
@@ -312,6 +210,7 @@ function DFIOraclePrice (): JSX.Element {
   const client = useWhaleApiClient()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const logger = useLogger()
+  const DFITokenIcon = getNativeIcon('_UTXO')
 
   useEffect(() => {
     client.prices.get('DFI', 'USD')
@@ -321,45 +220,50 @@ function DFIOraclePrice (): JSX.Element {
   }, [blockCount])
 
   return (
-    <View style={tailwind('absolute bottom-2 w-full')}>
-      <ThemedViewV2
-        dark={tailwind('bg-gray-100 border-gray-100')}
-        light={tailwind('bg-gray-900 border-gray-700')}
-        style={tailwind('flex flex-row items-center justify-between rounded-lg mx-4 px-6 py-4')}
-      >
-        <View style={tailwind('flex flex-row items-center')}>
-          <ThemedTextV2
-            light={tailwind('text-white')}
-            dark={tailwind('text-black')}
-            style={tailwind('text-base text-xs font-medium mr-1')}
-          >
-            {translate('screens/GetDFIScreen', 'DFI oracle price')}
-          </ThemedTextV2>
-          <IconTooltip
+    <ThemedViewV2
+      dark={tailwind('border-mono-dark-v2-900')}
+      light={tailwind('border-mono-light-v2-900')}
+      style={tailwind('flex flex-row items-center justify-between rounded-lg mx-5 mt-10 px-5 py-4.5 border-0.5')}
+    >
+      <View style={tailwind('flex flex-row items-center')}>
+        <DFITokenIcon width={24} height={24} style={tailwind('mr-2')} />
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-900')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          style={tailwind('text-sm font-semibold-v2 mr-2')}
+        >
+          {translate('screens/GetDFIScreen', 'DFI price')}
+        </ThemedTextV2>
+        <TouchableOpacity
+          onPress={async () => await openURL('https://defichain.com/dfi')}
+        >
+          <ThemedIcon
             size={18}
-            light={tailwind('text-white')}
-            dark={tailwind('text-black')}
+            name='open-in-new'
+            iconType='MaterialIcons'
+            dark={tailwind('text-mono-dark-v2-700')}
+            light={tailwind('text-mono-light-v2-700')}
           />
-        </View>
-        <NumberFormat
-          displayType='text'
-          prefix='$'
-          decimalScale={2}
-          renderText={(val: string) => (
-            <ThemedTextV2
-              light={tailwind('text-white')}
-              dark={tailwind('text-black')}
-              style={tailwind('text-lg font-semibold')}
-              testID='dfi_oracle_price'
-            >
-              {val}
-            </ThemedTextV2>
-          )}
-          thousandSeparator
-          value={new BigNumber(price).toFixed(2)}
-        />
-      </ThemedViewV2>
-    </View>
+        </TouchableOpacity>
+      </View>
+      <NumberFormat
+        displayType='text'
+        prefix='$'
+        decimalScale={2}
+        renderText={(val: string) => (
+          <ThemedTextV2
+            light={tailwind('text-mono-light-v2-900')}
+            dark={tailwind('text-mono-dark-v2-900')}
+            style={tailwind('text-sm font-semibold-v2')}
+            testID='dfi_oracle_price'
+          >
+            {val}
+          </ThemedTextV2>
+        )}
+        thousandSeparator
+        value={new BigNumber(price).toFixed(2)}
+      />
+    </ThemedViewV2>
   )
 }
 
