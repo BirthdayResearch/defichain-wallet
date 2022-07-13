@@ -182,7 +182,10 @@
     "COPIED": "KOPIERT",
     "COPY": "KOPIEREN",
     "SHARE": "TEILEN",
-    "WALLET ADDRESS": "WALLETADRESSE"
+    "Copy": "Kopieren",
+    "Share": "Teilen",
+    "WALLET ADDRESS": "WALLETADRESSE",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten"
   },
   "components/toaster": {
     "Copied": "Kopiert"
@@ -265,8 +268,7 @@
   "screens/CommunityScreen": {
     "Community": "Community",
     "CONNECT WITH THE COMMUNITY": "VERBINDE DICH MIT DER COMMUNITY",
-    "DeFiChain is a community-driven and open project.": "DeFiChain ist ein offenes Gemeinschaftsprojekt.",
-    "The DeFiChain Foundation does not provide direct support.": "Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain ist ein offenes Gemeinschaftsprojekt. Das Gründungskonsortium der DeFiChain stellt keinen direkten Support zur Verfügung.",
     "Report an issue on Github": "Erstelle ein Issue auf Github",
     "Frequently Asked Questions": "Häufig gestellte Fragen",
     "Announcements": "Mitteilungen",
@@ -317,7 +319,7 @@
     "GENERAL": "ALLGEMEIN",
     "Server": "Server",
     "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt.",
-    "Display & Language": "Anzeige & Sprachen"
+    "DISPLAY & LANGUAGE": "ANZEIGE & SPRACHEN"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -334,7 +336,13 @@
     "Track transactions, tokens and DEX pairs": "Nachverfolgung von Transaktionen, Token und DEX-Handelspaaren",
     "View official website": "Offizielle Website anzeigen",
     "Learn more about the blockchain": "Lerne mehr über die Blockchain",
-    "Try Beta features": "Beta-Funktionen ausprobieren"
+    "Try Beta features": "Beta-Funktionen ausprobieren",
+    "Join our active community": "Tritt unserer aktiven Community bei",
+    "FAQ": "FAQ",
+    "DeFiChain official website": "Offizielle DeFiChain-Website",
+    "Learn more about the native decentralized finance for Bitcoin": "Erfahre mehr über das native dezentrale Finanzsystem für Bitcoin",
+    "Other information": "Weitere Informationen",
+    "Developed by": "Entwickelt von"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "LERNE ETWAS ÜBER",

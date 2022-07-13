@@ -191,7 +191,10 @@
     "COPIED": "COPIADO",
     "COPY": "COPIAR",
     "SHARE": "COMPARTIR",
-    "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA"
+    "Copy": "Copiar",
+    "Share": "Compartir",
+    "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
     "Copied": "Copiado"
@@ -275,8 +278,7 @@
   "screens/CommunityScreen": {
     "Community": "Comunidad",
     "CONNECT WITH THE COMMUNITY": "CONECTA CON LA COMUNIDAD",
-    "DeFiChain is a community-driven and open project.": "DeFiChain es un proyecto abierto y dirigido por una comunidad.",
-    "The DeFiChain Foundation does not provide direct support.": "La Fundación DeFiChain no da soporte técnico directo.",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain es un proyecto abierto y dirigido por una comunidad. La Fundación DeFiChain no da soporte técnico directo.",
     "Report an issue on Github": "Informar sobre un problema en Github",
     "Frequently Asked Questions": "Preguntas frecuentes",
     "Announcements": "Comunicados",
@@ -330,7 +332,7 @@
     "GENERAL": "GENERAL",
     "Server": "Servidor",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "Display & Language": "Display & Language"
+    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -348,7 +350,13 @@
     "View official website": "Mostrar página web oficial",
     "Learn more about DFX": "Descrubir más sobre DFX",
     "Try Beta features": "Probar funciones BETA (experimentales)",
-    "Learn more about the blockchain": "Aprende más sobre la blockchain"
+    "Learn more about the blockchain": "Aprende más sobre la blockchain",
+    "Join our active community": "Join our active community",
+    "FAQ": "FAQ",
+    "DeFiChain official website": "DeFiChain official website",
+    "Learn more about the native decentralized finance for Bitcoin": "Learn more about the native decentralized finance for Bitcoin",
+    "Other information": "Other information",
+    "Developed by": "Developed by"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "APRENDA SOBRE",
