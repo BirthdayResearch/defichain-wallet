@@ -57,7 +57,7 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
     >
       <ThemedTouchableOpacityV2
         onPress={onPress}
-        style={tailwind('flex-row py-4.5 items-center justify-between border-0', { 'opacity-30': props.disabled })}
+        style={tailwind('flex-row py-4.5 items-center justify-between border-0')}
         testID={`button_network_${props.network}`}
         disabled={props.disabled}
       >
