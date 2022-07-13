@@ -277,9 +277,9 @@
   },
   "screens/CommunityScreen": {
     "Community": "Communauté",
-    "JOIN THE COMMUNITY": "JOIN THE COMMUNITY",
+    "JOIN THE COMMUNITY": "REJOINDRE LA COMMUNAUTÉ",
     "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain est un projet communautaire et ouvert à tous. La Fondation DeFiChain ne fournit pas de soutien direct.",
-    "Report issue on Github": "Report issue on Github",
+    "Report issue on GitHub": "Signaler un problème sur GitHub",
     "Frequently asked questions": "Foire aux questions",
     "Announcements": "Annonces",
     "Official Website": "Site officiel"
