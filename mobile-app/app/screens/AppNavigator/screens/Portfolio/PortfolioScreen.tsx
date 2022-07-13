@@ -134,6 +134,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     fetchDfxStakingBalance()
   }, [])
 
+  useEffect(() => {
+    fetchDfxStakingBalance()
+  }, [address])
+
   const fetchPortfolioData = (): void => {
     batch(() => {
       dispatch(fetchTokens({
