@@ -12,7 +12,7 @@ export function ThemedTouchableOpacityV2 (props: ThemedTouchableOpacityProps): J
     style = tailwind('border-b'),
     light = tailwind('border-mono-light-v2-300'),
     dark = tailwind('border-mono-dark-v2-300'),
-    activeOpacity = 0.3,
+    activeOpacity = 0.7,
     ...otherProps
   } = props
   return (

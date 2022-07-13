@@ -70,7 +70,7 @@ exports[`onboarding network selection screen should render 1`] = `
       style={
         Array [
           Object {
-            "borderBottomWidth": 1,
+            "borderBottomWidth": 0.5,
           },
           Object {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
@@ -144,7 +144,7 @@ exports[`onboarding network selection screen should render 1`] = `
       style={
         Array [
           Object {
-            "borderBottomWidth": 1,
+            "borderBottomWidth": 0.5,
           },
           Object {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
@@ -218,7 +218,7 @@ exports[`onboarding network selection screen should render 1`] = `
       style={
         Array [
           Object {
-            "borderBottomWidth": 1,
+            "borderBottomWidth": 0.5,
           },
           Object {
             "borderBottomColor": "rgba(204, 204, 204, 1)",

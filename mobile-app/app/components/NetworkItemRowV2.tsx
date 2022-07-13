@@ -51,7 +51,7 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
 
   return (
     <ThemedViewV2
-      style={tailwind('border-b', { 'border-0': props.isLast })}
+      style={tailwind('border-b-0.5', { 'border-0': props.isLast })}
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
     >
