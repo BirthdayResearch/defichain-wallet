@@ -6,8 +6,8 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
     hasBetaFeatures: false,
     featureFlags: [
       {
-        id: 'loan',
-        name: 'Decentralized Loans',
+        id: 'future_swap',
+        name: 'Future swap',
         stage: 'beta',
         version: '>=0.12.0',
         description: 'Browse loan tokens provided by DeFiChain',
@@ -15,7 +15,7 @@ export function useFeatureFlagContext (): FeatureFlagContextI {
         platforms: ['ios', 'android', 'web']
       }
     ],
-    enabledFeatures: ['loan', 'dfi_loan_payment'],
+    enabledFeatures: ['future_swap', 'dfi_loan_payment'],
     updateEnabledFeatures: jest.fn(),
     isFeatureAvailable: jest.fn(),
     isBetaFeature: jest.fn()
