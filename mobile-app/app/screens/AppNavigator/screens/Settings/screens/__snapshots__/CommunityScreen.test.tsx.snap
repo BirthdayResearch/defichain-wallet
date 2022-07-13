@@ -25,7 +25,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       Object {
         "icon": "flag",
         "id": "gh",
-        "title": "Report issue on Github",
+        "title": "Report issue on GitHub",
         "url": "https://github.com/DeFiCh/wallet/issues",
       },
       Object {
@@ -337,7 +337,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               ]
             }
           >
-            Report issue on Github
+            Report issue on GitHub
           </Text>
           <Text />
         </View>
