@@ -84,7 +84,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   useScrollToTop(ref)
 
   // DFX Staking Balance
-  const [staked, setStaked] = useState(10.0000)
+  const [staked, setStaked] = useState(0)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -126,13 +126,13 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   function fetchDfxStakingBalance (): void {
     void (async () => {
       const userDetail = await getUserDetail()
-      setStaked(userDetail.stakingBalance)
+      setStaked(userDetail?.stakingBalance ?? 0)
     })()
   }
 
-  // useEffect(() => {
-  //   fetchDfxStakingBalance()
-  // }, [])
+  useEffect(() => {
+    fetchDfxStakingBalance()
+  }, [])
 
   const fetchPortfolioData = (): void => {
     batch(() => {

@@ -79,6 +79,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   // returns webtoken string of current active Wallet address
   const getActiveWebToken = async (): Promise<string> => {
     let webToken = await DFXPersistence.getToken(address)
+
+    // TODO: (thabrad) quick fix - recheck
+    webToken = ''
+
     if (webToken === undefined || webToken.length === 0) {
         await createWebToken(address)
         webToken = await DFXPersistence.getToken(address)
