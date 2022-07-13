@@ -6,7 +6,6 @@ import { CommunityScreen } from './screens/CommunityScreen'
 import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkDetails } from './screens/NetworkDetails'
-import { NetworkSelectionScreen } from './screens/NetworkSelectionScreen'
 import { SettingsScreenV2 } from './SettingsScreenV2'
 import { KnowledgeBaseScreenV2 } from './screens/KnowledgeBaseScreenV2'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
@@ -25,6 +24,7 @@ import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
 import { AddressBookScreenV2 } from '../Portfolio/screens/AddressBookScreenV2'
 import { LocalAddress } from '@store/userPreferences'
 import { AddOrEditAddressBookScreenV2 } from '../Portfolio/screens/AddOrEditAddressBookScreenV2'
+import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -55,7 +55,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
   const navigationV2 = useNavigation<NavigationProp<SettingsParamList>>()
 
   const goToNetworkSelect = (): void => {
-    navigationV2.navigate('NetworkDetails')
+    navigationV2.navigate('NetworkSelectionScreen')
   }
   const screenOptions = useNavigatorScreenOptions()
 
@@ -128,11 +128,11 @@ export function SettingsNavigatorV2 (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={NetworkSelectionScreen}
+        component={NetworkSelectionScreenV2}
         name='NetworkSelectionScreen'
         options={{
-          headerTitle: translate('screens/NetworkSelectionScreen', 'Select network'),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
+          headerRight: undefined
         }}
       />
 
