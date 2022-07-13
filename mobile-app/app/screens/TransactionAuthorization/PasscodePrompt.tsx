@@ -46,16 +46,15 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         light={tailwind('bg-mono-light-v2-100')}
         dark={tailwind('bg-mono-dark-v2-100')}
         onPress={() => props.onCancel(USER_CANCELED)}
-        style={tailwind('items-end pt-6 pr-6 rounded-t-xl-v2')}
+        style={tailwind('items-end pt-5 px-5 rounded-t-xl-v2')}
         testID='cancel_authorization'
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(props.status)}
       >
         <ThemedIcon
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
-          iconType='MaterialCommunityIcons'
-          name='close-circle-outline'
-          style={tailwind('w-5 h-5')}
+          iconType='Feather'
+          name='x-circle'
           size={20}
         />
       </ThemedTouchableOpacityV2>
@@ -78,7 +77,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           value={props.pin}
           style={props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mt-3' : ''}
         />
-        <View style={tailwind('text-sm text-center mb-14 mt-4')}>
+        <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
           {// show pin success message
               props.status === TransactionStatus.AUTHORIZED &&
                 <ThemedTextV2
@@ -136,7 +135,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   >
                     {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                       ? 'Last attempt or your wallet will be unlinked for your security'
-                      : 'Wrong passcode entered'}`, { attemptsRemaining: props.attemptsRemaining })}
+                      : 'Incorrect passcode.\n{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
                   </ThemedTextV2>
                 )
             }

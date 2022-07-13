@@ -507,7 +507,7 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Deine Walletverknüpfung wurde aus Sicherheitsgründen wegen mehrmaliger fehlerhafter Passworteingabe aufgehoben. Bitte nutze den Wiederherstellungssatz, um die Wallet wiederherzustellen und zu öffnen.",
     "Close": "Schließen",
     "Last attempt or your wallet will be unlinked for your security": "Letzter Versuch, bevor deine Walletverknüpfung aufgehoben wird",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Passwort fehlerhaft. {{attemptsRemaining}} verbleibende Versuche",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Passwort fehlerhaft.\n{{attemptsRemaining}} verbleibende Versuche",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche",
     "Enter passcode for verification": "Passcode zur Überprüfung eingeben",
     "It may take a few seconds to secure and encrypt your wallet.": "Es kann ein paar Sekunden dauern, bis deine Wallet gesichert und verschlüsselt ist."

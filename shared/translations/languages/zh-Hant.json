@@ -510,7 +510,7 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "您輸入了多次錯誤的密碼，為了安全，目前錢包已解開鏈接. 請用恢復自組以還原和重設錢包.",
     "Close": "關閉",
     "Last attempt or your wallet will be unlinked for your security": "最後一次可輸入密碼，為了安全，如果不通過，您的錢包會解開鏈接",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密碼錯誤. 您還剩 {{attemptsRemaining}} 次可輸入密碼",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "密碼錯誤.\n您還剩 {{attemptsRemaining}} 次可輸入密碼",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼",
     "Enter passcode for verification": "輸入驗證碼",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."

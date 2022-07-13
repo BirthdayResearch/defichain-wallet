@@ -518,7 +518,7 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Votre portefeuille a été dissocié pour votre sécurité en raison d'échecs successifs du code d'accès. Veuillez utiliser les mots de récupération pour restaurer et configurer à nouveau votre portefeuille.",
     "Close": "Fermer",
     "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera dissocié pour votre sécurité.",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Code d'accès incorrect.\n{{attemptsRemaining}} tentatives restantes",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes",
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
