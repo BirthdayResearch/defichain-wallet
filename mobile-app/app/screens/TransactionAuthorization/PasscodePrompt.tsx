@@ -9,7 +9,7 @@ import {
 import { DfTxSigner } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { Platform, SafeAreaView, View, Text } from 'react-native'
+import { Platform, SafeAreaView, View } from 'react-native'
 import { TransactionStatus, USER_CANCELED } from '@screens/TransactionAuthorization/api/transaction_types'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
@@ -128,27 +128,31 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           {// upon retry: show remaining attempt allowed
               (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
                 (
-                  <Text
-                    style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
+                  <ThemedTextV2
+                    style={tailwind('text-center text-sm font-normal-v2')}
+                    light={tailwind('text-red-v2')}
+                    dark={tailwind('text-red-v2')}
                     testID='pin_attempt_error'
                   >
                     {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                       ? 'Last attempt or your wallet will be unlinked for your security'
                       : 'Wrong passcode entered'}`, { attemptsRemaining: props.attemptsRemaining })}
-                  </Text>
+                  </ThemedTextV2>
                 )
             }
           {// on first time: warn user there were accumulated error attempt counter
               (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
                 (
-                  <Text
-                    style={tailwind('text-center text-sm font-normal-v2 text-red-v2')}
+                  <ThemedTextV2
+                    style={tailwind('text-center text-sm font-normal-v2')}
+                    light={tailwind('text-red-v2')}
+                    dark={tailwind('text-red-v2')}
                     testID='pin_attempt_warning'
                   >
                     {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                       ? 'Last attempt or your wallet will be unlinked for your security'
                       : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                  </Text>
+                  </ThemedTextV2>
                 )
             }
         </View>
