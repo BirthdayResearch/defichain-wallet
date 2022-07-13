@@ -176,7 +176,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
             <ThemedTextV2
               dark={tailwind('text-mono-dark-v2-500')}
               light={tailwind('text-mono-light-v2-500')}
-              style={tailwind('px-5 pt-2 text-xs font-normal-v2 text-center')}
+              style={tailwind('px-5 pt-2 text-xs font-normal-v2')}
             >
               {translate('screens/Settings', 'Auto-locks wallet if there is no activity for 1 min.')}
             </ThemedTextV2>
@@ -186,7 +186,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
 
       <ThemedSectionTitleV2
         testID='addtional_options_title'
-        text={translate('screens/Settings', 'Display & Language')}
+        text={translate('screens/Settings', 'DISPLAY & LANGUAGE')}
       />
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
