@@ -58,16 +58,14 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         Array [
-          Array [
-            Object {
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            Object {
-              "borderRadius": 10,
-              "opacity": 1,
-            },
-          ],
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+          },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
           },
@@ -428,17 +426,16 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         Array [
-          Array [
-            Object {
-              "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            },
-            Object {
-              "borderRadius": 10,
-            },
-          ],
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "paddingBottom": 20,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 20,
+          },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
           },

@@ -38,7 +38,7 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
         text={translate('screens/OnboardingNetworkSelectScreen', 'SELECT NETWORK')}
       />
       <ThemedViewV2
-        style={[tailwind('px-5'), { borderRadius: 10, opacity: (hasPendingJob || hasPendingBroadcastJob) ? 0.3 : 1 }]}
+        style={tailwind('px-5 rounded-lg-v2', { 'opacity-30': (hasPendingJob || hasPendingBroadcastJob) })}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
       >
@@ -60,7 +60,7 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
         text={translate('screens/NetworkDetails', 'DETAILS')}
       />
       <ThemedViewV2
-        style={[tailwind('p-5'), { borderRadius: 10 }]}
+        style={tailwind('p-5 rounded-lg-v2')}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
       >
