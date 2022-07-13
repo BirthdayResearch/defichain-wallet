@@ -1,4 +1,3 @@
-import { PinTextInputV2 } from '@components/PinTextInputV2'
 import {
   ThemedActivityIndicatorV2,
   ThemedIcon,
@@ -15,6 +14,7 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal 
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
 import Modal from 'react-overlays/Modal'
+import { PinTextInputV2 } from '@components/PinTextInputV2'
 
 interface PasscodePromptProps {
   onCancel: (err: string) => void
@@ -68,15 +68,18 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
         {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-        <PinTextInputV2
-          cellCount={props.pinLength}
-          onChange={(pin) => {
-            props.onPinInput(pin)
-          }}
-          testID='pin_authorize'
-          value={props.pin}
-          style={props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mt-3' : ''}
-        />
+
+        {props.status === TransactionStatus.PIN && (
+          <PinTextInputV2
+            cellCount={props.pinLength}
+            onChange={(pin) => {
+              props.onPinInput(pin)
+            }}
+            testID='pin_authorize'
+            value={props.pin}
+            style='mt-3'
+          />
+        )}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
           {// show pin success message
               props.status === TransactionStatus.AUTHORIZED &&
