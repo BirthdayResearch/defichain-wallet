@@ -21,7 +21,7 @@ export function SearchInputV2 (props: SearchInputProps): JSX.Element {
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
-      style={[tailwind('rounded-3xl flex flex-row items-center px-5 py-3'), props.containerStyle]}
+      style={[tailwind('rounded-2xl-v2 flex flex-row items-center px-5 py-3'), props.containerStyle]}
     >
       <ThemedIcon
         iconType='Feather'
@@ -33,7 +33,7 @@ export function SearchInputV2 (props: SearchInputProps): JSX.Element {
       />
       <ThemedTextInput
         {...otherProps}
-        style={[tailwind('flex-grow w-8/12 font-normal-v2 flex-1'), tailwind({ 'mr-4': !props.showClearButton })]}
+        style={[tailwind('flex-grow w-8/12 font-normal-v2 flex-1 text-xs'), tailwind({ 'mr-4': !props.showClearButton })]}
       />
       {props.showClearButton &&
         (
