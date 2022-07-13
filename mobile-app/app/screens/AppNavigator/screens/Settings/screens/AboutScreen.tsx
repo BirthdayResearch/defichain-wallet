@@ -46,35 +46,6 @@ interface AboutLinks {
 }
 
 const MAIN_LINKS: AboutScreenLinks[] = [
-  // {
-  //   testID: 'knowledge_base_link',
-  //   title: 'Knowledge base',
-  //   subtitle: 'Common questions and support documents',
-  //   iconName: 'help-circle-outline',
-  //   onPress: (navigation) => navigation.navigate('KnowledgeBaseScreen')
-  // },
-  // {
-  //   testID: 'community_link',
-  //   title: 'Participate with active community',
-  //   subtitle: 'Report in Github, discuss in Reddit and Telegram',
-  //   iconName: 'account-multiple-outline',
-  //   onPress: (navigation) => navigation.navigate('CommunityScreen')
-  // },
-  // {
-  //   testID: 'explorer_link',
-  //   title: 'DeFi Scan', // "DeFi Scan" does not need to be translated
-  //   subtitle: 'Track transactions, tokens and DEX pairs',
-  //   iconName: 'compass-outline',
-  //   url: 'https://defiscan.live/'
-  // },
-  // {
-  //   testID: 'official_website',
-  //   title: 'View official website',
-  //   subtitle: 'Learn more about the blockchain',
-  //   iconName: 'web',
-  //   url: 'https://defichain.com/'
-  // }
-
   {
     testID: 'community_link',
     title: 'Join our active community',
