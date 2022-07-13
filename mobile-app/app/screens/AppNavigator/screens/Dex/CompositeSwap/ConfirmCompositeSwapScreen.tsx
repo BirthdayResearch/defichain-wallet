@@ -27,9 +27,9 @@ import { InfoText } from '@components/InfoText'
 import { DexParamList } from '../DexNavigator'
 import { OwnedTokenState, TokenState } from './CompositeSwapScreen'
 import { WalletAddressRow } from '@components/WalletAddressRow'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
 import { PricesSection } from '@components/PricesSection'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmCompositeSwapScreen'>
 export interface CompositeSwapForm {
@@ -81,7 +81,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
     }
 
     setIsSubmitting(true)
-    if (isFutureSwap) {
+    if (futureSwap !== undefined) {
       const futureSwapForm: FutureSwapForm = {
         fromTokenId: Number(swap.tokenFrom.id),
         toTokenId: Number(swap.tokenTo.id),
@@ -166,7 +166,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
       />
       <WalletAddressRow />
 
-      {isFutureSwap
+      {futureSwap !== undefined
         ? (
           <>
             <TextRow
@@ -233,7 +233,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             />
           </>
         )}
-      {isFutureSwap
+      {futureSwap !== undefined
         ? (
           <>
             <TransactionResultsRow
@@ -262,12 +262,20 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
             tokens={[
               {
                 symbol: tokenA.displaySymbol,
-                value: BigNumber.max(new BigNumber(tokenA.amount).minus(swap.amountFrom), 0).toFixed(8),
+                value: BigNumber.max(
+                  new BigNumber(tokenA.amount)
+                    .minus(swap.amountFrom)
+                    .minus(tokenA.displaySymbol === 'DFI' ? fee : 0)
+                , 0).toFixed(8),
                 suffix: tokenA.displaySymbol
               },
               {
                 symbol: tokenB.displaySymbol,
-                value: BigNumber.max(new BigNumber(tokenB?.amount === '' || tokenB?.amount === undefined ? 0 : tokenB?.amount).plus(swap.amountTo), 0).toFixed(8),
+                value: BigNumber.max(
+                  new BigNumber(tokenB?.amount === '' || tokenB?.amount === undefined ? 0 : tokenB?.amount)
+                    .plus(swap.amountTo)
+                    .minus(tokenB.displaySymbol === 'DFI' ? fee : 0)
+                , 0).toFixed(8),
                 suffix: tokenB.displaySymbol
               }
             ]}
@@ -283,7 +291,7 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         </View>
       )}
       <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (isFutureSwap && blockCount >= futureSwap.executionBlock)}
+        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (futureSwap !== undefined && blockCount >= futureSwap.executionBlock)}
         label={translate('screens/ConfirmCompositeSwapScreen', 'CONFIRM SWAP')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/ConfirmCompositeSwapScreen', getSubmitLabel())}

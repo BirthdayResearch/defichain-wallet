@@ -1,11 +1,10 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Switch, View } from '@components/index'
 import { Button } from '@components/Button'
-import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
+import { IconName, ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -14,7 +13,7 @@ import { openURL } from '@api/linking'
 type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
 
 interface GuidelineItem {
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
+  icon: IconName
   title: string
   subtitle: string
 }

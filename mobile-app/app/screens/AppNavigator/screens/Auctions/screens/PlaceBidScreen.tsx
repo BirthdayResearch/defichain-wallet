@@ -262,7 +262,7 @@ function BidSummaryCard (props: {
         suffixType='component'
         prefix='$'
       >
-        <TouchableOpacity onPress={props.onPressFullDetails}>
+        <TouchableOpacity onPress={props.onPressFullDetails} style={tailwind('items-end')}>
           <ThemedText
             dark={tailwind('text-dfxred-500')}
             light={tailwind('text-primary-500')}

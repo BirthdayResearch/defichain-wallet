@@ -5,6 +5,7 @@
     "Display recovery words": "顯示恢復字組",
     "Verify words": "確認字組",
     "Restore Wallet": "恢復錢包",
+    "Restore wallet": "恢復錢包",
     "Create a passcode": "創建密碼",
     "Verify passcode": "確認密碼",
     "Select network": "選擇網絡",
@@ -65,7 +66,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "方便地在流動池裡兌換貨幣",
     "You have full control over your tokens unlike any other.": "您能完全掌控貨幣"
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "我的資產",
     "Portfolio": "資產組合",
     "SEND": "發出",
@@ -303,7 +304,8 @@
     "Sign to save address": "簽名儲存地址",
     "Sign to delete address": "簽名移除地址",
     "Address Book": "地址簿",
-    "GENERAL": "一般"
+    "GENERAL": "一般",
+    "Server": "伺服器"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -359,8 +361,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "總利率是由：由金庫利率和代幣利率整體以每年率計算。",
     "What is collateral factor?": "抵押因素是什麼？",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素決定每個抵押代幣的貢獻程度。例如，如果一個代幣以70%的抵押因素被接受，價值100美元的代幣將貢獻該金庫中70美元的抵押品價值。",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "為什麼用 DFI 支付 DUSD 貸款要收取 1% 的費用？",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "根據 遞飛鏈改進提議 DFIP 2112-A，每筆 DUSD 貸款都將由 DFI 支付，以克服目前在 DEX 上 DUSD 溢價的情況。\n\n在計算用多少等值 DFI 作為支付 DUSD 貸款時，將會按照 預言機 上 DFI/USD 的價值收取 1% 的罰款。 以舉例來說，如果今天 DFI/USD 預言機價格是 10 美元，那麼用作支付 DUSD  期間， DFI 的相對價格計算方法 是 10 美元 * (1 - 0.01) 。在這情況下，DFI 的價值實際上減少了 1% 等於 9.90 美元。",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "為什麼用 DFI 支付 DUSD 貸款時要收取 5% 的費用？",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "根據 社區提案 DFIP 2206-C，當在 DFI 中償還 DUSD 貸款時，將向用戶收取 5% 的費用。 這是一項激勵套利交易者使用 DUSD 償還貸款的臨時措施，將減少DUSD 在市場上的供應。 在計算為 DUSD 貸款支付多少等值 DFI 時，對 DFI/DUSD 預言機價值收取 5% 的額外費用。 以此案例說明，如果今天 DFI/USD 的預言機價格為 $10 美元，那麼在 DUSD 支付中 DFI 的價值是通過取 $10 美元*（1-0.05）來計算的，在這種情況下，DFI 的價值實際上減少了 5% 至 $9.50 美元。",
     "What is vault share?": "金庫份額是什麼？",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "金庫庫份額代表存放在金庫中的抵押代幣的比例。 所有金庫都必須包含至少 50% 的 DFI 和/或 DUSD 作為抵押代幣。 當您鑄造新的 dToken 時，和當您從您的金庫中提取抵押品時，均會被要求達到這項要求。"
   },
@@ -428,7 +430,8 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "創建錢包",
-    "RESTORE WALLET": "恢復錢包"
+    "RESTORE WALLET": "恢復錢包",
+    "Get started": "開始"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特幣生態原生DeFi",
@@ -439,7 +442,8 @@
     "Maximize earning potential": "最大化盈利潛力",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上進行交易並使用加密貨幣和 dToken 從流動性挖礦中獲得獎勵 ",
     "Decentralized loans": "去中心化資產貸款",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會"
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會",
+    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 錢包是完全非託管的。 個人資金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "離開頁面",
@@ -478,7 +482,8 @@
     "Close": "關閉",
     "Last attempt or your wallet will be unlinked for your security": "最後一次可輸入密碼，為了安全，如果不通過，您的錢包會解開鏈接",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密碼錯誤. 您還剩 {{attemptsRemaining}} 次可輸入密碼",
-    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼"
+    "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼",
+    "Enter passcode for verification": "輸入驗證碼"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您創建新錢包！接著請創建密碼以維持安全保護.",
@@ -486,7 +491,9 @@
     "Keep your passcode private": "請把密碼保管好",
     "CREATE PASSCODE": "創建密碼",
     "CHANGE PASSCODE": "更換密碼",
-    "Learn more about passcode": "了解更多關於密碼的資訊"
+    "Learn more about passcode": "了解更多關於密碼的資訊",
+    "Create your passcode": "設置您的密碼",
+    "Add an additional layer of security by setting a passcode.": "通過設置密碼添加額外的安全性"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "選擇的字組錯誤. 請確認您已經寫下正確的字和順序.",
@@ -720,7 +727,8 @@
     "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
-    "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})"
+    "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -779,7 +787,11 @@
     "Recovery": "恢復",
     "Verify": "確認",
     "Secure": "安全",
-    "Restore": "還原"
+    "Restore": "還原",
+    "RECOVERY": "恢復",
+    "VERIFY": "確認",
+    "SECURE": "安全",
+    "RESTORE": "還原"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "語言",
@@ -828,7 +840,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "密碼",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位數字密碼是由您設定，這密碼將用於授權所有交易。請保管好和負責您的密碼私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘記了我的密碼會怎麼樣？有人能幫我找回我的密碼嗎？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密碼之外，沒有任何人會知道。因此，沒有人能幫您找回您的私人密碼。",
     "Can I change my passcode?": "我可以更改我的密碼嗎？",
@@ -1104,12 +1116,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "錢包地址"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
     "No Crypto in portfolio": "資產組合中沒有加密貨幣",
-    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣",
     "Empty portfolio": "沒有資產",
     "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
   },
@@ -1214,7 +1224,7 @@
     "Vault ID": "金庫編號",
     "Resulting {{displaySymbol}} Balance": "產生的 {{displaySymbol}} 餘額",
     "Insufficient {{token}} to pay for the entered amount": "{{token}} 餘額不足以支付輸入的金額",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "當您使用 {{tokenSymbol}} 付款時，將收取 1% 的費用",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "當您使用 {{tokenSymbol}} 付款時，將收取 5% 的費用。",
     "Read more": "閱讀更多",
     "How do you want to pay?": "How do you want to pay?",
     "You are paying": "You are paying",
@@ -1430,6 +1440,22 @@
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },
+  "screens/ServiceProviderScreen": {
+    "Server": "伺服器",
+    "Service Provider": "服務供應商",
+    "UNLOCK": "解鎖",
+    "RESET": "重置",
+    "Endpoint URL": "終端點網址",
+    "Custom": "自定",
+    "Default": "預設",
+    "CONTINUE": "繼續",
+    "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加惡意服務供應商 可能會導致可收回資金。 風險自負",
+    "Adding custom service provider": "添加自定義服務提供者",
+    "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "這樣做，您將恢復到手機輕錢包的預設終端點。 你想繼續嗎？",
+    "Enter passcode to continue": "輸入密碼後可繼續",
+    "Invalid URL": "無效的網址",
+    "Reset default service provider": "重置預設 服務供應商"
+  },
   "components/QuickBid": {
     "QUICK BID": "快速標價",
     "Insufficient amount to place a bid": "餘額不足，無法出價",
@@ -1450,7 +1476,7 @@
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值"
   },
   "components/VersionTag": {
-    "Version {{number}}": "版本 {{number}}"
+    "VERSION {{number}}": "版本 {{number}}"
   },
   "screens/SellScreen": {
     "Cash out to my bank account": "提現到我的銀行賬戶",
@@ -1492,5 +1518,11 @@
   },
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "請注意，目前只能出售 DFI UTXO。 您可以點擊此處兌換 DFI 代幣。"
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "錢包已恢復！",
+    "Wallet created!": "錢包已創建！",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "透過去中心化金融按觸如同比特幣級別般安全、強度和不可隨意變更的特性。",
+    "Continue": "繼續"
   }
 }

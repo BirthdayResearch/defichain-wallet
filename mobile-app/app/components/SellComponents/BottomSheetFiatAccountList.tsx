@@ -10,6 +10,7 @@ import { ActionButton } from '@screens/AppNavigator/screens/Dex/components/PoolP
 import { translate } from '@translations'
 import { BottomSheetFiatAccountCreate } from './BottomSheetFiatAccountCreate'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { random } from 'lodash'
 
 interface BottomSheetFiatAccountListProps {
   headerLabel: string
@@ -51,6 +52,16 @@ export const BottomSheetFiatAccountList = ({
     }
   }, [])
 
+  const filterEnabled = (sellRouteList: SellRoute[]): SellRoute[] => {
+    return sellRouteList?.filter((item) => {
+      return item.active
+    })
+  }
+
+  const filteredList = filterEnabled(fiatAccounts)
+  const [accountList, setAccountList] = useState(filteredList)
+  const [trigger, setTrigger] = useState('')
+
   const setFiatAccountCreateBottomSheet = React.useCallback((accounts: SellRoute[]) => { // TODO: remove accounts?
     setBottomSheetScreen([
       {
@@ -61,7 +72,9 @@ export const BottomSheetFiatAccountList = ({
           onCloseButtonPress: () => dismissModal(),
           onElementCreatePress: async (item): Promise<void> => {
             if (item.iban !== undefined) {
-              fiatAccounts.push(item)
+              filteredList.push(item)
+              setAccountList(filteredList)
+              setTrigger(random().toString())
             }
             dismissModal()
           }
@@ -72,18 +85,11 @@ export const BottomSheetFiatAccountList = ({
       }])
   }, [fiatAccounts])
 
-  const filterEnabled = (sellRouteList: SellRoute[]): SellRoute[] => {
-    return sellRouteList?.filter((item) => {
-      return item.active
-    })
-  }
-
-  const filteredList = filterEnabled(fiatAccounts)
-
   return (
     <>
       <FlatList
-        data={filteredList}
+        data={accountList}
+        extraData={trigger}
         renderItem={({ item }: { item: SellRoute }): JSX.Element => {
           return (
             <ThemedTouchableOpacity

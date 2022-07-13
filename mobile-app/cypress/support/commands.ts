@@ -1,7 +1,9 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
+import './onboardingCommandsV2'
 import './walletCommands'
 import './loanCommands'
+import { EnvironmentNetwork } from '../../../shared/environment'
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
@@ -110,10 +112,21 @@ declare global {
       compareSnapshot: (element?: string) => Chainable<Element>
 
       /**
-       * @description setWalletTheme
+       * @description Set wallet theme
        * @param {any} walletTheme
        */
       setWalletTheme: (walletTheme: any) => Chainable<Element>
+
+      /**
+       * @description Return empty array of feature flag
+       */
+      blockAllFeatureFlag: () => Chainable<Element>
+      /**
+       * @description Set feature flags
+       * @param {string[]} flags to be set
+       * @example cy.setFeatureFlags(['feature_a', 'feature_b'])
+       */
+      setFeatureFlags: (flags: string[]) => Chainable<Element>
     }
   }
 }
@@ -165,7 +178,7 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 })
 
 Cypress.Commands.add('switchNetwork', (network: string) => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('button_selected_network').click()
   cy.getByTestID(`button_network_${network}`).click()
@@ -187,9 +200,32 @@ Cypress.Commands.add('restoreLocalStorage', () => {
 })
 
 Cypress.Commands.add('setWalletTheme', (walletTheme: any) => {
-  cy.getByTestID('bottom_tab_balances').click()
+  cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
   cy.getByTestID('light_mode_icon').then(($txt: any) => {
     walletTheme.isDark = $txt[0].style.color === 'rgb(212, 212, 212)'
+  })
+})
+
+Cypress.Commands.add('blockAllFeatureFlag', () => {
+  cy.intercept('**/settings/flags', {
+    statusCode: 200,
+    body: []
+  })
+})
+
+Cypress.Commands.add('setFeatureFlags', (flags: string[]) => {
+  const body = flags.map((flag) => ({
+    id: flag,
+    name: flag,
+    stage: 'public',
+    version: '>0.0.0',
+    description: `Display ${flag} features`,
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet],
+    platforms: ['ios', 'android', 'web']
+  }))
+  cy.intercept('**/settings/flags', {
+    statusCode: 200,
+    body: body
   })
 })

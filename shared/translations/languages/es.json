@@ -5,6 +5,7 @@
     "Display recovery words": "Mostrar palabras de recuperación",
     "Verify words": "Verificar código",
     "Restore Wallet": "Restaurar billetera",
+    "Restore wallet": "Restaurar billetera",
     "Create a passcode": "Crear contraseña",
     "Verify passcode": "Verificar contraseña",
     "Select network": "Seleccionar Red",
@@ -14,7 +15,7 @@
     "You are about to generate a new set of recovery words. Continue?": "Estás a punto de crear un nuevo lote de palabras de recuperación",
     "Passcode FAQ": "Preguntas frecuentes sobre la contraseña",
     "DEX FAQ": "FAQ DEX",
-    "Liquidity Mining FAQ": "FAQ liquidity mining"
+    "View Recovery Words": "Palabras de Recuperación"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Exchange descentralizado",
@@ -66,7 +67,7 @@
     "Conveniently swap participating tokens within the liquidity pool.": "Intercambia cómodamente los tokens de la piscina de liqiudez.",
     "You have full control over your tokens unlike any other.": "Solo tú posees absoluto control de tus tokens."
   },
-  "screens/BalancesScreen": {
+  "screens/PortfolioScreen": {
     "Balances": "Saldos",
     "Portfolio": "Portafolio",
     "SEND": "ENVIAR",
@@ -314,7 +315,8 @@
     "Sign to save address": "Acepta para guardar tu dirección",
     "Sign to delete address": "Acepta para borrar la dirección",
     "Address Book": "Libro de direcciones",
-    "GENERAL": "GENERAL"
+    "GENERAL": "GENERAL",
+    "Server": "Servidor"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -371,8 +373,8 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "La tasa de interés total aplicada en un préstamo se deriva de la suma de la tasa de interés de la bóveda y la tasa de interés del token, y se calcula a un año vista.",
     "What is collateral factor?": "¿Qué es el factor colateral?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "El factor colateral determina el grado de contribución de cada token usado en el colateral. Por ejemplo, si un token es aceptado con una factor colateral del 70%, $100 en el valor del token podrían contribuir a $70 del valor del colateral en una bóveda.",
-    "Why is there a 1% fee when paying DUSD loans with DFI?": "Porqué hay una comisión de un 1% cuando pago los prestamos de DUSD en DFI?",
-    "Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.": "Para el DFIP 2112-A, cada prestamo de DUSD será pagable con DFI como modo para resolver el sobreprecio acutal de DUSD en el DEX.\n\n Una vez calculado el equivalente en DFI restante para pagar el préstamo de DUSD, una comisión del 1% es aplicada al valor del DFI/DUSD del oráculo. Por ejemplo, si el precio DFI/DUSD del oráculo hoy es de 10$, el valor de una DFI para pagar en DUSD es calculado de siguiente modo $10 * (1 - 0,01), reduciendo en tal escenario efectivamente el valor del DFI en 1% y equivaliendo a $9,90.",
+    "Why is there a 5% fee when paying DUSD loans with DFI?": "Porqué hay una comisión de un 5% cuando pago los prestamos de DUSD en DFI?",
+    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Para el DFIP 2206-C, cada prestamo de DUSD será pagable con DFI como modo para resolver el sobreprecio acutal de DUSD en el DEX.\n\n Una vez calculado el equivalente en DFI restante para pagar el préstamo de DUSD, una comisión del 5% es aplicada al valor del DFI/DUSD del oráculo. Por ejemplo, si el precio DFI/DUSD del oráculo hoy es de 10$, el valor de una DFI para pagar en DUSD es calculado de siguiente modo $10 * (1 - 0,05), reduciendo en tal escenario efectivamente el valor del DFI en 5% y equivaliendo a $9,50.",
     "What is vault share?": "¿Cúal es tu proporción de la bóveda?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "La proporción de la bóveda representa la proporción del valor de los activos colaterales depositados en una bóveda. Se requiere que todas las bóvedas tengan un 50% de DFI o/y dUSD como tokens usados como colaterales. Este requerimiento se comprueba en 2 ocasiones. Primero, cuando estás acuñando nuevos dTokens y segundo, cuando extraes parte del colateral de tu bóveda",
     "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.": "os préstamos descentralizados te permiten acuñar tokens descentralizados usando tus criptomonedas como colateral. Para empezar, tienes que crear una bóveda y depositar colateral antes de poder pedir el préstamo.",
@@ -460,7 +462,10 @@
     "Cancel": "Cancelar",
     "Yes": "Sí",
     "Take note of the words in their correct order": "Toma nota de las palabras en el orden correcto",
-    "VERIFY WORDS": "VERIFICAR PALABRAS"
+    "VERIFY WORDS": "VERIFICAR PALABRAS",
+    "Write down the words. Take note of the spelling and order.": "Anota las palabras. Ten en cuenta la ortografía y el orden.",
+    "Leave wallet creation?": "Salir de la creación de la billetera?",
+    "A new set of recovery words will be generated for the wallet once you leave this page.": "Se generarán nuevas palabras de recuperación una vez salgas de esta página."
   },
   "screens/Guidelines": {
     "Creating a wallet": "Creando una billetera",
@@ -494,7 +499,8 @@
     "Close": "Cierra",
     "Last attempt or your wallet will be unlinked for your security": "Último intento antes de que tu billetera se desconecte por seguridad",
     "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Contraseña incorrecta. Quedan {{attemptsRemaining}} intentos ",
-    "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos"
+    "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos",
+    "Enter passcode for verification": "Confirma tu contraseña"
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "¡Bien hecho! Tu billetera ha sido creada. Mantén tu billetera segura creando una contraseña.",
@@ -502,7 +508,10 @@
     "Keep your passcode private": "Mantén tu contraseña en un lugar privado",
     "CREATE PASSCODE": "CREA UNA CONTRASEÑA",
     "CHANGE PASSCODE": "CAMBIA TU CONTRASEÑA",
-    "Learn more about passcode": "Aprende más sobre las contraseñas"
+    "Learn more about passcode": "Aprende más sobre las contraseñas",
+    "Learn more": "Learn more",
+    "Create your passcode": "Crea tu contraseña",
+    "Add an additional layer of security by setting a passcode.": "Añade una capa de seguridad configurando una contraseña"
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Selección inválida. Por favor asegúrate de que has escrito tus 24 palabras.",
@@ -510,7 +519,15 @@
     "Verify what you wrote as correct.": "Verifica que lo que has escrito es correcto.",
     "Answer the questions to proceed.": "Responde a las preguntas para proceder.",
     "VERIFY": "VERIFICA",
-    "What is word ": "¿Cúal es la palabra "
+    "What is word ": "¿Cúal es la palabra ",
+    "All questions must be answered correctly.": "Todas la preguntas deben ser respondidas correctamente.",
+    "Verify words": "Verify words",
+    "Verify the written recovery words.": "Verifica las palabras de recuperación escritas.",
+    "word": "palabra",
+    "{{number}}st": "{{number}}ª",
+    "{{number}}nd": "{{number}}ª",
+    "{{number}}rd": "{{number}}ª",
+    "{{number}}th": "{{number}}ª"
   },
   "screens/RestoreWallet": {
     "Discard changes?": "Descarta los cambios",
@@ -523,7 +540,10 @@
     "Cancel": "Cancela",
     "Discard": "Descarta",
     "Required field is missing": "Hay un espacio en blanco",
-    "Uppercase, numbers and special characters are not allowed": "Mayúsculas, números y caracteres especiales no están permitidos."
+    "Uppercase, numbers and special characters are not allowed": "Mayúsculas, números y caracteres especiales no están permitidos.",
+    "Restore": "Restaurar",
+    "All questions must be answered correctly.": "Todas la preguntas deben ser respondidas correctamente.",
+    "Key in the 24 recovery words to regain access to your wallet.": "Ingrese las 24 palabras de recuperación para recuperar el acceso a su billetera."
   },
   "screens/ErrorBoundary": {
     "Something went wrong": "Algo ha ido mal",
@@ -804,7 +824,11 @@
     "Recovery": "Recupera",
     "Verify": "Verifica",
     "Secure": "Asegura",
-    "Restore": "Restaura"
+    "Restore": "Restaura",
+    "RECOVERY": "RECUPERA",
+    "VERIFY": "VERIFICA",
+    "SECURE": "ASEGURA",
+    "RESTORE": "RESTAURA"
   },
   "screens/LanguageSelectionScreen": {
     "LANGUAGE": "IDIOMA",
@@ -853,7 +877,7 @@
   },
   "components/PasscodeFaq": {
     "Passcode": "Contraseña",
-    "Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Tu contraseña de 6 números, creada por ti, se utilizaría para autorizar todas las transacciones. Mantén tu contraseña privada y segura. Es tu responsabilidad.",
+    "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Tu contraseña de 6 números, creada por ti, se utilizaría para autorizar todas las transacciones. Mantén tu contraseña privada y segura. Es tu responsabilidad.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "¿Qué pasaría si olvido mi contraseña? ¿Podría alguien ayudarme a recuperar mi contraseña?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Tu contraseña es tu responsabilidad, por lo que nadie debería conocerla. Es importante que mantengas tu contraseña segura y que la cambies de vez en cuando.",
     "Can I change my passcode?": "¿Puedo cambiar mi contraseña?",
@@ -1132,12 +1156,10 @@
   "components/BalanceControlCard": {
     "Wallet Address": "Dirección de la billetera"
   },
-  "components/EmptyBalances": {
+  "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "No tienes LP en el portafolio",
     "No Crypto in portfolio": "No tienes cripto en el portafolio",
-    "No dTokens in portfolio": "No tienes dTokens en el portafolio"
-  },
-  "components/EmptyPortfolio": {
+    "No dTokens in portfolio": "No tienes dTokens en el portafolio",
     "Empty portfolio": "Portafolio vacío"
   },
   "components/DfxEmptyWallet": {
@@ -1244,12 +1266,11 @@
     "Resulting collateralization": "Colateralización resultante",
     "Vault ID": "Vault-ID",
     "Resulting {{displaySymbol}} Balance": "Saldo {{displaySymbol}} resultante",
-    "Insufficient {{token}} balance to pay the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
-    "A 1% fee is applied when you pay with {{tokenSymbol}}.": "Un 1% de tasas se aplicarán cuando pagues con {{tokenSymbol}}.",
+    "Insufficient {{token}} to pay for the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
+    "A 5% fee is applied when you pay with {{tokenSymbol}}.": "Un 5% de tasas se aplicarán cuando pagues con {{tokenSymbol}}.",
     "Read more": "Lee más",
     "How do you want to pay?": "¿Cómo te gustaría pagar?",
     "You are paying": "Tu estás pagando",
-    "Insufficient {{token}} to pay for the entered amount": "Saldo {{token}} insuficiente para pagar esta cantidad",
     "of total loan": "del total del préstamo",
     "Loan amount": "Cantidad del préstamos",
     "Min. col. ratio": "Mínimo ratio de colateralización",
@@ -1460,6 +1481,23 @@
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap"
   },
+  "screens/ServiceProviderScreen": {
+    "Server": "Servidor",
+    "Service Provider": "Proveedor de Servicio",
+    "UNLOCK": "Desbloquear",
+    "RESET": "Resetear",
+    "Endpoint URL": "Endpoint URL",
+    "Custom": "Personalizado",
+    "Default": "Por defecto",
+    "CONTINUE": "CONTINUAR",
+    "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Añadir proveedores de servicio malignos puede resultar en la perdida de los fondos. Actua bajo tu propia responsabilidad.",
+    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Añade solo URLs en las que tengas plena confianza y sean seguras.",
+    "Adding custom service provider": "Añadiendo proveedor de servicios personalizado",
+    "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "i procedes, tu proveedor de servicio será revertido al del Light Wallet. Quieres continuar?",
+    "Enter passcode to continue": "Ingrese el código de acceso para continuar",
+    "Invalid URL": "URL no válida",
+    "Reset default service provider": "Restaurar proveedor de servicio por defecto"
+  },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",
     "Insufficient amount to place a bid": "Cantidad insuficiente para hacer una oferta",
@@ -1480,7 +1518,7 @@
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} precio en {{tokenA}}"
   },
   "components/VersionTag": {
-    "Version {{number}}": "Versión {{number}}"
+    "VERSION {{number}}": "VERSIÓN {{number}}"
   },
   "components/DfxKycInfo": {
     "Your account needs to get verified once your daily transaction volume exceeds 900 € per day.  If you want to increase daily trading limit, please complete our KYC (Know-Your-Customer) process.": "Tu cuenta necesitará ser verificada si tus transacciones diarias exceden el volumen de 900 € al día. Si quieres incrementar el límite de comercio diario, por favor completa nuestro proceso de verificación (KYC o Conoce a Tu Cliente por la siglas en inglés). "
@@ -1525,5 +1563,11 @@
   },
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "Tenga en cuenta que actualmente solo se pueden vender DFI UTXO. Puede intercambiar tokens DFI haciendo clic aquí."
+  },
+  "screens/WalletCreateRestoreSuccess": {
+    "Wallet restored!": "Cartera restaurada!",
+    "Wallet created!": "Cartera creada!",
+    "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accede a finanzas descentralizadas con el grado de seguridad, fuerza e inmutabilidad de Bitcoin.",
+    "Continue": "Continúa"
   }
 }

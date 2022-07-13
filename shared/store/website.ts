@@ -6,17 +6,20 @@ import { AdvertisementData, AnnouncementData, DefiChainStatus, FeatureFlag } fro
 export const statusWebsiteSlice = createApi({
   reducerPath: 'websiteStatus',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://status.defichain.com/api'
+    baseUrl: 'https://api.status.jellyfishsdk.com'
   }),
   endpoints: builder => ({
-    getStatus: builder.query<DefiChainStatus, any>({
+    getBlockchainStatus: builder.query<DefiChainStatus, any>({
       query: () => ({
-        url: '/v2/summary.json',
-        method: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          mode: 'no-cors'
-        }
+        url: '/blockchain',
+        method: 'GET'
+      })
+    }),
+    // Ocean API
+    getOceanStatus: builder.query<DefiChainStatus, any>({
+      query: () => ({
+        url: '/overall',
+        method: 'GET'
       })
     })
   })
@@ -62,7 +65,10 @@ export const announcementWebsiteSlice = createApi({
   })
 })
 
-const { useGetStatusQuery } = statusWebsiteSlice
+const {
+  useGetBlockchainStatusQuery,
+  useGetOceanStatusQuery
+} = statusWebsiteSlice
 const {
   useGetAnnouncementsQuery,
   useGetFeatureFlagsQuery,
@@ -71,7 +77,8 @@ const {
 } = announcementWebsiteSlice
 
 export {
-  useGetStatusQuery,
+  useGetBlockchainStatusQuery,
+  useGetOceanStatusQuery,
   useGetAnnouncementsQuery,
   useGetFeatureFlagsQuery,
   useLazyGetAdvertisementQuery,

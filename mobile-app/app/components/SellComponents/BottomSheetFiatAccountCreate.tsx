@@ -1,14 +1,10 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */ // TODO remove
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
 import { tailwind } from '@tailwind'
-import { Alert, Platform, TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { ThemedActivityIndicator, ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { BottomSheetNavScreen, BottomSheetWithNavRouteParam, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { translate } from '@translations'
-import { DFXAPIContextProvider, useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -20,7 +16,7 @@ import { BottomSheetFiatPicker } from './BottomSheetFiatPicker'
 import { Fiat } from '@shared-api/dfx/models/Fiat'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { getFiats, postSellRoute } from '@shared-api/dfx/ApiService'
-import { WalletAlert } from '@components/WalletAlert'
+import { WalletAlertErrorApi } from '@components/WalletAlert'
 
 interface BottomSheetFiatAccountCreateProps {
   headerLabel: string
@@ -34,9 +30,7 @@ export const BottomSheetFiatAccountCreate = ({
   onCloseButtonPress,
   onElementCreatePress
 }: BottomSheetFiatAccountCreateProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const logger = useLogger()
   const { isLight } = useThemeContext()
-  const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const {
     control,
     formState,
@@ -114,7 +108,9 @@ export const BottomSheetFiatAccountCreate = ({
 
     postSellRoute(sellData)
       .then((sellRoute) => onElementCreatePress(sellRoute))
-      .catch((error) => WalletAlert(error))
+      .catch((error) => {
+        WalletAlertErrorApi(error)
+      })
       .finally(() => setIsSubmitting(false))
   }
 
@@ -273,6 +269,25 @@ function IbanInput ({
   onAmountChange,
   onClearButtonPress
 }: IbanForm): JSX.Element {
+  // TODO: (thabrad) activate if needed (-> if keyboard bug comes back 🤷‍♂️)
+  // const { shouldHandleKeyboardEvents } = useBottomSheetInternal()
+  // const handleOnFocus = useCallback(
+  //   () => {
+  //     if (Platform.OS === 'ios') {
+  //       shouldHandleKeyboardEvents.value = true
+  //     }
+  //   },
+  //   [shouldHandleKeyboardEvents]
+  // )
+  // const handleOnBlur = useCallback(
+  //   () => {
+  //     if (Platform.OS === 'ios') {
+  //       shouldHandleKeyboardEvents.value = true
+  //     }
+  //   },
+  //   [shouldHandleKeyboardEvents]
+  // )
+
   return (
     <Controller
       control={control}
@@ -310,15 +325,13 @@ function IbanInput ({
               type: 'error',
               text: error?.message
             }}
+            // onBlur={handleOnBlur}
+            // onFocus={handleOnFocus}
           />
         </ThemedView>
       )}
       rules={{
         required: true,
-        // pattern: {
-        //   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        //   message: "invalid email address"
-        // },
         validate: {
           isValidAddress: (iban: string) => {
             return isValidIBAN(iban.replace(/\s/g, ''))

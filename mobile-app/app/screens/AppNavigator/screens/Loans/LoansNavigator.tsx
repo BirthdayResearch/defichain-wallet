@@ -14,7 +14,7 @@ import { ConfirmEditCollateralScreen } from './screens/ConfirmEditCollateralScre
 import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
 import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
 import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
-import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { ConversionParam } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'

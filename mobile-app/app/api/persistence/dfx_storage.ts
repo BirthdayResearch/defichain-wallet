@@ -109,12 +109,12 @@ async function resetToken (address: string): Promise<void> {
 }
 
 // Store UserInfoCompleted (default = true)
-async function setUserInfoComplete (complete: boolean = true): Promise<void> {
-  await AsyncStorage.setItem(USERINFOCOMPLETE, JSON.stringify(complete))
+async function setUserInfoComplete (address: string, complete: boolean = true): Promise<void> {
+  await AsyncStorage.setItem(USERINFOCOMPLETE + address, JSON.stringify(complete))
 }
 
-async function getUserInfoComplete (): Promise<boolean | null> {
-  const status = await AsyncStorage.getItem(USERINFOCOMPLETE)
+async function getUserInfoComplete (address: string): Promise<boolean | null> {
+  const status = await AsyncStorage.getItem(USERINFOCOMPLETE + address)
   return (status === null) ? null : JSON.parse(status)
 }
 

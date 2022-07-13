@@ -28,7 +28,7 @@ jobs:
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048
+      - uses: actions/setup-node@eeb10cff27034e7acf239c5d29f62154018672fd
         with:
           node-version: 16
           cache: 'npm'
@@ -45,15 +45,16 @@ jobs:
       - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 240
       - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 240
 
-      - uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3
+      - uses: cypress-io/github-action@53cc3178f59cc99b5519c29c14a182fb98ea4f31
         with:
+          config-file: cypress.config.js
           install: false
           record: true
           parallel: true
           start: npm run start:web
           wait-on: 'http://localhost:19006'
           browser: chrome
-          spec: mobile-app/cypress/integration/**
+          spec: mobile-app/cypress/e2e/**
           tag: ${{ github.event_name }}
           project: ./mobile-app
         env:

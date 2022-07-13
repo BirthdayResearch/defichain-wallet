@@ -29,6 +29,8 @@ interface PasscodePromptProps {
   promptModalName: string
   modalRef: React.RefObject<BottomSheetModalMethods>
   onModalCancel: () => void
+  additionalMessage?: string
+  additionalMessageUrl?: string
 }
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
@@ -73,6 +75,31 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               >
                 {props.title}
               </ThemedText>
+
+              {props.additionalMessage !== undefined && (
+                <View style={tailwind('text-sm text-center')}>
+                  <ThemedText
+                    testID='txn_authorization_message'
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('pt-4 text-base text-center')}
+                  >
+                    {props.additionalMessage}
+                  </ThemedText>
+                </View>
+              )}
+              {props.additionalMessageUrl !== undefined && (
+                <View style={tailwind('text-sm text-center')}>
+                  <ThemedText
+                    testID='txn_authorization_message'
+                    dark={tailwind('text-gray-400')}
+                    light={tailwind('text-gray-500')}
+                    style={tailwind('p-2 text-sm text-center mb-4')}
+                  >
+                    {props.additionalMessageUrl}
+                  </ThemedText>
+                </View>
+              )}
 
               <View style={tailwind('px-8 text-sm text-center mb-6')}>
                 <ThemedText
