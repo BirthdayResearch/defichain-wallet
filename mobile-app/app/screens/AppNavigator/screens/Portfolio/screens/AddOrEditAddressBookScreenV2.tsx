@@ -265,7 +265,7 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
           validateLabelInput('')
         }}
         inputContainerStyle={tailwind('px-5')}
-        placeholder={translate('screens/AddOrEditAddressBookScreen', 'Address label')}
+        placeholder={translate('screens/AddOrEditAddressBookScreen', 'Enter label')}
         style={tailwind('font-normal-v2 flex-1 py-2.5')}
         title={translate('screens/AddOrEditAddressBookScreen', 'LABEL')}
         valid={labelInputErrorMessage === ''}
