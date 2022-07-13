@@ -38,6 +38,7 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { getUserDetail } from '@shared-api/dfx/ApiService'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -82,6 +83,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const ref = useRef(null)
   useScrollToTop(ref)
 
+  // DFX Staking Balance
+  const [staked, setStaked] = useState(10.0000)
+
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets, dispatch])
@@ -119,6 +123,17 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     })
   }, [])
 
+  function fetchDfxStakingBalance (): void {
+    void (async () => {
+      const userDetail = await getUserDetail()
+      setStaked(userDetail.stakingBalance)
+    })()
+  }
+
+  // useEffect(() => {
+  //   fetchDfxStakingBalance()
+  // }, [])
+
   const fetchPortfolioData = (): void => {
     batch(() => {
       dispatch(fetchTokens({
@@ -144,6 +159,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     fetchPortfolioData()
+    fetchDfxStakingBalance()
     setRefreshing(false)
   }, [address, client, dispatch])
 
@@ -159,13 +175,15 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
         token
       ) => {
-        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+        const tokenAmount = new BigNumber(token.amount)
+        const usdAmount = getTokenPrice(token.symbol, tokenAmount, token.isLPS)
+
         if (token.symbol === 'DFI') {
           return {
             // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableValue
             totalAvailableValue: token.id === '0_unified'
               ? totalAvailableValue
-              : totalAvailableValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+              : totalAvailableValue.plus(usdAmount.isNaN()/* .plus(staked) */ ? 0 : usdAmount),
             dstTokens
           }
         }
@@ -463,6 +481,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
           totalLoansValue={totalLoansValue}
+          staked={staked}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
           portfolioButtonGroupOptions={{
@@ -485,7 +504,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           hideIcon={hideIcon}
           modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
-        <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        <DFIBalanceCard denominationCurrency={denominationCurrency} staked={staked} />
         {!hasFetchedToken
           ? (
             <View style={tailwind('p-4')}>

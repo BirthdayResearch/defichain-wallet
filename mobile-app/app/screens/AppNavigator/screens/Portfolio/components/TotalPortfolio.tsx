@@ -36,6 +36,7 @@ interface TotalPortfolioProps {
     handleOnPress: () => void
   }>
   denominationCurrency?: string
+  staked: number
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
@@ -164,16 +165,19 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             light={tailwind('border-gray-100')}
             dark={tailwind('border-dfxblue-900')}
           >
+            {/* staked */}
             <View style={tailwind('mt-2')}>
               <USDValueRow
-                testId='total_available_usd_amount'
+                testId='total_staked_usd_amount'
                 isLoading={!hasFetchedToken}
-                label={translate('screens/PortfolioScreen', 'available')}
-                value={props.totalAvailableValue}
+                label={translate('screens/PortfolioScreen', 'staked @ DFX')}
+                value={new BigNumber(props.staked)}
                 isAddition
                 denominationCurrency={denominationCurrency}
               />
             </View>
+
+            {/* locked */}
             <USDValueRow
               testId='total_locked_usd_amount'
               isLoading={!hasFetchedVaultsData}
@@ -182,6 +186,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               isAddition
               denominationCurrency={denominationCurrency}
             />
+            {/* outstanding loans */}
             {
               props.totalLoansValue.gt(0) && (
                 <USDValueRow
@@ -194,6 +199,18 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 />
               )
             }
+
+            {/* available */}
+            <View style={tailwind('')}>
+              <USDValueRow
+                testId='total_available_usd_amount'
+                isLoading={!hasFetchedToken}
+                label={translate('screens/PortfolioScreen', 'available')}
+                value={props.totalAvailableValue}
+                isAddition
+                denominationCurrency={denominationCurrency}
+              />
+            </View>
           </ThemedView>
       }
     </ThemedView>
