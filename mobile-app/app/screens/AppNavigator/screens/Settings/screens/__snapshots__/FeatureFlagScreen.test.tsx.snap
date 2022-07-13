@@ -2,7 +2,7 @@
 
 exports[`feature flag screen should render FeatureFlagItem 1`] = `
 <View
-  testID="feature_future_swap_row"
+  testID="feature_loan_row"
 >
   <View
     style={
@@ -52,7 +52,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
         ]
       }
     >
-      Future swap
+      Decentralized Loans
     </Text>
     <View
       style={
@@ -80,7 +80,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
             },
           ]
         }
-        testID="feature_future_swap_switch"
+        testID="feature_loan_switch"
         thumbTintColor="#FFFFFF"
         tintColor="#E5E5E5"
         value={true}
@@ -173,7 +173,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
       </Text>
     </View>
     <View
-      testID="feature_future_swap_row"
+      testID="feature_loan_row"
     >
       <View
         style={
@@ -223,7 +223,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             ]
           }
         >
-          Future swap
+          Decentralized Loans
         </Text>
         <View
           style={
@@ -251,7 +251,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
                 },
               ]
             }
-            testID="feature_future_swap_switch"
+            testID="feature_loan_switch"
             thumbTintColor="#FFFFFF"
             tintColor="#E5E5E5"
             value={true}
