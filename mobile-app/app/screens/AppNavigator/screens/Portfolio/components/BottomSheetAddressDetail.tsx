@@ -26,6 +26,7 @@ import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPreferences'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { AddressListEditButton } from './AddressListEditButton'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
@@ -70,6 +71,7 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const labeledAddresses = userPreferences.addresses
   const activeLabel = useAddressLabel(props.address)
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -304,7 +306,10 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
             <WalletCounterDisplay addressLength={addressLength} />
             <DiscoverWalletAddress onPress={discoverWalletAddresses} />
           </View>
-          <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />
+          {isFeatureAvailable('local_storage') &&
+            (
+              <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />
+            )}
         </View>
       </ThemedView>
     )

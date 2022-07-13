@@ -38,6 +38,7 @@ import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from 
 import { BottomSheetToken, BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
 import { InfoText } from '@components/InfoText'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { LocalAddress } from '@store/userPreferences'
 import { debounce } from 'lodash'
 import { useWalletAddress } from '@hooks/useWalletAddress'
@@ -481,6 +482,7 @@ function AddressRow ({
   inputFooter
 }: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
+  const { isFeatureAvailable } = useFeatureFlagContext()
   return (
     <>
       <Controller
@@ -510,21 +512,25 @@ function AddressRow ({
               inputType='default'
               inputFooter={inputFooter}
             >
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-gray-800 border-gray-400')}
-                light={tailwind('bg-white border-gray-300')}
-                onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 mr-1 border rounded')}
-                testID='address_book_button'
-              >
-                <ThemedIcon
-                  dark={tailwind('text-darkprimary-500')}
-                  iconType='MaterialCommunityIcons'
-                  light={tailwind('text-primary-500')}
-                  name='account-multiple'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
+              {
+                isFeatureAvailable('local_storage') && (
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-gray-800 border-gray-400')}
+                    light={tailwind('bg-white border-gray-300')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 mr-1 border rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-darkprimary-500')}
+                      iconType='MaterialCommunityIcons'
+                      light={tailwind('text-primary-500')}
+                      name='account-multiple'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                )
+              }
               <ThemedTouchableOpacity
                 dark={tailwind('bg-gray-800 border-gray-400')}
                 light={tailwind('bg-white border-gray-300')}
