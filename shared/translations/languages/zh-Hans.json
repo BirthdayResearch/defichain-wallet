@@ -268,8 +268,7 @@
   "screens/CommunityScreen": {
     "Community": "社区",
     "CONNECT WITH THE COMMUNITY": "参与社区",
-    "DeFiChain is a community-driven and open project.": "递飞链DeFiChain是个以社区优先和开源的项目",
-    "The DeFiChain Foundation does not provide direct support.": "此项目是完全去中心化的，并没有提供客服",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "递飞链DeFiChain是个以社区优先和开源的项目。此项目是完全去中心化的，并没有提供客服。",
     "Report an issue on Github": "在Github开启议题",
     "Frequently Asked Questions": "常见问题",
     "Announcements": "最新公告",

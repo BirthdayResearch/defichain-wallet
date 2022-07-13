@@ -279,8 +279,7 @@
   "screens/CommunityScreen": {
     "Community": "Community",
     "CONNECT WITH THE COMMUNITY": "CONNETTI CON LA COMMUNITY",
-    "DeFiChain is a community-driven and open project.": "DeFiChain è un progetto aperto e guidato dalla community.",
-    "The DeFiChain Foundation does not provide direct support.": "La DeFiChain Foundation non fornisce un supporto diretto.",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain è un progetto aperto e guidato dalla community. La DeFiChain Foundation non fornisce un supporto diretto.",
     "Report an issue on Github": "Segnala un problema su Github",
     "Frequently Asked Questions": "Domande frequenti",
     "Announcements": "Annunci",

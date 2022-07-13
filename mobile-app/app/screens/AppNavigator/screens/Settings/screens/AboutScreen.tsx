@@ -217,21 +217,12 @@ export function AboutScreen (): JSX.Element {
         }
       </ThemedViewV2>
 
-      <View style={tailwind('items-center my-12 mx-10')}>
-        <ThemedTextV2
-          dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
-          style={tailwind('font-normal-v2 text-xs font-normal text-center')}
-        >
-          {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project.')}
-        </ThemedTextV2>
-
-        <ThemedTextV2
-          dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
-          style={tailwind('font-normal-v2 text-xs font-normal text-center')}
-        >
-          {translate('screens/CommunityScreen', 'The DeFiChain Foundation does not provide direct support.')}
-        </ThemedTextV2>
-      </View>
+      <ThemedTextV2
+        dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
+        style={tailwind('font-normal-v2 text-xs text-center my-12 mx-10')}
+      >
+        {translate('screens/CommunityScreen', 'DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.')}
+      </ThemedTextV2>
     </ThemedScrollViewV2>
   )
 }
