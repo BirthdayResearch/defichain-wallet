@@ -183,7 +183,7 @@ function StepTwo (): JSX.Element {
               testID='address_text'
               style={tailwind('text-sm font-normal-v2')}
             >
-              {address}<CopyIcon />
+              {address + '  '}<CopyIcon />
             </ThemedTextV2>
           </TouchableOpacity>
           <View style={tailwind('items-start')}>
@@ -275,7 +275,7 @@ function CopyIcon (): JSX.Element {
       light={tailwind('text-mono-light-v2-700')}
       name='copy'
       size={16}
-      style={tailwind('self-center ml-2')}
+      style={tailwind('self-center')}
     />
   )
 }

@@ -130,6 +130,7 @@ exports[`Get DFI page should match snapshot 1`] = `
               "paddingTop": 18,
             }
           }
+          testID="get_exchanges"
         >
           <Text
             style={
@@ -481,7 +482,7 @@ exports[`Get DFI page should match snapshot 1`] = `
               }
               testID="address_text"
             >
-              bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
+              bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d  
               <Text />
             </Text>
           </View>
