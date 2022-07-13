@@ -68,30 +68,42 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         >
           {props.title}
         </ThemedTextV2>
-        {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
-        {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-        {props.status === TransactionStatus.PIN
-? (
-  <PinTextInputV2
-    cellCount={props.pinLength}
-    onChange={(pin) => {
+        {props.status === TransactionStatus.SIGNING &&
+          <>
+            <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />
+            <PinTextInputV2
+              cellCount={props.pinLength}
+              onChange={(pin) => {
+                props.onPinInput(pin)
+              }}
+              testID='pin_authorize'
+              value={props.pin}
+              autofocus={false}
+            />
+          </>}
+        {props.status === TransactionStatus.AUTHORIZED &&
+          <>
+            <SuccessIndicator />
+            <PinTextInputV2
+              cellCount={props.pinLength}
+              onChange={(pin) => {
+                props.onPinInput(pin)
+              }}
+              testID='pin_authorize'
+              value={props.pin}
+              autofocus={false}
+            />
+          </>}
+        {props.status === TransactionStatus.PIN &&
+          <PinTextInputV2
+            cellCount={props.pinLength}
+            onChange={(pin) => {
               props.onPinInput(pin)
             }}
-    testID='pin_authorize'
-    value={props.pin}
-    style={tailwind('mt-3')}
-  />
-        )
-: (
-  <PinTextInputV2
-    cellCount={props.pinLength}
-    onChange={(pin) => {
-              props.onPinInput(pin)
-            }}
-    testID='pin_authorize'
-    value={props.pin}
-  />
-        )}
+            testID='pin_authorize'
+            value={props.pin}
+            style={tailwind('mt-3')}
+          />}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
           {// show loading and pin success message
             [TransactionStatus.AUTHORIZED, TransactionStatus.SIGNING].includes(props.status)
@@ -248,7 +260,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 
 function SuccessIndicator (): JSX.Element {
   return (
-    <View style={tailwind('flex flex-col items-center py-4 my-1')}>
+    <View style={tailwind('flex flex-col items-center py-4 mb-1.5')}>
       <ThemedIcon
         size={38}
         name='check-circle'
