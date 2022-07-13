@@ -51,8 +51,8 @@ export const translations = {
   'zh-Hant': deepEncode(zhHant),
   fr: deepEncode(fr),
   it: deepEncode(it),
-  es: deepEncode(es),
-  pt: deepEncode(pt)
+  es: deepEncode(es)
+  // pt: deepEncode(pt)
 }
 
 /**
