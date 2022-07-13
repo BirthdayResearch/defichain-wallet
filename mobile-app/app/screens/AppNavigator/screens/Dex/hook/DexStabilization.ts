@@ -11,7 +11,7 @@ const HIGH_FEES_URL = 'https://defiscan.live/dex/DUSD'
 
 export type DexStabilizationType = 'direct-dusd-dfi' | 'composite-dusd-dfi' | 'none'
 
-export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB: TokenState | undefined): {
+export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB: TokenState | undefined, fee?: string): {
   dexStabilizationAnnouncement: Announcement | undefined
   dexStabilizationType: DexStabilizationType
 } {
@@ -33,27 +33,27 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
       setDexStabilizationType(await _getDexStabilizationType(tokenA, tokenB))
     }
     const _setAnnouncementToDisplay = async (): Promise<void> => {
-      setAnnouncementToDisplay(await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB))
+      setAnnouncementToDisplay(await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB, fee))
     }
 
     _setDexStabilizationType()
     _setAnnouncementToDisplay()
   }, [tokenA, tokenB]))
 
-  const _getHighDexStabilizationFeeAnnouncement = useCallback(async (tokenA, tokenB): Promise<AnnouncementData[]> => {
+  const _getHighDexStabilizationFeeAnnouncement = useCallback(async (tokenA, tokenB, fee: string = '0'): Promise<AnnouncementData[]> => {
     let announcement: AnnouncementData[] = []
     const dexStabilizationType = await _getDexStabilizationType(tokenA, tokenB)
 
     if (dexStabilizationType === 'direct-dusd-dfi') {
       announcement = [{
         lang: {
-          en: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps. Proceed with caution!',
-          de: 'Derzeit wird eine hohe Dex-Stabilisierungsgebühr bei Tausch von DUSD-DFI erhoben. Vorsicht ist geboten!',
-          'zh-Hans': '目前对 DUSD - DFI 兑换征收高额的 Dex 稳定费。请谨慎操作！',
-          'zh-Hant': '目前對 DUSD - DFI 兌換徵收高額的 Dex 穩定費。 請謹慎操作！',
-          fr: 'Une taxe de stabilisation du DEX élevée est actuellement imposée aux échanges DUSD-DFI. Procédez avec prudence !',
-          es: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps. Proceed with caution!',
-          it: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps. Proceed with caution!'
+          en: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          de: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          'zh-Hans': `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          'zh-Hant': `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          fr: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          es: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          it: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`
         },
         version: '>=1.14.5',
         url: {
@@ -68,13 +68,13 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
     } else if (dexStabilizationType === 'composite-dusd-dfi') {
       announcement = [{
         lang: {
-          en: 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.',
-          de: 'Dein Tausch besteht aus einem zusammengesetzten Pfad (DUSD -> DFI) (Composite-Swap), der hohe DEX-Stabilisierungsgebühren nach sich ziehen wird.',
-          'zh-Hans': 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.',
-          'zh-Hant': 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.',
-          fr: 'Votre échange consiste en un chemin composite (DUSD -> DFI) qui entraînera des frais de stabilisation du DEX élevés.',
-          es: 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.',
-          it: 'Your swap consists of a composite path (DUSD -> DFI) which will incur high DEX Stabilization fees.'
+          en: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          de: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          'zh-Hans': `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          'zh-Hant': `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          fr: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          es: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          it: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`
         },
         version: '>=1.14.5',
         url: {

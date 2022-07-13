@@ -718,7 +718,7 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "交易滑價",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
     "Required field is missing": "缺少必要填入的字欄",
@@ -774,8 +774,8 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {

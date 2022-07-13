@@ -725,7 +725,7 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de glissement que vous êtes prêt à accepter.",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de glissement que vous êtes prêt à accepter.",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
@@ -781,8 +781,8 @@
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {

@@ -713,7 +713,7 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "Slippage-Toleranz",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Wähle aus, wie viel von diesen Abweichungen du akzeptieren möchtest.",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Wähle aus, wie viel von diesen Abweichungen du akzeptieren möchtest.",
     "Custom": "Anpassen",
     "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
     "Required field is missing": "Erforderliches Feld fehlt",
@@ -769,8 +769,8 @@
     "To be confirmed": "Noch zu bestätigen",
     "Enter an amount": "Gib einen Betrag ein",
     "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Bist du dir sicher, dass du trotz der hohen DEX-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Bist du dir sicher, dass du diesen Tausch trotz der hohen DEX-Stabilisierungsgebühr, die als Teil des zusammengesetzten Pfads (DUSD → DFI)(Komposit-Swap) anfallen wird, durchführen willst?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Bist du dir sicher, dass du trotz der hohen DEX-Stabilisierungsgebühr mit dem Tausch von DUSD gegen DFI fortfahren willst?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Bist du dir sicher, dass du diesen Tausch trotz der hohen DEX-Stabilisierungsgebühr, die als Teil des zusammengesetzten Pfads (DUSD → DFI)(Komposit-Swap) anfallen wird, durchführen willst?",
     "DEX stabilization fee": "DEX-Stabilisierungsgebühr"
   },
   "screens/ConfirmCompositeSwapScreen": {
