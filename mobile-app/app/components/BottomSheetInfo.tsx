@@ -22,6 +22,7 @@ export function BottomSheetInfo ({
   return (
     <BottomSheetModal
       name={name}
+      index={0}
       snapPoints={['30%']}
       alertInfo={alertInfo}
       triggerComponent={
