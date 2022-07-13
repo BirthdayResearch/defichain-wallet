@@ -199,7 +199,7 @@ export function AboutScreen (): JSX.Element {
         light={tailwind('text-mono-light-v2-500')}
         style={tailwind('font-normal-v2 text-xs uppercase mt-6 mx-10')}
       >
-        {translate('screens/AboutSCreen', 'Other information')}
+        {translate('screens/AboutScreen', 'Other information')}
       </ThemedTextV2>
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
