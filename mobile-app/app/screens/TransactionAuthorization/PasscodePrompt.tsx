@@ -15,7 +15,6 @@ import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal 
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
 import Modal from 'react-overlays/Modal'
-import { MaterialIcons } from '@expo/vector-icons'
 
 interface PasscodePromptProps {
   onCancel: (err: string) => void
@@ -73,8 +72,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         <PinTextInputV2
           cellCount={props.pinLength}
           onChange={(pin) => {
-props.onPinInput(pin)
-}}
+            props.onPinInput(pin)
+          }}
           testID='pin_authorize'
           value={props.pin}
           style={props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED ? 'mt-3' : ''}
@@ -240,11 +239,12 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 function SuccessIndicator (): JSX.Element {
   return (
     <View style={tailwind('flex flex-col items-center py-4 my-1')}>
-      <MaterialIcons
-        size={36}
+      <ThemedIcon
+        size={38}
         name='check-circle'
         iconType='MaterialIcons'
-        style={tailwind('text-green-v2')}
+        light={tailwind('text-green-v2')}
+        dark={tailwind('text-green-v2')}
       />
     </View>
   )
