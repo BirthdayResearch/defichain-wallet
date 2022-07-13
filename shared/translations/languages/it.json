@@ -112,18 +112,19 @@
     "Asset value": "Valore degli asset"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Get $DFI",
+    "Get DFI": "Get DFI",
     "STEP 1": "STEP 1",
-    "Trade/Purchase $DFI": "Trade/Purchase $DFI",
-    "Available on:": "Available on:",
-    "Show more": "Show more",
-    "To learn more about DFI, ": "To learn more about DFI, ",
-    "read here.": "read here.",
+    "Trade/Purchase DFI": "Trade/Purchase DFI",
+    "Marketplace": "Marketplace",
+    "Learn more about DFI": "Learn more about DFI",
     "STEP 2": "STEP 2",
-    "Receive $DFI in Light Wallet": "Receive $DFI in Light Wallet",
-    "DFI oracle price": "DFI oracle price",
-    "Show less": "Show less",
-    "Wallet Address": "Wallet Address"
+    "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
+    "DFI price": "DFI price",
+    "WALLET ADDRESS": "WALLET ADDRESS"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "Marketplace",
+    "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREA INDIRIZZO DEL WALLET",

@@ -110,18 +110,19 @@
     "Asset value": "Valor del activo"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Obtener $DFI",
+    "Get DFI": "Obtener DFI",
     "STEP 1": "PASO 1",
-    "Trade/Purchase $DFI": "Comercia/Compra $DFI",
-    "Available on:": "Disponible en:",
-    "Show more": "Mostrar más",
-    "To learn more about DFI, ": "Para aprender mas sobre DFI, ",
-    "read here.": "Leer aquí.",
+    "Trade/Purchase DFI": "Comercia/Compra DFI",
+    "Marketplace": "Marketplace",
+    "Learn more about DFI": "Learn more about DFI",
     "STEP 2": "PASO 2",
-    "Receive $DFI in Light Wallet": "Recibe $DFI en la Light Wallet",
-    "DFI oracle price": "Precio del oráculo de DFI",
-    "Show less": "Mostrar menos",
-    "Wallet Address": "Dirección de la billetera"
+    "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
+    "DFI price": "DFI price",
+    "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "Marketplace",
+    "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",

@@ -114,11 +114,12 @@
     "Learn more about DFI": "了解 更多有關DFI 的信息",
     "STEP 2": "步驟 2",
     "Receive DFI in DeFiChain Wallet": "在 DeFiChain 錢包中接收 DFI",
-    "DFI oracle price": "DFI 預言機價格",
+    "DFI price": "DFI price",
     "WALLET ADDRESS": "錢包地址"
   },
   "screens/MarketplaceScreen": {
-    "Marketplace": "市場"
+    "Marketplace": "市場",
+    "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
