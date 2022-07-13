@@ -34,7 +34,7 @@ import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
-import { GetDFIScreenV2 } from './screens/GetDFIScreenV2'
+import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
@@ -201,12 +201,12 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={GetDFIScreenV2}
+        component={GetDFIScreen}
         name='GetDFIScreen'
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/GetDFIScreen', 'Get $DFI')}
+              text={translate('screens/GetDFIScreen', 'Get DFI')}
               containerTestID={headerContainerTestId}
             />
           ),

@@ -107,18 +107,19 @@
     "Asset value": "Wert der Aktiva"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "$DFI erhalten",
+    "Get DFI": "DFI erhalten",
     "STEP 1": "SCHRITT 1",
-    "Trade/Purchase $DFI": "Handel/Kauf von $DFI",
-    "Available on:": "Verfügbar auf",
-    "Show more": "Mehr anzeigen",
-    "Show less": "Weniger anzeigen",
-    "To learn more about DFI, ": "Um mehr über DFI zu erfahren, ",
-    "read here.": "lies hier.",
+    "Trade/Purchase DFI": "Handel/Kauf von DFI",
+    "Marketplace": "Marktplatz",
+    "Learn more about DFI": "Mehr über DFI erfahren",
     "STEP 2": "SCHRITT 2",
-    "Receive $DFI in Light Wallet": "Empfange $DFI auf der Lightwallet",
+    "Receive DFI in DeFiChain Wallet": "Empfange DFI auf der DeFiChain Wallet",
     "DFI oracle price": "DFI Preisorakelwert",
-    "Wallet Address": "Walletadresse"
+    "WALLET ADDRESS": "WALLETADRESSE"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "Marktplatz",
+    "GET DFI FROM": "ERWIRB DFI AUF"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",

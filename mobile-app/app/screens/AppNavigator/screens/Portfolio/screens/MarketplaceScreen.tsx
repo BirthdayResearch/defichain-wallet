@@ -88,7 +88,7 @@ export function MarketplaceScreen (): JSX.Element {
       >
         <ThemedSectionTitleV2
           testID='language_selection_screen_title'
-          text={translate('screens/GetDFIScreen', 'GET DFI FROM')}
+          text={translate('screens/MarketplaceScreen', 'GET DFI FROM')}
         />
         <ThemedViewV2
           dark={tailwind('bg-mono-dark-v2-00')}
