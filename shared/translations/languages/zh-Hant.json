@@ -268,8 +268,7 @@
   "screens/CommunityScreen": {
     "Community": "社區",
     "CONNECT WITH THE COMMUNITY": "參與社區",
-    "DeFiChain is a community-driven and open project.": "遞飛鏈DeFiChain是個以社區優先和開源的項目",
-    "The DeFiChain Foundation does not provide direct support.": "此項目是完全去中心化的，並沒有提供客服",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "遞飛鏈DeFiChain是個以社區優先和開源的項目。此項目是完全去中心化的，並沒有提供客服。",
     "Report an issue on Github": "在Github開啟議題",
     "Frequently Asked Questions": "常見問題",
     "Announcements": "最新公告",
@@ -338,7 +337,13 @@
     "Track transactions, tokens and DEX pairs": "審查交易、代幣、和去中心化交易所配對",
     "View official website": "前往遞飛鏈官網",
     "Learn more about the blockchain": "了解更多關於遞飛鏈區塊鏈和相關資訊",
-    "Try Beta features": "試用測試版功能"
+    "Try Beta features": "試用測試版功能",
+    "Join our active community": "Join our active community",
+    "FAQ": "FAQ",
+    "DeFiChain official website": "DeFiChain official website",
+    "Learn more about the native decentralized finance for Bitcoin": "Learn more about the native decentralized finance for Bitcoin",
+    "Other information": "Other information",
+    "Developed by": "Developed by"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "關於",
