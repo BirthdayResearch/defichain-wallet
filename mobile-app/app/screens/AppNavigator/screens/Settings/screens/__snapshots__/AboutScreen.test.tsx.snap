@@ -975,70 +975,36 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         <Text />
       </View>
     </View>
-    <View
+    <Text
       style={
-        Object {
-          "alignItems": "center",
-          "marginBottom": 48,
-          "marginLeft": 40,
-          "marginRight": 40,
-          "marginTop": 48,
-        }
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraRegular",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "lineHeight": 16,
+              "marginBottom": 48,
+              "marginLeft": 40,
+              "marginRight": 40,
+              "marginTop": 48,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-                "textAlign": "center",
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        DeFiChain is a community-driven and open project.
-      </Text>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-                "textAlign": "center",
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        The DeFiChain Foundation does not provide direct support.
-      </Text>
-    </View>
+      DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.
+    </Text>
   </View>
 </RCTScrollView>
 `;
