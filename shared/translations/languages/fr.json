@@ -330,7 +330,7 @@
     "GENERAL": "GÉNÉRAL",
     "Server": "Serveur",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "Display & Language": "Affichage et langues"
+    "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",

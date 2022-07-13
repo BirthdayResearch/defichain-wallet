@@ -321,7 +321,7 @@
     "GENERAL": "一般",
     "Server": "伺服器",
     "This will unlink your wallet from the app.": "这将取消您的钱包与应用程式的绑定。",
-    "Display & Language": "显示和语言"
+    "DISPLAY & LANGUAGE": "显示和语言"
   },
   "screens/AboutScreen": {
     "About": "关于",

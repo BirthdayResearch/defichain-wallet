@@ -320,7 +320,7 @@
     "GENERAL": "ALLGEMEIN",
     "Server": "Server",
     "This will unlink your wallet from the app.": "Die Verknüpfung zwischen Wallet und App wird getrennt.",
-    "Display & Language": "Anzeige & Sprachen"
+    "DISPLAY & LANGUAGE": "ANZEIGE & SPRACHEN"
   },
   "screens/AboutScreen": {
     "About": "Über",
