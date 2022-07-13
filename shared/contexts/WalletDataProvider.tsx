@@ -6,6 +6,7 @@ import { useWhaleApiClient } from './WhaleContext'
 import { fetchDexPrice, fetchPoolPairs, fetchTokens } from '@store/wallet'
 import { fetchUserPreferences } from '@store/userPreferences'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { fetchVaults } from '@store/loans'
 import { useAppDispatch } from '@hooks/useAppDispatch'
@@ -17,6 +18,7 @@ export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element 
   const dispatch = useAppDispatch()
   const { address } = useWalletContext()
   const { wallets } = useWalletPersistenceContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   // Global polling based on blockCount and network, so no need to fetch per page
   useEffect(() => {
@@ -32,7 +34,9 @@ export function WalletDataProvider (props: PropsWithChildren<any>): JSX.Element 
   // Fetch user data on start up
   // Will only refetch on network or wallet change
   useEffect(() => {
-    dispatch(fetchUserPreferences(network))
+    if (isFeatureAvailable('local_storage')) {
+      dispatch(fetchUserPreferences(network))
+    }
   }, [network, wallets])
 
   /* Global polling based on blockCount, network and address */

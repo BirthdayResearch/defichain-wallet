@@ -709,7 +709,8 @@
     "Block height": "區塊高度",
     "Total Masternodes": "總主節點",
     "YOU ARE CURRENTLY CONNECTED TO": "現在您已連接到",
-    "NETWORK DETAILS": "網絡資料"
+    "NETWORK DETAILS": "網絡資料",
+    "Network selection is currently unavailable due to ongoing transaction(s).": "由於目前正在進行的交易，網絡選擇不可使用。"
   },
   "components/slider": {
     "None": "無",

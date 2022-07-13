@@ -5,12 +5,12 @@ context('Wallet - Settings', () => {
     cy.intercept('**/settings/flags', {
       body: [
         {
-          id: 'future_swap',
-          name: 'Future swap',
-          stage: 'beta',
+          id: 'loan',
+          name: 'Loan',
+          stage: 'public',
           version: '>=0.0.0',
-          description: 'Browse loan tokens provided by DeFiChain',
-          networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
+          description: 'Loan',
+          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
           platforms: ['ios', 'android', 'web']
         },
         {

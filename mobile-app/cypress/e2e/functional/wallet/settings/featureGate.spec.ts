@@ -2,12 +2,12 @@ import { EnvironmentNetwork } from '../../../../../../shared/environment'
 
 context('Wallet - Feature Gate', () => {
   const flags = [{
-    id: 'future_swap',
-    name: 'Future swap',
+    id: 'loan',
+    name: 'Decentralized Loans',
     stage: 'beta',
     version: '>=0.0.0',
     description: 'Browse loan tokens provided by DeFiChain',
-    networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
     platforms: ['ios', 'android', 'web']
   }, {
     id: 'foo',
