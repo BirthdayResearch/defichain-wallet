@@ -269,8 +269,7 @@
   "screens/CommunityScreen": {
     "Community": "社区",
     "CONNECT WITH THE COMMUNITY": "参与社区",
-    "DeFiChain is a community-driven and open project.": "递飞链DeFiChain是个以社区优先和开源的项目",
-    "The DeFiChain Foundation does not provide direct support.": "此项目是完全去中心化的，并没有提供客服",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "递飞链DeFiChain是个以社区优先和开源的项目。此项目是完全去中心化的，并没有提供客服。",
     "Report an issue on Github": "在Github开启议题",
     "Frequently Asked Questions": "常见问题",
     "Announcements": "最新公告",
@@ -322,7 +321,7 @@
     "GENERAL": "一般",
     "Server": "伺服器",
     "This will unlink your wallet from the app.": "这将取消您的钱包与应用程式的绑定。",
-    "Display & Language": "显示和语言"
+    "DISPLAY & LANGUAGE": "显示和语言"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -339,7 +338,13 @@
     "Track transactions, tokens and DEX pairs": "审查交易、代币、和去中心化交易所配对",
     "View official website": "前往递飞链官网",
     "Learn more about the blockchain": "了解更多关于递飞链区块链和相关资讯",
-    "Try Beta features": "试用测试版功能"
+    "Try Beta features": "试用测试版功能",
+    "Join our active community": "Join our active community",
+    "FAQ": "FAQ",
+    "DeFiChain official website": "DeFiChain official website",
+    "Learn more about the native decentralized finance for Bitcoin": "Learn more about the native decentralized finance for Bitcoin",
+    "Other information": "Other information",
+    "Developed by": "Developed by"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "关于",
