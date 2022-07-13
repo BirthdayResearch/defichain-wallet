@@ -5,7 +5,7 @@ import zhHant from './languages/zh-Hant.json'
 import fr from './languages/fr.json'
 import it from './languages/it.json'
 import es from './languages/es.json'
-import pt from './languages/pt.json'
+// import pt from './languages/pt.json'
 
 /**
  * For testing compatibility, will always be initialized.
