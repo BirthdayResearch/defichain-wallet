@@ -118,7 +118,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         name='NetworkSelectionScreen'
         options={{
           headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
-          headerBackTitleVisible: false
+          headerRight: undefined
         }}
       />
 

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { TouchableOpacity, Linking } from 'react-native'
 import { View, Text } from '@components/index'
-import { ThemedIcon, ThemedTextV2, ThemedViewV2, ThemedSectionTitleV2 } from '@components/themed'
+import { ThemedIcon, ThemedTextV2, ThemedViewV2, ThemedSectionTitleV2, ThemedScrollViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -28,9 +28,10 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
   const syncFormattedDate = (lastSuccessfulSync != null) ? dayjs(lastSuccessfulSync).format('lll') : ''
 
   return (
-    <ThemedViewV2
+    <ThemedScrollViewV2
       testID='network_details'
       style={tailwind('px-5 flex-1')}
+      contentContainerStyle={tailwind('pb-6')}
     >
       <ThemedSectionTitleV2
         testID='onboarding_network_selection_screen_title'
@@ -53,7 +54,7 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
           />
         ))}
       </ThemedViewV2>
-      {hasPendingJob || hasPendingBroadcastJob && <TransactionOngoingMessage />}
+      {(hasPendingJob || hasPendingBroadcastJob) && <TransactionOngoingMessage />}
       <ThemedSectionTitleV2
         testID='network_details_block_info'
         text={translate('screens/NetworkDetails', 'DETAILS')}
@@ -89,7 +90,7 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
           }}
         />
       </ThemedViewV2>
-    </ThemedViewV2>
+    </ThemedScrollViewV2>
   )
 }
 
