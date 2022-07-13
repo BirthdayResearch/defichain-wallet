@@ -47,6 +47,7 @@ import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
+  MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken

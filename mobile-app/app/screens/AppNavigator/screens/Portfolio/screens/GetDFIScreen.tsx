@@ -1,5 +1,6 @@
 import * as Clipboard from 'expo-clipboard'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+// import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
 import { useCallback, useEffect, useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
@@ -30,7 +31,9 @@ export async function onShare (address: string, logger: NativeLoggingProps): Pro
   }
 }
 
-export function GetDFIScreen (): JSX.Element {
+type Props = StackScreenProps<PortfolioParamList, 'MarketplaceScreen'>
+
+export function GetDFIScreen ({ navigation }: Props): JSX.Element {
   return (
     <>
       <ThemedScrollViewV2
@@ -38,7 +41,7 @@ export function GetDFIScreen (): JSX.Element {
         style={tailwind('flex')}
         testID='get_dfi_screen'
       >
-        <StepOne />
+        <StepOne onPress={() => navigation.navigate('MarketplaceScreen')} />
         <StepTwo />
         <DFIOraclePrice />
       </ThemedScrollViewV2>
@@ -46,9 +49,7 @@ export function GetDFIScreen (): JSX.Element {
   )
 }
 
-function StepOne (): JSX.Element {
-  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-
+function StepOne ({ onPress }: { onPress: () => void }): JSX.Element {
   return (
     <View style={tailwind('mt-8')}>
       <View style={tailwind('px-5 pb-4')}>
@@ -68,7 +69,7 @@ function StepOne (): JSX.Element {
       >
         <ThemedTouchableOpacityV2
           style={tailwind('flex flex-row items-center justify-between py-4.5 ml-5 mr-4')}
-          onPress={() => navigation.navigate('MarketplaceScreen')}
+          onPress={onPress}
         >
           <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
             {translate('screens/GetDFIScreen', 'Marketplace')}
@@ -191,6 +192,7 @@ function StepTwo (): JSX.Element {
                 await onShare(address, logger)
               }}
               style={tailwind(`px-4 py-2 mt-2 border rounded-full ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
+              testID='share_button'
             >
               <ThemedTextV2
                 dark={tailwind('text-mono-dark-v2-700')}
@@ -227,7 +229,7 @@ function DFIOraclePrice (): JSX.Element {
       light={tailwind('border-mono-light-v2-900')}
       style={tailwind('flex flex-row items-center justify-between rounded-lg mt-10 px-5 py-4.5 border-0.5')}
     >
-      <View style={tailwind('flex flex-row items-center')}>
+      <TouchableOpacity onPress={async () => await openURL('https://defiscan.live')} style={tailwind('flex flex-row items-center')}>
         <DFITokenIcon width={24} height={24} style={tailwind('mr-2')} />
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-900')}
@@ -236,18 +238,14 @@ function DFIOraclePrice (): JSX.Element {
         >
           {translate('screens/GetDFIScreen', 'DFI price')}
         </ThemedTextV2>
-        <TouchableOpacity
-          onPress={async () => await openURL('https://defiscan.live')}
-        >
-          <ThemedIcon
-            size={18}
-            name='open-in-new'
-            iconType='MaterialIcons'
-            dark={tailwind('text-mono-dark-v2-700')}
-            light={tailwind('text-mono-light-v2-700')}
-          />
-        </TouchableOpacity>
-      </View>
+        <ThemedIcon
+          size={18}
+          name='open-in-new'
+          iconType='MaterialIcons'
+          dark={tailwind('text-mono-dark-v2-700')}
+          light={tailwind('text-mono-light-v2-700')}
+        />
+      </TouchableOpacity>
       <NumberFormat
         displayType='text'
         prefix='$'
