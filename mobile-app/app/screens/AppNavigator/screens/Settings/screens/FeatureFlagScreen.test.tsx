@@ -8,14 +8,14 @@ jest.mock('@contexts/FeatureFlagContext')
 describe('feature flag screen', () => {
   it('should render FeatureFlagItem', async () => {
     const feature: BetaFeaturesI = {
-      id: 'future_swap',
-      name: 'Future swap',
+      id: 'loan',
+      name: 'Decentralized Loans',
       stage: 'beta',
       version: '>=0.12.0',
       description: 'Browse loan tokens provided by DeFiChain',
+      value: true,
       networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
-      platforms: ['ios', 'android', 'web'],
-      value: true
+      platforms: ['ios', 'android', 'web']
     }
     const rendered = render(<FeatureFlagItem item={feature} onChange={() => {}} />)
     expect(rendered.toJSON()).toMatchSnapshot()
