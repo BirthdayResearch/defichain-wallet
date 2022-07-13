@@ -9,7 +9,7 @@ export interface PinTextInputItem {
   testID: string
   value: string
   onChange: (text: string) => void
-  style?: StyleProp<ViewStyle> // additional styling classes
+  style?: StyleProp<ViewStyle> // additional styling
 }
 
 export interface RenderCellItem {
