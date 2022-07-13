@@ -108,7 +108,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-lg-v2')}
+        style={tailwind('rounded-lg-v2 pl-5 pr-4')}
       >
         <NavigateItemRow
           testID='setting_navigate_About'
@@ -142,7 +142,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
           <ThemedViewV2
             dark={tailwind('bg-mono-dark-v2-00')}
             light={tailwind('bg-mono-light-v2-00')}
-            style={tailwind('rounded-lg-v2')}
+            style={tailwind('rounded-lg-v2 pl-5 pr-4')}
           >
             {
               isEncrypted && (
@@ -191,7 +191,7 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-lg-v2 mb-6')}
+        style={tailwind('rounded-lg-v2 mb-6 pl-5 pr-4')}
       >
         <RowThemeItemV2 border />
         <NavigateItemRow
@@ -262,7 +262,7 @@ function PrivacyLockToggle ({
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <View
-      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between', { 'py-2': Platform.OS === 'android' })}
+      style={tailwind('flex py-4.5 flex-row items-center justify-between', { 'py-2': Platform.OS === 'android' })}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
@@ -292,38 +292,44 @@ function NavigateItemRow ({
   border
 }: INavigateItemRow): JSX.Element {
   return (
-    <ThemedTouchableOpacityV2
-      onPress={onPress}
-      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between', { 'border-b-0.5': border })}
-      testID={testID}
+    <ThemedViewV2
+      style={tailwind({ 'border-b-0.5': border })}
+      light={tailwind('border-mono-light-v2-300')}
+      dark={tailwind('border-mono-dark-v2-300')}
     >
-      <ThemedTextV2
-        light={tailwind('text-mono-light-v2-900')}
-        dark={tailwind('text-mono-dark-v2-900')}
-        style={tailwind('font-normal-v2 text-sm')}
+      <ThemedTouchableOpacityV2
+        onPress={onPress}
+        style={tailwind('flex py-4.5 flex-row items-center justify-between border-0')}
+        testID={testID}
       >
-        {translate('screens/Settings', label)}
-      </ThemedTextV2>
-
-      <View style={tailwind('flex flex-row items-center')}>
-        {
-          value !== undefined &&
-            <ThemedTextV2
-              light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('font-normal-v2 text-sm mr-1')}
-            >
-              {translate('screens/Settings', value)}
-            </ThemedTextV2>
-        }
-        <ThemedIcon
-          dark={tailwind('text-mono-dark-v2-900')}
+        <ThemedTextV2
           light={tailwind('text-mono-light-v2-900')}
-          iconType='Feather'
-          name='chevron-right'
-          size={24}
-        />
-      </View>
-    </ThemedTouchableOpacityV2>
+          dark={tailwind('text-mono-dark-v2-900')}
+          style={tailwind('font-normal-v2 text-sm')}
+        >
+          {translate('screens/Settings', label)}
+        </ThemedTextV2>
+
+        <View style={tailwind('flex flex-row items-center')}>
+          {
+            value !== undefined &&
+              <ThemedTextV2
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
+                style={tailwind('font-normal-v2 text-sm mr-1')}
+              >
+                {translate('screens/Settings', value)}
+              </ThemedTextV2>
+          }
+          <ThemedIcon
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+            iconType='Feather'
+            name='chevron-right'
+            size={24}
+          />
+        </View>
+      </ThemedTouchableOpacityV2>
+    </ThemedViewV2>
   )
 }
