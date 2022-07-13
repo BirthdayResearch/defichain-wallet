@@ -68,18 +68,15 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
         {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-
-        {props.status === TransactionStatus.PIN && (
-          <PinTextInputV2
-            cellCount={props.pinLength}
-            onChange={(pin) => {
+        <PinTextInputV2
+          cellCount={props.pinLength}
+          onChange={(pin) => {
               props.onPinInput(pin)
             }}
-            testID='pin_authorize'
-            value={props.pin}
-            style='mt-3'
-          />
-        )}
+          testID='pin_authorize'
+          value={props.pin}
+          style={tailwind({ 'mt-3': props.status === TransactionStatus.PIN })}
+        />
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
           {// show pin success message
               props.status === TransactionStatus.AUTHORIZED &&
@@ -138,7 +135,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                   >
                     {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                       ? 'Last attempt or your wallet will be unlinked for your security'
-                      : 'Incorrect passcode.\n{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                      : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
                   </ThemedTextV2>
                 )
             }

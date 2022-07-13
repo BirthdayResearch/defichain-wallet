@@ -1,5 +1,5 @@
 
-import { StyleSheet, View } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { CodeField, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { getColor, tailwind } from '@tailwind'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -9,7 +9,7 @@ export interface PinTextInputItem {
   testID: string
   value: string
   onChange: (text: string) => void
-  style?: string // additional tailwind classes
+  style?: StyleProp<ViewStyle> // additional styling classes
 }
 
 export interface RenderCellItem {
@@ -38,8 +38,7 @@ export function PinTextInputV2 ({ cellCount, testID, value, onChange, style }: P
           !isLight && styles.borderColorDark,
           hasValue && isLight && styles.filledCellLight,
           hasValue && !isLight && styles.filledCellDark,
-          index === 0 && { marginLeft: 0 },
-          tailwind(`${style ?? ''}`)
+          index === 0 && { marginLeft: 0 }
         ]}
         testID={`${testID}_${index}`}
       />
@@ -47,7 +46,7 @@ export function PinTextInputV2 ({ cellCount, testID, value, onChange, style }: P
   }
   const autofocus = true
   return (
-    <View style={tailwind('flex-row justify-center')}>
+    <View style={[tailwind('flex-row justify-center'), style]}>
       <CodeField
         ref={ref}
         {...props}
