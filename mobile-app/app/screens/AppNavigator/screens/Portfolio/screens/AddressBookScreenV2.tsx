@@ -8,7 +8,6 @@ import { translate } from '@translations'
 import { useCallback, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity, Image, StyleProp, ViewStyle, Keyboard, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
-import { PortfolioParamList } from '../PortfolioNavigator'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -28,8 +27,9 @@ import { ButtonGroupV2 } from '../../Dex/components/ButtonGroupV2'
 import { SearchInputV2 } from '@components/SearchInputV2'
 import { FavoriteCheckIcon, FavoriteUnCheckIcon } from '../../Settings/assets/FavoriteIcon'
 import { RefreshIcon } from '@screens/WalletNavigator/assets/RefreshIcon'
+import { SettingsParamList } from '../../Settings/SettingsNavigatorV2'
 
-type Props = StackScreenProps<PortfolioParamList, 'AddressBookScreen'>
+type Props = StackScreenProps<SettingsParamList, 'AddressBookScreen'>
 
 export enum ButtonGroupTabKey {
   Whitelisted = 'WHITELISTED',

@@ -23,6 +23,8 @@ import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWal
 import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
 import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
 import { AddressBookScreenV2 } from '../Portfolio/screens/AddressBookScreenV2'
+import { LocalAddress } from '@store/userPreferences'
+import { AddOrEditAddressBookScreenV2 } from '../Portfolio/screens/AddOrEditAddressBookScreenV2'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -32,6 +34,17 @@ export interface SettingsParamList {
   ConfirmPinScreen: { pin: string, words: string[] }
   NetworkDetails: undefined
   ServiceProviderScreen: {}
+  AddressBookScreen: {
+    selectedAddress?: string
+    onAddressSelect?: (address: string) => void
+  }
+  AddOrEditAddressBookScreen: {
+    title: string
+    onSaveButtonPress: (address?: string) => void
+    addressLabel?: LocalAddress
+    address?: string
+    isAddNew: boolean
+  }
 
   [key: string]: undefined | object
 }
@@ -136,8 +149,15 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
-          headerBackTitleVisible: false,
           headerTitle: translate('screens/LanguageSelectionScreen', 'Address Book')
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={AddOrEditAddressBookScreenV2}
+        name='AddOrEditAddressBookScreen'
+        options={{
+          headerTitle: translate('screens/AddOrEditAddressBookScreen', 'Add Address')
         }}
       />
 
