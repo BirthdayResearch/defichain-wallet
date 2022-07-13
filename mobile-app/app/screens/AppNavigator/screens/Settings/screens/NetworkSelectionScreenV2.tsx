@@ -53,7 +53,7 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
           />
         ))}
       </ThemedViewV2>
-      {!hasPendingBroadcastJob && !hasPendingJob && <TransactionOngoingMessage />}
+      {hasPendingJob || hasPendingBroadcastJob && <TransactionOngoingMessage />}
       <ThemedSectionTitleV2
         testID='network_details_block_info'
         text={translate('screens/NetworkDetails', 'DETAILS')}
