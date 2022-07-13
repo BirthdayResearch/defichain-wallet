@@ -39,6 +39,8 @@ interface PasscodePromptProps {
   successMessage?: string
 }
 
+// Todo(suraj) Remove code duplication and figure out a way to add focus to PinInput
+
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
   return (
     <>
@@ -68,84 +70,97 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
         {props.status === TransactionStatus.AUTHORIZED && <SuccessIndicator />}
-        <PinTextInputV2
-          cellCount={props.pinLength}
-          onChange={(pin) => {
+        {props.status === TransactionStatus.PIN
+? (
+  <PinTextInputV2
+    cellCount={props.pinLength}
+    onChange={(pin) => {
               props.onPinInput(pin)
             }}
-          testID='pin_authorize'
-          value={props.pin}
-          style={tailwind({ 'mt-3': props.status === TransactionStatus.PIN })}
-        />
+    testID='pin_authorize'
+    value={props.pin}
+    style={tailwind('mt-3')}
+  />
+        )
+: (
+  <PinTextInputV2
+    cellCount={props.pinLength}
+    onChange={(pin) => {
+              props.onPinInput(pin)
+            }}
+    testID='pin_authorize'
+    value={props.pin}
+  />
+        )}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
-          {// show pin success message
-             [TransactionStatus.AUTHORIZED, TransactionStatus.SIGNING].includes(props.status)
-? (
-  <ThemedTextV2
-    testID='txn_authorization_message'
-    dark={tailwind('text-mono-dark-v2-700')}
-    light={tailwind('text-mono-light-v2-700')}
-    style={tailwind('text-sm text-center font-normal-v2')}
-  >
-    {props.status === TransactionStatus.SIGNING ? translate('screens/UnlockWallet', props.loadingMessage) : props.successMessage}
-  </ThemedTextV2>
-              )
-: null
-}
-          {// show default message
-              (!props.isRetry && props.status !== TransactionStatus.AUTHORIZED && props.status !== TransactionStatus.SIGNING) &&
+          {// show loading and pin success message
+            [TransactionStatus.AUTHORIZED, TransactionStatus.SIGNING].includes(props.status)
+              ? (
                 <ThemedTextV2
                   testID='txn_authorization_message'
                   dark={tailwind('text-mono-dark-v2-700')}
                   light={tailwind('text-mono-light-v2-700')}
                   style={tailwind('text-sm text-center font-normal-v2')}
                 >
-                  {translate('screens/UnlockWallet', props.message)}
-                </ThemedTextV2>
-            }
-          {// hide description when passcode is incorrect or verified.
-            (props.transaction?.description !== undefined && !props.isRetry && props.status !== TransactionStatus.AUTHORIZED) &&
-              (
-                <ThemedTextV2
-                  testID='txn_authorization_description'
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('text-sm text-center font-normal-v2')}
-                >
-                  {props.transaction.description}
+                  {props.status === TransactionStatus.SIGNING ? translate('screens/UnlockWallet', props.loadingMessage) : props.successMessage}
                 </ThemedTextV2>
               )
-            }
+              : null
+          }
+          {// show default message
+            (!props.isRetry && props.status !== TransactionStatus.AUTHORIZED && props.status !== TransactionStatus.SIGNING) &&
+              <ThemedTextV2
+                testID='txn_authorization_message'
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                style={tailwind('text-sm text-center font-normal-v2')}
+              >
+                {translate('screens/UnlockWallet', props.message)}
+              </ThemedTextV2>
+          }
+          {// hide description when passcode is incorrect or verified.
+            (props.transaction?.description !== undefined && !props.isRetry && props.status !== TransactionStatus.AUTHORIZED) &&
+            (
+              <ThemedTextV2
+                testID='txn_authorization_description'
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                style={tailwind('text-sm text-center font-normal-v2')}
+              >
+                {props.transaction.description}
+              </ThemedTextV2>
+            )
+          }
           {// upon retry: show remaining attempt allowed
-              (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
-                (
-                  <ThemedTextV2
-                    style={tailwind('text-center text-sm font-normal-v2')}
-                    light={tailwind('text-red-v2')}
-                    dark={tailwind('text-red-v2')}
-                    testID='pin_attempt_error'
-                  >
-                    {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                      ? 'Last attempt or your wallet will be unlinked for your security'
-                      : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                  </ThemedTextV2>
-                )
-            }
+            (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
+            (
+              <ThemedTextV2
+                style={tailwind('text-center text-sm font-normal-v2')}
+                light={tailwind('text-red-v2')}
+                dark={tailwind('text-red-v2')}
+                testID='pin_attempt_error'
+              >
+                {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                  ? 'Last attempt or your wallet will be unlinked for your security'
+                  : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+              </ThemedTextV2>
+            )
+          }
           {// on first time: warn user there were accumulated error attempt counter
-              (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
-                (
-                  <ThemedTextV2
-                    style={tailwind('text-center text-sm font-normal-v2')}
-                    light={tailwind('text-red-v2')}
-                    dark={tailwind('text-red-v2')}
-                    testID='pin_attempt_warning'
-                  >
-                    {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                      ? 'Last attempt or your wallet will be unlinked for your security'
-                      : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-                  </ThemedTextV2>
-                )
-            }
+            (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
+            (
+              <ThemedTextV2
+                style={tailwind('text-center text-sm font-normal-v2')}
+                light={tailwind('text-red-v2')}
+                dark={tailwind('text-red-v2')}
+                testID='pin_attempt_warning'
+              >
+                {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
+                  ? 'Last attempt or your wallet will be unlinked for your security'
+                  : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+              </ThemedTextV2>
+            )
+          }
         </View>
       </ThemedViewV2>
     </>
