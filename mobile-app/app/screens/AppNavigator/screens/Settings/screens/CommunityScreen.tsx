@@ -53,7 +53,7 @@ const Communities: CommunityItem[] = [
     id: 'announcements',
     title: 'Announcements',
     url: 'https://t.me/defichain_announcements',
-    icon: 'radio'
+    icon: 'bell'
   },
   {
     id: 'faq',
