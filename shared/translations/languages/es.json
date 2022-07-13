@@ -118,7 +118,8 @@
     "STEP 2": "PASO 2",
     "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
     "DFI price": "DFI price",
-    "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA"
+    "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
+    "SHARE":  "COMPARTIR"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marketplace",

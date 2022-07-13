@@ -69,6 +69,7 @@ function StepOne ({ onPress }: { onPress: () => void }): JSX.Element {
         <ThemedTouchableOpacityV2
           style={tailwind('flex flex-row items-center justify-between py-4.5 ml-5 mr-4')}
           onPress={onPress}
+          testID='get_exchanges'
         >
           <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
             {translate('screens/GetDFIScreen', 'Marketplace')}

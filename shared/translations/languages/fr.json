@@ -115,7 +115,8 @@
     "STEP 2": "ÉTAPE 2",
     "Receive DFI in DeFiChain Wallet": "Recevoir des DFI dans le portefeuille DeFiChain",
     "DFI price": "DFI price",
-    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE"
+    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
+    "SHARE": "PARTAGER"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marché",

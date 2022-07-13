@@ -115,7 +115,8 @@
     "STEP 2": "步驟 2",
     "Receive DFI in DeFiChain Wallet": "在 DeFiChain 錢包中接收 DFI",
     "DFI price": "DFI price",
-    "WALLET ADDRESS": "錢包地址"
+    "WALLET ADDRESS": "錢包地址",
+    "SHARE": "轉發地址"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "市場",

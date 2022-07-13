@@ -120,7 +120,8 @@
     "STEP 2": "STEP 2",
     "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
     "DFI price": "DFI price",
-    "WALLET ADDRESS": "WALLET ADDRESS"
+    "WALLET ADDRESS": "WALLET ADDRESS",
+    "SHARE": "SHARE"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marketplace",
