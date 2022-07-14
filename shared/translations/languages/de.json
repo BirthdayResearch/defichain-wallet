@@ -472,7 +472,7 @@
   },
   "screens/Guidelines": {
     "Creating a wallet": "Erstellen einer Wallet",
-    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Beim Erstellen einer Wallet siehst du zunächst 24 Worte. Behalte sie für dich und bewahre sie sicher auf.",
+    "Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.": "Bevor du eine Wallet erstellt hast, siehst du zunächst 24 Wörter. Behalte sie für dich und bewahre sie sicher auf.",
     "Learn more about recovery words": "Erfahre mehr über den Wiederherstellungssatz",
     "I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.": "Ich verstehe, dass die Verantwortung, meinen Wiederherstellungssatz sicher aufzubewahren, bei mir liegt. Der Verlust dieses Schlüssels hat den unwiederbringlichen Verlust des Guthabens auf dieser Wallet zur Folge.",
     "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.": "Ich verstehe, dass ich dafür verantwortlich bin, meinen Wiederherstellungssatz sicher aufzubewahren. Wenn ich ihn verliere, habe ich keinen Zugriff mehr auf mein Wallet-Guthaben.",
