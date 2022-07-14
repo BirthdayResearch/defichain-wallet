@@ -645,7 +645,8 @@
     "TRY AGAIN": "RIPROVA"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet"
+    "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/RecoveryWordsScreen": {
     "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private.",
