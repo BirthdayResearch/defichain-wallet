@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { HeaderFont } from '@components/Text'
 import { HeaderTitle } from '@components/HeaderTitle'
+import { PriceRateProps } from '@components/PricesSection'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AddLiquidityScreen } from './DexAddLiquidity'
@@ -13,13 +14,13 @@ import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
-import { ConversionParam } from '../Balances/BalancesNavigator'
-import { PriceRateProps } from '@screens/AppNavigator/screens/Dex/CompositeSwap/components/PricesSection'
+import { ConversionParam } from '../Portfolio/PortfolioNavigator'
 
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
     pair?: PoolPairData
+    fromToken?: WalletToken
     tokenSelectOption?: {
       from: {
         isDisabled: boolean
@@ -38,10 +39,19 @@ export interface DexParamList {
     priceRates: PriceRateProps[]
     slippage: BigNumber
     swap: CompositeSwapForm
+    futureSwap?: {
+      executionBlock: number
+      transactionDate: string
+      isSourceLoanToken: boolean
+      oraclePriceText: string
+    }
     tokenA: OwnedTokenState
     tokenB: TokenState & { amount?: string }
+    estimatedAmount: BigNumber
   }
-  AddLiquidity: { pair: PoolPairData }
+  AddLiquidity: {
+    pair: PoolPairData
+  }
   ConfirmAddLiquidity: {
     pair: PoolPairData
     summary: AddLiquiditySummary

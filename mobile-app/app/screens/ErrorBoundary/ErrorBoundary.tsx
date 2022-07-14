@@ -3,6 +3,7 @@ import { Text, View } from '../../components'
 import { AppIcon } from '@components/icons/AppIcon'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { Logging } from '@api'
 
 interface Props {
   children: ReactElement
@@ -36,6 +37,12 @@ class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError (): State {
     return { hasError: true }
+  }
+
+  componentDidCatch (error: any, errorInfo: any): any {
+    // You can also log the error to an error reporting service
+    Logging.error(error)
+    Logging.error(errorInfo)
   }
 
   render (): JSX.Element {

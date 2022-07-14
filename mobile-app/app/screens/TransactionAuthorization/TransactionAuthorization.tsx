@@ -3,7 +3,7 @@ import { JellyfishWallet, WalletHdNodeProvider } from '@defichain/jellyfish-wall
 import { MnemonicHdNode } from '@defichain/jellyfish-wallet-mnemonic'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
   initJellyfishWallet,
   MnemonicEncrypted,
@@ -41,6 +41,7 @@ import {
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { useAddressBook } from '@hooks/useAddressBook'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 /**
  * @description - Passcode prompt promise that resolves the pin to the wallet
@@ -58,7 +59,7 @@ export function TransactionAuthorization (): JSX.Element | null {
   const { network } = useNetworkContext()
   const whaleApiClient = useWhaleApiClient()
   const logger = useLogger()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const transaction = useSelector((state: RootState) => first(state.transactionQueue))
   const authentication = useSelector((state: RootState) => state.authentication.authentication)
 
@@ -84,6 +85,8 @@ export function TransactionAuthorization (): JSX.Element | null {
   const [title, setTitle] = useState<string | undefined>()
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message)
   const [loadingMessage, setLoadingMessage] = useState(DEFAULT_MESSAGES.loadingMessage)
+  const [additionalMessage, setAdditionalMessage] = useState<string | undefined>()
+  const [additionalMessageUrl, setAdditionalMessageUrl] = useState<string | undefined>()
 
   const closeModal = (): void => {
     dismiss(modalName)
@@ -266,6 +269,8 @@ export function TransactionAuthorization (): JSX.Element | null {
       setMessage(authentication.message)
       setTitle(authentication.title)
       setLoadingMessage(authentication.loading)
+      setAdditionalMessage(authentication.additionalMessage)
+      setAdditionalMessageUrl(authentication.additionalMessageUrl)
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
         .then(async () => {
@@ -372,6 +377,8 @@ export function TransactionAuthorization (): JSX.Element | null {
           closeModal()
         }
       }}
+      additionalMessage={additionalMessage}
+      additionalMessageUrl={additionalMessageUrl}
     />
   )
 }

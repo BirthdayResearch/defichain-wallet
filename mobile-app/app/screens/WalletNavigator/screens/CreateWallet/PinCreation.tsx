@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { CREATE_STEPS, CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
 import { PinTextInput } from '@components/PinTextInput'
-import { ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
@@ -52,7 +52,7 @@ export function PinCreation ({ route }: Props): JSX.Element {
         <ThemedText
           style={tailwind('text-center font-semibold')}
         >
-          {translate('screens/PinCreation', `Well done! Your wallet is ${type === 'create' ? 'created' : 'restored'}. Keep your wallet private and secure by creating a passcode for it.`)}
+          {translate('screens/PinCreation', `Well done! Your wallet is ${type === 'create' ? 'created' : 'restored'}.`)}
         </ThemedText>
       </View>
 
@@ -78,6 +78,23 @@ export function PinCreation ({ route }: Props): JSX.Element {
           {translate('screens/PinCreation', 'Learn more about passcode')}
         </ThemedText>
       </ThemedTouchableOpacity>
+      <View style={tailwind('pt-12 flex flex-row text-sm font-medium rounded items-center')}>
+        <ThemedIcon
+          light={tailwind('text-gray-600')}
+          dark={tailwind('text-dfxgray-400')}
+          style={tailwind('pr-1')}
+          iconType='MaterialIcons'
+          name='lock'
+          size={15}
+        />
+        <ThemedText
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-dfxgray-300')}
+          style={tailwind('text-xs')}
+        >
+          {translate('screens/RecoveryWordsScreen', 'Keep your recovery words safe and private.')}
+        </ThemedText>
+      </View>
     </ThemedScrollView>
   )
 }

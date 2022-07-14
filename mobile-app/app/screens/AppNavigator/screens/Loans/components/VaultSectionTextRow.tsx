@@ -10,6 +10,7 @@ interface VaultSectionTextProps extends NumberRowElement {
   lhs: string
   info?: BottomSheetAlertInfo
   rhsThemedProps?: ThemedProps
+  isOraclePrice?: boolean
 }
 
 export function VaultSectionTextRow (props: IVaultSectionTextProps): JSX.Element {
@@ -38,6 +39,7 @@ export function VaultSectionTextRow (props: IVaultSectionTextProps): JSX.Element
         dark: tailwind('text-gray-50'),
         ...props.rhsThemedProps
       }}
+      isOraclePrice={props.isOraclePrice}
     >
       {props.children}
     </NumberRow>

@@ -32,7 +32,7 @@ export function VaultInfo (props: VaultInfoProps): JSX.Element {
         </ThemedText>
       </View>
       <View style={tailwind('flex-1 flex-row justify-end flex-wrap items-center')}>
-        <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} testID={`${props.testID}_loan_symbol`} />
+        <TokenIconGroup symbols={props.tokens} maxIconToDisplay={5} testID={`${props.testID}_loan_symbol`} offsetContainer />
       </View>
     </View>
   )

@@ -3,6 +3,7 @@
 exports[`icon button should match snapshot of button with add icon 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -39,6 +40,7 @@ exports[`icon button should match snapshot of button with add icon 1`] = `
 >
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -68,6 +70,7 @@ exports[`icon button should match snapshot of button with add icon 1`] = `
 exports[`icon button should match snapshot of button with remove icon 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -104,6 +107,7 @@ exports[`icon button should match snapshot of button with remove icon 1`] = `
 >
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -133,6 +137,7 @@ exports[`icon button should match snapshot of button with remove icon 1`] = `
 exports[`icon button should match snapshot of button with swap-horiz icon 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -169,6 +174,7 @@ exports[`icon button should match snapshot of button with swap-horiz icon 1`] = 
 >
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -198,6 +204,7 @@ exports[`icon button should match snapshot of button with swap-horiz icon 1`] = 
 exports[`icon button should match snapshot of button with swap-vert icon 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}

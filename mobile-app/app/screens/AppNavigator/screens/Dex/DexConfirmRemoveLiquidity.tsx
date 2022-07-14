@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { NumberRow } from '@components/NumberRow'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -17,11 +17,13 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { TextRow } from '@components/TextRow'
 import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { PricesSection } from '@components/PricesSection'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -40,13 +42,12 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const symbol = (pair?.tokenA != null && pair?.tokenB != null)
     ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
     : pair.symbol
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const reservedDfi = 0.1
 
   useEffect(() => {
     setIsOnPage(true)
@@ -106,8 +107,8 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
@@ -137,27 +138,27 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         }}
       />
 
-      <ThemedSectionTitle
-        testID='title_price_detail'
-        text={translate('screens/ConfirmRemoveLiquidity', 'PRICE DETAILS')}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenB}} price in {{tokenA}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rhs={{
-          value: bToARate.toFixed(8),
-          testID: 'price_b',
-          suffixType: 'text',
-          suffix: translate('screens/ConfirmRemoveLiquidity', '{{symbolA}} per {{symbolB}}', { symbolA: pair.tokenA.displaySymbol, symbolB: pair.tokenB.displaySymbol })
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', '{{tokenA}} price in {{tokenB}}', { tokenA: pair.tokenA.displaySymbol, tokenB: pair.tokenB.displaySymbol })}
-        rhs={{
-          value: aToBRate.toFixed(8),
-          testID: 'price_a',
-          suffixType: 'text',
-          suffix: translate('screens/ConfirmRemoveLiquidity', '{{symbolB}} per {{symbolA}}', { symbolB: pair.tokenB.displaySymbol, symbolA: pair.tokenA.displaySymbol })
-        }}
+      <PricesSection
+        testID='confirm_pricerate_value'
+        priceRates={[
+          {
+            label: translate('components/PricesSection', '1 {{token}}', {
+              token: pair.tokenA.displaySymbol
+            }),
+            value: aToBRate.toFixed(8),
+            aSymbol: pair.tokenA.displaySymbol,
+            bSymbol: pair.tokenB.displaySymbol
+          },
+          {
+            label: translate('components/PricesSection', '1 {{token}}', {
+              token: pair.tokenB.displaySymbol
+            }),
+            value: bToARate.toFixed(8),
+            aSymbol: pair.tokenB.displaySymbol,
+            bSymbol: pair.tokenA.displaySymbol
+          }
+        ]}
+        sectionTitle='PRICES'
       />
 
       <TransactionResultsRow
@@ -169,7 +170,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           },
           {
             symbol: pair.tokenB.displaySymbol,
-            value: new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(reservedDfi).toFixed(8),
+            value: BigNumber.max(new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(pair.tokenB.symbol === 'DFI' ? fee : 0), 0).toFixed(8),
             suffix: pair.tokenB.displaySymbol
           }
         ]}

@@ -216,10 +216,12 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="auto"
               style={Object {}}
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -363,6 +365,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -372,6 +375,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}

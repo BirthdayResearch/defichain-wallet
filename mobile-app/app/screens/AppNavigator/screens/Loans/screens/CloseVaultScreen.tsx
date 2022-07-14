@@ -10,7 +10,7 @@ import { Dispatch, useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
@@ -19,6 +19,7 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { InfoText } from '@components/InfoText'
 import { View } from '@components'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'CloseVaultScreen'>
 
@@ -26,7 +27,7 @@ export function CloseVaultScreen ({ route, navigation }: Props): JSX.Element {
   const { vaultId } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
 

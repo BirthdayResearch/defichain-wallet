@@ -7,7 +7,7 @@ import { CfpResult } from './models/CfpResult'
 import { Country } from './models/Country'
 import { Fiat } from './models/Fiat'
 import { Language } from './models/Language'
-import { fromSellRouteDto, SellRoute, SellRouteDto, toSellRouteDto } from './models/SellRoute'
+import { fromSellRouteDto, SellData, SellRoute, SellRouteDto, toSellRouteDto } from './models/SellRoute'
 import {
   CfpVotes,
   fromUserDetailDto,
@@ -131,7 +131,12 @@ export const getSellRoutes = async (): Promise<SellRoute[]> => {
   return await fetchFrom<SellRouteDto[]>(SellUrl).then((dtoList) => dtoList.map((dto) => fromSellRouteDto(dto)))
 }
 
-export const postSellRoute = async (route: SellRoute): Promise<SellRoute> => {
+// TODO: check if @deprecated
+export const postSellRouteOLD = async (route: SellRoute): Promise<SellRoute> => {
+  return await fetchFrom<SellRouteDto>(SellUrl, 'POST', toSellRouteDto(route)).then(fromSellRouteDto)
+}
+
+export const postSellRoute = async (route: SellData): Promise<SellRoute> => {
   return await fetchFrom<SellRouteDto>(SellUrl, 'POST', toSellRouteDto(route)).then(fromSellRouteDto)
 }
 

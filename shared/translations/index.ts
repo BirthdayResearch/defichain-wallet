@@ -5,7 +5,7 @@ import zhHant from './languages/zh-Hant.json'
 import fr from './languages/fr.json'
 import it from './languages/it.json'
 import es from './languages/es.json'
-import pt from './languages/pt.json'
+// import pt from './languages/pt.json'
 
 /**
  * For testing compatibility, will always be initialized.
@@ -51,8 +51,8 @@ export const translations = {
   'zh-Hant': deepEncode(zhHant),
   fr: deepEncode(fr),
   it: deepEncode(it),
-  es: deepEncode(es),
-  pt: deepEncode(pt)
+  es: deepEncode(es)
+  // pt: deepEncode(pt)
 }
 
 /**
@@ -138,14 +138,14 @@ export function getAppLanguages (): AppLanguageItem[] {
       locale: 'fr'
     },
     {
-      language: AppLanguage.Italian,
-      displayName: 'Italiano',
-      locale: 'it'
-    },
-    {
       language: AppLanguage.Spanish,
       displayName: 'Español',
       locale: 'es'
+    },
+    {
+      language: AppLanguage.Italian,
+      displayName: 'Italiano',
+      locale: 'it'
     }
     // TODO(davidleomay)
     // {

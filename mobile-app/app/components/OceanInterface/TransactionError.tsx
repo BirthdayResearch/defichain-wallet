@@ -1,9 +1,11 @@
 
+import { useState, useEffect, useCallback } from 'react'
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { View, TouchableOpacity, Platform } from 'react-native'
 
 interface TransactionErrorProps {
   errMsg: string
@@ -29,43 +31,82 @@ export interface ErrorMapping {
 
 export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
   const logger = useLogger()
-  logger.error(`transaction error: ${errMsg}`)
+  const [expand, setExpand] = useState(false)
+  const [canExpand, setCanExpand] = useState(false)
+  const numberOfLines = 1
+
+  useEffect(() => {
+    logger.error(`transaction error: ${errMsg}`)
+  }, [errMsg])
+
+  const getNumberOfLines = (): number => {
+    if (Platform.OS === 'web') {
+      return numberOfLines
+    }
+    return (canExpand && !expand) ? numberOfLines : 0
+  }
+
   const err = errorMessageMapping(errMsg)
+
+  const onTextLayout = useCallback(e => {
+    if (e.nativeEvent.lines.length > numberOfLines) {
+      setCanExpand(true)
+    }
+  }, [])
+
   return (
-    <>
+    <View
+      style={tailwind('flex-row items-center justify-center w-full')}
+    >
       <ThemedIcon
+        style={tailwind('w-1/12')}
         dark={tailwind('text-darkerror-500')}
         iconType='MaterialIcons'
         light={tailwind('text-error-500')}
         name='error'
         size={20}
       />
-
-      <ThemedScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={tailwind('justify-center flex flex-col')}
+      <ThemedView
+        style={tailwind('flex flex-col justify-center w-9/12 ml-1')}
         light={tailwind('bg-white')}
         dark={tailwind('bg-dfxblue-800')}
-        style={tailwind('mx-3')}
       >
-        <ThemedText
-          style={tailwind('text-sm font-bold')}
-        >
-          {translate('screens/OceanInterface', `Error Code: ${err.code}`)}
-        </ThemedText>
+        <View style={tailwind('flex flex-row items-center')}>
+          <ThemedText
+            style={tailwind('text-sm font-bold')}
+          >
+            {translate('screens/OceanInterface', `Error Code: ${err.code}`)}
+          </ThemedText>
+          {canExpand && (
+            <TouchableOpacity
+              onPress={() => setExpand(!expand)}
+              testID='details_dfi'
+            >
+              <ThemedIcon
+                light={tailwind('text-gray-600')}
+                dark={tailwind('text-dfxgray-300')}
+                style={tailwind('font-bold')}
+                iconType='MaterialIcons'
+                name={!expand ? 'expand-more' : 'expand-less'}
+                size={24}
+              />
+            </TouchableOpacity>
+          )}
+
+        </View>
 
         <ThemedText
           ellipsizeMode='tail'
-          numberOfLines={1}
+          numberOfLines={getNumberOfLines()}
+          onTextLayout={onTextLayout}
           style={tailwind('text-sm font-bold')}
         >
           {translate('screens/OceanInterface', err.message)}
         </ThemedText>
-      </ThemedScrollView>
+      </ThemedView>
 
       <TransactionCloseButton onPress={onClose} />
-    </>
+    </View>
   )
 }
 
@@ -83,7 +124,7 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('Price is higher than indicated.')) {
     return {
       code: ErrorCodes.PoolSwapHigher,
-      message: 'Price is higher than indicated'
+      message: 'Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.'
     }
   } else if (err.includes('no prevouts available to create a transaction')) {
     return {

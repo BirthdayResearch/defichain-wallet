@@ -1,15 +1,22 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons, Feather } from '@expo/vector-icons'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { tailwind } from '@tailwind'
 
 import { ThemedProps } from './index'
 
-export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
+export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons' | 'DfxIcon' |'Feather' | 'Ionicons'
+export type IconName = React.ComponentProps<typeof MaterialIcons>['name']
+  | React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  | React.ComponentProps<typeof Feather>['name']
 
 interface IThemedIcon {
   iconType: IconType
 }
+
+export class CustomIcon extends MaterialIcons {
+  icon: string | undefined
+} // TODO: rework for custom Icon set
 
 type ThemedIconProps = ThemedProps & IThemedIcon & IconProps<any>
 
@@ -32,6 +39,20 @@ export function ThemedIcon (props: ThemedIconProps): JSX.Element {
   } else if (iconType === 'MaterialCommunityIcons') {
     return (
       <MaterialCommunityIcons
+        style={[style, isLight ? light : dark]}
+        {...otherProps}
+      />
+    )
+  } else if (iconType === 'DfxIcon') {
+    return (
+      <CustomIcon
+        style={[style, isLight ? light : dark]}
+        {...otherProps}
+      />
+    )
+  } else if (iconType === 'Feather') {
+    return (
+      <Feather
         style={[style, isLight ? light : dark]}
         {...otherProps}
       />

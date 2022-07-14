@@ -4,7 +4,7 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { View } from 'react-native'
 import { InfoText } from '@components/InfoText'
 import { translate } from '@translations'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useEffect } from 'react'
 import { fetchVaults } from '@store/loans'
@@ -14,9 +14,10 @@ import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale
 import { BidCard } from './BidCard'
 import { EmptyBidsScreen } from './EmptyBidsScreen'
 import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function ManageBids (): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const blockCount = useSelector((state: RootState) => state.block.count)

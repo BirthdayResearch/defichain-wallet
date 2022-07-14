@@ -12,12 +12,12 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { TransactionDetail } from './TransactionDetail'
 import { TransactionError } from './TransactionError'
 import { getReleaseChannel } from '@api/releaseChannel'
-import { fetchTokens } from '@store/wallet'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 const MAX_AUTO_RETRY = 1
 const MAX_TIMEOUT = 300000
@@ -73,7 +73,7 @@ async function waitForTxConfirmation (id: string, client: WhaleApiClient, logger
  * */
 export function OceanInterface (): JSX.Element | null {
   const logger = useLogger()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const { wallet, address } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
@@ -144,7 +144,6 @@ export function OceanInterface (): JSX.Element | null {
         })
         .finally(() => {
           dispatch(ocean.actions.popTransaction())
-          dispatch(fetchTokens({ client, address }))
         }) // remove the job as soon as completion
     }
   }, [transaction, wallet, address])
@@ -166,7 +165,7 @@ export function OceanInterface (): JSX.Element | null {
     <Animated.View
       style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {
         bottom: slideAnim,
-        height: 75
+        minHeight: 75
       }]}
     >
       {

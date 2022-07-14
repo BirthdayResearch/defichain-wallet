@@ -26,6 +26,7 @@ exports[`Scrollable button should match snapshot 1`] = `
     <View>
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -93,7 +94,13 @@ exports[`Scrollable button should match snapshot 1`] = `
         </Text>
       </View>
       <View
+        accessibilityState={
+          Object {
+            "disabled": false,
+          }
+        }
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -161,7 +168,13 @@ exports[`Scrollable button should match snapshot 1`] = `
         </Text>
       </View>
       <View
+        accessibilityState={
+          Object {
+            "disabled": true,
+          }
+        }
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}

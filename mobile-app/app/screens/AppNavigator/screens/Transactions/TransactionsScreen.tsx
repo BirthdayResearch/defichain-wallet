@@ -3,12 +3,12 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { MaterialIcons } from '@expo/vector-icons'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useScrollToTop } from '@react-navigation/native'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { RefreshControl, TouchableOpacity, View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -32,6 +32,8 @@ export function TransactionsScreen (): JSX.Element {
   const [transactions, setTransactions] = useState<VMTransaction[]>([])
   const [loadingState, setLoadingState] = useState<LoadingState>('idle')
   const [loadMoreToken, setLoadMoreToken] = useState<string | undefined>(undefined)
+  const ref = useRef(null)
+  useScrollToTop(ref)
 
   useEffect(() => {
     // onload
@@ -102,6 +104,7 @@ export function TransactionsScreen (): JSX.Element {
     <ThemedFlatList
       ListFooterComponent={typeof loadMoreToken === 'string' ? <LoadMore onPress={onLoadMore} /> : undefined}
       data={transactions}
+      ref={ref}
       keyExtractor={(item) => item.id}
       refreshControl={
         <RefreshControl
@@ -160,7 +163,7 @@ function TransactionRow ({
       <View style={tailwind('w-8 justify-center items-center')}>
         <MaterialIcons
           color={color}
-          name={iconName}
+          name={iconName as React.ComponentProps<typeof MaterialIcons>['name']}
           size={24}
         />
       </View>

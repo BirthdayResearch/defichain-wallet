@@ -1,9 +1,7 @@
-// @ts-expect-error
-// TODO: add typings one available
 import Cache from 'lru-cache'
 
 class LruCache {
-  private readonly cache
+  private readonly cache: Cache<string, any>
 
   constructor () {
     // setting maxAge to 10 min

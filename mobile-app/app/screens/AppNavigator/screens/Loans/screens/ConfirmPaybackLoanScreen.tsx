@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { InfoText } from '@components/InfoText'
 import { NumberRow } from '@components/NumberRow'
 import { SummaryTitle } from '@components/SummaryTitle'
@@ -11,7 +11,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -25,11 +25,12 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { ConversionParam } from '../../Balances/BalancesNavigator'
+import { ConversionParam } from '../../Portfolio/PortfolioNavigator'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { CollateralizationRatioRow } from '../components/CollateralizationRatioRow'
 import { PaymentTokenProps } from '../hooks/LoanPaymentTokenRate'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmPaybackLoanScreen'>
 
@@ -53,7 +54,7 @@ export function ConfirmPaybackLoanScreen ({
   } = route.params
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
   const { address } = useWalletContext()
   const { isFeatureAvailable } = useFeatureFlagContext()
@@ -263,8 +264,8 @@ function SummaryTransactionDetails (props: SummaryTransactionDetailsProps): JSX.
             suffix: props.paymentTokenDisplaySymbol
           }}
         />}
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

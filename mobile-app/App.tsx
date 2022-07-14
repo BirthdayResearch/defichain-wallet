@@ -24,10 +24,11 @@ import { FeatureFlagProvider } from '@contexts/FeatureFlagContext'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { tailwind } from '@tailwind'
-import { WalletDataProvider } from '@shared-contexts/WalletDataProvider'
 import { ToastProvider } from 'react-native-toast-notifications'
 import { ToastProps } from 'react-native-toast-notifications/lib/typescript/toast'
 import { WalletToast } from '@components/WalletToast'
+import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
+import { ServiceProviderPersistence } from '@api/wallet/service_provider'
 
 /**
  * Loads
@@ -52,13 +53,13 @@ export default function App (): JSX.Element | null {
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
             <NetworkProvider api={SecuredStoreAPI}>
-              <WhaleProvider>
-                <DeFiScanProvider>
-                  <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
-                    <StoreProvider>
-                      <StatsProvider>
-                        <FeatureFlagProvider>
-                          <WalletDataProvider>
+              <StoreServiceProvider api={ServiceProviderPersistence}>
+                <WhaleProvider>
+                  <DeFiScanProvider>
+                    <WalletPersistenceProvider api={{ ...WalletPersistence, ...WalletAddressIndexPersistence }}>
+                      <StoreProvider>
+                        <StatsProvider>
+                          <FeatureFlagProvider>
                             <ThemeProvider api={ThemePersistence} colorScheme={colorScheme}>
                               <LanguageProvider api={LanguagePersistence} locale={Localization.locale}>
                                 <DisplayBalancesProvider>
@@ -72,13 +73,13 @@ export default function App (): JSX.Element | null {
                                 </DisplayBalancesProvider>
                               </LanguageProvider>
                             </ThemeProvider>
-                          </WalletDataProvider>
-                        </FeatureFlagProvider>
-                      </StatsProvider>
-                    </StoreProvider>
-                  </WalletPersistenceProvider>
-                </DeFiScanProvider>
-              </WhaleProvider>
+                          </FeatureFlagProvider>
+                        </StatsProvider>
+                      </StoreProvider>
+                    </WalletPersistenceProvider>
+                  </DeFiScanProvider>
+                </WhaleProvider>
+              </StoreServiceProvider>
             </NetworkProvider>
           </PrivacyLockContextProvider>
         </AppStateContextProvider>

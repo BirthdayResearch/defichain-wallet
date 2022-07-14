@@ -4,7 +4,7 @@ import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { Dispatch, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
@@ -14,9 +14,9 @@ import { View } from '@components'
 import { TextRow } from '@components/TextRow'
 import BigNumber from 'bignumber.js'
 import { NumberRow } from '@components/NumberRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ConversionTag } from '@components/ConversionTag'
-import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { ConversionParam } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
@@ -27,6 +27,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { EnvironmentNetwork } from '@environment'
 import { WalletAddressRow } from '@components/WalletAddressRow'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmCreateVaultScreen'>
 
@@ -46,7 +47,7 @@ export function ConfirmCreateVaultScreen ({
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const { address } = useWalletContext()
   const client = useWhaleApiClient()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setIsOnPage(true)
@@ -125,11 +126,11 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
       >
         {translate('screens/ConfirmCreateVaultScreen', 'You are creating vault')}
       </ThemedText>
-      <View style={tailwind('flex flex-row items-center')}>
+      <View style={tailwind('flex-row items-center')}>
         <ThemedView
           light={tailwind('bg-gray-100')}
           dark={tailwind('bg-dfxblue-900')}
-          style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
+          style={tailwind('w-8 h-8 rounded-full items-center justify-center mr-2')}
         >
           <ThemedIcon
             iconType='MaterialIcons'
@@ -142,7 +143,7 @@ function SummaryHeader (props: { conversion?: ConversionParam }): JSX.Element {
         <ThemedText
           light={tailwind('text-dfxgray-400')}
           dark={tailwind('text-dfxgray-500')}
-          style={tailwind('text-sm')}
+          style={tailwind('text-sm flex-1')}
         >
           {translate('screens/ConfirmCreateVaultScreen', 'ID will generate once vault has been created')}
         </ThemedText>
@@ -170,14 +171,14 @@ function SummaryTransactionDetails (props: { fee: BigNumber, conversion?: Conver
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='VAULT_FEE'
+      <InfoRow
+        type={InfoType.VaultFee}
         value={vaultFee.toFixed(8)}
         testID='vault_fee'
         suffix='DFI'
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

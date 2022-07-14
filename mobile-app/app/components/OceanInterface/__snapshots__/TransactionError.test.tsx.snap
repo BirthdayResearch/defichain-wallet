@@ -1,9 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`info text should match snapshot for error At least 50% of the vault must be in DFI when taking a loan 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -11,7 +21,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -26,22 +38,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -49,7 +55,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -75,37 +89,39 @@ Array [
       >
         Error Code: 4
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Insufficient DFI collateral (≥50%)
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Insufficient DFI collateral (≥50%)
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -166,14 +182,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Cannot payback loan while any of the asset's price is invalid 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -181,7 +207,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -196,22 +224,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -219,7 +241,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -245,37 +275,39 @@ Array [
       >
         Error Code: 6
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Cannot payback loan due to invalid price
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Cannot payback loan due to invalid price
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -336,14 +368,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Error: Not found, code: 404, message: Page not found 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -351,7 +393,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -366,22 +410,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -389,7 +427,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -415,37 +461,39 @@ Array [
       >
         Error Code: 0
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        404, message Page not found
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      404, message Page not found
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -506,14 +554,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Lack of liquidity 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -521,7 +579,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -536,22 +596,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -559,7 +613,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -585,37 +647,39 @@ Array [
       >
         Error Code: 5
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Pool does not have enough liquidity
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Pool does not have enough liquidity
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -676,14 +740,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error No live fixed prices 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -691,7 +765,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -706,22 +782,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -729,7 +799,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -755,37 +833,39 @@ Array [
       >
         Error Code: 7
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        No live fixed prices for loan token
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      No live fixed prices for loan token
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -846,14 +926,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
-exports[`info text should match snapshot for error Price is higher than indicated. 1`] = `
-Array [
+exports[`info text should match snapshot for error Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed. 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -861,7 +951,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -876,22 +968,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -899,153 +985,15 @@ Array [
       ]
     }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Error Code: 3
-      </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Price is higher than indicated
-      </Text>
-    </View>
-  </RCTScrollView>,
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
-        "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
-      }
-    }
-    testID="oceanInterface_close"
-  >
-    <Text
+    <View
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
-            },
-          ],
-        ]
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
       }
     >
-      OK
-    </Text>
-  </View>,
-]
-`;
-
-exports[`info text should match snapshot for error UnknownError 1`] = `
-Array [
-  <Text />,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
-  >
-    <View>
       <Text
         style={
           Array [
@@ -1071,37 +1019,39 @@ Array [
       >
         Error Code: 0
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        UnknownError
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1162,14 +1112,183 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
+`;
+
+exports[`info text should match snapshot for error UnknownError 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
+  <Text />
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
+        },
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, 1)",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "BoldFont",
+                "fontSize": 14,
+                "fontWeight": "700",
+                "lineHeight": 20,
+              },
+              Object {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        Error Code: 0
+      </Text>
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      UnknownError
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(212, 212, 212, 1)",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderBottomWidth": 1,
+        "borderLeftColor": "rgba(212, 212, 212, 1)",
+        "borderLeftWidth": 1,
+        "borderRightColor": "rgba(212, 212, 212, 1)",
+        "borderRightWidth": 1,
+        "borderTopColor": "rgba(212, 212, 212, 1)",
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderTopWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginLeft": 12,
+        "opacity": 1,
+        "paddingBottom": 4,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 4,
+      }
+    }
+    testID="oceanInterface_close"
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontSize": 14,
+              "lineHeight": 20,
+            },
+            Object {
+              "color": "rgba(255, 0, 175, 1)",
+              "fontFamily": "MediumFont",
+              "fontWeight": "500",
+            },
+          ],
+        ]
+      }
+    >
+      OK
+    </Text>
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Vault does not have enough collateralization ratio defined by loan scheme 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1177,7 +1296,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -1192,22 +1313,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1215,7 +1330,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1241,37 +1364,39 @@ Array [
       >
         Error Code: 8
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Vault does not have enough col. ratio
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Vault does not have enough col. ratio
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1332,14 +1457,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error amount is less than 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1347,7 +1482,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -1362,22 +1499,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1385,7 +1516,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1411,37 +1550,39 @@ Array [
       >
         Error Code: 2
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Not enough balance
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Not enough balance
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1502,14 +1643,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error no prevouts available to create a transaction 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1517,7 +1668,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -1532,22 +1685,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1555,7 +1702,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1581,37 +1736,39 @@ Array [
       >
         Error Code: 1
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Insufficient UTXO DFI
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Insufficient UTXO DFI
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1672,14 +1829,24 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error not enough balance after combing all prevouts 1`] = `
-Array [
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {
@@ -1687,7 +1854,9 @@ Array [
           "fontSize": 20,
         },
         Array [
-          undefined,
+          Object {
+            "width": "8.333333%",
+          },
           Object {
             "color": "rgba(255, 0, 0, 1)",
           },
@@ -1702,22 +1871,16 @@ Array [
     }
   >
     
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
-      }
-    }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
+  </Text>
+  <View
     style={
       Array [
         Object {
-          "marginLeft": 12,
-          "marginRight": 12,
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "marginLeft": 4,
+          "width": "75%",
         },
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -1725,7 +1888,15 @@ Array [
       ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1751,37 +1922,39 @@ Array [
       >
         Error Code: 1
       </Text>
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={0}
+      onTextLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
           Array [
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "fontFamily": "BoldFont",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "lineHeight": 20,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Insufficient UTXO DFI
-      </Text>
-    </View>
-  </RCTScrollView>,
+            Object {
+              "color": "rgba(0, 0, 0, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      Insufficient UTXO DFI
+    </Text>
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1842,6 +2015,6 @@ Array [
     >
       OK
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;

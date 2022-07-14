@@ -31,6 +31,7 @@ exports[`Batch Card should match snapshot 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -170,6 +171,7 @@ exports[`Batch Card should match snapshot 1`] = `
           </Text>
           <View
             accessible={true}
+            collapsable={false}
             focusable={true}
             onClick={[Function]}
             onResponderGrant={[Function]}
@@ -560,6 +562,7 @@ exports[`Batch Card should match snapshot 1`] = `
       <View
         style={
           Object {
+            "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
           }
@@ -839,6 +842,7 @@ exports[`Batch Card should match snapshot 1`] = `
     useNativeDriver={false}
   >
     <View
+      collapsable={false}
       style={
         Object {
           "backgroundColor": "rgba(90, 169, 230, 1)",
@@ -879,6 +883,7 @@ exports[`Batch Card should match snapshot 1`] = `
   >
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -948,6 +953,7 @@ exports[`Batch Card should match snapshot 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}

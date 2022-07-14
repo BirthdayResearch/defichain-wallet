@@ -24,19 +24,19 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         "url": "https://defichain.com/learn/#faq",
       },
       Object {
-        "icon": "telegram",
+        "icon": "message",
         "id": "tg_en",
         "title": "Telegram (EN)",
         "url": "https://t.me/defiblockchain",
       },
       Object {
-        "icon": "telegram",
+        "icon": "message",
         "id": "tg_de",
         "title": "Telegram (DE)",
         "url": "https://t.me/defiblockchain_DE",
       },
       Object {
-        "icon": "telegram",
+        "icon": "message",
         "id": "announcements",
         "title": "Announcements",
         "url": "https://t.me/defichain_announcements",
@@ -49,16 +49,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       },
     ]
   }
-  disableVirtualization={false}
   getItem={[Function]}
   getItemCount={[Function]}
-  horizontal={false}
-  initialNumToRender={10}
   keyExtractor={[Function]}
-  maxToRenderPerBatch={10}
   onContentSizeChange={[Function]}
-  onEndReachedThreshold={2}
   onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
   onMomentumScrollEnd={[Function]}
   onScroll={[Function]}
   onScrollBeginDrag={[Function]}
@@ -76,9 +72,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     ]
   }
   testID="community_flat_list"
-  updateCellsBatchingPeriod={50}
   viewabilityConfigCallbackPairs={Array []}
-  windowSize={21}
 >
   <View>
     <View
@@ -124,6 +118,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -208,6 +203,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -292,6 +288,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -376,6 +373,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -460,6 +458,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -544,6 +543,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}

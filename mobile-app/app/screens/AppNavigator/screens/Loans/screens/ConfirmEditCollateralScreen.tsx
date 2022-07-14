@@ -1,4 +1,4 @@
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { NumberRow } from '@components/NumberRow'
 import { TextRow } from '@components/TextRow'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
@@ -12,7 +12,7 @@ import { LoanParamList } from '../LoansNavigator'
 import { SymbolIcon } from '@components/SymbolIcon'
 import NumberFormat from 'react-number-format'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -27,10 +27,11 @@ import { fetchVaults } from '@store/loans'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { ConversionTag } from '@components/ConversionTag'
-import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { ConversionParam } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { WalletAddressRow } from '@components/WalletAddressRow'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
 
@@ -53,7 +54,7 @@ export function ConfirmEditCollateralScreen ({
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const logger = useLogger()
 
   useEffect(() => {
@@ -205,8 +206,8 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         textStyle={tailwind('text-sm font-normal')}
       />
       <WalletAddressRow />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='text_fee'
         suffix='DFI'
@@ -230,7 +231,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
         }}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount (USD)')}
+        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount')}
         rhs={{
           value: props.amount.toFixed(8),
           testID: 'collateral_amount',
@@ -245,6 +246,7 @@ function CollateralSection (props: CollateralSectionProps): JSX.Element {
           testID: 'collateral_value',
           prefix: '$'
         }}
+        isOraclePrice
       />
       <VaultProportionRow
         lhs={translate('screens/ConfirmEditCollateralScreen', 'Vault %')}

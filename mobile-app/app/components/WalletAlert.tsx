@@ -1,3 +1,4 @@
+// import { Logging } from '@api'
 import { Alert, AlertButton, AlertOptions, Platform } from 'react-native'
 
 interface CustomAlertOption {
@@ -42,5 +43,33 @@ export function WalletAlert (option: CustomAlertOption): void {
 
     const cancel = option.buttons.find(({ style }) => style === 'cancel')
     cancel?.onPress?.()
+  }
+}
+
+export function WalletAlertErrorApi (apiResponseError: any): void {
+  // TODO: (thabrad) need to be refactored to be able to be used outside of react hook / provider context
+  // mobile-app/app/api/local_storage/provider/provider.native.ts
+  // const logger = Logging
+  // logger.error(apiResponseError)
+
+  // eslint-disable-next-line no-console
+  console.log(apiResponseError)
+
+  const errorName = safeAnyUsageStringArrayJsonEmtpyString(apiResponseError?.error)
+  const errorMsg = safeAnyUsageStringArrayJsonEmtpyString(apiResponseError?.message)
+
+  WalletAlert({ title: errorName, message: errorMsg })
+}
+
+// TODO: (thabrad) move to a Utils lib
+export function safeAnyUsageStringArrayJsonEmtpyString (data: any | undefined): string {
+  if (data === undefined) {
+    return ''
+  } else if (typeof data === 'string') {
+    return data
+  } else if (Array.isArray(data)) {
+    return data.toString()
+  } else {
+    return JSON.stringify(data)
   }
 }

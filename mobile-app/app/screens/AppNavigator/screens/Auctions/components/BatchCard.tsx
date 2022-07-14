@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { memo } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
+import { ThemedText, ThemedView, ThemedIcon, IconName } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { View } from '@components'
 import { translate } from '@translations'
@@ -19,7 +19,6 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 import { useAuctionBidValue } from '../hooks/AuctionBidValue'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { MaterialIcons } from '@expo/vector-icons'
 import { MinNextBidTextRow } from './MinNextBidTextRow'
 import { onQuickBidProps } from './BrowseAuctions'
 
@@ -141,7 +140,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
               {translate('components/BatchCard', 'Total auction value (USD)')}
             </ThemedText>
           </View>
-          <View style={tailwind('flex flex-row')}>
+          <View style={tailwind('flex flex-row items-center')}>
             <NumberFormat
               displayType='text'
               prefix='$'
@@ -160,7 +159,6 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
             />
           </View>
         </View>
-
         <MinNextBidTextRow
           displaySymbol={batch.loan.displaySymbol}
           minNextBidInToken={minNextBidInToken}
@@ -183,7 +181,7 @@ export function BatchCard (props: BatchCardProps): JSX.Element {
   )
 }
 
-const BatchCardInfo = memo((props: { iconName: React.ComponentProps<typeof MaterialIcons>['name'], text: string, testID: string }): JSX.Element => {
+const BatchCardInfo = memo((props: { iconName: IconName, text: string, testID: string }): JSX.Element => {
   return (
     <View style={tailwind('flex flex-row items-center')}>
       <ThemedIcon

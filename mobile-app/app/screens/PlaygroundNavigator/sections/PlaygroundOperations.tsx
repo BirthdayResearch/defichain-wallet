@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux'
 import { View } from '@components'
 import { PlaygroundTitle } from '@screens/PlaygroundNavigator/components/PlaygroundTitle'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -9,11 +8,12 @@ import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { PlaygroundAction } from '@screens/PlaygroundNavigator/components/PlaygroundAction'
 import { fetchTokens } from '@store/wallet'
 import { PlaygroundConnectionStatus } from '@screens/PlaygroundNavigator/components/PlaygroundStatus'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function PlaygroundOperations (): JSX.Element {
   const { wallet } = useWalletContext()
   const client = useWhaleApiClient()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {
     api,
     rpc

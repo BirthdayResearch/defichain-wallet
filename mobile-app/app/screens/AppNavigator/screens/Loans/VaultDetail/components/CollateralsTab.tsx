@@ -149,7 +149,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
                 </ThemedText>
               )}
             />
-            <ActiveUSDValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} />
+            <ActiveUSDValue price={new BigNumber(props.amount).multipliedBy(prices.activePrice)} isOraclePrice />
           </View>
         </View>
       </View>

@@ -58,10 +58,16 @@ exports[`Vault info should render label with token icon group 1`] = `
   >
     <View
       style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
+        Array [
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "position": "relative",
+          },
+          Object {
+            "right": -15,
+          },
+        ]
       }
     >
       <View

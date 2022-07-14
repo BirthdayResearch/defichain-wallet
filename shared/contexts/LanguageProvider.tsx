@@ -7,6 +7,8 @@ import 'dayjs/locale/de'
 import 'dayjs/locale/en'
 import 'dayjs/locale/fr'
 import 'dayjs/locale/zh'
+import 'dayjs/locale/es'
+import 'dayjs/locale/it'
 dayjs.extend(localizedFormat)
 
 interface LanguageLoader {
@@ -84,6 +86,12 @@ export function LanguageProvider (props: LanguageContextI & PropsWithChildren<an
       case 'zh-Hans':
       case 'zh-Hant':
         dayjs.locale('zh')
+        break
+      case 'es':
+        dayjs.locale('es')
+        break
+      case 'it':
+        dayjs.locale('it')
         break
       default:
         dayjs.locale('en')

@@ -54,8 +54,8 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.TestNet,
       EnvironmentNetwork.MainNet
     ],
-    dfxApiUrl: 'https://app-dfx-api-dev.azurewebsites.net/v1',
-    dfxPaymentUrl: 'https://cdne-dfx-pay-dev.azureedge.net'
+    dfxApiUrl: 'https://dev.api.dfx.swiss/v1',
+    dfxPaymentUrl: 'https://dev.payment.dfx.swiss'
   }
 }
 

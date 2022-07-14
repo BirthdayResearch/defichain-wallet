@@ -12,9 +12,10 @@ import { LoanParamList } from '../LoansNavigator'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { AddOrRemoveCollateralForm, AddOrRemoveCollateralResponse } from '../components/AddOrRemoveCollateralForm'
 import { BottomSheetTokenList, TokenType } from '@components/BottomSheetTokenList'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { fetchCollateralTokens } from '@store/loans'
 import {
@@ -26,7 +27,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit'
 import { IconButton } from '@components/IconButton'
 import { VaultSectionTextRow } from '../components/VaultSectionTextRow'
-import { DFITokenSelector, DFIUtxoSelector, fetchTokens, tokensSelector } from '@store/wallet'
+import { DFITokenSelector, DFIUtxoSelector, tokensSelector } from '@store/wallet'
 import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
 import {
   useVaultStatus,
@@ -36,10 +37,9 @@ import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { useCollateralizationRatioColor } from '@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio'
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
-import { useIsFocused } from '@react-navigation/native'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'EditCollateralScreen'>
 
@@ -62,19 +62,17 @@ export function EditCollateralScreen ({
 }: Props): JSX.Element {
   const { vaultId } = route.params
   const client = useWhaleApiClient()
-  const { address } = useWalletContext()
   const logger = useLogger()
-  const isFocused = useIsFocused()
+  const { isLight } = useThemeContext()
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [activeVault, setActiveVault] = useState<LoanVaultActive>()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const canUseOperations = useLoanOperations(activeVault?.state)
 
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
 
   const modalSnapPoints = { ios: ['60%'], android: ['60%'] }
@@ -97,15 +95,10 @@ export function EditCollateralScreen ({
       ...c,
       available: getTokenAmount(c.token.id)
     }
-  }).sort((a, b) => b.available.minus(a.available).toNumber()))
+  }).filter((collateralItem) => new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice, collateralItem.factor)).gt(0))
+    .sort((a, b) => b.available.minus(a.available).toNumber()))
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) => collateralSelector(state))
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }))
@@ -223,8 +216,9 @@ export function EditCollateralScreen ({
                   onCloseButtonPress: dismissModal,
                   navigateToScreen: {
                     screenName: 'AddOrRemoveCollateralForm',
-                    onButtonPress: onAddCollateral
-                  }
+                    onButtonPress: onAddCollateral as any
+                  },
+                  isOraclePrice: true
                 }),
                 option: {
                   header: () => null,
@@ -236,9 +230,13 @@ export function EditCollateralScreen ({
                 component: AddOrRemoveCollateralForm,
                 option: {
                   headerStatusBarHeight: 1,
+                  headerBackgroundContainerStyle: tailwind('border-b', {
+                    'border-gray-200': isLight,
+                    'border-dfxblue-900': !isLight,
+                    '-top-5': Platform.OS !== 'web'
+                  }),
                   headerTitle: '',
-                  headerBackTitleVisible: true,
-                  headerBackTitle: translate('screens/EditCollateralScreen', 'BACK')
+                  headerBackTitleVisible: false
                 }
               }
             ])
@@ -253,7 +251,7 @@ export function EditCollateralScreen ({
         {activeVault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find((col) => col.token.id === collateral.id)
           if (collateralItem !== undefined) {
-            const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice))
+            const activePrice = new BigNumber(getActivePrice(collateralItem.token.symbol, collateralItem.activePrice, collateralItem.factor))
             const params = {
               stackScreenName: 'AddOrRemoveCollateralForm',
               component: AddOrRemoveCollateralForm,
@@ -305,6 +303,10 @@ export function EditCollateralScreen ({
           }
         })}
       </ThemedScrollView>
+      <BottomSheetWithNav
+        modalRef={bottomSheetRef}
+        screenList={bottomSheetScreen}
+      />
 
       {Platform.OS === 'web' && (
         <BottomSheetWebWithNav
@@ -373,11 +375,13 @@ function VaultIdSection (props: { vault: LoanVaultActive }): JSX.Element {
         prefix='$'
         value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate('screens/EditCollateralScreen', 'Total collateral (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_total_loans_value' value={new BigNumber(vault.loanValue ?? 0).toFixed(2)}
         prefix='$'
         lhs={translate('screens/EditCollateralScreen', 'Total loans (USD)')}
+        isOraclePrice
       />
       <VaultSectionTextRow
         testID='text_col_ratio_value'
@@ -499,6 +503,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
             <ActiveUSDValue
               price={prices.collateralPrice}
               testId={`collateral_card_col_amount_usd_${collateral.displaySymbol}`}
+              isOraclePrice
             />
           </View>
         </View>
@@ -536,7 +541,7 @@ function CollateralCard (props: CollateralCardProps): JSX.Element {
 function CardLabel (props: { text: string }): JSX.Element {
   return (
     <ThemedText
-      light={tailwind('text-dfxgray-500')}
+      light={tailwind('text-gray-500')}
       dark={tailwind('text-dfxgray-400')}
       style={tailwind('text-xs mb-1')}
     >
@@ -559,21 +564,21 @@ function AddCollateralButton (props: { disabled: boolean, onPress: () => void })
         size={14}
         light={tailwind({
           'text-primary-500': !props.disabled,
-          'text-dfxgray-300': props.disabled
+          'text-gray-300': props.disabled
         })}
         dark={tailwind({
           'text-dfxred-500': !props.disabled,
-          'text-dfxgray-500': props.disabled
+          'text-gray-600': props.disabled
         })}
       />
       <ThemedText
         light={tailwind({
           'text-primary-500': !props.disabled,
-          'text-dfxgray-300': props.disabled
+          'text-gray-300': props.disabled
         })}
         dark={tailwind({
           'text-dfxred-500': !props.disabled,
-          'text-dfxgray-500': props.disabled
+          'text-gray-600': props.disabled
         })}
         style={tailwind('pl-2.5 text-sm font-medium leading-4 mb-2')}
       >

@@ -13,35 +13,68 @@ exports[`recovery word screen should match snapshot 1`] = `
   testID="recovery_word_screen"
 >
   <View>
-    <Text
+    <View
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+        Object {
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
+      }
+    >
+      <View
+        style={
           Array [
             Object {
+              "alignItems": "center",
+              "borderBottomLeftRadius": 4,
+              "borderBottomRightRadius": 4,
+              "borderTopLeftRadius": 4,
+              "borderTopRightRadius": 4,
+              "display": "flex",
+              "flexDirection": "row",
               "fontFamily": "MediumFont",
               "fontSize": 14,
               "fontWeight": "500",
               "lineHeight": 20,
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 24,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
             },
             Object {
-              "color": "rgba(0, 0, 0, 1)",
+              "backgroundColor": "rgba(255, 245, 234, 1)",
             },
-          ],
-        ]
-      }
-    >
-      Keep your recovery words safe and private
-    </Text>
+          ]
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Keep your recovery words safe and private.
+        </Text>
+      </View>
+    </View>
     <View
       style={
         Object {

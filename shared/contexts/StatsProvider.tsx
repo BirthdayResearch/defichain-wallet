@@ -1,11 +1,12 @@
 import React, { useEffect, PropsWithChildren } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { isPlayground } from '@environment'
 import { RootState } from '@store'
 import { block } from '@store/block'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWhaleApiClient } from './WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
@@ -14,7 +15,7 @@ export function StatsProvider (props: PropsWithChildren<any>): JSX.Element | nul
   const api = useWhaleApiClient()
   const interval: number = isPlayground(network) ? 3000 : 30000
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     // TODO: https://reactnative.dev/docs/appstate refactor to support app app refreshing

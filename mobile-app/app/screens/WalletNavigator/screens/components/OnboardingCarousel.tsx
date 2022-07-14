@@ -11,11 +11,12 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
 import { theme } from '../../../../tailwind.config'
 import { translate } from '@translations'
+import { VersionTag } from '@components/VersionTag'
 
 interface CarouselImage {
   image: ImageSourcePropType
   title: string
-  secondTitle: string
+  secondTitle?: string
   subtitle: string
 }
 
@@ -23,23 +24,20 @@ const slides: JSX.Element[] = [<InitialSlide key={0} />,
   <ImageSlide
     image={ImageA}
     key={1}
-    secondTitle='of your digital assets'
-    subtitle='Nobody owns your keys and wallet except you.'
+    subtitle='DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.'
     title='Take full control'
   />,
   <ImageSlide
     image={ImageB}
     key={2}
-    secondTitle='potential of your finances'
-    subtitle='Transact, liquidity mine, swap and many more features as a fully-decentralized wallet'
-    title='Unlock the highest'
+    subtitle='Review your available and locked assets in your portfolio.'
+    title='View your assets in one place'
   />,
   <ImageSlide
     image={ImageC}
     key={3}
-    secondTitle='of up to 90% with DEX'
-    subtitle='Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!'
-    title='Earn high yields'
+    subtitle='Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.'
+    title='Maximize earning potential'
   />]
 
 // Needs for it to work on web. Otherwise, it takes full window size
@@ -60,6 +58,10 @@ export function InitialSlide (): JSX.Element {
       >
         {translate('screens/OnboardingCarousel', 'A wallet dedicated to the native decentralized finance for bitcoin.')}
       </ThemedText>
+
+      <View style={tailwind('mt-2')}>
+        <VersionTag />
+      </View>
     </View>
   )
 }
@@ -72,9 +74,11 @@ export function ImageSlide ({ image, title, secondTitle, subtitle }: CarouselIma
           {translate('screens/OnboardingCarousel', title)}
         </ThemedText>
 
-        <ThemedText style={tailwind('text-2xl font-bold text-center')}>
-          {translate('screens/OnboardingCarousel', secondTitle)}
-        </ThemedText>
+        {secondTitle !== undefined && (
+          <ThemedText style={tailwind('text-2xl font-bold text-center')}>
+            {translate('screens/OnboardingCarousel', secondTitle)}
+          </ThemedText>
+        )}
 
         <ThemedText
           dark={tailwind('text-dfxgray-400')}

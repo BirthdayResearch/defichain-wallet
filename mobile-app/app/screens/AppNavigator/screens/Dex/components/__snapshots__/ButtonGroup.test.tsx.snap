@@ -21,6 +21,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -77,6 +78,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -132,6 +134,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}

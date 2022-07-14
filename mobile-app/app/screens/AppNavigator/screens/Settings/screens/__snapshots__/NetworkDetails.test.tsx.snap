@@ -457,6 +457,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       >
         <View
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -598,69 +599,90 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       <View
         style={
           Object {
-            "alignItems": "center",
             "flexBasis": "0%",
-            "flexDirection": "row",
             "flexGrow": 1,
             "flexShrink": 1,
-            "flexWrap": "wrap",
-            "justifyContent": "flex-end",
           }
         }
       >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "textAlign": "right",
-              },
-              Object {
-                "fontFamily": "MediumFont",
-                "fontSize": 16,
-                "fontWeight": "500",
-                "lineHeight": 24,
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
+        <View>
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
+                  Object {
+                    "fontSize": 14,
+                    "lineHeight": 20,
+                    "textAlign": "right",
+                  },
+                  Object {
+                    "fontFamily": "MediumFont",
+                    "fontSize": 16,
+                    "fontWeight": "500",
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
                   Array [
                     Object {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    Object {
-                      "fontFamily": "MediumFont",
+                      "fontFamily": "RegularFont",
                       "fontSize": 16,
-                      "fontWeight": "500",
+                      "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    undefined,
-                  ],
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
+                    Array [
+                      Array [
+                        Object {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                          "textAlign": "right",
+                        },
+                        Object {
+                          "fontFamily": "MediumFont",
+                          "fontSize": 16,
+                          "fontWeight": "500",
+                          "lineHeight": 24,
+                        },
+                        undefined,
+                      ],
+                      Object {
+                        "color": "rgba(115, 115, 115, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="network_details_total_masternodes"
+              >
+                10
+              </Text>
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
             }
-            testID="network_details_total_masternodes"
-          >
-            10
-          </Text>
-        </Text>
+          }
+        />
       </View>
     </View>
   </View>

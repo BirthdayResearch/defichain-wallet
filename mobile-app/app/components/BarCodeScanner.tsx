@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { View } from '.'
-import { BalanceParamList } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { translate } from '@translations'
 import { ThemedText, ThemedView } from './themed'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 
-type Props = StackScreenProps<BalanceParamList, 'BarCodeScanner'>
+type Props = StackScreenProps<PortfolioParamList, 'BarCodeScanner'>
 
 export function BarCodeScanner ({
   route,

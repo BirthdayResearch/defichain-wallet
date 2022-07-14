@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { View } from '@components/index'
-import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollView, ThemedText, ThemedView, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
@@ -11,9 +11,29 @@ export function RecoveryWordsScreen ({ route }: Props): JSX.Element {
   const { words } = route.params
   return (
     <ThemedScrollView testID='recovery_word_screen'>
-      <ThemedText style={tailwind('pt-6 pb-4 px-4 text-sm font-medium')}>
-        {translate('screens/RecoveryWordsScreen', 'Keep your recovery words safe and private')}
-      </ThemedText>
+      <View style={tailwind('p-4')}>
+        <ThemedView
+          light={tailwind('bg-warning-100')}
+          dark={tailwind('bg-darkwarning-100')}
+          style={tailwind('flex flex-row p-2 text-sm font-medium rounded items-center')}
+        >
+          <ThemedIcon
+            dark={tailwind('text-yellow-300')}
+            light={tailwind('text-yellow-500')}
+            style={tailwind('pr-1')}
+            iconType='MaterialIcons'
+            name='lock'
+            size={15}
+          />
+          <ThemedText
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-white')}
+            style={tailwind('text-sm')}
+          >
+            {translate('screens/RecoveryWordsScreen', 'Keep your recovery words safe and private.')}
+          </ThemedText>
+        </ThemedView>
+      </View>
 
       <View style={tailwind('pb-12')}>
         {words.map((word, index) => {

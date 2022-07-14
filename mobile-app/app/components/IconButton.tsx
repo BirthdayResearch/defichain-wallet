@@ -1,13 +1,10 @@
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { StyleProp, TextStyle, TouchableOpacityProps } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity } from './themed'
-
-type IconType = 'MaterialCommunityIcons' | 'MaterialIcons'
+import { ThemedIcon, ThemedProps, ThemedText, ThemedTouchableOpacity, IconType, IconName } from './themed'
 
 interface IconButtonProps extends TouchableOpacityProps {
-  iconName?: React.ComponentProps<typeof MaterialIcons>['name'] | React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  iconName?: IconName
   iconType?: IconType
   iconSize?: number
   iconLabel?: string
@@ -16,16 +13,18 @@ interface IconButtonProps extends TouchableOpacityProps {
   themedProps?: ThemedProps
   textStyle?: StyleProp<TextStyle>
   textThemedProps?: ThemedProps
+  standalone?: boolean
 }
 
 export function IconButton (props: IconButtonProps): JSX.Element {
   const {
-    disabled = false
+    disabled = false,
+    standalone = false
   } = props
   return (
     <ThemedTouchableOpacity
       light={tailwind({ 'border-dfxgray-300 bg-white': !disabled, 'border-gray-100 bg-gray-100': disabled })}
-      dark={tailwind('border-dfxblue-900 bg-dfxblue-800')}
+      dark={tailwind({ 'border-dfxblue-900 bg-dfxblue-800': !standalone, 'border-dfxred-500': standalone })}
       {...disabled ? props.disabledThemedProps : props.themedProps}
       onPress={props.onPress}
       style={[tailwind('p-1 flex-row items-center border rounded'), props.style]}

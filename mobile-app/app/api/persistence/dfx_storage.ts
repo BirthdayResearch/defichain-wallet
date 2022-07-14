@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DFXWALLET_ADDRESS_LIST = 'DFXWALLET.address_list'
 const DFXWALLET_PIN = 'DFXWALLET.pin'
+const USERINFOCOMPLETE = 'DFXWALLET.userInfoComplete'
 
 export interface DFXAddrSignature {
   network: string
@@ -107,6 +108,16 @@ async function resetToken (address: string): Promise<void> {
   return await setPair(pair)
 }
 
+// Store UserInfoCompleted (default = true)
+async function setUserInfoComplete (address: string, complete: boolean = true): Promise<void> {
+  await AsyncStorage.setItem(USERINFOCOMPLETE + address, JSON.stringify(complete))
+}
+
+async function getUserInfoComplete (address: string): Promise<boolean | null> {
+  const status = await AsyncStorage.getItem(USERINFOCOMPLETE + address)
+  return (status === null) ? null : JSON.parse(status)
+}
+
 export const DFXPersistence = {
   addPair,
   remPair,
@@ -120,5 +131,7 @@ export const DFXPersistence = {
   getPairList,
   reset,
   resetPin,
-  resetToken
+  resetToken,
+  setUserInfoComplete,
+  getUserInfoComplete
 }
