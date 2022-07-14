@@ -162,7 +162,7 @@ function StepTwo (): JSX.Element {
             />
           </ThemedViewV2>
         </View>
-        <View style={tailwind('pl-5 w-7/12')}>
+        <View style={tailwind('pl-5 justify-between flex-1 flex-wrap')}>
           <ThemedTextV2
             style={tailwind('font-normal-v2 mb-px text-xs')}
             dark={tailwind('text-mono-dark-v2-500')}
@@ -176,16 +176,17 @@ function StepTwo (): JSX.Element {
               copyToClipboard()
               Clipboard.setString(address)
             }}
-            style={tailwind('flex flex-1 flex-row justify-start items-center')}
+            style={tailwind('w-full flex flex-row')}
             testID='copy_button'
           >
             <ThemedTextV2
               numberOfLines={3}
+              ellipsizeMode='middle'
               selectable
               testID='address_text'
               style={tailwind('text-sm font-normal-v2')}
             >
-              <Text>{address} <CopyIcon /></Text>
+              <Text>{address} </Text><CopyIcon />
             </ThemedTextV2>
           </TouchableOpacity>
           <View style={tailwind('items-start')}>
