@@ -1514,7 +1514,7 @@
     "CONTINUE": "繼續",
     "Continue": "繼續",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加惡意服務供應商 可能會導致可收回資金。 風險自負",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "添加自定義服務提供者",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "這樣做，您將恢復到手機輕錢包的預設終端點。 你想繼續嗎？",
     "Enter passcode to continue": "輸入密碼後可繼續",
