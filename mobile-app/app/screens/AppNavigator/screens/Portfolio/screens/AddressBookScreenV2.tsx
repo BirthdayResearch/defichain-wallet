@@ -15,7 +15,6 @@ import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
 import { Logging } from '@api'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { RandomAvatar } from '../components/RandomAvatar'
 import { useWalletAddress } from '@hooks/useWalletAddress'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import LightEmptyAddress from '@assets/images/empty-address-light.png'
@@ -28,6 +27,7 @@ import { SearchInputV2 } from '@components/SearchInputV2'
 import { FavoriteCheckIcon, FavoriteUnCheckIcon } from '../../Settings/assets/FavoriteIcon'
 import { RefreshIcon } from '@screens/WalletNavigator/assets/RefreshIcon'
 import { SettingsParamList } from '../../Settings/SettingsNavigatorV2'
+import { RandomAvatarV2 } from '../components/RandomAvatarV2'
 
 type Props = StackScreenProps<SettingsParamList, 'AddressBookScreen'>
 
@@ -179,7 +179,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
           {item.isMine
             ? (
               <View style={tailwind('mr-3')}>
-                <RandomAvatar name={item.address} size={36} />
+                <RandomAvatarV2 name={item.address} size={36} />
               </View>
               )
             : (
