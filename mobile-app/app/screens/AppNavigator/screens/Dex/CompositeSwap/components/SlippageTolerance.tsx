@@ -17,11 +17,16 @@ interface SlippageToleranceProps {
   setSlippage: (slippage: BigNumber) => void
 }
 
-export function SlippageTolerance ({ slippage, setSlippage, slippageError, setSlippageError }: SlippageToleranceProps): JSX.Element {
+export function SlippageTolerance ({
+  slippage,
+  setSlippage,
+  slippageError,
+  setSlippageError
+}: SlippageToleranceProps): JSX.Element {
   const [isCustomSlippage, setIsCustomSlippage] = useState(false)
   const slippageTolerance = {
     title: 'Slippage tolerance',
-    message: 'Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.'
+    message: 'Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.'
   }
 
   useEffect(() => {
@@ -69,7 +74,14 @@ export interface SlippageError {
   text?: string
 }
 
-function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIsCustomSlippage, slippageError, setSlippageError }: SlippageSelectorProps): JSX.Element {
+function SlippageSelector ({
+  isCustomSlippage,
+  onSubmitSlippage,
+  slippage,
+  setIsCustomSlippage,
+  slippageError,
+  setSlippageError
+}: SlippageSelectorProps): JSX.Element {
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false)
   const submitSlippage = debounce(onSubmitSlippage, 500)
@@ -177,7 +189,12 @@ function SlippageSelector ({ isCustomSlippage, onSubmitSlippage, slippage, setIs
   )
 }
 
-function SlippageButton ({ onPress, isActive, label, icon }: { onPress: () => void, isActive: boolean, label: string, icon?: ReactElement }): JSX.Element {
+function SlippageButton ({
+  onPress,
+  isActive,
+  label,
+  icon
+}: { onPress: () => void, isActive: boolean, label: string, icon?: ReactElement }): JSX.Element {
   const buttonStyles = 'flex flex-row px-2 py-1.5 rounded items-center'
   const activeStyle = 'text-primary-500'
   return (

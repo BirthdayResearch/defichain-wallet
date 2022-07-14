@@ -1,8 +1,15 @@
 import * as Clipboard from 'expo-clipboard'
+import { StackScreenProps } from '@react-navigation/stack'
 import { useCallback, useEffect, useState } from 'react'
-import { ImageSourcePropType, Share, TouchableOpacity, View, Image } from 'react-native'
+import { Share, TouchableOpacity, View, Text } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
+} from '@components/themed'
 import { useToast } from 'react-native-toast-notifications'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -11,87 +18,13 @@ import { translate } from '@translations'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
-import { IconTooltip } from '@components/tooltip/IconTooltip'
+import { getNativeIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import Kucoin from '@assets/images/exchanges/Kucoin.png'
-import Bittrex from '@assets/images/exchanges/Bittrex.png'
-import Bitrue from '@assets/images/exchanges/Bitrue.png'
-import Latoken from '@assets/images/exchanges/Latoken.png'
-import DFX from '@assets/images/exchanges/DFX.png'
-import Transak from '@assets/images/exchanges/Transak.png'
-import Hotbit from '@assets/images/exchanges/Hotbit.png'
-import Hoo from '@assets/images/exchanges/Hoo.png'
-import EasyCrypto from '@assets/images/exchanges/EasyCrypto.png'
-import CakeDeFi from '@assets/images/exchanges/CakeDeFi.png'
-import Bybit from '@assets/images/exchanges/Bybit.png'
-import Swyftx from '@assets/images/exchanges/Swyftx.png'
-
-interface ExchangeProps {
-  image: ImageSourcePropType
-  name: string
-  url: string
-}
-
-const exchanges: ExchangeProps[] = [
-  {
-    name: 'Kucoin',
-    image: Kucoin,
-    url: 'https://www.kucoin.com/trade/DFI-BTC'
-  }, {
-    name: 'Bittrex',
-    image: Bittrex,
-    url: 'https://global.bittrex.com/Market/Index?MarketName=BTC-DFI'
-  }, {
-    name: 'Bitrue',
-    image: Bitrue,
-    url: 'https://www.bitrue.com/trade/dfi_btc'
-  }, {
-    name: 'Latoken',
-    image: Latoken,
-    url: 'https://latoken.com/exchange/DFI_BTC'
-  }, {
-    name: 'DFX',
-    image: DFX,
-    url: 'https://dfx.swiss/en/'
-  }, {
-    name: 'Transak',
-    image: Transak,
-    url: 'https://global.transak.com/'
-  }, {
-    name: 'Hotbit',
-    image: Hotbit,
-    url: 'https://www.hotbit.io/exchange?symbol=DFI_USDT'
-  }, {
-    name: 'Hoo',
-    image: Hoo,
-    url: 'https://hoo.com/innovation/dfi-usdt'
-  }, {
-    name: 'EasyCrypto (Australia)',
-    image: EasyCrypto,
-    url: 'https://easycrypto.com/au/buy-sell/dfi-defichain'
-  }, {
-    name: 'EasyCrypto (New Zealand)',
-    image: EasyCrypto,
-    url: 'https://easycrypto.com/nz/buy-sell/dfi-defichain'
-  }, {
-    name: 'Bybit',
-    image: Bybit,
-    url: 'https://www.bybit.com/en-US/trade/spot/DFI/USDT'
-  }, {
-    name: 'Swyftx',
-    image: Swyftx,
-    url: 'https://swyftx.com/au/buy/defichain/'
-  }, {
-    name: 'Cake DeFi',
-    image: CakeDeFi,
-    url: 'https://cakedefi.com/'
-  }
-
-]
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
@@ -103,85 +36,73 @@ export async function onShare (address: string, logger: NativeLoggingProps): Pro
   }
 }
 
-export function GetDFIScreen (): JSX.Element {
+type Props = StackScreenProps<PortfolioParamList, 'MarketplaceScreen'>
+
+export function GetDFIScreen ({ navigation }: Props): JSX.Element {
   return (
-    <>
-      <ThemedScrollView
-        contentContainerStyle={tailwind('pb-24')}
-        style={tailwind('flex')}
-        testID='get_dfi_screen'
-      >
-        <StepOne />
-        <StepTwo />
-      </ThemedScrollView>
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('mx-5 pb-24')}
+      style={tailwind('flex')}
+      testID='get_dfi_screen'
+    >
+      <StepOne onPress={() => navigation.navigate('MarketplaceScreen')} />
+      <StepTwo />
       <DFIOraclePrice />
-    </>
+    </ThemedScrollViewV2>
   )
 }
 
-function StepOne (): JSX.Element {
-  const [expand, setExpand] = useState(false)
-
+function StepOne ({ onPress }: { onPress: () => void }): JSX.Element {
   return (
-    <>
-      <View style={tailwind('p-4')}>
-        <ThemedText
-          dark={tailwind('text-gray-50')}
-          light={tailwind('text-gray-900')}
-          style={tailwind('text-xs font-medium')}
+    <View style={tailwind('mt-8')}>
+      <View style={tailwind('px-5 pb-4')}>
+        <ThemedTextV2
+          style={tailwind('text-xs font-normal-v2')}
         >
           {translate('screens/GetDFIScreen', 'STEP 1')}
-        </ThemedText>
-        <ThemedText
-          dark={tailwind('text-gray-50')}
-          light={tailwind('text-gray-900')}
-          style={tailwind('text-xl font-semibold')}
-        >
-          {translate('screens/GetDFIScreen', 'Trade/Purchase $DFI')}
-        </ThemedText>
-        <ThemedText
-          dark={tailwind('text-gray-50')}
-          light={tailwind('text-gray-900')}
-          style={tailwind('text-xl')}
-        >
-          {translate('screens/GetDFIScreen', 'Available on:')}
-        </ThemedText>
+        </ThemedTextV2>
+        <ThemedTextV2 style={tailwind('font-normal-v2')}>
+          {translate('screens/GetDFIScreen', 'Trade/Purchase DFI')}
+        </ThemedTextV2>
       </View>
-      <ThemedView style={tailwind('mt-1')}>
-        {(exchanges.slice(0, expand ? exchanges.length : 3))
-          .map(({ name, image, url }, index) =>
-            <ExchangeItemRow
-              url={url}
-              key={name}
-              name={name}
-              image={image}
-              testID={`exchange_${index}`}
-            />
-          )}
-      </ThemedView>
-      <ShowMore onPress={setExpand} expand={expand} />
-      <View style={tailwind('px-4 mt-2 flex flex-row')}>
-        <ThemedText
-          dark={tailwind('text-gray-50')}
-          light={tailwind('text-gray-900')}
-          style={tailwind('text-xs')}
+      <ThemedViewV2
+        dark={tailwind('bg-mono-dark-v2-00')}
+        light={tailwind('bg-mono-light-v2-00')}
+        style={tailwind('rounded-lg-v2')}
+      >
+        <ThemedTouchableOpacityV2
+          style={tailwind('flex flex-row items-center justify-between py-4.5 ml-5 mr-4')}
+          onPress={onPress}
+          testID='get_exchanges'
         >
-          {translate('screens/GetDFIScreen', 'To learn more about DFI, ')}
-        </ThemedText>
-        <TouchableOpacity
-          onPress={async () => await openURL('https://defichain.com/dfi')}
-          testID='read_here'
-        >
-          <ThemedText
-            dark={tailwind('text-darkprimary-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('text-xs')}
-          >
-            {translate('screens/GetDFIScreen', 'read here.')}
-          </ThemedText>
-        </TouchableOpacity>
-      </View>
-    </>
+          <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
+            {translate('screens/GetDFIScreen', 'Marketplace')}
+          </ThemedTextV2>
+          <ThemedIcon
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+            iconType='Feather'
+            name='chevron-right'
+            size={18}
+          />
+        </ThemedTouchableOpacityV2>
+      </ThemedViewV2>
+      <TouchableOpacity
+        onPress={async () => await openURL('https://defichain.com/dfi')}
+        style={tailwind('flex flex-row items-center mx-5 mt-2')}
+      >
+        <ThemedIcon
+          dark={tailwind('text-mono-dark-v2-900')}
+          light={tailwind('text-mono-light-v2-900')}
+          iconType='MaterialCommunityIcons'
+          name='help-circle'
+          size={18}
+        />
+        <ThemedTextV2 style={tailwind('text-xs font-semibold-v2 ml-1')}>
+          {translate('screens/GetDFIScreen', 'Learn more about DFI')}
+        </ThemedTextV2>
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -214,108 +135,75 @@ function StepTwo (): JSX.Element {
   }, [showToast, address])
 
   return (
-    <View style={tailwind('p-4')}>
-      <ThemedText
-        dark={tailwind('text-gray-50')}
-        light={tailwind('text-gray-900')}
-        style={tailwind('text-xs font-medium mt-8')}
-      >
-        {translate('screens/GetDFIScreen', 'STEP 2')}
-      </ThemedText>
-      <ThemedText
-        dark={tailwind('text-gray-50')}
-        light={tailwind('text-gray-900')}
-        style={tailwind('text-xl font-semibold')}
-      >
-        {translate('screens/GetDFIScreen', 'Receive $DFI in Light Wallet')}
-      </ThemedText>
+    <View style={tailwind('mt-8 px-5')}>
+      <View style={tailwind('pb-4')}>
+        <ThemedTextV2 style={tailwind('text-xs font-normal-v2')}>
+          {translate('screens/GetDFIScreen', 'STEP 2')}
+        </ThemedTextV2>
+        <ThemedTextV2 style={tailwind('font-normal-v2')}>
+          {translate('screens/GetDFIScreen', 'Receive DFI in DeFiChain Wallet')}
+        </ThemedTextV2>
+      </View>
       <View
-        style={tailwind('flex flex-row justify-center items-center mt-3')}
+        style={tailwind('flex flex-row')}
       >
-        <ThemedView
-          style={tailwind('w-4/12 p-3 rounded-lg justify-center items-center')}
-          testID='qr_code_container'
-          dark={tailwind('bg-gray-800')}
-          light={tailwind('bg-white')}
-        >
-          <QRCode
-            backgroundColor={isLight ? 'white' : 'black'}
-            color={isLight ? 'black' : 'white'}
-            size={90}
-            value={address}
-          />
-        </ThemedView>
-        <View style={tailwind('w-8/12 px-3')}>
-          <ThemedText
-            dark={tailwind('text-gray-100')}
-            light={tailwind('text-gray-900')}
-            numberOfLines={2}
-            selectable
-            testID='address_text'
+        <View style={tailwind('items-center')}>
+          <ThemedViewV2
+            style={tailwind('rounded-lg p-2 drop-shadow-lg')}
+            testID='qr_code_container'
+            dark={tailwind('bg-mono-light-v2-00')}
+            light={tailwind('bg-mono-light-v2-00')}
           >
-            {address}
-          </ThemedText>
-          <ThemedText
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
-            numberOfLines={2}
-            selectable
-            style={tailwind('font-medium my-2 text-xs')}
+            <QRCode
+              backgroundColor='white'
+              color='black'
+              size={106}
+              value={address}
+            />
+          </ThemedViewV2>
+        </View>
+        <View style={tailwind('pl-5 justify-between flex-1 flex-wrap')}>
+          <ThemedTextV2
+            style={tailwind('font-normal-v2 mb-px text-xs')}
+            dark={tailwind('text-mono-dark-v2-500')}
+            light={tailwind('text-mono-light-v2-500')}
             testID='wallet_address'
           >
-            {translate('screens/GetDFIScreen', 'Wallet Address')}
-          </ThemedText>
-
-          <View style={tailwind('flex flex-row mt-2')}>
-            <TouchableOpacity
-              onPress={() => {
-                copyToClipboard()
-                Clipboard.setString(address)
-              }}
-              style={tailwind('flex flex-1 flex-row justify-start text-center items-center')}
-              testID='copy_button'
+            {translate('screens/GetDFIScreen', 'WALLET ADDRESS')}
+          </ThemedTextV2>
+          <TouchableOpacity
+            onPress={() => {
+              copyToClipboard()
+              Clipboard.setString(address)
+            }}
+            style={tailwind('w-full flex flex-row')}
+            testID='copy_button'
+          >
+            <ThemedTextV2
+              numberOfLines={3}
+              ellipsizeMode='middle'
+              selectable
+              testID='address_text'
+              style={tailwind('text-sm font-normal-v2')}
             >
-              <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                name='content-copy'
-                size={18}
-                style={tailwind('self-center')}
-              />
-
-              <ThemedText
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-                style={tailwind('ml-2 uppercase font-medium text-sm')}
-              >
-                {translate('screens/GetDFIScreen', 'COPY')}
-              </ThemedText>
-            </TouchableOpacity>
-
+              <Text>{address} </Text><CopyIcon />
+            </ThemedTextV2>
+          </TouchableOpacity>
+          <View style={tailwind('items-start')}>
             <TouchableOpacity
               onPress={async () => {
                 await onShare(address, logger)
               }}
-              style={tailwind('flex flex-1 flex-row justify-start text-center items-center')}
+              style={tailwind(`px-4 py-2 mt-2 border rounded-full ${isLight ? 'border-mono-light-v2-700' : 'border-mono-dark-v2-700'}`)}
               testID='share_button'
             >
-              <ThemedIcon
-                dark={tailwind('text-darkprimary-500')}
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                name='share'
-                size={18}
-                style={tailwind('self-center')}
-              />
-
-              <ThemedText
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-                style={tailwind('ml-2 uppercase font-medium text-sm')}
+              <ThemedTextV2
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                style={tailwind('text-xs font-normal-v2 text-center')}
               >
-                {translate('screens/GetDFIScreen', 'SHARE')}
-              </ThemedText>
+                {translate('screens/GetDFIScreen', 'Share')}
+              </ThemedTextV2>
             </TouchableOpacity>
           </View>
         </View>
@@ -324,118 +212,76 @@ function StepTwo (): JSX.Element {
   )
 }
 
-function ExchangeItemRow ({ image, name, url, testID }: ExchangeProps & { testID: string }): JSX.Element {
-  return (
-    <ThemedTouchableOpacity
-      onPress={async () => await openURL(url)}
-      style={tailwind('w-full')}
-      testID={testID}
-    >
-      <ThemedView style={tailwind('flex flex-row px-4 py-3 items-center justify-between')}>
-        <View style={tailwind('flex flex-row items-center')}>
-          <Image
-            source={image}
-            style={tailwind('h-6 w-6')}
-          />
-          <ThemedText
-            dark={tailwind('text-gray-50')}
-            light={tailwind('text-gray-900')}
-            style={tailwind('text-base ml-2')}
-          >
-            {name}
-          </ThemedText>
-        </View>
-        <ThemedIcon
-          size={16}
-          name='open-in-new'
-          iconType='MaterialIcons'
-          dark={tailwind('text-gray-300')}
-          light={tailwind('text-gray-600')}
-        />
-      </ThemedView>
-    </ThemedTouchableOpacity>
-  )
-}
-
-function ShowMore ({ onPress, expand }: { onPress: (flag: boolean) => void, expand: boolean }): JSX.Element {
-  return (
-    <ThemedTouchableOpacity
-      onPress={() => onPress(!expand)}
-      style={tailwind('w-full')}
-      testID='show_more'
-    >
-      <ThemedView style={tailwind('flex flex-row px-4 py-3 items-center')}>
-        <ThemedIcon
-          iconType='MaterialIcons'
-          dark={tailwind('text-darkprimary-500')}
-          light={tailwind('text-primary-500')}
-          name={expand ? 'expand-less' : 'expand-more'}
-          size={24}
-        />
-        <ThemedText
-          dark={tailwind('text-darkprimary-500')}
-          light={tailwind('text-primary-500')}
-          style={tailwind('text-base font-medium ml-2')}
-        >
-          {translate('screens/GetDFIScreen', expand ? 'Show less' : 'Show more')}
-        </ThemedText>
-      </ThemedView>
-    </ThemedTouchableOpacity>
-  )
-}
-
 function DFIOraclePrice (): JSX.Element {
   const [price, setPrice] = useState('0')
   const client = useWhaleApiClient()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const logger = useLogger()
+  const DFITokenIcon = getNativeIcon('_UTXO')
 
   useEffect(() => {
     client.prices.get('DFI', 'USD')
-    .then((value) => {
-      setPrice(value.price.aggregated.amount)
-    }).catch(logger.error)
+      .then((value) => {
+        setPrice(value.price.aggregated.amount)
+      }).catch(logger.error)
   }, [blockCount])
 
   return (
-    <View style={tailwind('absolute bottom-2 w-full')}>
-      <ThemedView
-        dark={tailwind('bg-gray-100 border-gray-100')}
-        light={tailwind('bg-gray-900 border-gray-700')}
-        style={tailwind('flex flex-row items-center justify-between rounded-lg mx-4 px-6 py-4')}
+    <ThemedViewV2
+      dark={tailwind('border-mono-dark-v2-900')}
+      light={tailwind('border-mono-light-v2-900')}
+      style={tailwind('flex flex-row items-center justify-between rounded-lg mt-10 px-5 py-4.5 border-0.5')}
+    >
+      <TouchableOpacity
+        onPress={async () => await openURL('https://defiscan.live')}
+        style={tailwind('flex flex-row items-center')}
       >
-        <View style={tailwind('flex flex-row items-center')}>
-          <ThemedText
-            light={tailwind('text-white')}
-            dark={tailwind('text-black')}
-            style={tailwind('text-base text-xs font-medium mr-1')}
-          >
-            {translate('screens/GetDFIScreen', 'DFI oracle price')}
-          </ThemedText>
-          <IconTooltip
-            size={18}
-            light={tailwind('text-white')}
-            dark={tailwind('text-black')}
-          />
-        </View>
-        <NumberFormat
-          displayType='text'
-          prefix='$'
-          decimalScale={2}
-          renderText={(val: string) => (
-            <ThemedText
-              light={tailwind('text-white')}
-              dark={tailwind('text-black')}
-              style={tailwind('text-lg font-semibold')}
-              testID='dfi_oracle_price'
-            >
-              {val}
-            </ThemedText>
-          )}
-          thousandSeparator
-          value={new BigNumber(price).toFixed(2)}
+        <DFITokenIcon width={24} height={24} style={tailwind('mr-2')} />
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-900')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          style={tailwind('text-sm font-semibold-v2 mr-2')}
+        >
+          {translate('screens/GetDFIScreen', 'DFI price')}
+        </ThemedTextV2>
+        <ThemedIcon
+          size={18}
+          name='open-in-new'
+          iconType='MaterialIcons'
+          dark={tailwind('text-mono-dark-v2-700')}
+          light={tailwind('text-mono-light-v2-700')}
         />
-      </ThemedView>
-    </View>
+      </TouchableOpacity>
+      <NumberFormat
+        displayType='text'
+        prefix='$'
+        decimalScale={2}
+        renderText={(val: string) => (
+          <ThemedTextV2
+            light={tailwind('text-mono-light-v2-900')}
+            dark={tailwind('text-mono-dark-v2-900')}
+            style={tailwind('text-sm font-semibold-v2')}
+            testID='dfi_oracle_price'
+          >
+            {val}
+          </ThemedTextV2>
+        )}
+        thousandSeparator
+        value={new BigNumber(price).toFixed(2)}
+      />
+    </ThemedViewV2>
+  )
+}
+
+function CopyIcon (): JSX.Element {
+  return (
+    <ThemedIcon
+      iconType='Feather'
+      dark={tailwind('text-mono-dark-v2-700')}
+      light={tailwind('text-mono-light-v2-700')}
+      name='copy'
+      size={16}
+      style={tailwind('self-center')}
+    />
   )
 }

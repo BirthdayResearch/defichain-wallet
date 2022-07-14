@@ -35,6 +35,7 @@ import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
+import { MarketplaceScreen } from './screens/MarketplaceScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
 import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
@@ -46,6 +47,7 @@ import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
+  MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
@@ -203,13 +205,25 @@ export function PortfolioNavigator (): JSX.Element {
         component={GetDFIScreen}
         name='GetDFIScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/GetDFIScreen', 'Get $DFI')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Get DFI')
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={MarketplaceScreen}
+        name='MarketplaceScreen'
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/MarketplaceScreen', 'Marketplace')
         }}
       />
 

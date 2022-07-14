@@ -9,6 +9,7 @@ export interface PinTextInputItem {
   testID: string
   value: string
   onChange: (text: string) => void
+  autofocus?: boolean
 }
 
 export interface RenderCellItem {
@@ -17,7 +18,7 @@ export interface RenderCellItem {
   isFocused: boolean
 }
 
-export function PinTextInputV2 ({ cellCount, testID, value, onChange }: PinTextInputItem): JSX.Element {
+export function PinTextInputV2 ({ cellCount, testID, value, onChange, autofocus = true }: PinTextInputItem): JSX.Element {
   const ref = useBlurOnFulfill({ value, cellCount })
   const { isLight } = useThemeContext()
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -43,7 +44,7 @@ export function PinTextInputV2 ({ cellCount, testID, value, onChange }: PinTextI
       />
     )
   }
-  const autofocus = true
+
   return (
     <View style={tailwind('flex-row justify-center')}>
       <CodeField
