@@ -71,28 +71,12 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         {props.status === TransactionStatus.SIGNING &&
           <>
             <ThemedActivityIndicatorV2 style={[tailwind('py-2 my-5'), { transform: [{ scale: 1.5 }] }]} />
-            <PinTextInputV2
-              cellCount={props.pinLength}
-              onChange={(pin) => {
-                props.onPinInput(pin)
-              }}
-              testID='pin_authorize'
-              value={props.pin}
-              autofocus={false} // to hide keyboard input on android
-            />
+            <ReadOnlyPinInput pinLength={props.pinLength} pin={props.pin} />
           </>}
         {props.status === TransactionStatus.AUTHORIZED &&
           <>
             <SuccessIndicator />
-            <PinTextInputV2
-              cellCount={props.pinLength}
-              onChange={(pin) => {
-                props.onPinInput(pin)
-              }}
-              testID='pin_authorize'
-              value={props.pin}
-              autofocus={false} // to hide keyboard input on android
-            />
+            <ReadOnlyPinInput pinLength={props.pinLength} pin={props.pin} />
           </>}
         {props.status === TransactionStatus.PIN &&
           <PinTextInputV2
@@ -268,5 +252,17 @@ function SuccessIndicator (): JSX.Element {
         dark={tailwind('text-green-v2')}
       />
     </View>
+  )
+}
+
+function ReadOnlyPinInput ({ pinLength, pin }: {pinLength: number, pin: string}): JSX.Element {
+  return (
+    <PinTextInputV2
+      cellCount={pinLength}
+      onChange={() => {}}
+      testID='pin_authorize'
+      value={pin}
+      autofocus={false} // to hide keyboard input on android
+    />
   )
 }
