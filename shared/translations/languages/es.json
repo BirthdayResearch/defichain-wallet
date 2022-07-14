@@ -547,9 +547,9 @@
     "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos",
     "Enter passcode for verification": "Confirma tu contraseña",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode.": "Cambiar la contraseña puede tardar varios segundos.",
     "Passcode updated!": "Passcode updated!",
-    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
+    "Keep the passcode for your wallet confidential.": "Mantén la contraseña de tu billetera confidencial."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "¡Bien hecho! Tu billetera ha sido creada. Mantén tu billetera segura creando una contraseña.",
@@ -650,7 +650,8 @@
     "TRY AGAIN": "VOLVER A INTENTAR"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
+    "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera",
+    "Keep the passcode for your wallet confidential.": "Mantén la contraseña de tu billetera confidencial."
   },
   "screens/RecoveryWordsScreen": {
     "Keep your recovery words safe and private.": "Mantén tus palabras de recuperación seguras y secretas.",
@@ -863,7 +864,7 @@
     "It may take a few seconds to verify": "La verificación puede tardar varios segundos",
     "Passcode verified!": "Contraseña verificada!",
     "Provide your passcode to view recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
-    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
+    "Provide existing passcode to change passcode.": "Introduce la contraseña actual para cambiar la contraseña."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Confirma la transacción",

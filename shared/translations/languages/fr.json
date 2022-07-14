@@ -540,9 +540,9 @@
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode.": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès.",
     "Passcode updated!": "Passcode updated!",
-    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
+    "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
@@ -643,7 +643,8 @@
     "TRY AGAIN": "RÉESSAYER"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
+    "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
+    "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },
   "screens/RecoveryWordsScreen": {
     "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés.",
@@ -849,7 +850,7 @@
     "It may take a few seconds to verify": "La vérification peut prendre quelques secondes",
     "Passcode verified!": "Code d'accès vérifié!",
     "Provide your passcode to view recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
-    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
+    "Provide existing passcode to change passcode.": "Donnez le code d'accès existant pour changer le code d'accès."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",

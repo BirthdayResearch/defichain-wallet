@@ -635,7 +635,8 @@
     "TRY AGAIN": "再試一次"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "為您的錢包創建新的密碼"
+    "Create new passcode for your wallet": "為您的錢包創建新的密碼",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/RecoveryWordsScreen": {
     "Keep your recovery words safe and private.": "保持您的恢復字詞安全和保密。",
