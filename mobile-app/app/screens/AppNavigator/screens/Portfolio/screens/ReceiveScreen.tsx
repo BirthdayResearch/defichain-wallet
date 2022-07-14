@@ -66,6 +66,8 @@ export function ReceiveScreen (): JSX.Element {
       >
         <View style={tailwind('bg-white p-4 rounded-md')}>
           <QRCode
+            backgroundColor={isLight ? 'white' : 'black'}
+            color={isLight ? 'black' : 'white'}
             size={196}
             value={address}
           />
