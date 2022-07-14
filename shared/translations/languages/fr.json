@@ -334,9 +334,9 @@
     "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES",
     "Provide your passcode to\nview recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
     "Passcode verified!": "Code d'accès vérifié ! ",
-    "Provider": "Provider",
-    "Custom": "Custom",
-    "Default": "Default"
+    "Provider": "Fournisseur",
+    "Custom": "Personnalisé",
+    "Default": "Par défaut"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -535,7 +535,10 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes",
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
-    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
+    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
+    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
@@ -546,6 +549,7 @@
     "Learn more about passcode": "En savoir plus sur le code d'accès",
     "Learn more": "En savoir plus",
     "Create your passcode": "Créez votre code d'accès",
+    "Create new passcode": "Créer un nouveau code d'accès",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
   },
   "screens/VerifyMnemonicWallet": {
