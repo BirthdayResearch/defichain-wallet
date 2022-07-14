@@ -539,7 +539,7 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Tu billetera se desconectó por seguridad debido a sucesivos fallos de la contraseña",
     "Close": "Cierra",
     "Last attempt or your wallet will be unlinked for your security": "Último intento antes de que tu billetera se desconecte por seguridad",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Contraseña incorrecta. Quedan {{attemptsRemaining}} intentos ",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Contraseña incorrecta.\nQuedan {{attemptsRemaining}} intentos ",
     "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos",
     "Enter passcode for verification": "Confirma tu contraseña",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
@@ -855,7 +855,11 @@
     "Enter passcode to continue": "Introduce contraseña para continuar",
     "Please enter passcode to securely sign your transaction": "Por favor, introduce contraseña para asegurar tu transacción",
     "Sign to verify access": "Confirma para verificar el acceso",
-    "Success!": "Éxito!"
+    "Success!": "Éxito!",
+    "It may take a few seconds to verify": "La verificación puede tardar varios segundos",
+    "Passcode verified!": "Contraseña verificada!",
+    "Provide your passcode to view recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Confirma la transacción",
