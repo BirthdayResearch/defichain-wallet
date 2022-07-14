@@ -538,7 +538,7 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Il tuo wallet è stato scollegato per la tua sicurezza a causa di successivi fallimenti del passcode. Per favore usa le parole di recupero per ripristinare e impostare di nuovo il tuo wallet.",
     "Close": "Chiudi",
     "Last attempt or your wallet will be unlinked for your security": "Ultimo tentativo dopodichè il tuo wallet sarà scollegato per la tua sicurezza",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Codice di accesso errato. {{attemptsRemaining}} tentativi rimanenti",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Codice di accesso errato.\n{{attemptsRemaining}} tentativi rimanenti",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentativi rimanenti",
     "Enter passcode for verification": "Enter passcode for verification",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
@@ -849,7 +849,11 @@
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Please enter passcode to securely sign your transaction": "Inserisci il codice di accesso per firmare in modo sicuro la tua transazione",
     "Sign to verify access": "Firma per verificare l'accesso",
-    "Success!": "Fatto!"
+    "Success!": "Fatto!",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Firma la transazione",

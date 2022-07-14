@@ -523,7 +523,7 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "您输入了多次错误的密码，为了安全，目前钱包已解开链接. 请用恢复自组以还原和重设钱包.",
     "Close": "关闭",
     "Last attempt or your wallet will be unlinked for your security": "最后一次可输入密码，为了安全，如果不通过，您的钱包会解开链接",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密码错误. 您还剩 {{attemptsRemaining}} 次可输入密码",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "密码错误.\n您还剩 {{attemptsRemaining}} 次可输入密码",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可输入密码",
     "Enter passcode for verification": "输入验证码",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
@@ -829,7 +829,11 @@
     "Enter passcode to continue": "输入密码后可继续",
     "Please enter passcode to securely sign your transaction": "请输入密码以安全地签下您的交易",
     "Sign to verify access": "签下以确认使用",
-    "Success!": "成功！"
+    "Success!": "成功！",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "签下交易",

@@ -59,10 +59,10 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
         })
       },
       onError: e => logger.error(e),
-      message: translate('screens/Settings', 'Provide your passcode to\nview recovery words.'),
-      loading: translate('screens/Settings', 'Passcode verified!')
-      // TODO (Harsh) Add success message here
-      // successMessage: translate('screens/Settings', 'Passcode verified!')
+      message: translate('screens/UnlockWallet', 'Enter passcode to continue'),
+      loading: translate('screens/UnlockWallet', 'It may take a few seconds to verify'),
+      title: translate('screens/UnlockWallet', 'Provide your passcode to view recovery words.'),
+      successMessage: translate('screens/UnlockWallet', 'Passcode verified!')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [dispatch, isEncrypted, navigation])
@@ -87,8 +87,10 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
       onError: (e) => {
         dispatch(ocean.actions.setError(e))
       },
-      message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'Verifying access')
+      message: translate('screens/UnlockWallet', 'Enter passcode to continue'),
+      loading: translate('screens/UnlockWallet', 'It may take a few seconds to verify'),
+      title: translate('screens/UnlockWallet', 'Provide existing passcode to change passcode.'),
+      successMessage: translate('screens/UnlockWallet', 'Passcode verified!')
     }
 
     dispatch(authentication.actions.prompt(auth))
