@@ -147,7 +147,7 @@
     "WHITELISTED": "WHITELIST",
     "YOUR ADDRESS(ES)": "DEINE(N)",
     "Search results for": "Suchergebnisse für",
-    "Search with label or address": "Suche nach bezeichnung oder adress",
+    "Search with label or address": "Suche nach Bezeichnung oder Adresse",
     "FAVOURITE ADDRESS(ES)": "Favoriten"
   },
   "components/CreateOrEditAddressLabelForm": {
