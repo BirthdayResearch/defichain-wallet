@@ -88,7 +88,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
             value={props.pin}
           />}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
-          {[TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED, TransactionStatus.PIN].includes(props.status) && !props.isRetry && (
+          {([TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED].includes(props.status) || (props.status === TransactionStatus.PIN && !props.isRetry)) && (
             <ThemedTextV2
               testID='txn_authorization_message'
               dark={tailwind('text-mono-dark-v2-700')}
