@@ -12,11 +12,36 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   await runMiddleware(req, res, cors)
   res.json([
     {
+      id: 'loan',
+      name: 'Loans',
+      stage: 'public',
+      version: '>=0.17.0',
+      description: 'Browse loan tokens provided by DeFiChain',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    },
+    {
+      id: 'auction',
+      name: 'Auction',
+      stage: 'public',
+      version: '>=0.23.0',
+      description: 'Browse auctions provided by DeFiChain',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
       id: 'dfi_loan_payment',
       name: 'DFI Loan Payment',
       stage: 'alpha',
       version: '<1.0.0',
       description: 'DFI Loan Payment',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'local_storage',
+      name: 'Native local storage',
+      stage: 'public',
+      version: '>1.6.0',
+      description: 'Native local storage',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }, {
@@ -70,8 +95,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'setting_v2',
       name: 'Setting 2.0',
-      stage: 'alpha',
-      version: '>1.14.3',
+      stage: 'public',
+      version: '>1.15.1',
       description: 'Display redesigned Setting flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']

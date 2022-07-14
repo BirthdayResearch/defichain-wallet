@@ -3,8 +3,8 @@ import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { TouchableOpacity, Linking } from 'react-native'
-import { View } from '@components/index'
-import { ThemedIcon, ThemedTextV2, ThemedViewV2, ThemedSectionTitleV2 } from '@components/themed'
+import { View, Text } from '@components/index'
+import { ThemedIcon, ThemedTextV2, ThemedViewV2, ThemedSectionTitleV2, ThemedScrollViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
@@ -13,32 +13,38 @@ import { NumberRowV2 } from '@components/NumberRowV2'
 import { getEnvironment } from '@environment'
 import { getReleaseChannel } from '@api/releaseChannel'
 import { NetworkItemRowV2 } from '@components/NetworkItemRowV2'
+import { hasTxQueued } from '@store/transaction_queue'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 
-export function OnboardingNetworkSelectScreenV2 (): JSX.Element {
+export function NetworkSelectionScreenV2 (): JSX.Element {
   const networks = getEnvironment(getReleaseChannel()).networks
   const {
     count: blockCount,
     masternodeCount,
     lastSuccessfulSync
   } = useSelector((state: RootState) => state.block)
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const syncFormattedDate = (lastSuccessfulSync != null) ? dayjs(lastSuccessfulSync).format('lll') : ''
 
   return (
-    <ThemedViewV2
+    <ThemedScrollViewV2
       testID='network_details'
       style={tailwind('px-5 flex-1')}
+      contentContainerStyle={tailwind('pb-6')}
     >
       <ThemedSectionTitleV2
         testID='onboarding_network_selection_screen_title'
         text={translate('screens/OnboardingNetworkSelectScreen', 'SELECT NETWORK')}
       />
       <ThemedViewV2
-        style={tailwind('px-5 rounded-lg-v2')}
+        style={tailwind('px-5 rounded-lg-v2', { 'opacity-30': (hasPendingJob || hasPendingBroadcastJob) })}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
       >
         {networks.map((network, index) => (
           <NetworkItemRowV2
+            disabled={hasPendingJob || hasPendingBroadcastJob}
             key={index}
             network={network}
             alertMessage={translate(
@@ -48,7 +54,7 @@ export function OnboardingNetworkSelectScreenV2 (): JSX.Element {
           />
         ))}
       </ThemedViewV2>
-
+      {(hasPendingJob || hasPendingBroadcastJob) && <TransactionOngoingMessage />}
       <ThemedSectionTitleV2
         testID='network_details_block_info'
         text={translate('screens/NetworkDetails', 'DETAILS')}
@@ -62,7 +68,7 @@ export function OnboardingNetworkSelectScreenV2 (): JSX.Element {
           lhs={{ value: translate('screens/NetworkDetails', 'Last synced') }}
           rhs={{ value: syncFormattedDate, testID: 'network_details_last_sync' }}
           containerStyle={{
-            style: tailwind('pb-4.5 border-b flex-row items-start w-full bg-transparent'),
+            style: tailwind('pb-4.5 border-b-0.5 flex-row items-start w-full bg-transparent'),
             light: tailwind('border-mono-light-v2-300'),
             dark: tailwind('border-mono-dark-v2-300')
           }}
@@ -84,7 +90,7 @@ export function OnboardingNetworkSelectScreenV2 (): JSX.Element {
           }}
         />
       </ThemedViewV2>
-    </ThemedViewV2>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -148,5 +154,15 @@ function BlocksInfoRow ({ blockCount }: { blockCount?: number }): JSX.Element {
         </TouchableOpacity>
       </View>
     </ThemedViewV2>
+  )
+}
+
+function TransactionOngoingMessage (): JSX.Element {
+  return (
+    <View style={tailwind('px-5 mt-2')}>
+      <Text style={tailwind('text-xs font-normal-v2 text-orange-v2')}>
+        {translate('screens/NetworkDetails', 'Network selection is currently unavailable due to ongoing transaction(s).')}
+      </Text>
+    </View>
   )
 }

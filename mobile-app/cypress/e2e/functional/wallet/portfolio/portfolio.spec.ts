@@ -551,25 +551,21 @@ context('Wallet - Portfolio - No balance', () => {
     cy.url().should('include', 'app/GetDFIScreen')
   })
 
-  it('should have only three exchange list initially on get DFI screen', function () {
+  it('should have marketplace button on get DFI screen', function () {
     cy.getByTestID('get_DFI_btn').should('exist').click()
     cy.url().should('include', 'app/GetDFIScreen')
-    cy.getByTestID('exchange_0').should('exist')
-    cy.getByTestID('exchange_1').should('exist')
-    cy.getByTestID('exchange_2').should('exist')
-    cy.getByTestID('exchange_3').should('not.exist')
+    cy.getByTestID('get_exchanges').should('exist')
   })
 
-  it('should be able to expand exchange list on get DFI screen', function () {
+  it('should open to marketplace screen', function () {
     cy.getByTestID('get_DFI_btn').should('exist').click()
     cy.url().should('include', 'app/GetDFIScreen')
+    cy.getByTestID('get_exchanges').should('exist').click()
+    cy.url().should('include', 'app/MarketplaceScreen')
     cy.getByTestID('exchange_0').should('exist')
     cy.getByTestID('exchange_1').should('exist')
     cy.getByTestID('exchange_2').should('exist')
-    cy.getByTestID('exchange_3').should('not.exist')
-    cy.getByTestID('show_more').should('exist').click()
     cy.getByTestID('exchange_3').should('exist')
-    cy.getByTestID('exchange_4').should('exist')
   })
 
   it('should get DFI oracle price on get DFI screen', function () {

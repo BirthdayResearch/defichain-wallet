@@ -110,18 +110,20 @@
     "Asset value": "Valor del activo"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Obtener $DFI",
+    "Get DFI": "Obtener DFI",
     "STEP 1": "PASO 1",
-    "Trade/Purchase $DFI": "Comercia/Compra $DFI",
-    "Available on:": "Disponible en:",
-    "Show more": "Mostrar más",
-    "To learn more about DFI, ": "Para aprender mas sobre DFI, ",
-    "read here.": "Leer aquí.",
+    "Trade/Purchase DFI": "Comercia/Compra DFI",
+    "Marketplace": "Marketplace",
+    "Learn more about DFI": "Learn more about DFI",
     "STEP 2": "PASO 2",
-    "Receive $DFI in Light Wallet": "Recibe $DFI en la Light Wallet",
-    "DFI oracle price": "Precio del oráculo de DFI",
-    "Show less": "Mostrar menos",
-    "Wallet Address": "Dirección de la billetera"
+    "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
+    "DFI price": "Precio de DFI",
+    "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
+    "Share": "Compartir"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "Marketplace",
+    "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
@@ -277,10 +279,10 @@
   },
   "screens/CommunityScreen": {
     "Community": "Comunidad",
-    "CONNECT WITH THE COMMUNITY": "CONECTA CON LA COMUNIDAD",
+    "JOIN THE COMMUNITY": "ÚNETE A LA COMUNIDAD",
     "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain es un proyecto abierto y dirigido por una comunidad. La Fundación DeFiChain no da soporte técnico directo.",
-    "Report an issue on Github": "Informar sobre un problema en Github",
-    "Frequently Asked Questions": "Preguntas frecuentes",
+    "Report issue on GitHub": "Reportar problema en GitHub",
+    "Frequently asked questions": "Preguntas frecuentes",
     "Announcements": "Comunicados",
     "Official Website": "Página Web oficial"
   },
@@ -332,7 +334,12 @@
     "GENERAL": "GENERAL",
     "Server": "Servidor",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE"
+    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE",
+    "Provide your passcode to\nview recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
+    "Passcode verified!": "Contraseña verificada!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -415,7 +422,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RED",
-    "Select network": "Seleccionar red"
+    "Select network": "Seleccionar red",
+    "Network": "Red"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transacciones",
@@ -641,7 +649,8 @@
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Mantén tus palabras de recuperación seguras y secretas."
+    "Keep your recovery words safe and private.": "Mantén tus palabras de recuperación seguras y secretas.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Toma nota que la ortografía y el orden sean correctos. Mantén tus palabras de recuperación seguras y confidenciales."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldos",
@@ -725,7 +734,8 @@
     "Block height": "Tamaño del bloque",
     "Total Masternodes": "Número total de Masternodos",
     "YOU ARE CURRENTLY CONNECTED TO": "ESTÁS CONECTADO ACTUALMENTE A",
-    "NETWORK DETAILS": "DETALLES DE LA RED"
+    "NETWORK DETAILS": "DETALLES DE LA RED",
+    "Network selection is currently unavailable due to ongoing transaction(s).": "Network selection is currently unavailable due to ongoing transaction(s)."
   },
   "components/slider": {
     "None": "Ninguno",
@@ -735,8 +745,6 @@
     "CONTINUE": "CONTINUA"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolerancia a la fluctuación",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
     "Custom": "Personalizado",
     "USE THIS SLIPPAGE TOLERANCE": "USA ESTA TOLERANCIA DE FLUCTUACION.",
     "Required field is missing": "Falta la información requerida",
@@ -797,8 +805,8 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "Enter an amount",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Are you certain you want to proceed to swap DUSD for DFI despite the high Dex-Stabilization fees?",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Are you certain you want to proceed to swap DUSD for DFI despite the high Dex-Stabilization fees?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -893,7 +901,7 @@
     "Transaction fees": "Comisión de la transacción",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Cada transacción estará sujeta a unas pequeñas comisiones. La cantidad variará dependiendo de la congestión de la red.",
     "What is slippage tolerance?": "¿Qué es la tolerancia a la fluctuación?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Debido a la naturaleza dinámica de la blockchain, los precios en el Exchange descentralizado cambian en cada bloque.\n\nEsto implica una fluctuación, la cúal es la diferencia entre el precio final de la transacción, y el precio mostrado en la app antes de la confirmación de la transacción.\n\nLa herramienta que mide la tolerancia a la fluctuación te indica la fluctuación máxima que estás dispuesto a aceptar en la transacción.\n\nSi la fluctuación de tu transacción es mayor a la tolerancia que habías seleccionado, la transacción no se completará y la cantidad original será devuelta a tu billetera.",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "Debido a la naturaleza dinámica de la blockchain, los precios en el Exchange descentralizado cambian en cada bloque.\n\nEsto implica una fluctuación, la cúal es la diferencia entre el precio final de la transacción, y el precio mostrado en la app antes de la confirmación de la transacción.\n\nLa herramienta que mide la tolerancia a la fluctuación te indica la fluctuación máxima que estás dispuesto a aceptar en la transacción.\n\nSi la fluctuación de tu transacción es mayor a la tolerancia que habías seleccionado, la transacción no se completará y la cantidad original será devuelta a tu billetera.",
     "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
   },
   "components/LiquidityMiningFaq": {
@@ -1158,7 +1166,9 @@
     "Min. next bid": "Mínimo para la siguiente oferta",
     "The minimum bid a user must place in order to take part in the auction.": "La mínima oferta que un ofertante puede ejecutar para poder participar en la subasta.",
     "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "El ratio de colateralización representa la cantidad de colateral depositada en la bóveda con respecto a la cantidad del prestamo acumulado, se expresa en porcentage.",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "Slippage tolerance": "Tolerancia a la fluctuación",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1525,12 +1535,13 @@
     "CONTINUE": "CONTINUAR",
     "Continue": "Continúa",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Añadir proveedores de servicio malignos puede resultar en la perdida de los fondos. Actua bajo tu propia responsabilidad.",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Añade solo URLs en las que tengas plena confianza y sean seguras.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Añade solo URLs en las que tengas plena confianza y sean seguras.",
     "Adding custom service provider": "Añadiendo proveedor de servicios personalizado",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "i procedes, tu proveedor de servicio será revertido al del Light Wallet. Quieres continuar?",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Invalid URL": "URL no válida",
-    "Reset default service provider": "Restaurar proveedor de servicio por defecto"
+    "Reset default service provider": "Restaurar proveedor de servicio por defecto",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",

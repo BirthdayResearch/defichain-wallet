@@ -55,6 +55,10 @@ jest.mock('react-native-toast-notifications', () => ({
 }))
 
 jest.mock('@shared-contexts/ThemeProvider')
+const navigation: any = {
+  navigate: jest.fn()
+}
+const route: any = {}
 
 describe('Get DFI page', () => {
   it('should match snapshot', async () => {
@@ -84,7 +88,7 @@ describe('Get DFI page', () => {
     })
     const component = (
       <Provider store={store}>
-        <GetDFIScreen />
+        <GetDFIScreen navigation={navigation} route={route} />
       </Provider>
     )
     const rendered = render(component)
@@ -118,7 +122,7 @@ describe('Get DFI page', () => {
     })
     const component = (
       <Provider store={store}>
-        <GetDFIScreen />
+        <GetDFIScreen navigation={navigation} route={route} />
       </Provider>
     )
     const spy = jest.spyOn(Clipboard, 'setString')
@@ -155,7 +159,7 @@ describe('Get DFI page', () => {
     })
     const component = (
       <Provider store={store}>
-        <GetDFIScreen />
+        <GetDFIScreen navigation={navigation} route={route} />
       </Provider>
     )
     const spy = jest.spyOn(Clipboard, 'setString')
