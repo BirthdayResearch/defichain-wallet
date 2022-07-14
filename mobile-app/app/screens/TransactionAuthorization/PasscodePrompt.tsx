@@ -88,31 +88,17 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
             value={props.pin}
           />}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
-          {// show loading and pin success message
-            [TransactionStatus.AUTHORIZED, TransactionStatus.SIGNING].includes(props.status)
-              ? (
-                <ThemedTextV2
-                  testID='txn_authorization_message'
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  style={tailwind('text-sm text-center font-normal-v2')}
-                >
-                  {props.status === TransactionStatus.SIGNING ? translate('screens/UnlockWallet', props.loadingMessage) : props.successMessage}
-                </ThemedTextV2>
-              )
-              : null
-          }
-          {// show default message
-            (!props.isRetry && props.status !== TransactionStatus.AUTHORIZED && props.status !== TransactionStatus.SIGNING) &&
-              <ThemedTextV2
-                testID='txn_authorization_message'
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                style={tailwind('text-sm text-center font-normal-v2')}
-              >
-                {translate('screens/UnlockWallet', props.message)}
-              </ThemedTextV2>
-          }
+          <ThemedTextV2
+            testID='txn_authorization_message'
+            dark={tailwind('text-mono-dark-v2-700')}
+            light={tailwind('text-mono-light-v2-700')}
+            style={tailwind('text-sm text-center font-normal-v2')}
+          >
+            {props.status === TransactionStatus.SIGNING && translate('screens/UnlockWallet', props.loadingMessage)}
+            {props.status === TransactionStatus.AUTHORIZED && props.successMessage}
+            {props.status === TransactionStatus.PIN && !props.isRetry && translate('screens/UnlockWallet', props.message)}
+          </ThemedTextV2>
+
           {// hide description when passcode is incorrect or verified.
             (props.transaction?.description !== undefined && !props.isRetry && props.status !== TransactionStatus.AUTHORIZED) &&
             (
