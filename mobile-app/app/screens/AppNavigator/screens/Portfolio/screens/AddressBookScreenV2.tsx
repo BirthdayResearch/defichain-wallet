@@ -111,7 +111,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
       address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
       address.address.includes(searchString.trim().toLowerCase())
     ))
-  }, 200), [addressBook, walletAddress, activeButtonGroup])
+  }, 200), [addressBook, walletAddress, searchString, activeButtonGroup])
 
   // Favourite
   const onFavouriteAddress = async (localAddress: LocalAddress): Promise<void> => {
@@ -202,6 +202,8 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
           <TouchableOpacity
             onPress={async () => {
               if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
+                setSearchString('')
+                setIsSearchFocus(false)
                 navigation.navigate({
                   name: 'AddOrEditAddressBookScreen',
                   params: {
@@ -209,9 +211,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                     isAddNew: false,
                     address: item.address,
                     addressLabel: item,
-                    onSaveButtonPress: () => {
-                      setSearchString('')
-                    }
+                    onSaveButtonPress: () => {}
                   },
                   merge: true
                 })
@@ -288,94 +288,94 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
           />
         </View>
       </ThemedViewV2>
-      <View
-        style={tailwind('flex flex-row items-center mt-8 px-5')}
-      >
-        <View style={tailwind('flex-1')}>
-          <SearchInputV2
-            value={searchString}
-            containerStyle={[
-              tailwind('border-0.5'),
-              tailwind(isSearchFocus ? `${(isLight ? 'border-mono-light-v2-800' : 'border-mono-dark-v2-800')}` : 'border-transparent')
-            ]}
-            placeholder={translate('screens/AddressBookScreen', 'Search address book')}
-            showClearButton={searchString !== ''}
-            onClearInput={() => setSearchString('')}
-            onChangeText={(text: string) => {
-              setSearchString(text)
-            }}
-            onFocus={() => {
-              setIsSearchFocus(true)
-            }}
-            testID='address_search_input'
-          />
-        </View>
-        <View style={tailwind('ml-3')}>
-          {isSearchFocus
-          ? (
-            <ThemedTouchableOpacityV2
-              onPress={() => {
-                Keyboard.dismiss()
-                setIsSearchFocus(false)
-                setSearchString('')
-              }}
-              light={tailwind('bg-mono-light-v2-900')}
-              dark={tailwind('bg-mono-dark-v2-900')}
-              testID='cancel_search_button'
-              style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
-            >
-              <ThemedIcon
-                size={24}
-                name='x'
-                light={tailwind('text-mono-light-v2-00')}
-                dark={tailwind('text-mono-dark-v2-00')}
-                iconType='Feather'
-              />
-            </ThemedTouchableOpacityV2>
-          )
-          : (
-            <>
-              {activeButtonGroup === ButtonGroupTabKey.Whitelisted
-                ? (
-                  <ThemedTouchableOpacityV2
-                    onPress={goToAddAddressForm}
-                    light={tailwind('bg-mono-light-v2-900')}
-                    dark={tailwind('bg-mono-dark-v2-900')}
-                    testID='add_new_address'
-                    style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
-                  >
-                    <ThemedIcon
-                      size={24}
-                      name='plus'
-                      light={tailwind('text-mono-light-v2-00')}
-                      dark={tailwind('text-mono-dark-v2-00')}
-                      iconType='Feather'
-                    />
-                  </ThemedTouchableOpacityV2>
-                )
-                : <DiscoverWalletAddressV2 size={24} />}
-            </>
-          )}
-        </View>
-      </View>
-      {isSearchFocus && (
-        <View style={tailwind('px-10 mt-8 mb-2')}>
-          <ThemedTextV2
-            light={tailwind('text-mono-light-v2-700')}
-            dark={tailwind('text-mono-dark-v2-700')}
-            style={tailwind('font-normal-v2 text-xs')}
-            testID='search_title'
-          >
-            {searchString.trim().length > 0
-            ? translate('screens/AddressBookScreen', 'Search results for “{{input}}”', { input: searchString.trim() })
-          : translate('screens/AddressBookScreen', 'Search with label or address')}
-          </ThemedTextV2>
-        </View>
-        )}
       <ScrollView
         contentContainerStyle={tailwind('pb-16')}
         style={tailwind('px-5 h-full')}
       >
+        <View
+          style={tailwind('flex flex-row items-center mt-8')}
+        >
+          <View style={tailwind('flex-1')}>
+            <SearchInputV2
+              value={searchString}
+              containerStyle={[
+                tailwind('border-0.5'),
+                tailwind(isSearchFocus ? `${(isLight ? 'border-mono-light-v2-800' : 'border-mono-dark-v2-800')}` : 'border-transparent')
+              ]}
+              placeholder={translate('screens/AddressBookScreen', 'Search address book')}
+              showClearButton={searchString !== ''}
+              onClearInput={() => setSearchString('')}
+              onChangeText={(text: string) => {
+                setSearchString(text)
+              }}
+              onFocus={() => {
+                setIsSearchFocus(true)
+              }}
+              testID='address_search_input'
+            />
+          </View>
+          <View style={tailwind('ml-3')}>
+            {isSearchFocus
+            ? (
+              <ThemedTouchableOpacityV2
+                onPress={() => {
+                  Keyboard.dismiss()
+                  setIsSearchFocus(false)
+                  setSearchString('')
+                }}
+                light={tailwind('bg-mono-light-v2-900')}
+                dark={tailwind('bg-mono-dark-v2-900')}
+                testID='cancel_search_button'
+                style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
+              >
+                <ThemedIcon
+                  size={24}
+                  name='x'
+                  light={tailwind('text-mono-light-v2-00')}
+                  dark={tailwind('text-mono-dark-v2-00')}
+                  iconType='Feather'
+                />
+              </ThemedTouchableOpacityV2>
+            )
+            : (
+              <>
+                {activeButtonGroup === ButtonGroupTabKey.Whitelisted
+                  ? (
+                    <ThemedTouchableOpacityV2
+                      onPress={goToAddAddressForm}
+                      light={tailwind('bg-mono-light-v2-900')}
+                      dark={tailwind('bg-mono-dark-v2-900')}
+                      testID='add_new_address'
+                      style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
+                    >
+                      <ThemedIcon
+                        size={24}
+                        name='plus'
+                        light={tailwind('text-mono-light-v2-00')}
+                        dark={tailwind('text-mono-dark-v2-00')}
+                        iconType='Feather'
+                      />
+                    </ThemedTouchableOpacityV2>
+                  )
+                  : <DiscoverWalletAddressV2 size={24} />}
+              </>
+            )}
+          </View>
+        </View>
+        {isSearchFocus && (
+          <View style={tailwind('px-5 mt-8 mb-2')}>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              style={tailwind('font-normal-v2 text-xs')}
+              testID='search_title'
+            >
+              {searchString.trim().length > 0
+              ? translate('screens/AddressBookScreen', 'Search results for “{{input}}”', { input: searchString.trim() })
+            : translate('screens/AddressBookScreen', 'Search with label or address')}
+            </ThemedTextV2>
+          </View>
+          )}
         {(activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 && !isSearchFocus)
         ? (
           <EmptyDisplay onPress={goToAddAddressForm} />
