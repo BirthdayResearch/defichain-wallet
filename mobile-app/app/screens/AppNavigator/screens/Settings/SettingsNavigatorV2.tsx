@@ -100,7 +100,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         name='ChangePinScreen'
         options={{
           headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
-          headerBackTitleVisible: false
+          headerRight: undefined
         }}
       />
 
@@ -109,7 +109,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         name='ConfirmPinScreen'
         options={{
           headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
-          headerBackTitleVisible: false
+          headerRight: undefined
         }}
       />
 

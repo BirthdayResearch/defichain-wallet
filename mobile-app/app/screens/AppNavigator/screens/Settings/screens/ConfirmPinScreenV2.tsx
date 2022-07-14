@@ -73,7 +73,7 @@ export function ConfirmPinScreenV2 ({ route }: Props): JSX.Element {
         >
           {translate('screens/PinConfirmation', 'Keep the passcode for your wallet confidential.')}
         </ThemedTextV2>
-        {spinnerMessage !== undefined && !isSuccess && <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />}
+        {spinnerMessage !== undefined && !isSuccess && <ThemedActivityIndicatorV2 style={[tailwind('py-2 my-5'), { transform: [{ scale: 1.5 }] }]} />}
         {isSuccess && <SuccessIndicator />}
       </View>
       <PinTextInputV2
