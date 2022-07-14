@@ -269,10 +269,10 @@
   },
   "screens/CommunityScreen": {
     "Community": "社區",
-    "CONNECT WITH THE COMMUNITY": "參與社區",
+    "JOIN THE COMMUNITY": "加入 DeFiChain 社群",
     "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "遞飛鏈DeFiChain是個以社區優先和開源的項目。此項目是完全去中心化的，並沒有提供客服。",
-    "Report an issue on Github": "在Github開啟議題",
-    "Frequently Asked Questions": "常見問題",
+    "Report issue on GitHub": "在 GitHub 上提出問題或報告",
+    "Frequently asked questions": "常見問題",
     "Announcements": "最新公告",
     "Official Website": "官網"
   },
