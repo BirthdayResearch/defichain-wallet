@@ -107,18 +107,20 @@
     "Asset value": "Valeur des actifs"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Obtenir $DFI",
+    "Get DFI": "Obtenir DFI",
     "STEP 1": "ÉTAPE 1",
-    "Trade/Purchase $DFI": "Échanger/acheter $DFI",
-    "Available on:": "Disponible sur",
-    "Show more": "Afficher plus",
-    "To learn more about DFI, ": "Pour en savoir plus sur DFI, ",
-    "read here.": "lire ici.",
+    "Trade/Purchase DFI": "Échanger/acheter DFI",
+    "Marketplace": "Marché",
+    "Learn more about DFI": "En savoir plus sur DFI",
     "STEP 2": "ÉTAPE 2",
-    "Receive $DFI in Light Wallet": "Recevoir des $DFI dans le portefeuille léger",
-    "DFI oracle price": "Prix oracle de DFI",
-    "Show less": "Afficher moins",
-    "Wallet Address": "Adresse du portefeuille"
+    "Receive DFI in DeFiChain Wallet": "Recevoir des DFI dans le portefeuille DeFiChain",
+    "DFI price": "DFI prix",
+    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
+    "Share": "Partager"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "Marché",
+    "GET DFI FROM": "OBTENIR DFI DE"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -281,10 +283,10 @@
   },
   "screens/CommunityScreen": {
     "Community": "Communauté",
-    "CONNECT WITH THE COMMUNITY": "ENTRER EN CONTACT AVEC LA COMMUNAUTÉ",
+    "JOIN THE COMMUNITY": "REJOINDRE LA COMMUNAUTÉ",
     "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain est un projet communautaire et ouvert à tous. La Fondation DeFiChain ne fournit pas de soutien direct.",
-    "Report an issue on Github": "Signaler un problème sur Github",
-    "Frequently Asked Questions": "Foire aux questions",
+    "Report issue on GitHub": "Signaler un problème sur GitHub",
+    "Frequently asked questions": "Foire aux questions",
     "Announcements": "Annonces",
     "Official Website": "Site officiel"
   },
@@ -333,7 +335,12 @@
     "GENERAL": "GÉNÉRAL",
     "Server": "Serveur",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES"
+    "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES",
+    "Provide your passcode to\nview recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
+    "Passcode verified!": "Code d'accès vérifié ! ",
+    "Provider": "Fournisseur",
+    "Custom": "Personnalisé",
+    "Default": "Par défaut"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -413,7 +420,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RÈSEAU",
-    "Select network": "Sélectionnez un réseau"
+    "Select network": "Sélectionnez un réseau",
+    "Network": "Reseau"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transactions",
@@ -527,11 +535,14 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Votre portefeuille a été dissocié pour votre sécurité en raison d'échecs successifs du code d'accès. Veuillez utiliser les mots de récupération pour restaurer et configurer à nouveau votre portefeuille.",
     "Close": "Fermer",
     "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera dissocié pour votre sécurité.",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Code d'accès incorrect.\n{{attemptsRemaining}} tentatives restantes",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes",
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
-    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
+    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
+    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
@@ -542,6 +553,7 @@
     "Learn more about passcode": "En savoir plus sur le code d'accès",
     "Learn more": "En savoir plus",
     "Create your passcode": "Créez votre code d'accès",
+    "Create new passcode": "Créer un nouveau code d'accès",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
   },
   "screens/VerifyMnemonicWallet": {
@@ -634,7 +646,8 @@
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés."
+    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Prenez note de l'orthographe et de l'ordre corrects. Gardez vos mots de récupération confidentiels et sécurisés."
   },
   "screens/AddLiquidity": {
     "Balance": "Solde",
@@ -729,8 +742,6 @@
     "CONTINUE": "SUIVANT"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de glissement que vous êtes prêt à accepter.",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
@@ -786,8 +797,8 @@
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais de stabilisation DEX de {{fee}} ?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> DFI) ?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -834,7 +845,11 @@
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code d'accès pour autoriser votre transaction en toute sécurité.",
     "Sign to verify access": "Autoriser pour vérifier l'accès",
-    "Success!": "Succès!"
+    "Success!": "Succès!",
+    "It may take a few seconds to verify": "La vérification peut prendre quelques secondes",
+    "Passcode verified!": "Code d'accès vérifié!",
+    "Provide your passcode to view recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
@@ -880,7 +895,7 @@
     "Transaction fees": "Frais de transaction",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Des frais d'un faible montant seront appliqués à chaque transaction. Ce montant peut varier en fonction de l'encombrement du réseau.",
     "What is slippage tolerance?": "Qu'est-ce que la tolérance de glissement ?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le glissement maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le glissement maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/LiquidityMiningFaq": {
@@ -1140,7 +1155,9 @@
     "Annual vault interest": "Intérêts annuels du Vault",
     "Min. next bid": "Surenchère min.",
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
-    "Settlement block": "Bloc d’exécution"
+    "Settlement block": "Bloc d’exécution",
+    "Slippage tolerance": "Tolérance de glissement",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1508,12 +1525,13 @@
     "CONTINUE": "SUIVANT",
     "Continue": "Suivant",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "L'ajout de fournisseurs de services malveillants peut entraîner des fonds irrécupérables. Procédez à vos propres risques.",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
     "Adding custom service provider": "Ajouter un fournisseur de service personnalisé.",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "En faisant cela, vous serez renvoyé au point de terminaison par défaut du portefeuille léger. Continuer ?",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Invalid URL": "URL non valide",
-    "Reset default service provider": "Réinitialiser le fournisseur de services par défaut"
+    "Reset default service provider": "Réinitialiser le fournisseur de services par défaut",
+    "Provider": "Fournisseur"
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",
