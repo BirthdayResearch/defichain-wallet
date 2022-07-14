@@ -331,7 +331,12 @@
     "GENERAL": "GÉNÉRAL",
     "Server": "Serveur",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES"
+    "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES",
+    "Provide your passcode to\nview recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
+    "Passcode verified!": "Code d'accès vérifié ! ",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -411,7 +416,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RÈSEAU",
-    "Select network": "Sélectionnez un réseau"
+    "Select network": "Sélectionnez un réseau",
+    "Network": "Reseau"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transactions",
@@ -632,7 +638,8 @@
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés."
+    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Prenez note de l'orthographe et de l'ordre corrects. Gardez vos mots de récupération confidentiels et sécurisés."
   },
   "screens/AddLiquidity": {
     "Balance": "Solde",
@@ -727,8 +734,6 @@
     "CONTINUE": "SUIVANT"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter.",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
@@ -1138,7 +1143,9 @@
     "Annual vault interest": "Intérêts annuels du Vault",
     "Min. next bid": "Surenchère min.",
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
-    "Settlement block": "Bloc d’exécution"
+    "Settlement block": "Bloc d’exécution",
+    "Slippage tolerance": "Tolérance de glissement",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1511,7 +1518,8 @@
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "En faisant cela, vous serez renvoyé au point de terminaison par défaut du portefeuille léger. Continuer ?",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Invalid URL": "URL non valide",
-    "Reset default service provider": "Réinitialiser le fournisseur de services par défaut"
+    "Reset default service provider": "Réinitialiser le fournisseur de services par défaut",
+    "Provider": "Fournisseur"
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",
