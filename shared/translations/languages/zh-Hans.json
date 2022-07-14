@@ -322,7 +322,12 @@
     "GENERAL": "一般",
     "Server": "伺服器",
     "This will unlink your wallet from the app.": "这将取消您的钱包与应用程式的绑定。",
-    "DISPLAY & LANGUAGE": "显示和语言"
+    "DISPLAY & LANGUAGE": "显示和语言",
+    "Provide your passcode to\nview recovery words.": "Provide your passcode to\nview recovery words.",
+    "Passcode verified!": "Passcode verified!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -402,7 +407,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
-    "Select network": "切换网络"
+    "Select network": "切换网络",
+    "Network": "网络"
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易纪录",
@@ -624,7 +630,8 @@
     "Create new passcode for your wallet": "为您的钱包创建新的密码"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "保持您的恢复字词安全和保密。"
+    "Keep your recovery words safe and private.": "保持您的恢复字词安全和保密。",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Take note of the correct spelling and order. Keep your recovery words confidential and secure."
   },
   "screens/AddLiquidity": {
     "Balance": "总资金",
@@ -719,8 +726,6 @@
     "CONTINUE": "继续"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "交易滑点",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
     "Custom": "自订",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
     "Required field is missing": "缺少必要填入的字栏",
@@ -1130,7 +1135,9 @@
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
     "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "Slippage tolerance": "交易滑点",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1506,7 +1513,8 @@
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "这样做，您将恢复到手机轻钱包的预设终端点。你想继续吗？",
     "Enter passcode to continue": "输入密码后可继续",
     "Invalid URL": "无效的网址",
-    "Reset default service provider": "重置预设 服务供应商"
+    "Reset default service provider": "重置预设 服务供应商",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "快速标价",
