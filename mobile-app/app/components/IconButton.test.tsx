@@ -1,9 +1,9 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { IconButton } from './IconButton'
+import { IconName } from './themed'
 
-const buttonName: Array<React.ComponentProps<typeof MaterialIcons>['name']> = ['swap-vert', 'swap-horiz', 'add', 'remove']
+const buttonName: IconName[] = ['swap-vert', 'swap-horiz', 'add', 'remove']
 
 jest.mock('@shared-contexts/ThemeProvider')
 

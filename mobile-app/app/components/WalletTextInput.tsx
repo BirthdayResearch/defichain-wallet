@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useState } from 'react'
-import { Platform, TextInputProps } from 'react-native'
+import { Platform, TextInputProps, TouchableOpacity } from 'react-native'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import {
   ThemedView,
@@ -11,6 +11,8 @@ import {
   ThemedProps
 } from '@components/themed'
 import { tailwind } from '@tailwind'
+import { View } from '@components'
+import { translate } from '@translations'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
 export type InputType = 'default' | 'numeric'
@@ -30,6 +32,12 @@ interface IWalletTextInputProps {
   containerStyle?: string
   onBlur?: () => void
   hasBottomSheet?: boolean
+  pasteButton?: {
+    isPasteDisabled: boolean
+    onPasteButtonPress: () => void
+  }
+  inputFooter?: React.ReactElement
+  displayTickIcon?: boolean
 }
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
@@ -46,6 +54,9 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
     containerStyle,
     onBlur,
     hasBottomSheet,
+    pasteButton,
+    inputFooter,
+    displayTickIcon,
     ...otherProps
   } = props
 
@@ -66,13 +77,32 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
       style={tailwind(`${containerStyle ?? 'w-full flex-col'}`)}
     >
       {title !== undefined &&
-        <ThemedSectionTitle
-          light={tailwind('text-gray-700')}
-          dark={tailwind('text-gray-200')}
-          testID={titleTestID}
-          text={title}
-          style={tailwind('text-base')}
-        />}
+      (
+        <View style={tailwind('flex flex-row justify-between items-center')}>
+          <ThemedSectionTitle
+            light={tailwind('text-gray-700')}
+            dark={tailwind('text-gray-200')}
+            testID={titleTestID}
+            text={title}
+            style={tailwind('text-base')}
+          />
+          {pasteButton?.onPasteButtonPress !== undefined && (
+            <TouchableOpacity
+              // eslint-disable-next-line
+              onPress={pasteButton.onPasteButtonPress}
+              disabled={pasteButton.isPasteDisabled}
+            >
+              <ThemedText
+                style={tailwind('text-sm font-medium')}
+                light={tailwind('text-primary-500', { 'text-gray-300': pasteButton.isPasteDisabled })}
+                dark={tailwind('text-dfxred-500', { 'text-gray-700': pasteButton.isPasteDisabled })}
+              >
+                {translate('components/WalletTextInput', 'Paste')}
+              </ThemedText>
+            </TouchableOpacity>
+          )}
+        </View>
+        )}
       <ThemedView
         light={tailwind(`bg-white ${!valid ? 'border-error-500' : (isFocus ? 'border-primary-300' : 'border-dfxgray-300')}`)} // disabled border color is the same regardless of theme
         dark={tailwind(`bg-dfxblue-800 ${!valid ? 'border-darkerror-500' : (isFocus ? 'border-dfxred-500' : 'border-dfxblue-900')}`)}
@@ -96,6 +126,14 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
             editable={editable}
             {...otherProps}
           />
+          {displayTickIcon === true &&
+            <ThemedIcon
+              size={18}
+              name='check'
+              iconType='MaterialIcons'
+              light={tailwind('text-success-600')}
+              dark={tailwind('text-darksuccess-600')}
+            />}
           {
             hasClearButton() &&
               <ClearButton
@@ -105,6 +143,9 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(function (p
           }
           {children}
         </ThemedView>
+        <View>
+          {inputFooter}
+        </View>
       </ThemedView>
       {
         inlineText?.type === 'error' && !valid &&

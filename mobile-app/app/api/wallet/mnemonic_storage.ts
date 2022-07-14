@@ -1,6 +1,6 @@
 import { PrivateKeyEncryption, Scrypt } from '@defichain/jellyfish-wallet-encrypted'
 import { entropyAsMnemonic, mnemonicAsEntropy } from '@defichain/jellyfish-wallet-mnemonic'
-import { getRandomBytes } from 'expo-random'
+import * as Random from 'expo-random'
 import { SecuredStoreAPI } from '@api'
 
 const KEY = 'ENCRYPTED_MNEMONIC_STORAGE.entropy'
@@ -16,7 +16,7 @@ class EncryptedMnemonicStorage {
 
   constructor () {
     this.encryption = new PrivateKeyEncryption(new Scrypt(), numOfBytes => {
-      const bytes = getRandomBytes(numOfBytes)
+      const bytes = Random.getRandomBytes(numOfBytes)
       return Buffer.from(bytes)
     })
   }

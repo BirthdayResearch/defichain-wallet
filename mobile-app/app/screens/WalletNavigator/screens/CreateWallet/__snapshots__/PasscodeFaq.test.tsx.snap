@@ -68,7 +68,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
         ]
       }
     >
-      Your six-digit numeric code passcode, set by you, would be use to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.
+      Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.
     </Text>
     <RCTScrollView
       style={
@@ -216,10 +216,12 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="auto"
               style={Object {}}
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -365,6 +367,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -374,6 +377,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}
@@ -515,6 +519,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
               </View>
             </View>
             <View
+              collapsable={false}
               pointerEvents="none"
               style={
                 Object {
@@ -524,6 +529,7 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
               }
             >
               <View
+                collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={Object {}}

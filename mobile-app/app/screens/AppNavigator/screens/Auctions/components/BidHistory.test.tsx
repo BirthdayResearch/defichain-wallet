@@ -7,6 +7,9 @@ import { BidHistory } from './BidHistory'
 import { auctions } from '@store/auctions'
 import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { setTokenSymbol, wallet } from '@store/wallet'
+import { WhaleProvider } from '@shared-contexts/WhaleContext'
+import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
+import { ServiceProviderPersistence } from '@api/wallet/service_provider'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/NetworkContext')
@@ -301,14 +304,18 @@ describe('Bid History', () => {
 
     const rendered = render(
       <Provider store={store}>
-        <BidHistory
-          vaultId='4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d'
-          liquidationHeight={5251}
-          batchIndex={0}
-          loanDisplaySymbol='dTU10'
-          loanSymbol='TU10'
-          minNextBidInToken='0.09633602'
-        />
+        <StoreServiceProvider api={ServiceProviderPersistence}>
+          <WhaleProvider>
+            <BidHistory
+              vaultId='4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d'
+              liquidationHeight={5251}
+              batchIndex={0}
+              loanDisplaySymbol='dTU10'
+              loanSymbol='TU10'
+              minNextBidInToken='0.09633602'
+            />
+          </WhaleProvider>
+        </StoreServiceProvider>
       </Provider>
     )
     expect(rendered.toJSON()).toMatchSnapshot()

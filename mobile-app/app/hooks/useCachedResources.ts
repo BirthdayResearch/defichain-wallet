@@ -1,3 +1,4 @@
+import { Logging } from '@api'
 import {
   IBMPlexSans_300Light,
   IBMPlexSans_400Regular,
@@ -5,6 +6,13 @@ import {
   IBMPlexSans_600SemiBold,
   IBMPlexSans_700Bold
 } from '@expo-google-fonts/ibm-plex-sans'
+import {
+  Sora_300Light,
+  Sora_400Regular,
+  Sora_500Medium,
+  Sora_600SemiBold,
+  Sora_700Bold
+} from '@expo-google-fonts/sora'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import { useEffect, useState } from 'react'
@@ -34,10 +42,14 @@ async function loadResourcesAndDataAsync (): Promise<void> {
       RegularFont: IBMPlexSans_400Regular,
       MediumFont: IBMPlexSans_500Medium,
       SemiBoldFont: IBMPlexSans_600SemiBold,
-      BoldFont: IBMPlexSans_700Bold
+      BoldFont: IBMPlexSans_700Bold,
+      SoraLight: Sora_300Light,
+      SoraRegular: Sora_400Regular,
+      SoraMedium: Sora_500Medium,
+      SoraSemiBold: Sora_600SemiBold,
+      SoraBold: Sora_700Bold
     })
   } catch (e) {
-    // TODO(@defich/wallet): We might want to provide this error information to an error reporting service
-    console.warn(e)
+    Logging.error(e)
   }
 }

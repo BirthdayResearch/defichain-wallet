@@ -43,7 +43,7 @@ export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.El
 function newPlaygroundClient (network: EnvironmentNetwork): PlaygroundApiClient {
   switch (network) {
     case EnvironmentNetwork.RemotePlayground:
-      return new PlaygroundApiClient({ url: 'https://playground.defichain.com' })
+      return new PlaygroundApiClient({ url: 'https://playground.jellyfishsdk.com' })
     case EnvironmentNetwork.LocalPlayground:
       return new PlaygroundApiClient({ url: 'http://localhost:19553' })
     default:

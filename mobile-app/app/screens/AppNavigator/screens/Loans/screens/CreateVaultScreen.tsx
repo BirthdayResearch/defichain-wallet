@@ -14,7 +14,7 @@ import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ascColRatioLoanScheme, fetchLoanSchemes } from '@store/loans'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -24,6 +24,7 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { LoanSchemeOptions } from '../components/LoanSchemeOptions'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -31,7 +32,7 @@ export function CreateVaultScreen ({
   navigation,
   route
 }: Props): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
   const loanSchemes = useSelector((state: RootState) => ascColRatioLoanScheme(state.loans))
   const hasFetchedLoanSchemes = useSelector((state: RootState) => state.loans.hasFetchedLoanSchemes)

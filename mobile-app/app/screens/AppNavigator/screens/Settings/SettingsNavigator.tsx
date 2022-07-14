@@ -14,12 +14,13 @@ import { SettingsScreen } from './SettingsScreen'
 import { PasscodeFaq } from '@screens/WalletNavigator/screens/CreateWallet/PasscodeFaq'
 import { KnowledgeBaseScreen } from './screens/KnowledgeBaseScreen'
 import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaq'
-import { TokensVsUtxoScreen } from '../Balances/screens/TokensVsUtxoScreen'
+import { TokensVsUtxoScreen } from '../Portfolio/screens/TokensVsUtxoScreen'
 import { DexFaq } from '@screens/WalletNavigator/screens/CreateWallet/DexFaq'
 import { LiquidityMiningFaq } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaq'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
 import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
+import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -27,6 +28,7 @@ export interface SettingsParamList {
   RecoveryWordsScreen: { words: string[] }
   ChangePinScreen: { pinLength: number, words: string[] }
   ConfirmPinScreen: { pin: string, words: string[] }
+  ServiceProviderScreen: {}
 
   [key: string]: undefined | object
 }
@@ -35,6 +37,7 @@ const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
   const headerContainerTestId = 'setting_header_container'
+
   return (
     <SettingsStack.Navigator
       screenOptions={{
@@ -96,6 +99,20 @@ export function SettingsNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
+      />
+
+      <SettingsStack.Screen
+        component={ServiceProviderScreen}
+        name='ServiceProviderScreen'
+        options={{
+            headerTitle: () => (
+              <HeaderTitle
+                text={translate('screens/ServiceProviderScreen', 'Service Provider')}
+                containerTestID={headerContainerTestId}
+              />
+            ),
+            headerBackTitleVisible: false
+          }}
       />
 
       <SettingsStack.Screen

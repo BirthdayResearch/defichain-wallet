@@ -23,11 +23,11 @@ import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
 import { LoanToken, LoanVaultActive, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
 import { TextRow } from '@components/TextRow'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Button } from '@components/Button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -43,6 +43,8 @@ import { useBlocksPerDay } from '../hooks/BlocksPerDay'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { useIsFocused } from '@react-navigation/native'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { IconTooltip } from '@components/tooltip/IconTooltip'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 
 type Props = StackScreenProps<LoanParamList, 'BorrowLoanTokenScreen'>
 
@@ -57,7 +59,7 @@ export function BorrowLoanTokenScreen ({
   const isFocused = useIsFocused()
   const logger = useLogger()
   const { address } = useWalletContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count)
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
   const [vault, setVault] = useState<LoanVaultActive | undefined>(route.params.vault)
@@ -398,17 +400,20 @@ function LoanTokenInput (props: LoanTokenInputProps): JSX.Element {
         >
           {translate('screens/BorrowLoanTokenScreen', 'Price (USD)')}
         </ThemedText>
-        <NumberFormat
-          value={currentPrice}
-          decimalScale={2}
-          thousandSeparator
-          displayType='text'
-          renderText={(value) =>
-            <ThemedText style={tailwind('text-sm font-semibold text-right')}>
-              {value}
-            </ThemedText>}
-          prefix='$'
-        />
+        <View style={tailwind('flex-row items-center')}>
+          <NumberFormat
+            value={currentPrice}
+            decimalScale={2}
+            thousandSeparator
+            displayType='text'
+            renderText={(value) =>
+              <ThemedText style={tailwind('text-sm font-semibold text-right')}>
+                {value}
+              </ThemedText>}
+            prefix='$'
+          />
+          <IconTooltip />
+        </View>
       </View>
       <View style={tailwind('mr-4 w-3/12 items-end')}>
         <ThemedText
@@ -541,6 +546,7 @@ function VaultInputActive (props: VaultInputActiveProps): JSX.Element {
         value={getPrecisedTokenValue(props.vault.collateralValue)}
         testID='total_collateral_text'
         prefix='$'
+        isOraclePrice
       />
       <VaultSectionTextRow
         lhs={translate('screens/BorrowLoanTokenScreen', 'Vault interest')}
@@ -648,8 +654,8 @@ export function TransactionDetailsSection (props: TransactionDetailsProps): JSX.
           suffix: props.amountToBorrowInToken.isNaN() || props.amountToBorrowInToken.isLessThan(0) ? translate('screens/BorrowLoanTokenScreen', 'N/A') : props.loanTokenDisplaySymbol
         }}
       />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
+      <InfoRow
+        type={InfoType.EstimatedFee}
         value={props.fee.toFixed(8)}
         testID='estimated_fee'
         suffix='DFI'

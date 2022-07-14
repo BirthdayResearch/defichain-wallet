@@ -31,8 +31,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'dfi_loan_payment',
       name: 'DFI Loan Payment',
-      stage: 'public',
-      version: '>=1.1.1',
+      stage: 'alpha',
+      version: '<1.0.0',
       description: 'DFI Loan Payment',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
@@ -59,6 +59,38 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       version: '>1.8.1',
       description: 'Allow DUSD payment on loans (+1% fee if paying a Non-DUSD loan)',
       networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'future_swap',
+      name: 'Future swap',
+      stage: 'public',
+      version: '>1.11.0',
+      description: 'Allow Future Swap at Settlement block',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'service_provider',
+      name: 'Service Provider',
+      stage: 'beta',
+      version: '>1.13.0',
+      description: 'Allows the usage of custom server provider url',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'onboarding_v2',
+      name: 'Onboarding 2.0',
+      stage: 'public',
+      version: '>1.14.3',
+      description: 'Display redesigned onboarding flow for LW 2.0',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'dusd_dfi_high_fee',
+      name: 'DUSD-DFI High Fees',
+      stage: 'public',
+      version: '>0.0.0',
+      description: 'There are high fees in DUSD and DFI as of the moment',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }
   ])

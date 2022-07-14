@@ -29,6 +29,7 @@ export function HeaderSearchInput (props: HeaderSearchInputProps): JSX.Element {
       ]}
     >
       <SearchInput
+        containerStyle={tailwind('flex-1')}
         value={props.searchString}
         placeholder={translate('components/HeaderSearchInput', props.placeholder)}
         autoFocus

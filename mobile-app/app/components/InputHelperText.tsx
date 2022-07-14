@@ -12,6 +12,7 @@ interface InputHelperTextProps extends React.PropsWithChildren<ViewProps>{
   suffix?: string
   suffixType?: SuffixType
   styleProps?: StyleProp<TextProps>
+  labelStyleProps?: StyleProp<TextProps>
 }
 export function InputHelperText (props: InputHelperTextProps): JSX.Element {
   return (
@@ -23,7 +24,7 @@ export function InputHelperText (props: InputHelperTextProps): JSX.Element {
       <ThemedText
         light={tailwind('text-dfxgray-400')}
         dark={tailwind('text-dfxgray-500')}
-        style={tailwind('text-sm')}
+        style={[tailwind('text-sm'), props.labelStyleProps]}
       >
         {`${props.label}`}
       </ThemedText>

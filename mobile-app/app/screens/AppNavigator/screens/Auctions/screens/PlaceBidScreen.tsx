@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Platform, View, NativeSyntheticEvent, TextInputChangeEventData, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { StackScreenProps } from '@react-navigation/stack'
-import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
@@ -10,7 +10,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
 import { translate } from '@translations'
 import { useBottomSheet } from '@hooks/useBottomSheet'
-import { FeeInfoRow } from '@components/FeeInfoRow'
+import { InfoRow, InfoType } from '@components/InfoRow'
 import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
 import { SetAmountButton, AmountButtonTypes } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
@@ -28,8 +28,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { InfoText } from '@components/InfoText'
 import { getActivePrice } from '@screens/AppNavigator/screens/Auctions/helpers/ActivePrice'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { fetchTokens, tokensSelector } from '@store/wallet'
+import { tokensSelector } from '@store/wallet'
 import { VaultSectionTextRow } from '../../Loans/components/VaultSectionTextRow'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
@@ -41,8 +40,6 @@ export function PlaceBidScreen (props: Props): JSX.Element {
     batch,
     vault
   } = props.route.params
-  const dispatch = useDispatch()
-  const { address } = useWalletContext()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const ownedToken = tokens.find(token => token.id === batch.loan.id)
   const {
@@ -68,15 +65,8 @@ export function PlaceBidScreen (props: Props): JSX.Element {
   const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
   const logger = useLogger()
   const client = useWhaleApiClient()
-  const isFocused = useIsFocused()
 
   const [bidAmount, setBidAmount] = useState<string>('')
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({ client, address }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     client.fee.estimate()
@@ -187,8 +177,8 @@ export function PlaceBidScreen (props: Props): JSX.Element {
               testID='title_tx_detail'
               text={translate('screens/PlaceBidScreen', 'TRANSACTION DETAILS')}
             />
-            <FeeInfoRow
-              type='ESTIMATED_FEE'
+            <InfoRow
+              type={InfoType.EstimatedFee}
               value={fee.toFixed(8)}
               testID='text_fee'
               suffix='DFI'
@@ -272,7 +262,7 @@ function BidSummaryCard (props: {
         suffixType='component'
         prefix='$'
       >
-        <TouchableOpacity onPress={props.onPressFullDetails}>
+        <TouchableOpacity onPress={props.onPressFullDetails} style={tailwind('items-end')}>
           <ThemedText
             dark={tailwind('text-dfxred-500')}
             light={tailwind('text-primary-500')}

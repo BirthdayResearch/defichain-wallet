@@ -106,91 +106,112 @@ Array [
     <View
       style={
         Object {
-          "alignItems": "center",
           "flexBasis": "0%",
-          "flexDirection": "row",
           "flexGrow": 1,
           "flexShrink": 1,
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
         }
       }
     >
-      <Text
-        style={
-          Array [
+      <View>
+        <View
+          style={
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-              "textAlign": "right",
-            },
-            undefined,
-            undefined,
-          ]
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      undefined,
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="resulting_DFI"
+            >
+              0.00000001
+            </Text>
+            <Text>
+               
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "marginLeft": 4,
+                      },
+                      undefined,
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="resulting_DFI_suffix"
+            >
+              DFI
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-end",
+          }
         }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "textAlign": "right",
-                  },
-                  undefined,
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="resulting_DFI"
-        >
-          0.00000001
-        </Text>
-        <Text>
-           
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "marginLeft": 4,
-                  },
-                  undefined,
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="resulting_DFI_suffix"
-        >
-          DFI
-        </Text>
-      </Text>
+      />
     </View>
   </View>,
   <View
@@ -264,91 +285,112 @@ Array [
     <View
       style={
         Object {
-          "alignItems": "center",
           "flexBasis": "0%",
-          "flexDirection": "row",
           "flexGrow": 1,
           "flexShrink": 1,
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
         }
       }
     >
-      <Text
-        style={
-          Array [
+      <View>
+        <View
+          style={
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-              "textAlign": "right",
-            },
-            undefined,
-            undefined,
-          ]
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                  "textAlign": "right",
+                },
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      undefined,
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="resulting_dBTC"
+            >
+              0.00000001
+            </Text>
+            <Text>
+               
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Array [
+                      Object {
+                        "fontSize": 14,
+                        "lineHeight": 20,
+                        "marginLeft": 4,
+                      },
+                      undefined,
+                      undefined,
+                    ],
+                    Object {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="resulting_dBTC_suffix"
+            >
+              dBTC
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-end",
+          }
         }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "textAlign": "right",
-                  },
-                  undefined,
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="resulting_dBTC"
-        >
-          0.00000001
-        </Text>
-        <Text>
-           
-        </Text>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "marginLeft": 4,
-                  },
-                  undefined,
-                  undefined,
-                ],
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="resulting_dBTC_suffix"
-        >
-          dBTC
-        </Text>
-      </Text>
+      />
     </View>
   </View>,
 ]

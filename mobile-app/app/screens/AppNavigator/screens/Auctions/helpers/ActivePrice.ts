@@ -1,9 +1,11 @@
 import { ActivePrice } from '@defichain/whale-api-client/dist/api/prices'
+import BigNumber from 'bignumber.js'
 
 type ActivePriceType = 'ACTIVE' | 'NEXT'
 
-export function getActivePrice (symbol: string, activePrice?: ActivePrice, type: ActivePriceType = 'ACTIVE'): string {
-  const dUSDPrice = '1'
+// oracle prices
+export function getActivePrice (symbol: string, activePrice?: ActivePrice, priceFactor: string = '1', type: ActivePriceType = 'ACTIVE'): string {
+  const dUSDPrice = new BigNumber('1').multipliedBy(priceFactor).toFixed(8)
   if (symbol !== 'DUSD') {
     return (type === 'ACTIVE' ? activePrice?.active?.amount : activePrice?.next?.amount) ?? '0'
   }

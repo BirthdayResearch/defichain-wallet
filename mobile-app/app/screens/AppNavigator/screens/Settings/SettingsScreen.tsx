@@ -6,7 +6,7 @@ import {
   ThemedTouchableOpacity,
   ThemedView
 } from '@components/themed'
-import { Switch } from '@components/index'
+import { Switch, View } from '@components'
 import { WalletAlert } from '@components/WalletAlert'
 import { usePrivacyLockContext } from '@contexts/LocalAuthContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -19,24 +19,28 @@ import { ocean } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 // import { RowThemeItem } from './components/RowThemeItem'
 import { SettingsParamList } from './SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAddressBook } from '@hooks/useAddressBook'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useServiceProviderContext } from '@contexts/StoreServiceProvider'
 
 type Props = StackScreenProps<SettingsParamList, 'SettingsScreen'>
 
 export function SettingsScreen ({ navigation }: Props): JSX.Element {
   const logger = useLogger()
   const { network } = useNetworkContext()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const walletContext = useWalletPersistenceContext()
   const localAuth = usePrivacyLockContext()
   const { data: { type } } = useWalletNodeContext()
   const isEncrypted = type === 'MNEMONIC_ENCRYPTED'
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  const { isCustomUrl } = useServiceProviderContext()
 
   const revealRecoveryWords = useCallback(() => {
     if (!isEncrypted) {
@@ -93,7 +97,7 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
     >
       <ThemedSectionTitle
         testID='network_title'
-        text={translate('screens/Settings', 'NETWORK')}
+        text={translate('screens/Settings', 'GENERAL')}
       />
 
       <SelectedNetworkItem
@@ -101,6 +105,11 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         onPress={() => {
           navigation.navigate('NetworkSelectionScreen')
         }}
+      />
+      <NavigateItemRow
+        testID='address_book_title'
+        label='Address Book'
+        onPress={() => navigation.navigate('AddressBookScreen', {})}
       />
 
       <ThemedSectionTitle
@@ -139,6 +148,14 @@ export function SettingsScreen ({ navigation }: Props): JSX.Element {
         testID='addtional_options_title'
         text={translate('screens/Settings', 'ADDITIONAL OPTIONS')}
       />
+      {isFeatureAvailable('service_provider') && (
+        <NavigateItemRow
+          testID='setting_navigate_service_provider'
+          label='Server'
+          value={isCustomUrl ? 'Custom' : 'Default'}
+          onPress={() => navigation.navigate('ServiceProviderScreen', {})}
+        />
+      )}
       <NavigateItemRow
         testID='setting_navigate_About'
         label='About'
@@ -268,8 +285,9 @@ function PrivacyLockToggle ({
 function NavigateItemRow ({
   testID,
   label,
+  value,
   onPress
-}: { testID: string, label: string, onPress: () => void }): JSX.Element {
+}: { testID: string, label: string, value?: string, onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacity
       onPress={onPress}
@@ -280,11 +298,24 @@ function NavigateItemRow ({
         {translate('screens/Settings', label)}
       </ThemedText>
 
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='chevron-right'
-        size={24}
-      />
+      <View style={tailwind('flex flex-row items-center')}>
+        {
+          value !== undefined &&
+            <ThemedText
+              style={tailwind('font-medium')}
+              light={tailwind('text-gray-500')}
+              dark={tailwind('text-gray-400')}
+            >
+              {translate('screens/Settings', value)}
+            </ThemedText>
+        }
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='chevron-right'
+          size={24}
+          style={tailwind('mt-0.5')}
+        />
+      </View>
     </ThemedTouchableOpacity>
   )
 }

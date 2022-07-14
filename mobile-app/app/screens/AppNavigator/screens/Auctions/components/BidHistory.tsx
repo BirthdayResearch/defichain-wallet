@@ -1,6 +1,7 @@
 import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
+import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useIsFocused } from '@react-navigation/native'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
@@ -11,8 +12,8 @@ import BigNumber from 'bignumber.js'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import NumberFormat from 'react-number-format'
-import { useDispatch, useSelector } from 'react-redux'
-import { useTokenPrice } from '../../Balances/hooks/TokenPrice'
+import { useSelector } from 'react-redux'
+import { useTokenPrice } from '../../Portfolio/hooks/TokenPrice'
 import { ActiveUSDValue } from '../../Loans/VaultDetail/components/ActiveUSDValue'
 import { useBidTimeAgo } from '../hooks/BidTimeAgo'
 
@@ -27,7 +28,7 @@ interface BidHistoryProps {
 
 export function BidHistory (props: BidHistoryProps): JSX.Element {
   const client = useWhaleApiClient()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
   const bidHistory = useSelector((state: RootState) => state.auctions.bidHistory)
   const { getTokenPrice } = useTokenPrice()

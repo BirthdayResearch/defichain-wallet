@@ -1,8 +1,7 @@
-import { MaterialIcons } from '@expo/vector-icons'
 import * as React from 'react'
 import { View } from '@components/index'
 import { Button } from '@components/Button'
-import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
+import { IconName, ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
@@ -11,7 +10,7 @@ interface Props {
 }
 
 interface GuidelineItem {
-  icon: React.ComponentProps<typeof MaterialIcons>['name']
+  icon: IconName
   title: string
   subtitle: string
 }

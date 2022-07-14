@@ -1,13 +1,12 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import {
   NavigationProp,
-  useIsFocused,
   useNavigation
 } from '@react-navigation/native'
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import * as React from 'react'
 import BigNumber from 'bignumber.js'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { View } from '@components'
 import {
   SkeletonLoader,
@@ -21,14 +20,12 @@ import { DisplayDexGuidelinesPersistence } from '@api'
 import { DexGuidelines } from './DexGuidelines'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
+import { tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
 
@@ -44,16 +41,11 @@ interface DexItem<T> {
 
 export function DexScreen (): JSX.Element {
   const logger = useLogger()
-  const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const dispatch = useDispatch()
-  const isFocused = useIsFocused()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const blockCount = useSelector((state: RootState) => state.block.count)
   const {
     poolpairs: pairs,
     hasFetchedPoolpairData
@@ -164,15 +156,6 @@ export function DexScreen (): JSX.Element {
   },
     [pairs]
   )
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
-    }
-  }, [address, blockCount, isFocused])
 
   useEffect(() => {
     DisplayDexGuidelinesPersistence.get()

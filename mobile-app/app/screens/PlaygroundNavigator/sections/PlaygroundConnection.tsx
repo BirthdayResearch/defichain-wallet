@@ -42,7 +42,7 @@ export function PlaygroundConnection (): JSX.Element {
         <ThemedText>
           Blocks:
           {' '}
-          {count === 0 ? '...' : count}
+          {count === 0 ? '...' : <Text testID='current_block_count'>{count}</Text>}
         </ThemedText>
 
         {

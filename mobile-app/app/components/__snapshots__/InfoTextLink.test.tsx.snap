@@ -3,6 +3,7 @@
 exports[`Info text link should match snapshot 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}

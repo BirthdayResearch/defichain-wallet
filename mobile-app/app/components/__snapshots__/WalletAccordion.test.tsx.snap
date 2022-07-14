@@ -141,6 +141,7 @@ exports[`wallet accordion should render 1`] = `
           </View>
         </View>
         <View
+          collapsable={false}
           pointerEvents="none"
           style={
             Object {
@@ -150,6 +151,7 @@ exports[`wallet accordion should render 1`] = `
           }
         >
           <View
+            collapsable={false}
             forwardedRef={[Function]}
             onLayout={[Function]}
             style={Object {}}

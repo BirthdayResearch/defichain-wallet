@@ -85,6 +85,7 @@ exports[`Dex guide should match snapshot 1`] = `
     >
       <Text
         allowFontScaling={false}
+        selectable={false}
         style={
           Array [
             Object {
@@ -180,6 +181,7 @@ exports[`Dex guide should match snapshot 1`] = `
     >
       <Text
         allowFontScaling={false}
+        selectable={false}
         style={
           Array [
             Object {
@@ -275,6 +277,7 @@ exports[`Dex guide should match snapshot 1`] = `
     >
       <Text
         allowFontScaling={false}
+        selectable={false}
         style={
           Array [
             Object {
@@ -360,6 +363,7 @@ exports[`Dex guide should match snapshot 1`] = `
     </View>
     <View
       accessible={true}
+      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}

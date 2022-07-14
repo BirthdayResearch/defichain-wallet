@@ -93,9 +93,9 @@ export function LoansFaq ({ route }: Props): JSX.Element {
       }]
     },
     {
-      title: translate('components/LoansFaq', 'Why is there a 1% fee when paying DUSD loans with DFI?'),
+      title: translate('components/LoansFaq', 'Why is there a 5% fee when paying DUSD loans with DFI?'),
       content: [{
-        text: translate('components/LoansFaq', 'Per DFIP 2112-A, every DUSD loan will be payable with DFI as a way to overcome the DUSD premium currently seen on the DEX.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 1% penalty fee is applied to the DFI/USD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, how much a DFI is worth during a DUSD payment is calculated by taking $10 * (1 - 0.01), effectively reducing the value of DFI by 1% to $9.90 in such a scenario.'),
+        text: translate('components/LoansFaq', 'Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.'),
         type: 'paragraph'
       }]
     }
