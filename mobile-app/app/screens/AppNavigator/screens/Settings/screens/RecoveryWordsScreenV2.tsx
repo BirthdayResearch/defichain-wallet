@@ -48,15 +48,15 @@ function RecoveryWordRow (props: { index: number, word: string, border: boolean 
       <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-500')}
         light={tailwind('text-mono-light-v2-500')}
-        style={tailwind('w-12 text-sm font-normal-v2')}
+        style={tailwind('w-11 text-sm font-normal-v2')}
         testID={`word_${props.index + 1}_number`}
       >
         {`${props.index + 1}.`}
       </ThemedTextV2>
 
       <ThemedTextV2
-        dark={tailwind('text-mono-dark-v2-700')}
-        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind('text-mono-dark-v2-800')}
+        light={tailwind('text-mono-light-v2-800')}
         style={tailwind('flex-grow text-sm font-normal-v2')}
         testID={`word_${props.index + 1}`}
       >

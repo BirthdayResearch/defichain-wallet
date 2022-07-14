@@ -526,7 +526,10 @@
     "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "密码错误.\n您还剩 {{attemptsRemaining}} 次可输入密码",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可输入密码",
     "Enter passcode for verification": "输入验证码",
-    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
+    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
+    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您创建新钱包！接着请创建密码以维持安全保护.",
@@ -537,6 +540,7 @@
     "Learn more about passcode": "了解更多关于密码的资讯",
     "Learn more": "Learn more",
     "Create your passcode": "设置您的密码",
+    "Create new passcode": "创建新密码",
     "Add an additional layer of security by setting a passcode.": "通过设置密码添加额外的安全性"
   },
   "screens/VerifyMnemonicWallet": {

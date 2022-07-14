@@ -1,9 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { translate } from '@translations'
 import { AboutScreen } from './screens/AboutScreen'
-import { ChangePinScreen } from './screens/ChangePinScreen'
 import { CommunityScreen } from './screens/CommunityScreen'
-import { ConfirmPinScreen } from './screens/ConfirmPinScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkDetails } from './screens/NetworkDetails'
 import { SettingsScreenV2 } from './SettingsScreenV2'
@@ -20,6 +18,8 @@ import { RecoveryWordsFaqV2 } from '@screens/WalletNavigator/screens/CreateWalle
 import { DexFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/DexFaqV2'
 import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaqV2'
 import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
+import { ChangePinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ChangePinScreenV2'
+import { ConfirmPinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreenV2'
 import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
 import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
 
@@ -96,20 +96,20 @@ export function SettingsNavigatorV2 (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={ChangePinScreen}
+        component={ChangePinScreenV2}
         name='ChangePinScreen'
         options={{
-          headerTitle: translate('screens/AboutScreen', 'Create new passcode'),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
+          headerRight: undefined
         }}
       />
 
       <SettingsStack.Screen
-        component={ConfirmPinScreen}
+        component={ConfirmPinScreenV2}
         name='ConfirmPinScreen'
         options={{
-          headerTitle: translate('screens/ConfirmPinScreen', 'Verify passcode'),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
+          headerRight: undefined
         }}
       />
 
