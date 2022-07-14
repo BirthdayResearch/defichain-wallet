@@ -1,7 +1,7 @@
 import * as Clipboard from 'expo-clipboard'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useCallback, useEffect, useState } from 'react'
-import { Share, TouchableOpacity, View } from 'react-native'
+import { Share, TouchableOpacity, View, Text } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import {
   ThemedIcon,
@@ -40,17 +40,15 @@ type Props = StackScreenProps<PortfolioParamList, 'MarketplaceScreen'>
 
 export function GetDFIScreen ({ navigation }: Props): JSX.Element {
   return (
-    <>
-      <ThemedScrollViewV2
-        contentContainerStyle={tailwind('mx-5 pb-24')}
-        style={tailwind('flex')}
-        testID='get_dfi_screen'
-      >
-        <StepOne onPress={() => navigation.navigate('MarketplaceScreen')} />
-        <StepTwo />
-        <DFIOraclePrice />
-      </ThemedScrollViewV2>
-    </>
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('mx-5 pb-24')}
+      style={tailwind('flex')}
+      testID='get_dfi_screen'
+    >
+      <StepOne onPress={() => navigation.navigate('MarketplaceScreen')} />
+      <StepTwo />
+      <DFIOraclePrice />
+    </ThemedScrollViewV2>
   )
 }
 
@@ -137,8 +135,8 @@ function StepTwo (): JSX.Element {
   }, [showToast, address])
 
   return (
-    <View style={tailwind('mt-8')}>
-      <View style={tailwind('px-5 pb-4')}>
+    <View style={tailwind('mt-8 px-5')}>
+      <View style={tailwind('pb-4')}>
         <ThemedTextV2 style={tailwind('text-xs font-normal-v2')}>
           {translate('screens/GetDFIScreen', 'STEP 2')}
         </ThemedTextV2>
@@ -147,9 +145,9 @@ function StepTwo (): JSX.Element {
         </ThemedTextV2>
       </View>
       <View
-        style={tailwind('flex flex-row mx-4')}
+        style={tailwind('flex flex-row')}
       >
-        <View style={tailwind('w-5/12 items-center')}>
+        <View style={tailwind('items-center')}>
           <ThemedViewV2
             style={tailwind('rounded-lg p-2 drop-shadow-lg')}
             testID='qr_code_container'
@@ -164,7 +162,7 @@ function StepTwo (): JSX.Element {
             />
           </ThemedViewV2>
         </View>
-        <View style={tailwind('pl-5')}>
+        <View style={tailwind('pl-5 w-7/12')}>
           <ThemedTextV2
             style={tailwind('font-normal-v2 mb-px text-xs')}
             dark={tailwind('text-mono-dark-v2-500')}
@@ -187,7 +185,8 @@ function StepTwo (): JSX.Element {
               testID='address_text'
               style={tailwind('text-sm font-normal-v2')}
             >
-              {address + '  '}<CopyIcon />
+              <Text style={tailwind('mr-2')}>{address} </Text>
+              <CopyIcon />
             </ThemedTextV2>
           </TouchableOpacity>
           <View style={tailwind('items-start')}>
