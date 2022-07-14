@@ -732,7 +732,7 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "Tolleranza di slippage",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",
@@ -792,8 +792,8 @@
     "To be confirmed": "Da confermare",
     "Enter an amount": "Inserisci un importo",
     "Price ({{tokenB}}/{{tokenA}})": "Prezzo ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -888,7 +888,7 @@
     "Transaction fees": "Commissioni di transazione",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Una piccola commissione sarà applicata ad ogni transazione. Questa quantità può variare a seconda della congestione della rete.",
     "What is slippage tolerance?": "Cos'è la tolleranza di slippage?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "A causa della natura dinamica della blockchain, i prezzi sul DEX cambiano ad ogni blocco. \nQuesto si traduce in uno slippage, che è la differenza tra il prezzo finale della transazione e il prezzo visualizzato sull'app prima che la transazione venga confermata. \nLa funzione di tolleranza dello slippage ti permette di specificare lo slippage massimo che sei disposto ad accettare in una transazione.\nSe la ricevuta della transazione è superiore alla tua tolleranza, la transazione non sarà completata e l'importo originale sarà restituito direttamente al tuo wallet.",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "A causa della natura dinamica della blockchain, i prezzi sul DEX cambiano ad ogni blocco. \nQuesto si traduce in uno slippage, che è la differenza tra il prezzo finale della transazione e il prezzo visualizzato sull'app prima che la transazione venga confermata. \nLa funzione di tolleranza dello slippage ti permette di specificare lo slippage massimo che sei disposto ad accettare in una transazione.\nSe la ricevuta della transazione è superiore alla tua tolleranza, la transazione non sarà completata e l'importo originale sarà restituito direttamente al tuo wallet.",
     "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI"
   },
   "components/LiquidityMiningFaq": {

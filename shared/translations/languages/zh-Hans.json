@@ -718,7 +718,7 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "交易滑点",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
     "Custom": "自订",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
     "Required field is missing": "缺少必要填入的字栏",
@@ -774,8 +774,8 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "请输入数量",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 稳定费费用较高，您确定要继续进行兑换将 DUSD 换成 DFI 吗？",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 稳定费费用较高，您确定要继续进行兑换将 DUSD 换成 DFI 吗？",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -868,7 +868,7 @@
     "Transaction fees": "交易费用",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每笔交易需要少量的交易费用。交易费用会根据网络的流量情况产生变化。",
     "What is slippage tolerance?": "什么是交易滑价?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。\n\n这导致了滑价，也就是确认交易前显示出的价格和最终交易价格之间的差异。\n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。\n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由于区块链的动态性质，DEX上的价格随着每个区块而变。\n\n这导致了滑价，也就是确认交易前显示出的价格和最终交易价格之间的差异。\n\n程序中出现的「交易滑价」可自订您可接受的滑价范围。\n\n假设交易滑点高于您选择的交易滑价百分比，那么交易不会完成，交易金额则退回到您的钱包余额。",
     "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/LiquidityMiningFaq": {
