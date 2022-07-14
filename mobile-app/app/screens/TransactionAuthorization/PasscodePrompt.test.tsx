@@ -26,6 +26,7 @@ describe('transaction authorization screen', () => {
           title='title'
           message='foo'
           transaction={mockTransaction}
+          successMessage='success'
           status={type}
           pinLength={6}
           onPinInput={onPinInput}

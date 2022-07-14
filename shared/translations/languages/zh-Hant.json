@@ -322,7 +322,12 @@
     "GENERAL": "一般",
     "Server": "伺服器",
     "This will unlink your wallet from the app.": "這將取消您的錢包與應用程式的綁定。",
-    "DISPLAY & LANGUAGE": "顯示和語言"
+    "DISPLAY & LANGUAGE": "顯示和語言",
+    "Provide your passcode to\nview recovery words.": "Provide your passcode to\nview recovery words.",
+    "Passcode verified!": "Passcode verified!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -402,7 +407,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
-    "Select network": "切換網絡"
+    "Select network": "切換網絡",
+    "Network": "網絡"
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易紀錄",
@@ -517,10 +523,13 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "您輸入了多次錯誤的密碼，為了安全，目前錢包已解開鏈接. 請用恢復自組以還原和重設錢包.",
     "Close": "關閉",
     "Last attempt or your wallet will be unlinked for your security": "最後一次可輸入密碼，為了安全，如果不通過，您的錢包會解開鏈接",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "密碼錯誤. 您還剩 {{attemptsRemaining}} 次可輸入密碼",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "密碼錯誤.\n您還剩 {{attemptsRemaining}} 次可輸入密碼",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼",
     "Enter passcode for verification": "輸入驗證碼",
-    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
+    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
+    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "恭喜您創建新錢包！接著請創建密碼以維持安全保護.",
@@ -531,6 +540,7 @@
     "Learn more about passcode": "了解更多關於密碼的資訊",
     "Learn more": "Learn more",
     "Create your passcode": "設置您的密碼",
+    "Create new passcode": "創建新密碼",
     "Add an additional layer of security by setting a passcode.": "通過設置密碼添加額外的安全性"
   },
   "screens/VerifyMnemonicWallet": {
@@ -621,10 +631,12 @@
     "TRY AGAIN": "再試一次"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "為您的錢包創建新的密碼"
+    "Create new passcode for your wallet": "為您的錢包創建新的密碼",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "保持您的恢復字詞安全和保密。"
+    "Keep your recovery words safe and private.": "保持您的恢復字詞安全和保密。",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Take note of the correct spelling and order. Keep your recovery words confidential and secure."
   },
   "screens/AddLiquidity": {
     "Balance": "總資金",
@@ -720,8 +732,6 @@
     "CONTINUE": "繼續"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "交易滑價",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
     "Required field is missing": "缺少必要填入的字欄",
@@ -825,7 +835,11 @@
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Please enter passcode to securely sign your transaction": "請輸入密碼以安全地簽下您的交易",
     "Sign to verify access": "簽下以確認使用",
-    "Success!": "成功！"
+    "Success!": "成功！",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "簽下交易",
@@ -1133,7 +1147,9 @@
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
     "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "Slippage tolerance": "交易滑價",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1503,12 +1519,13 @@
     "CONTINUE": "繼續",
     "Continue": "繼續",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加惡意服務供應商 可能會導致可收回資金。 風險自負",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "添加自定義服務提供者",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "這樣做，您將恢復到手機輕錢包的預設終端點。 你想繼續嗎？",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Invalid URL": "無效的網址",
-    "Reset default service provider": "重置預設 服務供應商"
+    "Reset default service provider": "重置預設 服務供應商",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",

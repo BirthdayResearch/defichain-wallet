@@ -335,7 +335,12 @@
     "GENERAL": "GENERALE",
     "Server": "Server",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE"
+    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE",
+    "Provide your passcode to\nview recovery words.": "Provide your passcode to\nview recovery words.",
+    "Passcode verified!": "Passcode verified!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -416,7 +421,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RETE",
-    "Select network": "Selezionare la rete"
+    "Select network": "Selezionare la rete",
+    "Network": "Rete"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transazioni",
@@ -532,10 +538,13 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Il tuo wallet è stato scollegato per la tua sicurezza a causa di successivi fallimenti del passcode. Per favore usa le parole di recupero per ripristinare e impostare di nuovo il tuo wallet.",
     "Close": "Chiudi",
     "Last attempt or your wallet will be unlinked for your security": "Ultimo tentativo dopodichè il tuo wallet sarà scollegato per la tua sicurezza",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Codice di accesso errato. {{attemptsRemaining}} tentativi rimanenti",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Codice di accesso errato.\n{{attemptsRemaining}} tentativi rimanenti",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentativi rimanenti",
     "Enter passcode for verification": "Enter passcode for verification",
-    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
+    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
+    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Perfetto! Il tuo wallet è stato creato. Mantieni il tuo wallet privato e sicuro creando un codice di accesso.",
@@ -546,6 +555,7 @@
     "Learn more about passcode": "Ulteriori informazioni sul codice di accesso",
     "Learn more": "Learn more",
     "Create your passcode": "Create your passcode",
+    "Create new passcode": "Crea un nuovo codice di accesso",
     "Add an additional layer of security by setting a passcode.": "Add an additional layer of security by setting a passcode."
   },
   "screens/VerifyMnemonicWallet": {
@@ -635,10 +645,12 @@
     "TRY AGAIN": "RIPROVA"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet"
+    "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",
+    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private."
+    "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Take note of the correct spelling and order. Keep your recovery words confidential and secure."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldo",
@@ -733,8 +745,6 @@
     "CONTINUE": "CONTINUA"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolleranza di slippage",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",
@@ -844,7 +854,11 @@
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Please enter passcode to securely sign your transaction": "Inserisci il codice di accesso per firmare in modo sicuro la tua transazione",
     "Sign to verify access": "Firma per verificare l'accesso",
-    "Success!": "Fatto!"
+    "Success!": "Fatto!",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!",
+    "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
+    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Firma la transazione",
@@ -1151,7 +1165,9 @@
     "Annual vault interest": "Interesse annuo del vault",
     "Min. next bid": "Min. prossima offerta",
     "The minimum bid a user must place in order to take part in the auction.": "Offerta minima che un utente deve fare per partecipare all'asta.",
-    "Settlement block": "Blocco di regolamento"
+    "Settlement block": "Blocco di regolamento",
+    "Slippage tolerance": "Tolleranza di slippage",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1518,12 +1534,13 @@
     "CONTINUE": "CONTINUA",
     "Continue": "Continua",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "Adding custom service provider",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Invalid URL": "Invalid URL",
-    "Reset default service provider": "Reset default service provider"
+    "Reset default service provider": "Reset default service provider",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",

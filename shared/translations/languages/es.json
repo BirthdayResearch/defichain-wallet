@@ -119,7 +119,7 @@
     "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
     "DFI price": "Precio de DFI",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
-    "Share":  "Compartir"
+    "Share": "Compartir"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marketplace",
@@ -334,7 +334,12 @@
     "GENERAL": "GENERAL",
     "Server": "Servidor",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE"
+    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE",
+    "Provide your passcode to\nview recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
+    "Passcode verified!": "Contraseña verificada!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -417,7 +422,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RED",
-    "Select network": "Seleccionar red"
+    "Select network": "Seleccionar red",
+    "Network": "Red"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transacciones",
@@ -533,10 +539,13 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Tu billetera se desconectó por seguridad debido a sucesivos fallos de la contraseña",
     "Close": "Cierra",
     "Last attempt or your wallet will be unlinked for your security": "Último intento antes de que tu billetera se desconecte por seguridad",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Contraseña incorrecta. Quedan {{attemptsRemaining}} intentos ",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Contraseña incorrecta.\nQuedan {{attemptsRemaining}} intentos ",
     "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos",
     "Enter passcode for verification": "Confirma tu contraseña",
-    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet."
+    "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
+    "It may take a few seconds to update your passcode.": "Cambiar la contraseña puede tardar varios segundos.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Mantén la contraseña de tu billetera confidencial."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "¡Bien hecho! Tu billetera ha sido creada. Mantén tu billetera segura creando una contraseña.",
@@ -547,6 +556,7 @@
     "Learn more about passcode": "Aprende más sobre las contraseñas",
     "Learn more": "Learn more",
     "Create your passcode": "Crea tu contraseña",
+    "Create new passcode": "Crea una nueva contraseña nuevo",
     "Add an additional layer of security by setting a passcode.": "Añade una capa de seguridad configurando una contraseña"
   },
   "screens/VerifyMnemonicWallet": {
@@ -636,10 +646,12 @@
     "TRY AGAIN": "VOLVER A INTENTAR"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera"
+    "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera",
+    "Keep the passcode for your wallet confidential.": "Mantén la contraseña de tu billetera confidencial."
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Mantén tus palabras de recuperación seguras y secretas."
+    "Keep your recovery words safe and private.": "Mantén tus palabras de recuperación seguras y secretas.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Toma nota que la ortografía y el orden sean correctos. Mantén tus palabras de recuperación seguras y confidenciales."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldos",
@@ -734,8 +746,6 @@
     "CONTINUE": "CONTINUA"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolerancia a la fluctuación",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
     "Custom": "Personalizado",
     "USE THIS SLIPPAGE TOLERANCE": "USA ESTA TOLERANCIA DE FLUCTUACION.",
     "Required field is missing": "Falta la información requerida",
@@ -846,7 +856,11 @@
     "Enter passcode to continue": "Introduce contraseña para continuar",
     "Please enter passcode to securely sign your transaction": "Por favor, introduce contraseña para asegurar tu transacción",
     "Sign to verify access": "Confirma para verificar el acceso",
-    "Success!": "Éxito!"
+    "Success!": "Éxito!",
+    "It may take a few seconds to verify": "La verificación puede tardar varios segundos",
+    "Passcode verified!": "Contraseña verificada!",
+    "Provide your passcode to view recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
+    "Provide existing passcode to change passcode.": "Introduce la contraseña actual para cambiar la contraseña."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Confirma la transacción",
@@ -1157,7 +1171,9 @@
     "Min. next bid": "Mínimo para la siguiente oferta",
     "The minimum bid a user must place in order to take part in the auction.": "La mínima oferta que un ofertante puede ejecutar para poder participar en la subasta.",
     "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "El ratio de colateralización representa la cantidad de colateral depositada en la bóveda con respecto a la cantidad del prestamo acumulado, se expresa en porcentage.",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "Slippage tolerance": "Tolerancia a la fluctuación",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1524,12 +1540,13 @@
     "CONTINUE": "CONTINUAR",
     "Continue": "Continúa",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Añadir proveedores de servicio malignos puede resultar en la perdida de los fondos. Actua bajo tu propia responsabilidad.",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "Añade solo URLs en las que tengas plena confianza y sean seguras.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Añade solo URLs en las que tengas plena confianza y sean seguras.",
     "Adding custom service provider": "Añadiendo proveedor de servicios personalizado",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "i procedes, tu proveedor de servicio será revertido al del Light Wallet. Quieres continuar?",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Invalid URL": "URL no válida",
-    "Reset default service provider": "Restaurar proveedor de servicio por defecto"
+    "Reset default service provider": "Restaurar proveedor de servicio por defecto",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",
