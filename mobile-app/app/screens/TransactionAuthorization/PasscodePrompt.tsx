@@ -88,19 +88,21 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
             value={props.pin}
           />}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
-          <ThemedTextV2
-            testID='txn_authorization_message'
-            dark={tailwind('text-mono-dark-v2-700')}
-            light={tailwind('text-mono-light-v2-700')}
-            style={tailwind('text-sm text-center font-normal-v2')}
-          >
-            {props.status === TransactionStatus.SIGNING && translate('screens/UnlockWallet', props.loadingMessage)}
-            {props.status === TransactionStatus.AUTHORIZED && props.successMessage}
-            {props.status === TransactionStatus.PIN && !props.isRetry && translate('screens/UnlockWallet', props.message)}
-          </ThemedTextV2>
+          {[TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED, TransactionStatus.PIN].includes(props.status) && !props.isRetry && (
+            <ThemedTextV2
+              testID='txn_authorization_message'
+              dark={tailwind('text-mono-dark-v2-700')}
+              light={tailwind('text-mono-light-v2-700')}
+              style={tailwind('text-sm text-center font-normal-v2')}
+            >
+              {props.status === TransactionStatus.SIGNING && translate('screens/UnlockWallet', props.loadingMessage)}
+              {props.status === TransactionStatus.AUTHORIZED && props.successMessage}
+              {props.status === TransactionStatus.PIN && translate('screens/UnlockWallet', props.message)}
+            </ThemedTextV2>
+          )}
 
           {// hide description when passcode is incorrect or verified.
-            (props.transaction?.description !== undefined && !props.isRetry && props.status !== TransactionStatus.AUTHORIZED) &&
+            (props.status !== TransactionStatus.AUTHORIZED && !props.isRetry && props.transaction?.description !== undefined) &&
             (
               <ThemedTextV2
                 testID='txn_authorization_description'
@@ -112,8 +114,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               </ThemedTextV2>
             )
           }
-          {// upon retry: show remaining attempt allowed
-            (props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
+          {// show remaining attempt allowed
+            (props.status !== TransactionStatus.SIGNING && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt) &&
             (
               <ThemedTextV2
                 style={tailwind('text-center text-sm font-normal-v2')}
@@ -123,22 +125,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               >
                 {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
                   ? 'Last attempt or your wallet will be unlinked for your security'
-                  : 'Incorrect passcode. {{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
-              </ThemedTextV2>
-            )
-          }
-          {// on first time: warn user there were accumulated error attempt counter
-            (!props.isRetry && props.attemptsRemaining !== undefined && props.attemptsRemaining !== props.maxPasscodeAttempt && props.status !== TransactionStatus.SIGNING) &&
-            (
-              <ThemedTextV2
-                style={tailwind('text-center text-sm font-normal-v2')}
-                light={tailwind('text-red-v2')}
-                dark={tailwind('text-red-v2')}
-                testID='pin_attempt_warning'
-              >
-                {translate('screens/PinConfirmation', `${props.attemptsRemaining === 1
-                  ? 'Last attempt or your wallet will be unlinked for your security'
-                  : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
+                  : props.isRetry ? 'Incorrect passcode.\n{{attemptsRemaining}} attempts remaining' : '{{attemptsRemaining}} attempts remaining'}`, { attemptsRemaining: props.attemptsRemaining })}
               </ThemedTextV2>
             )
           }
