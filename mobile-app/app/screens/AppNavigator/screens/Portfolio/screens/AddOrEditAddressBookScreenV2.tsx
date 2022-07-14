@@ -154,7 +154,7 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
       onError: e => logger.error(e),
       title: translate('screens/Settings', 'Are you sure you want to delete the address?'),
       message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'Verifying access')
+      loading: translate('screens/Settings', 'It may take a few seconds to delete')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [navigation, dispatch, isEncrypted])
