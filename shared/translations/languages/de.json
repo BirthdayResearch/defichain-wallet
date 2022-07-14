@@ -524,9 +524,9 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche",
     "Enter passcode for verification": "Passcode zur Überprüfung eingeben",
     "It may take a few seconds to secure and encrypt your wallet.": "Es kann ein paar Sekunden dauern, bis deine Wallet gesichert und verschlüsselt ist.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode.": "Es kann einige Sekunden dauern, bis dein Passwort aktualisiert ist.",
     "Passcode updated!": "Passcode updated!",
-    "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
+    "Keep the passcode for your wallet confidential.": "Verwahre das Passwort für deine Wallet vertraulich."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Erfolgreich! Die Wallet ist erstellt. Schütze sie vor fremden Einblicken und sichere die Wallet, indem du jetzt ein Passwort erstellst.",
@@ -627,7 +627,8 @@
     "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet"
+    "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet",
+    "Keep the passcode for your wallet confidential.": "Verwahre das Passwort für deine Wallet vertraulich."
   },
   "screens/RecoveryWordsScreen": {
     "Keep your recovery words safe and private.": "Verwahre deinen Wiederherstellungssatz sicher und diskret.",
@@ -833,7 +834,7 @@
     "It may take a few seconds to verify": "Es kann ein paar Sekunden dauern, bis das Passwort verifiziert ist",
     "Passcode verified!": "Passwort verifiziert!",
     "Provide your passcode to view recovery words.": "Gib dein Passwort ein, um den Wiederherstellungssatz anzuzeigen.",
-    "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
+    "Provide existing passcode to change passcode.": "Gib das bestehende Passwort ein, um das Passwort zu ändern."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Transaktion freigeben",
