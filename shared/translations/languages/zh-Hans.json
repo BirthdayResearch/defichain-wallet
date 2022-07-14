@@ -145,6 +145,7 @@
     "Search address book": "搜索地址簿",
     "Whitelisted": "白名单",
     "Your address(es)": "您的地址",
+    "Your address": "您的地址",
     "WHITELISTED": "白名单",
     "YOUR ADDRESS(ES)": "您的地址",
     "Search results for": "搜索结果",
@@ -284,6 +285,7 @@
     "Recovery Words": "恢复字组",
     "Recovery words": "恢复字组",
     "Are you sure you want to unlink your wallet?": "您是否确认要解除钱包链接?",
+    "Once unlinked, you will need to enter your recovery words to restore your wallet.": "取消绑定后，您需要输入恢复字词来恢复您的钱包。",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "请留意，您下次回道钱包时需要恢复字组",
     "Cancel": "取消",
     "Unlink Wallet": "解除钱包链接",
@@ -358,6 +360,7 @@
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "关于",
+    "LEARN MORE": "关于",
     "Recovery words": "恢复字组",
     "Passcode": "密码",
     "UTXO vs Token": "UTXO和代币区别",
@@ -1527,7 +1530,9 @@
     "Enter passcode to continue": "输入密码后可继续",
     "Invalid URL": "无效的网址",
     "Reset default service provider": "重置预设 服务供应商",
-    "Provider": "Provider"
+    "Provider": "服务提供者",
+    "Reset provider": "重置提供者",
+    "This will reset the service provider to the default URL.": "这会将服务提供商重置为默认网络连结。"
   },
   "components/QuickBid": {
     "QUICK BID": "快速标价",

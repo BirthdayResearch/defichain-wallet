@@ -151,13 +151,16 @@
     "ADDRESS(ES)": "DIRECCION(ES)",
     "Search address book": "Adressbuch durchsuchen",
     "Whitelisted": "Whitelist",
-    "Your address(es)": "Deine Adresse(n)",
+    "Your address(es)": "Tu Direccion(es)",
+    "Your address": "Tu direccion",
     "WHITELISTED": "WHITELIST",
-    "YOUR ADDRESS(ES)": "DEINE ADRESSE(N)",
+    "YOUR ADDRESS(ES)": "TU DIRECCION(ES)",
     "Search results for": "Suchergebnisse für",
     "Search with label or address": "Suche nach Bezeichnung oder Adress",
-    "FAVOURITE ADDRESS(ES)": "Favoriten"
-  },
+    "Search results for “{{input}}”": "Buscar resultados para “{{input}}”",
+    "FAVOURITE ADDRESS(ES)": "Favoriten",
+    "Add your preferred / commonly-used address.": "Añade tu dirección preferida / más usada."
+},
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Edita el nombre de la dirección",
     "ADDRESS LABEL": "NOMBRE DE LA DIRECCION",
@@ -189,7 +192,16 @@
     "Edit Address": "Edita la dirección",
     "Please enter an address label": "Por favor introduce un nombre de dirección",
     "Please enter a valid address": "Por favor introduce una dirección válida",
-    "Required field, max. 40 characters": "Campo obligatorio, max. 40 caracteres"
+    "Required field, max. 40 characters": "Campo obligatorio, max. 40 caracteres",
+    "Address Details": "Detalles de la dirección",
+    "LABEL": "ETIQUETA",
+    "Delete address": "Borrar dirección",
+    "Save address": "Guardar dirección",
+    "Maximum of 40 characters.": "Máximo de 40 caracteres.",
+    "Required field. Please enter a label. Maximum of 40 characters.": "Campo obligatorio. Por favor introduce una etiqueta. Máximo de 40 caracteres.",
+    "Are you sure you want to delete the address?": "Estás seguro de que quieres borrar la dirección?",
+    "Add address to address book?\n{{address}}": "Añadir dirección al registro de direcciones\n{{address}}",
+    "This will delete the whitelisted address\nfrom your address book.": "Esta acción borrará la dirección incluida en la lista blanca\n del registro de direcciones."
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",
@@ -337,7 +349,7 @@
     "Address book": "Libro de direcciones",
     "GENERAL": "GENERAL",
     "Server": "Servidor",
-    "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
+    "This will unlink your wallet from the app.": "Esto desconectará tu billetera de la aplicación.",
     "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE",
     "Provide your passcode to\nview recovery words.": "Introduce tu contraseña para ver tus palabras de recuperación.",
     "Passcode verified!": "Contraseña verificada!",
@@ -1550,7 +1562,9 @@
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Invalid URL": "URL no válida",
     "Reset default service provider": "Restaurar proveedor de servicio por defecto",
-    "Provider": "Provider"
+    "Provider": "Proveedor",
+    "Reset provider": "Resetear el proveedor",
+    "This will reset the service provider to the default URL.": "Esto restaurará la URL del proveedor de servicios por defecto."
   },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",

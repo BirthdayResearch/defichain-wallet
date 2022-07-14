@@ -145,6 +145,7 @@
     "Search address book": "搜索地址簿",
     "Whitelisted": "白名单",
     "Your address(es)": "您的地址",
+    "Your address": "您的地址",
     "WHITELISTED": "白名单",
     "YOUR ADDRESS(ES)": "您的地址",
     "Search results for": "搜索結果",
@@ -284,6 +285,7 @@
     "Recovery Words": "恢復字組",
     "Recovery words": "恢復字組",
     "Are you sure you want to unlink your wallet?": "您是否確認要解除錢包鏈接?",
+    "Once unlinked, you will need to enter your recovery words to restore your wallet.": "取消綁定後，您需要輸入恢復字詞來恢復您的錢包。",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "請留意，您下次回道錢包時需要恢復字組",
     "Cancel": "取消",
     "Unlink Wallet": "解除錢包鏈接",
@@ -358,6 +360,7 @@
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "關於",
+    "LEARN MMORE": "關於",
     "Recovery words": "恢復字組",
     "Passcode": "密碼",
     "UTXO vs Token": "UTXO和代幣區別",
@@ -1529,7 +1532,9 @@
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Invalid URL": "無效的網址",
     "Reset default service provider": "重置預設 服務供應商",
-    "Provider": "Provider"
+    "Provider": "服務提供者",
+    "Reset provider": "重置提供者",
+    "This will reset the service provider to the default URL.": "這會將服務提供商重置為默認網絡連結。"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",
