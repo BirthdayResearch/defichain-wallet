@@ -185,8 +185,7 @@ function StepTwo (): JSX.Element {
               testID='address_text'
               style={tailwind('text-sm font-normal-v2')}
             >
-              <Text style={tailwind('mr-2')}>{address} </Text>
-              <CopyIcon />
+              <Text>{address} <CopyIcon /></Text>
             </ThemedTextV2>
           </TouchableOpacity>
           <View style={tailwind('items-start')}>
