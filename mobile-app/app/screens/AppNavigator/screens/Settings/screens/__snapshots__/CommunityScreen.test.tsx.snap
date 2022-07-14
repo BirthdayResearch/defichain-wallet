@@ -149,11 +149,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "borderRightColor": "rgba(204, 204, 204, 1)",
               "borderTopColor": "rgba(204, 204, 204, 1)",
               "flexDirection": "row",
-              "marginLeft": 16,
-              "marginRight": 16,
+              "marginLeft": 20,
+              "marginRight": 20,
               "opacity": 1,
-              "paddingBottom": 16,
-              "paddingTop": 16,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
           testID="announcements"
@@ -225,11 +225,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "borderRightColor": "rgba(204, 204, 204, 1)",
               "borderTopColor": "rgba(204, 204, 204, 1)",
               "flexDirection": "row",
-              "marginLeft": 16,
-              "marginRight": 16,
+              "marginLeft": 20,
+              "marginRight": 20,
               "opacity": 1,
-              "paddingBottom": 16,
-              "paddingTop": 16,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
           testID="faq"
@@ -301,11 +301,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "borderRightColor": "rgba(204, 204, 204, 1)",
               "borderTopColor": "rgba(204, 204, 204, 1)",
               "flexDirection": "row",
-              "marginLeft": 16,
-              "marginRight": 16,
+              "marginLeft": 20,
+              "marginRight": 20,
               "opacity": 1,
-              "paddingBottom": 16,
-              "paddingTop": 16,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
           testID="gh"
@@ -377,11 +377,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "borderRightColor": "rgba(204, 204, 204, 1)",
               "borderTopColor": "rgba(204, 204, 204, 1)",
               "flexDirection": "row",
-              "marginLeft": 16,
-              "marginRight": 16,
+              "marginLeft": 20,
+              "marginRight": 20,
               "opacity": 1,
-              "paddingBottom": 16,
-              "paddingTop": 16,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
           testID="tg_en"
@@ -453,11 +453,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "borderRightColor": "rgba(204, 204, 204, 1)",
               "borderTopColor": "rgba(204, 204, 204, 1)",
               "flexDirection": "row",
-              "marginLeft": 16,
-              "marginRight": 16,
+              "marginLeft": 20,
+              "marginRight": 20,
               "opacity": 1,
-              "paddingBottom": 16,
-              "paddingTop": 16,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
           testID="tg_de"
@@ -531,11 +531,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
               "borderRightColor": "rgba(204, 204, 204, 1)",
               "borderTopColor": "rgba(204, 204, 204, 1)",
               "flexDirection": "row",
-              "marginLeft": 16,
-              "marginRight": 16,
+              "marginLeft": 20,
+              "marginRight": 20,
               "opacity": 1,
-              "paddingBottom": 16,
-              "paddingTop": 16,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
           testID="wechat"

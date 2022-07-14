@@ -109,7 +109,7 @@ function CommunityItemRow ({
       <ThemedTouchableOpacityV2
         onPress={handlePress}
         testID={item.id}
-        style={tailwind('flex-row py-4 mx-4 items-center ', { 'border-b-0.5': !last })}
+        style={tailwind('flex-row py-4.5 mx-5 items-center ', { 'border-b-0.5': !last })}
       >
 
         <ThemedTextV2 style={tailwind('flex-1 font-normal-v2 text-sm mr-4')}>
