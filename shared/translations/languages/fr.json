@@ -1513,7 +1513,7 @@
     "CONTINUE": "SUIVANT",
     "Continue": "Suivant",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "L'ajout de fournisseurs de services malveillants peut entraîner des fonds irrécupérables. Procédez à vos propres risques.",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
     "Adding custom service provider": "Ajouter un fournisseur de service personnalisé.",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "En faisant cela, vous serez renvoyé au point de terminaison par défaut du portefeuille léger. Continuer ?",
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
