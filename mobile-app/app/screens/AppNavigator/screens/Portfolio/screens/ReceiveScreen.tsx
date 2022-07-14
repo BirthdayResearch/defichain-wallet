@@ -4,7 +4,6 @@ import { Share, View, TouchableOpacity } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { useToast } from 'react-native-toast-notifications'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -23,7 +22,6 @@ export async function onShare (address: string, logger: NativeLoggingProps): Pro
 
 export function ReceiveScreen (): JSX.Element {
   const logger = useLogger()
-  const { isLight } = useThemeContext()
   const { address } = useWalletContext()
   const [showToast, setShowToast] = useState(false)
   const toast = useToast()
