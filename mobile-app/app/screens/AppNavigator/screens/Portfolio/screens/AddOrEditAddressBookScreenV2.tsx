@@ -136,7 +136,7 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
       onError: e => logger.error(e),
       title: translate('screens/Settings', 'Add address to address book?\n{{address}}', { address: addressInput }),
       message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'Verifying access')
+      loading: translate('screens/Settings', 'It may take a few seconds to save')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [navigation, dispatch, isEncrypted, addressInput, labelInput])
