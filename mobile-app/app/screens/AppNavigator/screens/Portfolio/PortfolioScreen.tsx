@@ -39,6 +39,7 @@ import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
+import { useDebounce } from '@hooks/useDebounce'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -85,6 +86,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 
   // DFX Staking Balance
   const [staked, setStaked] = useState(0)
+  const [hasFetchedStakingBalance, setHasFetchedStakingBalance] = useState(false)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -124,9 +126,11 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   }, [])
 
   function fetchDfxStakingBalance (): void {
+    setHasFetchedStakingBalance(false)
     void (async () => {
       const userDetail = await getUserDetail()
       setStaked(userDetail?.stakingBalance ?? 0)
+      setHasFetchedStakingBalance(true)
     })()
   }
 
@@ -134,9 +138,12 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     fetchDfxStakingBalance()
   }, [])
 
+  // debounce address change 1s --> 1s because dfxApiContextProvider debounces after 500ms (=> new webToken)
+  const debouncedAddress = useDebounce(address, 1000)
+
   useEffect(() => {
     fetchDfxStakingBalance()
-  }, [address])
+  }, [debouncedAddress])
 
   const fetchPortfolioData = (): void => {
     batch(() => {
@@ -486,6 +493,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           totalLockedValue={totalLockedValue}
           totalLoansValue={totalLoansValue}
           staked={staked}
+          hasFetchedStakingBalance={hasFetchedStakingBalance}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
           portfolioButtonGroupOptions={{

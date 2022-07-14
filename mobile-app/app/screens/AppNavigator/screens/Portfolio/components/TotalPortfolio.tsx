@@ -39,6 +39,7 @@ interface TotalPortfolioProps {
   }>
   denominationCurrency?: string
   staked: number
+  hasFetchedStakingBalance: boolean
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
@@ -177,7 +178,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             <View style={tailwind('mt-2')}>
               <USDValueRow
                 testId='total_staked_usd_amount'
-                isLoading={!hasFetchedToken}
+                isLoading={!props.hasFetchedStakingBalance}
                 label={translate('screens/PortfolioScreen', 'staked @ DFX')}
                 value={stakedValueForSelectedCurrency}
                 isAddition
