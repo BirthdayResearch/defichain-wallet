@@ -3,7 +3,13 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useCallback, useEffect, useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
+} from '@components/themed'
 import { useToast } from 'react-native-toast-notifications'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -158,10 +164,8 @@ function StepTwo (): JSX.Element {
             />
           </ThemedViewV2>
         </View>
-        <View style={tailwind('w-7/12 pl-5')}>
+        <View style={tailwind('pl-5')}>
           <ThemedTextV2
-            numberOfLines={2}
-            selectable
             style={tailwind('font-normal-v2 mb-px text-xs')}
             dark={tailwind('text-mono-dark-v2-500')}
             light={tailwind('text-mono-light-v2-500')}
@@ -171,9 +175,9 @@ function StepTwo (): JSX.Element {
           </ThemedTextV2>
           <TouchableOpacity
             onPress={() => {
-                copyToClipboard()
-                Clipboard.setString(address)
-              }}
+              copyToClipboard()
+              Clipboard.setString(address)
+            }}
             style={tailwind('flex flex-1 flex-row justify-start items-center')}
             testID='copy_button'
           >
@@ -199,7 +203,7 @@ function StepTwo (): JSX.Element {
                 light={tailwind('text-mono-light-v2-700')}
                 style={tailwind('text-xs font-normal-v2 text-center')}
               >
-                {translate('screens/GetDFIScreen', 'SHARE')}
+                {translate('screens/GetDFIScreen', 'Share')}
               </ThemedTextV2>
             </TouchableOpacity>
           </View>
@@ -218,9 +222,9 @@ function DFIOraclePrice (): JSX.Element {
 
   useEffect(() => {
     client.prices.get('DFI', 'USD')
-    .then((value) => {
-      setPrice(value.price.aggregated.amount)
-    }).catch(logger.error)
+      .then((value) => {
+        setPrice(value.price.aggregated.amount)
+      }).catch(logger.error)
   }, [blockCount])
 
   return (
@@ -229,7 +233,10 @@ function DFIOraclePrice (): JSX.Element {
       light={tailwind('border-mono-light-v2-900')}
       style={tailwind('flex flex-row items-center justify-between rounded-lg mt-10 px-5 py-4.5 border-0.5')}
     >
-      <TouchableOpacity onPress={async () => await openURL('https://defiscan.live')} style={tailwind('flex flex-row items-center')}>
+      <TouchableOpacity
+        onPress={async () => await openURL('https://defiscan.live')}
+        style={tailwind('flex flex-row items-center')}
+      >
         <DFITokenIcon width={24} height={24} style={tailwind('mr-2')} />
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-900')}

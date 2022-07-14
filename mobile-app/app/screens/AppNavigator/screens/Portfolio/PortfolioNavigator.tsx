@@ -205,13 +205,12 @@ export function PortfolioNavigator (): JSX.Element {
         component={GetDFIScreen}
         name='GetDFIScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/GetDFIScreen', 'Get DFI')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Get DFI')
         }}
       />
 
@@ -219,13 +218,12 @@ export function PortfolioNavigator (): JSX.Element {
         component={MarketplaceScreen}
         name='MarketplaceScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/MarketplaceScreen', 'Marketplace')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/MarketplaceScreen', 'Marketplace')
         }}
       />
 

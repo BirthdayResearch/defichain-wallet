@@ -398,13 +398,10 @@ exports[`Get DFI page should match snapshot 1`] = `
           style={
             Object {
               "paddingLeft": 20,
-              "width": "58.333333%",
             }
           }
         >
           <Text
-            numberOfLines={2}
-            selectable={true}
             style={
               Array [
                 Object {
@@ -552,7 +549,7 @@ exports[`Get DFI page should match snapshot 1`] = `
                   ]
                 }
               >
-                SHARE
+                Share
               </Text>
             </View>
           </View>
