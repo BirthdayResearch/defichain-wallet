@@ -726,7 +726,7 @@
   },
   "screens/SlippageTolerance": {
     "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de glissement que vous êtes prêt à accepter.",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter.",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
@@ -782,8 +782,8 @@
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?",
-    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais de stabilisation DEX de {{fee}} ?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> DFI) ?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -876,7 +876,7 @@
     "Transaction fees": "Frais de transaction",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Des frais d'un faible montant seront appliqués à chaque transaction. Ce montant peut varier en fonction de l'encombrement du réseau.",
     "What is slippage tolerance?": "Qu'est-ce que la tolérance de glissement ?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le glissement maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le glissement maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/LiquidityMiningFaq": {

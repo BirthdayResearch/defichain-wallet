@@ -48,10 +48,10 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
       announcement = [{
         lang: {
           en: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
-          de: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          de: `Auf DUSD-DFI-Tauschgeschäfte wird derzeit eine DEX-Stabilisierungsgebühr von ${fee}% erhoben. Vorsicht ist geboten!`,
           'zh-Hans': `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
           'zh-Hant': `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
-          fr: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
+          fr: `Il y a actuellement des frais de stabilisation DEX de ${fee}% imposés sur les échanges DUSD-DFI. Procéder avec prudence ! `,
           es: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
           it: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`
         },
@@ -69,10 +69,10 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
       announcement = [{
         lang: {
           en: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
-          de: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          de: `Dein Tausch besteht aus einem zusammengesetzten Pfad (DUSD -> DFI) im Rahmen eines Komposit-Swaps, für den DEX-Stabilisierungsgebühren in Höhe von ${fee}% anfallen.`,
           'zh-Hans': `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
           'zh-Hant': `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
-          fr: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
+          fr: `Votre échange consiste en un chemin composite (DUSD -> DFI) dans le cadre d'un swap composite qui entraînera des frais de stabilisation DEX de ${fee}%. `,
           es: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
           it: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`
         },
