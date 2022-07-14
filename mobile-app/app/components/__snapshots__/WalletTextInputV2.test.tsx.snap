@@ -14,44 +14,37 @@ exports[`wallet text input should render with default keyboard 1`] = `
     ]
   }
 >
-  <View
+  <Text
     style={
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-      }
-    }
-  >
-    <Text
-      style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
         Array [
           Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
+            "fontFamily": "SoraRegular",
+            "fontSize": 12,
             "fontWeight": "400",
-            "lineHeight": 24,
+            "lineHeight": 16,
+            "paddingBottom": 8,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 24,
           },
-          Array [
-            Object {
-              "fontFamily": "SoraRegular",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Object {
-              "color": "rgba(115, 115, 115, 1)",
-            },
-          ],
-        ]
-      }
-      testID="titleTestID"
-      text="foo"
-    >
-      foo
-    </Text>
-  </View>
+          Object {
+            "color": "rgba(115, 115, 115, 1)",
+          },
+        ],
+      ]
+    }
+    testID="titleTestID"
+    text="foo"
+  >
+    foo
+  </Text>
   <View
     style={
       Array [
@@ -82,7 +75,6 @@ exports[`wallet text input should render with default keyboard 1`] = `
         Array [
           Object {
             "alignItems": "center",
-            "backgroundColor": "transparent",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "paddingBottom": 8,
@@ -91,6 +83,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
             "paddingTop": 8,
           },
           false,
+          undefined,
         ]
       }
     >
@@ -125,14 +118,17 @@ exports[`wallet text input should render with default keyboard 1`] = `
   </View>
   <Text
     style={
-      Object {
-        "color": "rgba(229, 69, 69, 1)",
-        "fontFamily": "SoraRegular",
-        "fontSize": 12,
-        "fontWeight": "400",
-        "lineHeight": 16,
-        "marginTop": 8,
-      }
+      Array [
+        Object {
+          "color": "rgba(229, 69, 69, 1)",
+          "fontFamily": "SoraRegular",
+          "fontSize": 12,
+          "fontWeight": "400",
+          "lineHeight": 16,
+          "marginTop": 8,
+        },
+        undefined,
+      ]
     }
     testID="testID_error"
   >
@@ -155,44 +151,37 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
     ]
   }
 >
-  <View
+  <Text
     style={
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-      }
-    }
-  >
-    <Text
-      style={
+      Array [
+        Object {
+          "fontFamily": "RegularFont",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "lineHeight": 24,
+        },
         Array [
           Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
+            "fontFamily": "SoraRegular",
+            "fontSize": 12,
             "fontWeight": "400",
-            "lineHeight": 24,
+            "lineHeight": 16,
+            "paddingBottom": 8,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 24,
           },
-          Array [
-            Object {
-              "fontFamily": "SoraRegular",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Object {
-              "color": "rgba(115, 115, 115, 1)",
-            },
-          ],
-        ]
-      }
-      testID="titleTestID"
-      text="foo"
-    >
-      foo
-    </Text>
-  </View>
+          Object {
+            "color": "rgba(115, 115, 115, 1)",
+          },
+        ],
+      ]
+    }
+    testID="titleTestID"
+    text="foo"
+  >
+    foo
+  </Text>
   <View
     style={
       Array [
@@ -223,7 +212,6 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         Array [
           Object {
             "alignItems": "center",
-            "backgroundColor": "transparent",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "paddingBottom": 8,
@@ -232,6 +220,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
             "paddingTop": 8,
           },
           false,
+          undefined,
         ]
       }
     >
@@ -266,14 +255,17 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
   </View>
   <Text
     style={
-      Object {
-        "color": "rgba(229, 69, 69, 1)",
-        "fontFamily": "SoraRegular",
-        "fontSize": 12,
-        "fontWeight": "400",
-        "lineHeight": 16,
-        "marginTop": 8,
-      }
+      Array [
+        Object {
+          "color": "rgba(229, 69, 69, 1)",
+          "fontFamily": "SoraRegular",
+          "fontSize": 12,
+          "fontWeight": "400",
+          "lineHeight": 16,
+          "marginTop": 8,
+        },
+        undefined,
+      ]
     }
     testID="testID_error"
   >
