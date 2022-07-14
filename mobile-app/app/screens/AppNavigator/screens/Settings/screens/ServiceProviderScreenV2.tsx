@@ -156,7 +156,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
         <>
           <View style={tailwind('mt-2 px-5 mb-6')}>
             <Text style={tailwind('text-orange-v2 font-normal-v2 text-xs')}>
-              {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.')}
+              {translate('screens/ServiceProviderScreen', 'Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.')}
             </Text>
           </View>
           <ResetButtonV2 />

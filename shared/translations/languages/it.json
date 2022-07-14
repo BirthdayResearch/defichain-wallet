@@ -335,7 +335,12 @@
     "GENERAL": "GENERALE",
     "Server": "Server",
     "This will unlink your wallet from the app.": "This will unlink your wallet from the app.",
-    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE"
+    "DISPLAY & LANGUAGE": "DISPLAY & LANGUAGE",
+    "Provide your passcode to\nview recovery words.": "Provide your passcode to\nview recovery words.",
+    "Passcode verified!": "Passcode verified!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -416,7 +421,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RETE",
-    "Select network": "Selezionare la rete"
+    "Select network": "Selezionare la rete",
+    "Network": "Rete"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transazioni",
@@ -638,7 +644,8 @@
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private."
+    "Keep your recovery words safe and private.": "Mantieni le tue parole di recupero al sicuro e private.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Take note of the correct spelling and order. Keep your recovery words confidential and secure."
   },
   "screens/AddLiquidity": {
     "Balance": "Saldo",
@@ -733,8 +740,6 @@
     "CONTINUE": "CONTINUA"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolleranza di slippage",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",
@@ -1151,7 +1156,9 @@
     "Annual vault interest": "Interesse annuo del vault",
     "Min. next bid": "Min. prossima offerta",
     "The minimum bid a user must place in order to take part in the auction.": "Offerta minima che un utente deve fare per partecipare all'asta.",
-    "Settlement block": "Blocco di regolamento"
+    "Settlement block": "Blocco di regolamento",
+    "Slippage tolerance": "Tolleranza di slippage",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1523,7 +1530,8 @@
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Invalid URL": "Invalid URL",
-    "Reset default service provider": "Reset default service provider"
+    "Reset default service provider": "Reset default service provider",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
