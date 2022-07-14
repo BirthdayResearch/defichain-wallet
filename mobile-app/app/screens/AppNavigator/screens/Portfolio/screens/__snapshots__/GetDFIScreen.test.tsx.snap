@@ -216,6 +216,8 @@ exports[`Get DFI page should match snapshot 1`] = `
       style={
         Object {
           "marginTop": 32,
+          "paddingLeft": 20,
+          "paddingRight": 20,
         }
       }
     >
@@ -223,8 +225,6 @@ exports[`Get DFI page should match snapshot 1`] = `
         style={
           Object {
             "paddingBottom": 16,
-            "paddingLeft": 20,
-            "paddingRight": 20,
           }
         }
       >
@@ -282,8 +282,6 @@ exports[`Get DFI page should match snapshot 1`] = `
           Object {
             "display": "flex",
             "flexDirection": "row",
-            "marginLeft": 16,
-            "marginRight": 16,
           }
         }
       >
@@ -291,7 +289,6 @@ exports[`Get DFI page should match snapshot 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "width": "41.666667%",
             }
           }
         >
@@ -397,6 +394,11 @@ exports[`Get DFI page should match snapshot 1`] = `
         <View
           style={
             Object {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "justifyContent": "space-between",
               "paddingLeft": 20,
             }
           }
@@ -441,19 +443,16 @@ exports[`Get DFI page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignItems": "center",
                 "display": "flex",
-                "flexBasis": "0%",
                 "flexDirection": "row",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "justifyContent": "flex-start",
                 "opacity": 1,
+                "width": "100%",
               }
             }
             testID="copy_button"
           >
             <Text
+              ellipsizeMode="middle"
               numberOfLines={3}
               selectable={true}
               style={
@@ -479,7 +478,10 @@ exports[`Get DFI page should match snapshot 1`] = `
               }
               testID="address_text"
             >
-              bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d  
+              <Text>
+                bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
+                 
+              </Text>
               <Text />
             </Text>
           </View>
