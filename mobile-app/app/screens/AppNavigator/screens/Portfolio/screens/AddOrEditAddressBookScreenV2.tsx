@@ -44,12 +44,8 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
   const [walletAddress, setWalletAddress] = useState<string[]>([])
 
   const validateLabelInput = (input: string): boolean => {
-    if (input !== undefined && input.trim().length > 40) {
-      setLabelInputErrorMessage('Address label is too long (max 40 characters)')
-      return false
-    }
-    if (input.trim() === '') {
-      setLabelInputErrorMessage('Please enter an address label')
+    if (input.trim() === '' || (input !== undefined && input.trim().length > 40)) {
+      setLabelInputErrorMessage('Required field. Please enter a label. Maximum of 40 characters.')
       return false
     }
     setLabelInputErrorMessage('')
@@ -315,7 +311,7 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
               dark={tailwind('text-mono-dark-v2-500')}
               style={tailwind('font-normal-v2 mt-2 text-xs text-center')}
             >
-              {translate('screens/ServiceProviderScreen', 'This will delete the whitelisted address from your address book.')}
+              {translate('screens/ServiceProviderScreen', 'This will delete the whitelisted address\nfrom your address book.')}
             </ThemedTextV2>
           </>)
       : <ButtonV2

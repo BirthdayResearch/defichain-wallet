@@ -149,7 +149,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
-          headerTitle: translate('screens/LanguageSelectionScreen', 'Address Book')
+          headerTitle: translate('screens/Settings', 'Address Book')
         }}
       />
 
