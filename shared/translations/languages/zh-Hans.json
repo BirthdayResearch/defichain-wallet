@@ -150,7 +150,9 @@
     "YOUR ADDRESS(ES)": "您的地址",
     "Search results for": "搜索结果",
     "Search with label or address": "使用标签或地址搜索",
-    "FAVOURITE ADDRESS(ES)": "收藏地址"
+    "Search results for “{{input}}”":  "Search results for “{{input}}”",
+    "FAVOURITE ADDRESS(ES)": "收藏地址",
+    "Add your preferred / commonly-used address.": "Add your preferred / commonly-used address."
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址标签",
@@ -181,7 +183,16 @@
     "Edit Address": "编辑地址",
     "Please enter an address label": "请输入地址标签",
     "Please enter a valid address": "请输入有效地址",
-    "Required field, max. 40 characters": "必须填写栏，最多40个字符"
+    "Required field, max. 40 characters": "必须填写栏，最多40个字符",
+    "Address Details": "Address Details",
+    "LABEL": "LABEL",
+    "Delete address": "Delete address",
+    "Save address": "Save address",
+    "Maximum of 40 characters.": "Maximum of 40 characters.",
+    "Required field. Please enter a label. Maximum of 40 characters.": "Required field. Please enter a label. Maximum of 40 characters.",
+    "Are you sure you want to delete the address?": "Are you sure you want to delete the address?",
+    "Add address to address book?\n{{address}}": "Add address to address book?\n{{address}}",
+    "This will delete the whitelisted address\nfrom your address book.": "This will delete the whitelisted address\nfrom your address book."
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -367,10 +378,32 @@
     "Loans": "贷款",
     "Auctions": "清算拍卖",
     "Liquidity Mining": "流动性挖矿",
-    "Liquidity mining": "流动性挖矿"
+    "Liquidity mining": "流动性挖矿",
+    "UTXO and Tokens": "UTXO and Tokens"
+  },
+  "components/UtxoVsTokenFaq": {
+    "About UTXO and Tokens": "About UTXO and Tokens",
+    "What are UTXOs?": "What are UTXOs?",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
+    "What are the use cases for UTXO?": "What are the use cases for UTXO?",
+    "Use cases for UTXO include (but not limited) to the following:": "Use cases for UTXO include (but not limited) to the following:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees",
+    "What are Tokens?": "What are Tokens?",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
+    "What are the use cases for Tokens?": "What are the use cases for Tokens?",
+    "Use cases for Tokens include (but not limited) to the following:": "Use cases for Tokens include (but not limited) to the following:",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquidity pools",
+    "Collateral for Vaults": "Collateral for Vaults",
+    "Auction bidding": "Auction bidding",
+    "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
+    "FREQUENTLY ASKED QUESTIONS": "常见问题"
   },
   "components/LoansFaq": {
     "Loans FAQ": "贷款常见问题",
+    "About Loans": "About Loans",
     "Decentralized Loans": "去中心化贷款",
     "FREQUENTLY ASKED QUESTIONS": "常见问题",
     "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.": "去中心化的贷款功能可让您使用您拥有的加密货币持有量作为抵押品，并贷款去中心化的代币。当您想启动贷款功能，您必须先在链上创建一个金库，并在贷款前存入抵押品。",
@@ -404,6 +437,7 @@
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "拍卖常见问题",
+    "About Auctions": "About Auctions",
     "Auctions": "清算拍卖",
     "FREQUENTLY ASKED QUESTIONS": "常见问题",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "金库拍卖是用户对已清算的金库中的抵押品收回金库未偿还贷款的活动。当金库的抵押品比率低于最低要求时，即进行清算，在此情况下，金库抵押品将分为10,000美元的批次进行拍卖。",
@@ -873,6 +907,7 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "您正要切换至 {{network}}，确认并继续？"
   },
   "components/RecoveryWordFaq": {
+    "About Recovery Words": "About Recovery Words",
     "What happens if I lose my recovery words?": "如果我丢失了恢复字组会怎样？",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "如果遗失恢复字组, 使用者将无法恢复钱包及所储存的资产。建议使用者必须好好保管及存放。",
     "Can I use the 24-words from xxx that I created from xxx?": "如果我的24字组是透过 xxx 产生，可以使用吗 ？",
@@ -883,10 +918,12 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "储存24字组在数字网络会有较高的机会给骇客入侵及盗取。最理想的是用纸张记录和保存。",
     "Recovery words": "恢复字组",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的连续显示24个英文字组是指储存在钱包的private key，它由2048个单字所产生的，支持BIP-39 标准的钱包。就算整个硬体钱包被盗或入侵，仍然可以确保安全的。",
-    "FREQUENTLY ASKED QUESTIONS": "常见问题"
+    "FREQUENTLY ASKED QUESTIONS": "常见问题",
+    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?"
   },
   "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
+    "About DEX": "About DEX",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "去中心化交易所能让使用者运用点对点的方式兑换加密货币。去中心化交易所能让使用者在不透过第三方中心化交易所之下，直接兑换货币。",
     "Transaction fees": "交易费用",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每笔交易需要少量的交易费用。交易费用会根据网络的流量情况产生变化。",
@@ -896,6 +933,7 @@
   },
   "components/LiquidityMiningFaq": {
     "Liquidity Mining": "流动性挖矿",
+    "About Liquidity Mining": "About Liquidity Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "流动性挖矿是DeFi机制技术，可让使用者透过提供流动资金而赚取比例化的区块奖励和交易费用回报，此比例以「流动性池股份」代表。\n\n流动性池中的资金主要是为去中心化交易所提供资金，当池中有资金时其他使用者可随时兑换池中的两个货币。",
     "How do I supply liquidity?": "如何能开始提供流动资金?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "当您想好您想参与的流动池配对后，请点入「新增流动资金」，并输入您想在池中增加的资金额度。\n\n当您对配对池的某一个货币输入金额，程序会自动化平衡另一边货币所需的资金。参与流动池配对必须要在两边以同等的金额比例同时输入。",
@@ -907,10 +945,12 @@
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "由于流动性池的代币是属于流动性池的代币系统，您只能发送池中的DFI到其他交易所。若您想要发送其他代币，请先使用流动池兑换成DFI，在发出至其他交易所使用。",
     "How do I receive tokens on my DFI wallet?": "如何在我的DFI钱包中接收代币？",
     "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "您可以前往接收页面找到您钱包的地址，只要使用这个地址（可转发分享或扫一扫QR码来接收DFI代币。\n\n请注意因为递飞链生态中的功能，所以此钱包只能接收递飞链的DFI或生态中的代币，而无法接收其他区块链的代币（如 BTC、ETH）。",
-    "FREQUENTLY ASKED QUESTIONS": "常见问题"
+    "FREQUENTLY ASKED QUESTIONS": "常见问题",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.": "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity."
   },
   "components/PasscodeFaq": {
     "Passcode": "密码",
+    "About Passcode": "About Passcode",
     "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "您的六位数字密码是由您设置，这密码将用于授权所有交易。请保管好和负责您的密码私密性和安全性。",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "如果我忘记了我的密码会怎么样？有人能帮我找回我的密码吗？",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "除了您本人知道密码之外，没有任何人会知道。因此，没有人能帮您找回您的私人密码。",
@@ -918,7 +958,15 @@
     "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "可以的，你能在程序的设置中更改您的密码。建议您定期更改密码，以确保最高的安全性。",
     "Is passcode the same as phone PIN code?": "App密码和手机PIN码是一样的吗？",
     "Your passcode is valid only for DeFiChain wallet.": "您的App密码只对递飞链DeFiChain轻钱包有效。",
-    "FREQUENTLY ASKED QUESTIONS": "常见问题"
+    "FREQUENTLY ASKED QUESTIONS": "常见问题",
+    "What happens if I forgot my passcode? Can someone help me retrieve my passcode?": "What happens if I forgot my passcode? Can someone help me retrieve my passcode?",
+    "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.",
+    "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.": "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.",
+    "Your passcode is valid only for DeFiChain Light Wallet.": "Your passcode is valid only for DeFiChain Light Wallet.",
+    "Use cases for UTXO include (but not limited) to the following:": "Use cases for UTXO include (but not limited) to the following:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees"
   },
   "components/DFIBalanceCard": {
     "Learn more about DFI": "了解更多关于 DFI",

@@ -380,6 +380,7 @@
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "EN SAVOIR PLUS",
+    "LEARN MORE": "EN SAVOIR PLUS",
     "Recovery words": "Mots de récupération",
     "Passcode": "Code d'accès",
     "UTXO vs Token": "UTXO vs token",
@@ -399,7 +400,7 @@
     "Receiving DFI from other wallets": "Recevoir des DFI d'autres portefeuilles",
     "Transaction fees": "Frais de transaction",
     "What are Tokens?": "Que sont les tokens?",
-    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools,Loans, Auctions and DEX swaps.": "Les DFI sous forme de tokens sont utilisés pour diverses fonctions de DeFiChain telles que pour les pools de liquidité, les prêts, les enchères et les échanges via le DEX.",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "Les DFI sous forme de tokens sont utilisés pour diverses fonctions de DeFiChain telles que pour les pools de liquidité, les prêts, les enchères et les échanges via le DEX.",
     "What are the use cases for Tokens?": "Quels sont les cas d'usage des tokens?",
     "Use cases for Tokens include (but not limited) to the following:": "Les cas d'usage d'UTXO comprennent (mais ne sont pas limités) à ce qui suit:",
     "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Échange de DFI avec d'autres tokens (ex. dBTC, dETH, dUSDT)",

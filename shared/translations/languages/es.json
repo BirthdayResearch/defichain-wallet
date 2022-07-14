@@ -306,6 +306,7 @@
     "Recovery Words": "Palabras de recuperación",
     "Recovery words": "Palabras de recuperación",
     "Are you sure you want to unlink your wallet?": "¿Estás seguro de que quieres desvincular tu billetera?",
+    "Once unlinked, you will need to enter your recovery words to restore your wallet.": "Once unlinked, you will need to enter your recovery words to restore your wallet.",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Tendrás que utilizar tus palabras de recuparación la próxima vez que quieras recuperar tu billetera.",
     "Cancel": "Cancelar",
     "Unlink Wallet": "Desvincular billetera",
@@ -383,16 +384,39 @@
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "APRENDA SOBRE",
+    "LEARN MORE": "APRENDA SOBRE",
     "Recovery words": "Palabras de recuperación",
     "Passcode": "Contraseña",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Préstamos",
     "Auctions": "Subastas",
     "Liquidity Mining": "Minería de Liquidez (pool de liquidez)",
-    "Liquidity mining": "Minería de Liquidez (pool de liquidez)"
+    "Liquidity mining": "Minería de Liquidez (pool de liquidez)",
+    "UTXO and Tokens": "UTXO and Tokens"
+  },
+  "components/UtxoVsTokenFaq": {
+    "About UTXO and Tokens": "About UTXO and Tokens",
+    "What are UTXOs?": "What are UTXOs?",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
+    "What are the use cases for UTXO?": "What are the use cases for UTXO?",
+    "Use cases for UTXO include (but not limited) to the following:": "Use cases for UTXO include (but not limited) to the following:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees",
+    "What are Tokens?": "What are Tokens?",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
+    "What are the use cases for Tokens?": "What are the use cases for Tokens?",
+    "Use cases for Tokens include (but not limited) to the following:": "Use cases for Tokens include (but not limited) to the following:",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquidity pools",
+    "Collateral for Vaults": "Collateral for Vaults",
+    "Auction bidding": "Auction bidding",
+    "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
+    "FREQUENTLY ASKED QUESTIONS": "Preguntas frecuentes"
   },
   "components/LoansFaq": {
     "Loans FAQ": "Preguntas frecuentes sobre Préstamos",
+    "About Loans": "About Loans",
     "Decentralized Loans": "Préstamos descentralizados",
     "FREQUENTLY ASKED QUESTIONS": "Preguntas frecuentes",
     "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collaterals before you can take a loan.": "El préstamo descentralizado te permite pedir prestados tokens descentralizados usando tus activos crypto como colateral. Para empezar, primero debes crear una bóveda y depositar tus tokens como colateral para poder pedir el préstamo.",
@@ -428,6 +452,7 @@
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "Preguntas frecuentes sobre Subastas",
+    "About Auctions": "About Auctions",
     "Auctions": "Subastas",
     "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "La subasta es una actividad en la que los usuarios pujan por el colateral de las bóvedas liquidadas para recuperar los préstamos pendientes de las bóvedas. La liquidación se produce cuando el ratio de colateralización de una bóveda cae por debajo de su requisito mínimo, sobre lo cual el colateral de la bóveda se dividirá en lotes de $10 000 USD para la subasta.",
@@ -904,6 +929,7 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "Estás a punto de cambiar a {{network}}. ¿Quieres continuar?"
   },
   "components/RecoveryWordFaq": {
+    "About Recovery Words": "About Recovery Words",
     "What happens if I lose my recovery words?": "¿Qué pasa si pierdo mis palabras de recuperación?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Cuando pierdes tus palabras de recuperación, no puedes recuperar tu billetera ni los fondos que estaban en ella. Te invitamos a que prestes atención a guardar tus palabras de recuperación escritas en papel en un lugar seguro.",
     "Can I use the 24-words from xxx that I created from xxx?": "¿Puedo usar las 24 palabras de xxx que creé desde xxx?",
@@ -914,10 +940,12 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Guardar las palabras en un entorno digital las hace accesible a hackers. Lo mejor es escribirlas en papel y guardarlas en un lugar seguro y privado.",
     "Recovery words": "Palabras de recuperación",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Tus 24 palabras legibles por humanos son la representación de la clave privada de tu billetera. Son generadas de una lista de 2048 palabras usando el estandar BIP-39. Su función es prevenir cualquier intento de hackeo en tu billetera",
-    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FREQUENTES"
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FREQUENTES",
+    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?"
   },
   "components/DexFaq": {
     "Decentralized Exchange": "Exchange descentralizado",
+    "About DEX": "About DEX",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Las funciones del exchange descentralizado permite a los usuarios de DeFiChain intercambia cryptomonedas de persona a persona. Esta función permite la relación directa entre comprador y vendedor, sin la necesidad de comprar y vender a través de un exchange.",
     "Transaction fees": "Comisión de la transacción",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Cada transacción estará sujeta a unas pequeñas comisiones. La cantidad variará dependiendo de la congestión de la red.",
@@ -927,6 +955,7 @@
   },
   "components/LiquidityMiningFaq": {
     "Liquidity Mining": "Minería de Liquidez",
+    "About Liquidity Mining": "About Liquidity Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "La Minería de Liquidez es un mecanismo de DeFiChain con el cúal los participantes añaden liquidez con sus activos crypto en las los pares del pool, y son recompensados dependiendo del porcentaje de su contribución en la piscina. \n\nLas pares del pool de DeFiChain se constituyen con la aportación de un par de tokens, que son utilizados por el Exchange Descentralizado de DeFiChain.",
     "How do I supply liquidity?": "¿Cómo puedo aportar liquidez?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Despúes de decidir a que piscina vas a aportar liquidez, apreta AÑADIR LIQUIDEZ, y escribe la cantidad de cada uno de los tokens que quieres aportar. \n\nUna vez escribas la cantidad de un token, la app calculará automáticamente la cantidad del otro token para que tengan un valor igual, basado en el ratio de liquidez que tenga la piscina en ese momento.",
@@ -939,10 +968,12 @@
     "How do I receive tokens on my DFI wallet?": "¿Cómo puedo recibir tokens en mi billetera de DFI?",
     "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Tu puedes recibir tus tokens en la billetera compartiendo la dirección que se encuentra en el botón RECIBIR, o haciendo que la persona que envía escanee tu código QR.\n\nDate cuenta de que no serás capaz de recibir tokens nativos (por ejemplo BTC, ETH) directamente en tu billetera.",
     "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES",
-    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Los Tokens en DeFiChain solo se pueden mandar a direcciones de DFI. Esto significa que no debes mandar tu tokens a terceros que no soporten DeFiChain.\n\nEsto tambien aplica a los liquidity tokens, que solo pueden ser mandados a billeteras que soporten DFI."
+    "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Los Tokens en DeFiChain solo se pueden mandar a direcciones de DFI. Esto significa que no debes mandar tu tokens a terceros que no soporten DeFiChain.\n\nEsto tambien aplica a los liquidity tokens, que solo pueden ser mandados a billeteras que soporten DFI.",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.": "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity."
   },
   "components/PasscodeFaq": {
     "Passcode": "Contraseña",
+    "About Passcode": "About Passcode",
     "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Tu contraseña de 6 números, creada por ti, se utilizaría para autorizar todas las transacciones. Mantén tu contraseña privada y segura. Es tu responsabilidad.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "¿Qué pasaría si olvido mi contraseña? ¿Podría alguien ayudarme a recuperar mi contraseña?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Tu contraseña es tu responsabilidad, por lo que nadie debería conocerla. Es importante que mantengas tu contraseña segura y que la cambies de vez en cuando.",
@@ -950,7 +981,15 @@
     "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Sí, tu puedes cambiar tu contraseña desde los ajustes en la aplicación. Recomendamos cambiar la contraseña regularmente para una mayor seguridad.",
     "Is passcode the same as phone PIN code?": "¿Es la contraseña lo mismo que código PIN del teléfono?",
     "Your passcode is valid only for DeFiChain wallet.": "Tu contraseña sólo es válida para la billetera en DeFiChain.",
-    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES",
+    "What happens if I forgot my passcode? Can someone help me retrieve my passcode?": "What happens if I forgot my passcode? Can someone help me retrieve my passcode?",
+    "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.",
+    "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.": "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.",
+    "Your passcode is valid only for DeFiChain Light Wallet.": "Your passcode is valid only for DeFiChain Light Wallet.",
+    "Use cases for UTXO include (but not limited) to the following:": "Use cases for UTXO include (but not limited) to the following:",
+    "Sending DFI to other wallets": "Sending DFI to other wallets",
+    "Receiving DFI from other wallets": "Receiving DFI from other wallets",
+    "Transaction fees": "Transaction fees"
   },
   "components/DFIBalanceCard": {
     "Learn more about UTXO and Token": "Aprende más sobre UTXO y los Tokens",
