@@ -64,13 +64,13 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         style={tailwind('w-full flex-1 flex-col px-5')}
       >
         <ThemedTextV2
-          style={tailwind('text-center font-normal-v2 pt-1.5 px-10', { 'mb-16': props.status !== TransactionStatus.SIGNING && props.status !== TransactionStatus.AUTHORIZED })}
+          style={tailwind('text-center font-normal-v2 pt-1.5 px-10', { 'mb-16 pb-3': props.status === TransactionStatus.PIN })}
         >
           {props.title}
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING &&
           <>
-            <ThemedActivityIndicatorV2 style={tailwind('py-2 my-5')} />
+            <ThemedActivityIndicatorV2 style={[tailwind('py-2 my-5'), { transform: [{ scale: 1.5 }] }]} />
             <PinTextInputV2
               cellCount={props.pinLength}
               onChange={(pin) => {
@@ -78,7 +78,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               }}
               testID='pin_authorize'
               value={props.pin}
-              autofocus={false}
+              autofocus={false} // to hide keyboard input on android
             />
           </>}
         {props.status === TransactionStatus.AUTHORIZED &&
@@ -91,7 +91,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
               }}
               testID='pin_authorize'
               value={props.pin}
-              autofocus={false}
+              autofocus={false} // to hide keyboard input on android
             />
           </>}
         {props.status === TransactionStatus.PIN &&
@@ -102,7 +102,6 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
             }}
             testID='pin_authorize'
             value={props.pin}
-            style={tailwind('mt-3')}
           />}
         <View style={tailwind('text-sm text-center mb-14 mt-4 px-10')}>
           {// show loading and pin success message
@@ -260,7 +259,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
 
 function SuccessIndicator (): JSX.Element {
   return (
-    <View style={tailwind('flex flex-col items-center py-4 mb-1.5')}>
+    <View style={tailwind('flex flex-col items-center py-4.5 mb-0.5')}>
       <ThemedIcon
         size={38}
         name='check-circle'
