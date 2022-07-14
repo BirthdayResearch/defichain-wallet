@@ -107,18 +107,20 @@
     "Asset value": "資產價值"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "獲取 $DFI",
+    "Get DFI": "獲取 DFI",
     "STEP 1": "步驟 1",
-    "Trade/Purchase $DFI": "交易/購買 $DFI",
-    "Available on:": "適用於：",
-    "Show more": "顯示更多",
-    "To learn more about DFI, ": "要了解有關 DFI 的更多信息，",
-    "read here.": "在這裡閱讀。",
+    "Trade/Purchase DFI": "交易/購買 DFI",
+    "Marketplace": "市場",
+    "Learn more about DFI": "了解 更多有關DFI 的信息",
     "STEP 2": "步驟 2",
-    "Receive $DFI in Light Wallet": "在輕錢包中接收 $DFI",
-    "DFI oracle price": "DFI 預言機價格",
-    "Show less": "顯示較少",
-    "Wallet Address": "錢包地址"
+    "Receive DFI in DeFiChain Wallet": "在 DeFiChain 錢包中接收 DFI",
+    "DFI price": "DFI 價格",
+    "WALLET ADDRESS": "錢包地址",
+    "Share": "分享"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "市場",
+    "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "創建錢包",
@@ -267,10 +269,10 @@
   },
   "screens/CommunityScreen": {
     "Community": "社區",
-    "CONNECT WITH THE COMMUNITY": "參與社區",
+    "JOIN THE COMMUNITY": "加入 DeFiChain 社群",
     "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "遞飛鏈DeFiChain是個以社區優先和開源的項目。此項目是完全去中心化的，並沒有提供客服。",
-    "Report an issue on Github": "在Github開啟議題",
-    "Frequently Asked Questions": "常見問題",
+    "Report issue on GitHub": "在 GitHub 上提出問題或報告",
+    "Frequently asked questions": "常見問題",
     "Announcements": "最新公告",
     "Official Website": "官網"
   },
@@ -320,7 +322,12 @@
     "GENERAL": "一般",
     "Server": "伺服器",
     "This will unlink your wallet from the app.": "這將取消您的錢包與應用程式的綁定。",
-    "DISPLAY & LANGUAGE": "顯示和語言"
+    "DISPLAY & LANGUAGE": "顯示和語言",
+    "Provide your passcode to\nview recovery words.": "Provide your passcode to\nview recovery words.",
+    "Passcode verified!": "Passcode verified!",
+    "Provider": "Provider",
+    "Custom": "Custom",
+    "Default": "Default"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -400,7 +407,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
-    "Select network": "切換網絡"
+    "Select network": "切換網絡",
+    "Network": "網絡"
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易紀錄",
@@ -622,7 +630,8 @@
     "Create new passcode for your wallet": "為您的錢包創建新的密碼"
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "保持您的恢復字詞安全和保密。"
+    "Keep your recovery words safe and private.": "保持您的恢復字詞安全和保密。",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Take note of the correct spelling and order. Keep your recovery words confidential and secure."
   },
   "screens/AddLiquidity": {
     "Balance": "總資金",
@@ -718,8 +727,6 @@
     "CONTINUE": "繼續"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "交易滑價",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
     "Required field is missing": "缺少必要填入的字欄",
@@ -775,8 +782,8 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
-    "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?": "Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?",
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -873,7 +880,7 @@
     "Transaction fees": "交易費用",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "每筆交易需要少量的交易費用。交易費用會根據網絡的流量情況產生變化。",
     "What is slippage tolerance?": "什麼是交易滑價?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "由於區塊鏈的動態性質，DEX上的價格隨著每個區塊而變。\n\n這導致了滑價，也就是確認交易前顯示出的價格和最終交易價格之間的差異。\n\n程序中出現的「交易滑價」可自訂您可接受的滑價範圍。\n\n假設交易滑點高於您選擇的交易滑價百分比，那麼交易不會完成，交易金額則退回到您的錢包餘額。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題"
   },
   "components/LiquidityMiningFaq": {
@@ -1135,7 +1142,9 @@
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
     "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "Slippage tolerance": "交易滑價",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1510,7 +1519,8 @@
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "這樣做，您將恢復到手機輕錢包的預設終端點。 你想繼續嗎？",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Invalid URL": "無效的網址",
-    "Reset default service provider": "重置預設 服務供應商"
+    "Reset default service provider": "重置預設 服務供應商",
+    "Provider": "Provider"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",

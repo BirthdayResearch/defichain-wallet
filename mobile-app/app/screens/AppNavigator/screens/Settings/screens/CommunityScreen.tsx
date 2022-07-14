@@ -1,13 +1,12 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import * as React from 'react'
-import { View } from 'react-native'
 import {
   ThemedFlatList,
   ThemedIcon,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
+  ThemedSectionTitleV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -16,29 +15,28 @@ import { openURL } from '@api/linking'
 export function CommunityScreen (): JSX.Element {
   return (
     <ThemedFlatList
-      ItemSeparatorComponent={
-        () => (
-          <ThemedView
-            dark={tailwind('bg-gray-700')}
-            light={tailwind('bg-gray-100')}
-            style={tailwind('h-px')}
-          />
-        )
-      }
       ListHeaderComponent={
-        <ThemedSectionTitle
+        <ThemedSectionTitleV2
           testID='community_title'
-          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY')}
+          text={translate('screens/CommunityScreen', 'JOIN THE COMMUNITY')}
         />
       }
       data={Communities}
-      renderItem={({ item }) => (
+      renderItem={({
+        item,
+        index
+      }) => (
         <CommunityItemRow
           key={item.id}
-          {...item}
+          item={item}
+          first={index === 0}
+          last={index === Communities.length - 1}
         />
       )}
       testID='community_flat_list'
+      light={tailwind('bg-mono-light-v2-100')}
+      dark={tailwind('bg-mono-dark-v2-100')}
+      style={tailwind('px-5')}
     />
   )
 }
@@ -47,87 +45,86 @@ interface CommunityItem {
   id: string
   title: string
   url: string
-  icon: React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  icon: React.ComponentProps<typeof Feather>['name']
 }
 
 const Communities: CommunityItem[] = [
   {
-    id: 'gh',
-    title: 'Report an issue on Github',
-    url: 'https://github.com/DeFiCh/wallet/issues',
-    icon: 'github'
+    id: 'announcements',
+    title: 'Announcements',
+    url: 'https://t.me/defichain_announcements',
+    icon: 'bell'
   },
   {
     id: 'faq',
-    title: 'Frequently Asked Questions',
+    title: 'Frequently asked questions',
     url: 'https://defichain.com/learn/#faq',
     icon: 'help-circle'
+  },
+  {
+    id: 'gh',
+    title: 'Report issue on GitHub',
+    url: 'https://github.com/DeFiCh/wallet/issues',
+    icon: 'flag'
   },
   {
     id: 'tg_en',
     title: 'Telegram (EN)',
     url: 'https://t.me/defiblockchain',
-    icon: 'message'
+    icon: 'message-square'
   },
   {
     id: 'tg_de',
     title: 'Telegram (DE)',
     url: 'https://t.me/defiblockchain_DE',
-    icon: 'message'
-  },
-  {
-    id: 'announcements',
-    title: 'Announcements',
-    url: 'https://t.me/defichain_announcements',
-    icon: 'message'
+    icon: 'message-square'
   },
   {
     id: 'wechat',
     title: 'WeChat',
     url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB',
-    icon: 'wechat'
+    icon: 'message-square'
   }
 ]
 
 function CommunityItemRow ({
-  id,
-  title,
-  url,
-  icon
-}: CommunityItem): JSX.Element {
+  item,
+  first,
+  last
+}: { item: CommunityItem, first: boolean, last: boolean }): JSX.Element {
   const handlePress = async (): Promise<void> => {
-    await openURL(url)
+    await openURL(item.url)
   }
 
   return (
-    <ThemedTouchableOpacity
-      onPress={handlePress}
-      style={tailwind('flex-row p-4 items-center')}
-      testID={id}
+    <ThemedViewV2
+      dark={tailwind('bg-mono-dark-v2-00')}
+      light={tailwind('bg-mono-light-v2-00')}
+      style={tailwind({
+        'rounded-t-lg-v2': first,
+        'rounded-b-lg-v2': last
+      })}
     >
-      <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
-        iconType='MaterialCommunityIcons'
-        light={tailwind('text-primary-500')}
-        name={icon}
-        size={24}
-      />
 
-      <ThemedText style={tailwind('ml-4 font-medium')}>
-        {translate('screens/CommunityScreen', title)}
-      </ThemedText>
-
-      <View
-        style={tailwind('flex flex-grow justify-end items-end')}
+      <ThemedTouchableOpacityV2
+        onPress={handlePress}
+        testID={item.id}
+        style={tailwind('flex-row py-4.5 mx-5 items-center ', { 'border-b-0.5': !last })}
       >
+
+        <ThemedTextV2 style={tailwind('flex-1 font-normal-v2 text-sm mr-4')}>
+          {translate('screens/CommunityScreen', item.title)}
+        </ThemedTextV2>
+
         <ThemedIcon
-          dark={tailwind('text-gray-200')}
-          iconType='MaterialIcons'
-          light={tailwind('text-gray-500')}
-          name='chevron-right'
-          size={24}
+          dark={tailwind('text-mono-dark-v2-700')}
+          iconType='Feather'
+          light={tailwind('text-mono-light-v2-700')}
+          name={item.icon}
+          size={16}
         />
-      </View>
-    </ThemedTouchableOpacity>
+
+      </ThemedTouchableOpacityV2>
+    </ThemedViewV2>
   )
 }

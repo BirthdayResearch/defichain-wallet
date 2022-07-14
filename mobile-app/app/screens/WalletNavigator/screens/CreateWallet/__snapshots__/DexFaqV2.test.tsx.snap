@@ -412,6 +412,8 @@ exports[`DEX FAQ V2 screen should match snapshot 1`] = `
 
 This results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.
 
+Note that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.
+
 The slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.
 
 If the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.
