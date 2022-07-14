@@ -51,7 +51,7 @@ export function KnowledgeBaseScreenV2 ({ navigation }: Props): JSX.Element {
       onPress: () => navigation.navigate('RecoveryWordsFaq')
     },
     {
-      label: 'UTXOs vs. Tokens',
+      label: 'UTXO and Tokens',
       testID: 'utxo_and_token_faq',
       onPress: () => navigation.navigate('TokensVsUtxo')
     }
