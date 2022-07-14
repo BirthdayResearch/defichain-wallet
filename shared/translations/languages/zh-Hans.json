@@ -107,18 +107,20 @@
     "Asset value": "资产价值"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "获取 $DFI",
+    "Get DFI": "获取 DFI",
     "STEP 1": "步骤 1",
-    "Trade/Purchase $DFI": "交易/购买 $DFI",
-    "Available on:": "适用于：",
-    "Show more": "显示更多",
-    "To learn more about DFI, ": "要了解有关 DFI 的更多信息，",
-    "read here.": "在这里阅读。",
+    "Trade/Purchase DFI": "交易/购买 DFI",
+    "Marketplace": "市场",
+    "Learn more about DFI": "了解 更多有关DFI 的信息",
     "STEP 2": "步骤 2",
-    "Receive $DFI in Light Wallet": "在轻钱包中接收 $DFI",
-    "DFI oracle price": "DFI 预言机价格",
-    "Show less": "显示较少",
-    "Wallet Address": "钱包地址"
+    "Receive DFI in DeFiChain Wallet": "在 DeFiChain 钱包中接收 DFI",
+    "DFI price": "DFI 价格",
+    "WALLET ADDRESS": "钱包地址",
+    "Share": "分享"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "市场",
+    "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "创建钱包",
