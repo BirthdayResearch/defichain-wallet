@@ -63,6 +63,8 @@ exports[`language selection screen should render 1`] = `
             "borderBottomRightRadius": 10,
             "borderTopLeftRadius": 10,
             "borderTopRightRadius": 10,
+            "paddingLeft": 20,
+            "paddingRight": 20,
           },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -71,673 +73,796 @@ exports[`language selection screen should render 1`] = `
       }
     >
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_English"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_English"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            English
-          </Text>
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              English
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_German"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_German"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            Deutsch
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option_description"
-          >
-            <Text>
-              (
-              German
-              )
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              Deutsch
             </Text>
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option_description"
+            >
+              <Text>
+                (
+                German
+                )
+              </Text>
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_Simplified Chinese"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_Simplified Chinese"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            简体中文
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option_description"
-          >
-            <Text>
-              (
-              Simplified Chinese
-              )
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              简体中文
             </Text>
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option_description"
+            >
+              <Text>
+                (
+                Simplified Chinese
+                )
+              </Text>
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_Traditional Chinese"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_Traditional Chinese"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            簡體中文
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option_description"
-          >
-            <Text>
-              (
-              Traditional Chinese
-              )
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              簡體中文
             </Text>
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option_description"
+            >
+              <Text>
+                (
+                Traditional Chinese
+                )
+              </Text>
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_French"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_French"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            Français
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option_description"
-          >
-            <Text>
-              (
-              French
-              )
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              Français
             </Text>
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option_description"
+            >
+              <Text>
+                (
+                French
+                )
+              </Text>
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_Spanish"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_Spanish"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            Español
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option_description"
-          >
-            <Text>
-              (
-              Spanish
-              )
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              Español
             </Text>
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option_description"
+            >
+              <Text>
+                (
+                Spanish
+                )
+              </Text>
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0,
+              "borderLeftWidth": 0,
+              "borderRightWidth": 0,
+              "borderTopWidth": 0,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
-        testID="button_language_Italian"
       >
         <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             }
           }
+          testID="button_language_Italian"
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
                     "fontWeight": "400",
-                    "lineHeight": 20,
-                    "paddingRight": 4,
+                    "lineHeight": 24,
                   },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option"
-          >
-            Italiano
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="language_option_description"
-          >
-            <Text>
-              (
-              Italian
-              )
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "paddingRight": 4,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option"
+            >
+              Italiano
             </Text>
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="language_option_description"
+            >
+              <Text>
+                (
+                Italian
+                )
+              </Text>
+            </Text>
+          </View>
+          <Text />
         </View>
-        <Text />
       </View>
     </View>
   </View>
