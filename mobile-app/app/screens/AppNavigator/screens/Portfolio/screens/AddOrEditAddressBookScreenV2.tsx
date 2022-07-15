@@ -229,6 +229,7 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
               <ThemedIcon
                 light={tailwind('text-mono-light-v2-700')}
                 dark={tailwind('text-mono-dark-v2-700')}
+                style={tailwind('ml-2')}
                 iconType='MaterialIcons'
                 name='qr-code'
                 size={20}

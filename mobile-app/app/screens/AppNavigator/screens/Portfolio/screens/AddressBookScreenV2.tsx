@@ -231,7 +231,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                   {item.label}
                 </ThemedTextV2>}
               <ThemedTextV2
-                style={tailwind('font-semibold-v2 text-xs w-10/12 mt-1')}
+                style={tailwind('font-normal-v2 text-xs w-10/12 mt-1')}
                 light={tailwind('text-mono-light-v2-700')}
                 dark={tailwind('text-mono-dark-v2-700')}
                 ellipsizeMode='middle'
