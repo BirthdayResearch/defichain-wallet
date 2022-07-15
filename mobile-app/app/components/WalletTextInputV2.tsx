@@ -3,10 +3,10 @@ import { Platform, StyleProp, Text, TextInputProps, TouchableOpacity, View, View
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import {
   ThemedViewV2,
-  ThemedTextInput,
   ThemedIcon,
   ThemedProps,
-  ThemedSectionTitleV2
+  ThemedSectionTitleV2,
+  ThemedTextInputV2
 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -170,7 +170,7 @@ const TextInputDefault = forwardRef((props: WalletTextInputProps, ref: React.Ref
     ...otherProps
   } = props
   return (
-    <ThemedTextInput
+    <ThemedTextInputV2
       keyboardType={inputType}
       ref={ref}
       {...otherProps}
@@ -208,7 +208,7 @@ const TextInputIOS = forwardRef((props: WalletTextInputProps, ref: React.Ref<any
   )
 
   return (
-    <ThemedTextInput
+    <ThemedTextInputV2
       keyboardType={inputType}
       ref={ref}
       onBlur={handleOnBlur}

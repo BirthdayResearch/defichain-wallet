@@ -22,6 +22,7 @@ import { ButtonV2 } from '@components/ButtonV2'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useToast } from 'react-native-toast-notifications'
 import { debounce } from 'lodash'
+import * as Clipboard from 'expo-clipboard'
 
 type Props = StackScreenProps<SettingsParamList, 'AddOrEditAddressBookScreen'>
 
@@ -369,7 +370,10 @@ function CopyAddressComponent (props: { address: string }): JSX.Element {
           style={tailwind('flex flex-row items-center py-4.5 px-5 justify-between')}
         >
           <TouchableOpacity
-            onPress={copyToClipboard}
+            onPress={async () => {
+              copyToClipboard()
+              await Clipboard.setStringAsync(props.address)
+            }}
             style={tailwind('w-10/12')}
           >
             <ThemedTextV2

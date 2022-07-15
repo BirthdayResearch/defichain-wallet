@@ -20,7 +20,6 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import LightEmptyAddress from '@assets/images/empty-address-light.png'
 import DarkEmptyAddress from '@assets/images/empty-address-dark.png'
 import { ButtonV2 } from '@components/ButtonV2'
-import { ThemedFlatListV2 } from '@components/themed/ThemedFlatListV2'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { ButtonGroupV2 } from '../../Dex/components/ButtonGroupV2'
 import { SearchInputV2 } from '@components/SearchInputV2'
@@ -184,6 +183,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               )
             : (
               <TouchableOpacity
+                activeOpacity={0.7}
                 style={tailwind('mr-4')}
                 onPress={async () => await onFavouriteAddress(item)}
                 testID={`address_row_favourite_${index}_${testIDSuffix}`}
@@ -200,6 +200,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               </TouchableOpacity>
             )}
           <TouchableOpacity
+            activeOpacity={0.7}
             onPress={async () => {
               if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
                 setSearchString('')
@@ -289,7 +290,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
         </View>
       </ThemedViewV2>
       <ScrollView
-        contentContainerStyle={tailwind('pb-16')}
+        contentContainerStyle={tailwind('pb-8')}
         style={tailwind('px-5 h-full')}
       >
         <View
@@ -300,7 +301,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               value={searchString}
               containerStyle={[
                 tailwind('border-0.5'),
-                tailwind(isSearchFocus ? `${(isLight ? 'border-mono-light-v2-800' : 'border-mono-dark-v2-800')}` : 'border-transparent')
+                tailwind(isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight })
               ]}
               placeholder={translate('screens/AddressBookScreen', 'Search address book')}
               showClearButton={searchString !== ''}
@@ -389,16 +390,14 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               />
             )}
             {(!isSearchFocus || (isSearchFocus && searchString.trim().length > 0)) &&
-              <ThemedFlatListV2
-                keyExtractor={(item) => item.address}
-                stickyHeaderIndices={[0]}
-                data={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress}
-                renderItem={({ item, index }) => AddressListItem({
-                  item,
-                  index,
-                  testIDSuffix: `${activeButtonGroup}`
-                })}
-              />}
+              (activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress).map((item: LocalAddress, index: number) => (
+                <AddressListItem
+                  item={item}
+                  key={item.address}
+                  index={index}
+                  testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'address_book' : 'wallet_address'}
+                />)
+              )}
           </>
         )}
       </ScrollView>
