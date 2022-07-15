@@ -76,7 +76,6 @@ const exchanges: ExchangeProps[] = [
     image: CakeDeFi,
     url: 'https://cakedefi.com/'
   }
-
 ]
 
 export function MarketplaceScreen (): JSX.Element {
