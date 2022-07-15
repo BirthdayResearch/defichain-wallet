@@ -192,7 +192,14 @@
     "Required field. Please enter a label. Maximum of 40 characters.": "Required field. Please enter a label. Maximum of 40 characters.",
     "Are you sure you want to delete the address?": "Are you sure you want to delete the address?",
     "Add address to address book?\n{{address}}": "Add address to address book?\n{{address}}",
-    "This will delete the whitelisted address\nfrom your address book.": "This will delete the whitelisted address\nfrom your address book."
+    "This will delete the whitelisted address\nfrom your address book.": "This will delete the whitelisted address\nfrom your address book.",
+    "Update address label for\n{{address}}": "Update address label for\n{{address}}",
+    "Address saved!": "Address saved!",
+    "Address label updated!": "Address label updated!",
+    "Address deleted!": "Address deleted!",
+    "It may take a few seconds to delete": "It may take a few seconds to delete",
+    "It may take a few seconds to update": "It may take a few seconds to update",
+    "It may take a few seconds to save": "It may take a few seconds to save"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -635,7 +642,8 @@
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍處於Beta測試版 階段，使用它可能有些風險。您是否想繼續？",
     "Beta Features": "測試版功能",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "輕錢包 beta 功能處於用戶驗收測試階段。 鼓勵大家使用 beta 功能，但在使用資產時建議審慎。",
-    "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。"
+    "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。",
+    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url"
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
@@ -761,6 +769,8 @@
     "Last synced": "上次同步",
     "Block height": "區塊高度",
     "Total Masternodes": "總主節點",
+    "Total masternodes": "總主節點",
+    "DETAILS": "明細",
     "YOU ARE CURRENTLY CONNECTED TO": "現在您已連接到",
     "NETWORK DETAILS": "網絡資料",
     "Network selection is currently unavailable due to ongoing transaction(s).": "由於目前正在進行的交易，網絡選擇不可使用。"
@@ -920,7 +930,8 @@
     "Recovery words": "恢復字組",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的連續顯示24個英文字組是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題",
-    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?"
+    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?",
+    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged."
   },
   "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
