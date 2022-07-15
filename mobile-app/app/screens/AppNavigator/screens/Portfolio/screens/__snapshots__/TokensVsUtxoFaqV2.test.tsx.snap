@@ -1063,6 +1063,33 @@ exports[`Tokens vs Utxo FAQ V2 screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
+                              "fontFamily": "SoraBold",
+                              "fontSize": 14,
+                              "fontWeight": "700",
+                              "lineHeight": 20,
+                              "textAlign": "center",
+                              "width": "8.333333%",
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      •
+                    </Text>
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
@@ -1089,6 +1116,33 @@ exports[`Tokens vs Utxo FAQ V2 screen should match snapshot 1`] = `
                       }
                     }
                   >
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "fontFamily": "SoraBold",
+                              "fontSize": 14,
+                              "fontWeight": "700",
+                              "lineHeight": 20,
+                              "textAlign": "center",
+                              "width": "8.333333%",
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      •
+                    </Text>
                     <Text
                       style={
                         Array [

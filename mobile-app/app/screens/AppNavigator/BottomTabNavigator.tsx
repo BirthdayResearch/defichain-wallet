@@ -39,7 +39,7 @@ export function BottomTabNavigator (): JSX.Element {
         screenOptions={{
           headerShown: false,
           tabBarLabelPosition: 'below-icon',
-          tabBarStyle: tailwind('px-5 py-2 h-16', { 'bg-mono-light-v2-00 border-mono-light-v2-100': isLight }, { 'bg-mono-dark-v2-00 border-mono-dark-v2-100': !isLight }, { 'pt-1 pb-4 h-24': Platform.OS === 'ios' }),
+          tabBarStyle: tailwind('px-5 py-2 h-16 border-t', { 'bg-mono-light-v2-00 border-mono-light-v2-100': isLight }, { 'bg-mono-dark-v2-00 border-mono-dark-v2-100': !isLight }, { 'pt-1 pb-4 h-24': Platform.OS === 'ios' }),
           tabBarActiveTintColor: getColor('brand-v2-500'),
           tabBarInactiveTintColor: isLight ? getColor('mono-light-v2-900') : getColor('mono-dark-v2-1000'),
           tabBarItemStyle: tailwind({ 'pb-4 pt-2': Platform.OS === 'ios' })
