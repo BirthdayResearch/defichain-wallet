@@ -141,14 +141,18 @@
     "SAVED ADDRESS(ES)": "GESPEICHERTE ADRESSE(N)",
     "Search for address": "Adresse suchen",
     "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(N)",
+    "ADDRESS(ES)": "ADRESSE(N)",
     "Search address book": "Adressbuch durchsuchen",
     "Whitelisted": "Whitelist",
     "Your address(es)": "Deine Adresse(n)",
+    "Your address": "Deine adresse",
     "WHITELISTED": "WHITELIST",
     "YOUR ADDRESS(ES)": "DEINE(N)",
     "Search results for": "Suchergebnisse für",
     "Search with label or address": "Suche nach Bezeichnung oder Adresse",
-    "FAVOURITE ADDRESS(ES)": "Favoriten"
+    "Search results for “{{input}}”": "Suchergebnisse für “{{input}}”",
+    "FAVOURITE ADDRESS(ES)": "Favoriten",
+    "Add your preferred / commonly-used address.": "Füge deine bevorzugte / häufig genutzte Adresse hinzu."
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -165,9 +169,12 @@
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Neue Adresse hinzufügen",
     "Add New Address": "Neue Adresse hinzufügen",
+    "Add Address": "Adresse Hinzufügen",
     "Address": "Adresse",
+    "ADDRESS": "ADRESSE",
     "Wallet address": "Walletadresse",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
+    "Save changes": "Änderungen sichern",
     "CONTINUE": "WEITER",
     "Address label is too long (max 40 characters)": "Adressbezeichnung zu lang (max. 40 Zeichen)",
     "Enter address label": "Adressbezeichnung eingeben",
@@ -176,7 +183,16 @@
     "Edit Address": "Adresse bearbeiten",
     "Please enter an address label": "Gib bitte eine Adressbezeichnung ein",
     "Please enter a valid address": "Gib bitte eine gültige Adresse ein",
-    "Required field, max. 40 characters": "Erforderliches Feld, max. 40 Zeichen"
+    "Required field, max. 40 characters": "Erforderliches Feld, max. 40 Zeichen",
+    "Address Details": "Adressdetails",
+    "LABEL": "BEZEICHNUNG",
+    "Delete address": "Adresse löschen",
+    "Save address": "Adresse speichern",
+    "Maximum of 40 characters.": "Maximal 40 Zeichen",
+    "Required field. Please enter a label. Maximum of 40 characters.": "Erforderliches Feld. Bitte gib eine Bezeichnung ein. Maximal 40 Zeichen.",
+    "Are you sure you want to delete the address?": "Bist du sicher, dass du die Adresse löschen willst?",
+    "Add address to address book?\n{{address}}": "Adresse zum Adressbuch hinzufügen?\n{{address}}",
+    "This will delete the whitelisted address\nfrom your address book.": "Dadurch wird die auf der Whitelist stehende Adresse\naus deinem Adressbuch gelöscht."
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -280,6 +296,7 @@
     "Recovery Words": "Wiederherstellungssatz",
     "Recovery words": "Wiederherstellungssatz",
     "Are you sure you want to unlink your wallet?": "Möchtest du wirklich deine Wallet abmelden?",
+    "Once unlinked, you will need to enter your recovery words to restore your wallet.": "Sobald die Verknüpfung aufgehoben ist, musst du deinen Wiederherstellungssatz eingeben, um deine Wallet wiederherzustellen.",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Wenn du das nächste Mal deine Wallet aufrufen möchtest, musst du deinen Wiederherstellungssatz eingeben.",
     "Cancel": "Abbrechen",
     "Unlink Wallet": "Wallet abmelden",
@@ -353,16 +370,39 @@
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "LERNE ETWAS ÜBER",
+    "LEARN MORE": "LERNE ETWAS ÜBER",
     "Recovery words": "Wiederherstellungssatz",
     "Passcode": "Passwort",
     "UTXO vs Token": "UTXO vs Token",
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
     "Liquidity Mining": "Liquiditäts-Mining",
-    "Liquidity mining": "Liquiditäts-mining"
+    "Liquidity mining": "Liquiditäts-mining",
+    "UTXO and Tokens": "UTXO und Token"
+  },
+  "components/UtxoVsTokenFaq": {
+    "About UTXO And Tokens": "UTXO und Token",
+    "What are UTXOs?": "Was sind UTXO?",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO-Form ist die primäre Form von DFI. Sie wird für die wichtigsten Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet.",
+    "What are the use cases for UTXO?": "Was sind die Anwendungsbereiche für UTXO?",
+    "Use cases for UTXO include (but not limited) to the following:": "UTXO wird u. a. für folgende Zwecke eingesetzt:",
+    "Sending DFI to other wallets": "Senden von DFI an andere Wallets",
+    "Receiving DFI from other wallets": "Empfangen von DFI von anderen Wallets",
+    "Transaction fees": "Transaktionsgebühren",
+    "What are Tokens?": "Was sind Token?",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI in Token-Form werden für verschiedene DeFiChain-Funktionen wie Liquiditätspools, Darlehen, Auktionen und DEX-Tauschgeschäfte verwendet.",
+    "What are the use cases for Tokens?": "Was sind die Anwendungsbereiche für Token?",
+    "Use cases for Tokens include (but not limited) to the following:": "Token können u.a. für folgende Zwecke eingesetzt werden:",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Tausch von DFI gegen andere Token (z. B. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Liquiditätspools",
+    "Collateral for Vaults": "Sicherheiten für Vaults",
+    "Auction bidding": "Bieten bei Auktionen",
+    "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen ineinander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Lightwallet zu erfüllen.",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ Darlehen",
+    "About Loans": "Darlehen",
     "Decentralized Loans": "Dezentrale Darlehen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
     "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.": "Mit der dezentralen Darlehensfunktion kannst du dezentrale Token ausleihen, indem du deine Kryptowährungsbestände als Sicherheiten verwendest. Zunächst musst du einen Vault anlegen und Sicherheiten hinterlegen, bevor du ein Darlehen aufnehmen kannst.",
@@ -397,6 +437,7 @@
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ Auktionen",
     "Auctions": "Auktionen",
+    "About Auctions": "Auktionen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen zu begleichen. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Tranchen von 10.000 USD aufgeteilt.",
     "How is the minimum starting bid determined?": "Wie wird das Mindeststartgebot festgelegt?",
@@ -862,6 +903,7 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "Du wechselst zu {{network}}. Möchtest du fortfahren?"
   },
   "components/RecoveryWordFaq": {
+    "About Recovery Words": "Wiederherstellungssatz",
     "What happens if I lose my recovery words?": "Was passiert, wenn ich meinen Wiederherstellungssatz verliere?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Wenn du deinen Wiederherstellungssatz verlierst, kannst du deine Wallet und alle darin enthaltenen Guthaben nicht mehr wiederherstellen. Wir empfehlen dir, verantwortungsvoll mit deinem Wiederherstellungssatz umzugehen.",
     "Can I use the 24-words from xxx that I created from xxx?": "Kann ich die 24 Wörter aus xxx verwenden, die ich mit xxx erstellt habe?",
@@ -872,10 +914,12 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Die Speicherung in digitalen Netzen könnte sie für Hacker zugänglich machen. Am besten ist es, sie auf Papier zu schreiben und sie sicher und vor Einblicken geschützt aufzubewahren.",
     "Recovery words": "Wiederherstellungssatz",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Deine einzigartigen 24 Wiederherstellungswörter, die aus einer Liste von 2048 Wörtern im BIP-39-Standard generiert werden, sind eine für Menschen lesbare Darstellung deines privaten Schlüssels. Sie verhindern jegliche Versuche, die Sicherheit deiner Wallet zu knacken, z. B. durch Brute-Force-Attacken.",
-    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "Can I use the 24-word from xxx that I created from xxx?": "Kann ich die 24 Wörter aus xxx verwenden, die ich mit xxx erstellt habe?"
   },
   "components/DexFaq": {
     "Decentralized Exchange": "Dezentrale Börse",
+    "About DEX": "DEX",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "Die Funktionsweise der dezentralen Börse ermöglicht es den Nutzern von DeFiChain, Kryptowährungen in einem Peer-to-Peer-Verfahren zu tauschen. Diese dezentralisierte Tauschfunktion bringt Menschen für den direkten Handel zusammen, ohne die Notwendigkeit des sonst börsenüblichen Verkaufs und Kaufs von z. B. Währungen.",
     "Transaction fees": "Transaktionsgebühren",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Für jede Transaktion wird ein kleiner Betrag an Gebühren erhoben. Der Betrag kann je nach Auslastung des Netzes variieren.",
@@ -885,6 +929,7 @@
   },
   "components/LiquidityMiningFaq": {
     "Liquidity Mining": "Liquiditäts-Mining",
+    "About Liquidity Mining": "Liquiditäts-Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden.\n\nDie Liquiditätspools der DeFiChain bestehen aus Liquidität in Token-Paaren, die von der DeFiChain DEX (Dezentrale Börse) verwendet werden.",
     "How do I supply liquidity?": "Wie kann ich Liquidität bereitstellen?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Nachdem du dich entschieden hast, welches Pool-Paar du mit Liquidität versorgen möchtest, klickst du auf LIQUIDITÄT HINZUFÜGEN und gibst den Betrag für einen der Token in dem Paar ein.\n\nSobald ein Betrag auf einer Seite des Paares eingegeben wurde, gleicht die App den Betrag der anderen Seite automatisch entsprechend dem Verhältnis der aktuellen Liquidität im Pool aus.",
@@ -896,10 +941,12 @@
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
     "How do I receive tokens on my DFI wallet?": "Wie erhalte ich Token auf meiner DFI-Wallet?",
     "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Du kannst DFI Token auf deiner Wallet empfangen, indem du deine Adresse, die dir die Ansicht „Empfangen\" anzeigt, teilst oder indem du den Absender dazu bringst, den QR-Code zu scannen.\n\nBeachte, dass du keine nativen Token (z. B. BTC, ETH) direkt auf deiner Wallet empfangen kannst.",
-    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.": "Liquiditäts-Mining ist ein DeFi-Mechanismus, bei dem die Teilnehmer/innen Kryptowährungen in Liquiditätspools einbringen und im Gegenzug mit Gebühren und Token auf der Grundlage ihres Anteils an der gesamten Pool-Liquidität belohnt werden."
   },
   "components/PasscodeFaq": {
     "Passcode": "Passwort",
+    "About Passcode": "Passwort",
     "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Dein sechsstelliger numerischer Code, den du selbst festlegst, wird zur Autorisierung aller Transaktionen verwendet. Bewahre dein Passwort vor Einblicken und Zugriff geschützt und sicher auf. Du bist selbst für deine Sicherheit verantwortlich.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Was passiert, wenn ich mein Passwort vergessen habe? Kann mir jemand helfen, mein Passwort wiederherzustellen?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Du bist für dein Passwort verantwortlich, daher kennt es niemand außer dir. Es ist wichtig, dass du dein Passwort sicher aufbewahrst und es von Zeit zu Zeit änderst.",
@@ -907,7 +954,15 @@
     "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Ja, du kannst dein Passwort in den Einstellungen in der App ändern. Wir empfehlen, das Passwort regelmäßig zu ändern, um maximale Sicherheit zu gewährleisten.",
     "Is passcode the same as phone PIN code?": "Ist das Passwort dasselbe wie der Telefon-PIN-Code?",
     "Your passcode is valid only for DeFiChain wallet.": "Dein Passwort ist nur für die DeFiChain-Wallet gültig.",
-    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN"
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "What happens if I forgot my passcode? Can someone help me retrieve my passcode?": "Was passiert, wenn ich mein Passwort vergessen habe? Kann mir jemand helfen, mein Passwort wiederherzustellen?",
+    "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Du bist für dein Passwort verantwortlich. Niemand, außer dir, kennt es. Es ist wichtig, dass du dein Passwort sicher aufbewahrst und es von Zeit zu Zeit änderst.",
+    "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.": "Ja, du kannst dein Passwort in den Einstellungen in der App ändern. Wir empfehlen, dein Passwort regelmäßig zu ändern, um maximale Sicherheit zu gewährleisten.",
+    "Your passcode is valid only for DeFiChain Light Wallet.": "Dein Passwort ist nur für die DeFiChain-Lightwallet gültig.",
+    "Use cases for UTXO include (but not limited) to the following:": "UTXO kann unter anderem für folgende Zwecke eingesetzt werden:",
+    "Sending DFI to other wallets": "Senden von DFI an andere",
+    "Receiving DFI from other wallets": "Wallets Empfangen von DFI von anderen",
+    "Transaction fees": "Wallets Transaktionsgebühren"
   },
   "components/DFIBalanceCard": {
     "Learn more about DFI": "Erfahre mehr über DFI",
@@ -1513,7 +1568,9 @@
     "Enter passcode to continue": "Passwort eingeben, um fortzufahren",
     "Invalid URL": "Ungültige URL",
     "Reset default service provider": "Standarddienstanbieter zurücksetzen",
-    "Provider": "Anbieter"
+    "Provider": "Anbieter",
+    "Reset provider": "Anbieter zurücksetzen",
+    "This will reset the service provider to the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt."
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",

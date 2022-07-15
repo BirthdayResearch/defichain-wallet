@@ -93,9 +93,9 @@ export function ReceiveScreen (): JSX.Element {
       </View>
 
       <TouchableOpacity
-        onPress={() => {
+        onPress={async () => {
           copyToClipboard()
-          Clipboard.setString(address)
+          await Clipboard.setStringAsync(address)
         }}
         testID='copy_button'
       >
