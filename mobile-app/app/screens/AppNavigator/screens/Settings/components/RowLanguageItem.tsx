@@ -41,7 +41,7 @@ export function RowLanguageItem ({ languageItem, isLast }: { languageItem: AppLa
   }
   return (
     <ThemedViewV2
-      style={tailwind('border-b-0.5', { 'border-0': isLast })}
+      style={tailwind({ 'border-b-0.5': !isLast })}
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
     >
@@ -57,8 +57,6 @@ export function RowLanguageItem ({ languageItem, isLast }: { languageItem: AppLa
           {!language.startsWith(languageItem.locale) &&
             <ThemedTextV2
               testID='language_option_description'
-              dark={tailwind('text-mono-dark-v2-900')}
-              light={tailwind('text-mono-light-v2-900')}
               style={tailwind('font-normal-v2 text-sm')}
             >
               <Text>
