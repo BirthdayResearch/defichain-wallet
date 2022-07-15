@@ -195,7 +195,14 @@
     "Required field. Please enter a label. Maximum of 40 characters.": "Champ obligatoire. Veuillez donner un nom. Maximum de 40 caractères.",
     "Are you sure you want to delete the address?": "Êtes-vous sûr de vouloir supprimer l'adresse ?",
     "Add address to address book?\n{{address}}": "Ajouter l'adresse au carnet d'adresses ?\n{{address}}",
-    "This will delete the whitelisted address\nfrom your address book.": "Cela supprimera l'adresse de la liste blanche\nde votre carnet d'adresses."
+    "This will delete the whitelisted address\nfrom your address book.": "Cela supprimera l'adresse de la liste blanche\nde votre carnet d'adresses.",
+    "Update address label for\n{{address}}": "Mettre à jour le nom d'adresse\n{{address}}",
+    "Address saved!": "Adresse enregistrée !",
+    "Address label updated!": "Nom d'adresse mis à jour !",
+    "Address deleted!": "Adresse supprimée !",
+    "It may take a few seconds to delete": "La suppression peut prendre quelques secondes",
+    "It may take a few seconds to update": "La mise à jour peut prendre quelques secondes",
+    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -927,7 +934,8 @@
     "Recovery words": "Mots de récupération",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Vos 24 mots de récupération uniques sont une représentation lisible par l'homme de la clé privée de votre portefeuille, générée à partir d'une liste de 2048 mots de la norme BIP-39. Cela empêche toute tentative de piratage par force brute de la sécurité de votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
-    "Can I use the 24-word from xxx that I created from xxx?": "Puis-je utiliser les 24 mots de xxx que j'ai créés avec xxx ?"
+    "Can I use the 24-word from xxx that I created from xxx?": "Puis-je utiliser les 24 mots de xxx que j'ai créés avec xxx ?",
+    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "Vous ne pouvez réutiliser les 24 mots que s'ils sont créés à partir de l'écosystème Jellyfish.\n\nLes clients compatibles sont DeFiChain Wallet (Android/iOS) et DFX.SWISS (Android/iOS).\n\nCependant, il est fortement déconseillé de les réutiliser. Vos 24 mots ne sont aussi sûrs que l'ordinateur/appareil/application source qui les génère. Si votre source est exposée à un risque, vos 24 mots le sont aussi. En fait, il est recommandé d'utiliser un seul ensemble de 24 mots par dispositif, ordinateur ou application."
   },
   "components/DexFaq": {
     "About DEX": "DEX",
@@ -969,7 +977,7 @@
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
     "What happens if I forgot my passcode? Can someone help me retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code d'accès ? Quelqu'un peut-il m'aider à retrouver mon code d'accès?",
     "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code d'accès est sous votre responsabilité. Personne, à part vous, ne le connaît. Il est important que vous gardiez votre code d'accès en sécurité et que vous le changiez de temps en temps.",
-    "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.": "Oui, vous pouvez modifier votre code d'accès à partir de vos paramètres dans l'appli. Nous vous recommandons de changer votre code d'accès régulièrement pour une sécurité maximale.",
+    "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.": "Oui, vous pouvez modifier votre code d'accès à partir de vos paramètres dans l'application. Nous vous recommandons de changer votre code d'accès régulièrement pour une sécurité maximale.",
     "Your passcode is valid only for DeFiChain Light Wallet.": "Votre code d'accès n'est valable que pour le portefeuille léger DeFiChain.",
     "Use cases for UTXO include (but not limited) to the following:": "Les cas d'usage d'UTXO comprennent (mais ne sont pas limités) à ce qui suit :",
     "Sending DFI to other wallets": "Envoi de DFI à d'autres portefeuilles",

@@ -201,7 +201,14 @@
     "Required field. Please enter a label. Maximum of 40 characters.": "Campo obligatorio. Por favor introduce una etiqueta. Máximo de 40 caracteres.",
     "Are you sure you want to delete the address?": "Estás seguro de que quieres borrar la dirección?",
     "Add address to address book?\n{{address}}": "Añadir dirección al registro de direcciones\n{{address}}",
-    "This will delete the whitelisted address\nfrom your address book.": "Esta acción borrará la dirección incluida en la lista blanca\n del registro de direcciones."
+    "This will delete the whitelisted address\nfrom your address book.": "Esta acción borrará la dirección incluida en la lista blanca\n del registro de direcciones.",
+    "Update address label for\n{{address}}": "Update address label for\n{{address}}",
+    "Address saved!": "Address saved!",
+    "Address label updated!": "Address label updated!",
+    "Address deleted!": "Address deleted!",
+    "It may take a few seconds to delete": "It may take a few seconds to delete",
+    "It may take a few seconds to update": "It may take a few seconds to update",
+    "It may take a few seconds to save": "It may take a few seconds to save"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",
@@ -941,7 +948,8 @@
     "Recovery words": "Palabras de recuperación",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Tus 24 palabras legibles por humanos son la representación de la clave privada de tu billetera. Son generadas de una lista de 2048 palabras usando el estandar BIP-39. Su función es prevenir cualquier intento de hackeo en tu billetera",
     "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FREQUENTES",
-    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?"
+    "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?",
+    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged."
   },
   "components/DexFaq": {
     "Decentralized Exchange": "Exchange descentralizado",

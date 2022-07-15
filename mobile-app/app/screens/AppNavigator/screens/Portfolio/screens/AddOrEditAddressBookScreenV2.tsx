@@ -137,8 +137,8 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
       onError: e => logger.error(e),
       title: translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Add address to address book?\n{{address}}' : 'Update address label for\n{{address}}', { address: addressInput }),
       message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', isAddNew ? 'It may take a few seconds to save' : 'It may take a few seconds to update'),
-      successMessage: translate('screens/Settings', isAddNew ? 'Address saved!' : 'Address label updated!')
+      loading: translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'It may take a few seconds to save' : 'It may take a few seconds to update'),
+      successMessage: translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Address saved!' : 'Address label updated!')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [navigation, dispatch, isEncrypted, addressInput, labelInput])
@@ -156,8 +156,8 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
       onError: e => logger.error(e),
       title: translate('screens/AddOrEditAddressBookScreen', 'Are you sure you want to delete the address?'),
       message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'It may take a few seconds to delete'),
-      successMessage: translate('screens/Settings', 'Address deleted!')
+      loading: translate('screens/AddOrEditAddressBookScreen', 'It may take a few seconds to delete'),
+      successMessage: translate('screens/AddOrEditAddressBookScreen', 'Address deleted!')
     }
     dispatch(authentication.actions.prompt(auth))
   }, [navigation, dispatch, isEncrypted])
