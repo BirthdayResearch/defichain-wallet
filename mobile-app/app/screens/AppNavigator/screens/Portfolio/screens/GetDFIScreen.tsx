@@ -172,9 +172,9 @@ function StepTwo (): JSX.Element {
             {translate('screens/GetDFIScreen', 'WALLET ADDRESS')}
           </ThemedTextV2>
           <TouchableOpacity
-            onPress={() => {
+            onPress={async () => {
               copyToClipboard()
-              Clipboard.setString(address)
+              await Clipboard.setStringAsync(address)
             }}
             style={tailwind('w-full flex flex-row')}
             testID='copy_button'

@@ -304,7 +304,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
           mask="mask__bauhaus"
         >
           <RNSVGRect
-            fill={4294300999}
+            fill={4294945863}
             height={80}
             propList={
               Array [
@@ -316,7 +316,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
             y={0}
           />
           <RNSVGRect
-            fill={4278788109}
+            fill={4278234397}
             height={10}
             matrix={
               Array [
@@ -340,7 +340,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
           <RNSVGCircle
             cx={40}
             cy={40}
-            fill={4281312875}
+            fill={4279316113}
             matrix={
               Array [
                 1,
@@ -375,7 +375,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
                 "strokeWidth",
               ]
             }
-            stroke={4293813177}
+            stroke={4294901900}
             strokeWidth={2}
             x1={0}
             x2={80}
