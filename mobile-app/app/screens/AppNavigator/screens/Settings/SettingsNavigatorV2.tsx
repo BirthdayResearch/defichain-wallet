@@ -190,7 +190,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={PasscodeFaqV2}
         name='PasscodeFaq'
         options={{
-          headerTitle: translate('screens/PasscodeFaq', 'About Passcode')
+          headerTitle: translate('components/PasscodeFaq', 'About Passcode')
         }}
       />
 
@@ -214,7 +214,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={RecoveryWordsFaqV2}
         name='RecoveryWordsFaq'
         options={{
-          headerTitle: translate('screens/RecoveryWordFaq', 'About Recovery Words')
+          headerTitle: translate('components/RecoveryWordFaq', 'About Recovery Words')
         }}
       />
 
@@ -222,7 +222,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={DexFaqV2}
         name='DexFaq'
         options={{
-          headerTitle: translate('screens/DexFaq', 'About DEX')
+          headerTitle: translate('components/DexFaq', 'About DEX')
         }}
       />
 
@@ -230,7 +230,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={LiquidityMiningFaqV2}
         name='LiquidityMiningFaq'
         options={{
-          headerTitle: translate('screens/LiquidityMiningFaq', 'About Liquidity Mining')
+          headerTitle: translate('components/LiquidityMiningFaq', 'About Liquidity Mining')
         }}
       />
 
@@ -238,7 +238,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={TokensVsUtxoFaqV2}
         name='TokensVsUtxo'
         options={{
-          headerTitle: translate('screens/UtxoVsTokenFaq', 'About UTXO And Tokens')
+          headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
 

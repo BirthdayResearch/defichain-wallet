@@ -391,7 +391,7 @@
     "UTXO and Tokens": "UTXO et tokens"
   },
   "components/UtxoVsTokenFaq": {
-    "About UTXO and Tokens": "UTXO et tokens",
+    "About UTXO And Tokens": "UTXO et tokens",
     "What are UTXOs?": "Que sont les UTXO?",
     "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "Un DFI sous forme UTXO est la forme primaire du DFI. L'UTXO est utilisé pour des opérations à la base de la crypto-monnaie telles que l'envoi, la réception et le paiement de frais.",
     "What are the use cases for UTXO?": "Quels sont les cas d'usage d'UTXO?",
