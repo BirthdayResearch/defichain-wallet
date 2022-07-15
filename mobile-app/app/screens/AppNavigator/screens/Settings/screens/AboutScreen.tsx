@@ -20,8 +20,8 @@ import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import DeFiChainWalletImageLight from '@assets/images/DeFiChainWallet-light.png'
 import DeFiChainWalletImageDark from '@assets/images/DeFiChainWallet-dark.png'
-import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
-import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
+import GridBackgroundImageLight from '@assets/images/about-grid-bg-light.png'
+import GridBackgroundImageDark from '@assets/images/about-grid-bg-dark.png'
 import { VersionTagV2 } from '@components/VersionTagV2'
 
 interface AboutScreenLinks {
