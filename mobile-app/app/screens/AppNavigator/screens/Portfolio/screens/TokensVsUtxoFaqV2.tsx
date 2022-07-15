@@ -49,10 +49,10 @@ export function TokensVsUtxoFaqV2 (): JSX.Element {
         type: 'bullet'
       }, {
         text: translate('components/UtxoVsTokenFaq', 'Collateral for Vaults'),
-        type: 'paragraph'
+        type: 'bullet'
       }, {
         text: translate('components/UtxoVsTokenFaq', 'Auction bidding'),
-        type: 'paragraph'
+        type: 'bullet'
       }]
     }
   ]
