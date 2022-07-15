@@ -1,13 +1,5 @@
 import { View } from '@components'
-import {
-  ThemedFlatList,
-  ThemedIcon,
-  ThemedText,
-  ThemedTextV2,
-  ThemedTouchableOpacity,
-  ThemedTouchableOpacityV2,
-  ThemedViewV2
-} from '@components/themed'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { translate } from '@translations'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
@@ -15,6 +7,7 @@ import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
 import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { IconButton } from '@components/IconButton'
 import { useToast } from 'react-native-toast-notifications'
 import { debounce } from 'lodash'
 import * as Clipboard from 'expo-clipboard'
@@ -33,6 +26,7 @@ import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
 import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPreferences'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
+import { AddressListEditButton } from './AddressListEditButton'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 
 interface BottomSheetAddressDetailProps {
@@ -269,19 +263,19 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
 
   const AddressDetail = useCallback(() => {
     return (
-      <ThemedViewV2
-        // light={tailwind('bg-white')}
-        // dark={tailwind('bg-gray-800')}
-        style={tailwind('flex flex-col w-full px-5 items-center pb-2')}
+      <ThemedView
+        light={tailwind('bg-white border-gray-200')}
+        dark={tailwind('bg-gray-800 border-gray-700')}
+        style={tailwind('flex flex-col items-center px-4 pb-2 border-b')}
       >
-        <View style={tailwind('flex-row justify-end w-full m-5')}>
+        <View style={tailwind('flex-row justify-end w-full mb-3 relative -right-0.5')}>
           <TouchableOpacity onPress={props.onCloseButtonPress}>
             <ThemedIcon
-              size={20}
-              name='x-circle'
-              iconType='Feather'
-              dark={tailwind('text-mono-dark-v2-900')}
-              light={tailwind('text-mono-light-v2-900')}
+              size={24}
+              name='close'
+              iconType='MaterialIcons'
+              dark={tailwind('text-white text-opacity-70')}
+              light={tailwind('text-gray-600')}
               testID='close_address_detail_button'
             />
           </TouchableOpacity>
@@ -291,9 +285,9 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           activeLabel != null && (
             <View style={tailwind('mt-2')}>
               <ThemedText
-                light={tailwind('text-mono-light-v2-600')}
-                dark={tailwind('text-mono-dark-v2-600')}
-                style={tailwind('font-semibold-v2 text-base')}
+                light={tailwind('text-black')}
+                dark={tailwind('text-white')}
+                style={tailwind('font-bold')}
                 testID='list_header_address_label'
               >{activeLabel}
               </ThemedText>
@@ -301,16 +295,18 @@ export const BottomSheetAddressDetail = (props: BottomSheetAddressDetailProps): 
           )
         }
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
-        {/* <AddressDetailAction */}
-        {/*  onReceivePress={props.onReceiveButtonPress} */}
-        {/*  onTransactionsButtonPress={props.onTransactionsButtonPress} */}
-        {/* /> */}
-        <View style={tailwind('mt-12 flex flex-row items-center justify-between w-full')}>
-          <WalletCounterDisplay addressLength={addressLength} />
-          <DiscoverWalletAddress onPress={discoverWalletAddresses} />
-          {/* <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} /> */}
+        <AddressDetailAction
+          onReceivePress={props.onReceiveButtonPress}
+          onTransactionsButtonPress={props.onTransactionsButtonPress}
+        />
+        <View style={tailwind('mt-8 flex flex-row items-center justify-between w-full')}>
+          <View style={tailwind('flex flex-row items-center justify-start')}>
+            <WalletCounterDisplay addressLength={addressLength} />
+            <DiscoverWalletAddress onPress={discoverWalletAddresses} />
+          </View>
+          <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />
         </View>
-      </ThemedViewV2>
+      </ThemedView>
     )
   }, [props, addressLength, isEditing, activeLabel])
 
@@ -337,19 +333,23 @@ function ActiveAddress ({
   const { getAddressUrl } = useDeFiScanContext()
   return (
     <View style={tailwind('flex-row items-center')}>
-      <ThemedTouchableOpacityV2
-        style={tailwind('mb-4 mt-2 border-none py-1 px-2 w-5/12')}
+      <ThemedTouchableOpacity
+        style={tailwind('mb-4 mt-2 rounded-2xl py-1 px-2 w-5/12')}
+        light={tailwind('bg-gray-50')}
+        dark={tailwind('bg-gray-900')}
         onPress={onPress}
       >
-        <ThemedTextV2
+        <ThemedText
           ellipsizeMode='middle'
-          style={tailwind('font-normal-v2 text-sm')}
+          style={tailwind('text-sm')}
+          light={tailwind('text-black')}
+          dark={tailwind('text-white')}
           numberOfLines={1}
           testID='active_address'
         >
           {address}
-        </ThemedTextV2>
-      </ThemedTouchableOpacityV2>
+        </ThemedText>
+      </ThemedTouchableOpacity>
       <TouchableOpacity
         onPress={async () => await openURL(getAddressUrl(address))}
         style={tailwind('mb-2 ml-1 bg-transparent')}
@@ -367,69 +367,61 @@ function ActiveAddress ({
   )
 }
 
-// function AddressDetailAction ({
-//   onReceivePress,
-//   onTransactionsButtonPress
-// }: { onReceivePress: () => void, onTransactionsButtonPress: () => void }): JSX.Element {
-//   return (
-//     <View style={tailwind('flex flex-row justify-center')}>
-//       <IconButton
-//         iconLabel={translate('components/BottomSheetAddressDetail', 'RECEIVE')}
-//         iconName='arrow-downward'
-//         iconSize={18}
-//         iconType='MaterialIcons'
-//         style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
-//         onPress={onReceivePress}
-//         textStyle={tailwind('pt-0.5')}
-//       />
-//       <IconButton
-//         iconLabel={translate('BottomTabNavigator', 'TRANSACTIONS')}
-//         iconName='clock-outline'
-//         iconSize={18}
-//         iconType='MaterialCommunityIcons'
-//         style={tailwind('py-2 px-3 ml-1 flex-row justify-center')}
-//         onPress={onTransactionsButtonPress}
-//         textStyle={tailwind('pt-0.5')}
-//         testID='bottom_tab_transactions'
-//       />
-//     </View>
-//   )
-// }
+function AddressDetailAction ({
+  onReceivePress,
+  onTransactionsButtonPress
+}: { onReceivePress: () => void, onTransactionsButtonPress: () => void }): JSX.Element {
+  return (
+    <View style={tailwind('flex flex-row justify-center')}>
+      <IconButton
+        iconLabel={translate('components/BottomSheetAddressDetail', 'RECEIVE')}
+        iconName='arrow-downward'
+        iconSize={18}
+        iconType='MaterialIcons'
+        style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
+        onPress={onReceivePress}
+        textStyle={tailwind('pt-0.5')}
+      />
+      <IconButton
+        iconLabel={translate('BottomTabNavigator', 'TRANSACTIONS')}
+        iconName='clock-outline'
+        iconSize={18}
+        iconType='MaterialCommunityIcons'
+        style={tailwind('py-2 px-3 ml-1 flex-row justify-center')}
+        onPress={onTransactionsButtonPress}
+        textStyle={tailwind('pt-0.5')}
+        testID='bottom_tab_transactions'
+      />
+    </View>
+  )
+}
 
 function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JSX.Element {
   return (
     <ThemedText
-      light={tailwind('text-mono-light-v2-500')}
-      dark={tailwind('text-mono-dark-v2-500')}
-      style={tailwind('font-normal-v2 text-xs mr-1.5')}
+      light={tailwind('text-gray-400')}
+      dark={tailwind('text-gray-500')}
+      style={tailwind('text-xs mr-1.5')}
       testID='address_detail_address_count'
     >
-      {/* {translate('components/BottomSheetAddressDetail', '{{length}} ADDRESS(ES)', { length: addressLength + 1 })} */}
-      {translate('components/BottomSheetAddressDetail', 'ADDRESS(ES)')}
+      {translate('components/BottomSheetAddressDetail', '{{length}} ADDRESS(ES)', { length: addressLength + 1 })}
     </ThemedText>
   )
 }
 
 function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Element {
   return (
-    <ThemedTouchableOpacityV2
+    <TouchableOpacity
       onPress={onPress}
       testID='discover_wallet_addresses'
-      style={tailwind('flex-row items-center border-none')}
     >
-      <ThemedTextV2
-        dark={tailwind('text-mono-dark-v2-400')}
-        light={tailwind('text-mono-light-v2-400')}
-        style={tailwind('font-normal-v2 text-xs pr-1')}
-      >{translate('components/BottomSheetAddressDetail', 'Refresh')}
-      </ThemedTextV2>
       <ThemedIcon
-        light={tailwind('text-mono-light-v2-800')}
-        dark={tailwind('text-mono-dark-v2-800')}
-        iconType='Feather'
-        name='refresh-ccw'
-        size={12}
+        light={tailwind('text-primary-500')}
+        dark={tailwind('text-darkprimary-500')}
+        iconType='MaterialIcons'
+        name='sync'
+        size={16}
       />
-    </ThemedTouchableOpacityV2>
+    </TouchableOpacity>
   )
 }
