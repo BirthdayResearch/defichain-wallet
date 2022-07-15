@@ -47,6 +47,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const dispatch = useDispatch()
   const { address } = useWalletContext()
   const debouncedAddress = useDebounce(address, 500)
+  const debouncedNetworkName = useDebounce(address, 500)
 
   const openDfxServices = async (): Promise<void> => {
     await getActiveWebToken()
@@ -246,6 +247,13 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         await activePairHandler({ network: networkName, addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => {})
       })
   }, [debouncedAddress])
+
+  // observe network state change
+  useEffect(() => {
+    void (async () => {
+      await activePairHandler({ network: networkName, addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => { })
+    })
+  }, [debouncedNetworkName])
 
   return (
     <DFXAPIContext.Provider value={context}>
