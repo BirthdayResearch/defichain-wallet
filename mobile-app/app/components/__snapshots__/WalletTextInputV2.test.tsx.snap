@@ -93,7 +93,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
         onBlur={[Function]}
         onFocus={[Function]}
         placeholder="bar"
-        placeholderTextColor="rgba(0, 0, 0, 0.4)"
+        placeholderTextColor="rgba(115, 115, 115, 1)"
         selectionColor="rgba(255, 0, 140, 1)"
         style={
           Array [
@@ -105,8 +105,9 @@ exports[`wallet text input should render with default keyboard 1`] = `
               "fontWeight": "400",
               "height": 20,
             },
+            Object {},
             Object {
-              "color": "rgba(64, 64, 64, 1)",
+              "color": "rgba(43, 43, 43, 1)",
             },
           ]
         }
@@ -230,7 +231,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         onBlur={[Function]}
         onFocus={[Function]}
         placeholder="bar"
-        placeholderTextColor="rgba(0, 0, 0, 0.4)"
+        placeholderTextColor="rgba(115, 115, 115, 1)"
         selectionColor="rgba(255, 0, 140, 1)"
         style={
           Array [
@@ -242,8 +243,9 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
               "fontWeight": "400",
               "height": 20,
             },
+            Object {},
             Object {
-              "color": "rgba(64, 64, 64, 1)",
+              "color": "rgba(43, 43, 43, 1)",
             },
           ]
         }
