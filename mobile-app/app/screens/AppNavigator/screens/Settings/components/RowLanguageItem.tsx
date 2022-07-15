@@ -39,7 +39,6 @@ export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLa
       ]
     })
   }
-
   return (
     <ThemedTouchableOpacityV2
       onPress={onPress}
