@@ -651,7 +651,8 @@
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Cette fonctionnalité est encore en version bêta. Lors de son activation, vous serez exposé à certains risques. Voulez-vous continuer ?",
     "Beta Features": "Fonctionnalités bêta",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Les fonctionnalités bêta du portefeuille léger sont en phase de test d'acceptation par les utilisateurs. L'utilisation des fonctionnalités bêta est encouragée, mais la prudence est de mise lorsque vous utilisez vos actifs.",
-    "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls."
+    "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls.",
+    "Allows the usage of custom server provider url": "Permet l'utilisation d'une url d'un fournisseur de serveur personnalisée."
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
@@ -775,6 +776,8 @@
     "Last synced": "Dernière synchro",
     "Block height": "Hauteur de bloc",
     "Total Masternodes": "Total des masternodes",
+    "Total masternodes": "Total des masternodes",
+    "DETAILS": "DÉTAILS",
     "YOU ARE CURRENTLY CONNECTED TO": "VOUS ÊTES ACTUELLEMENT CONNECTÉ À",
     "NETWORK DETAILS": "DÉTAILS DU RÉSEAU",
     "Network selection is currently unavailable due to ongoing transaction(s).": "La sélection du réseau est actuellement indisponible en raison d'une ou plusieurs transactions en cours."

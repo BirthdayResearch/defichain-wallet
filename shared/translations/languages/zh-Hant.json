@@ -642,7 +642,8 @@
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "此功能仍處於Beta測試版 階段，使用它可能有些風險。您是否想繼續？",
     "Beta Features": "測試版功能",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "輕錢包 beta 功能處於用戶驗收測試階段。 鼓勵大家使用 beta 功能，但在使用資產時建議審慎。",
-    "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。"
+    "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。",
+    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url"
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
@@ -768,6 +769,8 @@
     "Last synced": "上次同步",
     "Block height": "區塊高度",
     "Total Masternodes": "總主節點",
+    "Total masternodes": "總主節點",
+    "DETAILS": "明細",
     "YOU ARE CURRENTLY CONNECTED TO": "現在您已連接到",
     "NETWORK DETAILS": "網絡資料",
     "Network selection is currently unavailable due to ongoing transaction(s).": "由於目前正在進行的交易，網絡選擇不可使用。"

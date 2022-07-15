@@ -193,13 +193,13 @@
     "Are you sure you want to delete the address?": "Bist du sicher, dass du die Adresse löschen willst?",
     "Add address to address book?\n{{address}}": "Adresse zum Adressbuch hinzufügen?\n{{address}}",
     "This will delete the whitelisted address\nfrom your address book.": "Dadurch wird die auf der Whitelist stehende Adresse\naus deinem Adressbuch gelöscht.",
-    "Update address label for\n{{address}}": "Update address label for\n{{address}}",
+    "Update address label for\n{{address}}": "Adressbezeichnung für\n{{address}} aktualisieren",
     "Address saved!": "Adresse gespeichert!",
     "Address label updated!": "Adressbezeichnung aktualisiert!",
     "Address deleted!": "Adresse gelöscht!",
     "It may take a few seconds to delete": "Das Löschen kann einige Sekunden dauern",
-    "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to update": "Die Aktualisierung kann ein paar Sekunden dauern",
+    "It may take a few seconds to save": "Das Speichern kann ein paar Sekunden dauern"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -639,7 +639,8 @@
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Diese Funktion ist noch in der Beta-Phase, bei der Aktivierung bist du einigen Risiken ausgesetzt. Möchtest du dennoch fortfahren?",
     "Beta Features": "Beta-Funktionalitäten",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Lightwallet befinden sich in der Testphase. Es wird empfohlen, die Beta-Funktionen zu nutzen, aber bei der Verwendung deines Vermögens ist Vorsicht geboten.",
-    "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr."
+    "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr.",
+    "Allows the usage of custom server provider url": "Ermöglicht die Verwendung einer benutzerdefinierten Server-Provider-URL"
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
@@ -763,6 +764,8 @@
     "Last synced": "Zuletzt synchronisiert",
     "Block height": "Blockhöhe",
     "Total Masternodes": "Anzahl an Masternodes",
+    "Total masternodes": "Anzahl an masternodes",
+    "DETAILS": "DETAILS",
     "YOU ARE CURRENTLY CONNECTED TO": "DU BIST GERADE VERBUNDEN MIT",
     "NETWORK DETAILS": "NETZWERK-DETAILS",
     "Network selection is currently unavailable due to ongoing transaction(s).": "Die Netzwerkauswahl ist derzeit aufgrund einer oder mehrerer laufender Transaktionen nicht verfügbar."
