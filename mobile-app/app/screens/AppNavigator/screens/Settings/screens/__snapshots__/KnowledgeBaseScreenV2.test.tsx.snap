@@ -471,7 +471,7 @@ exports[`knowledge base V2 screen should render 1`] = `
             ]
           }
         >
-          UTXOs vs. Tokens
+          UTXO and Tokens
         </Text>
         <Text />
       </View>

@@ -9,7 +9,7 @@ import { ReceiveScreen } from './ReceiveScreen'
 jest.mock('@shared-contexts/WalletContext')
 
 jest.mock('expo-clipboard', () => ({
-  setString: jest.fn()
+  setStringAsync: jest.fn()
 }))
 
 jest.mock('react-native-toast-notifications', () => ({
@@ -73,7 +73,7 @@ describe('receive page', () => {
         <ReceiveScreen />
       </Provider>
     )
-    const spy = jest.spyOn(Clipboard, 'setString')
+    const spy = jest.spyOn(Clipboard, 'setStringAsync')
     const rendered = render(component)
     const copyButton = await rendered.findByTestId('copy_button')
     fireEvent.press(copyButton)
@@ -103,7 +103,7 @@ describe('receive page', () => {
         <ReceiveScreen />
       </Provider>
     )
-    const spy = jest.spyOn(Clipboard, 'setString')
+    const spy = jest.spyOn(Clipboard, 'setStringAsync')
     const rendered = render(component)
     const shareButton = await rendered.findByTestId('share_button')
     fireEvent.press(shareButton)

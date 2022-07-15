@@ -412,7 +412,7 @@ exports[`recovery words faq should match snapshot 1`] = `
                     >
                       You can only reuse the 24-words if it's created from the Jellyfish ecosystem.
 
-The compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).
+The compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).
 
 However, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.
                     </Text>
@@ -646,7 +646,7 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
                     ]
                   }
                 >
-                  Why is it recommended to keep my recovery words offline and in paper?
+                  Why is it recommended to keep my recovery words offline and on paper?
                 </Text>
                 <Text />
               </View>

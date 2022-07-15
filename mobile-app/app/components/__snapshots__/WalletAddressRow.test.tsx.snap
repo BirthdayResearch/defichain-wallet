@@ -159,7 +159,7 @@ exports[`Wallet Address Row should match snapshot 1`] = `
             mask="mask__bauhaus"
           >
             <RNSVGRect
-              fill={4281626061}
+              fill={4284158207}
               height={80}
               propList={
                 Array [
@@ -171,7 +171,7 @@ exports[`Wallet Address Row should match snapshot 1`] = `
               y={0}
             />
             <RNSVGRect
-              fill={4294300999}
+              fill={4294945863}
               height={80}
               matrix={
                 Array [
@@ -195,7 +195,7 @@ exports[`Wallet Address Row should match snapshot 1`] = `
             <RNSVGCircle
               cx={40}
               cy={40}
-              fill={4278788109}
+              fill={4278234397}
               matrix={
                 Array [
                   1,
@@ -230,7 +230,7 @@ exports[`Wallet Address Row should match snapshot 1`] = `
                   "strokeWidth",
                 ]
               }
-              stroke={4281312875}
+              stroke={4279316113}
               strokeWidth={2}
               x1={0}
               x2={80}

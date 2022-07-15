@@ -21,6 +21,9 @@ import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
 import { ChangePinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ChangePinScreenV2'
 import { ConfirmPinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreenV2'
 import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
+import { AddressBookScreenV2 } from '../Portfolio/screens/AddressBookScreenV2'
+import { LocalAddress } from '@store/userPreferences'
+import { AddOrEditAddressBookScreenV2 } from '../Portfolio/screens/AddOrEditAddressBookScreenV2'
 import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
 
 export interface SettingsParamList {
@@ -31,6 +34,17 @@ export interface SettingsParamList {
   ConfirmPinScreen: { pin: string, words: string[] }
   NetworkDetails: undefined
   ServiceProviderScreen: {}
+  AddressBookScreen: {
+    selectedAddress?: string
+    onAddressSelect?: (address: string) => void
+  }
+  AddOrEditAddressBookScreen: {
+    title: string
+    onSaveButtonPress: (address?: string) => void
+    addressLabel?: LocalAddress
+    address?: string
+    isAddNew: boolean
+  }
 
   [key: string]: undefined | object
 }
@@ -132,6 +146,22 @@ export function SettingsNavigatorV2 (): JSX.Element {
       />
 
       <SettingsStack.Screen
+        component={AddressBookScreenV2}
+        name='AddressBookScreen'
+        options={{
+          headerTitle: translate('screens/Settings', 'Address Book')
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={AddOrEditAddressBookScreenV2}
+        name='AddOrEditAddressBookScreen'
+        options={{
+          headerTitle: translate('screens/AddOrEditAddressBookScreen', 'Add Address')
+        }}
+      />
+
+      <SettingsStack.Screen
         component={NetworkDetails}
         name='NetworkDetails'
         options={{
@@ -160,7 +190,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={PasscodeFaqV2}
         name='PasscodeFaq'
         options={{
-          headerTitle: translate('screens/WalletNavigator', 'About Passcode')
+          headerTitle: translate('components/PasscodeFaq', 'About Passcode')
         }}
       />
 
@@ -184,7 +214,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={RecoveryWordsFaqV2}
         name='RecoveryWordsFaq'
         options={{
-          headerTitle: translate('screens/WalletNavigator', 'About Recovery Words')
+          headerTitle: translate('components/RecoveryWordFaq', 'About Recovery Words')
         }}
       />
 
@@ -192,7 +222,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={DexFaqV2}
         name='DexFaq'
         options={{
-          headerTitle: translate('screens/WalletNavigator', 'About DEX')
+          headerTitle: translate('components/DexFaq', 'About DEX')
         }}
       />
 
@@ -200,7 +230,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={LiquidityMiningFaqV2}
         name='LiquidityMiningFaq'
         options={{
-          headerTitle: translate('screens/WalletNavigator', 'About Liquidity Mining')
+          headerTitle: translate('components/LiquidityMiningFaq', 'About Liquidity Mining')
         }}
       />
 
@@ -208,7 +238,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
         component={TokensVsUtxoFaqV2}
         name='TokensVsUtxo'
         options={{
-          headerTitle: translate('screens/ConvertScreen', 'About UTXO And Tokens')
+          headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
 
