@@ -93,7 +93,7 @@ export function MarketplaceScreen (): JSX.Element {
         <ThemedViewV2
           dark={tailwind('bg-mono-dark-v2-00')}
           light={tailwind('bg-mono-light-v2-00')}
-          style={tailwind('rounded-lg-v2')}
+          style={tailwind('rounded-lg-v2 px-5')}
         >
           {
           exchanges.map(({ name, image, url }, index) => (
@@ -103,7 +103,7 @@ export function MarketplaceScreen (): JSX.Element {
               name={name}
               image={image}
               testID={`exchange_${index}`}
-              border={index < exchanges.length - 1}
+              isLast={index === exchanges.length - 1}
             />
           ))
           }
@@ -112,33 +112,39 @@ export function MarketplaceScreen (): JSX.Element {
     )
   }
 
-function ExchangeItemRow ({ image, name, url, testID, border }: ExchangeProps & { testID: string } & { border: boolean}): JSX.Element {
+function ExchangeItemRow ({ image, name, url, testID, isLast }: ExchangeProps & { testID: string } & { isLast: boolean}): JSX.Element {
     return (
-      <ThemedTouchableOpacityV2
-        onPress={async () => await openURL(url)}
-        style={tailwind('flex flex-row mx-5 py-4 items-center justify-between', { 'border-b-0.5': border })}
-        testID={testID}
+      <ThemedViewV2
+        style={tailwind('border-b-0.5', { 'border-0': isLast })}
+        light={tailwind('border-mono-light-v2-300')}
+        dark={tailwind('border-mono-dark-v2-300')}
       >
-        <View style={tailwind('flex flex-row items-center')}>
-          <Image
-            source={image}
-            style={tailwind('h-6 w-6')}
+        <ThemedTouchableOpacityV2
+          onPress={async () => await openURL(url)}
+          style={tailwind('flex flex-row items-center justify-between py-4 border-0')}
+          testID={testID}
+        >
+          <View style={tailwind('flex flex-row items-center')}>
+            <Image
+              source={image}
+              style={tailwind('h-6 w-6')}
+            />
+            <ThemedTextV2
+              dark={tailwind('text-mono-dark-v2-900')}
+              light={tailwind('text-mono-light-v2-900')}
+              style={tailwind('font-normal-v2 text-sm ml-2')}
+            >
+              {name}
+            </ThemedTextV2>
+          </View>
+          <ThemedIcon
+            size={16}
+            name='open-in-new'
+            iconType='MaterialIcons'
+            dark={tailwind('text-mono-dark-v2-700')}
+            light={tailwind('text-mono-light-v2-700')}
           />
-          <ThemedTextV2
-            dark={tailwind('text-mono-dark-v2-900')}
-            light={tailwind('text-mono-light-v2-900')}
-            style={tailwind('font-normal-v2 text-sm ml-2')}
-          >
-            {name}
-          </ThemedTextV2>
-        </View>
-        <ThemedIcon
-          size={18}
-          name='open-in-new'
-          iconType='MaterialIcons'
-          dark={tailwind('text-mono-dark-v2-700')}
-          light={tailwind('text-mono-light-v2-700')}
-        />
-      </ThemedTouchableOpacityV2>
+        </ThemedTouchableOpacityV2>
+      </ThemedViewV2>
     )
 }
