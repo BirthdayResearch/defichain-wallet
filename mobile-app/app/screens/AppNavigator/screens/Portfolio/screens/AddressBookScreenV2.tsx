@@ -26,7 +26,7 @@ import { SearchInputV2 } from '@components/SearchInputV2'
 import { FavoriteCheckIcon, FavoriteUnCheckIcon } from '../../Settings/assets/FavoriteIcon'
 import { RefreshIcon } from '@screens/WalletNavigator/assets/RefreshIcon'
 import { SettingsParamList } from '../../Settings/SettingsNavigatorV2'
-import { RandomAvatarV2 } from '../components/RandomAvatarV2'
+import { RandomAvatar } from '../components/RandomAvatar'
 
 type Props = StackScreenProps<SettingsParamList, 'AddressBookScreen'>
 
@@ -178,7 +178,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
           {item.isMine
             ? (
               <View style={tailwind('mr-3')}>
-                <RandomAvatarV2 name={item.address} size={36} />
+                <RandomAvatar name={item.address} size={36} />
               </View>
               )
             : (
