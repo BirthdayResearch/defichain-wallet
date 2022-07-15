@@ -114,7 +114,7 @@ export function MarketplaceScreen (): JSX.Element {
 function ExchangeItemRow ({ image, name, url, testID, isLast }: ExchangeProps & { testID: string } & { isLast: boolean}): JSX.Element {
     return (
       <ThemedViewV2
-        style={tailwind('border-b-0.5', { 'border-0': isLast })}
+        style={tailwind({ 'border-b-0.5': !isLast })}
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-dark-v2-300')}
       >
@@ -129,8 +129,6 @@ function ExchangeItemRow ({ image, name, url, testID, isLast }: ExchangeProps & 
               style={tailwind('h-6 w-6')}
             />
             <ThemedTextV2
-              dark={tailwind('text-mono-dark-v2-900')}
-              light={tailwind('text-mono-light-v2-900')}
               style={tailwind('font-normal-v2 text-sm ml-2')}
             >
               {name}
