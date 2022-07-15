@@ -16,7 +16,7 @@ import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
+import { Platform, RefreshControl, TouchableOpacity, View } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
@@ -24,19 +24,21 @@ import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance
 import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
-import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { PortfolioCard, ButtonGroupTabKey } from './components/PortfolioCard'
+import { ButtonGroupTabKey, PortfolioCard } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import {
+  BottomSheetAddressDetailV2
+} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -104,7 +106,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       ),
       headerRight: (): JSX.Element => (
         <View style={tailwind('mr-2')}>
-          <AddressSelectionButton address={address} addressLength={addressLength} onPress={() => expandModal(false)} hasCount />
+          <AddressSelectionButton
+            address={address} addressLength={addressLength} onPress={() => expandModal(false)}
+            hasCount
+          />
         </View>
       )
     })
@@ -153,9 +158,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-        totalAvailableValue,
-        dstTokens
-      }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
+          totalAvailableValue,
+          dstTokens
+        }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -176,9 +181,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-      totalAvailableValue: new BigNumber(0),
-      dstTokens: []
-    })
+        totalAvailableValue: new BigNumber(0),
+        dstTokens: []
+      })
   }, [prices, tokens])
 
   // add token that are 100% locked as collateral into dstTokens
@@ -318,7 +323,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -385,8 +390,14 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const bottomSheetSortRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
-  const modalSortingSnapPoints = { ios: ['55%'], android: ['55%'] }
+  const modalSnapPoints = {
+    ios: ['75%'],
+    android: ['75%']
+  }
+  const modalSortingSnapPoints = {
+    ios: ['55%'],
+    android: ['55%']
+  }
   const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
@@ -410,7 +421,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     return [
       {
         stackScreenName: 'AddressDetail',
-        component: BottomSheetAddressDetail({
+        component: BottomSheetAddressDetailV2({
           address: address,
           addressLabel: 'TODO: get label from storage api',
           onReceiveButtonPress: () => {
