@@ -317,7 +317,7 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
           </>)
       : <ButtonV2
           disabled={isSaveDisabled()}
-          label={translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Save changes' : 'Save address')}
+          label={translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Save address' : 'Save changes')}
           onPress={handleSubmit}
           testID='save_address_label'
           styleProps='mx-7 mt-12'
