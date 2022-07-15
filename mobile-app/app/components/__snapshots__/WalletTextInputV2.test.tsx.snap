@@ -105,7 +105,6 @@ exports[`wallet text input should render with default keyboard 1`] = `
               "fontWeight": "400",
               "height": 20,
             },
-            Object {},
             Object {
               "color": "rgba(43, 43, 43, 1)",
             },
@@ -243,7 +242,6 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
               "fontWeight": "400",
               "height": 20,
             },
-            Object {},
             Object {
               "color": "rgba(43, 43, 43, 1)",
             },
