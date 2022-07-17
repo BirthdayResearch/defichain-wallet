@@ -239,6 +239,12 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     listCountries: listCountries
   }
 
+  function redoLoginForCurrentNetworkAndAddress (): void {
+    void (async () => {
+      await activePairHandler({ network: networkName, addr: address }).catch(() => { })
+    })
+  }
+
   // observe address state change
   useEffect(() => {
       DFXPersistence.getPair(debouncedAddress).then(async pair => {
@@ -250,10 +256,12 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
 
   // observe network state change
   useEffect(() => {
-    void (async () => {
-      await activePairHandler({ network: networkName, addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => { })
-    })
+    redoLoginForCurrentNetworkAndAddress()
   }, [debouncedNetworkName])
+
+  useEffect(() => {
+    redoLoginForCurrentNetworkAndAddress()
+  }, [])
 
   return (
     <DFXAPIContext.Provider value={context}>
