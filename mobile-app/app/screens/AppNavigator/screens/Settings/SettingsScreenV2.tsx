@@ -168,11 +168,11 @@ export function SettingsScreenV2 ({ navigation }: Props): JSX.Element {
               <PrivacyLockToggle
                 value={localAuth.isEnabled}
                 onToggle={async () => {
-                await localAuth.togglePrivacyLock()
-              }}
+                  await localAuth.togglePrivacyLock()
+                }}
                 authenticationName={localAuth.getAuthenticationNaming()}
               />
-          )}
+            )}
           </ThemedViewV2>
           {localAuth.isDeviceProtected && (
             <ThemedTextV2
@@ -264,7 +264,7 @@ function PrivacyLockToggle ({
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <View
-      style={tailwind('flex py-2 flex-row items-center justify-between', { 'py-4.5': Platform.OS === 'ios' })}
+      style={tailwind('flex py-4.5 flex-row items-center justify-between', { 'py-1.5': Platform.OS === 'android' })}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
@@ -284,7 +284,13 @@ function PrivacyLockToggle ({
   )
 }
 
-interface INavigateItemRow { testID: string, label: string, value?: string, onPress: () => void, border?: boolean }
+interface INavigateItemRow {
+  testID: string
+  label: string
+  value?: string
+  onPress: () => void
+  border?: boolean
+}
 
 function NavigateItemRow ({
   testID,
