@@ -103,7 +103,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'portfolio_v2',
       name: 'Portfolio 2.0',
-      stage: 'public',
+      stage: 'alpha',
       version: '>1.16.0',
       description: 'Display redesigned Portfolio flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
