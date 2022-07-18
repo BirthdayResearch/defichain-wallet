@@ -23,9 +23,7 @@ import { Onboarding } from './screens/Onboarding'
 import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 import { PasscodeFaq } from './screens/CreateWallet/PasscodeFaq'
 import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetails'
-import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { PinCreationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinCreationV2'
 import { PinConfirmationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinConfirmationV2'
@@ -37,7 +35,7 @@ import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateR
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 import { RestoreMnemonicWalletV2 } from './screens/RestoreWallet/RestoreMnemonicWalletV2'
-import { Dimensions, Platform } from 'react-native'
+import { useHeaderScreenOptionsV2 } from '@hooks/useHeaderScreenOptionsV2'
 
 type PinCreationType = 'create' | 'restore'
 
@@ -112,13 +110,13 @@ export function WalletNavigator (): JSX.Element {
   const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight)
   const headerContainerTestId = 'wallet_header_container'
   const { isFeatureAvailable } = useFeatureFlagContext()
-  const insets = useSafeAreaInsets()
 
   const goToNetworkSelect = (): void => {
     // TODO(kyleleow) update typings
     // @ts-expect-error
     navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
   }
+  const HeaderScreenOptionsV2 = useHeaderScreenOptionsV2({ headerNetworkOnPress: goToNetworkSelect })
 
   function WalletStacks (): JSX.Element {
     return (
@@ -265,24 +263,10 @@ export function WalletNavigator (): JSX.Element {
   }
 
   function WalletStacksV2 (): JSX.Element {
-    const { width } = Dimensions.get('window')
-
     return (
       <WalletStackV2.Navigator
         initialRouteName='OnboardingV2'
-        screenOptions={{
-          headerTitleStyle: tailwind('font-normal-v2 text-xl text-center'),
-          headerTitleContainerStyle: { width: width - (Platform.OS === 'ios' ? 200 : 180) },
-          headerTitleAlign: 'center',
-          headerBackTitleVisible: false,
-          headerRightContainerStyle: tailwind('pr-5 pb-2'),
-          headerLeftContainerStyle: tailwind('pl-5 relative', { 'right-2': Platform.OS === 'ios', 'right-5': Platform.OS !== 'ios' }),
-          headerStyle: [tailwind('rounded-b-2xl border-b', { 'bg-mono-light-v2-00 border-mono-light-v2-100': isLight, 'bg-mono-dark-v2-00 border-mono-dark-v2-100': !isLight }), { height: 76 + insets.top }],
-          headerBackgroundContainerStyle: tailwind({ 'bg-mono-light-v2-100': isLight, 'bg-mono-dark-v2-100': !isLight }),
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          )
-        }}
+        screenOptions={HeaderScreenOptionsV2}
       >
         <WalletStackV2.Screen
           component={OnboardingV2}

@@ -2,7 +2,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity, View } from 'react-native'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
 import { getNativeIcon } from '@components/icons/assets'
@@ -43,6 +43,10 @@ import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transacti
 import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
+import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
+import { useHeaderScreenOptionsV2 } from '@hooks/useHeaderScreenOptionsV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -124,30 +128,41 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isFeatureAvailable } = useFeatureFlagContext()
+  const { isLight } = useThemeContext()
 
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkDetails')
   }
+  const HeaderScreenOptionsV2 = useHeaderScreenOptionsV2({ headerNetworkOnPress: goToNetworkSelect })
   const screenOptions = useNavigatorScreenOptions()
-  return (
-    <PortfolioStack.Navigator
-      initialRouteName='PortfolioScreen'
-      screenOptions={{
+
+  function PortfolioStacks (): JSX.Element {
+    return (
+      <PortfolioStack.Navigator
+        initialRouteName='PortfolioScreen'
+        screenOptions={{
         headerTitleAlign: 'center'
       }}
-    >
-      <PortfolioStack.Screen
-        component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
-        name={translate('PortfolioNavigator', 'Settings')}
-        options={{
+      >
+        <PortfolioStack.Screen
+          component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
+          name={translate('PortfolioNavigator', 'Settings')}
+          options={{
           headerShown: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={PortfolioScreen}
-        name='PortfolioScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={PortfolioScreen}
+          name='PortfolioScreen'
+          options={{
+          headerBackground: () => (
+            <Image
+              source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
+              style={{ height: 220, width: '100%' }}
+              resizeMode='cover'
+            />
+          ),
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate('Settings')}
@@ -171,12 +186,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ReceiveScreen}
-        name='Receive'
-        options={{
+        <PortfolioStack.Screen
+          component={ReceiveScreen}
+          name='Receive'
+          options={{
           ...screenOptions,
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -184,12 +199,12 @@ export function PortfolioNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: translate('screens/ReceiveScreen', 'Receive')
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={AddressControlScreen}
-        name='AddressControlScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={AddressControlScreen}
+          name='AddressControlScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/AddressControlScreen', 'Wallet Address')}
@@ -199,12 +214,12 @@ export function PortfolioNavigator (): JSX.Element {
           headerRightContainerStyle: tailwind('px-2 py-2'),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={GetDFIScreen}
-        name='GetDFIScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={GetDFIScreen}
+          name='GetDFIScreen'
+          options={{
           ...screenOptions,
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -212,12 +227,12 @@ export function PortfolioNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: translate('screens/ReceiveScreen', 'Get DFI')
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={MarketplaceScreen}
-        name='MarketplaceScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={MarketplaceScreen}
+          name='MarketplaceScreen'
+          options={{
           ...screenOptions,
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -225,12 +240,12 @@ export function PortfolioNavigator (): JSX.Element {
           headerBackTitleVisible: false,
           headerTitle: translate('screens/MarketplaceScreen', 'Marketplace')
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={SendScreen}
-        name='Send'
-        options={{
+        <PortfolioStack.Screen
+          component={SendScreen}
+          name='Send'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendScreen', 'Send')}
@@ -239,12 +254,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={SendConfirmationScreen}
-        name='SendConfirmationScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={SendConfirmationScreen}
+          name='SendConfirmationScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
@@ -253,12 +268,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={TokenDetailScreen}
-        name='TokenDetail'
-        options={({ route }: { route: any }) => ({
+        <PortfolioStack.Screen
+          component={TokenDetailScreen}
+          name='TokenDetail'
+          options={({ route }: { route: any }) => ({
           headerTitle: () => {
             const token = route?.params?.token
             const Icon = getNativeIcon(token.displaySymbol)
@@ -280,12 +295,12 @@ export function PortfolioNavigator (): JSX.Element {
           },
           headerBackTitleVisible: false
         })}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ConvertScreen}
-        name='Convert'
-        options={{
+        <PortfolioStack.Screen
+          component={ConvertScreen}
+          name='Convert'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ConvertScreen', 'Convert DFI')}
@@ -294,12 +309,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ConvertConfirmationScreen}
-        name='ConvertConfirmationScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={ConvertConfirmationScreen}
+          name='ConvertConfirmationScreen'
+          options={{
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
@@ -308,12 +323,12 @@ export function PortfolioNavigator (): JSX.Element {
             />
           )
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={BarCodeScanner}
-        name='BarCodeScanner'
-        options={{
+        <PortfolioStack.Screen
+          component={BarCodeScanner}
+          name='BarCodeScanner'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ConvertScreen', 'Scan recipient QR')}
@@ -322,12 +337,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={TokensVsUtxoScreen}
-        name='TokensVsUtxo'
-        options={{
+        <PortfolioStack.Screen
+          component={TokensVsUtxoScreen}
+          name='TokensVsUtxo'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ConvertScreen', 'UTXO vs Token')}
@@ -336,22 +351,22 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={NetworkDetails}
-        name='NetworkDetails'
-        options={{
+        <PortfolioStack.Screen
+          component={NetworkDetails}
+          name='NetworkDetails'
+          options={{
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={AboutScreen}
-        name='AboutScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={AboutScreen}
+          name='AboutScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/AboutScreen', 'About')}
@@ -360,12 +375,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={CompositeSwapScreen}
-        name='CompositeSwap'
-        options={{
+        <PortfolioStack.Screen
+          component={CompositeSwapScreen}
+          name='CompositeSwap'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Swap tokens')}
@@ -374,12 +389,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ConfirmCompositeSwapScreen}
-        name='ConfirmCompositeSwapScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={ConfirmCompositeSwapScreen}
+          name='ConfirmCompositeSwapScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Confirm swap')}
@@ -388,23 +403,23 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={AddressBookScreen}
-        name='AddressBookScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={AddressBookScreen}
+          name='AddressBookScreen'
+          options={{
           headerBackTitleVisible: false,
           headerTitle: () => (
             <></>
           )
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={AddOrEditAddressBookScreen}
-        name='AddOrEditAddressBookScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={AddOrEditAddressBookScreen}
+          name='AddOrEditAddressBookScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
@@ -413,12 +428,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={AddLiquidityScreen}
-        name='AddLiquidity'
-        options={{
+        <PortfolioStack.Screen
+          component={AddLiquidityScreen}
+          name='AddLiquidity'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Add Liquidity')}
@@ -427,12 +442,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ConfirmAddLiquidityScreen}
-        name='ConfirmAddLiquidity'
-        options={{
+        <PortfolioStack.Screen
+          component={ConfirmAddLiquidityScreen}
+          name='ConfirmAddLiquidity'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
@@ -440,12 +455,12 @@ export function PortfolioNavigator (): JSX.Element {
             />
           )
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={WithdrawFutureSwapScreen}
-        name='WithdrawFutureSwapScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={WithdrawFutureSwapScreen}
+          name='WithdrawFutureSwapScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/WithdrawFutureSwapScreen', 'Withdraw from future swap')}
@@ -454,12 +469,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={RemoveLiquidityScreen}
-        name='RemoveLiquidity'
-        options={{
+        <PortfolioStack.Screen
+          component={RemoveLiquidityScreen}
+          name='RemoveLiquidity'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Remove Liquidity')}
@@ -467,12 +482,12 @@ export function PortfolioNavigator (): JSX.Element {
             />
           )
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={FutureSwapScreen}
-        name='FutureSwapScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={FutureSwapScreen}
+          name='FutureSwapScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/FutureSwapScreen', 'Future Swap')}
@@ -481,12 +496,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ConfirmWithdrawFutureSwapScreen}
-        name='ConfirmWithdrawFutureSwapScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={ConfirmWithdrawFutureSwapScreen}
+          name='ConfirmWithdrawFutureSwapScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm withdrawal')}
@@ -495,12 +510,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={RemoveLiquidityConfirmScreen}
-        name='RemoveLiquidityConfirmScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={RemoveLiquidityConfirmScreen}
+          name='RemoveLiquidityConfirmScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/DexScreen', 'Confirm Removal')}
@@ -508,12 +523,12 @@ export function PortfolioNavigator (): JSX.Element {
             />
           )
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={TransactionsScreen}
-        name='TransactionsScreen'
-        options={{
+        <PortfolioStack.Screen
+          component={TransactionsScreen}
+          name='TransactionsScreen'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/TransactionsScreen', 'Transactions')}
@@ -522,12 +537,12 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={TransactionDetailScreen}
-        name='TransactionDetail'
-        options={{
+        <PortfolioStack.Screen
+          component={TransactionDetailScreen}
+          name='TransactionDetail'
+          options={{
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/TransactionDetailScreen', 'Transaction')}
@@ -536,7 +551,434 @@ export function PortfolioNavigator (): JSX.Element {
           ),
           headerBackTitleVisible: false
         }}
-      />
-    </PortfolioStack.Navigator>
+        />
+      </PortfolioStack.Navigator>
+    )
+  }
+
+  function PortfolioStacksV2 (): JSX.Element {
+    return (
+      <PortfolioStack.Navigator
+        initialRouteName='PortfolioScreen'
+        screenOptions={HeaderScreenOptionsV2}
+      >
+        <PortfolioStack.Screen
+          component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
+          name={translate('PortfolioNavigator', 'Settings')}
+          options={{
+          headerShown: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={PortfolioScreen}
+          name='PortfolioScreen'
+          options={{
+          headerBackground: () => (
+            <Image
+              source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
+              style={{ height: 220, width: '100%' }}
+              resizeMode='cover'
+            />
+          ),
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Settings')}
+              testID='header_settings'
+            >
+              <ThemedIcon
+                iconType='MaterialIcons'
+                name='settings'
+                size={28}
+                style={tailwind('ml-2')}
+                light={tailwind('text-primary-500')}
+                dark={tailwind('text-darkprimary-500')}
+              />
+            </TouchableOpacity>
+          ),
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/PortfolioScreen', 'Portfolio')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={ReceiveScreen}
+          name='Receive'
+          options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Receive')
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={AddressControlScreen}
+          name='AddressControlScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddressControlScreen', 'Wallet Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerRightContainerStyle: tailwind('px-2 py-2'),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={GetDFIScreen}
+          name='GetDFIScreen'
+          options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Get DFI')
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={MarketplaceScreen}
+          name='MarketplaceScreen'
+          options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/MarketplaceScreen', 'Marketplace')
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={SendScreen}
+          name='Send'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SendScreen', 'Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={SendConfirmationScreen}
+          name='SendConfirmationScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={TokenDetailScreen}
+          name='TokenDetail'
+          options={({ route }: { route: any }) => ({
+          headerTitle: () => {
+            const token = route?.params?.token
+            const Icon = getNativeIcon(token.displaySymbol)
+            return (
+              <HeaderTitle containerTestID={headerContainerTestId}>
+                <View style={tailwind('flex-row items-center')}>
+                  <Icon />
+
+                  <View style={tailwind('flex-col ml-2')}>
+                    <ThemedText style={tailwind('font-semibold')}>
+                      {token.displaySymbol}
+                    </ThemedText>
+
+                    <ConnectionStatus />
+                  </View>
+                </View>
+              </HeaderTitle>
+            )
+          },
+          headerBackTitleVisible: false
+        })}
+        />
+
+        <PortfolioStack.Screen
+          component={ConvertScreen}
+          name='Convert'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'Convert DFI')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={ConvertConfirmationScreen}
+          name='ConvertConfirmationScreen'
+          options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={BarCodeScanner}
+          name='BarCodeScanner'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'Scan recipient QR')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={TokensVsUtxoScreen}
+          name='TokensVsUtxo'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConvertScreen', 'UTXO vs Token')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={NetworkDetails}
+          name='NetworkDetails'
+          options={{
+          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
+          headerBackTitleVisible: false,
+          headerBackTestID: 'network_details_header_back'
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={AboutScreen}
+          name='AboutScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AboutScreen', 'About')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={CompositeSwapScreen}
+          name='CompositeSwap'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Swap tokens')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={ConfirmCompositeSwapScreen}
+          name='ConfirmCompositeSwapScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={AddressBookScreen}
+          name='AddressBookScreen'
+          options={{
+          headerBackTitleVisible: false,
+          headerTitle: () => (
+            <></>
+          )
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={AddOrEditAddressBookScreen}
+          name='AddOrEditAddressBookScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={AddLiquidityScreen}
+          name='AddLiquidity'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Add Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={ConfirmAddLiquidityScreen}
+          name='ConfirmAddLiquidity'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={WithdrawFutureSwapScreen}
+          name='WithdrawFutureSwapScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/WithdrawFutureSwapScreen', 'Withdraw from future swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={RemoveLiquidityScreen}
+          name='RemoveLiquidity'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Remove Liquidity')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={FutureSwapScreen}
+          name='FutureSwapScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/FutureSwapScreen', 'Future Swap')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={ConfirmWithdrawFutureSwapScreen}
+          name='ConfirmWithdrawFutureSwapScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm withdrawal')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={RemoveLiquidityConfirmScreen}
+          name='RemoveLiquidityConfirmScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/DexScreen', 'Confirm Removal')}
+              containerTestID={headerContainerTestId}
+            />
+          )
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={TransactionsScreen}
+          name='TransactionsScreen'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsScreen', 'Transactions')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+
+        <PortfolioStack.Screen
+          component={TransactionDetailScreen}
+          name='TransactionDetail'
+          options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionDetailScreen', 'Transaction')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+        />
+      </PortfolioStack.Navigator>
+    )
+  }
+
+  return (
+    <>
+      {isFeatureAvailable('portfolio_v2')
+        ? (<PortfolioStacksV2 />)
+        : (<PortfolioStacks />)}
+    </>
   )
 }
