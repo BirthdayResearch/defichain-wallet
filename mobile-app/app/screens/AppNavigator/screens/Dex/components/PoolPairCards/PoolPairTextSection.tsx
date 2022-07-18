@@ -40,3 +40,27 @@ export function PoolPairIcon (props: {
     </>
   )
 }
+
+export const PoolPairTextSectionV2 = React.memo(({
+  symbolA,
+  symbolB
+}: PoolPairTextSectionProps): JSX.Element => {
+  return (
+    <View style={tailwind('flex-row')}>
+      <PoolPairIconV2 symbolA={symbolA} symbolB={symbolB} />
+    </View>
+  )
+})
+export function PoolPairIconV2 (props: {
+  symbolA: string
+  symbolB: string
+}): JSX.Element {
+  const IconA = getNativeIcon(props.symbolA)
+  const IconB = getNativeIcon(props.symbolB)
+  return (
+    <>
+      <IconA height={40} width={40} style={tailwind('relative z-10')} />
+      <IconB height={40} width={40} style={tailwind('-ml-3 mr-2')} />
+    </>
+  )
+}

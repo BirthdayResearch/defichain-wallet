@@ -1,7 +1,7 @@
 
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { ThemedText } from '@components/themed/ThemedText'
-import { ThemedProps } from '@components/themed'
+import { ThemedProps, ThemedTextV2 } from '@components/themed'
 import { TextProps } from '@components'
 
 interface BalanceTextProps {
@@ -21,5 +21,19 @@ export function BalanceText ({ symbol, value, ...otherProps }: BalanceTextProps 
     >
       {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`.trim()}
     </ThemedText>
+  )
+}
+export function BalanceTextV2 ({ symbol, value, ...otherProps }: BalanceTextProps & ThemedProps & TextProps): JSX.Element {
+  const {
+    isBalancesDisplayed,
+    hiddenBalanceText
+  } = useDisplayBalancesContext()
+
+  return (
+    <ThemedTextV2
+      {...otherProps}
+    >
+      {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`.trim()}
+    </ThemedTextV2>
   )
 }
