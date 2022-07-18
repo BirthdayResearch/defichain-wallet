@@ -78,13 +78,12 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   })
 })
 
-context('Onboarding V2 - Create Mnemonic Wallet with refresh recovery word', () => {
+context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => {
   const recoveryWords: string[] = []
   const oldRecoveryWords: string[] = []
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.setFeatureFlags(['onboarding_v2'])
     cy.createEmptyWallet()
     cy.visit('/')
     cy.exitWallet()
