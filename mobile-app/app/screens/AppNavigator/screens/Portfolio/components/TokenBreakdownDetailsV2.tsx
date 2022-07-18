@@ -52,7 +52,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
   const mappedPair = poolPairData?.data
   const toRemove = new BigNumber(1)
     .times((props.token as WalletToken).amount)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN) as BigNumber
   const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
   const tokenATotal = ratioToTotal
     .times(mappedPair?.tokenA.reserve ?? 0)
@@ -110,7 +110,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             />
 
             {/* Available amount in USD based on DFI or other crypto */}
-            {props.token.symbol === 'DFI' 
+            {props.token.symbol === 'DFI'
               ? (
                 <TokenBreakdownDetailsRow
                   testID={`${props.testID}_${props.token.symbol}_dfi_available_value`}
@@ -124,7 +124,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   }}
                   suffix={` ${displayCurrency}`}
                 />
-              ) 
+              )
               : (
                 <TokenBreakdownDetailsRow
                   testID={`${props.testID}_${props.token.symbol}_available_value`}
@@ -139,8 +139,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   suffix={` ${displayCurrency}`}
                   border
                 />
-              )
-            }
+              )}
 
           </View>
         )
