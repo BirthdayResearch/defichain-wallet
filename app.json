@@ -4,7 +4,7 @@
     "description": "DeFi Blockchain Light Wallet for iOS, Android & Web.",
     "slug": "wallet",
     "owner": "dfxag",
-    "version": "1.15.4",
+    "version": "1.15.5",
     "orientation": "portrait",
     "icon": "./shared/assets/images/icon.png",
     "scheme": "myapp",
@@ -35,7 +35,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.defichain.app.dfx",
-      "versionCode": 23,
+      "versionCode": 24,
       "permissions": [
         "CAMERA",
         "USE_BIOMETRIC",
