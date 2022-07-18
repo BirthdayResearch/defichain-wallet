@@ -12,7 +12,6 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
-import { openURL } from '@api/linking'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useToast } from 'react-native-toast-notifications'
 import { debounce } from 'lodash'
@@ -33,6 +32,7 @@ import { LabeledAddress, setAddresses, setUserPreferences } from '@store/userPre
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { openURL } from '@api/linking'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -75,6 +75,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
   const labeledAddresses = userPreferences.addresses
   const activeLabel = useAddressLabel(props.address)
+  const { getAddressUrl } = useDeFiScanContext()
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -182,10 +183,13 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     item,
     index
   }: { item: string, index: number }): JSX.Element => {
+    const isSelected = item === props.address
+    const hasLabel = labeledAddresses?.[item]?.label != null && labeledAddresses?.[item]?.label !== ''
+
     return (
       <ThemedTouchableOpacityV2
         key={item}
-        style={tailwind('p-4 flex flex-row items-center justify-between border-none mx-5 mt-2 rounded-lg-v2')}
+        style={tailwind('p-4 flex flex-row items-center justify-between border-none mx-5 rounded-lg-v2')}
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         onPress={async () => {
@@ -224,50 +228,126 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         disabled={hasPendingJob || hasPendingBroadcastJob}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
-          <RandomAvatar name={item} size={32} />
-          <View style={tailwind('mx-2 flex-auto')}>
-            {labeledAddresses?.[item]?.label != null && labeledAddresses?.[item]?.label !== '' &&
+          <RandomAvatar name={item} size={36} />
+          <View style={tailwind('ml-3 flex-auto')}>
+            {hasLabel &&
               (
-                <ThemedTextV2 style={tailwind('w-full font-semibold-v2 text-sm')} testID={`list_address_label_${item}`}>
-                  {labeledAddresses[item]?.label}
-                </ThemedTextV2>
+                <View style={tailwind('flex-row items-center')}>
+                  <ThemedTextV2
+                    style={tailwind('font-semibold-v2 text-sm max-w-3/4')}
+                    testID={`list_address_label_${item}`}
+                    numberOfLines={1}
+                  >
+                    {labeledAddresses[item]?.label}
+                  </ThemedTextV2>
+                  {isSelected && (
+                    <ThemedIcon
+                      iconType='MaterialIcons' name='check-circle' size={16}
+                      light={tailwind('text-green-v2')} dark={tailwind('text-green-v2')}
+                      style={tailwind('ml-1')}
+                    />
+                  )}
+                </View>
+
               )}
-            <ThemedTextV2
-              style={tailwind('w-full font-normal-v2 text-xs')}
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
-              ellipsizeMode='middle'
-              numberOfLines={1}
-              testID={`address_row_text_${index}`}
+            <View
+              style={tailwind('flex-row items-center')}
             >
-              {item}
-            </ThemedTextV2>
-          </View>
-          {isEditing
-            ? (
-              <ThemedIcon
-                size={24}
-                name='edit'
-                iconType='MaterialIcons'
-                light={tailwind('text-primary-500')}
-                dark={tailwind('text-darkprimary-500')}
-                testID={`address_edit_indicator_${item}`}
-              />
-            )
-            : item === props.address
-              ? (
+              {isSelected && !hasLabel && (
                 <ThemedIcon
-                  size={24}
-                  name='check'
-                  iconType='MaterialIcons'
-                  light={tailwind('text-success-600')}
-                  dark={tailwind('text-darksuccess-600')}
-                  testID={`address_active_indicator_${item}`}
+                  iconType='MaterialIcons' name='check-circle' size={16}
+                  light={tailwind('text-green-v2')} dark={tailwind('text-green-v2')}
+                  style={tailwind('mr-1')}
                 />
-              )
-              : (
-                <View style={tailwind('h-6 w-6')} />
               )}
+              <ThemedTextV2
+                style={tailwind('font-normal-v2 text-xs max-w-3/4')}
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                ellipsizeMode='middle'
+                numberOfLines={1}
+                testID={`address_row_text_${index}`}
+              >
+                {item}
+              </ThemedTextV2>
+              {isSelected && (
+                <ThemedTouchableOpacityV2
+                  onPress={async () => await openURL(getAddressUrl(item))}
+                  style={tailwind('border-none p-1')}
+                >
+                  <ThemedIcon
+                    size={12}
+                    name='external-link'
+                    dark={tailwind('text-mono-dark-v2-700')}
+                    light={tailwind('text-mono-light-v2-700')}
+                    style={tailwind('font-normal')}
+                    iconType='Feather'
+                  />
+                </ThemedTouchableOpacityV2>
+              )}
+            </View>
+          </View>
+          <ThemedTouchableOpacityV2
+            style={tailwind('border-none')}
+            onPress={async () => {
+              navigation.navigate({
+                name: props.navigateToScreen.screenName,
+                params: {
+                  title: 'Edit address label',
+                  isAddressBook: false,
+                  address: item,
+                  addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
+                  index: index + 1,
+                  type: 'edit',
+                  onSaveButtonPress: (labelAddress: LabeledAddress) => {
+                    const addresses = { ...labeledAddresses, ...labelAddress }
+                    dispatch(setAddresses(addresses)).then(() => {
+                      dispatch(setUserPreferences({
+                        network,
+                        preferences: {
+                          ...userPreferences,
+                          addresses
+                        }
+                      }))
+                    })
+                    navigation.goBack()
+                    setIsEditing(false)
+                  }
+                },
+                merge: true
+              })
+            }}
+          >
+            <ThemedIcon
+              size={16} iconType='Feather' name='edit-2' light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+            />
+          </ThemedTouchableOpacityV2>
+          {/* {isEditing */}
+          {/*  ? ( */}
+          {/*    <ThemedIcon */}
+          {/*      size={24} */}
+          {/*      name='edit' */}
+          {/*      iconType='MaterialIcons' */}
+          {/*      light={tailwind('text-primary-500')} */}
+          {/*      dark={tailwind('text-darkprimary-500')} */}
+          {/*      testID={`address_edit_indicator_${item}`} */}
+          {/*    /> */}
+          {/*  ) */}
+          {/*  : item === props.address */}
+          {/*    ? ( */}
+          {/*      <ThemedIcon */}
+          {/*        size={24} */}
+          {/*        name='check' */}
+          {/*        iconType='MaterialIcons' */}
+          {/*        light={tailwind('text-success-600')} */}
+          {/*        dark={tailwind('text-darksuccess-600')} */}
+          {/*        testID={`address_active_indicator_${item}`} */}
+          {/*      /> */}
+          {/*    ) */}
+          {/*    : ( */}
+          {/*      <View style={tailwind('h-6 w-6')} /> */}
+          {/*    )} */}
         </View>
       </ThemedTouchableOpacityV2>
     )
@@ -276,9 +356,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   const AddressDetail = useCallback(() => {
     return (
       <ThemedViewV2
-        // light={tailwind('bg-white')}
-        // dark={tailwind('bg-gray-800')}
-        style={tailwind('flex flex-col w-full px-5 items-center')}
+        style={tailwind('flex flex-col w-full px-5 pb-2 items-center')}
       >
         <View style={tailwind('flex-row justify-end w-full m-5')}>
           <ThemedTouchableOpacityV2 style={tailwind('border-none')} onPress={props.onCloseButtonPress}>
@@ -297,9 +375,9 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
           activeLabel != null && (
             <View style={tailwind('mt-2')}>
               <ThemedText
-                light={tailwind('text-mono-light-v2-600')}
-                dark={tailwind('text-mono-dark-v2-600')}
-                style={tailwind('font-semibold-v2 text-base')}
+                light={tailwind('text-mono-light-v2-900')}
+                dark={tailwind('text-mono-dark-v2-900')}
+                style={tailwind('font-semibold-v2 text-base text-center')}
                 testID='list_header_address_label'
               >{activeLabel}
               </ThemedText>
@@ -311,7 +389,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         {/*  onReceivePress={props.onReceiveButtonPress} */}
         {/*  onTransactionsButtonPress={props.onTransactionsButtonPress} */}
         {/* /> */}
-        <View style={tailwind('mt-12 flex flex-row items-center justify-between w-full')}>
+        <View style={tailwind('mt-12 px-5 flex flex-row items-center justify-between w-full')}>
           <WalletCounterDisplay addressLength={addressLength} />
           <DiscoverWalletAddress onPress={discoverWalletAddresses} />
           {/* <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} /> */}
@@ -333,6 +411,9 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
       ListHeaderComponent={AddressDetail}
       ListFooterComponent={CreateAddress}
       contentContainerStyle={tailwind('pb-4')}
+      ItemSeparatorComponent={() => {
+        return (<View style={tailwind('h-2')} />)
+      }}
     />
   )
 })
@@ -343,14 +424,14 @@ function ActiveAddress ({
 }: { address: string, onPress: () => void }): JSX.Element {
   const { getAddressUrl } = useDeFiScanContext()
   return (
-    <View style={tailwind('flex-row w-full mt-2 items-center')}>
+    <View style={tailwind('flex-row w-full mt-2 justify-center')}>
       <ThemedTouchableOpacityV2
         style={tailwind('border-none w-5/12')}
         onPress={onPress}
       >
         <ThemedTextV2
           ellipsizeMode='middle'
-          style={tailwind('font-normal-v2 text-sm')}
+          style={tailwind('font-normal-v2 text-sm ')}
           numberOfLines={1}
           testID='active_address'
         >
@@ -425,8 +506,8 @@ function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Eleme
       style={tailwind('flex-row items-center border-none')}
     >
       <ThemedTextV2
-        dark={tailwind('text-mono-dark-v2-400')}
-        light={tailwind('text-mono-light-v2-400')}
+        dark={tailwind('text-mono-dark-v2-800')}
+        light={tailwind('text-mono-light-v2-800')}
         style={tailwind('font-normal-v2 text-xs pr-1')}
       >{translate('components/BottomSheetAddressDetail', 'Refresh')}
       </ThemedTextV2>
