@@ -180,14 +180,14 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             <View style={tailwind('pb-4')}>
               <TokenBreakdownDetailsRow
                 testID={`share_in_pool_${props.pair.symbol}_amount`}
-                amount={(props.token as WalletToken).amount}
+                amount={(props.token).amount}
                 label='Your pool shares'
                 hasFetchedToken={props.hasFetchedToken}
                 labelTextStyle={tailwind('font-normal-v2')}
               />
               <TokenBreakdownDetailsRow
                 testID={`share_in_pool_${props.pair.symbol}_USD`}
-                amount={getPrecisedTokenValue(getTokenPrice(props.token.symbol, new BigNumber((props.token as WalletToken).amount),
+                amount={getPrecisedTokenValue(getTokenPrice(props.token.symbol, new BigNumber((props.token).amount),
                   true))}
                 label=''
                 hasFetchedToken={props.hasFetchedToken}
@@ -316,8 +316,7 @@ function DFITokenBreakDownDetailsRow ({
           prefix=' ('
           suffix='%)'
         />
-      )
-      }
+      )}
 
       <View style={tailwind('flex-row flex-1 justify-end')}>
         {
@@ -355,7 +354,7 @@ function DFITokenBreakDownDetailsRow ({
     </ThemedViewV2>
   )
 }
-function TokenBreakdownDetailsRow ({
+function TokenBreakdownDetailsRow({
   amount,
   label,
   testID,
@@ -371,7 +370,6 @@ function TokenBreakdownDetailsRow ({
   suffix,
   border
 }: TokenBreakdownDetailsRowProps): JSX.Element {
-
   return (
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}

@@ -2,7 +2,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { ThemedIcon } from '@components/themed'
@@ -261,9 +261,9 @@ export function PortfolioNavigator (): JSX.Element {
           ...screenOptions,
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),       
+          ),
           headerBackTitleVisible: false,
-          headerTitle: translate('screens/TokenDetailScreen', 'Balance'),
+          headerTitle: translate('screens/TokenDetailScreen', 'Balance')
         }}
       />
 

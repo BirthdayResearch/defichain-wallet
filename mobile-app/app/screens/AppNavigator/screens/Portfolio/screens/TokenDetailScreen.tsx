@@ -157,7 +157,8 @@ export function TokenDetailScreen ({
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
-        denominationCurrency={denominationCurrency} />
+        denominationCurrency={denominationCurrency} 
+      />
       <View style={tailwind('p-5')}>
 
         <TokenBreakdownDetailsV2
@@ -348,7 +349,8 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 symbolA={symbolA}
                 symbolB={symbolB}
               />
-            ) : (
+            ) 
+            : (
               <Icon height={40} width={40} />
             )
           }
@@ -381,7 +383,8 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
         {
           isTokenPair ? (
             <></>
-          ) : (
+          ) 
+          : (
             <View style={[tailwind('flex-col'), { marginLeft: 'auto' }]}>
               <NumberFormat
                 decimalScale={8}
@@ -420,7 +423,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
   )
 }
 
-function TokenActionRow({
+function TokenActionRow ({
   title,
   icon,
   onPress,
