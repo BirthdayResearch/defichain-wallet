@@ -1,24 +1,20 @@
-import { ThemedIcon } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { tailwind } from '@tailwind'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { getColor } from '@tailwind'
 import { TouchableOpacity } from 'react-native'
 import { SettingsParamList } from '../../Settings/SettingsNavigator'
+import { SettingsIcon } from '../assets/SettingsIcon'
 
 export function HeaderSettingButton (): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
+  const { isLight } = useThemeContext()
+
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Settings')}
       testID='header_settings'
     >
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='settings'
-        size={28}
-        style={tailwind('ml-2')}
-        light={tailwind('text-primary-500')}
-        dark={tailwind('text-darkprimary-500')}
-      />
+      <SettingsIcon color={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')} />
     </TouchableOpacity>
   )
 }

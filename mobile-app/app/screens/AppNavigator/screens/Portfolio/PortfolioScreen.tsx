@@ -10,7 +10,7 @@ import { ocean } from '@store/ocean'
 import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { batch, useSelector } from 'react-redux'
 import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
@@ -21,8 +21,7 @@ import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-import { AddressSelectionButton } from './components/AddressSelectionButton'
-import { HeaderSettingButton } from './components/HeaderSettingButton'
+// import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -51,8 +50,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const whaleRpcClient = useWhaleRpcClient()
   const {
-    address,
-    addressLength
+    address
+    // addressLength //TODO: uncomment when adding AddressSelectionButton
   } = useWalletContext()
   const {
     denominationCurrency,
@@ -96,19 +95,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       })
     }
   }, [address, blockCount, isFocused])
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: (): JSX.Element => (
-        <HeaderSettingButton />
-      ),
-      headerRight: (): JSX.Element => (
-        <View style={tailwind('mr-2')}>
-          <AddressSelectionButton address={address} addressLength={addressLength} onPress={() => expandModal(false)} hasCount />
-        </View>
-      )
-    })
-  }, [navigation, address, addressLength])
 
   useEffect(() => {
     batch(() => {
