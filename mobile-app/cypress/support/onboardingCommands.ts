@@ -6,6 +6,7 @@ declare global {
       /**
        * @description Start onboarding mnemonic wallet process
        * @param {string[]} recoveryWords - pass an empty array to be filled later
+       * @example cy.startCreateMnemonicWallet(recoveryWords)
        */
       startCreateMnemonicWallet: (recoveryWords: string[]) => Chainable<Element>
 
@@ -19,7 +20,7 @@ declare global {
       /**
        * @description Setup pin code from Onboarding
        */
-      setupPinCode: () => Chainable<Element>
+      setupPinCodeV2: () => Chainable<Element>
 
       /**
        * @description Verify created mnemonic words in Settings Page
@@ -40,8 +41,8 @@ declare global {
 }
 
 Cypress.Commands.add('startCreateMnemonicWallet', (recoveryWords: string[]) => {
-  cy.getByTestID('create_wallet_button').click()
-  cy.getByTestID('guidelines_switch').click()
+  cy.getByTestID('get_started_button').click()
+  cy.getByTestID('guidelines_check').click()
   cy.getByTestID('create_recovery_words_button').click()
   cy.url().should('include', 'wallet/mnemonic/create')
   cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i: number) => {
@@ -59,7 +60,7 @@ Cypress.Commands.add('startCreateMnemonicWallet', (recoveryWords: string[]) => {
 Cypress.Commands.add('selectMnemonicWords', (recoveryWords: string[]) => {
   Array.from(Array(6), (v, i) => i + 1).forEach((key, index) => {
     cy.getByTestID(`line_${index}`).then(($txt: any) => {
-      const wordIndex = (+$txt[0].textContent.replace('?', '').replace('#', '')) - 1
+      const wordIndex = (parseInt($txt[0].textContent)) - 1
       cy.getByTestID(`line_${index}_${recoveryWords[wordIndex]}`).first().click()
     })
   })
@@ -67,7 +68,7 @@ Cypress.Commands.add('selectMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('verify_words_button').click()
 })
 
-Cypress.Commands.add('setupPinCode', () => {
+Cypress.Commands.add('setupPinCodeV2', () => {
   cy.getByTestID('pin_input').type('000000')
   cy.getByTestID('pin_confirm_input').type('777777').wait(1000)
   cy.getByTestID('wrong_passcode_text').should('exist')
@@ -101,5 +102,7 @@ Cypress.Commands.add('restoreMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('recover_wallet_button').click()
   cy.getByTestID('pin_input').type('000000')
   cy.getByTestID('pin_confirm_input').type('000000')
+  cy.getByTestID('wallet_restore_success').should('exist')
+  cy.getByTestID('continue_button').should('exist').click()
   cy.getByTestID('portfolio_list').should('exist')
 })

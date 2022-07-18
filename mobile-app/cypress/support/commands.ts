@@ -1,6 +1,5 @@
 import '@testing-library/cypress/add-commands'
 import './onboardingCommands'
-import './onboardingCommandsV2'
 import './walletCommands'
 import './loanCommands'
 import { EnvironmentNetwork } from '../../../shared/environment'

@@ -3,7 +3,6 @@ context('Onboarding - Restore Wallet', () => {
 
   before(function () {
     cy.visit('/')
-    cy.blockAllFeatureFlag()
     cy.exitWallet()
     cy.getByTestID('restore_wallet_button').click()
     cy.url().should('include', 'wallet/mnemonic/restore')
@@ -75,6 +74,8 @@ context('Onboarding - Restore Wallet', () => {
   it('should be able to set pincode', function () {
     cy.getByTestID('pin_input').type('000000')
     cy.getByTestID('pin_confirm_input').type('000000')
+    cy.getByTestID('wallet_restore_success').should('exist')
+    cy.getByTestID('continue_button').should('exist').click()
     cy.getByTestID('portfolio_list').should('exist')
   })
 })
