@@ -50,10 +50,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
     (pr) => pr.data.symbol === (props.token as AddressToken).symbol
   )
   const mappedPair = poolPairData?.data
-  const toRemove = new BigNumber(1)
-    .times((props.token as WalletToken).amount)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN) as BigNumber
-  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
+  const toRemove = new BigNumber(1).times((props.token as WalletToken).amount).decimalPlaces(8, BigNumber.ROUND_DOWN) as BigNumber
+  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1) as BigNumber
   const tokenATotal = ratioToTotal
     .times(mappedPair?.tokenA.reserve ?? 0)
     .decimalPlaces(8, BigNumber.ROUND_DOWN)
