@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
@@ -40,6 +41,9 @@ import { BottomSheetAssetSortList, PortfolioSortType } from './components/Bottom
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { useDebounce } from '@hooks/useDebounce'
+
+import { from, defer } from 'rxjs'
+import { delay, map, retryWhen } from 'rxjs/operators'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -125,13 +129,53 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     })
   }, [])
 
+  // const retry = (fn, ms = 3000, maxRetries = 25) => new Promise((resolve, reject) => {
+  //   var retries = 0;
+  //   fn()
+  //     .then(resolve)
+  //     .catch(() => {
+  //       setTimeout(() => {
+  //         console.log('retrying failed promise...')
+  //         ++retries
+  //         if (retries == maxRetries) {
+  //           return reject('maximum retries exceeded')
+  //         }
+  //         retry(fn, ms).then(resolve)
+  //       }, ms)
+  //     })
+  // })
+
+  function getUserDetailWithRetry () {
+    defer(() => {
+      return from(getUserDetail())
+    }).pipe(
+      map((userDetail) => {
+        if (userDetail === undefined || userDetail.stakingBalance === undefined) {
+          throw new Error('userdetail undefined')
+        }
+        return userDetail
+      }),
+      retryWhen((error) => {
+        return error.pipe(
+          delay(3000)
+        )
+      })).subscribe({
+        next: (result) => {
+          // console.log(result)
+
+          setStaked(result?.stakingBalance ?? 0)
+          setHasFetchedStakingBalance(true)
+        },
+        error: () => {
+          // console.log(err)
+        }
+      })
+  }
+
   function fetchDfxStakingBalance (): void {
     setHasFetchedStakingBalance(false)
-    void (async () => {
-      const userDetail = await getUserDetail()
-      setStaked(userDetail?.stakingBalance ?? 0)
-      setHasFetchedStakingBalance(true)
-    })()
+
+    getUserDetailWithRetry()
   }
 
   useEffect(() => {
