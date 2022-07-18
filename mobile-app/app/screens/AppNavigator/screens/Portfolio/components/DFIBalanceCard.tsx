@@ -22,7 +22,7 @@ import { useState } from 'react'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { TokenBreakdownDetails } from './TokenBreakdownDetails'
 import NumberFormat from 'react-number-format'
-import { BalanceTextV2 } from './BalanceText'
+import { BalanceText } from './BalanceText'
 import { translate } from '@translations'
 interface DFIBalaceCardProps {
   denominationCurrency: string
@@ -63,7 +63,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
           <ThemedTouchableOpacity
             onPress={() => navigation.navigate({
               name: 'Balance',
-              params: { token: DFIUnified, usdAmount: usdAmount },
+              params: { token: DFIUnified, usdAmount },
               merge: true
             })}
             style={tailwind('flex-1')}
@@ -215,7 +215,7 @@ function DFIBreakdownPercentageItem ({ label, value, type }: { label: string, va
         displayType='text'
         suffix='%'
         renderText={value =>
-          <BalanceTextV2
+          <BalanceText
             light={tailwind('text-black')}
             dark={tailwind('text-white')}
             style={tailwind('text-xs font-medium')}
