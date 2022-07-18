@@ -1,5 +1,6 @@
 import { ViewProps } from 'react-native'
-import { ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { ThemedViewV2 } from './ThemedViewV2'
+import { ThemedTouchableOpacityV2 } from './ThemedTouchableOpacityV2'
 import { tailwind } from '@tailwind'
 
 type IListProps = React.PropsWithChildren<ViewProps> & ListProps
