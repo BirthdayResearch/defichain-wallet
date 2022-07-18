@@ -2,7 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useState } from 'react'
 import { Platform, View } from 'react-native'
 import { ThemePersistence } from '@api'
-import { Switch } from '@components/index'
+import { Switch } from '@components'
 import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { tailwind } from '@tailwind'
@@ -18,7 +18,10 @@ export function RowThemeItemV2 (props: { border?: boolean }): JSX.Element {
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind('flex py-2 flex-row items-center justify-between', { 'border-b-0.5': props.border, 'py-4.5': Platform.OS === 'ios' })}
+      style={tailwind('flex py-4.5 flex-row items-center justify-between', {
+        'border-b-0.5': props.border,
+        'py-1.5': Platform.OS === 'android'
+      })}
       testID='theme_row'
     >
       <ThemedTextV2
@@ -31,22 +34,22 @@ export function RowThemeItemV2 (props: { border?: boolean }): JSX.Element {
 
       <View style={tailwind('flex-row items-center')}>
         {isLight
-        ? (
-          <MaterialIcons
-            name='wb-sunny'
-            size={20}
-            testID='light_mode_icon'
-            style={tailwind('mr-1 text-orange-v2', { 'mr-2': Platform.OS === 'ios' })}
-          />
+          ? (
+            <MaterialIcons
+              name='wb-sunny'
+              size={20}
+              testID='light_mode_icon'
+              style={tailwind('mr-1 text-orange-v2', { 'mr-2': Platform.OS === 'ios' })}
+            />
           )
-        : (
-          <MaterialIcons
-            name='nightlight-round'
-            size={20}
-            testID='dark_mode_icon'
-            style={tailwind('text-orange-v2', { 'mr-2': Platform.OS === 'ios' })}
-          />
-        )}
+          : (
+            <MaterialIcons
+              name='nightlight-round'
+              size={20}
+              testID='dark_mode_icon'
+              style={tailwind('text-orange-v2', { 'mr-2': Platform.OS === 'ios' })}
+            />
+          )}
 
         <Switch
           onValueChange={async (v) => {

@@ -1614,7 +1614,7 @@
     "Reset default service provider": "Restaurar proveedor de servicio por defecto",
     "Provider": "Proveedor",
     "Reset provider": "Resetear el proveedor",
-    "This will reset the service provider to the default URL.": "Esto restaurará la URL del proveedor de servicios por defecto."
+    "This will reset the service provider\nto the default URL.": "Esto restaurará la URL del proveedor de servicios por defecto."
   },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",
