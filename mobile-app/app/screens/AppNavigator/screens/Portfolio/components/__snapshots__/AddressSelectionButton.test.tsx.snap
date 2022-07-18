@@ -105,7 +105,7 @@ exports[`Address Selection Button should match snapshot 1`] = `
         mask="mask__bauhaus"
       >
         <RNSVGRect
-          fill={4281312875}
+          fill={4279316113}
           height={80}
           propList={
             Array [
@@ -117,7 +117,7 @@ exports[`Address Selection Button should match snapshot 1`] = `
           y={0}
         />
         <RNSVGRect
-          fill={4293813177}
+          fill={4294901900}
           height={10}
           matrix={
             Array [
@@ -141,7 +141,7 @@ exports[`Address Selection Button should match snapshot 1`] = `
         <RNSVGCircle
           cx={40}
           cy={40}
-          fill={4281626061}
+          fill={4284158207}
           matrix={
             Array [
               1,
@@ -176,7 +176,7 @@ exports[`Address Selection Button should match snapshot 1`] = `
               "strokeWidth",
             ]
           }
-          stroke={4294300999}
+          stroke={4294945863}
           strokeWidth={2}
           x1={0}
           x2={80}

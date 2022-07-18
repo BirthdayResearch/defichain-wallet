@@ -138,23 +138,7 @@ exports[`language selection screen should render 1`] = `
             English
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(18, 187, 65, 1)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
       <View
         accessible={true}
@@ -254,23 +238,7 @@ exports[`language selection screen should render 1`] = `
             </Text>
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(89, 89, 89, 0.3)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
       <View
         accessible={true}
@@ -370,23 +338,7 @@ exports[`language selection screen should render 1`] = `
             </Text>
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(89, 89, 89, 0.3)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
       <View
         accessible={true}
@@ -486,23 +438,7 @@ exports[`language selection screen should render 1`] = `
             </Text>
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(89, 89, 89, 0.3)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
       <View
         accessible={true}
@@ -602,23 +538,7 @@ exports[`language selection screen should render 1`] = `
             </Text>
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(89, 89, 89, 0.3)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
       <View
         accessible={true}
@@ -718,23 +638,7 @@ exports[`language selection screen should render 1`] = `
             </Text>
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(89, 89, 89, 0.3)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
       <View
         accessible={true}
@@ -833,23 +737,7 @@ exports[`language selection screen should render 1`] = `
             </Text>
           </Text>
         </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "rgba(89, 89, 89, 0.3)",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "paddingBottom": 1,
-              "paddingLeft": 1,
-              "paddingRight": 1,
-              "paddingTop": 1,
-            }
-          }
-        >
-          <Text />
-        </View>
+        <Text />
       </View>
     </View>
   </View>

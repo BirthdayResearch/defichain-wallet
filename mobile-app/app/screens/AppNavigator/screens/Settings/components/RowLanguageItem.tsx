@@ -1,7 +1,6 @@
 import { ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { AppLanguageItem, translate } from '@translations'
@@ -10,7 +9,6 @@ import { SettingsParamList } from '../SettingsNavigator'
 
 export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLanguageItem, border: boolean}): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
-  const { isLight } = useThemeContext()
   const {
     language,
     setLanguage
@@ -41,10 +39,6 @@ export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLa
       ]
     })
   }
-
-  const checkActive = 'bg-success-600'
-  const checkInactive = `${isLight ? 'bg-mono-light-v2-700 bg-opacity-30' : 'bg-mono-dark-v2-700 bg-opacity-30'}`
-
   return (
     <ThemedTouchableOpacityV2
       onPress={onPress}
@@ -67,18 +61,14 @@ export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLa
             </Text>
           </ThemedTextV2>}
       </View>
-      <View
-        style={tailwind(`p-px rounded-full ${language.startsWith(languageItem.locale) ? checkActive : checkInactive}`)}
-      >
-        <ThemedIcon
-          iconType='MaterialIcons'
-          dark={tailwind('text-mono-dark-v2-00')}
-          light={tailwind('text-mono-light-v2-00')}
-          name='check'
-          size={18}
-          testID={`button_network_${languageItem.language}_check`}
-        />
-      </View>
+      <ThemedIcon
+        iconType='MaterialIcons'
+        light={tailwind(`${language.startsWith(languageItem.locale) ? 'text-green-v2' : 'text-mono-light-v2-700 opacity-30'}`)}
+        dark={tailwind(`${language.startsWith(languageItem.locale) ? 'text-green-v2' : 'text-mono-dark-v2-700 opacity-30'}`)}
+        name='check-circle'
+        size={20}
+        testID={`button_network_${languageItem.language}_check`}
+      />
     </ThemedTouchableOpacityV2>
   )
 }
