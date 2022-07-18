@@ -110,8 +110,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             />
 
             {/* Available amount in USD based on DFI or other crypto */}
-            {
-              props.token.symbol === 'DFI' ? (
+            {props.token.symbol === 'DFI' 
+              ? (
                 <TokenBreakdownDetailsRow
                   testID={`${props.testID}_${props.token.symbol}_dfi_available_value`}
                   amount={getPrecisedTokenValue(props.availableValue)}
@@ -124,7 +124,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   }}
                   suffix={` ${displayCurrency}`}
                 />
-              ) : (
+              ) 
+              : (
                 <TokenBreakdownDetailsRow
                   testID={`${props.testID}_${props.token.symbol}_available_value`}
                   amount={getPrecisedTokenValue(props.usdAmount)}
@@ -285,7 +286,6 @@ function DFITokenBreakDownDetailsRow ({
   percentageValue,
   border
 }: DFITokenBreakdownRowProps): JSX.Element {
-
   return (
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
@@ -301,7 +301,7 @@ function DFITokenBreakDownDetailsRow ({
 
       {percentageValue !== undefined && (
         <NumberFormat
-          value={percentageValue.isNaN() ? 0 : percentageValue.toFixed(2)}
+          value={percentageValue.toFixed(8)}
           decimalScale={2}
           displayType='text'
           renderText={(value) => (
@@ -309,7 +309,7 @@ function DFITokenBreakDownDetailsRow ({
               style={tailwind('text-xs font-normal-v2 pr-1')}
               testID={testID}
             >
-              {`${value}`}
+              {value}
             </ThemedTextV2>
           )}
           thousandSeparator
@@ -354,7 +354,7 @@ function DFITokenBreakDownDetailsRow ({
     </ThemedViewV2>
   )
 }
-function TokenBreakdownDetailsRow({
+function TokenBreakdownDetailsRow ({
   amount,
   label,
   testID,
