@@ -6,7 +6,7 @@ import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, se
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useState } from 'react'
-import { Platform, TouchableOpacity, Image, StyleProp, ViewStyle, Keyboard, ScrollView } from 'react-native'
+import { Platform, TouchableOpacity, Image, StyleProp, ViewStyle, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -312,59 +312,36 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               onFocus={() => {
                 setIsSearchFocus(true)
               }}
+              onBlur={() => {
+                setIsSearchFocus(false)
+              }}
               testID='address_search_input'
             />
           </View>
           <View style={tailwind('ml-3')}>
-            {isSearchFocus
-            ? (
-              <ThemedTouchableOpacityV2
-                onPress={() => {
-                  Keyboard.dismiss()
-                  setIsSearchFocus(false)
-                  setSearchString('')
-                }}
-                light={tailwind('bg-mono-light-v2-900')}
-                dark={tailwind('bg-mono-dark-v2-900')}
-                testID='cancel_search_button'
-                style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
-              >
-                <ThemedIcon
-                  size={24}
-                  name='x'
-                  light={tailwind('text-mono-light-v2-00')}
-                  dark={tailwind('text-mono-dark-v2-00')}
-                  iconType='Feather'
-                />
-              </ThemedTouchableOpacityV2>
-            )
-            : (
-              <>
-                {activeButtonGroup === ButtonGroupTabKey.Whitelisted
-                  ? (
-                    <ThemedTouchableOpacityV2
-                      onPress={goToAddAddressForm}
-                      light={tailwind('bg-mono-light-v2-900')}
-                      dark={tailwind('bg-mono-dark-v2-900')}
-                      testID='add_new_address'
-                      style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
-                    >
-                      <ThemedIcon
-                        size={24}
-                        name='plus'
-                        light={tailwind('text-mono-light-v2-00')}
-                        dark={tailwind('text-mono-dark-v2-00')}
-                        iconType='Feather'
-                      />
-                    </ThemedTouchableOpacityV2>
-                  )
-                  : <DiscoverWalletAddressV2 size={24} />}
-              </>
-            )}
+            {activeButtonGroup === ButtonGroupTabKey.Whitelisted
+              ? (
+                <ThemedTouchableOpacityV2
+                  onPress={goToAddAddressForm}
+                  light={tailwind('bg-mono-light-v2-900')}
+                  dark={tailwind('bg-mono-dark-v2-900')}
+                  testID='add_new_address'
+                  style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
+                >
+                  <ThemedIcon
+                    size={24}
+                    name='plus'
+                    light={tailwind('text-mono-light-v2-00')}
+                    dark={tailwind('text-mono-dark-v2-00')}
+                    iconType='Feather'
+                  />
+                </ThemedTouchableOpacityV2>
+              )
+              : <DiscoverWalletAddressV2 size={24} />}
           </View>
         </View>
-        {isSearchFocus && (
-          <View style={tailwind('px-5 mt-8 mb-2')}>
+        {(isSearchFocus || searchString.trim().length !== 0) && (
+          <View style={tailwind('px-5 mt-6 mb-2')}>
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
@@ -377,27 +354,26 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
             </ThemedTextV2>
           </View>
           )}
-        {(activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 && !isSearchFocus)
+        {(activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 && !isSearchFocus && searchString.trim().length === 0)
         ? (
           <EmptyDisplay onPress={goToAddAddressForm} />
         )
         : (
           <>
-            {!isSearchFocus && (
+            {!isSearchFocus && searchString.trim().length === 0 && (
               <ThemedSectionTitleV2
                 testID='addresses_title'
                 text={translate('screens/AddressBookScreen', 'ADDRESS(ES)')}
               />
             )}
-            {(!isSearchFocus || (isSearchFocus && searchString.trim().length > 0)) &&
-              (activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress).map((item: LocalAddress, index: number) => (
-                <AddressListItem
-                  item={item}
-                  key={item.address}
-                  index={index}
-                  testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'address_book' : 'wallet_address'}
-                />)
-              )}
+            {(activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress).map((item: LocalAddress, index: number) => (
+              <AddressListItem
+                item={item}
+                key={item.address}
+                index={index}
+                testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'address_book' : 'wallet_address'}
+              />)
+            )}
           </>
         )}
       </ScrollView>
