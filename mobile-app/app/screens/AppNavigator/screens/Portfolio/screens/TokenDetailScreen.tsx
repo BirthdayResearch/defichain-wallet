@@ -153,14 +153,16 @@ export function TokenDetailScreen ({
 
   return (
     <ThemedScrollViewV2>
-      <TokenSummary
-        token={token}
-        border
-        usdAmount={usdAmount ?? new BigNumber(0)}
-        denominationCurrency={denominationCurrency}
-      />
-      <View style={tailwind('p-5')}>
+      <View>
+        <TokenSummary
+          token={token}
+          border
+          usdAmount={usdAmount ?? new BigNumber(0)}
+          denominationCurrency={denominationCurrency}
+        />
+      </View>
 
+      <View style={tailwind('p-5 pb-12')}>
         <TokenBreakdownDetailsV2
           hasFetchedToken={hasFetchedToken}
           lockedAmount={lockedToken.amount}
@@ -276,33 +278,41 @@ export function TokenDetailScreen ({
         <View style={tailwind('px-5')}>
           {
             pair !== undefined && token.isLPS && (
-              <ButtonV2
-                onPress={() => onNavigateLiquidity({
-                  destination: 'AddLiquidity',
-                  pair
-                })}
-                testID='add_liquidity_button'
-                label={translate('screens/TokenDetailScreen', 'Add liquidity')}
-              />)
+              <View style={tailwind('pt-4')}>
+                <ButtonV2
+                  onPress={() => onNavigateLiquidity({
+                    destination: 'AddLiquidity',
+                    pair
+                  })}
+                  testID='add_liquidity_button'
+                  label={translate('screens/TokenDetailScreen', 'Add liquidity')}
+                />
+              </View>
+            )
           }
 
           {
             token.symbol === 'DFI' && (
-              <ButtonV2
-                onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
-                testID='swap_button_dfi'
-                label={translate('screens/TokenDetailScreen', 'Swap')}
-              />
+              <View style={tailwind('pt-4')}>
+                <ButtonV2
+                  onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
+                  testID='swap_button_dfi'
+                  label={translate('screens/TokenDetailScreen', 'Swap')}
+                />
+              </View>
             )
           }
 
           {
             (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
-              <ButtonV2
-                onPress={() => onNavigateSwap({ pair })}
-                testID='swap_button'
-                label={translate('screens/TokenDetailScreen', 'Swap')}
-              />)
+              <View style={tailwind('pt-4')}>
+                <ButtonV2
+                  onPress={() => onNavigateSwap({ pair })}
+                  testID='swap_button'
+                  label={translate('screens/TokenDetailScreen', 'Swap')}
+                />
+              </View>
+            )
           }
         </View>
       </View>
@@ -310,7 +320,7 @@ export function TokenDetailScreen ({
   )
 }
 
-function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount: BigNumber, denominationCurrency: string }): JSX.Element {
+function TokenSummary(props: { token: WalletToken, border?: boolean, usdAmount: BigNumber, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(props.token.displaySymbol)
   const { getTokenUrl } = useDeFiScanContext()
   const onTokenUrlPressed = async (): Promise<void> => {
