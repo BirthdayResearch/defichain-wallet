@@ -100,6 +100,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Display redesigned Setting flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'portfolio_v2',
+      name: 'Portfolio 2.0',
+      stage: 'public',
+      version: '>1.16.0',
+      description: 'Display redesigned Portfolio flow for LW 2.0',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }
