@@ -9,7 +9,7 @@ import { ButtonV2 } from '@components/ButtonV2'
 import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
 import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
 import { VersionTagV2 } from '@components/VersionTagV2'
-import { OnboardingCarouselV2 } from '@screens/WalletNavigator/screens/components/OnboardingCarouselV2'
+import { OnboardingCarousel } from '@screens/WalletNavigator/screens/components/OnboardingCarousel'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -27,7 +27,7 @@ export function Onboarding (): JSX.Element {
       testID='onboarding_carousel'
     >
       <View style={tailwind('flex-1')}>
-        <OnboardingCarouselV2 />
+        <OnboardingCarousel />
       </View>
       <View>
         <ImageBackground

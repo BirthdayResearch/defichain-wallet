@@ -7,23 +7,23 @@ import { useRef } from 'react'
 import { getDefaultTheme } from '@constants/Theme'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { translate } from '@translations'
-import { CreateMnemonicWalletV2 } from './screens/CreateWallet/CreateMnemonicWalletV2'
-import { CreateWalletGuidelinesV2 } from './screens/CreateWallet/CreateWalletGuidelinesV2'
-import { VerifyMnemonicWalletV2 } from './screens/CreateWallet/VerifyMnemonicWalletV2'
+import { CreateMnemonicWallet } from '././screens/CreateWallet/CreateMnemonicWallet'
+import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
+import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
-import { PinCreationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinCreationV2'
-import { PinConfirmationV2 } from '@screens/WalletNavigator/screens/CreateWallet/PinConfirmationV2'
-import { OnboardingNetworkSelectScreenV2 } from './screens/CreateWallet/OnboardingNetworkSelectScreenV2'
+import { PinCreation } from '@screens/WalletNavigator/screens/CreateWallet/PinCreation'
+import { PinConfirmation } from '@screens/WalletNavigator/screens/CreateWallet/PinConfirmation'
+import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
 import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
 import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
 import { Onboarding } from '@screens/WalletNavigator/screens/Onboarding'
 import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
-import { RestoreMnemonicWalletV2 } from './screens/RestoreWallet/RestoreMnemonicWalletV2'
+import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
 import { Dimensions, Platform } from 'react-native'
 
 type PinCreationType = 'create' | 'restore'
@@ -112,7 +112,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={CreateWalletGuidelinesV2}
+          component={CreateWalletGuidelines}
           name='CreateWalletGuidelines'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'New Wallet')
@@ -120,7 +120,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={CreateMnemonicWalletV2}
+          component={CreateMnemonicWallet}
           name='CreateMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'View Recovery Words'),
@@ -129,7 +129,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={VerifyMnemonicWalletV2}
+          component={VerifyMnemonicWallet}
           name='VerifyMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Verify Words'),
@@ -138,7 +138,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={RestoreMnemonicWalletV2}
+          component={RestoreMnemonicWallet}
           name='RestoreMnemonicWallet'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Restore Wallet')
@@ -154,7 +154,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={OnboardingNetworkSelectScreenV2}
+          component={OnboardingNetworkSelectScreen}
           name='OnboardingNetworkSelectScreen'
           options={{
             headerTitle: translate('screens/NetworkDetails', 'Network'),
@@ -181,7 +181,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={PinCreationV2}
+          component={PinCreation}
           name='PinCreation'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
@@ -189,7 +189,7 @@ export function WalletNavigator (): JSX.Element {
           }}
         />
         <WalletStack.Screen
-          component={PinConfirmationV2}
+          component={PinConfirmation}
           name='PinConfirmation'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
