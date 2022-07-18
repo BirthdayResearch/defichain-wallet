@@ -1581,7 +1581,7 @@
     "Reset default service provider": "Standarddienstanbieter zurücksetzen",
     "Provider": "Anbieter",
     "Reset provider": "Anbieter zurücksetzen",
-    "This will reset the service provider to the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt."
+    "This will reset the service provider\nto the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt."
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
