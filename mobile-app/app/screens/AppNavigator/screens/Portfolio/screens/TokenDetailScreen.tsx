@@ -157,7 +157,7 @@ export function TokenDetailScreen ({
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
-        denominationCurrency={denominationCurrency} 
+        denominationCurrency={denominationCurrency}
       />
       <View style={tailwind('p-5')}>
 
@@ -185,7 +185,7 @@ export function TokenDetailScreen ({
               <InfoTextLinkV2
                 onPress={async () => await openURL('https://defichain.com/dfi')}
                 text='Learn more about DFI'
-                testId='empty_vault_learn_more'
+                testId='dfi_learn_more'
               />
             </ThemedViewV2>
           )
@@ -342,17 +342,18 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
       style={tailwind('py-4.5 ml-5 mr-4', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
     >
       <View style={tailwind('flex-row items-center')}>
-        <View style={tailwind('')}>
+        <View>
           {
-            isTokenPair ? (
-              <PoolPairTextSectionV2
-                symbolA={symbolA}
-                symbolB={symbolB}
-              />
-            ) 
-            : (
-              <Icon height={40} width={40} />
-            )
+            isTokenPair
+              ? (
+                <PoolPairTextSectionV2
+                  symbolA={symbolA}
+                  symbolB={symbolB}
+                />
+              )
+              : (
+                <Icon height={40} width={40} />
+              )
           }
 
         </View>
@@ -381,42 +382,43 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
           </TouchableOpacity>
         </View>
         {
-          isTokenPair ? (
-            <></>
-          ) 
-          : (
-            <View style={[tailwind('flex-col'), { marginLeft: 'auto' }]}>
-              <NumberFormat
-                decimalScale={8}
-                displayType='text'
-                renderText={(value) => (
-                  <ThemedTextV2
-                    style={tailwind('flex-wrap mr-1 text-sm font-semibold-v2 text-right')}
-                    testID='token_detail_amount'
-                  >
-                    {value}
-                  </ThemedTextV2>
-                )}
-                thousandSeparator
-                value={new BigNumber(props.token.amount).toFixed(8)}
-              />
-              <NumberFormat
-                decimalScale={8}
-                displayType='text'
-                suffix={` ${displayCurrency}`}
-                renderText={(value) => (
-                  <ThemedTextV2
-                    style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
-                    testID='token_detail_amount'
-                  >
-                    {value}
-                  </ThemedTextV2>
-                )}
-                thousandSeparator
-                value={props.token.symbol === 'DFI' ? getPrecisedTokenValue(dfiUsdAmount) : getPrecisedTokenValue(props.usdAmount)}
-              />
-            </View>
-          )
+          isTokenPair
+            ? (
+              <></>
+            )
+            : (
+              <View style={[tailwind('flex-col'), { marginLeft: 'auto' }]}>
+                <NumberFormat
+                  decimalScale={8}
+                  displayType='text'
+                  renderText={(value) => (
+                    <ThemedTextV2
+                      style={tailwind('flex-wrap mr-1 text-sm font-semibold-v2 text-right')}
+                      testID='token_detail_amount'
+                    >
+                      {value}
+                    </ThemedTextV2>
+                  )}
+                  thousandSeparator
+                  value={new BigNumber(props.token.amount).toFixed(8)}
+                />
+                <NumberFormat
+                  decimalScale={8}
+                  displayType='text'
+                  suffix={` ${displayCurrency}`}
+                  renderText={(value) => (
+                    <ThemedTextV2
+                      style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
+                      testID='token_detail_amount'
+                    >
+                      {value}
+                    </ThemedTextV2>
+                  )}
+                  thousandSeparator
+                  value={props.token.symbol === 'DFI' ? getPrecisedTokenValue(dfiUsdAmount) : getPrecisedTokenValue(props.usdAmount)}
+                />
+              </View>
+            )
         }
       </View>
     </ThemedViewV2>
