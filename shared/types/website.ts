@@ -121,5 +121,6 @@ export type FEATURE_FLAG_ID =
   | 'onboarding_v2'
   | 'dusd_dfi_high_fee'
   | 'setting_v2'
+  | 'portfolio_v2'
 
 export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'
