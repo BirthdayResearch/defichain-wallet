@@ -5,8 +5,8 @@ import { RootState } from '@store'
 import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, setUserPreferences, userPreferences } from '@store/userPreferences'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useCallback, useEffect, useState } from 'react'
-import { Platform, TouchableOpacity, Image, StyleProp, ViewStyle, ScrollView } from 'react-native'
+import { createRef, useCallback, useEffect, useState } from 'react'
+import { Platform, TouchableOpacity, Image, StyleProp, ViewStyle, ScrollView, TextInput } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -51,6 +51,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
     wallet,
     addressLength
   } = useWalletContext()
+  const searchRef = createRef<TextInput>()
   const { fetchWalletAddresses } = useWalletAddress()
   const [filteredAddressBook, setFilteredAddressBook] = useState<LocalAddress[]>(addressBook)
   const [filteredWalletAddress, setFilteredWalletAddress] = useState<LocalAddress[]>(walletAddress)
@@ -299,13 +300,17 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
           <View style={tailwind('flex-1')}>
             <SearchInputV2
               value={searchString}
+              ref={searchRef}
               containerStyle={[
                 tailwind('border-0.5'),
                 tailwind(isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight })
               ]}
               placeholder={translate('screens/AddressBookScreen', 'Search address book')}
               showClearButton={searchString !== ''}
-              onClearInput={() => setSearchString('')}
+              onClearInput={() => {
+                setSearchString('')
+                searchRef?.current?.focus()
+              }}
               onChangeText={(text: string) => {
                 setSearchString(text)
               }}
