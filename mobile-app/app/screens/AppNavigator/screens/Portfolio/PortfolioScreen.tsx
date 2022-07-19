@@ -27,7 +27,6 @@ import { IconButton } from '@components/IconButton'
 import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
-import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ButtonGroupTabKey, PortfolioCard } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -40,6 +39,9 @@ import {
   BottomSheetAddressDetailV2
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetViewNavV2'
+import {
+  CreateOrEditAddressLabelFormV2
+} from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -444,12 +446,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       },
       {
         stackScreenName: 'CreateOrEditAddressLabelForm',
-        component: CreateOrEditAddressLabelForm,
+        component: CreateOrEditAddressLabelFormV2,
         option: {
           headerStatusBarHeight: 1,
-          headerBackgroundContainerStyle: tailwind('border-b', {
-            'border-gray-200': isLight,
-            'border-gray-700': !isLight,
+          headerBackgroundContainerStyle: tailwind({
             '-top-5': Platform.OS !== 'web'
           }),
           headerTitle: '',
