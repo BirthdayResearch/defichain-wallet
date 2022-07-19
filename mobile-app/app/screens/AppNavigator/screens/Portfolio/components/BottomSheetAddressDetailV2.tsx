@@ -138,26 +138,6 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         >
           {translate('components/BottomSheetAddressDetail', 'Create wallet address')}
         </ThemedTextV2>
-        {/* <View style={tailwind('flex-row items-center flex-grow')}> */}
-        {/*  <ThemedIcon */}
-        {/*    size={20} */}
-        {/*    name='add' */}
-        {/*    dark={tailwind('text-darkprimary-500')} */}
-        {/*    light={tailwind('text-primary-500')} */}
-        {/*    style={tailwind('font-normal')} */}
-        {/*    iconType='MaterialIcons' */}
-        {/*  /> */}
-
-        {/*  <View style={tailwind('mx-3 flex-auto')}> */}
-        {/*    <ThemedText */}
-        {/*      dark={tailwind('text-darkprimary-500')} */}
-        {/*      light={tailwind('text-primary-500')} */}
-        {/*      style={tailwind('text-sm font-normal')} */}
-        {/*    > */}
-        {/*      {translate('components/BottomSheetAddressDetail', 'CREATE WALLET ADDRESS')} */}
-        {/*    </ThemedText> */}
-        {/*  </View> */}
-        {/* </View> */}
       </ThemedTouchableOpacityV2>
     )
   }, [canCreateAddress, addressLength, isEditing])
@@ -317,31 +297,6 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
               dark={tailwind('text-mono-dark-v2-700')}
             />
           </ThemedTouchableOpacityV2>
-          {/* {isEditing */}
-          {/*  ? ( */}
-          {/*    <ThemedIcon */}
-          {/*      size={24} */}
-          {/*      name='edit' */}
-          {/*      iconType='MaterialIcons' */}
-          {/*      light={tailwind('text-primary-500')} */}
-          {/*      dark={tailwind('text-darkprimary-500')} */}
-          {/*      testID={`address_edit_indicator_${item}`} */}
-          {/*    /> */}
-          {/*  ) */}
-          {/*  : item === props.address */}
-          {/*    ? ( */}
-          {/*      <ThemedIcon */}
-          {/*        size={24} */}
-          {/*        name='check' */}
-          {/*        iconType='MaterialIcons' */}
-          {/*        light={tailwind('text-success-600')} */}
-          {/*        dark={tailwind('text-darksuccess-600')} */}
-          {/*        testID={`address_active_indicator_${item}`} */}
-          {/*      /> */}
-          {/*    ) */}
-          {/*    : ( */}
-          {/*      <View style={tailwind('h-6 w-6')} /> */}
-          {/*    )} */}
         </View>
       </ThemedTouchableOpacityV2>
     )
@@ -379,14 +334,9 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
           )
         }
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
-        {/* <AddressDetailAction */}
-        {/*  onReceivePress={props.onReceiveButtonPress} */}
-        {/*  onTransactionsButtonPress={props.onTransactionsButtonPress} */}
-        {/* /> */}
         <View style={tailwind('mt-12 px-5 flex flex-row items-center justify-between w-full')}>
           <WalletCounterDisplay addressLength={addressLength} />
           <DiscoverWalletAddress onPress={discoverWalletAddresses} />
-          {/* <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} /> */}
         </View>
       </ThemedViewV2>
     )
@@ -449,35 +399,6 @@ function ActiveAddress ({
   )
 }
 
-// function AddressDetailAction ({
-//   onReceivePress,
-//   onTransactionsButtonPress
-// }: { onReceivePress: () => void, onTransactionsButtonPress: () => void }): JSX.Element {
-//   return (
-//     <View style={tailwind('flex flex-row justify-center')}>
-//       <IconButton
-//         iconLabel={translate('components/BottomSheetAddressDetail', 'RECEIVE')}
-//         iconName='arrow-downward'
-//         iconSize={18}
-//         iconType='MaterialIcons'
-//         style={tailwind('py-2 px-3 mr-1 w-5/12 flex-row justify-center')}
-//         onPress={onReceivePress}
-//         textStyle={tailwind('pt-0.5')}
-//       />
-//       <IconButton
-//         iconLabel={translate('BottomTabNavigator', 'TRANSACTIONS')}
-//         iconName='clock-outline'
-//         iconSize={18}
-//         iconType='MaterialCommunityIcons'
-//         style={tailwind('py-2 px-3 ml-1 flex-row justify-center')}
-//         onPress={onTransactionsButtonPress}
-//         textStyle={tailwind('pt-0.5')}
-//         testID='bottom_tab_transactions'
-//       />
-//     </View>
-//   )
-// }
-
 function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JSX.Element {
   return (
     <ThemedText
@@ -486,7 +407,6 @@ function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JS
       style={tailwind('font-normal-v2 text-xs mr-1.5')}
       testID='address_detail_address_count'
     >
-      {/* {translate('components/BottomSheetAddressDetail', '{{length}} ADDRESS(ES)', { length: addressLength + 1 })} */}
       {translate('components/BottomSheetAddressDetail', 'ADDRESS(ES)')}
     </ThemedText>
   )
