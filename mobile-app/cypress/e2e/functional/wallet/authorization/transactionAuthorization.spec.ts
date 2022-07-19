@@ -20,7 +20,13 @@ context('Wallet - Transaction Authorization with Error', () => {
   })
 
   before(function () {
-    openSendScreen()
+    cy.createEmptyWallet(true)
+    cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(5000)
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('portfolio_list').should('exist')
+    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
+    cy.getByTestID('convert_dfi_button').click()
   })
 
   it('should be able to show ocean interface error', function () {
@@ -31,8 +37,7 @@ context('Wallet - Transaction Authorization with Error', () => {
         'x-not-found': 'true'
       }
     }).as('sendToAddress')
-    cy.getByTestID('text_input_convert_from_input').debug()
-    // .clear().type('1')
+    cy.getByTestID('text_input_convert_from_input').clear().type('1')
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     cy.closeOceanInterface()
@@ -106,7 +111,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })
     cy.on('window:confirm', () => {})
-    cy.url().should('include', 'OnboardingV2').debug()
+    cy.url().should('include', 'OnboardingV2')
   })
 
   it('should clear attempt on success', function () {
@@ -140,6 +145,10 @@ context('Wallet - Non-Transaction Authorization', () => {
 
   afterEach(() => {
     cy.saveLocalStorage()
+  })
+
+  before(function () {
+    openSendScreen()
   })
 
   it('should be prompt non-signing authorization', function () {
