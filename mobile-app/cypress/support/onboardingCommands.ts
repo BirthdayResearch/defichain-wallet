@@ -20,7 +20,7 @@ declare global {
       /**
        * @description Setup pin code from Onboarding
        */
-      setupPinCodeV2: () => Chainable<Element>
+      setupPinCode: () => Chainable<Element>
 
       /**
        * @description Verify created mnemonic words in Settings Page
@@ -68,7 +68,7 @@ Cypress.Commands.add('selectMnemonicWords', (recoveryWords: string[]) => {
   cy.getByTestID('verify_words_button').click()
 })
 
-Cypress.Commands.add('setupPinCodeV2', () => {
+Cypress.Commands.add('setupPinCode', () => {
   cy.getByTestID('pin_input').type('000000')
   cy.getByTestID('pin_confirm_input').type('777777').wait(1000)
   cy.getByTestID('wrong_passcode_text').should('exist')

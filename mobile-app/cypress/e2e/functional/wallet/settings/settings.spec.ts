@@ -52,7 +52,6 @@ context('Wallet - Settings', () => {
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {
     })
-    cy.getByTestID('create_wallet_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist')
   })
 

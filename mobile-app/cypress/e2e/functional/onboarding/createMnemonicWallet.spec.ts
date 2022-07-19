@@ -52,7 +52,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   })
 
   it('should be able to verify and set pincode', function () {
-    cy.setupPinCodeV2()
+    cy.setupPinCode()
   })
 
   it('should be able to navigate to wallet creation success screen', function () {
@@ -121,7 +121,7 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
         cy.getByTestID('verify_button').should('not.have.attr', 'disabled')
         cy.getByTestID('verify_button').click()
         cy.selectMnemonicWords(recoveryWords)
-        cy.setupPinCodeV2()
+        cy.setupPinCode()
         cy.getByTestID('wallet_create_success').should('exist')
         cy.getByTestID('continue_button').should('exist').click()
       })

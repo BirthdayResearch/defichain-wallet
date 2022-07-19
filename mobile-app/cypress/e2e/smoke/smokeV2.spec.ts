@@ -55,7 +55,7 @@ context('Mainnet V2 - Wallet', () => {
   })
 
   it('should be able to verify and set pincode', function () {
-    cy.setupPinCodeV2()
+    cy.setupPinCode()
     cy.getByTestID('wallet_create_success').should('exist')
     cy.getByTestID('continue_button').should('exist').click()
   })
