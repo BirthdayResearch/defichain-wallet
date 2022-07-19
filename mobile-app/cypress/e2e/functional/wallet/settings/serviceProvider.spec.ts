@@ -77,8 +77,7 @@ context('Wallet - Settings - Service Provider', () => {
 
     it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
       cy.getByTestID('endpoint_url_input').clear().type(url.custom)
-      cy.wait(3000)
-      cy.getByTestID('button_submit').click().wait(1000)
+      cy.getByTestID('button_submit').click().wait(2000)
       cy.getByTestID('pin_authorize').type('000000').wait(3000)
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
