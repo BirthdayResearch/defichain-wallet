@@ -20,6 +20,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export interface CreateOrEditAddressLabelFormProps {
   title: string
@@ -43,6 +44,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
     addressLabel,
     onSaveButtonPress
   } = route.params
+  const { isLight } = useThemeContext()
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
   const [addressInput, setAddressInput] = useState<string | undefined>()
   const bottomSheetComponents = {
@@ -161,9 +163,12 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
 
   return (
     <ScrollView
-      style={tailwind(['p-4 flex-1 pb-0'])}
       contentContainerStyle={tailwind('pb-6')}
       testID='create_or_edit_label_address_form'
+      style={tailwind('px-4 pt-2 flex-1', {
+        'bg-mono-dark-v2-100': !isLight,
+        'bg-mono-light-v2-100': isLight
+      })}
     >
       <View style={tailwind('flex-1')}>
         <ThemedTextV2 testID='form_title' style={tailwind('flex-1 text-center font-normal-v2 text-xl')}>
@@ -250,7 +255,7 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
     <View style={tailwind('flex flex-col mt-8 items-center')}>
       <RandomAvatar name={address} size={64} />
       <ThemedTextV2
-        style={tailwind('mt-2 flex-1 font-normal-v2 text-sm text-center', { 'w-10/12': Platform.OS === 'web' })}
+        style={tailwind('mt-2 flex-1 font-normal-v2 text-sm text-center w-3/5', { 'w-10/12': Platform.OS === 'web' })}
       >
         {address}
       </ThemedTextV2>

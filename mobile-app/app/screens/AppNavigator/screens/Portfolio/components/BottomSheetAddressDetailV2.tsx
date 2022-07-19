@@ -291,7 +291,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         <RandomAvatar name={props.address} size={64} />
         {
           activeLabel != null && (
-            <View style={tailwind('mt-2')}>
+            <View style={tailwind('mt-2 w-4/5')}>
               <ThemedText
                 light={tailwind('text-mono-light-v2-900')}
                 dark={tailwind('text-mono-dark-v2-900')}

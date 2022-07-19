@@ -1,5 +1,11 @@
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedText,
+  ThemedTouchableOpacity,
+  ThemedTouchableOpacityV2
+} from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -10,6 +16,7 @@ import { ocean } from '@store/ocean'
 import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
+import * as React from 'react'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { batch, useSelector } from 'react-redux'
 import { PortfolioParamList } from './PortfolioNavigator'
@@ -453,7 +460,18 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             '-top-5': Platform.OS !== 'web'
           }),
           headerTitle: '',
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerStyle: tailwind({
+            'bg-mono-light-v2-100': isLight,
+            'bg-mono-dark-v2-100': !isLight
+          }),
+          headerRight: (): JSX.Element => {
+            return (
+              <ThemedTouchableOpacityV2 style={tailwind('border-none mr-5')} onPress={() => dismissModal(false)}>
+                <ThemedIcon iconType='Feather' name='x-circle' size={20} />
+              </ThemedTouchableOpacityV2>
+            )
+          }
         }
       }
     ]
