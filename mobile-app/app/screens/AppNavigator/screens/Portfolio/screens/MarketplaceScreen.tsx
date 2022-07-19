@@ -1,5 +1,5 @@
 import { ImageSourcePropType, View, Image } from 'react-native'
-import { ThemedIcon, ThemedScrollViewV2, ThemedSectionTitleV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedSectionTitleV2, ThemedTextV2, ThemedViewV2, ThemedListItem } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
@@ -93,7 +93,7 @@ export function MarketplaceScreen (): JSX.Element {
         <ThemedViewV2
           dark={tailwind('bg-mono-dark-v2-00')}
           light={tailwind('bg-mono-light-v2-00')}
-          style={tailwind('rounded-lg-v2')}
+          style={tailwind('rounded-lg-v2 px-5')}
         >
           {
           exchanges.map(({ name, image, url }, index) => (
@@ -103,7 +103,7 @@ export function MarketplaceScreen (): JSX.Element {
               name={name}
               image={image}
               testID={`exchange_${index}`}
-              border={index < exchanges.length - 1}
+              border={index === exchanges.length - 1}
             />
           ))
           }
@@ -114,9 +114,9 @@ export function MarketplaceScreen (): JSX.Element {
 
 function ExchangeItemRow ({ image, name, url, testID, border }: ExchangeProps & { testID: string } & { border: boolean}): JSX.Element {
     return (
-      <ThemedTouchableOpacityV2
+      <ThemedListItem
         onPress={async () => await openURL(url)}
-        style={tailwind('flex flex-row mx-5 py-4 items-center justify-between', { 'border-b-0.5': border })}
+        isLast={border}
         testID={testID}
       >
         <View style={tailwind('flex flex-row items-center')}>
@@ -139,6 +139,6 @@ function ExchangeItemRow ({ image, name, url, testID, border }: ExchangeProps & 
           dark={tailwind('text-mono-dark-v2-700')}
           light={tailwind('text-mono-light-v2-700')}
         />
-      </ThemedTouchableOpacityV2>
+      </ThemedListItem>
     )
 }
