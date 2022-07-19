@@ -468,19 +468,3 @@ context('Wallet - Address Label', () => {
     })
   })
 })
-
-context('Wallet - Local Storage feature', () => {
-  before(function () {
-    cy.intercept('**/settings/flags', {
-      statusCode: 200,
-      body: []
-    })
-    cy.createEmptyWallet()
-  })
-
-  it('should not allow edit if feature is blocked', function () {
-    cy.getByTestID('bottom_tab_portfolio').click()
-    cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('address_list_edit_button').should('not.exist')
-  })
-})
