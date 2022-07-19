@@ -80,7 +80,6 @@ context('Wallet - Settings - Service Provider', () => {
       cy.wait(3000)
       cy.getByTestID('button_submit').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(3000)
-      cy.reload()
       cy.wait(3000)
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
