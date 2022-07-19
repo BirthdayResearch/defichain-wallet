@@ -1,5 +1,5 @@
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTouchableOpacity, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -21,7 +21,6 @@ import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-// import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -36,6 +35,7 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -50,8 +50,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const client = useWhaleApiClient()
   const whaleRpcClient = useWhaleRpcClient()
   const {
-    address
-    // addressLength //TODO: uncomment when adding AddressSelectionButton
+    address,
+    addressLength
   } = useWalletContext()
   const {
     denominationCurrency,
@@ -435,7 +435,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
-      <ThemedScrollView
+      <ThemedScrollViewV2
         ref={ref}
         light={tailwind('bg-gray-50')}
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
@@ -446,6 +446,29 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           />
         }
       >
+        <ThemedViewV2
+          light={tailwind('bg-mono-light-v2-00')}
+          dark={tailwind('bg-mono-dark-v2-00')}
+          style={tailwind('px-5 flex flex-row items-center')}
+        >
+          <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
+          <ThemedTouchableOpacityV2
+            testID='toggle_balance'
+            style={tailwind('ml-2')}
+            light={tailwind('bg-transparent')}
+            dark={tailwind('bg-transparent')}
+            onPress={onToggleDisplayBalances}
+          >
+            <ThemedIcon
+              iconType='MaterialCommunityIcons'
+              dark={tailwind('text-mono-dark-v2-900')}
+              light={tailwind('text-mono-light-v2-900')}
+              name={`${isBalancesDisplayed ? 'eye' : 'eye-off'}`}
+              size={18}
+              testID='toggle_usd_breakdown_icon'
+            />
+          </ThemedTouchableOpacityV2>
+        </ThemedViewV2>
         <Announcements />
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
@@ -521,7 +544,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               />
             </>
           )}
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   )
 }
