@@ -24,7 +24,7 @@ import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance
 import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
-import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
@@ -39,6 +39,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import {
   BottomSheetAddressDetailV2
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
+import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetViewNavV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -519,7 +520,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
              />)}
         {Platform.OS === 'web'
           ? (
-            <BottomSheetWebWithNav
+            <BottomSheetWebWithNavV2
               modalRef={containerRef}
               screenList={showAssetSortBottomSheet ? assetSortBottomSheetScreen : addressBottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
@@ -528,7 +529,11 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                 bottom: '0',
                 height: '505px',
                 width: '375px',
-                zIndex: 50
+                zIndex: 50,
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                overflow: 'hidden'
               }}
             />
           )
@@ -539,7 +544,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                 screenList={assetSortBottomSheetScreen}
                 snapPoints={modalSortingSnapPoints}
               />
-              <BottomSheetWithNav
+              <BottomSheetWithNavV2
                 modalRef={bottomSheetRef}
                 screenList={addressBottomSheetScreen}
                 snapPoints={modalSnapPoints}

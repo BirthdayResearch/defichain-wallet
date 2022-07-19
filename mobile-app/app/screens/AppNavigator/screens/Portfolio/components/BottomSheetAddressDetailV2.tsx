@@ -1,12 +1,5 @@
 import { View } from '@components'
-import {
-  ThemedFlatList,
-  ThemedIcon,
-  ThemedText,
-  ThemedTextV2,
-  ThemedTouchableOpacityV2,
-  ThemedViewV2
-} from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { translate } from '@translations'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
@@ -33,6 +26,7 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { openURL } from '@api/linking'
+import { ThemedFlatListV2 } from '@components/themed/ThemedFlatListV2'
 
 interface BottomSheetAddressDetailProps {
   address: string
@@ -49,7 +43,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   const { isLight } = useThemeContext()
   const flatListComponents = {
     mobile: BottomSheetFlatList,
-    web: ThemedFlatList
+    web: ThemedFlatListV2
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
   const {
@@ -402,7 +396,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     <FlatList
       keyExtractor={(item) => item}
       stickyHeaderIndices={[0]}
-      style={tailwind({
+      style={tailwind('rounded-t-xl-v2', {
         'bg-mono-dark-v2-100': !isLight,
         'bg-mono-light-v2-100': isLight
       })}
