@@ -45,7 +45,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        setUrl(labelInput)
+        await setUrl(labelInput)
         navigation.pop()
       },
       onError: e => logger.error(e),
