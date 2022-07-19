@@ -11,6 +11,7 @@ export function HeaderSettingButton (): JSX.Element {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       onPress={() => navigation.navigate('Settings')}
       testID='header_settings'
     >
