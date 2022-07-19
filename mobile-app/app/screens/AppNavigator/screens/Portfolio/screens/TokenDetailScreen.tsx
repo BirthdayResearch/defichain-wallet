@@ -153,14 +153,12 @@ export function TokenDetailScreen ({
 
   return (
     <ThemedScrollViewV2 contentContainerStyle={{ flexGrow: 1 }}>
-      <View>
-        <TokenSummary
-          token={token}
-          border
-          usdAmount={usdAmount ?? new BigNumber(0)}
-          denominationCurrency={denominationCurrency}
-        />
-      </View>
+      <TokenSummary
+        token={token}
+        border
+        usdAmount={usdAmount ?? new BigNumber(0)}
+        denominationCurrency={denominationCurrency}
+      />
 
       <View style={tailwind('p-5 pb-12')}>
         <TokenBreakdownDetailsV2
@@ -194,128 +192,128 @@ export function TokenDetailScreen ({
         }
       </View>
 
-      <View style={tailwind('px-5')}>
-        <ThemedViewV2
-          dark={tailwind('bg-mono-dark-v2-00')}
-          light={tailwind('bg-mono-light-v2-00')}
-          style={tailwind('rounded-lg-v2')}
-        >
-          {
-            token.id !== '0' && (
-              <>
+      <View style={tailwind('flex-1 flex-col-reverse')}>
+        <View style={tailwind('px-5')}>
+          <ThemedViewV2
+            dark={tailwind('bg-mono-dark-v2-00')}
+            light={tailwind('bg-mono-light-v2-00')}
+            style={tailwind('rounded-lg-v2')}
+          >
+            {
+              token.id !== '0' && (
+                <>
+                  <TokenActionRow
+                    icon='arrow-up-right'
+                    iconType='Feather'
+                    border
+                    onPress={() => navigation.navigate({
+                      name: 'Send',
+                      params: { token },
+                      merge: true
+                    })}
+                    testID='send_button'
+                    title={translate('screens/TokenDetailScreen', 'Send to other wallet')}
+                  />
+
+                  <TokenActionRow
+                    icon='arrow-down-left'
+                    iconType='Feather'
+                    border
+                    onPress={() => navigation.navigate('Receive')}
+                    testID='receive_button'
+                    title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
+                  />
+                </>
+              )
+            }
+
+            {
+              token.symbol === 'DFI' && (
                 <TokenActionRow
-                  icon='arrow-up-right'
+                  icon='swap-calls'
+                  iconType='MaterialIcons'
+                  onPress={() => {
+                    const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
+                    navigation.navigate({
+                      name: 'Convert',
+                      params: { mode },
+                      merge: true
+                    })
+                  }}
+                  testID='convert_button'
+                  title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
+                />
+              )
+            }
+            {
+              token.isLPS && pair !== undefined && (
+                <TokenActionRow
+                  icon='minus-circle'
                   iconType='Feather'
-                  border
-                  onPress={() => navigation.navigate({
-                    name: 'Send',
-                    params: { token },
-                    merge: true
+                  onPress={() => onNavigateLiquidity({
+                    destination: 'RemoveLiquidity',
+                    pair
                   })}
-                  testID='send_button'
-                  title={translate('screens/TokenDetailScreen', 'Send to other wallet')}
-                />
-
+                  testID='remove_liquidity_button'
+                  title={translate('screens/TokenDetailScreen', 'Remove liquidity')}
+                />)
+            }
+            {
+              pair !== undefined && !token.isLPS && (
                 <TokenActionRow
-                  icon='arrow-down-left'
+                  icon='plus-circle'
                   iconType='Feather'
-                  border
-                  onPress={() => navigation.navigate('Receive')}
-                  testID='receive_button'
-                  title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
-                />
-              </>
-            )
-          }
+                  onPress={() => onNavigateLiquidity({
+                    destination: 'AddLiquidity',
+                    pair
+                  })}
+                  testID='add_liquidity_button'
+                  title={translate('screens/TokenDetailScreen', 'Add liquidity')}
+                />)
+            }
+          </ThemedViewV2>
 
+          {/*  Show only for LP tokens */}
+          <View style={tailwind('px-5')}>
+            {
+              pair !== undefined && token.isLPS && (
+                <View style={tailwind('pt-4')}>
+                  <ButtonV2
+                    onPress={() => onNavigateLiquidity({
+                      destination: 'AddLiquidity',
+                      pair
+                    })}
+                    testID='add_liquidity_button'
+                    label={translate('screens/TokenDetailScreen', 'Add liquidity')}
+                  />
+                </View>
+              )
+            }
+          </View>
           {
             token.symbol === 'DFI' && (
-              <TokenActionRow
-                icon='swap-calls'
-                iconType='MaterialIcons'
-                onPress={() => {
-                  const mode: ConversionMode = token.id === '0_utxo' ? 'utxosToAccount' : 'accountToUtxos'
-                  navigation.navigate({
-                    name: 'Convert',
-                    params: { mode },
-                    merge: true
-                  })
-                }}
-                testID='convert_button'
-                title={`${translate('screens/TokenDetailScreen', 'Convert to {{symbol}}', { symbol: `${token.id === '0_utxo' ? 'Token' : 'UTXO'}` })}`}
-              />
+              <View style={tailwind('pt-4')}>
+                <ButtonV2
+                  onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
+                  testID='swap_button_dfi'
+                  label={translate('screens/TokenDetailScreen', 'Swap')}
+                />
+              </View>
             )
           }
-          {
-            token.isLPS && pair !== undefined && (
-              <TokenActionRow
-                icon='minus-circle'
-                iconType='Feather'
-                onPress={() => onNavigateLiquidity({
-                  destination: 'RemoveLiquidity',
-                  pair
-                })}
-                testID='remove_liquidity_button'
-                title={translate('screens/TokenDetailScreen', 'Remove liquidity')}
-              />)
-          }
-          {
-            pair !== undefined && !token.isLPS && (
-              <TokenActionRow
-                icon='plus-circle'
-                iconType='Feather'
-                onPress={() => onNavigateLiquidity({
-                  destination: 'AddLiquidity',
-                  pair
-                })}
-                testID='add_liquidity_button'
-                title={translate('screens/TokenDetailScreen', 'Add liquidity')}
-              />)
-          }
-        </ThemedViewV2>
-      </View>
 
-      {/*  Show only for LP tokens */}
-      <View style={tailwind('px-5')}>
-        {
-          pair !== undefined && token.isLPS && (
-            <View style={tailwind('pt-4')}>
-              <ButtonV2
-                onPress={() => onNavigateLiquidity({
-                  destination: 'AddLiquidity',
-                  pair
-                })}
-                testID='add_liquidity_button'
-                label={translate('screens/TokenDetailScreen', 'Add liquidity')}
-              />
-            </View>
-          )
-        }
-      </View>
-      <View style={tailwind('px-5 flex-1 flex flex-col-reverse')}>
-        {
-          token.symbol === 'DFI' && (
-            <View style={tailwind('pt-4')}>
-              <ButtonV2
-                onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
-                testID='swap_button_dfi'
-                label={translate('screens/TokenDetailScreen', 'Swap')}
-              />
-            </View>
-          )
-        }
-
-        {
-          (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
-            <View style={tailwind('pt-4')}>
-              <ButtonV2
-                onPress={() => onNavigateSwap({ pair })}
-                testID='swap_button'
-                label={translate('screens/TokenDetailScreen', 'Swap')}
-              />
-            </View>
-          )
-        }
+          {
+            (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
+              <View style={tailwind('pt-4')}>
+                <ButtonV2
+                  onPress={() => onNavigateSwap({ pair })}
+                  testID='swap_button'
+                  label={translate('screens/TokenDetailScreen', 'Swap')}
+                />
+              </View>
+            )
+          }
+        </View>
       </View>
     </ThemedScrollViewV2>
   )
@@ -350,7 +348,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind('py-4.5 ml-5 mr-4', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
+      style={tailwind('py-5 ml-5 mr-4', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
     >
       <View style={tailwind('flex-row items-center')}>
         <View>
@@ -379,11 +377,17 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
             testID='token_detail_explorer_url'
           >
             <View style={tailwind('flex-row')}>
-              <ThemedTextV2>
+              <ThemedTextV2
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
+                style={tailwind('text-sm font-normal-v2')}
+              >
                 {props.token.name}
               </ThemedTextV2>
               <View style={tailwind('ml-1 flex-grow-0 justify-center')}>
                 <ThemedIcon
+                  light={tailwind('text-mono-light-v2-700')}
+                  dark={tailwind('text-mono-dark-v2-700')}
                   iconType='MaterialIcons'
                   name='open-in-new'
                   size={16}

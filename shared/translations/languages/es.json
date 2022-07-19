@@ -1009,6 +1009,10 @@
     "Locked in vault(s)": "Bloqueado en la bóveda(s)",
     "as UTXO": "como UTXO",
     "as Token": "como Token",
+    "As UTXO": "Como UTXO",
+    "As Token": "Como Token",
+    "Your pool shares": "Your pool shares",
+    "Shares in {{token}}": "Shares in {{token}}",
     "Learn more about DFI": "Aprende mas sobre DFI"
   },
   "components/ReservedDFIInfoText": {

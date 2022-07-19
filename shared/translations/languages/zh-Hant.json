@@ -986,7 +986,11 @@
     "Locked": "已鎖定",
     "Available": "現有可使用",
     "as UTXO": "as UTXO",
-    "as Token": "as Token"
+    "as Token": "as Token",
+    "As UTXO": "As UTXO",
+    "As Token": "As Token",
+    "Your pool shares": "Your pool shares",
+    "Shares in {{token}}": "Shares in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"

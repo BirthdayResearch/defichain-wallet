@@ -80,13 +80,14 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             <TokenBreakdownDetailsRow
               testID={`${props.token.symbol}_locked`}
               amount={lockedToken.amount.toFixed(8)}
-              label=' Locked in vault(s)'
+              label='Locked in vault(s)'
               hasFetchedToken={props.hasFetchedToken}
               labelTextStyle={tailwind('font-normal-v2')}
               valueThemeProps={{
                 light: tailwind('text-mono-light-v2-900'),
                 dark: tailwind('text-mono-dark-v2-900')
               }}
+              suffix={` ${displayCurrency}`}
             />
             <TokenBreakdownDetailsRow
               testID={`${props.token.symbol}_locked_value`}
@@ -107,6 +108,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               label='Available'
               hasFetchedToken={props.hasFetchedToken}
               labelTextStyle={tailwind('font-normal-v2')}
+              suffix={` ${displayCurrency}`}
             />
 
             {/* Available amount in USD based on DFI or other crypto */}
@@ -156,6 +158,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               hasFetchedToken={props.hasFetchedToken}
               containerStyle={tailwind('mb-1')}
               percentageValue={new BigNumber(props.dfiUtxo.amount).div(props.availableAmount).multipliedBy(100)}
+              suffix={` ${displayCurrency}`}
             />
 
             <DFITokenBreakDownDetailsRow
@@ -163,12 +166,9 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               amount={new BigNumber(props.dfiToken.amount).toFixed(8)}
               label='As Token'
               hasFetchedToken={props.hasFetchedToken}
-              valueThemeProps={{
-                light: tailwind('text-mono-light-v2-700'),
-                dark: tailwind('text-mono-dark-v2-700')
-              }}
               percentageValue={new BigNumber(props.dfiToken.amount).div(props.availableAmount).multipliedBy(100)}
               border
+              suffix={` ${displayCurrency}`}
             />
           </View>
         )}
@@ -203,7 +203,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               <TokenBreakdownDetailsRow
                 testID={`shares_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}`}
                 amount={tokenATotal.toFixed(8)}
-                label={`Shares in ${props.pair.tokenA.displaySymbol}`}
+                label={translate('components/DFIBalanceCard', 'Shares in {{token}}', { token: props.pair.tokenA.displaySymbol })}
                 hasFetchedToken={props.hasFetchedToken}
                 labelTextStyle={tailwind('font-normal-v2')}
               />
@@ -226,7 +226,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             <TokenBreakdownDetailsRow
               testID={`shares_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}`}
               amount={tokenBTotal.toFixed(8)}
-              label={`Shares in ${props.pair.tokenB.displaySymbol}`}
+              label={translate('components/DFIBalanceCard', 'Shares in {{token}}', { token: props.pair.tokenB.displaySymbol })}
               hasFetchedToken={props.hasFetchedToken}
               labelTextStyle={tailwind('font-normal-v2')}
             />
@@ -289,7 +289,7 @@ function DFITokenBreakDownDetailsRow ({
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={[tailwind('flex-row', { 'border-b-0.5 pb-5': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
+      style={[tailwind('flex-row pb-0.5', { 'border-b-0.5 pb-5': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
     >
       <ThemedTextV2
         style={[tailwind('text-xs font-normal-v2'), labelTextStyle]}

@@ -1006,6 +1006,10 @@
     "Locked in vault(s)": "bloccato in un vault",
     "as UTXO": "come UTXO",
     "as Token": "come Token",
+    "As UTXO": "Come UTXO",
+    "As Token": "Come Token",
+    "Your pool shares": "Your pool shares",
+    "Shares in {{token}}": "Shares in {{token}}",
     "Learn more about DFI": "Per saperne di più su DFI"
   },
   "components/ReservedDFIInfoText": {
