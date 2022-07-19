@@ -152,7 +152,7 @@ export function TokenDetailScreen ({
   }
 
   return (
-    <ThemedScrollViewV2>
+    <ThemedScrollViewV2 contentContainerStyle={{ flexGrow: 1 }}>
       <View>
         <TokenSummary
           token={token}
@@ -273,48 +273,49 @@ export function TokenDetailScreen ({
               />)
           }
         </ThemedViewV2>
+      </View>
 
-        {/*  Show only for LP tokens */}
-        <View style={tailwind('px-5')}>
-          {
-            pair !== undefined && token.isLPS && (
-              <View style={tailwind('pt-4')}>
-                <ButtonV2
-                  onPress={() => onNavigateLiquidity({
-                    destination: 'AddLiquidity',
-                    pair
-                  })}
-                  testID='add_liquidity_button'
-                  label={translate('screens/TokenDetailScreen', 'Add liquidity')}
-                />
-              </View>
-            )
-          }
+      {/*  Show only for LP tokens */}
+      <View style={tailwind('px-5')}>
+        {
+          pair !== undefined && token.isLPS && (
+            <View style={tailwind('pt-4')}>
+              <ButtonV2
+                onPress={() => onNavigateLiquidity({
+                  destination: 'AddLiquidity',
+                  pair
+                })}
+                testID='add_liquidity_button'
+                label={translate('screens/TokenDetailScreen', 'Add liquidity')}
+              />
+            </View>
+          )
+        }
+      </View>
+      <View style={tailwind('px-5 flex-1 flex flex-col-reverse')}>
+        {
+          token.symbol === 'DFI' && (
+            <View style={tailwind('pt-4')}>
+              <ButtonV2
+                onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
+                testID='swap_button_dfi'
+                label={translate('screens/TokenDetailScreen', 'Swap')}
+              />
+            </View>
+          )
+        }
 
-          {
-            token.symbol === 'DFI' && (
-              <View style={tailwind('pt-4')}>
-                <ButtonV2
-                  onPress={() => onNavigateSwap({ fromToken: { ...DFIUnified, id: '0' } })}
-                  testID='swap_button_dfi'
-                  label={translate('screens/TokenDetailScreen', 'Swap')}
-                />
-              </View>
-            )
-          }
-
-          {
-            (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
-              <View style={tailwind('pt-4')}>
-                <ButtonV2
-                  onPress={() => onNavigateSwap({ pair })}
-                  testID='swap_button'
-                  label={translate('screens/TokenDetailScreen', 'Swap')}
-                />
-              </View>
-            )
-          }
-        </View>
+        {
+          (!token.isLPS && pair !== undefined && swapTokenDisplaySymbol !== undefined) && (
+            <View style={tailwind('pt-4')}>
+              <ButtonV2
+                onPress={() => onNavigateSwap({ pair })}
+                testID='swap_button'
+                label={translate('screens/TokenDetailScreen', 'Swap')}
+              />
+            </View>
+          )
+        }
       </View>
     </ThemedScrollViewV2>
   )
