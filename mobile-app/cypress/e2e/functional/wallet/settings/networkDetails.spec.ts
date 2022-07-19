@@ -5,6 +5,7 @@ context('Wallet - Network detail screen - outside wallet context', () => {
     cy.visit('/')
     cy.blockAllFeatureFlag()
     cy.exitWallet()
+    cy.getByTestID('get_started_button').click()
     cy.restoreLocalStorage()
   })
 
@@ -13,8 +14,7 @@ context('Wallet - Network detail screen - outside wallet context', () => {
   })
 
   it('should check network detail without switching network', function () {
-    cy.getByTestID('create_recovery_words_button').click()
-    cy.url().should('include', 'wallet/mnemonic/create')
+    cy.url().should('include', 'wallet/onboarding/guidelines')
     cy.getByTestID('header_active_network').first().invoke('text').then((network) => {
       cy.getByTestID('header_status_indicator').should('have.css', 'background-color').then((statusBgColor) => {
         cy.getByTestID('wallet_header_container').filter(':visible').click()
@@ -37,9 +37,11 @@ context('Wallet - Network detail screen - outside wallet context', () => {
         cy.go('back')
         cy.url().should('include', 'wallet/onboarding/guidelines')
         cy.getByTestID('header_active_network').first().click()
+        cy.getByTestID('onboarding_network_selection_screen').should('exist')
         cy.getByTestID('button_network_Playground').click()
         cy.go('back').wait(3000)
         cy.url().should('include', 'wallet/onboarding/guidelines')
+        cy.getByTestID('guidelines_switch').click()
         cy.getByTestID('create_recovery_words_button').click()
         cy.url().should('include', 'wallet/mnemonic/create')
         cy.getByTestID('header_active_network').first().invoke('text').then((updatedNetwork) => {

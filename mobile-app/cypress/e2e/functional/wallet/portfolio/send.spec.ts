@@ -639,6 +639,8 @@ context('Wallet - Send - Address book', function () {
     cy.blockAllFeatureFlag()
     cy.getByTestID('setting_exit_wallet').click()
     cy.on('window:confirm', () => {})
+    cy.getByTestID('onboarding_carousel').should('exist')
+    cy.getByTestID('get_started_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist').then(() => {
       const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
       expect(walletUserPreference).to.have.deep.property('addressBook', {})
@@ -656,6 +658,8 @@ context('Wallet - Send - Address book', function () {
       cy.getByTestID('pin_authorize').type('696969').wait(2000)
     })
     cy.on('window:confirm', () => {})
+    cy.getByTestID('onboarding_carousel').should('exist')
+    cy.getByTestID('get_started_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist').then(() => {
       const walletUserPreference = JSON.parse(localStorage.getItem('Local.WALLET.SETTINGS') ?? '{}')
       expect(walletUserPreference).to.have.deep.property('addressBook', {})
