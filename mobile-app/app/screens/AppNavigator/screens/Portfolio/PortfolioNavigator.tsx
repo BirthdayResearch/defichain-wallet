@@ -153,7 +153,7 @@ export function PortfolioNavigator (): JSX.Element {
         name='PortfolioScreen'
         options={{
           ...screenOptions,
-          headerBackgroundContainerStyle: tailwind({ 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }),
+          headerBackgroundContainerStyle: tailwind('overflow-hidden', { 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }),
           headerBackground: () => (
             <Image
               source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
