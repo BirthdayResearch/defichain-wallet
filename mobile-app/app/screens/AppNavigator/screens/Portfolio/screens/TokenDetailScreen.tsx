@@ -419,7 +419,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                   renderText={(value) => (
                     <ThemedTextV2
                       style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
-                      testID='token_detail_amount'
+                      testID='token_detail_usd_amount'
                     >
                       {value}
                     </ThemedTextV2>

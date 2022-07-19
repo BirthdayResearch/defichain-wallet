@@ -78,7 +78,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
         hasLockedBalance && !lockedToken.amount.isZero() && (
           <View style={tailwind('pb-4')}>
             <TokenBreakdownDetailsRow
-              testID={`${props.testID}_locked`}
+              testID={`${props.token.symbol}_locked`}
               amount={lockedToken.amount.toFixed(8)}
               label=' Locked in vault(s)'
               hasFetchedToken={props.hasFetchedToken}
@@ -89,7 +89,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               }}
             />
             <TokenBreakdownDetailsRow
-              testID={`${props.testID}_locked_value`}
+              testID={`${props.token.symbol}_locked_value`}
               amount={getPrecisedTokenValue(lockedToken.tokenValue)}
               label=''
               hasFetchedToken={props.hasFetchedToken}
@@ -102,7 +102,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               suffix={` ${displayCurrency}`}
             />
             <TokenBreakdownDetailsRow
-              testID={`${props.testID}_available`}
+              testID={`${props.token.symbol}_available`}
               amount={new BigNumber(props.token.amount).toFixed(8)}
               label='Available'
               hasFetchedToken={props.hasFetchedToken}
@@ -179,14 +179,14 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
           <>
             <View style={tailwind('pb-4')}>
               <TokenBreakdownDetailsRow
-                testID={`share_in_pool_${props.pair.symbol}_amount`}
+                testID={`share_in_pool_${props.pair.symbol}`}
                 amount={(props.token).amount}
                 label='Your pool shares'
                 hasFetchedToken={props.hasFetchedToken}
                 labelTextStyle={tailwind('font-normal-v2')}
               />
               <TokenBreakdownDetailsRow
-                testID={`share_in_pool_${props.pair.symbol}_USD`}
+                testID={`share_in_pool_${props.pair.symbol}_usd`}
                 amount={getPrecisedTokenValue(getTokenPrice(props.token.symbol, new BigNumber((props.token).amount),
                   true))}
                 label=''
@@ -201,14 +201,14 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             </View>
             <View style={tailwind('pb-4')}>
               <TokenBreakdownDetailsRow
-                testID={`${props.testID}_available`}
+                testID={`shares_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}`}
                 amount={tokenATotal.toFixed(8)}
                 label={`Shares in ${props.pair.tokenA.displaySymbol}`}
                 hasFetchedToken={props.hasFetchedToken}
                 labelTextStyle={tailwind('font-normal-v2')}
               />
               <TokenBreakdownDetailsRow
-                testID={`${props.testID}_available_value`}
+                testID={`shares_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}_usd`}
                 amount={getUSDValue(
                   new BigNumber(tokenATotal),
                   props.pair.tokenA.symbol
@@ -224,14 +224,14 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               />
             </View>
             <TokenBreakdownDetailsRow
-              testID={`${props.testID}_available`}
+              testID={`shares_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}`}
               amount={tokenBTotal.toFixed(8)}
               label={`Shares in ${props.pair.tokenB.displaySymbol}`}
               hasFetchedToken={props.hasFetchedToken}
               labelTextStyle={tailwind('font-normal-v2')}
             />
             <TokenBreakdownDetailsRow
-              testID={`${props.testID}_available_value`}
+              testID={`shares_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}_usd`}
               amount={getUSDValue(new BigNumber(tokenBTotal), props.pair.tokenB.symbol).toFixed(2)}
               label=''
               hasFetchedToken={props.hasFetchedToken}
@@ -306,7 +306,7 @@ function DFITokenBreakDownDetailsRow ({
         renderText={(value) => (
           <ThemedTextV2
             style={tailwind('text-xs font-normal-v2 pr-1')}
-            testID={testID}
+            testID={`${testID}_percentage`}
           >
             {value}
           </ThemedTextV2>
@@ -341,7 +341,7 @@ function DFITokenBreakDownDetailsRow ({
                 iContentLoaderProps={{
                   width: '150',
                   height: '14',
-                  testID: 'dfi_breakdown_row_skeleton_loader'
+                  testID: `${testID}_breakdown_row_skeleton_loader`
                 }}
                 textHorizontalOffset='30'
                 textWidth='120'
@@ -406,7 +406,7 @@ function TokenBreakdownDetailsRow ({
                 iContentLoaderProps={{
                   width: '150',
                   height: '14',
-                  testID: 'dfi_breakdown_row_skeleton_loader'
+                  testID: `${testID}_breakdown_row_skeleton_loader`
                 }}
                 textHorizontalOffset='30'
                 textWidth='120'
