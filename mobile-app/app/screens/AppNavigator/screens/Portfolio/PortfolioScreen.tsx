@@ -44,6 +44,7 @@ import { useDebounce } from '@hooks/useDebounce'
 
 import { from, defer } from 'rxjs'
 import { delay, map, retryWhen } from 'rxjs/operators'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -129,22 +130,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     })
   }, [])
 
-  // const retry = (fn, ms = 3000, maxRetries = 25) => new Promise((resolve, reject) => {
-  //   var retries = 0;
-  //   fn()
-  //     .then(resolve)
-  //     .catch(() => {
-  //       setTimeout(() => {
-  //         console.log('retrying failed promise...')
-  //         ++retries
-  //         if (retries == maxRetries) {
-  //           return reject('maximum retries exceeded')
-  //         }
-  //         retry(fn, ms).then(resolve)
-  //       }, ms)
-  //     })
-  // })
-
   function getUserDetailWithRetry () {
     defer(() => {
       return from(getUserDetail())
@@ -182,12 +167,17 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     fetchDfxStakingBalance()
   }, [])
 
-  // debounce address change 1s --> 1s because dfxApiContextProvider debounces after 500ms (=> new webToken)
-  const debouncedAddress = useDebounce(address, 1000)
+  // debounce address change 2s --> 2s because dfxApiContextProvider debounces after 500ms (=> new webToken)
+  const debouncedAddress = useDebounce(address, 2000)
+  const { networkName } = useNetworkContext()
 
   useEffect(() => {
     fetchDfxStakingBalance()
-  }, [debouncedAddress])
+
+    setTimeout(() => {
+      fetchDfxStakingBalance()
+    }, 5000)
+  }, [debouncedAddress, networkName])
 
   const fetchPortfolioData = (): void => {
     batch(() => {
