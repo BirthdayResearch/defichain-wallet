@@ -104,12 +104,12 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
   const [searchString, setSearchString] = useState('')
   const filterAddress = useCallback(debounce((searchString: string): void => {
     setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
-      address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
-      address.address.includes(searchString.trim().toLowerCase())
+      address.label.toLowerCase().includes(searchString?.trim().toLowerCase()) ||
+      address.address.includes(searchString?.trim().toLowerCase())
     ))
     setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
-      address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
-      address.address.includes(searchString.trim().toLowerCase())
+      address.label.toLowerCase().includes(searchString?.trim().toLowerCase()) ||
+      address.address.includes(searchString?.trim().toLowerCase())
     ))
   }, 200), [addressBook, walletAddress, searchString, activeButtonGroup])
 
@@ -146,7 +146,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
 
   useEffect(() => {
     // update on search, on tab change
-    if (searchString.trim().length !== 0) {
+    if (searchString?.trim().length !== 0) {
       filterAddress(searchString)
       return
     }
@@ -345,7 +345,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               : <DiscoverWalletAddressV2 size={24} />}
           </View>
         </View>
-        {(isSearchFocus || searchString.trim().length !== 0) && (
+        {(isSearchFocus || searchString?.trim().length !== 0) && (
           <View style={tailwind('px-5 mt-6 mb-2')}>
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
@@ -353,19 +353,19 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
               style={tailwind('font-normal-v2 text-xs')}
               testID='search_title'
             >
-              {searchString.trim().length > 0
-              ? translate('screens/AddressBookScreen', 'Search results for “{{input}}”', { input: searchString.trim() })
+              {searchString?.trim().length > 0
+              ? translate('screens/AddressBookScreen', 'Search results for “{{input}}”', { input: searchString?.trim() })
             : translate('screens/AddressBookScreen', 'Search with label or address')}
             </ThemedTextV2>
           </View>
           )}
-        {(activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 && !isSearchFocus && searchString.trim().length === 0)
+        {(activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 && !isSearchFocus && searchString?.trim().length === 0)
         ? (
           <EmptyDisplay onPress={goToAddAddressForm} />
         )
         : (
           <>
-            {!isSearchFocus && searchString.trim().length === 0 && (
+            {!isSearchFocus && searchString?.trim().length === 0 && (
               <ThemedSectionTitleV2
                 testID='addresses_title'
                 text={translate('screens/AddressBookScreen', 'ADDRESS(ES)')}
