@@ -180,7 +180,7 @@ Cypress.Commands.add('fetchWalletBalance', () => {
 Cypress.Commands.add('switchNetwork', (network: string) => {
   cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('header_settings').click()
-  cy.getByTestID('button_selected_network').click()
+  cy.getByTestID('header_network_icon').click()
   cy.getByTestID(`button_network_${network}`).click()
   cy.on('window:confirm', () => {})
 })

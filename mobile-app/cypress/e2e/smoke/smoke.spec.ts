@@ -26,7 +26,6 @@ context('Mainnet - Wallet', () => {
 
   beforeEach(() => {
     cy.restoreLocalStorage()
-    cy.blockAllFeatureFlag()
   })
 
   afterEach(() => {
@@ -47,15 +46,17 @@ context('Mainnet - Wallet', () => {
   })
 
   it('should start creation of mnemonic wallet', function () {
-    cy.startCreateMnemonicWallet(recoveryWords)
+    cy.startCreateMnemonicWalletV2(recoveryWords)
   })
 
   it('should be able to select correct words', function () {
-    cy.selectMnemonicWords(recoveryWords)
+    cy.selectMnemonicWordsV2(recoveryWords)
   })
 
   it('should be able to verify and set pincode', function () {
-    cy.setupPinCode()
+    cy.setupPinCodeV2()
+    cy.getByTestID('wallet_create_success').should('exist')
+    cy.getByTestID('continue_button').should('exist').click()
   })
 
   it('should have displayed default tokens', function () {
@@ -67,7 +68,7 @@ context('Mainnet - Wallet', () => {
 
   context('Settings - Mnemonic Verification', () => {
     it('should be able to verify mnemonic from settings page', function () {
-      cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
+      cy.verifyMnemonicOnSettingsPageV2(settingsRecoveryWords, recoveryWords)
     })
   })
 
@@ -85,7 +86,8 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
-      cy.restoreMnemonicWords(settingsRecoveryWords)
+      cy.wait(3000)
+      cy.restoreMnemonicWordsV2(settingsRecoveryWords)
     })
   })
 
@@ -93,7 +95,7 @@ context('Mainnet - Wallet', () => {
     it('should be have selected valid network', function () {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
-      cy.getByTestID('button_selected_network').contains('MainNet').should('exist')
+      cy.getByTestID('header_network_name').contains('MainNet').should('exist')
     })
 
     it('should be have valid network address', function () {

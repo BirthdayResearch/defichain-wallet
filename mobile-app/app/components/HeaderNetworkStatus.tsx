@@ -25,6 +25,7 @@ export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.
         numberOfLines={1}
         lineBreakMode='tail'
         style={tailwind('font-bold-v2 text-2xs leading-3')}
+        testID='header_network_name'
       >
         {network}
       </ThemedTextV2>
