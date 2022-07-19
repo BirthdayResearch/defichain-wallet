@@ -161,8 +161,12 @@ context('Wallet - Transaction Authorization', () => {
 
     it('should be able to exit failed retries', function () {
       cy.blockAllFeatureFlag()
+      cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
+      cy.getByTestID('amount_input').clear().type('1')
+      cy.getByTestID('button_confirm_send_continue').click()
+      cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
-        cy.getByTestID('pin_authorize').type('696969').wait(2000)
+        cy.getByTestID('pin_authorize').type('696969').wait(1000)
       })
       cy.on('window:confirm', () => {})
       cy.url().should('include', 'wallet/onboarding')
