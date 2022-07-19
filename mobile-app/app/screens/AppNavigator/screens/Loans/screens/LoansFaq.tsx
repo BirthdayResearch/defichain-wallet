@@ -4,12 +4,20 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { LoanParamList } from '../LoansNavigator'
+import { useTnC } from './LoansTnCText'
 
 type Props = StackScreenProps<LoanParamList, 'LoansFaq'>
 
 export function LoansFaq ({ route }: Props): JSX.Element {
   const activeSessions = route.params.activeSessions
   const faqContent: AccordionContent[] = [
+    {
+      title: translate('components/LoansFaq', 'T&C'),
+      content: [{
+        text: translate('components/LoansFaq', useTnC()),
+        type: 'paragraph'
+      }]
+    },
     {
       title: translate('components/LoansFaq', 'How is the collateralization ratio calculated?'),
       content: [{

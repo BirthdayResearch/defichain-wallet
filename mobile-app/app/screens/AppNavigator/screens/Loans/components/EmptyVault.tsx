@@ -1,9 +1,10 @@
-import { RefreshControl } from 'react-native'
+import { RefreshControl, TouchableOpacity } from 'react-native'
 import { Button } from '@components/Button'
 import { ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { InfoTextLink } from '@components/InfoTextLink'
+import { InfoText } from '@components/InfoText'
 import { View } from '@components'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LoanParamList } from '../LoansNavigator'
@@ -68,6 +69,14 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
           text='Learn more about vaults'
           testId='empty_vault_learn_more'
         />
+        <TouchableOpacity onPress={() => navigation.navigate('LoansTnC')}>
+          <InfoText
+            simple
+            text={translate('components/LoansFaq', 'Terms & Conditions')}
+            style={tailwind('p-2 flex-row items-end justify-start')}
+          // testId='empty_vault_learn_more'
+          />
+        </TouchableOpacity>
       </View>
     </ThemedScrollView>
   )
