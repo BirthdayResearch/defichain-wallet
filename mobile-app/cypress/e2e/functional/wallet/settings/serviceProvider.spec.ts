@@ -82,11 +82,9 @@ context('Wallet - Settings - Service Provider', () => {
       cy.getByTestID('pin_authorize').type('000000').wait(3000)
       cy.reload()
       cy.wait(3000)
-    })
-
-    it('should display Custom on Server', () => {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
+      cy.getByTestID('header_custom_active_network').should('exist')
       cy.getByTestID('setting_navigate_service_provider').contains('Custom')
       cy.url().should('include', 'app/Settings', () => {
         expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
