@@ -63,7 +63,6 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   const blockCount = useSelector((state: RootState) => state.block.count)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const [isEditing, setIsEditing] = useState(false)
   const navigation = useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>()
   const { network } = useNetworkContext()
   const userPreferences = useSelector((state: RootState) => state.userPreferences)
@@ -121,7 +120,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   }, [blockCount])
 
   const CreateAddress = useCallback(() => {
-    if (!canCreateAddress || isEditing) {
+    if (!canCreateAddress) {
       return <></>
     }
 
@@ -140,7 +139,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         </ThemedTextV2>
       </ThemedTouchableOpacityV2>
     )
-  }, [canCreateAddress, addressLength, isEditing])
+  }, [canCreateAddress, addressLength])
 
   const onChangeAddress = async (index: number): Promise<void> => {
     if (hasPendingJob || hasPendingBroadcastJob || index === activeAddressIndex) {
@@ -167,36 +166,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         onPress={async () => {
-          if (isEditing) {
-            navigation.navigate({
-              name: props.navigateToScreen.screenName,
-              params: {
-                title: 'Edit address label',
-                isAddressBook: false,
-                address: item,
-                addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
-                index: index + 1,
-                type: 'edit',
-                onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                  const addresses = { ...labeledAddresses, ...labelAddress }
-                  dispatch(setAddresses(addresses)).then(() => {
-                    dispatch(setUserPreferences({
-                      network,
-                      preferences: {
-                        ...userPreferences,
-                        addresses
-                      }
-                    }))
-                  })
-                  navigation.goBack()
-                  setIsEditing(false)
-                }
-              },
-              merge: true
-            })
-          } else {
-            await onChangeAddress(index)
-          }
+          await onChangeAddress(index)
         }}
         testID={`address_row_${index}`}
         disabled={hasPendingJob || hasPendingBroadcastJob}
@@ -285,7 +255,6 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
                       }))
                     })
                     navigation.goBack()
-                    setIsEditing(false)
                   }
                 },
                 merge: true
@@ -300,7 +269,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         </View>
       </ThemedTouchableOpacityV2>
     )
-  }, [isEditing, labeledAddresses])
+  }, [labeledAddresses])
 
   const AddressDetail = useCallback(() => {
     return (
@@ -340,7 +309,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         </View>
       </ThemedViewV2>
     )
-  }, [props, addressLength, isEditing, activeLabel])
+  }, [props, addressLength, activeLabel])
 
   return (
     <FlatList
