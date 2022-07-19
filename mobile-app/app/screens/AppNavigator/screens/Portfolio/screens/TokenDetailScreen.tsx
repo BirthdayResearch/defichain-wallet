@@ -320,7 +320,7 @@ export function TokenDetailScreen ({
   )
 }
 
-function TokenSummary(props: { token: WalletToken, border?: boolean, usdAmount: BigNumber, denominationCurrency: string }): JSX.Element {
+function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount: BigNumber, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(props.token.displaySymbol)
   const { getTokenUrl } = useDeFiScanContext()
   const onTokenUrlPressed = async (): Promise<void> => {

@@ -50,8 +50,10 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
     (pr) => pr.data.symbol === (props.token as AddressToken).symbol
   )
   const mappedPair = poolPairData?.data
-  const toRemove = new BigNumber(1).times((props.token as WalletToken).amount).decimalPlaces(8, BigNumber.ROUND_DOWN) as BigNumber
-  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1) as BigNumber
+  const toRemove = new BigNumber(1)
+    .times((props.token).amount)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
   const tokenATotal = ratioToTotal
     .times(mappedPair?.tokenA.reserve ?? 0)
     .decimalPlaces(8, BigNumber.ROUND_DOWN)
@@ -96,7 +98,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 light: tailwind('text-mono-light-v2-700'),
                 dark: tailwind('text-mono-dark-v2-700')
               }}
-              containerStyle={tailwind('mb-2')}
+              containerStyle={tailwind('mb-5')}
               suffix={` ${displayCurrency}`}
             />
             <TokenBreakdownDetailsRow
@@ -111,7 +113,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             {props.token.symbol === 'DFI'
               ? (
                 <TokenBreakdownDetailsRow
-                  testID={`${props.testID}_${props.token.symbol}_dfi_available_value`}
+                  testID={`${props.testID}_${props.token.symbol}_available_value`}
                   amount={getPrecisedTokenValue(props.availableValue)}
                   label=''
                   hasFetchedToken={props.hasFetchedToken}
@@ -121,6 +123,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                     dark: tailwind('text-mono-dark-v2-700')
                   }}
                   suffix={` ${displayCurrency}`}
+                  
                 />
               )
               : (
@@ -263,7 +266,7 @@ interface TokenBreakdownDetailsRowProps {
 }
 
 interface DFITokenBreakdownRowProps extends TokenBreakdownDetailsRowProps {
-  percentageValue?: BigNumber
+  percentageValue: BigNumber
 }
 
 function DFITokenBreakDownDetailsRow ({
@@ -287,7 +290,7 @@ function DFITokenBreakDownDetailsRow ({
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={[tailwind('flex-row', { 'border-b-0.5 pb-4': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
+      style={[tailwind('flex-row', { 'border-b-0.5 pb-5': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
     >
       <ThemedTextV2
         style={[tailwind('text-xs font-normal-v2'), labelTextStyle]}
@@ -296,24 +299,23 @@ function DFITokenBreakDownDetailsRow ({
         {translate('components/DFIBalanceCard', label)}
       </ThemedTextV2>
 
-      {percentageValue !== undefined && (
-        <NumberFormat
-          value={percentageValue.toFixed(8)}
-          decimalScale={2}
-          displayType='text'
-          renderText={(value) => (
-            <ThemedTextV2
-              style={tailwind('text-xs font-normal-v2 pr-1')}
-              testID={testID}
-            >
-              {value}
-            </ThemedTextV2>
-          )}
-          thousandSeparator
-          prefix=' ('
-          suffix='%)'
-        />
-      )}
+      {/* To display initial 0.00% */}
+      <NumberFormat
+        value={percentageValue.isNaN() ? new BigNumber('0').toFixed(8) : percentageValue.toFixed(8)}
+        decimalScale={2}
+        displayType='text'
+        renderText={(value) => (
+          <ThemedTextV2
+            style={tailwind('text-xs font-normal-v2 pr-1')}
+            testID={testID}
+          >
+            {value}
+          </ThemedTextV2>
+        )}
+        thousandSeparator
+        prefix=' ('
+        suffix='%)'
+      />
 
       <View style={tailwind('flex-row flex-1 justify-end')}>
         {
@@ -371,7 +373,7 @@ function TokenBreakdownDetailsRow ({
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={[tailwind('flex-row', { 'border-b-0.5 pb-4': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
+      style={[tailwind('flex-row pb-1', { 'border-b-0.5 pb-5 ': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
     >
       <ThemedTextV2
         style={[tailwind('text-xs font-normal-v2'), labelTextStyle]}
