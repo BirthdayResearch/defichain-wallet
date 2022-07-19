@@ -60,7 +60,7 @@ export function PoolPairIconV2 (props: {
   return (
     <>
       <IconA height={40} width={40} style={tailwind('relative z-10')} />
-      <IconB height={40} width={40} style={tailwind('-ml-3 mr-2')} />
+      <IconB height={40} width={40} style={tailwind('-ml-3.5 mr-2')} />
     </>
   )
 }

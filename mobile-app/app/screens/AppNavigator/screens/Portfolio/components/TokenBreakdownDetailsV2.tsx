@@ -87,7 +87,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 light: tailwind('text-mono-light-v2-900'),
                 dark: tailwind('text-mono-dark-v2-900')
               }}
-              suffix={` ${displayCurrency}`}
+              suffix={`${displayCurrency}`}
             />
             <TokenBreakdownDetailsRow
               testID={`${props.token.symbol}_locked_value`}
@@ -100,7 +100,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 dark: tailwind('text-mono-dark-v2-700')
               }}
               containerStyle={tailwind('mb-5')}
-              suffix={` ${displayCurrency}`}
+              suffix={`${displayCurrency}`}
             />
             <TokenBreakdownDetailsRow
               testID={`${props.token.symbol}_available`}
@@ -108,7 +108,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               label='Available'
               hasFetchedToken={props.hasFetchedToken}
               labelTextStyle={tailwind('font-normal-v2')}
-              suffix={` ${displayCurrency}`}
+              suffix={`${displayCurrency}`}
             />
 
             {/* Available amount in USD based on DFI or other crypto */}
@@ -124,7 +124,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                     light: tailwind('text-mono-light-v2-700'),
                     dark: tailwind('text-mono-dark-v2-700')
                   }}
-                  suffix={` ${displayCurrency}`}
+                  suffix={`${displayCurrency}`}
                 />
               )
               : (
@@ -138,7 +138,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                     light: tailwind('text-mono-light-v2-700'),
                     dark: tailwind('text-mono-dark-v2-700')
                   }}
-                  suffix={` ${displayCurrency}`}
+                  suffix={`${displayCurrency}`}
                   border
                 />
               )}
@@ -158,7 +158,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               hasFetchedToken={props.hasFetchedToken}
               containerStyle={tailwind('mb-1')}
               percentageValue={new BigNumber(props.dfiUtxo.amount).div(props.availableAmount).multipliedBy(100)}
-              suffix={` ${displayCurrency}`}
+              suffix={`${displayCurrency}`}
             />
 
             <DFITokenBreakDownDetailsRow
@@ -168,7 +168,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               hasFetchedToken={props.hasFetchedToken}
               percentageValue={new BigNumber(props.dfiToken.amount).div(props.availableAmount).multipliedBy(100)}
               border
-              suffix={` ${displayCurrency}`}
+              suffix={`${displayCurrency}`}
             />
           </View>
         )}
@@ -196,7 +196,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   light: tailwind('text-mono-light-v2-700'),
                   dark: tailwind('text-mono-dark-v2-700')
                 }}
-                suffix={` ${displayCurrency}`}
+                suffix={`${displayCurrency}`}
               />
             </View>
             <View style={tailwind('pb-4')}>
@@ -220,7 +220,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   light: tailwind('text-mono-light-v2-700'),
                   dark: tailwind('text-mono-dark-v2-700')
                 }}
-                suffix={` ${displayCurrency}`}
+                suffix={`${displayCurrency}`}
               />
             </View>
             <TokenBreakdownDetailsRow
@@ -240,7 +240,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 light: tailwind('text-mono-light-v2-700'),
                 dark: tailwind('text-mono-dark-v2-700')
               }}
-              suffix={` ${displayCurrency}`}
+              suffix={`${displayCurrency}`}
               border
             />
           </>

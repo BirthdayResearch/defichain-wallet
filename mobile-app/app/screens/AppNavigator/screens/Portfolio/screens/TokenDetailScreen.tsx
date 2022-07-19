@@ -351,21 +351,19 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
       style={tailwind('py-5 ml-5 mr-4', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
     >
       <View style={tailwind('flex-row items-center')}>
-        <View>
-          {
-            isTokenPair
-              ? (
-                <PoolPairTextSectionV2
-                  symbolA={symbolA}
-                  symbolB={symbolB}
-                />
-              )
-              : (
-                <Icon height={40} width={40} />
-              )
-          }
+        {
+          isTokenPair
+            ? (
+              <PoolPairTextSectionV2
+                symbolA={symbolA}
+                symbolB={symbolB}
+              />
+            )
+            : (
+              <Icon height={40} width={40} />
+            )
+        }
 
-        </View>
         <View style={tailwind('flex-col ml-2')}>
           <ThemedTextV2
             style={tailwind('text-sm font-bold-v2')}
@@ -420,7 +418,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 <NumberFormat
                   decimalScale={8}
                   displayType='text'
-                  suffix={` ${displayCurrency}`}
+                  suffix={`${displayCurrency}`}
                   renderText={(value) => (
                     <ThemedTextV2
                       style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
