@@ -123,7 +123,6 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                     dark: tailwind('text-mono-dark-v2-700')
                   }}
                   suffix={` ${displayCurrency}`}
-                  
                 />
               )
               : (
