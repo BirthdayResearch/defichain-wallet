@@ -1,4 +1,4 @@
-function verifyPoolSwapComponents () {
+function verifyPoolSwapComponents (): void {
   cy.getByTestID('swap_button').should('exist')
   cy.getByTestID('swap_button').click()
   cy.url().should('include', 'app/CompositeSwap')
@@ -8,7 +8,7 @@ function verifyPoolSwapComponents () {
   cy.getByTestID('token_select_button_TO').should('contain', 'Select token')
 }
 
-function verifyCryptoTokenComponentState () {
+function verifyCryptoTokenComponentState (): void {
   cy.getByTestID('send_button').should('exist')
   cy.getByTestID('receive_button').should('exist')
   cy.getByTestID('convert_button').should('not.exist')
@@ -379,10 +379,10 @@ context('Wallet - Token Detail - DFI - with collateral, UTXO and Token', () => {
       .sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
-      cy.getByTestID('bottom_tab_portfolio').click()
-      cy.getByTestID('portfolio_list').should('exist')
-      cy.getByTestID('dfi_balance_card_touchable').should('exist')
-      cy.getByTestID('dfi_balance_card_touchable').click()
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('portfolio_list').should('exist')
+    cy.getByTestID('dfi_balance_card_touchable').should('exist')
+    cy.getByTestID('dfi_balance_card_touchable').click()
   })
 
   it('should be able to click on DFI token', function () {
