@@ -19,7 +19,7 @@ export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.
       style={tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' })}
       testID='header_active_network'
     >
-      <NetworkIcon pathColor={connected ? getColor('green-v2') : getColor('red-v2')} />
+      <NetworkIcon testID='header_network_icon' pathColor={connected ? getColor('green-v2') : getColor('red-v2')} />
       <ThemedTextV2
         ellipsizeMode='tail'
         numberOfLines={1}
