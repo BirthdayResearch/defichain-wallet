@@ -331,7 +331,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { getTokenPrice } = useTokenPrice(props.denominationCurrency) // input based on selected denomination from portfolio tab
   const dfiUsdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
-  const displayCurrency = props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? 'USD' : ` ${props.denominationCurrency}`
+  const displayDenominationCurrency = props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? 'USD' : `${props.denominationCurrency}`
   const isTokenPair = props.token.displaySymbol.includes('-')
 
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
@@ -418,7 +418,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 <NumberFormat
                   decimalScale={8}
                   displayType='text'
-                  suffix={`${displayCurrency}`}
+                  suffix={` ${displayDenominationCurrency}`}
                   renderText={(value) => (
                     <ThemedTextV2
                       style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
