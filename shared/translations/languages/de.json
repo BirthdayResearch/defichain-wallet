@@ -22,7 +22,7 @@
     "Verify Passcode": "Bestätige das Passwort",
     "Create Passcode": "Passwort Erstellen",
     "About Passcode": "Über den Passcode",
-    "About Recovery Words": "Wiederherstellungswörter"
+    "About Recovery Words": "Wiederherstellungssatz"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
@@ -87,7 +87,7 @@
     "locked in vault(s)": "hinterlegt in Vault(s)",
     "available": "verfügbar",
     "All tokens": "Alle Token",
-    "LP tokens": "LP Token",
+    "LP tokens": "LP-Token",
     "Crypto": "Krypto",
     "dTokens": "dToken",
     "(From highest value)": "(vom höchsten Wert an)",
@@ -99,8 +99,8 @@
     "Sort assets by": "Aktiva anordnen",
     "Highest {{modifiedDenominationCurrency}} value": "Höchster {{modifiedDenominationCurrency}}-Wert",
     "Lowest {{modifiedDenominationCurrency}} value": "Niedrigster {{modifiedDenominationCurrency}}-Wert",
-    "Highest token amount": "Höchster token-betrag",
-    "Lowest token amount": "Niedrigster token-betrag",
+    "Highest token amount": "Höchster Tokenbetrag",
+    "Lowest token amount": "Niedrigster Tokenbetrag",
     "A to Z": "A bis Z",
     "Z to A": "Z bis A",
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
@@ -114,7 +114,7 @@
     "Learn more about DFI": "Mehr über DFI erfahren",
     "STEP 2": "SCHRITT 2",
     "Receive DFI in DeFiChain Wallet": "Empfange DFI auf der DeFiChain Wallet",
-    "DFI price": "DFI preise",
+    "DFI price": "DFI-Preise",
     "WALLET ADDRESS": "WALLETADRESSE",
     "Share": "Teilen"
   },
@@ -145,7 +145,7 @@
     "Search address book": "Adressbuch durchsuchen",
     "Whitelisted": "Whitelist",
     "Your address(es)": "Deine Adresse(n)",
-    "Your address": "Deine adresse",
+    "Your address": "Deine Adresse",
     "WHITELISTED": "WHITELIST",
     "YOUR ADDRESS(ES)": "DEINE(N)",
     "Search results for": "Suchergebnisse für",
@@ -313,7 +313,7 @@
     "Change passcode": "Passwort ändern",
     "About": "Über",
     "NETWORK": "NETZWERK",
-    "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern ist das bisherige Passwort einzugeben.",
+    "To update your passcode, we need you to enter your current passcode.": "Um dein Passwort zu ändern, ist das bisherige Passwort einzugeben.",
     "Verifying passcode...": "Passwort bestätigen...",
     "Network Switch": "Netzwerk wechseln",
     "No": "Nein",
@@ -529,7 +529,7 @@
     "Take note of the words in their correct order": "Notiere die Worte in der korrekten Reihenfolge",
     "VERIFY WORDS": "BESTÄTIGE DIE WORTE",
     "Write down the words. Take note of the spelling and order.": "Schreibe die Wörter auf. Achte auf die Schreibweise und die Reihenfolge.",
-    "Verify words": "Bestätige die worte",
+    "Verify words": "Bestätige die Worte",
     "Leave wallet creation?": "Wallet-Erstellung verlassen?",
     "A new set of recovery words will be generated for the wallet once you leave this page.": "Sobald du diese Seite verlässt, wird ein neuer Satz von Wiederherstellungswörtern für die Wallet generiert.",
     "Return": "Zurück",
@@ -570,10 +570,10 @@
     "Last attempt or your wallet will be unlinked for your security": "Letzter Versuch, bevor deine Walletverknüpfung aufgehoben wird",
     "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Passwort fehlerhaft.\n{{attemptsRemaining}} verbleibende Versuche",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche",
-    "Enter passcode for verification": "Passcode zur Überprüfung eingeben",
+    "Enter passcode for verification": "Passwort zur Überprüfung eingeben",
     "It may take a few seconds to secure and encrypt your wallet.": "Es kann ein paar Sekunden dauern, bis deine Wallet gesichert und verschlüsselt ist.",
     "It may take a few seconds to update your passcode.": "Es kann einige Sekunden dauern, bis dein Passwort aktualisiert ist.",
-    "Passcode updated!": "Passcode updated!",
+    "Passcode updated!": "Passwort aktualisiert!",
     "Keep the passcode for your wallet confidential.": "Verwahre das Passwort für deine Wallet vertraulich."
   },
   "screens/PinCreation": {
@@ -584,9 +584,9 @@
     "CHANGE PASSCODE": "PASSWORT ÄNDERN",
     "Learn more about passcode": "Erfahre mehr über das Passwort",
     "Learn more": "Erfahre mehr",
-    "Create your passcode": "Erstelle deinen Passcode",
+    "Create your passcode": "Erstelle dein Passwort",
     "Create new passcode": "Erstelle neues Passwort",
-    "Add an additional layer of security by setting a passcode.": "Füge eine zusätzliche Sicherheitsebene hinzu, indem du einen Passcode einrichtest."
+    "Add an additional layer of security by setting a passcode.": "Füge eine zusätzliche Sicherheitsebene hinzu, indem du ein Passwort einrichtest."
   },
   "screens/VerifyMnemonicWallet": {
     "Invalid selection. Please ensure you have written down your 24 words.": "Auswahl ungültig. Bitte versichere dich, dass du die 24 Wörter notiert hast.",
@@ -1034,7 +1034,7 @@
     "Browse auctions": "Auktionen durchsuchen",
     "Manage bids": "Gebote verwalten",
     "Collateral for auction": "Zu ersteigern",
-    "Vault details": "Vault-details",
+    "Vault details": "Vault-Details",
     "Bid history": "Gebotsverlauf",
     "Rewards": "Belohnungen"
   },
@@ -1243,7 +1243,7 @@
   },
   "components/EmptyPortfolio": {
     "No LP tokens in portfolio": "Keine Liquiditätspool-Token im Portfolio",
-    "No Crypto in portfolio": "Keine Kryptowährungen im Portfolio",
+    "No Crypto in portfolio": "Keine Krypto-Token im Portfolio",
     "No dTokens in portfolio": "Keine dToken im Portfolio",
     "Empty portfolio": "Portfolio leer",
     "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
@@ -1275,7 +1275,7 @@
     "Vault needs DFI to be in 50% vault share": "Der Vault muss zu 50% aus DFI bestehen",
     "Confirm details in next screen": "Bestätige die Details im nächsten Schritt",
     "Select token to add": "Wähle den Token aus, der hinzugefügt werden soll",
-    "Are you sure you want to remove collateral token?": "Bist du sicher, dass du den Token  für die Besicherung entfernen möchtest?",
+    "Are you sure you want to remove collateral token?": "Bist du sicher, dass du Sicherheiten-Token entfernen möchtest?",
     "CONTINUE": "WEITER",
     "BACK": "ZURÜCK",
     "Cancel": "Abbrechen",
@@ -1382,7 +1382,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",
-    "Min:": "Min:",
+    "Min:": "Mind.:",
     "Next:": "Nächste:"
   },
   "screens/BorrowLoanTokenScreen": {
