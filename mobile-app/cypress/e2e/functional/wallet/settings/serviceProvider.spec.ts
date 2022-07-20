@@ -25,13 +25,13 @@ context('Wallet - Settings - Service Provider', () => {
     const url = defichainUrls[defichainUrlEnv]
     context(`Wallet - Settings - Service Provider ${defichainUrlEnv}`, () => {
       before(() => {
-        cy.setFeatureFlags(['service_provider', 'setting_v2'])
+        cy.setFeatureFlags(['service_provider', 'setting_v2']).wait(1000)
         cy.createEmptyWallet(true)
         cy.getByTestID('header_settings').click()
       })
 
       beforeEach(() => {
-        cy.setFeatureFlags(['service_provider', 'setting_v2'])
+        cy.setFeatureFlags(['service_provider', 'setting_v2']).wait(1000)
         cy.restoreLocalStorage()
       })
 
@@ -42,7 +42,7 @@ context('Wallet - Settings - Service Provider', () => {
       it(`should display default on first app load on ${defichainUrlEnv}`, () => {
         cy.getByTestID('header_network_name').invoke('text').then((network: string) => {
           if (network !== defichainUrlEnv) {
-            cy.switchNetwork(defichainUrlEnv)
+            cy.switchNetwork(defichainUrlEnv).wait(2000)
             cy.createEmptyWallet(true).wait(2000)
           }
           cy.getByTestID('bottom_tab_portfolio').click()
@@ -82,10 +82,10 @@ context('Wallet - Settings - Service Provider', () => {
         cy.getByTestID('endpoint_url_input').clear().type(url.custom)
         cy.getByTestID('button_submit').should('not.have.attr', 'aria-disabled')
         cy.getByTestID('button_submit').click().wait(1000)
-        cy.getByTestID('pin_authorize').type('000000').wait(1000)
-        cy.wait(3000)
+        cy.getByTestID('pin_authorize').type('000000').wait(3000)
         cy.getByTestID('bottom_tab_portfolio').click()
         cy.getByTestID('header_settings').click().wait(1000)
+        cy.url().should('include', 'app/Settings/SettingsScreen')
         cy.getByTestID('header_custom_active_network').should('exist')
         cy.getByTestID('setting_navigate_service_provider').contains('Custom')
         cy.url().should('include', 'app/Settings', () => {
