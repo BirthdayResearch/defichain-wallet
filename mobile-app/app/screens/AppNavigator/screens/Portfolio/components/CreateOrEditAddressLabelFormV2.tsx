@@ -67,7 +67,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
   const validateLabelInput = (input: string): boolean => {
     if (input !== undefined) {
       if (input.trim().length > 40) {
-        setLabelInputErrorMessage('Invalid  label. Maximum of 40 characters. ')
+        setLabelInputErrorMessage('Invalid label. Maximum of 40 characters.')
         return false
       }
 

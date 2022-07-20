@@ -81,7 +81,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   useEffect(() => {
     if (showToast) {
       Clipboard.setString(props.address)
-      toast.show(translate('components/toaster', 'Copied'), {
+      toast.show(translate('components/toaster', 'Address copied'), {
         type: 'wallet_toast',
         placement: 'top',
         duration: TOAST_DURATION

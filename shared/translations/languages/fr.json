@@ -123,12 +123,13 @@
     "GET DFI FROM": "OBTENIR DFI DE"
   },
   "components/BottomSheetAddressDetail": {
-    "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
-    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
+    "Create wallet address": "Créer une adresse de portefeuille",
+    "ADDRESS(ES)": "ADRESSE(S)",
     "RECEIVE": "RECEVOIR",
     "VIEW ON SCAN": "VOIR SUR DeFi SCAN",
     "EDIT": "MODIFIER",
-    "CANCEL": "ANNULER"
+    "CANCEL": "ANNULER",
+    "Refresh": "Actualiser"
   },
   "screens/AddressBookScreen": {
     "Address Book": "Carnet d'adresses",
@@ -156,15 +157,21 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
+    "Edit wallet label": "Modifier le nom du portefeuille",
     "ADDRESS LABEL": "NOM D'ADRESSE",
+    "LABEL": "NOM",
+    "Enter label": "Donner un nom",
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
     "ADDRESS": "ADRESSE",
     "Wallet address": "Adresse du portefeuille",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "Save changes": "Sauvegarder les modifications",
     "CONTINUE": "SUIVANT",
-    "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)"
+    "Address label is too long (max 30 characters)": "Le nom d'adresse est trop long (30 caractères max)",
+    "Invalid label. Maximum of 40 characters.": "Nom non valide. Maximum de 40 caractères.",
+    "{{length}}/40 characters": "{{length}}/40 characters"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Modifier le nom d'adresse",
@@ -223,7 +230,8 @@
     "Use QR or Wallet address to receive any tokens (DST) or DFI": "Utiliser l'adresse QR ou Wallet pour recevoir des tokens (DST) ou des DFI"
   },
   "components/toaster": {
-    "Copied": "Copié"
+    "Copied": "Copié",
+    "Address copied": "Adresse copiée"
   },
   "screens/SendScreen": {
     "Send": "Envoyer",
