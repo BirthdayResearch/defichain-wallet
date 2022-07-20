@@ -289,7 +289,7 @@ function DFITokenBreakDownDetailsRow ({
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={[tailwind('flex-row pb-0.5', { 'border-b-0.5 pb-5': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
+      style={[tailwind('flex-row pb-0.5', { 'border-b-0.5 pb-5': border }), containerStyle]}
     >
       <ThemedTextV2
         style={[tailwind('text-xs font-normal-v2'), labelTextStyle]}
@@ -372,7 +372,7 @@ function TokenBreakdownDetailsRow ({
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={[tailwind('flex-row pb-1', { 'border-b-0.5 pb-5 ': border, 'py-2': Platform.OS === 'android' }), containerStyle]}
+      style={[tailwind('flex-row pb-1', { 'border-b-0.5 pb-5 ': border }), containerStyle]}
     >
       <ThemedTextV2
         style={[tailwind('text-xs font-normal-v2'), labelTextStyle]}
