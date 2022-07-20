@@ -249,7 +249,7 @@ function LinkItemRow ({
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
       onPress={handlePress}
-      style={tailwind('flex-row px-5 py-4 items-center rounded-lg mb-2 mx-5')}
+      style={tailwind('flex-row px-5 py-4 items-center rounded-lg-v2 mb-2 mx-5')}
       testID={testID}
     >
       <View style={tailwind('flex-col flex-1 mr-8')}>
