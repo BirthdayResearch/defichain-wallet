@@ -181,6 +181,7 @@ export function TokenDetailScreen ({
             <ThemedViewV2
               dark={tailwind('border-mono-dark-v2-300')}
               light={tailwind('border-mono-light-v2-300')}
+              style={tailwind('pt-1')}
             >
               <InfoTextLinkV2
                 onPress={async () => await openURL('https://defichain.com/dfi')}
@@ -192,7 +193,7 @@ export function TokenDetailScreen ({
         }
       </View>
 
-      <View style={tailwind('flex-1 flex-col-reverse')}>
+      <View style={tailwind('flex-1 flex-col-reverse pb-12')}>
         <View style={tailwind('px-5')}>
           <ThemedViewV2
             dark={tailwind('bg-mono-dark-v2-00')}
