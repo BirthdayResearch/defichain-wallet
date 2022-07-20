@@ -484,13 +484,13 @@
     "Keep them private": "Behalte sie für dich",
     "I have read and agree to the terms and conditions.": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und akzeptiere diese.",
     "View terms and conditions.": "Allgemeine Geschäftsbedingungen anzeigen.",
-    "https://dfx.swiss/en/terms/": "https://dfx.swiss/de/agb/",
     "Learn more": "Erfahre mehr",
     "Create wallet": "Wallet erstellen",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Teile sie niemandem mit. Nur du solltest den Wiederherstellungssatz kennen.",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "In der nächsten Ansicht werden dir 24 Wiederherstellungswörter angezeigt. Bewahre deine 24 Wiederherstellungswörter sicher auf, denn mit ihnen kannst du den Zugang zur Wallet wiederherstellen.",
     "Write the words on paper. Take note of their correct spelling and order.": "Schreibe die Wörter auf Papier. Achte auf die richtige Schreibweise und Reihenfolge.",
-    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Bewahre sie an einem sicheren Ort auf. Speichere sie offline an einem Ort, zu dem nur du Zugang hast. Schütze sie vor fremden Einblicken und teile sie mit niemandem."
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Bewahre sie an einem sicheren Ort auf. Speichere sie offline an einem Ort, zu dem nur du Zugang hast. Schütze sie vor fremden Einblicken und teile sie mit niemandem.",
+    "https://dfx.swiss/en/terms-and-conditions/": "https://dfx.swiss/agb/"
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
@@ -1561,7 +1561,7 @@
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "Bitte beachten, dass derzeit nur DFI UTXO verkauft werden kann. Klicke hier um DFI-Token zu tauschen."
   },
-    "screens/WalletCreateRestoreSuccess": {
+  "screens/WalletCreateRestoreSuccess": {
     "Wallet restored!": "Wallet wiederhergestellt!",
     "Wallet created!": "Wallet erstellt!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Zugang zu dezentralem Finanzwesen mit Sicherheit, Stärke und Unveränderlichkeit auf Bitcoin-Niveau.",
