@@ -12,7 +12,9 @@ export function useTnC (): string {
     return text[language]
 }
 
-const tncText = `1.  Loans on DeFiChain
+const tncText = `
+1.  Loans on DeFiChain
+
 
 1.1 Design and Functionality
 
@@ -33,6 +35,7 @@ Decentralized borrowing on the DeFi chain can be summarized as follows:
 5) 175% (Min Collateralization Ratio) - 3% APR
 6) 150% (Min Collateralization Ratio) - 5% APR
 
+
 1.2 Liquidation and Loan Repayment
 
 •   If, due to price fluctuations, the collateral ratio is undercut (e.g. a decline in the value of the collateral or an increase in the underlying market values measured in $USD), the position or the vault of the corresponding user can be liquidated. In this case, the collateral of the liquidated Vault is automatically auctioned off. Neither DFX AG nor the users are involved in the liquidation of the corresponding Vault, but the Smart Contract automatically liquidates the Vaults if the collateral falls below the Minimum Collateralization Ratio. The borrower must always provide sufficient collateral to avoid liquidation.
@@ -42,13 +45,13 @@ Each user can then bid on the collateral of the liquidated vault. The 1st bid mu
 
 •   Only the collateral originator address can finally repay the loan back to the Vault, which increases its collateral ratio again. Consequently, part of the collateral can be deblocked or the loan can be extended.
 
-•   Loans that are transferred back to the Vault and thus repaid, as well as the interest due, are destroyed by the Vault Smart Contract ("burn mechanism"). Loans as well as the interest can only be repaid with the tokens with which the loan was originally taken out.
-`
+•   Loans that are transferred back to the Vault and thus repaid, as well as the interest due, are destroyed by the Vault Smart Contract ("burn mechanism"). Loans as well as the interest can only be repaid with the tokens with which the loan was originally taken out.`
 
 const tncTextDe = `
 1.  Kreditaufnahme auf der DeFiChain
 
-1.2 Ausgestaltung und Funktionalität
+
+1.1 Ausgestaltung und Funktionalität
 
 Die dezentrale Kreditaufnahme auf der DeFi-Chain lässt sich wie folgt zusammenfassen:
 
@@ -67,6 +70,7 @@ Die dezentrale Kreditaufnahme auf der DeFi-Chain lässt sich wie folgt zusammenf
 5) 175% (Min Collateralization Ratio) - 3% APR
 6) 150% (Min Collateralization Ratio) - 5% APR
 
+
 1.2 Liquidation und Kredittilgung
 
 •   Wenn, aufgrund von Kursschwankungen die Collateral-Ratio unterschritten wird (z.B. Wertverfall des Collaterals oder Ansteigen der zugrundeliegenden Kurswerte gemessen in $USD), kann die Position bzw. der Vault des entsprechenden Nutzers liquidiert werden. Dabei wird das Collateral des liquidierten Vaults automatisch verauktioniert. Weder die DFX AG noch die Nutzer sind in der Liquidierung der entsprechenden Vault involviert, sondern der Smart Contract liquidiert die Vaults automatisch, falls das Collateral unter die Minimum Collateralization Ratio fällt. Der Kreditnehmer muss stets ausreichend Collateral vorhalten, um nicht liquidiert zu werden.
@@ -76,6 +80,4 @@ Jeder Nutzer kann dann auf das Collateral des liquidierten Vaults bieten. Das 1.
 
 •   Nur die Collateral Originator Adresse kann schliesslich den Kredit an den Vault zurücktransferieren, wodurch sich seine Collateral-Ratio wieder erhöht. Folglich kann ein Teil des Collaterals deblockiert oder es kann der Kredit ausgeweitet werden.
 
-•   Kredite, welche an den Vault zurücktransferiert und somit getilgt werden, sowie auch die fälligen Zinsen, werden durch den Vault Smart Contract zerstört (“Burn Mechanismus”). Kredite sowie die Zinsen können nur mit den Token getilgt werden, mit denen der Kredit ursprünglich genommen worden ist.
-
-`
+•   Kredite, welche an den Vault zurücktransferiert und somit getilgt werden, sowie auch die fälligen Zinsen, werden durch den Vault Smart Contract zerstört (“Burn Mechanismus”). Kredite sowie die Zinsen können nur mit den Token getilgt werden, mit denen der Kredit ursprünglich genommen worden ist.`
