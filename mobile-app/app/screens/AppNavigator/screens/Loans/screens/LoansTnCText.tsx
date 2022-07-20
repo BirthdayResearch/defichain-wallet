@@ -1,12 +1,18 @@
 
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
+import { AnnouncementText } from '@shared-types/website'
 
 export function useTnC (): string {
     const { language } = useLanguageContext()
 
-    const text = {
+    const text: AnnouncementText = {
         en: tncText,
-        de: tncTextDe
+        de: tncTextDe,
+        'zh-Hans': tncText,
+        'zh-Hant': tncText,
+        fr: tncText,
+        es: tncText,
+        it: tncText
     }
 
     return text[language]
