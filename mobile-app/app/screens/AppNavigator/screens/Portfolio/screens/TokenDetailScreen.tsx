@@ -459,7 +459,7 @@ function TokenActionRow ({
       </ThemedTextV2>
 
       <ThemedIcon
-        dark={tailwind('text-mono-dark-v2-900')}
+        dark={tailwind('text-mono-dark-v2-700')}
         light={tailwind('text-mono-light-v2-700')}
         iconType={iconType}
         name={icon}

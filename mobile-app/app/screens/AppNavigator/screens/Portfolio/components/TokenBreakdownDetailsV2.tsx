@@ -299,22 +299,38 @@ function DFITokenBreakDownDetailsRow ({
       </ThemedTextV2>
 
       {/* To display initial 0.00% */}
-      <NumberFormat
-        value={percentageValue.isNaN() ? new BigNumber('0').toFixed(8) : percentageValue.toFixed(8)}
-        decimalScale={2}
-        displayType='text'
-        renderText={(value) => (
-          <ThemedTextV2
-            style={tailwind('text-xs font-normal-v2 pr-1')}
-            testID={`${testID}_percentage`}
-          >
-            {value}
-          </ThemedTextV2>
-        )}
-        thousandSeparator
-        prefix=' ('
-        suffix='%)'
-      />
+      {
+        hasFetchedToken
+          ? (
+            <NumberFormat
+              value={percentageValue.isNaN() ? new BigNumber('0').toFixed(8) : percentageValue.toFixed(8)}
+              decimalScale={2}
+              displayType='text'
+              renderText={(value) => (
+                <ThemedTextV2
+                  style={tailwind('text-xs font-normal-v2 pr-1')}
+                  testID={`${testID}_percentage`}
+                >
+                  {value}
+                </ThemedTextV2>
+              )}
+              thousandSeparator
+              prefix=' ('
+              suffix='%)'
+            />
+          )
+          : (
+            <TextSkeletonLoader
+              iContentLoaderProps={{
+                width: '60',
+                height: '14',
+                testID: `${testID}_percentage_breakdown_row_skeleton_loader`
+              }}
+              textHorizontalOffset='30'
+              textWidth='120'
+            />
+          )
+      }
 
       <View style={tailwind('flex-row flex-1 justify-end')}>
         {

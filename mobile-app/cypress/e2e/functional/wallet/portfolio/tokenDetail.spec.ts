@@ -436,6 +436,8 @@ context('Wallet - Token Detail - Failed API', () => {
         'x-not-found': 'true'
       }
     })
+    cy.getByTestID('dfi_utxo_percentage_breakdown_row_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_token_percentage_breakdown_row_skeleton_loader').should('exist')
     cy.getByTestID('dfi_utxo_breakdown_row_skeleton_loader').should('exist')
     cy.getByTestID('dfi_token_breakdown_row_skeleton_loader').should('exist')
   })
