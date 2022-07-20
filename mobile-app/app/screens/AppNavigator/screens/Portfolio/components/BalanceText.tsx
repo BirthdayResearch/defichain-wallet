@@ -23,12 +23,3 @@ export function BalanceText ({ symbol, value, ...otherProps }: BalanceTextProps 
     </ThemedText>
   )
 }
-export function BalanceTextV2 ({ symbol, value, ...otherProps }: BalanceTextProps & ThemedProps & TextProps): JSX.Element {
-  return (
-    <ThemedTextV2
-      {...otherProps}
-    >
-      {value}
-    </ThemedTextV2>
-  )
-}

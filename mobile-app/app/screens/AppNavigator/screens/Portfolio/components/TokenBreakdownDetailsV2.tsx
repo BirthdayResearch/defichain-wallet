@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { useTokenPrice } from '../hooks/TokenPrice'
-import { BalanceTextV2 } from './BalanceText'
+import { BalanceTextV2 } from './BalanceTextV2'
 import { PortfolioButtonGroupTabKey } from './TotalPortfolio'
 
 interface TokenBreakdownDetailProps {
