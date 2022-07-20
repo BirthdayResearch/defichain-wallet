@@ -17,6 +17,7 @@ import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenSc
 import { ConversionParam } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
+import { LoansTnC } from '@screens/AppNavigator/screens/Loans/screens/LoansTnC'
 import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
 import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
 import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen'
@@ -104,6 +105,8 @@ export interface LoanParamList {
   }
   LoansFaq: {
     activeSessions?: number[]
+  }
+  LoansTnC: {
   }
   [key: string]: undefined | object
 }
@@ -249,6 +252,19 @@ export function LoansNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('components/LoansFaq', 'Loans FAQ')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+      <LoansStack.Screen
+        component={LoansTnC}
+        name='LoansTnC'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('components/LoansFaq', 'Loan terms')}
               containerTestID={headerContainerTestId}
             />
           ),

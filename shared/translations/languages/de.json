@@ -375,7 +375,8 @@
     "Why is there a 5% fee when paying DUSD loans with DFI?": "Warum wird bei der Rückzahlung von DUSD-Darlehen mit DFI eine Gebühr von 5 % erhoben?",
     "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Gemäß DFIP 2206-C wird bei der Rückzahlung von DUSD-Darlehen in DFI eine Gebühr von 5% erhoben. Dies ist eine vorläufige Maßnahme, um Anreize für Arbitrageure zu schaffen, ihre Darlehen mit DUSD zurückzuzahlen, wodurch das DUSD-Angebot auf dem Markt verringert wird.\n\nBei der Berechnung, wie viel DFI-Gegenwert für ein DUSD-Darlehen zu zahlen ist, wird eine zusätzliche Gebühr von 5 % auf den DFI/DUSD-Preisorakelwert erhoben. Zur Veranschaulichung: Wenn der Preisorakelwert von DFI/USD heute 10,- $ beträgt, wird der Wert von DFI bei einer DUSD-Zahlung berechnet, indem 10,- $ * (1-0,05) genommen wird, was den Wert von DFI in einem solchen Fall effektiv um 5% auf 9,50 $ reduziert.",
     "What is vault share?": "Was ist ein Vaultanteil?",
-    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "Der Vaultanteil gibt den Anteil der in einem Vault hinterlegten Sicherheiten-Token an. Alle Vaults müssen mindestens 50 % DFI und/oder DUSD als Sicherheiten-Token enthalten. Diese Anforderung wird zweimal überprüft — wenn du neue dToken mintest und wenn du Sicherheiten aus deinem Vault entnimmst."
+    "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "Der Vaultanteil gibt den Anteil der in einem Vault hinterlegten Sicherheiten-Token an. Alle Vaults müssen mindestens 50 % DFI und/oder DUSD als Sicherheiten-Token enthalten. Diese Anforderung wird zweimal überprüft — wenn du neue dToken mintest und wenn du Sicherheiten aus deinem Vault entnimmst.",
+    "Loan terms": "Kreditbedingungen"
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ Auktionen",
@@ -1561,7 +1562,7 @@
   "components/DfxConversionInfo": {
     "Please note that currently only DFI UTXO can be sold. You can exchange DFI tokens by clicking here.": "Bitte beachten, dass derzeit nur DFI UTXO verkauft werden kann. Klicke hier um DFI-Token zu tauschen."
   },
-    "screens/WalletCreateRestoreSuccess": {
+  "screens/WalletCreateRestoreSuccess": {
     "Wallet restored!": "Wallet wiederhergestellt!",
     "Wallet created!": "Wallet erstellt!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Zugang zu dezentralem Finanzwesen mit Sicherheit, Stärke und Unveränderlichkeit auf Bitcoin-Niveau.",
