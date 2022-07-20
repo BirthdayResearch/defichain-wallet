@@ -7,7 +7,7 @@ type IListProps = React.PropsWithChildren<ViewProps> & ListProps
 
 interface ListProps {
     onPress: () => void
-    isLast: boolean
+    isLast?: boolean
     disabled?: boolean
     testId?: string
     styleProps?: string
@@ -16,7 +16,7 @@ interface ListProps {
 export function ThemedTouchableListItem (props: IListProps): JSX.Element {
     const {
        onPress,
-       isLast,
+       isLast = true,
        disabled,
        testId,
        styleProps = 'py-4.5',
