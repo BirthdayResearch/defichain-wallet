@@ -416,7 +416,7 @@ function TokenBreakdownDetailsRow ({
                   >
                     {value}
                   </ThemedTextV2>}
-                />
+              />
             )
             : (
               <TextSkeletonLoader
