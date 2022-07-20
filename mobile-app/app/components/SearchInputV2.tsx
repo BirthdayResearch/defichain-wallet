@@ -2,6 +2,7 @@ import { StyleProp, TextInputProps, ViewStyle } from 'react-native'
 import { ThemedIcon, ThemedTextInput, ThemedViewV2 } from '@components/themed'
 import { ClearButtonV2 } from '@components/WalletTextInputV2'
 import { tailwind } from '@tailwind'
+import { forwardRef } from 'react'
 
 type SearchInputProps = React.PropsWithChildren<TextInputProps> & ISearchInputProps
 
@@ -11,7 +12,7 @@ interface ISearchInputProps {
   onClearInput: () => void
 }
 
-export function SearchInputV2 (props: SearchInputProps): JSX.Element {
+export const SearchInputV2 = forwardRef<any, SearchInputProps>(function (props: SearchInputProps, ref: React.Ref<any>): JSX.Element {
   const {
     onClearInput,
     containerStyle,
@@ -32,6 +33,7 @@ export function SearchInputV2 (props: SearchInputProps): JSX.Element {
         style={tailwind('mr-2')}
       />
       <ThemedTextInput
+        ref={ref}
         {...otherProps}
         style={[tailwind('flex-grow w-8/12 font-normal-v2 flex-1 text-xs'), tailwind({ 'mr-4': !props.showClearButton })]}
       />
@@ -43,4 +45,4 @@ export function SearchInputV2 (props: SearchInputProps): JSX.Element {
         )}
     </ThemedViewV2>
   )
-}
+})
