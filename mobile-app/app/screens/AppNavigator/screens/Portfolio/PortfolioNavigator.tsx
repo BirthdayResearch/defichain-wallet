@@ -262,7 +262,6 @@ export function PortfolioNavigator (): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
           headerTitle: translate('screens/TokenDetailScreen', 'Balance')
         }}
       />
