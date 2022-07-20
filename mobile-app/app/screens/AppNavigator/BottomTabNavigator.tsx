@@ -10,6 +10,8 @@ import { AuctionsNavigator } from './screens/Auctions/AuctionNavigator'
 import { DFXAPIContextProvider } from '@shared-contexts/DFXAPIContextProvider'
 import { LoansNavigator } from './screens/Loans/LoansNavigator'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 export interface BottomTabParamList {
   Portfolio: undefined
@@ -24,6 +26,9 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export function BottomTabNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
+  const {
+    vaults
+  } = useSelector((state: RootState) => state.loans)
 
   return (
     <>
@@ -71,20 +76,22 @@ export function BottomTabNavigator (): JSX.Element {
             }}
           />
 
-          <BottomTab.Screen
-            component={LoansNavigator}
-            name={translate('BottomTabNavigator', 'Loans')}
-            options={{
-            tabBarTestID: 'bottom_tab_loans',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons
-                color={color}
-                name='credit-card'
-                size={24}
-              />
-            )
-          }}
-          />
+          {(isFeatureAvailable('loan') || (vaults?.length > 0)) && (
+            <BottomTab.Screen
+              component={LoansNavigator}
+              name={translate('BottomTabNavigator', 'Loans')}
+              options={{
+              tabBarTestID: 'bottom_tab_loans',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons
+                  color={color}
+                  name='credit-card'
+                  size={24}
+                />
+              )
+            }}
+            />
+          )}
 
           {isFeatureAvailable('auction') && (
             <BottomTab.Screen
