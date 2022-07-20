@@ -1,7 +1,7 @@
 
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { ThemedText } from '@components/themed/ThemedText'
-import { ThemedProps, ThemedTextV2 } from '@components/themed'
+import { ThemedProps } from '@components/themed'
 import { TextProps } from '@components'
 
 interface BalanceTextProps {
