@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
+import { ThemedIcon, ThemedTextV2, ThemedTouchableListItem } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -7,7 +7,7 @@ import { AppLanguageItem, translate } from '@translations'
 import { View, Text } from 'react-native'
 import { SettingsParamList } from '../SettingsNavigator'
 
-export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLanguageItem, border: boolean}): JSX.Element {
+export function RowLanguageItem ({ languageItem, isLast }: { languageItem: AppLanguageItem, isLast: boolean}): JSX.Element {
   const navigation = useNavigation<NavigationProp<SettingsParamList>>()
   const {
     language,
@@ -40,9 +40,9 @@ export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLa
     })
   }
   return (
-    <ThemedTouchableOpacityV2
+    <ThemedTouchableListItem
       onPress={onPress}
-      style={tailwind('flex flex-row items-center justify-between py-4.5 mx-5', { 'border-b-0.5': border })}
+      isLast={isLast}
       testID={`button_language_${languageItem.language}`}
     >
       <View style={tailwind('flex flex-row items-center')}>
@@ -69,6 +69,6 @@ export function RowLanguageItem ({ languageItem, border }: { languageItem: AppLa
         size={20}
         testID={`button_network_${languageItem.language}_check`}
       />
-    </ThemedTouchableOpacityV2>
+    </ThemedTouchableListItem>
   )
 }

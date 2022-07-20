@@ -19,14 +19,14 @@ export function LanguageSelectionScreen (): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-lg-v2')}
+        style={tailwind('rounded-lg-v2 px-5')}
       >
         {
         languages.map((language, index) => (
           <RowLanguageItem
             key={index}
             languageItem={language}
-            border={index < languages.length - 1}
+            isLast={index === languages.length - 1}
           />
         ))
         }
