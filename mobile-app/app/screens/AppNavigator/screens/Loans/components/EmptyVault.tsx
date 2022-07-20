@@ -72,7 +72,7 @@ export function EmptyVault (props: EmptyVaultProps): JSX.Element {
         <TouchableOpacity onPress={() => navigation.navigate('LoansTnC')}>
           <InfoText
             simple
-            text={translate('components/LoansFaq', 'Terms & Conditions')}
+            text={translate('components/LoansFaq', 'Loan terms')}
             style={tailwind('p-2 flex-row items-end justify-start')}
           // testId='empty_vault_learn_more'
           />

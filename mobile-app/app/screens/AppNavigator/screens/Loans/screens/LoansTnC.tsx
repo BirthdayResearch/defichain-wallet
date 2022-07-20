@@ -11,7 +11,7 @@ type Props = StackScreenProps<LoanParamList, 'LoansTnC'>
 export function LoansTnC ({ route }: Props): JSX.Element {
   const faqContent: AccordionContent[] = [
     {
-      title: translate('components/LoansFaq', 'T&C'),
+      title: translate('components/LoansFaq', 'Loan terms'),
       content: [{
         text: translate('components/LoansFaq', useTnC()),
         type: 'paragraph'

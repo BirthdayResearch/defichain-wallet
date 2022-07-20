@@ -12,7 +12,7 @@ export function LoansFaq ({ route }: Props): JSX.Element {
   const activeSessions = route.params.activeSessions
   const faqContent: AccordionContent[] = [
     {
-      title: translate('components/LoansFaq', 'T&C'),
+      title: translate('components/LoansFaq', 'Loan terms'),
       content: [{
         text: translate('components/LoansFaq', useTnC()),
         type: 'paragraph'

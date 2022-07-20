@@ -264,7 +264,7 @@ export function LoansNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('components/LoansFaq', 'Loans T&C')}
+              text={translate('components/LoansFaq', 'Loan terms')}
               containerTestID={headerContainerTestId}
             />
           ),
