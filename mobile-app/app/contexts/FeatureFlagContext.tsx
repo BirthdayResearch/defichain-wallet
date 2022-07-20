@@ -37,6 +37,14 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
     isError,
     refetch
   } = useGetFeatureFlagsQuery(`${network}.${url}`)
+  const modifiedFeatureFlags = featureFlags.map((flag) => {
+    if (flag.id === 'loan') {
+      const modFlag: FeatureFlag = { ...flag, stage: 'beta' }
+      return modFlag
+    } else {
+      return flag
+    }
+  })
   const logger = useLogger()
 
   const prefetchPage = usePrefetch('getFeatureFlags')
@@ -60,12 +68,12 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   }, [network])
 
   function isBetaFeature (featureId: FEATURE_FLAG_ID): boolean {
-    return featureFlags.some((flag: FeatureFlag) => satisfies(appVersion, flag.version) &&
+    return modifiedFeatureFlags.some((flag: FeatureFlag) => satisfies(appVersion, flag.version) &&
       flag.networks?.includes(network) && flag.id === featureId && flag.stage === 'beta')
   }
 
   function isFeatureAvailable (featureId: FEATURE_FLAG_ID): boolean {
-    return featureFlags.some((flag: FeatureFlag) => {
+    return modifiedFeatureFlags.some((flag: FeatureFlag) => {
       if (flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS)) {
         if (Platform.OS === 'web') {
           return flag.id === featureId && checkFeatureStage(flag)
@@ -111,12 +119,12 @@ export function FeatureFlagProvider (props: React.PropsWithChildren<any>): JSX.E
   }
 
   const context: FeatureFlagContextI = {
-    featureFlags,
+    featureFlags: modifiedFeatureFlags,
     enabledFeatures,
     updateEnabledFeatures,
     isFeatureAvailable,
     isBetaFeature,
-    hasBetaFeatures: featureFlags.some((flag) => satisfies(appVersion, flag.version) &&
+    hasBetaFeatures: modifiedFeatureFlags.some((flag) => satisfies(appVersion, flag.version) &&
       flag.networks?.includes(network) && flag.platforms?.includes(Platform.OS) && flag.stage === 'beta')
   }
 
