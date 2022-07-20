@@ -15,7 +15,6 @@ import { useSelector } from 'react-redux'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { useTokenPrice } from '../hooks/TokenPrice'
-import { BalanceTextV2 } from './BalanceTextV2'
 import { PortfolioButtonGroupTabKey } from './TotalPortfolio'
 
 interface TokenBreakdownDetailProps {
@@ -343,13 +342,14 @@ function DFITokenBreakDownDetailsRow ({
                 prefix={prefix}
                 suffix={suffix}
                 renderText={value =>
-                  <BalanceTextV2
+                  <ThemedTextV2
                     light={valueThemeProps.light}
                     dark={valueThemeProps.dark}
                     style={[tailwind('text-xs font-normal-v2'), valueTextStyle]}
                     testID={`${testID}_amount`}
-                    value={value}
-                  />}
+                  >
+                    {value}
+                  </ThemedTextV2>}
               />
             )
             : (
@@ -408,14 +408,15 @@ function TokenBreakdownDetailsRow ({
                 prefix={prefix}
                 suffix={suffix}
                 renderText={value =>
-                  <BalanceTextV2
+                  <ThemedTextV2
                     light={valueThemeProps.light}
                     dark={valueThemeProps.dark}
                     style={[tailwind('text-xs font-normal-v2'), valueTextStyle]}
                     testID={`${testID}_amount`}
-                    value={value}
-                  />}
-              />
+                  >
+                    {value}
+                  </ThemedTextV2>}
+                />
             )
             : (
               <TextSkeletonLoader
