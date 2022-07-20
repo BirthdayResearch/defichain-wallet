@@ -21,73 +21,89 @@ const defichainUrls = {
 const defichainUrlEnvs = Object.keys(defichainUrls) as EnvironmentNetwork[]
 
 context('Wallet - Settings - Service Provider', () => {
-  before(() => {
-    cy.setFeatureFlags(['service_provider', 'setting_v2'])
-    cy.createEmptyWallet(true)
-    cy.getByTestID('header_settings').click()
-  })
-
-  beforeEach(() => {
-    cy.setFeatureFlags(['service_provider', 'setting_v2'])
-    cy.restoreLocalStorage()
-  })
-
-  afterEach(() => {
-    cy.saveLocalStorage()
-  })
-
   defichainUrlEnvs.forEach((defichainUrlEnv) => {
     const url = defichainUrls[defichainUrlEnv]
-    it(`should display default on first app load on ${defichainUrlEnv}`, () => {
-      localStorage.setItem('WALLET.ENABLED_FEATURES', '["service_provider"]')
-      cy.getByTestID('header_network_icon').click().wait(50)
-      cy.getByTestID(`button_network_${defichainUrlEnv}`).click()
-      cy.on('window:confirm', () => {})
-      cy.wait(3000)
-      cy.createEmptyWallet(true).wait(2000)
-      cy.getByTestID('header_settings').click().wait(50)
-      cy.getByTestID('setting_navigate_service_provider').contains('Default')
-      cy.url().should('include', 'app/Settings', () => {
-        expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.default)
+    context(`Wallet - Settings - Service Provider ${defichainUrlEnv}`, () => {
+      before(() => {
+        cy.setFeatureFlags(['service_provider', 'setting_v2'])
+        cy.createEmptyWallet(true)
+        cy.getByTestID('header_settings').click()
       })
-    })
 
-    it(`should have default service provider url on ${defichainUrlEnv}`, () => {
-      cy.getByTestID('setting_navigate_service_provider').click()
-      cy.getByTestID('endpoint_url_input').should('have.value', url.default)
-    })
+      beforeEach(() => {
+        cy.setFeatureFlags(['service_provider', 'setting_v2'])
+        cy.restoreLocalStorage()
+      })
 
-    it(`input should be locked and not editable on ${defichainUrlEnv}`, () => {
-      cy.getByTestID('endpoint_url_input').should('have.attr', 'readonly')
-    })
+      afterEach(() => {
+        cy.saveLocalStorage()
+      })
 
-    it(`can unlock to change service provider endpoint on ${defichainUrlEnv}`, () => {
-      cy.getByTestID('edit_service_provider').click()
-      cy.getByTestID('reset_button').should('exist').should('have.css', 'background-color', 'rgba(255, 255, 255, 0.3)')
-      cy.getByTestID('endpoint_url_input').should('not.have.attr', 'readonly')
-      cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
-    })
+      it(`should display default on first app load on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('header_network_name').invoke('text').then((network: string) => {
+          if (network !== defichainUrlEnv) {
+            cy.switchNetwork(defichainUrlEnv)
+            cy.createEmptyWallet(true).wait(2000)
+          }
+          cy.getByTestID('bottom_tab_portfolio').click()
+          cy.getByTestID('header_settings').click().wait(50)
+          cy.getByTestID('header_network_name').contains(defichainUrlEnv)
+          cy.getByTestID('setting_navigate_service_provider').contains('Default')
+          cy.url().should('include', 'app/Settings', () => {
+            expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.default)
+          })
+        })
+      })
 
-    it(`should type invalid custom provider URL on ${defichainUrlEnv}`, () => {
-      cy.getByTestID('endpoint_url_input').should('have.value', '')
-      cy.getByTestID('endpoint_url_input').type('http://invalidcustomURL.com')
-      cy.getByTestID('endpoint_url_input_error').contains('Invalid URL')
-      cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
-    })
+      it(`should have default service provider url on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('setting_navigate_service_provider').click()
+        cy.getByTestID('endpoint_url_input').should('have.value', url.default)
+      })
 
-    it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
-      cy.getByTestID('endpoint_url_input').clear().type(url.custom)
-      cy.getByTestID('button_submit').should('not.have.attr', 'aria-disabled')
-      cy.getByTestID('button_submit').click().wait(1000)
-      cy.getByTestID('pin_authorize').type('000000').wait(1000)
-      cy.wait(3000)
-      cy.reload()
-      cy.getByTestID('bottom_tab_portfolio').click()
-      cy.getByTestID('header_settings').click()
-      cy.getByTestID('header_custom_active_network').should('exist')
-      cy.getByTestID('setting_navigate_service_provider').contains('Custom')
-      cy.url().should('include', 'app/Settings', () => {
-        expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
+      it(`input should be locked and not editable on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('endpoint_url_input').should('have.attr', 'readonly')
+      })
+
+      it(`can unlock to change service provider endpoint on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('edit_service_provider').click()
+        cy.getByTestID('reset_button').should('exist').should('have.css', 'background-color', 'rgba(255, 255, 255, 0.3)')
+        cy.getByTestID('endpoint_url_input').should('not.have.attr', 'readonly')
+        cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
+      })
+
+      it(`should type invalid custom provider URL on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('endpoint_url_input').should('have.value', '')
+        cy.getByTestID('endpoint_url_input').type('http://invalidcustomURL.com')
+        cy.getByTestID('endpoint_url_input_error').contains('Invalid URL')
+        cy.getByTestID('button_submit').should('have.attr', 'aria-disabled')
+      })
+
+      it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('endpoint_url_input').clear().type(url.custom)
+        cy.getByTestID('button_submit').should('not.have.attr', 'aria-disabled')
+        cy.getByTestID('button_submit').click().wait(1000)
+        cy.getByTestID('pin_authorize').type('000000').wait(1000)
+        cy.wait(3000)
+        cy.getByTestID('bottom_tab_portfolio').click()
+        cy.getByTestID('header_settings').click().wait(1000)
+        cy.getByTestID('header_custom_active_network').should('exist')
+        cy.getByTestID('setting_navigate_service_provider').contains('Custom')
+        cy.url().should('include', 'app/Settings', () => {
+          expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.custom)
+        })
+        cy.getByTestID('bottom_tab_portfolio').click()
+      })
+
+      it(`can reset custom provider endpoint on ${defichainUrlEnv}`, () => {
+        cy.getByTestID('bottom_tab_portfolio').click()
+        cy.getByTestID('header_settings').click()
+        cy.getByTestID('setting_navigate_service_provider').click()
+        cy.getByTestID('edit_service_provider').click()
+        cy.getByTestID('reset_button').should('exist').click()
+        cy.getByTestID('pin_authorize').type('000000').wait(3000)
+        cy.getByTestID('bottom_tab_portfolio').click()
+        cy.getByTestID('header_settings').click().wait(1000)
+        cy.getByTestID('header_custom_active_network').should('not.exist')
       })
     })
   })
