@@ -456,12 +456,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         component: CreateOrEditAddressLabelFormV2,
         option: {
           headerStatusBarHeight: 1,
-          headerBackgroundContainerStyle: tailwind({
-            '-top-5': Platform.OS !== 'web'
-          }),
           headerTitle: '',
           headerBackTitleVisible: false,
-          headerStyle: tailwind({
+          headerStyle: tailwind('rounded-t-xl-v2', {
             'bg-mono-light-v2-100': isLight,
             'bg-mono-dark-v2-100': !isLight
           }),
