@@ -16,7 +16,7 @@ export function InfoText (props: InfoTextProp): JSX.Element {
     type = 'warning',
     style,
     light = tailwind({ 'bg-warning-50 border-warning-200': type === 'warning', 'bg-error-50 border-error-200': type === 'error', 'bg-success-50 border-success-200': type === 'success' }),
-    dark = tailwind('bg-dfxblue-900 border-dfxblue-800'),
+    dark = tailwind((simple ?? false) ? '' : 'bg-dfxblue-900 border-dfxblue-800'),
     ...otherProps
   } = props
 
