@@ -480,8 +480,7 @@
     "Keep them private": "Mantenlas en secreto",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "No las compartas con nadie. Guárdalas sólo para ti",
     "I have read and agree to the terms and conditions.": "He leído y acepto las condiciones.",
-    "View terms and conditions.": "Mostrar las condiciones generales.",
-    "https://dfx.swiss/en/terms-and-conditions/": ""
+    "View terms and conditions.": "Mostrar las condiciones generales."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Qúe son las palabras de recuperación?(Seed Phrase)",
