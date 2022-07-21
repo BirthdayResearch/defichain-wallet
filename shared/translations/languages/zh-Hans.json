@@ -488,7 +488,10 @@
     "Convert to {{symbol}}": "转换至 {{symbol}}",
     "Add to liquidity pool": "加入流动性池",
     "Remove liquidity": "撒出 流动性池",
-    "Swap token": "兑换代币"
+    "Swap token": "兑换代币",
+    "Balance": "总资金",
+    "Swap": "兑换",
+    "Add liquidity": "增加流动资金"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "了解UTXO和代币区别",

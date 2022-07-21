@@ -502,7 +502,10 @@
     "Convert to {{symbol}}": "Convertir a {{symbol}}",
     "Add to liquidity pool": "Añadir a la pool de liquidez",
     "Remove liquidity": "Eliminar liquidez",
-    "Swap token": "Intercambia de token"
+    "Swap token": "Intercambia de token",
+    "Balance": "Saldos",
+    "Swap": "Cambiar",
+    "Add liquidity": "Añadir liquidez"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Aprende sobre UTXOs y Tokens",

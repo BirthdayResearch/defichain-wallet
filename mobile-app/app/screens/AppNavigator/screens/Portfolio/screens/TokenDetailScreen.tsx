@@ -17,7 +17,6 @@ import {
   ThemedIcon,
   ThemedScrollViewV2,
   ThemedTextV2,
-  ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
 import { PortfolioParamList } from '../PortfolioNavigator'
@@ -35,6 +34,7 @@ import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
 import { openURL } from '@api/linking'
 import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSection'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
+import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
 
 interface TokenActionItems {
   title: string
@@ -43,6 +43,7 @@ interface TokenActionItems {
   testID: string
   iconType: IconType
   border?: boolean
+  isLast?: boolean
 }
 
 type Props = StackScreenProps<PortfolioParamList, 'TokenDetailScreen'>
@@ -108,9 +109,9 @@ export function TokenDetailScreen ({
     token,
     swapTokenDisplaySymbol
   } = usePoolPairToken(route.params.token)
-
+  
   // usdAmount for crypto tokens, undefined for DFI token
-  const usdAmount = route.params.token.usdAmount
+  const { usdAmount } = route.params.token
 
   const onNavigateLiquidity = ({
     destination,
@@ -198,7 +199,7 @@ export function TokenDetailScreen ({
           <ThemedViewV2
             dark={tailwind('bg-mono-dark-v2-00')}
             light={tailwind('bg-mono-light-v2-00')}
-            style={tailwind('rounded-lg-v2')}
+            style={tailwind('rounded-lg-v2 px-5')}
           >
             {
               token.id !== '0' && (
@@ -206,7 +207,7 @@ export function TokenDetailScreen ({
                   <TokenActionRow
                     icon='arrow-up-right'
                     iconType='Feather'
-                    border
+                    isLast={false}
                     onPress={() => navigation.navigate({
                       name: 'Send',
                       params: { token },
@@ -219,7 +220,7 @@ export function TokenDetailScreen ({
                   <TokenActionRow
                     icon='arrow-down-left'
                     iconType='Feather'
-                    border
+                    isLast={false}
                     onPress={() => navigation.navigate('Receive')}
                     testID='receive_button'
                     title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
@@ -322,6 +323,9 @@ export function TokenDetailScreen ({
 
 function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount: BigNumber, denominationCurrency: string }): JSX.Element {
   const Icon = getNativeIcon(props.token.displaySymbol)
+  // To display dark pink DFI symbol for LP tokens
+  const DFIIcon = getNativeIcon('_UTXO')
+  const isDFIToken = props.token.displaySymbol === 'DFI'
   const { getTokenUrl } = useDeFiScanContext()
   const onTokenUrlPressed = async (): Promise<void> => {
     const id = (props.token.id === '0_utxo' || props.token.id === '0_unified') ? 0 : props.token.id
@@ -332,7 +336,6 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { getTokenPrice } = useTokenPrice(props.denominationCurrency) // input based on selected denomination from portfolio tab
   const dfiUsdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
-  const displayDenominationCurrency = props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? 'USD' : `${props.denominationCurrency}`
   const isTokenPair = props.token.displaySymbol.includes('-')
 
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
@@ -353,18 +356,23 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
     >
       <View style={tailwind('flex-row items-center')}>
         {
-          isTokenPair
-            ? (
+          isTokenPair && (
               <PoolPairTextSectionV2
                 symbolA={symbolA}
                 symbolB={symbolB}
               />
             )
-            : (
-              <Icon height={40} width={40} />
-            )
         }
-
+        {
+          isDFIToken && (
+            <DFIIcon height={40} width={40} />
+          ) 
+        }
+        {
+          !isTokenPair && !isDFIToken && (
+            <Icon height={40} width={40} />
+          )
+        }
         <View style={tailwind('flex-col ml-2')}>
           <ThemedTextV2
             style={tailwind('text-sm font-bold-v2')}
@@ -419,7 +427,8 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 <NumberFormat
                   decimalScale={8}
                   displayType='text'
-                  suffix={` ${displayDenominationCurrency}`}
+                  prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                  suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
                   renderText={(value) => (
                     <ThemedTextV2
                       style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
@@ -445,16 +454,18 @@ function TokenActionRow ({
   onPress,
   testID,
   iconType,
-  border
+  isLast
 }: TokenActionItems): JSX.Element {
   return (
-    <ThemedTouchableOpacityV2
+    <ThemedTouchableListItem
       onPress={onPress}
-      style={tailwind('flex py-4.5 ml-5 mr-4 flex-row items-center justify-between', { 'border-b-0.5': border })}
+      isLast={isLast}
       testID={testID}
     >
       <ThemedTextV2
-        style={tailwind('flex-grow text-sm font-normal-v2 ml-2')}
+        dark={tailwind('text-mono-dark-v2-900')}
+        light={tailwind('text-mono-light-v2-900')}
+        style={tailwind('font-normal-v2 text-sm')}
       >
         {title}
       </ThemedTextV2>
@@ -466,6 +477,6 @@ function TokenActionRow ({
         name={icon}
         size={20}
       />
-    </ThemedTouchableOpacityV2>
+    </ThemedTouchableListItem>
   )
 }
