@@ -63,7 +63,8 @@ jest.mock('@shared-contexts/WhaleContext', () => ({
             }
           }
         ],
-        estimatedReturn: '10000.00000000'
+        estimatedReturn: '10000.00000000',
+        estimatedReturnLessDexFees: '1.0'
       })
     }
   })
@@ -114,6 +115,7 @@ describe('Token Best Path - Get Best Path (DEX)', () => {
       tradeEnabled: true,
       ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
       rewardPct: '0.1',
+      rewardLoanPct: '0.1',
       creation: {
         tx: '79b5f7853f55f762c7550dd7c734dff0a473898bfb5639658875833accc6d461',
         height: 132
@@ -159,6 +161,7 @@ describe('Token Best Path - Get Best Path (DEX)', () => {
       tradeEnabled: true,
       ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
       rewardPct: '0.1',
+      rewardLoanPct: '0.1',
       creation: {
         tx: '4b8d5ec122052cdb8e8ffad63865444a10edc396d44e52957758ef7a39b228fa',
         height: 147
@@ -204,6 +207,7 @@ describe('Token Best Path - Get Best Path (DEX)', () => {
       tradeEnabled: true,
       ownerAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
       rewardPct: '0.1',
+      rewardLoanPct: '0.1',
       creation: {
         tx: 'ac61a7ee391c2beb02043e76df4cde2baa2a7778ee6a1d4ec616a0b112462231',
         height: 147
@@ -265,7 +269,10 @@ describe('Token Best Path - Get Best Path (DEX)', () => {
   const wrapper = ({ children }: { children: ReactElement }): JSX.Element => {
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
 
     return (

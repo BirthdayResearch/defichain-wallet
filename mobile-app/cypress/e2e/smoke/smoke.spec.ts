@@ -26,7 +26,6 @@ context('Mainnet - Wallet', () => {
 
   beforeEach(() => {
     cy.restoreLocalStorage()
-    cy.blockAllFeatureFlag()
   })
 
   afterEach(() => {
@@ -56,6 +55,8 @@ context('Mainnet - Wallet', () => {
 
   it('should be able to verify and set pincode', function () {
     cy.setupPinCode()
+    cy.getByTestID('wallet_create_success').should('exist')
+    cy.getByTestID('continue_button').should('exist').click()
   })
 
   it('should have displayed default tokens', function () {
@@ -85,6 +86,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
+      cy.wait(3000)
       cy.restoreMnemonicWords(settingsRecoveryWords)
     })
   })
@@ -93,7 +95,7 @@ context('Mainnet - Wallet', () => {
     it('should be have selected valid network', function () {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('header_settings').click()
-      cy.getByTestID('button_selected_network').contains('MainNet').should('exist')
+      cy.getByTestID('header_network_name').contains('MainNet').should('exist')
     })
 
     it('should be have valid network address', function () {
@@ -157,43 +159,30 @@ context('Mainnet - Wallet', () => {
 })
 
 context('Mainnet - Wallet - Pool Pair Values', () => {
-  beforeEach(function () {
-    cy.restoreLocalStorage()
-  })
-
-  afterEach(function () {
-    cy.saveLocalStorage()
-  })
-
-  let whale: WhaleApiClient
-  before(function () {
-    cy.createEmptyWallet(true)
-    cy.switchNetwork('MainNet')
-    cy.createEmptyWallet(true)
-    whale = new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
-    cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
-  })
-
+  const whale: WhaleApiClient = new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet', version: 'v0' })
   it('should verify poolpair values', function () {
-    cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
     cy.wrap<DexItem[]>(whale.poolpairs.list(5), { timeout: 20000 }).then((pairs) => {
-      const available: PoolPairData[] = pairs.map(data => ({ type: 'available', data: data }))
-      cy.wait(5000)
+      const available: Array<{ type: 'available', data: PoolPairData }> = pairs.map(data => ({ type: 'available', data: data }))
+      cy.intercept('**/poolpairs?size=*', {
+        statusCode: 200,
+        body: {
+          data: pairs
+        }
+      })
+      cy.createEmptyWallet(true)
+      cy.switchNetwork('MainNet')
+      cy.createEmptyWallet(true)
+      cy.getByTestID('bottom_tab_dex').click()
+      cy.getByTestID('close_dex_guidelines').click()
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
       cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
-      available.forEach((pair, index) => {
-        const data: PoolPairData = pair.data
-        cy.intercept('**/poolpairs?size=*', {
-          statusCode: 200,
-          body: {
-            data: pairs
-          }
-        })
+      available.forEach((pair) => {
+        const data: PoolPairData = pair?.data
         const symbol = `${data.tokenA.displaySymbol}-${data.tokenB.displaySymbol}`
         cy.getByTestID('dex_search_icon').click()
         cy.getByTestID('dex_search_input').clear().type(symbol).blur()
         cy.getByTestID(`your_symbol_${symbol}`).contains(symbol)
-        cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data.apr.total).times(100).toFixed(2)}%`)
+        cy.getByTestID(`apr_${symbol}`).contains(`${new BigNumber(data?.apr?.total ?? 0).times(100).toFixed(2)}%`)
         cy.getByTestID(`details_${symbol}`).click()
         cy.getByTestID(`available_${data.symbol}_${data.tokenA.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenA.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)
         cy.getByTestID(`available_${data.symbol}_${data.tokenB.displaySymbol}`).contains(`${new BigNumber(new BigNumber(data.tokenB.reserve).toFixed(2, 1)).toNumber().toLocaleString()}`)

@@ -80,6 +80,7 @@ exports[`onboarding network selection screen should render 1`] = `
           },
         ]
       }
+      testID="button_network_Local"
     >
       <View
         accessible={true}
@@ -103,6 +104,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "borderRightWidth": 0,
             "borderTopColor": "rgba(204, 204, 204, 1)",
             "borderTopWidth": 0,
+            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "opacity": 1,
@@ -110,7 +112,6 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingTop": 18,
           }
         }
-        testID="button_network_Local"
       >
         <Text
           style={
@@ -134,6 +135,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID=""
         >
           Local
         </Text>
@@ -154,6 +156,7 @@ exports[`onboarding network selection screen should render 1`] = `
           },
         ]
       }
+      testID="button_network_Playground"
     >
       <View
         accessible={true}
@@ -177,6 +180,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "borderRightWidth": 0,
             "borderTopColor": "rgba(204, 204, 204, 1)",
             "borderTopWidth": 0,
+            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "opacity": 1,
@@ -184,7 +188,6 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingTop": 18,
           }
         }
-        testID="button_network_Playground"
       >
         <Text
           style={
@@ -208,6 +211,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID="network_details_network"
         >
           Playground
         </Text>
@@ -228,6 +232,7 @@ exports[`onboarding network selection screen should render 1`] = `
           },
         ]
       }
+      testID="button_network_TestNet"
     >
       <View
         accessible={true}
@@ -251,6 +256,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "borderRightWidth": 0,
             "borderTopColor": "rgba(204, 204, 204, 1)",
             "borderTopWidth": 0,
+            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "opacity": 1,
@@ -258,7 +264,6 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingTop": 18,
           }
         }
-        testID="button_network_TestNet"
       >
         <Text
           style={
@@ -282,6 +287,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID=""
         >
           TestNet
         </Text>
@@ -291,12 +297,7 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         Array [
-          Object {
-            "borderBottomWidth": 0,
-            "borderLeftWidth": 0,
-            "borderRightWidth": 0,
-            "borderTopWidth": 0,
-          },
+          Object {},
           Object {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -305,6 +306,7 @@ exports[`onboarding network selection screen should render 1`] = `
           },
         ]
       }
+      testID="button_network_MainNet"
     >
       <View
         accessible={true}
@@ -328,6 +330,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "borderRightWidth": 0,
             "borderTopColor": "rgba(204, 204, 204, 1)",
             "borderTopWidth": 0,
+            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "opacity": 1,
@@ -335,7 +338,6 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingTop": 18,
           }
         }
-        testID="button_network_MainNet"
       >
         <Text
           style={
@@ -359,6 +361,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID=""
         >
           MainNet
         </Text>
