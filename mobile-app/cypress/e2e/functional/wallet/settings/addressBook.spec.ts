@@ -69,7 +69,7 @@ context('Wallet - Settings - Address Book', () => {
   })
 
   it('should be able to sort whitelisted address by favourite', function () {
-    cy.getByTestID('cancel_search_button').click()
+    cy.getByTestID('address_search_input').blur()
     cy.getByTestID('address_row_2_not_favourite_address_book').click().wait(500)
     cy.getByTestID('address_row_0_is_favourite_address_book').should('exist')
     cy.getByTestID('address_row_text_0_address_book').contains(addresses[2]) // 3rd became 1st
