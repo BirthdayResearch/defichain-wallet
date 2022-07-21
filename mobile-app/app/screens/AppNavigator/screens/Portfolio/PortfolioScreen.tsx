@@ -10,17 +10,18 @@ import { ocean } from '@store/ocean'
 import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { batch, useSelector } from 'react-redux'
 import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
+import { Platform, RefreshControl, View, TouchableOpacity, Image } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
+import { AddressSelectionButton } from './components/AddressSelectionButton'
 import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -35,6 +36,9 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { HeaderSettingButton } from './components/HeaderSettingButton'
+import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
+import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
@@ -79,6 +83,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   } = useSelector((state: RootState) => (state.wallet))
   const ref = useRef(null)
   useScrollToTop(ref)
+  const [scrollOffset, setScrollOffset] = useState(0)
 
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
@@ -433,6 +438,32 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     ]
   }, [address, isLight])
 
+  // dynamically replace header based on scroll
+  useLayoutEffect(() => {
+    const walletLabelHeight = 20
+    if (scrollOffset >= walletLabelHeight) {
+      navigation.setOptions({
+        headerBackground: undefined,
+        headerLeft: (): JSX.Element => (
+          <AddressSelectionButton address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
+        )
+      })
+    } else {
+      navigation.setOptions({
+        headerBackground: () => (
+          <Image
+            source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
+            style={{ height: 220, width: '100%' }}
+            resizeMode='cover'
+          />
+        ),
+        headerLeft: (): JSX.Element => (
+          <HeaderSettingButton />
+        )
+      })
+    }
+  }, [scrollOffset])
+
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
@@ -445,6 +476,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             refreshing={refreshing}
           />
         }
+        onScroll={(e) => {
+setScrollOffset(e.nativeEvent.contentOffset.y)
+}}
+        scrollEventThrottle={1} // using a higher number to not cause performance issue while being relatively accurate
       >
         <ThemedViewV2
           light={tailwind('bg-mono-light-v2-00')}
