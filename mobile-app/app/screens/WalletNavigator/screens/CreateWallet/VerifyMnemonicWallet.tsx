@@ -1,9 +1,7 @@
-import { Button } from '@components/Button'
-import { CREATE_STEPS, CreateWalletStepIndicator } from '@components/CreateWalletStepIndicator'
+import { CREATE_STEPS, CreateWalletStepIndicatorV2 } from '@components/CreateWalletStepIndicatorV2'
 import { View } from '@components/index'
-import { ThemedScrollView, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { getEnvironment } from '@environment'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
@@ -12,6 +10,7 @@ import { shuffle } from 'lodash'
 import { useEffect, useState } from 'react'
 import { WalletParamList } from '../../WalletNavigator'
 import { getReleaseChannel } from '@api/releaseChannel'
+import { ButtonV2 } from '@components/ButtonV2'
 
 type Props = StackScreenProps<WalletParamList, 'VerifyMnemonicWallet'>
 
@@ -89,24 +88,23 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
   }
 
   return (
-    <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
-      light={tailwind('bg-white')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
       style={tailwind('flex-1')}
     >
-      <CreateWalletStepIndicator
-        current={2}
-        steps={CREATE_STEPS}
-        style={tailwind('py-4 px-1')}
-      />
+      <View style={tailwind('px-5 mb-12')}>
+        <CreateWalletStepIndicatorV2
+          current={2}
+          steps={CREATE_STEPS}
+          style={tailwind('px-4')}
+        />
 
-      <ThemedText style={tailwind('pt-4 font-semibold text-base px-4 text-center')}>
-        {translate('screens/VerifyMnemonicWallet', 'Verify what you wrote as correct.')}
-      </ThemedText>
-
-      <ThemedText style={tailwind('font-semibold text-base px-4 mb-4 text-center')}>
-        {translate('screens/VerifyMnemonicWallet', 'Answer the questions to proceed.')}
-      </ThemedText>
+        <ThemedTextV2
+          style={tailwind('text-base mt-7 text-center font-normal-v2')}
+        >
+          {translate('screens/VerifyMnemonicWallet', 'Verify the written recovery words.')}
+        </ThemedTextV2>
+      </View>
 
       {randomWords.map((n, index) => (
         <RecoveryWordRow
@@ -122,16 +120,24 @@ export function VerifyMnemonicWallet ({ route, navigation }: Props): JSX.Element
         />
       ))}
 
-      <Button
+      <ThemedTextV2
+        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind('text-mono-dark-v2-700')}
+        style={tailwind('text-xs mt-7 text-center font-normal-v2')}
+      >
+        {translate('screens/VerifyMnemonicWallet', 'All questions must be answered correctly.')}
+      </ThemedTextV2>
+
+      <ButtonV2
+        styleProps='mt-5 mx-7'
         delayLongPress={1000}
         disabled={!isValid}
-        label={translate('screens/VerifyMnemonicWallet', 'VERIFY')}
         onLongPress={debugBypass}
         onPress={onVerify}
         testID='verify_words_button'
-        title='verify mnemonic'
+        label={translate('screens/VerifyMnemonicWallet', 'Verify words')}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -144,54 +150,68 @@ interface RecoveryWordItem {
 
 function RecoveryWordRow ({ index, words, onWordSelect, lineNumber }: RecoveryWordItem): JSX.Element {
   const [selectedWord, setSelectedWord] = useState<string>()
-  const { isLight } = useThemeContext()
-  const activeButton = isLight ? 'bg-primary-50' : 'bg-darkprimary-500'
   return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 py-6')}
-    >
+    <View style={tailwind('mb-5')}>
       <View style={tailwind('flex-row')}>
-        <ThemedText style={tailwind('text-gray-600')}>
-          {translate('screens/VerifyMnemonicWallet', 'What is word ')}
-        </ThemedText>
-
-        <ThemedText
-          style={tailwind('text-black font-semibold')}
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          style={tailwind('text-xs font-normal-v2')}
           testID={`line_${lineNumber}`}
         >
-          {`#${index + 1}?`}
-        </ThemedText>
+          {translate('screens/VerifyMnemonicWallet', `{{number}}${getOrdinalSuffix(index + 1)}`, { number: index + 1 })}
+        </ThemedTextV2>
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          style={tailwind('text-xs ml-1 font-normal-v2')}
+        >
+          {translate('screens/VerifyMnemonicWallet', 'word')}
+        </ThemedTextV2>
       </View>
 
-      <View
-        style={tailwind('flex-row mt-4 -mb-1 -mr-3 flex-wrap')}
+      <ThemedViewV2
+        light={tailwind('bg-mono-light-v2-00')}
+        dark={tailwind('bg-mono-dark-v2-00')}
+        style={tailwind('flex flex-row mt-2 justify-between items-center w-full rounded-3xl')}
         testID={`recovery_word_row_${index}`}
       >
         {
           words.map((w, i) => (
-            <ThemedTouchableOpacity
-              dark={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-400'}`)}
+            <ThemedTouchableOpacityV2
               key={`${w}_${i}`}
-              light={tailwind(`${selectedWord === w ? activeButton : 'bg-gray-100'}`)}
               onPress={() => {
                 setSelectedWord(w)
                 onWordSelect(w)
               }}
-              style={tailwind('rounded p-2 px-3 mr-3 mb-3')}
+              dark={tailwind({ 'bg-mono-dark-v2-900': selectedWord === w })}
+              light={tailwind({ 'bg-mono-light-v2-900': selectedWord === w })}
+              style={tailwind('rounded py-3 px-1 w-1/4 rounded-3xl')}
               testID={`line_${lineNumber}_${w}`}
             >
-              <ThemedText
-                dark={tailwind(`${selectedWord === w ? 'text-white' : 'text-black'} font-semibold`)}
-                light={tailwind(`${selectedWord === w ? 'text-primary-500' : 'text-black'} font-semibold`)}
+              <ThemedTextV2
+                style={tailwind('text-center text-xs font-normal-v2')}
+                dark={tailwind(`${selectedWord === w ? 'text-mono-dark-v2-100' : 'text-mono-dark-v2-500'}`)}
+                light={tailwind(`${selectedWord === w ? 'text-mono-light-v2-100' : 'text-mono-light-v2-500'}`)}
               >
                 {w}
-              </ThemedText>
-            </ThemedTouchableOpacity>
+              </ThemedTextV2>
+            </ThemedTouchableOpacityV2>
           ))
         }
-      </View>
-    </ThemedView>
+      </ThemedViewV2>
+    </View>
   )
+}
+
+function getOrdinalSuffix (n: number): string {
+  let suffix = 'th'
+  if (n === 1 || n === 21) {
+    suffix = 'st'
+  } else if (n === 2 || n === 22) {
+    suffix = 'nd'
+  } else if (n === 3 || n === 23) {
+    suffix = 'rd'
+  }
+  return suffix
 }
