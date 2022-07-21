@@ -126,7 +126,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
 
     return (
       <ThemedTouchableOpacityV2
-        style={tailwind('py-3 mx-12 mt-4 border-none items-center')}
+        style={tailwind('py-3 mx-12 mt-4 border-0 items-center')}
         onPress={async () => {
           await onChangeAddress(addressLength + 1)
         }}
@@ -162,7 +162,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     return (
       <ThemedTouchableOpacityV2
         key={item}
-        style={tailwind('p-4 flex flex-row items-center justify-between border-none mx-5 rounded-lg-v2')}
+        style={tailwind('p-4 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2')}
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         onPress={async () => {
@@ -217,7 +217,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
               {isSelected && (
                 <ThemedTouchableOpacityV2
                   onPress={async () => await openURL(getAddressUrl(item))}
-                  style={tailwind('border-none p-1')}
+                  style={tailwind('border-0 p-1')}
                 >
                   <ThemedIcon
                     size={12}
@@ -232,7 +232,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
             </View>
           </View>
           <ThemedTouchableOpacityV2
-            style={tailwind('border-none')}
+            style={tailwind('border-0')}
             onPress={async () => {
               navigation.navigate({
                 name: props.navigateToScreen.screenName,
@@ -277,7 +277,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         style={tailwind('flex flex-col w-full px-5 pb-2 items-center')}
       >
         <View style={tailwind('flex-row justify-end w-full m-5')}>
-          <ThemedTouchableOpacityV2 style={tailwind('border-none')} onPress={props.onCloseButtonPress}>
+          <ThemedTouchableOpacityV2 style={tailwind('border-0')} onPress={props.onCloseButtonPress}>
             <ThemedIcon
               size={20}
               name='x-circle'
@@ -339,7 +339,7 @@ function ActiveAddress ({
   return (
     <View style={tailwind('flex-row w-full mt-2 justify-center')}>
       <ThemedTouchableOpacityV2
-        style={tailwind('border-none w-5/12')}
+        style={tailwind('border-0 w-5/12')}
         onPress={onPress}
       >
         <ThemedTextV2
@@ -353,7 +353,7 @@ function ActiveAddress ({
       </ThemedTouchableOpacityV2>
       <ThemedTouchableOpacityV2
         onPress={async () => await openURL(getAddressUrl(address))}
-        style={tailwind('border-none p-1')}
+        style={tailwind('border-0 p-1')}
       >
         <ThemedIcon
           size={12}
@@ -386,7 +386,7 @@ function DiscoverWalletAddress ({ onPress }: { onPress: () => void }): JSX.Eleme
     <ThemedTouchableOpacityV2
       onPress={onPress}
       testID='discover_wallet_addresses'
-      style={tailwind('flex-row items-center border-none')}
+      style={tailwind('flex-row items-center border-0')}
     >
       <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-800')}
