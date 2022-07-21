@@ -223,6 +223,7 @@ function SuccessIndicator (): JSX.Element {
         iconType='MaterialIcons'
         light={tailwind('text-green-v2')}
         dark={tailwind('text-green-v2')}
+        testID='passcode_success_indicator'
       />
     </View>
   )

@@ -45,7 +45,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async passphrase => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        setUrl(labelInput)
+        await setUrl(labelInput)
         navigation.pop()
       },
       onError: e => logger.error(e),
@@ -106,7 +106,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
       style={tailwind('flex-1')}
     >
       <ThemedSectionTitleV2
-        testID='knowledge_base_title'
+        testID='endpoint_url_title'
         text={translate('screens/ServiceProviderScreen', 'ENDPOINT URL')}
       />
       <View
@@ -142,6 +142,7 @@ export function ServiceProviderScreenV2 ({ navigation }: Props): JSX.Element {
           dark={tailwind('bg-mono-dark-v2-900', { 'bg-opacity-30': isUnlocked })}
           style={tailwind('ml-3 h-10 w-10 p-2.5 text-center rounded-full')}
           disabled={isUnlocked}
+          testID='edit_service_provider'
         >
           <ThemedIcon
             dark={tailwind('text-mono-dark-v2-100')}

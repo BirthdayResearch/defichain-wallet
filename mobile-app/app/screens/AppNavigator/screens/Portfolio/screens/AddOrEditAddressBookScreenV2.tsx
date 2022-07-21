@@ -272,8 +272,9 @@ export function AddOrEditAddressBookScreenV2 ({ route, navigation }: Props): JSX
           <TouchableOpacity
             onPress={() => {
               setIsEditable(true)
-          }}
+            }}
             style={tailwind('ml-5')}
+            testID='address_book_edit_label'
           >
             <ThemedIcon
               dark={tailwind('text-mono-dark-v2-700')}

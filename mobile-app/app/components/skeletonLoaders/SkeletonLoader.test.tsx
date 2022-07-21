@@ -9,6 +9,7 @@ import { VaultSkeletonLoader } from './VaultSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './VaultSchemeSkeletonLoader'
 import { DexPricesSkeletonLoader } from './DexPricesSkeletonLoader'
 import { MnemonicWordSkeletonLoaderV2 } from './MnemonicWordSkeletonLoaderV2'
+import { PortfolioSkeletonLoader } from './PortfolioSkeletonLoader'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
@@ -88,6 +89,14 @@ describe('Skeleton Loader', () => {
   it('should match snapshot of vault scheme skeleton loader', async () => {
     const component = (
       <VaultSchemesSkeletonLoader uniqueKey='vault_scheme' />
+    )
+    const rendered = render(component)
+    expect(rendered.toJSON()).toMatchSnapshot()
+  })
+
+  it('should match snapshot of portfolio skeleton loader', async () => {
+    const component = (
+      <PortfolioSkeletonLoader uniqueKey='portfolio_scheme' />
     )
     const rendered = render(component)
     expect(rendered.toJSON()).toMatchSnapshot()

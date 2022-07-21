@@ -55,7 +55,7 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
       disabled={props.disabled}
       testID={`button_network_${props.network}`}
     >
-      <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
+      <ThemedTextV2 style={tailwind('text-sm font-normal-v2')} testID={props.network === network ? 'network_details_network' : ''}>
         {props.network}
       </ThemedTextV2>
       <ThemedIcon
@@ -64,7 +64,7 @@ export function NetworkItemRowV2 (props: NetworkItemRowProps): JSX.Element {
         iconType='MaterialCommunityIcons'
         name='check-circle'
         size={20}
-        testID={`button_network_${props.network}_check`}
+        testID={`button_network_${props.network}_${props.network === network ? 'check' : 'uncheck'}`}
       />
     </ThemedTouchableListItem>
   )
