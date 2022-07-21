@@ -9,7 +9,6 @@ context('Wallet - Settings', () => {
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {})
     cy.createEmptyWallet(true)
-    cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('header_network_icon').click()
     cy.getByTestID('button_network_Playground').click()
