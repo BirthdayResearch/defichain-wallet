@@ -12,6 +12,7 @@ import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/
 import { BalanceText } from './BalanceText'
 import { useEffect, useState } from 'react'
 import { BalanceTextV2 } from './BalanceTextV2'
+import { TextSkeletonLoaderV2 } from '@components/TextSkeletonLoaderV2'
 
 export enum PortfolioButtonGroupTabKey {
   USDT = 'USDT',
@@ -102,14 +103,14 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           )
           : (
             <View style={tailwind('mt-1')}>
-              <TextSkeletonLoader
+              <TextSkeletonLoaderV2
                 viewBoxWidth='260'
-                viewBoxHeight='34'
+                viewBoxHeight='32'
                 textWidth='180'
-                textHeight='23'
+                textHeight='20'
                 textVerticalOffset='4'
                 iContentLoaderProps={{
-                  height: '34',
+                  height: '32',
                   testID: 'total_portfolio_skeleton_loader'
                 }}
               />
