@@ -483,8 +483,7 @@
     "Keep them private": "Mantienile private",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Non condividerle con nessuno.  Tieni le parole di recupero solo per te.",
     "I have read and agree to the terms and conditions.": "Ho letto e accetto i termini e le condizioni.",
-    "View terms and conditions.": "Mostra i termini e le condizioni generali.",
-    "https://dfx.swiss/en/terms/": "https://dfx.swiss/it/termini/"
+    "View terms and conditions.": "Mostra i termini e le condizioni generali."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Cosa sono le parole di recupero (Seed Phrase)?",
@@ -1474,7 +1473,6 @@
     "Custom": "Personalizza",
     "CONTINUE": "CONTINUA",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare"
-
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
