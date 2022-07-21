@@ -168,7 +168,7 @@
     "Save changes": "Änderungen sichern",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
     "Invalid label. Maximum of 40 characters.": "Ungültige Bezeichnung. Maximum von 40 Zeichen",
-    "{{length}}/40 characters": "{{length}}/40 Zeichens"
+    "{{length}}/40 characters": "{{length}}/40 Zeichen"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Adressbezeichnung bearbeiten",
