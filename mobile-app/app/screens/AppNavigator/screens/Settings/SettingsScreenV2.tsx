@@ -269,7 +269,7 @@ function PrivacyLockToggle ({
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
         dark={tailwind('text-mono-dark-v2-900')}
-        style={tailwind('font-normal-v2 text-sm')}
+        style={tailwind('font-normal-v2 text-sm flex-1')}
         testID='text_privacy_lock'
       >
         {authenticationName !== undefined &&

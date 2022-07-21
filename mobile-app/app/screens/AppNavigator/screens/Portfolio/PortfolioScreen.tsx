@@ -37,6 +37,7 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { ActionButtons } from './components/ActionButtons'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -461,6 +462,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         }
       >
         <Announcements />
+        <ActionButtons />
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}

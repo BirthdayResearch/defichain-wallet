@@ -1637,5 +1637,12 @@
     "Wallet created!": "Wallet created!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Access decentralized finance with Bitcoin-grade security, strength and immutability.",
     "Continue": "Continua"
+  },
+  "components/ActionButtons": {
+    "Send": "Invia",
+    "Receive": "Ricevi",
+    "Swap": "Scambia",
+    "Transactions": "Transazioni",
+    "Future swap": "Future swap"
   }
 }
