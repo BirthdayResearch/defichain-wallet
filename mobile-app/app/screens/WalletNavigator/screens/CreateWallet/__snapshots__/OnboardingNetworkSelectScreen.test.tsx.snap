@@ -135,6 +135,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID=""
         >
           Local
         </Text>
@@ -210,6 +211,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID="network_details_network"
         >
           Playground
         </Text>
@@ -285,6 +287,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID=""
         >
           TestNet
         </Text>
@@ -358,6 +361,7 @@ exports[`onboarding network selection screen should render 1`] = `
               ],
             ]
           }
+          testID=""
         >
           MainNet
         </Text>
