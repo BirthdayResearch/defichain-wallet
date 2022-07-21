@@ -23,7 +23,9 @@ export function useTnC (): string {
     } catch (e) {
         logger.error(e)
     }
-    if (tnc?.length === 0) {
+    if (tnc === undefined) {
+        tnc = tncText
+    } else if (tnc?.length === 0) {
         tnc = tncText
     }
 
