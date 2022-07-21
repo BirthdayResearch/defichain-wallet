@@ -8,7 +8,7 @@ import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { TouchableOpacity } from 'react-native'
-import { getPrecisedCurrencyValue } from '../../Auctions/helpers/precision-token-value'
+import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { BalanceText } from './BalanceText'
 import { useEffect, useState } from 'react'
 import { BalanceTextV2 } from './BalanceTextV2'
@@ -80,7 +80,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                       value={value}
                     />}
                   thousandSeparator
-                  value={getPrecisedCurrencyValue(totalPortfolioValue)}
+                  value={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getPrecisedCurrencyValue(totalPortfolioValue) : getPrecisedTokenValue(totalPortfolioValue)}
                 />
                 {activeButtonGroup !== undefined && <CurrencySwitcher currency={activeButtonGroup.label} />}
               </TouchableOpacity>
@@ -197,7 +197,7 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
             value={value}
           />}
         thousandSeparator
-        value={getPrecisedCurrencyValue(props.value)}
+        value={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getPrecisedCurrencyValue(props.value) : getPrecisedTokenValue(props.value)}
       />
       <ThemedTextV2
         style={tailwind('text-sm font-normal-v2 ml-1')}
