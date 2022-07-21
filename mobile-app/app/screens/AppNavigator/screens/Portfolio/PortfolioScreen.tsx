@@ -45,7 +45,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import {
   BottomSheetAddressDetailV2
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
-import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetViewNavV2'
+import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import {
   CreateOrEditAddressLabelFormV2
 } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'

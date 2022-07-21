@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer } from '@react-navigation/native'
 import {
@@ -16,7 +16,6 @@ import {
 } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { ThemedViewV2 } from '@components/themed'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -61,12 +60,6 @@ export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps):
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
-      )}
-      backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-        <ThemedViewV2
-          {...backgroundProps}
-          style={[backgroundProps.style, tailwind('rounded-t-xl-v2')]}
-        />
       )}
     >
       <Navigator {...props} />
