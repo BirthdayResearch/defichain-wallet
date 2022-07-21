@@ -1183,6 +1183,142 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 </View>
 `;
 
+exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderTopRightRadius": 8,
+        "justifyContent": "center",
+        "marginBottom": 12,
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+  testID="portfolio_skeleton_loader"
+>
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={44}
+    bbWidth="100%"
+    focusable={false}
+    height={44}
+    interval={0.25}
+    meetOrSlice={1}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {},
+        Object {
+          "flex": 0,
+          "height": 44,
+          "width": "100%",
+        },
+      ]
+    }
+    vbHeight={44}
+    vbWidth={328}
+    width="100%"
+  >
+    <RNSVGGroup>
+      <RNSVGRect
+        clipPath="portfolio_scheme-animated-diff"
+        fill={
+          Array [
+            1,
+            "portfolio_scheme-diff",
+          ]
+        }
+        height="100%"
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          name="portfolio_scheme-animated-diff"
+        >
+          <RNSVGCircle
+            cx="30"
+            cy="22"
+            r="16"
+          />
+          <RNSVGRect
+            height="16"
+            rx="5"
+            ry="5"
+            width="110"
+            x="58"
+            y="4"
+          />
+          <RNSVGRect
+            height="12"
+            rx="5"
+            ry="5"
+            width="110"
+            x="58"
+            y="25"
+          />
+          <RNSVGRect
+            height="16"
+            rx="5"
+            ry="5"
+            width="93"
+            x="220"
+            y="4"
+          />
+          <RNSVGRect
+            height="12"
+            rx="5"
+            ry="5"
+            width="93"
+            x="220"
+            y="25"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            Array [
+              0,
+              -1250325,
+              0.5,
+              -1,
+              1,
+              -1250325,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="portfolio_scheme-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
+
 exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`] = `
 <View
   style={

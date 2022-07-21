@@ -1,29 +1,6 @@
-import { EnvironmentNetwork } from '../../../../../../shared/environment'
 
 context('Wallet - Settings', () => {
   before(function () {
-    cy.intercept('**/settings/flags', {
-      body: [
-        {
-          id: 'future_swap',
-          name: 'Future swap',
-          stage: 'beta',
-          version: '>=0.0.0',
-          description: 'Browse loan tokens provided by DeFiChain',
-          networks: [EnvironmentNetwork.LocalPlayground, EnvironmentNetwork.RemotePlayground],
-          platforms: ['ios', 'android', 'web']
-        },
-        {
-          id: 'auction',
-          name: 'Auction',
-          stage: 'public',
-          version: '>=0.0.0',
-          description: 'Auction',
-          networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
-          platforms: ['ios', 'android', 'web']
-        }
-      ]
-    })
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_About').click()
@@ -35,23 +12,9 @@ context('Wallet - Settings', () => {
     cy.getByTestID('knowledge_base_screen').should('exist')
   })
 
-  it('should navigate to recovery words faq from knowledge base page', function () {
-    cy.getByTestID('recovery_words_faq').should('exist').click()
-    cy.url().should('include', 'app/Settings/RecoveryWordsFaq')
-    cy.go('back')
-    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
-  })
-
-  it('should navigate to passcode faq from knowledge base page', function () {
-    cy.getByTestID('passcode_faq').should('exist').click()
-    cy.url().should('include', 'app/Settings/PasscodeFaq')
-    cy.go('back')
-    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
-  })
-
-  it('should navigate to UTXO vs Token faq from knowledge base page', function () {
-    cy.getByTestID('utxo_and_token_faq').should('exist').click()
-    cy.url().should('include', 'app/Settings/TokensVsUtxo')
+  it('should navigate to Auctions faq from knowledge base page', function () {
+    cy.getByTestID('auctions_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/AuctionsFaq')
     cy.go('back')
     cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
   })
@@ -77,9 +40,23 @@ context('Wallet - Settings', () => {
     cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
   })
 
-  it('should navigate to Auctions faq from knowledge base page', function () {
-    cy.getByTestID('auctions_faq').should('exist').click()
-    cy.url().should('include', 'app/Settings/AuctionsFaq')
+  it('should navigate to passcode faq from knowledge base page', function () {
+    cy.getByTestID('passcode_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/PasscodeFaq')
+    cy.go('back')
+    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
+  })
+
+  it('should navigate to recovery words faq from knowledge base page', function () {
+    cy.getByTestID('recovery_words_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/RecoveryWordsFaq')
+    cy.go('back')
+    cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
+  })
+
+  it('should navigate to UTXO and Token faq from knowledge base page', function () {
+    cy.getByTestID('utxo_and_token_faq').should('exist').click()
+    cy.url().should('include', 'app/Settings/TokensVsUtxo')
     cy.go('back')
     cy.url().should('include', 'app/Settings/KnowledgeBaseScreen')
   })

@@ -306,12 +306,12 @@ context('Wallet - Auctions', () => {
       cy.getByTestID('bottom_tab_auctions').click()
       cy.getByTestID('batch_card_0_place_bid_button').click()
       cy.getByTestID('text_total_auction_value').invoke('text').then(text => {
-        checkValueWithinRange('400.00', text.replace('$', ''))
+        checkValueWithinRange('2000.00', text.replace('$', ''))
       })
       cy.getByTestID('MAX_amount_button').click()
       cy.getByTestID('button_submit').click()
       cy.getByTestID('total_auction_value').invoke('text').then(text => {
-        checkValueWithinRange('400.00', text.replace('$', ''))
+        checkValueWithinRange('2000.00', text.replace('$', ''))
       })
       cy.getByTestID('button_confirm_bid').click()
       cy.closeOceanInterface()

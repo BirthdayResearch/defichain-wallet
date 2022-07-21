@@ -1,13 +1,18 @@
 const communityLinks = [
   {
-    id: 'gh',
-    title: 'Report an issue on Github',
-    url: 'https://github.com/DeFiCh/wallet/issues'
+    id: 'announcements',
+    title: 'Announcements',
+    url: 'https://t.me/defichain_announcements'
   },
   {
     id: 'faq',
-    title: 'Frequently Asked Questions',
+    title: 'Frequently asked questions',
     url: 'https://defichain.com/learn/#faq'
+  },
+  {
+    id: 'gh',
+    title: 'Report issue on GitHub',
+    url: 'https://github.com/DeFiCh/wallet/issues'
   },
   {
     id: 'tg_en',
@@ -20,11 +25,6 @@ const communityLinks = [
     url: 'https://t.me/defiblockchain_DE'
   },
   {
-    id: 'announcements',
-    title: 'Announcements',
-    url: 'https://t.me/defichain_announcements'
-  },
-  {
     id: 'wechat',
     title: 'WeChat',
     url: 'http://weixin.qq.com/r/0xz07DzEdmEJrXiP90nB'
@@ -32,15 +32,15 @@ const communityLinks = [
 ]
 
 context('Wallet - Settings - Community', () => {
-  beforeEach(function () {
+  before(function () {
     cy.createEmptyWallet()
     cy.getByTestID('header_settings').click()
     cy.getByTestID('setting_navigate_About').click()
     cy.getByTestID('community_link').click()
   })
 
-  it('should display all community links', function () {
-    communityLinks.forEach((item) => {
+  communityLinks.forEach((item) => {
+    it(`should display ${item.title} community links`, function () {
       cy.getByTestID('community_flat_list').getByTestID(item.id).should('exist').contains(item.title)
     })
   })

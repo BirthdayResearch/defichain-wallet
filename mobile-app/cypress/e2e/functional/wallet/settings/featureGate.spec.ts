@@ -17,6 +17,14 @@ context('Wallet - Feature Gate', () => {
     description: 'foo',
     networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
     platforms: ['ios', 'android', 'web']
+  }, {
+    id: 'setting_v2',
+    name: 'setting_v2',
+    stage: 'public',
+    version: '>=0.0.0',
+    description: 'setting_v2',
+    networks: [EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+    platforms: ['ios', 'android', 'web']
   }]
 
   beforeEach(() => {
