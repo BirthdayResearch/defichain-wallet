@@ -13,6 +13,8 @@ import { BalanceText } from './BalanceText'
 import { useState } from 'react'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { SymbolIcon } from '@components/SymbolIcon'
+import { useTokenPrice } from '../hooks/TokenPrice'
+import { unifiedDFISelector } from '@store/wallet'
 
 export enum PortfolioButtonGroupTabKey {
   USDT = 'USDT',
@@ -36,6 +38,8 @@ interface TotalPortfolioProps {
     handleOnPress: () => void
   }>
   denominationCurrency?: string
+  staked: number
+  hasFetchedStakingBalance: boolean
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
@@ -43,7 +47,13 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // for 'BTC' or 'DFI' denomination
-  const totalPortfolioValue = BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue))
+
+  // staking amount
+  const { getTokenPrice } = useTokenPrice(denominationCurrency)
+  const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
+  const stakedValueForSelectedCurrency = getTokenPrice(DFIUnified.symbol, new BigNumber(props.staked))
+
+  const totalPortfolioValue = BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue).plus(stakedValueForSelectedCurrency))
 
   return (
     <ThemedView
@@ -164,16 +174,19 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
             light={tailwind('border-gray-100')}
             dark={tailwind('border-dfxblue-900')}
           >
+            {/* staked */}
             <View style={tailwind('mt-2')}>
               <USDValueRow
-                testId='total_available_usd_amount'
-                isLoading={!hasFetchedToken}
-                label={translate('screens/PortfolioScreen', 'available')}
-                value={props.totalAvailableValue}
+                testId='total_staked_usd_amount'
+                isLoading={!props.hasFetchedStakingBalance}
+                label={translate('screens/PortfolioScreen', 'staked @ DFX')}
+                value={stakedValueForSelectedCurrency}
                 isAddition
                 denominationCurrency={denominationCurrency}
               />
             </View>
+
+            {/* locked */}
             <USDValueRow
               testId='total_locked_usd_amount'
               isLoading={!hasFetchedVaultsData}
@@ -182,6 +195,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               isAddition
               denominationCurrency={denominationCurrency}
             />
+            {/* outstanding loans */}
             {
               props.totalLoansValue.gt(0) && (
                 <USDValueRow
@@ -194,6 +208,18 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 />
               )
             }
+
+            {/* available */}
+            <View style={tailwind('')}>
+              <USDValueRow
+                testId='total_available_usd_amount'
+                isLoading={!hasFetchedToken}
+                label={translate('screens/PortfolioScreen', 'available')}
+                value={props.totalAvailableValue}
+                isAddition
+                denominationCurrency={denominationCurrency}
+              />
+            </View>
           </ThemedView>
       }
     </ThemedView>

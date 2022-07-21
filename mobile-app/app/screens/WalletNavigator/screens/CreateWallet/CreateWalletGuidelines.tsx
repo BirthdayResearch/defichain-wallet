@@ -138,7 +138,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
           </ThemedText>
 
           <TouchableOpacity
-            onPress={async () => await openURL(translate('screens/Guidelines', 'https://dfx.swiss/en/terms/'))}
+            onPress={async () => await openURL(translate('screens/Guidelines', 'https://dfx.swiss/en/terms-and-conditions/'))}
             style={tailwind('mb-2')}
             testID='recovery_words_button'
           >

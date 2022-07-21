@@ -27,6 +27,7 @@ import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/componen
 import { useLoanOperations } from '@screens/AppNavigator/screens/Loans/hooks/LoanOperations'
 import { VaultStatus } from '@screens/AppNavigator/screens/Loans/VaultStatusTypes'
 import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { InfoText } from '@components/InfoText'
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault
@@ -174,6 +175,14 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
         </View>
       </ThemedTouchableOpacity>
       <VaultActionButton vault={vault} canUseOperation={canUseOperations} testID={props.testID} />
+      <TouchableOpacity onPress={() => navigation.navigate('LoansTnC')}>
+        <InfoText
+          simple
+          text={translate('components/LoansFaq', 'Loan terms')}
+          style={tailwind('pt-4 flex-row items-end justify-start')}
+        // testId='empty_vault_learn_more'
+        />
+      </TouchableOpacity>
     </ThemedView>
   )
 }
