@@ -1,131 +1,119 @@
+import { Feather } from '@expo/vector-icons'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import * as React from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Switch, View } from '@components/index'
-import { Button } from '@components/Button'
-import { IconName, ThemedIcon, ThemedScrollView, ThemedText } from '@components/themed'
-import { tailwind } from '@tailwind'
+import { View, Image } from 'react-native'
+import Checkbox from 'expo-checkbox'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
+import DarkNewWallet from '@assets/images/dark-wallet-guidelines.png'
+import LightNewWallet from '@assets/images/light-wallet-guidelines.png'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { ButtonV2 } from '@components/ButtonV2'
+import { LearnMoreCTA } from '../components/LearnModeCTA'
 
 type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
 
 interface GuidelineItem {
-  icon: IconName
+  icon: React.ComponentProps<typeof Feather>['name']
   title: string
-  subtitle: string
 }
 
 const guidelines: GuidelineItem[] = [
   {
-    title: 'Write the words on paper',
-    subtitle: 'Take note of their correct spelling and correct order.',
-    icon: 'create'
+    title: 'Write the words on paper. Take note of their correct spelling and order.',
+    icon: 'edit-2'
   },
   {
-    title: 'Secure them in a safe space',
-    subtitle: 'Store them offline and in a safe place.',
+    title: 'Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.',
     icon: 'lock'
-  },
-  {
-    title: 'Keep them private',
-    subtitle: 'Don’t share to anyone. Keep the recovery words only to yourself.',
-    icon: 'visibility-off'
   }
 ]
 
 export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = (): void => setIsEnabled(previousState => !previousState)
+  const { isLight } = useThemeContext()
+
   return (
-    <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
-      light={tailwind('bg-white')}
-      style={tailwind('flex-1 p-4 pt-6')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
+      style={tailwind('flex-1')}
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
+      <View style={tailwind('flex flex-row justify-center')}>
+        <Image
+          style={{ width: 200, height: 136 }}
+          source={isLight ? LightNewWallet : DarkNewWallet}
+        />
+      </View>
+      <ThemedTextV2
+        style={tailwind('mt-7 px-3 text-base font-normal-v2 text-center')}
       >
-        {translate('screens/Guidelines', 'Creating a wallet')}
-      </ThemedText>
-
-      <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
-        style={tailwind('mt-1 text-sm font-medium')}
-      >
-        {translate('screens/Guidelines', 'Before you create a wallet, you will see your 24 recovery words. Keep them private and secure.')}
-      </ThemedText>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('RecoveryWordsFaq')}
-        style={tailwind('mb-2')}
-        testID='recovery_words_button'
-      >
-        <ThemedText
-          dark={tailwind('text-darkprimary-500')}
-          light={tailwind('text-primary-500')}
-          style={tailwind('font-medium text-sm')}
-        >
-          {translate('screens/Guidelines', 'Learn more about recovery words')}
-        </ThemedText>
-      </TouchableOpacity>
-
-      {
-        guidelines.map((g, i) => (
+        {translate('screens/Guidelines', 'You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.')}
+      </ThemedTextV2>
+      <LearnMoreCTA onPress={() => navigation.navigate('RecoveryWordsFaq')} testId='recovery_words_faq' />
+      <View style={tailwind('px-6 mt-12')}>
+        {guidelines.map((g, i) => (
           <View
             key={i}
-            style={tailwind('flex-row items-center my-3')}
+            style={tailwind('flex flex-row items-start my-3')}
           >
-            <ThemedIcon
-              iconType='MaterialIcons'
-              name={g.icon}
-              size={32}
-            />
-
-            <View style={tailwind('flex-col flex-auto ml-6')}>
-              <ThemedText style={tailwind('font-medium')}>
-                {translate('screens/Guidelines', g.title)}
-              </ThemedText>
-
-              <ThemedText
-                dark={tailwind('text-gray-400')}
-                light={tailwind('text-gray-500')}
-                numberOfLines={4}
-                style={tailwind('text-sm')}
-              >
-                {translate('screens/Guidelines', g.subtitle)}
-              </ThemedText>
-            </View>
+            <ThemedViewV2
+              light={tailwind('bg-mono-light-v2-700')}
+              dark={tailwind('bg-mono-dark-v2-700')}
+              style={tailwind('flex h-6 w-6 flex-row items-center justify-center rounded-full mt-1')}
+            >
+              <ThemedIcon
+                light={tailwind('text-mono-light-v2-100')}
+                dark={tailwind('text-mono-dark-v2-100')}
+                iconType='Feather'
+                name={g.icon}
+                size={14}
+              />
+            </ThemedViewV2>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              style={tailwind('flex-1 text-xs ml-4 font-normal-v2')}
+            >
+              {translate('screens/Guidelines', g.title)}
+            </ThemedTextV2>
           </View>
-        ))
-      }
-
-      <View style={tailwind('flex-row items-center my-4')}>
-        <Switch
-          onValueChange={toggleSwitch}
-          testID='guidelines_switch'
-          value={isEnabled}
-        />
-
-        <View style={tailwind('flex-auto ml-4')}>
-          <ThemedText
-            style={tailwind('text-sm font-medium')}
+        ))}
+        <View style={tailwind('mt-3 flex flex-row items-start')}>
+          <Checkbox
+            value={isEnabled}
+            onValueChange={toggleSwitch}
+            style={tailwind('h-6 w-6 mt-1 rounded')}
+            color={isEnabled ? getColor('brand-v2-500') : undefined}
+            testID='guidelines_check'
+          />
+          <ThemedTouchableOpacityV2
+            light={tailwind('border-b-0')}
+            dark={tailwind('border-b-0')}
+            style={tailwind('flex-1')}
+            onPress={toggleSwitch}
           >
-            {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure, and losing them will result in the irrecoverable loss of my wallet funds.')}
-          </ThemedText>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              style={tailwind('text-xs ml-4 font-normal-v2')}
+            >
+              {translate('screens/Guidelines', 'I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.')}
+            </ThemedTextV2>
+          </ThemedTouchableOpacityV2>
         </View>
       </View>
-
-      <Button
+      <ButtonV2
         disabled={!isEnabled}
-        label={translate('screens/Guidelines', 'SHOW MY 24 RECOVERY WORDS')}
-        margin='mx-0 mt-8 mb-8'
+        style={tailwind('rounded')}
+        label={translate('screens/Guidelines', 'Create wallet')}
+        styleProps='mt-12 mx-7'
         onPress={() => navigation.navigate('CreateMnemonicWallet')}
         testID='create_recovery_words_button'
-        title='create mnemonic words'
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
