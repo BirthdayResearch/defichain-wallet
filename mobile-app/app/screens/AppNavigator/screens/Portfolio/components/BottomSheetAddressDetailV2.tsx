@@ -276,18 +276,6 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
       <ThemedViewV2
         style={tailwind('flex flex-col w-full px-5 pb-2 items-center')}
       >
-        <View style={tailwind('flex-row justify-end w-full m-5')}>
-          <ThemedTouchableOpacityV2 style={tailwind('border-0')} onPress={props.onCloseButtonPress}>
-            <ThemedIcon
-              size={20}
-              name='x-circle'
-              iconType='Feather'
-              dark={tailwind('text-mono-dark-v2-900')}
-              light={tailwind('text-mono-light-v2-900')}
-              testID='close_address_detail_button'
-            />
-          </ThemedTouchableOpacityV2>
-        </View>
         <RandomAvatar name={props.address} size={64} />
         {
           activeLabel != null && (
@@ -315,7 +303,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     <FlatList
       keyExtractor={(item) => item}
       stickyHeaderIndices={[0]}
-      style={tailwind('rounded-t-xl-v2', {
+      style={tailwind('pt-2', {
         'bg-mono-dark-v2-100': !isLight,
         'bg-mono-light-v2-100': isLight
       })}

@@ -49,6 +49,9 @@ import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/Botto
 import {
   CreateOrEditAddressLabelFormV2
 } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
+import {
+  BottomSheetHeaderBackButton
+} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -427,6 +430,23 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }
   }, [])
 
+  const addressBottomSheetHeader = {
+    headerStatusBarHeight: 1,
+    headerTitle: '',
+    headerBackTitleVisible: false,
+    headerStyle: tailwind('rounded-t-xl-v2', {
+      'bg-mono-light-v2-100': isLight,
+      'bg-mono-dark-v2-100': !isLight
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2 style={tailwind('border-0 mr-5 mt-2')} onPress={() => dismissModal(false)}>
+          <ThemedIcon iconType='Feather' name='x-circle' size={20} />
+        </ThemedTouchableOpacityV2>
+      )
+    }
+  }
+
   const addressBottomSheetScreen = useMemo(() => {
     return [
       {
@@ -447,28 +467,16 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             screenName: 'CreateOrEditAddressLabelForm'
           }
         }),
-        option: {
-          header: () => null
-        }
+        option: addressBottomSheetHeader
       },
       {
         stackScreenName: 'CreateOrEditAddressLabelForm',
         component: CreateOrEditAddressLabelFormV2,
         option: {
-          headerStatusBarHeight: 1,
-          headerTitle: '',
-          headerBackTitleVisible: false,
-          headerStyle: tailwind('rounded-t-xl-v2', {
-            'bg-mono-light-v2-100': isLight,
-            'bg-mono-dark-v2-100': !isLight
-          }),
-          headerRight: (): JSX.Element => {
-            return (
-              <ThemedTouchableOpacityV2 style={tailwind('border-0 mr-5')} onPress={() => dismissModal(false)}>
-                <ThemedIcon iconType='Feather' name='x-circle' size={20} />
-              </ThemedTouchableOpacityV2>
-            )
-          }
+          ...addressBottomSheetHeader,
+          headerLeft: (): JSX.Element => (
+            <BottomSheetHeaderBackButton />
+          )
         }
       }
     ]
