@@ -42,7 +42,8 @@ jest.mock('@shared-contexts/WhaleContext', () => ({
             priceRatio: {
               ab: '1.00000000',
               ba: '1.00000000'
-            }
+            },
+            rewardLoanPct: '0.1'
           },
           {
             poolPairId: '19',
@@ -60,7 +61,8 @@ jest.mock('@shared-contexts/WhaleContext', () => ({
             priceRatio: {
               ab: '10000.00000000',
               ba: '0.00010000'
-            }
+            },
+            rewardLoanPct: '0.1'
           }
         ],
         estimatedReturn: '10000.00000000'
