@@ -158,7 +158,6 @@ export function TokenDetailScreen ({
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
-        denominationCurrency={denominationCurrency}
       />
 
       <View style={tailwind('p-5 pb-12')}>
@@ -171,7 +170,6 @@ export function TokenDetailScreen ({
           testID='dfi'
           dfiUtxo={DFIUtxo}
           dfiToken={DFIToken}
-          denominationCurrency={denominationCurrency}
           token={token}
           usdAmount={usdAmount ?? new BigNumber(0)}
           pair={pair}
@@ -321,7 +319,8 @@ export function TokenDetailScreen ({
   )
 }
 
-function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount: BigNumber, denominationCurrency: string }): JSX.Element {
+function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount: BigNumber }): JSX.Element {
+  const { denominationCurrency } = useDenominationCurrency()
   const Icon = getNativeIcon(props.token.displaySymbol)
   // To display dark pink DFI symbol for LP tokens
   const DFIIcon = getNativeIcon('_UTXO')
@@ -334,7 +333,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
   }
 
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
-  const { getTokenPrice } = useTokenPrice(props.denominationCurrency) // input based on selected denomination from portfolio tab
+  const { getTokenPrice } = useTokenPrice(denominationCurrency) // input based on selected denomination from portfolio tab
   const dfiUsdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
   const isTokenPair = props.token.displaySymbol.includes('-')
 
@@ -427,8 +426,8 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 <NumberFormat
                   decimalScale={8}
                   displayType='text'
-                  prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-                  suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+                  prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                  suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
                   renderText={(value) => (
                     <ThemedTextV2
                       style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}

@@ -13,6 +13,7 @@ import { StyleProp, TextProps, ViewProps } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
+import { useDenominationCurrency } from '../hooks/PortfolioCurrency'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey } from './TotalPortfolio'
@@ -26,14 +27,14 @@ interface TokenBreakdownDetailProps {
   dfiUtxo?: WalletToken
   dfiToken?: WalletToken
   testID: string
-  denominationCurrency: string
   token: WalletToken
   usdAmount: BigNumber
   pair?: PoolPairData
 }
 
 export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.Element {
-  const lockedToken = useTokenLockedBalance({ displaySymbol: props.token.displaySymbol, denominationCurrency: props.denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
+  const { denominationCurrency } = useDenominationCurrency()
+  const lockedToken = useTokenLockedBalance({ displaySymbol: props.token.displaySymbol, denominationCurrency }) as LockedBalance ?? { amount: new BigNumber(0), tokenValue: new BigNumber(0) }
   const loanTokens = useSelector((state: RootState) => state.loans.loanTokens)
   const collateralTokens = useSelector((state: RootState) => state.loans.collateralTokens)
   const hasLockedBalance = useMemo((): boolean => {
@@ -84,7 +85,6 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 light: tailwind('text-mono-light-v2-900'),
                 dark: tailwind('text-mono-dark-v2-900')
               }}
-              prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
               suffix={` ${props.token.displaySymbol}`}
             />
             <TokenBreakdownDetailsRow
@@ -97,15 +97,15 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 dark: tailwind('text-mono-dark-v2-700')
               }}
               containerStyle={tailwind('mb-5')}
-              prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-              suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+              prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+              suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
+
             />
             <TokenBreakdownDetailsRow
               testID={`${props.token.symbol}_available`}
               amount={new BigNumber(props.token.amount).toFixed(8)}
               label='Available'
               hasFetchedToken={props.hasFetchedToken}
-              prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
               suffix={` ${props.token.displaySymbol}`}
             />
 
@@ -121,8 +121,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                     light: tailwind('text-mono-light-v2-700'),
                     dark: tailwind('text-mono-dark-v2-700')
                   }}
-                  prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-                  suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+                  prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                  suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
                 />
               )
               : (
@@ -135,8 +135,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                     light: tailwind('text-mono-light-v2-700'),
                     dark: tailwind('text-mono-dark-v2-700')
                   }}
-                  prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-                  suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+                  prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                  suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
                   border
                 />
               )}
@@ -192,8 +192,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   light: tailwind('text-mono-light-v2-700'),
                   dark: tailwind('text-mono-dark-v2-700')
                 }}
-                prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-                suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+                prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
               />
             </View>
             <View style={tailwind('pb-4')}>
@@ -215,8 +215,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                   light: tailwind('text-mono-light-v2-700'),
                   dark: tailwind('text-mono-dark-v2-700')
                 }}
-                prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-                suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+                prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
               />
             </View>
             <TokenBreakdownDetailsRow
@@ -234,8 +234,8 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 light: tailwind('text-mono-light-v2-700'),
                 dark: tailwind('text-mono-dark-v2-700')
               }}
-              prefix={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-              suffix={props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${props.denominationCurrency}` : undefined}
+              prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+              suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
               border
             />
           </>
