@@ -153,7 +153,7 @@ export function TokenDetailScreen ({
   }
 
   return (
-    <ThemedScrollViewV2 contentContainerStyle={{ flexGrow: 1 }}>
+    <ThemedScrollViewV2 contentContainerStyle={tailwind('flex-grow')}>
       <TokenSummary
         token={token}
         border
