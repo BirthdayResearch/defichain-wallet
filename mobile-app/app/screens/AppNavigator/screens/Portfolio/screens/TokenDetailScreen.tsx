@@ -32,7 +32,7 @@ import { TokenBreakdownDetailsV2 } from '../components/TokenBreakdownDetailsV2'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
 import { openURL } from '@api/linking'
-import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSection'
+import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
 
