@@ -352,7 +352,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind('pt-8 pb-5 ml-5 mr-5', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
+      style={tailwind('pt-8 pb-5 mx-5', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
     >
       <View style={tailwind('flex-row items-center')}>
         {
