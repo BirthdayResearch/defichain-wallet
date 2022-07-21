@@ -109,7 +109,7 @@ export function TokenDetailScreen ({
     token,
     swapTokenDisplaySymbol
   } = usePoolPairToken(route.params.token)
-  
+
   // usdAmount for crypto tokens, undefined for DFI token
   const { usdAmount } = route.params.token
 
@@ -357,16 +357,16 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
       <View style={tailwind('flex-row items-center')}>
         {
           isTokenPair && (
-              <PoolPairTextSectionV2
-                symbolA={symbolA}
-                symbolB={symbolB}
-              />
-            )
+            <PoolPairTextSectionV2
+              symbolA={symbolA}
+              symbolB={symbolB}
+            />
+          )
         }
         {
           isDFIToken && (
             <DFIIcon height={40} width={40} />
-          ) 
+          )
         }
         {
           !isTokenPair && !isDFIToken && (
