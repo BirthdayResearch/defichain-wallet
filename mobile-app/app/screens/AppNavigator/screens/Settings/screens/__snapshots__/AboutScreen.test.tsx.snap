@@ -372,10 +372,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
+          "borderBottomLeftRadius": 10,
+          "borderBottomRightRadius": 10,
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
           "flexDirection": "row",
           "marginBottom": 8,
           "marginLeft": 20,
@@ -471,10 +471,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
+          "borderBottomLeftRadius": 10,
+          "borderBottomRightRadius": 10,
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
           "flexDirection": "row",
           "marginBottom": 8,
           "marginLeft": 20,
@@ -570,10 +570,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
+          "borderBottomLeftRadius": 10,
+          "borderBottomRightRadius": 10,
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
           "flexDirection": "row",
           "marginBottom": 8,
           "marginLeft": 20,
@@ -669,10 +669,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
+          "borderBottomLeftRadius": 10,
+          "borderBottomRightRadius": 10,
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
           "flexDirection": "row",
           "marginBottom": 8,
           "marginLeft": 20,
@@ -786,14 +786,16 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       style={
         Array [
           Object {
-            "borderBottomLeftRadius": 8,
-            "borderBottomRightRadius": 8,
-            "borderTopLeftRadius": 8,
-            "borderTopRightRadius": 8,
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
             "flexDirection": "column",
             "marginLeft": 20,
             "marginRight": 20,
             "marginTop": 8,
+            "paddingLeft": 20,
+            "paddingRight": 20,
           },
           Object {
             "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -802,177 +804,236 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       }
     >
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "flexDirection": "row",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 20,
-            "paddingTop": 20,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
         testID="privacy_policy_button"
       >
-        <Text
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
+            }
           }
         >
-          Privacy Policy
-        </Text>
-        <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(18, 18, 18, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Privacy Policy
+          </Text>
+          <Text />
+        </View>
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "flexDirection": "row",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 20,
-            "paddingTop": 20,
-          }
+          Array [
+            Object {
+              "borderBottomWidth": 0.5,
+            },
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
         testID="licenses_button"
       >
-        <Text
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
+            }
           }
         >
-          Licenses
-        </Text>
-        <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(18, 18, 18, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Licenses
+          </Text>
+          <Text />
+        </View>
       </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "flexDirection": "row",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "opacity": 1,
-            "paddingBottom": 20,
-            "paddingTop": 20,
-          }
+          Array [
+            Object {},
+            Object {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+            },
+          ]
         }
         testID="white_paper"
       >
-        <Text
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
-              ],
-            ]
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderBottomWidth": 0,
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderLeftWidth": 0,
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderRightWidth": 0,
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "borderTopWidth": 0,
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingTop": 18,
+            }
           }
         >
-          White Paper
-        </Text>
-        <Text />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "lineHeight": 20,
+                  },
+                  Object {
+                    "color": "rgba(18, 18, 18, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            White Paper
+          </Text>
+          <Text />
+        </View>
       </View>
     </View>
     <Text

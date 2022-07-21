@@ -7,17 +7,19 @@ type IListProps = React.PropsWithChildren<ViewProps> & ListProps
 
 interface ListProps {
     onPress: () => void
-    isLast: boolean
+    isLast?: boolean
     disabled?: boolean
     testId?: string
+    styleProps?: string
 }
 
-export function ThemedListItem (props: IListProps): JSX.Element {
+export function ThemedTouchableListItem (props: IListProps): JSX.Element {
     const {
        onPress,
-       isLast,
+       isLast = true,
        disabled,
        testId,
+       styleProps = 'py-4.5',
        children,
        ...otherProps
     } = props
@@ -30,7 +32,7 @@ export function ThemedListItem (props: IListProps): JSX.Element {
       >
         <ThemedTouchableOpacityV2
           onPress={onPress}
-          style={tailwind('flex flex-row items-center justify-between py-4 border-0')}
+          style={tailwind(`flex flex-row items-center justify-between border-0 ${styleProps}`)}
           testID={testId}
           disabled={disabled}
         >
