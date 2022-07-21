@@ -1,9 +1,11 @@
 
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { AnnouncementText } from '@shared-types/website'
 
 export function useTnC (): string {
     const { language } = useLanguageContext()
+    const logger = useLogger()
 
     const text: AnnouncementText = {
         en: tncText,
@@ -15,7 +17,17 @@ export function useTnC (): string {
         it: tncText
     }
 
-    return text[language]
+    let tnc = tncText
+    try {
+        tnc = text[language]
+    } catch (e) {
+        logger.error(e)
+    }
+    if (tnc?.length === 0) {
+        tnc = tncText
+    }
+
+    return tnc
 }
 
 const tncText = `
