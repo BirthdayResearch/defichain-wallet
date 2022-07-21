@@ -187,7 +187,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 activeOpacity={0.7}
                 style={tailwind('mr-4')}
                 onPress={async () => await onFavouriteAddress(item)}
-                testID={`address_row_favourite_${index}_${testIDSuffix}`}
+                testID={`address_row_${index}_${testIDSuffix}`}
               >
                 {item.isFavourite === true
                 ? <FavoriteCheckIcon
@@ -221,6 +221,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 await openURL(getAddressUrl(item.address))
               }
             }}
+            testID={`address_action_${item.address}`}
             style={tailwind('flex flex-row items-center flex-auto')}
           >
             <View style={tailwind('flex flex-auto mr-1')}>
