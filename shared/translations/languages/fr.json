@@ -492,6 +492,7 @@
     "AMOUNT BALANCE": "MONTANT SOLDE",
     "AVAILABLE OPTIONS": "OPTIONS DISPONIBLES",
     "Send to other wallet": "Envoyer à un autre portefeuille",
+    "Receive": "Recevoir",
     "Receive {{token}}": "Recevoir {{token}}",
     "Convert to {{symbol}}": "Convertir en {{symbol}}",
     "Add to liquidity pool": "Ajouter au pool de liquidité",

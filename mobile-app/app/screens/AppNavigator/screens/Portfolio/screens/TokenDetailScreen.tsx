@@ -32,9 +32,10 @@ import { TokenBreakdownDetailsV2 } from '../components/TokenBreakdownDetailsV2'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
 import { openURL } from '@api/linking'
-import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
+
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
+import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
 
 interface TokenActionItems {
   title: string
@@ -221,7 +222,7 @@ export function TokenDetailScreen ({
                     isLast={false}
                     onPress={() => navigation.navigate('Receive')}
                     testID='receive_button'
-                    title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
+                    title={`${translate('screens/TokenDetailScreen', 'Receive')}`}
                   />
                 </>
               )
@@ -351,7 +352,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind('py-5 ml-5 mr-4', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
+      style={tailwind('pt-8 pb-5 ml-5 mr-5', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
     >
       <View style={tailwind('flex-row items-center')}>
         {

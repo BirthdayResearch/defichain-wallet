@@ -483,6 +483,7 @@
     "AVAILABLE OPTIONS": "VERFÜGBARE OPTIONEN",
     "Send to other wallet": "An andere Wallet senden",
     "Receive {{token}}": "{{token}} empfangen",
+    "Receive": "Empfangen",
     "Convert to {{symbol}}": "Umwandeln in {{symbol}}",
     "Add to liquidity pool": "Zu Liquiditätspool hinzufügen",
     "Remove liquidity": "Liquidität entfernen",

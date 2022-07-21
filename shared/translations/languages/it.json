@@ -497,6 +497,7 @@
     "AMOUNT BALANCE": "SALDO",
     "AVAILABLE OPTIONS": "OPZIONI DISPONIBILI",
     "Send to other wallet": "Invia ad altri wallet",
+    "Receive": "Ricevi",
     "Receive {{token}}": "Ricevi {{token}}",
     "Convert to {{symbol}}": "Convertire in {{symbol}}",
     "Add to liquidity pool": "Aggiungere al pool di liquidità",

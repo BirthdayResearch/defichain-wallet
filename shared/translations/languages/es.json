@@ -499,6 +499,7 @@
     "AVAILABLE OPTIONS": "OPCIONES DISPONIBLES",
     "Send to other wallet": "Enviar a otra billetera",
     "Receive {{token}}": "Recibir {{token}}",
+    "Receive": "Recibir",
     "Convert to {{symbol}}": "Convertir a {{symbol}}",
     "Add to liquidity pool": "Añadir a la pool de liquidez",
     "Remove liquidity": "Eliminar liquidez",
