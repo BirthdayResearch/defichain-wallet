@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
@@ -38,6 +39,12 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { getUserDetail } from '@shared-api/dfx/ApiService'
+import { useDebounce } from '@hooks/useDebounce'
+
+import { from, defer } from 'rxjs'
+import { delay, map, retryWhen } from 'rxjs/operators'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -82,6 +89,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const ref = useRef(null)
   useScrollToTop(ref)
 
+  // DFX Staking Balance
+  const [staked, setStaked] = useState(0)
+  const [hasFetchedStakingBalance, setHasFetchedStakingBalance] = useState(false)
+
   useEffect(() => {
     dispatch(ocean.actions.setHeight(height))
   }, [height, wallets, dispatch])
@@ -119,6 +130,55 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     })
   }, [])
 
+  function getUserDetailWithRetry () {
+    defer(() => {
+      return from(getUserDetail())
+    }).pipe(
+      map((userDetail) => {
+        if (userDetail === undefined || userDetail.stakingBalance === undefined) {
+          throw new Error('userdetail undefined')
+        }
+        return userDetail
+      }),
+      retryWhen((error) => {
+        return error.pipe(
+          delay(3000)
+        )
+      })).subscribe({
+        next: (result) => {
+          // console.log(result)
+
+          setStaked(result?.stakingBalance ?? 0)
+          setHasFetchedStakingBalance(true)
+        },
+        error: () => {
+          // console.log(err)
+        }
+      })
+  }
+
+  function fetchDfxStakingBalance (): void {
+    setHasFetchedStakingBalance(false)
+
+    getUserDetailWithRetry()
+  }
+
+  useEffect(() => {
+    fetchDfxStakingBalance()
+  }, [])
+
+  // debounce address change 2s --> 2s because dfxApiContextProvider debounces after 500ms (=> new webToken)
+  const debouncedAddress = useDebounce(address, 2000)
+  const { networkName } = useNetworkContext()
+
+  useEffect(() => {
+    fetchDfxStakingBalance()
+
+    setTimeout(() => {
+      fetchDfxStakingBalance()
+    }, 5000)
+  }, [debouncedAddress, networkName])
+
   const fetchPortfolioData = (): void => {
     batch(() => {
       dispatch(fetchTokens({
@@ -144,6 +204,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     fetchPortfolioData()
+    fetchDfxStakingBalance()
     setRefreshing(false)
   }, [address, client, dispatch])
 
@@ -159,13 +220,15 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
         token
       ) => {
-        const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
+        const tokenAmount = new BigNumber(token.amount)
+        const usdAmount = getTokenPrice(token.symbol, tokenAmount, token.isLPS)
+
         if (token.symbol === 'DFI') {
           return {
             // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableValue
             totalAvailableValue: token.id === '0_unified'
               ? totalAvailableValue
-              : totalAvailableValue.plus(usdAmount.isNaN() ? 0 : usdAmount),
+              : totalAvailableValue.plus(usdAmount.isNaN()/* .plus(staked) */ ? 0 : usdAmount),
             dstTokens
           }
         }
@@ -463,6 +526,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
           totalLoansValue={totalLoansValue}
+          staked={staked}
+          hasFetchedStakingBalance={hasFetchedStakingBalance}
           onToggleDisplayBalances={onToggleDisplayBalances}
           isBalancesDisplayed={isBalancesDisplayed}
           portfolioButtonGroupOptions={{
@@ -485,7 +550,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           hideIcon={hideIcon}
           modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
-        <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        <DFIBalanceCard denominationCurrency={denominationCurrency} staked={staked} />
         {!hasFetchedToken
           ? (
             <View style={tailwind('p-4')}>

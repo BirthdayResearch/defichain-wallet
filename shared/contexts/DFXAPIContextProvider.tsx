@@ -25,6 +25,8 @@ import { useDebounce } from '@hooks/useDebounce'
 import { SellRoute } from '@shared-api/dfx/models/SellRoute'
 import { Country } from '@shared-api/dfx/models/Country'
 
+// import fetchIntercept from 'fetch-intercept'
+
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
   clearDfxTokens: () => Promise<void>
@@ -47,6 +49,37 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   const dispatch = useDispatch()
   const { address } = useWalletContext()
   const debouncedAddress = useDebounce(address, 500)
+  const debouncedNetworkName = useDebounce(address, 500)
+
+  // const unregister = fetchIntercept.register({
+  //   request: function (url, config) {
+  //     // Modify the url or config here
+  //     // console.log('url: ', url)
+
+  //     return [url, config]
+  //   },
+
+  //   requestError: function (error) {
+  //     // Called when an error occured during another 'request' interceptor call
+  //     console.log('error: ', JSON.stringify(error))
+
+  //     return Promise.reject(error)
+  //   },
+
+  //   response: function (response) {
+  //     // Modify the reponse object
+  //     // console.log('response: ', JSON.stringify(response))
+
+  //     return response
+  //   },
+
+  //   responseError: function (error) {
+  //     // Handle an fetch error
+  //     console.log('error: ', JSON.stringify(error))
+
+  //     return Promise.reject(error)
+  //   }
+  // })
 
   const openDfxServices = async (): Promise<void> => {
     await getActiveWebToken()
@@ -79,6 +112,10 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   // returns webtoken string of current active Wallet address
   const getActiveWebToken = async (): Promise<string> => {
     let webToken = await DFXPersistence.getToken(address)
+
+    // TODO: (thabrad) quick fix - recheck
+    webToken = ''
+
     if (webToken === undefined || webToken.length === 0) {
         await createWebToken(address)
         webToken = await DFXPersistence.getToken(address)
@@ -234,14 +271,36 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
     listCountries: listCountries
   }
 
+  function redoLoginForCurrentNetworkAndAddress (): void {
+    void (async () => {
+      await activePairHandler({ network: networkName, addr: address }).catch(() => { })
+    })
+  }
+
   // observe address state change
   useEffect(() => {
+    getActiveWebToken()
+
       DFXPersistence.getPair(debouncedAddress).then(async pair => {
         await activePairHandler(pair).catch(() => {})
       }).catch(async () => {
         await activePairHandler({ network: networkName, addr: debouncedAddress, signature: undefined, token: undefined }).catch(() => {})
       })
   }, [debouncedAddress])
+
+  // observe network state change
+  useEffect(() => {
+    redoLoginForCurrentNetworkAndAddress()
+    getActiveWebToken()
+  }, [debouncedNetworkName])
+
+  useEffect(() => {
+    getActiveWebToken()
+
+    setTimeout(() => {
+      getActiveWebToken()
+    }, 5000)
+  }, [])
 
   return (
     <DFXAPIContext.Provider value={context}>

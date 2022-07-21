@@ -9,7 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LoanParamList } from '../LoansNavigator'
 import { LoanScheme } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
@@ -25,6 +25,8 @@ import { InfoTextLink } from '@components/InfoTextLink'
 import { queueConvertTransaction } from '@hooks/wallet/Conversion'
 import { LoanSchemeOptions } from '../components/LoanSchemeOptions'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { InfoText } from '@components/InfoText'
+import { TouchableOpacity } from 'react-native'
 
 type Props = StackScreenProps<LoanParamList, 'CreateVaultScreen'>
 
@@ -122,6 +124,14 @@ export function CreateVaultScreen ({
           text='Learn more about vaults and loan schemes'
           testId='empty_vault_learn_more'
         />
+        <TouchableOpacity onPress={() => navigation.navigate('LoansTnC')}>
+          <InfoText
+            simple
+            text={translate('components/LoansFaq', 'Loan terms')}
+            style={tailwind('py-2 flex-row items-end justify-start')}
+          // testId='empty_vault_learn_more'
+          />
+        </TouchableOpacity>
       </View>
       <LoanSchemeOptions
         loanSchemes={loanSchemes}

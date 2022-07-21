@@ -111,6 +111,7 @@ export interface UserDetailDto extends UserDto {
   paidRefCredit: number
   refCount: number
   refCountActive: number
+  stakingBalance: number
 }
 
 export interface UserDetail extends User {
@@ -121,6 +122,7 @@ export interface UserDetail extends User {
   paidRefCredit: number
   refCount: number
   refCountActive: number
+  stakingBalance: number
 }
 
 export const fromUserDto = (user: UserDto): User => ({
@@ -168,7 +170,8 @@ export const fromUserDetailDto = (dto: UserDetailDto): UserDetail => ({
   refCredit: dto.refCredit,
   paidRefCredit: dto.paidRefCredit,
   refCount: dto.refCount,
-  refCountActive: dto.refCountActive
+  refCountActive: dto.refCountActive,
+  stakingBalance: dto.stakingBalance
 })
 
 const toStringDto = (string: string): string | null => (string === '' ? null : string)
