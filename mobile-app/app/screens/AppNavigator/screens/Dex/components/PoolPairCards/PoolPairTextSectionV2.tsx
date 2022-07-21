@@ -29,20 +29,19 @@ export function PoolPairIconV2 (props: {
   const IconB = getNativeIcon(props.symbolB)
   return (
     <>
-      {isDFIToken 
-      ? (
-        <>
-          <IconA height={40} width={40} style={tailwind('relative z-10')} />
-          <DFIIcon height={40} width={40} style={tailwind('-ml-3.5 mr-2')} />
-        </>
-      ) 
-      : (
+      {isDFIToken
+        ? (
+          <>
+            <IconA height={40} width={40} style={tailwind('relative z-10')} />
+            <DFIIcon height={40} width={40} style={tailwind('-ml-3.5 mr-2')} />
+          </>
+        )
+        : (
           <>
             <IconA height={40} width={40} style={tailwind('relative z-10')} />
             <IconB height={40} width={40} style={tailwind('-ml-3.5 mr-2')} />
           </>
-        )
-      }
+        )}
     </>
   )
 }
