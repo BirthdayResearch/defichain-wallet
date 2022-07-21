@@ -212,7 +212,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
           light={tailwind('text-mono-light-v2-500')}
           dark={tailwind('text-mono-dark-v2-500')}
         >
-          {translate('screens/AddOrEditAddressBookScreen', '{{length}}/40 characters', { length: labelInputLength.toString() })}
+          {translate('components/CreateOrEditAddressLabelForm', '{{length}}/40 characters', { length: labelInputLength.toString() })}
         </ThemedTextV2>
       )}
 

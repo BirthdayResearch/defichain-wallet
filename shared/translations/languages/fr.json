@@ -693,6 +693,7 @@
   },
   "screens/common": {
     "CANCEL": "ANNULER",
+    "Cancel": "Annuler",
     "TRY AGAIN": "RÉESSAYER"
   },
   "screens/ChangePinScreen": {

@@ -685,6 +685,7 @@
   },
   "screens/common": {
     "CANCEL": "取消",
+    "Cancel": "取消",
     "TRY AGAIN": "再试一次"
   },
   "screens/ChangePinScreen": {

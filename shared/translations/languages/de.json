@@ -681,6 +681,7 @@
   },
   "screens/common": {
     "CANCEL": "ABBRECHEN",
+    "Cancel": "Abbrechen",
     "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/ChangePinScreen": {

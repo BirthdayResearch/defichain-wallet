@@ -700,6 +700,7 @@
   },
   "screens/common": {
     "CANCEL": "CANCELA",
+    "Cancel": "Cancela",
     "TRY AGAIN": "VOLVER A INTENTAR"
   },
   "screens/ChangePinScreen": {
