@@ -162,7 +162,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     return (
       <ThemedTouchableOpacityV2
         key={item}
-        style={tailwind('p-4 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2')}
+        style={tailwind('p-4 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20')}
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         onPress={async () => {
@@ -276,7 +276,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   const AddressDetailHeader = useCallback(() => {
     return (
       <ThemedViewV2
-        style={tailwind('flex flex-col w-full px-5 pb-2 items-center')}
+        style={tailwind('flex flex-col w-full px-5 py-2 items-center')}
       >
         <RandomAvatar name={props.address} size={64} />
         {
@@ -305,7 +305,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     <FlatList
       keyExtractor={(item) => item}
       stickyHeaderIndices={[0]}
-      style={tailwind('pt-2', {
+      style={tailwind({
         'bg-mono-dark-v2-100': !isLight,
         'bg-mono-light-v2-100': isLight
       })}
@@ -327,7 +327,7 @@ function ActiveAddress ({
 }: { address: string, onPress: () => void }): JSX.Element {
   const { getAddressUrl } = useDeFiScanContext()
   return (
-    <View style={tailwind('flex-row w-full mt-2 justify-center')}>
+    <View style={tailwind('flex-row w-full mt-1 items-center justify-center')}>
       <ThemedTouchableOpacityV2
         style={tailwind('border-0 w-5/12')}
         onPress={onPress}
@@ -343,10 +343,10 @@ function ActiveAddress ({
       </ThemedTouchableOpacityV2>
       <ThemedTouchableOpacityV2
         onPress={async () => await openURL(getAddressUrl(address))}
-        style={tailwind('border-0 p-1')}
+        style={tailwind('border-0 ml-1')}
       >
         <ThemedIcon
-          size={12}
+          size={16}
           name='external-link'
           dark={tailwind('text-mono-dark-v2-700')}
           light={tailwind('text-mono-light-v2-700')}

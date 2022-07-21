@@ -441,7 +441,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2 style={tailwind('border-0 mr-5 mt-2')} onPress={() => dismissModal(false)}>
-          <ThemedIcon iconType='Feather' name='x-circle' size={20} />
+          <ThemedIcon iconType='Feather' name='x-circle' size={22} />
         </ThemedTouchableOpacityV2>
       )
     }
@@ -555,7 +555,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                 zIndex: 50,
                 borderTopLeftRadius: 15,
                 borderTopRightRadius: 15,
-                backgroundColor: 'rgba(0, 0, 0, 0.3)',
                 overflow: 'hidden'
               }}
             />

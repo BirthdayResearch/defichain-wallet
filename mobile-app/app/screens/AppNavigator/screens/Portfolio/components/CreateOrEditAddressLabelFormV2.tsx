@@ -177,7 +177,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
       </View>
       {address !== undefined && <AddressDisplay address={address} />}
       <ThemedTextV2
-        style={tailwind('font-normal-v2 text-xs mt-4 mb-2')}
+        style={tailwind('font-normal-v2 text-xs mt-4 mb-2 ml-5')}
         light={tailwind('text-mono-light-v2-500')}
         dark={tailwind('text-mono-dark-v2-500')}
       >
@@ -208,7 +208,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
       />
       {labelInputErrorMessage === '' && (
         <ThemedTextV2
-          style={tailwind('font-normal-v2 text-xs mt-2')}
+          style={tailwind('font-normal-v2 text-xs mt-2 ml-5')}
           light={tailwind('text-mono-light-v2-500')}
           dark={tailwind('text-mono-dark-v2-500')}
         >

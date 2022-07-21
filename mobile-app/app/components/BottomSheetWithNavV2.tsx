@@ -93,9 +93,7 @@ const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
       ...TransitionPresets.SlideFromRightIOS,
       headerShown: true,
       safeAreaInsets: { top: 0 },
-      cardStyle: {
-        backgroundColor: 'rgba(0, 0, 0, 0.6)'
-      },
+      cardStyle: tailwind('bg-black bg-opacity-60'),
       headerMode: 'screen'
     }),
     []
