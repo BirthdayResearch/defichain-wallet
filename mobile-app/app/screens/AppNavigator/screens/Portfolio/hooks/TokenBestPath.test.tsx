@@ -42,8 +42,7 @@ jest.mock('@shared-contexts/WhaleContext', () => ({
             priceRatio: {
               ab: '1.00000000',
               ba: '1.00000000'
-            },
-            rewardLoanPct: '0.1'
+            }
           },
           {
             poolPairId: '19',
@@ -61,8 +60,7 @@ jest.mock('@shared-contexts/WhaleContext', () => ({
             priceRatio: {
               ab: '10000.00000000',
               ba: '0.00010000'
-            },
-            rewardLoanPct: '0.1'
+            }
           }
         ],
         estimatedReturn: '10000.00000000',
@@ -271,7 +269,10 @@ describe('Token Best Path - Get Best Path (DEX)', () => {
   const wrapper = ({ children }: { children: ReactElement }): JSX.Element => {
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer }
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer
+      }
     })
 
     return (
