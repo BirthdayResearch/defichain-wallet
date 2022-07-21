@@ -204,31 +204,33 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
                   style={tailwind('mr-1')}
                 />
               )}
-              <ThemedTextV2
-                style={tailwind('font-normal-v2 text-xs max-w-3/4')}
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                ellipsizeMode='middle'
-                numberOfLines={1}
-                testID={`address_row_text_${index}`}
+              <ThemedTouchableOpacityV2
+                onPress={async () => await openURL(getAddressUrl(item))}
+                disabled={!isSelected}
+                style={tailwind('border-0 flex flex-1 flex-row items-center')}
               >
-                {item}
-              </ThemedTextV2>
-              {isSelected && (
-                <ThemedTouchableOpacityV2
-                  onPress={async () => await openURL(getAddressUrl(item))}
-                  style={tailwind('border-0 p-1')}
+                <ThemedTextV2
+                  style={tailwind('font-normal-v2 text-xs max-w-3/4')}
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  ellipsizeMode='middle'
+                  numberOfLines={1}
+                  testID={`address_row_text_${index}`}
                 >
+                  {item}
+                </ThemedTextV2>
+                {isSelected && (
                   <ThemedIcon
                     size={12}
                     name='external-link'
                     dark={tailwind('text-mono-dark-v2-700')}
                     light={tailwind('text-mono-light-v2-700')}
-                    style={tailwind('font-normal')}
+                    style={tailwind('p-1')}
                     iconType='Feather'
                   />
-                </ThemedTouchableOpacityV2>
-              )}
+                )}
+
+              </ThemedTouchableOpacityV2>
             </View>
           </View>
           <ThemedTouchableOpacityV2
@@ -311,7 +313,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
       renderItem={AddressListItem}
       ListHeaderComponent={AddressDetail}
       ListFooterComponent={CreateAddress}
-      contentContainerStyle={tailwind('pb-4')}
+      contentContainerStyle={tailwind('pb-6')}
       ItemSeparatorComponent={() => {
         return (<View style={tailwind('h-2')} />)
       }}
