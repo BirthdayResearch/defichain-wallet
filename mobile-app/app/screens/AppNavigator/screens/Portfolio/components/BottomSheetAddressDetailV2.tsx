@@ -119,7 +119,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     isNextAddressUsable().catch(logger.error)
   }, [blockCount])
 
-  const CreateAddress = useCallback(() => {
+  const CreateAddressButton = useCallback(() => {
     if (!canCreateAddress) {
       return <></>
     }
@@ -273,7 +273,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     )
   }, [labeledAddresses])
 
-  const AddressDetail = useCallback(() => {
+  const AddressDetailHeader = useCallback(() => {
     return (
       <ThemedViewV2
         style={tailwind('flex flex-col w-full px-5 pb-2 items-center')}
@@ -311,8 +311,8 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
       })}
       data={availableAddresses}
       renderItem={AddressListItem}
-      ListHeaderComponent={AddressDetail}
-      ListFooterComponent={CreateAddress}
+      ListHeaderComponent={AddressDetailHeader}
+      ListFooterComponent={CreateAddressButton}
       contentContainerStyle={tailwind('pb-6')}
       ItemSeparatorComponent={() => {
         return (<View style={tailwind('h-2')} />)
