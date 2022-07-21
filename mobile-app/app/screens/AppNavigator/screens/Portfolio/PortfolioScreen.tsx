@@ -464,13 +464,13 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           },
           onCloseButtonPress: () => dismissModal(false),
           navigateToScreen: {
-            screenName: 'CreateOrEditAddressLabelForm'
+            screenName: 'CreateOrEditAddressLabelFormV2'
           }
         }),
         option: addressBottomSheetHeader
       },
       {
-        stackScreenName: 'CreateOrEditAddressLabelForm',
+        stackScreenName: 'CreateOrEditAddressLabelFormV2',
         component: CreateOrEditAddressLabelFormV2,
         option: {
           ...addressBottomSheetHeader,
