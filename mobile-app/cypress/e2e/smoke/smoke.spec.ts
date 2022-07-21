@@ -46,15 +46,15 @@ context('Mainnet - Wallet', () => {
   })
 
   it('should start creation of mnemonic wallet', function () {
-    cy.startCreateMnemonicWalletV2(recoveryWords)
+    cy.startCreateMnemonicWallet(recoveryWords)
   })
 
   it('should be able to select correct words', function () {
-    cy.selectMnemonicWordsV2(recoveryWords)
+    cy.selectMnemonicWords(recoveryWords)
   })
 
   it('should be able to verify and set pincode', function () {
-    cy.setupPinCodeV2()
+    cy.setupPinCode()
     cy.getByTestID('wallet_create_success').should('exist')
     cy.getByTestID('continue_button').should('exist').click()
   })
@@ -68,7 +68,7 @@ context('Mainnet - Wallet', () => {
 
   context('Settings - Mnemonic Verification', () => {
     it('should be able to verify mnemonic from settings page', function () {
-      cy.verifyMnemonicOnSettingsPageV2(settingsRecoveryWords, recoveryWords)
+      cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
     })
   })
 
@@ -87,7 +87,7 @@ context('Mainnet - Wallet', () => {
       cy.getByTestID('header_settings').click()
       cy.getByTestID('setting_exit_wallet').click()
       cy.wait(3000)
-      cy.restoreMnemonicWordsV2(settingsRecoveryWords)
+      cy.restoreMnemonicWords(settingsRecoveryWords)
     })
   })
 
