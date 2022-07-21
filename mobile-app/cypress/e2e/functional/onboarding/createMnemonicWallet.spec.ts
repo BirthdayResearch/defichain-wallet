@@ -2,10 +2,6 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   const recoveryWords: string[] = []
   const settingsRecoveryWords: string[] = []
 
-  before(function () {
-    cy.blockAllFeatureFlag()
-  })
-
   beforeEach(() => {
     cy.restoreLocalStorage()
   })
@@ -27,7 +23,7 @@ context('Onboarding - Create Mnemonic Wallet', () => {
   it('should select incorrect words', function () {
     Array.from(Array(6), (v, i) => i + 1).forEach((key, index) => {
       cy.getByTestID(`line_${index}`).then(($txt: any) => {
-        const wordIndex = (+$txt[0].textContent.replace('?', '').replace('#', '')) - 1
+        const wordIndex = (parseInt($txt[0].textContent)) - 1
         cy.getByTestID(`recovery_word_row_${wordIndex}`).children().first().click()
       })
     })
@@ -59,21 +55,18 @@ context('Onboarding - Create Mnemonic Wallet', () => {
     cy.setupPinCode()
   })
 
-  context('Settings - Mnemonic Verification', () => {
-    before(() => {
-      cy.blockAllFeatureFlag()
-    })
+  it('should be able to navigate to wallet creation success screen', function () {
+    cy.getByTestID('wallet_create_success').should('exist')
+    cy.getByTestID('continue_button').should('exist').click()
+  })
 
+  context('Settings - Mnemonic Verification', () => {
     it('should be able to verify mnemonic from settings page', function () {
       cy.verifyMnemonicOnSettingsPage(settingsRecoveryWords, recoveryWords)
     })
   })
 
   context('Restore - Mnemonic Verification', () => {
-    before(() => {
-      cy.blockAllFeatureFlag()
-    })
-
     it('should be able to restore mnemonic words', function () {
       cy.exitWallet()
       cy.restoreMnemonicWords(settingsRecoveryWords)
@@ -91,7 +84,6 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   const settingsRecoveryWords: string[] = []
 
   before(() => {
-    cy.blockAllFeatureFlag()
     cy.createEmptyWallet()
     cy.visit('/')
     cy.exitWallet()
@@ -106,8 +98,8 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   })
 
   it('should refresh recovery word', function () {
-    cy.getByTestID('create_wallet_button').click()
-    cy.getByTestID('guidelines_switch').click()
+    cy.getByTestID('get_started_button').click()
+    cy.getByTestID('guidelines_check').click()
     cy.getByTestID('create_recovery_words_button').click()
     cy.url().should('include', 'wallet/mnemonic/create')
     cy.wrap(Array.from(Array(24), (v, i) => i)).each((el, i: number) => {
@@ -130,6 +122,8 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
         cy.getByTestID('verify_button').click()
         cy.selectMnemonicWords(recoveryWords)
         cy.setupPinCode()
+        cy.getByTestID('wallet_create_success').should('exist')
+        cy.getByTestID('continue_button').should('exist').click()
       })
     })
   })
@@ -139,10 +133,6 @@ context('Onboarding - Create Mnemonic Wallet with refresh recovery word', () => 
   })
 
   context('Restore - Refreshed Mnemonic Verification', () => {
-    before(() => {
-      cy.blockAllFeatureFlag()
-    })
-
     it('should be able to restore refreshed mnemonic words', function () {
       cy.exitWallet()
       cy.restoreMnemonicWords(settingsRecoveryWords)

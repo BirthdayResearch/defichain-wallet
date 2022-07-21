@@ -1,43 +1,56 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { View } from '@components/index'
-import { Button } from '@components/Button'
-import { ThemedScrollView } from '@components/themed'
+import { ThemedScrollViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../WalletNavigator'
-import { OnboardingCarousel } from './components/OnboardingCarousel'
+import { ImageBackground } from 'react-native'
+import { ButtonV2 } from '@components/ButtonV2'
+import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
+import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
+import { VersionTagV2 } from '@components/VersionTagV2'
+import { OnboardingCarousel } from '@screens/WalletNavigator/screens/components/OnboardingCarousel'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export function Onboarding (): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>()
+  const { isLight } = useThemeContext()
+  const { top: topInset } = useSafeAreaInsets()
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('h-full')}
+    <ThemedScrollViewV2
+      contentContainerStyle={{ paddingTop: topInset + 88, paddingBottom: 40 }}
       style={tailwind('flex-1')}
+      light={tailwind('bg-mono-light-v2-00')}
+      dark={tailwind('bg-mono-dark-v2-00')}
       testID='onboarding_carousel'
     >
-      <View style={tailwind('h-4/6')}>
+      <View style={tailwind('flex-1')}>
         <OnboardingCarousel />
       </View>
-
-      <View style={tailwind('mt-8 px-4')}>
-        <Button
-          label={translate('screens/Onboarding', 'CREATE A WALLET')}
-          margin='m-2'
-          onPress={() => navigator.navigate('CreateWalletGuidelines')}
-          testID='create_wallet_button'
-          title='create_wallet'
-        />
-
-        <Button
-          fill='flat'
-          label={translate('screens/Onboarding', 'RESTORE WALLET')}
-          margin='m-2'
-          onPress={() => navigator.navigate('RestoreMnemonicWallet')}
-          testID='restore_wallet_button'
-          title='restore_wallet'
-        />
+      <View>
+        <ImageBackground
+          source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
+          style={tailwind('px-8')}
+          resizeMode='cover'
+        >
+          <ButtonV2
+            label={translate('screens/Onboarding', 'Get started')}
+            styleProps='mx-2 mt-20'
+            onPress={() => navigator.navigate('CreateWalletGuidelines')}
+            testID='get_started_button'
+          />
+          <ButtonV2
+            fill='flat'
+            label={translate('screens/Onboarding', 'Restore wallet')}
+            styleProps='mx-2 mt-4 mb-11'
+            onPress={() => navigator.navigate('RestoreMnemonicWallet')}
+            testID='restore_wallet_button'
+          />
+        </ImageBackground>
+        <VersionTagV2 />
       </View>
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
