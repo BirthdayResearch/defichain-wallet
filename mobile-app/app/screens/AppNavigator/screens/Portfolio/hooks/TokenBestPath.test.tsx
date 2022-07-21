@@ -65,7 +65,8 @@ jest.mock('@shared-contexts/WhaleContext', () => ({
             rewardLoanPct: '0.1'
           }
         ],
-        estimatedReturn: '10000.00000000'
+        estimatedReturn: '10000.00000000',
+        estimatedReturnLessDexFees: '1.0'
       })
     }
   })
