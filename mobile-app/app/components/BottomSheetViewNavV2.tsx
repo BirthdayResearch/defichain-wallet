@@ -1,9 +1,8 @@
-import * as React from 'react'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack'
 import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { NavigationContainer, Theme } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import {
   AddOrRemoveCollateralFormProps
 } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
@@ -93,8 +92,8 @@ export const BottomSheetWebWithNavV2 = React.memo((props: BottomSheetWithNavProp
 const Navigator = (props: BottomSheetWithNavProps): JSX.Element => {
   const { isLight } = useThemeContext()
   const { isFeatureAvailable } = useFeatureFlagContext()
-  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
-  const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight)
+  const DeFiChainTheme = getDefaultTheme(isLight)
+  const DeFiChainThemeV2 = getDefaultThemeV2(isLight)
   const BottomSheetWithNavStack = createStackNavigator<BottomSheetWithNavRouteParam>()
   const screenOptions = useMemo<StackNavigationOptions>(
     () => ({
