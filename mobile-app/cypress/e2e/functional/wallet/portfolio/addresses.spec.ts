@@ -187,7 +187,8 @@ context('Wallet - Addresses should persist addresses after restore with no activ
   it('should start creation of mnemonic wallet and store values of local address', function () {
     cy.startCreateMnemonicWallet(recoveryWords)
     cy.selectMnemonicWords(recoveryWords)
-    cy.setupPinCode()
+    cy.setupPinCode().wait(1000)
+    cy.getByTestID('continue_button').click().wait(2000)
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
@@ -230,7 +231,8 @@ context('Wallet - Addresses should persist addresses after restore with active a
   it('should start creation of mnemonic wallet and store values of local addresses', function () {
     cy.startCreateMnemonicWallet(recoveryWords)
     cy.selectMnemonicWords(recoveryWords)
-    cy.setupPinCode()
+    cy.setupPinCode().wait(1000)
+    cy.getByTestID('continue_button').click().wait(2000)
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
