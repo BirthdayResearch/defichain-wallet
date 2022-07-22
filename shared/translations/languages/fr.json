@@ -502,11 +502,15 @@
     "AMOUNT BALANCE": "MONTANT SOLDE",
     "AVAILABLE OPTIONS": "OPTIONS DISPONIBLES",
     "Send to other wallet": "Envoyer à un autre portefeuille",
+    "Receive": "Recevoir",
     "Receive {{token}}": "Recevoir {{token}}",
     "Convert to {{symbol}}": "Convertir en {{symbol}}",
     "Add to liquidity pool": "Ajouter au pool de liquidité",
     "Remove liquidity": "Retirer la liquidité",
-    "Swap token": "Échanger le token"
+    "Swap token": "Échanger le token",
+    "Balance": "Solde",
+    "Swap": "Échanger",
+    "Add liquidity": "Ajout de liquidité"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "En savoir plus sur les UTXO et les tokens",
@@ -1005,7 +1009,11 @@
     "Locked": "Verrouillés",
     "Available": "Disponibles",
     "as UTXO": "comme UTXO",
-    "as Token": "comme Token"
+    "as Token": "comme Token",
+    "As UTXO": "Comme UTXO",
+    "As Token": "Comme Token",
+    "Your pool shares": "Mes parts de pool",
+    "Shares in {{token}}": "Parts en {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI) est réservée aux frais."
