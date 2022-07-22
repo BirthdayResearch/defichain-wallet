@@ -390,7 +390,7 @@ function AddressDetailAction ({
         style={tailwind('py-2 px-3 ml-1 flex-row justify-center')}
         onPress={onTransactionsButtonPress}
         textStyle={tailwind('pt-0.5')}
-        testID='bottom_tab_transactions'
+        testID='transactions_tab'
       />
     </View>
   )
