@@ -166,7 +166,7 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifica l'etichetta dell'indirizzo",
-    "Edit wallet label": "Edit wallet label",
+    "Edit Wallet Label": "Edit Wallet Label",
     "ADDRESS LABEL": "ETICHETTA DELL'INDIRIZZO",
     "LABEL": "LABEL",
     "Enter label": "Enter label",
@@ -177,7 +177,8 @@
     "Save changes": "Salva modifiche",
     "Address label is too long (max 30 characters)": "L'etichetta dell'indirizzo è troppo lunga (max 30 caratteri)",
     "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
-    "{{length}}/40 characters": "{{length}}/40 characters"
+    "{{length}}/40 characters": "{{length}}/40 characters",
+    "Save label": "Save label"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Modifica l'etichetta dell'indirizzo",
@@ -232,7 +233,8 @@
   },
   "components/toaster": {
     "Copied": "Copiato",
-    "Address copied": "Address copied"
+    "Address copied": "Address copied",
+    "Wallet created": "Wallet created"
   },
   "screens/SendScreen": {
     "Send": "Invia",
@@ -700,7 +702,8 @@
   "screens/common": {
     "CANCEL": "ANNULLA",
     "Cancel": "Annulla",
-    "TRY AGAIN": "RIPROVA"
+    "TRY AGAIN": "RIPROVA",
+    "Skip": "Skip"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",

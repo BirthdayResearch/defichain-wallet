@@ -157,7 +157,7 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址標籤",
-    "Edit wallet label": "Edit wallet label",
+    "Edit Wallet Label": "Edit Wallet Label",
     "ADDRESS LABEL": "地址標籤",
     "LABEL": "LABEL",
     "Enter label": "輸入標籤",
@@ -168,7 +168,8 @@
     "Save changes": "儲存修改",
     "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
     "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
-    "{{length}}/40 characters": "{{length}}/40 characters"
+    "{{length}}/40 characters": "{{length}}/40 characters",
+    "Save label": "Save label"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "更改地址標籤",
@@ -221,7 +222,8 @@
   },
   "components/toaster": {
     "Copied": "複製到剪貼板",
-    "Address copied": "Address copied"
+    "Address copied": "Address copied",
+    "Wallet created": "錢包已創建"
   },
   "screens/SendScreen": {
     "Send": "移出資金",
@@ -686,7 +688,8 @@
   "screens/common": {
     "CANCEL": "取消",
     "Cancel": "取消",
-    "TRY AGAIN": "再試一次"
+    "TRY AGAIN": "再試一次",
+    "Skip": "Skip"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼",

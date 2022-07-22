@@ -157,7 +157,7 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
-    "Edit wallet label": "Walletbezeichnung editieren",
+    "Edit Wallet Label": "Walletbezeichnung editieren",
     "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
     "LABEL": "BEZEICHNUNG",
     "Enter label": "Bezeichnung eingeben",
@@ -168,7 +168,8 @@
     "Save changes": "Änderungen sichern",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
     "Invalid label. Maximum of 40 characters.": "Ungültige Bezeichnung. Maximum von 40 Zeichen",
-    "{{length}}/40 characters": "{{length}}/40 Zeichen"
+    "{{length}}/40 characters": "{{length}}/40 Zeichen",
+    "Save label": "Bezeichnung speichern"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -221,7 +222,8 @@
   },
   "components/toaster": {
     "Copied": "Kopiert",
-    "Address copied": "Adresse kopiert"
+    "Address copied": "Adresse kopiert",
+    "Wallet created": "Wallet erstellt"
   },
   "screens/SendScreen": {
     "Send": "Senden",
@@ -682,7 +684,8 @@
   "screens/common": {
     "CANCEL": "ABBRECHEN",
     "Cancel": "Abbrechen",
-    "TRY AGAIN": "ERNEUT VERSUCHEN"
+    "TRY AGAIN": "ERNEUT VERSUCHEN",
+    "Skip": "Überspringen"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet",
