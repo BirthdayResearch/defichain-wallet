@@ -1,6 +1,6 @@
 import { View } from '@components'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -61,23 +61,6 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           >
             {translate('screens/PortfolioScreen', 'Total Portfolio Value')}
           </ThemedText>
-          <View style={tailwind('px-2')}>
-            <ThemedTouchableOpacity
-              testID='toggle_balance'
-              light={tailwind('bg-transparent border-gray-200')}
-              dark={tailwind('bg-transparent border-gray-700')}
-              onPress={props.onToggleDisplayBalances}
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                dark={tailwind('text-darkprimary-500')}
-                light={tailwind('text-primary-500')}
-                name={`${props.isBalancesDisplayed ? 'visibility' : 'visibility-off'}`}
-                size={18}
-                testID='toggle_usd_breakdown_icon'
-              />
-            </ThemedTouchableOpacity>
-          </View>
           {
             props.portfolioButtonGroupOptions !== undefined &&
             (

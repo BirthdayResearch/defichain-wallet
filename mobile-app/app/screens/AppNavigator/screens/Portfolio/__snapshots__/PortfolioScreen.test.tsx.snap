@@ -38,6 +38,282 @@ exports[`portfolio page should match snapshot 1`] = `
         style={
           Array [
             Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
+              "flexDirection": "row",
+              "opacity": 1,
+              "overflow": "hidden",
+            }
+          }
+          testID="switch_account_button"
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "paddingBottom": 2,
+                  "paddingLeft": 2,
+                  "paddingRight": 2,
+                  "paddingTop": 2,
+                },
+                Object {
+                  "backgroundColor": "rgba(18, 18, 18, 1)",
+                },
+              ]
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={24}
+              bbWidth={24}
+              fill="none"
+              focusable={false}
+              height={24}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 24,
+                    "width": 24,
+                  },
+                ]
+              }
+              vbHeight={80}
+              vbWidth={80}
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <RNSVGGroup
+                fill={null}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+              >
+                <RNSVGMask
+                  height={80}
+                  maskContentUnits={1}
+                  maskTransform={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  maskUnits={1}
+                  name="mask__bauhaus"
+                  width={80}
+                  x={0}
+                  y={0}
+                >
+                  <RNSVGRect
+                    fill={4294967295}
+                    height={80}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    rx={160}
+                    width={80}
+                    x={0}
+                    y={0}
+                  />
+                </RNSVGMask>
+                <RNSVGGroup
+                  mask="mask__bauhaus"
+                >
+                  <RNSVGRect
+                    fill={4284158207}
+                    height={80}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    width={80}
+                    x={0}
+                    y={0}
+                  />
+                  <RNSVGRect
+                    fill={4294945863}
+                    height={80}
+                    matrix={
+                      Array [
+                        -0.46947156278589075,
+                        -0.882947592858927,
+                        0.882947592858927,
+                        -0.46947156278589075,
+                        23.46095879707855,
+                        94.0967662257927,
+                      ]
+                    }
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    width={80}
+                    x={10}
+                    y={30}
+                  />
+                  <RNSVGCircle
+                    cx={40}
+                    cy={40}
+                    fill={4278234397}
+                    matrix={
+                      Array [
+                        1,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                      ]
+                    }
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGLine
+                    matrix={
+                      Array [
+                        -0.5591929034707467,
+                        0.8290375725550417,
+                        -0.8290375725550417,
+                        -0.5591929034707467,
+                        91.52921904103154,
+                        33.2062132366282,
+                      ]
+                    }
+                    propList={
+                      Array [
+                        "stroke",
+                        "strokeWidth",
+                      ]
+                    }
+                    stroke={4279316113}
+                    strokeWidth={2}
+                    x1={0}
+                    x2={80}
+                    y1={40}
+                    y2={40}
+                  />
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+          <Text
+            ellipsizeMode="middle"
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontFamily": "SoraSemiBold",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "lineHeight": 20,
+                      "marginLeft": 8,
+                    },
+                    Object {
+                      "maxWidth": 124,
+                      "minWidth": 10,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(18, 18, 18, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="wallet_address"
+          >
+            bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={false}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "marginLeft": 8,
+              "opacity": 1,
+            }
+          }
+          testID="toggle_balance"
+        >
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
               "borderBottomLeftRadius": 8,
               "borderBottomRightRadius": 8,
               "borderTopLeftRadius": 8,
@@ -101,42 +377,6 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               Total Portfolio Value
             </Text>
-            <View
-              style={
-                Object {
-                  "paddingLeft": 8,
-                  "paddingRight": 8,
-                }
-              }
-            >
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={false}
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "backgroundColor": "transparent",
-                    "borderBottomColor": "rgba(229, 229, 229, 1)",
-                    "borderLeftColor": "rgba(229, 229, 229, 1)",
-                    "borderRightColor": "rgba(229, 229, 229, 1)",
-                    "borderTopColor": "rgba(229, 229, 229, 1)",
-                    "opacity": 1,
-                  }
-                }
-                testID="toggle_balance"
-              >
-                <Text />
-              </View>
-            </View>
             <View
               style={
                 Array [

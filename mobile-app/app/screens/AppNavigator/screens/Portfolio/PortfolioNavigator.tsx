@@ -2,10 +2,9 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity } from 'react-native'
+import { Image, Platform } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
 import { HeaderTitle } from '@components/HeaderTitle'
-import { ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
@@ -40,6 +39,10 @@ import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/T
 import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
 import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
+import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
+import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 
@@ -123,7 +126,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isFeatureAvailable } = useFeatureFlagContext()
-
+  const { isLight } = useThemeContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkDetails')
   }
@@ -147,28 +150,25 @@ export function PortfolioNavigator (): JSX.Element {
         component={PortfolioScreen}
         name='PortfolioScreen'
         options={{
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Settings')}
-              testID='header_settings'
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name='settings'
-                size={28}
-                style={tailwind('ml-2')}
-                light={tailwind('text-primary-500')}
-                dark={tailwind('text-darkprimary-500')}
-              />
-            </TouchableOpacity>
-          ),
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/PortfolioScreen', 'Portfolio')}
-              containerTestID={headerContainerTestId}
+          ...screenOptions,
+          headerBackgroundContainerStyle: tailwind('overflow-hidden', { 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }),
+          headerBackground: () => (
+            <Image
+              source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
+              style={{ height: 220, width: '100%' }}
+              resizeMode='cover'
             />
           ),
-          headerBackTitleVisible: false
+          headerLeft: () => (
+            <HeaderSettingButton />
+          ),
+          headerLeftContainerStyle: tailwind('pl-5', { 'pb-2': Platform.OS === 'ios', 'pb-1.5': Platform.OS !== 'ios' }),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: () => (
+            <></>
+          )
         }}
       />
 
@@ -180,7 +180,6 @@ export function PortfolioNavigator (): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
           headerTitle: translate('screens/ReceiveScreen', 'Receive')
         }}
       />
