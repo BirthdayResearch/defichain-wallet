@@ -7,7 +7,7 @@ import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { BalanceText } from './BalanceText'
 import { useEffect, useState } from 'react'
@@ -69,26 +69,28 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={onCurrencySwitch}
-                style={tailwind('flex flex-row items-center')}
+                style={tailwind('flex flex-row items-center  w-10/12')}
               >
                 <NumberFormat
                   displayType='text'
                   prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
                   renderText={(value) =>
                     <BalanceTextV2
-                      style={[tailwind('flex-wrap font-semibold-v2 max-w-4/5 mr-2'), { fontSize: 28, lineHeight: 36 }]}
+                      style={[tailwind('font-semibold-v2 mr-2'), { fontSize: 28, lineHeight: 36 }]}
                       testID='total_usd_amount'
                       value={value}
-                    />}
+                    >
+                      {activeButtonGroup !== undefined && <CurrencySwitcher currency={activeButtonGroup.label} />}
+                    </BalanceTextV2>}
                   thousandSeparator
                   value={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getPrecisedCurrencyValue(totalPortfolioValue) : getPrecisedTokenValue(totalPortfolioValue)}
                 />
-                {activeButtonGroup !== undefined && <CurrencySwitcher currency={activeButtonGroup.label} />}
+
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => setIsExpanded(!isExpanded)}
-                style={tailwind('flex flex-row')}
+                style={tailwind('')}
                 testID='toggle_portfolio'
               >
                 <ThemedIcon
@@ -209,10 +211,10 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
   )
 }
 
-function CurrencySwitcher ({ currency }: {currency: string}): JSX.Element {
+function CurrencySwitcher ({ currency }: { currency: string }): JSX.Element {
   return (
     <ThemedViewV2
-      style={tailwind('py-1 px-2 rounded-lg border-0.5')}
+      style={tailwind('py-1 px-2 rounded-lg border-0.5', { '-mb-1.5': Platform.OS === 'android' })}
       light={tailwind('border-mono-light-v2-900')}
       dark={tailwind('border-mono-dark-v2-900')}
     >

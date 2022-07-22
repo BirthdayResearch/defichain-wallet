@@ -47,6 +47,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
           "display": "flex",
           "flexDirection": "row",
           "opacity": 1,
+          "width": "83.333333%",
         }
       }
     >
@@ -62,11 +63,9 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
             Array [
               Array [
                 Object {
-                  "flexWrap": "wrap",
                   "fontFamily": "SoraSemiBold",
                   "fontWeight": "600",
                   "marginRight": 8,
-                  "maxWidth": "80%",
                 },
                 Object {
                   "fontSize": 28,
@@ -82,59 +81,68 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
         testID="total_usd_amount"
       >
         $1,200.00
-      </Text>
-      <View
-        style={
-          Array [
+        <View
+          style={
             Object {
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderBottomWidth": 0.5,
-              "borderLeftWidth": 0.5,
-              "borderRightWidth": 0.5,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "borderTopWidth": 0.5,
               "paddingBottom": 4,
               "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 4,
-            },
-            Object {
-              "borderBottomColor": "rgba(18, 18, 18, 1)",
-              "borderLeftColor": "rgba(18, 18, 18, 1)",
-              "borderRightColor": "rgba(18, 18, 18, 1)",
-              "borderTopColor": "rgba(18, 18, 18, 1)",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                },
-                Object {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
-              ],
-            ]
+            }
           }
         >
-          USD
-        </Text>
-      </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 8,
+                  "borderBottomRightRadius": 8,
+                  "borderBottomWidth": 0.5,
+                  "borderLeftWidth": 0.5,
+                  "borderRightWidth": 0.5,
+                  "borderTopLeftRadius": 8,
+                  "borderTopRightRadius": 8,
+                  "borderTopWidth": 0.5,
+                  "paddingBottom": 4,
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                  "paddingTop": 4,
+                },
+                Object {
+                  "borderBottomColor": "rgba(18, 18, 18, 1)",
+                  "borderLeftColor": "rgba(18, 18, 18, 1)",
+                  "borderRightColor": "rgba(18, 18, 18, 1)",
+                  "borderTopColor": "rgba(18, 18, 18, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              USD
+            </Text>
+          </View>
+        </View>
+      </Text>
     </View>
     <View
       accessible={true}
@@ -149,8 +157,6 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "display": "flex",
-          "flexDirection": "row",
           "opacity": 1,
         }
       }
