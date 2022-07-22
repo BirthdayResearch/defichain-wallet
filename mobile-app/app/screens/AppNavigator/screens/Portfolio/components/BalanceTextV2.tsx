@@ -2,7 +2,7 @@
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { ThemedProps, ThemedTextV2 } from '@components/themed'
 import { TextProps, View } from '@components'
-import { StyleProp, TextStyle } from 'react-native'
+import { Platform, StyleProp, TextStyle } from 'react-native'
 import { tailwind } from '@tailwind'
 
 interface BalanceTextProps {
@@ -18,12 +18,16 @@ export function BalanceTextV2 ({ symbol, value, style, children, ...otherProps }
   } = useDisplayBalancesContext()
 
   return (
-    <ThemedTextV2
-      style={style}
-      {...otherProps}
+    <ThemedTextV2 // first layer of text component to make sure children component display inline with `value` even when it is wrapped to multi-line
+      style={tailwind('flex flex-row items-center')} // for non-mobile center styling
     >
-      {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`.trim()}
-      <View style={tailwind('pl-2 pb-1')}>
+      <ThemedTextV2 // second layer of text component to target exact `value` by using testID in e2e
+        style={style}
+        {...otherProps}
+      >
+        {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`.trim()}
+      </ThemedTextV2>
+      <View style={tailwind('pb-1', { 'pl-2': Platform.OS === 'ios' || Platform.OS === 'android' })}>
         {children}
       </View>
     </ThemedTextV2>

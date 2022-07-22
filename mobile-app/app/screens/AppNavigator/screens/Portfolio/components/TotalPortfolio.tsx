@@ -69,7 +69,8 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={onCurrencySwitch}
-                style={tailwind('flex flex-row items-center  w-10/12')}
+                style={tailwind('flex flex-row items-center w-10/12')}
+                testID='portfolio_currency_switcher'
               >
                 <NumberFormat
                   displayType='text'
@@ -219,6 +220,7 @@ function CurrencySwitcher ({ currency }: { currency: string }): JSX.Element {
     >
       <ThemedTextV2
         style={tailwind('text-xs font-normal-v2')}
+        testID='portfolio_active_currency'
       >
         {currency}
       </ThemedTextV2>

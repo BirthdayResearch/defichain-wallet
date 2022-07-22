@@ -50,6 +50,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
           "width": "83.333333%",
         }
       }
+      testID="portfolio_currency_switcher"
     >
       <Text
         style={
@@ -61,29 +62,52 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "fontFamily": "SoraSemiBold",
-                  "fontWeight": "600",
-                  "marginRight": 8,
-                },
-                Object {
-                  "fontSize": 28,
-                  "lineHeight": 36,
-                },
-              ],
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              },
               Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
           ]
         }
-        testID="total_usd_amount"
       >
-        $1,200.00
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "fontFamily": "SoraSemiBold",
+                    "fontWeight": "600",
+                    "marginRight": 8,
+                  },
+                  Object {
+                    "fontSize": 28,
+                    "lineHeight": 36,
+                  },
+                ],
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+          testID="total_usd_amount"
+        >
+          $1,200.00
+        </Text>
         <View
           style={
             Object {
@@ -140,6 +164,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
                   ],
                 ]
               }
+              testID="portfolio_active_currency"
             >
               USD
             </Text>
