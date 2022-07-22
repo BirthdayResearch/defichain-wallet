@@ -285,16 +285,16 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     const dUSDCDUSDPair = pairs.find((p) => p.data.displaySymbol === 'dUSDC-DUSD')
     const dUSDTDUSDPair = pairs.find((p) => p.data.displaySymbol === 'dUSDT-DUSD')
 
-    if (dusdDFIPair !== undefined) {
+    if (dusdDFIPair !== undefined && dexStabilizationPair.tokenADisplaySymbol === 'DUSD' && dexStabilizationPair.tokenBDisplaySymbol === 'DFI') {
       fee = dusdDFIPair.data.tokenA.fee?.pct
-    } else if (dUSDCDUSDPair !== undefined) {
+    } else if (dUSDCDUSDPair !== undefined && dexStabilizationPair.tokenADisplaySymbol === 'DUSD' && dexStabilizationPair.tokenBDisplaySymbol === 'dUSDC') {
       fee = dUSDCDUSDPair.data.tokenB.fee?.pct
-    } else if (dUSDTDUSDPair !== undefined) {
+    } else if (dUSDTDUSDPair !== undefined && dexStabilizationPair.tokenADisplaySymbol === 'DUSD' && dexStabilizationPair.tokenBDisplaySymbol === 'dUSDT') {
       fee = dUSDTDUSDPair.data.tokenB.fee?.pct
     }
 
     setDexStabilizationFee(fee !== undefined ? new BigNumber(fee).times(100).toFixed(2) : undefined)
-  }, [])
+  }, [dexStabilizationPair])
 
   useEffect(() => {
     if (route.params.pair?.id === undefined && route.params.fromToken === undefined) {

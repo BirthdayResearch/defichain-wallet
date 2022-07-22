@@ -2,7 +2,7 @@ import { AnnouncementData } from '@shared-types/website'
 import { Announcement, findDisplayedAnnouncementForVersion } from '../../Portfolio/components/Announcements'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { nativeApplicationVersion } from 'expo-application'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { OwnedTokenState, TokenState } from '../CompositeSwap/CompositeSwapScreen'
 import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath'
 import { useFocusEffect } from '@react-navigation/native'
@@ -33,9 +33,7 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
   const [announcementToDisplay, setAnnouncementToDisplay] = useState<AnnouncementData[]>()
   const [dexStabilization, setDexStabilization] = useState<DexStabilization>({ dexStabilizationType: 'none', pair: { tokenADisplaySymbol: '', tokenBDisplaySymbol: '' } })
 
-  const swapAnnouncement = useMemo((): Announcement | undefined => {
-    return findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, [], announcementToDisplay)
-  }, [announcementToDisplay, tokenA, tokenB])
+  const swapAnnouncement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, [], announcementToDisplay)
 
   useFocusEffect(useCallback(() => {
     const _setDexStabilizationType = async (): Promise<void> => {
@@ -47,7 +45,7 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
 
     _setDexStabilizationType()
     _setAnnouncementToDisplay()
-  }, [tokenA, tokenB]))
+  }, [tokenA, tokenB, fee]))
 
   const getHighFeesUrl = (tokenA: OwnedTokenState, tokenB: TokenState): string => {
     let highFeesUrl = ''
@@ -119,7 +117,7 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     return announcement
   }, [])
 
-  const _getDexStabilization = useCallback(async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB): Promise<DexStabilization> => {
+  const _getDexStabilization = async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB): Promise<DexStabilization> => {
     let _dexStabilization: DexStabilization = {
       dexStabilizationType: 'none',
       pair: {
@@ -141,7 +139,13 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
           (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') ||
           (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') ||
           (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC'))) {
-        _dexStabilization.dexStabilizationType = 'direct-dusd-with-fee'
+        _dexStabilization = {
+          dexStabilizationType: 'direct-dusd-with-fee',
+          pair: {
+            tokenADisplaySymbol: tokenA.displaySymbol,
+            tokenBDisplaySymbol: tokenB.displaySymbol
+          }
+        }
       }
 
       const dUSDandDFIPairIndex = bestPath.findIndex(path => {
@@ -160,9 +164,12 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
       /*
         Otherwise, check for composite swap
           1. Get index of DUSD-(DFI | USDT | USDC) pair
-          2. Check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC
+          2. If index === 0 Check if first leg in best path is DUSD-(DFI | USDT | USDC) and second leg is (DFI | USDT | USDC) respectively
+          3. Else check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC
       */
-      if (dUSDandDFIPairIndex !== -1 && bestPath[dUSDandDFIPairIndex - 1]?.tokenB.displaySymbol === 'DUSD') {
+      if (
+        (dUSDandDFIPairIndex === 0 && (bestPath[dUSDandDFIPairIndex + 1]?.tokenA.displaySymbol === 'DFI' || bestPath[dUSDandDFIPairIndex + 1]?.tokenB.displaySymbol === 'DFI')) ||
+        (dUSDandDFIPairIndex !== -1 && bestPath[dUSDandDFIPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
         _dexStabilization = {
           dexStabilizationType: 'composite-dusd-with-fee',
           pair: {
@@ -170,7 +177,9 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
             tokenBDisplaySymbol: 'DFI'
           }
         }
-      } else if (dUSDandUSDTPairIndex !== -1 && bestPath[dUSDandUSDTPairIndex - 1]?.tokenB.displaySymbol === 'DUSD') {
+      } else if (
+        (dUSDandUSDTPairIndex === 0 && (bestPath[dUSDandUSDTPairIndex + 1]?.tokenA.displaySymbol === 'dUSDT' || bestPath[dUSDandUSDTPairIndex + 1]?.tokenB.displaySymbol === 'dUSDT')) ||
+        (dUSDandUSDTPairIndex !== -1 && bestPath[dUSDandUSDTPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
         _dexStabilization = {
           dexStabilizationType: 'composite-dusd-with-fee',
           pair: {
@@ -178,7 +187,9 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
             tokenBDisplaySymbol: 'dUSDT'
           }
         }
-      } else if (dUSDandUSDCPairIndex !== -1 && bestPath[dUSDandUSDCPairIndex - 1]?.tokenB.displaySymbol === 'DUSD') {
+      } else if (
+        (dUSDandUSDCPairIndex === 0 && (bestPath[dUSDandUSDCPairIndex + 1]?.tokenA.displaySymbol === 'dUSDC' || bestPath[dUSDandUSDCPairIndex + 1]?.tokenB.displaySymbol === 'dUSDC')) ||
+        (dUSDandUSDCPairIndex !== -1 && bestPath[dUSDandUSDCPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
         _dexStabilization = {
           dexStabilizationType: 'composite-dusd-with-fee',
           pair: {
@@ -189,7 +200,7 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
       }
     }
     return _dexStabilization
-  }, [])
+  }
 
   return {
     dexStabilizationAnnouncement: swapAnnouncement,
