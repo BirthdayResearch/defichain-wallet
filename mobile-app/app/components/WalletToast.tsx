@@ -10,15 +10,15 @@ interface WalletToastProps {
 export function WalletToast (props: WalletToastProps): JSX.Element {
   return (
     <ThemedView
-      style={tailwind('pb-1.5 pt-1 px-4 mt-16 rounded-3xl')}
-      dark={tailwind('bg-gray-600')}
-      light={tailwind('bg-gray-900')}
+      style={tailwind('py-2 px-4 mt-16 rounded-3xl')}
+      dark={tailwind('bg-green-v2')}
+      light={tailwind('bg-green-v2')}
       testID='wallet_toast'
     >
       <ThemedText
-        style={tailwind('text-lg')}
-        dark={tailwind('text-gray-50')}
-        light={tailwind('text-white')}
+        style={tailwind('font-normal-v2 text-xs')}
+        dark={tailwind('text-mono-dark-v2-00')}
+        light={tailwind('text-mono-dark-v2-00')}
       >
         {translate('components/WalletToast', props.toast.message as string)}
       </ThemedText>
