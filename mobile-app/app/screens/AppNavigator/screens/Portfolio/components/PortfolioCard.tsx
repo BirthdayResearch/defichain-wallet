@@ -8,7 +8,6 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { View } from '@components'
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
-import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
 import { EmptyBalances } from './EmptyBalances'
@@ -21,6 +20,7 @@ import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
 import { EmptyPortfolio } from './EmptyPortfolio'
+import { PortfolioButtonGroup } from '@screens/AppNavigator/screens/Portfolio/components/PortfolioButtonGroup'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -110,14 +110,16 @@ export function PortfolioCard ({
         buttonGroupOptions !== undefined &&
         (
           <>
-            <View style={tailwind('p-4')}>
-              <ButtonGroup
+            <ThemedView
+              light={tailwind('bg-gray-50')}
+              style={tailwind('pl-5 mt-6 mb-4')}
+            >
+              <PortfolioButtonGroup
                 buttons={buttonGroup}
                 activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
                 testID='portfolio_button_group'
               />
-            </View>
+            </ThemedView>
           </>
         )
       }

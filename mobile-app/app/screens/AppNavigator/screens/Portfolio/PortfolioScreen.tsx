@@ -36,7 +36,6 @@ import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
-
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
 export interface PortfolioRowToken extends WalletToken {
@@ -470,6 +469,24 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
         <Announcements />
+        {!hasFetchedToken
+          ? (
+            <View style={tailwind('p-4')}>
+              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
+            </View>
+          )
+          : (<PortfolioCard
+            isZeroBalance={isZeroBalance}
+            dstTokens={combinedTokens}
+            filteredTokens={sortTokensAssetOnType(assetSortType)}
+            navigation={navigation}
+            buttonGroupOptions={{
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
+            denominationCurrency={denominationCurrency}
+          />)}
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
@@ -497,24 +514,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
-        {!hasFetchedToken
-          ? (
-            <View style={tailwind('p-4')}>
-              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
-            </View>
-          )
-          : (<PortfolioCard
-              isZeroBalance={isZeroBalance}
-              dstTokens={combinedTokens}
-              filteredTokens={sortTokensAssetOnType(assetSortType)}
-              navigation={navigation}
-              buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
-              denominationCurrency={denominationCurrency}
-             />)}
         {Platform.OS === 'web'
           ? (
             <BottomSheetWebWithNav
