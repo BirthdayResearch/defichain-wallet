@@ -126,8 +126,8 @@ export function PortfolioCard ({
           <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
             <PortfolioItemRow
               onPress={() => navigation.navigate({
-                name: 'TokenDetail',
-                params: { token: item },
+                name: 'Balance',
+                params: { token: item, usdAmount: item.usdAmount },
                 merge: true
               })}
               token={item}

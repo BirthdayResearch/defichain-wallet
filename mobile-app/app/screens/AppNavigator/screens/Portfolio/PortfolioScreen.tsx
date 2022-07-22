@@ -469,6 +469,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
+        <Announcements />
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
