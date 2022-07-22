@@ -2,11 +2,10 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
-import { ConnectionStatus, HeaderTitle } from '@components/HeaderTitle'
-import { getNativeIcon } from '@components/icons/assets'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { HeaderTitle } from '@components/HeaderTitle'
+import { ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
@@ -17,7 +16,6 @@ import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
-import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
@@ -41,8 +39,9 @@ import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
 import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
 import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
 import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
-import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { TokenDetailScreen } from './screens/TokenDetailScreen'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -257,29 +256,14 @@ export function PortfolioNavigator (): JSX.Element {
 
       <PortfolioStack.Screen
         component={TokenDetailScreen}
-        name='TokenDetail'
-        options={({ route }: { route: any }) => ({
-          headerTitle: () => {
-            const token = route?.params?.token
-            const Icon = getNativeIcon(token.displaySymbol)
-            return (
-              <HeaderTitle containerTestID={headerContainerTestId}>
-                <View style={tailwind('flex-row items-center')}>
-                  <Icon />
-
-                  <View style={tailwind('flex-col ml-2')}>
-                    <ThemedText style={tailwind('font-semibold')}>
-                      {token.displaySymbol}
-                    </ThemedText>
-
-                    <ConnectionStatus />
-                  </View>
-                </View>
-              </HeaderTitle>
-            )
-          },
-          headerBackTitleVisible: false
-        })}
+        name='Balance'
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/TokenDetailScreen', 'Balance')
+        }}
       />
 
       <PortfolioStack.Screen
