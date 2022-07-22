@@ -1128,7 +1128,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         ]
                       }
                     >
-                      UTXO:
+                      UTXO: 
                     </Text>
                     <Text
                       style={
@@ -1200,7 +1200,7 @@ exports[`portfolio page should match snapshot 1`] = `
                       ]
                     }
                   >
-                    Token:
+                    Token: 
                   </Text>
                   <Text
                     style={
