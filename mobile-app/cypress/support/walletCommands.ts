@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 
 export function checkValueWithinRange (actualVal: string, expectedVal: string, range: number = 2): void {
   const value = new BigNumber(actualVal.replace(/[≈$,]/gi, '').trim())
-  const expectedValue = new BigNumber(expectedVal)
+  const expectedValue = new BigNumber(expectedVal.replace(/[≈$,]/gi, '').trim())
   expect(value.gte(expectedValue.minus(range)), `${value.toFixed(8)} should be gte ${expectedValue.minus(range).toFixed(8)}`).to.be.eq(true)
   expect(value.lte(expectedValue.plus(range)), `${value.toFixed(8)} should be lte ${expectedValue.plus(range).toFixed(8)}`).to.be.eq(true)
 }

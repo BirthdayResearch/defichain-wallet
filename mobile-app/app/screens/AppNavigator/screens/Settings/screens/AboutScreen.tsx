@@ -8,7 +8,7 @@ import {
   ThemedText,
   ThemedTextV2,
   ThemedTouchableOpacity,
-  ThemedTouchableOpacityV2,
+  ThemedTouchableListItem,
   ThemedViewV2
 } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -204,14 +204,14 @@ export function AboutScreen (): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('flex-col rounded-lg mx-5 mt-2')}
+        style={tailwind('flex-col rounded-lg-v2 mx-5 px-5 mt-2')}
       >
         {
           ABOUT_LINKS.map((link, index) => (
             <AboutLinkItem
               link={link}
               key={link.testID}
-              border={index < ABOUT_LINKS.length - 1}
+              isLast={index === ABOUT_LINKS.length - 1}
             />
           ))
         }
@@ -249,7 +249,7 @@ function LinkItemRow ({
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
       onPress={handlePress}
-      style={tailwind('flex-row px-5 py-4 items-center rounded-lg mb-2 mx-5')}
+      style={tailwind('flex-row px-5 py-4 items-center rounded-lg-v2 mb-2 mx-5')}
       testID={testID}
     >
       <View style={tailwind('flex-col flex-1 mr-8')}>
@@ -305,12 +305,12 @@ function SocialIcon ({
 
 function AboutLinkItem ({
   link,
-  border
-}: { link: AboutLinks, border: boolean }): JSX.Element {
+  isLast
+}: { link: AboutLinks, isLast: boolean }): JSX.Element {
   return (
-    <ThemedTouchableOpacityV2
+    <ThemedTouchableListItem
       testID={link.testID}
-      style={tailwind('flex-row py-5 mx-5', { 'border-b-0.5': border })}
+      isLast={isLast}
       onPress={async () => await openURL(link.url)} key={link.testID}
     >
       <ThemedTextV2
@@ -325,6 +325,6 @@ function AboutLinkItem ({
         name='external-link'
         size={16}
       />
-    </ThemedTouchableOpacityV2>
+    </ThemedTouchableListItem>
   )
 }

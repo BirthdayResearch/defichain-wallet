@@ -1,16 +1,43 @@
+import { configureStore } from '@reduxjs/toolkit'
+import { RootState } from '@store'
+import { block } from '@store/block'
 import { render } from '@testing-library/react-native'
+import { Provider } from 'react-redux'
 import { OnboardingNetworkSelectScreen } from './OnboardingNetworkSelectScreen'
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
-
+jest.mock('@shared-contexts/DeFiScanContext', () => ({
+  useDeFiScanContext: () => {
+    return { getblocksUrl: jest.fn() }
+  }
+}))
 jest.mock('@shared-contexts/NetworkContext')
 jest.mock('@shared-contexts/ThemeProvider')
 
-describe('network selection screen', () => {
+describe('onboarding network selection screen', () => {
   it('should render', async () => {
-    const rendered = render(<OnboardingNetworkSelectScreen />)
+    const initialState: Partial<RootState> = {
+      block: {
+        count: 2000,
+        masternodeCount: 10,
+        lastSuccessfulSync: 'Tue, 14 Sep 2021 15:37:10 GMT',
+        connected: true,
+        isPolling: true
+      }
+    }
+
+    const store = configureStore({
+      preloadedState: initialState,
+      reducer: { block: block.reducer }
+    })
+
+    const rendered = render(
+      <Provider store={store}>
+        <OnboardingNetworkSelectScreen />
+      </Provider>
+    )
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
