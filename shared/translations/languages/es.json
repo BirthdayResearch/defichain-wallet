@@ -499,10 +499,14 @@
     "AVAILABLE OPTIONS": "OPCIONES DISPONIBLES",
     "Send to other wallet": "Enviar a otra billetera",
     "Receive {{token}}": "Recibir {{token}}",
+    "Receive": "Recibir",
     "Convert to {{symbol}}": "Convertir a {{symbol}}",
     "Add to liquidity pool": "Añadir a la pool de liquidez",
     "Remove liquidity": "Eliminar liquidez",
-    "Swap token": "Intercambia de token"
+    "Swap token": "Intercambia de token",
+    "Balance": "Saldos",
+    "Swap": "Cambiar",
+    "Add liquidity": "Añadir liquidez"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "Aprende sobre UTXOs y Tokens",
@@ -1009,6 +1013,10 @@
     "Locked in vault(s)": "Bloqueado en la bóveda(s)",
     "as UTXO": "como UTXO",
     "as Token": "como Token",
+    "As UTXO": "Como UTXO",
+    "As Token": "Como Token",
+    "Your pool shares": "Your pool shares",
+    "Shares in {{token}}": "Shares in {{token}}",
     "Learn more about DFI": "Aprende mas sobre DFI"
   },
   "components/ReservedDFIInfoText": {
