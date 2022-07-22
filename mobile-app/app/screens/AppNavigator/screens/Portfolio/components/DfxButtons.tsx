@@ -18,6 +18,8 @@ import BtnSellFr from '@assets/images/dfx_buttons/btn_sell_FR.png'
 import BtnSellIt from '@assets/images/dfx_buttons/btn_sell_IT.png'
 import BtnSellEs from '@assets/images/dfx_buttons/btn_sell_ES.png'
 
+import BtcIcon from '@assets/images/dfx_buttons/crypto/BTC_icon.png'
+
 import BtnOverview from '@assets/images/dfx_buttons/btn_income.png'
 import BtnTax from '@assets/images/dfx_buttons/btn_tax.png'
 import BtnDobby from '@assets/images/dfx_buttons/btn_dobby.png'
@@ -26,6 +28,7 @@ import { PortfolioParamList } from '../PortfolioNavigator'
 import { useState } from 'react'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { DFXPersistence } from '@api/persistence/dfx_storage'
+import { CryptoButtonGroupTabKey } from '../screens/ReceiveDTokenScreen'
 
 export function DfxButtons (): JSX.Element {
   const { address } = useWalletContext()
@@ -110,6 +113,23 @@ export function DfxButtons (): JSX.Element {
     },
     {
       img: {
+        en: BtcIcon,
+        de: BtcIcon,
+        fr: BtcIcon,
+        it: BtcIcon,
+        es: BtcIcon
+      },
+      onPress: () => {
+        // check kycData
+        navigation.navigate({
+          name: 'ReceiveDTokenScreen',
+          params: { crypto: CryptoButtonGroupTabKey.BTC },
+          merge: true
+        })
+      }
+    },
+    {
+      img: {
         en: BtnOverview
       },
       onPress: onOverviewButtonPress
@@ -131,7 +151,7 @@ export function DfxButtons (): JSX.Element {
 
   return (
     <View style={tailwind('flex justify-center flex-row mt-3')}>
-      <View style={tailwind('flex w-6')} />
+      <View style={tailwind('flex w-0')} />
       {buttons
         .filter((b) => !(b.hide ?? false))
         .map((b, i) => (b.img.en === BtnSellEn) // loading spinner when loading userInfo
@@ -153,7 +173,7 @@ export function DfxButtons (): JSX.Element {
             )
           : <ImageButton key={i} source={b.img[language] ?? b.img.en} onPress={async () => await b.onPress()} />
       )}
-      <View style={tailwind('flex w-6')} />
+      <View style={tailwind('flex w-0')} />
     </View>
   )
 }

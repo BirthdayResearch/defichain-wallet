@@ -27,6 +27,7 @@ import { LimitRequest } from './models/LimitRequest'
 import { KycData, toKycDataDto } from './models/KycData'
 import { Settings } from './models/Settings'
 import { HistoryType } from './models/HistoryType'
+import { CryptoRoute } from './models/CryptoRoute'
 import * as Updates from 'expo-updates'
 
 const BaseUrl = getEnvironment(Updates.releaseChannel).dfxApiUrl
@@ -37,6 +38,7 @@ const BuyUrl = 'buy'
 const RouteUrl = 'route'
 const SellUrl = 'sell'
 const StakingUrl = 'staking'
+const CryptoRouteUrl = 'cryptoRoute'
 const HistoryUrl = 'history'
 const AssetUrl = 'asset'
 const FiatUrl = 'fiat'
@@ -154,6 +156,18 @@ export const postStakingRoute = async (route: StakingRoute): Promise<StakingRout
 
 export const putStakingRoute = async (route: StakingRoute): Promise<StakingRoute> => {
   return await fetchFrom<StakingRoute>(`${StakingUrl}/${route.id}`, 'PUT', route)
+}
+
+export const getCryptoRoutes = async (): Promise<CryptoRoute[]> => {
+  return await fetchFrom<CryptoRoute[]>(CryptoRouteUrl)
+}
+
+export const postCryptoRoute = async (route: CryptoRoute): Promise<CryptoRoute> => {
+  return await fetchFrom<CryptoRoute>(CryptoRouteUrl, 'POST', route)
+}
+
+export const putCryptoRoute = async (route: CryptoRoute): Promise<CryptoRoute> => {
+  return await fetchFrom<CryptoRoute>(`${CryptoRouteUrl}/${route.id}`, 'PUT', route)
 }
 
 export const getHistory = async (types: HistoryType[]): Promise<History[]> => {

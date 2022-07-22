@@ -7430,6 +7430,14 @@
 		"--tw-bg-opacity": 1,
 		"backgroundColor": "rgba(101, 114, 138, var(--tw-bg-opacity))"
 	},
+	"bg-dfxbtc-500": {
+		"--tw-bg-opacity": 1,
+		"backgroundColor": "rgba(236, 153, 55, var(--tw-bg-opacity))"
+	},
+	"bg-dfxdfi-500": {
+		"--tw-bg-opacity": 1,
+		"backgroundColor": "rgba(215, 72, 167, var(--tw-bg-opacity))"
+	},
 	"bg-brand-v2-500": {
 		"--tw-bg-opacity": 1,
 		"backgroundColor": "rgba(255, 0, 140, var(--tw-bg-opacity))"

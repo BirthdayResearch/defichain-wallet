@@ -39,10 +39,12 @@ import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { UserDetailsScreen } from './screens/UserDetailsScreen'
+import { CryptoButtonGroupTabKey, ReceiveDTokenScreen } from './screens/ReceiveDTokenScreen'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
+  ReceiveDTokenScreen: { crypto?: CryptoButtonGroupTabKey }
   SellScreen: { token?: WalletToken }
   SellConfirmationScreen: undefined
   UserDetailsScreen: undefined
@@ -183,6 +185,20 @@ export function PortfolioNavigator (): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/ReceiveScreen', 'Receive')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={ReceiveDTokenScreen}
+        name='ReceiveDTokenScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ReceiveScreen', 'ReceiveDTokenScreen')}
               containerTestID={headerContainerTestId}
             />
           ),
