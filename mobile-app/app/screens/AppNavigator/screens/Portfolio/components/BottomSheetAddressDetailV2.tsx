@@ -168,7 +168,6 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
       name: props.navigateToScreen.screenName,
       params: {
         title: 'Edit Wallet Label',
-        isAddressBook: false,
         address: item,
         addressLabel: !isCreateNewWallet && labeledAddresses != null ? labeledAddresses[item] : '',
         isCreateNewWallet: isCreateNewWallet,

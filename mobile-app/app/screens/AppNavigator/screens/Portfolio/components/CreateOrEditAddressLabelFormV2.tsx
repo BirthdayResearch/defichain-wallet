@@ -150,25 +150,6 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
         </ThemedTextV2>
       )}
 
-      {/* {isAddressBook && */}
-      {/*  ( */}
-      {/*    <> */}
-      {/*      <ThemedText */}
-      {/*        style={tailwind('text-xs font-medium mt-4')} */}
-      {/*        light={tailwind('text-gray-400')} */}
-      {/*        dark={tailwind('text-gray-500')} */}
-      {/*      > */}
-      {/*        {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')} */}
-      {/*      </ThemedText> */}
-      {/*      <AddressInput */}
-      {/*        addressInput={addressInput} */}
-      {/*        setAddressInput={setAddressInput} */}
-      {/*        validateAddressInput={validateAddressInput} */}
-      {/*        addressInputErrorMessage={addressInputErrorMessage} */}
-      {/*      /> */}
-      {/*    </> */}
-      {/*  )} */}
-
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroupV2
           isDisabled={isSaveDisabled()}
