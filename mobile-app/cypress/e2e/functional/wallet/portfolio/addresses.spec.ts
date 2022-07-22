@@ -55,17 +55,14 @@ context('Wallet - Addresses', () => {
   })
 
   it('should not present create new address when wallet is freshly setup', function () {
-    cy.getByTestID('switch_account_button').should('exist').click().wait(1000).should(() => {
-      const network: string = localStorage.getItem('Development.NETWORK')
-      expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq(null)
-      expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq(null)
-    })
+    const network: string = localStorage.getItem('Development.NETWORK')
+    expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq(null)
+    expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq(null)
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
       cy.getByTestID('create_new_address').should('not.exist')
       cy.getByTestID('address_detail_address_count').contains('1')
       cy.getByTestID('close_address_detail_button').click()
-      cy.getByTestID('address_count_badge').should('not.exist')
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
     })
@@ -95,7 +92,6 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('address_row_text_1').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
       cy.getByTestID('close_address_detail_button').click()
-      cy.getByTestID('address_count_badge').should('exist').contains('2')
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
     })
@@ -189,9 +185,6 @@ context('Wallet - Addresses should persist addresses after restore with no activ
     cy.selectMnemonicWords(recoveryWords)
     cy.setupPinCode().wait(1000)
     cy.getByTestID('continue_button').click().wait(2000)
-    cy.getByTestID('details_dfi').click()
-    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
-    cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('address_row_text_0').invoke('text').then((activeAddress: string) => {
@@ -233,12 +226,10 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.selectMnemonicWords(recoveryWords)
     cy.setupPinCode().wait(1000)
     cy.getByTestID('continue_button').click().wait(2000)
-    cy.getByTestID('details_dfi').click()
-    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
-    cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
