@@ -70,40 +70,6 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       </Text>
       <View
         style={
-          Object {
-            "paddingLeft": 8,
-            "paddingRight": 8,
-          }
-        }
-      >
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
-              "opacity": 1,
-            }
-          }
-          testID="toggle_balance"
-        >
-          <Text />
-        </View>
-      </View>
-      <View
-        style={
           Array [
             Object {
               "paddingBottom": 6,
