@@ -62,8 +62,8 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
         >
           <ThemedTouchableOpacity
             onPress={() => navigation.navigate({
-              name: 'TokenDetail',
-              params: { token: DFIUnified },
+              name: 'Balance',
+              params: { token: DFIUnified, usdAmount },
               merge: true
             })}
             style={tailwind('flex-1')}

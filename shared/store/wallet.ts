@@ -31,6 +31,7 @@ export interface WalletState {
 
 export interface WalletToken extends AddressToken {
   avatarSymbol: string
+  usdAmount?: BigNumber
 }
 
 export interface DexItem {
