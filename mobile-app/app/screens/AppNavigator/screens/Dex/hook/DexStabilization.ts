@@ -129,17 +129,21 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     }
 
     if (tokenA !== undefined && tokenB !== undefined) {
-      // direct swap
-      if (
-        (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') ||
-        (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') ||
-       (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC')) {
-        _dexStabilization.dexStabilizationType = 'direct-dusd-with-fee'
-      }
-
       const { bestPath } = await getBestPath(
         tokenA.id === '0_unified' ? '0' : tokenA.id,
         tokenB.id === '0_unified' ? '0' : tokenB.id)
+
+      /*
+        Direct swap - checking the length is impt because when the pair is disabled, then the path used will be different
+      */
+      if (
+        bestPath.length === 1 && (
+          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') ||
+          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') ||
+          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC'))) {
+        _dexStabilization.dexStabilizationType = 'direct-dusd-with-fee'
+      }
+
       const dUSDandDFIPairIndex = bestPath.findIndex(path => {
         return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'DFI') ||
           (path.tokenA.displaySymbol === 'DFI' && path.tokenB.displaySymbol === 'DUSD')
