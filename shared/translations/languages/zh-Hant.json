@@ -496,7 +496,10 @@
     "Convert to {{symbol}}": "轉換至 {{symbol}}",
     "Add to liquidity pool": "加入流動性池",
     "Remove liquidity": "撒出 流動性池",
-    "Swap token": "兌換代幣"
+    "Swap token": "兌換代幣",
+    "Balance": "總資金",
+    "Swap": "兌換",
+    "Add liquidity": "增加流動資金"
   },
   "screens/TokensVsUtxoScreen": {
     "Learn about UTXOs and Tokens": "了解UTXO和代幣區別",
@@ -995,7 +998,11 @@
     "Locked": "已鎖定",
     "Available": "現有可使用",
     "as UTXO": "as UTXO",
-    "as Token": "as Token"
+    "as Token": "as Token",
+    "As UTXO": "As UTXO",
+    "As Token": "As Token",
+    "Your pool shares": "Your pool shares",
+    "Shares in {{token}}": "Shares in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"
