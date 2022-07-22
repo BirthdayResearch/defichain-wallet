@@ -13,6 +13,7 @@ interface SubmitButtonGroupItems {
   isCancelDisabled?: boolean
   title: string
   label: string
+  cancelLabel?: string
   displayCancelBtn: boolean
   isProcessing?: boolean
   processingLabel?: string
@@ -26,6 +27,7 @@ export function SubmitButtonGroupV2 ({
   displayCancelBtn,
   title,
   label,
+  cancelLabel,
   isProcessing,
   processingLabel,
   onSubmit,
@@ -114,7 +116,7 @@ export function SubmitButtonGroupV2 ({
         <ButtonV2
           disabled={isCancelDisabled === undefined ? isDisabled : isCancelDisabled}
           fill='flat'
-          label={translate('screens/common', 'Cancel')}
+          label={translate('screens/common', cancelLabel !== undefined && cancelLabel !== '' ? cancelLabel : 'Cancel')}
           styleProps='m-4 mt-0'
           onPress={onCancel}
           testID={`button_cancel_${title}`}

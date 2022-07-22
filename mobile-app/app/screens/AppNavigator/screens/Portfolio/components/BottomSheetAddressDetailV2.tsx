@@ -69,6 +69,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
   const labeledAddresses = userPreferences.addresses
   const activeLabel = useAddressLabel(props.address)
   const { getAddressUrl } = useDeFiScanContext()
+  const [isCreatingNew, setIsCreatingNew] = useState(false)
 
   const onActiveAddressPress = useCallback(debounce(() => {
     if (showToast) {
@@ -101,6 +102,10 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
       addresses.push(address)
     }
     setAvailableAddresses(addresses)
+    if (isCreatingNew) {
+      setIsCreatingNew(false)
+      goToEditWalletLabel(true, addresses[addresses.length - 1])
+    }
     await isNextAddressUsable()
   }
 
@@ -145,11 +150,51 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     if (hasPendingJob || hasPendingBroadcastJob || index === activeAddressIndex) {
       return
     }
+    const isNew = index > addressLength
+    if (isNew) {
+      setIsCreatingNew(true)
+    }
 
     dispatch(walletReducer.actions.setHasFetchedToken(false))
     dispatch(loans.actions.setHasFetchedVaultsData(false))
     await setIndex(index)
-    props.onCloseButtonPress()
+    if (!isNew) {
+      props.onCloseButtonPress()
+    }
+  }
+
+  const goToEditWalletLabel = (isCreateNewWallet: boolean, item: string): void => {
+    navigation.navigate({
+      name: props.navigateToScreen.screenName,
+      params: {
+        title: 'Edit Wallet Label',
+        isAddressBook: false,
+        address: item,
+        addressLabel: !isCreateNewWallet && labeledAddresses != null ? labeledAddresses[item] : '',
+        isCreateNewWallet: isCreateNewWallet,
+        onSaveButtonPress: (labelAddress: LabeledAddress) => {
+          const addresses = { ...labeledAddresses, ...labelAddress }
+          dispatch(setAddresses(addresses)).then(() => {
+            dispatch(setUserPreferences({
+              network,
+              preferences: {
+                ...userPreferences,
+                addresses
+              }
+            }))
+          })
+          if (isCreateNewWallet) {
+            props.onCloseButtonPress()
+          } else {
+            navigation.goBack()
+          }
+        },
+        onCloseButtonPress: () => {
+          props.onCloseButtonPress()
+        }
+      },
+      merge: true
+    })
   }
 
   const AddressListItem = useCallback(({
@@ -236,31 +281,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
           <ThemedTouchableOpacityV2
             style={tailwind('border-0')}
             onPress={async () => {
-              navigation.navigate({
-                name: props.navigateToScreen.screenName,
-                params: {
-                  title: 'Edit wallet label',
-                  isAddressBook: false,
-                  address: item,
-                  addressLabel: labeledAddresses != null ? labeledAddresses[item] : '',
-                  index: index + 1,
-                  type: 'edit',
-                  onSaveButtonPress: (labelAddress: LabeledAddress) => {
-                    const addresses = { ...labeledAddresses, ...labelAddress }
-                    dispatch(setAddresses(addresses)).then(() => {
-                      dispatch(setUserPreferences({
-                        network,
-                        preferences: {
-                          ...userPreferences,
-                          addresses
-                        }
-                      }))
-                    })
-                    navigation.goBack()
-                  }
-                },
-                merge: true
-              })
+              goToEditWalletLabel(false, item)
             }}
           >
             <ThemedIcon
@@ -294,12 +315,12 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
         }
         <ActiveAddress address={props.address} onPress={onActiveAddressPress} />
         <View style={tailwind('mt-12 px-5 flex flex-row items-center justify-between w-full')}>
-          <WalletCounterDisplay addressLength={addressLength} />
+          <WalletCounterDisplay />
           <DiscoverWalletAddress onPress={discoverWalletAddresses} />
         </View>
       </ThemedViewV2>
     )
-  }, [props, addressLength, activeLabel])
+  }, [props, activeLabel])
 
   return (
     <FlatList
@@ -358,7 +379,7 @@ function ActiveAddress ({
   )
 }
 
-function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JSX.Element {
+function WalletCounterDisplay (): JSX.Element {
   return (
     <ThemedText
       light={tailwind('text-mono-light-v2-500')}

@@ -13,7 +13,7 @@ import { getDefaultTheme } from '@constants/Theme'
 import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
 import {
   CreateOrEditAddressLabelFormProps
-} from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm'
+} from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 

@@ -1,33 +1,25 @@
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
-import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNav'
-import { ThemedScrollViewV2, ThemedText, ThemedTextV2 } from '@components/themed'
+import { BottomSheetWithNavRouteParam } from '@components/BottomSheetWithNavV2'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { Platform, View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { RandomAvatar } from './RandomAvatar'
-import { WalletTextInput } from '@components/WalletTextInput'
 import { LabeledAddress, LocalAddress } from '@store/userPreferences'
-import { fromAddress } from '@defichain/jellyfish-address'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store'
-import { authentication, Authentication } from '@store/authentication'
-import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
-import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useAppDispatch } from '@hooks/useAppDispatch'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { useToast } from 'react-native-toast-notifications'
 
 export interface CreateOrEditAddressLabelFormProps {
   title: string
-  isAddressBook: boolean
   address?: string
   addressLabel?: LocalAddress
+  isCreateNewWallet: boolean
   onSaveButtonPress: (labelAddress: LabeledAddress) => void
+  onCloseButtonPress: () => void
 }
 
 type Props = StackScreenProps<BottomSheetWithNavRouteParam, 'CreateOrEditAddressLabelFormProps'>
@@ -36,27 +28,35 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
   route,
   navigation
 }: Props): JSX.Element => {
-  // const { isLight } = useThemeContext()
   const {
     title,
-    isAddressBook,
     address,
     addressLabel,
-    onSaveButtonPress
+    isCreateNewWallet,
+    onSaveButtonPress,
+    onCloseButtonPress
   } = route.params
   const { isLight } = useThemeContext()
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
-  const [addressInput, setAddressInput] = useState<string | undefined>()
   const bottomSheetComponents = {
     mobile: BottomSheetScrollView,
     web: ThemedScrollViewV2
   }
   const ScrollView = Platform.OS === 'web' ? bottomSheetComponents.web : bottomSheetComponents.mobile
-  const { networkName } = useNetworkContext()
-  const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState('')
-  const [addressInputErrorMessage, setAddressInputErrorMessage] = useState('')
   const [labelInputLength, setLabelInputLength] = useState(0)
+  const toast = useToast()
+  const TOAST_DURATION = 2000
+
+  useEffect(() => {
+    if (isCreateNewWallet) {
+      toast.show(translate('components/toaster', 'Wallet created'), {
+        type: 'wallet_toast',
+        placement: 'top',
+        duration: TOAST_DURATION
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (labelInput !== undefined) {
@@ -70,40 +70,13 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
         setLabelInputErrorMessage('Invalid label. Maximum of 40 characters.')
         return false
       }
-
-      if (isAddressBook && input.trim() === '') {
-        setLabelInputErrorMessage('Please enter an address label')
-        return false
-      }
     }
 
     setLabelInputErrorMessage('')
     return true
   }
 
-  const validateAddressInput = (input: string): boolean => {
-    const decodedAddress = fromAddress(input, networkName)
-    if (decodedAddress === undefined) {
-      setAddressInputErrorMessage('Please enter a valid address')
-      return false
-    }
-    if (addressBook?.[input.trim()] !== undefined) {
-      setAddressInputErrorMessage('This address already exists in your address book, please enter a different address')
-      return false
-    }
-    setAddressInputErrorMessage('')
-    return true
-  }
-
-  const handleSubmit = async (): Promise<void> => {
-    if (!isAddressBook) {
-      handleEditSubmit()
-    } else {
-      handleCreateSubmit()
-    }
-  }
-
-  const handleEditSubmit = (): void => {
+  const handleEditSubmit = async (): Promise<void> => {
     if (labelInput === undefined ||
       address === undefined ||
       !validateLabelInput(labelInput)) {
@@ -118,47 +91,8 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
     })
   }
 
-  // Passcode prompt on create
-  const dispatch = useAppDispatch()
-  const { data: { type: encryptionType } } = useWalletNodeContext()
-  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
-  const logger = useLogger()
-  const handleCreateSubmit = useCallback(() => {
-    if (!isEncrypted ||
-      addressInput === undefined ||
-      labelInput === undefined ||
-      !validateLabelInput(labelInput) ||
-      !validateAddressInput(addressInput)) {
-      return
-    }
-
-    const auth: Authentication<string[]> = {
-      consume: async passphrase => await MnemonicStorage.get(passphrase),
-      onAuthenticated: async () => {
-        onSaveButtonPress({
-          [addressInput]: {
-            address: addressInput,
-            label: labelInput.trim(),
-            isMine: false
-          }
-        })
-      },
-      onError: e => logger.error(e),
-      message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'Verifying access')
-    }
-    dispatch(authentication.actions.prompt(auth))
-  }, [dispatch, isEncrypted, addressInput, labelInput, onSaveButtonPress])
-
   const isSaveDisabled = (): boolean => {
-    if (isAddressBook && (addressInput === undefined || labelInput === undefined || labelInputErrorMessage !== '' || addressInputErrorMessage !== '')) {
-      return true
-    }
-    if (!isAddressBook && (labelInput === undefined || labelInput === addressLabel?.label || labelInputErrorMessage !== '')) {
-      return true
-    }
-
-    return false
+    return labelInput === undefined || labelInput === addressLabel?.label || labelInputErrorMessage !== ''
   }
 
   return (
@@ -194,7 +128,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
         }}
         onClearButtonPress={() => {
           setLabelInput('')
-          isAddressBook ? validateLabelInput('') : setLabelInputErrorMessage('')
+          setLabelInputErrorMessage('')
         }}
         placeholder={translate('components/CreateOrEditAddressLabelForm', 'Enter label')}
         style={tailwind('h-9 w-6/12 flex-grow')}
@@ -216,32 +150,33 @@ export const CreateOrEditAddressLabelFormV2 = memo(({
         </ThemedTextV2>
       )}
 
-      {isAddressBook &&
-        (
-          <>
-            <ThemedText
-              style={tailwind('text-xs font-medium mt-4')}
-              light={tailwind('text-gray-400')}
-              dark={tailwind('text-gray-500')}
-            >
-              {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')}
-            </ThemedText>
-            <AddressInput
-              addressInput={addressInput}
-              setAddressInput={setAddressInput}
-              validateAddressInput={validateAddressInput}
-              addressInputErrorMessage={addressInputErrorMessage}
-            />
-          </>
-        )}
+      {/* {isAddressBook && */}
+      {/*  ( */}
+      {/*    <> */}
+      {/*      <ThemedText */}
+      {/*        style={tailwind('text-xs font-medium mt-4')} */}
+      {/*        light={tailwind('text-gray-400')} */}
+      {/*        dark={tailwind('text-gray-500')} */}
+      {/*      > */}
+      {/*        {translate('components/CreateOrEditAddressLabelForm', 'ADDRESS')} */}
+      {/*      </ThemedText> */}
+      {/*      <AddressInput */}
+      {/*        addressInput={addressInput} */}
+      {/*        setAddressInput={setAddressInput} */}
+      {/*        validateAddressInput={validateAddressInput} */}
+      {/*        addressInputErrorMessage={addressInputErrorMessage} */}
+      {/*      /> */}
+      {/*    </> */}
+      {/*  )} */}
 
       <View style={tailwind('mt-4')}>
         <SubmitButtonGroupV2
           isDisabled={isSaveDisabled()}
           isCancelDisabled={false}
-          label={translate('components/CreateOrEditAddressLabelForm', 'Save changes')}
-          onCancel={() => navigation.goBack()}
-          onSubmit={handleSubmit}
+          label={translate('components/CreateOrEditAddressLabelForm', isCreateNewWallet ? 'Save label' : 'Save changes')}
+          cancelLabel={isCreateNewWallet ? 'Skip' : ''}
+          onCancel={() => isCreateNewWallet ? onCloseButtonPress() : navigation.goBack()}
+          onSubmit={handleEditSubmit}
           displayCancelBtn
           title='save_address_label'
         />
@@ -260,39 +195,5 @@ function AddressDisplay ({ address }: { address: string }): JSX.Element {
         {address}
       </ThemedTextV2>
     </View>
-  )
-}
-
-function AddressInput ({
-  addressInput,
-  setAddressInput,
-  validateAddressInput,
-  addressInputErrorMessage
-}: { addressInput?: string, setAddressInput: (val?: string) => void, validateAddressInput: (val: string) => boolean, addressInputErrorMessage: string }): JSX.Element {
-  return (
-    <WalletTextInput
-      value={addressInput}
-      autoCapitalize='none'
-      multiline
-      inputType='default'
-      displayClearButton={addressInput !== '' && addressInput !== undefined}
-      onChangeText={(text: string) => {
-        setAddressInput(text)
-        validateAddressInput(text)
-      }}
-      onClearButtonPress={() => {
-        setAddressInput('')
-        validateAddressInput('')
-      }}
-      placeholder={translate('components/CreateOrEditAddressLabelForm', 'Enter address')}
-      style={tailwind('w-6/12 flex-grow')}
-      hasBottomSheet
-      valid={addressInputErrorMessage === ''}
-      inlineText={{
-        type: 'error',
-        text: translate('components/CreateOrEditAddressLabelForm', addressInputErrorMessage)
-      }}
-      testID='address_book_address_input'
-    />
   )
 }
