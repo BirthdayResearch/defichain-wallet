@@ -76,7 +76,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
                   renderText={(value) =>
                     <BalanceTextV2
-                      style={[tailwind('font-semibold-v2 mr-2'), { fontSize: 28, lineHeight: 36 }]}
+                      style={[tailwind('font-semibold-v2 mr-2 flex flex-row items-center'), { fontSize: 28, lineHeight: 36 }]}
                       testID='total_usd_amount'
                       value={value}
                     >
@@ -85,7 +85,6 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                   thousandSeparator
                   value={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getPrecisedCurrencyValue(totalPortfolioValue) : getPrecisedTokenValue(totalPortfolioValue)}
                 />
-
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.7}

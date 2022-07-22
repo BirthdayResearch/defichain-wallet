@@ -63,6 +63,9 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
             Array [
               Array [
                 Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
                   "fontFamily": "SoraSemiBold",
                   "fontWeight": "600",
                   "marginRight": 8,
