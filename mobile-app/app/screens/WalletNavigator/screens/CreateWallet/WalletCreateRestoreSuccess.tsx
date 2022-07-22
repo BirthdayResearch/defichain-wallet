@@ -4,7 +4,7 @@ import { translate } from '@translations'
 import { ImageBackground, Image, Dimensions, Platform, View } from 'react-native'
 import GridBackgroundDark from '@assets/images/onboarding/grid-background-dark.png'
 import GridBackgroundLight from '@assets/images/onboarding/grid-background-light.png'
-import { WalletParamListV2 } from '@screens/WalletNavigator/WalletNavigator'
+import { WalletParamList } from '@screens/WalletNavigator/WalletNavigator'
 import { StackScreenProps } from '@react-navigation/stack'
 import CoinImageCreate from '@assets/images/create-success-coin.png'
 import CoinImageRestore from '@assets/images/restore-success-coin.png'
@@ -19,7 +19,7 @@ import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 
-type Props = StackScreenProps<WalletParamListV2, 'WalletCreateRestoreSuccess'>
+type Props = StackScreenProps<WalletParamList, 'WalletCreateRestoreSuccess'>
 
 export function WalletCreateRestoreSuccess ({ route }: Props): JSX.Element {
   const { isWalletRestored, data } = route.params

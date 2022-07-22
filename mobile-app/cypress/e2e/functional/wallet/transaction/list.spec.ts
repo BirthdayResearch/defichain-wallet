@@ -16,7 +16,7 @@ context('Wallet - Transaction - List Skeleton', () => {
       })
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('switch_account_button').click()
-      cy.getByTestID('bottom_tab_transactions').click()
+      cy.getByTestID('transactions_tab').click()
       cy.getByTestID('transaction_skeleton_loader').should('exist')
     })
 
@@ -24,7 +24,7 @@ context('Wallet - Transaction - List Skeleton', () => {
       cy.intercept('**/transactions?size=*').as('getTransactions')
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('switch_account_button').click()
-      cy.getByTestID('bottom_tab_transactions').click()
+      cy.getByTestID('transactions_tab').click()
       cy.wait('@getTransactions').then(() => {
         cy.getByTestID('transaction_skeleton_loader').should('not.exist')
       })
@@ -39,7 +39,7 @@ context('Wallet - Transaction - List', () => {
       cy.sendDFItoWallet().sendDFItoWallet().wait(4000)
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('switch_account_button').click()
-      cy.getByTestID('bottom_tab_transactions').click()
+      cy.getByTestID('transactions_tab').click()
     })
 
     it('should display 2 rows', () => {

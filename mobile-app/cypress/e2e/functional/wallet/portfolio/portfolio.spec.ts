@@ -1275,7 +1275,13 @@ context('Wallet - Portfolio - Token Breakdown', () => {
   })
 
   it('should hide all locked amount of BTC and ETH', () => {
-    cy.getByTestID('details_dfi').click()
+    cy.intercept('**/address/**/vaults?size=*', {
+      statusCode: 200,
+      body: {
+        data: sampleVault
+      }
+    })
+    cy.getByTestID('toggle_balance').click()
     cy.wait(1000)
     cy.getByTestID('dBTC_locked_amount_text').should('have.text', '*****')
     cy.getByTestID('dETH_locked_amount_text').should('have.text', '*****')

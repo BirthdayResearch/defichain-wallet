@@ -3,18 +3,17 @@ import { validateMnemonicSentence } from '@defichain/jellyfish-wallet-mnemonic'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createRef, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { TextInput } from 'react-native'
+import { Platform, TextInput, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View } from '@components'
-import { Button } from '@components/Button'
-import { CreateWalletStepIndicator, RESTORE_STEPS } from '@components/CreateWalletStepIndicator'
-import { ThemedText, ThemedView } from '@components/themed'
+import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { WalletAlert } from '@components/WalletAlert'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { WalletTextInput } from '@components/WalletTextInput'
-import { tailwind } from '@tailwind'
+import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
+import { ButtonV2 } from '@components/ButtonV2'
+import { CreateWalletStepIndicatorV2, RESTORE_STEPS } from '@components/CreateWalletStepIndicatorV2'
+import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 
 export function RestoreMnemonicWallet (): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
@@ -101,21 +100,21 @@ export function RestoreMnemonicWallet (): JSX.Element {
   }
 
   return (
-    <KeyboardAwareScrollView style={tailwind(`${isLight ? 'bg-white' : 'bg-gray-900'}`)}>
-      <CreateWalletStepIndicator
-        current={1}
-        steps={RESTORE_STEPS}
-        style={tailwind('py-4 px-1')}
-      />
-
-      <View style={tailwind('justify-center p-4')}>
-        <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-900')}
-          style={tailwind('font-medium text-sm text-center')}
+    <KeyboardAwareScrollView
+      contentContainerStyle={tailwind('pt-12 px-5 pb-16')}
+      style={tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`)}
+    >
+      <View style={tailwind('px-5 mb-12')}>
+        <CreateWalletStepIndicatorV2
+          current={1}
+          steps={RESTORE_STEPS}
+          style={tailwind('px-16')}
+        />
+        <ThemedTextV2
+          style={tailwind('text-base mt-7 text-center font-normal-v2')}
         >
-          {translate('screens/RestoreWallet', 'Please provide your 24 recovery words to regain access to your wallet.')}
-        </ThemedText>
+          {translate('screens/RestoreWallet', 'Key in the 24 recovery words to regain access to your wallet.')}
+        </ThemedTextV2>
       </View>
 
       {recoveryWords.map((order) => (
@@ -133,19 +132,20 @@ export function RestoreMnemonicWallet (): JSX.Element {
               },
               fieldState: {
                 invalid,
-                isTouched,
                 error
               }
             }) => (
-              <ThemedView
-                dark={tailwind('bg-gray-900')}
-                light={tailwind('bg-white')}
-                style={tailwind('flex-row pb-1')}
+              <ThemedViewV2
+                style={tailwind('flex-row py-1.5 pr-3')}
               >
-                <ThemedText style={tailwind('mx-3 mt-4 text-sm w-6 text-center')}>
+                <ThemedTextV2
+                  light={tailwind('text-mono-light-v2-500')}
+                  dark={tailwind('text-mono-dark-v2-500')}
+                  style={[tailwind('ml-5 mr-1 py-2 font-normal-v2 text-sm', { 'mt-px': Platform.OS === 'android' }), { width: 26 }]}
+                >
                   {`${order}.`}
-                </ThemedText>
-                <WalletTextInput
+                </ThemedTextV2>
+                <WalletTextInputV2
                   autoCapitalize='none'
                   autoComplete='off'
                   blurOnSubmit={false}
@@ -156,6 +156,8 @@ export function RestoreMnemonicWallet (): JSX.Element {
                   inputType='default'
                   keyboardType='default'
                   onChangeText={onChange}
+                  displayClearButton={value !== ''}
+                  onClearButtonPress={() => onChange('')}
                   onSubmitEditing={async () => {
                     if (inputRefMap[order + 1] !== undefined) {
                       inputRefMap[order + 1].current?.focus()
@@ -164,15 +166,14 @@ export function RestoreMnemonicWallet (): JSX.Element {
                     }
                   }}
                   placeholder={translate('screens/RestoreWallet', 'Enter word #{{order}}', { order })}
-                  placeholderTextColor={isLight
-                    ? `${invalid && isTouched
-                      ? 'rgba(255, 0, 0, 1)'
-                      : 'rgba(0, 0, 0, 0.4)'}`
-                    : `${invalid && isTouched ? 'rgba(255, 0, 0, 1)' : '#828282'}`}
+                  placeholderTextColor={
+                    isLight
+                    ? getColor('mono-light-v2-500')
+                    : getColor('mono-dark-v2-500')
+                  }
                   ref={inputRefMap[order]}
                   returnKeyType={order === 24 ? 'done' : 'next'}
-                  containerStyle='w-10/12'
-                  style={tailwind('w-full')}
+                  containerStyle='flex-1'
                   valid={!invalid}
                   testID={`recover_word_${order}`}
                   value={value}
@@ -181,7 +182,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
                     text: error?.message
                   }}
                 />
-              </ThemedView>
+              </ThemedViewV2>
             )}
               rules={{
               validate: (value) => {
@@ -191,20 +192,27 @@ export function RestoreMnemonicWallet (): JSX.Element {
                 } else if (!/^[a-z]+$/.test(trimmedValue)) {
                   return translate('screens/RestoreWallet', 'Uppercase, numbers and special characters are not allowed')
                 }
-
                 return true
               }
             }}
              />)
-          : <SkeletonLoader key={order} row={1} screen={SkeletonLoaderScreen.MnemonicWord} />
+          : <SkeletonLoader key={order} row={1} screen={SkeletonLoaderScreen.MnemonicWordV2} />
       ))}
 
-      <Button
+      <ThemedTextV2
+        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind('text-mono-dark-v2-700')}
+        style={tailwind('text-xs mt-12 text-center font-normal-v2')}
+      >
+        {translate('screens/RestoreWallet', 'All questions must be answered correctly.')}
+      </ThemedTextV2>
+
+      <ButtonV2
+        styleProps='mt-5 mx-7'
         disabled={!isValid || isSubmitting}
-        label={translate('screens/RestoreWallet', 'RESTORE WALLET')}
+        label={translate('screens/RestoreWallet', 'Restore')}
         onPress={onRestore}
         testID='recover_wallet_button'
-        title='recover_wallet'
       />
     </KeyboardAwareScrollView>
   )

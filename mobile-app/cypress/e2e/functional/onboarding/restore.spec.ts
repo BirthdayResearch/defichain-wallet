@@ -3,7 +3,6 @@ context('Onboarding - Restore Wallet', () => {
 
   before(function () {
     cy.visit('/')
-    cy.blockAllFeatureFlag()
     cy.exitWallet()
     cy.getByTestID('restore_wallet_button').click()
     cy.url().should('include', 'wallet/mnemonic/restore')
@@ -41,20 +40,20 @@ context('Onboarding - Restore Wallet', () => {
       cy.getByTestID(`recover_word_${index + 1}`).clear().type('{enter}')
       cy.getByTestID(`recover_word_${index + 1}_error`).should('have.text', 'Required field is missing')
       cy.getByTestID(`recover_word_${index + 1}`).clear().type('1').type('{enter}')
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(43, 43, 43)')
       cy.getByTestID(`recover_word_${index + 1}_error`).should('have.text', 'Uppercase, numbers and special characters are not allowed')
       cy.getByTestID(`recover_word_${index + 1}`).clear().type('A').type('{enter}')
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(43, 43, 43)')
       cy.getByTestID(`recover_word_${index + 1}_error`).should('have.text', 'Uppercase, numbers and special characters are not allowed')
       cy.getByTestID(`recover_word_${index + 1}`).clear().type('a a').type('{enter}')
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(43, 43, 43)')
       cy.getByTestID(`recover_word_${index + 1}_error`).should('have.text', 'Uppercase, numbers and special characters are not allowed')
       cy.getByTestID(`recover_word_${index + 1}`).clear().type('$$$').type('{enter}')
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(43, 43, 43)')
       cy.getByTestID(`recover_word_${index + 1}_error`).should('have.text', 'Uppercase, numbers and special characters are not allowed')
 
       cy.getByTestID(`recover_word_${index + 1}`).clear().type(word).blur()
-      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(64, 64, 64)')
+      cy.getByTestID(`recover_word_${index + 1}`).should('have.css', 'color', 'rgb(43, 43, 43)')
     })
   })
 
@@ -75,6 +74,8 @@ context('Onboarding - Restore Wallet', () => {
   it('should be able to set pincode', function () {
     cy.getByTestID('pin_input').type('000000')
     cy.getByTestID('pin_confirm_input').type('000000')
+    cy.getByTestID('wallet_restore_success').should('exist')
+    cy.getByTestID('continue_button').should('exist').click()
     cy.getByTestID('portfolio_list').should('exist')
   })
 })

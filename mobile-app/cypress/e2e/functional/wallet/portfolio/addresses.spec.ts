@@ -187,7 +187,8 @@ context('Wallet - Addresses should persist addresses after restore with no activ
   it('should start creation of mnemonic wallet and store values of local address', function () {
     cy.startCreateMnemonicWallet(recoveryWords)
     cy.selectMnemonicWords(recoveryWords)
-    cy.setupPinCode()
+    cy.setupPinCode().wait(1000)
+    cy.getByTestID('continue_button').click().wait(2000)
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
@@ -230,7 +231,8 @@ context('Wallet - Addresses should persist addresses after restore with active a
   it('should start creation of mnemonic wallet and store values of local addresses', function () {
     cy.startCreateMnemonicWallet(recoveryWords)
     cy.selectMnemonicWords(recoveryWords)
-    cy.setupPinCode()
+    cy.setupPinCode().wait(1000)
+    cy.getByTestID('continue_button').click().wait(2000)
     cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
@@ -466,21 +468,5 @@ context('Wallet - Address Label', () => {
       cy.getByTestID('close_address_detail_button')
       cy.getByTestID('wallet_address').contains(trimmedLabel)
     })
-  })
-})
-
-context('Wallet - Local Storage feature', () => {
-  before(function () {
-    cy.intercept('**/settings/flags', {
-      statusCode: 200,
-      body: []
-    })
-    cy.createEmptyWallet()
-  })
-
-  it('should not allow edit if feature is blocked', function () {
-    cy.getByTestID('bottom_tab_portfolio').click()
-    cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('address_list_edit_button').should('not.exist')
   })
 })

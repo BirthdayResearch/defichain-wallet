@@ -77,11 +77,11 @@ export function ResetButtonV2 (): JSX.Element {
         dark={tailwind('bg-mono-dark-v2-00 ', { 'bg-opacity-30': isDisabled })}
         style={tailwind('border-0 p-4.5 flex-row justify-center rounded-lg-v2')}
         onPress={onPress}
+        testID='reset_button'
         disabled={isDisabled}
       >
         <Text
           style={tailwind('font-normal-v2 text-sm text-red-v2', { 'text-opacity-30': isDisabled })}
-          testID='reset_button'
         >
           {translate('screens/ServiceProviderScreen', 'Reset provider')}
         </Text>
