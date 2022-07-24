@@ -468,7 +468,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         <ThemedViewV2
           light={tailwind('bg-mono-light-v2-00')}
           dark={tailwind('bg-mono-dark-v2-00')}
-          style={tailwind('px-5 flex flex-row items-center')}
+          style={tailwind('px-5 pb-3 flex flex-row items-center')}
         >
           <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
           <ThemedTouchableOpacityV2
@@ -488,20 +488,15 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
-        <Announcements />
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
           totalLoansValue={totalLoansValue}
-          onToggleDisplayBalances={onToggleDisplayBalances}
-          isBalancesDisplayed={isBalancesDisplayed}
-          portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: denominationCurrency,
-            setActivePortfolioButtonGroup: setDenominationCurrency
-          }}
           portfolioButtonGroup={portfolioButtonGroup}
           denominationCurrency={denominationCurrency}
+          setDenominationCurrency={setDenominationCurrency}
         />
+        <Announcements />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}

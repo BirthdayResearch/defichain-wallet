@@ -65,7 +65,7 @@ export function SettingsNavigatorV2 (): JSX.Element {
       screenOptions={{
       ...screenOptions,
       headerRight: () => (
-        <HeaderNetworkStatus onPress={goToNetworkSelect} />
+        <HeaderNetworkStatus onPress={goToNetworkSelect} testID='header_change_network' />
       )
     }}
     >

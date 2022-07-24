@@ -5,17 +5,12 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
   style={
     Array [
       Object {
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
+        "borderBottomLeftRadius": 15,
+        "borderBottomRightRadius": 15,
         "marginBottom": 8,
-        "marginLeft": 16,
-        "marginRight": 16,
-        "marginTop": 16,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
+        "paddingBottom": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
         "paddingTop": 8,
       },
       Object {
@@ -28,174 +23,13 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
   <View
     style={
       Object {
-        "justifyContent": "space-evenly",
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "paddingBottom": 4,
-          "paddingTop": 4,
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontSize": 14,
-                "lineHeight": 20,
-                "maxWidth": "50%",
-              },
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Total Portfolio Value
-      </Text>
-      <View
-        style={
-          Array [
-            Object {
-              "paddingBottom": 6,
-              "paddingTop": 6,
-            },
-            Object {
-              "marginLeft": "auto",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Array [
-              Object {
-                "borderBottomLeftRadius": 16,
-                "borderBottomRightRadius": 16,
-                "borderTopLeftRadius": 16,
-                "borderTopRightRadius": 16,
-                "display": "flex",
-                "flexDirection": "row",
-              },
-              Object {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-              },
-            ]
-          }
-          testID="portfolio_button_group"
-        >
-          <View
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "justifyContent": "center",
-                "opacity": 1,
-                "overflowWrap": "break-word",
-                "paddingBottom": 4,
-                "paddingLeft": 10,
-                "paddingRight": 10,
-                "paddingTop": 4,
-              }
-            }
-            testID="portfolio_button_group_USDT_active"
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 20,
-                      "textAlign": "center",
-                    },
-                    Object {
-                      "color": "rgba(255, 0, 175, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              USD
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  </View>
-  <View
-    style={
-      Object {
         "alignItems": "center",
         "display": "flex",
         "flexDirection": "row",
+        "justifyContent": "space-between",
       }
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "flexWrap": "wrap",
-              "fontFamily": "BoldFont",
-              "fontSize": 24,
-              "fontWeight": "700",
-              "lineHeight": 32,
-              "maxWidth": "75%",
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-      testID="total_usd_amount"
-    >
-      $1,200.00
-    </Text>
     <View
       accessible={true}
       collapsable={false}
@@ -209,8 +43,148 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
+          "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
+          "opacity": 1,
+          "width": "83.333333%",
+        }
+      }
+      testID="portfolio_currency_switcher"
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              Object {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "fontFamily": "SoraSemiBold",
+                    "fontWeight": "600",
+                    "marginRight": 8,
+                  },
+                  Object {
+                    "fontSize": 28,
+                    "lineHeight": 36,
+                  },
+                ],
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+          testID="total_usd_amount"
+        >
+          $1,200.00
+        </Text>
+        <View
+          style={
+            Object {
+              "paddingBottom": 4,
+              "paddingLeft": 8,
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 8,
+                  "borderBottomRightRadius": 8,
+                  "borderBottomWidth": 0.5,
+                  "borderLeftWidth": 0.5,
+                  "borderRightWidth": 0.5,
+                  "borderTopLeftRadius": 8,
+                  "borderTopRightRadius": 8,
+                  "borderTopWidth": 0.5,
+                  "paddingBottom": 4,
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                  "paddingTop": 4,
+                },
+                Object {
+                  "borderBottomColor": "rgba(18, 18, 18, 1)",
+                  "borderLeftColor": "rgba(18, 18, 18, 1)",
+                  "borderRightColor": "rgba(18, 18, 18, 1)",
+                  "borderTopColor": "rgba(18, 18, 18, 1)",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="portfolio_active_currency"
+            >
+              USD
+            </Text>
+          </View>
+        </View>
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
           "opacity": 1,
         }
       }
