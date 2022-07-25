@@ -165,8 +165,12 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
   const AddressListItem = useCallback(({
     item,
     index,
-    testIDSuffix
-  }: { item: LocalAddress, index: number, testIDSuffix: string }): JSX.Element => {
+    testIDSuffix,
+    selectedAddress,
+    onAddressSelect
+  }: { item: LocalAddress, index: number, testIDSuffix: string, selectedAddress?: string, onAddressSelect?: ((address: string) => void) }): JSX.Element => {
+    // condition to hide icon from send page
+    const showIcon = selectedAddress === undefined && onAddressSelect === undefined
     return (
       <ThemedViewV2
         key={item.address}
@@ -243,13 +247,17 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 {item.address}
               </ThemedTextV2>
             </View>
-            <ThemedIcon
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
-              iconType='Feather'
-              name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
-              size={18}
-            />
+            {
+              showIcon && (
+                <ThemedIcon
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                iconType='Feather'
+                name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
+                size={18}
+              />
+              )
+            }
           </TouchableOpacity>
         </View>
       </ThemedViewV2>
@@ -378,6 +386,8 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 key={item.address}
                 index={index}
                 testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'address_book' : 'wallet_address'}
+                selectedAddress={selectedAddress}
+                onAddressSelect={onAddressSelect}
               />)
             )}
           </>

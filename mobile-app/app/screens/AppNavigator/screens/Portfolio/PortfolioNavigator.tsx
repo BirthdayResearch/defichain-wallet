@@ -45,6 +45,7 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -374,7 +375,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddressBookScreen}
+        component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
           headerBackTitleVisible: false,
