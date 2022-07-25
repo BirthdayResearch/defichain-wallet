@@ -1,8 +1,7 @@
-
 import { useState, useEffect, useCallback } from 'react'
 import { translate } from '@translations'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { View, TouchableOpacity, Platform } from 'react-native'
@@ -33,7 +32,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
   const logger = useLogger()
   const [expand, setExpand] = useState(false)
   const [canExpand, setCanExpand] = useState(false)
-  const numberOfLines = 1
+  const numberOfLines = 2
 
   useEffect(() => {
     logger.error(`transaction error: ${errMsg}`)
@@ -55,58 +54,63 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
   }, [])
 
   return (
-    <View
-      style={tailwind('flex-row items-center justify-center w-full')}
+    <ThemedViewV2
+      dark={tailwind('bg-mono-dark-v2-00')}
+      light={tailwind('bg-mono-light-v2-00')}
+      style={tailwind('flex-row items-center justify-between w-full rounded-lg-v2 px-5 py-3 border-0.5 border-error-500')}
     >
-      <ThemedIcon
-        style={tailwind('w-1/12')}
-        dark={tailwind('text-darkerror-500')}
-        iconType='MaterialIcons'
-        light={tailwind('text-error-500')}
-        name='error'
-        size={20}
-      />
-      <ThemedView
-        style={tailwind('flex flex-col justify-center w-9/12 ml-1')}
-        light={tailwind('bg-white')}
-        dark={tailwind('bg-gray-800')}
+      <View
+        style={tailwind('flex flex-row items-center justify-between w-8/12')}
       >
-        <View style={tailwind('flex flex-row items-center')}>
-          <ThemedText
-            style={tailwind('text-sm font-bold')}
-          >
-            {translate('screens/OceanInterface', `Error Code: ${err.code}`)}
-          </ThemedText>
-          {canExpand && (
-            <TouchableOpacity
-              onPress={() => setExpand(!expand)}
-              testID='details_dfi'
+        <ThemedIcon
+          dark={tailwind('text-darkerror-500')}
+          iconType='MaterialIcons'
+          light={tailwind('text-error-500')}
+          name='error'
+          size={20}
+        />
+        <View style={tailwind('ml-2.5 w-full')}>
+          <View style={tailwind('flex flex-row items-center')}>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-900')}
+              dark={tailwind('text-mono-dark-v2-900')}
+              style={tailwind('text-sm font-bold-v2')}
             >
-              <ThemedIcon
-                light={tailwind('text-gray-600')}
-                dark={tailwind('text-gray-300')}
-                style={tailwind('font-bold')}
-                iconType='MaterialIcons'
-                name={!expand ? 'expand-more' : 'expand-less'}
-                size={24}
-              />
-            </TouchableOpacity>
-          )}
+              {translate('screens/OceanInterface', `Error Code: ${err.code}`)}
+            </ThemedTextV2>
+            {canExpand && (
+              <TouchableOpacity
+                onPress={() => setExpand(!expand)}
+                testID='details_dfi'
+              >
+                <ThemedIcon
+                  light={tailwind('text-mono-light-v2-900')}
+                  dark={tailwind('text-mono-dark-v2-900')}
+                  style={tailwind('font-bold-v2')}
+                  iconType='MaterialIcons'
+                  name={!expand ? 'expand-more' : 'expand-less'}
+                  size={24}
+                />
+              </TouchableOpacity>
+            )}
 
+          </View>
+
+          <ThemedTextV2
+            light={tailwind('text-mono-light-v2-700')}
+            dark={tailwind('text-mono-dark-v2-700')}
+            ellipsizeMode='tail'
+            numberOfLines={getNumberOfLines()}
+            onTextLayout={onTextLayout}
+            style={tailwind('text-sm font-normal-v2')}
+          >
+            {translate('screens/OceanInterface', err.message)}
+          </ThemedTextV2>
         </View>
-
-        <ThemedText
-          ellipsizeMode='tail'
-          numberOfLines={getNumberOfLines()}
-          onTextLayout={onTextLayout}
-          style={tailwind('text-sm font-bold')}
-        >
-          {translate('screens/OceanInterface', err.message)}
-        </ThemedText>
-      </ThemedView>
+      </View>
 
       <TransactionCloseButton onPress={onClose} />
-    </View>
+    </ThemedViewV2>
   )
 }
 
