@@ -2,7 +2,7 @@ import { View } from '@components'
 import { ThemedFlatList, ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { translate } from '@translations'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { PortfolioParamList } from '../PortfolioNavigator'
@@ -32,6 +32,9 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const { transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)
+  const [displayExecutedInfo, setDisplayExecutedInfo] = useState(false)
+  const [executedBlock, setExecutedBlock] = useState<Number | undefined>(undefined)
+
   useEffect(() => {
     // fetch once to retrieve display symbol in store
     dispatch(fetchLoanTokens({ client: whaleApiClient }))
@@ -46,6 +49,11 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
         }))
         dispatch(fetchExecutionBlock({ client: whaleRpcClient }))
       })
+    }
+
+    if (blockCount === executionBlock) {
+      setExecutedBlock(blockCount)
+      setDisplayExecutedInfo(true)
     }
   }, [address, blockCount, isFocused])
 
@@ -159,16 +167,15 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
       data={futureSwaps}
       renderItem={FutureSwapListItem}
       ListHeaderComponent={
-        <ExecutionBlock executionBlock={executionBlock} transactionDate={transactionDate} />
-      }
-      ListFooterComponent={
-        <ThemedText
-          style={tailwind('pt-2 pb-2 px-4 text-xs')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-        >
-          {translate('screens/FutureSwapScreen', 'The amount will be refunded automatically if the transaction does not go through.')}
-        </ThemedText>
+        <View style={tailwind('pt-6 px-4')}>
+          {displayExecutedInfo &&
+            <InfoText
+              text={translate('screens/FutureSwapScreen', 'Settlement block {{block}} has been executed', { block: executedBlock })}
+              onClose={() => setDisplayExecutedInfo(false)}
+            />}
+          <InfoText text={translate('screens/FutureSwapScreen', 'The amount will be refunded automatically if the transaction does not go through.')} />
+          <ExecutionBlock executionBlock={executionBlock} transactionDate={transactionDate} />
+        </View>
       }
     />
   )
@@ -221,6 +228,43 @@ function ExecutionBlock ({ executionBlock, transactionDate }: { executionBlock: 
           light={tailwind('text-primary-500')}
         />
       </TouchableOpacity>
+    </ThemedView>
+  )
+}
+
+function InfoText ({ text, onClose }: { text: string, onClose?: () => void }): JSX.Element {
+  return (
+    <ThemedView
+      style={tailwind('rounded p-2 mb-2 flex flex-row items-center justify-between')}
+      light={tailwind('bg-blue-100')}
+      dark={tailwind('bg-darkblue-100')}
+    >
+      <View style={tailwind('flex flex-row items-center flex-1')}>
+        <ThemedIcon
+          iconType='MaterialIcons'
+          name='info'
+          size={14}
+          light={tailwind('text-blue-600')}
+          dark={tailwind('text-darkblue-600')}
+        />
+        <ThemedText
+          style={tailwind('text-xs pl-2 flex-1')}
+          light={tailwind('text-black opacity-60')}
+          dark={tailwind('text-white opacity-60')}
+        >
+          {text}
+        </ThemedText>
+      </View>
+      {onClose !== undefined &&
+        <TouchableOpacity onPress={onClose}>
+          <ThemedIcon
+            iconType='MaterialIcons'
+            name='close'
+            size={24}
+            light={tailwind('text-gray-600')}
+            dark={tailwind('text-gray-300')}
+          />
+        </TouchableOpacity>}
     </ThemedView>
   )
 }
