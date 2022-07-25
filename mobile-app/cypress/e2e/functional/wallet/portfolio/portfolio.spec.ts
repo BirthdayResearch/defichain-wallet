@@ -858,30 +858,41 @@ context('Wallet - Portfolio - Portfolio group tab', function () {
   })
 
   it('should display portfolio values in USD currency', function () {
-    cy.getByTestID('portfolio_button_group_USDT_active').should('exist')
-    cy.getByTestID('portfolio_display_BTC_currency').should('not.exist')
-    cy.getByTestID('portfolio_display_DFI_currency').should('not.exist')
-    checkPortfolioPageDenominationValues('USDT', '$201,000.00', '$201,000.00', '$0.00000000', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00', '≈ $100,000.00', '≈ $1,000.00')
+    assertPortfolioDenomination('USD')
+    checkPortfolioPageDenominationValues('USD', '$201,000.00', '$201,000.00', '$0.00', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00', '≈ $100,000.00', '≈ $1,000.00')
   })
 
   it('should display portfolio values in DFI currency', function () {
+    togglePortfolioDenomination('DFI')
+    assertPortfolioDenomination('DFI')
     checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00 DFI', '10.00 DFI', '0.10000000 DFI')
   })
 
   it('should display portfolio values in BTC currency', function () {
+    togglePortfolioDenomination('BTC')
+    assertPortfolioDenomination('BTC')
     checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00 BTC', '10.00 BTC', '0.10000000 BTC')
   })
 })
 
+function assertPortfolioDenomination (denomination: string): void {
+  cy.getByTestID('portfolio_active_currency').invoke('text').then(text => {
+    expect(text).to.be.equal(denomination)
+  })
+}
+
+function togglePortfolioDenomination (denomination: string): void {
+  cy.getByTestID('portfolio_active_currency').invoke('text').then(text => {
+    if (text === denomination) {
+      return
+    }
+
+    cy.getByTestID('portfolio_currency_switcher').click()
+    togglePortfolioDenomination(denomination)
+  })
+}
+
 function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt: string, totalAvailableUsdAmt: string, totalLockedUsdAmt: string, DfiTotalBalUsdAmt: string, DfiLockedAmt: string, DfiAvailableAmt: string, BtcUsdAmt: string, EthUsdAmt: string): void {
-  cy.getByTestID('portfolio_button_group').should('exist')
-
-  if (denomination !== 'USDT') {
-    cy.getByTestID(`portfolio_button_group_${denomination}`).click()
-    cy.getByTestID(`portfolio_button_group_${denomination}_active`).should('exist')
-    cy.getByTestID(`portfolio_display_${denomination}_currency`).should('exist') // symbol beside portfolio value text
-  }
-
   // TotalPortfolio
   cy.getByTestID('total_usd_amount').contains(totalUsdAmt)
   cy.getByTestID('total_available_usd_amount').contains(totalAvailableUsdAmt)
@@ -958,13 +969,14 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - A
   it('should sort assets based on Highest DFI value', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['BTC', 'BTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.getByTestID('portfolio_button_group_DFI').click()
+    togglePortfolioDenomination('DFI')
     checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dLTC')
   })
   it('should sort assets based on Lowest DFI value', function () {
     checkAssetsSortingOrder('Lowest DFI value', 'dLTC', 'dBTC')
   })
 })
+
 function interceptTokensForSorting (data: {}): void {
   cy.intercept('**/address/**/tokens?size=*', {
     body: {
@@ -975,15 +987,15 @@ function interceptTokensForSorting (data: {}): void {
 context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - LP tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_portfolio').click()
   })
+
   it('should sort assets based on Highest DFI value', function () {
     interceptTokensForSorting(addLPTokens)
-    cy.getByTestID('portfolio_button_group_DFI').click()
+    togglePortfolioDenomination('DFI')
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     checkAssetsSortingOrder('Highest DFI value', 'dBTC-DFI', 'dUSDT-DFI')
   })
+
   it('should sort assets based on Lowest DFI value', function () {
     interceptTokensForSorting(addLPTokens)
     checkAssetsSortingOrder('Lowest DFI value', 'dUSDT-DFI', 'dBTC-DFI')
@@ -993,15 +1005,15 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - L
 context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - Crypto tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_portfolio').click()
   })
+
   it('should sort assets based on Highest DFI value', function () {
     interceptTokensForSorting(addCrypto)
-    cy.getByTestID('portfolio_button_group_DFI').click()
+    togglePortfolioDenomination('DFI')
     cy.getByTestID('portfolio_button_group_CRYPTO').click()
     checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dETH')
   })
+
   it('should sort assets based on Lowest DFI value', function () {
     interceptTokensForSorting(addCrypto)
     checkAssetsSortingOrder('Lowest DFI value', 'dETH', 'dBTC')
@@ -1011,15 +1023,15 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - Cr
 context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - dTokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_portfolio').click()
   })
+
   it('should sort assets based on Highest DFI value', function () {
     interceptTokensForSorting(addDTokens)
-    cy.getByTestID('portfolio_button_group_DFI').click()
+    togglePortfolioDenomination('DFI')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     checkAssetsSortingOrder('Highest DFI value', 'dTD10', 'DUSD')
   })
+
   it('should sort assets based on Lowest DFI value', function () {
     interceptTokensForSorting(addDTokens)
     checkAssetsSortingOrder('Lowest DFI value', 'DUSD', 'dTD10')
@@ -1029,15 +1041,15 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - dT
 context('Wallet - Portfolio - Your Assets - BTC currency - Sorting function  - All tokens tab ', function () {
   before(function () {
     cy.createEmptyWallet(true)
-    cy.getByTestID('header_settings').click()
-    cy.getByTestID('bottom_tab_portfolio').click()
   })
+
   it('should sort assets based on Highest BTC value', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['BTC', 'LTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.getByTestID('portfolio_button_group_BTC').click()
+    togglePortfolioDenomination('BTC')
     checkAssetsSortingOrder('Highest BTC value', 'dBTC', 'DUSD')
   })
+
   it('should sort assets based on Lowest BTC value', function () {
     checkAssetsSortingOrder('Lowest BTC value', 'DUSD', 'dBTC')
   })

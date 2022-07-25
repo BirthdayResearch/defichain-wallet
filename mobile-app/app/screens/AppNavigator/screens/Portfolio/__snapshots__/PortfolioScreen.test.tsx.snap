@@ -38,17 +38,289 @@ exports[`portfolio page should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "paddingBottom": 12,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
+              "flexDirection": "row",
+              "opacity": 1,
+              "overflow": "hidden",
+            }
+          }
+          testID="switch_account_button"
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "paddingBottom": 2,
+                  "paddingLeft": 2,
+                  "paddingRight": 2,
+                  "paddingTop": 2,
+                },
+                Object {
+                  "backgroundColor": "rgba(18, 18, 18, 1)",
+                },
+              ]
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={24}
+              bbWidth={24}
+              fill="none"
+              focusable={false}
+              height={24}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 24,
+                    "width": 24,
+                  },
+                ]
+              }
+              vbHeight={80}
+              vbWidth={80}
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <RNSVGGroup
+                fill={null}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+              >
+                <RNSVGMask
+                  height={80}
+                  maskContentUnits={1}
+                  maskTransform={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  maskUnits={1}
+                  name="mask__bauhaus"
+                  width={80}
+                  x={0}
+                  y={0}
+                >
+                  <RNSVGRect
+                    fill={4294967295}
+                    height={80}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    rx={160}
+                    width={80}
+                    x={0}
+                    y={0}
+                  />
+                </RNSVGMask>
+                <RNSVGGroup
+                  mask="mask__bauhaus"
+                >
+                  <RNSVGRect
+                    fill={4284158207}
+                    height={80}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    width={80}
+                    x={0}
+                    y={0}
+                  />
+                  <RNSVGRect
+                    fill={4294945863}
+                    height={80}
+                    matrix={
+                      Array [
+                        -0.46947156278589075,
+                        -0.882947592858927,
+                        0.882947592858927,
+                        -0.46947156278589075,
+                        23.46095879707855,
+                        94.0967662257927,
+                      ]
+                    }
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    width={80}
+                    x={10}
+                    y={30}
+                  />
+                  <RNSVGCircle
+                    cx={40}
+                    cy={40}
+                    fill={4278234397}
+                    matrix={
+                      Array [
+                        1,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                      ]
+                    }
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGLine
+                    matrix={
+                      Array [
+                        -0.5591929034707467,
+                        0.8290375725550417,
+                        -0.8290375725550417,
+                        -0.5591929034707467,
+                        91.52921904103154,
+                        33.2062132366282,
+                      ]
+                    }
+                    propList={
+                      Array [
+                        "stroke",
+                        "strokeWidth",
+                      ]
+                    }
+                    stroke={4279316113}
+                    strokeWidth={2}
+                    x1={0}
+                    x2={80}
+                    y1={40}
+                    y2={40}
+                  />
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+          <Text
+            ellipsizeMode="middle"
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Array [
+                    Object {
+                      "fontFamily": "SoraSemiBold",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "lineHeight": 20,
+                      "marginLeft": 8,
+                    },
+                    Object {
+                      "maxWidth": 124,
+                      "minWidth": 10,
+                    },
+                  ],
+                  Object {
+                    "color": "rgba(18, 18, 18, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="wallet_address"
+          >
+            bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={false}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "marginLeft": 8,
+              "opacity": 1,
+            }
+          }
+          testID="toggle_balance"
+        >
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
               "marginBottom": 8,
-              "marginLeft": 16,
-              "marginRight": 16,
-              "marginTop": 16,
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
               "paddingTop": 8,
             },
             Object {
@@ -61,326 +333,13 @@ exports[`portfolio page should match snapshot 1`] = `
         <View
           style={
             Object {
-              "justifyContent": "space-evenly",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-                "paddingBottom": 4,
-                "paddingTop": 4,
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "maxWidth": "50%",
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Total Portfolio Value
-            </Text>
-            <View
-              style={
-                Object {
-                  "paddingLeft": 8,
-                  "paddingRight": 8,
-                }
-              }
-            >
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={false}
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "backgroundColor": "transparent",
-                    "borderBottomColor": "rgba(229, 229, 229, 1)",
-                    "borderLeftColor": "rgba(229, 229, 229, 1)",
-                    "borderRightColor": "rgba(229, 229, 229, 1)",
-                    "borderTopColor": "rgba(229, 229, 229, 1)",
-                    "opacity": 1,
-                  }
-                }
-                testID="toggle_balance"
-              >
-                <Text />
-              </View>
-            </View>
-            <View
-              style={
-                Array [
-                  Object {
-                    "paddingBottom": 6,
-                    "paddingTop": 6,
-                  },
-                  Object {
-                    "marginLeft": "auto",
-                  },
-                ]
-              }
-            >
-              <View
-                style={
-                  Array [
-                    Object {
-                      "borderBottomLeftRadius": 16,
-                      "borderBottomRightRadius": 16,
-                      "borderTopLeftRadius": 16,
-                      "borderTopRightRadius": 16,
-                      "display": "flex",
-                      "flexDirection": "row",
-                    },
-                    Object {
-                      "backgroundColor": "rgba(255, 255, 255, 1)",
-                    },
-                  ]
-                }
-                testID="portfolio_button_group"
-              >
-                <View
-                  accessible={true}
-                  collapsable={false}
-                  focusable={true}
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "backgroundColor": "rgba(245, 245, 245, 1)",
-                      "borderBottomLeftRadius": 4,
-                      "borderBottomRightRadius": 4,
-                      "borderTopLeftRadius": 4,
-                      "borderTopRightRadius": 4,
-                      "justifyContent": "center",
-                      "opacity": 1,
-                      "overflowWrap": "break-word",
-                      "paddingBottom": 4,
-                      "paddingLeft": 10,
-                      "paddingRight": 10,
-                      "paddingTop": 4,
-                    }
-                  }
-                  testID="portfolio_button_group_USDT_active"
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 14,
-                            "fontWeight": "500",
-                            "lineHeight": 20,
-                            "textAlign": "center",
-                          },
-                          Object {
-                            "color": "rgba(255, 0, 175, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                  >
-                    USD
-                  </Text>
-                </View>
-                <View
-                  accessible={true}
-                  collapsable={false}
-                  focusable={true}
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "borderBottomLeftRadius": 4,
-                      "borderBottomRightRadius": 4,
-                      "borderTopLeftRadius": 4,
-                      "borderTopRightRadius": 4,
-                      "justifyContent": "center",
-                      "opacity": 1,
-                      "overflowWrap": "break-word",
-                      "paddingBottom": 4,
-                      "paddingLeft": 10,
-                      "paddingRight": 10,
-                      "paddingTop": 4,
-                    }
-                  }
-                  testID="portfolio_button_group_DFI"
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 14,
-                            "fontWeight": "500",
-                            "lineHeight": 20,
-                            "textAlign": "center",
-                          },
-                          Object {
-                            "color": "rgba(23, 23, 23, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                  >
-                    DFI
-                  </Text>
-                </View>
-                <View
-                  accessible={true}
-                  collapsable={false}
-                  focusable={true}
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "borderBottomLeftRadius": 4,
-                      "borderBottomRightRadius": 4,
-                      "borderTopLeftRadius": 4,
-                      "borderTopRightRadius": 4,
-                      "justifyContent": "center",
-                      "opacity": 1,
-                      "overflowWrap": "break-word",
-                      "paddingBottom": 4,
-                      "paddingLeft": 10,
-                      "paddingRight": 10,
-                      "paddingTop": 4,
-                    }
-                  }
-                  testID="portfolio_button_group_BTC"
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 14,
-                            "fontWeight": "500",
-                            "lineHeight": 20,
-                            "textAlign": "center",
-                          },
-                          Object {
-                            "color": "rgba(23, 23, 23, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                  >
-                    BTC
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
+              "justifyContent": "space-between",
             }
           }
         >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexWrap": "wrap",
-                    "fontFamily": "BoldFont",
-                    "fontSize": 24,
-                    "fontWeight": "700",
-                    "lineHeight": 32,
-                    "maxWidth": "75%",
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="total_usd_amount"
-          >
-            $0.00000000
-          </Text>
           <View
             accessible={true}
             collapsable={false}
@@ -396,8 +355,149 @@ exports[`portfolio page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               Object {
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
+                "opacity": 1,
+                "width": "83.333333%",
+              }
+            }
+            testID="portfolio_currency_switcher"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "flexDirection": "row",
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "display": "flex",
+                          "flexDirection": "row",
+                          "fontFamily": "SoraSemiBold",
+                          "fontWeight": "600",
+                          "marginRight": 8,
+                        },
+                        Object {
+                          "fontSize": 28,
+                          "lineHeight": 36,
+                        },
+                      ],
+                      Object {
+                        "color": "rgba(18, 18, 18, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="total_usd_amount"
+              >
+                $0.00
+              </Text>
+              <View
+                style={
+                  Object {
+                    "paddingBottom": 4,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "borderBottomLeftRadius": 8,
+                        "borderBottomRightRadius": 8,
+                        "borderBottomWidth": 0.5,
+                        "borderLeftWidth": 0.5,
+                        "borderRightWidth": 0.5,
+                        "borderTopLeftRadius": 8,
+                        "borderTopRightRadius": 8,
+                        "borderTopWidth": 0.5,
+                        "paddingBottom": 4,
+                        "paddingLeft": 8,
+                        "paddingRight": 8,
+                        "paddingTop": 4,
+                      },
+                      Object {
+                        "borderBottomColor": "rgba(18, 18, 18, 1)",
+                        "borderLeftColor": "rgba(18, 18, 18, 1)",
+                        "borderRightColor": "rgba(18, 18, 18, 1)",
+                        "borderTopColor": "rgba(18, 18, 18, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
+                          Object {
+                            "fontFamily": "SoraRegular",
+                            "fontSize": 12,
+                            "fontWeight": "400",
+                            "lineHeight": 16,
+                          },
+                          Object {
+                            "color": "rgba(18, 18, 18, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                    testID="portfolio_active_currency"
+                  >
+                    USD
+                  </Text>
+                </View>
+              </View>
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
                 "opacity": 1,
               }
             }
@@ -1697,13 +1797,9 @@ exports[`portfolio page should match snapshot 1`] = `
                         },
                         Array [
                           Object {
-                            "flexWrap": "wrap",
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "lineHeight": 20,
-                            "marginBottom": 4,
-                            "textAlign": "right",
+                            "alignItems": "center",
+                            "display": "flex",
+                            "flexDirection": "row",
                           },
                           Object {
                             "color": "rgba(18, 18, 18, 1)",
@@ -1711,9 +1807,43 @@ exports[`portfolio page should match snapshot 1`] = `
                         ],
                       ]
                     }
-                    testID="portfolio_row_1_amount"
                   >
-                    777.00000000
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexWrap": "wrap",
+                              "fontFamily": "SoraSemiBold",
+                              "fontSize": 14,
+                              "fontWeight": "600",
+                              "lineHeight": 20,
+                              "marginBottom": 4,
+                              "textAlign": "right",
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                      testID="portfolio_row_1_amount"
+                    >
+                      777.00000000
+                    </Text>
+                    <View
+                      style={
+                        Object {
+                          "paddingBottom": 4,
+                        }
+                      }
+                    />
                   </Text>
                   <View
                     style={
@@ -2000,13 +2130,9 @@ exports[`portfolio page should match snapshot 1`] = `
                         },
                         Array [
                           Object {
-                            "flexWrap": "wrap",
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "lineHeight": 20,
-                            "marginBottom": 4,
-                            "textAlign": "right",
+                            "alignItems": "center",
+                            "display": "flex",
+                            "flexDirection": "row",
                           },
                           Object {
                             "color": "rgba(18, 18, 18, 1)",
@@ -2014,9 +2140,43 @@ exports[`portfolio page should match snapshot 1`] = `
                         ],
                       ]
                     }
-                    testID="portfolio_row_2_amount"
                   >
-                    555.00000000
+                    <Text
+                      style={
+                        Array [
+                          Object {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          Array [
+                            Object {
+                              "flexWrap": "wrap",
+                              "fontFamily": "SoraSemiBold",
+                              "fontSize": 14,
+                              "fontWeight": "600",
+                              "lineHeight": 20,
+                              "marginBottom": 4,
+                              "textAlign": "right",
+                            },
+                            Object {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                      testID="portfolio_row_2_amount"
+                    >
+                      555.00000000
+                    </Text>
+                    <View
+                      style={
+                        Object {
+                          "paddingBottom": 4,
+                        }
+                      }
+                    />
                   </Text>
                   <View
                     style={
