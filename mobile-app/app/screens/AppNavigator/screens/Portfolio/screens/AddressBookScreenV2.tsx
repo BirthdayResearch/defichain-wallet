@@ -247,17 +247,15 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 {item.address}
               </ThemedTextV2>
             </View>
-            {
-              showIcon && (
-                <ThemedIcon
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                iconType='Feather'
-                name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
-                size={18}
-              />
-              )
-            }
+            {showIcon && (
+              <ThemedIcon
+              dark={tailwind('text-mono-dark-v2-700')}
+              light={tailwind('text-mono-light-v2-700')}
+              iconType='Feather'
+              name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
+              size={18}
+            />
+            )}
           </TouchableOpacity>
         </View>
       </ThemedViewV2>
