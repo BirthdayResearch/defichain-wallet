@@ -1,5 +1,4 @@
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
@@ -77,7 +76,6 @@ export function OceanInterface (): JSX.Element | null {
   const client = useWhaleApiClient()
   const { wallet, address } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
-  const { isLight } = useThemeContext()
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean)
@@ -160,10 +158,9 @@ export function OceanInterface (): JSX.Element | null {
     return null
   }
 
-  const currentTheme = `${isLight ? 'bg-white border-t border-gray-200' : 'bg-gray-800 border-t border-gray-700'}`
   return (
     <Animated.View
-      style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {
+      style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10'), {
         bottom: slideAnim,
         minHeight: 75
       }]}

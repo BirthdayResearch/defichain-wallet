@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
-import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedText, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { TransactionIDButton } from './TransactionIDButton'
 
@@ -22,8 +22,14 @@ export function TransactionDetail ({
   title
 }: TransactionDetailProps): JSX.Element {
   title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
+
+  const borderColour = broadcasted ? 'border-success-500' : 'border-mono-dark-v2-500'
   return (
-    <>
+    <ThemedViewV2
+      dark={tailwind('bg-mono-dark-v2-00')}
+      light={tailwind('bg-mono-light-v2-00')}
+      style={tailwind(`w-full rounded-lg-v2 px-5 flex flex-row py-3 items-center border-0.5 ${borderColour}`)}
+    >
       {
         !broadcasted
           ? <ThemedActivityIndicator />
@@ -57,7 +63,7 @@ export function TransactionDetail ({
       {
         broadcasted && <TransactionCloseButton onPress={onClose} />
       }
-    </>
+    </ThemedViewV2>
   )
 }
 
