@@ -1,7 +1,6 @@
 import { TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedText } from '@components/themed'
-import { translate } from '@translations'
+import { ThemedIcon } from '@components/themed'
 
 interface TransactionCloseButtonProps {
   onPress: () => void
@@ -11,16 +10,16 @@ export function TransactionCloseButton (props: TransactionCloseButtonProps): JSX
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      style={tailwind('px-2 ml-3 py-1 rounded border border-gray-300 rounded flex-row justify-center items-center')}
       testID='oceanInterface_close'
     >
-      <ThemedText
-        dark={tailwind('font-medium text-darkprimary-500')}
-        light={tailwind('font-medium text-primary-500')}
-        style={tailwind('text-sm ')}
-      >
-        {translate('screens/OceanInterface', 'OK')}
-      </ThemedText>
+      <ThemedIcon
+        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind('text-mono-dark-v2-700')}
+        style={tailwind('font-bold-v2')}
+        iconType='MaterialIcons'
+        name='close'
+        size={16}
+      />
     </TouchableOpacity>
   )
 }
