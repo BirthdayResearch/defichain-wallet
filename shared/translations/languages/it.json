@@ -128,12 +128,13 @@
     "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
-    "CREATE WALLET ADDRESS": "CREA INDIRIZZO DEL WALLET",
-    "{{length}} ADDRESS(ES)": "{{length}} INDIRIZZO(I)",
+    "Create wallet address": "Crea indirizzo del wallet",
+    "ADDRESS(ES)": "INDIRIZZO(I)",
     "RECEIVE": "RICEVI",
     "VIEW ON SCAN": "VISUALIZZA SU SCAN",
     "EDIT": "MODIFICA",
-    "CANCEL": "CANCELLA"
+    "CANCEL": "CANCELLA",
+    "Refresh": "Refresh"
   },
   "screens/AddressBookScreen": {
     "Address book": "Rubrica",
@@ -159,18 +160,24 @@
     "YOUR ADDRESS(ES)": "I TUOI INDIRIZZI",
     "Search results for": "Ricerca i risultati per",
     "Search with label or address": "Ricerca con etichetta o dell'indirizzo",
-    "Search results for “{{input}}”":  "Search results for “{{input}}”",
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
     "FAVOURITE ADDRESS(ES)": "Indirizzi preferiti",
     "Add your preferred / commonly-used address.": "Add your preferred / commonly-used address."
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifica l'etichetta dell'indirizzo",
+    "Edit wallet label": "Edit wallet label",
     "ADDRESS LABEL": "ETICHETTA DELL'INDIRIZZO",
+    "LABEL": "LABEL",
+    "Enter label": "Enter label",
     "Address {{index}}": "Indirizzo {{index}}",
     "Add new address": "Aggiungi un nuovo indirizzo",
     "ADDRESS": "INDIRIZZO",
     "SAVE CHANGES": "SALVA MODIFICHE",
-    "Address label is too long (max 30 characters)": "L'etichetta dell'indirizzo è troppo lunga (max 30 caratteri)"
+    "Save changes": "Salva modifiche",
+    "Address label is too long (max 30 characters)": "L'etichetta dell'indirizzo è troppo lunga (max 30 caratteri)",
+    "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
+    "{{length}}/40 characters": "{{length}}/40 characters"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Modifica l'etichetta dell'indirizzo",
@@ -224,7 +231,8 @@
     "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
-    "Copied": "Copiato"
+    "Copied": "Copiato",
+    "Address copied": "Address copied"
   },
   "screens/SendScreen": {
     "Send": "Invia",
@@ -314,7 +322,7 @@
     "Recovery Words": "Parole di recupero",
     "Recovery words": "Parole di recupero",
     "Are you sure you want to unlink your wallet?": "Sei sicuro di voler scollegare il tuo wallet?",
-    "Once unlinked, you will need to enter your recovery words to restore your wallet.":  "Once unlinked, you will need to enter your recovery words to restore your wallet.",
+    "Once unlinked, you will need to enter your recovery words to restore your wallet.": "Once unlinked, you will need to enter your recovery words to restore your wallet.",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Dovrai usare le tue parole di recupero la prossima volta che vorrai accedere al tuo wallet.",
     "Cancel": "Cancella",
     "Unlink Wallet": "Scollegare il wallet",
@@ -424,7 +432,7 @@
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ prestiti",
-    "About Loans":  "About Loans",
+    "About Loans": "About Loans",
     "Decentralized Loans": "Prestiti decentralizzati",
     "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI",
     "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.": "La funzione di prestito decentralizzato ti permette di prendere in prestito token decentralizzati utilizzando le tue criptovalute come garanzia. Per iniziare, devi prima creare un vault e depositare il collaterale prima di poter prendere un prestito.",
@@ -695,6 +703,7 @@
   },
   "screens/common": {
     "CANCEL": "ANNULLA",
+    "Cancel": "Annulla",
     "TRY AGAIN": "RIPROVA"
   },
   "screens/ChangePinScreen": {
@@ -941,7 +950,7 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "Stai per passare a {{network}}. Vuoi procedere?"
   },
   "components/RecoveryWordFaq": {
-    "About Recovery Words":  "About Recovery Words",
+    "About Recovery Words": "About Recovery Words",
     "What happens if I lose my recovery words?": "Cosa succede se perdo le parole di recupero?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Una volta perse le tue parole di recupero, non sarai in grado di ripristinare il tuo wallet e tutti i fondi al suo interno. Ti invitiamo a essere responsabile con le tue parole di recupero.",
     "Can I use the 24-words from xxx that I created from xxx?": "Posso usare le 24 parole di xxx che ho creato da xxx?",

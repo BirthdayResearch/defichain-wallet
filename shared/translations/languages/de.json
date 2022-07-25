@@ -123,12 +123,13 @@
     "GET DFI FROM": "ERWIRB DFI AUF"
   },
   "components/BottomSheetAddressDetail": {
-    "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
-    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(N)",
+    "Create wallet address": "Walletadresse erstellen",
+    "ADDRESS(ES)": "ADRESSE(N)",
     "RECEIVE": "EMPFANGEN",
     "VIEW ON SCAN": "AUF DeFi SCAN ANSEHEN",
     "EDIT": "EDITIEREN",
-    "CANCEL": "ABBRECHEN"
+    "CANCEL": "ABBRECHEN",
+    "Refresh": "Aktualisieren"
   },
   "screens/AddressBookScreen": {
     "Address Book": "Adressbuch",
@@ -156,12 +157,18 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
+    "Edit wallet label": "Walletbezeichnung editieren",
     "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
+    "LABEL": "BEZEICHNUNG",
+    "Enter label": "Bezeichnung eingeben",
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Neue Adresse hinzufügen",
     "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
-    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)"
+    "Save changes": "Änderungen sichern",
+    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
+    "Invalid label. Maximum of 40 characters.": "Ungültige Bezeichnung. Maximum von 40 Zeichen",
+    "{{length}}/40 characters": "{{length}}/40 Zeichen"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -213,7 +220,8 @@
     "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten"
   },
   "components/toaster": {
-    "Copied": "Kopiert"
+    "Copied": "Kopiert",
+    "Address copied": "Adresse kopiert"
   },
   "screens/SendScreen": {
     "Send": "Senden",
@@ -677,6 +685,7 @@
   },
   "screens/common": {
     "CANCEL": "ABBRECHEN",
+    "Cancel": "Abbrechen",
     "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/ChangePinScreen": {
