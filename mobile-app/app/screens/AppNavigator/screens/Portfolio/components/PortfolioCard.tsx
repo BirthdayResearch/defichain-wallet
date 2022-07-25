@@ -1,6 +1,6 @@
 import {
   ThemedView,
-  ThemedTouchableOpacity
+  ThemedTouchableOpacity, ThemedViewV2
 } from '@components/themed'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { PortfolioRowToken } from '../PortfolioScreen'
@@ -34,7 +34,7 @@ interface PortfolioCardProps {
   filteredTokens: PortfolioRowToken[]
   dstTokens: PortfolioRowToken[]
   navigation: StackNavigationProp<PortfolioParamList>
-  buttonGroupOptions?: {
+  buttonGroupOptions: {
     onButtonGroupPress: (key: ButtonGroupTabKey) => void
     activeButtonGroup: string
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void
@@ -104,25 +104,13 @@ export function PortfolioCard ({
   }
 
   return (
-    <ThemedView>
-      {
-        // filter tab
-        buttonGroupOptions !== undefined &&
-        (
-          <>
-            <ThemedView
-              light={tailwind('bg-gray-50')}
-              style={tailwind('pl-5 mt-6 mb-4')}
-            >
-              <PortfolioButtonGroup
-                buttons={buttonGroup}
-                activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
-                testID='portfolio_button_group'
-              />
-            </ThemedView>
-          </>
-        )
-      }
+    <ThemedViewV2>
+      <PortfolioButtonGroup
+        buttons={buttonGroup}
+        activeButtonGroupItem={buttonGroupOptions.activeButtonGroup}
+        testID='portfolio_button_group'
+      />
+
       <View testID='card_balance_row_container'>
         {filteredTokens.map((item) => (
           <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
@@ -143,7 +131,7 @@ export function PortfolioCard ({
         filteredTokens.length === 0 && hasFetchedToken && tabButtonLabel !== '' &&
           <EmptyBalances type={tabButtonLabel} />
       }
-    </ThemedView>
+    </ThemedViewV2>
   )
 }
 
