@@ -4,13 +4,13 @@ context('Wallet - Settings', () => {
     cy.getByTestID('header_settings').click()
   })
 
-  it('should be able to display top up screen when click on playground on playground network', function () {
-    cy.getByTestID('header_network_icon').click()
+  it.only('should be able to display top up screen when click on playground on playground network', function () {
+    cy.getByTestID('header_network_icon').filter(':visible').click()
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {})
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
-    cy.getByTestID('header_network_icon').click()
+    cy.getByTestID('header_network_icon').filter(':visible').click()
     cy.getByTestID('button_network_Playground').click()
     cy.url().should('include', 'playground')
   })
