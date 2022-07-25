@@ -1576,7 +1576,8 @@
     "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",
     "Settlement block": "Ausführungsblock",
     "The amount will be refunded automatically if the transaction does not go through.": "Der Betrag wird automatisch zurückerstattet, wenn die Transaktion nicht zustande kommt.",
-    "Future Swap": "Future Swap"
+    "Future Swap": "Future Swap",
+    "Settlement block {{block}} has been executed": "Abrechnungs-Block {{block}} wurde ausgeführt"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Server",
