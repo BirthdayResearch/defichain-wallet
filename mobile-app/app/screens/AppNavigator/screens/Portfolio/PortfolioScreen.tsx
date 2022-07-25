@@ -37,6 +37,7 @@ import { BottomSheetAssetSortList, PortfolioSortType } from './components/Bottom
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
+import { AssetsFilterRow } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -205,7 +206,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   }, [dstTokens, allTokens, lockedTokens])
 
   const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
-
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setDenominationCurrency(portfolioButtonGroupTabKey)
@@ -434,6 +434,17 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     ]
   }, [address, isLight])
 
+  const [tabButtonLabel, setTabButtonLabel] = useState<string>('')
+  const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    switch (buttonGroupTabKey) {
+      case (ButtonGroupTabKey.LPTokens):
+        return setTabButtonLabel('LP tokens')
+      case (ButtonGroupTabKey.Crypto):
+        return setTabButtonLabel('Crypto')
+      case (ButtonGroupTabKey.dTokens):
+        return setTabButtonLabel('dTokens')
+    }
+  }
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
@@ -470,7 +481,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
-
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
@@ -481,6 +491,12 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         />
         <ActionButtons />
         <Announcements />
+        <AssetsFilterRow
+          activeButtonGroup={activeButtonGroup}
+          setTabButtonLabel={setButtonLabel}
+          onButtonGroupPress={handleButtonFilter}
+          setActiveButtonGroup={setActiveButtonGroup}
+        />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}
@@ -502,17 +518,13 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             </View>
           )
           : (<PortfolioCard
-              isZeroBalance={isZeroBalance}
-              dstTokens={combinedTokens}
-              filteredTokens={sortTokensAssetOnType(assetSortType)}
-              navigation={navigation}
-              buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
-              denominationCurrency={denominationCurrency}
-             />)}
+            isZeroBalance={isZeroBalance}
+            dstTokens={combinedTokens}
+            filteredTokens={sortTokensAssetOnType(assetSortType)}
+            navigation={navigation}
+            denominationCurrency={denominationCurrency}
+            tabButtonLabel={tabButtonLabel}
+          />)}
         {Platform.OS === 'web'
           ? (
             <BottomSheetWebWithNav
