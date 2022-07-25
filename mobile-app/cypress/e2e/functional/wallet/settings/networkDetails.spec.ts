@@ -170,7 +170,7 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
   it('should get back to the portfolio page when network detail called from portfolio page', function () {
     cy.getByTestID('bottom_tab_portfolio').click().wait(3000)
     cy.url().should('include', 'app/portfolio')
-    cy.getByTestID('portfolio_header_container').filter(':visible').click().wait(3000)
+    cy.getByTestID('header_active_network').first().click()
     cy.go('back')
     cy.url().should('include', 'app/portfolio')
   })
