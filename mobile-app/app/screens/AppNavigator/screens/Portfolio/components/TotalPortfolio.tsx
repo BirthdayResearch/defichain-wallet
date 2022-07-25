@@ -1,18 +1,18 @@
 import { View } from '@components'
 import { TextSkeletonLoader } from '@components/TextSkeletonLoader'
-import { ThemedIcon, ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { RootState } from '@store'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { TouchableOpacity } from 'react-native'
-import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
+import { Platform, TouchableOpacity } from 'react-native'
+import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { BalanceText } from './BalanceText'
-import { useState } from 'react'
-import { ButtonGroup } from '../../Dex/components/ButtonGroup'
-import { SymbolIcon } from '@components/SymbolIcon'
+import { useEffect, useState } from 'react'
+import { BalanceTextV2 } from './BalanceTextV2'
+import { TextSkeletonLoaderV2 } from '@components/TextSkeletonLoaderV2'
 
 export enum PortfolioButtonGroupTabKey {
   USDT = 'USDT',
@@ -24,99 +24,80 @@ interface TotalPortfolioProps {
   totalAvailableValue: BigNumber
   totalLockedValue: BigNumber
   totalLoansValue: BigNumber
-  onToggleDisplayBalances: () => Promise<void>
-  isBalancesDisplayed: boolean
-  portfolioButtonGroupOptions?: {
-    activePortfolioButtonGroup: string
-    setActivePortfolioButtonGroup: (key: PortfolioButtonGroupTabKey) => void
-  }
-  portfolioButtonGroup: Array<{
-    id: PortfolioButtonGroupTabKey
-    label: string
-    handleOnPress: () => void
-  }>
-  denominationCurrency?: string
+  portfolioButtonGroup: PortfolioButtonGroup[]
+  denominationCurrency: string
+  setDenominationCurrency: (key: PortfolioButtonGroupTabKey) => void
+}
+
+interface PortfolioButtonGroup {
+  id: PortfolioButtonGroupTabKey
+  label: string
+  handleOnPress: () => void
 }
 
 export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const { hasFetchedVaultsData } = useSelector((state: RootState) => (state.loans))
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
-  const denominationCurrency = props.portfolioButtonGroupOptions?.activePortfolioButtonGroup // for 'BTC' or 'DFI' denomination
+  const denominationCurrency = props.denominationCurrency // for 'BTC' or 'DFI' denomination
   const totalPortfolioValue = BigNumber.max(0, new BigNumber(props.totalAvailableValue).plus(props.totalLockedValue).minus(props.totalLoansValue))
+  const [activeButtonGroup, setActiveButtonGroup] = useState<PortfolioButtonGroup>()
+  const onCurrencySwitch = (): void => {
+    const activeIndex = props.portfolioButtonGroup.findIndex(tab => tab.id === props.denominationCurrency)
+    let nextIndex = activeIndex + 1
+    if (activeIndex === props.portfolioButtonGroup.length - 1) {
+      nextIndex = 0
+    }
+    props.setDenominationCurrency(props.portfolioButtonGroup[nextIndex].id)
+  }
+
+  useEffect(() => {
+    setActiveButtonGroup(props.portfolioButtonGroup.find(button => button.id === props.denominationCurrency))
+  }, [props.denominationCurrency])
 
   return (
-    <ThemedView
-      light={tailwind('bg-white')}
-      dark={tailwind('bg-gray-800')}
-      style={tailwind('m-4 mb-2 px-4 pb-4 pt-2 rounded-lg')}
+    <ThemedViewV2
+      light={tailwind('bg-mono-light-v2-00')}
+      dark={tailwind('bg-mono-dark-v2-00')}
+      style={tailwind('mb-2 px-5 pb-5 pt-2 rounded-b-xl-v2')}
       testID='total_portfolio_card'
     >
-      <View style={tailwind('justify-evenly')}>
-        <View style={tailwind('flex flex-row items-center py-1')}>
-          <ThemedText
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            style={tailwind('text-sm text-gray-500 max-w-1/2')}
-          >
-            {translate('screens/PortfolioScreen', 'Total Portfolio Value')}
-          </ThemedText>
-          {
-            props.portfolioButtonGroupOptions !== undefined &&
-            (
-              <View style={[tailwind('py-1.5'), { marginLeft: 'auto' }]}>
-                <ButtonGroup
-                  buttons={props.portfolioButtonGroup}
-                  activeButtonGroupItem={props.portfolioButtonGroupOptions.activePortfolioButtonGroup}
-                  modalStyle={tailwind('text-xs text-center')}
-                  testID='portfolio_button_group'
-                  lightThemeStyle={tailwind('bg-white')}
-                  customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
-                  customActiveStyle={{
-                    light: tailwind('bg-gray-100'),
-                    dark: tailwind('bg-black')
-                  }}
-                />
-              </View>
-            )
-          }
-        </View>
-      </View>
       {
         (hasFetchedToken && hasFetchedVaultsData)
           ? (
-            <View style={tailwind('flex flex-row items-center')}>
-              <NumberFormat
-                displayType='text'
-                prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-                renderText={(value) =>
-                  <BalanceText
-                    dark={tailwind('text-gray-200')}
-                    light={tailwind('text-black')}
-                    style={tailwind('flex-wrap text-2xl font-bold max-w-3/4')}
-                    testID='total_usd_amount'
-                    value={value}
-                  />}
-                thousandSeparator
-                value={getPrecisedTokenValue(totalPortfolioValue)}
-              />
-              {
-                denominationCurrency !== PortfolioButtonGroupTabKey.USDT && denominationCurrency && (
-                  <View style={tailwind('pl-1.5')} testID={`portfolio_display_${denominationCurrency}_currency`}>
-                    <SymbolIcon symbol={`${denominationCurrency}`} styleProps={tailwind('w-4 h-4')} />
-                  </View>
-                )
-              }
+            <View style={tailwind('flex flex-row items-center justify-between')}>
               <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={onCurrencySwitch}
+                style={tailwind('flex flex-row items-center w-10/12')}
+                testID='portfolio_currency_switcher'
+              >
+                <NumberFormat
+                  displayType='text'
+                  prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
+                  renderText={(value) =>
+                    <BalanceTextV2
+                      style={[tailwind('font-semibold-v2 mr-2 flex flex-row items-center'), { fontSize: 28, lineHeight: 36 }]}
+                      testID='total_usd_amount'
+                      value={value}
+                    >
+                      {activeButtonGroup !== undefined && <CurrencySwitcher currency={activeButtonGroup.label} />}
+                    </BalanceTextV2>}
+                  thousandSeparator
+                  value={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getPrecisedCurrencyValue(totalPortfolioValue) : getPrecisedTokenValue(totalPortfolioValue)}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.7}
                 onPress={() => setIsExpanded(!isExpanded)}
-                style={tailwind('flex flex-row')}
+                style={tailwind('')}
                 testID='toggle_portfolio'
               >
                 <ThemedIcon
-                  light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
-                  iconType='MaterialIcons'
-                  name={!isExpanded ? 'expand-more' : 'expand-less'}
+                  light={tailwind('text-mono-light-v2-900')}
+                  dark={tailwind('text-mono-dark-v2-900')}
+                  iconType='Feather'
+                  name={!isExpanded ? 'chevron-down' : 'chevron-up'}
                   size={30}
                 />
               </TouchableOpacity>
@@ -124,14 +105,14 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
           )
           : (
             <View style={tailwind('mt-1')}>
-              <TextSkeletonLoader
+              <TextSkeletonLoaderV2
                 viewBoxWidth='260'
-                viewBoxHeight='34'
+                viewBoxHeight='32'
                 textWidth='180'
-                textHeight='23'
+                textHeight='20'
                 textVerticalOffset='4'
                 iContentLoaderProps={{
-                  height: '34',
+                  height: '32',
                   testID: 'total_portfolio_skeleton_loader'
                 }}
               />
@@ -140,12 +121,12 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
       }
       {
         isExpanded &&
-          <ThemedView
-            style={tailwind('mb-2 mt-2 border-t')}
-            light={tailwind('border-gray-100')}
-            dark={tailwind('border-gray-700')}
+          <ThemedViewV2
+            style={tailwind('mt-5 border-t-0.5')}
+            light={tailwind('border-mono-light-v2-300')}
+            dark={tailwind('border-mono-dark-v2-300')}
           >
-            <View style={tailwind('mt-2')}>
+            <View style={tailwind('mt-5')}>
               <USDValueRow
                 testId='total_available_usd_amount'
                 isLoading={!hasFetchedToken}
@@ -175,9 +156,9 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
                 />
               )
             }
-          </ThemedView>
+          </ThemedViewV2>
       }
-    </ThemedView>
+    </ThemedViewV2>
   )
 }
 
@@ -198,12 +179,13 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
   }
   return (
     <View style={tailwind('flex flex-row justify-start items-center w-full')}>
-      <ThemedText
-        light={tailwind(props.isAddition ? 'text-gray-500' : 'text-error-500')}
-        dark={tailwind(props.isAddition ? 'text-gray-400' : 'text-error-300')} style={tailwind('mr-1 w-2')}
+      <ThemedTextV2
+        light={tailwind(props.isAddition ? 'text-green-v2' : 'text-red-v2')}
+        dark={tailwind(props.isAddition ? 'text-green-v2' : 'text-red-v2')}
+        style={tailwind('mr-1 w-2 text-sm font-normal-v2')}
       >
         {props.isAddition ? '+' : '-'}
-      </ThemedText>
+      </ThemedTextV2>
       <NumberFormat
         displayType='text'
         // TODO: modify condition when API is ready for denomination currency change for other pages other than BalanceScreen page
@@ -211,22 +193,37 @@ function USDValueRow (props: { isLoading: boolean, testId: string, value: BigNum
         suffix={(props.denominationCurrency !== undefined && props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT) ? ` ${props.denominationCurrency}` : undefined}
         renderText={(value) =>
           <BalanceText
-            dark={tailwind('text-gray-200')}
-            light={tailwind('text-black')}
-            style={tailwind('flex-wrap text-sm font-medium max-w-3/4')}
+            light={tailwind(props.isAddition ? 'text-green-v2' : 'text-red-v2')}
+            dark={tailwind(props.isAddition ? 'text-green-v2' : 'text-red-v2')}
+            style={tailwind('flex-wrap text-sm font-normal-v2 ')}
             testID={props.testId}
             value={value}
           />}
         thousandSeparator
-        value={getPrecisedTokenValue(props.value)}
+        value={props.denominationCurrency === PortfolioButtonGroupTabKey.USDT ? getPrecisedCurrencyValue(props.value) : getPrecisedTokenValue(props.value)}
       />
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('text-xs text-gray-500 ml-1')}
+      <ThemedTextV2
+        style={tailwind('text-sm font-normal-v2 ml-1')}
       >
         {props.label}
-      </ThemedText>
+      </ThemedTextV2>
     </View>
+  )
+}
+
+function CurrencySwitcher ({ currency }: { currency: string }): JSX.Element {
+  return (
+    <ThemedViewV2
+      style={tailwind('py-1 px-2 rounded-lg border-0.5', { '-mb-1.5': Platform.OS === 'android' })}
+      light={tailwind('border-mono-light-v2-900')}
+      dark={tailwind('border-mono-dark-v2-900')}
+    >
+      <ThemedTextV2
+        style={tailwind('text-xs font-normal-v2')}
+        testID='portfolio_active_currency'
+      >
+        {currency}
+      </ThemedTextV2>
+    </ThemedViewV2>
   )
 }

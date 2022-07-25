@@ -57,21 +57,16 @@ describe('DFI Total Portfolio Card', () => {
     const component = (
       <Provider store={store}>
         <TotalPortfolio
-          totalLoansValue={new BigNumber(100)}
           totalAvailableValue={new BigNumber(1000)}
           totalLockedValue={new BigNumber(300)}
-          onToggleDisplayBalances={jest.fn()}
-          isBalancesDisplayed
-          portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: PortfolioButtonGroupTabKey.USDT,
-            setActivePortfolioButtonGroup: jest.fn()
-          }}
+          totalLoansValue={new BigNumber(100)}
           portfolioButtonGroup={[{
             id: PortfolioButtonGroupTabKey.USDT,
             label: 'USD',
             handleOnPress: jest.fn()
-          }
-          ]}
+          }]}
+          denominationCurrency={PortfolioButtonGroupTabKey.USDT}
+          setDenominationCurrency={jest.fn()}
         />
       </Provider>
     )

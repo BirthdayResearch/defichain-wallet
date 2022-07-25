@@ -35,7 +35,9 @@ import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/fut
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
+
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
 export interface PortfolioRowToken extends WalletToken {
@@ -448,7 +450,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         <ThemedViewV2
           light={tailwind('bg-mono-light-v2-00')}
           dark={tailwind('bg-mono-dark-v2-00')}
-          style={tailwind('px-5 flex flex-row items-center')}
+          style={tailwind('px-5 pb-3 flex flex-row items-center')}
         >
           <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
           <ThemedTouchableOpacityV2
@@ -468,38 +470,17 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
-        <Announcements />
-        {!hasFetchedToken
-          ? (
-            <View style={tailwind('p-4')}>
-              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
-            </View>
-          )
-          : (<PortfolioCard
-            isZeroBalance={isZeroBalance}
-            dstTokens={combinedTokens}
-            filteredTokens={sortTokensAssetOnType(assetSortType)}
-            navigation={navigation}
-            buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
-            denominationCurrency={denominationCurrency}
-          />)}
+
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
           totalLoansValue={totalLoansValue}
-          onToggleDisplayBalances={onToggleDisplayBalances}
-          isBalancesDisplayed={isBalancesDisplayed}
-          portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: denominationCurrency,
-            setActivePortfolioButtonGroup: setDenominationCurrency
-          }}
           portfolioButtonGroup={portfolioButtonGroup}
           denominationCurrency={denominationCurrency}
+          setDenominationCurrency={setDenominationCurrency}
         />
+        <ActionButtons />
+        <Announcements />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}
@@ -514,6 +495,24 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        {!hasFetchedToken
+          ? (
+            <View style={tailwind('p-4')}>
+              <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
+            </View>
+          )
+          : (<PortfolioCard
+              isZeroBalance={isZeroBalance}
+              dstTokens={combinedTokens}
+              filteredTokens={sortTokensAssetOnType(assetSortType)}
+              navigation={navigation}
+              buttonGroupOptions={{
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
+              denominationCurrency={denominationCurrency}
+             />)}
         {Platform.OS === 'web'
           ? (
             <BottomSheetWebWithNav

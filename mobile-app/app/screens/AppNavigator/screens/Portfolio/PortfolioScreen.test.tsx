@@ -15,6 +15,7 @@ import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
 jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: () => 49
 }))
+jest.mock('@contexts/FeatureFlagContext')
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@shared-contexts/LanguageProvider')
