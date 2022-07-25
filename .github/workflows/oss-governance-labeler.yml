@@ -15,6 +15,6 @@ jobs:
   Labeler:
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@67208f475e36fc4f95e3d5a2d4e450433f288be8
+      - uses: fuxingloh/multi-labeler@fb9bc28b2d65e406ffd208384c5095793c3fd59a
         with:
           config-path: .github/labeler.yml
