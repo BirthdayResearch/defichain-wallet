@@ -50,12 +50,12 @@ export function ActionButtons (): JSX.Element {
     }
   ]
 
-  if (isFeatureAvailable('future_swap')) {
+  if (isFeatureAvailable('future_swap') && futureSwaps.length > 0) {
     actions.splice(2, 0, {
       name: translate('components/ActionButtons', 'Future swap'),
       icon: 'clock',
       iconType: 'Feather',
-      ...(futureSwaps.length > 0 && { badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length + 1 }),
+      badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length + 1,
       onPress: () => navigation.navigate('FutureSwapScreen')
     })
   }
