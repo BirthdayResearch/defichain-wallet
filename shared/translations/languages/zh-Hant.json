@@ -123,12 +123,13 @@
     "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
-    "CREATE WALLET ADDRESS": "創建錢包",
-    "{{length}} ADDRESS(ES)": "{{length}} 地址",
+    "Create wallet address": "創建錢包",
+    "ADDRESS(ES)": "地址",
     "RECEIVE": "接收",
     "VIEW ON SCAN": "往 DeFi Scan 查看",
     "EDIT": "編輯",
-    "CANCEL": "取消"
+    "CANCEL": "取消",
+    "Refresh": "Refresh"
   },
   "screens/AddressBookScreen": {
     "Address Book": "地址簿",
@@ -150,18 +151,24 @@
     "YOUR ADDRESS(ES)": "您的地址",
     "Search results for": "搜索結果",
     "Search with label or address": "使用標籤或地址搜索",
-    "Search results for “{{input}}”":  "Search results for “{{input}}”",
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
     "FAVOURITE ADDRESS(ES)": "收藏地址",
     "Add your preferred / commonly-used address.": "Add your preferred / commonly-used address."
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "更改地址標籤",
+    "Edit wallet label": "Edit wallet label",
     "ADDRESS LABEL": "地址標籤",
+    "LABEL": "LABEL",
+    "Enter label": "輸入標籤",
     "Address {{index}}": "地址 {{index}}",
     "Add new address": "Add new address",
     "ADDRESS": "地址",
     "SAVE CHANGES": "儲存修改",
-    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）"
+    "Save changes": "儲存修改",
+    "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
+    "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
+    "{{length}}/40 characters": "{{length}}/40 characters"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "更改地址標籤",
@@ -213,7 +220,8 @@
     "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
-    "Copied": "複製到剪貼板"
+    "Copied": "複製到剪貼板",
+    "Address copied": "Address copied"
   },
   "screens/SendScreen": {
     "Send": "移出資金",
@@ -680,6 +688,7 @@
   },
   "screens/common": {
     "CANCEL": "取消",
+    "Cancel": "取消",
     "TRY AGAIN": "再試一次"
   },
   "screens/ChangePinScreen": {
@@ -841,8 +850,8 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "請輸入數量",
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 DFI 嗎？",
-    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
+    "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 {{tokenB}} 嗎?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
