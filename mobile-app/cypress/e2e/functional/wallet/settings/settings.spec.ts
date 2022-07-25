@@ -4,7 +4,7 @@ context('Wallet - Settings', () => {
     cy.getByTestID('header_settings').click()
   })
 
-  it.only('should be able to display top up screen when click on playground on playground network', function () {
+  it('should be able to display top up screen when click on playground on playground network', function () {
     cy.getByTestID('header_network_icon').filter(':visible').click()
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', () => {})
