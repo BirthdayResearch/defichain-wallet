@@ -233,6 +233,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
                       iconType='MaterialIcons' name='check-circle' size={16}
                       light={tailwind('text-green-v2')} dark={tailwind('text-green-v2')}
                       style={tailwind('ml-1')}
+                      testID={`address_active_indicator_${item}`}
                     />
                   )}
                 </View>
@@ -246,6 +247,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
                   iconType='MaterialIcons' name='check-circle' size={16}
                   light={tailwind('text-green-v2')} dark={tailwind('text-green-v2')}
                   style={tailwind('mr-1')}
+                  testID={`address_active_indicator_${item}`}
                 />
               )}
               <ThemedTouchableOpacityV2
@@ -282,6 +284,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
             onPress={async () => {
               goToEditWalletLabel(false, item)
             }}
+            testID={`address_edit_indicator_${item}`}
           >
             <ThemedIcon
               size={16} iconType='Feather' name='edit-2' light={tailwind('text-mono-light-v2-700')}

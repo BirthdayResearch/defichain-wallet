@@ -1,11 +1,5 @@
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
-import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedTouchableOpacityV2
-} from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTouchableOpacity, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -16,32 +10,30 @@ import { ocean } from '@store/ocean'
 import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import * as React from 'react'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { batch, useSelector } from 'react-redux'
 import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, TouchableOpacity, View } from 'react-native'
+import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-import { AddressSelectionButton } from './components/AddressSelectionButton'
-import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { IconButton } from '@components/IconButton'
 import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { ButtonGroupTabKey, PortfolioCard } from './components/PortfolioCard'
+import { PortfolioCard, ButtonGroupTabKey } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
 import {
   BottomSheetAddressDetailV2
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
@@ -112,22 +104,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }
   }, [address, blockCount, isFocused])
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: (): JSX.Element => (
-        <HeaderSettingButton />
-      ),
-      headerRight: (): JSX.Element => (
-        <View style={tailwind('mr-2')}>
-          <AddressSelectionButton
-            address={address} addressLength={addressLength} onPress={() => expandModal(false)}
-            hasCount
-          />
-        </View>
-      )
-    })
-  }, [navigation, address, addressLength])
-
   useEffect(() => {
     batch(() => {
       // fetch only once to decide flag to display locked balance breakdown
@@ -171,9 +147,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   } = useMemo(() => {
     return tokens.reduce(
       ({
-          totalAvailableValue,
-          dstTokens
-        }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
+        totalAvailableValue,
+        dstTokens
+      }: { totalAvailableValue: BigNumber, dstTokens: PortfolioRowToken[] },
         token
       ) => {
         const usdAmount = getTokenPrice(token.symbol, new BigNumber(token.amount), token.isLPS)
@@ -194,9 +170,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           }]
         }
       }, {
-        totalAvailableValue: new BigNumber(0),
-        dstTokens: []
-      })
+      totalAvailableValue: new BigNumber(0),
+      dstTokens: []
+    })
   }, [prices, tokens])
 
   // add token that are 100% locked as collateral into dstTokens
@@ -336,7 +312,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }
     return [...lockedTokens.values()]
       .reduce((totalLockedValue: BigNumber, value: LockedBalance) =>
-          totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
+        totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
         new BigNumber(0))
   }, [lockedTokens, prices])
 
@@ -403,14 +379,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const bottomSheetSortRef = useRef<BottomSheetModalMethods>(null)
   const containerRef = useRef(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const modalSnapPoints = {
-    ios: ['75%'],
-    android: ['75%']
-  }
-  const modalSortingSnapPoints = {
-    ios: ['55%'],
-    android: ['55%']
-  }
+  const modalSnapPoints = { ios: ['75%'], android: ['75%'] }
+  const modalSortingSnapPoints = { ios: ['55%'], android: ['55%'] }
   const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === 'web') {
       setIsModalDisplayed(true)
@@ -440,7 +410,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }),
     headerRight: (): JSX.Element => {
       return (
-        <ThemedTouchableOpacityV2 style={tailwind('border-0 mr-5 mt-2')} onPress={() => dismissModal(false)}>
+        <ThemedTouchableOpacityV2
+          style={tailwind('border-0 mr-5 mt-2')} onPress={() => dismissModal(false)}
+          testID='close_bottom_sheet_button'
+        >
           <ThemedIcon iconType='Feather' name='x-circle' size={22} />
         </ThemedTouchableOpacityV2>
       )
@@ -484,7 +457,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
-      <ThemedScrollView
+      <ThemedScrollViewV2
         ref={ref}
         light={tailwind('bg-gray-50')}
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
@@ -495,20 +468,38 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           />
         }
       >
-        <Announcements />
+        <ThemedViewV2
+          light={tailwind('bg-mono-light-v2-00')}
+          dark={tailwind('bg-mono-dark-v2-00')}
+          style={tailwind('px-5 pb-3 flex flex-row items-center')}
+        >
+          <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
+          <ThemedTouchableOpacityV2
+            testID='toggle_balance'
+            style={tailwind('ml-2')}
+            light={tailwind('bg-transparent')}
+            dark={tailwind('bg-transparent')}
+            onPress={onToggleDisplayBalances}
+          >
+            <ThemedIcon
+              iconType='MaterialCommunityIcons'
+              dark={tailwind('text-mono-dark-v2-900')}
+              light={tailwind('text-mono-light-v2-900')}
+              name={`${isBalancesDisplayed ? 'eye' : 'eye-off'}`}
+              size={18}
+              testID='toggle_usd_breakdown_icon'
+            />
+          </ThemedTouchableOpacityV2>
+        </ThemedViewV2>
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
           totalLoansValue={totalLoansValue}
-          onToggleDisplayBalances={onToggleDisplayBalances}
-          isBalancesDisplayed={isBalancesDisplayed}
-          portfolioButtonGroupOptions={{
-            activePortfolioButtonGroup: denominationCurrency,
-            setActivePortfolioButtonGroup: setDenominationCurrency
-          }}
           portfolioButtonGroup={portfolioButtonGroup}
           denominationCurrency={denominationCurrency}
+          setDenominationCurrency={setDenominationCurrency}
         />
+        <Announcements />
         <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}
@@ -573,7 +564,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               />
             </>
           )}
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   )
 }

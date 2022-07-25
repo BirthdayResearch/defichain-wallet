@@ -157,7 +157,7 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
-    "Edit Wallet Label": "Modifier le nom du portefeuille",
+    "Edit wallet label": "Modifier le nom du portefeuille",
     "ADDRESS LABEL": "NOM D'ADRESSE",
     "LABEL": "NOM",
     "Enter label": "Donner un nom",
@@ -861,8 +861,8 @@
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais de stabilisation DEX de {{fee}} ?",
-    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> DFI) ?",
+    "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre {{tokenB}} malgré les frais de stabilisation DEX de {{fee}} ?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> {{tokenB}}) ?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {

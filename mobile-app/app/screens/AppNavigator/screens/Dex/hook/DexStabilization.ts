@@ -2,18 +2,27 @@ import { AnnouncementData } from '@shared-types/website'
 import { Announcement, findDisplayedAnnouncementForVersion } from '../../Portfolio/components/Announcements'
 import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 import { nativeApplicationVersion } from 'expo-application'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { OwnedTokenState, TokenState } from '../CompositeSwap/CompositeSwapScreen'
 import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath'
 import { useFocusEffect } from '@react-navigation/native'
 
-const HIGH_FEES_URL = 'https://defiscan.live/dex/DUSD'
+export type DexStabilizationType = 'direct-dusd-with-fee' | 'composite-dusd-with-fee' | 'none'
 
-export type DexStabilizationType = 'direct-dusd-dfi' | 'composite-dusd-dfi' | 'none'
+type DexStabilizationTokenA = OwnedTokenState | undefined
+type DexStabilizationTokenB = TokenState | undefined
 
-export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB: TokenState | undefined, fee?: string): {
-  dexStabilizationAnnouncement: Announcement | undefined
+interface DexStabilization {
   dexStabilizationType: DexStabilizationType
+  pair: {
+    tokenADisplaySymbol: string
+    tokenBDisplaySymbol: string
+  }
+}
+
+export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB, fee?: string): {
+  dexStabilizationAnnouncement: Announcement | undefined
+  dexStabilization: DexStabilization
 } {
   const { getBestPath } = useTokenBestPath()
   const {
@@ -22,15 +31,13 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
 
   // local state
   const [announcementToDisplay, setAnnouncementToDisplay] = useState<AnnouncementData[]>()
-  const [dexStabilizationType, setDexStabilizationType] = useState<DexStabilizationType>('none')
+  const [dexStabilization, setDexStabilization] = useState<DexStabilization>({ dexStabilizationType: 'none', pair: { tokenADisplaySymbol: '', tokenBDisplaySymbol: '' } })
 
-  const swapAnnouncement = useMemo((): Announcement | undefined => {
-    return findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, [], announcementToDisplay)
-  }, [announcementToDisplay, tokenA, tokenB])
+  const swapAnnouncement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, [], announcementToDisplay)
 
   useFocusEffect(useCallback(() => {
     const _setDexStabilizationType = async (): Promise<void> => {
-      setDexStabilizationType(await _getDexStabilizationType(tokenA, tokenB))
+      setDexStabilization(await _getDexStabilization(tokenA, tokenB))
     }
     const _setAnnouncementToDisplay = async (): Promise<void> => {
       setAnnouncementToDisplay(await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB, fee))
@@ -38,51 +45,71 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
 
     _setDexStabilizationType()
     _setAnnouncementToDisplay()
-  }, [tokenA, tokenB]))
+  }, [tokenA, tokenB, fee]))
 
-  const _getHighDexStabilizationFeeAnnouncement = useCallback(async (tokenA, tokenB, fee: string = '0'): Promise<AnnouncementData[]> => {
+  const getHighFeesUrl = (tokenA: OwnedTokenState, tokenB: TokenState): string => {
+    let highFeesUrl = ''
+
+    if (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') {
+      highFeesUrl = 'https://defiscan.live/dex/DUSD'
+    } else if (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') {
+      highFeesUrl = 'https://defiscan.live/dex/dUSDT-DUSD'
+    } else if (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC') {
+      highFeesUrl = 'https://defiscan.live/dex/dUSDC-DUSD'
+    }
+
+    return highFeesUrl
+  }
+
+  const _getHighDexStabilizationFeeAnnouncement = useCallback(async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB, fee: string = '0'): Promise<AnnouncementData[]> => {
     let announcement: AnnouncementData[] = []
-    const dexStabilizationType = await _getDexStabilizationType(tokenA, tokenB)
 
-    if (dexStabilizationType === 'direct-dusd-dfi') {
+    if (tokenA === undefined || tokenB === undefined) {
+      return announcement
+    }
+
+    const { dexStabilizationType, pair } = await _getDexStabilization(tokenA, tokenB)
+    const highFeesUrl = getHighFeesUrl(tokenA, tokenB)
+
+    if (dexStabilizationType === 'direct-dusd-with-fee') {
       announcement = [{
         lang: {
-          en: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
-          de: `Auf DUSD-DFI-Tauschgeschäfte wird derzeit eine DEX-Stabilisierungsgebühr von ${fee}% erhoben. Vorsicht ist geboten!`,
-          'zh-Hans': `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
-          'zh-Hant': `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
-          fr: `Il y a actuellement des frais de stabilisation DEX de ${fee}% imposés sur les échanges DUSD-DFI. Procéder avec prudence ! `,
-          es: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`,
-          it: `There is currently a DEX Stabilization fee of ${fee}% imposed on DUSD-DFI swaps. Proceed with caution!`
+          en: `There is currently a high DEX Stabilization fee of ${fee}% imposed on ${tokenA.displaySymbol} -> ${tokenB.displaySymbol} swaps. Proceed with caution!`,
+          de: `Derzeit wird eine hohe DEX-Stabilisierungsgebühr von ${fee}% auf ${tokenA.displaySymbol} -> ${tokenB.displaySymbol}-Tauschgeschäfte erhoben. Vorsicht ist geboten!`,
+          'zh-Hans': `There is currently a high DEX Stabilization fee of ${fee}% imposed on ${tokenA.displaySymbol} -> ${tokenB.displaySymbol} swaps. Proceed with caution!`,
+          'zh-Hant': `There is currently a high DEX Stabilization fee of ${fee}% imposed on ${tokenA.displaySymbol} -> ${tokenB.displaySymbol} swaps. Proceed with caution!`,
+          fr: `Il y a actuellement des frais de stabilisation DEX élevés de ${fee}% imposés sur les échanges de ${tokenA.displaySymbol} -> ${tokenB.displaySymbol}. Procéder avec prudence !`,
+          es: `There is currently a high DEX Stabilization fee of ${fee}% imposed on ${tokenA.displaySymbol} -> ${tokenB.displaySymbol} swaps. Proceed with caution!`,
+          it: `There is currently a high DEX Stabilization fee of ${fee}% imposed on ${tokenA.displaySymbol} -> ${tokenB.displaySymbol} swaps. Proceed with caution!`
         },
-        version: '>=1.14.5',
+        version: '>=1.16.1',
         url: {
-          ios: HIGH_FEES_URL,
-          android: HIGH_FEES_URL,
-          windows: HIGH_FEES_URL,
-          web: HIGH_FEES_URL,
-          macos: HIGH_FEES_URL
+          ios: highFeesUrl,
+          android: highFeesUrl,
+          windows: highFeesUrl,
+          web: highFeesUrl,
+          macos: highFeesUrl
         },
         type: 'EMERGENCY'
       }]
-    } else if (dexStabilizationType === 'composite-dusd-dfi') {
+    } else if (dexStabilizationType === 'composite-dusd-with-fee') {
       announcement = [{
         lang: {
-          en: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
-          de: `Dein Tausch besteht aus einem zusammengesetzten Pfad (DUSD -> DFI) im Rahmen eines Komposit-Swaps, für den DEX-Stabilisierungsgebühren in Höhe von ${fee}% anfallen.`,
-          'zh-Hans': `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
-          'zh-Hant': `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
-          fr: `Votre échange consiste en un chemin composite (DUSD -> DFI) dans le cadre d'un swap composite qui entraînera des frais de stabilisation DEX de ${fee}%. `,
-          es: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`,
-          it: `Your swap consists of a composite path (DUSD -> DFI) which will incur DEX Stabilization fees of ${fee}%.`
+          en: `Your swap consists of a composite path (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) which will incur DEX Stabilization fees of ${fee}%.`,
+          de: `Dein Tausch besteht aus einem zusammengesetzten Pfad (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) im Rahmen eines Komposit-Swaps, für den DEX-Stabilisierungsgebühren in Höhe von ${fee}% anfallen.`,
+          'zh-Hans': `Your swap consists of a composite path (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) which will incur DEX Stabilization fees of ${fee}%.`,
+          'zh-Hant': `Your swap consists of a composite path (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) which will incur DEX Stabilization fees of ${fee}%.`,
+          fr: `Votre échange consiste en un chemin composite (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) dans le cadre d'un swap composite qui entraînera des frais de stabilisation DEX de ${fee}%. `,
+          es: `Your swap consists of a composite path (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) which will incur DEX Stabilization fees of ${fee}%.`,
+          it: `Your swap consists of a composite path (${pair.tokenADisplaySymbol} -> ${pair.tokenBDisplaySymbol}) which will incur DEX Stabilization fees of ${fee}%.`
         },
-        version: '>=1.14.5',
+        version: '>=1.16.1',
         url: {
-          ios: HIGH_FEES_URL,
-          android: HIGH_FEES_URL,
-          windows: HIGH_FEES_URL,
-          web: HIGH_FEES_URL,
-          macos: HIGH_FEES_URL
+          ios: highFeesUrl,
+          android: highFeesUrl,
+          windows: highFeesUrl,
+          web: highFeesUrl,
+          macos: highFeesUrl
         },
         type: 'EMERGENCY'
       }]
@@ -90,37 +117,93 @@ export function useDexStabilization (tokenA: OwnedTokenState | undefined, tokenB
     return announcement
   }, [])
 
-  const _getDexStabilizationType = useCallback(async (tokenA, tokenB): Promise<DexStabilizationType> => {
-    if (tokenA !== undefined && tokenB !== undefined) {
-      const isDUSDtoDFI = tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI'
-      // direct swap
-      if (isDUSDtoDFI) {
-        return 'direct-dusd-dfi'
+  const _getDexStabilization = async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB): Promise<DexStabilization> => {
+    let _dexStabilization: DexStabilization = {
+      dexStabilizationType: 'none',
+      pair: {
+        tokenADisplaySymbol: '',
+        tokenBDisplaySymbol: ''
       }
+    }
 
+    if (tokenA !== undefined && tokenB !== undefined) {
       const { bestPath } = await getBestPath(
         tokenA.id === '0_unified' ? '0' : tokenA.id,
         tokenB.id === '0_unified' ? '0' : tokenB.id)
+
+      /*
+        Direct swap - checking the length is impt because when the pair is disabled, then the path used will be different
+      */
+      if (
+        bestPath.length === 1 && (
+          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') ||
+          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') ||
+          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC'))) {
+        _dexStabilization = {
+          dexStabilizationType: 'direct-dusd-with-fee',
+          pair: {
+            tokenADisplaySymbol: tokenA.displaySymbol,
+            tokenBDisplaySymbol: tokenB.displaySymbol
+          }
+        }
+      }
+
       const dUSDandDFIPairIndex = bestPath.findIndex(path => {
         return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'DFI') ||
           (path.tokenA.displaySymbol === 'DFI' && path.tokenB.displaySymbol === 'DUSD')
       })
+      const dUSDandUSDTPairIndex = bestPath.findIndex(path => {
+        return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'dUSDT') ||
+          (path.tokenA.displaySymbol === 'dUSDT' && path.tokenB.displaySymbol === 'DUSD')
+      })
+      const dUSDandUSDCPairIndex = bestPath.findIndex(path => {
+        return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'dUSDC') ||
+          (path.tokenA.displaySymbol === 'dUSDC' && path.tokenB.displaySymbol === 'DUSD')
+      })
 
       /*
         Otherwise, check for composite swap
-          1. Get index of DUSD-DFI pair
-          2. Check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI
+          1. Get index of DUSD-(DFI | USDT | USDC) pair
+          2. If index === 0 Check if first leg in best path is DUSD-(DFI | USDT | USDC) and second leg is (DFI | USDT | USDC) respectively
+          3. Else check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC
       */
-      if (dUSDandDFIPairIndex !== -1 && bestPath[dUSDandDFIPairIndex - 1]?.tokenB.displaySymbol === 'DUSD') {
-        return 'composite-dusd-dfi'
+      if (
+        (dUSDandDFIPairIndex === 0 && (bestPath[dUSDandDFIPairIndex + 1]?.tokenA.displaySymbol === 'DFI' || bestPath[dUSDandDFIPairIndex + 1]?.tokenB.displaySymbol === 'DFI')) ||
+        (dUSDandDFIPairIndex !== -1 && bestPath[dUSDandDFIPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
+        _dexStabilization = {
+          dexStabilizationType: 'composite-dusd-with-fee',
+          pair: {
+            tokenADisplaySymbol: 'DUSD',
+            tokenBDisplaySymbol: 'DFI'
+          }
+        }
+      } else if (
+        (dUSDandUSDTPairIndex === 0 && (bestPath[dUSDandUSDTPairIndex + 1]?.tokenA.displaySymbol === 'dUSDT' || bestPath[dUSDandUSDTPairIndex + 1]?.tokenB.displaySymbol === 'dUSDT')) ||
+        (dUSDandUSDTPairIndex !== -1 && bestPath[dUSDandUSDTPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
+        _dexStabilization = {
+          dexStabilizationType: 'composite-dusd-with-fee',
+          pair: {
+            tokenADisplaySymbol: 'DUSD',
+            tokenBDisplaySymbol: 'dUSDT'
+          }
+        }
+      } else if (
+        (dUSDandUSDCPairIndex === 0 && (bestPath[dUSDandUSDCPairIndex + 1]?.tokenA.displaySymbol === 'dUSDC' || bestPath[dUSDandUSDCPairIndex + 1]?.tokenB.displaySymbol === 'dUSDC')) ||
+        (dUSDandUSDCPairIndex !== -1 && bestPath[dUSDandUSDCPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
+        _dexStabilization = {
+          dexStabilizationType: 'composite-dusd-with-fee',
+          pair: {
+            tokenADisplaySymbol: 'DUSD',
+            tokenBDisplaySymbol: 'dUSDC'
+          }
+        }
       }
     }
-
-    return 'none'
-  }, [])
+    return _dexStabilization
+  }
 
   return {
     dexStabilizationAnnouncement: swapAnnouncement,
-    dexStabilizationType
+    dexStabilization
   }
 }

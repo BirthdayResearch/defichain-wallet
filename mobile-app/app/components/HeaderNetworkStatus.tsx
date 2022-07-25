@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { NetworkIcon } from './icons/assets/NetworkIcon'
 import { ThemedTextV2 } from './themed'
 
-export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.Element {
+export function HeaderNetworkStatus ({ onPress, testID }: { onPress: () => void, testID?: string }): JSX.Element {
   const { network } = useNetworkContext()
   const { isCustomUrl } = useServiceProviderContext()
   const { connected } = useSelector((state: RootState) => state.block)
@@ -17,7 +17,7 @@ export function HeaderNetworkStatus ({ onPress }: { onPress: () => void }): JSX.
     <TouchableOpacity
       onPress={onPress}
       style={tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' })}
-      testID='header_active_network'
+      testID={testID ?? 'header_active_network'}
     >
       <NetworkIcon testID='header_network_icon' pathColor={connected ? getColor('green-v2') : getColor('red-v2')} />
       <ThemedTextV2

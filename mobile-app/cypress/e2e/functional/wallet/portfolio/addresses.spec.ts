@@ -55,17 +55,13 @@ context('Wallet - Addresses', () => {
   })
 
   it('should not present create new address when wallet is freshly setup', function () {
-    cy.getByTestID('switch_account_button').should('exist').click().wait(1000).should(() => {
-      const network: string = localStorage.getItem('Development.NETWORK')
-      expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq(null)
-      expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq(null)
-    })
+    const network: string = localStorage.getItem('Development.NETWORK')
+    expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)).to.eq(null)
+    expect(localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)).to.eq(null)
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
       cy.getByTestID('create_new_address').should('not.exist')
-      cy.getByTestID('address_detail_address_count').contains('1')
-      cy.getByTestID('close_address_detail_button').click()
-      cy.getByTestID('address_count_badge').should('not.exist')
+      cy.getByTestID('close_bottom_sheet_button').click()
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
     })
@@ -88,14 +84,12 @@ context('Wallet - Addresses', () => {
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('address_row_0').should('exist')
     cy.getByTestID('address_row_1').should('exist')
-    cy.getByTestID('address_detail_address_count').contains('2')
-    cy.getByTestID('close_address_detail_button').click()
+    cy.getByTestID('close_bottom_sheet_button').click()
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('create_new_address').should('not.exist')
     cy.getByTestID('address_row_text_1').invoke('text').then((address: string) => {
       cy.getByTestID(`address_active_indicator_${address}`).should('exist')
-      cy.getByTestID('close_address_detail_button').click()
-      cy.getByTestID('address_count_badge').should('exist').contains('2')
+      cy.getByTestID('close_bottom_sheet_button').click()
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(address)
     })
@@ -110,7 +104,7 @@ context('Wallet - Addresses', () => {
       cy.getByTestID('wallet_address').contains(activeAddress)
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
       cy.getByTestID(`address_active_indicator_${activeAddress}`).should('exist')
-      cy.getByTestID('close_address_detail_button').click()
+      cy.getByTestID('close_bottom_sheet_button').click()
       cy.getByTestID('receive_balance_button').click()
       cy.getByTestID('address_text').contains(activeAddress)
     })
@@ -189,9 +183,6 @@ context('Wallet - Addresses should persist addresses after restore with no activ
     cy.selectMnemonicWords(recoveryWords)
     cy.setupPinCode().wait(1000)
     cy.getByTestID('continue_button').click().wait(2000)
-    cy.getByTestID('details_dfi').click()
-    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
-    cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
     cy.getByTestID('address_row_text_0').invoke('text').then((activeAddress: string) => {
@@ -233,12 +224,10 @@ context('Wallet - Addresses should persist addresses after restore with active a
     cy.selectMnemonicWords(recoveryWords)
     cy.setupPinCode().wait(1000)
     cy.getByTestID('continue_button').click().wait(2000)
-    cy.getByTestID('details_dfi').click()
-    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
-    cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('details_dfi').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
@@ -378,10 +367,10 @@ context('Wallet - Address Label', () => {
       cy.getByTestID(`address_edit_indicator_${address}`).should('exist').click()
       cy.getByTestID('address_book_label_input').clear().type(label)
       cy.getByTestID('button_confirm_save_address_label').should('not.have.attr', 'aria-disabled')
-      cy.getByTestID('button_confirm_save_address_label').click()
+      cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
       cy.getByTestID(`list_address_label_${address}`).contains(label)
       cy.getByTestID('list_header_address_label').contains(label)
-      cy.getByTestID('close_address_detail_button').click()
+      cy.getByTestID('close_bottom_sheet_button').click()
       cy.getByTestID('wallet_address').contains(label)
     })
   }
@@ -412,25 +401,13 @@ context('Wallet - Address Label', () => {
     cy.createEmptyWallet(true)
   })
 
-  it('should not allow edit if edit button is not toggled', function () {
-    cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('address_list_edit_button').contains('EDIT')
-    cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
-      cy.getByTestID(`address_edit_indicator_${address}`).should('not.exist')
-      cy.getByTestID(`address_active_indicator_${address}`).should('exist')
-    })
-    cy.getByTestID('address_row_0').click()
-    cy.getByTestID('create_or_edit_label_address_form').should('not.exist')
-  })
-
   it('should validate label input', function () {
-    cy.getByTestID('address_list_edit_button').click()
-    cy.getByTestID('address_list_edit_button').contains('CANCEL')
+    cy.getByTestID('switch_account_button').click()
     cy.getByTestID('address_row_text_0').invoke('text').then((address: string) => {
       cy.getByTestID(`address_edit_indicator_${address}`).should('exist').click()
       // block
-      validateLabel('abcdefghijklmnopqrstuvwxyz12345', false) // block >30 char
-      validateLabel('😀🙌👶👩🏻‍💻🐶🌵🌝🍏🥨⚽️🪂🚗⌚️', false) // not all emoji equivalent to 1 char
+      validateLabel('abcdefghijklmnopqrstuvwxyz12345678910ABCD', false) // block >40 char
+      validateLabel('😀🙌👶👩🏻‍💻🐶🌵🌝🍏🥨⚽️🪂🚗⌚😀🙌👶👩🏻‍💻🐶🌵🌝🍏🥨⚽️🪂🚗⌚😀🙌👶👩🏻‍💻️  ', false) // not all emoji equivalent to 1 char
       // allow
       validateLabel('abcdefghijklmnopqrstuvwxyz1234', true)
       validateLabel('😀🙌👶👩🏻‍💻', true)
@@ -446,7 +423,6 @@ context('Wallet - Address Label', () => {
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('create_new_address').click().wait(1000)
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('address_list_edit_button').click()
     validateAddressLabel('😀🙌👶👩🏻‍💻', 1)
     cy.sendDFItoWallet().wait(6000)
   })
@@ -455,7 +431,6 @@ context('Wallet - Address Label', () => {
     cy.getByTestID('switch_account_button').click()
     cy.getByTestID('create_new_address').click().wait(1000)
     cy.getByTestID('switch_account_button').click()
-    cy.getByTestID('address_list_edit_button').click()
     cy.getByTestID('address_row_text_2').invoke('text').then((address: string) => {
       const inputLabel = ' abc    '
       const trimmedLabel = inputLabel.trim()
@@ -465,7 +440,7 @@ context('Wallet - Address Label', () => {
       cy.getByTestID('button_confirm_save_address_label').click()
       cy.getByTestID(`list_address_label_${address}`).contains(trimmedLabel)
       cy.getByTestID('list_header_address_label').contains(trimmedLabel)
-      cy.getByTestID('close_address_detail_button')
+      cy.getByTestID('close_bottom_sheet_button')
       cy.getByTestID('wallet_address').contains(trimmedLabel)
     })
   })
