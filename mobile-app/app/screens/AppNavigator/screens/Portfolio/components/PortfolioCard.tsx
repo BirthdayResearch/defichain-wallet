@@ -152,12 +152,12 @@ function PortfolioItemRow ({
       style={tailwind('px-5 py-4.5 rounded-lg-v2 my-1 border-0')}
       testID={testID}
     >
-      <View style={tailwind('flex-row items-center flex-grow')}>
-        <View style={tailwind('w-1/2 flex-row items-center')}>
+      <View style={tailwind('flex flex-row items-start')}>
+        <View style={tailwind('w-7/12 flex-row items-center')}>
           <TokenIcon testID={`${testID}_icon`} token={token} height={36} width={36} />
           <TokenNameTextV2 displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
         </View>
-        <View style={tailwind('w-1/2 flex-row items-center')}>
+        <View style={tailwind('w-5/12')}>
           <TokenAmountTextV2
             tokenAmount={token.amount}
             usdAmount={token.usdAmount}

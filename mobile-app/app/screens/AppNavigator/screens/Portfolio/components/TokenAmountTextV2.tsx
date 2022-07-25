@@ -23,42 +23,41 @@ export function TokenAmountTextV2 ({
   const { isBalancesDisplayed, hiddenBalanceText } = useDisplayBalancesContext()
 
   return (
-    <View style={tailwind('flex-1 justify-end')}>
-      <NumberFormat
-        decimalScale={8}
-        displayType='text'
-        renderText={(value) =>
-          <>
-            <View style={tailwind('flex leading-6 items-end')}>
-              <BalanceTextV2
-                style={tailwind('text-sm font-semibold-v2 flex-wrap mb-1')}
-                testID={`${testID}_amount`}
-                value={value}
-              />
-              {isBalancesDisplayed
-                ? (
-                  <ActiveUSDValueV2
-                    testId={`${testID}_usd_amount`}
-                    price={usdAmount}
-                    containerStyle={tailwind('justify-end')}
-                    denominationCurrency={denominationCurrency}
-                  />
-                )
-                : (
-                  <ThemedTextV2
-                    style={tailwind('text-xs font-normal-v2')}
-                    dark={tailwind('text-mono-dark-v2-700')}
-                    light={tailwind('text-mono-dark-v2-700')}
-                    testID={`${testID}_usd_amount`}
-                  >
-                    {hiddenBalanceText}
-                  </ThemedTextV2>
-                )}
-            </View>
-          </>}
-        thousandSeparator
-        value={new BigNumber(tokenAmount).toFixed(8)}
-      />
-    </View>
+    <NumberFormat
+      decimalScale={8}
+      displayType='text'
+      renderText={(value) =>
+        <>
+          <View style={tailwind('flex')}>
+            <BalanceTextV2
+              style={tailwind('text-sm font-semibold-v2 flex-wrap mb-1 text-right')}
+              testID={`${testID}_amount`}
+              value={value}
+            />
+            {isBalancesDisplayed
+              ? (
+                <ActiveUSDValueV2
+                  testId={`${testID}_usd_amount`}
+                  price={usdAmount}
+                  style={tailwind('text-right')}
+                  containerStyle={tailwind('justify-end')}
+                  denominationCurrency={denominationCurrency}
+                />
+              )
+              : (
+                <ThemedTextV2
+                  style={tailwind('text-xs font-normal-v2 text-right')}
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-dark-v2-700')}
+                  testID={`${testID}_usd_amount`}
+                >
+                  {hiddenBalanceText}
+                </ThemedTextV2>
+              )}
+          </View>
+        </>}
+      thousandSeparator
+      value={new BigNumber(tokenAmount).toFixed(8)}
+    />
   )
 }
