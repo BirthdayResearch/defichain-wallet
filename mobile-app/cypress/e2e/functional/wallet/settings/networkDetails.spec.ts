@@ -131,8 +131,6 @@ context('Wallet - Network detail screen - with wallet context', () => {
         cy.getByTestID('header_network_icon').filter(':visible').click()
         cy.getByTestID('network_details_network').should('exist').contains(network)
         cy.getByTestID(`button_network_${network}_check`).should('have.css', 'color', statusBgColor)
-        cy.go('back')
-        cy.getByTestID('header_network_icon').click()
         cy.getByTestID('button_network_Playground').click()
         cy.exitWallet()
         cy.createEmptyWallet(true)
@@ -140,7 +138,7 @@ context('Wallet - Network detail screen - with wallet context', () => {
         cy.getByTestID('header_network_icon').should('exist').wait(3000)
         cy.getByTestID('header_active_network').first().invoke('text').then((updatedNetwork: string) => {
           cy.getByTestID('header_network_icon').find('path').should('have.css', 'fill').then((updatedStatusBgColor) => {
-            cy.getByTestID('header_network_icon').click().wait(3000)
+            cy.getByTestID('header_network_icon').filter(':visible').click()
             expect(network).not.eq(updatedNetwork)
             cy.getByTestID('network_details_network').should('exist').contains(updatedNetwork)
             cy.getByTestID(`button_network_${updatedNetwork}_check`).should('have.css', 'color', updatedStatusBgColor)
@@ -153,7 +151,7 @@ context('Wallet - Network detail screen - with wallet context', () => {
   it('should be able to click block height and redirect it to defiscan', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('header_settings').click().wait(3000)
-    cy.getByTestID('header_network_icon').should('exist').click()
+    cy.getByTestID('header_network_icon').filter(':visible').click()
     cy.getByTestID('block_detail_explorer_url').invoke('text').then((block) => {
       cy.getByTestID('block_detail_explorer_url').filter(':visible').click()
     })
