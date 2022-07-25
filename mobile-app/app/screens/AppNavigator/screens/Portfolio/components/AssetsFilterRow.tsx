@@ -41,7 +41,7 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
     }
   ]
   return (
-    <ThemedViewV2 testID='portfolio_assets_filter_group'>
+    <ThemedViewV2 testID='portfolio_button_group'>
       <ScrollView
         contentContainerStyle={tailwind('pl-5 mt-8 mb-6')}
         horizontal
@@ -53,7 +53,7 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
             label={button.label}
             onPress={button.handleOnPress}
             isActive={props.activeButtonGroup === button.id}
-            testID={`portfolio_assets_filter_group_${button.id}`}
+            testID={`portfolio_button_group_${button.id}`}
             additionalStyles={!(filterButtonGroup.length === index) ? tailwind('mr-3') : undefined}
           />
           ))}
