@@ -474,7 +474,7 @@ exports[`language selection screen should render 1`] = `
               }
               testID="language_option"
             >
-              簡體中文
+              繁體中文
             </Text>
             <Text
               style={
