@@ -30,6 +30,11 @@ interface PortfolioCardProps {
   filteredTokens: PortfolioRowToken[]
   dstTokens: PortfolioRowToken[]
   navigation: StackNavigationProp<PortfolioParamList>
+  buttonGroupOptions?: {
+    onButtonGroupPress: (key: ButtonGroupTabKey) => void
+    activeButtonGroup: string
+    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
+  }
   denominationCurrency: string
   tabButtonLabel: string
 }

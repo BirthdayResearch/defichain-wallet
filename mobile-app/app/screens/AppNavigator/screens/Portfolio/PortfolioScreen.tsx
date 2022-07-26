@@ -460,11 +460,11 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     switch (buttonGroupTabKey) {
       case (ButtonGroupTabKey.LPTokens):
-        return setTabButtonLabel('LP tokens')
+        return setTabButtonLabel(ButtonGroupTabKey.LPTokens)
       case (ButtonGroupTabKey.Crypto):
-        return setTabButtonLabel('Crypto')
+        return setTabButtonLabel(ButtonGroupTabKey.Crypto)
       case (ButtonGroupTabKey.dTokens):
-        return setTabButtonLabel('dTokens')
+        return setTabButtonLabel(ButtonGroupTabKey.dTokens)
     }
   }
   return (
@@ -475,7 +475,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={onRefresh}
+            onRefresh={async () => await onRefresh()}
             refreshing={refreshing}
           />
         }
@@ -491,7 +491,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={onToggleDisplayBalances}
+            onPress={async () => await onToggleDisplayBalances()}
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
@@ -539,11 +539,16 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
             </View>
           )
-          : (<PortfolioCard
+          :(<PortfolioCard
             isZeroBalance={isZeroBalance}
             dstTokens={combinedTokens}
             filteredTokens={sortTokensAssetOnType(assetSortType)}
             navigation={navigation}
+            buttonGroupOptions={{
+              activeButtonGroup: activeButtonGroup,
+              setActiveButtonGroup: setActiveButtonGroup,
+              onButtonGroupPress: handleButtonFilter
+            }}
             denominationCurrency={denominationCurrency}
             tabButtonLabel={tabButtonLabel}
           />)}
