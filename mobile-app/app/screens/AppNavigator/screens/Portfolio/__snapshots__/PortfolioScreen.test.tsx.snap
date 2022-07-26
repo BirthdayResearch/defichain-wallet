@@ -563,6 +563,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": 60,
                 }
               }
+              testID="send_balance_button"
             >
               <Text />
             </View>
@@ -630,6 +631,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": 60,
                 }
               }
+              testID="receive_balance_button"
             >
               <Text />
             </View>
@@ -697,6 +699,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": 60,
                 }
               }
+              testID="swap_button"
             >
               <Text />
             </View>
@@ -764,6 +767,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "width": 60,
                 }
               }
+              testID="transaction_button"
             >
               <Text />
             </View>

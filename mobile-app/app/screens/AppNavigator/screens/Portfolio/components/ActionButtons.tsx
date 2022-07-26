@@ -14,6 +14,7 @@ export interface ActionButtonsProps {
   icon: IconName
   iconType: IconType
   onPress: () => void
+  testID: string
   badge?: string | number
 }
 
@@ -27,16 +28,19 @@ export function ActionButtons (): JSX.Element {
       name: translate('components/ActionButtons', 'Send'),
       icon: 'arrow-up-right',
       iconType: 'Feather',
+      testID: 'send_balance_button',
       onPress: () => navigation.navigate('Send')
     }, {
       name: translate('components/ActionButtons', 'Receive'),
       icon: 'arrow-down-left',
       iconType: 'Feather',
+      testID: 'receive_balance_button',
       onPress: () => navigation.navigate('Receive')
     }, {
       name: translate('components/ActionButtons', 'Swap'),
       icon: 'repeat',
       iconType: 'Feather',
+      testID: 'swap_button',
       onPress: () => navigation.navigate({
         name: 'CompositeSwap',
         params: {},
@@ -45,6 +49,7 @@ export function ActionButtons (): JSX.Element {
     }, {
       name: translate('components/ActionButtons', 'Transactions'),
       icon: 'calendar',
+      testID: 'transaction_button',
       iconType: 'Feather',
       onPress: () => navigation.navigate('TransactionsScreen')
     }
@@ -56,6 +61,7 @@ export function ActionButtons (): JSX.Element {
       icon: 'clock',
       iconType: 'Feather',
       badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length + 1,
+      testID: 'future_swap_button',
       onPress: () => navigation.navigate('FutureSwapScreen')
     })
   }
@@ -82,6 +88,7 @@ function ActionButton (props: ActionButtonsProps): JSX.Element {
         light={tailwind('bg-mono-light-v2-00')}
         style={tailwind('rounded-full w-15 h-15 items-center justify-center mx-2.5')}
         onPress={props.onPress}
+        testID={props.testID}
       >
         <ThemedIcon
           dark={tailwind('text-mono-dark-v2-900')}
