@@ -1609,7 +1609,8 @@
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
-    "Future Swap": "Future Swap"
+    "Future Swap": "Future Swap",
+    "Settlement block {{block}} has been executed": "El bloque de asentamiento {{block}} ha sido ejecutado"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Servidor",
