@@ -569,7 +569,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               modalStyle={{
                 position: 'absolute',
                 bottom: '0',
-                height: '488px',
+                height: '505px',
                 width: '375px',
                 zIndex: 50,
                 borderTopLeftRadius: 15,
