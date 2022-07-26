@@ -30,6 +30,7 @@ export function TokenAmountTextV2 ({
         <>
           <View style={tailwind('flex')}>
             <BalanceTextV2
+              containerStyle={tailwind('justify-end')}
               style={tailwind('text-sm font-semibold-v2 flex-wrap mb-1 text-right')}
               testID={`${testID}_amount`}
               value={value}
