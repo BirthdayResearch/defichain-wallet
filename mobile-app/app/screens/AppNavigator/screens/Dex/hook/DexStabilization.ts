@@ -6,6 +6,9 @@ import { useCallback, useState } from 'react'
 import { OwnedTokenState, TokenState } from '../CompositeSwap/CompositeSwapScreen'
 import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath'
 import { useFocusEffect } from '@react-navigation/native'
+import BigNumber from 'bignumber.js'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 export type DexStabilizationType = 'direct-dusd-with-fee' | 'composite-dusd-with-fee' | 'none'
 
@@ -14,13 +17,14 @@ type DexStabilizationTokenB = TokenState | undefined
 
 interface DexStabilization {
   dexStabilizationType: DexStabilizationType
+  dexStabilizationFee: string
   pair: {
     tokenADisplaySymbol: string
     tokenBDisplaySymbol: string
   }
 }
 
-export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB, fee?: string): {
+export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB): {
   dexStabilizationAnnouncement: Announcement | undefined
   dexStabilization: DexStabilization
 } {
@@ -28,24 +32,38 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
   const {
     language
   } = useLanguageContext()
+  const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
 
   // local state
   const [announcementToDisplay, setAnnouncementToDisplay] = useState<AnnouncementData[]>()
-  const [dexStabilization, setDexStabilization] = useState<DexStabilization>({ dexStabilizationType: 'none', pair: { tokenADisplaySymbol: '', tokenBDisplaySymbol: '' } })
+  const [dexStabilization, setDexStabilization] = useState<DexStabilization>({ dexStabilizationType: 'none', pair: { tokenADisplaySymbol: '', tokenBDisplaySymbol: '' }, dexStabilizationFee: '0' })
 
   const swapAnnouncement = findDisplayedAnnouncementForVersion(nativeApplicationVersion ?? '0.0.0', language, [], announcementToDisplay)
 
   useFocusEffect(useCallback(() => {
-    const _setDexStabilizationType = async (): Promise<void> => {
-      setDexStabilization(await _getDexStabilization(tokenA, tokenB))
-    }
     const _setAnnouncementToDisplay = async (): Promise<void> => {
-      setAnnouncementToDisplay(await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB, fee))
+      setAnnouncementToDisplay(await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB))
     }
 
-    _setDexStabilizationType()
     _setAnnouncementToDisplay()
-  }, [tokenA, tokenB, fee]))
+  }, [tokenA, tokenB, pairs]))
+
+  const getDexStabilizationFee = (tokenADisplaySymbol: string, tokenBDisplaySymbol: string): string => {
+    let fee
+    const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === 'DUSD-DFI')
+    const dUSDCDUSDPair = pairs.find((p) => p.data.displaySymbol === 'dUSDC-DUSD')
+    const dUSDTDUSDPair = pairs.find((p) => p.data.displaySymbol === 'dUSDT-DUSD')
+
+    if (dusdDFIPair !== undefined && tokenADisplaySymbol === 'DUSD' && tokenBDisplaySymbol === 'DFI') {
+      fee = dusdDFIPair.data.tokenA.fee?.pct
+    } else if (dUSDCDUSDPair !== undefined && tokenADisplaySymbol === 'DUSD' && tokenBDisplaySymbol === 'dUSDC') {
+      fee = dUSDCDUSDPair.data.tokenB.fee?.pct
+    } else if (dUSDTDUSDPair !== undefined && tokenADisplaySymbol === 'DUSD' && tokenBDisplaySymbol === 'dUSDT') {
+      fee = dUSDTDUSDPair.data.tokenB.fee?.pct
+    }
+
+    return fee === undefined ? '0' : new BigNumber(fee).multipliedBy(100).toFixed(2)
+  }
 
   const getHighFeesUrl = (tokenA: OwnedTokenState, tokenB: TokenState): string => {
     let highFeesUrl = ''
@@ -61,14 +79,16 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     return highFeesUrl
   }
 
-  const _getHighDexStabilizationFeeAnnouncement = useCallback(async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB, fee: string = '0'): Promise<AnnouncementData[]> => {
+  const _getHighDexStabilizationFeeAnnouncement = useCallback(async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB): Promise<AnnouncementData[]> => {
     let announcement: AnnouncementData[] = []
-
     if (tokenA === undefined || tokenB === undefined) {
       return announcement
     }
 
-    const { dexStabilizationType, pair } = await _getDexStabilization(tokenA, tokenB)
+    const dexStabilization = await _getDexStabilization(tokenA, tokenB)
+    setDexStabilization(dexStabilization)
+
+    const { dexStabilizationType, pair, dexStabilizationFee: fee } = dexStabilization
     const highFeesUrl = getHighFeesUrl(tokenA, tokenB)
 
     if (dexStabilizationType === 'direct-dusd-with-fee') {
@@ -114,6 +134,7 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
         type: 'EMERGENCY'
       }]
     }
+
     return announcement
   }, [])
 
@@ -123,7 +144,8 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
       pair: {
         tokenADisplaySymbol: '',
         tokenBDisplaySymbol: ''
-      }
+      },
+      dexStabilizationFee: '0'
     }
 
     if (tokenA !== undefined && tokenB !== undefined) {
@@ -144,7 +166,8 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
           pair: {
             tokenADisplaySymbol: tokenA.displaySymbol,
             tokenBDisplaySymbol: tokenB.displaySymbol
-          }
+          },
+          dexStabilizationFee: getDexStabilizationFee(tokenA.displaySymbol, tokenB.displaySymbol)
         }
       }
 
@@ -175,7 +198,8 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
           pair: {
             tokenADisplaySymbol: 'DUSD',
             tokenBDisplaySymbol: 'DFI'
-          }
+          },
+          dexStabilizationFee: getDexStabilizationFee('DUSD', 'DFI')
         }
       } else if (
         (dUSDandUSDTPairIndex === 0 && (bestPath[dUSDandUSDTPairIndex + 1]?.tokenA.displaySymbol === 'dUSDT' || bestPath[dUSDandUSDTPairIndex + 1]?.tokenB.displaySymbol === 'dUSDT')) ||
@@ -185,7 +209,8 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
           pair: {
             tokenADisplaySymbol: 'DUSD',
             tokenBDisplaySymbol: 'dUSDT'
-          }
+          },
+          dexStabilizationFee: getDexStabilizationFee('DUSD', 'dUSDT')
         }
       } else if (
         (dUSDandUSDCPairIndex === 0 && (bestPath[dUSDandUSDCPairIndex + 1]?.tokenA.displaySymbol === 'dUSDC' || bestPath[dUSDandUSDCPairIndex + 1]?.tokenB.displaySymbol === 'dUSDC')) ||
@@ -195,7 +220,8 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
           pair: {
             tokenADisplaySymbol: 'DUSD',
             tokenBDisplaySymbol: 'dUSDC'
-          }
+          },
+          dexStabilizationFee: getDexStabilizationFee('DUSD', 'dUSDC')
         }
       }
     }
