@@ -256,8 +256,12 @@ exports[`loan cards should match snapshot 1`] = `
                           Array [
                             "fill",
                             "fillRule",
+                            "stroke",
+                            "strokeWidth",
                           ]
                         }
+                        stroke={4291611852}
+                        strokeWidth={0.5}
                       />
                     </RNSVGGroup>
                     <RNSVGText
@@ -561,8 +565,12 @@ exports[`loan cards should match snapshot 1`] = `
                           Array [
                             "fill",
                             "fillRule",
+                            "stroke",
+                            "strokeWidth",
                           ]
                         }
+                        stroke={4291611852}
+                        strokeWidth={0.5}
                       />
                     </RNSVGGroup>
                     <RNSVGText
@@ -879,8 +887,12 @@ exports[`loan cards should match snapshot 1`] = `
                           Array [
                             "fill",
                             "fillRule",
+                            "stroke",
+                            "strokeWidth",
                           ]
                         }
+                        stroke={4291611852}
+                        strokeWidth={0.5}
                       />
                     </RNSVGGroup>
                     <RNSVGText

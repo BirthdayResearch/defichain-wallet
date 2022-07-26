@@ -97,7 +97,7 @@ export function PortfolioCard ({
   }
 
   return (
-    <ThemedViewV2>
+    <ThemedViewV2 style={tailwind('h-full')}>
       {
         // filter tab
         buttonGroupOptions !== undefined &&

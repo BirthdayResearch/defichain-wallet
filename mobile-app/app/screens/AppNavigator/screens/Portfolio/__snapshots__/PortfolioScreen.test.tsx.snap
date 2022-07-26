@@ -374,11 +374,14 @@ exports[`portfolio page should match snapshot 1`] = `
                     "lineHeight": 24,
                   },
                   Array [
-                    Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "flexDirection": "row",
-                    },
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      undefined,
+                    ],
                     Object {
                       "color": "rgba(18, 18, 18, 1)",
                     },
@@ -1317,7 +1320,9 @@ exports[`portfolio page should match snapshot 1`] = `
       <View
         style={
           Array [
-            undefined,
+            Object {
+              "height": "100%",
+            },
             Object {
               "backgroundColor": "rgba(242, 242, 242, 1)",
             },
@@ -1796,11 +1801,16 @@ exports[`portfolio page should match snapshot 1`] = `
                           "lineHeight": 24,
                         },
                         Array [
-                          Object {
-                            "alignItems": "center",
-                            "display": "flex",
-                            "flexDirection": "row",
-                          },
+                          Array [
+                            Object {
+                              "alignItems": "center",
+                              "display": "flex",
+                              "flexDirection": "row",
+                            },
+                            Object {
+                              "justifyContent": "flex-end",
+                            },
+                          ],
                           Object {
                             "color": "rgba(18, 18, 18, 1)",
                           },
@@ -2129,11 +2139,16 @@ exports[`portfolio page should match snapshot 1`] = `
                           "lineHeight": 24,
                         },
                         Array [
-                          Object {
-                            "alignItems": "center",
-                            "display": "flex",
-                            "flexDirection": "row",
-                          },
+                          Array [
+                            Object {
+                              "alignItems": "center",
+                              "display": "flex",
+                              "flexDirection": "row",
+                            },
+                            Object {
+                              "justifyContent": "flex-end",
+                            },
+                          ],
                           Object {
                             "color": "rgba(18, 18, 18, 1)",
                           },
