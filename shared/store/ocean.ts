@@ -2,8 +2,8 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export enum TransactionStatusCode {
-  transactionSuccess = 200,
-  transactionPending = 202,
+  success = 200,
+  pending = 202,
 }
 
 export interface OceanTransaction {

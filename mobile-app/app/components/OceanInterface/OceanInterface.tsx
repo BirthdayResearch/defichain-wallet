@@ -130,11 +130,11 @@ export function OceanInterface (): JSX.Element | null {
           try {
             await waitForTxConfirmation(transaction.tx.txId, client, logger)
             title = 'Transaction confirmed'
-            oceanStatusCode = TransactionStatusCode.transactionSuccess
+            oceanStatusCode = TransactionStatusCode.success
           } catch (e) {
             logger.error(e)
             title = 'Sent (Pending confirmation)'
-            oceanStatusCode = TransactionStatusCode.transactionPending
+            oceanStatusCode = TransactionStatusCode.pending
           }
           setTx({
             ...transaction,

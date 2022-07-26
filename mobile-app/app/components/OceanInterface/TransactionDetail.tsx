@@ -29,12 +29,12 @@ export function TransactionDetail ({
   return (
     <ThemedViewV2
       dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-500',
-        { 'border-success-500': oceanStatusCode === TransactionStatusCode.transactionSuccess },
-        { 'border-darkwarning-500': oceanStatusCode === TransactionStatusCode.transactionPending }
+        { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
+        { 'border-darkwarning-500': oceanStatusCode === TransactionStatusCode.pending }
       )}
       light={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-500',
-        { 'border-success-500': oceanStatusCode === TransactionStatusCode.transactionSuccess },
-        { 'border-warning-500': oceanStatusCode === TransactionStatusCode.transactionPending }
+        { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
+        { 'border-warning-500': oceanStatusCode === TransactionStatusCode.pending }
       )}
       style={tailwind('w-full rounded-lg-v2 px-5 flex flex-row py-3 items-center border-0.5')}
     >
@@ -44,13 +44,13 @@ export function TransactionDetail ({
           : (
             <ThemedIcon
               dark={tailwind({
-                  'text-darksuccess-500': oceanStatusCode === TransactionStatusCode.transactionSuccess,
-                  'text-darkwarning-500': oceanStatusCode === TransactionStatusCode.transactionPending
+                  'text-darksuccess-500': oceanStatusCode === TransactionStatusCode.success,
+                  'text-darkwarning-500': oceanStatusCode === TransactionStatusCode.pending
                 }
               )}
               light={tailwind({
-                  'text-success-500': oceanStatusCode === TransactionStatusCode.transactionSuccess,
-                  'text-warning-500': oceanStatusCode === TransactionStatusCode.transactionPending
+                  'text-success-500': oceanStatusCode === TransactionStatusCode.success,
+                  'text-warning-500': oceanStatusCode === TransactionStatusCode.pending
                 }
               )}
               iconType='MaterialIcons'
