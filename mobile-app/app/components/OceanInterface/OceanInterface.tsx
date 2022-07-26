@@ -116,17 +116,21 @@ export function OceanInterface (): JSX.Element | null {
             transaction.onBroadcast()
           }
           let title
+          let statusCode
           try {
             await waitForTxConfirmation(transaction.tx.txId, client, logger)
             title = 'Transaction completed'
+            statusCode = 200
           } catch (e) {
             logger.error(e)
             title = 'Sent but not confirmed'
+            statusCode = 400
           }
           setTx({
             ...transaction,
             broadcasted: true,
-            title: translate('screens/OceanInterface', title)
+            title: translate('screens/OceanInterface', title),
+            statusCode
           })
           if (transaction.onConfirmation !== undefined) {
             transaction.onConfirmation()
@@ -179,6 +183,7 @@ export function OceanInterface (): JSX.Element | null {
                 broadcasted={tx.broadcasted}
                 onClose={dismissDrawer}
                 title={tx.title}
+                statusCode={tx.statusCode}
                 txUrl={txUrl}
                 txid={tx.tx.txId}
               />
