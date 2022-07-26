@@ -60,7 +60,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
       style={tailwind('flex-row items-center justify-between w-full rounded-lg-v2 px-5 py-3 border-0.5 border-error-500')}
     >
       <View
-        style={tailwind('flex flex-row items-center justify-between w-8/12')}
+        style={tailwind('flex flex-row items-center justify-between w-9/12')}
       >
         <ThemedIcon
           dark={tailwind('text-darkerror-500')}

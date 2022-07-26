@@ -1,6 +1,6 @@
 import { TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedIcon, ThemedTextV2 } from '@components/themed'
 
 interface TransactionIDButtonProps {
   txid: string
@@ -11,24 +11,24 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={tailwind('flex-row pt-1 items-center max-w-full')}
+      style={tailwind('flex-row pt-1 items-center w-8/12')}
       testID='oceanNetwork_explorer'
     >
-      <ThemedText
-        dark={tailwind('text-darkprimary-500')}
-        ellipsizeMode='tail'
-        light={tailwind('text-primary-500')}
+      <ThemedTextV2
+        dark={tailwind('text-mono-dark-v2-700')}
+        light={tailwind('text-mono-light-v2-700')}
+        ellipsizeMode='middle'
         numberOfLines={1}
-        style={tailwind('text-sm font-medium mr-1')}
+        style={tailwind('text-sm font-medium-v2 mr-1')}
       >
         {txid}
-      </ThemedText>
+      </ThemedTextV2>
 
       <ThemedIcon
-        dark={tailwind('text-darkprimary-500')}
-        iconType='MaterialIcons'
-        light={tailwind('text-primary-500')}
-        name='open-in-new'
+        dark={tailwind('text-mono-dark-v2-700')}
+        light={tailwind('text-mono-light-v2-700')}
+        iconType='Feather'
+        name='external-link'
         size={18}
       />
     </TouchableOpacity>

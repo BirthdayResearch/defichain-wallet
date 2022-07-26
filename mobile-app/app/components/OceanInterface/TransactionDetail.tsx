@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
-import { ThemedActivityIndicator, ThemedIcon, ThemedText, ThemedViewV2 } from '@components/themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { TransactionIDButton } from './TransactionIDButton'
 
@@ -44,12 +44,14 @@ export function TransactionDetail ({
           )
       }
 
-      <View style={tailwind('flex-auto px-4 justify-center')}>
-        <ThemedText
-          style={tailwind('text-sm font-bold')}
+      <View style={tailwind('flex-auto px-4 justify-center w-8/12')}>
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-900')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          style={tailwind('text-sm font-bold-v2')}
         >
           {title}
-        </ThemedText>
+        </ThemedTextV2>
 
         {
           txid !== undefined && txUrl !== undefined &&
