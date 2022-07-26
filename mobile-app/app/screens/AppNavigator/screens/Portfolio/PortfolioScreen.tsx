@@ -1,5 +1,13 @@
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
-import { ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTouchableOpacity, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedText,
+  ThemedTextV2,
+  ThemedTouchableOpacity,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
+} from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -16,7 +24,7 @@ import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
+import { Platform, RefreshControl, View } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
@@ -541,7 +549,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               modalStyle={{
                 position: 'absolute',
                 bottom: '0',
-                height: '505px',
+                height: '488px',
                 width: '375px',
                 zIndex: 50,
                 borderTopLeftRadius: 15,
@@ -670,43 +678,36 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
       style={tailwind('px-4 flex flex-row justify-between pt-5')}
       testID='toggle_sorting_assets'
     >
-      <ThemedText
+      <ThemedTextV2
         style={tailwind('text-xs text-gray-400 pr-1')}
         light={tailwind('text-gray-500')}
         dark={tailwind('text-gray-400')}
       >
-        {translate('screens/PortfolioScreen', 'AVAILABLE ASSETS')}
-      </ThemedText>
-      <TouchableOpacity
+        {translate('screens/PortfolioScreen', 'ASSETS')}
+      </ThemedTextV2>
+      <ThemedTouchableOpacityV2
         style={tailwind('flex flex-row items-center')}
         onPress={props.onPress}
         testID='your_assets_dropdown_arrow'
       >
-        <ThemedText
+        <ThemedTextV2
           light={tailwind('text-gray-500')}
           dark={tailwind('text-gray-400')}
           style={tailwind('text-xs font-medium')}
         >
           {translate('screens/PortfolioScreen', getDisplayedSortText(props.assetSortType))}
-        </ThemedText>
+        </ThemedTextV2>
         {!props.hideIcon && (
           <ThemedIcon
             style={tailwind('ml-1 font-medium')}
             light={tailwind('text-gray-500')}
             dark={tailwind('text-gray-400')}
-            iconType='MaterialCommunityIcons'
-            name={!props.isSorted ? 'sort-variant' : 'sort-reverse-variant'}
+            iconType='Feather'
+            name='menu'
             size={16}
           />
         )}
-        <ThemedIcon
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
-          iconType='MaterialIcons'
-          name='arrow-drop-down'
-          size={16}
-        />
-      </TouchableOpacity>
+      </ThemedTouchableOpacityV2>
     </View>
   )
 }

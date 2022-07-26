@@ -1,10 +1,16 @@
 import { memo, useCallback } from 'react'
-import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedText,
+  ThemedViewV2,
+  ThemedTouchableOpacityV2,
+  ThemedTextV2
+} from '@components/themed'
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
-import { Platform, TouchableOpacity } from 'react-native'
+import { Platform } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { ThemedFlatListV2 } from '@components/themed/ThemedFlatListV2'
 
 export interface BottomSheetAssetSortProps {
   headerLabel: string
@@ -30,10 +36,9 @@ export const BottomSheetAssetSortList = ({
   modifiedDenominationCurrency,
   selectedAssetSortType
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const { isLight } = useThemeContext()
   const flatListComponents = {
     mobile: BottomSheetFlatList,
-    web: ThemedFlatList
+    web: ThemedFlatListV2
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
   const assetSortList: PortfolioSortType[] = Object.values(PortfolioSortType)
@@ -56,45 +61,57 @@ export const BottomSheetAssetSortList = ({
     index: number
   }): JSX.Element => {
     return (
-      <ThemedTouchableOpacity
-        style={tailwind('px-4 py-3 flex-row justify-between')}
+      <ThemedTouchableOpacityV2
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('px-5 py-3 flex-row  items-center justify-between border-b-0.5 py-2.5', { 'border-t-0.5': index === 0 })}
         testID={`select_asset_${getDisplayedSortText(item)}`}
         key={index}
         onPress={() => {
           onButtonPress(item)
         }}
       >
-        <ThemedText>
+        <ThemedTextV2
+          style={tailwind('py-2 text-sm')}
+        >
           {translate('screens/PortfolioScreen', getDisplayedSortText(item))}
-        </ThemedText>
+        </ThemedTextV2>
         {selectedAssetSortType === item && (
           <ThemedIcon
-            size={24}
-            name='check'
+            size={18}
+            name='check-circle'
             iconType='MaterialIcons'
-            light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
+            light={tailwind('text-green-v2')}
+            dark={tailwind('text-green-v2')}
           />)}
-      </ThemedTouchableOpacity>
+      </ThemedTouchableOpacityV2>
     )
   }
 
   const headerComponent = (): JSX.Element => {
     return (
-      <ThemedView
-        light={tailwind('bg-white border-gray-200')}
-        dark={tailwind('bg-gray-800 border-gray-700')}
-        style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'py-3.5 border-t -mb-px': Platform.OS === 'android' })} // border top on android to handle 1px of horizontal transparent line when scroll past header
+      <ThemedViewV2
+        style={tailwind('flex flex-col px-5 pt-3 pb-5 mt-2.5 rounded-t-xl-v2 ', { 'py-3.5 border-t -mb-px': Platform.OS === 'android' })} // border top on android to handle 1px of horizontal transparent line when scroll past header
       >
+        <ThemedTouchableOpacityV2
+          onPress={onCloseButtonPress}
+          style={tailwind('self-end')}
+        >
+          <ThemedIcon
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+            iconType='Feather'
+            name='x-circle'
+            size={20}
+          />
+        </ThemedTouchableOpacityV2>
         <ThemedText
-          style={tailwind('text-lg font-medium')}
+          style={tailwind('text-xl font-normal-v2')}
         >
           {translate('screens/PortfolioScreen', headerLabel)}
         </ThemedText>
-        <TouchableOpacity onPress={onCloseButtonPress}>
-          <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
-        </TouchableOpacity>
-      </ThemedView>
+
+      </ThemedViewV2>
     )
   }
 
@@ -104,10 +121,6 @@ export const BottomSheetAssetSortList = ({
       data={assetSortList}
       renderItem={renderItem}
       ListHeaderComponent={headerComponent}
-      style={tailwind({
-        'bg-gray-800': !isLight,
-        'bg-white': isLight
-      })}
     />
   )
 })
