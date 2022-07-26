@@ -5,7 +5,7 @@ import { openURL } from '@api/linking'
 import { ThemedActivityIndicator, ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { TransactionIDButton } from './TransactionIDButton'
-import { transactionStatusCode } from '@store/ocean'
+import { TransactionStatusCode } from '@store/ocean'
 
 interface TransactionDetailProps {
   broadcasted: boolean
@@ -13,7 +13,7 @@ interface TransactionDetailProps {
   txUrl?: string
   onClose: () => void
   title?: string
-  oceanStatusCode?: transactionStatusCode
+  oceanStatusCode?: TransactionStatusCode
 }
 
 export function TransactionDetail ({
@@ -29,12 +29,12 @@ export function TransactionDetail ({
   return (
     <ThemedViewV2
       dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-500',
-      { 'border-success-500': oceanStatusCode === transactionStatusCode.transactionSuccess },
-      { 'border-darkwarning-500': oceanStatusCode === transactionStatusCode.transactionPending }
+        { 'border-success-500': oceanStatusCode === TransactionStatusCode.transactionSuccess },
+        { 'border-darkwarning-500': oceanStatusCode === TransactionStatusCode.transactionPending }
       )}
       light={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-500',
-      { 'border-success-500': oceanStatusCode === transactionStatusCode.transactionSuccess },
-      { 'border-warning-500': oceanStatusCode === transactionStatusCode.transactionPending }
+        { 'border-success-500': oceanStatusCode === TransactionStatusCode.transactionSuccess },
+        { 'border-warning-500': oceanStatusCode === TransactionStatusCode.transactionPending }
       )}
       style={tailwind('w-full rounded-lg-v2 px-5 flex flex-row py-3 items-center border-0.5')}
     >
@@ -44,14 +44,14 @@ export function TransactionDetail ({
           : (
             <ThemedIcon
               dark={tailwind({
-                'text-darksuccess-500': oceanStatusCode === transactionStatusCode.transactionSuccess,
-                'text-darkwarning-500': oceanStatusCode === transactionStatusCode.transactionPending
-                 }
+                  'text-darksuccess-500': oceanStatusCode === TransactionStatusCode.transactionSuccess,
+                  'text-darkwarning-500': oceanStatusCode === TransactionStatusCode.transactionPending
+                }
               )}
               light={tailwind({
-                'text-success-500': oceanStatusCode === transactionStatusCode.transactionSuccess,
-                'text-warning-500': oceanStatusCode === transactionStatusCode.transactionPending
-                 }
+                  'text-success-500': oceanStatusCode === TransactionStatusCode.transactionSuccess,
+                  'text-warning-500': oceanStatusCode === TransactionStatusCode.transactionPending
+                }
               )}
               iconType='MaterialIcons'
               name='check-circle'

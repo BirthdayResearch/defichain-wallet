@@ -6,7 +6,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { getEnvironment } from '@environment'
 import { RootState } from '@store'
-import { firstTransactionSelector, ocean, OceanTransaction, transactionStatusCode } from '@store/ocean'
+import { firstTransactionSelector, ocean, OceanTransaction, TransactionStatusCode } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -74,11 +74,17 @@ export function OceanInterface (): JSX.Element | null {
   const logger = useLogger()
   const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
-  const { wallet, address } = useWalletContext()
+  const {
+    wallet,
+    address
+  } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
 
   // store
-  const { height, err: e } = useSelector((state: RootState) => state.ocean)
+  const {
+    height,
+    err: e
+  } = useSelector((state: RootState) => state.ocean)
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
@@ -95,7 +101,11 @@ export function OceanInterface (): JSX.Element | null {
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
-      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
+      Animated.timing(slideAnim, {
+        toValue: height,
+        duration: 200,
+        useNativeDriver: false
+      }).start()
       setTx({
         ...transaction,
         broadcasted: false,
@@ -116,15 +126,15 @@ export function OceanInterface (): JSX.Element | null {
             transaction.onBroadcast()
           }
           let title
-          let oceanStatusCode: transactionStatusCode
+          let oceanStatusCode: TransactionStatusCode
           try {
             await waitForTxConfirmation(transaction.tx.txId, client, logger)
             title = 'Transaction confirmed'
-            oceanStatusCode = transactionStatusCode.transactionSuccess
+            oceanStatusCode = TransactionStatusCode.transactionSuccess
           } catch (e) {
             logger.error(e)
             title = 'Sent (Pending confirmation)'
-            oceanStatusCode = transactionStatusCode.transactionPending
+            oceanStatusCode = TransactionStatusCode.transactionPending
           }
           setTx({
             ...transaction,
@@ -154,7 +164,11 @@ export function OceanInterface (): JSX.Element | null {
   useEffect(() => {
     if (e !== undefined) {
       setError(e.message)
-      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
+      Animated.timing(slideAnim, {
+        toValue: height,
+        duration: 200,
+        useNativeDriver: false
+      }).start()
     }
   }, [e])
 
