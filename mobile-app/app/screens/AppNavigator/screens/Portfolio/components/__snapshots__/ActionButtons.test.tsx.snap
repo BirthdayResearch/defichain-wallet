@@ -187,7 +187,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
             "width": 60,
           }
         }
-        testID="swap_button"
+        testID="swap_tokens_button"
       >
         <Text />
       </View>

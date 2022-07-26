@@ -40,7 +40,7 @@ export function ActionButtons (): JSX.Element {
       name: translate('components/ActionButtons', 'Swap'),
       icon: 'repeat',
       iconType: 'Feather',
-      testID: 'swap_button',
+      testID: 'swap_tokens_button',
       onPress: () => navigation.navigate({
         name: 'CompositeSwap',
         params: {},
