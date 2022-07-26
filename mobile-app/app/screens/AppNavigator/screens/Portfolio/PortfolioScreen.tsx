@@ -1,3 +1,4 @@
+// eslint-disable no-void
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTouchableOpacity, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
@@ -475,7 +476,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={async () => await onRefresh()}
+            onRefresh={void onRefresh} // eslint-disable-line
             refreshing={refreshing}
           />
         }
@@ -491,7 +492,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={async () => await onToggleDisplayBalances()}
+            onPress={void onToggleDisplayBalances} // eslint-disable-line
+
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
@@ -539,19 +541,19 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
             </View>
           )
-          :(<PortfolioCard
-            isZeroBalance={isZeroBalance}
-            dstTokens={combinedTokens}
-            filteredTokens={sortTokensAssetOnType(assetSortType)}
-            navigation={navigation}
-            buttonGroupOptions={{
+          : (<PortfolioCard
+              isZeroBalance={isZeroBalance}
+              dstTokens={combinedTokens}
+              filteredTokens={sortTokensAssetOnType(assetSortType)}
+              navigation={navigation}
+              buttonGroupOptions={{
               activeButtonGroup: activeButtonGroup,
               setActiveButtonGroup: setActiveButtonGroup,
               onButtonGroupPress: handleButtonFilter
             }}
-            denominationCurrency={denominationCurrency}
-            tabButtonLabel={tabButtonLabel}
-          />)}
+              denominationCurrency={denominationCurrency}
+              tabButtonLabel={tabButtonLabel}
+             />)}
         {Platform.OS === 'web'
           ? (
             <BottomSheetWebWithNavV2
