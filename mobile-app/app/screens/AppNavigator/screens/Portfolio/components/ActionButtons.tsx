@@ -38,8 +38,8 @@ export function ActionButtons (): JSX.Element {
       icon: 'repeat',
       iconType: 'Feather',
       onPress: () => navigation.navigate({
-        name: 'Convert',
-        params: { mode: 'utxosToAccount' },
+        name: 'CompositeSwap',
+        params: {},
         merge: true
       })
     }, {

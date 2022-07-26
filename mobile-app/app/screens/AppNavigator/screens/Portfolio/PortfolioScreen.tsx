@@ -21,7 +21,6 @@ import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-import { IconButton } from '@components/IconButton'
 import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
 import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
@@ -481,7 +480,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         />
         <ActionButtons />
         <Announcements />
-        <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
         {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
@@ -547,18 +545,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceActionSection ({
-  navigation,
-  isZeroBalance
-}: { navigation: StackNavigationProp<PortfolioParamList>, isZeroBalance: boolean }): JSX.Element {
-  return (
-    <View style={tailwind('flex flex-row mx-4')}>
-      <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
-      <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
-    </View>
-  )
-}
-
 function FutureSwapCta ({
   navigation
 }: { navigation: StackNavigationProp<PortfolioParamList> }): JSX.Element {
@@ -595,39 +581,6 @@ function FutureSwapCta ({
       />
 
     </ThemedTouchableOpacity>
-  )
-}
-
-type BalanceActionButtonType = 'SEND' | 'RECEIVE'
-
-function BalanceActionButton ({
-  type,
-  onPress,
-  disabled
-}: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
-  return (
-    <IconButton
-      iconName={type === 'SEND' ? 'arrow-upward' : 'arrow-downward'}
-      iconSize={20}
-      iconType='MaterialIcons'
-      onPress={onPress}
-      testID={type === 'SEND' ? 'send_balance_button' : 'receive_balance_button'}
-      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', {
-        'mr-1': type === 'SEND',
-        'ml-1': type === 'RECEIVE'
-      })}
-      textStyle={tailwind('text-base')}
-      themedProps={{
-        light: tailwind('bg-white'),
-        dark: tailwind('bg-gray-800')
-      }}
-      disabledThemedProps={{
-        light: tailwind('bg-gray-100'),
-        dark: tailwind('bg-gray-800')
-      }}
-      iconLabel={translate('screens/PortfolioScreen', type)}
-      disabled={disabled}
-    />
   )
 }
 
