@@ -1,4 +1,3 @@
-// eslint-disable no-void
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
 import { ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTouchableOpacity, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
@@ -476,7 +475,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={void onRefresh} // eslint-disable-line
+            onRefresh={onRefresh}
             refreshing={refreshing}
           />
         }
@@ -492,7 +491,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={void onToggleDisplayBalances} // eslint-disable-line
+            onPress={onToggleDisplayBalances}
 
           >
             <ThemedIcon
