@@ -668,8 +668,8 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在確認",
-    "Transaction completed": "交易成功",
-    "Sent but not confirmed": "已發出尚未完全確認",
+    "Transaction confirmed": "交易成功",
+    "Sent (Pending confirmation)": "已發出尚未完全確認",
     "Broadcasting...": "傳送...",
     "OK": "好了",
     "Insufficient UTXO DFI": "不足夠的UTXO DFI",
@@ -1587,7 +1587,8 @@
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
-    "Future Swap": "Future Swap"
+    "Future Swap": "Future Swap",
+    "Settlement block {{block}} has been executed": "結算區塊 {{block}} 已執行"
   },
   "screens/ServiceProviderScreen": {
     "Server": "伺服器",

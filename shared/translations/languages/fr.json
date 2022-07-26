@@ -677,8 +677,8 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "En attente de confirmation",
-    "Transaction completed": "Transaction terminée",
-    "Sent but not confirmed": "Envoyé mais non confirmé",
+    "Transaction confirmed": "Transaction confirmée",
+    "Sent (Pending confirmation)": "Envoyée (en attente de confirmation)",
     "Broadcasting...": "Envoi...",
     "OK": "OK",
     "Insufficient UTXO DFI": "UTXO DFI insuffisant",
@@ -1591,7 +1591,8 @@
     "{{percentage_change}} on oracle price": "{{percentage_change}} sur le prix oracle",
     "Settlement block": "Bloc d’exécution",
     "The amount will be refunded automatically if the transaction does not go through.": "Le montant sera remboursé automatiquement si la transaction n’aboutit pas.",
-    "Future Swap": "Échange à terme"
+    "Future Swap": "Échange à terme",
+    "Settlement block {{block}} has been executed": "Le bloc de règlement {{block}} a été exécuté"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Serveur",
