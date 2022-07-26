@@ -3,8 +3,7 @@ context('Wallet - Transaction - Empty', () => {
     before(() => {
       cy.createEmptyWallet(true)
       cy.getByTestID('bottom_tab_portfolio').click()
-      cy.getByTestID('switch_account_button').click()
-      cy.getByTestID('transactions_tab').click()
+      cy.getByTestID('transaction_button').click()
     })
 
     it('should display 0 row', () => {

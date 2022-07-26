@@ -60,7 +60,7 @@ export function ActionButtons (): JSX.Element {
       name: translate('components/ActionButtons', 'Future swap'),
       icon: 'clock',
       iconType: 'Feather',
-      badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length + 1,
+      badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length,
       testID: 'future_swap_button',
       onPress: () => navigation.navigate('FutureSwapScreen')
     })
