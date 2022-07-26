@@ -32,7 +32,7 @@ export function TransactionDetail ({
         { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
         { 'border-darkwarning-500': oceanStatusCode === TransactionStatusCode.pending }
       )}
-      light={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-500',
+      light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-500',
         { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
         { 'border-warning-500': oceanStatusCode === TransactionStatusCode.pending }
       )}
