@@ -199,7 +199,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 activeOpacity={0.7}
                 style={tailwind('mr-4')}
                 onPress={async () => await onFavouriteAddress(item)}
-                testID={`address_row_${index}_${testIDSuffix}`}
+                testID={`address_row_star_${index}_${testIDSuffix}`}
                 disabled={enableAddressSelect}
               >
                 {item.isFavourite === true
@@ -393,7 +393,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 item={item}
                 key={item.address}
                 index={index}
-                testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'address_book' : 'wallet_address'}
+                testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'WHITELISTED' : 'YOUR_ADDRESS'}
                 selectedAddress={selectedAddress}
                 onAddressSelect={onAddressSelect}
               />)
