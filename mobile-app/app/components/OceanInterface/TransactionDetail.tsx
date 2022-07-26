@@ -5,7 +5,6 @@ import { openURL } from '@api/linking'
 import { ThemedActivityIndicator, ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { TransactionIDButton } from './TransactionIDButton'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 interface TransactionDetailProps {
   broadcasted: boolean
@@ -26,26 +25,33 @@ export function TransactionDetail ({
 }: TransactionDetailProps): JSX.Element {
   title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
 
-  const { isLight } = useThemeContext()
-
-  const themedOrange = isLight ? 'border-warning-500' : 'border-darkwarning-500'
-  const themedBorder = isLight ? 'border-mono-dark-v2-500' : 'border-mono-dark-v2-500'
-  const themedStatus = transactionStatusCode === 200 ? 'border-success-500' : themedOrange
-  const borderColour = broadcasted ? themedStatus : themedBorder
-
   return (
     <ThemedViewV2
-      dark={tailwind('bg-mono-dark-v2-00')}
-      light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind(`w-full rounded-lg-v2 px-5 flex flex-row py-3 items-center border-0.5 ${borderColour}`)}
+      dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-500',
+      { 'border-success-500': transactionStatusCode === 200 },
+      { 'border-darkwarning-500': transactionStatusCode === 202 }
+      )}
+      light={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-500',
+      { 'border-success-500': transactionStatusCode === 200 },
+      { 'border-warning-500': transactionStatusCode === 202 }
+      )}
+      style={tailwind('w-full rounded-lg-v2 px-5 flex flex-row py-3 items-center border-0.5')}
     >
       {
         !broadcasted
           ? <ThemedActivityIndicator />
           : (
             <ThemedIcon
-              dark={tailwind(transactionStatusCode === 200 ? 'text-darksuccess-500' : 'text-darkwarning-500')}
-              light={tailwind(transactionStatusCode === 200 ? 'text-success-500' : 'text-warning-500')}
+              dark={tailwind({
+                'text-darksuccess-500': transactionStatusCode === 200,
+                'text-darkwarning-500': transactionStatusCode === 202
+                 }
+              )}
+              light={tailwind({
+                'text-success-500': transactionStatusCode === 200,
+                'text-warning-500': transactionStatusCode === 202
+                 }
+              )}
               iconType='MaterialIcons'
               name='check-circle'
               size={20}

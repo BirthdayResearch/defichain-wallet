@@ -19,7 +19,7 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
         light={tailwind('text-mono-light-v2-700')}
         ellipsizeMode='middle'
         numberOfLines={1}
-        style={tailwind('text-sm font-medium-v2')}
+        style={tailwind('text-sm font-normal-v2')}
       >
         {txid}
       </ThemedTextV2>
