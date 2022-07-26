@@ -126,12 +126,13 @@
     "GET DFI FROM": "GET DFI FROM"
   },
   "components/BottomSheetAddressDetail": {
-    "CREATE WALLET ADDRESS": "CREAR UNA DIRECCIÓN PARA TU BILLETERA",
-    "{{length}} ADDRESS(ES)": "{{length}} DIRECCION(ES)",
+    "Create wallet address": "Crear una dirección para tu billetera",
+    "ADDRESS(ES)": "DIRECCION(ES)",
     "RECEIVE": "RECIBIDO",
     "VIEW ON SCAN": "VERLO EN EL ESCANER",
     "EDIT": "EDITA",
-    "CANCEL": "CANCELA"
+    "CANCEL": "CANCELA",
+    "Refresh": "Refresh"
   },
   "screens/AddressBookScreen": {
     "Address book": "Libro de direcciones",
@@ -160,15 +161,21 @@
     "Search results for “{{input}}”": "Buscar resultados para “{{input}}”",
     "FAVOURITE ADDRESS(ES)": "Favoriten",
     "Add your preferred / commonly-used address.": "Añade tu dirección preferida / más usada."
-},
+  },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Edita el nombre de la dirección",
+    "Edit wallet label": "Edit wallet label",
     "ADDRESS LABEL": "NOMBRE DE LA DIRECCION",
+    "LABEL": "LABEL",
+    "Enter label": "Introduce etiqueta",
     "Address {{index}}": "Dirección {{index}}",
     "Add new address": "Añade nueva dirección",
     "ADDRESS": "DIRECCIÓN",
     "SAVE CHANGES": "GUARDAR CAMBIOS",
-    "Address label is too long (max 30 characters)": "El nombre de la dirección es demasiado largo (máx. 30 caracteres)"
+    "Save changes": "Guardar cambios",
+    "Address label is too long (max 30 characters)": "El nombre de la dirección es demasiado largo (máx. 30 caracteres)",
+    "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
+    "{{length}}/40 characters": "{{length}}/40 characters"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Edita el nombre de la dirección",
@@ -222,7 +229,8 @@
     "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
   },
   "components/toaster": {
-    "Copied": "Copiado"
+    "Copied": "Copiado",
+    "Address copied": "Address copied"
   },
   "screens/SendScreen": {
     "Send": "Enviar",
@@ -696,6 +704,7 @@
   },
   "screens/common": {
     "CANCEL": "CANCELA",
+    "Cancel": "Cancela",
     "TRY AGAIN": "VOLVER A INTENTAR"
   },
   "screens/ChangePinScreen": {
@@ -861,8 +870,8 @@
     "To be confirmed": "To be confirmed",
     "Enter an amount": "Enter an amount",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Are you certain you want to proceed to swap DUSD for DFI despite the high Dex-Stabilization fees?",
-    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?",
+    "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -1600,7 +1609,8 @@
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
-    "Future Swap": "Future Swap"
+    "Future Swap": "Future Swap",
+    "Settlement block {{block}} has been executed": "El bloque de asentamiento {{block}} ha sido ejecutado"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Servidor",

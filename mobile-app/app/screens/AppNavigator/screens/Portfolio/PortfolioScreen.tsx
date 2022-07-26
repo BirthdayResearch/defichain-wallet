@@ -10,7 +10,7 @@ import { ocean } from '@store/ocean'
 import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { batch, useSelector } from 'react-redux'
 import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
@@ -21,11 +21,9 @@ import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-import { BottomSheetAddressDetail } from './components/BottomSheetAddressDetail'
-import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
-import { CreateOrEditAddressLabelForm } from './components/CreateOrEditAddressLabelForm'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { PortfolioCard, ButtonGroupTabKey } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -36,6 +34,16 @@ import { BottomSheetAssetSortList, PortfolioSortType } from './components/Bottom
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
+import {
+  BottomSheetAddressDetailV2
+} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
+import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
+import {
+  CreateOrEditAddressLabelFormV2
+} from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
+import {
+  BottomSheetHeaderBackButton
+} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -392,11 +400,31 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     }
   }, [])
 
+  const addressBottomSheetHeader = {
+    headerStatusBarHeight: 1,
+    headerTitle: '',
+    headerBackTitleVisible: false,
+    headerStyle: tailwind('rounded-t-xl-v2', {
+      'bg-mono-light-v2-100': isLight,
+      'bg-mono-dark-v2-100': !isLight
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind('border-0 mr-5 mt-2')} onPress={() => dismissModal(false)}
+          testID='close_bottom_sheet_button'
+        >
+          <ThemedIcon iconType='Feather' name='x-circle' size={22} />
+        </ThemedTouchableOpacityV2>
+      )
+    }
+  }
+
   const addressBottomSheetScreen = useMemo(() => {
     return [
       {
         stackScreenName: 'AddressDetail',
-        component: BottomSheetAddressDetail({
+        component: BottomSheetAddressDetailV2({
           address: address,
           addressLabel: 'TODO: get label from storage api',
           onReceiveButtonPress: () => {
@@ -409,25 +437,19 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           },
           onCloseButtonPress: () => dismissModal(false),
           navigateToScreen: {
-            screenName: 'CreateOrEditAddressLabelForm'
+            screenName: 'CreateOrEditAddressLabelFormV2'
           }
         }),
-        option: {
-          header: () => null
-        }
+        option: addressBottomSheetHeader
       },
       {
-        stackScreenName: 'CreateOrEditAddressLabelForm',
-        component: CreateOrEditAddressLabelForm,
+        stackScreenName: 'CreateOrEditAddressLabelFormV2',
+        component: CreateOrEditAddressLabelFormV2,
         option: {
-          headerStatusBarHeight: 1,
-          headerBackgroundContainerStyle: tailwind('border-b', {
-            'border-gray-200': isLight,
-            'border-gray-700': !isLight,
-            '-top-5': Platform.OS !== 'web'
-          }),
-          headerTitle: '',
-          headerBackTitleVisible: false
+          ...addressBottomSheetHeader,
+          headerLeft: (): JSX.Element => (
+            <BottomSheetHeaderBackButton />
+          )
         }
       }
     ]
@@ -513,7 +535,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
              />)}
         {Platform.OS === 'web'
           ? (
-            <BottomSheetWebWithNav
+            <BottomSheetWebWithNavV2
               modalRef={containerRef}
               screenList={showAssetSortBottomSheet ? assetSortBottomSheetScreen : addressBottomSheetScreen}
               isModalDisplayed={isModalDisplayed}
@@ -522,7 +544,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                 bottom: '0',
                 height: '505px',
                 width: '375px',
-                zIndex: 50
+                zIndex: 50,
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                overflow: 'hidden'
               }}
             />
           )
@@ -533,7 +558,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                 screenList={assetSortBottomSheetScreen}
                 snapPoints={modalSortingSnapPoints}
               />
-              <BottomSheetWithNav
+              <BottomSheetWithNavV2
                 modalRef={bottomSheetRef}
                 screenList={addressBottomSheetScreen}
                 snapPoints={modalSnapPoints}

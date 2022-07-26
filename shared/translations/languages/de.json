@@ -123,12 +123,13 @@
     "GET DFI FROM": "ERWIRB DFI AUF"
   },
   "components/BottomSheetAddressDetail": {
-    "CREATE WALLET ADDRESS": "WALLETADRESSE ERSTELLEN",
-    "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(N)",
+    "Create wallet address": "Walletadresse erstellen",
+    "ADDRESS(ES)": "ADRESSE(N)",
     "RECEIVE": "EMPFANGEN",
     "VIEW ON SCAN": "AUF DeFi SCAN ANSEHEN",
     "EDIT": "EDITIEREN",
-    "CANCEL": "ABBRECHEN"
+    "CANCEL": "ABBRECHEN",
+    "Refresh": "Aktualisieren"
   },
   "screens/AddressBookScreen": {
     "Address Book": "Adressbuch",
@@ -156,12 +157,18 @@
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Adressbezeichnung bearbeiten",
+    "Edit wallet label": "Walletbezeichnung editieren",
     "ADDRESS LABEL": "ADRESSBEZEICHNUNG",
+    "LABEL": "BEZEICHNUNG",
+    "Enter label": "Bezeichnung eingeben",
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Neue Adresse hinzufügen",
     "ADDRESS": "ADRESSE",
     "SAVE CHANGES": "ÄNDERUNGEN SICHERN",
-    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)"
+    "Save changes": "Änderungen sichern",
+    "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
+    "Invalid label. Maximum of 40 characters.": "Ungültige Bezeichnung. Maximum von 40 Zeichen",
+    "{{length}}/40 characters": "{{length}}/40 Zeichen"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Adressbezeichnung bearbeiten",
@@ -213,7 +220,8 @@
     "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten"
   },
   "components/toaster": {
-    "Copied": "Kopiert"
+    "Copied": "Kopiert",
+    "Address copied": "Adresse kopiert"
   },
   "screens/SendScreen": {
     "Send": "Senden",
@@ -677,6 +685,7 @@
   },
   "screens/common": {
     "CANCEL": "ABBRECHEN",
+    "Cancel": "Abbrechen",
     "TRY AGAIN": "ERNEUT VERSUCHEN"
   },
   "screens/ChangePinScreen": {
@@ -837,8 +846,8 @@
     "To be confirmed": "Noch zu bestätigen",
     "Enter an amount": "Gib einen Betrag ein",
     "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Bist du dir sicher, dass du trotz der DEX-Stabilisierungsgebühren von {{fee}} mit dem Tausch von DUSD in DFI fortfahren willst?",
-    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Bist du dir sicher, dass du diesen Tausch trotz der DEX-Stabilisierungsgebühren in Höhe von {{fee}}, die im Verlauf des zusammengesetzten Pfads beim Komposit-Swap (DUSD -> DFI) anfallen werden, durchführen willst?",
+    "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Bist du dir sicher, dass du trotz der DEX-Stabilisierungsgebühren von {{fee}} mit dem Tausch von DUSD in {{tokenB}} fortfahren willst?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Bist du dir sicher, dass du diesen Tausch trotz der DEX-Stabilisierungsgebühren in Höhe von {{fee}}, die im Verlauf des zusammengesetzten Pfads beim Komposit-Swap (DUSD -> {{tokenB}}) anfallen werden, durchführen willst?",
     "DEX stabilization fee": "DEX-Stabilisierungsgebühr"
   },
   "screens/ConfirmCompositeSwapScreen": {
@@ -1567,7 +1576,8 @@
     "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",
     "Settlement block": "Ausführungsblock",
     "The amount will be refunded automatically if the transaction does not go through.": "Der Betrag wird automatisch zurückerstattet, wenn die Transaktion nicht zustande kommt.",
-    "Future Swap": "Future Swap"
+    "Future Swap": "Future Swap",
+    "Settlement block {{block}} has been executed": "Abrechnungs-Block {{block}} wurde ausgeführt"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Server",

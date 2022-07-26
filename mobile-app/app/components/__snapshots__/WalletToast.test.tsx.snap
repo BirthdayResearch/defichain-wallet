@@ -10,13 +10,13 @@ exports[`wallet toast should render and match snapshot 1`] = `
         "borderTopLeftRadius": 24,
         "borderTopRightRadius": 24,
         "marginTop": 64,
-        "paddingBottom": 6,
+        "paddingBottom": 8,
         "paddingLeft": 16,
         "paddingRight": 16,
-        "paddingTop": 4,
+        "paddingTop": 8,
       },
       Object {
-        "backgroundColor": "rgba(23, 23, 23, 1)",
+        "backgroundColor": "rgba(0, 173, 29, 1)",
       },
     ]
   }
@@ -33,11 +33,13 @@ exports[`wallet toast should render and match snapshot 1`] = `
         },
         Array [
           Object {
-            "fontSize": 18,
-            "lineHeight": 28,
+            "fontFamily": "SoraRegular",
+            "fontSize": 12,
+            "fontWeight": "400",
+            "lineHeight": 16,
           },
           Object {
-            "color": "rgba(255, 255, 255, 1)",
+            "color": "rgba(0, 0, 0, 1)",
           },
         ],
       ]
