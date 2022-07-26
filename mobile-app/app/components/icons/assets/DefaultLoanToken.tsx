@@ -7,15 +7,15 @@ export function DefaultLoanToken (symbol: string): (props: SvgProps) => JSX.Elem
   return function (props: SvgProps): JSX.Element {
     const name = symbol.substring(1, 6).toUpperCase()
     return (
-      <Svg width='32' height='32' viewBox='0 0 32 32' fill='none' {...props}>
+      <Svg width='32' height='32' viewBox='0 0 36 36' fill='none' {...props}>
         <G clipPath='url(#clip0_1388_11287)'>
           <Path
+            d='M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z'
+            fill='#0E0A0D'
             strokeWidth={0.5}
             stroke={getColor(isLight ? 'mono-light-v2-300' : 'mono-dark-v2-300')}
             fillRule='evenodd'
             clipRule='evenodd'
-            d='M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.838 32 32 24.837 32 16C32 7.163 24.838 0 16 0Z'
-            fill='#0E0A0D'
           />
         </G>
         <Text
