@@ -67,7 +67,7 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -97,9 +97,9 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -260,7 +260,7 @@ exports[`info text should match snapshot for error Cannot payback loan while any
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -290,9 +290,9 @@ exports[`info text should match snapshot for error Cannot payback loan while any
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -453,7 +453,7 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -483,9 +483,9 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -646,7 +646,7 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -676,9 +676,9 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -839,7 +839,7 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -869,9 +869,9 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -1032,7 +1032,7 @@ exports[`info text should match snapshot for error Swap price is higher than the
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -1062,9 +1062,9 @@ exports[`info text should match snapshot for error Swap price is higher than the
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -1230,9 +1230,9 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -1365,7 +1365,7 @@ exports[`info text should match snapshot for error Vault does not have enough co
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -1395,9 +1395,9 @@ exports[`info text should match snapshot for error Vault does not have enough co
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -1558,7 +1558,7 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -1588,9 +1588,9 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -1751,7 +1751,7 @@ exports[`info text should match snapshot for error no prevouts available to crea
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -1781,9 +1781,9 @@ exports[`info text should match snapshot for error no prevouts available to crea
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {
@@ -1944,7 +1944,7 @@ exports[`info text should match snapshot for error not enough balance after comb
         ]
       }
     >
-      
+      
     </Text>
     <View
       style={
@@ -1974,9 +1974,9 @@ exports[`info text should match snapshot for error not enough balance after comb
               },
               Array [
                 Object {
-                  "fontFamily": "SoraBold",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 14,
-                  "fontWeight": "700",
+                  "fontWeight": "400",
                   "lineHeight": 20,
                 },
                 Object {

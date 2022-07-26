@@ -9,7 +9,7 @@ export interface OceanTransaction {
   onBroadcast?: () => any
   onConfirmation?: () => any
   onError?: () => any
-  statusCode?: number | undefined
+  transactionStatusCode?: number
 }
 
 export interface OceanState {

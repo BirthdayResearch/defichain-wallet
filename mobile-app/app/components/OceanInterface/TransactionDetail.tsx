@@ -13,7 +13,7 @@ interface TransactionDetailProps {
   txUrl?: string
   onClose: () => void
   title?: string
-  statusCode?: number
+  transactionStatusCode?: number
 }
 
 export function TransactionDetail ({
@@ -22,15 +22,16 @@ export function TransactionDetail ({
   txUrl,
   onClose,
   title,
-  statusCode
+  transactionStatusCode
 }: TransactionDetailProps): JSX.Element {
   title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
 
   const { isLight } = useThemeContext()
 
   const themedOrange = isLight ? 'border-warning-500' : 'border-darkwarning-500'
-  const status = statusCode === 200 ? 'border-success-500' : themedOrange
-  const borderColour = broadcasted ? status : 'border-mono-dark-v2-500'
+  const themedBorder = isLight ? 'border-mono-dark-v2-500' : 'border-mono-dark-v2-500'
+  const themedStatus = transactionStatusCode === 200 ? 'border-success-500' : themedOrange
+  const borderColour = broadcasted ? themedStatus : themedBorder
 
   return (
     <ThemedViewV2
@@ -43,8 +44,8 @@ export function TransactionDetail ({
           ? <ThemedActivityIndicator />
           : (
             <ThemedIcon
-              dark={tailwind(statusCode === 200 ? 'text-darksuccess-500' : 'text-darkwarning-500')}
-              light={tailwind(statusCode === 200 ? 'text-success-500' : 'text-warning-500')}
+              dark={tailwind(transactionStatusCode === 200 ? 'text-darksuccess-500' : 'text-darkwarning-500')}
+              light={tailwind(transactionStatusCode === 200 ? 'text-success-500' : 'text-warning-500')}
               iconType='MaterialIcons'
               name='check-circle'
               size={20}
