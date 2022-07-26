@@ -3,68 +3,119 @@
 exports[`info text should match snapshot for error At least 50% of the vault must be in DFI when taking a loan 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 4
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -75,49 +126,21 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 4
+        Insufficient DFI collateral (≥50%)
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Insufficient DFI collateral (≥50%)
-    </Text>
   </View>
   <View
     accessible={true}
@@ -132,55 +155,39 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -189,68 +196,119 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
 exports[`info text should match snapshot for error Cannot payback loan while any of the asset's price is invalid 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 6
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -261,49 +319,21 @@ exports[`info text should match snapshot for error Cannot payback loan while any
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 6
+        Cannot payback loan due to invalid price
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Cannot payback loan due to invalid price
-    </Text>
   </View>
   <View
     accessible={true}
@@ -318,55 +348,39 @@ exports[`info text should match snapshot for error Cannot payback loan while any
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -375,68 +389,119 @@ exports[`info text should match snapshot for error Cannot payback loan while any
 exports[`info text should match snapshot for error Error: Not found, code: 404, message: Page not found 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 0
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -447,49 +512,21 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 0
+        404, message Page not found
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      404, message Page not found
-    </Text>
   </View>
   <View
     accessible={true}
@@ -504,55 +541,39 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -561,68 +582,119 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
 exports[`info text should match snapshot for error Lack of liquidity 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 5
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -633,49 +705,21 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 5
+        Pool does not have enough liquidity
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Pool does not have enough liquidity
-    </Text>
   </View>
   <View
     accessible={true}
@@ -690,55 +734,39 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -747,68 +775,119 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
 exports[`info text should match snapshot for error No live fixed prices 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 7
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -819,49 +898,21 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 7
+        No live fixed prices for loan token
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      No live fixed prices for loan token
-    </Text>
   </View>
   <View
     accessible={true}
@@ -876,55 +927,39 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -933,68 +968,119 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
 exports[`info text should match snapshot for error Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed. 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 0
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -1005,49 +1091,21 @@ exports[`info text should match snapshot for error Swap price is higher than the
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 0
+        Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.
-    </Text>
   </View>
   <View
     accessible={true}
@@ -1062,55 +1120,39 @@ exports[`info text should match snapshot for error Swap price is higher than the
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -1119,41 +1161,94 @@ exports[`info text should match snapshot for error Swap price is higher than the
 exports[`info text should match snapshot for error UnknownError 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text />
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text />
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 0
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -1164,49 +1259,21 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 0
+        UnknownError
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      UnknownError
-    </Text>
   </View>
   <View
     accessible={true}
@@ -1221,56 +1288,12 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
-            },
-          ],
-        ]
-      }
-    >
-      OK
-    </Text>
+    <Text />
   </View>
 </View>
 `;
@@ -1278,68 +1301,119 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
 exports[`info text should match snapshot for error Vault does not have enough collateralization ratio defined by loan scheme 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 8
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -1350,49 +1424,21 @@ exports[`info text should match snapshot for error Vault does not have enough co
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 8
+        Vault does not have enough col. ratio
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Vault does not have enough col. ratio
-    </Text>
   </View>
   <View
     accessible={true}
@@ -1407,55 +1453,39 @@ exports[`info text should match snapshot for error Vault does not have enough co
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -1464,68 +1494,119 @@ exports[`info text should match snapshot for error Vault does not have enough co
 exports[`info text should match snapshot for error amount is less than 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 2
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -1536,49 +1617,21 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 2
+        Not enough balance
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Not enough balance
-    </Text>
   </View>
   <View
     accessible={true}
@@ -1593,55 +1646,39 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -1650,68 +1687,119 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
 exports[`info text should match snapshot for error no prevouts available to create a transaction 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 1
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -1722,49 +1810,21 @@ exports[`info text should match snapshot for error no prevouts available to crea
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 1
+        Insufficient UTXO DFI
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Insufficient UTXO DFI
-    </Text>
   </View>
   <View
     accessible={true}
@@ -1779,55 +1839,39 @@ exports[`info text should match snapshot for error no prevouts available to crea
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
@@ -1836,68 +1880,119 @@ exports[`info text should match snapshot for error no prevouts available to crea
 exports[`info text should match snapshot for error not enough balance after combing all prevouts 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "width": "100%",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 12,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
   }
 >
-  <Text
-    allowFontScaling={false}
-    selectable={false}
-    style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          Object {
-            "width": "8.333333%",
-          },
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>
   <View
     style={
-      Array [
-        Object {
-          "display": "flex",
-          "flexDirection": "column",
-          "justifyContent": "center",
-          "marginLeft": 4,
-          "width": "75%",
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "width": "75%",
+      }
     }
   >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          Array [
+            undefined,
+            Object {
+              "color": "rgba(255, 0, 0, 1)",
+            },
+          ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
     <View
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
+          "marginLeft": 10,
+          "width": "100%",
         }
       }
     >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraBold",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 1
+        </Text>
+      </View>
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
           Array [
             Object {
@@ -1908,49 +2003,21 @@ exports[`info text should match snapshot for error not enough balance after comb
             },
             Array [
               Object {
-                "fontFamily": "BoldFont",
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
               Object {
-                "color": "rgba(0, 0, 0, 1)",
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Error Code: 1
+        Insufficient UTXO DFI
       </Text>
     </View>
-    <Text
-      ellipsizeMode="tail"
-      numberOfLines={0}
-      onTextLayout={[Function]}
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontFamily": "BoldFont",
-              "fontSize": 14,
-              "fontWeight": "700",
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Insufficient UTXO DFI
-    </Text>
   </View>
   <View
     accessible={true}
@@ -1965,55 +2032,39 @@ exports[`info text should match snapshot for error not enough balance after comb
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         Array [
           Object {
-            "fontFamily": "RegularFont",
+            "color": undefined,
             "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
           },
           Array [
             Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
             },
             Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          Object {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
         ]
       }
     >
-      OK
+      
     </Text>
   </View>
 </View>
