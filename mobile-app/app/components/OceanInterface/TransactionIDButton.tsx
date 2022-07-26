@@ -11,7 +11,7 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={tailwind('flex-row pt-1 items-center w-8/12 ml-1')}
+      style={tailwind('flex-row pt-1 items-center w-8/12')}
       testID='oceanNetwork_explorer'
     >
       <ThemedTextV2
@@ -19,7 +19,7 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
         light={tailwind('text-mono-light-v2-700')}
         ellipsizeMode='middle'
         numberOfLines={1}
-        style={tailwind('text-sm font-normal-v2')}
+        style={tailwind('text-sm font-normal-v2 mr-1')}
       >
         {txid}
       </ThemedTextV2>
@@ -29,7 +29,7 @@ export function TransactionIDButton ({ txid, onPress }: TransactionIDButtonProps
         light={tailwind('text-mono-light-v2-700')}
         iconType='Feather'
         name='external-link'
-        size={18}
+        size={16}
       />
     </TouchableOpacity>
   )

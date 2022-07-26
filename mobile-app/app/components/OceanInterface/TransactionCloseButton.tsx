@@ -18,7 +18,7 @@ export function TransactionCloseButton (props: TransactionCloseButtonProps): JSX
         style={tailwind('font-bold-v2')}
         iconType='MaterialIcons'
         name='close'
-        size={16}
+        size={18}
       />
     </TouchableOpacity>
   )
