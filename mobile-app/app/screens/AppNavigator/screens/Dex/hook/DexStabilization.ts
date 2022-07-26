@@ -9,6 +9,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { SwapPathPoolPair } from '@defichain/whale-api-client/dist/api/poolpairs'
 
 export type DexStabilizationType = 'direct-dusd-with-fee' | 'composite-dusd-with-fee' | 'none'
 
@@ -138,8 +139,30 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     return announcement
   }, [])
 
+  const getCompositeSwapDexStabilization = useCallback((bestPath: SwapPathPoolPair[], pairsWithDexFee: Array<{ tokenADisplaySymbol: string, tokenBDisplaySymbol: string }>): DexStabilization | undefined => {
+    const pairIndex = bestPath.findIndex(path => {
+      return pairsWithDexFee.some(({ tokenADisplaySymbol, tokenBDisplaySymbol }) => (
+        (path.tokenA.displaySymbol === tokenADisplaySymbol && path.tokenB.displaySymbol === tokenBDisplaySymbol) ||
+        (path.tokenA.displaySymbol === tokenBDisplaySymbol && path.tokenB.displaySymbol === tokenADisplaySymbol)))
+    })
+    const pairWithDexFee = bestPath[pairIndex]
+
+    if (
+      (pairIndex === 0 && (bestPath[pairIndex + 1]?.tokenA.displaySymbol === pairWithDexFee.tokenA.displaySymbol || bestPath[pairIndex + 1]?.tokenB.displaySymbol === pairWithDexFee.tokenB.displaySymbol)) ||
+      (pairIndex !== -1 && bestPath[pairIndex - 1]?.tokenB.displaySymbol === pairWithDexFee.tokenA.displaySymbol)) {
+      return {
+        dexStabilizationType: 'composite-dusd-with-fee',
+        pair: {
+          tokenADisplaySymbol: pairWithDexFee.tokenA.displaySymbol,
+          tokenBDisplaySymbol: pairWithDexFee.tokenB.displaySymbol
+        },
+        dexStabilizationFee: getDexStabilizationFee(pairWithDexFee.tokenA.displaySymbol, pairWithDexFee.tokenB.displaySymbol)
+      }
+    }
+  }, [])
+
   const _getDexStabilization = async (tokenA: DexStabilizationTokenA, tokenB: DexStabilizationTokenB): Promise<DexStabilization> => {
-    let _dexStabilization: DexStabilization = {
+    const _dexStabilization: DexStabilization = {
       dexStabilizationType: 'none',
       pair: {
         tokenADisplaySymbol: '',
@@ -148,84 +171,45 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
       dexStabilizationFee: '0'
     }
 
-    if (tokenA !== undefined && tokenB !== undefined) {
-      const { bestPath } = await getBestPath(
-        tokenA.id === '0_unified' ? '0' : tokenA.id,
-        tokenB.id === '0_unified' ? '0' : tokenB.id)
+    if (tokenA === undefined || tokenB === undefined) {
+      return _dexStabilization
+    }
 
-      /*
-        Direct swap - checking the length is impt because when the pair is disabled, then the path used will be different
-      */
-      if (
-        bestPath.length === 1 && (
-          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') ||
-          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') ||
-          (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC'))) {
-        _dexStabilization = {
-          dexStabilizationType: 'direct-dusd-with-fee',
-          pair: {
-            tokenADisplaySymbol: tokenA.displaySymbol,
-            tokenBDisplaySymbol: tokenB.displaySymbol
-          },
-          dexStabilizationFee: getDexStabilizationFee(tokenA.displaySymbol, tokenB.displaySymbol)
-        }
-      }
+    const { bestPath } = await getBestPath(
+      tokenA.id === '0_unified' ? '0' : tokenA.id,
+      tokenB.id === '0_unified' ? '0' : tokenB.id)
 
-      const dUSDandDFIPairIndex = bestPath.findIndex(path => {
-        return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'DFI') ||
-          (path.tokenA.displaySymbol === 'DFI' && path.tokenB.displaySymbol === 'DUSD')
-      })
-      const dUSDandUSDTPairIndex = bestPath.findIndex(path => {
-        return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'dUSDT') ||
-          (path.tokenA.displaySymbol === 'dUSDT' && path.tokenB.displaySymbol === 'DUSD')
-      })
-      const dUSDandUSDCPairIndex = bestPath.findIndex(path => {
-        return (path.tokenA.displaySymbol === 'DUSD' && path.tokenB.displaySymbol === 'dUSDC') ||
-          (path.tokenA.displaySymbol === 'dUSDC' && path.tokenB.displaySymbol === 'DUSD')
-      })
-
-      /*
-        Otherwise, check for composite swap
-          1. Get index of DUSD-(DFI | USDT | USDC) pair
-          2. If index === 0 Check if first leg in best path is DUSD-(DFI | USDT | USDC) and second leg is (DFI | USDT | USDC) respectively
-          3. Else check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC
-      */
-      if (
-        (dUSDandDFIPairIndex === 0 && (bestPath[dUSDandDFIPairIndex + 1]?.tokenA.displaySymbol === 'DFI' || bestPath[dUSDandDFIPairIndex + 1]?.tokenB.displaySymbol === 'DFI')) ||
-        (dUSDandDFIPairIndex !== -1 && bestPath[dUSDandDFIPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
-        _dexStabilization = {
-          dexStabilizationType: 'composite-dusd-with-fee',
-          pair: {
-            tokenADisplaySymbol: 'DUSD',
-            tokenBDisplaySymbol: 'DFI'
-          },
-          dexStabilizationFee: getDexStabilizationFee('DUSD', 'DFI')
-        }
-      } else if (
-        (dUSDandUSDTPairIndex === 0 && (bestPath[dUSDandUSDTPairIndex + 1]?.tokenA.displaySymbol === 'dUSDT' || bestPath[dUSDandUSDTPairIndex + 1]?.tokenB.displaySymbol === 'dUSDT')) ||
-        (dUSDandUSDTPairIndex !== -1 && bestPath[dUSDandUSDTPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
-        _dexStabilization = {
-          dexStabilizationType: 'composite-dusd-with-fee',
-          pair: {
-            tokenADisplaySymbol: 'DUSD',
-            tokenBDisplaySymbol: 'dUSDT'
-          },
-          dexStabilizationFee: getDexStabilizationFee('DUSD', 'dUSDT')
-        }
-      } else if (
-        (dUSDandUSDCPairIndex === 0 && (bestPath[dUSDandUSDCPairIndex + 1]?.tokenA.displaySymbol === 'dUSDC' || bestPath[dUSDandUSDCPairIndex + 1]?.tokenB.displaySymbol === 'dUSDC')) ||
-        (dUSDandUSDCPairIndex !== -1 && bestPath[dUSDandUSDCPairIndex - 1]?.tokenB.displaySymbol === 'DUSD')) {
-        _dexStabilization = {
-          dexStabilizationType: 'composite-dusd-with-fee',
-          pair: {
-            tokenADisplaySymbol: 'DUSD',
-            tokenBDisplaySymbol: 'dUSDC'
-          },
-          dexStabilizationFee: getDexStabilizationFee('DUSD', 'dUSDC')
-        }
+    /*
+      Direct swap - checking the length is impt because when the pair is disabled, then the path used will be different
+    */
+    if (
+      bestPath.length === 1 && (
+        (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'DFI') ||
+        (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDT') ||
+        (tokenA.displaySymbol === 'DUSD' && tokenB.displaySymbol === 'dUSDC'))) {
+      return {
+        dexStabilizationType: 'direct-dusd-with-fee',
+        pair: {
+          tokenADisplaySymbol: tokenA.displaySymbol,
+          tokenBDisplaySymbol: tokenB.displaySymbol
+        },
+        dexStabilizationFee: getDexStabilizationFee(tokenA.displaySymbol, tokenB.displaySymbol)
       }
     }
-    return _dexStabilization
+
+    /*
+      Otherwise, check for composite swap
+        1. Get index of DUSD-(DFI | USDT | USDC) pair
+        2. If index === 0 Check if first leg in best path is DUSD-(DFI | USDT | USDC) and second leg is (DFI | USDT | USDC) respectively
+        3. Else check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC
+    */
+    const compositeSwapDexStabilization = getCompositeSwapDexStabilization(bestPath, [
+      { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'DFI' },
+      { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'dUSDT' },
+       { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'dUSDC' }
+    ])
+
+    return compositeSwapDexStabilization ?? _dexStabilization
   }
 
   return {
