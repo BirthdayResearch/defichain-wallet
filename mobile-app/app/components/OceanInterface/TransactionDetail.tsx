@@ -5,6 +5,7 @@ import { openURL } from '@api/linking'
 import { ThemedActivityIndicator, ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { TransactionIDButton } from './TransactionIDButton'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 interface TransactionDetailProps {
   broadcasted: boolean
@@ -25,7 +26,10 @@ export function TransactionDetail ({
 }: TransactionDetailProps): JSX.Element {
   title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
 
-  const status = statusCode === 200 ? 'border-success-500' : 'border-orange-v2'
+  const { isLight } = useThemeContext()
+
+  const themedOrange = isLight ? 'border-warning-500' : 'border-darkwarning-500'
+  const status = statusCode === 200 ? 'border-success-500' : themedOrange
   const borderColour = broadcasted ? status : 'border-mono-dark-v2-500'
 
   return (
@@ -52,7 +56,7 @@ export function TransactionDetail ({
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-900')}
           dark={tailwind('text-mono-dark-v2-900')}
-          style={tailwind('text-sm font-bold-v2')}
+          style={tailwind('text-sm font-normal-v2')}
         >
           {title}
         </ThemedTextV2>

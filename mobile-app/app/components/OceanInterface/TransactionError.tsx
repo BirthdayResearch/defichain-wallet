@@ -66,7 +66,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
           dark={tailwind('text-darkerror-500')}
           iconType='MaterialIcons'
           light={tailwind('text-error-500')}
-          name='error'
+          name='info'
           size={20}
         />
         <View style={tailwind('ml-2.5 w-full')}>
@@ -74,7 +74,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-900')}
               dark={tailwind('text-mono-dark-v2-900')}
-              style={tailwind('text-sm font-bold-v2')}
+              style={tailwind('text-sm font-normal-v2')}
             >
               {translate('screens/OceanInterface', `Error Code: ${err.code}`)}
             </ThemedTextV2>

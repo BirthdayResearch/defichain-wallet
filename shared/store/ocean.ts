@@ -2,7 +2,6 @@ import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface OceanTransaction {
-  statusCode: number | undefined
   broadcasted: boolean
   tx: CTransactionSegWit
   title?: string
@@ -10,6 +9,7 @@ export interface OceanTransaction {
   onBroadcast?: () => any
   onConfirmation?: () => any
   onError?: () => any
+  statusCode?: number | undefined
 }
 
 export interface OceanState {
