@@ -26,7 +26,7 @@ exports[`portfolio page should match snapshot 1`] = `
       Array [
         undefined,
         Object {
-          "backgroundColor": "rgba(250, 250, 250, 1)",
+          "backgroundColor": "rgba(242, 242, 242, 1)",
         },
       ]
     }
@@ -1320,9 +1320,7 @@ exports[`portfolio page should match snapshot 1`] = `
       <View
         style={
           Array [
-            Object {
-              "height": "100%",
-            },
+            undefined,
             Object {
               "backgroundColor": "rgba(242, 242, 242, 1)",
             },
