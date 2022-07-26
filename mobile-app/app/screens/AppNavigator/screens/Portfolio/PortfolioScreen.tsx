@@ -30,7 +30,6 @@ import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { IconButton } from '@components/IconButton'
-import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -354,11 +353,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       {
         stackScreenName: 'AssetSortList',
         component: BottomSheetAssetSortList({
-          headerLabel: translate('screens/PortfolioScreen', 'Sort assets by'),
-          onCloseButtonPress: () => {
-            setShowAssetSortBottomSheet(false)
-            dismissModal(true)
-          },
           onButtonPress: (item: PortfolioSortType) => {
             setAssetSortType(item)
             sortTokensAssetOnType(item)
@@ -370,13 +364,36 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         }),
         option: {
           headerStatusBarHeight: 1,
-          headerBackgroundContainerStyle: tailwind('border-b', {
-            'border-gray-200': isLight,
-            'border-gray-700': !isLight,
-            '-top-5': Platform.OS !== 'web'
-          }),
-          header: () => null,
-          headerBackTitleVisible: false
+          headerTitle: '',
+          headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <ThemedViewV2
+                style={tailwind('flex flex-col px-5 pt-3 pb-5 rounded-t-xl-v2')}
+              >
+                <ThemedTouchableOpacityV2
+                  onPress={() => {
+                    setShowAssetSortBottomSheet(false)
+                    dismissModal(true)
+                  }}
+                  style={tailwind('self-end pt-2.5')}
+                >
+                  <ThemedIcon
+                    dark={tailwind('text-mono-dark-v2-900')}
+                    light={tailwind('text-mono-light-v2-900')}
+                    iconType='Feather'
+                    name='x-circle'
+                    size={20}
+                  />
+                </ThemedTouchableOpacityV2>
+                <ThemedText
+                  style={tailwind('text-xl font-normal-v2 pt-0.5')}
+                >
+                  {translate('screens/PortfolioScreen', 'Sort Assets')}
+                </ThemedText>
+              </ThemedViewV2>
+            )
+          }
         }
       }
     ]
@@ -471,7 +488,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={onRefresh}
+            onRefresh={onRefresh} // eslint-disable-line
             refreshing={refreshing}
           />
         }
@@ -481,13 +498,16 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           dark={tailwind('bg-mono-dark-v2-00')}
           style={tailwind('px-5 pb-3 flex flex-row items-center')}
         >
-          <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
+          <AddressSelectionButtonV2
+            address={address} addressLength={addressLength}
+            onPress={() => expandModal(false)}
+          />
           <ThemedTouchableOpacityV2
             testID='toggle_balance'
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={onToggleDisplayBalances}
+            onPress={onToggleDisplayBalances} // eslint-disable-line
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
@@ -560,7 +580,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           )
           : (
             <>
-              <BottomSheetWithNav
+              <BottomSheetWithNavV2
                 modalRef={bottomSheetSortRef}
                 screenList={assetSortBottomSheetScreen}
                 snapPoints={modalSortingSnapPoints}
@@ -662,8 +682,8 @@ function BalanceActionButton ({
 }
 
 function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
-  const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
-  const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
@@ -679,9 +699,9 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
       testID='toggle_sorting_assets'
     >
       <ThemedTextV2
-        style={tailwind('text-xs text-gray-400 pr-1')}
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+        style={tailwind('text-xs pr-1 font-normal-v2')}
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-dark-v2-500')}
       >
         {translate('screens/PortfolioScreen', 'ASSETS')}
       </ThemedTextV2>
@@ -691,17 +711,17 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
         testID='your_assets_dropdown_arrow'
       >
         <ThemedTextV2
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs font-medium')}
+          light={tailwind('text-mono-light-v2-800')}
+          dark={tailwind('text-mono-dark-v2-800')}
+          style={tailwind('text-xs font-normal-v2')}
         >
           {translate('screens/PortfolioScreen', getDisplayedSortText(props.assetSortType))}
         </ThemedTextV2>
         {!props.hideIcon && (
           <ThemedIcon
             style={tailwind('ml-1 font-medium')}
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
+            light={tailwind('text-mono-light-v2-800')}
+            dark={tailwind('text-mono-dark-v2-800')}
             iconType='Feather'
             name='menu'
             size={16}

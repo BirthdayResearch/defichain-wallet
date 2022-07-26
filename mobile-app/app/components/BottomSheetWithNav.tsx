@@ -58,6 +58,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       index={0}
       snapPoints={getSnapPoints()}
       enablePanDownToClose={false}
+      handleComponent={null}
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
