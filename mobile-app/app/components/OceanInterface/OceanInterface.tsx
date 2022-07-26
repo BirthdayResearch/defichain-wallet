@@ -6,7 +6,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { getEnvironment } from '@environment'
 import { RootState } from '@store'
-import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
+import { firstTransactionSelector, ocean, OceanTransaction, transactionStatusCode } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -116,21 +116,21 @@ export function OceanInterface (): JSX.Element | null {
             transaction.onBroadcast()
           }
           let title
-          let transactionStatusCode
+          let oceanStatusCode: transactionStatusCode
           try {
             await waitForTxConfirmation(transaction.tx.txId, client, logger)
             title = 'Transaction confirmed'
-            transactionStatusCode = 200
+            oceanStatusCode = transactionStatusCode.transactionSuccess
           } catch (e) {
             logger.error(e)
             title = 'Sent (Pending confirmation)'
-            transactionStatusCode = 202
+            oceanStatusCode = transactionStatusCode.transactionPending
           }
           setTx({
             ...transaction,
             broadcasted: true,
             title: translate('screens/OceanInterface', title),
-            transactionStatusCode
+            oceanStatusCode
           })
           if (transaction.onConfirmation !== undefined) {
             transaction.onConfirmation()
@@ -183,7 +183,7 @@ export function OceanInterface (): JSX.Element | null {
                 broadcasted={tx.broadcasted}
                 onClose={dismissDrawer}
                 title={tx.title}
-                transactionStatusCode={tx.transactionStatusCode}
+                oceanStatusCode={tx.oceanStatusCode}
                 txUrl={txUrl}
                 txid={tx.tx.txId}
               />
