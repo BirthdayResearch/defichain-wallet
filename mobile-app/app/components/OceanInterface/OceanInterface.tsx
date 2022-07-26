@@ -1,5 +1,4 @@
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
@@ -7,7 +6,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { getEnvironment } from '@environment'
 import { RootState } from '@store'
-import { firstTransactionSelector, ocean, OceanTransaction } from '@store/ocean'
+import { firstTransactionSelector, ocean, OceanTransaction, TransactionStatusCode } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -75,12 +74,17 @@ export function OceanInterface (): JSX.Element | null {
   const logger = useLogger()
   const dispatch = useAppDispatch()
   const client = useWhaleApiClient()
-  const { wallet, address } = useWalletContext()
+  const {
+    wallet,
+    address
+  } = useWalletContext()
   const { getTransactionUrl } = useDeFiScanContext()
-  const { isLight } = useThemeContext()
 
   // store
-  const { height, err: e } = useSelector((state: RootState) => state.ocean)
+  const {
+    height,
+    err: e
+  } = useSelector((state: RootState) => state.ocean)
   const transaction = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const slideAnim = useRef(new Animated.Value(0)).current
   // state
@@ -97,7 +101,11 @@ export function OceanInterface (): JSX.Element | null {
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
     if (transaction !== undefined) {
-      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
+      Animated.timing(slideAnim, {
+        toValue: height,
+        duration: 200,
+        useNativeDriver: false
+      }).start()
       setTx({
         ...transaction,
         broadcasted: false,
@@ -118,17 +126,21 @@ export function OceanInterface (): JSX.Element | null {
             transaction.onBroadcast()
           }
           let title
+          let oceanStatusCode: TransactionStatusCode
           try {
             await waitForTxConfirmation(transaction.tx.txId, client, logger)
-            title = 'Transaction completed'
+            title = 'Transaction confirmed'
+            oceanStatusCode = TransactionStatusCode.success
           } catch (e) {
             logger.error(e)
-            title = 'Sent but not confirmed'
+            title = 'Sent (Pending confirmation)'
+            oceanStatusCode = TransactionStatusCode.pending
           }
           setTx({
             ...transaction,
             broadcasted: true,
-            title: translate('screens/OceanInterface', title)
+            title: translate('screens/OceanInterface', title),
+            oceanStatusCode
           })
           if (transaction.onConfirmation !== undefined) {
             transaction.onConfirmation()
@@ -152,7 +164,11 @@ export function OceanInterface (): JSX.Element | null {
   useEffect(() => {
     if (e !== undefined) {
       setError(e.message)
-      Animated.timing(slideAnim, { toValue: height, duration: 200, useNativeDriver: false }).start()
+      Animated.timing(slideAnim, {
+        toValue: height,
+        duration: 200,
+        useNativeDriver: false
+      }).start()
     }
   }, [e])
 
@@ -160,10 +176,9 @@ export function OceanInterface (): JSX.Element | null {
     return null
   }
 
-  const currentTheme = `${isLight ? 'bg-white border-t border-gray-200' : 'bg-gray-800 border-t border-gray-700'}`
   return (
     <Animated.View
-      style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10', currentTheme), {
+      style={[tailwind('px-5 py-3 flex-row absolute w-full items-center z-10'), {
         bottom: slideAnim,
         minHeight: 75
       }]}
@@ -182,6 +197,7 @@ export function OceanInterface (): JSX.Element | null {
                 broadcasted={tx.broadcasted}
                 onClose={dismissDrawer}
                 title={tx.title}
+                oceanStatusCode={tx.oceanStatusCode}
                 txUrl={txUrl}
                 txid={tx.tx.txId}
               />

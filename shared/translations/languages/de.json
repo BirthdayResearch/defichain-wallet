@@ -665,8 +665,8 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "Warte auf Bestätigung",
-    "Transaction completed": "Transaktion abgeschlossen",
-    "Sent but not confirmed": "Gesendet aber nicht bestätigt",
+    "Transaction confirmed": "Transaktion bestätigt",
+    "Sent (Pending confirmation)": "Gesendet (Bestätigung ausstehend)",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
     "Insufficient UTXO DFI": "Nicht ausreichend UTXO-DFI",
