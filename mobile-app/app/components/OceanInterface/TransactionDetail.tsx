@@ -2,9 +2,10 @@ import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
-import { ThemedActivityIndicator, ThemedIcon, ThemedText } from '@components/themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { TransactionCloseButton } from './TransactionCloseButton'
 import { TransactionIDButton } from './TransactionIDButton'
+import { TransactionStatusCode } from '@store/ocean'
 
 interface TransactionDetailProps {
   broadcasted: boolean
@@ -12,6 +13,7 @@ interface TransactionDetailProps {
   txUrl?: string
   onClose: () => void
   title?: string
+  oceanStatusCode?: TransactionStatusCode
 }
 
 export function TransactionDetail ({
@@ -19,31 +21,53 @@ export function TransactionDetail ({
   txid,
   txUrl,
   onClose,
-  title
+  title,
+  oceanStatusCode
 }: TransactionDetailProps): JSX.Element {
   title = title ?? translate('screens/OceanInterface', 'Broadcasting...')
+
   return (
-    <>
+    <ThemedViewV2
+      dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-500',
+        { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
+        { 'border-darkwarning-500': oceanStatusCode === TransactionStatusCode.pending }
+      )}
+      light={tailwind('bg-mono-dark-v2-00 border-mono-light-v2-500',
+        { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
+        { 'border-warning-500': oceanStatusCode === TransactionStatusCode.pending }
+      )}
+      style={tailwind('w-full rounded-lg-v2 px-5 flex flex-row py-3 items-center border-0.5')}
+    >
       {
         !broadcasted
           ? <ThemedActivityIndicator />
           : (
             <ThemedIcon
-              dark={tailwind('text-darksuccess-500')}
+              dark={tailwind({
+                  'text-darksuccess-500': oceanStatusCode === TransactionStatusCode.success,
+                  'text-darkwarning-500': oceanStatusCode === TransactionStatusCode.pending
+                }
+              )}
+              light={tailwind({
+                  'text-success-500': oceanStatusCode === TransactionStatusCode.success,
+                  'text-warning-500': oceanStatusCode === TransactionStatusCode.pending
+                }
+              )}
               iconType='MaterialIcons'
-              light={tailwind('text-success-500')}
               name='check-circle'
               size={20}
             />
           )
       }
 
-      <View style={tailwind('flex-auto px-4 justify-center')}>
-        <ThemedText
-          style={tailwind('text-sm font-bold')}
+      <View style={tailwind('flex-auto px-4 justify-center w-8/12')}>
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-900')}
+          dark={tailwind('text-mono-dark-v2-900')}
+          style={tailwind('text-sm font-normal-v2')}
         >
           {title}
-        </ThemedText>
+        </ThemedTextV2>
 
         {
           txid !== undefined && txUrl !== undefined &&
@@ -57,7 +81,7 @@ export function TransactionDetail ({
       {
         broadcasted && <TransactionCloseButton onPress={onClose} />
       }
-    </>
+    </ThemedViewV2>
   )
 }
 

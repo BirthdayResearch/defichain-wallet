@@ -668,8 +668,8 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "正在确认",
-    "Transaction completed": "交易成功",
-    "Sent but not confirmed": "已发出尚未完全确认",
+    "Transaction confirmed": "交易成功",
+    "Sent (Pending confirmation)": "已发出尚未完全确认",
     "Broadcasting...": "播送...",
     "OK": "好了",
     "Insufficient UTXO DFI": "不足够的UTXO DFI",
