@@ -488,7 +488,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={onRefresh} // eslint-disable-line
+            onRefresh={onRefresh}
             refreshing={refreshing}
           />
         }
@@ -507,7 +507,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={onToggleDisplayBalances} // eslint-disable-line
+            onPress={onToggleDisplayBalances}
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
