@@ -151,7 +151,6 @@ context('Wallet - Send', function () {
         cy.closeOceanInterface()
       })
 
-      // flaky test
       it(`should check if exist on other side ${address}`, function () {
         cy.wrap(whale.address.getBalance(address)).then((response) => {
           expect(response).eq('1.00000000')
