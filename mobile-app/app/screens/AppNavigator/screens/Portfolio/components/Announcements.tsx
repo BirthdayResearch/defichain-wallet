@@ -257,10 +257,10 @@ export function AnnouncementBannerV2 ({
           size={20}
           light={tailwind({ 'text-mono-light-v2-900': isOtherAnnouncement })}
           dark={tailwind({ 'text-mono-dark-v2-900 ': isOtherAnnouncement })}
-          style={[tailwind('absolute -top-2 -right-2', {
+          style={tailwind('absolute -top-2 -right-2', {
             'text-orange-v2': announcement.type === 'OUTAGE',
             'text-red-v2': announcement.type === 'EMERGENCY'
-          })]}
+          })}
         />
 
       )}
