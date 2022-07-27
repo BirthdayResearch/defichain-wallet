@@ -13,6 +13,7 @@ export interface ActionButtonsProps {
   name: string
   icon: IconName
   iconType: IconType
+  iconSize?: number
   onPress: () => void
   testID: string
   badge?: string | number
@@ -28,12 +29,14 @@ export function ActionButtons (): JSX.Element {
       name: translate('components/ActionButtons', 'Send'),
       icon: 'arrow-up-right',
       iconType: 'Feather',
+      iconSize: 28,
       testID: 'send_balance_button',
       onPress: () => navigation.navigate('Send')
     }, {
       name: translate('components/ActionButtons', 'Receive'),
       icon: 'arrow-down-left',
       iconType: 'Feather',
+      iconSize: 28,
       testID: 'receive_balance_button',
       onPress: () => navigation.navigate('Receive')
     }, {
@@ -95,7 +98,7 @@ function ActionButton (props: ActionButtonsProps): JSX.Element {
           light={tailwind('text-mono-light-v2-900')}
           iconType={props.iconType}
           name={props.icon}
-          size={28}
+          size={props.iconSize ?? 24}
         />
         {props.badge !== undefined && (
           <View style={tailwind('bg-red-v2 rounded-full items-center justify-center h-4 w-4 absolute top-0 right-0')}>
