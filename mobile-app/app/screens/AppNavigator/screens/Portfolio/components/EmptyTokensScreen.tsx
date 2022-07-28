@@ -17,7 +17,7 @@ export function EmptyTokensScreen (props: EmptyBalancesProps): JSX.Element {
   return (
     <View
       style={tailwind('px-15 mt-8 mb-4 text-center bg-transparent')}
-      testID='empty_balances'
+      testID='empty_portfolio'
     >
       <View style={tailwind('items-center mt-3')}>
         <Icon />

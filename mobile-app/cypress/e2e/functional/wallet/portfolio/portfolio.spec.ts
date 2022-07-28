@@ -433,14 +433,15 @@ context('Wallet - Portfolio', () => {
     cy.getByTestID('bottom_tab_portfolio').click()
   })
 
-  it('should display no tokens text', function () {
-    cy.wait('@getDexPrices').then(() => {
-      cy.wait(2000)
-      cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
-      cy.getByTestID('empty_tokens_title').should('not.exist')
-      cy.getByTestID('empty_tokens_subtitle').should('not.exist')
-    })
-  })
+  // TODO (Harsh): have to uncomment when DFI token will get listed in Portfolio listing
+  // it('should display no tokens text', function () {
+  //   cy.wait('@getDexPrices').then(() => {
+  //     cy.wait(2000)
+  //     cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
+  //     cy.getByTestID('empty_tokens_title').should('not.exist')
+  //     cy.getByTestID('empty_tokens_subtitle').should('not.exist')
+  //   })
+  // })
 
   it('should display dfi utxo and dfi token with correct amount', function () {
     cy.sendDFITokentoWallet()
@@ -542,7 +543,6 @@ context('Wallet - Portfolio - No balance', () => {
   })
 
   it('should display empty portfolio to replace token list', function () {
-    cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('exist')
   })
 
@@ -935,7 +935,6 @@ context('Wallet - Portfolio - Your Assets - All tokens tab', function () {
         data: []
       }
     })
-    cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('not.exist')
     cy.getByTestID('toggle_sorting_assets').should('exist')
   })
