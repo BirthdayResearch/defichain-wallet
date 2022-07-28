@@ -11,16 +11,15 @@ import { tailwind } from '@tailwind'
 import { ButtonGroup } from '../../Dex/components/ButtonGroup'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
-import { EmptyBalances } from './EmptyBalances'
 import { TokenNameText } from '@screens/AppNavigator/screens/Portfolio/components/TokenNameText'
 import { TokenAmountText } from '@screens/AppNavigator/screens/Portfolio/components/TokenAmountText'
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { getNativeIcon } from '@components/icons/assets'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
 import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
-import { EmptyPortfolio } from './EmptyPortfolio'
+import { EmptyTokensScreen } from './EmptyTokensScreen'
 
 export enum ButtonGroupTabKey {
   AllTokens = 'ALL_TOKENS',
@@ -32,11 +31,10 @@ export enum ButtonGroupTabKey {
 interface PortfolioCardProps {
   isZeroBalance: boolean
   filteredTokens: PortfolioRowToken[]
-  dstTokens: PortfolioRowToken[]
   navigation: StackNavigationProp<PortfolioParamList>
   buttonGroupOptions?: {
     onButtonGroupPress: (key: ButtonGroupTabKey) => void
-    activeButtonGroup: string
+    activeButtonGroup: ButtonGroupTabKey
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void
   }
   denominationCurrency: string
@@ -45,7 +43,6 @@ interface PortfolioCardProps {
 export function PortfolioCard ({
   isZeroBalance,
   filteredTokens,
-  dstTokens,
   navigation,
   buttonGroupOptions,
   denominationCurrency
@@ -72,35 +69,17 @@ export function PortfolioCard ({
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     }
   ]
-  const [tabButtonLabel, setTabButtonLabel] = useState('')
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     if (buttonGroupOptions !== undefined) {
       buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
       buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
-      setButtonLabel(buttonGroupTabKey)
     }
-  }
-
-  const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    switch (buttonGroupTabKey) {
-      case (ButtonGroupTabKey.LPTokens):
-        return setTabButtonLabel('LP tokens')
-      case (ButtonGroupTabKey.Crypto):
-        return setTabButtonLabel('Crypto')
-      case (ButtonGroupTabKey.dTokens):
-        return setTabButtonLabel('dTokens')
-    }
-  }
-
-  // return empty component if there are DFI but no other tokens
-  if (!isZeroBalance && dstTokens.length === 0) {
-    return <></>
   }
 
   // return empty portfolio if no DFI and other tokens
   if (isZeroBalance) {
-    return <EmptyPortfolio />
+    return <EmptyTokensScreen type={ButtonGroupTabKey.AllTokens} />
   }
 
   return (
@@ -122,25 +101,31 @@ export function PortfolioCard ({
         )
       }
       <View testID='card_balance_row_container'>
-        {filteredTokens.map((item) => (
-          <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
-            <PortfolioItemRow
-              onPress={() => navigation.navigate({
-                name: 'Balance',
-                params: { token: item, usdAmount: item.usdAmount },
-                merge: true
-              })}
-              token={item}
-              denominationCurrency={denominationCurrency}
-            />
-          </View>
-        ))}
+        {filteredTokens.length > 0
+        ? (
+          <>
+            {filteredTokens.map((item) => (
+              <View key={item.symbol} style={tailwind('p-4 pt-1.5 pb-1.5')}>
+                <PortfolioItemRow
+                  onPress={() => navigation.navigate({
+                    name: 'Balance',
+                    params: { token: item, usdAmount: item.usdAmount },
+                    merge: true
+                  })}
+                  token={item}
+                  denominationCurrency={denominationCurrency}
+                />
+              </View>
+            ))}
+          </>
+        )
+        : (
+          <>
+            {hasFetchedToken &&
+              <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />}
+          </>
+        )}
       </View>
-      {
-        // display empty balance component if tokens under selected tab does not exist
-        filteredTokens.length === 0 && hasFetchedToken && tabButtonLabel !== '' &&
-          <EmptyBalances type={tabButtonLabel} />
-      }
     </ThemedView>
   )
 }

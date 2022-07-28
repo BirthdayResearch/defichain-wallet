@@ -522,7 +522,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           )
           : (<PortfolioCard
               isZeroBalance={isZeroBalance}
-              dstTokens={combinedTokens}
               filteredTokens={sortTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{

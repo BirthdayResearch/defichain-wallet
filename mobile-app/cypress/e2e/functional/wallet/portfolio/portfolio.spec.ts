@@ -409,7 +409,7 @@ context('Wallet - Portfolio page', () => {
     })
     cy.getByTestID('empty_portfolio').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'Empty portfolio')
-    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add your DFI and other tokens to get started')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add DFI and other tokens to get started')
   })
 })
 
@@ -811,10 +811,12 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
     cy.getByTestID('portfolio_row_1').should('exist') // dBTC = row 1
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add liquidity to get started')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Mint dTokens to get started')
   })
   it('should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs', function () {
     cy.intercept('**/address/**/tokens?size=*', {
@@ -838,10 +840,12 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
     cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add liquidity to get started')
     cy.getByTestID('portfolio_button_group_CRYPTO').click()
     cy.getByTestID('portfolio_button_group_CRYPTO_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No Crypto in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No crypto found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add crypto to get started')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
     cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14

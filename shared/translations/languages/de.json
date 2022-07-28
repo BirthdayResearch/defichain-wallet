@@ -1259,11 +1259,15 @@
     "Wallet Address": "Walletadresse"
   },
   "components/EmptyPortfolio": {
-    "No LP tokens in portfolio": "Keine Liquiditätspool-Token im Portfolio",
-    "No Crypto in portfolio": "Keine Krypto-Token im Portfolio",
-    "No dTokens in portfolio": "Keine dToken im Portfolio",
-    "Empty portfolio": "Portfolio leer",
-    "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
+    "Empty portfolio": "Leeres portfolio",
+    "Add DFI and other tokens to get started": "Füge DFI und andere Token hinzu, um zu loszulegen",
+    "No LP tokens found": "Keine LM-Token gefunden",
+    "Add liquidity to get started": "Liquidität für den Einstieg hinzufügen",
+    "No crypto found": "Keine Kryptowährung gefunden",
+    "Add crypto to get started": "Krypto für den Einstieg hinzufügen",
+    "No dTokens found": "Keine dToken gefunden",
+    "Mint dTokens to get started": "Minte dToken zum Einstieg",
+    "Sort assets": "Aktiva sortieren"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",
