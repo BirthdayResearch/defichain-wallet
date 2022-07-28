@@ -1279,8 +1279,7 @@
     "No crypto found": "Aucune crypto trouvée",
     "Add crypto to get started": "Ajouter des crypto pour commencer",
     "No dTokens found": "Pas de dTokens trouvés",
-    "Mint dTokens to get started": "Minter des dTokens pour commencer",
-    "Sort Assets": "Trier les actifs"
+    "Mint dTokens to get started": "Minter des dTokens pour commencer"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHÉMA DE PRÊT",

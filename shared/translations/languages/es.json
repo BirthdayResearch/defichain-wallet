@@ -1298,8 +1298,7 @@
     "No crypto found": "No crypto found",
     "Add crypto to get started": "Add crypto to get started",
     "No dTokens found": "No dTokens found",
-    "Mint dTokens to get started": "Mint dTokens to get started",
-    "Sort Assets": "Sort Assets"
+    "Mint dTokens to get started": "Mint dTokens to get started"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "TIPO DE PRESTAMO",

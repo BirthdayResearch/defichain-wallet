@@ -1266,8 +1266,7 @@
     "No crypto found": "Keine Kryptowährung gefunden",
     "Add crypto to get started": "Krypto für den Einstieg hinzufügen",
     "No dTokens found": "Keine dToken gefunden",
-    "Mint dTokens to get started": "Minte dToken zum Einstieg",
-    "Sort assets": "Aktiva sortieren"
+    "Mint dTokens to get started": "Minte dToken zum Einstieg"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",
