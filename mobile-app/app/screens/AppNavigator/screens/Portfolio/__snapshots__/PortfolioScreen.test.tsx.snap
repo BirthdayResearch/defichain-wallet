@@ -1845,13 +1845,6 @@ exports[`portfolio page should match snapshot 1`] = `
                     >
                       777.00000000
                     </Text>
-                    <View
-                      style={
-                        Object {
-                          "paddingBottom": 4,
-                        }
-                      }
-                    />
                   </Text>
                   <View
                     style={
@@ -2183,13 +2176,6 @@ exports[`portfolio page should match snapshot 1`] = `
                     >
                       555.00000000
                     </Text>
-                    <View
-                      style={
-                        Object {
-                          "paddingBottom": 4,
-                        }
-                      }
-                    />
                   </Text>
                   <View
                     style={

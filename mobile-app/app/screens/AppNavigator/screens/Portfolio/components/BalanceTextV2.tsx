@@ -28,9 +28,10 @@ export function BalanceTextV2 ({ symbol, value, style, children, containerStyle,
       >
         {`${isBalancesDisplayed ? value : hiddenBalanceText} ${symbol ?? ''}`.trim()}
       </ThemedTextV2>
-      <View style={tailwind('pb-1', { 'pl-2': Platform.OS === 'ios' || Platform.OS === 'android' })}>
-        {children}
-      </View>
+      {children !== undefined &&
+        <View style={tailwind('pb-1', { 'pl-2': Platform.OS === 'ios' || Platform.OS === 'android' })}>
+          {children}
+        </View>}
     </ThemedTextV2>
   )
 }
