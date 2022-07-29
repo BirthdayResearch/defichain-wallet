@@ -25,51 +25,6 @@ export function ActionButtons (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const futureSwaps = useSelector((state: RootState) => futureSwapSelector(state))
 
-  const actions: ActionButtonsProps[] = [
-    {
-      name: translate('components/ActionButtons', 'Send'),
-      icon: 'arrow-up-right',
-      iconType: 'Feather',
-      iconSize: 28,
-      testID: 'send_balance_button',
-      onPress: () => navigation.navigate('Send')
-    }, {
-      name: translate('components/ActionButtons', 'Receive'),
-      icon: 'arrow-down-left',
-      iconType: 'Feather',
-      iconSize: 28,
-      testID: 'receive_balance_button',
-      onPress: () => navigation.navigate('Receive')
-    }, {
-      name: translate('components/ActionButtons', 'Swap'),
-      icon: 'repeat',
-      iconType: 'Feather',
-      testID: 'swap_tokens_button',
-      onPress: () => navigation.navigate({
-        name: 'CompositeSwap',
-        params: {},
-        merge: true
-      })
-    }, {
-      name: translate('components/ActionButtons', 'Transactions'),
-      icon: 'calendar',
-      testID: 'transaction_button',
-      iconType: 'Feather',
-      onPress: () => navigation.navigate('TransactionsScreen')
-    }
-  ]
-
-  if (isFeatureAvailable('future_swap') && futureSwaps.length > 0) {
-    actions.splice(2, 0, {
-      name: translate('components/ActionButtons', 'Future swap'),
-      icon: 'clock',
-      iconType: 'Feather',
-      badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length,
-      testID: 'future_swap_button',
-      onPress: () => navigation.navigate('FutureSwapScreen')
-    })
-  }
-
   return (
     <ScrollView
       contentContainerStyle={tailwind('px-5 my-8')}
@@ -77,9 +32,49 @@ export function ActionButtons (): JSX.Element {
       showsHorizontalScrollIndicator={false}
       horizontal
     >
-      {actions.map((action: ActionButtonsProps) => (
-        <ActionButton {...action} key={action.name} />
-      ))}
+      <ActionButton
+        name={translate('components/ActionButtons', 'Send')}
+        icon='arrow-up-right'
+        iconType='Feather'
+        iconSize={28}
+        testID='send_balance_button'
+        onPress={() => navigation.navigate('Send')}
+      />
+      <ActionButton
+        name={translate('components/ActionButtons', 'Receive')}
+        icon='arrow-down-left'
+        iconType='Feather'
+        iconSize={28}
+        testID='receive_balance_button'
+        onPress={() => navigation.navigate('Receive')}
+      />
+      {isFeatureAvailable('future_swap') && futureSwaps.length > 0 &&
+        <ActionButton
+          name={translate('components/ActionButtons', 'Future swap')}
+          icon='clock'
+          iconType='Feather'
+          badge={futureSwaps.length > 9 ? '9+' : futureSwaps.length}
+          testID='future_swap_button'
+          onPress={() => navigation.navigate('FutureSwapScreen')}
+        />}
+      <ActionButton
+        name={translate('components/ActionButtons', 'Swap')}
+        icon='repeat'
+        iconType='Feather'
+        testID='swap_tokens_button'
+        onPress={() => navigation.navigate({
+          name: 'CompositeSwap',
+          params: {},
+          merge: true
+        })}
+      />
+      <ActionButton
+        name={translate('components/ActionButtons', 'Transactions')}
+        icon='calendar'
+        testID='transaction_button'
+        iconType='Feather'
+        onPress={() => navigation.navigate('TransactionsScreen')}
+      />
     </ScrollView>
   )
 }
