@@ -459,7 +459,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
         ref={ref}
-        contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
+        contentContainerStyle={tailwind('pb-12')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
