@@ -51,7 +51,6 @@ export function TransactionCard (props: TransactionCardProps): JSX.Element {
           }}
         />
       </ThemedViewV2>
-
       <ThemedViewV2
         light={tailwind('bg-white')}
         style={tailwind('flex flex-row justify-around items-center pt-2')}
@@ -81,7 +80,6 @@ export function TransactionCard (props: TransactionCardProps): JSX.Element {
         />
       </ThemedViewV2>
     </ThemedViewV2>
-
   )
 }
 
