@@ -1639,5 +1639,12 @@
     "Wallet created!": "錢包已創建！",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "透過去中心化金融按觸如同比特幣級別般安全、強度和不可隨意變更的特性。",
     "Continue": "繼續"
+  },
+  "components/ActionButtons": {
+    "Send": "移出資金",
+    "Receive": "接收",
+    "Swap": "兌換",
+    "Transactions": "交易紀錄",
+    "Future swap": "Future swap"
   }
 }

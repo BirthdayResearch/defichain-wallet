@@ -413,7 +413,7 @@ context('Wallet - Portfolio page', () => {
   })
 })
 
-context('Wallet - Portfolio', () => {
+context.only('Wallet - Portfolio', () => {
   beforeEach(() => {
     cy.intercept('**/poolpairs/dexprices?denomination=*', {
       body: getDexPrice({
