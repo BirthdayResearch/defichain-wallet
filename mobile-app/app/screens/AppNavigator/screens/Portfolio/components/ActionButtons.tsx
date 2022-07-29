@@ -3,6 +3,7 @@ import { IconName, IconType, ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootState } from '@store'
+import { futureSwapSelector } from '@store/futureSwap'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { ScrollView, Text } from 'react-native'
@@ -22,7 +23,7 @@ export interface ActionButtonsProps {
 export function ActionButtons (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-  const { futureSwaps } = useSelector((state: RootState) => state.futureSwaps)
+  const futureSwaps = useSelector((state: RootState) => futureSwapSelector(state))
 
   const actions: ActionButtonsProps[] = [
     {
