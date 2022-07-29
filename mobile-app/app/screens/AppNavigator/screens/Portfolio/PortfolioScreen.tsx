@@ -247,7 +247,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<PortfolioSortType>(PortfolioSortType.HighestDenominationValue) // to display selected sorted type text
   const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon
-  const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
   const sortTokensAssetOnType = useCallback((assetSortType: PortfolioSortType): PortfolioRowToken[] => {
@@ -286,11 +285,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     if (assetSortType.includes('Lowest')) {
       setIsSorted(true)
-    } else if (assetSortType.includes('A to Z') || assetSortType.includes('Z to A')) {
-      setHideIcon(true)
     } else {
       setIsSorted(false)
-      setHideIcon(false)
     }
   }, [assetSortType])
 
@@ -488,7 +484,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={onRefresh}
+            onRefresh={onRefresh} // eslint-disable-line
             refreshing={refreshing}
           />
         }
@@ -507,7 +503,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={onToggleDisplayBalances}
+            onPress={onToggleDisplayBalances} // eslint-disable-line
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
@@ -538,7 +534,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             expandModal(true)
           }}
           isSorted={isSorted}
-          hideIcon={hideIcon}
           modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
@@ -681,7 +676,7 @@ function BalanceActionButton ({
   )
 }
 
-function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
+function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
@@ -717,16 +712,14 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
         >
           {translate('screens/PortfolioScreen', getDisplayedSortText(props.assetSortType))}
         </ThemedTextV2>
-        {!props.hideIcon && (
-          <ThemedIcon
-            style={tailwind('ml-1 font-medium')}
-            light={tailwind('text-mono-light-v2-800')}
-            dark={tailwind('text-mono-dark-v2-800')}
-            iconType='Feather'
-            name='menu'
-            size={16}
-          />
-        )}
+        <ThemedIcon
+          style={tailwind('ml-1 font-medium')}
+          light={tailwind('text-mono-light-v2-800')}
+          dark={tailwind('text-mono-dark-v2-800')}
+          iconType='Feather'
+          name='menu'
+          size={16}
+        />
       </ThemedTouchableOpacityV2>
     </View>
   )
