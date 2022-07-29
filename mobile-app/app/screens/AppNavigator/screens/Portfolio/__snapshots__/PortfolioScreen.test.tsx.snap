@@ -13,7 +13,7 @@ exports[`portfolio page should match snapshot 1`] = `
   <RCTScrollView
     contentContainerStyle={
       Object {
-        "paddingBottom": 32,
+        "paddingBottom": 48,
       }
     }
     refreshControl={
