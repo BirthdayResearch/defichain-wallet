@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText, ThemedTextV2, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTextV2, ThemedView, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
@@ -202,7 +202,7 @@ export function AnnouncementBannerV2 ({
   const { isLight } = useThemeContext()
   const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
   return (
-    <ThemedView
+    <ThemedViewV2
       testID={testID}
       style={tailwind('relative mx-5 px-5 py-3 flex flex-row items-center border-0.5 rounded-xl-v2', {
         'border-mono-light-v2-900': isOtherAnnouncement && isLight,
@@ -242,29 +242,32 @@ export function AnnouncementBannerV2 ({
           </TouchableOpacity>
         )}
       {announcement.id !== undefined && (
-        <ThemedIcon
-          onPress={() => {
-            if (announcement.id === undefined) {
-              return
-            }
-            if (hideAnnouncement !== undefined) {
-              hideAnnouncement(announcement.id)
-            }
-          }}
-          testID='close_announcement'
-          iconType='MaterialIcons'
-          name='cancel'
-          size={20}
-          light={tailwind({ 'text-mono-light-v2-900': isOtherAnnouncement })}
-          dark={tailwind({ 'text-mono-dark-v2-900 ': isOtherAnnouncement })}
-          style={tailwind('absolute -top-2 -right-2', {
-            'text-orange-v2': announcement.type === 'OUTAGE',
-            'text-red-v2': announcement.type === 'EMERGENCY'
-          })}
-        />
-
+        <ThemedViewV2
+          style={tailwind('absolute -top-2 -right-2 rounded-full')}
+        >
+          <ThemedIcon
+            onPress={() => {
+              if (announcement.id === undefined) {
+                return
+              }
+              if (hideAnnouncement !== undefined) {
+                hideAnnouncement(announcement.id)
+              }
+            }}
+            testID='close_announcement'
+            iconType='MaterialIcons'
+            name='cancel'
+            size={20}
+            light={tailwind({ 'text-mono-light-v2-900': isOtherAnnouncement })}
+            dark={tailwind({ 'text-mono-dark-v2-900 ': isOtherAnnouncement })}
+            style={tailwind('', {
+              'text-orange-v2': announcement.type === 'OUTAGE',
+              'text-red-v2': announcement.type === 'EMERGENCY'
+            })}
+          />
+        </ThemedViewV2>
       )}
-    </ThemedView>
+    </ThemedViewV2>
   )
 }
 
