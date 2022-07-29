@@ -157,7 +157,7 @@ function PortfolioItemRow ({
           <TokenIcon testID={`${testID}_icon`} token={token} height={36} width={36} />
           <TokenNameTextV2 displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
         </View>
-        <View style={tailwind('w-5/12')}>
+        <View style={tailwind('w-5/12 flex-row justify-end')}>
           <TokenAmountTextV2
             tokenAmount={token.amount}
             usdAmount={token.usdAmount}

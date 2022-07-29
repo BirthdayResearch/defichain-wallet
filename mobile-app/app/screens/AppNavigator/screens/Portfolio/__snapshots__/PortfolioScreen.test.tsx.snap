@@ -1778,6 +1778,8 @@ exports[`portfolio page should match snapshot 1`] = `
               <View
                 style={
                   Object {
+                    "flexDirection": "row",
+                    "justifyContent": "flex-end",
                     "width": "41.666667%",
                   }
                 }
@@ -2109,6 +2111,8 @@ exports[`portfolio page should match snapshot 1`] = `
               <View
                 style={
                   Object {
+                    "flexDirection": "row",
+                    "justifyContent": "flex-end",
                     "width": "41.666667%",
                   }
                 }
