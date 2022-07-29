@@ -23,7 +23,7 @@ export enum AmountButtonTypes {
   max = 'MAX'
 }
 
-export function TransactionCard(props: TransactionCardProps): JSX.Element {
+export function TransactionCard (props: TransactionCardProps): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
   return (
     <ThemedViewV2
@@ -94,7 +94,7 @@ interface SetAmountButtonProps {
   border?: boolean
 }
 
-function SetAmountButton(props: SetAmountButtonProps): JSX.Element {
+function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8
   const text = props.customText !== undefined ? props.customText : translate('component/max', props.type)
   let value = props.amount.toFixed(decimalPlace)
@@ -136,7 +136,6 @@ function SetAmountButton(props: SetAmountButtonProps): JSX.Element {
           {text}
         </ThemedTextV2>
       </ThemedViewV2>
-
     </ThemedTouchableOpacityV2>
   )
 }
