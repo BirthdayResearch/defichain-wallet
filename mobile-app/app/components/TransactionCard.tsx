@@ -17,7 +17,7 @@ interface TransactionCardProps {
 }
 
 export enum AmountButtonTypes {
-  twenty = '20%',
+  twenty = '25%',
   half = '50%',
   seventyFive = '75%',
   max = 'MAX'
@@ -101,7 +101,7 @@ function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
 
   switch (props.type) {
     case (AmountButtonTypes.twenty):
-      value = props.amount.multipliedBy(0.2).toFixed(decimalPlace)
+      value = props.amount.multipliedBy(0.25).toFixed(decimalPlace)
       break
     case (AmountButtonTypes.half):
       value = props.amount.multipliedBy(0.5).toFixed(decimalPlace)
