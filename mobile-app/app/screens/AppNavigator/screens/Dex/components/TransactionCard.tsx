@@ -112,8 +112,6 @@ function SetAmountButton (props: SetAmountButtonProps): JSX.Element {
     case (AmountButtonTypes.max):
       value = props.amount.toFixed(decimalPlace)
       break
-    default:
-      break
   }
 
   return (
