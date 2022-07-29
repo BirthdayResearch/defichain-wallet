@@ -128,7 +128,7 @@ export function PortfolioNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const { isLight } = useThemeContext()
   const goToNetworkSelect = (): void => {
-    navigation.navigate('NetworkDetails')
+    navigation.navigate('NetworkSelectionScreen')
   }
   const screenOptions = useNavigatorScreenOptions()
   return (
