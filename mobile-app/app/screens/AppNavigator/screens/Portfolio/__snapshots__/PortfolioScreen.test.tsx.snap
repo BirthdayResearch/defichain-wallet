@@ -899,16 +899,13 @@ exports[`portfolio page should match snapshot 1`] = `
               "borderBottomRightRadius": 10,
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
+              "marginBottom": 4,
               "marginLeft": 20,
               "marginRight": 20,
               "marginTop": 8,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(245, 245, 245, 1)",
-              "borderLeftColor": "rgba(245, 245, 245, 1)",
-              "borderRightColor": "rgba(245, 245, 245, 1)",
-              "borderTopColor": "rgba(245, 245, 245, 1)",
             },
           ]
         }

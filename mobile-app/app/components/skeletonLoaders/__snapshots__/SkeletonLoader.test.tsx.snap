@@ -1189,12 +1189,13 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
     Array [
       Object {
         "alignItems": "center",
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
         "justifyContent": "center",
-        "marginBottom": 12,
+        "marginBottom": 4,
+        "marginTop": 4,
         "paddingBottom": 16,
         "paddingTop": 16,
       },
@@ -1257,31 +1258,31 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
           name="portfolio_scheme-animated-diff"
         >
           <RNSVGCircle
-            cx="30"
+            cx="38"
             cy="22"
-            r="16"
+            r="18"
           />
           <RNSVGRect
             height="16"
             rx="5"
             ry="5"
-            width="110"
-            x="58"
+            width="90"
+            x="66"
             y="4"
           />
           <RNSVGRect
             height="12"
             rx="5"
             ry="5"
-            width="110"
-            x="58"
+            width="90"
+            x="66"
             y="25"
           />
           <RNSVGRect
             height="16"
             rx="5"
             ry="5"
-            width="93"
+            width="88"
             x="220"
             y="4"
           />
@@ -1289,7 +1290,7 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
             height="12"
             rx="5"
             ry="5"
-            width="93"
+            width="88"
             x="220"
             y="25"
           />

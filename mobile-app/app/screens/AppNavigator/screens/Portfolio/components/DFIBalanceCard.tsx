@@ -32,7 +32,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
-      style={tailwind('mx-5 mt-2 rounded-lg-v2')}
+      style={tailwind('mx-5 mt-2 mb-1 rounded-lg-v2')}
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col flex-1 rounded-lg-v2 overflow-hidden')}>
