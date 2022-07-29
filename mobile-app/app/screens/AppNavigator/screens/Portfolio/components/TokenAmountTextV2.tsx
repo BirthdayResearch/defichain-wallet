@@ -48,7 +48,7 @@ export function TokenAmountTextV2 ({
               <ThemedTextV2
                 style={tailwind('text-xs font-normal-v2 text-right')}
                 dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
                 testID={`${testID}_usd_amount`}
               >
                 {hiddenBalanceText}
