@@ -55,6 +55,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
             "width": 60,
           }
         }
+        testID="send_balance_button"
       >
         <Text />
       </View>
@@ -120,6 +121,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
             "width": 60,
           }
         }
+        testID="receive_balance_button"
       >
         <Text />
       </View>
@@ -185,6 +187,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
             "width": 60,
           }
         }
+        testID="swap_tokens_button"
       >
         <Text />
       </View>
@@ -250,6 +253,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
             "width": 60,
           }
         }
+
+        testID="transaction_button"
       >
         <Text />
       </View>

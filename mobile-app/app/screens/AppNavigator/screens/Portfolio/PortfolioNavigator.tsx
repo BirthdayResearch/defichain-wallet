@@ -20,7 +20,6 @@ import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
 import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
-import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
@@ -45,6 +44,7 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -374,7 +374,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddressBookScreen}
+        component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
           headerBackTitleVisible: false,
