@@ -11,7 +11,7 @@ import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
-import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
+import { ConversionMode } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
@@ -45,6 +45,7 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -266,16 +267,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertScreen}
+        component={ConvertScreenV2}
         name='Convert'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertScreen', 'Convert DFI')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/ConvertScreen', 'Convert')
         }}
       />
 
