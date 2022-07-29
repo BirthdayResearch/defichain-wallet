@@ -187,7 +187,7 @@ export function ReceiveDTokenScreen ({
       <ThemedText
         style={tailwind('p-4 font-medium text-base text-center')}
       >
-        {translate('screens/ReceiveScreen', activeButton === CryptoButtonGroupTabKey.DFI ? 'Use QR or Wallet Address to receive any DST or DFI' : 'Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.')}
+        {activeButton === CryptoButtonGroupTabKey.DFI ? translate('screens/ReceiveScreen', 'Use QR or Wallet Address to receive any DST or DFI') : translate('screens/ReceiveDTokenScreen', 'Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.')}
       </ThemedText>
 
       <ThemedView
@@ -219,7 +219,7 @@ export function ReceiveDTokenScreen ({
                   size={260}
                   value={activeAddress}
                   logo={activeButton === CryptoButtonGroupTabKey.DFI ? DfiIcon : BtcIcon}
-                  // logoSize={52}
+                  logoSize={60}
                 />
               </View>
 
@@ -229,7 +229,7 @@ export function ReceiveDTokenScreen ({
                 style={tailwind('font-medium text-center')}
                 testID='wallet_address'
               >
-                {activeButton === CryptoButtonGroupTabKey.DFI ? 'WALLET ADDRESS' : 'BTC DEPOSIT ADDRESS'}
+                {activeButton === CryptoButtonGroupTabKey.DFI ? 'WALLET ADDRESS' : 'BTC ' + translate('screens/ReceiveDTokenScreen', 'DEPOSIT ADDRESS')}
               </ThemedTextBasic>
               <ThemedText
                 dark={tailwind('text-gray-100')}

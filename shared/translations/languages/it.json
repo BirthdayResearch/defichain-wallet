@@ -1543,5 +1543,10 @@
   },
   "screens/WalletCreateRestoreSuccess": {
     "Continue": "Continua"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "DEPOSIT ADDRESS": "",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "",
+    "Bitcoin Deposit": ""
   }
 }

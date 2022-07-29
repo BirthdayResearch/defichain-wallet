@@ -1571,6 +1571,9 @@
     "Continue": "Continúa"
   },
   "screens/ReceiveDTokenScreen": {
-    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!"
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!",
+    "DEPOSIT ADDRESS": "",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "",
+    "Bitcoin Deposit": ""
   }
 }

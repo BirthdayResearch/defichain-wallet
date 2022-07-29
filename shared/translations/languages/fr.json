@@ -1579,5 +1579,10 @@
     "Wallet created!": "Portefeuille créé ! ",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accéder à la finance décentralisée avec une sécurité, une solidité et une immuabilité de niveau Bitcoin.",
     "Continue": "Suivant"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "DEPOSIT ADDRESS": "",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "",
+    "Bitcoin Deposit": ""
   }
 }

@@ -1523,5 +1523,10 @@
     "Wallet created!": "钱包已创建！",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "透过去中心化金融按触如同比特币级别般安全、强度和不可随意变更的特性。",
     "Continue": "继续"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "DEPOSIT ADDRESS": "",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "",
+    "Bitcoin Deposit": ""
   }
 }
