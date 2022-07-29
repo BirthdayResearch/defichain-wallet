@@ -97,12 +97,12 @@ export function DfxButtons (): JSX.Element {
   const buttons: Array<{ hide?: boolean, Svg: React.FC<SvgProps>, label: string, onPress: () => Promise<void>|void }> = [
     {
       Svg: DfxIcon,
-      label: 'Buy & Staking',
+      label: translate('screens/DfxButtons', 'Buy & Staking'),
       onPress: openDfxServices
     },
     {
       Svg: SellIcon,
-      label: 'Sell',
+      label: translate('screens/DfxButtons', 'Sell'),
       onPress: () => {
         // check kycData
         checkUserProfile()
@@ -110,7 +110,7 @@ export function DfxButtons (): JSX.Element {
     },
     {
       Svg: BtcIcon,
-      label: translate('DfxButtons', 'Deposit Bitcoin'),
+      label: translate('screens/DfxButtons', 'Deposit Bitcoin'),
       onPress: () => {
         // check kycData
         navigation.navigate({
@@ -122,18 +122,18 @@ export function DfxButtons (): JSX.Element {
     },
     {
       Svg: DefichainIncomeIcon,
-      label: 'Defichain Income',
+      label: translate('screens/DfxButtons', 'Defichain Income'),
       onPress: onOverviewButtonPress
     },
     {
       Svg: DFItaxIcon,
-      label: 'DFI.Tax',
+      label: translate('screens/DfxButtons', 'DFI.Tax'),
       onPress: onTaxButtonPress
     },
     {
       hide: true, // TODO(davidleomay)
       Svg: DFItaxIcon,
-      label: 'Dobby',
+      label: translate('screens/DfxButtons', 'Dobby'),
       onPress: onDobbyButtonPress
     }
   ]
@@ -171,7 +171,7 @@ export function SvgButton (props: SvgButtonProps): JSX.Element {
 
   return (
     <TouchableOpacity style={styles.button} {...props}>
-      <View style={tailwind('mt-2 mb-2 justify-center items-center')}>
+      <View style={tailwind('mt-1 mb-1 justify-center items-center')}>
         <props.Svg width={50} height={50} />
         <ThemedText
           style={tailwind('h-12 mt-1 text-center text-sm')}

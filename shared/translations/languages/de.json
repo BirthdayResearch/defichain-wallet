@@ -1567,5 +1567,16 @@
     "Wallet created!": "Wallet erstellt!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Zugang zu dezentralem Finanzwesen mit Sicherheit, Stärke und Unveränderlichkeit auf Bitcoin-Niveau.",
     "Continue": "Weiter"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Mindest… {{MinimumBtcAmount}}!"
+  },
+  "screens/DfxButtons": {
+    "Buy & Staking": "Kauf & Staking",
+    "DFI.Tax": "DFI.Steuern",
+    "Defichain Income": "Defichain Einkommen",
+    "Deposit Bitcoin": "Bitcoin Einzahlung",
+    "Dobby": "Dobby",
+    "Sell": "Verkaufen"
   }
 }

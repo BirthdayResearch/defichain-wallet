@@ -3,7 +3,7 @@ import * as Clipboard from 'expo-clipboard'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Share, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { ThemedActivityIndicator, ThemedIcon, ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedActivityIndicator, ThemedIcon, ThemedScrollView, ThemedText, ThemedTextBasic, ThemedView } from '@components/themed'
 import { useToast } from 'react-native-toast-notifications'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -23,6 +23,8 @@ import { Asset } from '@shared-api/dfx/models/Asset'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { InfoText } from '@components/InfoText'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
+// import BtcIconSvg from '@assets/images/dfx_buttons/crypto/Bitcoin_icon.svg'
+import BtcTodBtc from '@assets/images/dfx_buttons/crypto/BTC_to_dBTC.svg'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
@@ -39,6 +41,8 @@ export enum CryptoButtonGroupTabKey {
   BTC = 'Bitcoin',
   ETH = 'Ethereum'
 }
+
+export const MinimumBtcAmount = '0.0005 BTC'
 
 type Props = StackScreenProps<PortfolioParamList, 'ReceiveDTokenScreen'>
 
@@ -57,7 +61,6 @@ export function ReceiveDTokenScreen ({
   const defaultFee = 1.2
   const [fee, setFee] = useState(defaultFee)
   const { openDfxServices } = useDFXAPIContext()
-
   const [showToast, setShowToast] = useState(false)
   const toast = useToast()
   const TOAST_DURATION = 2000
@@ -72,14 +75,14 @@ export function ReceiveDTokenScreen ({
 
   const buttonGroup = [
     {
-      id: CryptoButtonGroupTabKey.DFI,
-      label: CryptoButtonGroupTabKey.DFI,
-      handleOnPress: () => setActiveButton(CryptoButtonGroupTabKey.DFI)
-    },
-    {
       id: CryptoButtonGroupTabKey.BTC,
       label: CryptoButtonGroupTabKey.BTC,
       handleOnPress: () => setActiveButton(CryptoButtonGroupTabKey.BTC)
+    },
+    {
+      id: CryptoButtonGroupTabKey.DFI,
+      label: CryptoButtonGroupTabKey.DFI,
+      handleOnPress: () => setActiveButton(CryptoButtonGroupTabKey.DFI)
     }
   ]
 
@@ -136,9 +139,6 @@ export function ReceiveDTokenScreen ({
           }).finally(() => {
             setIsLoading(false)
           })
-        }).catch((error) => {
-          logger.error(error)
-          setIsLoading(false)
         })
       }
     })
@@ -162,28 +162,30 @@ export function ReceiveDTokenScreen ({
       testID='receive_screen'
     >
       {
-        // filter tab
-        route.params?.crypto === undefined &&
-        (
-          <>
-            <View style={tailwind('p-4')}>
-              <ButtonGroup
-                buttons={buttonGroup}
-                activeButtonGroupItem={activeButton}
-                modalStyle={tailwind('text-lg')}
-                testID='portfolio_button_group'
-                darkThemeStyle={tailwind('bg-dfxblue-800 rounded')}
-                customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
-                customActiveStyle={{
-                  dark: tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'bg-dfxdfi-500' : 'bg-dfxbtc-500')
-                }}
-              />
-            </View>
-          </>
+        // crypto tab switch
+        route.params?.crypto === undefined
+        ? (
+          <View style={tailwind('pt-2 self-center')}>
+            <ButtonGroup
+              buttons={buttonGroup}
+              activeButtonGroupItem={activeButton}
+              modalStyle={tailwind('text-lg')}
+              testID='portfolio_button_group'
+              darkThemeStyle={tailwind('bg-dfxblue-800 rounded')}
+              customButtonGroupStyle={tailwind('px-14 py-1 rounded')}
+              customActiveStyle={{
+                dark: tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'bg-dfxdfi-500' : 'bg-dfxbtc-500')
+              }}
+            />
+          </View>
         )
+        : (
+          <BtcTodBtc style={tailwind('self-center')} />
+        )
+        // if route.params?.crypto === undefined, then show bitcoin svg
       }
       <ThemedText
-        style={tailwind('p-4 font-medium text-center')}
+        style={tailwind('p-4 font-medium text-base text-center')}
       >
         {translate('screens/ReceiveScreen', activeButton === CryptoButtonGroupTabKey.DFI ? 'Use QR or Wallet Address to receive any DST or DFI' : 'Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.')}
       </ThemedText>
@@ -200,7 +202,7 @@ export function ReceiveDTokenScreen ({
           : activeButton === CryptoButtonGroupTabKey.BTC && bitcoinAddress === ''
           ? (
             <TouchableOpacity onPress={async () => await openDfxServices()}>
-              <ThemedText style={tailwind('text-center text-xs')}>
+              <ThemedText style={tailwind('text-center')}>
                 {translate('screens/ReceiveScreen', 'Please click here to finish the KYC process to receive your bitcoin address')}
               </ThemedText>
             </TouchableOpacity>
@@ -221,6 +223,14 @@ export function ReceiveDTokenScreen ({
                 />
               </View>
 
+              <ThemedTextBasic
+                dark={tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'text-dfxdfi-500' : 'text-dfxbtc-500')}
+                light={tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'text-dfxdfi-500' : 'text-dfxbtc-500')}
+                style={tailwind('font-medium text-center')}
+                testID='wallet_address'
+              >
+                {activeButton === CryptoButtonGroupTabKey.DFI ? 'WALLET ADDRESS' : 'BTC DEPOSIT ADDRESS'}
+              </ThemedTextBasic>
               <ThemedText
                 dark={tailwind('text-gray-100')}
                 light={tailwind('text-gray-900')}
@@ -233,16 +243,6 @@ export function ReceiveDTokenScreen ({
               </ThemedText>
             </>
           )}
-        <ThemedText
-          dark={tailwind('text-dfxgray-400')}
-          light={tailwind('text-dfxgray-500')}
-          numberOfLines={2}
-          selectable
-          style={tailwind('font-medium my-2 text-center text-xs')}
-          testID='wallet_address'
-        >
-          {translate('screens/ReceiveScreen', 'WALLET ADDRESS')}
-        </ThemedText>
       </ThemedView>
 
       <ThemedView
@@ -305,7 +305,7 @@ export function ReceiveDTokenScreen ({
         <>
           <InfoText
             testID='dfx_kyc_info'
-            text={translate('components/ReceiveDTokenScreen', 'Please note the MINIMUM deposit amount is 0,0005 BTC!')}
+            text={translate('screens/ReceiveDTokenScreen', 'Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!', { MinimumBtcAmount })}
             style={tailwind('mb-4')}
           />
           <InfoRow

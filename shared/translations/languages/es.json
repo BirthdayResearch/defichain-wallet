@@ -1569,5 +1569,8 @@
     "Wallet created!": "Cartera creada!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accede a finanzas descentralizadas con el grado de seguridad, fuerza e inmutabilidad de Bitcoin.",
     "Continue": "Continúa"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!"
   }
 }

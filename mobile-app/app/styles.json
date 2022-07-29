@@ -9414,6 +9414,14 @@
 		"--tw-text-opacity": 1,
 		"color": "rgba(101, 114, 138, var(--tw-text-opacity))"
 	},
+	"text-dfxbtc-500": {
+		"--tw-text-opacity": 1,
+		"color": "rgba(236, 153, 55, var(--tw-text-opacity))"
+	},
+	"text-dfxdfi-500": {
+		"--tw-text-opacity": 1,
+		"color": "rgba(215, 72, 167, var(--tw-text-opacity))"
+	},
 	"text-brand-v2-500": {
 		"--tw-text-opacity": 1,
 		"color": "rgba(255, 0, 140, var(--tw-text-opacity))"
