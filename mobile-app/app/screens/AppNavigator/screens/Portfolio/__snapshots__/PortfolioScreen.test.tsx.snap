@@ -510,172 +510,300 @@ exports[`portfolio page should match snapshot 1`] = `
           </View>
         </View>
       </View>
-      <View
+      <RCTScrollView
+        contentContainerStyle={
+          Object {
+            "marginBottom": 32,
+            "marginTop": 32,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+          }
+        }
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
         style={
           Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "marginLeft": 16,
-            "marginRight": 16,
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
           }
         }
       >
-        <View
-          accessibilityState={
-            Object {
-              "disabled": false,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderBottomWidth": 0,
-              "borderLeftWidth": 0,
-              "borderRightWidth": 0,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "borderTopWidth": 0,
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "justifyContent": "center",
-              "marginRight": 4,
-              "opacity": 1,
-              "paddingBottom": 8,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 8,
-            }
-          }
-          testID="send_balance_button"
-        >
-          <Text />
-          <Text
+        <View>
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    Object {
-                      "fontSize": 16,
-                      "lineHeight": 24,
-                    },
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+              }
             }
           >
-            SEND
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderBottomWidth": 0,
-              "borderLeftWidth": 0,
-              "borderRightWidth": 0,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "borderTopWidth": 0,
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "justifyContent": "center",
-              "marginLeft": 4,
-              "opacity": 1,
-              "paddingBottom": 8,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 8,
-            }
-          }
-          testID="receive_balance_button"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
                 Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": 60,
+                  "justifyContent": "center",
+                  "marginLeft": 10,
+                  "marginRight": 10,
+                  "opacity": 1,
+                  "width": 60,
+                }
+              }
+              testID="send_balance_button"
+            >
+              <Text />
+            </View>
+            <Text
+              style={
                 Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
                   Array [
                     Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
                       "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
+                      "marginTop": 8,
+                      "textAlign": "center",
                     },
                     Object {
-                      "fontSize": 16,
-                      "lineHeight": 24,
+                      "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
+                ]
+              }
+            >
+              Send
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+              }
             }
           >
-            RECEIVE
-          </Text>
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": 60,
+                  "justifyContent": "center",
+                  "marginLeft": 10,
+                  "marginRight": 10,
+                  "opacity": 1,
+                  "width": 60,
+                }
+              }
+              testID="receive_balance_button"
+            >
+              <Text />
+            </View>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                      "marginTop": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Receive
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+              }
+            }
+          >
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": 60,
+                  "justifyContent": "center",
+                  "marginLeft": 10,
+                  "marginRight": 10,
+                  "opacity": 1,
+                  "width": 60,
+                }
+              }
+              testID="swap_tokens_button"
+            >
+              <Text />
+            </View>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                      "marginTop": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Swap
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+              }
+            }
+          >
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(255, 255, 255, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "height": 60,
+                  "justifyContent": "center",
+                  "marginLeft": 10,
+                  "marginRight": 10,
+                  "opacity": 1,
+                  "width": 60,
+                }
+              }
+              testID="transaction_button"
+            >
+              <Text />
+            </View>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                      "marginTop": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Transactions
+            </Text>
+          </View>
         </View>
-      </View>
+      </RCTScrollView>
       <View
         style={
           Object {
