@@ -31,7 +31,10 @@ exports[`DFI Balance Card should match snapshot 1`] = `
         "borderBottomRightRadius": 10,
         "borderTopLeftRadius": 10,
         "borderTopRightRadius": 10,
+        "flexBasis": "0%",
         "flexDirection": "column",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "overflow": "hidden",
       }
     }
@@ -187,6 +190,9 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           style={
             Object {
               "display": "flex",
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
             }
           }
         >
@@ -200,16 +206,10 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                   "lineHeight": 24,
                 },
                 Array [
-                  Array [
-                    Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "flexDirection": "row",
-                    },
-                    Object {
-                      "justifyContent": "flex-end",
-                    },
-                  ],
+                  Object {
+                    "justifyContent": "flex-end",
+                    "textAlign": "right",
+                  },
                   Object {
                     "color": "rgba(18, 18, 18, 1)",
                   },
