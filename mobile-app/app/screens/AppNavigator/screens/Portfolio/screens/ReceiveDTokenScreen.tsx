@@ -136,6 +136,9 @@ export function ReceiveDTokenScreen ({
           }).finally(() => {
             setIsLoading(false)
           })
+        }).catch((error) => {
+          logger.error(error)
+          setIsLoading(false)
         })
       }
     })
