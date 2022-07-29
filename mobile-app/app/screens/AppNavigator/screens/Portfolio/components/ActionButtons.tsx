@@ -23,18 +23,6 @@ export interface ActionButtonsProps {
 export function ActionButtons (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-  const { futureSwaps } = useSelector((state: RootState) => state.futureSwaps)
-
-  if (isFeatureAvailable('future_swap') && futureSwaps.length > 0) {
-    actions.splice(2, 0, {
-      name: translate('components/ActionButtons', 'Future swap'),
-      icon: 'clock',
-      iconType: 'Feather',
-      badge: futureSwaps.length > 9 ? '9+' : futureSwaps.length,
-      onPress: () => navigation.navigate('FutureSwapScreen')
-    })
-  }
-  
   const futureSwaps = useSelector((state: RootState) => futureSwapSelector(state))
 
   return (

@@ -1,8 +1,4 @@
-import {
-  ThemedView,
-  ThemedTouchableOpacity, ThemedViewV2
-} from '@components/themed'
-
+import { ThemedViewV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { PortfolioRowToken } from '../PortfolioScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -11,14 +7,6 @@ import { tailwind } from '@tailwind'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
 import { EmptyBalances } from './EmptyBalances'
-import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
-import { getNativeIcon } from '@components/icons/assets'
-import { useMemo } from 'react'
-import BigNumber from 'bignumber.js'
-import { TokenBreakdownPercentage } from './TokenBreakdownPercentage'
-import { LockedBalance, useTokenLockedBalance } from '../hooks/TokenLockedBalance'
-import { EmptyPortfolio } from './EmptyPortfolio'
-import { useState } from 'react'
 import { EmptyPortfolio } from './EmptyPortfolio'
 import { TokenIcon } from './TokenIcon'
 import { TokenNameTextV2 } from './TokenNameTextV2'
@@ -66,7 +54,6 @@ export function PortfolioCard ({
 
   return (
     <ThemedViewV2>
-      <View testID='card_balance_row_container'>
       <View testID='card_balance_row_container' style={tailwind('mx-5')}>
         {filteredTokens.map((item) => (
           <PortfolioItemRow

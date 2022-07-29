@@ -472,7 +472,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-12')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={onRefresh}
+            onRefresh={onRefresh} // eslint-disable-line
             refreshing={refreshing}
           />
         }
@@ -482,13 +482,16 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           dark={tailwind('bg-mono-dark-v2-00')}
           style={tailwind('px-5 pb-3 flex flex-row items-center')}
         >
-          <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
+          <AddressSelectionButtonV2
+            address={address} addressLength={addressLength}
+            onPress={() => expandModal(false)}
+          />
           <ThemedTouchableOpacityV2
             testID='toggle_balance'
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={onToggleDisplayBalances}
+            onPress={onToggleDisplayBalances} // eslint-disable-line
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
@@ -517,8 +520,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           onButtonGroupPress={handleButtonFilter}
           setActiveButtonGroup={setActiveButtonGroup}
         />
-        <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
           assetSortType={assetSortType}
