@@ -79,7 +79,6 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             )}
           </View>
         </View>
-        <GetDFIBtn />
         {hasFetchedToken && !new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0) && (
           <GetDFIBtn />
         )}
