@@ -39,7 +39,7 @@ export function TransactionCard (props: TransactionCardProps): JSX.Element {
         <Icon height={20} width={20} />
         <WalletTextInputV2
           onChangeText={txt => props.onChange(txt)}
-          placeholder={translate('screens/AddLiquidity', '0.00')}
+          placeholder='0.00'
           style={tailwind('flex-grow w-2/5')}
           testID={`token_input_${props.type}`}
           value={props.current}
