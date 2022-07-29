@@ -3,7 +3,6 @@ import { _Default } from './_Default'
 import { dBCH } from './dBCH'
 import { dBTC } from './dBTC'
 import { BTC } from './BTC'
-import { dDFI } from './dDFI'
 import { dDOGE } from './dDOGE'
 import { dETH } from './dETH'
 import { DFI } from './DFI'
@@ -14,13 +13,13 @@ import { dUSD } from './dUSD'
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
-  DFI: dDFI,
+  DFI: DFI,
   'DFI (UTXO)': DFI,
-  'DFI (Token)': dDFI,
+  'DFI (Token)': DFI,
   BTC: BTC,
   dBCH: dBCH,
   dBTC: dBTC,
-  dDFI: dDFI,
+  dDFI: DFI,
   dDOGE: dDOGE,
   dETH: dETH,
   dLTC: dLTC,

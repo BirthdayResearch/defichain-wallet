@@ -8,12 +8,13 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
+
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
+import { StackScreenProps } from '@react-navigation/stack'
 import { ocean } from '@store/ocean'
 import { dexPricesSelectorByDenomination, fetchDexPrice, fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
 import { tailwind } from '@tailwind'
@@ -30,16 +31,18 @@ import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
 import { IconButton } from '@components/IconButton'
+import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { PortfolioCard, ButtonGroupTabKey } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { fetchExecutionBlock, fetchFutureSwaps, hasFutureSwap } from '@store/futureSwap'
+import { fetchExecutionBlock, fetchFutureSwaps } from '@store/futureSwap'
 import { useDenominationCurrency } from './hooks/PortfolioCurrency'
 import { BottomSheetAssetSortList, PortfolioSortType } from './components/BottomSheetAssetSortList'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
 import {
   BottomSheetAddressDetailV2
@@ -87,7 +90,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   const dispatch = useAppDispatch()
   const [refreshing, setRefreshing] = useState(false)
   const [isZeroBalance, setIsZeroBalance] = useState(true)
-  const hasPendingFutureSwap = useSelector((state: RootState) => hasFutureSwap(state.futureSwaps))
   const {
     hasFetchedToken,
     allTokens
@@ -480,8 +482,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
         ref={ref}
-        light={tailwind('bg-gray-50')}
-        contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
+        contentContainerStyle={tailwind('pb-12')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
@@ -515,6 +516,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
+
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
           totalLockedValue={totalLockedValue}
@@ -523,9 +525,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           denominationCurrency={denominationCurrency}
           setDenominationCurrency={setDenominationCurrency}
         />
+        <ActionButtons />
         <Announcements />
-        <BalanceActionSection navigation={navigation} isZeroBalance={isZeroBalance} />
-        {hasPendingFutureSwap && <FutureSwapCta navigation={navigation} />}
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
           assetSortType={assetSortType}
@@ -549,10 +550,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={sortTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
+                activeButtonGroup: activeButtonGroup,
+                setActiveButtonGroup: setActiveButtonGroup,
+                onButtonGroupPress: handleButtonFilter
+              }}
               denominationCurrency={denominationCurrency}
              />)}
         {Platform.OS === 'web'
@@ -592,89 +593,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function BalanceActionSection ({
-  navigation,
-  isZeroBalance
-}: { navigation: StackNavigationProp<PortfolioParamList>, isZeroBalance: boolean }): JSX.Element {
-  return (
-    <View style={tailwind('flex flex-row mx-4')}>
-      <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
-      <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
-    </View>
-  )
-}
-
-function FutureSwapCta ({
-  navigation
-}: { navigation: StackNavigationProp<PortfolioParamList> }): JSX.Element {
-  return (
-    <ThemedTouchableOpacity
-      onPress={() => navigation.navigate('FutureSwapScreen')}
-      style={tailwind('flex flex-row p-2 mt-2 mx-4 items-center border-0 rounded-3xl justify-between')}
-      light={tailwind('bg-blue-100')}
-      dark={tailwind('bg-darkblue-50')}
-      testID='pending_future_swaps'
-    >
-      <View style={tailwind('flex flex-row items-center flex-1')}>
-        <ThemedIcon
-          iconType='MaterialIcons'
-          name='info'
-          size={16}
-          light={tailwind('text-blue-500')}
-          dark={tailwind('text-darkblue-500')}
-        />
-        <ThemedText
-          style={tailwind('ml-2 text-sm')}
-          light={tailwind('text-gray-400')}
-          dark={tailwind('text-gray-500')}
-        >
-          {translate('screens/PortfolioScreen', 'You have pending future swap(s)')}
-        </ThemedText>
-      </View>
-      <ThemedIcon
-        iconType='MaterialCommunityIcons'
-        name='chevron-right'
-        size={16}
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-      />
-
-    </ThemedTouchableOpacity>
-  )
-}
-
-type BalanceActionButtonType = 'SEND' | 'RECEIVE'
-
-function BalanceActionButton ({
-  type,
-  onPress,
-  disabled
-}: { type: BalanceActionButtonType, onPress: () => void, disabled?: boolean }): JSX.Element {
-  return (
-    <IconButton
-      iconName={type === 'SEND' ? 'arrow-upward' : 'arrow-downward'}
-      iconSize={20}
-      iconType='MaterialIcons'
-      onPress={onPress}
-      testID={type === 'SEND' ? 'send_balance_button' : 'receive_balance_button'}
-      style={tailwind('flex-1 flex-row justify-center items-center rounded-lg py-2 border-0', {
-        'mr-1': type === 'SEND',
-        'ml-1': type === 'RECEIVE'
-      })}
-      textStyle={tailwind('text-base')}
-      themedProps={{
-        light: tailwind('bg-white'),
-        dark: tailwind('bg-gray-800')
-      }}
-      disabledThemedProps={{
-        light: tailwind('bg-gray-100'),
-        dark: tailwind('bg-gray-800')
-      }}
-      iconLabel={translate('screens/PortfolioScreen', type)}
-      disabled={disabled}
-    />
-  )
-}
 
 function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
