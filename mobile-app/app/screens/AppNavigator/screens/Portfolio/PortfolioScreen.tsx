@@ -492,7 +492,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
             onPress={onToggleDisplayBalances}
-
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
