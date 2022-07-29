@@ -198,7 +198,7 @@ export function PortfolioNavigator (): JSX.Element {
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/ReceiveScreen', 'ReceiveDTokenScreen')}
+              text={translate('ReceiveDTokenScreen', 'Bitcoin Deposit')}
               containerTestID={headerContainerTestId}
             />
           ),

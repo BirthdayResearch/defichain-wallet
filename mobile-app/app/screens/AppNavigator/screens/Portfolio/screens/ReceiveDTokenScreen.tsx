@@ -22,6 +22,7 @@ import { BuyType } from '@shared-api/dfx/models/BuyRoute'
 import { Asset } from '@shared-api/dfx/models/Asset'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { InfoText } from '@components/InfoText'
+import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
@@ -50,11 +51,12 @@ export function ReceiveDTokenScreen ({
   const { address } = useWalletContext()
   const [activeButton, setActiveButton] = useState<CryptoButtonGroupTabKey>(route.params?.crypto ?? CryptoButtonGroupTabKey.DFI)
 
-  const [bitcoinAddress, setBitcoinAddress] = useState(address)
+  const [bitcoinAddress, setBitcoinAddress] = useState('')
   const activeAddress = activeButton === CryptoButtonGroupTabKey.DFI ? address : bitcoinAddress
   const [isLoading, setIsLoading] = useState(false)
   const defaultFee = 1.2
   const [fee, setFee] = useState(defaultFee)
+  const { openDfxServices } = useDFXAPIContext()
 
   const [showToast, setShowToast] = useState(false)
   const toast = useToast()
@@ -158,15 +160,14 @@ export function ReceiveDTokenScreen ({
     >
       {
         // filter tab
-        // activeButton !== undefined &&
-        true &&
+        route.params?.crypto === undefined &&
         (
           <>
             <View style={tailwind('p-4')}>
               <ButtonGroup
                 buttons={buttonGroup}
                 activeButtonGroupItem={activeButton}
-                modalStyle={tailwind('text-base')}
+                modalStyle={tailwind('text-lg')}
                 testID='portfolio_button_group'
                 darkThemeStyle={tailwind('bg-dfxblue-800 rounded')}
                 customButtonGroupStyle={tailwind('px-2.5 py-1 rounded break-words justify-center')}
@@ -181,7 +182,7 @@ export function ReceiveDTokenScreen ({
       <ThemedText
         style={tailwind('p-4 font-medium text-center')}
       >
-        {translate('screens/ReceiveScreen', 'Use QR or Wallet Address to receive any DST or DFI')}
+        {translate('screens/ReceiveScreen', activeButton === CryptoButtonGroupTabKey.DFI ? 'Use QR or Wallet Address to receive any DST or DFI' : 'Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.')}
       </ThemedText>
 
       <ThemedView
@@ -192,6 +193,14 @@ export function ReceiveDTokenScreen ({
         {isLoading && activeButton !== CryptoButtonGroupTabKey.DFI
           ? (
             <ThemedActivityIndicator size='large' color='#65728a' style={tailwind('absolute inset-0 items-center justify-center')} />
+          )
+          : activeButton === CryptoButtonGroupTabKey.BTC && bitcoinAddress === ''
+          ? (
+            <TouchableOpacity onPress={async () => await openDfxServices()}>
+              <ThemedText style={tailwind('text-center text-xs')}>
+                {translate('screens/ReceiveScreen', 'Please click here to finish the KYC process to receive your bitcoin address')}
+              </ThemedText>
+            </TouchableOpacity>
           )
           : (
             <>
@@ -205,6 +214,7 @@ export function ReceiveDTokenScreen ({
                   size={260}
                   value={activeAddress}
                   logo={activeButton === CryptoButtonGroupTabKey.DFI ? DfiIcon : BtcIcon}
+                  // logoSize={52}
                 />
               </View>
 
@@ -288,17 +298,21 @@ export function ReceiveDTokenScreen ({
         </TouchableOpacity>
       </ThemedView>
 
-      <InfoText
-        testID='dfx_kyc_info'
-        text={translate('components/ReceiveDTokenScreen', 'Please note the MINIMUM deposit amount is 0,0005 BTC!')}
-        style={tailwind('mb-4')}
-      />
-      <InfoRow
-        type={InfoType.FiatFee}
-        value={fee.toString()}
-        testID='fiat_fee'
-        suffix='%'
-      />
+      {activeButton === CryptoButtonGroupTabKey.BTC && (
+        <>
+          <InfoText
+            testID='dfx_kyc_info'
+            text={translate('components/ReceiveDTokenScreen', 'Please note the MINIMUM deposit amount is 0,0005 BTC!')}
+            style={tailwind('mb-4')}
+          />
+          <InfoRow
+            type={InfoType.FiatFee}
+            value={fee.toString()}
+            testID='fiat_fee'
+            suffix='%'
+          />
+        </>
+      )}
 
     </ThemedScrollView>
   )
