@@ -4,7 +4,6 @@ import {
   ThemedScrollViewV2,
   ThemedText,
   ThemedTextV2,
-  ThemedTouchableOpacity,
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
@@ -30,8 +29,6 @@ import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-import { IconButton } from '@components/IconButton'
-import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -485,7 +482,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind('pb-12')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
-            onRefresh={onRefresh}
+            onRefresh={onRefresh} // eslint-disable-line
             refreshing={refreshing}
           />
         }
@@ -504,7 +501,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             style={tailwind('ml-2')}
             light={tailwind('bg-transparent')}
             dark={tailwind('bg-transparent')}
-            onPress={onToggleDisplayBalances}
+            onPress={onToggleDisplayBalances} // eslint-disable-line
           >
             <ThemedIcon
               iconType='MaterialCommunityIcons'
@@ -592,7 +589,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     </View>
   )
 }
-
 
 function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
