@@ -10,8 +10,8 @@ type EditingAmount = 'primary' | 'secondary'
 
 interface TransactionCardProps {
   symbol: string
-  balance: BigNumber
-  current: string
+  maxValue: BigNumber
+  value: string
   type: EditingAmount
   onChange: (amount: string) => void
 }
@@ -29,7 +29,7 @@ export function TransactionCard (props: TransactionCardProps): JSX.Element {
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
-      style={tailwind('rounded-lg-v2 px-4 py-4')}
+      style={tailwind('rounded-lg-v2 p-4')}
     >
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
@@ -42,10 +42,10 @@ export function TransactionCard (props: TransactionCardProps): JSX.Element {
           placeholder='0.00'
           style={tailwind('flex-grow w-2/5')}
           testID={`token_input_${props.type}`}
-          value={props.current}
+          value={props.value}
           titleTestID={`token_input_${props.type}_title`}
           inputType='numeric'
-          displayClearButton={props.current !== ''}
+          displayClearButton={props.value !== ''}
           onClearButtonPress={() => {
             props.onChange('')
           }}
@@ -56,25 +56,25 @@ export function TransactionCard (props: TransactionCardProps): JSX.Element {
         style={tailwind('flex flex-row justify-around items-center pt-2')}
       >
         <SetAmountButton
-          amount={props.balance}
+          amount={props.maxValue}
           onPress={props.onChange}
           type={AmountButtonTypes.twenty}
           border
         />
         <SetAmountButton
-          amount={props.balance}
+          amount={props.maxValue}
           onPress={props.onChange}
           type={AmountButtonTypes.half}
           border
         />
         <SetAmountButton
-          amount={props.balance}
+          amount={props.maxValue}
           onPress={props.onChange}
           type={AmountButtonTypes.seventyFive}
           border
         />
         <SetAmountButton
-          amount={props.balance}
+          amount={props.maxValue}
           onPress={props.onChange}
           type={AmountButtonTypes.max}
         />
