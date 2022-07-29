@@ -456,7 +456,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     ]
   }, [address, isLight])
 
-  const [tabButtonLabel, setTabButtonLabel] = useState<string>('')
+  const [tabButtonLabel, setTabButtonLabel] = useState('')
   const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     switch (buttonGroupTabKey) {
       case (ButtonGroupTabKey.LPTokens):
