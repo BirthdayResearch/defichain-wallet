@@ -683,8 +683,8 @@
   },
   "screens/OceanInterface": {
     "Waiting for confirmation": "In attesa di conferma",
-    "Transaction completed": "Transazione completata",
-    "Sent but not confirmed": "Inviata ma non confermata",
+    "Transaction confirmed": "Transaction confirmed",
+    "Sent (Pending confirmation)": "Sent (Pending confirmation)",
     "Broadcasting...": "Trasmissione...",
     "OK": "OK",
     "Insufficient UTXO DFI": "UTXO DFI insufficienti",
@@ -1655,5 +1655,12 @@
     "Wallet created!": "Wallet created!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Access decentralized finance with Bitcoin-grade security, strength and immutability.",
     "Continue": "Continua"
+  },
+  "components/ActionButtons": {
+    "Send": "Invia",
+    "Receive": "Ricevi",
+    "Swap": "Scambia",
+    "Transactions": "Transazioni",
+    "Future swap": "Future swap"
   }
 }

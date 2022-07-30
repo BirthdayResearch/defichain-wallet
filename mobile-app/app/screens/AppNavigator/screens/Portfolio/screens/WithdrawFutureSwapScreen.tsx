@@ -305,7 +305,7 @@ function HelperText (props: { displayedValue: string }): JSX.Element {
   )
 }
 
-export function TokenIcon (props: {
+function TokenIcon (props: {
   icon: string
 }): JSX.Element {
   const Icon = getNativeIcon(props.icon)

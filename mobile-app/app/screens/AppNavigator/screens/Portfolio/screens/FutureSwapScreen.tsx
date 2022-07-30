@@ -8,7 +8,7 @@ import { tailwind } from '@tailwind'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { batch, useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, FutureSwapSelector } from '@store/futureSwap'
+import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, futureSwapSelector } from '@store/futureSwap'
 import { useIsFocused } from '@react-navigation/native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
@@ -28,7 +28,7 @@ export function FutureSwapScreen ({ navigation }: Props): JSX.Element {
   const whaleRpcClient = useWhaleRpcClient()
   const whaleApiClient = useWhaleApiClient()
   const { address } = useWalletContext()
-  const futureSwaps = useSelector((state: RootState) => FutureSwapSelector(state))
+  const futureSwaps = useSelector((state: RootState) => futureSwapSelector(state))
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const { transactionDate, isEnded } = useFutureSwapDate(executionBlock, blockCount)

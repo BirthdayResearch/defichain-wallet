@@ -242,17 +242,17 @@ context('Wallet - Portfolio -> Pending Future Swap Display', () => {
   })
 
   it('should display the pending future swaps', () => {
-    cy.getByTestID('pending_future_swaps').should('exist')
+    cy.getByTestID('future_swap_button').should('exist')
   })
 
   it('should navigate to and back to pending future swaps', () => {
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
     cy.go('back')
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
   })
 
   it('should display swap amount and symbol', () => {
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
 
     cy.getByTestID('dTU10-DUSD_amount').should('have.text', '321.98765400 dTU10')
     cy.getByTestID('dTU10-DUSD_destination_symbol').should('have.text', 'DUSD')
@@ -262,18 +262,18 @@ context('Wallet - Portfolio -> Pending Future Swap Display', () => {
   })
 
   it('should sum out amount of same source and destination swaps', () => {
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
     cy.getByTestID('DUSD-dTU10_amount').should('have.text', '2.35700000 DUSD')
     cy.getByTestID('DUSD-dTU10_destination_symbol').should('have.text', 'dTU10')
   })
 
   it('should display +5% if DUSD -> loan token', () => {
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
     cy.getByTestID('DUSD-dTU10_oracle_price').should('have.text', '+5% on oracle price')
   })
 
   it('should display -5% if loan token -> DUSD', () => {
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
     cy.getByTestID('dTU10-DUSD_oracle_price').should('have.text', '-5% on oracle price')
   })
 })
@@ -304,7 +304,7 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
     cy.getByTestID('button_confirm_swap').click().wait(3000)
     cy.closeOceanInterface()
     cy.getByTestID('bottom_tab_portfolio').click()
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
   })
 
   it('should display correct withdraw transaction details', function () {
@@ -328,7 +328,7 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
 
   it('should display partial withdrawal amount', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
-    cy.getByTestID('pending_future_swaps').click()
+    cy.getByTestID('future_swap_button').click()
     cy.getByTestID('DUSD-dTU10_amount').should('have.text', '4.00000000 DUSD')
   })
 

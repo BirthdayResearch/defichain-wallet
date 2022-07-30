@@ -20,7 +20,6 @@ import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
 import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
-import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
@@ -45,6 +44,8 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
+import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
 import { ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
 export interface PortfolioParamList {
@@ -129,7 +130,7 @@ export function PortfolioNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const { isLight } = useThemeContext()
   const goToNetworkSelect = (): void => {
-    navigation.navigate('NetworkDetails')
+    navigation.navigate('NetworkSelectionScreen')
   }
   const screenOptions = useNavigatorScreenOptions()
   return (
@@ -331,6 +332,16 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
+        component={NetworkSelectionScreenV2}
+        name='NetworkSelectionScreen'
+        options={{
+          headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
+          headerBackTitleVisible: false,
+          headerRight: undefined
+        }}
+      />
+
+      <PortfolioStack.Screen
         component={AboutScreen}
         name='AboutScreen'
         options={{
@@ -373,7 +384,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddressBookScreen}
+        component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
           headerBackTitleVisible: false,

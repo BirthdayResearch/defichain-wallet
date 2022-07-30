@@ -122,7 +122,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
   const [isFutureSwap, setIsFutureSwap] = useState(false)
-  const [dexStabilizationFee, setDexStabilizationFee] = useState<string | undefined>(undefined)
 
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const {
@@ -152,9 +151,10 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     dexStabilizationAnnouncement,
     dexStabilization: {
       dexStabilizationType,
-      pair: dexStabilizationPair
+      pair: dexStabilizationPair,
+      dexStabilizationFee
     }
-  } = useDexStabilization(selectedTokenA, selectedTokenB, dexStabilizationFee)
+  } = useDexStabilization(selectedTokenA, selectedTokenB)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -277,24 +277,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error)
   }, [])
-
-  //* Calculate DEX Stabilization fee
-  useEffect(() => {
-    let fee
-    const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === 'DUSD-DFI')
-    const dUSDCDUSDPair = pairs.find((p) => p.data.displaySymbol === 'dUSDC-DUSD')
-    const dUSDTDUSDPair = pairs.find((p) => p.data.displaySymbol === 'dUSDT-DUSD')
-
-    if (dusdDFIPair !== undefined && dexStabilizationPair.tokenADisplaySymbol === 'DUSD' && dexStabilizationPair.tokenBDisplaySymbol === 'DFI') {
-      fee = dusdDFIPair.data.tokenA.fee?.pct
-    } else if (dUSDCDUSDPair !== undefined && dexStabilizationPair.tokenADisplaySymbol === 'DUSD' && dexStabilizationPair.tokenBDisplaySymbol === 'dUSDC') {
-      fee = dUSDCDUSDPair.data.tokenB.fee?.pct
-    } else if (dUSDTDUSDPair !== undefined && dexStabilizationPair.tokenADisplaySymbol === 'DUSD' && dexStabilizationPair.tokenBDisplaySymbol === 'dUSDT') {
-      fee = dUSDTDUSDPair.data.tokenB.fee?.pct
-    }
-
-    setDexStabilizationFee(fee !== undefined ? new BigNumber(fee).times(100).toFixed(2) : undefined)
-  }, [dexStabilizationPair])
 
   useEffect(() => {
     if (route.params.pair?.id === undefined && route.params.fromToken === undefined) {

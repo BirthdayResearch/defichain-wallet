@@ -165,15 +165,27 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
   const AddressListItem = useCallback(({
     item,
     index,
-    testIDSuffix
-  }: { item: LocalAddress, index: number, testIDSuffix: string }): JSX.Element => {
+    testIDSuffix,
+    selectedAddress,
+    onAddressSelect
+  }: { item: LocalAddress, index: number, testIDSuffix: string, selectedAddress?: string, onAddressSelect?: ((address: string) => void) }): JSX.Element => {
+    // condition to hide icon from send page
+    const enableAddressSelect = selectedAddress !== undefined && onAddressSelect !== undefined
+    const onChangeAddress = (address: string): void => {
+      if (enableAddressSelect) {
+        onAddressSelect(address)
+      }
+    }
     return (
-      <ThemedViewV2
+      <ThemedTouchableOpacityV2
         key={item.address}
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
         style={tailwind('py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2')}
         testID={`address_row_${index}_${testIDSuffix}`}
+        onPress={async () => {
+          onChangeAddress(item.address)
+        }}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
           {item.isMine
@@ -187,7 +199,8 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 activeOpacity={0.7}
                 style={tailwind('mr-4')}
                 onPress={async () => await onFavouriteAddress(item)}
-                testID={`address_row_${index}_${testIDSuffix}`}
+                testID={`address_row_star_${index}_${testIDSuffix}`}
+                disabled={enableAddressSelect}
               >
                 {item.isFavourite === true
                 ? <FavoriteCheckIcon
@@ -223,6 +236,7 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
             }}
             testID={`address_action_${item.address}`}
             style={tailwind('flex flex-row items-center flex-auto')}
+            disabled={enableAddressSelect}
           >
             <View style={tailwind('flex flex-auto mr-1')}>
               {item.label !== '' &&
@@ -243,16 +257,18 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 {item.address}
               </ThemedTextV2>
             </View>
-            <ThemedIcon
-              dark={tailwind('text-mono-dark-v2-700')}
-              light={tailwind('text-mono-light-v2-700')}
-              iconType='Feather'
-              name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
-              size={18}
-            />
+            {!enableAddressSelect && (
+              <ThemedIcon
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                iconType='Feather'
+                name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
+                size={18}
+              />
+            )}
           </TouchableOpacity>
         </View>
-      </ThemedViewV2>
+      </ThemedTouchableOpacityV2>
     )
   }, [filteredAddressBook, filteredWalletAddress, activeButtonGroup])
 
@@ -377,7 +393,9 @@ export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element 
                 item={item}
                 key={item.address}
                 index={index}
-                testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'address_book' : 'wallet_address'}
+                testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'WHITELISTED' : 'YOUR_ADDRESS'}
+                selectedAddress={selectedAddress}
+                onAddressSelect={onAddressSelect}
               />)
             )}
           </>
