@@ -122,6 +122,7 @@ export function ReceiveDTokenScreen ({
       if (route != null) {
         // if route exists, get bitcoin address and set state
         setBitcoinAddress(route?.deposit?.address ?? '')
+        setFee(route?.fee)
         setIsLoading(false)
       } else {
         // if route doesn't exist, automatically create a bitcoin route
@@ -133,7 +134,7 @@ export function ReceiveDTokenScreen ({
           // post bitcoin route
           postCryptoRoute(cryptoRoute).then((route) => {
             setBitcoinAddress(route?.deposit?.address ?? '')
-            setFee(route?.fee ?? defaultFee)
+            setFee(route?.fee)
           }).catch((error) => {
             logger.error(error)
           }).finally(() => {

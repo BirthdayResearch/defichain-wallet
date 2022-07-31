@@ -9,7 +9,7 @@ export enum Blockchain {
 export interface CryptoRoute {
   id: string
   active?: boolean
-  fee?: number
+  fee: number
   type: string
   blockchain: Blockchain
   deposit?: Deposit
