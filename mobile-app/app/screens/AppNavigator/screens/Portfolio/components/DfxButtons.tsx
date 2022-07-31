@@ -5,28 +5,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 
-// import BtnDfxEn from '@assets/images/dfx_buttons/btn_dfx_en.png'
-// import BtnDfxDe from '@assets/images/dfx_buttons/btn_dfx_de.png'
-// import BtnDfxFr from '@assets/images/dfx_buttons/btn_dfx_fr.png'
-// import BtnDfxIt from '@assets/images/dfx_buttons/btn_dfx_it.png'
-// import BtnDfxEs from '@assets/images/dfx_buttons/btn_dfx_es.png'
-
-// import BtnSellEn from '@assets/images/dfx_buttons/btn_sell_EN.png'
-// import BtnSellDe from '@assets/images/dfx_buttons/btn_sell.png'
-// import BtnSellFr from '@assets/images/dfx_buttons/btn_sell_FR.png'
-// import BtnSellIt from '@assets/images/dfx_buttons/btn_sell_IT.png'
-// import BtnSellEs from '@assets/images/dfx_buttons/btn_sell_ES.png'
-
-// import BtcIcon from '@assets/images/dfx_buttons/crypto/BTC_icon.png'
-
 import DfxIcon from '@assets/images/dfx_buttons/buttons/DFX_Icon.svg'
 import SellIcon from '@assets/images/dfx_buttons/buttons/Sell_Icon.svg'
 import BtcIcon from '@assets/images/dfx_buttons/crypto/Bitcoin_icon.svg'
 import DefichainIncomeIcon from '@assets/images/dfx_buttons/buttons/Defichain_Income_Icon.svg'
 import DFItaxIcon from '@assets/images/dfx_buttons/buttons/DFItax_Icon.svg'
 
-// import BtnOverview from '@assets/images/dfx_buttons/btn_income.png'
-// import BtnTax from '@assets/images/dfx_buttons/btn_tax.png'
 // import BtnDobby from '@assets/images/dfx_buttons/btn_dobby.png'
 
 import { ThemedActivityIndicator, ThemedText } from '@components/themed'
@@ -112,7 +96,7 @@ export function DfxButtons (): JSX.Element {
       Svg: BtcIcon,
       label: translate('screens/DfxButtons', 'Deposit Bitcoin'),
       onPress: () => {
-        // check kycData
+        // TODO: (thabrad) maybe will need to do kycCheck here in future
         navigation.navigate({
           name: 'ReceiveDTokenScreen',
           params: { crypto: CryptoButtonGroupTabKey.BTC },

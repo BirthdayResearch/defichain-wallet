@@ -42,6 +42,7 @@ export enum CryptoButtonGroupTabKey {
   ETH = 'Ethereum'
 }
 
+// TODO: (thabrad) check if in future fetched from server
 export const MinimumBtcAmount = '0.0005 BTC'
 
 type Props = StackScreenProps<PortfolioParamList, 'ReceiveDTokenScreen'>
