@@ -4,7 +4,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { View } from '@components'
 
-interface TransactionCardProps {
+interface PercentageCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
   status?: 'error' | 'active'
@@ -17,38 +17,52 @@ export enum AmountButtonTypes {
   max = 'MAX'
 }
 
-export function TransactionCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
+export function PercentageCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<PercentageCardProps>): JSX.Element {
   return (
     <ThemedViewV2
-      light={tailwind('bg-mono-light-v2-00', {
+      light={tailwind({
         'border-0.5 border-mono-light-v2-800': status === 'active',
         'border-0.5 border-red-v2': status === 'error'
       })}
-      dark={tailwind('bg-mono-dark-v2-00', {
+      dark={tailwind({
         'border-0.5 border-mono-dark-v2-800': status === 'active'
       })}
-      style={tailwind('rounded-lg-v2 px-5 py-4', {
+      style={tailwind('rounded-2xl-v2', {
         'border-0.5 border-red-v2': status === 'error'
       })}
     >
-      {children}
-      <View
-        style={tailwind('flex flex-row bg-transparent justify-around items-center pt-2')}
+      <ThemedViewV2
+        light={tailwind('bg-mono-light-v2-00')}
+        dark={tailwind('bg-mono-dark-v2-00')}
+        style={tailwind('rounded-2xl-v2')}
       >
-        {
-          [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
-            return (
-              <SetAmountButton
-                key={type}
-                amount={maxValue}
-                onPress={onChange}
-                type={type}
-                hasBorder={length - 1 !== index}
-              />
-            )
-          })
-        }
-      </View>
+        <ThemedViewV2
+          light={tailwind('bg-mono-light-v2-00',)}
+          dark={tailwind('bg-mono-dark-v2-00',)}
+          style={tailwind('px-5 pt-2 rounded-t-2xl-v2 bg-red-200')}
+        >
+          {children}
+        </ThemedViewV2>
+        <ThemedViewV2
+          light={tailwind('border-mono-light-v2-300')}
+          dark={tailwind('border-mono-dark-v2-300')}
+          style={tailwind('flex flex-row justify-around items-center pt-2 pb-4 border-t-0.5')}
+        >
+          {
+            [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
+              return (
+                <SetAmountButton
+                  key={type}
+                  amount={maxValue}
+                  onPress={onChange}
+                  type={type}
+                  hasBorder={length - 1 !== index}
+                />
+              )
+            })
+          }
+        </ThemedViewV2>
+      </ThemedViewV2>
     </ThemedViewV2>
   )
 }
@@ -60,7 +74,7 @@ interface SetAmountButtonProps {
   hasBorder?: boolean
 }
 
-function SetAmountButton ({
+function SetAmountButton({
   type,
   onPress,
   amount,
@@ -92,7 +106,7 @@ function SetAmountButton ({
       }}
       testID={`${type}_amount_button`}
     >
-      <ThemedViewV2 
+      <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-light-v2-300')}
         style={tailwind({ 'border-r-0.5': hasBorder })}
