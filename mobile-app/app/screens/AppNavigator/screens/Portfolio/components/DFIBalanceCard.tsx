@@ -108,6 +108,7 @@ function GetDFIBtn (): JSX.Element {
       <TouchableOpacity
         testID='get_DFI_btn'
         onPress={() => navigation.navigate('GetDFIScreen')}
+        activeOpacity={0.7}
       >
         <Text
           style={tailwind('font-semibold-v2 text-sm my-1 text-center text-mono-light-v2-100')}
