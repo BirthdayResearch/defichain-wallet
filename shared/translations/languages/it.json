@@ -295,7 +295,10 @@
     "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
-    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered"
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Available {{unit}}": "Disponibile {{unit}}",
+    "Resulting {{unit}}": "Risultato {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Conferma la conversione DFI",
