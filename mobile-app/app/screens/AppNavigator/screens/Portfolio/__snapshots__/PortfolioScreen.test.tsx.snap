@@ -1093,8 +1093,8 @@ exports[`portfolio page should match snapshot 1`] = `
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
-            "paddingLeft": 16,
-            "paddingRight": 16,
+            "paddingLeft": 40,
+            "paddingRight": 40,
             "paddingTop": 20,
           }
         }
@@ -1111,8 +1111,9 @@ exports[`portfolio page should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "color": "rgba(163, 163, 163, 1)",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
+                  "fontWeight": "400",
                   "lineHeight": 16,
                   "paddingRight": 4,
                 },
@@ -1123,7 +1124,7 @@ exports[`portfolio page should match snapshot 1`] = `
             ]
           }
         >
-          AVAILABLE ASSETS
+          ASSETS
         </Text>
         <View
           accessible={true}
@@ -1141,6 +1142,10 @@ exports[`portfolio page should match snapshot 1`] = `
           style={
             Object {
               "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
               "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
@@ -1159,21 +1164,20 @@ exports[`portfolio page should match snapshot 1`] = `
                 },
                 Array [
                   Object {
-                    "fontFamily": "MediumFont",
+                    "fontFamily": "SoraRegular",
                     "fontSize": 12,
-                    "fontWeight": "500",
+                    "fontWeight": "400",
                     "lineHeight": 16,
                   },
                   Object {
-                    "color": "rgba(115, 115, 115, 1)",
+                    "color": "rgba(43, 43, 43, 1)",
                   },
                 ],
               ]
             }
           >
-            Highest USD value
+            Highest value (USD)
           </Text>
-          <Text />
           <Text />
         </View>
       </View>
