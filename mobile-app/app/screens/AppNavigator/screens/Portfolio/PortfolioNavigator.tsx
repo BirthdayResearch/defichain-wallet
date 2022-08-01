@@ -388,10 +388,12 @@ export function PortfolioNavigator (): JSX.Element {
         component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerBackTitleVisible: false,
-          headerTitle: () => (
-            <></>
-          )
+          headerTitle: translate('screens/Settings', 'Address Book')
         }}
       />
 
