@@ -1,21 +1,25 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { ScrollView, StyleProp, ViewStyle } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/PortfolioCard'
 import { translate } from '@translations'
+
+export enum ButtonGroupTabKey {
+  AllTokens = 'ALL_TOKENS',
+  LPTokens = 'LP_TOKENS',
+  Crypto = 'CRYPTO',
+  dTokens = 'd_TOKENS'
+}
 
 interface AssetsFilterRowProps {
   onButtonGroupPress: (key: ButtonGroupTabKey) => void
   activeButtonGroup: string
   setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  setTabButtonLabel: (key: ButtonGroupTabKey) => void
 }
 
 export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
       props.setActiveButtonGroup(buttonGroupTabKey)
       props.onButtonGroupPress(buttonGroupTabKey)
-      props.setTabButtonLabel(buttonGroupTabKey)
   }
 
   const filterButtonGroup = [
