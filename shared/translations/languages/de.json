@@ -285,7 +285,7 @@
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
-    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
     "Available {{unit}}": "Verfügbar {{unit}}",
     "Resulting {{unit}}": "Verbleibende {{unit}}"
   },
